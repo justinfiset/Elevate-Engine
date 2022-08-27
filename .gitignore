@@ -3,9 +3,10 @@
 RedHammer/bin/
 
 # Visual Studio
-/.vcxproj
-/.vcxproj.filters
-/.vcxproj.user
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
 
 # Prerequisites
 *.d
