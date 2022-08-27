@@ -1,0 +1,13 @@
+prefix=D:/Users/Justin/Desktop/Elevate Engine/RedHammer/RedHammer/vendor/imgui/examples/example_glfw_vulkan/out/install/x64-Debug (par défaut)
+exec_prefix=${prefix}
+includedir=D:/Users/Justin/Desktop/Elevate Engine/RedHammer/RedHammer/vendor/imgui/examples/example_glfw_vulkan/out/install/x64-Debug (par défaut)/include
+libdir=D:/Users/Justin/Desktop/Elevate Engine/RedHammer/RedHammer/vendor/imgui/examples/example_glfw_vulkan/out/install/x64-Debug (par défaut)/lib
+
+Name: GLFW
+Description: A multi-platform library for OpenGL, window and input
+Version: 3.4.0
+URL: https://www.glfw.org/
+Requires.private: 
+Libs: -L${libdir} -lglfw3
+Libs.private:  -lgdi32
+Cflags: -I${includedir}
