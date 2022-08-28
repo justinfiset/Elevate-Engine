@@ -2,6 +2,11 @@
 # Binaries
 RedHammer/bin/
 
+RedHammer/vendor/GLFW/bin/
+RedHammer/vendor/GLFW/bin-int/
+RedHammer/vendor/Glad/bin/
+RedHammer/vendor/Glad/bin-int/
+
 # User-specific files
 *.rsuser
 *.suo
