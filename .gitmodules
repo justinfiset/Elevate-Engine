@@ -1,6 +1,3 @@
-[submodule "RedHammer/RedHammer/vendor/glfw"]
-	path = RedHammer/RedHammer/vendor/glfw
-	url = https://github.com/glfw/glfw
 [submodule "RedHammer/RedHammer/vendor/glm"]
 	path = RedHammer/RedHammer/vendor/glm
 	url = https://github.com/g-truc/glm
