@@ -7,6 +7,9 @@
 [submodule "RedHammer/RedHammer/vendor/imgui"]
 	path = RedHammer/RedHammer/vendor/imgui
 	url = https://github.com/ocornut/imgui
-[submodule "RedHammer/RedHammer/vendor/glfw"]
-	path = RedHammer/RedHammer/vendor/glfw
+[submodule "RedHammer/RedHammer/vendor/GLFW"]
+	path = RedHammer/RedHammer/vendor/GLFW
 	url = https://github.com/requin5/glfw
+[submodule "RedHammer/RedHammer/vendor/--force"]
+	path = RedHammer/RedHammer/vendor/--force
+	url = https://github.com/glfw/glfw
