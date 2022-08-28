@@ -13,3 +13,6 @@
 [submodule "RedHammer/RedHammer/vendor/--force"]
 	path = RedHammer/RedHammer/vendor/--force
 	url = https://github.com/glfw/glfw
+[submodule "RedHammer/RedHammer/vendor/glfw"]
+	path = RedHammer/RedHammer/vendor/glfw
+	url = https://github.com/glfw/glfw

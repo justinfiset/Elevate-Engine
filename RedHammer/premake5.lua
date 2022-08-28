@@ -12,14 +12,15 @@
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
-IncludeDir["GLFW"] = "RedHammer/vendor/glfw/include"
+IncludeDir["GLFW"] = "RedHammer/vendor/GLFW/include"
 IncludeDir["Glad"] = "RedHammer/vendor/Glad/include"
 IncludeDir["ImGui"] = "RedHammer/vendor/imgui/"
 
 group "Dependencies"
-    include "RedHammer/vendor/glfw"
-    include "RedHammer/vendor/Glad"
     include "RedHammer/vendor/imgui"
+    include "RedHammer/vendor/Glad"
+
+include "RedHammer/vendor"
 
 group ""
 project  "RedHammer"
