@@ -2,11 +2,6 @@
 # Binaries
 RedHammer/bin/
 
-RedHammer/RedHammer/vendor/GLFW/bin/
-RedHammer/RedHammer/vendor/GLFW/bin-int/
-RedHammer/RedHammer/vendor/Glad/bin/
-RedHammer/RedHammer/vendor/Glad/bin-int/
-
 # User-specific files
 *.rsuser
 *.suo
@@ -49,7 +44,7 @@ RedHammer/RedHammer/vendor/Glad/bin-int/
 *.tlog
 *.vspscc
 *.vssscc
-.builds
+*.builds
 *.pidb
 *.svclog
 *.scc

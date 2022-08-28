@@ -1,0 +1,6 @@
+[submodule "glm"]
+	path = glm
+	url = https://github.com/g-truc/glm
+[submodule "RedHammer/RedHammer/vendor/glm"]
+	path = RedHammer/RedHammer/vendor/glm
+	url = https://github.com/g-truc/glm
