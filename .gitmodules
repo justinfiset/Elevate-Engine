@@ -1,6 +1,3 @@
-[submodule "RedHammer/RedHammer/vendor/imgui"]
-	path = RedHammer/RedHammer/vendor/imgui
-	url = https://github.com/ocornut/imgui
 [submodule "RedHammer/RedHammer/vendor/glfw"]
 	path = RedHammer/RedHammer/vendor/glfw
 	url = https://github.com/glfw/glfw
