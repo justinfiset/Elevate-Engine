@@ -1,6 +1,7 @@
 
 # Binaries
 RedHammer/bin/
+RedHammer/RedHammer/Glad/bin/
 
 # User-specific files
 *.rsuser
@@ -46,6 +47,7 @@ RedHammer/bin/
 *.vssscc
 *.builds
 *.pidb
+*.idb
 *.svclog
 *.scc
 
