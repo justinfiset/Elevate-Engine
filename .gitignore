@@ -18,6 +18,7 @@ RedHammer/bin/
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
+*.vcxproj.FileListAbsolute.txt
 
 # Files built by Visual Studio
 *_i.c
@@ -49,7 +50,7 @@ RedHammer/bin/
 *.idb
 *.svclog
 *.scc
-*.recpie
+*.lib.recpie
 
 # Visual C++ cache files
 ipch/
