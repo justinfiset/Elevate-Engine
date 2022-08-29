@@ -16,13 +16,6 @@ public:
 
     void OnEvent(Hammer::Event& event) override
     {
-        if (event.GetEventType() == Hammer::EventType::KeyPressed)
-        {
-            Hammer::KeyPressedEvent& e = (Hammer::KeyPressedEvent&)event;
-
-            // Convert keycode to ASCII keycode
-            RH_TRACE("{0}", (char)e.GetKeyCode());
-        }
     }
 };
 

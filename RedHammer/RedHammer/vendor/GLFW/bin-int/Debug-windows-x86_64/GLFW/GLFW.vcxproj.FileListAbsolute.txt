@@ -4,3 +4,7 @@ D:\Users\Justin\Desktop\Recovery\Analyse en Profondeur - NTFS\3 - Projects\RedHa
 D:\Users\Justin\Desktop\Recovery\Analyse en Profondeur - NTFS\3 - Projects\RedHammer\RedHammer\vendor\GLFW\bin-int\Debug-windows-x86_64\GLFW\GLFW.pdb
 D:\Users\Justin\Desktop\Elevate Engine\RedHammer\RedHammer\vendor\GLFW\bin\Debug-windows-x86_64\GLFW\GLFW.pdb
 D:\Users\Justin\Desktop\Elevate Engine\RedHammer\RedHammer\vendor\GLFW\bin-int\Debug-windows-x86_64\GLFW\GLFW.pdb
+D:\Users\Justin\Desktop\ARCHIVES -Elevate Engine\RedHammer\RedHammer\vendor\GLFW\bin\Debug-windows-x86_64\GLFW\GLFW.pdb
+D:\Users\Justin\Desktop\ARCHIVES -Elevate Engine\RedHammer\RedHammer\vendor\GLFW\bin-int\Debug-windows-x86_64\GLFW\GLFW.pdb
+D:\Users\Justin\Desktop\Elevate-Engine\RedHammer\RedHammer\vendor\GLFW\bin\Debug-windows-x86_64\GLFW\GLFW.pdb
+D:\Users\Justin\Desktop\Elevate-Engine\RedHammer\RedHammer\vendor\GLFW\bin-int\Debug-windows-x86_64\GLFW\GLFW.pdb
