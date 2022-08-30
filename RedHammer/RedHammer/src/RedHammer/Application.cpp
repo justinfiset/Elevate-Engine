@@ -52,7 +52,8 @@ namespace Hammer {
 		}
 	}
 
-	void Application::Run() {
+	void Application::Run() 
+	{
 		while (m_Running)
 		{
 			glClearColor(0, 0, 0, 1);
@@ -60,15 +61,6 @@ namespace Hammer {
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
-
-			/*
-			///////////////////////////////////////////////////////
-			// DEBUG: OUTPUT CURSOR POS RELATIVE TO WINDOW IN SHELL
-			///////////////////////////////////////////////////////
-			auto [x, y] = Input::GetMousePosition();
-			RH_CORE_TRACE("{0}, {1}", x, y);
-			///////////////////////////////////////////////////////
-			*/
 
 			m_Window->OnUpdate();
 		}
