@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "RedHammer/vendor/GLFW/include"
 IncludeDir["Glad"] = "RedHammer/vendor/Glad/include"
 IncludeDir["ImGui"] = "RedHammer/vendor/imgui/"
+IncludeDir["glm"] = "RedHammer/vendor/glm/"
 
 group "Dependencies"
     include "RedHammer/vendor/GLFW"
@@ -38,6 +39,9 @@ project  "RedHammer"
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
+
+        "%{prj.name}/vendor/glm/glm/**.hpp",
+        "%{prj.name}/vendor/glm/glm/**.inl"
     }
 
     includedirs
@@ -46,6 +50,7 @@ project  "RedHammer"
         "%{prj.name}/vendor/include",
 
         "%{IncludeDir.GLFW}",
+        "%{IncludeDir.glm}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}"
     }
@@ -107,6 +112,7 @@ project  "Sandbox"
     includedirs
     {
         "%{prj.name}/vendor/include",
+        "%{IncludeDir.glm}",
         "RedHammer/src"
     }
 
