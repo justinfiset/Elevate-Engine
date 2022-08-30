@@ -1,6 +1,7 @@
 
 # Binaries
-RedHammer/bin/
+bin/
+bin-int/
 
 # User-specific files
 *.rsuser
