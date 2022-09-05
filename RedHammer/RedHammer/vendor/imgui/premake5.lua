@@ -16,6 +16,7 @@ project "ImGui"
 		"imstb_rectpack.h",
 		"imstb_textedit.h",
 		"imstb_truetype.h",
+		"imgui_tables.cpp",
 		"imgui_demo.cpp"
 	}
 
@@ -34,6 +35,6 @@ project "ImGui"
 		runtime "Debug"
 		symbols "on"
 
-	filter "configurations:Release"
+	filter "configurations:Release"	
 		runtime "Release"
 		optimize "on"

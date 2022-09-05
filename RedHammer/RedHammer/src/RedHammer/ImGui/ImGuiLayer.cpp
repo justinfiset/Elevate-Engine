@@ -70,8 +70,11 @@ void Hammer::ImGuiLayer::OnUpdate()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui::NewFrame();
 
-    static bool show = true;
-    ImGui::ShowDemoWindow(&show);
+    //////////////////////////////////////////////////////
+    ImGui::Begin("Elevate Engine");
+    ImGui::Text("Elevate Engine - Debugging");
+    ImGui::End();
+    //////////////////////////////////////////////////////
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

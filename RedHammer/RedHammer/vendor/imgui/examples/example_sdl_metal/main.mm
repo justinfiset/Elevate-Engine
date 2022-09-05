@@ -1,6 +1,7 @@
 // Dear ImGui: standalone example application for SDL2 + Metal
-// If you are new to dear imgui, see examples/README.txt and documentation at the top of imgui.cpp.
 // (SDL is a cross-platform general purpose library for handling windows, inputs, OpenGL/Vulkan/Metal graphics context creation, etc.)
+// If you are new to Dear ImGui, read documentation from the docs/ folder + read the top of imgui.cpp.
+// Read online: https://github.com/ocornut/imgui/tree/master/docs
 
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
@@ -13,16 +14,26 @@
 
 int main(int, char**)
 {
-    // Setup Dear ImGui binding
+    // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;        // Enable Docking
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;      // Enable Multi-Viewport / Platform Windows
 
     // Setup style
     ImGui::StyleColorsDark();
-    //ImGui::StyleColorsClassic();
+    //ImGui::StyleColorsLight();
+
+    // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+    ImGuiStyle& style = ImGui::GetStyle();
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        style.WindowRounding = 0.0f;
+        style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+    }
 
     // Load Fonts
     // - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
@@ -65,6 +76,7 @@ int main(int, char**)
         return -3;
     }
 
+    // Setup Platform/Renderer backends
     CAMetalLayer* layer = (__bridge CAMetalLayer*)SDL_RenderGetMetalLayer(renderer);
     layer.pixelFormat = MTLPixelFormatBGRA8Unorm;
     ImGui_ImplMetal_Init(layer.device);
@@ -86,8 +98,8 @@ int main(int, char**)
         {
             // Poll and handle events (inputs, window resize, etc.)
             // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
-            // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
-            // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application.
+            // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application, or clear/overwrite your copy of the mouse data.
+            // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application, or clear/overwrite your copy of the keyboard data.
             // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
             SDL_Event event;
             while (SDL_PollEvent(&event))
@@ -105,7 +117,7 @@ int main(int, char**)
             id<CAMetalDrawable> drawable = [layer nextDrawable];
 
             id<MTLCommandBuffer> commandBuffer = [commandQueue commandBuffer];
-            renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(clear_color[0], clear_color[1], clear_color[2], clear_color[3]);
+            renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(clear_color[0] * clear_color[3], clear_color[1] * clear_color[3], clear_color[2] * clear_color[3], clear_color[3]);
             renderPassDescriptor.colorAttachments[0].texture = drawable.texture;
             renderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
             renderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
@@ -114,7 +126,7 @@ int main(int, char**)
 
             // Start the Dear ImGui frame
             ImGui_ImplMetal_NewFrame(renderPassDescriptor);
-            ImGui_ImplSDL2_NewFrame(window);
+            ImGui_ImplSDL2_NewFrame();
             ImGui::NewFrame();
 
             // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
@@ -157,6 +169,13 @@ int main(int, char**)
             // Rendering
             ImGui::Render();
             ImGui_ImplMetal_RenderDrawData(ImGui::GetDrawData(), commandBuffer, renderEncoder);
+
+            // Update and Render additional Platform Windows
+            if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+            {
+                ImGui::UpdatePlatformWindows();
+                ImGui::RenderPlatformWindowsDefault();
+            }
 
             [renderEncoder popDebugGroup];
             [renderEncoder endEncoding];
