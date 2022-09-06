@@ -113,6 +113,7 @@ project  "Sandbox"
     {
         "%{prj.name}/vendor/include",
         "%{IncludeDir.glm}",
+        "RedHammer/vendor/",
         "RedHammer/src"
     }
 

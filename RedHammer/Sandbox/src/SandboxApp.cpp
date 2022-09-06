@@ -1,5 +1,7 @@
 #include <RedHammer.h>
 
+#include "imgui/imgui.h"
+
 class DebugLayer : public Hammer::Layer
 {
 public:
@@ -17,15 +19,19 @@ public:
     void OnEvent(Hammer::Event& event) override
     {
     }
+
+    void OnImGuiRender() override
+    {
+
+    }
 };
 
 class Sandbox : public Hammer::Application
 {
 public:
     Sandbox() 
-    {
+    {   
         PushLayer(new DebugLayer());
-        PushOverlay(new Hammer::ImGuiLayer());
     }
 
     ~Sandbox()
