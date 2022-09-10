@@ -16,7 +16,7 @@ IncludeDir["GLFW"] = "RedHammer/vendor/GLFW/include"
 IncludeDir["Glad"] = "RedHammer/vendor/Glad/include"
 IncludeDir["ImGui"] = "RedHammer/vendor/imgui/"
 IncludeDir["glm"] = "RedHammer/vendor/glm/"
-IncludeDir["spodlog"] = "RedHammer/vendor/spdlog/include"
+IncludeDir["spdlog"] = "RedHammer/vendor/spdlog/include"
 
 group "Dependencies"
     include "RedHammer/vendor/GLFW"
@@ -37,7 +37,7 @@ project  "RedHammer"
     pchheader "rhpch.h"
     pchsource "RedHammer/src/rhpch.cpp"
 
-    files
+    files 
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
@@ -54,7 +54,6 @@ project  "RedHammer"
     includedirs
     {
         "%{prj.name}/src",
-        "%{prj.name}/vendor/include",
 
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.glm}",

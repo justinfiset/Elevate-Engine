@@ -44,15 +44,15 @@
 
 #include <spdlog/fmt/fmt.h>
 
-#ifndef SPDLOG_USE_STD_FORMAT
-#    if FMT_VERSION >= 80000 // backward compatibility with fmt versions older than 8
-#        define SPDLOG_FMT_RUNTIME(format_string) fmt::runtime(format_string)
-#        if defined(SPDLOG_WCHAR_FILENAMES) || defined(SPDLOG_WCHAR_TO_UTF8_SUPPORT)
-#            include <spdlog/fmt/xchar.h>
-#        endif
-#    else
-#        define SPDLOG_FMT_RUNTIME(format_string) format_string
+#if !defined(SPDLOG_USE_STD_FORMAT) && FMT_VERSION >= 80000 // backward compatibility with fmt versions older than 8
+#    define SPDLOG_FMT_RUNTIME(format_string) fmt::runtime(format_string)
+#    define SPDLOG_FMT_STRING(format_string) FMT_STRING(format_string)
+#    if defined(SPDLOG_WCHAR_FILENAMES) || defined(SPDLOG_WCHAR_TO_UTF8_SUPPORT)
+#        include <spdlog/fmt/xchar.h>
 #    endif
+#else
+#    define SPDLOG_FMT_RUNTIME(format_string) format_string
+#    define SPDLOG_FMT_STRING(format_string) format_string
 #endif
 
 // visual studio up to 2013 does not support noexcept nor constexpr
@@ -147,7 +147,7 @@ using wmemory_buf_t = std::wstring;
 template<typename... Args>
 using wformat_string_t = std::wstring_view;
 #    endif
-
+#    define SPDLOG_BUF_TO_STRING(x) x
 #else // use fmt lib instead of std::format
 namespace fmt_lib = fmt;
 
@@ -175,6 +175,7 @@ using wmemory_buf_t = fmt::basic_memory_buffer<wchar_t, 250>;
 template<typename... Args>
 using wformat_string_t = fmt::wformat_string<Args...>;
 #    endif
+#    define SPDLOG_BUF_TO_STRING(x) fmt::to_string(x)
 #endif
 
 #ifdef SPDLOG_WCHAR_TO_UTF8_SUPPORT
@@ -208,7 +209,7 @@ using level_t = std::atomic<int>;
 
 // Log level enum
 namespace level {
-enum level_enum
+enum level_enum : int
 {
     trace = SPDLOG_LEVEL_TRACE,
     debug = SPDLOG_LEVEL_DEBUG,
@@ -307,16 +308,17 @@ struct source_loc
 
 struct file_event_handlers
 {
+    file_event_handlers()
+        : before_open(nullptr)
+        , after_open(nullptr)
+        , before_close(nullptr)
+        , after_close(nullptr)
+    {}
+
     std::function<void(const filename_t &filename)> before_open;
     std::function<void(const filename_t &filename, std::FILE *file_stream)> after_open;
     std::function<void(const filename_t &filename, std::FILE *file_stream)> before_close;
     std::function<void(const filename_t &filename)> after_close;
-    file_event_handlers()
-        : before_open{nullptr}
-        , after_open{nullptr}
-        , before_close{nullptr}
-        , after_close{nullptr}
-    {}
 };
 
 namespace details {
@@ -331,7 +333,7 @@ template<bool B, class T = void>
 using enable_if_t = typename std::enable_if<B, T>::type;
 
 template<typename T, typename... Args>
-std::unique_ptr<T> make_unique(Args &&...args)
+std::unique_ptr<T> make_unique(Args &&... args)
 {
     static_assert(!std::is_array<T>::value, "arrays not supported");
     return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
