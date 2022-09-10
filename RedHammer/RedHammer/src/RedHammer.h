@@ -1,7 +1,6 @@
 #pragma once
 
 // For use by RedHammer applications
-
 #include "RedHammer/Application.h"
 #include "RedHammer/Layer.h"
 

@@ -22,7 +22,9 @@ public:
 
     void OnImGuiRender() override
     {
-
+        ImGui::Begin("Elevate Engine");
+        ImGui::Text("Elevate Engine - Debugging");
+        ImGui::End();
     }
 };
 

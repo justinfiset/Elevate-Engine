@@ -58,6 +58,10 @@ void Hammer::ImGuiLayer::OnDetach()
     ImGui::DestroyContext();
 }
 
+void Hammer::ImGuiLayer::OnImGuiRender()
+{
+}
+
 void Hammer::ImGuiLayer::Begin()
 {
     ImGui_ImplOpenGL3_NewFrame();
@@ -69,7 +73,7 @@ void Hammer::ImGuiLayer::End()
 {
     ImGuiIO& io = ImGui::GetIO();
     Application& app = Application::Get();
-    io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
+    io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 
     // Rendering
     ImGui::Render();
@@ -82,13 +86,4 @@ void Hammer::ImGuiLayer::End()
         ImGui::RenderPlatformWindowsDefault();
         glfwMakeContextCurrent(backup_current_context);
     }
-}
-
-void Hammer::ImGuiLayer::OnImGuiRender()
-{
-    //////////////////////////////////////////////////////
-    ImGui::Begin("Elevate Engine");
-    ImGui::Text("Elevate Engine - Debugging");
-    ImGui::End();
-    //////////////////////////////////////////////////////
 }

@@ -1,11 +1,15 @@
 #pragma once
 
 #ifdef RH_PLATFORM_WINDOWS
-	#ifdef RH_BUILD_DLL
-		#define RH_API __declspec(dllexport)
-	#else 
-		#define RH_API __declspec(dllimport)
-	#endif // RH_BUILD_DLL
+	#ifdef RH_DYNAMIC_LINK
+		#ifdef RH_BUILD_DLL
+			#define RH_API __declspec(dllexport)
+		#else 
+			#define RH_API __declspec(dllimport)
+		#endif // RH_BUILD_DLL
+	#else
+		#define RH_API
+	#endif
 #else
 	#error RedHammer is currently only supported on Windows.
 #endif // RH_PLATFORM_WINDOWS
