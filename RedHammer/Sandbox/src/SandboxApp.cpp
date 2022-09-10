@@ -22,7 +22,23 @@ public:
 
     void OnImGuiRender() override
     {
-        ImGui::Begin("Elevate Engine");
+        bool toolbarActive = true;
+
+        ImGui::Begin("Elevate Engine", &toolbarActive, ImGuiWindowFlags_MenuBar);
+        if (ImGui::BeginMenuBar())
+        {
+            if (ImGui::BeginMenu("File"))
+            {
+                if (ImGui::MenuItem("Exit")) { exit(0); }
+                ImGui::EndMenu();
+            }
+            if (ImGui::BeginMenu("Debug"))
+            {
+                ImGui::EndMenu();
+            }
+            ImGui::EndMenuBar();
+        }
+
         ImGui::Text("Elevate Engine - Debugging");
         ImGui::End();
     }
