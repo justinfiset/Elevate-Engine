@@ -1,22 +1,25 @@
-#include "rhpch.h"
+#include "eepch.h"
 #include "Platform/Windows/WindowsWindow.h"
 
-#include "RedHammer/Core.h"
-#include "RedHammer/Log.h"
-#include "RedHammer/Assert.h"
+#include "ElevateEngine/Core.h"
+#include "ElevateEngine/Log.h"
+#include "ElevateEngine/Assert.h"
 
 #include <glad/glad.h>
 
-#include "RedHammer/Events/ApplicationEvent.h"
-#include "RedHammer/Events/MouseEvent.h"
-#include "RedHammer/Events/KeyEvent.h"
+#include "ElevateEngine/Events/ApplicationEvent.h"
+#include "ElevateEngine/Events/MouseEvent.h"
+#include "ElevateEngine/Events/KeyEvent.h"
 
 namespace Hammer{
 	static bool s_GLFWInitialized = false;
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
-		RH_CORE_ERROR("GLFW Error: ({0}): {1}", error, description);
+		
+		
+		
+		EE_CORE_ERROR("GLFW Error: ({0}): {1}", error, description);
 	}
 
 	Window* Window::Create(const WindowProps& props)
@@ -40,12 +43,12 @@ namespace Hammer{
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
-		RH_CORE_TRACE("Creating window: {0} ({1}x{2})", props.Title, props.Width, props.Height);
+		EE_CORE_TRACE("Creating window: {0} ({1}x{2})", props.Title, props.Width, props.Height);
 
 		if (!s_GLFWInitialized)
 		{
 			int success = glfwInit();
-			RH_CORE_ASSERT(success, "Could not initialize GLFW.");
+			EE_CORE_ASSERT(success, "Could not initialize GLFW.");
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
@@ -54,7 +57,7 @@ namespace Hammer{
 		glfwMakeContextCurrent(m_Window);
 
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		RH_CORE_ASSERT(status, "Failed to initialize Glad.");
+		EE_CORE_ASSERT(status, "Failed to initialize Glad.");
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);

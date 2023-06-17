@@ -1,0 +1,27 @@
+#pragma once
+
+#include "ElevateEngine/Layer.h"
+#include "ElevateEngine/Events/Event.h"	
+#include "ElevateEngine/Events/KeyEvent.h"
+#include "ElevateEngine/Events/MouseEvent.h"
+#include "ElevateEngine/Events/ApplicationEvent.h"
+
+namespace Hammer
+{
+	class EE_API ImGuiLayer : public Layer
+	{
+	public:
+		ImGuiLayer();
+		~ImGuiLayer();
+
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
+		virtual void OnImGuiRender() override;
+
+		void Begin();
+		void End();
+
+	private:
+		float m_Time = 0.0f;
+	};
+}

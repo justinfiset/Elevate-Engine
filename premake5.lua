@@ -34,8 +34,8 @@ project  "ElevateEngine"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin/temps")
 
-    pchheader "rhpch.h"
-    pchsource "ElevateEngine/src/rhpch.cpp"
+    pchheader "eepch.h"
+    pchsource "ElevateEngine/src/eepch.cpp"
 
     files 
     {

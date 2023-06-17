@@ -1,18 +1,29 @@
-#include <RedHammer.h>
+#include <ElevateEngine.h>
 
 #include "imgui/imgui.h"
 
 class DebugLayer : public Hammer::Layer
 {
+private:
+    bool debugMenuActive = false;
+
+    bool isTabKeyPressed;
 public:
-    DebugLayer()
-        : Layer("Debug") { }
+    DebugLayer() : Layer("Debug") { }
 
     void OnUpdate() override
     {
-        if (Hammer::Input::IsKeyPressed(RH_KEY_TAB))
+
+        if (Hammer::Input::IsKeyPressed(EE_KEY_TAB))
         {
-            RH_TRACE("Tab key is pressed!");
+            if (!isTabKeyPressed)
+                debugMenuActive = !debugMenuActive;
+
+            isTabKeyPressed = true;
+        }
+        else 
+        {
+            isTabKeyPressed = false;
         }
     }
 
@@ -22,8 +33,8 @@ public:
 
     void OnImGuiRender() override
     {
+        if (!debugMenuActive) return;
         bool toolbarActive = true;
-
         ImGui::Begin("Elevate Engine", &toolbarActive, ImGuiWindowFlags_MenuBar);
         if (ImGui::BeginMenuBar())
         {

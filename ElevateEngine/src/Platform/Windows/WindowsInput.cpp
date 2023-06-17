@@ -1,7 +1,7 @@
-#include "rhpch.h"
+#include "eepch.h"
 #include "WindowsInput.h"
 
-#include "RedHammer/Application.h"
+#include "ElevateEngine/Application.h"
 
 #include <GLFW/glfw3.h>
 
