@@ -37,25 +37,6 @@ namespace Hammer
 		int m_RepeatCount;
 	};
 
-	class EE_API KeyTypedEvent : public KeyEvent
-	{
-	public:
-		KeyTypedEvent(int keycode)
-			: KeyEvent(keycode) {}
-
-		std::string ToString() const override
-		{
-			std::stringstream ss;
-			ss << "KeyTypedEvent: " << m_KeyCode;
-			return ss.str();
-		}
-
-		EVENT_CLASS_TYPE(KeyTyped)
-
-	private:
-		int m_RepeatCount;
-	};
-
 	class EE_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
@@ -70,6 +51,25 @@ namespace Hammer
 		}
 
 		EVENT_CLASS_TYPE(KeyReleased)
+
+	private:
+		int m_RepeatCount;
+	};
+
+	class EE_API KeyTypedEvent : public KeyEvent
+	{
+	public:
+		KeyTypedEvent(int keycode)
+			: KeyEvent(keycode) {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "KeyTypedEvent: " << m_KeyCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped)
 
 	private:
 		int m_RepeatCount;

@@ -13,17 +13,9 @@ public:
 
     void OnUpdate() override
     {
-
-        if (Hammer::Input::IsKeyPressed(EE_KEY_TAB))
+        if (Hammer::Input::IsKeyDown(EE_KEY_TAB))
         {
-            if (!isTabKeyPressed)
-                debugMenuActive = !debugMenuActive;
-
-            isTabKeyPressed = true;
-        }
-        else 
-        {
-            isTabKeyPressed = false;
+            debugMenuActive = !debugMenuActive;
         }
     }
 

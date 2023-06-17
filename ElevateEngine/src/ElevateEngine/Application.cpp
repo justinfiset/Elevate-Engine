@@ -47,6 +47,9 @@ namespace Hammer {
 		EventDispatcher dispatcher(e); 
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
+		dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(OnKeyPressedEvent));
+		dispatcher.Dispatch<KeyReleasedEvent>(BIND_EVENT_FN(OnKeyReleaseEvent));
+
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
 			(*--it)->OnEvent(e);
@@ -71,10 +74,23 @@ namespace Hammer {
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
 
+			Input::s_Instance->keyBuffer.ResetMidState();
+
 			m_Window->OnUpdate();
 		}
 	}
 
+	bool Application::OnKeyPressedEvent(KeyPressedEvent& e)
+	{
+		Input::OnKeyPressedEvent(e);
+		return true;
+	}
+
+	bool Application::OnKeyReleaseEvent(KeyReleasedEvent& e)
+	{
+		Input::OnKeyReleasedEvent(e);
+		return true;
+	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{

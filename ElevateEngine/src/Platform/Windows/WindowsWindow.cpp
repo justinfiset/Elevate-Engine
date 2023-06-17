@@ -16,9 +16,6 @@ namespace Hammer{
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
-		
-		
-		
 		EE_CORE_ERROR("GLFW Error: ({0}): {1}", error, description);
 	}
 

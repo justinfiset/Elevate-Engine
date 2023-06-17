@@ -10,13 +10,6 @@ namespace Hammer
 	Input* Input::s_Instance = new WindowsInput();
 }
 
-bool Hammer::WindowsInput::IsKeyPressedImpl(int keycode)
-{
-	auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-	auto state = glfwGetKey(window, keycode);
-	return state == GLFW_PRESS || state == GLFW_REPEAT; // Returns true if one of the statements is true
-}
-
 bool Hammer::WindowsInput::IsMouseButtonPressedImpl(int button)
 {
 	auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
