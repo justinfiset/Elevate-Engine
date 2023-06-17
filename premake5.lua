@@ -1,4 +1,4 @@
-workspace "RedHammer"
+workspace "ElevateEngine"
     architecture "x64"
     startproject "Sandbox"
 
@@ -12,20 +12,20 @@ workspace "RedHammer"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
-IncludeDir["GLFW"] = "RedHammer/vendor/GLFW/include"
-IncludeDir["Glad"] = "RedHammer/vendor/Glad/include"
-IncludeDir["ImGui"] = "RedHammer/vendor/imgui/"
-IncludeDir["glm"] = "RedHammer/vendor/glm/"
-IncludeDir["spdlog"] = "RedHammer/vendor/spdlog/include"
+IncludeDir["GLFW"] = "ElevateEngine/vendor/GLFW/include"
+IncludeDir["Glad"] = "ElevateEngine/vendor/Glad/include"
+IncludeDir["ImGui"] = "ElevateEngine/vendor/imgui/"
+IncludeDir["glm"] = "ElevateEngine/vendor/glm/"
+IncludeDir["spdlog"] = "ElevateEngine/vendor/spdlog/include"
 
 group "Dependencies"
-    include "RedHammer/vendor/GLFW"
-    include "RedHammer/vendor/Glad"
-    include "RedHammer/vendor/imgui"
+    include "ElevateEngine/vendor/GLFW"
+    include "ElevateEngine/vendor/Glad"
+    include "ElevateEngine/vendor/imgui"
 
 group ""
-project  "RedHammer"
-    location "RedHammer"
+project  "ElevateEngine"
+    location "ElevateEngine"
     kind "StaticLib"
     language "C++"
     cppdialect "C++17"
@@ -35,7 +35,7 @@ project  "RedHammer"
     objdir ("bin/temps")
 
     pchheader "rhpch.h"
-    pchsource "RedHammer/src/rhpch.cpp"
+    pchsource "ElevateEngine/src/rhpch.cpp"
 
     files 
     {
@@ -114,13 +114,13 @@ project  "Sandbox"
     {
         "%{prj.name}/vendor/include",
         "%{IncludeDir.glm}",
-        "RedHammer/vendor/",
-        "RedHammer/src"
+        "ElevateEngine/vendor/",
+        "ElevateEngine/src"
     }
 
     links
     {
-        "RedHammer"
+        "ElevateEngine"
     }
 
     filter "system:windows"

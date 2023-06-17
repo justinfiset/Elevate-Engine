@@ -1,6 +1,7 @@
 # Binaries / remove compiled libs and projects
 bin/
 bin-int/
+build/
 
 # User-specific files
 *.rsuser
