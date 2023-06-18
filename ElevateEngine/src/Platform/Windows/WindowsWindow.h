@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ElevateEngine/Window.h"
+#include "ElevateEngine/Core/Window.h"
 
 #include <GLFW/glfw3.h>
 

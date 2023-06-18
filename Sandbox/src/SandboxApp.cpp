@@ -13,7 +13,7 @@ public:
 
     void OnUpdate() override
     {
-        if (Hammer::Input::IsKeyDown(EE_KEY_TAB))
+        if (Hammer::Input::IsKeyDown('a'))
         {
             debugMenuActive = !debugMenuActive;
         }
@@ -51,7 +51,7 @@ class Sandbox : public Hammer::Application
 {
 public:
     Sandbox() 
-    {   
+    {
         PushLayer(new DebugLayer());
     }
 

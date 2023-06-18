@@ -1,7 +1,7 @@
 #include "eepch.h"
 #include "WindowsInput.h"
 
-#include "ElevateEngine/Application.h"
+#include "ElevateEngine/Core/Application.h"
 
 #include <GLFW/glfw3.h>
 

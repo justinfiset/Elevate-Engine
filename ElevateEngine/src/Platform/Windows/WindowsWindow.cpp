@@ -1,9 +1,9 @@
 #include "eepch.h"
 #include "Platform/Windows/WindowsWindow.h"
 
-#include "ElevateEngine/Core.h"
-#include "ElevateEngine/Log.h"
-#include "ElevateEngine/Assert.h"
+#include "ElevateEngine/Core/Core.h"
+#include "ElevateEngine/Core/Log.h"
+#include "ElevateEngine/Core/Assert.h"
 
 #include <glad/glad.h>
 

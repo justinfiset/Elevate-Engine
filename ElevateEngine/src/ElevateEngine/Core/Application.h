@@ -2,11 +2,11 @@
 
 #include "Core.h"
 
-#include "ElevateEngine/LayerStack.h"
+#include "ElevateEngine/Core/LayerStack.h"
 #include "ElevateEngine/Events/Event.h"
 #include "ElevateEngine/Events/ApplicationEvent.h"
 
-#include "ElevateEngine/Window.h"
+#include "ElevateEngine/Core/Window.h"
 #include "ElevateEngine/ImGui/ImGuiLayer.h"
 
 namespace Hammer {

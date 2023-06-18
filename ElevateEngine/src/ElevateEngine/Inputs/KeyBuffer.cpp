@@ -1,7 +1,7 @@
 #include "eepch.h"
 
-#include "ElevateEngine/Input.h"
-#include "ElevateEngine/Log.h"
+#include "ElevateEngine/Inputs/Input.h"
+#include "ElevateEngine/Core/Log.h"
 #include "KeyBuffer.h"
 
 namespace Hammer

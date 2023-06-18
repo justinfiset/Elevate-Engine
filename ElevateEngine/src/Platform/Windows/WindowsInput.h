@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ElevateEngine/Input.h"
+#include "ElevateEngine/Inputs/Input.h"
 #include "ElevateEngine/Inputs/KeyBuffer.h"
 
 namespace Hammer {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ElevateEngine/Core.h"
+#include "ElevateEngine/Core/Core.h"
 #include "ElevateEngine/Events/Event.h"
 
 namespace Hammer

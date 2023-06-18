@@ -1,7 +1,7 @@
 #pragma once
 
 #include "eepch.h"
-#include "ElevateEngine/Core.h"
+#include "ElevateEngine/Core/Core.h"
 
 namespace Hammer {
 	enum class EventType

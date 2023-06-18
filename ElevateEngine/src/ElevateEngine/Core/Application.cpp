@@ -3,10 +3,10 @@
 
 #include <glad/glad.h>
 
-#include "ElevateEngine/Log.h"
-#include "ElevateEngine/Assert.h"
+#include "ElevateEngine/Core/Log.h"
+#include "ElevateEngine/Core/Assert.h"
 
-#include "Input.h"
+#include "ElevateEngine/Inputs/Input.h"
 
 namespace Hammer {
 
@@ -74,7 +74,7 @@ namespace Hammer {
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
 
-			Input::s_Instance->keyBuffer.ResetMidState();
+			Input::s_Instance->keyBuffer.ManageMidSates();
 
 			m_Window->OnUpdate();
 		}

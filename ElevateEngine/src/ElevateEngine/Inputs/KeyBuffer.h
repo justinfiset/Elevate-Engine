@@ -7,8 +7,6 @@ namespace Hammer
 	private:
 		short keyStates[512]; // 0 to 3 -> released, down, pressed, up
 	public:
-		KeyBuffer();
-
 		//Getter
 		bool IsKeyPressed(int keycode);
 		bool IsKeyDown(int keycode);

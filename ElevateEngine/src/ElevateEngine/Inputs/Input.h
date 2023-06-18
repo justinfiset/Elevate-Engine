@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ElevateEngine/Core.h"
+#include "ElevateEngine/Core/Core.h"
 #include "ElevateEngine/Events/KeyEvent.h"
 #include "ElevateEngine/Inputs/KeyBuffer.h"
 
@@ -20,8 +20,13 @@ namespace Hammer {
 	public:
 		// Keyboard
 		inline static bool IsKeyDown(int keycode) { return s_Instance->keyBuffer.IsKeyDown(keycode); }
+		inline static bool IsKeyDown(char key) { return IsKeyDown((int) toupper(key)); }
+
 		inline static bool IsKeyUp(int keycode) { return s_Instance->keyBuffer.IsKeyUp(keycode); }
+		inline static bool IsKeyUp(char key) { return IsKeyUp((int)toupper(key)); }
+
 		inline static bool IsKeyPressed(int keycode) { return s_Instance->keyBuffer.IsKeyPressed(keycode); }	
+		inline static bool IsKeyPressed(char key) { return IsKeyPressed((int)toupper(key)); }
 
 		// Mouse
 		inline static bool IsMouseButtonPressed(int button) { return s_Instance->IsMouseButtonPressedImpl(button); }

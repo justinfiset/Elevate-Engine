@@ -1,18 +1,20 @@
 #pragma once
 
 // For use by ElevateEngine applications
-#include "ElevateEngine/Application.h"
-#include "ElevateEngine/Layer.h"
+#include "ElevateEngine/Core/Application.h"
+#include "ElevateEngine/Core/Layer.h"
 
-#include "ElevateEngine/Log.h"
-#include "ElevateEngine/Assert.h"
+#include "ElevateEngine/Core/Log.h"
+#include "ElevateEngine/Core/Assert.h"
 
-#include "ElevateEngine/Input.h"
-#include "ElevateEngine/KeyCodes.h"
-#include "ElevateEngine/MouseButtonCodes.h"
+// === Inputs ========================
+#include "ElevateEngine/Inputs/Input.h"
+#include "ElevateEngine/Inputs/KeyCodes.h"
+#include "ElevateEngine/Inputs/MouseButtonCodes.h"
+// ===================================
 
 #include "ElevateEngine/ImGui/ImGuiLayer.h"
 
 // === Entry Point ===================
-#include "ElevateEngine/EntryPoint.h"
+#include "ElevateEngine/Core/EntryPoint.h"
 // ===================================
