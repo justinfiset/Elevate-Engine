@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef RH_PLATFORM_WINDOWS
+#ifdef EE_PLATFORM_WINDOWS
 
 extern Hammer::Application* Hammer::CreateApplication();
 

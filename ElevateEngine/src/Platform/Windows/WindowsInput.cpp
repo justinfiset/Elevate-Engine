@@ -10,13 +10,6 @@ namespace Hammer
 	Input* Input::s_Instance = new WindowsInput();
 }
 
-bool Hammer::WindowsInput::IsMouseButtonPressedImpl(int button)
-{
-	auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-	auto state = glfwGetMouseButton(window, button);
-	return state == GLFW_PRESS; // return true if the requested mouse button is pressed
-}
-
 std::pair<float, float> Hammer::WindowsInput::GetMousePositionImpl()
 {
 	auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());

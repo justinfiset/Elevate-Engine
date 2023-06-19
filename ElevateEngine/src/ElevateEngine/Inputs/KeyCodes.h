@@ -1,7 +1,7 @@
 #pragma once
 
 //from glfw3.h
-#ifdef RH_PLATFORM_WINDOWS
+#ifdef EE_PLATFORM_WINDOWS
 	#define EE_KEY_SPACE              32
 	#define EE_KEY_APOSTROPHE         39  /* ' */
 	#define EE_KEY_COMMA              44  /* , */

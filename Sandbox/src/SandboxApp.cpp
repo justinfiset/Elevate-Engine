@@ -13,7 +13,7 @@ public:
 
     void OnUpdate() override
     {
-        if (Hammer::Input::IsKeyDown('a'))
+        if (Hammer::Input::IsKeyDown(EE_KEY_TAB))
         {
             debugMenuActive = !debugMenuActive;
         }

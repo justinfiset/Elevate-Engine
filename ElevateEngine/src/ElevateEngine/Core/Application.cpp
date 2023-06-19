@@ -47,8 +47,13 @@ namespace Hammer {
 		EventDispatcher dispatcher(e); 
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
+		// Keyboard
 		dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(OnKeyPressedEvent));
-		dispatcher.Dispatch<KeyReleasedEvent>(BIND_EVENT_FN(OnKeyReleaseEvent));
+		dispatcher.Dispatch<KeyReleasedEvent>(BIND_EVENT_FN(OnKeyReleasedEvent));
+
+		// Mousse
+		dispatcher.Dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(OnMouseButtonPressedEvent));
+		dispatcher.Dispatch<MouseButtonReleasedEvent>(BIND_EVENT_FN(OnMouseButtonReleasedEvent));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
@@ -74,7 +79,7 @@ namespace Hammer {
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
 
-			Input::s_Instance->keyBuffer.ManageMidSates();
+			Input::ManageMidStates();
 
 			m_Window->OnUpdate();
 		}
@@ -86,9 +91,21 @@ namespace Hammer {
 		return true;
 	}
 
-	bool Application::OnKeyReleaseEvent(KeyReleasedEvent& e)
+	bool Application::OnKeyReleasedEvent(KeyReleasedEvent& e)
 	{
 		Input::OnKeyReleasedEvent(e);
+		return true;
+	}
+
+	bool Application::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)
+	{
+		Input::OnMouseButtonPressedEvent(e);
+		return true;
+	}
+
+	bool Application::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e)
+	{
+		Input::OnMouseButtonReleasedEvent(e);
 		return true;
 	}
 

@@ -75,7 +75,7 @@ project  "ElevateEngine"
 
         defines
         {
-            "RH_PLATFORM_WINDOWS",
+            "EE_PLATFORM_WINDOWS",
             "GLFW_INCLUDE_NONE"
         }
 
@@ -128,7 +128,7 @@ project  "Sandbox"
 
         defines
         {
-            "RH_PLATFORM_WINDOWS"
+            "EE_PLATFORM_WINDOWS"
         }
 
     filter "configurations:Debug"

@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef RH_PLATFORM_WINDOWS
+#ifdef EE_PLATFORM_WINDOWS
 	#ifdef RH_DYNAMIC_LINK
 		#ifdef RH_BUILD_DLL
 			#define EE_API __declspec(dllexport)
@@ -12,7 +12,7 @@
 	#endif
 #else
 	#error ElevateEngine is currently only supported on Windows.
-#endif // RH_PLATFORM_WINDOWS
+#endif // EE_PLATFORM_WINDOWS
 
 #define BIT(x) (1 << x)
 

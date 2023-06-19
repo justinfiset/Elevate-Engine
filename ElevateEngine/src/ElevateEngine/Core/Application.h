@@ -26,9 +26,14 @@ namespace Hammer {
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 	private:
+		/// Events Callback / Handler
+		//Keyboard
 		bool OnKeyPressedEvent(KeyPressedEvent& e);
-		bool OnKeyReleaseEvent(KeyReleasedEvent& e);
-
+		bool OnKeyReleasedEvent(KeyReleasedEvent& e);
+		//Mouse
+		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
+		bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
+		//Window
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
