@@ -2,6 +2,8 @@
 
 #include "ElevateEngine/Events/Event.h"
 
+#include "ElevateEngine/Core/Log.h"
+
 namespace Hammer {
 
 	class EE_API WindowResizeEvent : public Event
@@ -33,6 +35,29 @@ namespace Hammer {
 
 		EVENT_CLASS_TYPE(WindowClose)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+	};
+
+	class EE_API WindowFocusEvent : public Event
+	{
+	public:
+		WindowFocusEvent(bool isFocused)
+			: m_IsFocused(isFocused) {
+			EE_CORE_TRACE(isFocused);
+		}
+
+		bool GetFocusState() const { return m_IsFocused; }
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "WindowFocusChange: " << m_IsFocused;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(WindowFocus)
+		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+	private:
+		bool m_IsFocused;
 	};
 
 	class EE_API AppTickEvent : public Event

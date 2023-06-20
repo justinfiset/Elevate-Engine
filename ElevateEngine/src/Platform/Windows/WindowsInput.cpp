@@ -15,7 +15,7 @@ std::pair<float, float> Hammer::WindowsInput::GetMousePositionImpl()
 	auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
-	return { (float)xpos, (float)ypos };
+	return { (float)xpos, (float)ypos };	
 }
 
 float Hammer::WindowsInput::GetMouseXImpl()

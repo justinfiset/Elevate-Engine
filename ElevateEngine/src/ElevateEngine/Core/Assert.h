@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef RH_DEBUG
+#ifdef EE_DEBUG
 	#define RH_ASSERTS_ENABLED 1
 #else 
 	#define RH_ASSERTS_ENABLED 0

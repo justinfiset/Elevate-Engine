@@ -7,7 +7,7 @@ namespace Hammer {
 	enum class EventType
 	{
 		None = 0,
-		WindowClose, WindowResize, WindowFocus, WindowMoved,
+		WindowClose, WindowResize, WindowFocus, // TODO: WindowMoved, event implementation
 		AppTick, AppUpdate, AppRender,
 		KeyPressed, KeyReleased, KeyTyped,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled

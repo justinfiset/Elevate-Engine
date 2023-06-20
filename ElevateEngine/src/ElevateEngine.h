@@ -11,6 +11,8 @@
 #include "ElevateEngine/Inputs/Input.h"
 #include "ElevateEngine/Inputs/KeyCodes.h"
 #include "ElevateEngine/Inputs/MouseButtonCodes.h"
+#include "ElevateEngine/Inputs/Joystick.h"
+#include "ElevateEngine/Inputs/Gamepad.h"
 // ===================================
 
 #include "ElevateEngine/ImGui/ImGuiLayer.h"

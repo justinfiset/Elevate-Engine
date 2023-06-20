@@ -16,6 +16,7 @@ namespace Hammer
 
 		inline unsigned int GetWidth() const override { return m_Data.Width; }
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
+		inline bool GetFocus() const override { return m_Data.Focused; }
 
 		// Widnow attributess
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
@@ -34,6 +35,7 @@ namespace Hammer
 		{
 			std::string Title;
 			unsigned int Width, Height;
+			bool Focused;
 			bool VSync;
 
 			EventCallbackFn EventCallback;

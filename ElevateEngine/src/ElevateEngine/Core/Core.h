@@ -1,12 +1,12 @@
 #pragma once
 
 #ifdef EE_PLATFORM_WINDOWS
-	#ifdef RH_DYNAMIC_LINK
-		#ifdef RH_BUILD_DLL
+	#ifdef EE_DYNAMIC_LINK
+		#ifdef EE_BUILD_DLL
 			#define EE_API __declspec(dllexport)
 		#else 
 			#define EE_API __declspec(dllimport)
-		#endif // RH_BUILD_DLL
+		#endif // EE_BUILD_DLL
 	#else
 		#define EE_API
 	#endif

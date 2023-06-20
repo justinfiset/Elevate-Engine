@@ -80,17 +80,17 @@ project  "ElevateEngine"
         }
 
     filter "configurations:Debug"
-        defines "RH_DEBUG"
+        defines "EE_DEBUG"
         runtime "Debug"
         symbols "on"
 
     filter "configurations:Release"
-        defines "RH_RELEASE"
+        defines "EE_RELEASE"
         runtime "Release"
         optimize "on"
 
     filter "configurations:Dist"
-        defines "RH_DIST"
+        defines "EE_DIST"
         runtime "Release"
         optimize "on"
 
@@ -132,16 +132,16 @@ project  "Sandbox"
         }
 
     filter "configurations:Debug"
-        defines "RH_DEBUG"
+        defines "EE_DEBUG"
         runtime "Debug"
         symbols "on"
 
     filter "configurations:Release"
-        defines "RH_RELEASE"
+        defines "EE_RELEASE"
         runtime "Release"
         optimize "on"
 
     filter "configurations:Dist"
-        defines "RH_DIST"
+        defines "EE_DIST"
         runtime "Release"
         optimize "on"
