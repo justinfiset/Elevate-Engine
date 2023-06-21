@@ -1,9 +1,9 @@
 #pragma once
 
-#include "ElevateEngine/Core/Core.h"
 #include "ElevateEngine/Events/KeyEvent.h"
-#include "ElevateEngine/Inputs/inputBuffer.h"
 #include <ElevateEngine/Events/MouseEvent.h>
+
+#include "ElevateEngine/Inputs/inputBuffer.h"
 
 #define KEYBOARD_SIZE   512;
 #define MOUSE_SIZE      16;
@@ -28,7 +28,6 @@ namespace Hammer {
 
 		inline static bool IsKeyPressed(int keycode) { return s_Instance->inputBuffer.IsKeyPressed(keycode); }	
 		inline static bool IsKeyPressed(char key) { return IsKeyPressed((int)toupper(key)); }
-
 		// Mouse
 		inline static bool IsMouseButtonDown(int button) { return s_Instance->inputBuffer.IsMouseButtonDown(button); }
 		inline static bool IsMouseButtonPressed(int button) { return s_Instance->inputBuffer.IsMouseButtonPressed(button); }

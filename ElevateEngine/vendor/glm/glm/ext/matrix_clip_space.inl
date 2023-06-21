@@ -39,8 +39,7 @@ namespace glm
 	}
 
 	template<typename T>
-	GLM_FUNC_QUALIFIER mat<4, 4, T, defaultp> ortho
-		ZO(T left, T right, T bottom, T top, T zNear, T zFar)
+	GLM_FUNC_QUALIFIER mat<4, 4, T, defaultp> orthoRH_ZO(T left, T right, T bottom, T top, T zNear, T zFar)
 	{
 		mat<4, 4, T, defaultp> Result(1);
 		Result[0][0] = static_cast<T>(2) / (right - left);

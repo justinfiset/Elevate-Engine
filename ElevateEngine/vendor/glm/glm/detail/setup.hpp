@@ -212,14 +212,16 @@
 // N2346
 #if GLM_COMPILER & GLM_COMPILER_CLANG
 #	define GLM_HAS_DEFAULTED_FUNCTIONS __has_feature(cxx_defaulted_functions)
+#elif GLM_COMPILER & GLM_COMPILER_CUDA
+	// Do not use defaulted functions for CUDA compiler when function qualifiers are present
+#	define GLM_HAS_DEFAULTED_FUNCTIONS 0
 #elif GLM_LANG & GLM_LANG_CXX11_FLAG
 #	define GLM_HAS_DEFAULTED_FUNCTIONS 1
 #else
 #	define GLM_HAS_DEFAULTED_FUNCTIONS ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
 		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC12)) || \
 		((GLM_COMPILER & GLM_COMPILER_INTEL)) || \
-		(GLM_COMPILER & GLM_COMPILER_CUDA)) || \
-		((GLM_COMPILER & GLM_COMPILER_HIP)))
+		((GLM_COMPILER & GLM_COMPILER_HIP))))
 #endif
 
 // N2118
@@ -360,6 +362,18 @@
 #	define GLM_HAS_BITSCAN_WINDOWS 0
 #endif
 
+#if GLM_LANG & GLM_LANG_CXX11_FLAG
+#	define GLM_HAS_NOEXCEPT 1
+#else
+#	define GLM_HAS_NOEXCEPT 0
+#endif
+
+#if GLM_HAS_NOEXCEPT
+#	define GLM_NOEXCEPT noexcept
+#else
+#	define GLM_NOEXCEPT
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////////
 // OpenMP
 #ifdef _OPENMP
@@ -423,9 +437,23 @@
 ///////////////////////////////////////////////////////////////////////////////////
 // Qualifiers
 
+// User defines: GLM_CUDA_FORCE_DEVICE_FUNC, GLM_CUDA_FORCE_HOST_FUNC
+
 #if (GLM_COMPILER & GLM_COMPILER_CUDA) || (GLM_COMPILER & GLM_COMPILER_HIP)
-#	define GLM_CUDA_FUNC_DEF __device__ __host__
-#	define GLM_CUDA_FUNC_DECL __device__ __host__
+#	if defined(GLM_CUDA_FORCE_DEVICE_FUNC) && defined(GLM_CUDA_FORCE_HOST_FUNC)
+#		error "GLM error: GLM_CUDA_FORCE_DEVICE_FUNC and GLM_CUDA_FORCE_HOST_FUNC should not be defined at the same time, GLM by default generates both device and host code for CUDA compiler."
+#	endif//defined(GLM_CUDA_FORCE_DEVICE_FUNC) && defined(GLM_CUDA_FORCE_HOST_FUNC)
+
+#	if defined(GLM_CUDA_FORCE_DEVICE_FUNC)
+#		define GLM_CUDA_FUNC_DEF __device__
+#		define GLM_CUDA_FUNC_DECL __device__
+#	elif defined(GLM_CUDA_FORCE_HOST_FUNC)
+#		define GLM_CUDA_FUNC_DEF __host__
+#		define GLM_CUDA_FUNC_DECL __host__
+#	else
+#		define GLM_CUDA_FUNC_DEF __device__ __host__
+#		define GLM_CUDA_FUNC_DECL __device__ __host__
+#	endif//defined(GLM_CUDA_FORCE_XXXX_FUNC)
 #else
 #	define GLM_CUDA_FUNC_DEF
 #	define GLM_CUDA_FUNC_DECL
@@ -495,9 +523,7 @@
 #define GLM_CLIP_CONTROL_ZO_BIT		(1 << 0) // ZERO_TO_ONE
 #define GLM_CLIP_CONTROL_NO_BIT		(1 << 1) // NEGATIVE_ONE_TO_ONE
 #define GLM_CLIP_CONTROL_LH_BIT		(1 << 2) // LEFT_HANDED, For DirectX, Metal, Vulkan
-#define GLM_CLIP_CONTROL_
-
-BIT		(1 << 3) // RIGHT_HANDED, For OpenGL, default in GLM
+#define GLM_CLIP_CONTROL_RH_BIT		(1 << 3) // RIGHT_HANDED, For OpenGL, default in GLM
 
 #define GLM_CLIP_CONTROL_LH_ZO (GLM_CLIP_CONTROL_LH_BIT | GLM_CLIP_CONTROL_ZO_BIT)
 #define GLM_CLIP_CONTROL_LH_NO (GLM_CLIP_CONTROL_LH_BIT | GLM_CLIP_CONTROL_NO_BIT)
