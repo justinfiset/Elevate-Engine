@@ -1,7 +1,7 @@
 #pragma once
 #include "Event.h"
 
-namespace Hammer 
+namespace Elevate 
 {
 	class EE_API KeyEvent : public Event
 	{

@@ -4,7 +4,7 @@
 #include "ElevateEngine/Core/Log.h"
 #include "InputBuffer.h"
 
-namespace Hammer
+namespace Elevate
 {
 	/// Getter
 	// Keyboard

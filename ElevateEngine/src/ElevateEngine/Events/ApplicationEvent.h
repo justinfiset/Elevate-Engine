@@ -4,7 +4,7 @@
 
 #include "ElevateEngine/Core/Log.h"
 
-namespace Hammer {
+namespace Elevate {
 
 	class EE_API WindowResizeEvent : public Event
 	{
@@ -42,7 +42,6 @@ namespace Hammer {
 	public:
 		WindowFocusEvent(bool isFocused)
 			: m_IsFocused(isFocused) {
-			EE_CORE_TRACE(isFocused);
 		}
 
 		bool GetFocusState() const { return m_IsFocused; }

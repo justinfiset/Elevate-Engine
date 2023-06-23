@@ -2,9 +2,11 @@
 
 #include "ElevateEngine/Core/Window.h"
 
+#include "ElevateEngine/Renderer/GraphicsContext.h"
+
 #include <GLFW/glfw3.h>
 
-namespace Hammer
+namespace Elevate
 {
 	class WindowsWindow : public Window
 	{
@@ -29,6 +31,7 @@ namespace Hammer
 		virtual void Shutdown();
 
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		// Informations that may be requested by GLFW callbacks
 		struct WindowData

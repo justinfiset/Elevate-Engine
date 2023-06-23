@@ -2,52 +2,51 @@
 
 #include "imgui/imgui.h"
 
-class DebugLayer : public Hammer::Layer
+class DebugLayer : public Elevate::Layer
 {
 private:
     bool debugMenuActive = false;
 
-    bool isTabKeyPressed;
 public:
     DebugLayer() : Layer("Debug") { }
 
     void OnUpdate() override
     {
-        if (Hammer::Input::IsKeyDown(EE_KEY_TAB))
+        if (Elevate::Input::IsKeyDown(EE_KEY_TAB))
         {
             debugMenuActive = !debugMenuActive;
         }
     }
 
-    void OnEvent(Hammer::Event& event) override
+    void OnEvent(Elevate::Event& event) override
     {
     }
 
     void OnImGuiRender() override
     {
+        ImGuiIO& io = ImGui::GetIO(); (void)io;
+
         if (!debugMenuActive) return;
-        bool toolbarActive = true;
-        ImGui::Begin("Elevate Engine", &toolbarActive, ImGuiWindowFlags_MenuBar);
+
+        ImGui::Begin("Elevate Engine", &debugMenuActive, ImGuiWindowFlags_MenuBar);
         if (ImGui::BeginMenuBar())
         {
-            if (ImGui::BeginMenu("File"))
-            {
-                if (ImGui::MenuItem("Exit")) { exit(0); }
-                ImGui::EndMenu();
-            }
             if (ImGui::BeginMenu("Debug"))
             {
+                if (ImGui::MenuItem("Hide")) { debugMenuActive = false; }
+                if (ImGui::MenuItem("Exit")) { exit(0); }
                 ImGui::EndMenu();
             }
             ImGui::EndMenuBar();
         }
-
-        ImGui::Text("Elevate Engine - Debugging");
+        ImGui::Text("Elevate Engine - Debugging");  
+        ImGui::Spacing();
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
         ImGui::End();
     }
 };
 
-class Sandbox : public Hammer::Application
+class Sandbox : public Elevate::Application
 {
 public:
     Sandbox() 
@@ -61,6 +60,6 @@ public:
     }
 };
 
-Hammer::Application* Hammer::CreateApplication() {
+Elevate::Application* Elevate::CreateApplication() {
     return new Sandbox();
 }

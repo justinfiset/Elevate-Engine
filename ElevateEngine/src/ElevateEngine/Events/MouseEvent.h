@@ -2,7 +2,7 @@
 
 #include "Event.h"
 
-namespace Hammer {
+namespace Elevate {
 
 	class EE_API MouseMovedEvent : public Event
 	{

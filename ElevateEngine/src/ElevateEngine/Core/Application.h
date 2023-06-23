@@ -9,7 +9,7 @@
 #include "ElevateEngine/Core/Window.h"
 #include "ElevateEngine/ImGui/ImGuiLayer.h"
 
-namespace Hammer {
+namespace Elevate {
 	class EE_API Application
 	{
 	public:
@@ -38,9 +38,10 @@ namespace Hammer {
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
-
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
 
 		static Application* s_Instance;
 	};

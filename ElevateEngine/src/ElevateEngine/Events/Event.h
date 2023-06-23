@@ -3,7 +3,7 @@
 #include "eepch.h"
 #include "ElevateEngine/Core/Core.h"
 
-namespace Hammer {
+namespace Elevate {
 	enum class EventType
 	{
 		None = 0,

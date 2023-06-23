@@ -3,7 +3,7 @@
 #include "ElevateEngine/Core/Core.h"
 #include "Layer.h"
 
-namespace Hammer
+namespace Elevate
 {
 	class EE_API LayerStack
 	{

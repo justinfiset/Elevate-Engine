@@ -4,7 +4,7 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
 
-namespace Hammer { 
+namespace Elevate { 
 	class EE_API Log
 	{
 	public:
@@ -19,15 +19,15 @@ namespace Hammer {
 }
 
 // Core log macros
-#define EE_CORE_TRACE(...)     ::Hammer::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define EE_CORE_INFO(...)      ::Hammer::Log::GetCoreLogger()->info(__VA_ARGS__)
-#define EE_CORE_WARN(...)      ::Hammer::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define EE_CORE_ERROR(...)     ::Hammer::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define EE_CORE_FATAL(...)     ::Hammer::Log::GetCoreLogger()->fatal(__VA_ARGS__)
+#define EE_CORE_TRACE(...)     ::Elevate::Log::GetCoreLogger()->trace(__VA_ARGS__)
+#define EE_CORE_INFO(...)      ::Elevate::Log::GetCoreLogger()->info(__VA_ARGS__)
+#define EE_CORE_WARN(...)      ::Elevate::Log::GetCoreLogger()->warn(__VA_ARGS__)
+#define EE_CORE_ERROR(...)     ::Elevate::Log::GetCoreLogger()->error(__VA_ARGS__)
+#define EE_CORE_FATAL(...)     ::Elevate::Log::GetCoreLogger()->fatal(__VA_ARGS__)
 
 // Client log macros
-#define EE_TRACE(...)          ::Hammer::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define RH_INFO(...)           ::Hammer::Log::GetClientLogger()->info(__VA_ARGS__)
-#define RH_WARN(...)           ::Hammer::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define RH_ERROR(...)          ::Hammer::Log::GetClientLogger()->error(__VA_ARGS__)
-#define RH_FATAL(...)          ::Hammer::Log::GetClientLogger()->fatal(__VA_ARGS__)
+#define EE_TRACE(...)          ::Elevate::Log::GetClientLogger()->trace(__VA_ARGS__)
+#define RH_INFO(...)           ::Elevate::Log::GetClientLogger()->info(__VA_ARGS__)
+#define RH_WARN(...)           ::Elevate::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define RH_ERROR(...)          ::Elevate::Log::GetClientLogger()->error(__VA_ARGS__)
+#define RH_FATAL(...)          ::Elevate::Log::GetClientLogger()->fatal(__VA_ARGS__)

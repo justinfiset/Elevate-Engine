@@ -1,28 +1,28 @@
 #include "eepch.h"
 #include "ElevateEngine/Core/LayerStack.h"
 
-Hammer::LayerStack::LayerStack()
+Elevate::LayerStack::LayerStack()
 {
 }
 
-Hammer::LayerStack::~LayerStack()
+Elevate::LayerStack::~LayerStack()
 {
 	for (Layer* layer : m_Layers)
 		delete layer;
 }
 
-void Hammer::LayerStack::PushLayer(Layer* layer)
+void Elevate::LayerStack::PushLayer(Layer* layer)
 {
 	m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);
 	m_LayerInsertIndex++;
 }
 
-void Hammer::LayerStack::PushOverlay(Layer* overlay)
+void Elevate::LayerStack::PushOverlay(Layer* overlay)
 {
 	m_Layers.emplace_back(overlay);
 }
 
-void Hammer::LayerStack::PopLayer(Layer* layer)
+void Elevate::LayerStack::PopLayer(Layer* layer)
 {
 	auto it = std::find(m_Layers.begin(), m_Layers.end(), layer);
 	if (it != m_Layers.end())
@@ -32,7 +32,7 @@ void Hammer::LayerStack::PopLayer(Layer* layer)
 	}
 }
 
-void Hammer::LayerStack::PopOverlay(Layer* overlay)
+void Elevate::LayerStack::PopOverlay(Layer* overlay)
 {
 	auto it = std::find(m_Layers.begin(), m_Layers.end(), overlay);
 	if (it != m_Layers.end())

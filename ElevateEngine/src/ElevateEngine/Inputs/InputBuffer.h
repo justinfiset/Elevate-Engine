@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Hammer
+namespace Elevate
 {
 	class InputBuffer
 	{

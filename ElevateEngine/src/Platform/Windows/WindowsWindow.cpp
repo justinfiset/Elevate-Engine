@@ -1,17 +1,13 @@
 #include "eepch.h"
 #include "Platform/Windows/WindowsWindow.h"
 
-#include "ElevateEngine/Core/Core.h"
-#include "ElevateEngine/Core/Log.h"
-#include "ElevateEngine/Core/Assert.h"
-
-#include <glad/glad.h>
-
 #include "ElevateEngine/Events/ApplicationEvent.h"
 #include "ElevateEngine/Events/MouseEvent.h"
 #include "ElevateEngine/Events/KeyEvent.h"
 
-namespace Hammer{
+#include "ElevateEngine/Renderer/OpenGL/OpenGLContext.h"
+
+namespace Elevate {
 	static bool s_GLFWInitialized = false;
 
 	static void GLFWErrorCallback(int error, const char* description)
@@ -51,13 +47,12 @@ namespace Hammer{
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
 
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		EE_CORE_ASSERT(status, "Failed to initialize Glad.");
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
-		SetVSync(true);
+		SetVSync(false);
 
 		// Set GLFW callbacks
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
@@ -165,7 +160,7 @@ namespace Hammer{
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)

@@ -13,6 +13,10 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "ElevateEngine/Core/Core.h"
+#include "ElevateEngine/Core/Log.h"
+#include "ElevateEngine/Core/Assert.h"
+
 #ifdef EE_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

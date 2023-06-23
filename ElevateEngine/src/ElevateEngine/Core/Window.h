@@ -5,7 +5,7 @@
 #include "ElevateEngine/Core/Core.h"
 #include "ElevateEngine/Events/Event.h"
 
-namespace Hammer {
+namespace Elevate {
 	struct WindowProps
 	{
 		std::string Title;

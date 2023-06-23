@@ -6,7 +6,7 @@
 #include "ElevateEngine/Events/MouseEvent.h"
 #include "ElevateEngine/Events/ApplicationEvent.h"
 
-namespace Hammer
+namespace Elevate
 {
 	class EE_API ImGuiLayer : public Layer
 	{

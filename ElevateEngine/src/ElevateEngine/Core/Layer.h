@@ -3,7 +3,7 @@
 #include "ElevateEngine/Core/Core.h"
 #include "ElevateEngine/Events/Event.h"
 
-namespace Hammer
+namespace Elevate
 {
 	class EE_API Layer
 	{

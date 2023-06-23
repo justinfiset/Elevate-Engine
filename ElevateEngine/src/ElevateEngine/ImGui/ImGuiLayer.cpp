@@ -11,14 +11,14 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-Hammer::ImGuiLayer::ImGuiLayer()
+Elevate::ImGuiLayer::ImGuiLayer()
 	: Layer("ImGuiLayer") { }
 
-Hammer::ImGuiLayer::~ImGuiLayer()
+Elevate::ImGuiLayer::~ImGuiLayer()
 {
 }
 
-void Hammer::ImGuiLayer::OnAttach()
+void Elevate::ImGuiLayer::OnAttach()
 {
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -51,25 +51,25 @@ void Hammer::ImGuiLayer::OnAttach()
     ImGui_ImplOpenGL3_Init("#version 410");
 }   
 
-void Hammer::ImGuiLayer::OnDetach()
+void Elevate::ImGuiLayer::OnDetach()
 {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
 
-void Hammer::ImGuiLayer::OnImGuiRender()
+void Elevate::ImGuiLayer::OnImGuiRender()
 {
 }
 
-void Hammer::ImGuiLayer::Begin()
+void Elevate::ImGuiLayer::Begin()
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 }
 
-void Hammer::ImGuiLayer::End()
+void Elevate::ImGuiLayer::End()
 {
     ImGuiIO& io = ImGui::GetIO();
     Application& app = Application::Get();

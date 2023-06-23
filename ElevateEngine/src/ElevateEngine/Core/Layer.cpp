@@ -1,7 +1,7 @@
 #include "eepch.h"
 #include "Layer.h"
 
-namespace Hammer
+namespace Elevate
 {
 	Layer::Layer(const std::string& debugName)
 		: m_DebugName(debugName) { }

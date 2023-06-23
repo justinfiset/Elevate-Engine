@@ -5,6 +5,8 @@
 
 #include "ElevateEngine/Inputs/inputBuffer.h"
 
+#include <glm/glm.hpp>
+
 #define KEYBOARD_SIZE   512;
 #define MOUSE_SIZE      16;
 
@@ -14,7 +16,7 @@
 #define EE_STATE_PRESSED  2;
 #define EE_STATE_UP       3; // The instant moment when a key is released
 
-namespace Hammer {
+namespace Elevate {
 	class EE_API Input
 	{
 		friend class Application;
@@ -33,15 +35,13 @@ namespace Hammer {
 		inline static bool IsMouseButtonPressed(int button) { return s_Instance->inputBuffer.IsMouseButtonPressed(button); }
 		inline static bool IsMouseButtonUp(int button) { return s_Instance->inputBuffer.IsMouseButtonUp(button); }
 
-		inline static std::pair<float, float> GetMousePosition() { return s_Instance->GetMousePositionImpl(); }
-		inline static float GetMouseX() { return s_Instance->GetMouseXImpl(); } // Implemented by the platform
-		inline static float GetMouseY() { return s_Instance->GetMouseYImpl(); }
+		inline static glm::vec2 GetMousePosition() { return s_Instance->GetMousePositionImpl(); }
+		inline static float GetMouseX() { return GetMousePosition().x; }
+		inline static float GetMouseY() { return GetMousePosition().y; }
 
 	protected:
 		// Mouse Impl
-		virtual std::pair<float, float> GetMousePositionImpl() = 0;
-		virtual float GetMouseXImpl() = 0;
-		virtual float GetMouseYImpl() = 0;
+		virtual glm::vec2 GetMousePositionImpl() = 0;
 
 		// Has to be called before polling events to reset all the intermediates states of the keys (down or up)
 		inline static void ManageMidStates() { s_Instance->inputBuffer.ManageMidSates(); }
@@ -56,7 +56,6 @@ namespace Hammer {
 		{
 			s_Instance->inputBuffer.SetKeyReleased(e.GetKeyCode());
 		}
-
 		// Mouse
 		inline static void OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)
 		{
