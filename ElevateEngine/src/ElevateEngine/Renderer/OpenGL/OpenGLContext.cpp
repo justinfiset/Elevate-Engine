@@ -20,7 +20,7 @@ void Elevate::OpenGLContext::Init()
 
 	EE_CORE_INFO("OpenGL Renderer: {0}, {1}, {2}", glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_VERSION));
 }
-
+	
 void Elevate::OpenGLContext::SwapBuffers()
 {
 	glfwSwapBuffers(m_WindowHandle);
