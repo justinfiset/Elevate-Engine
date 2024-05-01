@@ -20,6 +20,7 @@ namespace Elevate {
 
 	Application::Application()
 	{
+		// Make sure there is a single instance of class Application
 		EE_CORE_ASSERT(!s_Instance, "Application already exists!")
 		s_Instance = this;
 
@@ -29,9 +30,6 @@ namespace Elevate {
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-		// Create and bind vertex array
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
 
 		float vertices[3 * 3] =
 		{
@@ -39,43 +37,18 @@ namespace Elevate {
 			 0.5f, -0.5f, 0.0f,
 			 0.0f,  0.5f, 0.0f
 		};
-		 
+
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+		// Create and bind vertex array
+		m_VertexArray.reset(VertexArray::Create());
+		m_VertexArray->LinkAttribute(0, 3, GL_FLOAT, 3 * sizeof(float), nullptr);
 
+		// Creation of the index buffer
 		unsigned int indices[3] = { 0, 1, 2 };
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 
-		//std::string vertexSource = R"(
-		//	#version 330 core
-		//	
-		//	layout(location = 0) in vec3 a_Position;
-
-		//	out vec3 o_Position;
-
-		//	void main()
-		//	{
-		//		gl_Position = vec4(a_Position, 1.0);
-		//		o_Position = a_Position + 0.5;
-		//	}	
-		//)";
-
-		//std::string fragmentSource = R"(
-		//	#version 330 core
-		//	
-		//	layout(location = 0) out vec4 o_Color;
-		//	in vec3 o_Position;
-
-		//	void main()
-		//	{
-		//		//o_Color = vec4(0.8, 0.2, 0.3, 1.0);
-		//		o_Color = vec4(o_Position.xyz, 1.0);
-		//	}	
-		//)";
-		//m_Shader.reset(Shader::Create(vertexSource, fragmentSource));
-
+		// Creating shaders from files on disk
 		m_Shader.reset(Shader::CreateFromFiles("vertex.shader", "frag.shader"));
 	}
 
@@ -126,7 +99,7 @@ namespace Elevate {
  
 			// Binding
 			m_Shader->Bind();
-			glBindVertexArray(m_VertexArray);
+			m_VertexArray->Bind();
 			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_LayerStack)

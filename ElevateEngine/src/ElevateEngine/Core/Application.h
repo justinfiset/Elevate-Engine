@@ -10,7 +10,8 @@
 #include "ElevateEngine/ImGui/ImGuiLayer.h"
 
 #include "ElevateEngine/Renderer/Shader.h"
-#include <ElevateEngine/Renderer/Buffer.h>
+#include "ElevateEngine/Renderer/Buffer.h"
+#include "ElevateEngine/Renderer/VertexArray.h"
 
 namespace Elevate {
 	class EE_API Application
@@ -43,10 +44,9 @@ namespace Elevate {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-
-		unsigned int m_VertexArray;
-	
+		
 		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr<VertexArray> m_VertexArray;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
 		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 
