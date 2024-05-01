@@ -13,6 +13,7 @@ namespace Elevate
 		virtual void Unbind() const = 0;
 
 		static Shader* Create(const std::string& vertexSource, const std::string& fragmentSouce);
+		static Shader* CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath);
 	};
 }
 

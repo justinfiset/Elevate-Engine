@@ -2,7 +2,7 @@
 
 // For use by ElevateEngine applications
 #include "ElevateEngine/Core/Application.h"
-#include "ElevateEngine/Core/Layer.h"
+#include "ElevateEngine/Core/Layers/Layer.h"
 
 #include "ElevateEngine/Core/Log.h"
 #include "ElevateEngine/Core/Assert.h"

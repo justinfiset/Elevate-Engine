@@ -8,6 +8,10 @@
 
 #include "ElevateEngine/Inputs/Input.h"
 
+#include "ElevateEngine/Files/FileUtility.h"
+
+// TODO remove all opengl specific code
+// -> TODO : Abstract VBA
 namespace Elevate {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -44,34 +48,35 @@ namespace Elevate {
 		unsigned int indices[3] = { 0, 1, 2 };
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 
-		std::string vertexSource = R"(
-			#version 330 core
-			
-			layout(location = 0) in vec3 a_Position;
+		//std::string vertexSource = R"(
+		//	#version 330 core
+		//	
+		//	layout(location = 0) in vec3 a_Position;
 
-			out vec3 o_Position;
+		//	out vec3 o_Position;
 
-			void main()
-			{
-				gl_Position = vec4(a_Position, 1.0);
-				o_Position = a_Position * 2 + 0.5;
-			}	
-		)";
+		//	void main()
+		//	{
+		//		gl_Position = vec4(a_Position, 1.0);
+		//		o_Position = a_Position + 0.5;
+		//	}	
+		//)";
 
-		std::string fragmentSource = R"(
-			#version 330 core
-			
-			layout(location = 0) out vec4 o_Color;
-			in vec3 o_Position;
+		//std::string fragmentSource = R"(
+		//	#version 330 core
+		//	
+		//	layout(location = 0) out vec4 o_Color;
+		//	in vec3 o_Position;
 
-			void main()
-			{
-				//o_Color = vec4(0.8, 0.2, 0.3, 1.0);
-				o_Color = vec4(o_Position.xyz, 1.0);
-			}	
-		)";
+		//	void main()
+		//	{
+		//		//o_Color = vec4(0.8, 0.2, 0.3, 1.0);
+		//		o_Color = vec4(o_Position.xyz, 1.0);
+		//	}	
+		//)";
+		//m_Shader.reset(Shader::Create(vertexSource, fragmentSource));
 
-		m_Shader.reset(Shader::Create(vertexSource, fragmentSource));
+		m_Shader.reset(Shader::CreateFromFiles("vertex.shader", "frag.shader"));
 	}
 
 	Application::~Application()	
