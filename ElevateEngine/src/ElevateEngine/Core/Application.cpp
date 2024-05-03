@@ -49,7 +49,7 @@ namespace Elevate {
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 
 		// Creating shaders from files on disk
-		m_Shader.reset(Shader::CreateFromFiles("vertex.shader", "frag.shader"));
+		m_Shader.reset(Shader::CreateFromFiles("main.vert", "main.frag"));
 	}
 
 	Application::~Application()	
