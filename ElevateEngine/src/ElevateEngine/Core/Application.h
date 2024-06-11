@@ -40,15 +40,15 @@ namespace Elevate {
 		//Window
 		bool OnWindowClose(WindowCloseEvent& e);
 
+		unsigned int texture;
+
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		
-		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<VertexArray> m_VertexArray;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
 
 		static Application* s_Instance;
 	};

@@ -1,5 +1,8 @@
 #pragma once
 
+#include <memory>
+#include "ElevateEngine/Renderer/Buffer.h"
+
 namespace Elevate
 {
 	class VertexArray
@@ -9,7 +12,12 @@ namespace Elevate
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
-		virtual void LinkAttribute(int32_t layout, uint32_t numComponent, uint32_t type, uint32_t stride, void* offset) const = 0;
+
+		virtual void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) = 0;
+		virtual void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) = 0;
+
+		virtual const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const = 0;
+		virtual const std::shared_ptr<IndexBuffer> GetIndexBuffer() const = 0;
 
 		static VertexArray* Create();
 	};

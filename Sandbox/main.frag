@@ -1,10 +1,15 @@
 #version 330 core
 			
 layout(location = 0) out vec4 o_Color;
-in vec3 o_Position;
+
+in vec3 v_Position;
+in vec4 v_Color;
+in vec2 v_TextCord;
+
+uniform sampler2D ourTexture;
 
 void main()
 {
-	//o_Color = vec4(0.8, 0.2, 0.3, 1.0);
-	o_Color = vec4(o_Position.xyz, 1.0);
+	//o_Color = v_Color;
+	o_Color = texture(ourTexture, v_TextCord) * v_Color;
 }	

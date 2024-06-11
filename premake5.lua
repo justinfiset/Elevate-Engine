@@ -16,6 +16,7 @@ IncludeDir["GLFW"] = "ElevateEngine/vendor/GLFW/include"
 IncludeDir["Glad"] = "ElevateEngine/vendor/Glad/include"
 IncludeDir["ImGui"] = "ElevateEngine/vendor/imgui/"
 IncludeDir["glm"] = "ElevateEngine/vendor/glm/"
+IncludeDir["stb"] = "ElevateEngine/vendor/stb/"
 IncludeDir["spdlog"] = "ElevateEngine/vendor/spdlog/include"
 
 group "Dependencies"
@@ -54,6 +55,7 @@ project  "ElevateEngine"
 
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.glm}",
+        "%{IncludeDir.stb}",     
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.spdlog}"
@@ -111,6 +113,7 @@ project  "Sandbox"
     {
         "%{prj.name}/vendor/include",
         "%{IncludeDir.glm}",
+        "%{IncludeDir.stb}",  
         "ElevateEngine/vendor/",
         "ElevateEngine/src"
     }
