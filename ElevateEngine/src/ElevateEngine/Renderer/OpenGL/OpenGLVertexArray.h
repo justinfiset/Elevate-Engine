@@ -10,7 +10,7 @@ namespace Elevate
 		OpenGLVertexArray();
 		~OpenGLVertexArray();
 
-		virtual void Bind() const override ;
+		virtual void Bind() const override;
 		virtual void Unbind() const override;
 
 		virtual void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) override;

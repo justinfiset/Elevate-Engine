@@ -6,6 +6,7 @@
 #include "ElevateEngine/Core/Log.h"
 #include "ElevateEngine/Core/Assert.h"
 
+#include "ElevateEngine/Renderer/Renderer.h"
 #include "ElevateEngine/Inputs/Input.h"
 
 #include "ElevateEngine/Files/FileUtility.h"
@@ -32,28 +33,25 @@ namespace Elevate {
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEve­nt));
 
+		// TODO MOVE IN ANOTHER FILE
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-
-		float vertices[] = {
-			// positions          // colors					// texture coords
-			 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f, 1.0f,   1.0f, 1.0f,   // top right
-			 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 1.0f,   1.0f, 0.0f,   // bottom right
-			-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-			-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f, 1.0f,   0.0f, 1.0f    // top left 
-		};
-
-
-		// TEXTURE
-		glGenTextures(1, &texture); // on genere une texture
-		glBindTexture(GL_TEXTURE_2D, texture);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		/*
+		// texture 1
+		// ---------
+		glGenTextures(1, &texture1);
+		glBindTexture(GL_TEXTURE_2D, texture1);
+		// set the texture wrapping parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		// set texture filtering parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
+		// load image, create texture and generate mipmaps
 		int width, height, nrChannels;
+		stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+		// The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
 		unsigned char* data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
 		if (data)
 		{
@@ -62,38 +60,34 @@ namespace Elevate {
 		}
 		else
 		{
-			EE_CORE_ERROR("Was unable to load the texture file");
+			std::cout << "Failed to load texture" << std::endl;
 		}
-		stbi_image_free(data); // good practice
+		stbi_image_free(data);
+		// texture 2
+		// ---------
+		glGenTextures(1, &texture2);
+		glBindTexture(GL_TEXTURE_2D, texture2);
+		// set the texture wrapping parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		// set texture filtering parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		// load image, create texture and generate mipmaps
+		data = stbi_load("awesomeface.png", &width, &height, &nrChannels, 0);
+		if (data)
+		{
+			// note that the awesomeface.png has transparency and thus an alpha channel, so make sure to tell OpenGL the data type is of GL_RGBA
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+			glGenerateMipmap(GL_TEXTURE_2D);
+		}
+		else
+		{
+			std::cout << "Failed to load texture" << std::endl;
+		}
+		stbi_image_free(data);
 		///////////////////////
-		
-
-		// Vertex Buffer /////////////////////////////////////////////////////////
-		std::shared_ptr<VertexBuffer> vertexBuffer(VertexBuffer::Create(vertices, sizeof(vertices)));
-		vertexBuffer->SetLayout({
-			{ ShaderDataType::Float3, "a_Position" },
-			{ ShaderDataType::Float4, "a_Color" },
-			{ ShaderDataType::Float2, "a_TexCord" }
-		});
-		///////////////////////////////////////////////////////////////////////////
-
-		// Create and bind vertex array
-		m_VertexArray.reset(VertexArray::Create());
-		m_VertexArray->AddVertexBuffer(vertexBuffer);
-
-		// Creation of the index buffer
-		uint32_t indices[] = {
-			0, 1, 3, // first triangle
-			1, 2, 3  // second triangle
-		};
-
-		std::shared_ptr<IndexBuffer> indexBuffer(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-		m_VertexArray->SetIndexBuffer(indexBuffer);
-
-		
-
-		// Creating shaders from files on disk
-		m_Shader.reset(Shader::CreateFromFiles("main.vert", "main.frag"));
+		*/
 	}
 
 	Application::~Application()	
@@ -138,18 +132,11 @@ namespace Elevate {
 	{
 		while (m_Running)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
- 
-			// Binding
-			glBindTexture(GL_TEXTURE_2D, texture);
-			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-			//glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+			for (Layer* layer : m_LayerStack)
+				layer->OnRender();
 
 			//ImGui
 			m_ImGuiLayer->Begin();
@@ -158,7 +145,6 @@ namespace Elevate {
 			m_ImGuiLayer->End();
 
 			Input::ManageMidStates();
-
 			m_Window->OnUpdate();
 		}
 	}

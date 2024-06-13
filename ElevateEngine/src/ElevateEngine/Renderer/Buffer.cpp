@@ -11,8 +11,8 @@ namespace Elevate
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None: return nullptr; break; // TODO implement
-		case RendererAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
+		case RendererAPI::GraphicAPI::None: return nullptr; break; // TODO implement
+		case RendererAPI::GraphicAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
 		}
 
 		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!")
@@ -22,8 +22,8 @@ namespace Elevate
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None: return nullptr; break; // TODO implement
-		case RendererAPI::OpenGL: return new OpenGLIndexBuffer(vertices, count);
+		case RendererAPI::GraphicAPI::None: return nullptr; break; // TODO implement
+		case RendererAPI::GraphicAPI::OpenGL: return new OpenGLIndexBuffer(vertices, count);
 		}
 
 		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!")

@@ -12,8 +12,8 @@ namespace Elevate
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None : EE_CORE_ASSERT(false, "Renderer none is not supported");
-		case RendererAPI::OpenGL: return new OpenGLShader(vertexSource, fragmentSouce);
+		case RendererAPI::GraphicAPI::None : EE_CORE_ASSERT(false, "Renderer none is not supported");
+		case RendererAPI::GraphicAPI::OpenGL: return new OpenGLShader(vertexSource, fragmentSouce);
 		}
 	}
 
