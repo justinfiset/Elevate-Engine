@@ -16,4 +16,4 @@
 
 #define BIT(x) (1 << x)
 
-#define RH_BIND_EVNT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+#define EE_BIND_EVNT_FN(fn) std::bind(&fn, this, std::placeholders::_1)

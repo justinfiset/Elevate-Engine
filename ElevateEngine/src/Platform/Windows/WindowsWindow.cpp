@@ -30,6 +30,11 @@ namespace Elevate {
 		Shutdown();
 	}
 
+	float WindowsWindow::GetTime() const
+	{
+		return glfwGetTime();
+	}
+
 	void WindowsWindow::Init(const WindowProps& props)
 	{
 		m_Data.Title = props.Title;

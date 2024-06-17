@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ElevateEngine/Renderer/Shader.h"
+#include "glm/glm.hpp"
 
 namespace Elevate
 {
@@ -39,6 +40,11 @@ namespace Elevate
 		virtual void SetUniform2iv(std::string location, int count, int* value) const override;
 		virtual void SetUniform3iv(std::string location, int count, int* value) const override;
 		virtual void SetUniform4iv(std::string location, int count, int* value) const override;
+
+		// MATRIXES
+		virtual void SetUniformMatrix2fv(std::string location, glm::mat2 data) const override;
+		virtual void SetUniformMatrix3fv(std::string location, glm::mat3 data) const override;
+		virtual void SetUniformMatrix4fv(std::string location, glm::mat4 data) const override;
 	private:
 		uint32_t m_RendererID = 0;
 	};

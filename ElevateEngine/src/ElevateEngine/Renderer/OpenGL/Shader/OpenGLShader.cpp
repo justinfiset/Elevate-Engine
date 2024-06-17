@@ -2,6 +2,7 @@
 #include "OpenGLShader.h"
 
 #include <glad/glad.h>
+#include "glm/gtc/type_ptr.hpp"
 
 Elevate::OpenGLShader::OpenGLShader(const std::string& vertexSource, const std::string& fragmentSouce)
 {
@@ -208,4 +209,19 @@ void Elevate::OpenGLShader::SetUniform3iv(std::string location, int count, int* 
 void Elevate::OpenGLShader::SetUniform4iv(std::string location, int count, int* value) const
 {
 	glUniform4iv(glGetUniformLocation(m_RendererID, location.c_str()), count, value);
+}
+
+void Elevate::OpenGLShader::SetUniformMatrix2fv(std::string location, glm::mat2 data) const
+{
+	glUniformMatrix2fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, glm::value_ptr(data));
+}
+
+void Elevate::OpenGLShader::SetUniformMatrix3fv(std::string location, glm::mat3 data) const
+{
+	glUniformMatrix3fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, glm::value_ptr(data));
+}
+
+void Elevate::OpenGLShader::SetUniformMatrix4fv(std::string location, glm::mat4 data) const
+{
+	glUniformMatrix4fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, glm::value_ptr(data));
 }

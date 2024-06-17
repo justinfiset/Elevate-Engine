@@ -2,6 +2,12 @@
 
 #include "imgui/imgui.h"
 
+#include "ElevateEngine/Renderer/Camera.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <GLFW/include/GLFW/glfw3.h>
+
 class DebugLayer : public Elevate::Layer
 {
 private:
@@ -9,6 +15,9 @@ private:
 
     std::shared_ptr<Elevate::Shader> m_Shader;
     std::shared_ptr<Elevate::VertexArray> m_VertexArray;
+
+    std::unique_ptr<Elevate::Texture> m_Texture1;
+    std::unique_ptr<Elevate::Texture> m_Texture2;
 public:
     DebugLayer() : Layer("Debug") { }
 
@@ -38,11 +47,30 @@ public:
             0, 1, 3, // first triangle
             1, 2, 3  // second triangle
         };
+       
+        // creating textures from files
+        m_Texture1.reset(Elevate::Texture::Create("container.jpg"));
+        m_Texture2.reset(Elevate::Texture::Create("awesomeface.png"));
 
         std::shared_ptr<Elevate::IndexBuffer> indexBuffer(Elevate::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
         m_VertexArray->SetIndexBuffer(indexBuffer);
 
         m_Shader.reset(Elevate::Shader::CreateFromFiles("main.vert", "main.frag"));
+        m_Shader->Bind();
+
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, -3.0f));
+        model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
+        // TODO MAKE THE CAM USE THE SCREEN WIDTH AND HEIGHT BY DEFAULT
+        Elevate::Camera cam(80.0f, 1280, 720);
+        m_Shader->SetUniformMatrix4fv("model", model);
+        m_Shader->SetUniformMatrix4fv("view", cam.GetViewMatrix());
+        m_Shader->SetUniformMatrix4fv("projection", cam.GetProjectionMatrix());
+
+        // Binding textures // todo automatiser le tout
+        m_Shader->SetUniform1i("texture1", 0);
+        m_Shader->SetUniform1i("texture2", 1);
     }
 
     void OnRender() override {
@@ -51,14 +79,10 @@ public:
 
         Elevate::Renderer::BeginSceneFrame();
         m_Shader->Bind();
-
-        /*
-        // bind textures on corresponding texture units
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture1);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, texture2);
-        */
+            
+        // manually binding textures
+        m_Texture1->Bind(0);
+        m_Texture2->Bind(1);
 
         Elevate::Renderer::SubmitMeshes(m_VertexArray);
         m_VertexArray->Bind();

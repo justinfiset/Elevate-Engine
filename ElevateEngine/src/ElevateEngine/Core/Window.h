@@ -38,6 +38,8 @@ namespace Elevate {
 
 		static Window* Create(const WindowProps& props = WindowProps());
 
+		virtual float GetTime() const = 0;
+
 		virtual void* GetNativeWindow() const = 0; // Ex: Get the GLFW window on Windows
 	};
 }
