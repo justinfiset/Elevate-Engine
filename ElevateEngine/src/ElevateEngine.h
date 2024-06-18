@@ -7,6 +7,8 @@
 // === Core ==========================
 #include "ElevateEngine/Core/Log.h"
 #include "ElevateEngine/Core/Assert.h"
+#include "ElevateEngine/Core/Application.h"
+#include "ElevateEngine/Core/Time.h"
 // ===================================
 
 // === Inputs ========================

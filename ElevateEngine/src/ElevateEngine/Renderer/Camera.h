@@ -3,25 +3,32 @@
 #include "ElevateEngine/Core/Transform.h"
 #include "glm/glm.hpp"
 #include "ElevateEngine/Core/ITransformable.h"
-// TODO setup like an object/gameobject in the future
+
+
+// TODO setup like an object/gameobject or component in the future
 namespace Elevate
 {
 	class Camera : public ITransformable
 	{
 	public:
-		Camera(float fov, unsigned int width, unsigned int height) :
-			m_FOV(fov), m_Width(width), m_Weight(height) { }
+		// All possible constructors
+		Camera(float fov = 60.0f);
+		Camera(float fov, float aspectRatio);
+		Camera(Transform transform, float fov);
+		Camera(Transform transform, float fov, float aspectRatio);
 
-		Camera(Transform transform, float fov, unsigned int width, unsigned int height) : m_FOV(fov), m_Width(width), m_Weight(height) {
-			m_Transform = transform;
-		}
+		glm::mat4* GetProjectionMatrix() { return &m_ProjectionMatrix;  }
 
-		glm::mat4 GetViewProjectionMatrix();
-		glm::mat4 GetViewMatrix();
-		glm::mat4 GetProjectionMatrix();
+		glm::mat4 GenViewProjectionMatrix();
+		glm::vec3 GetFront();
+		//glm::vec3 GetUp();
 	private:
-		unsigned int m_Width = 1280;
-		unsigned int m_Weight = 720;
-		float m_FOV = 60.0f;
+		glm::mat4 GenViewMatrix();
+		glm::mat4 GenProjectionMatrix();
+	private:
+		float m_AspectRatio;
+		float m_FOV;
+
+		glm::mat4 m_ProjectionMatrix;
 	};
 }

@@ -7,6 +7,7 @@
 
 namespace Elevate
 {
+	// TODO make dinaymic instead of hard coded
 	Input* Input::s_Instance = new WindowsInput();
 }
 

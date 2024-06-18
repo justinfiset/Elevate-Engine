@@ -6,7 +6,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <GLFW/include/GLFW/glfw3.h>
 
 class DebugLayer : public Elevate::Layer
 {
@@ -18,6 +17,11 @@ private:
 
     std::unique_ptr<Elevate::Texture> m_Texture1;
     std::unique_ptr<Elevate::Texture> m_Texture2;
+
+    // Camera specific stuff
+    float lastX, lastY;
+    bool followCursor = false;
+    Elevate::Camera cam = Elevate::Camera(60.0f);
 public:
     DebugLayer() : Layer("Debug") { }
 
@@ -63,10 +67,7 @@ public:
         model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
         // TODO MAKE THE CAM USE THE SCREEN WIDTH AND HEIGHT BY DEFAULT
-        Elevate::Camera cam(80.0f, 1280, 720);
-        m_Shader->SetUniformMatrix4fv("model", model);
-        m_Shader->SetUniformMatrix4fv("view", cam.GetViewMatrix());
-        m_Shader->SetUniformMatrix4fv("projection", cam.GetProjectionMatrix());
+        m_Shader->SetUniformMatrix4fv("model", model); // set the model matrix
 
         // Binding textures // todo automatiser le tout
         m_Shader->SetUniform1i("texture1", 0);
@@ -79,7 +80,67 @@ public:
 
         Elevate::Renderer::BeginSceneFrame();
         m_Shader->Bind();
-            
+
+        // TODO REMOVE
+        if (Elevate::Input::IsMouseButtonDown(EE_MOUSE_BUTTON_RIGHT))
+        {
+            followCursor = true;
+            lastX = Elevate::Input::GetMouseX();
+            lastY = Elevate::Input::GetMouseY();
+        }
+        else if (Elevate::Input::IsMouseButtonUp(EE_MOUSE_BUTTON_RIGHT))
+        {
+            followCursor = false;
+        }
+
+        if (followCursor)
+        {
+            float xpos = Elevate::Input::GetMouseX();
+            float ypos = Elevate::Input::GetMouseY();
+            float xoffset = xpos - lastX;
+            float yoffset = lastY - ypos; // reversed since y-coordinates range from bottom to top
+            lastX = xpos;
+            lastY = ypos;
+
+            const float sensitivity = 0.5f;
+            xoffset *= sensitivity;
+            yoffset *= sensitivity;
+
+            if (cam.GetRotation()->x > 89.0f)
+                cam.GetRotation()->x = 89.0f;
+            if (cam.GetRotation()->x < -89.0f)
+                cam.GetRotation()->x = -89.0f;
+
+            if (xoffset != 0 && yoffset != 0)
+            {
+                cam.GetTransform()->rotation.y += xoffset;
+                cam.GetTransform()->rotation.x += yoffset;
+            }
+        }
+
+        glm::vec3 cameraFront = cam.GetFront();
+        glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+        // Camera movement ///////////////////////////////
+        float baseCamSpeed = 1.0f;
+        if (Elevate::Input::IsMouseButtonDown(EE_KEY_LEFT_SHIFT))
+            baseCamSpeed = 2.5f;
+        else
+            baseCamSpeed = 0.5f;
+        float cameraSpeed = baseCamSpeed * Elevate::Time::GetDeltaTime();
+
+        if (Elevate::Input::IsKeyPressed(EE_KEY_W))
+            cam.GetTransform()->position += cameraSpeed * cameraFront;
+        if (Elevate::Input::IsKeyPressed(EE_KEY_S))
+            cam.GetTransform()->position -= cameraSpeed * cameraFront;
+        if (Elevate::Input::IsKeyPressed(EE_KEY_A))
+            cam.GetTransform()->position -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+        if (Elevate::Input::IsKeyPressed(EE_KEY_D))
+            cam.GetTransform()->position += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+        //EE_CORE_TRACE("{0},{1},{2}", cam.GetPoition()->x, cam.GetPoition()->y, cam.GetPoition()->z);
+
+        m_Shader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
+
         // manually binding textures
         m_Texture1->Bind(0);
         m_Texture2->Bind(1);
@@ -99,6 +160,16 @@ public:
 
     void OnEvent(Elevate::Event& event) override
     {
+        if (event.GetEventType() == Elevate::EventType::MouseMoved)
+        {
+            Elevate::MouseMovedEvent& mouseEvent = dynamic_cast<Elevate::MouseMovedEvent&>(event);
+        }
+
+        //if (event.GetEventType() == Elevate::EventType::MouseButtonPressed)
+        //{
+        //    Elevate::MouseButtonPressedEvent& mouseEvent = dynamic_cast<Elevate::MouseButtonPressedEvent&>(event);
+        //    EE_CORE_TRACE(mouseEvent.ToString());
+        //}
     }
 
     void OnImGuiRender() override

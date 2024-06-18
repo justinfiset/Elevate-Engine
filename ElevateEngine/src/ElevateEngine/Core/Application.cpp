@@ -53,7 +53,7 @@ namespace Elevate {
 	// Event Dispatcher
 	void Application::OnEve­nt(Event& e)
 	{
-		EventDispatcher dispatcher(e); 
+		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
 		// Keyboard
