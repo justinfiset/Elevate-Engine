@@ -11,7 +11,7 @@ void Elevate::OpenGLRendererAPI::SetClearColor(const glm::vec4 color) const
 void Elevate::OpenGLRendererAPI::Clear() const
 {
 	// todo a changer on ne veux pas clear les deux en meme temps
-	glClear(GL_COLOR_BUFFER_BIT  | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Elevate::OpenGLRendererAPI::DrawStack(const std::shared_ptr<VertexArray>& vao) const

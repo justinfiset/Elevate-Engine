@@ -28,29 +28,49 @@ public:
     void OnAttach() override
     {
         float vertices[] = {
-            // positions          // colors					// texture coords
-            0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f, 1.0f,   1.0f, 1.0f,   // top right
-            0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 1.0f,   1.0f, 0.0f,   // bottom right
-           -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-           -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
+            -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,      0.0f, -1.0f, 0.0f, // Bottom side
+            -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 5.0f,      0.0f, -1.0f, 0.0f, // Bottom side
+             0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 5.0f,      0.0f, -1.0f, 0.0f, // Bottom side
+             0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, -1.0f, 0.0f, // Bottom side
+
+            -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,     -0.8f, 0.5f,  0.0f, // Left Side
+            -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,     -0.8f, 0.5f,  0.0f, // Left Side
+             0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,     -0.8f, 0.5f,  0.0f, // Left Side
+
+            -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
+             0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 0.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
+             0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
+
+             0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 0.0f,      0.8f, 0.5f,  0.0f, // Right side
+             0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.8f, 0.5f,  0.0f, // Right side
+             0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.8f, 0.5f,  0.0f, // Right side
+
+             0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, 0.5f,  0.8f, // Facing side
+            -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,      0.0f, 0.5f,  0.8f, // Facing side
+             0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.0f, 0.5f,  0.8f  // Facing side
+        };
+
+        uint32_t indices[] =
+        {
+            0, 1, 2, // Bottom side
+            0, 2, 3, // Bottom side
+            4, 6, 5, // Left side
+            7, 9, 8, // Non-facing side
+            10, 12, 11, // Right side
+            13, 15, 14 // Facing side
         };
 
         std::shared_ptr<Elevate::VertexBuffer> vertexBuffer(Elevate::VertexBuffer::Create(vertices, sizeof(vertices)));
         vertexBuffer->SetLayout({
             { Elevate::ShaderDataType::Float3, "a_Position" },
-            { Elevate::ShaderDataType::Float4, "a_Color" },
-            { Elevate::ShaderDataType::Float2, "a_TexCord" }
+            { Elevate::ShaderDataType::Float3, "a_Color" },
+            { Elevate::ShaderDataType::Float2, "a_TexCord" },
+            { Elevate::ShaderDataType::Float3, "a_Normal" }
         });
 
         // Create and bind vertex array
         m_VertexArray.reset(Elevate::VertexArray::Create());
         m_VertexArray->AddVertexBuffer(vertexBuffer);
-
-        // Creation of the index buffer
-        uint32_t indices[] = {
-            0, 1, 3, // first triangle
-            1, 2, 3  // second triangle
-        };
        
         // creating textures from files
         m_Texture1.reset(Elevate::Texture::Create("container.jpg"));
@@ -64,12 +84,23 @@ public:
 
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, -3.0f));
-        model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
         // TODO MAKE THE CAM USE THE SCREEN WIDTH AND HEIGHT BY DEFAULT
         m_Shader->SetUniformMatrix4fv("model", model); // set the model matrix
 
-        // Binding textures // todo automatiser le tout
+        // Lighting ////////////////////////////////////////
+        float ambiantStrenght = 0.1f;
+        glm::vec3 ambiantLightColor(1.0f, 1.0f, 1.0f);
+        ambiantLightColor *= ambiantStrenght;
+        m_Shader->SetUniform3f("lightPos", 0.5f, 0.5f, 0.5f);
+        m_Shader->SetUniform3f("lightColor", ambiantLightColor.r, ambiantLightColor.g, ambiantLightColor.b);
+        // -> Specular /////////////////////////////////////
+        ////////////////////////////////////////////////////
+
+        // TODO pouvoir fournir des vecteurs directement au shader
+
+        // Binding textures // todo automatiser le tout en fournissant le shader
         m_Shader->SetUniform1i("texture1", 0);
         m_Shader->SetUniform1i("texture2", 1);
     }
@@ -123,7 +154,7 @@ public:
 
         // Camera movement ///////////////////////////////
         float baseCamSpeed = 1.0f;
-        if (Elevate::Input::IsMouseButtonDown(EE_KEY_LEFT_SHIFT))
+        if (Elevate::Input::IsKeyPressed(EE_KEY_LEFT_SHIFT))
             baseCamSpeed = 2.5f;
         else
             baseCamSpeed = 0.5f;
@@ -139,6 +170,7 @@ public:
             cam.GetTransform()->position += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
         //EE_CORE_TRACE("{0},{1},{2}", cam.GetPoition()->x, cam.GetPoition()->y, cam.GetPoition()->z);
 
+        m_Shader->SetUniform3f("camPos", cam.GetPoition()->x, cam.GetPoition()->y, cam.GetPoition()->z);
         m_Shader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
 
         // manually binding textures
