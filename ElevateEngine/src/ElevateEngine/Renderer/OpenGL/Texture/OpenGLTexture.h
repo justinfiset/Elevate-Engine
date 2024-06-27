@@ -7,10 +7,9 @@ namespace Elevate
 	class OpenGLTexture : public Texture
 	{
 	public:
-		OpenGLTexture(std::string path);
+		// TODO remove raw string in script, find a better implemtnation;
+		OpenGLTexture(std::string path) : OpenGLTexture(path, 0, "textureDiffuse") { }
+		OpenGLTexture(std::string path, unsigned int index, std::string type);
 		virtual void Bind(int index = 0) const override;
-
-	private:
-		unsigned int m_TextureID;
 	};
 }

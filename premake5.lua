@@ -12,12 +12,13 @@ workspace "ElevateEngine"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
-IncludeDir["GLFW"] = "ElevateEngine/vendor/GLFW/include"
+IncludeDir["GLFW"] = "ElevateEngine/vendor/GLFW/include" 
 IncludeDir["Glad"] = "ElevateEngine/vendor/Glad/include"
 IncludeDir["ImGui"] = "ElevateEngine/vendor/imgui/"
 IncludeDir["glm"] = "ElevateEngine/vendor/glm/"
 IncludeDir["stb"] = "ElevateEngine/vendor/stb/"
 IncludeDir["spdlog"] = "ElevateEngine/vendor/spdlog/include"
+IncludeDir["assimp"] = "ElevateEngine/vendor/assimp/include"
 
 group "Dependencies"
     include "ElevateEngine/vendor/GLFW"
@@ -25,7 +26,7 @@ group "Dependencies"
     include "ElevateEngine/vendor/imgui"
 
 group ""
-project  "ElevateEngine"
+project "ElevateEngine"
     location "ElevateEngine"
     kind "StaticLib"
     language "C++"
@@ -58,7 +59,8 @@ project  "ElevateEngine"
         "%{IncludeDir.stb}",     
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.spdlog}"
+        "%{IncludeDir.spdlog}",
+        "%{IncludeDir.assimp}"
     }
 
     links
@@ -66,7 +68,8 @@ project  "ElevateEngine"
         "GLFW",
         "Glad",
         "ImGui",
-        "opengl32.lib"
+        "opengl32.lib",
+        "ElevateEngine/vendor/assimp/lib/x64/assimp-vc143-mt.lib"
     }
 
     filter "system:windows"
@@ -113,7 +116,7 @@ project  "Sandbox"
     {
         "%{prj.name}/vendor/include",
         "%{IncludeDir.glm}",
-        "%{IncludeDir.stb}",  
+        "%{IncludeDir.assimp}",
         "ElevateEngine/vendor/",
         "ElevateEngine/src"
     }

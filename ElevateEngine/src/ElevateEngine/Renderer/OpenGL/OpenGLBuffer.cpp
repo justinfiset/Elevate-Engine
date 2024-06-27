@@ -1,5 +1,6 @@
 #include "eepch.h"
 #include "OpenGLBuffer.h"
+#include "ElevateEngine/Renderer/Vertex.h"
 
 #include <glad/glad.h>
 
@@ -9,12 +10,12 @@ namespace Elevate
 	///////////////////////////////////////////////////////////////////////////////////////
 	// VertexBuffer ///////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////
-
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(void* vertices, uint32_t size)
 	{
 		// Create and bind array buffer
 		glCreateBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		// TODO utiliser &vertices à la place?
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 	}
 
@@ -37,7 +38,7 @@ namespace Elevate
 	// IndexBuffer ////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////
 
-	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
+	OpenGLIndexBuffer::OpenGLIndexBuffer(void* indices, uint32_t count)
 		: m_Count(count)
 	{
 		glCreateBuffers(1, &m_RendererID);

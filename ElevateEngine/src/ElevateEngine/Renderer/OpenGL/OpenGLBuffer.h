@@ -7,7 +7,7 @@ namespace Elevate
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
-		OpenGLVertexBuffer(float* vertices, uint32_t size);
+		OpenGLVertexBuffer(void* vertices, unsigned int size);
 		virtual ~OpenGLVertexBuffer();
 
 		virtual void Bind() const override;
@@ -19,22 +19,22 @@ namespace Elevate
 	private:
 		BufferLayout m_Layout;
 
-		uint32_t m_RendererID;
+		unsigned int m_RendererID;
 	};
 
 	class OpenGLIndexBuffer : public IndexBuffer
 	{
 	public:
-		OpenGLIndexBuffer(uint32_t* indices, uint32_t size);
+		OpenGLIndexBuffer(void* indices, unsigned int count);
 		virtual ~OpenGLIndexBuffer();
 
-		virtual uint32_t GetCount() const { return m_Count; }
+		virtual unsigned int GetCount() const { return m_Count; }
 
 		virtual void Bind() const;
 		virtual void Unbind() const;
 
 	private:
-		uint32_t m_Count;
-		uint32_t m_RendererID;
+		unsigned int m_Count;
+		unsigned int m_RendererID;
 	};
 }

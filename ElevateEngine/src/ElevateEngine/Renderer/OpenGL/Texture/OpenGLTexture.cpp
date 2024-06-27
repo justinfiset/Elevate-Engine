@@ -10,7 +10,7 @@
 
 namespace Elevate
 {
-	OpenGLTexture::OpenGLTexture(std::string path)
+	OpenGLTexture::OpenGLTexture(std::string path, unsigned int index, std::string type) : Texture(path, type)
 	{
 		// todo get parameters for the textures
 		glGenTextures(1, &m_TextureID);

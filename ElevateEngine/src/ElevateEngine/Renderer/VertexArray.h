@@ -2,7 +2,6 @@
 
 #include <memory>
 #include "ElevateEngine/Renderer/Buffer.h"
-
 namespace Elevate
 {
 	class VertexArray

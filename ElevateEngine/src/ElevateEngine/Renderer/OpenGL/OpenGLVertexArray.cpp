@@ -41,6 +41,7 @@ void Elevate::OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuf
 		index++;
 	}
 
+	vertexBuffer->Unbind();
 	m_VertexBuffers.push_back(vertexBuffer);
 }
 

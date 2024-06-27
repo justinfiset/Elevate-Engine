@@ -12,7 +12,7 @@ namespace Elevate {
 		unsigned int Width;
 		unsigned int Height;
 
-		WindowProps(const std::string& title = "ElevateEngine Engine",
+		WindowProps(const std::string& title = "ElevateEngine Dev",
 					unsigned int width = 1280,
 					unsigned int height = 720)
 			: Title(title), Width(width), Height(height) { }
@@ -38,7 +38,7 @@ namespace Elevate {
 
 		static Window* Create(const WindowProps& props = WindowProps());
 
-		virtual float GetTime() const = 0;
+		virtual double GetTime() const = 0;
 
 		virtual void* GetNativeWindow() const = 0; // Ex: Get the GLFW window on Windows
 	};

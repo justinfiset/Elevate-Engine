@@ -12,8 +12,11 @@ uniform vec3 lightColor;
 uniform vec3 lightPos;
 uniform vec3 camPos;
 
-uniform sampler2D texture1;
-uniform sampler2D texture2;
+uniform sampler2D diffuseTexture1;
+uniform sampler2D diffuseTexture2;
+uniform sampler2D diffuseTexture3;
+uniform sampler2D specularTexture1;
+uniform sampler2D specularTexture2;
 
 void main()
 {
@@ -31,6 +34,7 @@ void main()
 	float specAmount = pow(max(dot(viewDirection, reflexionDireciton), 0.0f), 8);
 	float specular = specAmount * specularLight;
 
-
-	o_Color = mix(texture(texture1, textCord), texture(texture2, textCord), 0.2) * (lightColor, 1.0f) * (ambiant + diffuse + specular);
+	
+	//o_Color = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	o_Color = mix(texture(diffuseTexture1, textCord), texture(diffuseTexture2, textCord), 0.2) * (lightColor, 1.0f) * (ambiant + diffuse + specular);
 }

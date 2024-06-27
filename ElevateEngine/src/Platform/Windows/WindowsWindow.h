@@ -27,7 +27,7 @@ namespace Elevate
 
 		inline virtual void* GetNativeWindow() const { return m_Window; };
 
-		virtual float GetTime() const override;
+		virtual double GetTime() const override;
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();

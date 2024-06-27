@@ -30,7 +30,7 @@ namespace Elevate {
 		Shutdown();
 	}
 
-	float WindowsWindow::GetTime() const
+	double WindowsWindow::GetTime() const
 	{
 		return glfwGetTime();
 	}

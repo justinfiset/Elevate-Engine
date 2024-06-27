@@ -7,7 +7,7 @@
 
 namespace Elevate
 {
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
+	VertexBuffer* VertexBuffer::Create(void* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -18,7 +18,7 @@ namespace Elevate
 		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!")
 	}
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* vertices, uint32_t count)
+	IndexBuffer* IndexBuffer::Create(void* vertices, uint32_t count)
 	{
 		switch (Renderer::GetAPI())
 		{

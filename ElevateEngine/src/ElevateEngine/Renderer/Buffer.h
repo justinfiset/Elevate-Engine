@@ -65,8 +65,8 @@ namespace Elevate
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
-
-		static VertexBuffer* Create(float* vertices, uint32_t size);
+		
+		static VertexBuffer* Create(void* vertices, uint32_t size);
 	};
 
 	class IndexBuffer
@@ -79,6 +79,6 @@ namespace Elevate
 
 		virtual uint32_t GetCount() const = 0;
 
-		static IndexBuffer* Create(uint32_t* vertices, uint32_t size);
+		static IndexBuffer* Create(void* vertices, uint32_t count);
 	};
 }
