@@ -2,6 +2,7 @@
 
 #include "imgui/imgui.h"
 
+#include "ElevateEngine/Renderer/Material.h"
 #include "ElevateEngine/Renderer/Mesh.h"
 #include "ElevateEngine/Renderer/Camera.h"
 #include "ElevateEngine/Renderer/Model.h"
@@ -10,6 +11,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <GLFW/include/GLFW/glfw3.h>
 
 class DebugLayer : public Elevate::Layer
 {
@@ -17,9 +19,6 @@ private:
     bool debugMenuActive = false;
 
     std::shared_ptr<Elevate::Shader> m_Shader;
-
-    std::unique_ptr<Elevate::Texture> m_Texture1;
-    std::unique_ptr<Elevate::Texture> m_Texture2;
 
     // Camera specific stuff
     float lastX, lastY;
@@ -32,71 +31,10 @@ public:
 
     void OnAttach() override
     {
-        //float vertices[] = {
-        //    // Position, normal, texture Cord
-        //    -0.5f, 0.0f,  0.5f,      0.0f, -1.0f, 0.0f,     0.0f, 0.0f, // Bottom side
-        //    -0.5f, 0.0f, -0.5f,      0.0f, -1.0f, 0.0f,     0.0f, 5.0f, // Bottom side
-        //     0.5f, 0.0f, -0.5f,      0.0f, -1.0f, 0.0f,     5.0f, 5.0f, // Bottom side
-        //     0.5f, 0.0f,  0.5f,      0.0f, -1.0f, 0.0f,     5.0f, 0.0f, // Bottom side
-
-        //    -0.5f, 0.0f,  0.5f,     -0.8f, 0.5f,  0.0f,     0.0f, 0.0f, // Left Side
-        //    -0.5f, 0.0f, -0.5f,     -0.8f, 0.5f,  0.0f,     5.0f, 0.0f, // Left Side
-        //     0.0f, 0.8f,  0.0f,     -0.8f, 0.5f,  0.0f,     2.5f, 5.0f, // Left Side
-
-        //    -0.5f, 0.0f, -0.5f,      0.0f, 0.5f, -0.8f,     5.0f, 0.0f, // Non-facing side
-        //     0.5f, 0.0f, -0.5f,      0.0f, 0.5f, -0.8f,     0.0f, 0.0f, // Non-facing side
-        //     0.0f, 0.8f,  0.0f,      0.0f, 0.5f, -0.8f,     2.5f, 5.0f, // Non-facing side
-
-        //     0.5f, 0.0f, -0.5f,      0.8f, 0.5f,  0.0f,     0.0f, 0.0f, // Right side
-        //     0.5f, 0.0f,  0.5f,      0.8f, 0.5f,  0.0f,     5.0f, 0.0f, // Right side
-        //     0.0f, 0.8f,  0.0f,      0.8f, 0.5f,  0.0f,     2.5f, 5.0f, // Right side
-
-        //     0.5f, 0.0f,  0.5f,      0.0f, 0.5f,  0.8f,     5.0f, 0.0f, // Facing side
-        //    -0.5f, 0.0f,  0.5f,      0.0f, 0.5f,  0.8f,     0.0f, 0.0f, // Facing side
-        //     0.0f, 0.8f,  0.0f,      0.0f, 0.5f,  0.8f,     2.5f, 5.0f  // Facing side
-        //};
-
-        //uint32_t indices[] =
-        //{
-        //    0, 1, 2, // Bottom side
-        //    0, 2, 3, // Bottom side
-        //    4, 6, 5, // Left side
-        //    7, 9, 8, // Non-facing side
-        //    10, 12, 11, // Right side
-        //    13, 15, 14 // Facing side
-        //};
-
-        ////////////////////////////////////////////////////////////////////////////
-        //std::shared_ptr<Elevate::VertexBuffer> m_VertexBuffer;
-        //std::shared_ptr<Elevate::IndexBuffer> m_IndexBuffer;
-        //// Creating the Layout and the VertexBuffer
-        //m_VertexBuffer.reset(Elevate::VertexBuffer::Create(vertices, sizeof(vertices)));
-        //// Creating the layout sent to the shader and the layout of the buffer
-        //m_VertexBuffer->SetLayout({ // The layout is based on the Vertex struct (see Vertex.h)
-        //    { Elevate::ShaderDataType::Float3, "a_Position" },
-        //    { Elevate::ShaderDataType::Float3, "a_Normal" },
-        //    { Elevate::ShaderDataType::Float2, "a_TexCord" },
-        //});
-        ////Creating the IndexBuffer (containing indices)
-        //m_IndexBuffer.reset(Elevate::IndexBuffer::Create(&indices, sizeof(indices) / sizeof(uint32_t)));
-        ////Vertex Array Creation
-        //m_VertexArray.reset(Elevate::VertexArray::Create());
-        //m_VertexArray->AddVertexBuffer(m_VertexBuffer);
-        //m_VertexArray->SetIndexBuffer(m_IndexBuffer);
-        ////////////////////////////////////////////////////////////////////////////
-
-        //m_VertexArray->AddVertexBuffer(m_Mesh->GetVertexBuffer());
-        //m_VertexArray->SetIndexBuffer(m_Mesh->GetIndexBuffer());
-
-        // Create and bind vertex array
         // TODO abstract somewhere
 
-        m_Model = std::make_unique<Elevate::Model>(Elevate::Model("cube.obj"));
-        //m_Model = std::make_unique<Elevate::Model>(Elevate::Model("backpack.fbx"));
-
-        // creating textures from files
-        m_Texture1.reset(Elevate::Texture::Create("container.jpg"));
-        m_Texture2.reset(Elevate::Texture::Create("awesomeface.png"));
+        //m_Model = std::make_unique<Elevate::Model>(Elevate::Model("Lowpoly_Notebook_2.obj"));
+        m_Model = std::make_unique<Elevate::Model>(Elevate::Model("backpack.obj"));
 
         m_Shader.reset(Elevate::Shader::CreateFromFiles("main.vert", "main.frag"));
         m_Shader->Bind();
@@ -109,19 +47,18 @@ public:
         m_Shader->SetUniformMatrix4fv("model", model); // set the model matrix
 
         // Lighting ////////////////////////////////////////
-        float ambiantStrenght = 0.1f;
-        glm::vec3 ambiantLightColor(1.0f, 1.0f, 1.0f);
-        ambiantLightColor *= ambiantStrenght;
-        m_Shader->SetUniform3f("lightPos", 0.5f, 0.5f, 0.5f);
-        m_Shader->SetUniform3f("lightColor", ambiantLightColor.r, ambiantLightColor.g, ambiantLightColor.b);
+        // TODO CREATE A LIGHT STRUCT OR CLASS (something like material bellow)
+        m_Shader->SetUniform3f("light.position", 0.5f, 0.5f, 0.5f);
+        m_Shader->SetUniform3f("light.ambient", 0.2f, 0.2f, 0.2f);
+        m_Shader->SetUniform3f("light.diffuse", 0.5f, 0.5f, 0.5f); // darken diffuse light a bit
+        m_Shader->SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
         // -> Specular /////////////////////////////////////
         ////////////////////////////////////////////////////
 
-        // TODO pouvoir fournir des vecteurs directement au shader
-
-        // Binding textures // todo automatiser le tout en fournissant le shader
-        m_Shader->SetUniform1i("texture1", 0);
-        m_Shader->SetUniform1i("texture2", 1);
+        // SETTING THE MATERIAL /////////////////////////////////////////
+        Elevate::Material material;
+        material.Use(m_Shader);
+        /////////////////////////////////////////////////////////////////
 
         //Elevate::Renderer::SubmitModel(*m_Model); /// WRONG
     }
@@ -151,18 +88,14 @@ public:
             cam.GetTransform()->position -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
         if (Elevate::Input::IsKeyPressed(EE_KEY_D))
             cam.GetTransform()->position += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-        //EE_CORE_TRACE("{0},{1},{2}", cam.GetPoition()->x, cam.GetPoition()->y, cam.GetPoition()->z);
 
         m_Shader->SetUniform3f("camPos", cam.GetPoition()->x, cam.GetPoition()->y, cam.GetPoition()->z);
         m_Shader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
 
-        // manually binding textures based on the texture index
-        m_Texture1->Bind(0);
-        m_Texture2->Bind(1);
-
         // On soumet les models et on les affiches en dessinant la stack
         //m_VertexArray->Bind();
-        m_Model->Draw();
+        // TODO -> passer par les commande Renderer:: ... pour faire le rendu à la place
+        m_Model->Draw(m_Shader);
         //Elevate::Renderer::DrawStack(m_Shader); // WRONG
         Elevate::Renderer::EndSceneFrame(m_Shader);
     }
@@ -176,6 +109,7 @@ public:
 
         if (followCursor)
         {
+            // TODO fix mouse lag drag
             float xpos = Elevate::Input::GetMouseX();
             float ypos = Elevate::Input::GetMouseY();
             float xoffset = xpos - lastX;
@@ -220,12 +154,6 @@ public:
                 followCursor = false;
             }
         }
-
-        //if (event.GetEventType() == Elevate::EventType::MouseButtonPressed)
-        //{
-        //    Elevate::MouseButtonPressedEvent& mouseEvent = dynamic_cast<Elevate::MouseButtonPressedEvent&>(event);
-        //    EE_CORE_TRACE(mouseEvent.ToString());
-        //}
     }
 
     void OnImGuiRender() override

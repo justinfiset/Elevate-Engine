@@ -8,7 +8,7 @@
 			#define EE_API __declspec(dllimport)
 		#endif // EE_BUILD_DLL
 	#else
-		#define EE_API
+		#define EE_API // does absolutly nothing if we are doing static linking and compile
 	#endif
 #else
 	#error ElevateEngine is currently only supported on Windows.

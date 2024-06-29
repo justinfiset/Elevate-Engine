@@ -20,7 +20,7 @@ namespace Elevate
 
         inline const std::vector<Mesh>& GetMeshes() const { return m_Meshes; }
 
-        void Draw();
+        void Draw(std::shared_ptr<Shader> shader);
     private:
         // model data
         std::vector<Mesh> m_Meshes;

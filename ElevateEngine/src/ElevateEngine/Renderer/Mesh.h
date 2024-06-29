@@ -6,6 +6,7 @@
 #include "Buffer.h"
 #include "Vertex.h"
 #include "Texture.h"
+#include "Shader.h"
 
 namespace Elevate
 {
@@ -20,10 +21,8 @@ namespace Elevate
         inline std::shared_ptr<IndexBuffer> GetIndexBuffer() const { return m_IndexBuffer; }
 
         // TODO REMOVE ASAP ONLY FOR TROUBLESHOOTING PURPOSES
-        void Draw();
+        void Draw(std::shared_ptr<Shader> shader);
     private:
-        //unsigned int VAO, VBO, EBO;
-
         std::shared_ptr<Elevate::VertexArray> m_VertexArray;
         std::shared_ptr<VertexBuffer> m_VertexBuffer;
         std::shared_ptr<IndexBuffer> m_IndexBuffer;

@@ -11,11 +11,12 @@ Elevate::Model::Model(std::string path)
     LoadModel(path);
 }
 
-void Elevate::Model::Draw()
+void Elevate::Model::Draw(std::shared_ptr<Shader> shader)
 {
     for (unsigned int i = 0; i < m_Meshes.size(); i++)
-        m_Meshes[i].Draw();
+        m_Meshes[i].Draw(shader);
 }
+
 
 void Elevate::Model::LoadModel(std::string path)
 {
@@ -55,8 +56,6 @@ Elevate::Mesh Elevate::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
     std::vector<unsigned int> indices;
     std::vector<std::shared_ptr<Texture>> textures;
 
-    EE_CORE_INFO(mesh->mNumVertices);
-    EE_CORE_INFO("{0} faces", mesh->mNumFaces);
     // Process vertices
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
@@ -111,8 +110,6 @@ Elevate::Mesh Elevate::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         }
     }
 
-    // TODO LOAD MATERIALS / TEXTURES
-    /*
     // process material
     if (mesh->mMaterialIndex >= 0)
     {
@@ -122,7 +119,6 @@ Elevate::Mesh Elevate::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         std::vector<std::shared_ptr<Texture>> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     }
-    */
 
     return Mesh(vertices, indices, textures);
 }

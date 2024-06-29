@@ -4,12 +4,26 @@ layout(location = 0) out vec4 o_Color;
 
 in vec3 normal;
 in vec3 position;
-in vec3 color;
 in vec2 textCord;
 in vec3 fragPos;
 
-uniform vec3 lightColor;
-uniform vec3 lightPos;
+struct Light {
+    vec3 position;
+  
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
+uniform Light light;
+
+struct Material {
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+    float shininess;
+}; 
+uniform Material material;
+
 uniform vec3 camPos;
 
 uniform sampler2D diffuseTexture1;
@@ -20,21 +34,22 @@ uniform sampler2D specularTexture2;
 
 void main()
 {
-	float ambiant = 0.2;
+	vec3 ambient = light.ambient * material.ambient;
+
 	// DIFFUSE LIGHT
 	vec3 unitNormal = normalize(normal);
-	vec3 lighDirection = normalize(lightPos - fragPos);
-
-	float diffuse = max(dot(unitNormal, lighDirection), 0.0f);
+	vec3 lighDirection = normalize(light.position - fragPos);
+	float diffAmount = max(dot(unitNormal, lighDirection), 0.0);
+	vec3 diffuse = light.diffuse * (diffAmount * material.diffuse);
 
 	// SPECULAR LIGHT
-	float specularLight = 0.5f;
 	vec3 viewDirection = normalize(camPos - fragPos);
 	vec3 reflexionDireciton = reflect(-lighDirection, unitNormal);
-	float specAmount = pow(max(dot(viewDirection, reflexionDireciton), 0.0f), 8);
-	float specular = specAmount * specularLight;
+	float specAmount = pow(max(dot(viewDirection, reflexionDireciton), 0.0), material.shininess);
+	vec3 specular = light.specular * (specAmount * material.specular);
 
-	
-	//o_Color = vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	o_Color = mix(texture(diffuseTexture1, textCord), texture(diffuseTexture2, textCord), 0.2) * (lightColor, 1.0f) * (ambiant + diffuse + specular);
+	// OUTPUT
+	vec3 result = ambient + diffuse + specular;
+	//o_Color = mix(texture(diffuseTexture1, textCord), texture(diffuseTexture2, textCord), 0.2) * (lightColor, 1.0f) * (ambient + diffuse + specular);
+	o_Color = vec4(result, 1.0) * mix(texture(diffuseTexture1, textCord), texture(diffuseTexture2, textCord), 0.2);
 }

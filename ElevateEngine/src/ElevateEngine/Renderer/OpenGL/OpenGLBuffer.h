@@ -7,7 +7,7 @@ namespace Elevate
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
-		OpenGLVertexBuffer(void* vertices, unsigned int size);
+		OpenGLVertexBuffer(void* vertices, uint32_t size);
 		virtual ~OpenGLVertexBuffer();
 
 		virtual void Bind() const override;

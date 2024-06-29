@@ -17,9 +17,12 @@ namespace Elevate
 		inline std::string GetPath() { return m_Path; }
 
 		inline const void SetType(std::string type) { m_Type = type; }
+		inline std::string GetType() const { return m_Type; }
+
+		inline uint32_t GetID() const { return m_TextureID; }
 	protected:
 		std::string m_Path;
-		unsigned int m_TextureID; // todo maybe move to the opengl texture class if not needed in other APIs
+		uint32_t m_TextureID; // todo maybe move to the opengl texture class if not needed in other APIs
 		std::string m_Type;
 	};
 }

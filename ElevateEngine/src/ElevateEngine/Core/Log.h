@@ -18,6 +18,8 @@ namespace Elevate {
 	};
 }
 
+
+// TODO prevent from being acessible from the client // other projects (only usable by this build)
 // Core log macros
 #define EE_CORE_TRACE(...)     ::Elevate::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define EE_CORE_INFO(...)      ::Elevate::Log::GetCoreLogger()->info(__VA_ARGS__)
