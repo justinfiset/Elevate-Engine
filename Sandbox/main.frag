@@ -7,49 +7,93 @@ in vec3 position;
 in vec2 textCord;
 in vec3 fragPos;
 
-struct Light {
-    vec3 position;
-  
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
-};
-uniform Light light;
-
+// MATERIAL IMPL.
+// TODO implement multiple diffuse texture functionallity
 struct Material {
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
+    sampler2D diffuse;
+    sampler2D specular;
     float shininess;
 }; 
 uniform Material material;
 
 uniform vec3 camPos;
 
-uniform sampler2D diffuseTexture1;
-uniform sampler2D diffuseTexture2;
-uniform sampler2D diffuseTexture3;
-uniform sampler2D specularTexture1;
-uniform sampler2D specularTexture2;
+// DIFFUSE LIGHT CALCULATION
+struct DirLight {
+    vec3 direction;
+  
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
+uniform DirLight dirLight;
+
+vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
+{
+    vec3 lightDir = normalize(-light.direction);
+    // diffuse shading
+    float diffAmount = max(dot(normal, lightDir), 0.0);
+    // specular shading
+    vec3 reflectDir = reflect(-lightDir, normal);
+    float specAmount = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    // combine results
+    vec3 ambient  = light.ambient  * vec3(texture(material.diffuse, textCord));
+    vec3 diffuse  = light.diffuse  * diffAmount * vec3(texture(material.diffuse, textCord));
+    vec3 specular = light.specular * specAmount * vec3(texture(material.specular, textCord));
+    return (ambient + diffuse + specular);
+}
+
+// POINT LIGHT CALCULATION
+struct PointLight {    
+    vec3 position;
+    
+    float constant;
+    float linear;
+    float quadratic;  
+
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};  
+#define NR_POINT_LIGHTS 4  
+uniform PointLight pointLights[NR_POINT_LIGHTS];
+
+vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
+{
+    vec3 lightDir = normalize(light.position - fragPos);
+    // diffuse shading
+    float diff = max(dot(normal, lightDir), 0.0);
+    // specular shading
+    vec3 reflectDir = reflect(-lightDir, normal);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    // attenuation
+    float distance    = length(light.position - fragPos);
+    float attenuation = 1.0 / (light.constant + light.linear * distance + 
+  			     light.quadratic * (distance * distance));    
+    // combine results
+    vec3 ambient  = light.ambient  * vec3(texture(material.diffuse, textCord));
+    vec3 diffuse  = light.diffuse  * diff * vec3(texture(material.diffuse, textCord));
+    vec3 specular = light.specular * spec * vec3(texture(material.specular, textCord));
+    ambient  *= attenuation;
+    diffuse  *= attenuation;
+    specular *= attenuation;
+    return (ambient + diffuse + specular);
+} 
 
 void main()
 {
-	vec3 ambient = light.ambient * material.ambient;
-
-	// DIFFUSE LIGHT
+	// TODO optimize calculations : reflect, diffuse + sepcular + texture sampling
 	vec3 unitNormal = normalize(normal);
-	vec3 lighDirection = normalize(light.position - fragPos);
-	float diffAmount = max(dot(unitNormal, lighDirection), 0.0);
-	vec3 diffuse = light.diffuse * (diffAmount * material.diffuse);
-
-	// SPECULAR LIGHT
-	vec3 viewDirection = normalize(camPos - fragPos);
-	vec3 reflexionDireciton = reflect(-lighDirection, unitNormal);
-	float specAmount = pow(max(dot(viewDirection, reflexionDireciton), 0.0), material.shininess);
-	vec3 specular = light.specular * (specAmount * material.specular);
-
+	vec3 viewDir = normalize(camPos - fragPos);
+	
+    // phase 1: Directional lighting
+    vec3 result = CalcDirLight(dirLight, unitNormal, viewDir);
+    // phase 2: Point lights
+    for(int i = 0; i < NR_POINT_LIGHTS; i++)
+        result += CalcPointLight(pointLights[i], unitNormal, fragPos, viewDir);    
+    // phase 3: Spot light
+    //result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
+    
 	// OUTPUT
-	vec3 result = ambient + diffuse + specular;
-	//o_Color = mix(texture(diffuseTexture1, textCord), texture(diffuseTexture2, textCord), 0.2) * (lightColor, 1.0f) * (ambient + diffuse + specular);
-	o_Color = vec4(result, 1.0) * mix(texture(diffuseTexture1, textCord), texture(diffuseTexture2, textCord), 0.2);
+    o_Color = vec4(result, 1.0);
 }

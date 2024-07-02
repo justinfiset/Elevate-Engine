@@ -5,14 +5,15 @@
 #include <glm/glm.hpp>
 #include "ElevateEngine/Renderer/Shader.h"
 
-
 Elevate::Model::Model(std::string path)
 {
+    m_ModelMatrix = std::make_unique<glm::mat4>(1.0f);
     LoadModel(path);
 }
 
 void Elevate::Model::Draw(std::shared_ptr<Shader> shader)
 {
+    shader->SetUniformMatrix4fv("model", GetMatrix()); // set the model matrix
     for (unsigned int i = 0; i < m_Meshes.size(); i++)
         m_Meshes[i].Draw(shader);
 }
@@ -22,7 +23,7 @@ void Elevate::Model::LoadModel(std::string path)
 {
     // Importing the scene
     Assimp::Importer import;
-    const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+    const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_GenNormals);
 
     // Error checking and exception catcher
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -114,9 +115,9 @@ Elevate::Mesh Elevate::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
     if (mesh->mMaterialIndex >= 0)
     {
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-        std::vector<std::shared_ptr<Texture>> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        std::vector<std::shared_ptr<Texture>> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "material.diffuse");
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-        std::vector<std::shared_ptr<Texture>> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+        std::vector<std::shared_ptr<Texture>> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "material.specular");
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     }
 
@@ -144,7 +145,15 @@ std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextu
         if (!skip)
         {   // if texture hasn't been loaded already, load it
             std::shared_ptr<Texture> texture;
-            texture.reset(Texture::Create(str.C_Str()));
+            
+            // We get the local path of the textures -> from abolute to relative
+            std::string path = str.C_Str();
+            size_t lastSlash = path.find_last_of("/\\");
+            if (lastSlash != std::string::npos) {
+                path = path.substr(lastSlash + 1);
+            }
+
+            texture.reset(Texture::Create(path));
             texture->SetType(typeName);
             textures.push_back(texture);
             textures_loaded.push_back(texture); // add to loaded textures

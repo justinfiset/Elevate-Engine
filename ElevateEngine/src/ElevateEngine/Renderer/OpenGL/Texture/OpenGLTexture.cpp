@@ -23,7 +23,9 @@ namespace Elevate
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		// load image, create texture and generate mipmaps
 		int width, height, nrChannels;
-		stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+
+		// FLIPPING THE IMAGE VERTICALLY - NOT NEEDED UNLESS WE FLIP UVS ON THE MODELS BUT USEFUL FOR IMAGES ETC
+		//stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
 		unsigned char* data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0);
 		if (data)
 		{
@@ -43,5 +45,10 @@ namespace Elevate
 	{
 		glActiveTexture(GL_TEXTURE0 + index);
 		glBindTexture(GL_TEXTURE_2D, m_TextureID);
+	}
+	void OpenGLTexture::Unbind(int index) const
+	{
+		glActiveTexture(GL_TEXTURE0 + index);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }
