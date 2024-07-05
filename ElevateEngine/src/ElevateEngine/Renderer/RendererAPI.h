@@ -22,6 +22,7 @@ namespace Elevate
 		
 		virtual void DrawArray(const std::shared_ptr<VertexArray>& vao) const = 0;
 		virtual void DrawStack(const std::shared_ptr<Shader> shader) const = 0;
+		virtual void DrawTriangles(const std::shared_ptr<VertexArray>& vao) const = 0;
 
 		inline void SubmitMesh(const Mesh mesh) { m_MeshStack.push_back(mesh); }
 

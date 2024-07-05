@@ -1,7 +1,7 @@
 #include "eepch.h"
 #include "Renderer.h"
 
-#include "OpenGLRendererAPI.h"
+#include "ElevateEngine/Renderer/OpenGL/OpenGLRendererAPI.h"
 
 namespace Elevate
 {
@@ -9,11 +9,9 @@ namespace Elevate
 
 	void Renderer::BeginSceneFrame(const std::shared_ptr<Shader> shader)
 	{
-		shader->Bind();
 	}
 	void Renderer::EndSceneFrame(const std::shared_ptr<Shader> shader)
 	{
-		shader->Unbind();
 	}
 
 	void Renderer::SubmitModel(const Model model)
@@ -34,6 +32,11 @@ namespace Elevate
 	void Renderer::SubmitVertexArray(const std::shared_ptr<VertexArray>& vao)
 	{
 		Renderer::DrawArray(vao);
+	}
+
+	void Renderer::SubmitTrianglesArray(const std::shared_ptr<VertexArray>& vao)
+	{
+		s_API->DrawTriangles(vao);
 	}
 
 	// RENDER API STATIC WRAPPER

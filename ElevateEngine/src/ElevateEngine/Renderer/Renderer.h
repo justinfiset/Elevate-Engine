@@ -1,5 +1,5 @@
 #pragma once
-#include "RendererAPIr.h"
+#include "RendererAPI.h"
 #include "Mesh.h"
 #include "Model.h"
 #include "Shader.h"
@@ -16,6 +16,7 @@ namespace Elevate
 		static void SubmitModel(const Model model);
 		static void SubmitMesh(const Mesh mesh);
 		static void SubmitVertexArray(const std::shared_ptr<VertexArray>& vao);
+		static void SubmitTrianglesArray(const std::shared_ptr<VertexArray>& vao);
 
 		inline static RendererAPI::GraphicAPI GetAPI() { return RendererAPI::GetAPI(); }
 		// RENDER API STATIC WRAPPER

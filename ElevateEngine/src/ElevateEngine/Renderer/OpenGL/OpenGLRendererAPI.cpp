@@ -42,3 +42,9 @@ void Elevate::OpenGLRendererAPI::DrawStack(const std::shared_ptr<Shader> shader)
 	glActiveTexture(GL_TEXTURE0);
 }
 
+void Elevate::OpenGLRendererAPI::DrawTriangles(const std::shared_ptr<VertexArray>& vao) const
+{
+	vao->Bind();
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+}
+

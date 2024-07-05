@@ -1,0 +1,55 @@
+#include "eepch.h"
+#include "Cubemap.h"
+#include "ElevateEngine/Renderer/Renderer.h"
+#include <glad/glad.h>
+#include <stb/stb_image.h>
+
+Elevate::Cubemap::Cubemap(std::string paths[6])
+{
+	// Creating the Layout and the VertexBuffer
+	m_VertexBuffer.reset(Elevate::VertexBuffer::Create(&s_skyboxVertices[0], sizeof(s_skyboxVertices)));
+	// Creating the layout sent to the shader and the layout of the buffer
+	m_VertexBuffer->SetLayout({ // The layout is based on the Vertex struct (see Vertex.h)
+		{ Elevate::ShaderDataType::Float3, "a_Position" },
+	});
+	m_IndexBuffer.reset(Elevate::IndexBuffer::Create(&s_skyboxIndices[0], sizeof(s_skyboxIndices) / sizeof(unsigned int)));
+	m_VertexArray.reset(VertexArray::Create());
+	m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+	m_VertexArray->SetIndexBuffer(m_IndexBuffer);
+	m_VertexArray->Unbind();
+
+
+	glGenTextures(1, &m_textureID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
+
+	int width, height, nrChannels;
+	for (int i = 0; i < 6; i++)
+	{
+		unsigned char* data = stbi_load(paths[i].c_str(), &width, &height, &nrChannels, 0);
+		if (data)
+		{
+			// note that the awesomeface.png has transparency and thus an alpha channel, so make sure to tell OpenGL the data type is of GL_RGBA
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+			glGenerateMipmap(GL_TEXTURE_2D);
+		}
+		else
+		{
+			EE_CORE_TRACE("Unable to load cubemap texture [{0}] : {1}", i, paths[i].c_str());
+		}
+		stbi_image_free(data);
+	}
+
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+}
+
+void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader)
+{
+	glDepthMask(GL_FALSE);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
+	Renderer::SubmitVertexArray(m_VertexArray);
+	glDepthMask(GL_TRUE);
+}

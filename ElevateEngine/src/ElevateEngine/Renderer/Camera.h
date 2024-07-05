@@ -17,18 +17,26 @@ namespace Elevate
 		Camera(Transform transform, float fov);
 		Camera(Transform transform, float fov, float aspectRatio);
 
-		glm::mat4* GetProjectionMatrix() { return &m_ProjectionMatrix;  }
+		glm::mat4& GetProjectionMatrix() { return m_projectionMatrix;  }
+		glm::mat4 GenViewMatrix();
 
 		glm::mat4 GenViewProjectionMatrix();
-		glm::vec3 GetFront();
 		//glm::vec3 GetUp();
 	private:
-		glm::mat4 GenViewMatrix();
 		glm::mat4 GenProjectionMatrix();
+
+	public: // TODO IS TEMPORARY
+		void UpdateCameraVectors();
 	private:
 		float m_AspectRatio;
 		float m_FOV;
 
-		glm::mat4 m_ProjectionMatrix;
+
+	// TODO set private ASAP
+	public:
+		glm::vec3 m_front;
+		glm::vec3 m_right;
+		glm::vec3 m_up;
+		glm::mat4 m_projectionMatrix;
 	};
 }

@@ -12,6 +12,7 @@ Elevate::Camera::Camera(float fov) :
 Elevate::Camera::Camera(float fov, float aspectRatio) :
     Elevate::Camera(Transform(), fov, aspectRatio) { }
 
+// TODO simplifier en un seul constructeur unique
 Elevate::Camera::Camera(Transform transform, float fov)
 {
     m_Transform = transform;
@@ -20,7 +21,8 @@ Elevate::Camera::Camera(Transform transform, float fov)
     m_AspectRatio = (float)window.GetWidth() / (float)window.GetHeight();
 
     m_Transform.rotation.y = -90.0f; // TODO ENLEVER AU PC
-    m_ProjectionMatrix = GenProjectionMatrix();
+    m_projectionMatrix = GenProjectionMatrix();
+    UpdateCameraVectors();
 }
 
 Elevate::Camera::Camera(Transform transform, float fov, float aspectRatio)
@@ -31,21 +33,20 @@ Elevate::Camera::Camera(Transform transform, float fov, float aspectRatio)
     m_AspectRatio = aspectRatio;
 
     m_Transform.rotation.y = -90.0f; // TODO ENLEVER AU PC
-    m_ProjectionMatrix = GenProjectionMatrix();
+    m_projectionMatrix = GenProjectionMatrix();
+    UpdateCameraVectors();
 }
 
 glm::mat4 Elevate::Camera::GenViewProjectionMatrix()
 {
-    return m_ProjectionMatrix * GenViewMatrix();
+    return m_projectionMatrix * GenViewMatrix();
 }
 
 glm::mat4 Elevate::Camera::GenViewMatrix()
 {
     // TODO FAIRE QUE LE FRONT CHANGE EN FONCTION DE LA ROTATION;
     // TODO FAIRE QUE LE UP CHANGE EN FONCTION DE LA ROTATION
-    glm::vec3 cameraFront = GetFront();
-    glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-    return glm::lookAt(m_Transform.position, m_Transform.position + cameraFront, cameraUp);
+    return glm::lookAt(m_Transform.position, m_Transform.position + m_front, m_up);
 }
 
 glm::mat4 Elevate::Camera::GenProjectionMatrix()
@@ -53,13 +54,15 @@ glm::mat4 Elevate::Camera::GenProjectionMatrix()
     return glm::perspective(glm::radians(m_FOV), m_AspectRatio, 0.1f, 100.0f);
 }
 
-// TODO integrate in the Tranform script???
-glm::vec3 Elevate::Camera::GetFront()
+void Elevate::Camera::UpdateCameraVectors()
 {
-    glm::vec3 direction;
+    glm::vec3 front;
     glm::vec3* rot = &m_Transform.rotation;
-    direction.x = cos(glm::radians(rot->y)) * cos(glm::radians(rot->x));
-    direction.y = sin(glm::radians(rot->x));
-    direction.z = sin(glm::radians(rot->y)) * cos(glm::radians(rot->x));
-    return glm::normalize(direction);
+    front.x = cos(glm::radians(rot->y)) * cos(glm::radians(rot->x));
+    front.y = sin(glm::radians(rot->x));
+    front.z = sin(glm::radians(rot->y)) * cos(glm::radians(rot->x));
+    m_front = glm::normalize(front);
+    // also re-calculate the Right and Up vector
+    m_right = glm::normalize(glm::cross(m_front, {0,1,0}));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+    m_up = glm::normalize(glm::cross(m_right, m_front));
 }

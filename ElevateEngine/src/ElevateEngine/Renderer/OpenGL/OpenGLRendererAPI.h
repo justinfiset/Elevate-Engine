@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RendererAPIr.h"
+#include "ElevateEngine/Renderer/RendererAPI.h"
 
 namespace Elevate
 {
@@ -12,5 +12,6 @@ namespace Elevate
 
 		virtual void DrawArray(const std::shared_ptr<VertexArray>& vao) const override;
 		virtual void DrawStack(const std::shared_ptr<Shader> shader) const override;
+		virtual void DrawTriangles(const std::shared_ptr<VertexArray>& vao) const override;
 	};
 }
