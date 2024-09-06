@@ -54,8 +54,9 @@ struct PointLight {
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
-};  
-#define NR_POINT_LIGHTS 4  
+};
+// todo change number of lights depending on the real number in the scene
+#define NR_POINT_LIGHTS 1  
 uniform PointLight pointLights[NR_POINT_LIGHTS];
 
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
