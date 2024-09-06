@@ -14,8 +14,14 @@ namespace Elevate
 	public:
 		Cubemap(std::string paths[6]);
 
+        const void Draw();
         void Draw(std::shared_ptr<Shader> shader);
+
+        void SetProjectionMatrix(glm::mat4 data);
+        void SetViewMatrix(glm::mat4 data);
 	private:
+        std::shared_ptr<Shader> m_cubemapShader;
+
 		std::shared_ptr<CubemapTexture> m_textures[6];
 
         std::shared_ptr<Elevate::VertexArray> m_VertexArray;

@@ -23,7 +23,6 @@ private:
     bool debugMenuActive = false;
 
     std::shared_ptr<Elevate::Shader> m_Shader;
-    std::shared_ptr<Elevate::Shader> m_skyboxShader;
 
     // Camera specific stuff
     float lastX, lastY;
@@ -42,7 +41,6 @@ public:
         m_Model = std::make_unique<Elevate::Model>(Elevate::Model("backpack.obj"));
 
         m_Shader.reset(Elevate::Shader::CreateFromFiles("shader/main.vert", "shader/main.frag"));
-        m_skyboxShader.reset(Elevate::Shader::CreateFromFiles("shader/skybox.vert", "shader/skybox.frag"));
         
         //std::string paths[6] =
         //{
@@ -53,6 +51,9 @@ public:
         //    "skybox/graycloud_ft.jpg",
         //    "skybox/graycloud_bk.jpg"
         //};
+        
+        // TODO REMOVE FOLLOWING LINE
+        //m_skyboxShader.reset(Elevate::Shader::CreateFromFiles("shader/skybox.vert", "shader/skybox.frag"));
         std::string paths[6] =
         {
             "skybox/mountain-skyboxes/Maskonaive/right.jpg",
@@ -89,6 +90,8 @@ public:
         // TODO CREATE A LIGHT STRUCT OR CLASS (something like material bellow)
         Elevate::DirectionalLight dirLight;
         dirLight.Use(m_Shader);
+
+        
         // point light 1
         m_Shader->SetUniform3f("pointLights[0].position", pointLightPositions[0]);
         m_Shader->SetUniform3f("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
@@ -122,6 +125,7 @@ public:
         m_Shader->SetUniform1f("pointLights[3].linear", 0.09f);
         m_Shader->SetUniform1f("pointLights[3].quadratic", 0.032f);
         ////////////////////////////////////////////////////
+        
 
         // SETTING THE MATERIAL /////////////////////////////////////////
         Elevate::Material material /*
@@ -140,11 +144,10 @@ public:
         Elevate::Renderer::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f }); // Peut être facultatif car on s'en fou un peu au final
         Elevate::Renderer::Clear();
 
-        m_skyboxShader->Bind();
-        m_skyboxShader->SetUniformMatrix4fv("projection", cam.GetProjectionMatrix());
+        m_cubemap->SetProjectionMatrix(cam.GetProjectionMatrix());
         glm::mat4 view = glm::mat4(glm::mat3(cam.GenViewMatrix()));
-        m_skyboxShader->SetUniformMatrix4fv("view", view);
-        m_cubemap->Draw(m_skyboxShader);
+        m_cubemap->SetViewMatrix(view);
+        m_cubemap->Draw();
 
         //Elevate::Renderer::BeginSceneFrame(m_Shader);
 
@@ -169,7 +172,7 @@ public:
         }
 
         // Camera movement ///////////////////////////////
-// sprint
+        // sprint
         float baseCamSpeed = 1.0f;
         if (Elevate::Input::IsKeyPressed(EE_KEY_LEFT_SHIFT))
         {

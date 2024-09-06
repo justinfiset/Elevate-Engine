@@ -43,6 +43,9 @@ project "ElevateEngine"
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
+
+        "%{prj.name}/src/**.vert",
+        "%{prj.name}/src/**.frag",
     }
 
     defines 
@@ -109,7 +112,10 @@ project  "Sandbox"
     files 
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+
+        "%{prj.name}/src/**.vert",
+        "%{prj.name}/src/**.frag",
     }
 
     includedirs

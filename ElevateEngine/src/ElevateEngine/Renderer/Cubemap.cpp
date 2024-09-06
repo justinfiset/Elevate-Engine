@@ -44,12 +44,41 @@ Elevate::Cubemap::Cubemap(std::string paths[6])
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+	// We load the shaders from the files in the solution as this shader is rarely modified by the user
+	std::string vert = 
+		#include "ElevateEngine/Renderer/Cubemap/skybox.vert"
+	;
+	std::string frag = 
+		#include "ElevateEngine/Renderer/Cubemap/skybox.frag"
+	;
+	m_cubemapShader.reset(Elevate::Shader::Create(vert, frag));
+}
+
+const void Elevate::Cubemap::Draw()
+{
+	this->Draw(m_cubemapShader);
 }
 
 void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader)
 {
+	shader->Bind();
 	glDepthMask(GL_FALSE);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
 	Renderer::SubmitVertexArray(m_VertexArray);
 	glDepthMask(GL_TRUE);
+}
+
+
+// TODO PREVENT CODE REPETITION
+void Elevate::Cubemap::SetProjectionMatrix(glm::mat4 proj)
+{
+	m_cubemapShader->Bind();
+	m_cubemapShader->SetUniformMatrix4fv("projection", proj);
+}
+
+void Elevate::Cubemap::SetViewMatrix(glm::mat4 view)
+{
+	m_cubemapShader->Bind();
+	m_cubemapShader->SetUniformMatrix4fv("view", view);
 }
