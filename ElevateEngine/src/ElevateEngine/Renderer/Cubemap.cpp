@@ -61,8 +61,10 @@ Elevate::Cubemap::Cubemap(std::string paths[6])
 	m_cubemapShader.reset(Elevate::Shader::Create(vert, frag));
 }
 
+// TODO USE CUSTOM LOADER INSTEADD OF REPETITIVE CODE
 Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(std::string filePath)
 {
+	///////////////
 	FILE* fp = fopen(filePath.c_str(), "r");
 	char readBuffer[65536];
 	rapidjson::FileReadStream is(fp, readBuffer,
@@ -71,7 +73,10 @@ Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(std::string filePath)
 	doc.ParseStream(is);
 
 	fclose(fp);
+	////////////////
 
+	// TODO: add error handling to make sure all required members are present in the file
+	// TODO : find a solution if the file is wrong to prevent opengl errors and/or missing textures
 	std::string paths[6] =
 	{
 		doc["right"].GetString(),

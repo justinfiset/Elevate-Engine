@@ -1,0 +1,8 @@
+{
+    "right": "skybox/default/side.jpg",
+    "left": "skybox/default/side.jpg",
+    "up": "skybox/default/top.jpg",
+    "down": "skybox/default/bottom.jpg",
+    "front": "skybox/default/side.jpg",
+    "back": "skybox/default/side.jpg"
+}

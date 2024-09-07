@@ -11,11 +11,15 @@ namespace Elevate {
 		std::string Title;
 		unsigned int Width;
 		unsigned int Height;
+		bool VSync;
 
-		WindowProps(const std::string& title = "ElevateEngine Dev",
-					unsigned int width = 1280,
-					unsigned int height = 720)
-			: Title(title), Width(width), Height(height) { }
+		WindowProps () : Title("ElevateEngine Dev"), Width(1280), Height(720), VSync(false) { }
+
+		WindowProps(const std::string& title, unsigned int width, unsigned int height, bool vsync)
+			: Title(title), Width(width), Height(height), VSync(vsync) { }
+
+		// To get all the revelant data from a .config file written in json
+		WindowProps(const std::string appConfigFilePath);
 	};
 
 	class EE_API Window
@@ -36,7 +40,8 @@ namespace Elevate {
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
 
-		static Window* Create(const WindowProps& props = WindowProps());
+		// todo let the user create this file
+		static Window* Create(const WindowProps& props = WindowProps("app.config"));
 
 		virtual double GetTime() const = 0;
 

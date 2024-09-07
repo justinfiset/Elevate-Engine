@@ -78,8 +78,7 @@ public:
         //};
         //m_Cubemap = std::make_unique<Elevate::Cubemap>(paths);
 
-        m_Cubemap.reset(Elevate::Cubemap::CreateFromFile("cubemap/mountain.sky"));
-
+        m_Cubemap.reset(Elevate::Cubemap::CreateFromFile("cubemap/default.sky"));
 
         m_Model->GetMatrix() = glm::translate(m_Model->GetMatrix(), glm::vec3(0.0f, 0.0f, -3.0f));
         //m_ModelMatrix = glm::rotate(m_ModelMatrix, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -154,16 +153,23 @@ public:
 
         //Elevate::Renderer::SubmitModel(*m_Model); /// WRONG
 
-            // Boîte de dialogue pour choisir un fichier
-        const char* filePath = tinyfd_openFileDialog(
-            "Choisissez un fichier",
-            "",
-            0,
-            NULL,
-            NULL,
-            0
-        );
+        //// Boîte de dialogue pour choisir un fichier
+        //const char* filePath = tinyfd_openFileDialog(
+        //    "Find a skybox",
+        //    "",
+        //    0,
+        //    NULL,
+        //    NULL,
+        //    0
+        //);
 
+        //tinyfd_messageBox(
+        //    "Erreur",
+        //    "Une erreur s'est produite lors de l'exécution.",
+        //    "ok",
+        //    "error",
+        //    1
+        //);
 
         //SetupImGuiLightStyle();
         SetupImGuiDarkStyle();

@@ -44,7 +44,7 @@ namespace Elevate {
 		EE_CORE_TRACE("Creating window: {0} ({1}x{2})", props.Title, props.Width, props.Height);
 
 		if (!s_GLFWInitialized)
-		{
+		{ 
 			int success = glfwInit();
 			EE_CORE_ASSERT(success, "Could not initialize GLFW.");
 			glfwSetErrorCallback(GLFWErrorCallback);
@@ -57,7 +57,7 @@ namespace Elevate {
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
-		SetVSync(false);
+		SetVSync(props.VSync);
 
 		// Set GLFW callbacks
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
