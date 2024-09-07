@@ -1,8 +1,14 @@
 #include "eepch.h"
+
 #include "Cubemap.h"
 #include "ElevateEngine/Renderer/Renderer.h"
+
 #include <glad/glad.h>
+
 #include <stb/stb_image.h>
+
+#include <rapidjson/filereadstream.h>
+#include <rapidjson/document.h>
 
 Elevate::Cubemap::Cubemap(std::string paths[6])
 {
@@ -53,6 +59,30 @@ Elevate::Cubemap::Cubemap(std::string paths[6])
 		#include "ElevateEngine/Renderer/Cubemap/skybox.frag"
 	;
 	m_cubemapShader.reset(Elevate::Shader::Create(vert, frag));
+}
+
+Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(std::string filePath)
+{
+	FILE* fp = fopen(filePath.c_str(), "r");
+	char readBuffer[65536];
+	rapidjson::FileReadStream is(fp, readBuffer,
+		sizeof(readBuffer));
+	rapidjson::Document doc;
+	doc.ParseStream(is);
+
+	fclose(fp);
+
+	std::string paths[6] =
+	{
+		doc["right"].GetString(),
+		doc["left"].GetString(),
+		doc["up"].GetString(),
+		doc["down"].GetString(),
+		doc["front"].GetString(),
+		doc["back"].GetString()
+	};
+
+	return new Cubemap(paths);
 }
 
 const void Elevate::Cubemap::Draw()

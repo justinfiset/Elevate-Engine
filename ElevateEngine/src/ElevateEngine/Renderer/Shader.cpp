@@ -23,4 +23,11 @@ namespace Elevate
 		std::string fragmentSource = File::GetFileContent(fragSrcPath);
 		return Create(vertexSource, fragmentSource);
 	}
+
+	Shader* Shader::CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath, std::string customVertCode, std::string customFragCode)
+	{
+		std::string vertexSource = customVertCode + "\n" + File::GetFileContent(vertexSrcPath);
+		std::string fragmentSource = customFragCode + "\n" + File::GetFileContent(fragSrcPath);
+		return Create(vertexSource, fragmentSource);
+	}
 }

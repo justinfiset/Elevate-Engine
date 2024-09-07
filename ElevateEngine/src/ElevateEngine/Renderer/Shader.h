@@ -15,8 +15,10 @@ namespace Elevate
 		virtual void Unbind() const = 0;
 
 		static Shader* Create(const std::string& vertexSource, const std::string& fragmentSouce);
-		static Shader* CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath);
 
+
+		static Shader* CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath);
+		static Shader* CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath, std::string customVertCode, std::string customFragCode);
 		/// UNIFORMS
 		// FLOATS
 		virtual void SetUniform1f(std::string location, float value) const = 0;

@@ -16,6 +16,7 @@ IncludeDir["GLFW"] = "ElevateEngine/vendor/GLFW/include"
 IncludeDir["Glad"] = "ElevateEngine/vendor/Glad/include"
 IncludeDir["ImGui"] = "ElevateEngine/vendor/imgui/"
 IncludeDir["glm"] = "ElevateEngine/vendor/glm/"
+IncludeDir["rapidjson"] = "ElevateEngine/vendor/rapidjson/include"
 IncludeDir["stb"] = "ElevateEngine/vendor/stb/"
 IncludeDir["spdlog"] = "ElevateEngine/vendor/spdlog/include"
 IncludeDir["assimp"] = "ElevateEngine/vendor/assimp/include"
@@ -59,6 +60,7 @@ project "ElevateEngine"
 
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.glm}",
+        "%{IncludeDir.rapidjson}",
         "%{IncludeDir.stb}",     
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
@@ -122,6 +124,7 @@ project  "Sandbox"
     {
         "%{prj.name}/vendor/include",
         "%{IncludeDir.glm}",
+        "%{IncludeDir.rapidjson}",
         "%{IncludeDir.assimp}",
         "ElevateEngine/vendor/",
         "ElevateEngine/src"

@@ -1,0 +1,3 @@
+[submodule "ElevateEngine/vendor/rapidjson"]
+	path = ElevateEngine/vendor/rapidjson
+	url = https://github.com/Tencent/rapidjson

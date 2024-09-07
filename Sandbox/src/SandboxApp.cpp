@@ -17,6 +17,8 @@
 #include "ElevateEngine/Renderer/Light/DirectionalLight.h"
 #include "ElevateEngine/Renderer/Light/PointLight.h"
 
+
+
 class DebugLayer : public Elevate::Layer
 {
 private:
@@ -31,7 +33,7 @@ private:
     Elevate::Camera cam = Elevate::Camera(60.0f);
 
     std::unique_ptr<Elevate::Model> m_Model;
-    std::unique_ptr<Elevate::Cubemap> m_cubemap;
+    std::unique_ptr<Elevate::Cubemap> m_Cubemap;
 public:
     DebugLayer() : Layer("Debug") { }
 
@@ -40,8 +42,20 @@ public:
         // TODO in depth testing pour voir si l es texures se load tous comme du monde avec le nouveau systeme
         m_Model = std::make_unique<Elevate::Model>(Elevate::Model("backpack.obj"));
 
-        m_Shader.reset(Elevate::Shader::CreateFromFiles("shader/main.vert", "shader/main.frag"));
-        
+        uint32_t glslVersion = 330;
+        uint32_t glslPointLightCount = 1;
+
+        std::string glslVesionDefine = "#version " + std::to_string(glslVersion);
+        std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(glslPointLightCount);
+        m_Shader.reset(Elevate::Shader::CreateFromFiles(
+            "shader/main.vert",
+            "shader/main.frag",
+            glslVesionDefine,
+            glslVesionDefine + "\n" + glslPointLightCountDefine
+        ));
+
+
+        // TODO REMOVE FOLLOWING LINES
         //std::string paths[6] =
         //{
         //    "skybox/graycloud_rt.jpg",
@@ -51,19 +65,19 @@ public:
         //    "skybox/graycloud_ft.jpg",
         //    "skybox/graycloud_bk.jpg"
         //};
-        
-        // TODO REMOVE FOLLOWING LINE
         //m_skyboxShader.reset(Elevate::Shader::CreateFromFiles("shader/skybox.vert", "shader/skybox.frag"));
-        std::string paths[6] =
-        {
-            "skybox/mountain-skyboxes/Maskonaive/right.jpg",
-            "skybox/mountain-skyboxes/Maskonaive/left.jpg",
-            "skybox/mountain-skyboxes/Maskonaive/top.jpg",
-            "skybox/mountain-skyboxes/Maskonaive/bottom.jpg",
-            "skybox/mountain-skyboxes/Maskonaive/back.jpg",
-            "skybox/mountain-skyboxes/Maskonaive/front.jpg"
-        };
-        m_cubemap = std::make_unique<Elevate::Cubemap>(paths);
+        //std::string paths[6] =
+        //{
+        //    "sky/skybox/mountain-skyboxes/Maskonaive/right.jpg",
+        //    "sky/skybox/mountain-skyboxes/Maskonaive/left.jpg",
+        //    "sky/skybox/mountain-skyboxes/Maskonaive/top.jpg",
+        //    "sky/skybox/mountain-skyboxes/Maskonaive/bottom.jpg",
+        //    "sky/skybox/mountain-skyboxes/Maskonaive/back.jpg",
+        //    "sky/skybox/mountain-skyboxes/Maskonaive/front.jpg"
+        //};
+        //m_Cubemap = std::make_unique<Elevate::Cubemap>(paths);
+
+        m_Cubemap.reset(Elevate::Cubemap::CreateFromFile("cubemap/mountain.sky"));
 
 
         m_Model->GetMatrix() = glm::translate(m_Model->GetMatrix(), glm::vec3(0.0f, 0.0f, -3.0f));
@@ -144,10 +158,10 @@ public:
         Elevate::Renderer::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f }); // Peut être facultatif car on s'en fou un peu au final
         Elevate::Renderer::Clear();
 
-        m_cubemap->SetProjectionMatrix(cam.GetProjectionMatrix());
+        m_Cubemap->SetProjectionMatrix(cam.GetProjectionMatrix());
         glm::mat4 view = glm::mat4(glm::mat3(cam.GenViewMatrix()));
-        m_cubemap->SetViewMatrix(view);
-        m_cubemap->Draw();
+        m_Cubemap->SetViewMatrix(view);
+        m_Cubemap->Draw();
 
         //Elevate::Renderer::BeginSceneFrame(m_Shader);
 
@@ -166,6 +180,25 @@ public:
 
     void OnUpdate() override
     {
+        // TODO remove at some point cuz useless    
+        float mod = 2.0f * Elevate::Time::GetDeltaTime();
+        if (Elevate::Input::IsKeyPressed(EE_KEY_LEFT))
+        {
+            m_Model->GetMatrix() = glm::translate(m_Model->GetMatrix(), glm::vec3(-mod, 0.0f, 0.0f));
+        }
+        else if (Elevate::Input::IsKeyPressed(EE_KEY_RIGHT))
+        {
+            m_Model->GetMatrix() = glm::translate(m_Model->GetMatrix(), glm::vec3(mod, 0.0f, 0.0f));
+        }
+        if (Elevate::Input::IsKeyPressed(EE_KEY_UP))
+        {
+            m_Model->GetMatrix() = glm::translate(m_Model->GetMatrix(), glm::vec3(0.0f, 0.0f, -mod));
+        }
+        else if (Elevate::Input::IsKeyPressed(EE_KEY_DOWN))
+        {
+            m_Model->GetMatrix() = glm::translate(m_Model->GetMatrix(), glm::vec3(0.0f, 0.0f, mod));
+        }
+
         if (Elevate::Input::IsKeyDown(EE_KEY_TAB))
         {
             debugMenuActive = !debugMenuActive;

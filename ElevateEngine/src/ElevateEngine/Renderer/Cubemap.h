@@ -2,6 +2,8 @@
 #include <string>
 #include "CubemapTexture.h"
 #include <memory>
+#include <filesystem>
+
 
 #include "Buffer.h"
 #include "VertexArray.h"
@@ -13,6 +15,8 @@ namespace Elevate
 	{
 	public:
 		Cubemap(std::string paths[6]);
+
+        static Cubemap* CreateFromFile(std::string filePath);
 
         const void Draw();
         void Draw(std::shared_ptr<Shader> shader);
