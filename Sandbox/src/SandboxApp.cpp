@@ -7,6 +7,7 @@
 #include "ElevateEngine/Renderer/Camera.h"
 #include "ElevateEngine/Renderer/Model.h"
 
+
 // MATHS
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -17,7 +18,7 @@
 #include "ElevateEngine/Renderer/Light/DirectionalLight.h"
 #include "ElevateEngine/Renderer/Light/PointLight.h"
 
-
+#include "tinyfiledialogs.h"
 
 class DebugLayer : public Elevate::Layer
 {
@@ -133,8 +134,8 @@ public:
         //// point light 4
         //m_Shader->SetUniform3f("pointLights[3].position", pointLightPositions[3]);
         //m_Shader->SetUniform3f("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
-        //m_Shader->SetUniform3f("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
-        //m_Shader->SetUniform3f("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
+            //m_Shader->SetUniform3f("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
+            //m_Shader->SetUniform3f("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
         //m_Shader->SetUniform1f("pointLights[3].constant", 1.0f);
         //m_Shader->SetUniform1f("pointLights[3].linear", 0.09f);
         //m_Shader->SetUniform1f("pointLights[3].quadratic", 0.032f);
@@ -153,8 +154,19 @@ public:
 
         //Elevate::Renderer::SubmitModel(*m_Model); /// WRONG
 
-        SetupImGuiLightStyle();
-        //SetupImGuiDarkStyle();
+            // Boîte de dialogue pour choisir un fichier
+        const char* filePath = tinyfd_openFileDialog(
+            "Choisissez un fichier",
+            "",
+            0,
+            NULL,
+            NULL,
+            0
+        );
+
+
+        //SetupImGuiLightStyle();
+        SetupImGuiDarkStyle();
     }
 
     void OnRender() override {

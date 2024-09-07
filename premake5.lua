@@ -20,11 +20,13 @@ IncludeDir["rapidjson"] = "ElevateEngine/vendor/rapidjson/include"
 IncludeDir["stb"] = "ElevateEngine/vendor/stb/"
 IncludeDir["spdlog"] = "ElevateEngine/vendor/spdlog/include"
 IncludeDir["assimp"] = "ElevateEngine/vendor/assimp/include"
+IncludeDir["tinyfiledialogs"] = "ElevateEngine/vendor/tinyfiledialogs"
 
 group "Dependencies"
     include "ElevateEngine/vendor/GLFW"
     include "ElevateEngine/vendor/Glad"
     include "ElevateEngine/vendor/imgui"
+    include "ElevateEngine/vendor/tinyfiledialogs"
 
 group ""
 project "ElevateEngine"
@@ -64,6 +66,7 @@ project "ElevateEngine"
         "%{IncludeDir.stb}",     
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
+        "%{IncludeDir.tinyfiledialogs}",
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.assimp}"
     }
@@ -72,7 +75,8 @@ project "ElevateEngine"
     {
         "GLFW",
         "Glad",
-        "ImGui",
+        "ImGui",    
+        "tinyfiledialogs",
         "opengl32.lib",
         "ElevateEngine/vendor/assimp/lib/x64/assimp-vc143-mt.lib"
     }
@@ -127,6 +131,7 @@ project  "Sandbox"
         "%{IncludeDir.rapidjson}",
         "%{IncludeDir.assimp}",
         "ElevateEngine/vendor/",
+        "%{IncludeDir.tinyfiledialogs}",    
         "ElevateEngine/src"
     }
 
