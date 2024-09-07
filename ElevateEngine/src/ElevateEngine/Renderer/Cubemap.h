@@ -23,6 +23,11 @@ namespace Elevate
 
         void SetProjectionMatrix(glm::mat4 data);
         void SetViewMatrix(glm::mat4 data);
+
+    private:
+        // TODO move in a config file somewhere
+        void SetupImGuiDarkStyle();
+        void SetupImGuiLightStyle();
 	private:
         std::shared_ptr<Shader> m_cubemapShader;
 
