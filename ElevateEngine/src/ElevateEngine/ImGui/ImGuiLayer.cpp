@@ -4,10 +4,11 @@
 #include "imgui.h"
 #include "backends/imgui_impl_opengl3.h"
 #include "backends/imgui_impl_glfw.h"
+#include "backends/imgui_impl_opengl3.h"
+#include "ImGuizmo.h"
 
 #include "ElevateEngine/Core/Application.h"
 
-#include "ImGuizmo.h"
 
 // TODO FIND A WAY TO REMOVE
 // TEMP

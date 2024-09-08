@@ -131,13 +131,15 @@ project  "Sandbox"
 
     includedirs
     {
-        "%{prj.name}/vendor/include",
         "%{IncludeDir.glm}",
         "%{IncludeDir.rapidjson}",
         "%{IncludeDir.assimp}",
-        "ElevateEngine/vendor/",
         "%{IncludeDir.tinyfiledialogs}",
+        "%{IncludeDir.ImGui}",
         "%{IncludeDir.ImGuizmo}",
+        
+        "%{prj.name}/vendor/include",
+        "ElevateEngine/vendor/",
         "ElevateEngine/src"
     }
 

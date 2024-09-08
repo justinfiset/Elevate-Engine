@@ -19,7 +19,7 @@ namespace Elevate
 		void SetScale(glm::vec3 scale) { m_Transform.SetScale(scale); }
 
 		glm::vec3* GetPoition() { return &m_Transform.position; }
-		glm::vec3* GetRotation() { return &m_Transform.rotation; }
+		glm::vec3* GetRotation() { return &m_Transform.rotation; }	
 		glm::vec3* GetScale() { return &m_Transform.scale; }
 	protected:
 		Transform m_Transform;
