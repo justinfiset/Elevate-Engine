@@ -4,6 +4,3 @@
 [submodule "ElevateEngine/vendor/ImGuizmo"]
 	path = ElevateEngine/vendor/ImGuizmo
 	url = https://github.com/justinfiset/ImGuizmo
-[submodule "ElevateEngine/vendor/imgui"]
-	path = ElevateEngine/vendor/imgui
-	url = https://github.com/justinfiset/imgui
