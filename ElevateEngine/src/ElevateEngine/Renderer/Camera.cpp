@@ -44,8 +44,6 @@ glm::mat4 Elevate::Camera::GenViewProjectionMatrix()
 
 glm::mat4 Elevate::Camera::GenViewMatrix()
 {
-    // TODO FAIRE QUE LE FRONT CHANGE EN FONCTION DE LA ROTATION;
-    // TODO FAIRE QUE LE UP CHANGE EN FONCTION DE LA ROTATION
     return glm::lookAt(m_Transform.position, m_Transform.position + m_front, m_up);
 }
 
@@ -56,13 +54,16 @@ glm::mat4 Elevate::Camera::GenProjectionMatrix()
 
 void Elevate::Camera::UpdateCameraVectors()
 {
+    float pitch = glm::radians(m_Transform.rotation.x);
+    float yaw = glm::radians(m_Transform.rotation.y);
+
     glm::vec3 front;
-    glm::vec3* rot = &m_Transform.rotation;
-    front.x = cos(glm::radians(rot->y)) * cos(glm::radians(rot->x));
-    front.y = sin(glm::radians(rot->x));
-    front.z = sin(glm::radians(rot->y)) * cos(glm::radians(rot->x));
+    front.x = cos(yaw) * cos(pitch);
+    front.y = sin(pitch);
+    front.z = sin(yaw) * cos(pitch);
     m_front = glm::normalize(front);
-    // also re-calculate the Right and Up vector
-    m_right = glm::normalize(glm::cross(m_front, {0,1,0}));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
-    m_up = glm::normalize(glm::cross(m_right, m_front));
+
+    m_right = glm::normalize(glm::cross(glm::vec3(0.0f, 1.0f, 0.0f), m_front));
+
+    m_up = glm::normalize(glm::cross(m_front, m_right));
 }

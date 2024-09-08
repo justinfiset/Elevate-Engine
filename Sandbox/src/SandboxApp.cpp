@@ -83,10 +83,8 @@ public:
         //    EE_TRACE(line);
         //}
 
-
         m_Shader->Bind();
-        // Lighting ////////////////////////////////////////
-        // TODO CREATE A LIGHT STRUCT OR CLASS (something like material bellow)
+
         Elevate::DirectionalLight dirLight;
         dirLight.Use(m_Shader);
 
@@ -176,7 +174,6 @@ public:
         Elevate::Renderer::Clear();
 
         glm::mat4 view = glm::mat4(glm::mat3(cam.GenViewMatrix()));
-        glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
         m_Cubemap->SetProjectionMatrix(cam.GetProjectionMatrix());
         m_Cubemap->SetViewMatrix(view);
@@ -295,8 +292,12 @@ public:
 
     void OnImGuiRender() override
     {
+        ImGuiIO& io = ImGui::GetIO();
+
+        // ImGuizmo //////////////////////////////////////////
         ImGui::Begin("test window guizmo");
         ImGuizmo::SetDrawlist(ImGui::GetForegroundDrawList());
+        ImGuizmo::SetOrthographic(false); // TODO SET DINAMICLY
         ImVec2 displaySize = ImGui::GetIO().DisplaySize;
         ImGuizmo::SetRect(0, 0, displaySize.x, displaySize.y);
 
@@ -304,6 +305,7 @@ public:
         glm::mat4 cameraView = cam.GenViewMatrix();
         glm::mat4 entityMatrix = m_Model->GetMatrix();
 
+        // TODO SET VIA BUTTONS
         ImGuizmo::Manipulate(
             glm::value_ptr(cameraView),
             glm::value_ptr(cameraProjection),
@@ -311,14 +313,11 @@ public:
             ImGuizmo::LOCAL,        // Change to WORLD if needed
             glm::value_ptr(entityMatrix)
         );
-
-        // Apply the manipulated matrix back to your model
         m_Model->SetMatrix(entityMatrix);
         ImGui::End();
+        ////////////////////////////////////////////////////////
 
         if (!debugMenuActive) return;
-
-        ImGuiIO& io = ImGui::GetIO(); (void)io;
         // Obtenez la taille de l'écran / de la fenêtre principale
         ImVec2 mainViewportPos = ImGui::GetMainViewport()->Pos;
         ImVec2 mainViewportSize = ImGui::GetMainViewport()->Size;
@@ -347,8 +346,6 @@ public:
             ImGui::Separator();
             ImGui::Text("Average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             
-            //ImGui::InputFloat3("Model Position", &m_ModelMatrix[3][0]);
-            //ImGui::Text("X: %.2f, Y: %.2f, Z: %.2f", m_ModelMatrix[3].x, m_ModelMatrix[3].y, m_ModelMatrix[3].z);
             ImGui::End();
         }
     }
