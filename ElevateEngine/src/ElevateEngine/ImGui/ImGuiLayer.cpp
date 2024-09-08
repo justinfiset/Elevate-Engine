@@ -7,6 +7,9 @@
 
 #include "ElevateEngine/Core/Application.h"
 
+#include "ImGuizmo.h"
+
+// TODO FIND A WAY TO REMOVE
 // TEMP
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
@@ -67,6 +70,7 @@ void Elevate::ImGuiLayer::Begin()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+    ImGuizmo::BeginFrame();
 }
 
 void Elevate::ImGuiLayer::End()

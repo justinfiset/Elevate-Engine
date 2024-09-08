@@ -21,6 +21,7 @@ IncludeDir["stb"] = "ElevateEngine/vendor/stb/"
 IncludeDir["spdlog"] = "ElevateEngine/vendor/spdlog/include"
 IncludeDir["assimp"] = "ElevateEngine/vendor/assimp/include"
 IncludeDir["tinyfiledialogs"] = "ElevateEngine/vendor/tinyfiledialogs"
+IncludeDir["ImGuizmo"] = "ElevateEngine/vendor/ImGuizmo"
 
 group "Dependencies"
     include "ElevateEngine/vendor/GLFW"
@@ -49,6 +50,9 @@ project "ElevateEngine"
 
         "%{prj.name}/src/**.vert",
         "%{prj.name}/src/**.frag",
+
+        "%{prj.name}/vendor/ImGuizmo/ImGuizmo.h",
+        "%{prj.name}/vendor/ImGuizmo/ImGuizmo.cpp",
     }
 
     defines 
@@ -68,7 +72,8 @@ project "ElevateEngine"
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.tinyfiledialogs}",
         "%{IncludeDir.spdlog}",
-        "%{IncludeDir.assimp}"
+        "%{IncludeDir.assimp}",
+        "%{IncludeDir.ImGuizmo}"
     }
 
     links
@@ -131,7 +136,8 @@ project  "Sandbox"
         "%{IncludeDir.rapidjson}",
         "%{IncludeDir.assimp}",
         "ElevateEngine/vendor/",
-        "%{IncludeDir.tinyfiledialogs}",    
+        "%{IncludeDir.tinyfiledialogs}",
+        "%{IncludeDir.ImGuizmo}",
         "ElevateEngine/src"
     }
 

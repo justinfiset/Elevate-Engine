@@ -1,3 +1,6 @@
 [submodule "ElevateEngine/vendor/rapidjson"]
 	path = ElevateEngine/vendor/rapidjson
 	url = https://github.com/Tencent/rapidjson
+[submodule "ElevateEngine/vendor/ImGuizmo"]
+	path = ElevateEngine/vendor/ImGuizmo
+	url = https://github.com/justinfiset/ImGuizmo

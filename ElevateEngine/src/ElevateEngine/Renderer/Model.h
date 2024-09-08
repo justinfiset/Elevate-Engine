@@ -20,6 +20,7 @@ namespace Elevate
         void Draw(std::shared_ptr<Shader> shader);
 
         inline glm::mat4& GetMatrix() const { return *m_ModelMatrix; }
+        inline void SetMatrix(const glm::mat4& newMatrix) const { *m_ModelMatrix = newMatrix; }
     private:
         void LoadModel(std::string path);
         void ProcessNode(aiNode* node, const aiScene* scene);
