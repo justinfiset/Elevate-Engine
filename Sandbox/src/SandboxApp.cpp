@@ -235,9 +235,9 @@ public:
             cam.GetTransform()->position += cameraSpeed * cam.m_front;
         if (Elevate::Input::IsKeyPressed(EE_KEY_S))
             cam.GetTransform()->position -= cameraSpeed * cam.m_front;
-        if (Elevate::Input::IsKeyPressed(EE_KEY_A))
-            cam.GetTransform()->position -= cameraSpeed * cam.m_right;
         if (Elevate::Input::IsKeyPressed(EE_KEY_D))
+            cam.GetTransform()->position -= cameraSpeed * cam.m_right;
+        if (Elevate::Input::IsKeyPressed(EE_KEY_A))
             cam.GetTransform()->position += cameraSpeed * cam.m_right;
 
         if (followCursor)
