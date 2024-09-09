@@ -1,4 +1,4 @@
-!Sandbox/*obj
+!Sandbox/*.obj
 
 # Binaries / remove compiled libs and projects
 bin/
