@@ -14,7 +14,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "ElevateEngine/vendor/GLFW/include" 
 IncludeDir["Glad"] = "ElevateEngine/vendor/Glad/include"
-IncludeDir["ImGui"] = "ElevateEngine/vendor/imgui/"
+IncludeDir["ImGui"] = "ElevateEngine/vendor/ImGui/"
 IncludeDir["glm"] = "ElevateEngine/vendor/glm/"
 IncludeDir["rapidjson"] = "ElevateEngine/vendor/rapidjson/include"
 IncludeDir["stb"] = "ElevateEngine/vendor/stb/"
@@ -26,7 +26,7 @@ IncludeDir["ImGuizmo"] = "ElevateEngine/vendor/ImGuizmo"
 group "Dependencies"
     include "ElevateEngine/vendor/GLFW"
     include "ElevateEngine/vendor/Glad"
-    include "ElevateEngine/vendor/imgui"
+    include "ElevateEngine/vendor/ImGui"
     include "ElevateEngine/vendor/tinyfiledialogs"
 
 group ""
@@ -51,13 +51,17 @@ project "ElevateEngine"
         "%{prj.name}/src/**.vert",
         "%{prj.name}/src/**.frag",
 
+        "%{prj.name}/vendor/ImGui/backends/imgui_impl_glfw.cpp",
+        "%{prj.name}/vendor/ImGui/backends/imgui_impl_opengl3.cpp",
         "%{prj.name}/vendor/ImGuizmo/ImGuizmo.h",
         "%{prj.name}/vendor/ImGuizmo/ImGuizmo.cpp",
     }
 
     defines 
     {
-        "_CRT_SECURE_NO_WARNINGS"
+        "_CRT_SECURE_NO_WARNINGS",
+        "IMGUI_DEFINE_MATH_OPERATORS",
+        "IMGUI_IMPL_OPENGL_LOADER_GLAD"
     }
 
     includedirs
@@ -85,6 +89,9 @@ project "ElevateEngine"
         "opengl32.lib",
         "ElevateEngine/vendor/assimp/lib/x64/assimp-vc143-mt.lib"
     }
+
+    filter { "files:**/vendor/ImGui/**.cpp" }
+        flags { "NoPCH" }
 
     filter "system:windows"
         systemversion "latest"
