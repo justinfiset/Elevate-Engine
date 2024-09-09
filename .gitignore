@@ -1,3 +1,5 @@
+!Sandbox/*obj
+
 # Binaries / remove compiled libs and projects
 bin/
 bin-int/
