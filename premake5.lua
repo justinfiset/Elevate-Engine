@@ -93,6 +93,9 @@ project "ElevateEngine"
     filter { "files:**/vendor/ImGui/**.cpp" }
         flags { "NoPCH" }
 
+    filter { "files:**/vendor/ImGuizmo/**.cpp" }
+        flags { "NoPCH" }
+
     filter "system:windows"
         systemversion "latest"
 
