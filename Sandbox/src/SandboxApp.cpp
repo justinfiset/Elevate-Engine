@@ -165,8 +165,12 @@ public:
         //    "error",
         //    1
         //);
+    }
 
-        Elevate::UI::SetDarkTheme();
+    void ShowImGuiOpenGLWindow(GLuint textureColorbuffer, int width, int height) {
+        ImGui::Begin("OpenGL View");
+        ImGui::Image((void*)(intptr_t)textureColorbuffer, ImVec2(width, height));
+        ImGui::End();
     }
 
     void OnRender() override {
@@ -292,7 +296,107 @@ public:
 
     void OnImGuiRender() override
     {
+        // TODO REMOVE DANS LE FUTUR... ON AFFICHE LE UI?
+        // ON PÊUT APPUYER SUR TAB POUR LE FERMER SI ON VEUX VOIR LE BACKGROUND
+        if (!debugMenuActive) return;
+
         ImGuiIO& io = ImGui::GetIO();
+
+        // Setup the docking space to snap widgets int he window
+        ImGui::DockSpaceOverViewport(ImGui::GetMainViewport()->ID);
+
+        // TODO IMPL. FEATURES
+        if (ImGui::BeginMainMenuBar())
+        {
+            if (ImGui::BeginMenu("File"))
+            {
+                if (ImGui::MenuItem("New project")) { /* Action pour créer une nouvelle scène */ }
+                if (ImGui::MenuItem("Open project")) { /* Action pour ouvrir un fichier */ }
+                if (ImGui::MenuItem("Save")) { /* Action pour sauvegarder */ }
+                if (ImGui::MenuItem("Exit")) { exit(0); }
+                ImGui::EndMenu();
+            }
+
+            if (ImGui::BeginMenu("Edit"))
+            {
+                if (ImGui::MenuItem("Undo")) { /* Action pour annuler */ }
+                if (ImGui::MenuItem("Redo")) { /* Action pour refaire */ }
+                ImGui::EndMenu();
+            }
+
+            ImGui::EndMainMenuBar();
+        }
+
+        // Get the pos and size of the viewport
+        ImVec2 mainViewportPos = ImGui::GetMainViewport()->Pos;
+        ImVec2 mainViewportSize = ImGui::GetMainViewport()->Size;
+
+
+        ////////////////////////////////////
+        //// TODO PUT IN SEPERATE FILES ASAP
+        //ImGui::Begin("Hierarchy");
+
+        //for (auto& object : sceneObjects) // Supposons que sceneObjects soit une liste d'objets dans la scène
+        //{
+        //    if (ImGui::TreeNode(object.name.c_str()))
+        //    {
+        //        // Sélectionnez l'objet
+        //        if (ImGui::IsItemClicked()) {
+        //            selectedObject = &object;
+        //        }
+
+        //        ImGui::TreePop();
+        //    }
+        //}
+
+        //// Drag and Drop pour réorganiser
+        //if (ImGui::BeginDragDropSource())
+        //{
+        //    ImGui::SetDragDropPayload("DND_OBJECT", &selectedObject, sizeof(selectedObject));
+        //    ImGui::Text("Dragging %s", selectedObject->name.c_str());
+        //    ImGui::EndDragDropSource();
+        //}
+
+        //if (ImGui::BeginDragDropTarget())
+        //{
+        //    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DND_OBJECT"))
+        //    {
+        //        // Logique pour réorganiser les objets dans la hiérarchie
+        //    }
+        //    ImGui::EndDragDropTarget();
+        //}
+
+        //ImGui::End();
+        ////////////
+        //ImGui::Begin("Scene");
+
+        //ImVec2 windowSize = ImGui::GetContentRegionAvail();  // Taille de la fenêtre ImGui
+        //ImGui::Image((void*)(intptr_t)framebufferTexture, windowSize);
+
+        //// Ajouter la gestion des interactions (zoom, déplacement, etc.)
+        //if (ImGui::IsItemClicked())
+        //{
+        //    // Gestion des interactions utilisateur avec la scène
+        //}
+
+        //ImGui::End();
+        ///////////////////////
+        //ImGui::Begin("Inspector");
+
+        //if (selectedObject != nullptr)
+        //{
+        //    ImGui::Text("Selected Object: %s", selectedObject->name.c_str());
+
+        //    ImGui::InputText("Name", selectedObject->name.data(), selectedObject->name.size());
+        //    ImGui::SliderFloat3("Position", glm::value_ptr(selectedObject->position), -10.0f, 10.0f);
+        //    ImGui::SliderFloat3("Rotation", glm::value_ptr(selectedObject->rotation), -180.0f, 180.0f);
+        //    ImGui::SliderFloat3("Scale", glm::value_ptr(selectedObject->scale), 0.1f, 10.0f);
+
+        //    // Ajoutez d'autres propriétés selon les besoins
+        //}
+
+        //ImGui::End();
+        ///////////////////
 
         // ImGuizmo //////////////////////////////////////////
         ImGui::Begin("test window guizmo");
@@ -310,38 +414,18 @@ public:
             glm::value_ptr(cameraView),
             glm::value_ptr(cameraProjection),
             ImGuizmo::TRANSLATE,    // Change to ROTATE or SCALE as needed
-            ImGuizmo::LOCAL,        // Change to WORLD if needed
+            ImGuizmo::WORLD,        // Change to WORLD if needed
             glm::value_ptr(entityMatrix)
         );
         m_Model->SetMatrix(entityMatrix);
         ImGui::End();
         ////////////////////////////////////////////////////////
 
-        if (!debugMenuActive) return;
-        // Obtenez la taille de l'écran / de la fenêtre principale
-        ImVec2 mainViewportPos = ImGui::GetMainViewport()->Pos;
-        ImVec2 mainViewportSize = ImGui::GetMainViewport()->Size;
 
-        // Définissez la taille et la position de la fenêtre
-        ImVec2 windowSize = ImVec2(mainViewportSize.x / 4, mainViewportSize.y); // 200 est la hauteur de la fenêtre en pixels
-        ImVec2 windowPos = ImVec2(mainViewportPos.x, mainViewportPos.y + mainViewportSize.y - windowSize.y);
-        // Appliquez la taille et la position avant de créer la fenêtre
-        ImGui::SetNextWindowSize(windowSize);
-        ImGui::SetNextWindowPos(windowPos);
-        
-        // Créez la fenêtre
-        if (ImGui::Begin("Bottom Dock Window", nullptr, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar))
+
+ 
+        if (ImGui::Begin("Debugging"))
         {
-            if (ImGui::BeginMenuBar())
-            {
-                if (ImGui::BeginMenu("Debug"))
-                {
-                    if (ImGui::MenuItem("Hide")) { debugMenuActive = false; }
-                    if (ImGui::MenuItem("Exit")) { exit(0); }
-                    ImGui::EndMenu();
-                }
-                ImGui::EndMenuBar();
-            }
             ImGui::Text("Elevate Engine - Debugging");  
             ImGui::Separator();
             ImGui::Text("Average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);

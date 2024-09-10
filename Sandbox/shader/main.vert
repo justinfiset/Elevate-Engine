@@ -16,5 +16,5 @@ void main()
 	normal = mat3(transpose(inverse(model))) * a_Normal; 
 	textCord = a_TexCord;
 
-    gl_Position = viewProj * model * vec4(a_Position, 1.0);
+    gl_Position = viewProj * vec4(fragPos, 1.0);
 }

@@ -1,8 +1,6 @@
 #include "eepch.h"
 #include "Application.h"
 
-#include <glad/glad.h>
-
 #include "ElevateEngine/Core/Time.h"
 #include "ElevateEngine/Core/Log.h"
 #include "ElevateEngine/Core/Assert.h"
@@ -12,8 +10,6 @@
 
 #include "ElevateEngine/Files/FileUtility.h"
 
-// TODO remove all opengl specific code
-// -> TODO : Abstract VBA
 namespace Elevate {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)

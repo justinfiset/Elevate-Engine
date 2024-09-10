@@ -1,4 +1,3 @@
-!Sandbox/*.obj
 
 # Binaries / remove compiled libs and projects
 bin/
@@ -95,3 +94,5 @@ ipch/
 # Executables
 *.out
 *.app
+
+!Sandbox/*.obj

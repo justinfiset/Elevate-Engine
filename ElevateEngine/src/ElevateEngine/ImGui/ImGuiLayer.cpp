@@ -9,6 +9,7 @@
 
 #include "ElevateEngine/Core/Application.h"
 
+#include "ElevateEngine/ImGui/ImGuiTheme.h"
 
 // TODO FIND A WAY TO REMOVE
 // TEMP
@@ -35,9 +36,8 @@ void Elevate::ImGuiLayer::OnAttach()
     //io.ConfigViewportsNoAutoMerge = true;
     //io.ConfigViewportsNoTaskBarIcon = true;
 
-    // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-    //ImGui::StyleColorsLight();
+    // TODO set dinamiquement avec l'éditeur
+    UI::SetDarkTheme();
 
     // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
     ImGuiStyle& style = ImGui::GetStyle();
