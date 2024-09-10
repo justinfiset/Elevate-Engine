@@ -303,13 +303,14 @@ public:
         ImGuiIO& io = ImGui::GetIO();
 
         // Setup the docking space to snap widgets int he window
-        ImGui::DockSpaceOverViewport(ImGui::GetMainViewport()->ID);
+        //ImGui::DockSpaceOverViewport(ImGui::GetMainViewport()->ID);
 
         // TODO IMPL. FEATURES
         if (ImGui::BeginMainMenuBar())
         {
             if (ImGui::BeginMenu("File"))
             {
+                // TODO handle projects
                 if (ImGui::MenuItem("New project")) { /* Action pour créer une nouvelle scène */ }
                 if (ImGui::MenuItem("Open project")) { /* Action pour ouvrir un fichier */ }
                 if (ImGui::MenuItem("Save")) { /* Action pour sauvegarder */ }
@@ -319,8 +320,16 @@ public:
 
             if (ImGui::BeginMenu("Edit"))
             {
+                // TODO impl. action stack
                 if (ImGui::MenuItem("Undo")) { /* Action pour annuler */ }
                 if (ImGui::MenuItem("Redo")) { /* Action pour refaire */ }
+                ImGui::EndMenu();
+            }
+
+            if (ImGui::BeginMenu("Objects"))
+            {
+                // TODO impl. instatntiating
+
                 ImGui::EndMenu();
             }
 
@@ -374,14 +383,13 @@ public:
         //ImGui::Image((void*)(intptr_t)framebufferTexture, windowSize);
 
         //// Ajouter la gestion des interactions (zoom, déplacement, etc.)
-        //if (ImGui::IsItemClicked())
+        //if (ImGui::IsItemClicked()) // Selecting an object
         //{
-        //    // Gestion des interactions utilisateur avec la scène
         //}
 
         //ImGui::End();
         ///////////////////////
-        //ImGui::Begin("Inspector");
+        //ImGui::Begin("Analyse");
 
         //if (selectedObject != nullptr)
         //{
@@ -391,8 +399,6 @@ public:
         //    ImGui::SliderFloat3("Position", glm::value_ptr(selectedObject->position), -10.0f, 10.0f);
         //    ImGui::SliderFloat3("Rotation", glm::value_ptr(selectedObject->rotation), -180.0f, 180.0f);
         //    ImGui::SliderFloat3("Scale", glm::value_ptr(selectedObject->scale), 0.1f, 10.0f);
-
-        //    // Ajoutez d'autres propriétés selon les besoins
         //}
 
         //ImGui::End();
@@ -420,8 +426,6 @@ public:
         m_Model->SetMatrix(entityMatrix);
         ImGui::End();
         ////////////////////////////////////////////////////////
-
-
 
  
         if (ImGui::Begin("Debugging"))
