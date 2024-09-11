@@ -66,12 +66,24 @@ void Elevate::ImGuiLayer::OnImGuiRender()
 {
 }
 
-void Elevate::ImGuiLayer::Begin()
+void Elevate::ImGuiLayer::PreRender()
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
+}
+
+void Elevate::ImGuiLayer::Begin()
+{
+    // ImGui
+
     ImGui::NewFrame();
+    // ImGuizmo
     ImGuizmo::BeginFrame();
+}
+
+void Elevate::ImGuiLayer::Render()
+{
+    ImGui::Render();
 }
 
 void Elevate::ImGuiLayer::End()
@@ -81,9 +93,7 @@ void Elevate::ImGuiLayer::End()
     io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 
     // Rendering
-    ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
         GLFWwindow* backup_current_context = glfwGetCurrentContext();

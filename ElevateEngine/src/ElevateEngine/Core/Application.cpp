@@ -10,6 +10,12 @@
 
 #include "ElevateEngine/Files/FileUtility.h"
 
+// TODO REMOVE FROM HERE AT SOME POINT
+#include "imgui.h"
+#include "backends/imgui_impl_glfw.h"
+#include "backends/imgui_impl_opengl3.h"
+#include "glad/glad.h"
+
 namespace Elevate {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -25,6 +31,7 @@ namespace Elevate {
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEve­nt));
 
+		m_FrameBuffer.reset(FrameBuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
 		// TODO MOVE IN ANOTHER FILE maybe???
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -82,18 +89,59 @@ namespace Elevate {
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnRender();
+			m_ImGuiLayer->PreRender();
+
+			Elevate::Renderer::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f }); // Peut être facultatif car on s'en fou un peu au final
+			Elevate::Renderer::Clear();
 
 			//ImGui
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
+			////
+			ImGui::Begin("My Scene");
+
+			// we access the ImGui window size
+			const float window_width = ImGui::GetContentRegionAvail().x;
+			const float window_height = ImGui::GetContentRegionAvail().y;
+
+			// we rescale the framebuffer to the actual window size here and reset the glViewport 
+			m_FrameBuffer->Rescale(window_width, window_height);
+			glViewport(0, 0, window_width, window_height);
+
+			// we get the screen position of the window
+			ImVec2 pos = ImGui::GetCursorScreenPos();
+
+			// and here we can add our created texture as image to ImGui
+			// unfortunately we need to use the cast to void* or I didn't find another way tbh
+			ImGui::GetWindowDrawList()->AddImage(
+				(void*)m_FrameBuffer->GetTextureID(),
+				ImVec2(pos.x, pos.y),
+				ImVec2(pos.x + window_width, pos.y + window_height),
+				ImVec2(0, 1),
+				ImVec2(1, 0)
+			);
+
+			ImGui::End();
+			////
+			m_ImGuiLayer->Render();
+
+			m_FrameBuffer->Bind();
+			for (Layer* layer : m_LayerStack)
+				layer->OnRender();
+			m_FrameBuffer->Unbind();
+
+			// Finish ImGui Rendering
 			m_ImGuiLayer->End();
 
-			Input::ManageMidStates();
+			Input::ManageMidStates(); // Manage Key/Button up and down state
+			// Poll events and swap buffers
 			m_Window->OnUpdate();
 		}
+		// TODO ADD A EXIT OR CLEANUP METHOD HERE
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
 	}
 
 #pragma region Events

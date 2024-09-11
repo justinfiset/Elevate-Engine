@@ -11,6 +11,7 @@
 
 #include "ElevateEngine/Renderer/Shader.h"
 #include "ElevateEngine/Renderer/Buffer.h"
+#include "ElevateEngine/Renderer/FrameBuffer.h"
 #include "ElevateEngine/Renderer/VertexArray.h"
 
 namespace Elevate {
@@ -44,6 +45,9 @@ namespace Elevate {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+		// TODO Maybe move somewhere else
+		std::unique_ptr<FrameBuffer> m_FrameBuffer;
 
 		static Application* s_Instance;
 	};

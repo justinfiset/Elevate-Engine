@@ -4,6 +4,7 @@
 #include "ElevateEngine/Events/ApplicationEvent.h"
 #include "ElevateEngine/Events/MouseEvent.h"
 #include "ElevateEngine/Events/KeyEvent.h"
+#include "ElevateEngine/Inputs/Input.h"
 
 #include "ElevateEngine/Renderer/OpenGL/OpenGLContext.h"
 

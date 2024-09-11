@@ -16,7 +16,6 @@ namespace Elevate
 
 		static Shader* Create(const std::string& vertexSource, const std::string& fragmentSouce);
 
-
 		static Shader* CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath);
 		static Shader* CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath, std::string customVertCode, std::string customFragCode);
 		/// UNIFORMS

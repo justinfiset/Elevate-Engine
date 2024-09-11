@@ -18,7 +18,9 @@ namespace Elevate
 		virtual void OnDetach() override;
 		virtual void OnImGuiRender() override;
 
+		void PreRender();
 		void Begin();
+		void Render();
 		void End();
 
 	private:

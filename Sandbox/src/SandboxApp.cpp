@@ -174,9 +174,6 @@ public:
     }
 
     void OnRender() override {
-        Elevate::Renderer::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f }); // Peut être facultatif car on s'en fou un peu au final
-        Elevate::Renderer::Clear();
-
         glm::mat4 view = glm::mat4(glm::mat3(cam.GenViewMatrix()));
 
         m_Cubemap->SetProjectionMatrix(cam.GetProjectionMatrix());
@@ -188,7 +185,6 @@ public:
         m_Shader->Bind();
         m_Shader->SetUniform3f("camPos", cam.GetPoition()->x, cam.GetPoition()->y, cam.GetPoition()->z);
         m_Shader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
-
         // On soumet les models et on les affiches en dessinant la stack
         // TODO -> passer par les commande Renderer:: ... pour faire le rendu à la place
         m_Model->Draw(m_Shader);
@@ -298,12 +294,29 @@ public:
     {
         // TODO REMOVE DANS LE FUTUR... ON AFFICHE LE UI?
         // ON PÊUT APPUYER SUR TAB POUR LE FERMER SI ON VEUX VOIR LE BACKGROUND
-        if (!debugMenuActive) return;
+        //if (!debugMenuActive) return;
 
         ImGuiIO& io = ImGui::GetIO();
 
+        ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
+            ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
+            ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_NoBackground;
+
+        ImGuiViewport* viewport = ImGui::GetMainViewport();
+        ImGui::SetNextWindowPos(viewport->Pos);
+        ImGui::SetNextWindowSize(viewport->Size);
+        ImGui::SetNextWindowViewport(viewport->ID);
+
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
         // Setup the docking space to snap widgets int he window
+        ImGui::Begin("InvisibleWindow", nullptr, windowFlags);
+        ImGui::PopStyleVar(3);
+        ImGuiID dockSpaceId = ImGui::GetID("InvisibleWindowDockSpace");
+        ImGui::DockSpace(dockSpaceId, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_NoDockingInCentralNode);
         //ImGui::DockSpaceOverViewport(ImGui::GetMainViewport()->ID);
+        ImGui::End();
 
         // TODO IMPL. FEATURES
         if (ImGui::BeginMainMenuBar())
