@@ -86,6 +86,8 @@ namespace Elevate {
 			lastTime = Time::currentTime_;
 			/////////////////////////////////
 
+			// TODO polle events? glfwPollEvents();
+
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
@@ -103,8 +105,11 @@ namespace Elevate {
 			ImGui::Begin("My Scene");
 
 			// we access the ImGui window size
-			const float window_width = ImGui::GetContentRegionAvail().x;
-			const float window_height = ImGui::GetContentRegionAvail().y;
+			//const float window_width = ImGui::GetContentRegionAvail().x;
+			//const float window_height = ImGui::GetContentRegionAvail().y;
+			const float window_width = 1280;
+			const float window_height = 720;
+			EE_CORE_TRACE("x: {0}, y: {1}", window_width, window_height);
 
 			// we rescale the framebuffer to the actual window size here and reset the glViewport 
 			m_FrameBuffer->Rescale(window_width, window_height);
