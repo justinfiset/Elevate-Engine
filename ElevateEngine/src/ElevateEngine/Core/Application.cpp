@@ -89,15 +89,16 @@ namespace Elevate {
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
-			m_ImGuiLayer->PreRender();
+			m_ImGuiLayer->PreRender(); // New frame with OpenGl and GLFW
 
+			// Renderer setup for a new frame
 			Elevate::Renderer::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f }); // Peut être facultatif car on s'en fou un peu au final
 			Elevate::Renderer::Clear();
 
 			//ImGui
 			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
+			//for (Layer* layer : m_LayerStack)
+			//	layer->OnImGuiRender();
 			////
 			ImGui::Begin("My Scene");
 
@@ -138,10 +139,22 @@ namespace Elevate {
 			// Poll events and swap buffers
 			m_Window->OnUpdate();
 		}
-		// TODO ADD A EXIT OR CLEANUP METHOD HERE
-		ImGui_ImplOpenGL3_Shutdown();
-		ImGui_ImplGlfw_Shutdown();
-		ImGui::DestroyContext();
+		Cleanup();
+	}
+
+	// TODO SUBDIVISER EN SOUS FONCTION RELATIVES AUX DIFFÉRENTES LIBRARIRES
+	void Application::Cleanup()
+	{
+		m_ImGuiLayer->OnDetach();
+		// TODO to implements in used classes
+		/*
+		    glDeleteFramebuffers(1, &FBO);
+    glDeleteTextures(1, &texture_id);
+    glDeleteRenderbuffers(1, &RBO);
+    
+    glfwDestroyWindow(mainWindow);
+    glfwTerminate();
+		*/
 	}
 
 #pragma region Events

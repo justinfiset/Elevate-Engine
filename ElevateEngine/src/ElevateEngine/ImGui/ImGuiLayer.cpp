@@ -29,6 +29,7 @@ void Elevate::ImGuiLayer::OnAttach()
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
+    // TODO enable gamepad with imgui for inspector uses and/or game usage
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
@@ -37,7 +38,9 @@ void Elevate::ImGuiLayer::OnAttach()
     //io.ConfigViewportsNoTaskBarIcon = true;
 
     // TODO set dinamiquement avec l'éditeur
+    // TODO fix le dark theme pour enlever le manque d'opacité
     UI::SetDarkTheme();
+    //UI::SetLightTheme();
 
     // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
     ImGuiStyle& style = ImGui::GetStyle();
@@ -50,7 +53,7 @@ void Elevate::ImGuiLayer::OnAttach()
     Application& app = Application::Get();
     GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
-    // Setup Platform/Renderer bindings
+    // Setup Platform/Renderer bindings#
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 410");
 }   
@@ -75,7 +78,6 @@ void Elevate::ImGuiLayer::PreRender()
 void Elevate::ImGuiLayer::Begin()
 {
     // ImGui
-
     ImGui::NewFrame();
     // ImGuizmo
     ImGuizmo::BeginFrame();

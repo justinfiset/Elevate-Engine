@@ -22,6 +22,7 @@ namespace Elevate {
 		virtual ~Application();
 
 		void Run();
+		void Cleanup();
 
 		void OnEve­nt(Event& e);	
 
