@@ -299,8 +299,22 @@ public:
 
         ImGuiIO& io = ImGui::GetIO();
 
+
         // Setup the docking space to snap widgets int he window
-        ImGui::Begin("InvisibleWindow");
+        ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
+            ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
+            ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_NoBackground;
+
+        ImGuiViewport* viewport = ImGui::GetMainViewport();
+        ImGui::SetNextWindowPos(viewport->Pos);
+        ImGui::SetNextWindowSize(viewport->Size);
+        ImGui::SetNextWindowViewport(viewport->ID);
+
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+        ImGui::Begin("InvisibleWindow", nullptr, windowFlags);
+        ImGui::PopStyleVar(3);
         ImGuiID dockSpaceId = ImGui::GetID("InvisibleWindowDockSpace");
         ImGui::DockSpace(dockSpaceId, ImVec2(0.0f, 0.0f)/*ImGuiDockNodeFlags_NoDockingInCentralNode*/);
         //ImGui::DockSpaceOverViewport(ImGui::GetMainViewport()->ID);
@@ -403,8 +417,9 @@ public:
         //}
 
         //ImGui::End();
-        ///////////////////
-        ImGui::Begin("My Scene");
+        
+        // SCENE VIEW /////////////////
+        ImGui::Begin("Scene View");
 
         // we access the ImGui window size
         float window_width = ImGui::GetContentRegionAvail().x;
