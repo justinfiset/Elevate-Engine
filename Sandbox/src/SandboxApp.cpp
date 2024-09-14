@@ -407,8 +407,19 @@ public:
         ImGui::Begin("My Scene");
 
         // we access the ImGui window size
-        const float window_width = ImGui::GetContentRegionAvail().x;
-        const float window_height = ImGui::GetContentRegionAvail().y;
+        float window_width = ImGui::GetContentRegionAvail().x;
+        float window_height = ImGui::GetContentRegionAvail().y;
+
+        // Keeping the aspect ratio for the scene view
+        // Aspect ratio de 16:9
+        const float arX = 16;
+        const float arY = 9;
+        const float qtX = window_width / arX;
+        const float qtY = window_height / arY;
+        if (qtX < qtY)
+            window_height = qtX * arY;
+        else
+            window_width = qtY * arX;
 
         std::shared_ptr<Elevate::FrameBuffer> frameBuffer = Elevate::Application::Get().GetFrameBuffer();
         // we rescale the framebuffer to the actual window size here and reset the glViewport 
@@ -418,14 +429,11 @@ public:
         // we get the screen position of the window
         ImVec2 pos = ImGui::GetCursorScreenPos();
         ImGui::Image((void*)(intptr_t)frameBuffer->GetTextureId(), ImVec2(window_width, window_height), ImVec2(0, 1), ImVec2(1, 0));
-        ImGui::End();
 
         // ImGuizmo //////////////////////////////////////////
-        ImGui::Begin("test window guizmo");
         ImGuizmo::SetDrawlist(ImGui::GetForegroundDrawList());
         ImGuizmo::SetOrthographic(false); // TODO SET DINAMICLY
-        ImVec2 displaySize = ImGui::GetIO().DisplaySize;
-        ImGuizmo::SetRect(0, 0, displaySize.x, displaySize.y);
+        ImGuizmo::SetRect(pos.x, pos.y, window_width, window_height);
 
         glm::mat4 cameraProjection = cam.GetProjectionMatrix();
         glm::mat4 cameraView = cam.GenViewMatrix();
@@ -440,6 +448,7 @@ public:
             glm::value_ptr(entityMatrix)
         );
         m_Model->SetMatrix(entityMatrix);
+
         ImGui::End();
         ////////////////////////////////////////////////////////
 
