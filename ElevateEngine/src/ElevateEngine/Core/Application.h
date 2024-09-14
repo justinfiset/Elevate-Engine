@@ -29,6 +29,9 @@ namespace Elevate {
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
+		// TODO changer pour mettre dans une classe qui s'occupe du rendu
+		inline std::shared_ptr<FrameBuffer> GetFrameBuffer() { return m_FrameBuffer; }
+
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 	private:
@@ -48,7 +51,7 @@ namespace Elevate {
 		LayerStack m_LayerStack;
 
 		// TODO Maybe move somewhere else
-		std::unique_ptr<FrameBuffer> m_FrameBuffer;
+		std::shared_ptr<FrameBuffer> m_FrameBuffer;
 
 		static Application* s_Instance;
 	};

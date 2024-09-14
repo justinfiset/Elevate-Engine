@@ -3,6 +3,7 @@
 
 // TODO try to remove by any way
 #include <cstdint>
+#include <glm/vec4.hpp>
 
 namespace Elevate
 {
@@ -10,15 +11,22 @@ namespace Elevate
 	{
 	public:
 		OpenGLFrameBuffer() : OpenGLFrameBuffer(1280, 720) { }
-		OpenGLFrameBuffer(float width, float height);
+		OpenGLFrameBuffer(uint32_t width, uint32_t height);
 
-		void Bind() const;
-		void Unbind() const;
-		void Rescale(float width, float height) const;
-		uint32_t GetTextureID() const { return m_TextureId; }
+		void Bind() const override;
+		void Unbind() const override;
+		void Rescale(uint32_t width, uint32_t height) const override;
+		
+		inline uint32_t GetFrameBufferId() const override { return m_FrameBufferId;  }
+		inline uint32_t GetTextureId() const override { return m_TextureId; }
 	private:
+		// IDs
 		uint32_t m_FrameBufferId;
 		uint32_t m_RenderBufferId;
 		uint32_t m_TextureId;
+
+		// Size
+		float m_Width;
+		float m_Height;
 	};
 }

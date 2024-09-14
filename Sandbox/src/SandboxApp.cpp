@@ -22,6 +22,7 @@
 #include "tinyfiledialogs.h"
 
 #include "ElevateEngine/ImGui/ImGuiTheme.h"
+#include <ElevateEngine/Renderer/FrameBuffer.h>
 
 class DebugLayer : public Elevate::Layer
 {
@@ -298,23 +299,10 @@ public:
 
         ImGuiIO& io = ImGui::GetIO();
 
-        ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
-            ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
-            ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_NoBackground;
-
-        ImGuiViewport* viewport = ImGui::GetMainViewport();
-        ImGui::SetNextWindowPos(viewport->Pos);
-        ImGui::SetNextWindowSize(viewport->Size);
-        ImGui::SetNextWindowViewport(viewport->ID);
-
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
         // Setup the docking space to snap widgets int he window
-        ImGui::Begin("InvisibleWindow", nullptr, windowFlags);
-        ImGui::PopStyleVar(3);
+        ImGui::Begin("InvisibleWindow");
         ImGuiID dockSpaceId = ImGui::GetID("InvisibleWindowDockSpace");
-        ImGui::DockSpace(dockSpaceId, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_NoDockingInCentralNode);
+        ImGui::DockSpace(dockSpaceId, ImVec2(0.0f, 0.0f)/*ImGuiDockNodeFlags_NoDockingInCentralNode*/);
         //ImGui::DockSpaceOverViewport(ImGui::GetMainViewport()->ID);
         ImGui::End();
 
@@ -416,6 +404,21 @@ public:
 
         //ImGui::End();
         ///////////////////
+        ImGui::Begin("My Scene");
+
+        // we access the ImGui window size
+        const float window_width = ImGui::GetContentRegionAvail().x;
+        const float window_height = ImGui::GetContentRegionAvail().y;
+
+        std::shared_ptr<Elevate::FrameBuffer> frameBuffer = Elevate::Application::Get().GetFrameBuffer();
+        // we rescale the framebuffer to the actual window size here and reset the glViewport 
+        frameBuffer->Rescale(window_width, window_height);
+        glViewport(0, 0, window_width, window_height); // TODO remove from here asap
+
+        // we get the screen position of the window
+        ImVec2 pos = ImGui::GetCursorScreenPos();
+        ImGui::Image((void*)(intptr_t)frameBuffer->GetTextureId(), ImVec2(window_width, window_height), ImVec2(0, 1), ImVec2(1, 0));
+        ImGui::End();
 
         // ImGuizmo //////////////////////////////////////////
         ImGui::Begin("test window guizmo");
