@@ -11,7 +11,7 @@ namespace Elevate
 	class ITransformable
 	{
 	public:
-		inline Transform* GetTransform() { return &m_Transform; }
+		inline Transform& GetTransform() { return m_Transform; }
 
 		// position
 		void SetPosition(glm::vec3 pos) { m_Transform.SetPosition(pos); }

@@ -24,6 +24,8 @@
 #include "ElevateEngine/ImGui/ImGuiTheme.h"
 #include <ElevateEngine/Renderer/FrameBuffer.h>
 
+#include "ElevateEngine/Core/GameObject.h"
+
 class DebugLayer : public Elevate::Layer
 {
 private:
@@ -39,11 +41,17 @@ private:
 
     std::unique_ptr<Elevate::Model> m_Model;
     std::unique_ptr<Elevate::Cubemap> m_Cubemap;
+
+    std::shared_ptr<Elevate::GameObject> m_DemoObject;
+    std::shared_ptr<Elevate::GameObject> m_SelectedObject;
 public:
     DebugLayer() : Layer("Debug") { }
 
     void OnAttach() override
     {   
+        m_DemoObject = std::make_shared<Elevate::GameObject>("test object demo");
+        SelectObject(m_DemoObject);
+
         // TODO in depth testing pour voir si l es texures se load tous comme du monde avec le nouveau systeme
         m_Model = std::make_unique<Elevate::Model>(Elevate::Model("backpack.obj"));
 
@@ -233,15 +241,15 @@ public:
         float cameraSpeed = baseCamSpeed * Elevate::Time::GetDeltaTime();
 
         if (Elevate::Input::IsKeyPressed(EE_KEY_W))
-            cam.GetTransform()->position += cameraSpeed * cam.m_front;
+            cam.GetTransform().position += cameraSpeed * cam.m_front;
         if (Elevate::Input::IsKeyPressed(EE_KEY_S))
-            cam.GetTransform()->position -= cameraSpeed * cam.m_front;
+            cam.GetTransform().position -= cameraSpeed * cam.m_front;
         if (Elevate::Input::IsKeyPressed(EE_KEY_D))
-            cam.GetTransform()->position -= cameraSpeed * cam.m_right;
+            cam.GetTransform().position -= cameraSpeed * cam.m_right;
         if (Elevate::Input::IsKeyPressed(EE_KEY_A))
-            cam.GetTransform()->position += cameraSpeed * cam.m_right;
+            cam.GetTransform().position += cameraSpeed * cam.m_right;
 
-        if (followCursor)
+        if (followCursor) 
         {
             // calculating the offset
             float xpos = Elevate::Input::GetMouseX();
@@ -256,14 +264,14 @@ public:
             xoffset *= sensitivity;
             yoffset *= sensitivity;
 
-            cam.GetTransform()->rotation.y += xoffset;
-            cam.GetTransform()->rotation.x += yoffset;
+            cam.GetTransform().rotation.y += xoffset;
+            cam.GetTransform().rotation.x += yoffset;
 
             // clamp between 89 and -89 deg.
-            if (cam.GetTransform()->rotation.x > 89.0f)
-                cam.GetTransform()->rotation.x = 89.0f;
-            if (cam.GetTransform()->rotation.x < -89.0f)
-                cam.GetTransform()->rotation.x = -89.0f;
+            if (cam.GetTransform().rotation.x > 89.0f)
+                cam.GetTransform().rotation.x = 89.0f;
+            if (cam.GetTransform().rotation.x < -89.0f)
+                cam.GetTransform().rotation.x = -89.0f;
 
             cam.UpdateCameraVectors();
         }
@@ -291,6 +299,28 @@ public:
         }
     }
 
+    void DrawTreeHierarchy(std::shared_ptr<Elevate::GameObject> object)
+    {
+        if (ImGui::TreeNode(object->GetName().c_str()))
+        {
+            if (ImGui::IsItemClicked()) 
+            {
+                SelectObject(object);
+            }
+
+            for each (std::shared_ptr<Elevate::GameObject> child in object->GetChilds())
+            {
+                DrawTreeHierarchy(child);
+            }
+            ImGui::TreePop();
+        }
+    }
+
+    void SelectObject(std::shared_ptr<Elevate::GameObject> newSelection)
+    {
+        m_SelectedObject = newSelection;
+    }
+
     void OnImGuiRender() override
     {
         // TODO REMOVE DANS LE FUTUR... ON AFFICHE LE UI?
@@ -299,32 +329,11 @@ public:
 
         ImGuiIO& io = ImGui::GetIO();
 
-
-        // Setup the docking space to snap widgets int he window
-        ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
-            ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
-            ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_NoBackground;
-
-        ImGuiViewport* viewport = ImGui::GetMainViewport();
-        ImGui::SetNextWindowPos(viewport->Pos);
-        ImGui::SetNextWindowSize(viewport->Size);
-        ImGui::SetNextWindowViewport(viewport->ID);
-
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-        ImGui::Begin("InvisibleWindow", nullptr, windowFlags);
-        ImGui::PopStyleVar(3);
-        ImGuiID dockSpaceId = ImGui::GetID("InvisibleWindowDockSpace");
-        ImGui::DockSpace(dockSpaceId, ImVec2(0.0f, 0.0f)/*ImGuiDockNodeFlags_NoDockingInCentralNode*/);
-        //ImGui::DockSpaceOverViewport(ImGui::GetMainViewport()->ID);
-        ImGui::End();
-
-        // TODO IMPL. FEATURES
         if (ImGui::BeginMainMenuBar())
         {
             if (ImGui::BeginMenu("File"))
             {
+                // TODO IMPL. FEATURES
                 // TODO handle projects
                 if (ImGui::MenuItem("New project")) { /* Action pour créer une nouvelle scène */ }
                 if (ImGui::MenuItem("Open project")) { /* Action pour ouvrir un fichier */ }
@@ -344,12 +353,13 @@ public:
             if (ImGui::BeginMenu("Objects"))
             {
                 // TODO impl. instatntiating
-
                 ImGui::EndMenu();
             }
 
             ImGui::EndMainMenuBar();
         }
+
+        ImGui::DockSpaceOverViewport(ImGui::GetMainViewport()->ID);
 
         // Get the pos and size of the viewport
         ImVec2 mainViewportPos = ImGui::GetMainViewport()->Pos;
@@ -358,29 +368,21 @@ public:
 
         ////////////////////////////////////
         //// TODO PUT IN SEPERATE FILES ASAP
-        //ImGui::Begin("Hierarchy");
+        ImGui::Begin("Hierarchy");
 
-        //for (auto& object : sceneObjects) // Supposons que sceneObjects soit une liste d'objets dans la scène
+
+        //for (std::shared_ptr<Elevate::GameObject> object : m_Scene.GetRootObjects())
         //{
-        //    if (ImGui::TreeNode(object.name.c_str()))
-        //    {
-        //        // Sélectionnez l'objet
-        //        if (ImGui::IsItemClicked()) {
-        //            selectedObject = &object;
-        //        }
-
-        //        ImGui::TreePop();
-        //    }
+        //    DrawTreeHierarchy(object);
         //}
 
-        //// Drag and Drop pour réorganiser
+        // Drag and Drop pour réorganiser
         //if (ImGui::BeginDragDropSource())
         //{
-        //    ImGui::SetDragDropPayload("DND_OBJECT", &selectedObject, sizeof(selectedObject));
-        //    ImGui::Text("Dragging %s", selectedObject->name.c_str());
+        //    ImGui::SetDragDropPayload("DND_OBJECT", &m_SelectedObject, sizeof(m_SelectedObject));
+        //    ImGui::Text("Dragging %s", m_SelectedObject->GetName().c_str());
         //    ImGui::EndDragDropSource();
         //}
-
         //if (ImGui::BeginDragDropTarget())
         //{
         //    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DND_OBJECT"))
@@ -390,33 +392,25 @@ public:
         //    ImGui::EndDragDropTarget();
         //}
 
-        //ImGui::End();
-        ////////////
-        //ImGui::Begin("Scene");
+        ImGui::End();
 
-        //ImVec2 windowSize = ImGui::GetContentRegionAvail();  // Taille de la fenêtre ImGui
-        //ImGui::Image((void*)(intptr_t)framebufferTexture, windowSize);
-
-        //// Ajouter la gestion des interactions (zoom, déplacement, etc.)
-        //if (ImGui::IsItemClicked()) // Selecting an object
-        //{
-        //}
-
-        //ImGui::End();
         ///////////////////////
-        //ImGui::Begin("Analyse");
+        ImGui::Begin("Analyse");
 
-        //if (selectedObject != nullptr)
-        //{
-        //    ImGui::Text("Selected Object: %s", selectedObject->name.c_str());
+        // todo add add a selected object GameObject
+        if (m_SelectedObject != nullptr)
+        {
+            ImGui::Text("Name:");
+            ImGui::SameLine();
+            ImGui::InputText(" ", m_SelectedObject->GetName().data(), 255);
+            // TODO impl dans la classe Component qui est capable de sérialiser le tout
+            // PLacer dans un rendu de transform
+            //ImGui::SliderFloat3("Position", glm::value_ptr(selectedObject->position), -10.0f, 10.0f);
+            //ImGui::SliderFloat3("Rotation", glm::value_ptr(selectedObject->rotation), -180.0f, 180.0f);
+            //ImGui::SliderFloat3("Scale", glm::value_ptr(selectedObject->scale), 0.1f, 10.0f);
+        }
 
-        //    ImGui::InputText("Name", selectedObject->name.data(), selectedObject->name.size());
-        //    ImGui::SliderFloat3("Position", glm::value_ptr(selectedObject->position), -10.0f, 10.0f);
-        //    ImGui::SliderFloat3("Rotation", glm::value_ptr(selectedObject->rotation), -180.0f, 180.0f);
-        //    ImGui::SliderFloat3("Scale", glm::value_ptr(selectedObject->scale), 0.1f, 10.0f);
-        //}
-
-        //ImGui::End();
+        ImGui::End();
         
         // SCENE VIEW /////////////////
         ImGui::Begin("Scene View");
@@ -427,6 +421,7 @@ public:
 
         // Keeping the aspect ratio for the scene view
         // Aspect ratio de 16:9
+        // TODO : s'assurer que le aspect ratio que l'on veux conserver est le même que celui de la caméra
         const float arX = 16;
         const float arY = 9;
         const float qtX = window_width / arX;
@@ -447,11 +442,11 @@ public:
 
         // ImGuizmo //////////////////////////////////////////
         ImGuizmo::SetDrawlist(ImGui::GetForegroundDrawList());
-        ImGuizmo::SetOrthographic(false); // TODO SET DINAMICLY
+        ImGuizmo::SetOrthographic(false); // TODO SET DINAMICLY FROM THE EDITOR AND SETUP THE CAMERA ACCORDINGLY
         ImGuizmo::SetRect(pos.x, pos.y, window_width, window_height);
 
         glm::mat4 cameraProjection = cam.GetProjectionMatrix();
-        glm::mat4 cameraView = cam.GenViewMatrix();
+        glm::mat4 cameraView = cam.GenViewMatrix(); 
         glm::mat4 entityMatrix = m_Model->GetMatrix();
 
         // TODO SET VIA BUTTONS
