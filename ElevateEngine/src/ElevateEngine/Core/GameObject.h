@@ -14,7 +14,8 @@ namespace Elevate
 
 		inline std::string& GetName() { return m_Name; }
 		inline void SetName(std::string newName) { m_Name = newName; }
-
+		
+		inline const bool HasChild() const { return m_Childs.size() > 0; }
 		inline std::vector<std::shared_ptr<GameObject>> GetChilds() const { return m_Childs; }
 		
 		// TODO AddChild

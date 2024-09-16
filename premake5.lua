@@ -22,6 +22,7 @@ IncludeDir["spdlog"] = "ElevateEngine/vendor/spdlog/include"
 IncludeDir["assimp"] = "ElevateEngine/vendor/assimp/include"
 IncludeDir["tinyfiledialogs"] = "ElevateEngine/vendor/tinyfiledialogs"
 IncludeDir["ImGuizmo"] = "ElevateEngine/vendor/ImGuizmo"
+IncludeDir["entt"] = "ElevateEngine/vendor/entt/include"
 
 group "Dependencies"
     include "ElevateEngine/vendor/GLFW"
@@ -77,7 +78,8 @@ project "ElevateEngine"
         "%{IncludeDir.tinyfiledialogs}",
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.assimp}",
-        "%{IncludeDir.ImGuizmo}"
+        "%{IncludeDir.ImGuizmo}",
+        "%{IncludeDir.entt}"
     }
 
     links
@@ -147,6 +149,7 @@ project  "Sandbox"
         "%{IncludeDir.tinyfiledialogs}",
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.ImGuizmo}",
+        "%{IncludeDir.entt}",
         
         "%{prj.name}/vendor/include",
         "ElevateEngine/vendor/",

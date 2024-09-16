@@ -17,6 +17,8 @@ namespace Elevate
 		Camera(Transform transform, float fov);
 		Camera(Transform transform, float fov, float aspectRatio);
 
+		const void UpdateAspectRatio(float aspectRatio);
+
 		glm::mat4& GetProjectionMatrix() { return m_projectionMatrix;  }
 		glm::mat4 GenViewMatrix();
 

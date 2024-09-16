@@ -37,6 +37,12 @@ Elevate::Camera::Camera(Transform transform, float fov, float aspectRatio)
     UpdateCameraVectors();
 }
 
+const void Elevate::Camera::UpdateAspectRatio(float aspectRatio)
+{
+    m_AspectRatio = aspectRatio;
+    m_projectionMatrix = GenProjectionMatrix();
+}
+
 glm::mat4 Elevate::Camera::GenViewProjectionMatrix()
 {
     return m_projectionMatrix * GenViewMatrix();

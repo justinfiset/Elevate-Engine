@@ -17,10 +17,10 @@ namespace Elevate
         Model(std::string path);
         // TODO move somewhere else // PUT PRIVATE;
         inline const std::vector<Mesh>& GetMeshes() const { return m_Meshes; }
-        void Draw(std::shared_ptr<Shader> shader);
+        void Draw(std::shared_ptr<Shader> shader, glm::mat4 modelMatrix);
 
-        inline glm::mat4& GetMatrix() const { return *m_ModelMatrix; }
-        inline void SetMatrix(const glm::mat4& newMatrix) const { *m_ModelMatrix = newMatrix; }
+        //inline glm::mat4& GetMatrix() const { return *m_ModelMatrix; }
+        //inline void SetMatrix(const glm::mat4& newMatrix) const { *m_ModelMatrix = newMatrix; }
     private:
         void LoadModel(std::string path);
         void ProcessNode(aiNode* node, const aiScene* scene);
@@ -31,7 +31,7 @@ namespace Elevate
         // model data
         std::vector<Mesh> m_Meshes;
         std::string m_Directory;
-        std::unique_ptr<glm::mat4> m_ModelMatrix;
+        //std::unique_ptr<glm::mat4> m_ModelMatrix;
         std::vector<std::shared_ptr<Texture>> textures_loaded;
     };
 }

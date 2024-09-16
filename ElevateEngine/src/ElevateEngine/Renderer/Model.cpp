@@ -7,13 +7,13 @@
 
 Elevate::Model::Model(std::string path)
 {
-    m_ModelMatrix = std::make_unique<glm::mat4>(1.0f);
+    //m_ModelMatrix = std::make_unique<glm::mat4>(1.0f);
     LoadModel(path);
 }
 
-void Elevate::Model::Draw(std::shared_ptr<Shader> shader)
+void Elevate::Model::Draw(std::shared_ptr<Shader> shader, glm::mat4 modelMatrix)
 {
-    shader->SetUniformMatrix4fv("model", GetMatrix()); // set the model matrix
+    shader->SetUniformMatrix4fv("model", modelMatrix); // set the model matrix
     for (unsigned int i = 0; i < m_Meshes.size(); i++)
         m_Meshes[i].Draw(shader);
 }
