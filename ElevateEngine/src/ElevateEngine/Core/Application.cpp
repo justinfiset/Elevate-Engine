@@ -32,6 +32,7 @@ namespace Elevate {
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEve­nt));
 
 		m_FrameBuffer.reset(FrameBuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
+
 		// TODO MOVE IN ANOTHER FILE maybe???
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);

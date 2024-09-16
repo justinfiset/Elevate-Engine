@@ -316,29 +316,31 @@ public:
     // TODO PREVENT CODE REPETITION IF POSSIBLE
     void DrawTreeHierarchy(std::shared_ptr<Elevate::GameObject> object)
     {
+        ImGuiBackendFlags nodeFlags = ImGuiTreeNodeFlags_DefaultOpen;
+
+        // TODO test if working properly
         if (object->HasChild())
         {
-            if (ImGui::TreeNode(object->GetName().c_str()))
-            {
-                if (ImGui::IsItemClicked())
-                {
-                    SelectObject(object);
-                }
-
-                for each (std::shared_ptr<Elevate::GameObject> child in object->GetChilds())
-                {
-                    DrawTreeHierarchy(child);
-                }
-                ImGui::TreePop();
-            }
+            nodeFlags |= ImGuiTreeNodeFlags_Leaf;
         }
-        else
+        // TODO test if working properly
+        if (object == m_SelectedObject)
         {
-            ImGui::Text(object->GetName().c_str());
-            if (ImGui::IsItemClicked())
+            nodeFlags |= ImGuiTreeNodeFlags_Selected;
+        }
+
+        if (ImGui::TreeNodeEx(object->GetName().c_str(), nodeFlags))
+        {
+            if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen())
             {
                 SelectObject(object);
             }
+
+            for each (std::shared_ptr<Elevate::GameObject> child in object->GetChilds())
+            {
+                DrawTreeHierarchy(child);
+            }
+            ImGui::TreePop();
         }
     }
 
