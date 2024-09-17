@@ -10,6 +10,9 @@ Elevate::OpenGLFrameBuffer::OpenGLFrameBuffer(uint32_t width, uint32_t height)
 	glGenFramebuffers(1, &m_FrameBufferId);
 	Bind();
 
+	// TODO REMOVE FOR TESTING PRUPUSES ONLY
+	glEnable(GL_MULTISAMPLE);
+
 	// TODO USE FUNCTION CODE BELLOW TO PREVENT CODE REPETITION
 	// Create color texture
 	glGenTextures(1, &m_TextureId); // Bind texture
