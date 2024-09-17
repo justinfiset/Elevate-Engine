@@ -32,8 +32,6 @@
 class DebugLayer : public Elevate::Layer
 {
 private:
-    bool debugMenuActive = false;
-
     std::shared_ptr<Elevate::Shader> m_Shader;
 
     // Camera specific stuff
@@ -219,27 +217,6 @@ public:
     {
         // TODO remove at some point cuz useless
         float mod = 2.0f * Elevate::Time::GetDeltaTime();
-        //if (Elevate::Input::IsKeyPressed(EE_KEY_LEFT))
-        //{
-        //    m_Model->GetMatrix() = glm::translate(m_Model->GetMatrix(), glm::vec3(-mod, 0.0f, 0.0f));
-        //}
-        //else if (Elevate::Input::IsKeyPressed(EE_KEY_RIGHT))
-        //{
-        //    m_Model->GetMatrix() = glm::translate(m_Model->GetMatrix(), glm::vec3(mod, 0.0f, 0.0f));
-        //}
-        //if (Elevate::Input::IsKeyPressed(EE_KEY_UP))
-        //{
-        //    m_Model->GetMatrix() = glm::translate(m_Model->GetMatrix(), glm::vec3(0.0f, 0.0f, -mod));
-        //}
-        //else if (Elevate::Input::IsKeyPressed(EE_KEY_DOWN))
-        //{
-        //    m_Model->GetMatrix() = glm::translate(m_Model->GetMatrix(), glm::vec3(0.0f, 0.0f, mod));
-        //}
-
-        if (Elevate::Input::IsKeyDown(EE_KEY_TAB))
-        {
-            debugMenuActive = !debugMenuActive;
-        }
 
         // Camera movement ///////////////////////////////
         // sprint
@@ -319,7 +296,7 @@ public:
         ImGuiBackendFlags nodeFlags = ImGuiTreeNodeFlags_DefaultOpen;
 
         // TODO test if working properly
-        if (object->HasChild())
+        if (!object->HasChild())
         {
             nodeFlags |= ImGuiTreeNodeFlags_Leaf;
         }
@@ -363,10 +340,6 @@ public:
 
     void OnImGuiRender() override
     {
-        // TODO REMOVE DANS LE FUTUR... ON AFFICHE LE UI?
-        // ON PÊUT APPUYER SUR TAB POUR LE FERMER SI ON VEUX VOIR LE BACKGROUND
-        //if (!debugMenuActive) return;
-
         ImGuiIO& io = ImGui::GetIO();
 
         if (ImGui::BeginMainMenuBar())
@@ -400,11 +373,6 @@ public:
         }
 
         ImGui::DockSpaceOverViewport(ImGui::GetMainViewport()->ID);
-
-        // Get the pos and size of the viewport
-        ImVec2 mainViewportPos = ImGui::GetMainViewport()->Pos;
-        ImVec2 mainViewportSize = ImGui::GetMainViewport()->Size;
-
 
         ////////////////////////////////////
         //// TODO PUT IN SEPERATE FILES ASAP
@@ -441,12 +409,13 @@ public:
         if (m_SelectedObject != nullptr)
         {
             Elevate::UI::InputField("Name: ", m_SelectedObject->GetName());
-            // TODO RENDER TRANSFORM
+
             // TODO impl dans la classe Component qui est capable de sérialiser le tout
             // PLacer dans un rendu de transform
-            //ImGui::SliderFloat3("Position", glm::value_ptr(selectedObject->position), -10.0f, 10.0f);
-            //ImGui::SliderFloat3("Rotation", glm::value_ptr(selectedObject->rotation), -180.0f, 180.0f);
-            //ImGui::SliderFloat3("Scale", glm::value_ptr(selectedObject->scale), 0.1f, 10.0f);
+            ImGui::SeparatorText("Transform");
+            ImGui::InputFloat3("Position", glm::value_ptr(m_SelectedObject->GetPosition()));
+            ImGui::InputFloat3("Rotation", glm::value_ptr(m_SelectedObject->GetRotation()));
+            ImGui::InputFloat3("Scale", glm::value_ptr(m_SelectedObject->GetScale()));
             // TODO RENDER ALL THE OTHER COMPONENTS SERIALIZED
         }
 
