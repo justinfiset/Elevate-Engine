@@ -18,6 +18,11 @@ void Elevate::OpenGLContext::Init()
 	int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	EE_CORE_ASSERT(status, "Failed to initialize Glad.");
 	glEnable(GL_DEPTH_TEST);
+
+	// TODO voir si nécessaire
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	EE_CORE_INFO("OpenGL Renderer: {0}, {1}, {2}", glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_VERSION));
 }
 	

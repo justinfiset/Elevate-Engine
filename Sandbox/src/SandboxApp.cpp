@@ -42,9 +42,15 @@ private:
     Elevate::Camera cam = Elevate::Camera(60.0f);
 
     std::unique_ptr<Elevate::Model> m_Model;
-    std::unique_ptr<Elevate::Cubemap> m_Cubemap;
 
+    std::unique_ptr<Elevate::Model> m_GridPlane;
+    std::shared_ptr<Elevate::Shader> m_GridShader;
+
+    std::unique_ptr<Elevate::Cubemap> m_Cubemap;
+    
     std::shared_ptr<Elevate::GameObject> m_DemoObject;
+    std::shared_ptr<Elevate::GameObject> m_GridObject;
+
     std::shared_ptr<Elevate::GameObject> m_SelectedObject;
 
     std::shared_ptr<Elevate::Scene> m_Scene;
@@ -63,6 +69,7 @@ private:
     // Editor tool option
     int m_CurrentEditorTool = 7;
 
+    // TODO s'assurer que la grille correspond vraiment à l'unité
 public:
     // TODO Change from debug to edtitor
     DebugLayer() : Layer("Debug") { }
@@ -72,17 +79,28 @@ public:
         // Scene creation
         m_Scene = std::make_shared<Elevate::Scene>();
         m_DemoObject = std::make_shared<Elevate::GameObject>("test object demo");
+
+        m_GridObject = std::make_shared<Elevate::GameObject>("Editor Grid");
+        m_GridObject->SetScale({ 100, 100, 100 });
+
         m_Scene->AddRootObject(m_DemoObject);
+        m_Scene->AddRootObject(m_GridObject); // TODO retirer de la scene ou ajouter dans une scène Editor
         m_DemoObject->GetTransform().SetPosition(glm::vec3(0.0f, 0.0f, -3.0f));
 
-        // TODO in depth testing pour voir si l es texures se load tous comme du monde avec le nouveau systeme
-        m_Model = std::make_unique<Elevate::Model>(Elevate::Model("backpack.obj"));
 
+        m_Model = std::make_unique<Elevate::Model>("backpack.obj");
         uint32_t glslVersion = 330;
         uint32_t glslPointLightCount = 1;
 
         std::string glslVesionDefine = "#version " + std::to_string(glslVersion);
         std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(glslPointLightCount);
+
+        m_GridPlane = std::make_unique<Elevate::Model>("model/plane.obj");
+        m_GridShader.reset(Elevate::Shader::CreateFromFiles(
+            "shader/grid.vert",
+            "shader/grid.frag"
+        ));
+
         m_Shader.reset(Elevate::Shader::CreateFromFiles(
             "shader/main.vert",
             "shader/main.frag",
@@ -208,14 +226,28 @@ public:
 
         //Elevate::Renderer::BeginSceneFrame(m_Shader);
 
+
         m_Shader->Bind();
-        m_Shader->SetUniform3f("camPos", cam.GetPosition().x, cam.GetPosition().y, cam.GetPosition().z);
+        m_Shader->SetUniform3f("camPos", cam.GetPosition());
         m_Shader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
         // On soumet les models et on les affiches en dessinant la stack
         // TODO -> passer par les commande Renderer:: ... pour faire le rendu à la place
-        m_Model->Draw(m_Shader, m_DemoObject->GetModelMatrix());
+        // TODO UTILISER LE BON SHADER
+        m_Model->Draw(m_Shader, m_DemoObject->GetModelMatrix());    
+        m_Shader->Unbind();
         //Elevate::Renderer::DrawStack(m_Shader); // WRONG // TODO redo and use
         //Elevate::Renderer::EndSceneFrame(m_Shader);
+        
+        // Rendering the editor grid
+        // TODO modif le shader pour le mettre a nos normes de nomencalture de nom
+        // TODO il faut modif le buffer (Dans Mesh) pour s'assurer que le shader recoit les infos qu'il veut
+        m_GridShader->Bind();
+        m_GridShader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
+        m_GridShader->SetUniform4f("lineColor", { 0.9, 0.9, 0.9, 0.5 });
+        m_GridShader->SetUniform4f("backgroundColor", { 0.6, 0.6, 0.6, 0.05 });
+        //m_GridShader->SetUniformMatrix4fv("transform", glm::scale(glm::mat4(), glm::vec3{ glm::vec2{0.75f}, 1.0f }));
+        m_GridPlane->Draw(m_GridShader, m_GridObject->GetModelMatrix());
+        m_GridShader->Unbind();
     }
 
     void OnUpdate() override
@@ -463,7 +495,8 @@ public:
                 ImGui::EndMenu();
             }
 
-            ImGui::Dummy(ImVec2(ImGui::GetWindowSize().x - ImGui::CalcTextSize("XXXX:XXXX").x - ImGui::GetCursorPos().x - 10.0f, 0.0f));
+            // Permet d'aligner le prochain menu à gauche en fonction de la taille du texte
+            ImGui::Dummy(ImVec2(ImGui::GetWindowSize().x - ImGui::CalcTextSize("XXX:XXX").x - ImGui::GetCursorPos().x - 10.0f, 0.0f));
 
             // Aspect Ratio Selection
             if (ImGui::BeginMenu(GetAspectRatioText(aspectRatioSettings[aspectRatioValue]).c_str()))
