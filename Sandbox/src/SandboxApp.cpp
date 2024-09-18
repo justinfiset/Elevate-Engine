@@ -11,6 +11,7 @@
 
 // MATHS
 #include <glm/glm.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <GLFW/include/GLFW/glfw3.h>
@@ -48,6 +49,7 @@ private:
 
     std::shared_ptr<Elevate::Scene> m_Scene;
     
+    // Aspect Ratio Selection
     int aspectRatioValue = 3;
     glm::ivec2 aspectRatioSettings[5] =
     {
@@ -57,6 +59,9 @@ private:
         { 16, 9 },
         { 16, 10 }
     };
+
+    // Editor tool option
+    int m_CurrentEditorTool = 7;
 
 public:
     // TODO Change from debug to edtitor
@@ -293,7 +298,7 @@ public:
     // TODO PREVENT CODE REPETITION IF POSSIBLE
     void DrawTreeHierarchy(std::shared_ptr<Elevate::GameObject> object)
     {
-        ImGuiBackendFlags nodeFlags = ImGuiTreeNodeFlags_DefaultOpen;
+        ImGuiBackendFlags nodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth;
 
         // TODO test if working properly
         if (!object->HasChild())
@@ -330,6 +335,7 @@ public:
     {
         const glm::ivec2 values = aspectRatioSettings[aspectRatioValue];
         const float ratio = (float)values.x / (float)values.y;
+        // Todo: faire que ce soit toutes les caméras qui utilisent ce ratio
         cam.UpdateAspectRatio(ratio);
     }
 
@@ -338,9 +344,23 @@ public:
         return (std::to_string(ar.x) + ":" + std::to_string(ar.y));
     }
 
+    std::string GuizmoOperationToString(int tool)
+    {
+        switch (tool)
+        {
+        case 7: return "Translate";
+        case 120: return "Rotate";
+        case 896: return "Scale";
+        case 14463: return "Universal";
+        default: return "Unknown";
+        }
+    }
+
     void OnImGuiRender() override
     {
         ImGuiIO& io = ImGui::GetIO();
+
+        //// TODO SEPERATE WIDGETS IN INDIVIDUAL FILES ASAP
 
         if (ImGui::BeginMainMenuBar())
         {
@@ -374,14 +394,20 @@ public:
 
         ImGui::DockSpaceOverViewport(ImGui::GetMainViewport()->ID);
 
-        ////////////////////////////////////
-        //// TODO PUT IN SEPERATE FILES ASAP
         ImGui::Begin("Hierarchy");
 
-        //DrawTreeHierarchy(m_DemoObject); // TODO REMOVE TEST LINE 
         for (std::shared_ptr<Elevate::GameObject> object : m_Scene->GetRootObjects())
         {
             DrawTreeHierarchy(object);
+        }
+
+        // To unselect a selected item (if selected)
+        if (ImGui::IsWindowHovered() && !ImGui::IsAnyItemHovered())
+        {
+            if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+            {
+                SelectObject(nullptr);
+            }
         }
 
         // Drag and Drop pour réorganiser
@@ -424,8 +450,22 @@ public:
         // SCENE VIEW /////////////////
         ImGui::Begin("Scene View", nullptr, ImGuiWindowFlags_MenuBar);
 
+        int testInt = 0;
         if (ImGui::BeginMenuBar())
         {
+            // Aspect Ratio Selection
+            if (ImGui::BeginMenu(GuizmoOperationToString(m_CurrentEditorTool).c_str()))
+            {
+                ImGui::RadioButton("Translate", &m_CurrentEditorTool, 7);
+                ImGui::RadioButton("Rotate", &m_CurrentEditorTool, 120);
+                ImGui::RadioButton("Scale", &m_CurrentEditorTool, 896);
+                ImGui::RadioButton("Universal", &m_CurrentEditorTool, 14463);
+                ImGui::EndMenu();
+            }
+
+            ImGui::Dummy(ImVec2(ImGui::GetWindowSize().x - ImGui::CalcTextSize("XXXX:XXXX").x - ImGui::GetCursorPos().x - 10.0f, 0.0f));
+
+            // Aspect Ratio Selection
             if (ImGui::BeginMenu(GetAspectRatioText(aspectRatioSettings[aspectRatioValue]).c_str()))
             {
                 for (int i = 0; i < sizeof(aspectRatioSettings) / sizeof(aspectRatioSettings[0]); i++)
@@ -442,7 +482,6 @@ public:
         uint32_t window_height = (uint32_t) ImGui::GetContentRegionAvail().y;
 
         // Keeping the aspect ratio for the scene view
-        // TODO : s'assurer que le aspect ratio que l'on veux conserver est le même que celui de la caméra
         const glm::ivec2 aspect = aspectRatioSettings[aspectRatioValue];
         const float arX = (float) aspect.x;
         const float arY = (float) aspect.y;
@@ -477,24 +516,38 @@ public:
             ImGuizmo::Manipulate(
                 glm::value_ptr(cameraView),
                 glm::value_ptr(cameraProjection),
-                ImGuizmo::TRANSLATE,    // Change to ROTATE or SCALE as needed
-                ImGuizmo::WORLD,        // Change to LOCAL if needed
+                (ImGuizmo::OPERATION) m_CurrentEditorTool,    // Change to ROTATE or SCALE as neeSded
+                ImGuizmo::LOCAL,        // Change to LOCAL if needed
                 glm::value_ptr(entityMatrix)
             );
-            // TODO TROUVER UN MOYEN AVEC LES GAMEOBJECTS
-            //m_Model->SetMatrix(entityMatrix);
+
+            glm::vec3 position;
+            glm::vec3 rotation;
+            glm::vec3 scale;
+
+            if (ImGuizmo::IsUsingAny())
+            {
+                ImGuizmo::DecomposeMatrixToComponents
+                (
+                    glm::value_ptr(entityMatrix),
+                    glm::value_ptr(position),
+                    glm::value_ptr(rotation),
+                    glm::value_ptr(scale)
+                );
+
+                m_SelectedObject->SetScale(scale);
+                m_SelectedObject->SetRotation(rotation);
+                m_SelectedObject->SetPosition(position);
+            }
         }
 
         ImGui::End();
         ////////////////////////////////////////////////////////
 
  
-        if (ImGui::Begin("Debugging"))
+        if (ImGui::Begin("Stats"))
         {
-            ImGui::Text("Elevate Engine - Debugging");  
-            ImGui::Separator();
-            ImGui::Text("Average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-            
+            ImGui::Text("Average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);       
             ImGui::End();
         }
     }

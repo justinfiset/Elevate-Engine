@@ -1,7 +1,11 @@
 #include "eepch.h"
 #include "Transform.h"
 
+// Maths
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include "imgui.h"
+#include <ImGuizmo.h>
 
 Elevate::Transform::Transform()
 {
@@ -14,11 +18,12 @@ glm::mat4 Elevate::Transform::GetModelMatrix() const
 {
 	glm::mat4 model = glm::mat4(1.0f);
 
-	model = glm::translate(model, position);
-	model = glm::rotate(model, rotation.x, glm::vec3(1, 0, 0));
-	model = glm::rotate(model, rotation.y, glm::vec3(0, 1, 0));
-	model = glm::rotate(model, rotation.z, glm::vec3(0, 0, 1));
-	model = glm::scale(model, scale);
+	ImGuizmo::RecomposeMatrixFromComponents(
+		glm::value_ptr(position),
+		glm::value_ptr(rotation),
+		glm::value_ptr(scale),
+		glm::value_ptr(model)
+	);
 
 	return model;
 }
