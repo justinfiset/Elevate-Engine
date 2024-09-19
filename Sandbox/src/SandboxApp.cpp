@@ -43,13 +43,15 @@ private:
 
     std::unique_ptr<Elevate::Model> m_Model;
 
+    // Grid
     std::unique_ptr<Elevate::Model> m_GridPlane;
-    std::shared_ptr<Elevate::Shader> m_GridShader;
+    std::shared_ptr<Elevate::Shader> m_GridShader; 
+    std::shared_ptr<Elevate::GameObject> m_GridObject; // todo enlever le besoin d'un GO pour la grid
 
     std::unique_ptr<Elevate::Cubemap> m_Cubemap;
     
     std::shared_ptr<Elevate::GameObject> m_DemoObject;
-    std::shared_ptr<Elevate::GameObject> m_GridObject;
+    std::shared_ptr<Elevate::GameObject> m_PointLightObject;
 
     std::shared_ptr<Elevate::GameObject> m_SelectedObject;
 
@@ -68,8 +70,6 @@ private:
 
     // Editor tool option
     int m_CurrentEditorTool = 7;
-
-    // TODO s'assurer que la grille correspond vraiment à l'unité
 public:
     // TODO Change from debug to edtitor
     DebugLayer() : Layer("Debug") { }
@@ -78,14 +78,27 @@ public:
     {   
         // Scene creation
         m_Scene = std::make_shared<Elevate::Scene>();
+
         m_DemoObject = std::make_shared<Elevate::GameObject>("test object demo");
-
-        m_GridObject = std::make_shared<Elevate::GameObject>("Editor Grid");
-        m_GridObject->SetScale({ 100, 100, 100 });
-
         m_Scene->AddRootObject(m_DemoObject);
-        m_Scene->AddRootObject(m_GridObject); // TODO retirer de la scene ou ajouter dans une scène Editor
         m_DemoObject->GetTransform().SetPosition(glm::vec3(0.0f, 0.0f, -3.0f));
+
+
+        // point light
+        glm::vec3 pointLightPositions[] = {
+            glm::vec3(-2.0f,  0.0f, 0.0f),
+            glm::vec3(-1.0f,  0.0f, 0.0f),
+            glm::vec3(0.0f,  0.0f, 0.0f),
+            glm::vec3(1.0f,  0.0f, 0.0f)
+        };
+
+        m_PointLightObject = std::make_shared<Elevate::GameObject>("Point Light");
+        m_Scene->AddRootObject(m_PointLightObject);
+        m_PointLightObject->SetPosition(pointLightPositions[0]);
+
+        // Grid
+        m_GridObject = std::make_shared<Elevate::GameObject>("Editor Grid");
+        m_GridObject->SetScale({ 100, 100, 100 }); // Todo faire bouger la grille dynamiquement pour ne pas pour voir arriver à la fin
 
 
         m_Model = std::make_unique<Elevate::Model>("backpack.obj");
@@ -95,11 +108,15 @@ public:
         std::string glslVesionDefine = "#version " + std::to_string(glslVersion);
         std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(glslPointLightCount);
 
+        // Setup the grid ///////////////////////////
         m_GridPlane = std::make_unique<Elevate::Model>("model/plane.obj");
         m_GridShader.reset(Elevate::Shader::CreateFromFiles(
             "shader/grid.vert",
             "shader/grid.frag"
         ));
+        m_GridShader->SetUniform4f("lineColor", { 0.9, 0.9, 0.9, 0.5 });
+        m_GridShader->SetUniform4f("backgroundColor", { 0.6, 0.6, 0.6, 0.025 });
+        //////////////////////////////////////////////
 
         m_Shader.reset(Elevate::Shader::CreateFromFiles(
             "shader/main.vert",
@@ -138,14 +155,6 @@ public:
         Elevate::DirectionalLight dirLight;
         dirLight.Use(m_Shader);
 
-        
-        glm::vec3 pointLightPositions[] = {
-            glm::vec3(-2.0f,  0.0f, 0.0f),
-            glm::vec3(-1.0f,  0.0f, 0.0f),
-            glm::vec3(0.0f,  0.0f, 0.0f),
-            glm::vec3(1.0f,  0.0f, 0.0f)
-        };
-
         // SETTING THE MATERIAL /////////////////////////////////////////
         Elevate::Material material /*
         (
@@ -158,7 +167,8 @@ public:
         material.Use(m_Shader);
 
         //// # light 1
-        m_Shader->SetUniform3f("pointLights[0].position", pointLightPositions[0]);
+        m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetPosition());
+        // Set avoir le composant que l'on va créer
         m_Shader->SetUniform3f("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
         m_Shader->SetUniform3f("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
         m_Shader->SetUniform3f("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
@@ -228,6 +238,10 @@ public:
 
 
         m_Shader->Bind();
+        // Point Light
+        // TODO ajouter un icon de point light qui suit avec imgui la point light
+        m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetPosition());
+
         m_Shader->SetUniform3f("camPos", cam.GetPosition());
         m_Shader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
         // On soumet les models et on les affiches en dessinant la stack
@@ -243,9 +257,6 @@ public:
         // TODO il faut modif le buffer (Dans Mesh) pour s'assurer que le shader recoit les infos qu'il veut
         m_GridShader->Bind();
         m_GridShader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
-        m_GridShader->SetUniform4f("lineColor", { 0.9, 0.9, 0.9, 0.5 });
-        m_GridShader->SetUniform4f("backgroundColor", { 0.6, 0.6, 0.6, 0.05 });
-        //m_GridShader->SetUniformMatrix4fv("transform", glm::scale(glm::mat4(), glm::vec3{ glm::vec2{0.75f}, 1.0f }));
         m_GridPlane->Draw(m_GridShader, m_GridObject->GetModelMatrix());
         m_GridShader->Unbind();
     }
