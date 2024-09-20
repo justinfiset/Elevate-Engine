@@ -9,12 +9,6 @@ Elevate::DirectionalLight::DirectionalLight()
 	m_specularColor = { 0.9f, 0.9f, 0.9f };
 }
 
-const void Elevate::DirectionalLight::Use(std::shared_ptr<Shader> shader)
-{
-	Light::Use(shader);
-	shader->SetUniform3f("dirLight.direction", CalculateDirection());
-}
-
 const glm::vec3 Elevate::DirectionalLight::CalculateDirection() const
 {
 	glm::vec3 dir;

@@ -3,6 +3,9 @@
 #include <string>
 
 #include "glm/glm.hpp"
+#include "ElevateEngine/Renderer/Material.h"
+#include "ElevateEngine/Renderer/Light/Light.h"
+#include "ElevateEngine/Renderer/Light/DirectionalLight.h"
 
 namespace Elevate
 {
@@ -18,6 +21,15 @@ namespace Elevate
 
 		static Shader* CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath);
 		static Shader* CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath, std::string customVertCode, std::string customFragCode);
+
+		// Lights
+		void UseLight(Light* newLightSetting, std::string lightName);
+		void UseDirLight(DirectionalLight* newDirLight);
+
+		// Materials
+		void UseMaterial(Material* newMaterial);
+
+
 		/// UNIFORMS
 		// FLOATS
 		virtual void SetUniform1f(std::string location, float value) const = 0;
