@@ -8,8 +8,6 @@ namespace Elevate
 	public:
 		DirectionalLight();
 
-		const void Use(std::shared_ptr<Shader> shader) override;
-	private:
 		const glm::vec3 CalculateDirection() const;
 	};
 }

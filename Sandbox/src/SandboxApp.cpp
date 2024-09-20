@@ -83,18 +83,10 @@ public:
         m_Scene->AddRootObject(m_DemoObject);
         m_DemoObject->GetTransform().SetPosition(glm::vec3(0.0f, 0.0f, -3.0f));
 
-
         // point light
-        glm::vec3 pointLightPositions[] = {
-            glm::vec3(-2.0f,  0.0f, 0.0f),
-            glm::vec3(-1.0f,  0.0f, 0.0f),
-            glm::vec3(0.0f,  0.0f, 0.0f),
-            glm::vec3(1.0f,  0.0f, 0.0f)
-        };
-
         m_PointLightObject = std::make_shared<Elevate::GameObject>("Point Light");
         m_Scene->AddRootObject(m_PointLightObject);
-        m_PointLightObject->SetPosition(pointLightPositions[0]);
+        m_PointLightObject->SetPosition({ -2.0f, 0.0f, 0.0f });
 
         // Grid
         m_GridObject = std::make_shared<Elevate::GameObject>("Editor Grid");
@@ -115,8 +107,10 @@ public:
             "shader/grid.vert",
             "shader/grid.frag"
         ));
+        m_GridShader->Bind();
         m_GridShader->SetUniform4f("lineColor", { 0.9, 0.9, 0.9, 0.5 });
         m_GridShader->SetUniform4f("backgroundColor", { 0.6, 0.6, 0.6, 0.025 });
+        m_GridShader->Unbind();
         //////////////////////////////////////////////
 
         m_Shader.reset(Elevate::Shader::CreateFromFiles(
@@ -154,20 +148,20 @@ public:
         m_Shader->Bind();
 
         Elevate::DirectionalLight dirLight;
-        dirLight.Use(m_Shader);
+        m_Shader->UseDirLight(&dirLight);
 
         // SETTING THE MATERIAL /////////////////////////////////////////
         Elevate::Material material /*
         (
-            { 0.5f, 0.5f, 0.5f }, // Ambient
+            { 0.5f, 0.5f, 0.5f }, // Ambient    
             { 0.5f, 0.5f, 0.5f }, // Diffuse
             { 0.5f, 0.5f, 0.5f }, // Specular
             1.0f                  // Shine
         )*/;
-        // TODO faire l'inverse? : m_Shader.UseMaterial(material) ???????
-        material.Use(m_Shader);
+        m_Shader->UseMaterial(&material);
 
         //// # light 1
+        // todo envoyer dans la classe pointlight
         m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetPosition());
         // Set avoir le composant que l'on va créer
         m_Shader->SetUniform3f("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
@@ -176,36 +170,6 @@ public:
         m_Shader->SetUniform1f("pointLights[0].constant", 1.0f);    
         m_Shader->SetUniform1f("pointLights[0].linear", 0.09f);
         m_Shader->SetUniform1f("pointLights[0].quadratic", 0.032f);
-        //// point light 2
-        //m_Shader->SetUniform3f("pointLights[1].position", pointLightPositions[1]);
-        //m_Shader->SetUniform3f("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
-        //m_Shader->SetUniform3f("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
-        //m_Shader->SetUniform3f("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
-        //m_Shader->SetUniform1f("pointLights[1].constant", 1.0f);
-        //m_Shader->SetUniform1f("pointLights[1].linear", 0.09f);
-        //m_Shader->SetUniform1f("pointLights[1].quadratic", 0.032f);
-        //// point light 3
-        //m_Shader->SetUniform3f("pointLights[2].position", pointLightPositions[2]);
-        //m_Shader->SetUniform3f("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
-        //m_Shader->SetUniform3f("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
-        //m_Shader->SetUniform3f("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
-        //m_Shader->SetUniform1f("pointLights[2].constant", 1.0f);
-        //m_Shader->SetUniform1f("pointLights[2].linear", 0.09f);
-        //m_Shader->SetUniform1f("pointLights[2].quadratic", 0.032f);
-        //// point light 4
-        //m_Shader->SetUniform3f("pointLights[3].position", pointLightPositions[3]);
-        //m_Shader->SetUniform3f("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
-        //m_Shader->SetUniform3f("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
-        //m_Shader->SetUniform3f("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
-        //m_Shader->SetUniform1f("pointLights[3].constant", 1.0f);
-        //m_Shader->SetUniform1f("pointLights[3].linear", 0.09f);
-        //m_Shader->SetUniform1f("pointLights[3].quadratic", 0.032f);
-        //////////////////////////////////////////////////////
-        
-
-        /////////////////////////////////////////////////////////////////
-
-        //Elevate::Renderer::SubmitModel(*m_Model); /// WRONG
 
         // TODO impl dans un API a part entiere
         //// Boîte de dialogue pour choisir un fichier
@@ -217,7 +181,6 @@ public:
         //    NULL,
         //    0
         //);
-
         // TODO impl dans un API a part entiere
         //tinyfd_messageBox(
         //    "Erreur",
