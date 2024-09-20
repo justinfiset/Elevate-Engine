@@ -90,6 +90,7 @@ public:
 
         // Grid
         m_GridObject = std::make_shared<Elevate::GameObject>("Editor Grid");
+        m_Scene->AddRootObject(m_GridObject);
         m_GridObject->SetScale({ 100, 100, 100 }); // Todo faire bouger la grille dynamiquement pour ne pas pour voir arriver à la fin
 
 
