@@ -3,8 +3,6 @@
 #include <memory>
 #include <glm/glm.hpp>
 
-#include "ElevateEngine/Renderer/Shader.h"
-
 namespace Elevate
 {
 	class Material
@@ -24,7 +22,12 @@ namespace Elevate
 			m_Shininess(shininess)
 		{ }
 
-		const void Use(std::shared_ptr<Shader> shader) const;
+		inline glm::vec3& GetAmbiant() { return m_Ambient; }
+		inline glm::vec3& GetDiffuse() { return m_Diffuse; }
+		inline glm::vec3& GetSpecular() { return m_Specular; }
+		inline float GetShininess() { return m_Shininess; }
+
+		// todo setter and make getter const (completly wrap the material)
 	private:
 		glm::vec3 m_Ambient;
 		glm::vec3 m_Diffuse;
