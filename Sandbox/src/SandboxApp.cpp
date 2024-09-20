@@ -85,16 +85,9 @@ public:
 
 
         // point light
-        glm::vec3 pointLightPositions[] = {
-            glm::vec3(-2.0f,  0.0f, 0.0f),
-            glm::vec3(-1.0f,  0.0f, 0.0f),
-            glm::vec3(0.0f,  0.0f, 0.0f),
-            glm::vec3(1.0f,  0.0f, 0.0f)
-        };
-
         m_PointLightObject = std::make_shared<Elevate::GameObject>("Point Light");
         m_Scene->AddRootObject(m_PointLightObject);
-        m_PointLightObject->SetPosition(pointLightPositions[0]);
+        m_PointLightObject->SetPosition({ -2.0f, 0.0f, 0.0f });
 
         // Grid
         m_GridObject = std::make_shared<Elevate::GameObject>("Editor Grid");
@@ -114,8 +107,10 @@ public:
             "shader/grid.vert",
             "shader/grid.frag"
         ));
+        m_GridShader->Bind();
         m_GridShader->SetUniform4f("lineColor", { 0.9, 0.9, 0.9, 0.5 });
         m_GridShader->SetUniform4f("backgroundColor", { 0.6, 0.6, 0.6, 0.025 });
+        m_GridShader->Unbind();
         //////////////////////////////////////////////
 
         m_Shader.reset(Elevate::Shader::CreateFromFiles(
