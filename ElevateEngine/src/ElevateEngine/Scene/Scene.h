@@ -1,24 +1,31 @@
 #pragma once
 
 #include <memory>
-#include <set>
-#include "ElevateEngine/Core/GameObject.h"
 #include <entt/entt.hpp>
 
 namespace Elevate
 {
+	class GameObject;
+
 	class Scene
 	{
 	public:
 		Scene();
+		Scene(std::string name) : m_Name(name) {}
 		~Scene();
+		
+		inline const std::string GetName() const { return m_Name; };
 
-		inline void AddRootObject(std::shared_ptr<GameObject> newRootObject) { m_RootObjects.insert(newRootObject); }
+		void AddRootObject(std::shared_ptr<GameObject> newRootObject);
 		const std::set<std::shared_ptr<GameObject>> GetRootObjects() const { return m_RootObjects; }
 	private:
-		entt::registry m_Registry;
+		std::string m_Name;
+
+		entt::registry m_Registry; // Component registry for all entt::entity
 
 		// TODO ENLEVER ON VA REMPLACER PAR LE REGISTRY ENTT
 		std::set<std::shared_ptr<GameObject>> m_RootObjects;
+
+		friend class GameObject;
 	};
 }

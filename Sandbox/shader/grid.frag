@@ -8,8 +8,6 @@ in vec2 fragPos2D;
 uniform vec4 lineColor;
 uniform vec4 backgroundColor;
 
-vec2 convert_to_cell_coords(vec2 coord, vec2 cellSize);
-
 float lineWidth = 0.005;
 vec2 cellSize = vec2(1);
 
@@ -17,7 +15,7 @@ vec4 displayColor;
 
 void main()
 {
-    vec2 cellCoord = convert_to_cell_coords(fragPos2D, cellSize);
+    vec2 cellCoord = mod(fragPos2D, cellSize);
     vec2 cutoff = vec2(1.0 - lineWidth, 1.0 - lineWidth);
 
     vec2 alpha = step(cutoff, cellCoord);
@@ -26,9 +24,4 @@ void main()
         displayColor = backgroundColor;
 	else displayColor = lineColor;
     o_Color = displayColor;
-}
-
-vec2 convert_to_cell_coords(vec2 coord, vec2 cellSize)
-{
-    return mod(coord, cellSize);
 }

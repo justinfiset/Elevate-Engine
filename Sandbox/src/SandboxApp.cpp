@@ -41,12 +41,9 @@ private:
     // todo make an ortographic and perspective cam class
     Elevate::Camera cam = Elevate::Camera(60.0f);
 
-    std::unique_ptr<Elevate::Model> m_Model;
-
     // Grid
-    std::unique_ptr<Elevate::Model> m_GridPlane;
     std::shared_ptr<Elevate::Shader> m_GridShader; 
-    std::shared_ptr<Elevate::GameObject> m_GridObject; // todo enlever le besoin d'un GO pour la grid
+    std::shared_ptr<Elevate::GameObject> m_GridObject;
 
     std::unique_ptr<Elevate::Cubemap> m_Cubemap;
     
@@ -77,32 +74,30 @@ public:
     void OnAttach() override
     {   
         // Scene creation
-        m_Scene = std::make_shared<Elevate::Scene>();
+        m_Scene = std::make_shared<Elevate::Scene>("Demo Scene");
 
-        m_DemoObject = std::make_shared<Elevate::GameObject>("test object demo");
-        m_Scene->AddRootObject(m_DemoObject);
+        m_DemoObject = std::make_shared<Elevate::GameObject>("test object demo", m_Scene.get());
         m_DemoObject->GetTransform().SetPosition(glm::vec3(0.0f, 0.0f, -3.0f));
+        m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
+        m_Scene->AddRootObject(m_DemoObject);
 
         // point light
-        m_PointLightObject = std::make_shared<Elevate::GameObject>("Point Light");
-        m_Scene->AddRootObject(m_PointLightObject);
+        m_PointLightObject = std::make_shared<Elevate::GameObject>("Point Light", m_Scene.get());
         m_PointLightObject->SetPosition({ -2.0f, 0.0f, 0.0f });
+        m_Scene->AddRootObject(m_PointLightObject);
 
         // Grid
         m_GridObject = std::make_shared<Elevate::GameObject>("Editor Grid");
-        m_Scene->AddRootObject(m_GridObject);
-        m_GridObject->SetScale({ 100, 100, 100 }); // Todo faire bouger la grille dynamiquement pour ne pas pour voir arriver à la fin
+        m_GridObject->AddComponent<Elevate::Model>("model/plane.obj");
+        m_GridObject->SetScale({ 50, 50, 50 });
 
-
-        m_Model = std::make_unique<Elevate::Model>("backpack.obj");
         uint32_t glslVersion = 330;
         uint32_t glslPointLightCount = 1;
 
         std::string glslVesionDefine = "#version " + std::to_string(glslVersion);
         std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(glslPointLightCount);
 
-        // Setup the grid ///////////////////////////
-        m_GridPlane = std::make_unique<Elevate::Model>("model/plane.obj");
+        // Setup the grid shader ///////////////////////////
         m_GridShader.reset(Elevate::Shader::CreateFromFiles(
             "shader/grid.vert",
             "shader/grid.frag"
@@ -120,21 +115,7 @@ public:
             glslVesionDefine + "\n" + glslPointLightCountDefine
         ));
 
-
-        // TODO REMOVE FOLLOWING LINES
-        //std::string paths[6] =
-        //{
-        //    "skybox/graycloud_rt.jpg",
-        //    "skybox/graycloud_lf.jpg",
-        //    "skybox/graycloud_up.jpg",
-        //    "skybox/graycloud_dn.jpg",
-        //    "skybox/graycloud_ft.jpg",
-        //    "skybox/graycloud_bk.jpg"
-        //};
         m_Cubemap.reset(Elevate::Cubemap::CreateFromFile("cubemap/default.sky"));
-
-        //m_Model->GetMatrix() = glm::translate(m_Model->GetMatrix(), glm::vec3(0.0f, 0.0f, -3.0f));
-        //m_ModelMatrix = glm::rotate(m_ModelMatrix, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
         /// MATRIX PRINTING
         //for (int i = 0; i < 4; ++i) {
@@ -211,7 +192,7 @@ public:
         // On soumet les models et on les affiches en dessinant la stack
         // TODO -> passer par les commande Renderer:: ... pour faire le rendu à la place
         // TODO UTILISER LE BON SHADER
-        m_Model->Draw(m_Shader, m_DemoObject->GetModelMatrix());    
+        //m_Model->Draw(m_Shader, m_DemoObject->GetModelMatrix());    
         m_Shader->Unbind();
         //Elevate::Renderer::DrawStack(m_Shader); // WRONG // TODO redo and use
         //Elevate::Renderer::EndSceneFrame(m_Shader);
@@ -221,7 +202,9 @@ public:
         // TODO il faut modif le buffer (Dans Mesh) pour s'assurer que le shader recoit les infos qu'il veut
         m_GridShader->Bind();
         m_GridShader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
-        m_GridPlane->Draw(m_GridShader, m_GridObject->GetModelMatrix());
+        glm::vec3 camPos = cam.GetPosition();
+        m_GridObject->SetPosition({camPos.x, 0, camPos.z});
+        m_GridObject->GetComponent<Elevate::Model>().Draw(m_GridShader, m_GridObject->GetModelMatrix());
         m_GridShader->Unbind();
     }
 
@@ -335,6 +318,7 @@ public:
 
     void SelectObject(std::shared_ptr<Elevate::GameObject> newSelection)
     {
+        // TODO : FAIRE QUE TOUS LES OBJETS EN DESSOUS SOIT AUSSI SELECTIONNÉ MAIS PAS AU MÊME NIVEUA
         m_SelectedObject = newSelection;
     }
 
@@ -403,10 +387,21 @@ public:
 
         ImGui::Begin("Hierarchy");
 
-        for (std::shared_ptr<Elevate::GameObject> object : m_Scene->GetRootObjects())
+        // TODO support pour plusieurs scenes ouvertes?????
+        // TODO test if working properly
+        if (!m_Scene->GetRootObjects().empty())
         {
-            DrawTreeHierarchy(object);
+            if (ImGui::TreeNodeEx(m_Scene->GetName().c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth))
+            {
+                for (std::shared_ptr<Elevate::GameObject> object : m_Scene->GetRootObjects())
+                {
+                    DrawTreeHierarchy(object);
+                }
+                ImGui::TreePop();
+            }
         }
+
+
 
         // To unselect a selected item (if selected)
         if (ImGui::IsWindowHovered() && !ImGui::IsAnyItemHovered())
