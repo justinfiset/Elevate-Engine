@@ -11,7 +11,7 @@ uniform vec4 backgroundColor;
 float lineWidth = 0.005;
 vec2 cellSize = vec2(1);
 
-vec4 displayColor;
+vec4 displayColor;  
 
 void main()
 {

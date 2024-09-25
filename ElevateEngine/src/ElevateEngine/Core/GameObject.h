@@ -4,6 +4,8 @@
 #include <vector>
 #include <entt/entt.hpp>
 #include "ElevateEngine/Scene/Scene.h"
+#include "ElevateEngine/Core/ComponentWrapper.h"
+#include "ElevateEngine/Core/Component.h"
 
 namespace Elevate
 {
@@ -14,24 +16,49 @@ namespace Elevate
 		GameObject(std::string name, Scene* scene);
 		~GameObject();
 
-		template <typename T>
-		T& AddComponent(T component)
-		{
-			m_Scene->m_Registry.emplace(m_Entity, component);
-			return component;
-		}
-
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args)
 		{
-			T& component = m_Scene->m_Registry.emplace<T>(m_Entity, std::forward<Args>(args)...);
-			//m_Scene->OnComponentAdded<T>(*this, component);
-			return component;
+			// Assurer que T est un enfant de Component
+			//EE_CORE_ASSERT(std::is_base_of<Component, T>::value, "{0} : AddComponent() type specifier must be a child of the Component class.", m_Name);
+			try
+			{
+				ComponentWrapper& wrapper = ComponentWrapper::Create<T>(std::forward<Args>(args)...);
+
+				if (!wrapper.component) {
+					throw std::runtime_error("Component not initialized!");
+				}
+
+				// Conservez une référence ou un pointeur vers le composant
+				T& component = static_cast<T&>(*wrapper.component);
+				wrapper.component->gameObject = this;
+				wrapper.component->Init();
+
+				EE_CORE_TRACE(wrapper.component->gameObject->GetName());
+				m_Scene->m_Registry.emplace<ComponentWrapper>(m_Entity, std::move(wrapper));
+
+				// Utiliser std::move sur le composant, pas sur le wrapper
+
+				return component;
+			}
+			catch (const std::runtime_error& e) 
+			{ // Catch specific exception type
+				EE_CORE_ERROR("{0} : Runtime Exception - {1}", m_Name, e.what());
+			}
+			catch (const std::exception& e) 
+			{ // Catch any other exception type
+				EE_CORE_ERROR("{0} : Exception - {1}", m_Name, e.what());
+			}
+			catch (...) 
+			{
+				EE_CORE_ERROR("{0} : Caught an unknown excpetion while adding a component.", m_Name);
+			}
 		}
 
 		template <typename T>
 		T& GetComponent()
 		{
+			//EE_CORE_ASSERT(std::is_base_of<Component, T>::value, "{0} : GetComponent()	 type specifier must be a child of the Component class.", m_Name);
 			if (HasComponent<T>())
 			{
 				return m_Scene->m_Registry.get<T>(m_Entity);

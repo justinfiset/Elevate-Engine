@@ -14,6 +14,6 @@ namespace Elevate
 		case RendererAPI::GraphicAPI::OpenGL: return new OpenGLVertexArray();
 		}
 
-		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!")
+		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
 	}
 }

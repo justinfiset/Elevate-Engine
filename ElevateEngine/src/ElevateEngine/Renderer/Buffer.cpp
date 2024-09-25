@@ -15,7 +15,7 @@ namespace Elevate
 		case RendererAPI::GraphicAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
 		}
 
-		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!")
+		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
 	}
 
 	IndexBuffer* IndexBuffer::Create(void* vertices, uint32_t count)
@@ -26,6 +26,6 @@ namespace Elevate
 		case RendererAPI::GraphicAPI::OpenGL: return new OpenGLIndexBuffer(vertices, count);
 		}
 
-		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!")
+		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
 	}
 }

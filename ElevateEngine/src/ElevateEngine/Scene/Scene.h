@@ -14,6 +14,9 @@ namespace Elevate
 		Scene(std::string name) : m_Name(name) {}
 		~Scene();
 		
+		void UpdateScene();
+		void RenderScene();
+
 		inline const std::string GetName() const { return m_Name; };
 
 		void AddRootObject(std::shared_ptr<GameObject> newRootObject);

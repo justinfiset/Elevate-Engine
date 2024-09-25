@@ -38,8 +38,11 @@ private:
     // Camera specific stuff
     float lastX, lastY;
     bool followCursor = false;
-    // todo make an ortographic and perspective cam class
-    Elevate::Camera cam = Elevate::Camera(60.0f);
+
+    // TODO make an ortographic and perspective cam class
+    // Camera
+    std::shared_ptr<Elevate::GameObject> m_CameraObject;
+    Elevate::Camera cam;
 
     // Grid
     std::shared_ptr<Elevate::Shader> m_GridShader; 
@@ -53,7 +56,8 @@ private:
     std::shared_ptr<Elevate::GameObject> m_SelectedObject;
 
     std::shared_ptr<Elevate::Scene> m_Scene;
-    
+    std::shared_ptr<Elevate::Scene> m_EditorScene;
+
     // Aspect Ratio Selection
     int aspectRatioValue = 3;
     glm::ivec2 aspectRatioSettings[5] =
@@ -75,21 +79,31 @@ public:
     {   
         // Scene creation
         m_Scene = std::make_shared<Elevate::Scene>("Demo Scene");
+        m_EditorScene = std::make_shared<Elevate::Scene>("Editor");
 
-        m_DemoObject = std::make_shared<Elevate::GameObject>("test object demo", m_Scene.get());
-        m_DemoObject->GetTransform().SetPosition(glm::vec3(0.0f, 0.0f, -3.0f));
-        m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
+        // Backpack
+        m_DemoObject = std::make_shared<Elevate::GameObject>("backpack");
         m_Scene->AddRootObject(m_DemoObject);
+        Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
+        demoModel.SetShader(m_Shader);
+        m_DemoObject->SetPosition({ 0.0f, 0.0f, -3.0f });
 
         // point light
-        m_PointLightObject = std::make_shared<Elevate::GameObject>("Point Light", m_Scene.get());
+        m_PointLightObject = std::make_shared<Elevate::GameObject>("Point Light");
         m_PointLightObject->SetPosition({ -2.0f, 0.0f, 0.0f });
         m_Scene->AddRootObject(m_PointLightObject);
 
         // Grid
         m_GridObject = std::make_shared<Elevate::GameObject>("Editor Grid");
-        m_GridObject->AddComponent<Elevate::Model>("model/plane.obj");
+        m_EditorScene->AddRootObject(m_GridObject);
+        Elevate::Model& gridModel = m_GridObject->AddComponent<Elevate::Model>("model/plane.obj");
+        gridModel.SetShader(m_GridShader);
         m_GridObject->SetScale({ 50, 50, 50 });
+
+        // Editor Camera
+        m_CameraObject = std::make_shared<Elevate::GameObject>("Editor Camera");
+        m_EditorScene->AddRootObject(m_CameraObject);
+        cam = m_CameraObject->AddComponent<Elevate::Camera>(60.0f);
 
         uint32_t glslVersion = 330;
         uint32_t glslPointLightCount = 1;
@@ -148,7 +162,7 @@ public:
         m_Shader->SetUniform3f("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
         m_Shader->SetUniform3f("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
         m_Shader->SetUniform3f("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
-        m_Shader->SetUniform1f("pointLights[0].constant", 1.0f);    
+        m_Shader->SetUniform1f("pointLights[0].constant", 1.0f);
         m_Shader->SetUniform1f("pointLights[0].linear", 0.09f);
         m_Shader->SetUniform1f("pointLights[0].quadratic", 0.032f);
 
@@ -172,27 +186,23 @@ public:
         //);
     }
 
+    // TODO ajouter un icon de point light qui suit avec imgui la point light
     void OnRender() override {
         glm::mat4 view = glm::mat4(glm::mat3(cam.GenViewMatrix()));
+        glm::vec3 camPos = m_CameraObject->GetPosition();
 
         m_Cubemap->SetProjectionMatrix(cam.GetProjectionMatrix());
         m_Cubemap->SetViewMatrix(view);
         m_Cubemap->Draw();
 
-        //Elevate::Renderer::BeginSceneFrame(m_Shader);
+        //Elevate::Renderer::BeginSceneFrame();
 
-
-        m_Shader->Bind();
-        // Point Light
-        // TODO ajouter un icon de point light qui suit avec imgui la point light
-        m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetPosition());
-
-        m_Shader->SetUniform3f("camPos", cam.GetPosition());
-        m_Shader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
         // On soumet les models et on les affiches en dessinant la stack
         // TODO -> passer par les commande Renderer:: ... pour faire le rendu à la place
-        // TODO UTILISER LE BON SHADER
-        //m_Model->Draw(m_Shader, m_DemoObject->GetModelMatrix());    
+        m_Shader->Bind();
+        m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetPosition());
+        m_Shader->SetUniform3f("camPos", camPos);
+        m_Shader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
         m_Shader->Unbind();
         //Elevate::Renderer::DrawStack(m_Shader); // WRONG // TODO redo and use
         //Elevate::Renderer::EndSceneFrame(m_Shader);
@@ -202,10 +212,12 @@ public:
         // TODO il faut modif le buffer (Dans Mesh) pour s'assurer que le shader recoit les infos qu'il veut
         m_GridShader->Bind();
         m_GridShader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
-        glm::vec3 camPos = cam.GetPosition();
         m_GridObject->SetPosition({camPos.x, 0, camPos.z});
-        m_GridObject->GetComponent<Elevate::Model>().Draw(m_GridShader, m_GridObject->GetModelMatrix());
         m_GridShader->Unbind();
+
+        // TODO faire la même chose pour le UPdate()
+        //m_Scene->RenderScene();
+        //m_EditorScene->RenderScene();
     }
 
     void OnUpdate() override
@@ -227,13 +239,13 @@ public:
         float cameraSpeed = baseCamSpeed * Elevate::Time::GetDeltaTime();
 
         if (Elevate::Input::IsKeyPressed(EE_KEY_W))
-            cam.GetTransform().position += cameraSpeed * cam.m_front;
+            m_CameraObject->GetTransform().position += cameraSpeed * cam.GetFrontVec();
         if (Elevate::Input::IsKeyPressed(EE_KEY_S))
-            cam.GetTransform().position -= cameraSpeed * cam.m_front;
+            m_CameraObject->GetTransform().position -= cameraSpeed * cam.GetFrontVec();
         if (Elevate::Input::IsKeyPressed(EE_KEY_D))
-            cam.GetTransform().position -= cameraSpeed * cam.m_right;
+            m_CameraObject->GetTransform().position -= cameraSpeed * cam.GetRightVec();
         if (Elevate::Input::IsKeyPressed(EE_KEY_A))
-            cam.GetTransform().position += cameraSpeed * cam.m_right;
+            m_CameraObject->GetTransform().position += cameraSpeed * cam.GetRightVec();
 
         if (followCursor) 
         {
@@ -250,14 +262,14 @@ public:
             xoffset *= sensitivity;
             yoffset *= sensitivity;
 
-            cam.GetTransform().rotation.y += xoffset;
-            cam.GetTransform().rotation.x += yoffset;
+            m_CameraObject->GetRotation().y += xoffset;
+            m_CameraObject->GetRotation().x += yoffset;
 
             // clamp between 89 and -89 deg.
-            if (cam.GetTransform().rotation.x > 89.0f)
-                cam.GetTransform().rotation.x = 89.0f;
-            if (cam.GetTransform().rotation.x < -89.0f)
-                cam.GetTransform().rotation.x = -89.0f;
+            if (m_CameraObject->GetRotation().x > 89.0f)
+                m_CameraObject->GetRotation().x = 89.0f;
+            if (m_CameraObject->GetRotation().x < -89.0f)
+                m_CameraObject->GetRotation().x = -89.0f;
 
             cam.UpdateCameraVectors();
         }
@@ -444,7 +456,7 @@ public:
             ImGui::InputFloat3("Position", glm::value_ptr(m_SelectedObject->GetPosition()));
             ImGui::InputFloat3("Rotation", glm::value_ptr(m_SelectedObject->GetRotation()));
             ImGui::InputFloat3("Scale", glm::value_ptr(m_SelectedObject->GetScale()));
-            // TODO RENDER ALL THE OTHER COMPONENTS SERIALIZED
+            // TODO RENDERRENDER ALL THE OTHER COMPONENTS SERIALIZED
         }
 
         ImGui::End();

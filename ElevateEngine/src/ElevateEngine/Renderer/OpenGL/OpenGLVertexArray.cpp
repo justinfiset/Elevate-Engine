@@ -27,7 +27,7 @@ void Elevate::OpenGLVertexArray::Unbind() const
 
 void Elevate::OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
 {
-	EE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex buffer layout is empty, assertion failed")
+	EE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex buffer layout is empty, assertion failed");
 	
 	glBindVertexArray(m_RendererID);
 	vertexBuffer->Bind();

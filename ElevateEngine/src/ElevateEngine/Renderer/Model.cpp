@@ -4,21 +4,13 @@
 
 #include <glm/glm.hpp>
 #include "ElevateEngine/Renderer/Shader.h"
+#include "ElevateEngine/Core/GameObject.h"
 
 Elevate::Model::Model(std::string path)
 {
     //m_ModelMatrix = std::make_unique<glm::mat4>(1.0f);
     LoadModel(path);
 }
-
-void Elevate::Model::Draw(std::shared_ptr<Shader> shader, glm::mat4 modelMatrix)
-{
-    // todo enlever d'ici
-    shader->SetUniformMatrix4fv("model", modelMatrix); // set the model matrix
-    for (unsigned int i = 0; i < m_Meshes.size(); i++)
-        m_Meshes[i].Draw(shader);
-}
-
 
 void Elevate::Model::LoadModel(std::string path)
 {
@@ -161,4 +153,14 @@ std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextu
         }
     }
     return textures;
+}
+
+void Elevate::Model::Render()
+{
+    // TODO aller chercher le shader directement
+    m_Shader->Bind();
+    m_Shader->SetUniformMatrix4fv("model", gameObject->GetModelMatrix()); // set the model matrix
+    for (unsigned int i = 0; i < m_Meshes.size(); i++)
+        m_Meshes[i].Draw(m_Shader);
+    m_Shader->Unbind();
 }

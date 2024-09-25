@@ -14,7 +14,7 @@ namespace Elevate
 		case RendererAPI::GraphicAPI::OpenGL: return new OpenGLTexture(path);
 		}
 
-		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!")
+		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
 	}
 
 	Texture* Texture::Create(std::string path, unsigned int index, std::string type)
@@ -25,6 +25,6 @@ namespace Elevate
 		case RendererAPI::GraphicAPI::OpenGL: return new OpenGLTexture(path, index, type);
 		}
 
-		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!")
+		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
 	}
 }

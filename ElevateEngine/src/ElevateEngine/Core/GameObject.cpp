@@ -4,6 +4,7 @@
 
 Elevate::GameObject::GameObject(std::string name) : m_Name(name)
 {
+
 }
 
 Elevate::GameObject::GameObject(std::string name, Scene* scene) : m_Name(name), m_Scene(scene)

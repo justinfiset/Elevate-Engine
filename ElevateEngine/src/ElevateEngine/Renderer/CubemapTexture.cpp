@@ -11,5 +11,5 @@ Elevate::CubemapTexture* Elevate::CubemapTexture::Create(std::string path)
 	case RendererAPI::GraphicAPI::OpenGL: return new OpenGLCubemapTexture(path);
 	}
 
-	EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!")
+	EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
 }

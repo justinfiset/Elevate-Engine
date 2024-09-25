@@ -5,52 +5,44 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 #include "ElevateEngine/Core/Application.h"
+#include "ElevateEngine/Core/GameObject.h"
 
-Elevate::Camera::Camera(float fov) : 
-    Elevate::Camera(Transform(), fov) { }
-
-Elevate::Camera::Camera(float fov, float aspectRatio) :
-    Elevate::Camera(Transform(), fov, aspectRatio) { }
-
-// TODO simplifier en un seul constructeur unique
-Elevate::Camera::Camera(Transform transform, float fov)
+Elevate::Camera::Camera(float fov)
 {
-    m_Transform = transform;
     m_FOV = fov;
     Window& window = Application::Get().GetWindow();
     m_AspectRatio = (float)window.GetWidth() / (float)window.GetHeight();
-
-    m_Transform.rotation.y = -90.0f; // TODO ENLEVER AU PC
-    m_projectionMatrix = GenProjectionMatrix();
-    UpdateCameraVectors();
 }
 
-Elevate::Camera::Camera(Transform transform, float fov, float aspectRatio)
+Elevate::Camera::Camera(float fov, float aspectRatio)
 {
-    m_Transform = transform;
     m_FOV = fov;
     Window& window = Application::Get().GetWindow();
     m_AspectRatio = aspectRatio;
+}
 
-    m_Transform.rotation.y = -90.0f; // TODO ENLEVER AU PC
-    m_projectionMatrix = GenProjectionMatrix();
+
+void Elevate::Camera::Init()
+{
+    gameObject->GetRotation().y = -90.0f; // TODO ENLEVER AU PC
+    m_ProjectionMatrix = GenProjectionMatrix();
     UpdateCameraVectors();
 }
 
 const void Elevate::Camera::UpdateAspectRatio(float aspectRatio)
 {
     m_AspectRatio = aspectRatio;
-    m_projectionMatrix = GenProjectionMatrix();
+    m_ProjectionMatrix = GenProjectionMatrix();
 }
 
 glm::mat4 Elevate::Camera::GenViewProjectionMatrix()
 {
-    return m_projectionMatrix * GenViewMatrix();
+    return m_ProjectionMatrix * GenViewMatrix();
 }
 
 glm::mat4 Elevate::Camera::GenViewMatrix()
 {
-    return glm::lookAt(m_Transform.position, m_Transform.position + m_front, m_up);
+    return glm::lookAt(gameObject->GetPosition(), gameObject->GetPosition() + m_Front, m_Up);
 }
 
 glm::mat4 Elevate::Camera::GenProjectionMatrix()
@@ -60,16 +52,16 @@ glm::mat4 Elevate::Camera::GenProjectionMatrix()
 
 void Elevate::Camera::UpdateCameraVectors()
 {
-    float pitch = glm::radians(m_Transform.rotation.x);
-    float yaw = glm::radians(m_Transform.rotation.y);
+    float pitch = glm::radians(gameObject->GetRotation().x);
+    float yaw = glm::radians(gameObject->GetRotation().y);
 
     glm::vec3 front;
     front.x = cos(yaw) * cos(pitch);
     front.y = sin(pitch);
     front.z = sin(yaw) * cos(pitch);
-    m_front = glm::normalize(front);
+    m_Front = glm::normalize(front);
 
-    m_right = glm::normalize(glm::cross(glm::vec3(0.0f, 1.0f, 0.0f), m_front));
+    m_Right = glm::normalize(glm::cross(glm::vec3(0.0f, 1.0f, 0.0f), m_Front));
 
-    m_up = glm::normalize(glm::cross(m_front, m_right));
+    m_Up = glm::normalize(glm::cross(m_Front, m_Right));
 }

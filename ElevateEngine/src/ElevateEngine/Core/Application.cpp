@@ -25,7 +25,7 @@ namespace Elevate {
 	Application::Application()
 	{
 		// Make sure there is a single instance of class Application
-		EE_CORE_ASSERT(!s_Instance, "Application already exists!")
+		EE_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
@@ -88,21 +88,21 @@ namespace Elevate {
 				Time::deltaTime_ = Time::currentTime_ - lastTime;
 				lastTime = Time::currentTime_;
 				/////////////////////////////////
-				Elevate::Renderer::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f }); // Peut être facultatif car on s'en fou un peu au final
-				Elevate::Renderer::Clear();
-
 				m_ImGuiLayer->PreRender();
 
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate();
 
-				m_FrameBuffer->Bind();
+				m_FrameBuffer->Bind(); // Rendering the screen in a single texture
 				Elevate::Renderer::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f }); // Peut être facultatif car on s'en fou un peu au final
 				Elevate::Renderer::Clear();
+				// Draw Layers and Scenes
 				for (Layer* layer : m_LayerStack)
 					layer->OnRender();
-				m_FrameBuffer->Unbind();
+				m_FrameBuffer->Unbind(); // Back to normal
 
+				Elevate::Renderer::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f }); // Peut être facultatif car on s'en fou un peu au final
+				Elevate::Renderer::Clear();
 				//ImGui
 				m_ImGuiLayer->Begin();
 				for (Layer* layer : m_LayerStack)

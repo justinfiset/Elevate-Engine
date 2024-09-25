@@ -9,7 +9,7 @@
 Elevate::OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 	: m_WindowHandle(windowHandle)
 {
-	EE_CORE_ASSERT(windowHandle, "Window handle is null")
+	EE_CORE_ASSERT(windowHandle, "Window handle is null");
 }
 
 void Elevate::OpenGLContext::Init()
