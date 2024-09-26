@@ -6,6 +6,7 @@
 	#define EE_ASSERTS_ENABLED 1
 #else 
 	#define EE_ASSERTS_ENABLED 0
+	#define NDEBUG
 #endif
 
 #if EE_ASSERTS_ENABLED

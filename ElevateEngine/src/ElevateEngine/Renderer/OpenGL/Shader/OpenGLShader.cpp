@@ -4,6 +4,8 @@
 #include <glad/glad.h>
 #include "glm/gtc/type_ptr.hpp"
 
+uint32_t Elevate::OpenGLShader::s_CurrentBoundShader = 0;
+
 Elevate::OpenGLShader::OpenGLShader(const std::string& vertexSource, const std::string& fragmentSouce)
 {
 	// Create an empty vertex shader handle
@@ -123,12 +125,22 @@ Elevate::OpenGLShader::~OpenGLShader()
 
 void Elevate::OpenGLShader::Bind() const
 {
-	glUseProgram(m_RendererID);
+	if (!IsBound()) // Prevent a shader from being binded twice
+	{
+		glUseProgram(m_RendererID);
+		s_CurrentBoundShader = m_RendererID;
+	}
 }
 
 void Elevate::OpenGLShader::Unbind() const
 {
 	glUseProgram(0);
+	s_CurrentBoundShader = 0;
+}
+
+bool Elevate::OpenGLShader::IsBound() const
+{
+	return s_CurrentBoundShader == m_RendererID;
 }
 
 void Elevate::OpenGLShader::SetUniform1f(std::string location, float value) const

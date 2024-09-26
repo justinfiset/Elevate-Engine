@@ -7,6 +7,8 @@
 #include "ElevateEngine/Core/ComponentWrapper.h"
 #include "ElevateEngine/Core/Component.h"
 
+#define EE_VALIDATE_COMPONENT_TYPE() EE_CORE_ASSERT((std::is_base_of<Component, T>::value), "{0} : Type specifier must be a child of the Component class.", m_Name);
+
 namespace Elevate
 {
 	class GameObject : public ITransformable
@@ -19,65 +21,73 @@ namespace Elevate
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args)
 		{
-			// Assurer que T est un enfant de Component
-			//EE_CORE_ASSERT(std::is_base_of<Component, T>::value, "{0} : AddComponent() type specifier must be a child of the Component class.", m_Name);
-			try
+			EE_VALIDATE_COMPONENT_TYPE();
+
+			T& component = m_Scene->m_Registry.emplace<T>(m_Entity, std::forward<Args>(args)...);
+
+			Component& baseComponent = static_cast<Component&>(component);
+			baseComponent.gameObject = this;
+			baseComponent.Init();
+
+			return component;
+
+			/*try
 			{
-				ComponentWrapper& wrapper = ComponentWrapper::Create<T>(std::forward<Args>(args)...);
+				ComponentWrapper& tempWrapper = ComponentWrapper::Create<T>(std::forward<Args>(args)...);
 
-				if (!wrapper.component) {
-					throw std::runtime_error("Component not initialized!");
-				}
+				tempWrapper.SetGameObject(this);
+				tempWrapper.Init();
+				
+				ComponentWrapper& emplacedWrapper = m_Scene->m_Registry.emplace_or_replace<ComponentWrapper>(m_Entity, std::move(tempWrapper));
+				T& component = static_cast<T&>(*emplacedWrapper.component);
 
-				// Conservez une référence ou un pointeur vers le composant
-				T& component = static_cast<T&>(*wrapper.component);
-				wrapper.component->gameObject = this;
-				wrapper.component->Init();
-
-				EE_CORE_TRACE(wrapper.component->gameObject->GetName());
-				m_Scene->m_Registry.emplace<ComponentWrapper>(m_Entity, std::move(wrapper));
-
-				// Utiliser std::move sur le composant, pas sur le wrapper
-
+				EE_CORE_TRACE(m_Scene->GetName());
 				return component;
-			}
-			catch (const std::runtime_error& e) 
-			{ // Catch specific exception type
-				EE_CORE_ERROR("{0} : Runtime Exception - {1}", m_Name, e.what());
-			}
-			catch (const std::exception& e) 
-			{ // Catch any other exception type
-				EE_CORE_ERROR("{0} : Exception - {1}", m_Name, e.what());
 			}
 			catch (...) 
 			{
 				EE_CORE_ERROR("{0} : Caught an unknown excpetion while adding a component.", m_Name);
-			}
+			}*/
 		}
 
 		template <typename T>
 		T& GetComponent()
 		{
-			//EE_CORE_ASSERT(std::is_base_of<Component, T>::value, "{0} : GetComponent()	 type specifier must be a child of the Component class.", m_Name);
-			if (HasComponent<T>())
-			{
-				return m_Scene->m_Registry.get<T>(m_Entity);
-			}
-			else 
-			{
-				std::runtime_error("Trying to get a missing component. You need to add the component before retrieving it.");
-			}
+			EE_VALIDATE_COMPONENT_TYPE();
+
+			if(!HasComponent<T>())
+				EE_CORE_ERROR("{0} : Entity does not have component!", m_Name);
+			return m_Scene->m_Registry.get<T>(m_Entity);
+			//// todo reactiver cette ligne
+			////EE_CORE_ASSERT(std::is_base_of<Component, T>::value, "T must be a child of the Component class");
+			//auto view = m_Scene->m_Registry.view<ComponentWrapper>();
+			//EE_CORE_TRACE(view.size());
+			//view.each([&](auto& wrapper)
+			//{
+			//		if (wrapper.IsComponentType<T>())
+			//		{
+			//			return dynamic_cast<T*>(wrapper.component.get());
+			//			//return wrapper.Get<T>();
+			//		}
+			//});
+
+			//EE_CORE_TRACE("Componenet not found.");
+			//std::runtime_error("Trying to get a missing component. You need to add the component before retrieving it.");
 		}
 
 		template <typename T>
 		bool HasComponent()
 		{
+			EE_VALIDATE_COMPONENT_TYPE();
+
 			return m_Scene->m_Registry.all_of<T>(m_Entity);
 		}
 
 		template <typename T>
 		void RemoveComponent()
 		{
+			EE_VALIDATE_COMPONENT_TYPE();
+
 			if (HasComponent<T>()) m_Scene->m_Registry.remove<T>(m_Entity);
 			else EE_CORE_ERROR("Trying to remove a missing component. You need to add the component before removing it.");
 		}

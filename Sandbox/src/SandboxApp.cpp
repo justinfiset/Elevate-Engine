@@ -77,12 +77,67 @@ public:
 
     void OnAttach() override
     {   
-        // Scene creation
+        // Scenes creation
         m_Scene = std::make_shared<Elevate::Scene>("Demo Scene");
         m_EditorScene = std::make_shared<Elevate::Scene>("Editor");
 
+        uint32_t glslVersion = 330;
+        uint32_t glslPointLightCount = 1;
+
+        std::string glslVesionDefine = "#version " + std::to_string(glslVersion);
+        std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(glslPointLightCount);
+
+        // Setup the grid shader ///////////////////////////
+        m_GridShader.reset(Elevate::Shader::CreateFromFiles(
+            "shader/grid.vert",
+            "shader/grid.frag"
+        ));
+        m_GridShader->Bind();
+        m_GridShader->SetUniform4f("lineColor", { 0.9, 0.9, 0.9, 0.5 });
+        m_GridShader->SetUniform4f("backgroundColor", { 0.6, 0.6, 0.6, 0.025 });
+        //////////////////////////////////////////////
+
+        m_Shader.reset(Elevate::Shader::CreateFromFiles(
+            "shader/main.vert",
+            "shader/main.frag",
+            glslVesionDefine,
+            glslVesionDefine + "\n" + glslPointLightCountDefine
+        ));
+
+        m_Cubemap.reset(Elevate::Cubemap::CreateFromFile("cubemap/default.sky"));
+
+        /// MATRIX PRINTING
+        //for (int i = 0; i < 4; ++i) {
+        //    std::string line;
+        //    for (int j = 0; j < 4; ++j) {
+        //        line.append(std::to_string(m_ModelMatrix[i][j]) + " ");
+        //    }
+        //    EE_TRACE(line);
+        //}
+
+        // TODO impl dans un API a part entiere
+        //// Boîte de dialogue pour choisir un fichier
+        //const char* filePath = tinyfd_openFileDialog(
+        //    "Find a skybox",
+        //    "",
+        //    0,
+        //    NULL,
+        //    NULL,
+        //    0
+        //);
+        // TODO impl dans un API a part entiere
+        //tinyfd_messageBox(
+        //    "Erreur",
+        //    "Une erreur s'est produite lors de l'exécution.",
+        //    "ok",
+        //    "error",
+        //    1
+        //);
+
+
+
         // Backpack
-        m_DemoObject = std::make_shared<Elevate::GameObject>("backpack");
+        m_DemoObject = std::make_shared<Elevate::GameObject>("Backpack");
         m_Scene->AddRootObject(m_DemoObject);
         Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
         demoModel.SetShader(m_Shader);
@@ -105,41 +160,6 @@ public:
         m_EditorScene->AddRootObject(m_CameraObject);
         cam = m_CameraObject->AddComponent<Elevate::Camera>(60.0f);
 
-        uint32_t glslVersion = 330;
-        uint32_t glslPointLightCount = 1;
-
-        std::string glslVesionDefine = "#version " + std::to_string(glslVersion);
-        std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(glslPointLightCount);
-
-        // Setup the grid shader ///////////////////////////
-        m_GridShader.reset(Elevate::Shader::CreateFromFiles(
-            "shader/grid.vert",
-            "shader/grid.frag"
-        ));
-        m_GridShader->Bind();
-        m_GridShader->SetUniform4f("lineColor", { 0.9, 0.9, 0.9, 0.5 });
-        m_GridShader->SetUniform4f("backgroundColor", { 0.6, 0.6, 0.6, 0.025 });
-        m_GridShader->Unbind();
-        //////////////////////////////////////////////
-
-        m_Shader.reset(Elevate::Shader::CreateFromFiles(
-            "shader/main.vert",
-            "shader/main.frag",
-            glslVesionDefine,
-            glslVesionDefine + "\n" + glslPointLightCountDefine
-        ));
-
-        m_Cubemap.reset(Elevate::Cubemap::CreateFromFile("cubemap/default.sky"));
-
-        /// MATRIX PRINTING
-        //for (int i = 0; i < 4; ++i) {
-        //    std::string line;
-        //    for (int j = 0; j < 4; ++j) {
-        //        line.append(std::to_string(m_ModelMatrix[i][j]) + " ");
-        //    }
-        //    EE_TRACE(line);
-        //}
-
         m_Shader->Bind();
 
         Elevate::DirectionalLight dirLight;
@@ -148,14 +168,14 @@ public:
         // SETTING THE MATERIAL /////////////////////////////////////////
         Elevate::Material material /*
         (
-            { 0.5f, 0.5f, 0.5f }, // Ambient    
+            { 0.5f, 0.5f, 0.5f }, // Ambient
             { 0.5f, 0.5f, 0.5f }, // Diffuse
             { 0.5f, 0.5f, 0.5f }, // Specular
             1.0f                  // Shine
         )*/;
         m_Shader->UseMaterial(&material);
 
-        //// # light 1
+        //// # light 1s
         // todo envoyer dans la classe pointlight
         m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetPosition());
         // Set avoir le composant que l'on va créer
@@ -165,25 +185,6 @@ public:
         m_Shader->SetUniform1f("pointLights[0].constant", 1.0f);
         m_Shader->SetUniform1f("pointLights[0].linear", 0.09f);
         m_Shader->SetUniform1f("pointLights[0].quadratic", 0.032f);
-
-        // TODO impl dans un API a part entiere
-        //// Boîte de dialogue pour choisir un fichier
-        //const char* filePath = tinyfd_openFileDialog(
-        //    "Find a skybox",
-        //    "",
-        //    0,
-        //    NULL,
-        //    NULL,
-        //    0
-        //);
-        // TODO impl dans un API a part entiere
-        //tinyfd_messageBox(
-        //    "Erreur",
-        //    "Une erreur s'est produite lors de l'exécution.",
-        //    "ok",
-        //    "error",
-        //    1
-        //);
     }
 
     // TODO ajouter un icon de point light qui suit avec imgui la point light
@@ -203,7 +204,6 @@ public:
         m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetPosition());
         m_Shader->SetUniform3f("camPos", camPos);
         m_Shader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
-        m_Shader->Unbind();
         //Elevate::Renderer::DrawStack(m_Shader); // WRONG // TODO redo and use
         //Elevate::Renderer::EndSceneFrame(m_Shader);
         
@@ -213,11 +213,11 @@ public:
         m_GridShader->Bind();
         m_GridShader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
         m_GridObject->SetPosition({camPos.x, 0, camPos.z});
-        m_GridShader->Unbind();
 
-        // TODO faire la même chose pour le UPdate()
-        //m_Scene->RenderScene();
-        //m_EditorScene->RenderScene();
+        // TODO OPTIMISE AS VERY CONSSUMING IN FPS (MAYBE FIND ALTERNATIVE TO GATHER COMPONENTS)
+        // -> FOLLOW UP -> C'EST MODEL QUI A L'AIR DE RALENTIR LE TOUT
+        m_Scene->RenderScene();
+        m_EditorScene->RenderScene();
     }
 
     void OnUpdate() override
