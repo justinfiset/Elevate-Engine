@@ -7,6 +7,8 @@
 #include "ElevateEngine/Core/Application.h"
 #include "ElevateEngine/Core/GameObject.h"
 
+// TODO ADD PROTECTION WITH SETTER TO MAKE SURE IF OLD = NEW !GENERATENEW MATRIX FOR PROJECTION
+// (GOAL IS TO PREVENT USELESS MATRIX CALCULATION)
 Elevate::Camera::Camera(float fov)
 {
     m_FOV = fov;
@@ -25,14 +27,15 @@ Elevate::Camera::Camera(float fov, float aspectRatio)
 void Elevate::Camera::Init()
 {
     gameObject->GetRotation().y = -90.0f; // TODO ENLEVER AU PC
-    m_ProjectionMatrix = GenProjectionMatrix();
+    UpdateProjectionMatrix();
     UpdateCameraVectors();
 }
+
 
 const void Elevate::Camera::UpdateAspectRatio(float aspectRatio)
 {
     m_AspectRatio = aspectRatio;
-    m_ProjectionMatrix = GenProjectionMatrix();
+    UpdateProjectionMatrix();
 }
 
 glm::mat4 Elevate::Camera::GenViewProjectionMatrix()
@@ -45,9 +48,32 @@ glm::mat4 Elevate::Camera::GenViewMatrix()
     return glm::lookAt(gameObject->GetPosition(), gameObject->GetPosition() + m_Front, m_Up);
 }
 
+inline void Elevate::Camera::SetFOV(float fov)
+{
+    m_FOV = fov;
+    UpdateProjectionMatrix();
+}
+
+inline void Elevate::Camera::SetNear(float nearPlane)
+{
+    m_Near = nearPlane;
+    UpdateProjectionMatrix();
+}
+
+inline void Elevate::Camera::SetFar(float farPlane)
+{
+    m_Far = farPlane;
+    UpdateProjectionMatrix();
+}
+
 glm::mat4 Elevate::Camera::GenProjectionMatrix()
 {
-    return glm::perspective(glm::radians(m_FOV), m_AspectRatio, 0.1f, 100.0f);
+    return glm::perspective(glm::radians(m_FOV), m_AspectRatio, m_Near, m_Far);
+}
+
+void Elevate::Camera::UpdateProjectionMatrix()
+{
+    m_ProjectionMatrix = GenProjectionMatrix();
 }
 
 void Elevate::Camera::UpdateCameraVectors()

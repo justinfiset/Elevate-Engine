@@ -18,11 +18,7 @@ namespace Elevate
 		inline void SetActive(bool newState) { m_IsActive = newState; }
 		inline bool IsActive() { return m_IsActive; }
 
-		template<typename T>
-		static inline bool IsValid()
-		{
-
-		}
+		GameObject* gameObject;
 	protected:
 		virtual void Init() {}
 		virtual void Destroy() {}
@@ -33,6 +29,5 @@ namespace Elevate
 	protected:
 		bool m_IsActive = true;
 
-		GameObject* gameObject;
 	};
 }
