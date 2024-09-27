@@ -4,6 +4,7 @@
 
 namespace Elevate
 {
+	// TODO UPDATE TO MATCH NEW TRANSFORM FEATURES;
 	/// <summary>
 	/// An interface to add all of the methods needed to have a working 
 	/// transform wrapped by getter and setters

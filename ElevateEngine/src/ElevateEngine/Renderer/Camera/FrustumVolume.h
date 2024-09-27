@@ -5,15 +5,15 @@
 
 namespace Elevate
 {
-	class FrustumVolume
+	class BoundingVolume
 	{
 	public:
 		virtual bool IsOnFrustum(const Frustum& frustum, const Transform& transform) const = 0;
 	};
 
-	class SphereFrustumVolume : public FrustumVolume
+	class SphereBoundingVolume : public BoundingVolume
 	{
 	public:
-		bool IsOnFrustum(const Frustum& frustum, const Transform& transform) const override;
+		virtual bool IsOnFrustum(const Frustum& frustum, const Transform& transform) const override;
 	};
 }
