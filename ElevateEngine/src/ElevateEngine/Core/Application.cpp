@@ -94,8 +94,7 @@ namespace Elevate {
 					layer->OnUpdate();
 
 				m_FrameBuffer->Bind(); // Rendering the screen in a single texture
-				Elevate::Renderer::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f }); // Peut être facultatif car on s'en fou un peu au final
-				Elevate::Renderer::Clear();
+				m_FrameBuffer->Clear();
 				// Draw Layers and Scenes
 				for (Layer* layer : m_LayerStack)
 					layer->OnRender();
@@ -112,6 +111,8 @@ namespace Elevate {
 				m_ImGuiLayer->End(); // Finish the ImGui Rendering
 
 				Input::ManageMidStates(); // Manage Key/Button up and down state
+
+				glFlush();
 				// Poll events and swap buffers
 				m_Window->OnUpdate();
 			}

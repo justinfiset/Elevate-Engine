@@ -15,7 +15,8 @@ namespace Elevate
 
 		void Bind() const override;
 		void Unbind() const override;
-		void Rescale(uint32_t width, uint32_t height) const override;
+		void Clear() const override;
+		void Rescale(uint32_t width, uint32_t height) override;
 		
 		inline uint32_t GetFrameBufferId() const override { return m_FrameBufferId;  }
 		inline uint32_t GetTextureId() const override { return m_TextureId; }

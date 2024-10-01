@@ -42,6 +42,7 @@ namespace Elevate
 		glm::mat4 GenViewProjectionMatrix();
 
 		void Init() override;
+		void Render() override {};
 	private:
 		glm::mat4 GenProjectionMatrix();
 		void UpdateProjectionMatrix();

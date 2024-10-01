@@ -19,9 +19,9 @@ namespace Elevate
 		inline void SetRotation(glm::vec3 rotation) { m_Transform.SetRotation(rotation); }
 		inline void SetScale(glm::vec3 scale) { m_Transform.SetScale(scale); }
 
-		inline glm::vec3& GetPosition() { return m_Transform.position; }
-		inline glm::vec3& GetRotation() { return m_Transform.rotation; }
-		inline glm::vec3& GetScale() { return m_Transform.scale; }
+		inline glm::vec3& GetPosition() { return m_Transform.GetPoition(); }
+		inline glm::vec3& GetRotation() { return m_Transform.GetRotation(); }
+		inline glm::vec3& GetScale() { return m_Transform.GetScale(); }
 
 		inline glm::mat4 GetModelMatrix() { return m_Transform.GetModelMatrix(); }
 	protected:

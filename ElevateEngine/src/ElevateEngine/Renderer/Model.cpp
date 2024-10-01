@@ -162,5 +162,4 @@ void Elevate::Model::Render()
     m_Shader->SetUniformMatrix4fv("model", gameObject->GetModelMatrix()); // set the model matrix
     for (unsigned int i = 0; i < m_Meshes.size(); i++)
         m_Meshes[i].Draw(m_Shader);
-    EE_CORE_TRACE(m_Meshes.size());
 }

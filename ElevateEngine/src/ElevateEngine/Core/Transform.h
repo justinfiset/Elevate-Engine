@@ -15,8 +15,11 @@ namespace Elevate
 		void SetScale(glm::vec3 scale) { this->scale = scale; UpdateModelMatrix(); }
 
 		glm::vec3& GetPoition() { return position; }
+		const glm::vec3 GetPoition() const { return position; }
 		glm::vec3& GetRotation() { return rotation; }
+		const glm::vec3& GetRotation() const { return rotation; }
 		glm::vec3& GetScale() { return scale; }
+		const glm::vec3& GetScale() const { return scale; }
 
 		glm::vec3 GetRight() const;
 		// TODO GETLEFT (-right)

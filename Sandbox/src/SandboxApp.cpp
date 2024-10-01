@@ -238,14 +238,15 @@ public:
         }
         float cameraSpeed = baseCamSpeed * Elevate::Time::GetDeltaTime();
 
+        // TODO faire des acesseurs public
         if (Elevate::Input::IsKeyPressed(EE_KEY_W))
-            m_CameraObject->GetTransform().position += cameraSpeed * cam.GetFrontVec();
+            m_CameraObject->GetPosition() += cameraSpeed * cam.GetFrontVec();
         if (Elevate::Input::IsKeyPressed(EE_KEY_S))
-            m_CameraObject->GetTransform().position -= cameraSpeed * cam.GetFrontVec();
+            m_CameraObject->GetPosition() -= cameraSpeed * cam.GetFrontVec();
         if (Elevate::Input::IsKeyPressed(EE_KEY_D))
-            m_CameraObject->GetTransform().position -= cameraSpeed * cam.GetRightVec();
+            m_CameraObject->GetPosition() -= cameraSpeed * cam.GetRightVec();
         if (Elevate::Input::IsKeyPressed(EE_KEY_A))
-            m_CameraObject->GetTransform().position += cameraSpeed * cam.GetRightVec();
+            m_CameraObject->GetPosition() += cameraSpeed * cam.GetRightVec();
 
         if (followCursor) 
         {
