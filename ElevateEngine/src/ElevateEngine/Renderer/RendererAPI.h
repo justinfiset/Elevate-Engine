@@ -3,7 +3,9 @@
 #include "glm/glm.hpp"
 #include "VertexArray.h"
 #include "Shader.h"
+
 #include "Mesh.h"
+#include "Model.h"
 
 namespace Elevate
 {
@@ -19,17 +21,23 @@ namespace Elevate
 	public:
 		virtual void SetClearColor(const glm::vec4 color) const = 0;
 		virtual void Clear() const = 0;
-		
-		virtual void DrawArray(const std::shared_ptr<VertexArray>& vao) const = 0;
-		virtual void DrawStack(const std::shared_ptr<Shader> shader) const = 0;
-		virtual void DrawTriangles(const std::shared_ptr<VertexArray>& vao) const = 0;
 
-		inline void SubmitMesh(const Mesh mesh) { m_MeshStack.push_back(mesh); }
+		virtual void DrawArray(const std::shared_ptr<VertexArray>& vao) const = 0;
+		virtual void DrawTriangles(const std::shared_ptr<VertexArray>& vao) const = 0;
+		virtual void DrawStack() const = 0;
+
+		void SubmitModel(const Model& model);
+		void RemoveModel(const Model& model);
+		// TODO MAKE A REMOVE FROM DRAW STACK
+		void Submitmesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh);
+		//static void SubmitVertexArray(const std::shared_ptr<VertexArray>& vao);
+		//static void SubmitTrianglesArray(const std::shared_ptr<VertexArray>& vao);
 
 		inline static GraphicAPI GetAPI() { return s_ActiveAPI; }
 		
 	protected:
-		std::vector<Mesh> m_MeshStack;
+		std::unordered_map<std::shared_ptr<Shader>, std::vector<Model>> m_ModelStack;
+		std::unordered_map<std::shared_ptr<Shader>, std::vector<Mesh>> m_MeshStack;
 	private:
 		static GraphicAPI s_ActiveAPI;
 	};

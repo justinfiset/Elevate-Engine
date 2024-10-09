@@ -23,7 +23,7 @@ namespace Elevate
 		inline glm::vec3& GetRotation() { return m_Transform.GetRotation(); }
 		inline glm::vec3& GetScale() { return m_Transform.GetScale(); }
 
-		inline glm::mat4 GetModelMatrix() { return m_Transform.GetModelMatrix(); }
+		inline const glm::mat4& GetModelMatrix() const { return m_Transform.GetModelMatrix(); }
 	protected:
 		Transform m_Transform;
 	};

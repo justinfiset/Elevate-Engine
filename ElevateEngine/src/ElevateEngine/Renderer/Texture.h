@@ -9,8 +9,9 @@ namespace Elevate
 	public:
 		Texture(std::string path, std::string type) : m_Path(path), m_TextureID(0), m_Type(type) { }
 		~Texture() { };
-		virtual void Bind(int index = 0) const = 0;
-		virtual void Unbind(int index = 0) const = 0;
+		virtual void Bind(int index = 0) = 0;
+		virtual void Unbind(int index = 0) = 0;
+		virtual bool IsBound() const = 0;
 
 		static Texture* Create(std::string path);
 		static Texture* Create(std::string path, unsigned int index, std::string type);

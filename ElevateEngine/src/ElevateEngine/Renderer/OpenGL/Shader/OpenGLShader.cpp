@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 #include "glm/gtc/type_ptr.hpp"
 
-uint32_t Elevate::OpenGLShader::s_CurrentBoundShader = 0;
+uint32_t Elevate::OpenGLShader::s_CurrentBoundShaderID = 0;
 
 Elevate::OpenGLShader::OpenGLShader(const std::string& vertexSource, const std::string& fragmentSouce)
 {
@@ -128,19 +128,27 @@ void Elevate::OpenGLShader::Bind() const
 	if (!IsBound()) // Prevent a shader from being binded twice
 	{
 		glUseProgram(m_RendererID);
-		s_CurrentBoundShader = m_RendererID;
+		s_CurrentBoundShaderID = m_RendererID;
 	}
 }
 
 void Elevate::OpenGLShader::Unbind() const
 {
-	glUseProgram(0);
-	s_CurrentBoundShader = 0;
+	if (IsBound())
+	{
+		glUseProgram(0);
+		s_CurrentBoundShaderID = 0;
+	}
 }
 
 bool Elevate::OpenGLShader::IsBound() const
 {
-	return s_CurrentBoundShader == m_RendererID;
+	return s_CurrentBoundShaderID == m_RendererID;
+}
+
+uint32_t Elevate::OpenGLShader::GetHashCode() const
+{
+	return m_RendererID;
 }
 
 void Elevate::OpenGLShader::SetUniform1f(std::string location, float value) const

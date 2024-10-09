@@ -18,12 +18,16 @@ namespace Elevate
         Model(std::string path);
         // TODO move somewhere else // PUT PRIVATE;
         inline const std::vector<Mesh>& GetMeshes() const { return m_Meshes; }
-        inline void SetShader(std::shared_ptr<Shader> newShader) { m_Shader = newShader; }
+
+        // TODO : should change the shader in the renderer
+        inline void SetShader(std::shared_ptr<Shader>& newShader) { m_Shader = newShader; }
 
         //inline glm::mat4& GetMatrix() const { return *m_ModelMatrix; }
         //inline void SetMatrix(const glm::mat4& newMatrix) const { *m_ModelMatrix = newMatrix; }
         void Init() override {}
         void Render() override;
+
+        const inline std::shared_ptr<Shader>& GetShader() const { return m_Shader; }
     private:
         void LoadModel(std::string path);
         void ProcessNode(aiNode* node, const aiScene* scene);

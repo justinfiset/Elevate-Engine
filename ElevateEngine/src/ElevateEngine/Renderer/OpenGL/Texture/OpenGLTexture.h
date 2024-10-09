@@ -10,7 +10,12 @@ namespace Elevate
 		// TODO remove raw string in script, find a better implemtnation;
 		OpenGLTexture(std::string path) : OpenGLTexture(path, 0, "textureDiffuse") { }
 		OpenGLTexture(std::string path, unsigned int index, std::string type);
-		virtual void Bind(int index = 0) const override;
-		virtual void Unbind(int index = 0) const override;
+		virtual void Bind(int index = 0) override;
+		virtual void Unbind(int index = 0) override;
+		virtual bool IsBound() const override;
+
+	private:
+		// TODO IMPL. BETTER SOLUTION TO PREVENT USER ERRORS
+		bool m_IsBound = false; // ON NE PEUT UTILISER CETTE VARIABLE QUE SI ON UNBIND ABOSLUMENT
 	};
 }

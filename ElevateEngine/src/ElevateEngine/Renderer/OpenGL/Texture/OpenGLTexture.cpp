@@ -41,14 +41,20 @@ namespace Elevate
 		stbi_image_free(data);
 	}
 
-	void OpenGLTexture::Bind(int index) const
+	void OpenGLTexture::Bind(int index)
 	{
 		glActiveTexture(GL_TEXTURE0 + index);
 		glBindTexture(GL_TEXTURE_2D, m_TextureID);
+		m_IsBound = true;
 	}
-	void OpenGLTexture::Unbind(int index) const
+	void OpenGLTexture::Unbind(int index)
 	{
 		glActiveTexture(GL_TEXTURE0 + index);
 		glBindTexture(GL_TEXTURE_2D, 0);
+		m_IsBound = false;
+	}
+	bool OpenGLTexture::IsBound() const
+	{
+		return m_IsBound;
 	}
 }

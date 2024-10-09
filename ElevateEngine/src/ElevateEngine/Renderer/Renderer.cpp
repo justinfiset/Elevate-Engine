@@ -14,19 +14,19 @@ namespace Elevate
 	{
 	}
 
-	void Renderer::SubmitModel(const Model model)
+	void Renderer::SubmitModel(const Model& model)
 	{
-		// Sends all the individual meshes to the draw stack
-		for each (Mesh mesh in model.GetMeshes())
-		{
-			Renderer::SubmitMesh(mesh);
-		}
+		s_API->SubmitModel(model);
 	}
 
-	void Renderer::SubmitMesh(const Mesh mesh)
+	void Renderer::RemoveModel(const Model& model)
 	{
-		EE_CORE_TRACE("called");
-		s_API->SubmitMesh(mesh);
+		s_API->RemoveModel(model);
+	}
+
+	void Renderer::SubmitMesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh)
+	{
+		s_API->Submitmesh(shader, mesh);
 	}
 
 	void Renderer::SubmitVertexArray(const std::shared_ptr<VertexArray>& vao)
@@ -53,8 +53,8 @@ namespace Elevate
 	{
 		s_API->DrawArray(vao);
 	}
-	void Renderer::DrawStack(std::shared_ptr<Shader> shader)
+	void Renderer::DrawStack()
 	{
-		s_API->DrawStack(shader);
+		s_API->DrawStack();
 	}
 }

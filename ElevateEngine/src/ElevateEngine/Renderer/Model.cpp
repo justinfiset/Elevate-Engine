@@ -6,6 +6,8 @@
 #include "ElevateEngine/Renderer/Shader.h"
 #include "ElevateEngine/Core/GameObject.h"
 
+#include "ElevateEngine/Renderer/Renderer.h"
+
 Elevate::Model::Model(std::string path)
 {
     //m_ModelMatrix = std::make_unique<glm::mat4>(1.0f);
@@ -27,6 +29,8 @@ void Elevate::Model::LoadModel(std::string path)
     m_Directory = path.substr(0, path.find_last_of('/')); // Used to get the textures afterward
     // Recursive method to process all the nodes in the model
     ProcessNode(scene->mRootNode, scene);
+
+    Renderer::SubmitModel(*this);
 }
 
 void Elevate::Model::ProcessNode(aiNode* node, const aiScene* scene)

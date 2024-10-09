@@ -20,6 +20,8 @@ namespace Elevate
         inline std::shared_ptr<VertexBuffer> GetVertexBuffer() const { return m_VertexBuffer; }
         inline std::shared_ptr<IndexBuffer> GetIndexBuffer() const { return m_IndexBuffer; }
 
+        inline const std::vector<std::shared_ptr<Texture>>& GetTextures() const { return m_Textures; }
+
         // TODO REMOVE ASAP ONLY FOR TROUBLESHOOTING PURPOSES
         void Draw(std::shared_ptr<Shader> shader);
     private:
@@ -30,5 +32,7 @@ namespace Elevate
         std::vector<Vertex> m_Vertices;
         std::vector<uint32_t> m_Indices;
         std::vector<std::shared_ptr<Texture>> m_Textures;
+
+
     };
 }

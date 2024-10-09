@@ -3,9 +3,18 @@
 #include <string>
 
 #include "glm/glm.hpp"
+
+// TODO cleanup some of the imports
 #include "ElevateEngine/Renderer/Material.h"
 #include "ElevateEngine/Renderer/Light/Light.h"
 #include "ElevateEngine/Renderer/Light/DirectionalLight.h"
+#include "ElevateEngine/Core/GameObject.h" // find a way to remove from here
+#include "ElevateEngine/Renderer/Camera.h"
+
+// the list of uniform names used by the shader
+// TODO vérif si uniquement avec opengl ou non
+#define EE_SHADER_MODEL "model"
+#define EE_SHADER_VIEWPROJ "viewProj"
 
 namespace Elevate
 {
@@ -17,6 +26,7 @@ namespace Elevate
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 		virtual bool IsBound() const = 0;
+		virtual uint32_t GetHashCode() const = 0;
 
 		static Shader* Create(const std::string& vertexSource, const std::string& fragmentSouce);
 
@@ -30,6 +40,24 @@ namespace Elevate
 		// Materials
 		void UseMaterial(Material* newMaterial);
 
+		inline void SetModelMatrix(glm::mat4& modelMatrix)
+		{
+			SetUniformMatrix4fv(EE_SHADER_MODEL, modelMatrix); // set the model matrix
+		}
+		inline void SetModelMatrix(GameObject& object)
+		{
+			SetUniformMatrix4fv(EE_SHADER_MODEL, object.GetModelMatrix()); // set the model matrix
+		}
+
+		inline void SetProjectionViewMatrix(glm::mat4 viewProjMatrix)
+		{
+			SetUniformMatrix4fv(EE_SHADER_VIEWPROJ, viewProjMatrix);
+		}
+
+		inline void SetProjectionViewMatrix(Camera& cam)
+		{
+			SetUniformMatrix4fv(EE_SHADER_VIEWPROJ, cam.GenViewProjectionMatrix());
+		}
 
 		/// UNIFORMS
 		// FLOATS

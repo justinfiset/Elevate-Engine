@@ -97,11 +97,16 @@ const void Elevate::Cubemap::Draw()
 
 void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader)
 {
+	bool reActiveCull = glIsEnabled(GL_CULL_FACE);
+	glDisable(GL_CULL_FACE);
+
 	shader->Bind();
 	glDepthMask(GL_FALSE);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
 	Renderer::SubmitVertexArray(m_VertexArray);
 	glDepthMask(GL_TRUE);
+
+	if (reActiveCull) glEnable(GL_CULL_FACE);
 }
 
 

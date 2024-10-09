@@ -47,10 +47,10 @@ private:
     // Grid
     std::shared_ptr<Elevate::Shader> m_GridShader; 
     std::shared_ptr<Elevate::GameObject> m_GridObject;
-
     std::unique_ptr<Elevate::Cubemap> m_Cubemap;
     
     std::shared_ptr<Elevate::GameObject> m_DemoObject;
+
     std::shared_ptr<Elevate::GameObject> m_PointLightObject;
 
     std::shared_ptr<Elevate::GameObject> m_SelectedObject;
@@ -135,12 +135,12 @@ public:
         //);
 
 
-
         // Backpack
         m_DemoObject = std::make_shared<Elevate::GameObject>("Backpack");
         m_Scene->AddRootObject(m_DemoObject);
         Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
         demoModel.SetShader(m_Shader);
+        Elevate::Renderer::SubmitModel(demoModel);
         m_DemoObject->SetPosition({ 0.0f, 0.0f, -3.0f });
 
         // point light
@@ -175,10 +175,9 @@ public:
         )*/;
         m_Shader->UseMaterial(&material);
 
-        //// # light 1s
         // todo envoyer dans la classe pointlight
-        m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetPosition());
         // Set avoir le composant que l'on va créer
+        m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetPosition());
         m_Shader->SetUniform3f("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
         m_Shader->SetUniform3f("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
         m_Shader->SetUniform3f("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
@@ -201,9 +200,10 @@ public:
         // On soumet les models et on les affiches en dessinant la stack
         // TODO -> passer par les commande Renderer:: ... pour faire le rendu à la place
         m_Shader->Bind();
+        m_Shader->SetModelMatrix(*m_DemoObject);
         m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetPosition());
         m_Shader->SetUniform3f("camPos", camPos);
-        m_Shader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
+        m_Shader->SetProjectionViewMatrix(cam);
         //Elevate::Renderer::DrawStack(m_Shader); // WRONG // TODO redo and use
         //Elevate::Renderer::EndSceneFrame(m_Shader);
         
@@ -211,13 +211,14 @@ public:
         // TODO modif le shader pour le mettre a nos normes de nomencalture de nom
         // TODO il faut modif le buffer (Dans Mesh) pour s'assurer que le shader recoit les infos qu'il veut
         m_GridShader->Bind();
-        m_GridShader->SetUniformMatrix4fv("viewProj", cam.GenViewProjectionMatrix());
+        m_GridShader->SetProjectionViewMatrix(cam);
         m_GridObject->SetPosition({camPos.x, 0, camPos.z});
 
         // TODO OPTIMISE AS VERY CONSSUMING IN FPS (MAYBE FIND ALTERNATIVE TO GATHER COMPONENTS)
         // -> FOLLOW UP -> C'EST MODEL QUI A L'AIR DE RALENTIR LE TOUT
         m_Scene->RenderScene();
         m_EditorScene->RenderScene();
+        //Elevate::Renderer::DrawStack(); // on va finir ce pipeline quand on aura besoin des performances
     }
 
     void OnUpdate() override
