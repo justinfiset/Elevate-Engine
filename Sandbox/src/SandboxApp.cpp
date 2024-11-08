@@ -116,7 +116,7 @@ public:
         //}
 
         // TODO impl dans un API a part entiere
-        //// Boîte de dialogue pour choisir un fichier
+        //// Boï¿½te de dialogue pour choisir un fichier
         //const char* filePath = tinyfd_openFileDialog(
         //    "Find a skybox",
         //    "",
@@ -128,7 +128,7 @@ public:
         // TODO impl dans un API a part entiere
         //tinyfd_messageBox(
         //    "Erreur",
-        //    "Une erreur s'est produite lors de l'exécution.",
+        //    "Une erreur s'est produite lors de l'exï¿½cution.",
         //    "ok",
         //    "error",
         //    1
@@ -140,7 +140,6 @@ public:
         m_Scene->AddRootObject(m_DemoObject);
         Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
         demoModel.SetShader(m_Shader);
-        Elevate::Renderer::SubmitModel(demoModel);
         m_DemoObject->SetPosition({ 0.0f, 0.0f, -3.0f });
 
         // point light
@@ -176,7 +175,7 @@ public:
         m_Shader->UseMaterial(&material);
 
         // todo envoyer dans la classe pointlight
-        // Set avoir le composant que l'on va créer
+        // Set avoir le composant que l'on va crï¿½er
         m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetPosition());
         m_Shader->SetUniform3f("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
         m_Shader->SetUniform3f("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
@@ -198,7 +197,7 @@ public:
         //Elevate::Renderer::BeginSceneFrame();
 
         // On soumet les models et on les affiches en dessinant la stack
-        // TODO -> passer par les commande Renderer:: ... pour faire le rendu à la place
+        // TODO -> passer par les commande Renderer:: ... pour faire le rendu ï¿½ la place
         m_Shader->Bind();
         m_Shader->SetModelMatrix(*m_DemoObject);
         m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetPosition());
@@ -322,6 +321,14 @@ public:
                 SelectObject(object);
             }
 
+            if (ImGui::BeginPopupContextWindow())
+            {
+                if (ImGui::MenuItem("Delete")) { /*TODO REMOVE*/ }
+                if (ImGui::MenuItem("Rename")) { /*TODO RENAME*/ }
+
+                ImGui::EndPopup();
+            }
+
             for each (std::shared_ptr<Elevate::GameObject> child in object->GetChilds())
             {
                 DrawTreeHierarchy(child);
@@ -332,7 +339,7 @@ public:
 
     void SelectObject(std::shared_ptr<Elevate::GameObject> newSelection)
     {
-        // TODO : FAIRE QUE TOUS LES OBJETS EN DESSOUS SOIT AUSSI SELECTIONNÉ MAIS PAS AU MÊME NIVEUA
+        // TODO : FAIRE QUE TOUS LES OBJETS EN DESSOUS SOIT AUSSI SELECTIONNï¿½ MAIS PAS AU Mï¿½ME NIVEUA
         m_SelectedObject = newSelection;
     }
 
@@ -340,7 +347,7 @@ public:
     {
         const glm::ivec2 values = aspectRatioSettings[aspectRatioValue];
         const float ratio = (float)values.x / (float)values.y;
-        // Todo: faire que ce soit toutes les caméras qui utilisent ce ratio
+        // Todo: faire que ce soit toutes les camï¿½ras qui utilisent ce ratio
         cam.UpdateAspectRatio(ratio);
     }
 
@@ -373,7 +380,7 @@ public:
             {
                 // TODO IMPL. FEATURES
                 // TODO handle projects
-                if (ImGui::MenuItem("New project")) { /* Action pour créer une nouvelle scène */ }
+                if (ImGui::MenuItem("New project")) { /* Action pour crï¿½er une nouvelle scï¿½ne */ }
                 if (ImGui::MenuItem("Open project")) { /* Action pour ouvrir un fichier */ }
                 if (ImGui::MenuItem("Save")) { /* Action pour sauvegarder */ }
                 if (ImGui::MenuItem("Exit")) { exit(0); }
@@ -426,7 +433,7 @@ public:
             }
         }
 
-        // Drag and Drop pour réorganiser
+        // Drag and Drop pour rï¿½organiser
         //if (ImGui::BeginDragDropSource())
         //{
         //    ImGui::SetDragDropPayload("DND_OBJECT", &m_SelectedObject, sizeof(m_SelectedObject));
@@ -437,7 +444,7 @@ public:
         //{
         //    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DND_OBJECT"))
         //    {
-        //        // Logique pour réorganiser les objets dans la hiérarchie
+        //        // Logique pour rï¿½organiser les objets dans la hiï¿½rarchie
         //    }
         //    ImGui::EndDragDropTarget();
         //}
@@ -452,7 +459,7 @@ public:
         {
             Elevate::UI::InputField("Name: ", m_SelectedObject->GetName());
 
-            // TODO impl dans la classe Component qui est capable de sérialiser le tout
+            // TODO impl dans la classe Component qui est capable de sï¿½rialiser le tout
             // PLacer dans un rendu de transform
             ImGui::SeparatorText("Transform");
             ImGui::InputFloat3("Position", glm::value_ptr(m_SelectedObject->GetPosition()));
@@ -479,7 +486,7 @@ public:
                 ImGui::EndMenu();
             }
 
-            // Permet d'aligner le prochain menu à gauche en fonction de la taille du texte
+            // Permet d'aligner le prochain menu ï¿½ gauche en fonction de la taille du texte
             ImGui::Dummy(ImVec2(ImGui::GetWindowSize().x - ImGui::CalcTextSize("XXX:XXX").x - ImGui::GetCursorPos().x - 10.0f, 0.0f));
 
             // Aspect Ratio Selection

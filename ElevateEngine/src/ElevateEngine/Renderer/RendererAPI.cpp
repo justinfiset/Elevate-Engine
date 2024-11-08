@@ -13,9 +13,13 @@ namespace Elevate
 
 	void RendererAPI::RemoveModel(const Model& model)
 	{
-		const std::shared_ptr<Shader>& shader = model.GetShader();
-		std::vector<Model>& stack = m_ModelStack[shader];
-		auto it = std::find(stack.begin(), stack.end(), model);
+		std::vector<Model>& stack = m_ModelStack[model.GetShader()];
+
+		auto it = std::find_if(stack.begin(), stack.end(),
+			[&model](const Model& m) {
+				return &m == &model; 
+			}
+		);
 
 		if (it != stack.end()) // If the stack does contain the element to remove
 		{

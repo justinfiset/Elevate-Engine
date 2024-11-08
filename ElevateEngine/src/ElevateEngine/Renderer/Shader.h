@@ -15,6 +15,7 @@
 // TODO vérif si uniquement avec opengl ou non
 #define EE_SHADER_MODEL "model"
 #define EE_SHADER_VIEWPROJ "viewProj"
+#define EE_SHADER_CAMPOS "camPos"
 
 namespace Elevate
 {
@@ -39,6 +40,13 @@ namespace Elevate
 
 		// Materials
 		void UseMaterial(Material* newMaterial);
+
+		// Camera
+		inline void UpdateCamera(Camera& cam)
+		{
+			// TODO check if there is any better way to do this
+			SetUniform3f(EE_SHADER_CAMPOS, cam.gameObject->GetPosition());
+		}
 
 		inline void SetModelMatrix(glm::mat4& modelMatrix)
 		{
