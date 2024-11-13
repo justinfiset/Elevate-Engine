@@ -1,8 +1,13 @@
 #pragma once
 
+// =======================================
+// Just here for the ease of impl. for the user (prevent multiple useless imports and a single .h import
+#include <ElevateEngine/Inputs/KeyCodes.h>
+#include <ElevateEngine/Inputs/MouseButtonCodes.h>
+// =======================================
+
 #include "ElevateEngine/Events/KeyEvent.h"
 #include <ElevateEngine/Events/MouseEvent.h>
-
 #include "ElevateEngine/Inputs/inputBuffer.h"
 
 #include <glm/glm.hpp>

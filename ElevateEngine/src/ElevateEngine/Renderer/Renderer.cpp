@@ -7,13 +7,6 @@ namespace Elevate
 {
 	RendererAPI* Renderer::s_API = new OpenGLRendererAPI();
 
-	void Renderer::BeginSceneFrame(const std::shared_ptr<Shader> shader)
-	{
-	}
-	void Renderer::EndSceneFrame(const std::shared_ptr<Shader> shader)
-	{
-	}
-
 	void Renderer::SubmitModel(const Model& model)
 	{
 		s_API->SubmitModel(model);
@@ -47,6 +40,11 @@ namespace Elevate
 	void Renderer::Clear()
 	{
 		s_API->Clear();
+	}
+
+	void Renderer::SetViewPort(int x, int y, int width, int height)
+	{
+		s_API->SetViewPort(x, y, width, height);
 	}
 
 	void Renderer::DrawArray(const std::shared_ptr<VertexArray>& vao)

@@ -7,7 +7,6 @@
 
 Elevate::Scene::Scene()
 {
-	
 }
 
 Elevate::Scene::~Scene()
@@ -18,16 +17,17 @@ void Elevate::Scene::UpdateScene()
 {
 	m_Registry.view<ComponentWrapper>().each([](auto& wrapper) 
 	{
-		if (wrapper.component->IsActive())
+		if (wrapper.IsActive())
 		{
-			wrapper.component->Update();
+			wrapper.Update();
 		}
 	});
 }
 
 void Elevate::Scene::RenderScene()
 {
-	m_Registry.view<Model>().each([](auto& wrapper) 
+	// TODO REMETTRE AVEC LES WRAPPERS
+	m_Registry.view<ComponentWrapper>().each([](auto& wrapper)
 	{
 		if (wrapper.IsActive())
 		{
@@ -36,8 +36,26 @@ void Elevate::Scene::RenderScene()
 	});
 }
 
-void Elevate::Scene::AddRootObject(std::shared_ptr<GameObject> newRootObject)
+void Elevate::Scene::Notify(Event& e)
 {
+	m_Registry.view<ComponentWrapper>().each([&e](auto& wrapper)
+	{
+		if (wrapper.IsActive())
+		{
+			wrapper.OnNotify(e);
+		}
+	});
+}
+
+void Elevate::Scene::AddObject(GameObjectPtr newObject, GameObjectPtr parent)
+{
+	// TODO IMPL
+}
+
+void Elevate::Scene::AddRootObject(GameObjectPtr newRootObject)
+{
+	// TODO MAYBE REMOVE IN THE FUTURE IS THE APP IS FOOL PROOF
+	newRootObject->m_Parent = nullptr;
 	newRootObject->m_Scene = this;
 	m_RootObjects.insert(newRootObject);
 }

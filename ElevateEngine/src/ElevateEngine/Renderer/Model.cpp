@@ -8,9 +8,14 @@
 
 #include "ElevateEngine/Renderer/Renderer.h"
 
-Elevate::Model::Model(std::string path)
+Elevate::Model::Model(std::string path) : Model(path, nullptr) { }
+
+Elevate::Model::Model(std::string path, ShaderPtr shader)
 {
+    // TODO REMOVE IF USELESS
     //m_ModelMatrix = std::make_unique<glm::mat4>(1.0f);
+    if (shader) SetShader(shader);
+
     LoadModel(path);
 }
 

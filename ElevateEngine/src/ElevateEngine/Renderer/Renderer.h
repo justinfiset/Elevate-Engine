@@ -9,8 +9,8 @@ namespace Elevate
 	class Renderer
 	{
 	public:
-		static void BeginSceneFrame(const std::shared_ptr<Shader> shader);
-		static void EndSceneFrame(const std::shared_ptr<Shader> shader);
+		//static void BeginSceneFrame(const std::shared_ptr<Shader> shader);
+		//static void EndSceneFrame(const std::shared_ptr<Shader> shader);
 
 		static void SubmitModel(const Model& model);
 		static void RemoveModel(const Model& model);
@@ -20,9 +20,11 @@ namespace Elevate
 		static void SubmitTrianglesArray(const std::shared_ptr<VertexArray>& vao);
 
 		inline static RendererAPI::GraphicAPI GetAPI() { return RendererAPI::GetAPI(); }
+
 		// RENDER API STATIC WRAPPER
 		static void SetClearColor(const glm::vec4 color);
 		static void Clear();
+		static void SetViewPort(int x, int y, int width, int height);
 		static void DrawArray(const std::shared_ptr<VertexArray>& vao);
 		static void DrawStack();
 	private:

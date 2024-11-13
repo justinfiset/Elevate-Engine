@@ -11,26 +11,36 @@
 
 namespace Elevate
 {
-	class GameObject : public ITransformable
+	class GameObject : public ITransformable, public std::enable_shared_from_this<GameObject>
 	{
 	public:
-		GameObject(std::string name);
-		GameObject(std::string name, Scene* scene);
+		GameObject(std::string name, ScenePtr scene, GameObjectPtr parent = nullptr);
 		~GameObject();
 
+		// TODO REMOVE USELESS CODE (IN COMMENTS)
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args)
 		{
 			EE_VALIDATE_COMPONENT_TYPE();
 
-			T& component = m_Scene->m_Registry.emplace<T>(m_Entity, std::forward<Args>(args)...);
+		    ComponentWrapper& emplacedWrapper = m_Scene->m_Registry.emplace<ComponentWrapper>(m_Entity);
+			emplacedWrapper.SetComponent<T>(std::forward<Args>(args)...);
+			emplacedWrapper.SetGameObject(this);
+			emplacedWrapper.Init();
 
-			Component& baseComponent = static_cast<Component&>(component);
-			baseComponent.gameObject = this;
-			baseComponent.Init();
-
+			T& component = static_cast<T&>(*emplacedWrapper.component.get());
 			return component;
+			//EE_VALIDATE_COMPONENT_TYPE();
 
+			//T& component = m_Scene->m_Registry.emplace<T>(m_Entity, std::forward<Args>(args)...);
+
+			//Component& baseComponent = static_cast<Component&>(component);
+			//baseComponent.gameObject = this;
+			//baseComponent.Init();
+
+			//return component;
+
+			// anciennec version
 			/*try
 			{
 				ComponentWrapper& tempWrapper = ComponentWrapper::Create<T>(std::forward<Args>(args)...);
@@ -51,28 +61,27 @@ namespace Elevate
 		}
 
 		template <typename T>
-		T& GetComponent()
+		T* GetComponent()
 		{
 			EE_VALIDATE_COMPONENT_TYPE();
 
-			if(!HasComponent<T>())
-				EE_CORE_ERROR("{0} : Entity does not have component!", m_Name);
-			return m_Scene->m_Registry.get<T>(m_Entity);
-			//// todo reactiver cette ligne
-			////EE_CORE_ASSERT(std::is_base_of<Component, T>::value, "T must be a child of the Component class");
-			//auto view = m_Scene->m_Registry.view<ComponentWrapper>();
-			//EE_CORE_TRACE(view.size());
-			//view.each([&](auto& wrapper)
-			//{
-			//		if (wrapper.IsComponentType<T>())
-			//		{
-			//			return dynamic_cast<T*>(wrapper.component.get());
-			//			//return wrapper.Get<T>();
-			//		}
-			//});
+			T* foundComponent = nullptr;
 
-			//EE_CORE_TRACE("Componenet not found.");
-			//std::runtime_error("Trying to get a missing component. You need to add the component before retrieving it.");
+			m_Scene->m_Registry.view<ComponentWrapper>().each([&foundComponent](auto& wrapper)
+			{
+				if (wrapper.component && typeid(*wrapper.component) == typeid(T))
+				{
+					foundComponent = static_cast<T*>(wrapper.component.get());
+				}
+			});
+
+			if (!foundComponent)
+			{
+				EE_CORE_TRACE("Componenet not found.");
+				std::runtime_error("Trying to get a missing component. You need to add the component before retrieving it.");
+			}
+
+			return foundComponent;
 		}
 
 		template <typename T>
@@ -95,19 +104,25 @@ namespace Elevate
 		inline std::string& GetName() { return m_Name; }
 		inline void SetName(std::string newName) { m_Name = newName; }
 		
-		inline const bool HasChild() const { return m_Childs.size() > 0; }
-		inline std::vector<std::shared_ptr<GameObject>> GetChilds() const { return m_Childs; }
+		// TODO SET LE PARENT DU CHILD COMME ÉTANT THIS
+		void SetChild(GameObjectPtr child);
+		void RemoveChild(GameObjectPtr child);
 
-		// TODO AddChild
-		//void AddChild(std::shared_ptr<GameObject> newObject);
-		
+		inline const bool HasChild() const { return m_Childs.size() > 0; }
+		inline std::set<GameObjectPtr> GetChilds() const { return m_Childs; }
+		 
 		// TODO getter and setters for components
+	public:
+		static GameObjectPtr Create(std::string name, ScenePtr scene, GameObjectPtr parent = nullptr);
+
+	private :
+		void Initialize(); // Internal function to use just after constructor
 	private:
 		std::string m_Name;
 
 		// Parent and Child
-		std::shared_ptr<GameObject> m_Parent;
-		std::vector<std::shared_ptr<GameObject>> m_Childs;
+		GameObjectPtr m_Parent;
+		std::set<GameObjectPtr> m_Childs;
 
 		entt::entity m_Entity { entt::null };
 		Scene* m_Scene;

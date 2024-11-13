@@ -7,6 +7,11 @@ void Elevate::OpenGLRendererAPI::SetClearColor(const glm::vec4 color) const
 	glClearColor(color.r, color.g, color.b, color.a);
 }
 
+void Elevate::OpenGLRendererAPI::SetViewPort(int x, int y, int width, int height) const
+{
+	glViewport(x, y, width, height);
+}
+
 void Elevate::OpenGLRendererAPI::Clear() const
 {
 	// todo a changer on ne veux pas clear les deux en meme temps
@@ -22,7 +27,7 @@ void Elevate::OpenGLRendererAPI::DrawArray(const std::shared_ptr<VertexArray>& v
 void Elevate::OpenGLRendererAPI::DrawStack() const
 {
 	// TODO optimize texture binding to prevent multiple binding of the same texture
-	// Batch directement en models pour que seul le model contienne les textures donc réduction de la mémoire
+	// Batch directement en 
 	for (const auto& pair : m_MeshStack)
 	{
 		const auto& shader = pair.first;

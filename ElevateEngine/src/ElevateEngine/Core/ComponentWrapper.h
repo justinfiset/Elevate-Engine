@@ -9,24 +9,28 @@ namespace Elevate
 {
     struct ComponentWrapper 
     {
-        template<typename T, typename... Args>
-        static ComponentWrapper Create(Args&&... args)
-        {
-            ComponentWrapper wrapper;
-            wrapper.component = std::make_unique<T>(std::forward<Args>(args)...);
-            return wrapper;
-        }
+        ComponentWrapper() = default;
 
         inline void SetGameObject(GameObject* gO)
         {
             component->gameObject = gO;
         }
 
+        template<typename T, typename... Args>
+        inline void SetComponent(Args&&... args) 
+        {
+            component = std::make_shared<T>(std::forward<Args>(args)...);
+        }
+
+        inline bool IsActive() { return component->m_IsActive; }
+
         inline void Init() { component->Init(); }
         inline void Destroy() { component->Destroy(); }
         inline void Update() { component->Update(); }
         inline void Render() { component->Render(); }
+        inline void OnNotify(Event& e) { component->OnNotify(e); }
+
         // TODO trouver le moyen de mettre unique
-        std::unique_ptr<Component> component;
+        std::shared_ptr<Component> component;
     };
 }

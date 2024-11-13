@@ -15,13 +15,16 @@ namespace Elevate
     class Model : public Component
     {
     public:
+        Model() = default;
         Model(std::string path);
+        Model(std::string path, ShaderPtr shader);
         // TODO move somewhere else // PUT PRIVATE;
         inline const std::vector<Mesh>& GetMeshes() const { return m_Meshes; }
 
         // TODO : should change the shader in the renderer
         inline void SetShader(std::shared_ptr<Shader>& newShader) { m_Shader = newShader; }
 
+        // TODO REMOVE IF NOT NEEDED ANYMORE
         //inline glm::mat4& GetMatrix() const { return *m_ModelMatrix; }
         //inline void SetMatrix(const glm::mat4& newMatrix) const { *m_ModelMatrix = newMatrix; }
         void Init() override {}

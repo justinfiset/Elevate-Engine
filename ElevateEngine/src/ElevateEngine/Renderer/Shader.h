@@ -113,5 +113,7 @@ namespace Elevate
 		// TODO CHECK IF NEEDED FOR OTHER APIS
 		virtual unsigned int GetRendererID() const = 0;
 	};
+
+	using ShaderPtr = std::shared_ptr<Shader>;
 }
 

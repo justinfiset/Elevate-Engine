@@ -59,4 +59,6 @@ namespace Elevate
 		float m_Near = 0.1f;
 		float m_Far = 100.0f;
 	};
+
+	using CameraPtr = std::shared_ptr<Camera>;
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ElevateEngine/Events/Event.h>
+
 namespace Elevate
 {
 	class GameObject;
@@ -19,12 +21,13 @@ namespace Elevate
 		inline bool IsActive() { return m_IsActive; }
 
 		GameObject* gameObject;
+	
 	protected:
 		virtual void Init() {}
 		virtual void Destroy() {}
-
 		virtual void Update() {}
 		virtual void Render() {}
+		virtual void OnNotify(Event& event) {}
 
 	protected:
 		bool m_IsActive = true;
