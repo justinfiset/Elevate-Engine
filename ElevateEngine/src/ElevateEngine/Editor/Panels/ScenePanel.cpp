@@ -44,8 +44,8 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
     }
 
     // we access the ImGui window size
-    uint32_t window_width = (uint32_t)ImGui::GetContentRegionAvail().x;
-    uint32_t window_height = (uint32_t)ImGui::GetContentRegionAvail().y;
+    uint32_t window_width = (uint32_t) ImGui::GetContentRegionAvail().x;
+    uint32_t window_height = (uint32_t) ImGui::GetContentRegionAvail().y;
 
     // Keeping the aspect ratio for the scene view
     const glm::ivec2 aspect = s_AspectRatioSettings[m_AspectRatioValue];
@@ -78,34 +78,20 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 
         glm::mat4 cameraProjection = cam->GetProjectionMatrix();
         glm::mat4 cameraView = cam->GenViewMatrix();
-        glm::mat4 entityMatrix = selected->GetModelMatrix();
+        glm::mat4 entityMatrix = selected->GenGlobalMatrix();
 
         // TODO SET VIA BUTTONS
         ImGuizmo::Manipulate(
             glm::value_ptr(cameraView),
             glm::value_ptr(cameraProjection),
-            (ImGuizmo::OPERATION)m_CurrentEditorTool,    // Change to ROTATE or SCALE as neeSded
-            ImGuizmo::LOCAL,        // Change to LOCAL if needed
+            (ImGuizmo::OPERATION) m_CurrentEditorTool,
+            ImGuizmo::LOCAL,  // Change to WORLD if needed
             glm::value_ptr(entityMatrix)
         );
 
-        glm::vec3 position;
-        glm::vec3 rotation;
-        glm::vec3 scale;
-
         if (ImGuizmo::IsUsingAny())
         {
-            ImGuizmo::DecomposeMatrixToComponents
-            (
-                glm::value_ptr(entityMatrix),
-                glm::value_ptr(position),
-                glm::value_ptr(rotation),
-                glm::value_ptr(scale)
-            );
-
-            selected->SetScale(scale);
-            selected->SetRotation(rotation);
-            selected->SetPosition(position);
+            selected->SetFromGlobalMatrix(entityMatrix);
         }
     }
 

@@ -26,24 +26,55 @@ void Elevate::GameObject::Initialize()
 	}
 }
 
+void Elevate::GameObject::OnSetPosition()
+{
+	// TODO VERIF SI VRARIMENT UTILE
+}
+
 Elevate::GameObject::~GameObject()
 {
-	// TODO trouver comment implementer comme du monde
-	//if (m_Scene)
-	//{
-	//	m_Scene->m_Registry.destroy(m_Entity);
-	//} else EE_CORE_ERROR("Object '{0}' must be destroyed from an existing scene!", m_Name);
+	if (m_Scene)
+	{
+		m_Scene->m_Registry.destroy(m_Entity);
+	} else EE_CORE_ERROR("Object '{0}' must be destroyed from an existing scene!", m_Name);
+}
+
+void Elevate::GameObject::SetParent(GameObjectPtr newParent)
+{
+	if (newParent)
+	{
+		this->m_Parent = newParent;
+		newParent->SetChild(shared_from_this());
+		m_Scene->RemoveFromRoot(shared_from_this());
+	}
 }
 
 void Elevate::GameObject::SetChild(GameObjectPtr child)
 {
-	child->m_Parent = shared_from_this();
-	m_Childs.emplace(child);
+	if (child)
+	{
+		child->m_Parent = shared_from_this();
+		m_Childs.emplace(child);
+		m_Scene->RemoveFromRoot(child);
+	}
 }
 
 void Elevate::GameObject::RemoveChild(GameObjectPtr child)
 {
 	// TODO RemoveChild();
+}
+
+// TODO MOVE SOMEWHERE ELSE
+glm::mat4 Elevate::GameObject::GenGlobalMatrix() const
+{
+	if (m_Parent)
+	{
+		return m_Parent->GenGlobalMatrix() * GetModelMatrix();
+	} 
+	else
+	{
+		return GetModelMatrix();
+	}
 }
 
 Elevate::GameObjectPtr Elevate::GameObject::Create(std::string name, ScenePtr scene, GameObjectPtr parent)

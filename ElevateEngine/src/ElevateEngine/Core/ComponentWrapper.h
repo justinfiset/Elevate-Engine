@@ -4,7 +4,6 @@
 #include "Component.h"
 #include "ElevateEngine/Core/Log.h"
 
-// TODO deapreciate????? will it be useful for scrippted components??
 namespace Elevate
 {
     struct ComponentWrapper 

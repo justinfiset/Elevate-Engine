@@ -54,7 +54,7 @@ public:
     void OnAttach() override
     {   
         // Scenes creation
-        m_Scene = std::make_shared<Elevate::Scene>("Demo Scene");
+        m_Scene = Elevate::Scene::Create("Demo Scene");
 
         uint32_t glslVersion = 330;
         uint32_t glslPointLightCount = 1;
@@ -70,15 +70,6 @@ public:
         ));
 
         m_Cubemap.reset(Elevate::Cubemap::CreateFromFile("cubemap/default.sky"));
-
-        /// MATRIX PRINTING
-        //for (int i = 0; i < 4; ++i) {
-        //    std::string line;
-        //    for (int j = 0; j < 4; ++j) {
-        //        line.append(std::to_string(m_ModelMatrix[i][j]) + " ");
-        //    }
-        //    EE_TRACE(line);
-        //}
 
         // TODO impl dans un API a part entiere
         //// Bo�te de dialogue pour choisir un fichier
@@ -110,6 +101,7 @@ public:
 
         // point light
         m_PointLightObject = Elevate::GameObject::Create("Point Light", m_Scene);
+        m_PointLightObject->SetParent(m_DemoObject);
         m_PointLightObject->SetPosition({ -2.0f, 0.0f, 0.0f });
 
         m_Shader->Bind();
@@ -129,7 +121,9 @@ public:
 
         // todo envoyer dans la classe pointlight
         // Set avoir le composant que l'on va cr�er
-        m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetPosition());
+        // TODO ne plus utiliser le GetTransform, faire les méthodes appropriées pour que le tout soit dans l'interface
+
+        m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetGlobalPosition());
         m_Shader->SetUniform3f("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
         m_Shader->SetUniform3f("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
         m_Shader->SetUniform3f("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
@@ -155,8 +149,7 @@ public:
         // On soumet les models et on les affiches en dessinant la stack
         // TODO -> passer par les commande Renderer:: ... pour faire le rendu � la place
         m_Shader->Bind();
-        m_Shader->SetModelMatrix(*m_DemoObject);
-        m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetPosition());
+        m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetGlobalPosition());
         m_Shader->SetUniform3f("camPos", camPos);
         m_Shader->SetProjectionViewMatrix(*cam);
 
@@ -170,6 +163,7 @@ public:
 
     void OnEvent(Elevate::Event& event) override
     {
+        // Example d'utilisation
         if (event.GetEventType() == Elevate::EventType::MouseMoved)
         {
             //Elevate::MouseMovedEvent& mouseEvent = dynamic_cast<Elevate::MouseMovedEvent&>(event);
@@ -180,19 +174,12 @@ public:
 
     void OnImGuiRender() override
     {
+        // TODO FAIRE UN PANEL AVEC DANS L'EDITEUR
         //// ENVIRONMENT /////////////////////////////////////////
         //ImGui::Begin("Environment");
         //ImGui::SeparatorText("Skybox");
         //ImGui::End();
         //////////////////////////////////////////////////////////
-
-        // TODO MOVE DANS LE DEBUG , FAIRE UN StatisticPanel
-        ImGuiIO& io = ImGui::GetIO();
-        if (ImGui::Begin("Stats"))
-        {
-            ImGui::Text("Average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);       
-            ImGui::End();
-        }
     }
 };
 
@@ -209,6 +196,7 @@ public:
     ~Sandbox() = default;
 };
 
-Elevate::Application* Elevate::CreateApplication() {
+Elevate::Application* Elevate::CreateApplication() 
+{
     return new Sandbox();
 }

@@ -55,7 +55,7 @@ void Elevate::Editor::HierarchyPanel::OnImGuiRender()
     for (auto it = SceneManager::begin(); it != SceneManager::end(); it++)
     {
         ScenePtr scene = *it;
-        if (!scene->GetRootObjects().empty())
+        if (scene->GetType() == SceneType::RuntimeScene && !scene->GetRootObjects().empty())
         {
             if (ImGui::TreeNodeEx(scene->GetName().c_str(), ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth))
             {

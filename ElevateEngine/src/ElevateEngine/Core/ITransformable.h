@@ -24,6 +24,13 @@ namespace Elevate
 		inline glm::vec3& GetScale() { return m_Transform.GetScale(); }
 
 		inline const glm::mat4& GetModelMatrix() const { return m_Transform.GetModelMatrix(); }
+
+	protected:
+		// Callbakcs for any objects the inherits
+		virtual void OnSetPosition() {}
+		virtual void OnSetRotation() {}
+		virtual void OnSetScale() {}
+
 	protected:
 		Transform m_Transform;
 	};

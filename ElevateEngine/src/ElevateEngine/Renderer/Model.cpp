@@ -167,8 +167,9 @@ std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextu
 void Elevate::Model::Render()
 {
     // TODO aller chercher le shader directement
+    // TODO send to render comment
     m_Shader->Bind();
-    m_Shader->SetUniformMatrix4fv("model", gameObject->GetModelMatrix()); // set the model matrix
+    m_Shader->SetModelMatrix(*gameObject);
     for (unsigned int i = 0; i < m_Meshes.size(); i++)
         m_Meshes[i].Draw(m_Shader);
 }

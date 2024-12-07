@@ -22,18 +22,19 @@ namespace Elevate::Editor
         m_ScenePanel = std::make_unique<ScenePanel>();
         m_HierarchyPanel = std::make_unique<HierarchyPanel>();
         m_AnalyserPanel = std::make_unique<AnalyserPanel>();
+        m_StatisticsPanel = std::make_unique<StatisticsPanel>();
     }
 
     void EditorLayer::OnAttach()
     {
-        m_EditorScene = std::make_shared<Elevate::Scene>("Editor");
+        m_EditorScene = Scene::Create("Editor", SceneType::EditorScene);
 
         // Editor Camera
-        m_CameraObject = Elevate::GameObject::Create("Editor Camera", m_EditorScene);
-        m_CameraObject->AddComponent<Elevate::EditorCamera>(60.0f);
+        m_CameraObject = GameObject::Create("Editor Camera", m_EditorScene);
+        m_CameraObject->AddComponent<EditorCamera>(60.0f);
 
         // Setup the grid shader ///////////////////////////
-        m_GridShader.reset(Elevate::Shader::CreateFromFiles(
+        m_GridShader.reset(Shader::CreateFromFiles(
             "shader/grid.vert",
             "shader/grid.frag"
         ));
@@ -43,7 +44,7 @@ namespace Elevate::Editor
         //////////////////////////////////////////////
 
         // Grid
-        m_GridObject = Elevate::GameObject::Create("Editor Grid", m_EditorScene);
+        m_GridObject = GameObject::Create("Editor Grid", m_EditorScene);
         Model& gridModel = m_GridObject->AddComponent<Model>("model/plane.obj");
         gridModel.SetShader(m_GridShader);
         m_GridObject->SetScale({ 50, 50, 50 });
@@ -67,7 +68,7 @@ namespace Elevate::Editor
         m_GridShader->SetProjectionViewMatrix(*GetCamera());
         m_GridObject->SetPosition({ camPos.x, 0, camPos.z });
 
-        m_EditorScene->RenderScene();
+        m_EditorScene->RenderScene(); // TODO AUTOMATISER
     }
 
     void EditorLayer::OnImGuiRender()
@@ -110,13 +111,14 @@ namespace Elevate::Editor
         m_ScenePanel->OnImGuiRender();
         m_HierarchyPanel->OnImGuiRender();
         m_AnalyserPanel->OnImGuiRender();
+        m_StatisticsPanel->OnImGuiRender();
     }
 
     void EditorLayer::OnEvent(Event& event)
     {
-        if (event.GetEventType() == Elevate::EventType::MouseMoved)
+        if (event.GetEventType() == EventType::MouseMoved)
         {
-            //Elevate::MouseMovedEvent& mouseEvent = dynamic_cast<Elevate::MouseMovedEvent&>(event);
+            //MouseMovedEvent& mouseEvent = dynamic_cast<MouseMovedEvent&>(event);
         }
 
         m_EditorScene->Notify(event);

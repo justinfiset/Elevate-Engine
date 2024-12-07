@@ -11,7 +11,7 @@
 #include <ElevateEngine/Editor/Panels/HierarchyPanel.h>
 #include <ElevateEngine/Editor/Panels/AnalyserPanel.h>
 #include <ElevateEngine/Editor/Camera/EditorCamera.h>
-
+#include <ElevateEngine/Editor/Panels/StatisticsPanel.h>
 
 namespace Elevate::Editor
 {
@@ -45,6 +45,7 @@ namespace Elevate::Editor
 		std::unique_ptr<ScenePanel> m_ScenePanel;
 		std::unique_ptr<HierarchyPanel> m_HierarchyPanel;
 		std::unique_ptr<AnalyserPanel> m_AnalyserPanel;
+		std::unique_ptr<StatisticsPanel> m_StatisticsPanel;
 
 		// TODO set dans une autre classe
 		ScenePtr m_EditorScene;

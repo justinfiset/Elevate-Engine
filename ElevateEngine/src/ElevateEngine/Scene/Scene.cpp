@@ -5,14 +5,6 @@
 
 #include "ElevateEngine/Renderer/Model.h"
 
-Elevate::Scene::Scene()
-{
-}
-
-Elevate::Scene::~Scene()
-{
-}
-
 void Elevate::Scene::UpdateScene()
 {
 	m_Registry.view<ComponentWrapper>().each([](auto& wrapper) 
@@ -49,7 +41,26 @@ void Elevate::Scene::Notify(Event& e)
 
 void Elevate::Scene::AddObject(GameObjectPtr newObject, GameObjectPtr parent)
 {
-	// TODO IMPL
+	// TODO TEST IN DEPTH
+	if (!parent)
+	{
+		AddRootObject(newObject);
+	}
+	else
+	{
+		parent->SetChild(newObject);
+		newObject->SetParent(parent);
+	}
+}
+
+Elevate::ScenePtr Elevate::Scene::Create(std::string name, SceneType type)
+{
+	return std::make_shared<Scene>(name, type);
+}
+
+void Elevate::Scene::RemoveFromRoot(GameObjectPtr object)
+{
+	m_RootObjects.erase(object);
 }
 
 void Elevate::Scene::AddRootObject(GameObjectPtr newRootObject)
