@@ -1,5 +1,6 @@
 #include "eepch.h"
 #include "OpenGLFrameBuffer.h"
+#include "ElevateEngine/Renderer/Renderer.h"
 
 #include <glad/glad.h>
 
@@ -18,12 +19,12 @@ Elevate::OpenGLFrameBuffer::OpenGLFrameBuffer(uint32_t width, uint32_t height)
 	glGenTextures(1, &m_TextureId); // Bind texture
 	glBindTexture(GL_TEXTURE_2D, m_TextureId);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // TODO REMOVE
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 	// todo maybe use GL_NEAREST INSTEAD OF LINEAR // set en bas aussi au besoin si on modifie
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glBindTexture(GL_TEXTURE_2D, 0); // Unbind teture
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//glBindTexture(GL_TEXTURE_2D, 0); // Unbind teture
 	// Bind the texture with the Frame Buffer
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_TextureId, 0);
 
@@ -34,13 +35,12 @@ Elevate::OpenGLFrameBuffer::OpenGLFrameBuffer(uint32_t width, uint32_t height)
 	glGenRenderbuffers(1, &m_RenderBufferId);
 	glBindRenderbuffer(GL_RENDERBUFFER, m_RenderBufferId);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Width, m_Height);
-	glBindRenderbuffer(GL_RENDERBUFFER, 0); // Unbind
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_RenderBufferId);
 
 	// checking for completness (erros) 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 	{
-		EE_CORE_ERROR("FrameBuffer is not complete");
+		EE_CORE_ERROR("FrameBuffer is not complete.");
 	}
 
 	Unbind();
@@ -59,8 +59,8 @@ void Elevate::OpenGLFrameBuffer::Unbind() const
 void Elevate::OpenGLFrameBuffer::Clear() const
 {
 	glEnable(GL_DEPTH_TEST);
-	glClearColor(m_ClearColor.r, m_ClearColor.g, m_ClearColor.b, m_ClearColor.a);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	Elevate::Renderer::SetClearColor({ m_ClearColor.r, m_ClearColor.g, m_ClearColor.b, m_ClearColor.a });
+	Elevate::Renderer::Clear();
 }
 
 void Elevate::OpenGLFrameBuffer::Rescale(uint32_t width, uint32_t height)

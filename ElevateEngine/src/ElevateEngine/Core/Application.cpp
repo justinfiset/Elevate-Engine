@@ -88,24 +88,25 @@ namespace Elevate {
 				Time::deltaTime_ = Time::currentTime_ - lastTime;
 				lastTime = Time::currentTime_;
 				/////////////////////////////////
+
 				m_ImGuiLayer->PreRender();
+
+				//ImGui
+				m_ImGuiLayer->Begin();
+				for (Layer* layer : m_LayerStack)
+					layer->OnImGuiRender();
 
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate();
 
 				m_FrameBuffer->Bind(); // Rendering the screen in a single texture
 				m_FrameBuffer->Clear();
+
 				// Draw Layers and Scenes
 				for (Layer* layer : m_LayerStack)
 					layer->OnRender();
-				m_FrameBuffer->Unbind(); // Back to normal
 
-				Elevate::Renderer::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f }); // Peut être facultatif car on s'en fou un peu au final
-				Elevate::Renderer::Clear();
-				//ImGui
-				m_ImGuiLayer->Begin();
-				for (Layer* layer : m_LayerStack)
-					layer->OnImGuiRender();
+				m_FrameBuffer->Unbind(); // Back to normal
 
 				m_ImGuiLayer->Render(); // Render ImGui
 				m_ImGuiLayer->End(); // Finish the ImGui Rendering
