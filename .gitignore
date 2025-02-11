@@ -95,4 +95,4 @@ ipch/
 *.out
 *.app
 
-!Sandbox/*.obj
+!Sandbox/**/*.obj
