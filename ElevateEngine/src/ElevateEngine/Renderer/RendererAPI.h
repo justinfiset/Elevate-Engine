@@ -22,6 +22,7 @@ namespace Elevate
 		virtual void SetClearColor(const glm::vec4 color) const = 0;
 		virtual void SetViewPort(int x, int y, int width, int height) const = 0;
 		virtual void Clear() const = 0;
+		virtual void FlushBuffers() const = 0;
 
 		virtual void DrawArray(const std::shared_ptr<VertexArray>& vao) const = 0;
 		virtual void DrawTriangles(const std::shared_ptr<VertexArray>& vao) const = 0;

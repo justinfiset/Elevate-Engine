@@ -41,7 +41,7 @@ void Elevate::ImGuiLayer::OnAttach()
     // TODO fix le dark theme pour enlever le manque d'opacité
     UI::SetDarkTheme();
     //UI::SetLightTheme();
-
+    
     // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
     ImGuiStyle& style = ImGui::GetStyle();
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -103,4 +103,11 @@ void Elevate::ImGuiLayer::End()
         ImGui::RenderPlatformWindowsDefault();
         glfwMakeContextCurrent(backup_current_context);
     }
+}
+
+void Elevate::ImGuiLayer::Cleanup()
+{
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
 }

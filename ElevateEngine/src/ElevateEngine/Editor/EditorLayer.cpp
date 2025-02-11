@@ -99,7 +99,19 @@ namespace Elevate::Editor
 
             if (ImGui::BeginMenu("Objects"))
             {
-                // TODO impl. instatntiating
+                if (ImGui::MenuItem("Cube")) {
+                    ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
+                    EE_CORE_TRACE(scene->GetName());
+                }
+                if (ImGui::MenuItem("Plane")) {
+
+                }
+                if (ImGui::MenuItem("Sphere")) {
+
+                }
+                if (ImGui::MenuItem("Ico Sphere")) {
+
+                }
                 ImGui::EndMenu();
             }
 

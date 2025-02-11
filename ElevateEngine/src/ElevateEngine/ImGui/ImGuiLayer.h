@@ -22,6 +22,7 @@ namespace Elevate
 		void Begin();
 		void Render();
 		void End();
+		void Cleanup();
 
 	private:
 		float m_Time = 0.0f;

@@ -15,6 +15,24 @@ namespace Elevate
 			LoadScene(scene);
 		}
 
+		static inline ScenePtr GetCurrentScene() 
+		{ 
+			if (!m_Scenes.empty())
+			{
+				return m_Scenes.back();
+			}
+			else return nullptr;
+		}
+
+		static inline ScenePtr GetCurrentScene(SceneType type) {
+			for (auto it = m_Scenes.end() - 1; it >= m_Scenes.begin(); it--) {
+				ScenePtr ptr = *it;
+				if (it->get()->GetType() == type) {
+					return ptr;
+				}
+			}
+		}
+
 		static inline std::vector<ScenePtr>::iterator begin() { return m_Scenes.begin(); }
 		static inline std::vector<ScenePtr>::iterator end() { return m_Scenes.end(); }
 

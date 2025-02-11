@@ -42,6 +42,11 @@ namespace Elevate
 		s_API->Clear();
 	}
 
+	void Renderer::FlushBuffers()
+	{
+		s_API->FlushBuffers();
+	}
+
 	void Renderer::SetViewPort(int x, int y, int width, int height)
 	{
 		s_API->SetViewPort(x, y, width, height);

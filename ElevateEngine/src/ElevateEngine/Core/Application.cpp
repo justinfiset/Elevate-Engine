@@ -10,12 +10,6 @@
 
 #include "ElevateEngine/Files/FileUtility.h"
 
-// TODO REMOVE FROM HERE AT SOME POINT
-#include "imgui.h"
-#include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_opengl3.h"
-#include "glad/glad.h"
-
 namespace Elevate {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -24,7 +18,6 @@ namespace Elevate {
 
 	Application::Application()
 	{
-		// Make sure there is a single instance of class Application
 		EE_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
@@ -33,7 +26,6 @@ namespace Elevate {
 
 		m_FrameBuffer.reset(FrameBuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
 
-		// TODO MOVE IN ANOTHER FILE maybe???
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 	}
@@ -113,7 +105,7 @@ namespace Elevate {
 
 				Input::ManageMidStates(); // Manage Key/Button up and down state
 
-				glFlush();
+				Renderer::FlushBuffers();
 				// Poll events and swap buffers
 				m_Window->OnUpdate();
 			}
@@ -122,10 +114,12 @@ namespace Elevate {
 				EE_CORE_ERROR(exc.what());
 			}
 		}
-		// TODO ADD A EXIT OR CLEANUP METHOD HERE
-		ImGui_ImplOpenGL3_Shutdown();
-		ImGui_ImplGlfw_Shutdown();
-		ImGui::DestroyContext();
+		Exit();
+	}
+
+	void Application::Exit()
+	{
+		m_ImGuiLayer->Cleanup();
 	}
 
 #pragma region Events

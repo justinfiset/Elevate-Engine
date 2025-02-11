@@ -24,6 +24,7 @@ namespace Elevate
 		// RENDER API STATIC WRAPPER
 		static void SetClearColor(const glm::vec4 color);
 		static void Clear();
+		static void FlushBuffers();
 		static void SetViewPort(int x, int y, int width, int height);
 		static void DrawArray(const std::shared_ptr<VertexArray>& vao);
 		static void DrawStack();
