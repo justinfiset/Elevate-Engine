@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-
 #include "glm/glm.hpp"
 
 // TODO cleanup some of the imports
@@ -11,6 +10,7 @@
 #include "ElevateEngine/Core/GameObject.h" // find a way to remove from here
 #include "ElevateEngine/Renderer/Camera.h"
 
+
 // the list of uniform names used by the shader
 // TODO vérif si uniquement avec opengl ou non
 #define EE_SHADER_MODEL "model"
@@ -19,6 +19,9 @@
 
 namespace Elevate
 {
+	class Shader;
+	using ShaderPtr = std::shared_ptr<Shader>;
+
 	class Shader
 	{
 	public:
@@ -29,10 +32,9 @@ namespace Elevate
 		virtual bool IsBound() const = 0;
 		virtual uint32_t GetHashCode() const = 0;
 
-		static Shader* Create(const std::string& vertexSource, const std::string& fragmentSouce);
-
-		static Shader* CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath);
-		static Shader* CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath, std::string customVertCode, std::string customFragCode);
+		static ShaderPtr Create(std::string vertexSource, std::string fragmentSouce);
+		static ShaderPtr CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath);
+		static ShaderPtr CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath, std::string customVertCode, std::string customFragCode);
 
 		// Lights
 		void UseLight(Light* newLightSetting, std::string lightName);
@@ -113,7 +115,5 @@ namespace Elevate
 		// TODO CHECK IF NEEDED FOR OTHER APIS
 		virtual unsigned int GetRendererID() const = 0;
 	};
-
-	using ShaderPtr = std::shared_ptr<Shader>;
 }
 

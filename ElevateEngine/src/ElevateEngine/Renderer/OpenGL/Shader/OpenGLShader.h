@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ElevateEngine/Renderer/Shader.h"
+#include <ElevateEngine/Renderer/Shader/Shader.h>
 #include "glm/glm.hpp"
 
 namespace Elevate

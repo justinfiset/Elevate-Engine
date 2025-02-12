@@ -9,7 +9,7 @@
 #include "ElevateEngine/Core/Window.h"
 #include "ElevateEngine/ImGui/ImGuiLayer.h"
 
-#include "ElevateEngine/Renderer/Shader.h"
+#include <ElevateEngine/Renderer/Shader/Shader.h>
 #include "ElevateEngine/Renderer/Buffer.h"
 #include "ElevateEngine/Renderer/FrameBuffer.h"
 #include "ElevateEngine/Renderer/VertexArray.h"

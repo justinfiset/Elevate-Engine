@@ -58,7 +58,7 @@ Elevate::Cubemap::Cubemap(std::string paths[6])
 	std::string frag = 
 		#include "ElevateEngine/Renderer/Cubemap/skybox.frag"
 	;
-	m_cubemapShader.reset(Elevate::Shader::Create(vert, frag));
+	m_cubemapShader = Elevate::Shader::Create(vert, frag);
 }
 
 // TODO USE CUSTOM LOADER INSTEADD OF REPETITIVE CODE

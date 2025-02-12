@@ -6,7 +6,7 @@
 #include "Buffer.h"
 #include "Vertex.h"
 #include "Texture.h"
-#include "Shader.h"
+#include <ElevateEngine/Renderer/Shader/Shader.h>
 
 namespace Elevate
 {

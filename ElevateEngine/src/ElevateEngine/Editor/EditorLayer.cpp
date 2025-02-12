@@ -6,6 +6,8 @@
 
 #include "imgui.h"
 
+#include "ElevateEngine/Renderer/Model.h"
+
 namespace Elevate::Editor
 {
     EditorLayer* EditorLayer::s_Instance = nullptr;
@@ -34,10 +36,10 @@ namespace Elevate::Editor
         m_CameraObject->AddComponent<EditorCamera>(60.0f);
 
         // Setup the grid shader ///////////////////////////
-        m_GridShader.reset(Shader::CreateFromFiles(
+        m_GridShader = Shader::CreateFromFiles(
             "shader/grid.vert",
             "shader/grid.frag"
-        ));
+        );
         m_GridShader->Bind();
         m_GridShader->SetUniform4f("lineColor", { 0.9, 0.9, 0.9, 0.5 });
         m_GridShader->SetUniform4f("backgroundColor", { 0.6, 0.6, 0.6, 0.025 });
@@ -100,8 +102,10 @@ namespace Elevate::Editor
             if (ImGui::BeginMenu("Objects"))
             {
                 if (ImGui::MenuItem("Cube")) {
-                    ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
-                    EE_CORE_TRACE(scene->GetName());
+                    //ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
+                    //Elevate::GameObjectPtr m_DemoCube = Elevate::GameObject::Create("Cube", scene);
+                    //m_DemoCube->AddComponent<Elevate::Model>("model/cube.obj", m_Shader);
+                    //m_DemoCube->SetPosition({ 0.0f, 0.0f, 3.0f });
                 }
                 if (ImGui::MenuItem("Plane")) {
 

@@ -7,7 +7,7 @@
 
 #include "Buffer.h"
 #include "VertexArray.h"
-#include "Shader.h"
+#include <ElevateEngine/Renderer/Shader/Shader.h>
 
 namespace Elevate
 {
@@ -24,12 +24,8 @@ namespace Elevate
         void SetProjectionMatrix(glm::mat4 data);
         void SetViewMatrix(glm::mat4 data);
 
-    private:
-        // TODO move in a config file somewhere
-        void SetupImGuiDarkStyle();
-        void SetupImGuiLightStyle();
 	private:
-        std::shared_ptr<Shader> m_cubemapShader;
+        ShaderPtr m_cubemapShader;
 
 		std::shared_ptr<CubemapTexture> m_textures[6];
 

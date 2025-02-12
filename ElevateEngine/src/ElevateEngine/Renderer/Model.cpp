@@ -3,7 +3,7 @@
 #include "Model.h"
 
 #include <glm/glm.hpp>
-#include "ElevateEngine/Renderer/Shader.h"
+#include "ElevateEngine/Renderer/Shader/Shader.h"
 #include "ElevateEngine/Core/GameObject.h"
 
 #include "ElevateEngine/Renderer/Renderer.h"

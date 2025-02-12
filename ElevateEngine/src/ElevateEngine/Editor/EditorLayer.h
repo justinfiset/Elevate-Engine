@@ -5,7 +5,7 @@
 #include <ElevateEngine/Core/GameObject.h>
 
 #include <ElevateEngine/Renderer/Camera.h>
-#include <ElevateEngine/Renderer/Shader.h>
+#include <ElevateEngine/Renderer/Shader/Shader.h>
 
 #include <ElevateEngine/Editor/Panels/ScenePanel.h>
 #include <ElevateEngine/Editor/Panels/HierarchyPanel.h>

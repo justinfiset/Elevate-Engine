@@ -25,6 +25,8 @@
 #include "ElevateEngine/ImGui/ImGuiTheme.h"
 #include <ElevateEngine/Renderer/FrameBuffer.h>
 
+#include "ElevateEngine/Renderer/Shader/ShaderManager.h"
+#include "ElevateEngine/Renderer/Shader/Shader.h"
 #include "ElevateEngine/Scene/Scene.h"
 #include "ElevateEngine/Core/GameObject.h"
 #include "ElevateEngine/Core/Transform.h"
@@ -35,11 +37,11 @@
 // - rename fichier EditorLayout en EditorLayer
 class DebugLayer : public Elevate::Layer
 {
-private:
+public:
     Elevate::ShaderPtr m_Shader;
+private:
     Elevate::GameObjectPtr m_DemoObject;
     Elevate::GameObjectPtr m_PointLightObject;
-
     // TODO make an ortographic and perspective cam class
 
     // Light and env settings
@@ -56,18 +58,19 @@ public:
         // Scenes creation
         m_Scene = Elevate::Scene::Create("Demo Scene");
 
-        uint32_t glslVersion = 330;
+        uint32_t glslVersion = 410;
         uint32_t glslPointLightCount = 1;
 
         std::string glslVesionDefine = "#version " + std::to_string(glslVersion);
         std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(glslPointLightCount);
-
-        m_Shader.reset(Elevate::Shader::CreateFromFiles(
+        
+        m_Shader = Elevate::ShaderManager::LoadShader(
+            "default",
             "shader/main.vert",
             "shader/main.frag",
             glslVesionDefine,
-            glslVesionDefine + "\n" + glslPointLightCountDefine
-        ));
+            (glslVesionDefine + "\n" + glslPointLightCountDefine)
+        );
 
         m_Cubemap.reset(Elevate::Cubemap::CreateFromFile("cubemap/default.sky"));
 

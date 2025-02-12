@@ -2,7 +2,7 @@
 #include "RendererAPI.h"
 #include "Mesh.h"
 #include "Model.h"
-#include "Shader.h"
+#include <ElevateEngine/Renderer/Shader/Shader.h>
 
 namespace Elevate
 {

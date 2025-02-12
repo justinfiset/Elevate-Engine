@@ -2,7 +2,7 @@
 
 #include "glm/glm.hpp"
 #include "VertexArray.h"
-#include "Shader.h"
+#include <ElevateEngine/Renderer/Shader/Shader.h>
 
 #include "Mesh.h"
 #include "Model.h"

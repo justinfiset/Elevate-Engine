@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 
 // todo remove
-#include "Shader.h"
+#include <ElevateEngine/Renderer/Shader/Shader.h>
 
 Elevate::Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::vector<std::shared_ptr<Texture>> textures)
 	: m_Vertices(vertices), m_Indices(indices), m_Textures(textures)
