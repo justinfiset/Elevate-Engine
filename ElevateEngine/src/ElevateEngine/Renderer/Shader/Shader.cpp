@@ -44,7 +44,7 @@ namespace Elevate
 		SetUniform3f("dirLight.direction", newDirLight->CalculateDirection());
 	}
 
-	void Shader::UseMaterial(Material* newMaterial)
+	void Shader::UseMaterial(MaterialPtr newMaterial)
 	{
 		SetUniform3f("material.ambient", newMaterial->GetAmbiant());
 		SetUniform3f("material.diffuse", newMaterial->GetDiffuse());

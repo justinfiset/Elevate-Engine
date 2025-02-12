@@ -11,12 +11,30 @@
 
 Elevate::Model::Model(std::string path) : Model(path, nullptr) { }
 
-Elevate::Model::Model(std::string path, ShaderPtr shader)
+Elevate::Model::Model(std::string path, ShaderPtr shader) : Model(path, shader, nullptr) { }
+
+Elevate::Model::Model(std::string path, ShaderPtr shader, MaterialPtr material)
 {
     // TODO REMOVE IF USELESS
-    //m_ModelMatrix = std::make_unique<glm::mat4>(1.0f);
-    if (shader) SetShader(shader);
+//m_ModelMatrix = std::make_unique<glm::mat4>(1.0f);
+    if (shader)
+    {
+        SetShader(shader);
+    }
+    else
+    {
+        SetShader(ShaderManager::GetShader("default"));
+    }
 
+    if (material)
+    {
+        SetMaterial(material);
+    }
+    else 
+    {
+        // TODO GET A DEFAULT PTR FROM SOMEWHERE LIKE A MATERIAL MANAGER OR LIBRARY
+        SetMaterial(std::make_shared<Material>());
+    }
     LoadModel(path);
 }
 
@@ -35,8 +53,6 @@ void Elevate::Model::LoadModel(std::string path)
     m_Directory = path.substr(0, path.find_last_of('/')); // Used to get the textures afterward
     // Recursive method to process all the nodes in the model
     ProcessNode(scene->mRootNode, scene);
-
-    SetShader(ShaderManager::GetShader("default"));
     Renderer::SubmitModel(*this);
 }
 
@@ -171,6 +187,7 @@ void Elevate::Model::Render()
     // TODO aller chercher le shader directement
     // TODO send to render comment
     m_Shader->Bind();
+    m_Shader->UseMaterial(m_Material);
     m_Shader->SetModelMatrix(*gameObject);
     for (unsigned int i = 0; i < m_Meshes.size(); i++)
         m_Meshes[i].Draw(m_Shader);

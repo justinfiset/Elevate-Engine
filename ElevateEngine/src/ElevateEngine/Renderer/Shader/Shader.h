@@ -40,9 +40,6 @@ namespace Elevate
 		void UseLight(Light* newLightSetting, std::string lightName);
 		void UseDirLight(DirectionalLight* newDirLight);
 
-		// Materials
-		void UseMaterial(Material* newMaterial);
-
 		// Camera
 		inline void UpdateCamera(Camera& cam)
 		{
@@ -114,6 +111,11 @@ namespace Elevate
 
 		// TODO CHECK IF NEEDED FOR OTHER APIS
 		virtual unsigned int GetRendererID() const = 0;
+
+	protected:
+		// Materials - For the renderer usages
+		void UseMaterial(MaterialPtr newMaterial);
+		friend class Model;
 	};
 }
 

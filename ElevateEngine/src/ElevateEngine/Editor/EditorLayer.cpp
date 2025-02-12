@@ -108,14 +108,16 @@ namespace Elevate::Editor
                     m_DemoCube->AddComponent<Elevate::Model>("model/cube.obj");
                 }
                 if (ImGui::MenuItem("Plane")) {
-
+                    ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
+                    Elevate::GameObjectPtr m_DemoCube = Elevate::GameObject::Create("Plane", scene);
+                    m_DemoCube->AddComponent<Elevate::Model>("model/plane.obj");
                 }
-                if (ImGui::MenuItem("Sphere")) {
+                //if (ImGui::MenuItem("Sphere")) {
 
-                }
-                if (ImGui::MenuItem("Ico Sphere")) {
+                //}
+                //if (ImGui::MenuItem("Ico Sphere")) {
 
-                }
+                //}
                 ImGui::EndMenu();
             }
 

@@ -18,11 +18,13 @@ namespace Elevate
         Model() = default;
         Model(std::string path);
         Model(std::string path, ShaderPtr shader);
+        Model(std::string path, ShaderPtr shader, MaterialPtr material);
         // TODO move somewhere else // PUT PRIVATE;
         inline const std::vector<Mesh>& GetMeshes() const { return m_Meshes; }
 
         // TODO : should change the shader in the renderer
         inline void SetShader(ShaderPtr newShader) { m_Shader = newShader; }
+        inline void SetMaterial(MaterialPtr material) { m_Material = material; }
 
         // TODO REMOVE IF NOT NEEDED ANYMORE
         //inline glm::mat4& GetMatrix() const { return *m_ModelMatrix; }
@@ -39,6 +41,7 @@ namespace Elevate
 
     private:
         ShaderPtr m_Shader;
+        MaterialPtr m_Material;
         // model data
         std::vector<Mesh> m_Meshes;
         std::string m_Directory;

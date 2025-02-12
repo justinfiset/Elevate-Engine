@@ -50,11 +50,17 @@ private:
     Elevate::ScenePtr m_Scene;
 
 public:
-    // TODO Change from debug to edtitor
     DebugLayer() : Layer("Debug") { }
 
     void OnAttach() override
     {   
+        Elevate::MaterialPtr material = Elevate::Material::Create(
+            { 0.5f, 0.0f, 0.0f }, // Ambient
+            { 0.5f, 0.0f, 0.0f }, // Diffuse
+            { 0.5f, 0.0f, 0.0f }, // Specular
+            128.0f                // Shine
+        );
+
         // Scenes creation
         m_Scene = Elevate::Scene::Create("Demo Scene");
 
@@ -101,6 +107,9 @@ public:
         Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
         m_DemoObject->SetPosition({ 0.0f, 0.0f, -3.0f });
 
+        Elevate::GameObjectPtr cube = Elevate::GameObject::Create("cube scene", m_Scene);
+        cube->AddComponent<Elevate::Model>("model/cube.obj", m_Shader, material);
+
         // point light
         m_PointLightObject = Elevate::GameObject::Create("Point Light", m_Scene);
         m_PointLightObject->SetParent(m_DemoObject);
@@ -110,17 +119,6 @@ public:
 
         Elevate::DirectionalLight dirLight;
         m_Shader->UseDirLight(&dirLight);
-
-        // SETTING THE MATERIAL /////////////////////////////////////////
-        // TODO: USE MATERIALS WITH OBJECTS INSTEAD OF SHADERS DIRECTLY
-        Elevate::Material material /*
-        (
-            { 0.5f, 0.5f, 0.5f }, // Ambient
-            { 0.5f, 0.5f, 0.5f }, // Diffuse
-            { 0.5f, 0.5f, 0.5f }, // Specular
-            1.0f                  // Shine
-        )*/;
-        m_Shader->UseMaterial(&material);
 
         // todo envoyer dans la classe pointlight
         // Set avoir le composant que l'on va cr�er

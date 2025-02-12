@@ -5,6 +5,9 @@
 
 namespace Elevate
 {
+	class Material;
+	using MaterialPtr = std::shared_ptr<Material>;
+
 	class Material
 	{
 	public:
@@ -13,7 +16,7 @@ namespace Elevate
 			m_Diffuse(1.0f, 1.0f, 1.0f),
 			m_Specular(1.0f, 1.0f, 1.0f),
 			m_Shininess(128.0f)
-		{}
+		{ }
 
 		Material(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shininess) :
 			m_Ambient(ambient),
@@ -26,6 +29,10 @@ namespace Elevate
 		inline glm::vec3& GetDiffuse() { return m_Diffuse; }
 		inline glm::vec3& GetSpecular() { return m_Specular; }
 		inline float GetShininess() { return m_Shininess; }
+
+	public:
+		inline static MaterialPtr Create() { return std::make_shared<Material>(); }
+		inline static MaterialPtr Create(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shininess) { return std::make_shared<Material>(ambient, diffuse, specular, shininess); }
 
 		// todo setter and make getter const (completly wrap the material)
 	private:
