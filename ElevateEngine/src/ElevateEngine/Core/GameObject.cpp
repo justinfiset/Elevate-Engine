@@ -81,5 +81,6 @@ Elevate::GameObjectPtr Elevate::GameObject::Create(std::string name, ScenePtr sc
 {
 	GameObjectPtr obj = std::make_shared<GameObject>(name, scene, parent);
 	obj->Initialize();
+	obj->SetPosition({ 0.0f, 0.0f, 0.0f });
 	return obj;
 }

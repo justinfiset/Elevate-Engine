@@ -106,7 +106,6 @@ namespace Elevate::Editor
                     ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
                     Elevate::GameObjectPtr m_DemoCube = Elevate::GameObject::Create("Cube", scene);
                     m_DemoCube->AddComponent<Elevate::Model>("model/cube.obj");
-                    m_DemoCube->SetPosition({ 0.0f, 0.0f, 0.0f });
                 }
                 if (ImGui::MenuItem("Plane")) {
 
