@@ -8,12 +8,9 @@ vec3 defaultColor = vec3(0.8, 0.8, 0.8);
 
 // MATERIAL IMPL.
 // TODO implement multiple diffuse texture functionallity
-struct Texture {
-    sampler2D ambient;
-    sampler2D diffuse;
-    sampler2D specular;
-};
-uniform Texture texture;
+uniform sampler2D ambientTex;
+uniform sampler2D diffuseTex;
+uniform sampler2D specularTex;
 
 struct Material {
     vec3 ambient;
@@ -37,11 +34,12 @@ uniform DirLight dirLight;
 
 vec3 GetTextureColor(sampler2D tex, vec2 uv, vec3 defaultColor) {
     // TODO:change the way to process cuz texture can't include black;
-    vec3 texColor = vec3(texture(tex, uv));
+    vec3 texColor = texture(tex, uv).rgb;
     if (texColor == vec3(0.0, 0.0, 0.0)) { 
         return defaultColor;
+    } else {
+        return texColor;
     }
-    return texColor;
 }
 
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
@@ -53,9 +51,9 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
     vec3 reflectDir = reflect(-lightDir, normal);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     // combine results
-    vec3 ambient  = light.ambient  * GetTextureColor(texture.ambient, textCord, material.ambient);
-    vec3 diffuse  = light.diffuse  * diff * GetTextureColor(texture.diffuse, textCord, material.diffuse);
-    vec3 specular = light.specular * spec * GetTextureColor(texture.specular, textCord, material.specular);
+    vec3 ambient  = light.ambient  * GetTextureColor(ambientTex, textCord, material.ambient);
+    vec3 diffuse  = light.diffuse  * diff * GetTextureColor(diffuseTex, textCord, material.diffuse);
+    vec3 specular = light.specular * spec * GetTextureColor(specularTex, textCord, material.specular);
 
     return (ambient + diffuse + specular);
 }
@@ -90,9 +88,9 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     float attenuation = 1.0 / (light.constant + light.linear * distance + 
   			     light.quadratic * (distance * distance));    
     // combine results
-    vec3 ambient  = light.ambient  * GetTextureColor(texture.ambient, textCord, material.ambient);
-    vec3 diffuse  = light.diffuse  * diff * GetTextureColor(texture.diffuse, textCord, material.diffuse);
-    vec3 specular = light.specular * spec * GetTextureColor(texture.specular, textCord, material.specular);
+    vec3 ambient  = light.ambient  * GetTextureColor(ambientTex, textCord, material.ambient);
+    vec3 diffuse  = light.diffuse  * diff * GetTextureColor(diffuseTex, textCord, material.diffuse);
+    vec3 specular = light.specular * spec * GetTextureColor(specularTex, textCord, material.specular);
     ambient  *= attenuation;
     diffuse  *= attenuation;
     specular *= attenuation;
