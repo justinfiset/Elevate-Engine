@@ -103,12 +103,10 @@ namespace Elevate::Editor
             if (ImGui::BeginMenu("Objects"))
             {
                 if (ImGui::MenuItem("Cube")) {
-                    // TODO FAIRE QUE SANS SHADER SPÉCIFIÉ, LE SHADER D'UN MODEL SOIT DÉFAUT AUTOMATIQUEMENT!!!!!
-                    ShaderPtr shader = ShaderManager::GetShader("default");
                     ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
                     Elevate::GameObjectPtr m_DemoCube = Elevate::GameObject::Create("Cube", scene);
-                    m_DemoCube->AddComponent<Elevate::Model>("model/cube.obj", shader);
-                    //m_DemoCube->SetPosition({ 0.0f, 0.0f, 3.0f });
+                    m_DemoCube->AddComponent<Elevate::Model>("model/cube.obj");
+                    m_DemoCube->SetPosition({ 0.0f, 0.0f, 0.0f });
                 }
                 if (ImGui::MenuItem("Plane")) {
 

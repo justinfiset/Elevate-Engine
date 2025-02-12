@@ -6,12 +6,10 @@ namespace Elevate {
 	{
 		if (instance().m_Shaders.count(name) > 0) 
 		{
-			EE_CORE_TRACE("ALREADY HAS {0}", name);
 			return instance().m_Shaders[name];
 		}
 		else
 		{
-			EE_CORE_TRACE("SETTING {0}", name);
 			instance().m_Shaders[name] = shader;
 			return shader;
 		}
@@ -29,7 +27,6 @@ namespace Elevate {
 
 	ShaderPtr ShaderManager::GetShader(std::string name)
 	{
-		EE_CORE_TRACE("GETTING {0}", name);
 		return (instance().m_Shaders.count(name) > 0) ? instance().m_Shaders[name] : nullptr;
 	}
 }

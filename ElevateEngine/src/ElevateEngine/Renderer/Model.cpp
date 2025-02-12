@@ -4,6 +4,7 @@
 
 #include <glm/glm.hpp>
 #include "ElevateEngine/Renderer/Shader/Shader.h"
+#include "ElevateEngine/Renderer/Shader/ShaderManager.h"
 #include "ElevateEngine/Core/GameObject.h"
 
 #include "ElevateEngine/Renderer/Renderer.h"
@@ -35,6 +36,7 @@ void Elevate::Model::LoadModel(std::string path)
     // Recursive method to process all the nodes in the model
     ProcessNode(scene->mRootNode, scene);
 
+    SetShader(ShaderManager::GetShader("default"));
     Renderer::SubmitModel(*this);
 }
 
