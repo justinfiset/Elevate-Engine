@@ -98,8 +98,7 @@ public:
         // TODO AJOUTER UN ARGUMENT DANS LE CONSTRUCTEUR DE CREATE POUR SET LE PARENT -> SI NULL, ROOT OBJECT,
         //      IMPLEMENTER CETTE METHODE DANS LA SCENE.H
         m_DemoObject = Elevate::GameObject::Create("Backpack", m_Scene);
-        Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
-        demoModel.SetShader(m_Shader);
+        Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj", m_Shader);
         m_DemoObject->SetPosition({ 0.0f, 0.0f, -3.0f });
 
         // point light

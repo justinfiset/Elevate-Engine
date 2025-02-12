@@ -22,7 +22,7 @@ namespace Elevate
         inline const std::vector<Mesh>& GetMeshes() const { return m_Meshes; }
 
         // TODO : should change the shader in the renderer
-        inline void SetShader(std::shared_ptr<Shader>& newShader) { m_Shader = newShader; }
+        inline void SetShader(ShaderPtr newShader) { m_Shader = newShader; }
 
         // TODO REMOVE IF NOT NEEDED ANYMORE
         //inline glm::mat4& GetMatrix() const { return *m_ModelMatrix; }
@@ -38,7 +38,7 @@ namespace Elevate
         std::vector<std::shared_ptr<Texture>> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 
     private:
-        std::shared_ptr<Shader> m_Shader;
+        ShaderPtr m_Shader;
         // model data
         std::vector<Mesh> m_Meshes;
         std::string m_Directory;
