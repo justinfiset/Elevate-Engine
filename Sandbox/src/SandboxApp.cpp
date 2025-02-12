@@ -112,6 +112,7 @@ public:
         m_Shader->UseDirLight(&dirLight);
 
         // SETTING THE MATERIAL /////////////////////////////////////////
+        // TODO: USE MATERIALS WITH OBJECTS INSTEAD OF SHADERS DIRECTLY
         Elevate::Material material /*
         (
             { 0.5f, 0.5f, 0.5f }, // Ambient
