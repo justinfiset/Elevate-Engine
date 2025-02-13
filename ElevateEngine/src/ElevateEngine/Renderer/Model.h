@@ -7,7 +7,7 @@
 #include <assimp/Importer.hpp>
 
 #include "ElevateEngine/Core/Component.h"
-#include "Texture.h"
+#include <ElevateEngine/Renderer/Texture/Texture.h>
 #include "Mesh.h"
 
 namespace Elevate

@@ -23,7 +23,7 @@
 #include "ElevateEngine/Renderer/Renderer.h"
 #include "ElevateEngine/Renderer/VertexArray.h"
 #include "ElevateEngine/Renderer/Buffer.h"
-#include "ElevateEngine/Renderer/Texture.h"
+#include <ElevateEngine/Renderer/Texture/Texture.h>
 #include "ElevateEngine/ImGui/ImGuiLayer.h"
 // ===================================
 

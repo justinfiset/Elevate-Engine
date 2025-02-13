@@ -173,7 +173,7 @@ std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextu
                 path = path.substr(lastSlash + 1);
             }
 
-            texture.reset(Texture::Create(path));
+            texture = Texture::Create(path);
             texture->SetType(typeName);
             textures.push_back(texture);
             textures_loaded.push_back(texture); // add to loaded textures

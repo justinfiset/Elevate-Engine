@@ -5,8 +5,77 @@
 #include <rapidjson/document.h>
 #include <rapidjson/error/en.h>
 #include <ElevateEngine/Core/Log.h>
+#include <filesystem>
 
-Elevate::Editor::AssetBrowserPanel::AssetBrowserPanel(std::string filepath)
+#include <ElevateEngine/Renderer/Texture/Texture.h>
+
+namespace fs = std::filesystem;
+
+Elevate::Editor::AssetBrowserPanel::AssetBrowserPanel()
+{
+    LoadExtensionsMeta();
+    LoadFileItemsList();
+    EE_CORE_INFO("Editor Assets Browser Initiated.");
+}
+
+void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
+{
+	ImGui::Begin("Asset Browser");
+
+    ImVec2 buttonSize(72, 72);
+    float spacing = ImGui::GetStyle().ItemSpacing.x * 2;
+    float panelWidth = ImGui::GetWindowSize().x;
+    int colNb = std::floor(panelWidth / (buttonSize.x + spacing));
+    colNb = std::max(1, colNb);
+
+    int index = 0;
+    for (FileItem item : m_FileItems)
+    {
+        TexturePtr texture = Texture::Create(item.metadata.iconPath); 
+        ImGui::BeginGroup();
+        if (ImGui::ImageButton("Mon Boutton", (void*)(intptr_t)texture->GetID(), buttonSize)) {
+            printf("Image Button Clicked!\n");
+        }
+        ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + buttonSize.x);
+        ImGui::TextWrapped(item.name.c_str());
+        ImGui::PopTextWrapPos();
+
+        ImGui::EndGroup();
+
+        if ((index + 1) % colNb != 0)
+        {
+            ImGui::SameLine();
+        }
+        index++;
+    }
+	ImGui::End();
+}
+
+void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList(std::string path)
+{
+    m_FileItems.clear();
+    for (const auto& entry : fs::directory_iterator(path)) {
+        FileMetadata meta;
+        std::string ext = "";
+
+        if (entry.is_directory()) {
+            meta = m_FileMetadata["DIRECTORY"];
+        }
+        else {
+            ext = entry.path().extension().string();
+            if (m_FileMetadata.find(ext) != m_FileMetadata.end()) {
+                meta = m_FileMetadata[ext];
+            }
+            else {
+                meta = m_FileMetadata["ANY"];
+            }
+        }
+        FileItem fileItem(entry.path().string(), entry.path().filename().string(), ext, meta);
+        m_FileItems.push_back(fileItem);
+    }
+}
+
+void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath)
 {
     FILE* fp = fopen(filepath.c_str(), "r");
     if (!fp) {
@@ -19,7 +88,7 @@ Elevate::Editor::AssetBrowserPanel::AssetBrowserPanel(std::string filepath)
 
     rapidjson::Document doc;
     doc.ParseStream(is);
-    fclose(fp);  // Fermer le fichier après parsing
+    fclose(fp);
 
     if (doc.HasParseError()) {
         EE_CORE_ERROR("Erreur parsing JSON : {0}", rapidjson::GetParseError_En(doc.GetParseError()));
@@ -56,11 +125,4 @@ Elevate::Editor::AssetBrowserPanel::AssetBrowserPanel(std::string filepath)
         //EE_CORE_TRACE("  Icon Path: {0}", iconPath);
         //EE_CORE_TRACE("  Type: {0}", (type == File ? "FILE" : "DIRECTORY"));
     }
-}
-
-void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
-{
-	ImGui::Begin("Asset Browser");
-
-	ImGui::End();
 }

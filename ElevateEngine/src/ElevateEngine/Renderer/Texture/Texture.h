@@ -4,6 +4,9 @@
 
 namespace Elevate
 {
+	class Texture;
+	using TexturePtr = std::shared_ptr<Texture>;
+
 	class Texture
 	{
 	public:
@@ -13,8 +16,9 @@ namespace Elevate
 		virtual void Unbind(int index = 0) = 0;
 		virtual bool IsBound() const = 0;
 
-		static Texture* Create(std::string path);
-		static Texture* Create(std::string path, unsigned int index, std::string type);
+		// TODO CHANGE TO SMART POINTERS
+		static TexturePtr Create(std::string path);
+		static TexturePtr Create(std::string path, unsigned int index, std::string type);
 
 		inline std::string GetPath() { return m_Path; }
 

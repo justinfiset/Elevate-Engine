@@ -36,17 +36,26 @@ namespace Elevate::Editor {
     struct FileItem {
         std::string name;
         std::string path;
+        std::string extension;
         FileMetadata metadata;
+
+        FileItem() = default;
+        FileItem(std::string filePath, std::string fileName, std::string fileExtension, FileMetadata fileMeta) :
+            path(filePath), name(fileName), extension(fileExtension), metadata(fileMeta) { }
     };
 
     class AssetBrowserPanel
     {
     public:
-        AssetBrowserPanel(std::string filepath = "editor/config/file_browser.json");
+        AssetBrowserPanel();
 
         void OnImGuiRender();
 
     private:
+        void LoadFileItemsList(std::string path = ".");
+        void LoadExtensionsMeta(std::string filepath = "editor/config/file_browser.json");
+
+        std::vector<FileItem> m_FileItems;
         std::unordered_map<std::string, FileMetadata> m_FileMetadata;
     };
 }

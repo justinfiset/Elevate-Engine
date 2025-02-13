@@ -2,17 +2,17 @@
     "assets": [
         {
             "extension": "png",
-            "iconPath": "internal/icons/png.png",
+            "iconPath": "editor/icons/assets/png.png",
             "type": "FILE"
         },
         {
             "extension": "ANY",
-            "iconPath": "internal/icons/any.png",
+            "iconPath": "editor/icons/assets/file.png",
             "type": "FILE"
         },
         {
-            "extension": "DIRECTORY ",
-            "iconPath": "internal/icons/directory.png",
+            "extension": "DIRECTORY",
+            "iconPath": "editor/icons/assets/folder.png", 
             "type": "DIRECTORY"
         }
     ]
