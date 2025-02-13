@@ -26,6 +26,7 @@ namespace Elevate::Editor
         m_HierarchyPanel = std::make_unique<HierarchyPanel>();
         m_AnalyserPanel = std::make_unique<AnalyserPanel>();
         m_StatisticsPanel = std::make_unique<StatisticsPanel>();
+        m_AssetBrowserPanel = std::make_unique<AssetBrowserPanel>();
     }
 
     void EditorLayer::OnAttach()
@@ -112,6 +113,7 @@ namespace Elevate::Editor
                     Elevate::GameObjectPtr m_DemoCube = Elevate::GameObject::Create("Plane", scene);
                     m_DemoCube->AddComponent<Elevate::Model>("model/plane.obj");
                 }
+                // TODO ADD OTHER MODELS
                 //if (ImGui::MenuItem("Sphere")) {
 
                 //}
@@ -130,6 +132,7 @@ namespace Elevate::Editor
         m_HierarchyPanel->OnImGuiRender();
         m_AnalyserPanel->OnImGuiRender();
         m_StatisticsPanel->OnImGuiRender();
+        m_AssetBrowserPanel->OnImGuiRender();
     }
 
     void EditorLayer::OnEvent(Event& event)

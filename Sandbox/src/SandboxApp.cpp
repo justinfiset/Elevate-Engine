@@ -107,9 +107,6 @@ public:
         Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
         m_DemoObject->SetPosition({ 0.0f, 0.0f, -3.0f });
 
-        Elevate::GameObjectPtr cube = Elevate::GameObject::Create("cube scene", m_Scene);
-        cube->AddComponent<Elevate::Model>("model/cube.obj", m_Shader, material);
-
         // point light
         m_PointLightObject = Elevate::GameObject::Create("Point Light", m_Scene);
         m_PointLightObject->SetParent(m_DemoObject);
@@ -177,9 +174,9 @@ public:
     {
         // TODO FAIRE UN PANEL AVEC DANS L'EDITEUR
         //// ENVIRONMENT /////////////////////////////////////////
-        //ImGui::Begin("Environment");
-        //ImGui::SeparatorText("Skybox");
-        //ImGui::End();
+        ImGui::Begin("Environment");
+        ImGui::SeparatorText("Skybox");
+        ImGui::End();
         //////////////////////////////////////////////////////////
     }
 };

@@ -1,0 +1,19 @@
+{
+    "assets": [
+        {
+            "extension": "png",
+            "iconPath": "internal/icons/png.png",
+            "type": "FILE"
+        },
+        {
+            "extension": "ANY",
+            "iconPath": "internal/icons/any.png",
+            "type": "FILE"
+        },
+        {
+            "extension": "DIRECTORY ",
+            "iconPath": "internal/icons/directory.png",
+            "type": "DIRECTORY"
+        }
+    ]
+}

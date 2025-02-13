@@ -48,10 +48,6 @@ void Elevate::Editor::HierarchyPanel::OnImGuiRender()
 {
     ImGui::Begin("Hierarchy");
 
-    // TODO support pour plusieurs scenes ouvertes?????
-    // TODO test if working properly
-
-
     for (auto it = SceneManager::begin(); it != SceneManager::end(); it++)
     {
         ScenePtr scene = *it;
