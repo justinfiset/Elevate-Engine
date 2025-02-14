@@ -61,6 +61,7 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
             }
             else {
                 // TODO handle if it is an other file
+                system(("start " + item.path).c_str());
             }
         }
 
@@ -87,7 +88,12 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
         std::string ext = "";
 
         if (entry.is_directory()) {
-            meta = m_FileMetadata["DIRECTORY"];
+            if (fs::is_empty(entry.path())) {
+                meta = m_FileMetadata["EMPTY_DIRECTORY"];
+            }
+            else {
+                meta = m_FileMetadata["DIRECTORY"];
+            }
         }
         else {
             ext = entry.path().extension().string();

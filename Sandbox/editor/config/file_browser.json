@@ -14,6 +14,11 @@
             "extension": "DIRECTORY",
             "iconPath": "editor/icons/assets/folder.png", 
             "type": "DIRECTORY"
+        },
+        {
+            "extension": "EMPTY_DIRECTORY",
+            "iconPath": "editor/icons/assets/empty_folder.png",
+            "type": "DIRECTORY"
         }
     ]
 }
