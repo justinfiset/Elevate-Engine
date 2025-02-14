@@ -5,7 +5,6 @@
 #include <rapidjson/document.h>
 #include <rapidjson/error/en.h>
 #include <ElevateEngine/Core/Log.h>
-#include <filesystem>
 
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 
@@ -29,6 +28,24 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
     colNb = std::max(1, colNb);
 
     int index = 0;
+
+    if (m_CurrentPath != ".") {
+        TexturePtr texture = Texture::Create(m_FileMetadata["DIRECTORY"].iconPath);
+        ImGui::BeginGroup();
+        ImGui::ImageButton("back", (void*)(intptr_t)texture->GetID(), buttonSize);
+
+        if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
+            m_CurrentPath = m_CurrentPath.parent_path();
+            LoadFileItemsList();
+        }
+
+        ImGui::TextWrapped("../");
+
+        ImGui::EndGroup();
+        ImGui::SameLine();
+        index++;
+    }
+
     for (FileItem item : m_FileItems)
     {
         TexturePtr texture = Texture::Create(item.metadata.iconPath); 
@@ -36,6 +53,17 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
         if (ImGui::ImageButton("Mon Boutton", (void*)(intptr_t)texture->GetID(), buttonSize)) {
             printf("Image Button Clicked!\n");
         }
+
+        if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
+            if (item.metadata.type == Directory) {
+                m_CurrentPath += "/" + item.name;
+                LoadFileItemsList();
+            }
+            else {
+                // TODO handle if it is an other file
+            }
+        }
+
         ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + buttonSize.x);
         ImGui::TextWrapped(item.name.c_str());
         ImGui::PopTextWrapPos();
@@ -51,10 +79,10 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 	ImGui::End();
 }
 
-void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList(std::string path)
+void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
 {
     m_FileItems.clear();
-    for (const auto& entry : fs::directory_iterator(path)) {
+    for (const auto& entry : fs::directory_iterator(m_CurrentPath)) {
         FileMetadata meta;
         std::string ext = "";
 

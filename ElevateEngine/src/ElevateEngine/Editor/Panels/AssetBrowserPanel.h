@@ -1,5 +1,6 @@
 #pragma once
 #include <ElevateEngine/Core/GameObject.h>
+#include <filesystem>
 
 namespace Elevate::Editor {
     
@@ -52,8 +53,10 @@ namespace Elevate::Editor {
         void OnImGuiRender();
 
     private:
-        void LoadFileItemsList(std::string path = ".");
+        void LoadFileItemsList();
         void LoadExtensionsMeta(std::string filepath = "editor/config/file_browser.json");
+
+        std::filesystem::path m_CurrentPath = ".";
 
         std::vector<FileItem> m_FileItems;
         std::unordered_map<std::string, FileMetadata> m_FileMetadata;
