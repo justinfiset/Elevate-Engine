@@ -21,6 +21,7 @@ namespace Elevate
 		static TexturePtr Create(std::string path, unsigned int index, std::string type);
 
 		inline std::string GetPath() { return m_Path; }
+		bool MatchesPath(std::string pathToMatch);
 
 		inline const void SetType(std::string type) { m_Type = type; }
 		inline std::string GetType() const { return m_Type; }

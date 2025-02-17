@@ -7,7 +7,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
 #include <glad/glad.h>
-
+#include <GLFW/glfw3.h>
 namespace Elevate
 {
 	OpenGLTexture::OpenGLTexture(std::string path, unsigned int index, std::string type) : Texture(path, type)
@@ -26,13 +26,11 @@ namespace Elevate
 
 		// FLIPPING THE IMAGE VERTICALLY - NOT NEEDED UNLESS WE FLIP UVS ON THE MODELS BUT USEFUL FOR IMAGES ETC
 		//stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-		unsigned char* data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0);
+		unsigned char* data = stbi_load(path.c_str(), &width, &height, &nrChannels, STBI_rgb_alpha);
 		if (data)
 		{
-			EE_CORE_TRACE("{0}, {1}, {2}", width, height, nrChannels);
-			unsigned int type = (nrChannels == 3) ? GL_RGB : GL_RGBA;
-			// note that the awesomeface.png has transparency and thus an alpha channel, so make sure to tell OpenGL the data type is of GL_RGBA
-			glTexImage2D(GL_TEXTURE_2D, 0, type, width, height, 0, type, GL_UNSIGNED_BYTE, data);
+			//EE_CORE_TRACE("{0}, {1}, {2}", width, height, nrChannels);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 			glGenerateMipmap(GL_TEXTURE_2D);
 		}
 		else

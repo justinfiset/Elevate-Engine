@@ -113,9 +113,10 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
         }
         FileItem fileItem;
         if (meta.type == Image) {
-            EE_CORE_TRACE(fs::absolute(entry.path()));
-            fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, meta.iconPath, meta.type);
-            //fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, entry.path().string(), meta.type);
+            // TODO FIX assetbrowser image preview
+            //EE_CORE_TRACE(fs::absolute(entry.path()));
+            //fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, meta.iconPath, meta.type);
+            fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, entry.path().string(), meta.type);
         }
         else {
             fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, meta.iconPath, meta.type);

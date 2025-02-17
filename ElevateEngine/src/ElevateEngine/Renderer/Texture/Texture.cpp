@@ -13,7 +13,7 @@ namespace Elevate
 	{
 		// TODO do for all other constructors / factory methods
 		std::filesystem::path abs = std::filesystem::absolute(path);
-		EE_CORE_TRACE(path);
+		//EE_CORE_TRACE(path);
 		TexturePtr texture = TextureManager::GetTexture(abs.string());
 		if (texture) return texture;
 
@@ -41,5 +41,16 @@ namespace Elevate
 		}
 
 		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
+	}
+
+	bool Texture::MatchesPath(std::string pathToMatch)
+	{
+		std::filesystem::path otherPath = pathToMatch;
+		if (otherPath.is_absolute()) {
+			return pathToMatch == this->m_Path;
+		}
+		else {
+			return std::filesystem::absolute(otherPath).string() == this->m_Path;
+		}
 	}
 }

@@ -152,31 +152,27 @@ std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextu
         aiString str;
         mat->GetTexture(type, i, &str);
 
+        std::string path = str.C_Str();
+        size_t lastSlash = path.find_last_of("/\\");
+        if (lastSlash != std::string::npos) {
+            path = path.substr(lastSlash + 1);
+        }
+
         bool skip = false;
         for (unsigned int j = 0; j < textures_loaded.size(); j++)
         {
-            if (std::strcmp(textures_loaded[j]->GetPath().data(), str.C_Str()) == 0)
-            {
+            if (this->textures_loaded[j]->MatchesPath(path)) {
                 textures.push_back(textures_loaded[j]);
                 skip = true;
                 break;
             }
         }
         if (!skip)
-        {   // if texture hasn't been loaded already, load it
-            std::shared_ptr<Texture> texture;
-            
-            // We get the local path of the textures -> from abolute to relative
-            std::string path = str.C_Str();
-            size_t lastSlash = path.find_last_of("/\\");
-            if (lastSlash != std::string::npos) {
-                path = path.substr(lastSlash + 1);
-            }
-
-            texture = Texture::Create(path);
+        {
+            TexturePtr texture = Texture::Create(path);
             texture->SetType(typeName);
             textures.push_back(texture);
-            textures_loaded.push_back(texture); // add to loaded textures
+            textures_loaded.push_back(texture);
         }
     }
     return textures;
