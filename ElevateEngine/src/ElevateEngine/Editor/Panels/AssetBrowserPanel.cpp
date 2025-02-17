@@ -7,6 +7,8 @@
 #include <ElevateEngine/Core/Log.h>
 
 #include <ElevateEngine/Renderer/Texture/Texture.h>
+#include <ElevateEngine/Core/Files.h>
+
 
 namespace fs = std::filesystem;
 
@@ -46,8 +48,6 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
         index++;
     }
 
-    // TODO GEN A COMPLETE STATIC LIST BEFORE TO PREVENT FILE CHECKING
-    // VECTOR < ASSETITEM qui contient iconPath, name, path thats it nothing else OU BIEN MODIFIER CELUI DEJA EN PLACE
     for (FileItem item : m_FileItems)
     {
         TexturePtr texture = Texture::Create(item.iconPath);
@@ -63,8 +63,7 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
                 LoadFileItemsList();
             }
             else {
-                // TODO handle if it is an other file
-                system(("start " + item.path).c_str());
+                Files::OpenWithDefaultApp(item.path);
             }
         }
 
