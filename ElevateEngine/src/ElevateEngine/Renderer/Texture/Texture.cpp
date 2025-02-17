@@ -5,17 +5,24 @@
 #include <ElevateEngine/Renderer/OpenGL/Texture/OpenGLTexture.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
 
+#include <filesystem>
+
 namespace Elevate
 {
 	TexturePtr Texture::Create(std::string path)
 	{
-		TexturePtr texture = TextureManager::GetTexture(path);
+		// TODO do for all other constructors / factory methods
+		std::filesystem::path abs = std::filesystem::absolute(path);
+		EE_CORE_TRACE(path);
+		TexturePtr texture = TextureManager::GetTexture(abs.string());
 		if (texture) return texture;
+
+		//EE_CORE_TRACE(abs.string()); // Uncomment to see all loaded texture wich are actually created each frame
 
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::GraphicAPI::None: texture = nullptr; break; // TODO implement
-		case RendererAPI::GraphicAPI::OpenGL: texture = std::make_shared<OpenGLTexture>(path);
+		case RendererAPI::GraphicAPI::OpenGL: texture = std::make_shared<OpenGLTexture>(abs.string());
 		}
 
 		return TextureManager::LoadTexture(texture);

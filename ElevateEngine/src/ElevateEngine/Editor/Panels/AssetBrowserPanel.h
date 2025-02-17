@@ -7,7 +7,8 @@ namespace Elevate::Editor {
     enum FileType {
         Directory,
         File,
-        Internal
+        Internal,
+        Image
     };
 
     struct FileMetadata {
@@ -28,6 +29,9 @@ namespace Elevate::Editor {
             else if (typeStr == "FILE") {
                 return FileType::File;
             }
+            else if (typeStr == "IMAGE") {
+                return FileType::Image;
+            }
             else {
                 return FileType::Internal;
             }
@@ -38,11 +42,12 @@ namespace Elevate::Editor {
         std::string name;
         std::string path;
         std::string extension;
-        FileMetadata metadata;
+        std::string iconPath;
+        FileType type;
 
         FileItem() = default;
-        FileItem(std::string filePath, std::string fileName, std::string fileExtension, FileMetadata fileMeta) :
-            path(filePath), name(fileName), extension(fileExtension), metadata(fileMeta) { }
+        FileItem(std::string filePath, std::string fileName, std::string fileExtension, std::string icon, FileType type) :
+            path(filePath), name(fileName), extension(fileExtension), iconPath(icon), type(type) { }
     };
 
     class AssetBrowserPanel

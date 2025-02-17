@@ -46,16 +46,19 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
         index++;
     }
 
+    // TODO GEN A COMPLETE STATIC LIST BEFORE TO PREVENT FILE CHECKING
+    // VECTOR < ASSETITEM qui contient iconPath, name, path thats it nothing else OU BIEN MODIFIER CELUI DEJA EN PLACE
     for (FileItem item : m_FileItems)
     {
-        TexturePtr texture = Texture::Create(item.metadata.iconPath); 
+        TexturePtr texture = Texture::Create(item.iconPath);
+
         ImGui::BeginGroup();
         if (ImGui::ImageButton("Mon Boutton", (void*)(intptr_t)texture->GetID(), buttonSize)) {
             printf("Image Button Clicked!\n");
         }
 
         if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
-            if (item.metadata.type == Directory) {
+            if (item.type == Directory) {
                 m_CurrentPath += "/" + item.name;
                 LoadFileItemsList();
             }
@@ -97,6 +100,10 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
         }
         else {
             ext = entry.path().extension().string();
+            if (!ext.empty() && ext[0] == '.') {
+                ext = ext.substr(1);
+            }
+
             if (m_FileMetadata.find(ext) != m_FileMetadata.end()) {
                 meta = m_FileMetadata[ext];
             }
@@ -104,7 +111,16 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
                 meta = m_FileMetadata["ANY"];
             }
         }
-        FileItem fileItem(entry.path().string(), entry.path().filename().string(), ext, meta);
+        FileItem fileItem;
+        if (meta.type == Image) {
+            EE_CORE_TRACE(fs::absolute(entry.path()));
+            fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, meta.iconPath, meta.type);
+            //fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, entry.path().string(), meta.type);
+        }
+        else {
+            fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, meta.iconPath, meta.type);
+        }
+        
         m_FileItems.push_back(fileItem);
     }
 }

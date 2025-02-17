@@ -29,6 +29,7 @@ namespace Elevate
 		unsigned char* data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0);
 		if (data)
 		{
+			EE_CORE_TRACE("{0}, {1}, {2}", width, height, nrChannels);
 			unsigned int type = (nrChannels == 3) ? GL_RGB : GL_RGBA;
 			// note that the awesomeface.png has transparency and thus an alpha channel, so make sure to tell OpenGL the data type is of GL_RGBA
 			glTexImage2D(GL_TEXTURE_2D, 0, type, width, height, 0, type, GL_UNSIGNED_BYTE, data);

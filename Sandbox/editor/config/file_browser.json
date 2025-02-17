@@ -1,9 +1,14 @@
 {
     "assets": [
         {
+            "extension": "jpg",
+            "iconPath": "editor/debug.png",
+            "type": "IMAGE"
+        },
+        {
             "extension": "png",
-            "iconPath": "editor/icons/assets/png.png",
-            "type": "FILE"
+            "iconPath": "editor/debug.png",
+            "type": "IMAGE"
         },
         {
             "extension": "ANY",
