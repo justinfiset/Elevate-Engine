@@ -7,6 +7,7 @@
 #include "ElevateEngine/Inputs/Input.h"
 
 #include "ElevateEngine/Renderer/OpenGL/OpenGLContext.h"
+#include <ElevateEngine/Renderer/Renderer.h>
 
 namespace Elevate {
 	static bool s_GLFWInitialized = false;
@@ -66,7 +67,7 @@ namespace Elevate {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 			data.Width = width;
 			data.Height = height;
-
+			
 			WindowResizeEvent event(width, height);
 			data.EventCallback(event);
 		});

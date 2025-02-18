@@ -61,7 +61,7 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
     std::shared_ptr<Elevate::FrameBuffer> frameBuffer = Elevate::Application::Get().GetFrameBuffer();
     // we rescale the framebuffer to the actual window size here and reset the glViewport 
     frameBuffer->Rescale(window_width, window_height);
-    Renderer::SetViewPort(0, 0, window_width, window_height);
+    Renderer::SetViewport(0, 0, window_width, window_height);
 
     // we get the screen position of the window
     ImVec2 pos = ImGui::GetCursorScreenPos();

@@ -47,9 +47,9 @@ namespace Elevate
 		s_API->FlushBuffers();
 	}
 
-	void Renderer::SetViewPort(int x, int y, int width, int height)
+	void Renderer::SetViewport(int x, int y, int width, int height)
 	{
-		s_API->SetViewPort(x, y, width, height);
+		s_API->SetViewport(x, y, width, height);
 	}
 
 	void Renderer::DrawArray(const std::shared_ptr<VertexArray>& vao)

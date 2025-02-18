@@ -19,6 +19,15 @@ Elevate::Editor::AssetBrowserPanel::AssetBrowserPanel()
     EE_CORE_INFO("Editor Assets Browser Initiated.");
 }
 
+void Elevate::Editor::AssetBrowserPanel::OnUpdate()
+{
+    // TODO prep textures for on dir up and down async. to prevent loading time;
+    if (m_shouldUpdate) {
+        LoadFileItemsList();
+        m_shouldUpdate = false;
+    }
+}
+
 void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 {
 	ImGui::Begin("Asset Browser");
@@ -38,7 +47,7 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 
         if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
             m_CurrentPath = m_CurrentPath.parent_path();
-            LoadFileItemsList();
+            m_shouldUpdate = true;
         }
 
         ImGui::TextWrapped("../");
@@ -60,7 +69,7 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
         if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
             if (item.type == Directory) {
                 m_CurrentPath += "/" + item.name;
-                LoadFileItemsList();
+                m_shouldUpdate = true;
             }
             else {
                 Files::OpenWithDefaultApp(item.path);

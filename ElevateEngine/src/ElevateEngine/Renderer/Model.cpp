@@ -147,6 +147,7 @@ Elevate::Mesh Elevate::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
 {
     std::vector<std::shared_ptr<Texture>> textures;
+
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
     {
         aiString str;
@@ -159,10 +160,10 @@ std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextu
         }
 
         bool skip = false;
-        for (unsigned int j = 0; j < textures_loaded.size(); j++)
+        for (unsigned int j = 0; j < textures.size(); j++)
         {
-            if (this->textures_loaded[j]->MatchesPath(path)) {
-                textures.push_back(textures_loaded[j]);
+            if (textures[j]->MatchesPath(path)) {
+                textures.push_back(textures[j]);
                 skip = true;
                 break;
             }
@@ -172,7 +173,6 @@ std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextu
             TexturePtr texture = Texture::Create(path);
             texture->SetType(typeName);
             textures.push_back(texture);
-            textures_loaded.push_back(texture);
         }
     }
     return textures;

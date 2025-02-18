@@ -45,7 +45,5 @@ namespace Elevate
         // model data
         std::vector<Mesh> m_Meshes;
         std::string m_Directory;
-        //std::unique_ptr<glm::mat4> m_ModelMatrix;
-        std::vector<TexturePtr> textures_loaded;
     };
 }

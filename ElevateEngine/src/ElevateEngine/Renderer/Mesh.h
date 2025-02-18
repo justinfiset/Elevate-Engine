@@ -32,7 +32,5 @@ namespace Elevate
         std::vector<Vertex> m_Vertices;
         std::vector<uint32_t> m_Indices;
         std::vector<std::shared_ptr<Texture>> m_Textures;
-
-
     };
 }

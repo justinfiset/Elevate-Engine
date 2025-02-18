@@ -7,7 +7,7 @@ void Elevate::OpenGLRendererAPI::SetClearColor(const glm::vec4 color) const
 	glClearColor(color.r, color.g, color.b, color.a);
 }
 
-void Elevate::OpenGLRendererAPI::SetViewPort(int x, int y, int width, int height) const
+void Elevate::OpenGLRendererAPI::SetViewport(int x, int y, int width, int height) const
 {
 	glViewport(x, y, width, height);
 }

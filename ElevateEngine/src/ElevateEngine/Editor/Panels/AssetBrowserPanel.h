@@ -55,6 +55,7 @@ namespace Elevate::Editor {
     public:
         AssetBrowserPanel();
 
+        void OnUpdate();
         void OnImGuiRender();
 
     private:
@@ -65,5 +66,7 @@ namespace Elevate::Editor {
 
         std::vector<FileItem> m_FileItems;
         std::unordered_map<std::string, FileMetadata> m_FileMetadata;
+
+        bool m_shouldUpdate = true;
     };
 }

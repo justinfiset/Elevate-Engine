@@ -59,6 +59,7 @@ namespace Elevate::Editor
 
     void EditorLayer::OnUpdate()
     {
+        m_AssetBrowserPanel->OnUpdate();
         m_EditorScene->UpdateScene();
     }
 

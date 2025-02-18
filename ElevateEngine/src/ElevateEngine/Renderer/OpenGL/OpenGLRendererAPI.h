@@ -8,7 +8,7 @@ namespace Elevate
 	{
 	public:
 		virtual void SetClearColor(const glm::vec4 color) const override;
-		virtual void SetViewPort(int x, int y, int width, int height) const override;
+		virtual void SetViewport(int x, int y, int width, int height) const override;
 		virtual void Clear() const override;
 		virtual void FlushBuffers() const override;
 
