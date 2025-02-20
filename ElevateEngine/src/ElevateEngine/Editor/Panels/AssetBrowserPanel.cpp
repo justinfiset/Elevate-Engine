@@ -22,6 +22,7 @@ Elevate::Editor::AssetBrowserPanel::AssetBrowserPanel()
 void Elevate::Editor::AssetBrowserPanel::OnUpdate()
 {
     // TODO prep textures for on dir up and down async. to prevent loading time;
+
     if (m_shouldUpdate) {
         LoadFileItemsList();
         m_shouldUpdate = false;
@@ -63,7 +64,7 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 
         ImGui::BeginGroup();
         if (ImGui::ImageButton("Mon Boutton", (void*)(intptr_t)texture->GetID(), buttonSize)) {
-            printf("Image Button Clicked!\n");
+            // TODO MAKE A PREVIEW SYSTEM FOR FILES
         }
 
         if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {

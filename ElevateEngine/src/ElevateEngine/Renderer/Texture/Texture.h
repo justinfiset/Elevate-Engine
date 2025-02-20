@@ -2,6 +2,11 @@
 
 #include <string>
 
+#define EE_TEXTURE_DIFFUSE  "material.diffuse"
+#define EE_TEXTURE_SPECULAR "material.specular"
+#define EE_TEXTURE_NORMAL   "material.normal"
+#define EE_TEXTURE_HEIGHT   "material.height"
+
 namespace Elevate
 {
 	class Texture;

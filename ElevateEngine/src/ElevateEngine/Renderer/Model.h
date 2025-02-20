@@ -37,7 +37,8 @@ namespace Elevate
         void LoadModel(std::string path);
         void ProcessNode(aiNode* node, const aiScene* scene);
         Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
-        std::vector<std::shared_ptr<Texture>> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+        std::vector<std::shared_ptr<Texture>> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string 
+        );
 
     private:
         ShaderPtr m_Shader;
