@@ -1,3 +1,4 @@
+PREMAKE_CONFIG
 
 # Binaries / remove compiled libs and projects
 bin/
