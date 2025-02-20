@@ -16,7 +16,6 @@ if not exist PREMAKE_CONFIG (
       exit /b
     )
     
-    echo Using previously selected option: !contenu!
     set ACTION=!contenu!
   )
 )
