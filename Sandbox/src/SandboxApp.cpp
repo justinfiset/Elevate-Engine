@@ -49,6 +49,8 @@ private:
 
     Elevate::ScenePtr m_Scene;
 
+    bool blinn = true;
+
 public:
     DebugLayer() : Layer("Debug") { }
 
@@ -120,7 +122,6 @@ public:
         // todo envoyer dans la classe pointlight
         // Set avoir le composant que l'on va cr�er
         // TODO ne plus utiliser le GetTransform, faire les méthodes appropriées pour que le tout soit dans l'interface
-
         m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetGlobalPosition());
         m_Shader->SetUniform3f("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
         m_Shader->SetUniform3f("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
@@ -147,6 +148,7 @@ public:
         // On soumet les models et on les affiches en dessinant la stack
         // TODO -> passer par les commande Renderer:: ... pour faire le rendu � la place
         m_Shader->Bind();
+        m_Shader->SetUniform1i("blinn", blinn);
         m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetGlobalPosition());
         m_Shader->SetUniform3f("camPos", camPos);
         m_Shader->SetProjectionViewMatrix(*cam);
@@ -156,6 +158,12 @@ public:
 
     void OnUpdate() override
     {
+        // Toggle the blinn light mode
+        if (Elevate::Input::IsKeyDown(EE_KEY_B)) {
+            EE_CORE_TRACE("Blinn toggled! : Now {}", blinn);
+            blinn = !blinn;
+        }
+
         m_Scene->UpdateScene();
     }
 
