@@ -1,1 +1,0 @@
-call bootstrap edit
