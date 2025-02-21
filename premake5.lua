@@ -104,7 +104,8 @@ project "ElevateEngine"
         defines
         {
             "EE_PLATFORM_WINDOWS",
-            "GLFW_INCLUDE_NONE"
+            "GLFW_INCLUDE_NONE",
+            "ASSIMP_STATIC"
         }
 
     filter "configurations:Debug"
@@ -166,7 +167,8 @@ project  "Sandbox"
 
         defines
         {
-            "EE_PLATFORM_WINDOWS"
+            "EE_PLATFORM_WINDOWS",
+            "ASSIMP_STATIC"
         }
 
     filter "configurations:Debug"
