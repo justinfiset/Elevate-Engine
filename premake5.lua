@@ -29,6 +29,7 @@ group "Dependencies"
     include "ElevateEngine/vendor/Glad"
     include "ElevateEngine/vendor/ImGui"
     include "ElevateEngine/vendor/tinyfiledialogs"
+    include "ElevateEngine/vendor/assimp"
 
 group ""
 project "ElevateEngine"
@@ -86,10 +87,10 @@ project "ElevateEngine"
     {
         "GLFW",
         "Glad",
-        "ImGui",    
+        "ImGui",
+        "assimp",
         "tinyfiledialogs",
         "opengl32.lib",
-        "ElevateEngine/vendor/assimp/lib/x64/assimp-vc143-mt.lib"
     }
 
     filter { "files:**/vendor/ImGui/**.cpp" }
