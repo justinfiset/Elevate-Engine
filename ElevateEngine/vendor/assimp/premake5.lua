@@ -50,7 +50,7 @@ project "assimp"
       "ASSIMP_BUILD_NO_NDO_IMPORTER",
       "ASSIMP_BUILD_NO_IFC_IMPORTER",
       "ASSIMP_BUILD_NO_XGL_IMPORTER",
-      "ASSIMP_BUILD_NO_FBX_IMPORTER",
+      -- "ASSIMP_BUILD_NO_FBX_IMPORTER",
       "ASSIMP_BUILD_NO_ASSBIN_IMPORTER",
       -- "ASSIMP_BUILD_NO_GLTF_IMPORTER",
       "ASSIMP_BUILD_NO_C4D_IMPORTER",
@@ -87,63 +87,32 @@ project "assimp"
       "ASSIMP_BUILD_NO_OPTIMIZEGRAPH_PROCESS",
       "ASSIMP_BUILD_NO_SPLITBYBONECOUNT_PROCESS",
       "ASSIMP_BUILD_NO_DEBONE_PROCESS",
-      "ASSIMP_BUILD_NO_EMBEDTEXTURES_PROCESS",
+      -- "ASSIMP_BUILD_NO_EMBEDTEXTURES_PROCESS",
       "ASSIMP_BUILD_NO_GLOBALSCALE_PROCESS",
   }
 
   files {
-      "include/**",
-      "code/Assimp.cpp",
-      "code/BaseImporter.cpp",
-      "code/ColladaLoader.cpp",
-      "code/ColladaParser.cpp",
-      "code/CreateAnimMesh.cpp",
-      "code/PlyParser.cpp",
-      "code/PlyLoader.cpp",
-      "code/BaseProcess.cpp",
-      "code/EmbedTexturesProcess.cpp",
-      "code/ConvertToLHProcess.cpp",
-      "code/DefaultIOStream.cpp",
-      "code/DefaultIOSystem.cpp",
-      "code/DefaultLogger.cpp",
-      "code/GenVertexNormalsProcess.cpp",
-      "code/Importer.cpp",
-      "code/ImporterRegistry.cpp",
-      "code/MaterialSystem.cpp",
-      "code/PostStepRegistry.cpp",
-      "code/ProcessHelper.cpp",
-      "code/scene.cpp",
-      "code/ScenePreprocessor.cpp",
-      "code/ScaleProcess.cpp",
-      "code/SGSpatialSort.cpp",
-      "code/SkeletonMeshBuilder.cpp",
-      "code/SpatialSort.cpp",
-      "code/TriangulateProcess.cpp",
-      "code/ValidateDataStructure.cpp",
-      "code/Version.cpp",
-      "code/VertexTriangleAdjacency.cpp",
-      "code/ObjFileImporter.cpp",
-      "code/ObjFileMtlImporter.cpp",
-      "code/ObjFileParser.cpp",
-      "code/glTFImporter.cpp",
-      "code/glTF2Importer.cpp",
-      "code/MakeVerboseFormat.cpp",
-      "code/CalcTangentsProcess.cpp",
-      "code/ScaleProcess.cpp",
-      "code/EmbedTexturesProcess.cpp",
-      "contrib/irrXML/*",
-  }
+    "include/**.h",
+    "code/**.cpp",
+    "code/**.h",
+    "contrib/**.c",
+    "contrib/**.cpp",
+    "contrib/**.h"
+}
 
-  includedirs {
-      "include",
-      "contrib/irrXML",
-      "contrib/zlib",
-      "contrib/rapidjson/include",
-  }
+
+
+includedirs {
+    "include",
+    "code",
+    "contrib",
+    "contrib/**"
+}
 
 
    filter "system:windows"
       systemversion "latest"
+      defines { "_CRT_SECURE_NO_WARNINGS" }
 
    filter  "configurations:Debug"
        runtime "Debug"
