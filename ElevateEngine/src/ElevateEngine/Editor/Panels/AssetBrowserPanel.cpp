@@ -43,8 +43,9 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 
     if (m_CurrentPath != ".") {
         TexturePtr texture = Texture::Create(m_FileMetadata["DIRECTORY"].iconPath);
+        ImGui::PushID(index);
         ImGui::BeginGroup();
-        ImGui::ImageButton("back", (void*)(intptr_t)texture->GetID(), buttonSize);
+        ImGui::ImageButton("back", (ImTextureID)(intptr_t)texture->GetID(), buttonSize);
 
         if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
             m_CurrentPath = m_CurrentPath.parent_path();
@@ -54,16 +55,20 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
         ImGui::TextWrapped("../");
 
         ImGui::EndGroup();
+        ImGui::PopID();
         ImGui::SameLine();
         index++;
     }
 
+    int id = 0;
     for (FileItem item : m_FileItems)
     {
         TexturePtr texture = Texture::Create(item.iconPath);
 
+        ImGui::PushID(index);
         ImGui::BeginGroup();
-        if (ImGui::ImageButton("Mon Boutton", (void*)(intptr_t)texture->GetID(), buttonSize)) {
+
+        if (ImGui::ImageButton("file_item", (ImTextureID)(intptr_t)texture->GetID(), buttonSize)) {
             // TODO MAKE A PREVIEW SYSTEM FOR FILES
         }
 
@@ -82,6 +87,7 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
         ImGui::PopTextWrapPos();
 
         ImGui::EndGroup();
+        ImGui::PopID();
 
         if ((index + 1) % colNb != 0)
         {
@@ -156,7 +162,7 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
     }
 
     if (!doc.HasMember("assets") || !doc["assets"].IsArray()) {
-        EE_CORE_ERROR("Clé 'assets' non trouvée ou invalide dans le fichier JSON");
+        EE_CORE_ERROR("Clï¿½ 'assets' non trouvï¿½e ou invalide dans le fichier JSON");
         return;
     }
 
@@ -167,7 +173,7 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
         if (!asset.HasMember("extension") || !asset["extension"].IsString() ||
             !asset.HasMember("iconPath") || !asset["iconPath"].IsString() ||
             !asset.HasMember("type") || !asset["type"].IsString()) {
-            EE_CORE_ERROR("L'asset {0} est invalide (données manquantes ou type incorrect)", i + 1);
+            EE_CORE_ERROR("L'asset {0} est invalide (donnï¿½es manquantes ou type incorrect)", i + 1);
             continue;
         }
 

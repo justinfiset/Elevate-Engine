@@ -14,7 +14,7 @@
 // TODO FIND A WAY TO REMOVE
 // TEMP
 #include <GLFW/glfw3.h>
-#include <glad/glad.h>
+//#include <glad/glad.h>
 
 Elevate::ImGuiLayer::ImGuiLayer()
 	: Layer("ImGuiLayer") { }
@@ -37,8 +37,8 @@ void Elevate::ImGuiLayer::OnAttach()
     //io.ConfigViewportsNoAutoMerge = true;
     //io.ConfigViewportsNoTaskBarIcon = true;
 
-    // TODO set dinamiquement avec l'éditeur
-    // TODO fix le dark theme pour enlever le manque d'opacité
+    // TODO set dinamiquement avec l'ï¿½diteur
+    // TODO fix le dark theme pour enlever le manque d'opacitï¿½
     UI::SetDarkTheme();
     //UI::SetLightTheme();
     

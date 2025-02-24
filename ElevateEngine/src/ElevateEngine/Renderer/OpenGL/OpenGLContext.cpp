@@ -1,8 +1,8 @@
 #include "eepch.h"
 #include "OpenGLContext.h"
 
-#include <GLFW/glfw3.h>
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 #include "ElevateEngine/Core/Assert.h"
 
@@ -24,7 +24,7 @@ void Elevate::OpenGLContext::Init()
 	//glCullFace(GL_BACK);
 	//glFrontFace(GL_CCW);
 
-	// TODO voir si nécessaire
+	// TODO voir si nï¿½cessaire
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
