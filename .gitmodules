@@ -7,3 +7,6 @@
 [submodule "ElevateEngine/vendor/ImGui"]
 	path = ElevateEngine/vendor/ImGui
 	url = https://github.com/ocornut/imgui
+[submodule "ElevateEngine/vendor/assimp"]
+	path = ElevateEngine/vendor/assimp
+	url = https://github.com/assimp/assimp
