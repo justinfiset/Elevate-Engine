@@ -21,7 +21,12 @@ namespace Elevate
             component = std::make_shared<T>(std::forward<Args>(args)...);
         }
 
-        inline bool IsActive() { return component->m_IsActive; }
+        inline bool IsActive() { 
+            if (component) {
+                return component->m_IsActive;
+            }
+            else return false;
+        }
 
         inline void Init() { component->Init(); }
         inline void Destroy() { component->Destroy(); }
