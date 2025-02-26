@@ -53,8 +53,6 @@ project "ElevateEngine"
         "%{prj.name}/src/**.vert",
         "%{prj.name}/src/**.frag",
 
-        "%{prj.name}/vendor/ImGui/backends/imgui_impl_glfw.cpp",
-        "%{prj.name}/vendor/ImGui/backends/imgui_impl_opengl3.cpp",
         "%{prj.name}/vendor/ImGuizmo/ImGuizmo.h",
         "%{prj.name}/vendor/ImGuizmo/ImGuizmo.cpp",
     }
