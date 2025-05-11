@@ -162,11 +162,6 @@ project "Sandbox"
 
         "%{prj.name}/src/**.vert",
         "%{prj.name}/src/**.frag",
-
-	"%{IncludeDir.ImGui}/backends/imgui_impl_glfw.cpp",
-        "%{IncludeDir.ImGui}/backends/imgui_impl_opengl3.cpp",
-
-        "ElevateEngine/vendor/Glad/src/glad.c",
     }
 
     includedirs
@@ -206,8 +201,15 @@ project "Sandbox"
         {
             "EE_PLATFORM_LINUX",
             "ASSIMP_STATIC",
-	    "STBI_NO_SIMD"        
-	}
+	        "STBI_NO_SIMD"        
+	    }
+
+        files 
+        {
+        	"%{IncludeDir.ImGui}/backends/imgui_impl_glfw.cpp",
+            "%{IncludeDir.ImGui}/backends/imgui_impl_opengl3.cpp",
+            "ElevateEngine/vendor/Glad/src/glad.c",
+        }
 
 	links
 	{
