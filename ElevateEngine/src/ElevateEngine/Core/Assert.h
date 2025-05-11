@@ -9,9 +9,17 @@
 	#define NDEBUG
 #endif
 
+#ifdef _MSC_VER
+	#include <intrin.h>
+	#define DEBUG_BREAK() __debugbreak()
+#else
+	#include <csignal>
+	#define DEBUG_BREAK() raise(SIGTRAP)
+#endif
+
 #if EE_ASSERTS_ENABLED
-	#define EE_ASSERT(x, ...) { if(!(x)) { EE_ERROR("Assertions Failed: {0}", __VA_ARGS__); __debugbreak(); } } 
-	#define EE_CORE_ASSERT(x, ...) { if(!(x)) { EE_CORE_ERROR("Assertions Failed: {0}", __VA_ARGS__); __debugbreak(); } } 
+	#define EE_ASSERT(x, ...) { if(!(x)) { EE_ERROR("Assertions Failed: {0}", __VA_ARGS__); DEBUG_BREAK(); } } 
+	#define EE_CORE_ASSERT(x, ...) { if(!(x)) { EE_CORE_ERROR("Assertions Failed: {0}", __VA_ARGS__); DEBUG_BREAK(); } } 
 #else
 	#define EE_ASSERT(x, ...) { if(!(x)) { EE_ERROR("Assertions Failed: {0}", __VA_ARGS__); } } 
 	#define EE_CORE_ASSERT(x, ...) { if(!(x)) { EE_CORE_ERROR("Assertions Failed: {0}", __VA_ARGS__); } } 
