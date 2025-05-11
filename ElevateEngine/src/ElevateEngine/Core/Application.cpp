@@ -22,7 +22,7 @@ namespace Elevate {
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
-		m_Window->SetEventCallback(BIND_EVENT_FN(OnEve­nt));
+		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		m_FrameBuffer.reset(FrameBuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
 
@@ -47,7 +47,7 @@ namespace Elevate {
 	}
 
 	// Event Dispatcher
-	void Application::OnEve­nt(Event& e)
+	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));

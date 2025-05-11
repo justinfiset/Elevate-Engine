@@ -24,7 +24,7 @@ namespace Elevate {
 		void Run();
 		void Exit();
 
-		void OnEve­nt(Event& e);	
+		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);

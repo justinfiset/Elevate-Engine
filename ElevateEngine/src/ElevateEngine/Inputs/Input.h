@@ -8,7 +8,7 @@
 
 #include "ElevateEngine/Events/KeyEvent.h"
 #include <ElevateEngine/Events/MouseEvent.h>
-#include "ElevateEngine/Inputs/inputBuffer.h"
+#include "ElevateEngine/Inputs/InputBuffer.h"
 
 #include <glm/glm.hpp>
 

@@ -6,6 +6,6 @@ namespace Elevate
 {
 	namespace UI
 	{
-		void InputField(char* label, std::string& data);
+		void InputField(const char* label, std::string& data);
 	}
 }

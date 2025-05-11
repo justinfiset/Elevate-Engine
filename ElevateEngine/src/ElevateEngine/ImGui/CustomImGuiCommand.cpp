@@ -2,7 +2,7 @@
 #include "CustomImGuiCommand.h"
 #include "imgui.h"
 
-void Elevate::UI::InputField(char* label, std::string& data)
+void Elevate::UI::InputField(const char* label, std::string& data)
 {
     ImGui::Text(label);
     ImGui::SameLine();
