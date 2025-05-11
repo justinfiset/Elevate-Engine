@@ -36,7 +36,7 @@ void Elevate::Editor::HierarchyPanel::DrawTreeHierarchy(GameObjectPtr object)
             ImGui::EndPopup();
         }
 
-        for each (std::shared_ptr<Elevate::GameObject> child in object->GetChilds())
+        for (const std::shared_ptr<Elevate::GameObject>& child : object->GetChilds())
         {
             DrawTreeHierarchy(child);
         }
