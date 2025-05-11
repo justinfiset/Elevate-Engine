@@ -1,7 +1,5 @@
 #pragma once
 
-#ifdef EE_PLATFORM_WINDOWS
-
 extern Elevate::Application* Elevate::CreateApplication();
 
 int main(int argc, char** argv) {
@@ -14,5 +12,3 @@ int main(int argc, char** argv) {
     app->Run();
     delete app;
 }
-
-#endif

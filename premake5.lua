@@ -83,12 +83,11 @@ project "ElevateEngine"
 
     links
     {
+	"Glad",
         "GLFW",
-        "Glad",
         "ImGui",
         "assimp",
         "tinyfiledialogs",
-        "opengl32.lib",
     }
 
     filter { "files:**/vendor/ImGui/**.cpp" }
@@ -106,6 +105,11 @@ project "ElevateEngine"
             "GLFW_INCLUDE_NONE",
         }
 
+	links
+	{
+	    "opengl32.lib"
+	}
+
     filter "system:linux"
         systemversion "latest"
 
@@ -113,12 +117,23 @@ project "ElevateEngine"
         {
             "EE_PLATFORM_LINUX",
             "GLFW_INCLUDE_NONE",
+            "STBI_NO_SIMD"
         }
+
+	links
+	{
+	    "GL",
+	    "GLU",
+	    "X11",
+	    "dl",
+	    "pthread",
+	}
+
 
     filter "configurations:Debug"
         defines "EE_DEBUG"
         runtime "Debug"
-        symbols "on"
+	        symbols "on"
 
     filter "configurations:Release"
         defines "EE_RELEASE"
@@ -130,7 +145,7 @@ project "ElevateEngine"
         runtime "Release"
         optimize "on"
 
-project  "Sandbox"
+project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
@@ -147,10 +162,16 @@ project  "Sandbox"
 
         "%{prj.name}/src/**.vert",
         "%{prj.name}/src/**.frag",
+
+	"%{IncludeDir.ImGui}/backends/imgui_impl_glfw.cpp",
+        "%{IncludeDir.ImGui}/backends/imgui_impl_opengl3.cpp",
+
+        "ElevateEngine/vendor/Glad/src/glad.c",
     }
 
     includedirs
     {
+	"%{IncludeDir.Glad}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.rapidjson}",
         "%{IncludeDir.assimp}",
@@ -164,11 +185,6 @@ project  "Sandbox"
         "ElevateEngine/src"
     }
 
-    links
-    {
-        "ElevateEngine"
-    }
-
     filter "system:windows"
         systemversion "latest"
 
@@ -178,15 +194,38 @@ project  "Sandbox"
             "ASSIMP_STATIC"
         }
 
+	links 
+	{
+	    "ElevateEngine",
+	}
+
     filter "system:linux"
         systemversion "latest"
 
         defines
         {
             "EE_PLATFORM_LINUX",
-            "ASSIMP_STATIC"
-        }
+            "ASSIMP_STATIC",
+	    "STBI_NO_SIMD"        
+	}
 
+	links
+	{
+	    "GL",
+	    "GLU",
+	    "X11",
+	    "Xrandr",
+	    "Xinerama",
+	    "Xcursor",
+	    "Xi",
+	    "dl",
+	    "pthread",
+	    "Glad",
+            "GLFW",
+            "ImGui",
+	    "ElevateEngine",
+	    "assimp",
+	}
     filter "configurations:Debug"
         defines "EE_DEBUG"
         runtime "Debug"

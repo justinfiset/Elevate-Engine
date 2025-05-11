@@ -1,6 +1,6 @@
 #include <ElevateEngine.h>
 
-#include "imgui/imgui.h"
+#include <ImGui/imgui.h>
 
 #include "ElevateEngine/Renderer/Material.h"
 #include "ElevateEngine/Renderer/Mesh.h"
