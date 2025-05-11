@@ -1,28 +1,5 @@
 #!/bin/bash
 
-OS_TYPE=$(uname)
-
-if [ ! -f PREMAKE_CONFIG ]; then
-  echo "First time config detected."
-  config
-else
-  if [ "$1" == "edit" ]; then
-    echo "Editing configuration."
-    config
-  else
-    contenu=$(<PREMAKE_CONFIG)
-    
-    if [ -z "$contenu" ]; then
-      echo "Error: PREMAKE_CONFIG file is empty."
-      exit 1
-    fi
-    
-    ACTION=$contenu
-  fi
-fi
-
-run
-
 config() {
   echo "Please choose a build option:"
   echo "1 - Visual Studio 2022"
@@ -77,3 +54,28 @@ run() {
   $PREMAKE_CMD $ACTION
   exit 0
 }
+
+# --- Début du script principal ---
+
+OS_TYPE=$(uname)
+
+if [ ! -f PREMAKE_CONFIG ]; then
+  echo "First time config detected."
+  config
+else
+  if [ "$1" == "edit" ]; then
+    echo "Editing configuration."
+    config
+  else
+    contenu=$(<PREMAKE_CONFIG)
+
+    if [ -z "$contenu" ]; then
+      echo "Error: PREMAKE_CONFIG file is empty."
+      exit 1
+    fi
+
+    ACTION=$contenu
+  fi
+fi
+
+run
