@@ -106,6 +106,15 @@ project "ElevateEngine"
             "GLFW_INCLUDE_NONE",
         }
 
+    filter "system:linux"
+        systemversion "latest"
+
+        defines
+        {
+            "EE_PLATFORM_LINUX",
+            "GLFW_INCLUDE_NONE",
+        }
+
     filter "configurations:Debug"
         defines "EE_DEBUG"
         runtime "Debug"
@@ -166,6 +175,15 @@ project  "Sandbox"
         defines
         {
             "EE_PLATFORM_WINDOWS",
+            "ASSIMP_STATIC"
+        }
+
+    filter "system:linux"
+        systemversion "latest"
+
+        defines
+        {
+            "EE_PLATFORM_LINUX",
             "ASSIMP_STATIC"
         }
 

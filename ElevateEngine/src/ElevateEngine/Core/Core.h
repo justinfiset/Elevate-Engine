@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef EE_PLATFORM_WINDOWS
+#if defined(EE_PLATFORM_WINDOWS) || defined(EE_PLATFORM_LINUX)
 	#ifdef EE_DYNAMIC_LINK
 		#ifdef EE_BUILD_DLL
 			#define EE_API __declspec(dllexport)
@@ -12,7 +12,7 @@
 	#endif
 #else
 	#error ElevateEngine is currently only supported on Windows.
-#endif // EE_PLATFORM_WINDOWS
+#endif // EE_PLATFORM_WINDOWS or EE_PLATFORM_LINUX
 
 #define BIT(x) (1 << x)
 
