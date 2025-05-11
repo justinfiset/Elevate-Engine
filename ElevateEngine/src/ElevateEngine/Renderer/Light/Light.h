@@ -9,9 +9,9 @@ namespace Elevate
 	{
 	public:
 		// Getter and setters
-		inline glm::vec3 SetAmbientColor(glm::vec3 color) { m_ambientColor = color; }
-		inline glm::vec3 SetDiffuseColor(glm::vec3 color) { m_diffuseColor = color; }
-		inline glm::vec3 SetSpecularColor(glm::vec3 color) { m_specularColor = color; }
+		inline void SetAmbientColor(glm::vec3 color) { m_ambientColor = color; }
+		inline void SetDiffuseColor(glm::vec3 color) { m_diffuseColor = color; }
+		inline void SetSpecularColor(glm::vec3 color) { m_specularColor = color; }
 
 		inline glm::vec3& GetAmbientColor() { return m_ambientColor; }
 		inline glm::vec3& GetDiffuseColor() { return m_diffuseColor; }

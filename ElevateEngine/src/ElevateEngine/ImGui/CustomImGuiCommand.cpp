@@ -6,5 +6,13 @@ void Elevate::UI::InputField(char* label, std::string& data)
 {
     ImGui::Text(label);
     ImGui::SameLine();
-    ImGui::InputText(" ", data.data(), 255);
+
+    char buffer[255];
+    strncpy(buffer, data.c_str(), sizeof(buffer));
+    buffer[sizeof(buffer) - 1] = '\0';
+
+    if (ImGui::InputText("##InputField", buffer, sizeof(buffer)))
+    {
+        data = buffer;
+    }
 }
