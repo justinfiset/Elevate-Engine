@@ -9,6 +9,7 @@
 #include "ElevateEngine/Inputs/Input.h"
 
 #include "ElevateEngine/Files/FileUtility.h"
+#include "ElevateEngine/Renderer/Texture/TextureManager.h"
 
 namespace Elevate {
 
@@ -80,6 +81,8 @@ namespace Elevate {
 				Time::deltaTime_ = Time::currentTime_ - lastTime;
 				lastTime = Time::currentTime_;
 				/////////////////////////////////
+
+				TextureManager::UpdateLoadingTextures();
 
 				m_ImGuiLayer->PreRender();
 

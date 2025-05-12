@@ -38,7 +38,7 @@ namespace Elevate
 		}
 	}
 
-	OpenGLTexture::OpenGLTexture(char* data, int width, int height, int channelCount, const std::string& path)
+	OpenGLTexture::OpenGLTexture(unsigned char* data, int width, int height, int channelCount, const std::string& path)
 	{
 		// todo get parameters for the textures
 		glGenTextures(1, &m_TextureID);

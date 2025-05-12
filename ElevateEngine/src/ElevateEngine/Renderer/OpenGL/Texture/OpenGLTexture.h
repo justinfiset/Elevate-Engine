@@ -10,7 +10,7 @@ namespace Elevate
 		// TODO remove raw string in script, find a better implemtnation;
 		OpenGLTexture(std::string path) : OpenGLTexture(path, 0, "textureDiffuse") { }
 		OpenGLTexture(std::string path, unsigned int index, std::string type);
-		OpenGLTexture(char* data, int width, int height, int channelCount, const std::string& path);
+		OpenGLTexture(unsigned char* data, int width, int height, int channelCount, const std::string& path);
 
 		virtual void Bind(int index = 0) override;
 		virtual void Unbind(int index = 0) override;

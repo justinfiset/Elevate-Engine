@@ -10,22 +10,26 @@ namespace Elevate
 {
 	TexturePtr Texture::Create(std::string path)
 	{
-		// TODO do for all other constructors / factory methods -> put in texture manager and set all stbi usage inside the texture manager
-		TexturePtr texture = TextureManager::GetTexture(path);
-		if (texture) return texture;
+		// TODO : PUT IN THE ORIGINAL STATE
+		// THIS CODE IF FOR DEBUG ONLY LOADING ALL TEXTURES ASYNCHR.
+		CreateAsync(path);
 
-		switch (Renderer::GetAPI())
-		{
-		case RendererAPI::GraphicAPI::None: texture = nullptr; break; // TODO implement
-		case RendererAPI::GraphicAPI::OpenGL: texture = std::make_shared<OpenGLTexture>(path);
-		}
+		//// TODO do for all other constructors / factory methods -> put in texture manager and set all stbi usage inside the texture manager
+		//TexturePtr texture = TextureManager::GetTexture(path);
+		//if (texture) return texture;
 
-		return TextureManager::LoadTexture(texture);
+		//switch (Renderer::GetAPI())
+		//{
+		//case RendererAPI::GraphicAPI::None: texture = nullptr; break; // TODO implement
+		//case RendererAPI::GraphicAPI::OpenGL: texture = std::make_shared<OpenGLTexture>(path);
+		//}
 
-		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
+		//return TextureManager::LoadTexture(texture);
+
+		//EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
 	}
 
-	TexturePtr Texture::Create(char* data, int width, int height, int channelCount, const std::string& path)
+	TexturePtr Texture::Create(char* data, int width, int height, int channelCount, std::string& path)
 	{
 		TexturePtr texture = TextureManager::GetTexture(path);
 		if (texture) return texture;
@@ -52,6 +56,11 @@ namespace Elevate
 		}
 
 		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
+	}
+
+	TexturePtr Texture::CreateAsync(std::string& path)
+	{
+		TextureManager::LoadTextureAsync(path);
 	}
 
 	bool Texture::MatchesPath(std::string pathToMatch)

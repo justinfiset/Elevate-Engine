@@ -33,9 +33,9 @@ namespace Elevate
 
 		// TODO CHANGE TO SMART POINTERS
 		static TexturePtr Create(std::string path);
-		static TexturePtr Create(char* data, int width, int height, int channelCount, std::string& path);
+		static TexturePtr Create(unsigned char* data, int width, int height, int channelCount, std::string& path);
 		static TexturePtr Create(std::string path, unsigned int index, std::string type);
-		static TexturePtr CreateAsync(std::string path);
+		static TexturePtr CreateAsync(std::string& path);
 
 		inline std::string GetPath() { return m_Path; }
 		bool MatchesPath(std::string pathToMatch);
