@@ -4,25 +4,36 @@
 
 #include <ElevateEngine/Renderer/OpenGL/Texture/OpenGLTexture.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
-
 #include <filesystem>
 
 namespace Elevate
 {
 	TexturePtr Texture::Create(std::string path)
 	{
-		// TODO do for all other constructors / factory methods
-		std::filesystem::path abs = std::filesystem::absolute(path);
-		//EE_CORE_TRACE(path);
-		TexturePtr texture = TextureManager::GetTexture(abs.string());
+		// TODO do for all other constructors / factory methods -> put in texture manager and set all stbi usage inside the texture manager
+		TexturePtr texture = TextureManager::GetTexture(path);
 		if (texture) return texture;
-
-		//EE_CORE_TRACE(abs.string()); // Uncomment to see all loaded texture wich are actually created each frame
 
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::GraphicAPI::None: texture = nullptr; break; // TODO implement
-		case RendererAPI::GraphicAPI::OpenGL: texture = std::make_shared<OpenGLTexture>(abs.string());
+		case RendererAPI::GraphicAPI::OpenGL: texture = std::make_shared<OpenGLTexture>(path);
+		}
+
+		return TextureManager::LoadTexture(texture);
+
+		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
+	}
+
+	TexturePtr Texture::Create(char* data, int width, int height, int channelCount, const std::string& path)
+	{
+		TexturePtr texture = TextureManager::GetTexture(path);
+		if (texture) return texture;
+
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::GraphicAPI::None: texture = nullptr; break; // TODO implement
+		case RendererAPI::GraphicAPI::OpenGL: texture = std::make_shared<OpenGLTexture>(data, width, height, channelCount, path);
 		}
 
 		return TextureManager::LoadTexture(texture);

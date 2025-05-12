@@ -7,7 +7,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 namespace Elevate
 {
 	OpenGLTexture::OpenGLTexture(std::string path, unsigned int index, std::string type) : Texture(path, type)
@@ -15,7 +14,7 @@ namespace Elevate
 		// todo get parameters for the textures
 		glGenTextures(1, &m_TextureID);
 		glBindTexture(GL_TEXTURE_2D, m_TextureID);
-		// set the texture wrapping parameters
+		// set the texture wrapping parameters	
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		// set texture filtering parameters
@@ -37,7 +36,29 @@ namespace Elevate
 		{
 			EE_CORE_TRACE("Unable to load texture : {0}", path.c_str());
 		}
-		stbi_image_free(data);
+	}
+
+	OpenGLTexture::OpenGLTexture(char* data, int width, int height, int channelCount, const std::string& path)
+	{
+		// todo get parameters for the textures
+		glGenTextures(1, &m_TextureID);
+		glBindTexture(GL_TEXTURE_2D, m_TextureID);
+		// set the texture wrapping parameters	
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		// set texture filtering parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		if (data) 
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+			glGenerateMipmap(GL_TEXTURE_2D);
+		}
+		else 
+		{
+			EE_CORE_TRACE("Unable to load texture : {0}", path.c_str());
+		}
 	}
 
 	void OpenGLTexture::Bind(int index)

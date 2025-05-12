@@ -12,6 +12,11 @@ namespace Elevate
 
 		static TexturePtr GetTexture(std::string path);
 
+		static void LoadTextureAsync(const std::string& path);
+
+		friend class Application;
+	protected:
+		void UpdateLoadingTextures();
 	private:
 		TextureManager() = default;
 
@@ -20,6 +25,10 @@ namespace Elevate
 			static TextureManager instance;
 			return instance;
 		}
+
+		// Async loading
+		std::vector<TextureLoadResult> m_loadingTextures;
+		std::mutex m_textureMutex;
 
 		std::unordered_map<std::string, TexturePtr> m_Textures;
 	};
