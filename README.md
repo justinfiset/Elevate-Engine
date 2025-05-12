@@ -1,4 +1,5 @@
-![Elevate Logo](https://github.com/requin5/Elevate-Engine/blob/main/Assets/Logo/logo-png.png?raw=true)
+![Elevate Logo](./Assets/Logo/logo-png.png)
+![Elevate Demo](./Assets/Preview/elevate.gif)
 
 # Project Setup and Usage Guide
 
