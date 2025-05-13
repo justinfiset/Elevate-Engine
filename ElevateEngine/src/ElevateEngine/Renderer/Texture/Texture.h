@@ -37,6 +37,8 @@ namespace Elevate
 		static TexturePtr Create(std::string path, unsigned int index, std::string type);
 		static TexturePtr CreateAsync(std::string& path);
 
+		virtual void SetData(unsigned char* data, int width, int height, int channelCount) = 0;
+
 		inline std::string GetPath() { return m_Path; }
 		bool MatchesPath(std::string pathToMatch);
 

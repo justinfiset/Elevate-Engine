@@ -29,7 +29,7 @@ namespace Elevate
 		//EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
 	}
 
-	TexturePtr Texture::Create(char* data, int width, int height, int channelCount, std::string& path)
+	TexturePtr Texture::Create(unsigned char* data, int width, int height, int channelCount, std::string& path)
 	{
 		TexturePtr texture = TextureManager::GetTexture(path);
 		if (texture) return texture;

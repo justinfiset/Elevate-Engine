@@ -50,15 +50,7 @@ namespace Elevate
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		if (data) 
-		{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-			glGenerateMipmap(GL_TEXTURE_2D);
-		}
-		else 
-		{
-			EE_CORE_TRACE("Unable to load texture : {0}", path.c_str());
-		}
+		SetData(data);
 	}
 
 	void OpenGLTexture::Bind(int index)
@@ -76,5 +68,18 @@ namespace Elevate
 	bool OpenGLTexture::IsBound() const
 	{
 		return m_IsBound;
+	}
+
+	void OpenGLTexture::SetData(unsigned char* data, int width, int height, int channelCount)
+	{
+		if (data)
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+			glGenerateMipmap(GL_TEXTURE_2D);
+		}
+		else
+		{
+			EE_CORE_TRACE("Unable to load texture : {0}", m_Path.c_str());
+		}
 	}
 }

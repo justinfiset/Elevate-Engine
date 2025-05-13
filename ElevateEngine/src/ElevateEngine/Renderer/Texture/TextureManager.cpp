@@ -42,11 +42,11 @@ namespace Elevate {
 		return (instance().m_Textures.count(fsPath.string()) > 0) ? instance().m_Textures[fsPath.string()] : nullptr;
 	}
 
-	void TextureManager::LoadTextureAsync(const std::string& path)
+	TexturePtr TextureManager::LoadTextureAsync(const std::string& path)
 	{
 		std::filesystem::path fsPath = std::filesystem::absolute(path);
 		std::string absPath = fsPath.string();
-		
+
 		// If the texture is already loading, or already loaded, return and cancel
 		if (!GetTexture(absPath))
 		{
@@ -57,6 +57,10 @@ namespace Elevate {
 				}
 			}
 		}
+
+		// Creation of a black image
+		TexturePtr tex = Texture::Create(nullptr, 0, 0, 0, absPath);
+		instance().m_Textures[path] = tex;
 
 		TextureLoadResult res;
 		
@@ -80,15 +84,15 @@ namespace Elevate {
 		std::vector<uint32_t> loadedTextures;
 		for (TextureLoadResult& res : manager.m_loadingTextures) 
 		{
-			if (res.loaded && res.textureID != 0) 
+			if (res.loaded && res.textureID != 0)
 			{
 				TexturePtr tex = Texture::Create(res.data, res.width, res.height, res.channelsCount, res.path);
 				manager.m_Textures[res.path] = tex;
 
+				manager.m_Textures[res.path]->SetData(res.data, res.width, res.height, res.channelsCount);
+
 				stbi_image_free(res.data);
 				res.data = nullptr;
-
-				res.loaded = true;
 			}
 		}
 
@@ -98,4 +102,3 @@ namespace Elevate {
 			})
 		);
 	}
-}
