@@ -36,7 +36,7 @@ namespace Elevate {
 		return texture;
 	}
 
-	TexturePtr TextureManager::GetTexture(std::string& path)
+	TexturePtr TextureManager::GetTexture(const std::string& path)
 	{
 		std::filesystem::path fsPath = std::filesystem::absolute(path);
 		return (instance().m_Textures.count(fsPath.string()) > 0) ? instance().m_Textures[fsPath.string()] : nullptr;
@@ -53,7 +53,7 @@ namespace Elevate {
 			for (TextureLoadResult& res : instance().m_loadingTextures) {
 				if (res.path == absPath)
 				{
-					return;
+					return nullptr;
 				}
 			}
 		}
@@ -63,17 +63,20 @@ namespace Elevate {
 		instance().m_Textures[path] = tex;
 
 		TextureLoadResult res;
-		
+
 		res.path = absPath; // Store the absolute path in the result (security for the map later on)
 
 		// Get the texture data async with stbi_load
 		std::thread([res]() mutable {
-			res.data = stbi_load(res.path.c_str(), &res.width, &res.height, &res.channelsCount, STBI_rgb_alpha);
+				res.data = stbi_load(res.path.c_str(), &res.width, &res.height, &res.channelsCount, STBI_rgb_alpha);
 
-			std::lock_guard<std::mutex> lock(instance().m_textureMutex);
-			res.loaded = (res.data != nullptr); // Loaded if the texture is not null
-			instance().m_loadingTextures.push_back(res);
-		}).detach();
+				std::lock_guard<std::mutex> lock(instance().m_textureMutex);
+				res.loaded = (res.data != nullptr); // Loaded if the texture is not null
+				instance().m_loadingTextures.push_back(res);
+			}
+		).detach();
+
+		return tex;
 	}
 
 	void TextureManager::UpdateLoadingTextures()
@@ -81,24 +84,25 @@ namespace Elevate {
 		TextureManager& manager = instance();
 		std::lock_guard<std::mutex> lock(manager.m_textureMutex);
 
-		std::vector<uint32_t> loadedTextures;
-		for (TextureLoadResult& res : manager.m_loadingTextures) 
+		auto it = manager.m_loadingTextures.begin();
+		while (it != manager.m_loadingTextures.end())
 		{
-			if (res.loaded && res.textureID != 0)
+			if (it->loaded)
 			{
-				TexturePtr tex = Texture::Create(res.data, res.width, res.height, res.channelsCount, res.path);
-				manager.m_Textures[res.path] = tex;
-
-				manager.m_Textures[res.path]->SetData(res.data, res.width, res.height, res.channelsCount);
-
-				stbi_image_free(res.data);
-				res.data = nullptr;
+				EE_CORE_TRACE(it->path);
+				// Mise à jour de la texture existante plutôt que création d'une nouvelle
+				if (manager.m_Textures.count(it->path))
+				{
+					manager.m_Textures[it->path]->SetData(it->data, it->width, it->height, it->channelsCount);
+					stbi_image_free(it->data);
+					it->data = nullptr;
+				}
+				it = manager.m_loadingTextures.erase(it);  // Suppression sécurisée
 			}
-		}
-
-		manager.m_loadingTextures.erase(
-			std::remove_if(manager.m_loadingTextures.begin(), manager.m_loadingTextures.end(),
-				[](const TextureLoadResult& res) { return res.loaded == true;
-			})
-		);
+			else
+			{
+				++it;
+			}
+		}	
 	}
+}

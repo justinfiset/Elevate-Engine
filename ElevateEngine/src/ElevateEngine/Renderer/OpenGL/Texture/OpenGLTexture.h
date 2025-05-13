@@ -8,8 +8,8 @@ namespace Elevate
 	{
 	public:
 		// TODO remove raw string in script, find a better implemtnation;
-		OpenGLTexture(std::string path) : OpenGLTexture(path, 0, "textureDiffuse") { }
-		OpenGLTexture(std::string path, unsigned int index, std::string type);
+		OpenGLTexture(const std::string& path) : OpenGLTexture(path, 0, "textureDiffuse") { }
+		OpenGLTexture(const std::string& path, unsigned int index, const std::string type);
 		OpenGLTexture(unsigned char* data, int width, int height, int channelCount, const std::string& path);
 
 		virtual void Bind(int index = 0) override;
@@ -18,6 +18,6 @@ namespace Elevate
 		virtual void SetData(unsigned char* data, int width, int height, int channelCount) override;
 	private:
 		// TODO IMPL. BETTER SOLUTION TO PREVENT USER ERRORS
-		bool m_IsBound = false; // ON NE PEUT UTILISER CETTE VARIABLE QUE SI ON UNBIND ABOSLUMENT
+		bool m_isBound = false; // ON NE PEUT UTILISER CETTE VARIABLE QUE SI ON UNBIND ABOSLUMENT
 	};
 }

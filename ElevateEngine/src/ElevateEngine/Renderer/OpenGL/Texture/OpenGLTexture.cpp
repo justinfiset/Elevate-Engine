@@ -9,11 +9,11 @@
 #include <glad/glad.h>
 namespace Elevate
 {
-	OpenGLTexture::OpenGLTexture(std::string path, unsigned int index, std::string type) : Texture(path, type)
+	OpenGLTexture::OpenGLTexture(const std::string& path, unsigned int index, const std::string type) : Texture(path, type)
 	{
 		// todo get parameters for the textures
-		glGenTextures(1, &m_TextureID);
-		glBindTexture(GL_TEXTURE_2D, m_TextureID);
+		glGenTextures(1, &m_textureID);
+		glBindTexture(GL_TEXTURE_2D, m_textureID);
 		// set the texture wrapping parameters	
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -39,10 +39,11 @@ namespace Elevate
 	}
 
 	OpenGLTexture::OpenGLTexture(unsigned char* data, int width, int height, int channelCount, const std::string& path)
+		: Texture(path)
 	{
 		// todo get parameters for the textures
-		glGenTextures(1, &m_TextureID);
-		glBindTexture(GL_TEXTURE_2D, m_TextureID);
+		glGenTextures(1, &m_textureID);
+		glBindTexture(GL_TEXTURE_2D, m_textureID);
 		// set the texture wrapping parameters	
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -50,28 +51,33 @@ namespace Elevate
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		SetData(data);
+		if (data)
+		{
+			SetData(data, width, height, channelCount);
+		}
 	}
 
 	void OpenGLTexture::Bind(int index)
 	{
 		glActiveTexture(GL_TEXTURE0 + index);
-		glBindTexture(GL_TEXTURE_2D, m_TextureID);
-		m_IsBound = true;
+		glBindTexture(GL_TEXTURE_2D, m_textureID);
+		m_isBound = true;
 	}
 	void OpenGLTexture::Unbind(int index)
 	{
 		glActiveTexture(GL_TEXTURE0 + index);
 		glBindTexture(GL_TEXTURE_2D, 0);
-		m_IsBound = false;
+		m_isBound = false;
 	}
 	bool OpenGLTexture::IsBound() const
 	{
-		return m_IsBound;
+		return m_isBound;
 	}
 
 	void OpenGLTexture::SetData(unsigned char* data, int width, int height, int channelCount)
 	{
+		Bind();
+
 		if (data)
 		{
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -79,7 +85,7 @@ namespace Elevate
 		}
 		else
 		{
-			EE_CORE_TRACE("Unable to load texture : {0}", m_Path.c_str());
+			EE_CORE_TRACE("Unable to load texture : {0}", m_path.c_str());
 		}
 	}
 }

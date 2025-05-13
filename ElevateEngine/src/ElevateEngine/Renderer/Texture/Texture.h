@@ -18,37 +18,39 @@ namespace Elevate
 		int width, height, channelsCount;
 		std::string path;
 		bool loaded = false;
-		uint32_t textureID = 0;
 	};
 
 	class Texture
 	{
 	public:
 		Texture() = default;
-		Texture(std::string path, std::string type) : m_Path(path), m_TextureID(0), m_Type(type) { }
-		~Texture() { };
+		Texture(const std::string& path) : m_path(path) { }
+		Texture(const std::string& path, const std::string& type) : m_path(path), m_textureID(0), m_Type(type) { }
+		~Texture() = default;
+
 		virtual void Bind(int index = 0) = 0;
 		virtual void Unbind(int index = 0) = 0;
 		virtual bool IsBound() const = 0;
 
 		// TODO CHANGE TO SMART POINTERS
-		static TexturePtr Create(std::string path);
-		static TexturePtr Create(unsigned char* data, int width, int height, int channelCount, std::string& path);
-		static TexturePtr Create(std::string path, unsigned int index, std::string type);
-		static TexturePtr CreateAsync(std::string& path);
+		static TexturePtr Create(const std::string& path);
+		static TexturePtr CreateAsync(const std::string& path);
+
+		static TexturePtr Create(unsigned char* data, int width, int height, int channelCount, const std::string& path);
+		static TexturePtr Create(const std::string& path, unsigned int index, const std::string type);
 
 		virtual void SetData(unsigned char* data, int width, int height, int channelCount) = 0;
 
-		inline std::string GetPath() { return m_Path; }
+		inline std::string GetPath() { return m_path; }
 		bool MatchesPath(std::string pathToMatch);
 
 		inline const void SetType(std::string type) { m_Type = type; }
 		inline std::string GetType() const { return m_Type; }
 
-		inline uint32_t GetID() const { return m_TextureID; }
+		inline uint32_t GetID() const { return m_textureID; }
 	protected:
-		std::string m_Path;
-		uint32_t m_TextureID; // todo maybe move to the opengl texture class if not needed in other APIs
+		std::string m_path;
+		uint32_t m_textureID; // todo maybe move to the opengl texture class if not needed in other APIs
 		std::string m_Type;
 	};
 }
