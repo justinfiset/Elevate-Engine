@@ -12,6 +12,9 @@ namespace Elevate::Editor
 		{
 			ImGui::Begin("Environment");
 			ImGui::SeparatorText("Skybox");
+			ImGui::Text("Skybox : " + )
+			if(ImGui::Button("Select Skybox File"))
+
 			ImGui::End();
 		}
 
