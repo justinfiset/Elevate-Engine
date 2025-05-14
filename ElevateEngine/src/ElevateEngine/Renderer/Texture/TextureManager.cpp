@@ -8,7 +8,6 @@
 namespace Elevate {
 	TexturePtr Elevate::TextureManager::LoadTexture(TexturePtr texture)
 	{
-		// TODO MAKE SURE TO HAVE THE ABSOLUTE PATH TO PREVENT MULTIPLE INCLUDES OR THE SAME TEXTURE WITH DIFF PATHS!!!
 		if (instance().m_Textures.count(texture->GetPath()) > 0)
 		{
 			return instance().m_Textures[texture->GetPath()];
@@ -90,19 +89,19 @@ namespace Elevate {
 			if (it->loaded)
 			{
 				EE_CORE_TRACE(it->path);
-				// Mise à jour de la texture existante plutôt que création d'une nouvelle
+				
 				if (manager.m_Textures.count(it->path))
 				{
 					manager.m_Textures[it->path]->SetData(it->data, it->width, it->height, it->channelsCount);
 					stbi_image_free(it->data);
 					it->data = nullptr;
 				}
-				it = manager.m_loadingTextures.erase(it);  // Suppression sécurisée
+				it = manager.m_loadingTextures.erase(it);
 			}
 			else
 			{
 				++it;
 			}
-		}	
+		}
 	}
 }

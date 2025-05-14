@@ -8,7 +8,7 @@ namespace Elevate
 	{
 	public:
 		// TODO remove raw string in script, find a better implemtnation;
-		OpenGLTexture(const std::string& path) : OpenGLTexture(path, 0, "textureDiffuse") { }
+		//OpenGLTexture(const std::string& path) : OpenGLTexture(path, 0, "textureDiffuse") { }
 		OpenGLTexture(const std::string& path, unsigned int index, const std::string type);
 		OpenGLTexture(unsigned char* data, int width, int height, int channelCount, const std::string& path);
 

@@ -9,6 +9,7 @@
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Core/Files.h>
 
+#include <ElevateEngine/Renderer/Texture/TextureManager.h>
 
 namespace fs = std::filesystem;
 
@@ -21,8 +22,6 @@ Elevate::Editor::AssetBrowserPanel::AssetBrowserPanel()
 
 void Elevate::Editor::AssetBrowserPanel::OnUpdate()
 {
-    // TODO prep textures for on dir up and down async. to prevent loading time;
-
     if (m_shouldUpdate) {
         LoadFileItemsList();
         m_shouldUpdate = false;
@@ -183,12 +182,6 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
 
         FileType type = FileMetadata::ParseFileType(typeStr);
         FileMetadata meta(type, iconPath);
-        m_FileMetadata[extension] = meta;
-
-        // todo add debug level
-        //EE_CORE_INFO("Asset {0} :", i + 1);
-        //EE_CORE_TRACE("  Extension: {0}", extension);
-        //EE_CORE_TRACE("  Icon Path: {0}", iconPath);
-        //EE_CORE_TRACE("  Type: {0}", (type == File ? "FILE" : "DIRECTORY"));
+        m_FileMetadata[extension] = meta;   
     }
 }

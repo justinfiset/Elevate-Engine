@@ -13,6 +13,8 @@ namespace Elevate
 		static TexturePtr GetTexture(const std::string& path);
 		static TexturePtr LoadTextureAsync(const std::string& path);
 
+		inline static bool IsAllLoaded() { return instance().m_loadingTextures.empty(); }
+
 		friend class Application;
 	protected:
 		static void UpdateLoadingTextures();

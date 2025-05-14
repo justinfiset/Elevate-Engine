@@ -25,9 +25,11 @@ namespace Elevate
 	public:
 		Texture() = default;
 		Texture(const std::string& path) : m_path(path) { }
-		Texture(const std::string& path, const std::string& type) : m_path(path), m_textureID(0), m_Type(type) { }
+		Texture(const std::string& path, const std::string& type) : m_path(path), m_type(type) { }
 		~Texture() = default;
 
+		// TODO: IMPL
+		//virtual bool IsTextureLoaded() = 0;
 		virtual void Bind(int index = 0) = 0;
 		virtual void Unbind(int index = 0) = 0;
 		virtual bool IsBound() const = 0;
@@ -44,13 +46,13 @@ namespace Elevate
 		inline std::string GetPath() { return m_path; }
 		bool MatchesPath(std::string pathToMatch);
 
-		inline const void SetType(std::string type) { m_Type = type; }
-		inline std::string GetType() const { return m_Type; }
+		inline const void SetType(std::string type) { m_type = type; }
+		inline std::string GetType() const { return m_type; }
 
 		inline uint32_t GetID() const { return m_textureID; }
 	protected:
 		std::string m_path;
-		uint32_t m_textureID; // todo maybe move to the opengl texture class if not needed in other APIs
-		std::string m_Type;
+		uint32_t m_textureID;
+		std::string m_type;
 	};
 }

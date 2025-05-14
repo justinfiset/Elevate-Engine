@@ -25,6 +25,7 @@
 #include "ElevateEngine/ImGui/ImGuiTheme.h"
 #include <ElevateEngine/Renderer/FrameBuffer.h>
 
+#include <ElevateEngine/Inputs/Input.h>
 #include "ElevateEngine/Renderer/Shader/ShaderManager.h"
 #include "ElevateEngine/Renderer/Shader/Shader.h"
 #include "ElevateEngine/Scene/Scene.h"
@@ -180,16 +181,8 @@ public:
 
     void OnImGuiRender() override
     {
-        // TODO FAIRE UN PANEL AVEC DANS L'EDITEUR
-        //// ENVIRONMENT /////////////////////////////////////////
-        ImGui::Begin("Environment");
-        ImGui::SeparatorText("Skybox");
-        ImGui::End();
-        //////////////////////////////////////////////////////////
     }
 };
-
-
 
 class Sandbox : public Elevate::Application
 {

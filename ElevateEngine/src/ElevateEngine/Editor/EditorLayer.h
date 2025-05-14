@@ -13,6 +13,7 @@
 #include <ElevateEngine/Editor/Camera/EditorCamera.h>
 #include <ElevateEngine/Editor/Panels/StatisticsPanel.h>
 #include <ElevateEngine/Editor/Panels/AssetBrowserPanel.h>
+#include <ElevateEngine/Editor/EditorWidget.h>
 
 namespace Elevate::Editor
 {
@@ -37,7 +38,16 @@ namespace Elevate::Editor
 		
 		inline static EditorLayer& Get() { return *s_Instance; }
 
+		template <typename T>
+		inline static void CreateWidget() 
+		{
+			bool isValid = std::is_base_of_v<EditorWidget, T>;
+			EE_CORE_ASSERT(isValid, "An attemp to add a non widget element to the widget stack was detected.");
+			Get().m_widgets.push_back(std::make_unique<T>());
+		}
 	private:
+		std::vector<std::unique_ptr<EditorWidget>> m_widgets;
+
 		Elevate::GameObjectPtr m_CameraObject;
 
 		GameObjectPtr m_SelectedObject;
