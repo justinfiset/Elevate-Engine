@@ -2,6 +2,7 @@
 #include <ElevateEngine/Editor/EditorWidget.h>
 
 #include "imgui.h"
+#include "tinyfiledialogs.h"
 
 namespace Elevate::Editor
 {
@@ -15,19 +16,39 @@ namespace Elevate::Editor
 			
 			auto scene = SceneManager::GetCurrentScene(RuntimeScene);
 			auto skybox = scene->GetSkybox();
+
+			if (ImGui::Button("Select Skybox File"))
+			{
+				const char* filters[] = { "*.sky" };
+				const char* filePath = tinyfd_openFileDialog(
+					"Select a skybox file",
+					"",
+					1,
+					filters,
+					"*.sky - Elevate Skybox File",
+					0
+				);
+
+				if (filePath)
+				{
+					scene->SetSkybox(filePath);
+				}
+			}
+
 			if (scene)
 			{
-				ImGui::Text("Skybox : %s", scene->GetSkybox().lock()->GetFilePath().c_str());
+				ImGui::Text("Skybox : %s", skybox.lock()->GetFilePath().c_str());
+				// Skybox textures preview
+				for (int i = 0; i < 6; i++) 
+				{
+
+				}
 			}
 			else
 			{
 				ImGui::Text("Skybox : (none)");
 			}
 
-			if (ImGui::Button("Select Skybox File"))
-			{
-
-			}
 			ImGui::End();
 		}
 

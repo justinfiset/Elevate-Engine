@@ -19,8 +19,6 @@
 #include "ElevateEngine/Renderer/Light/DirectionalLight.h"
 #include "ElevateEngine/Renderer/Light/PointLight.h"
 
-#include "tinyfiledialogs.h"
-
 #include "ElevateEngine/ImGui/CustomImGuiCommand.h"
 #include "ElevateEngine/ImGui/ImGuiTheme.h"
 #include <ElevateEngine/Renderer/FrameBuffer.h>
@@ -78,18 +76,8 @@ public:
             (glslVesionDefine + "\n" + glslPointLightCountDefine)
         );
 
-        m_Scene->SetSkybox(Elevate::Cubemap::CreateFromFile("cubemap/default.sky"));
+        m_Scene->SetSkybox("cubemap/default.sky");
 
-        // TODO impl dans un API a part entiere
-        //// Bo�te de dialogue pour choisir un fichier
-        //const char* filePath = tinyfd_openFileDialog(
-        //    "Find a skybox",
-        //    "",
-        //    0,
-        //    NULL,
-        //    NULL,
-        //    0
-        //);
         // TODO impl dans un API a part entiere
         //tinyfd_messageBox(
         //    "Erreur",

@@ -45,7 +45,7 @@ namespace Elevate
 		static ScenePtr Create(std::string name, SceneType type = SceneType::RuntimeScene);
 
 		// Cubemap
-		void SetSkybox(Cubemap* cubemap);
+		void SetSkybox(const char* skyboxFilePath);
 		std::weak_ptr<Cubemap> GetSkybox();
 	private:
 		void RemoveFromRoot(GameObjectPtr object);

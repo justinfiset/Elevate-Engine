@@ -71,9 +71,9 @@ Elevate::ScenePtr Elevate::Scene::Create(std::string name, SceneType type)
 	return std::make_shared<Scene>(name, type);
 }
 
-void Elevate::Scene::SetSkybox(Cubemap* cubemap)
+void Elevate::Scene::SetSkybox(const char* skyboxFilePath)
 {
-	m_cubemap.reset(cubemap);
+	m_cubemap.reset(Cubemap::CreateFromFile(skyboxFilePath));
 }
 
 std::weak_ptr<Elevate::Cubemap> Elevate::Scene::GetSkybox()
