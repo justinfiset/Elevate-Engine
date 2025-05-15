@@ -12,9 +12,22 @@ namespace Elevate::Editor
 		{
 			ImGui::Begin("Environment");
 			ImGui::SeparatorText("Skybox");
-			ImGui::Text("Skybox : " + )
-			if(ImGui::Button("Select Skybox File"))
+			
+			auto scene = SceneManager::GetCurrentScene(RuntimeScene);
+			auto skybox = scene->GetSkybox();
+			if (scene)
+			{
+				ImGui::Text("Skybox : %s", scene->GetSkybox().lock()->GetFilePath().c_str());
+			}
+			else
+			{
+				ImGui::Text("Skybox : (none)");
+			}
 
+			if (ImGui::Button("Select Skybox File"))
+			{
+
+			}
 			ImGui::End();
 		}
 

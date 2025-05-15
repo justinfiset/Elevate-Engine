@@ -75,7 +75,7 @@ namespace Elevate::Editor
         m_GridShader->SetProjectionViewMatrix(*GetCamera());
         m_GridObject->SetPosition({ camPos.x, 0, camPos.z });
 
-        m_EditorScene->RenderScene(); // TODO AUTOMATISER
+        m_EditorScene->RenderScene(GetCamera()); // TODO AUTOMATISER
     }
 
     void EditorLayer::OnImGuiRender()

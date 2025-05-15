@@ -7,7 +7,6 @@
 #include "ElevateEngine/Renderer/Material.h"
 #include "ElevateEngine/Renderer/Light/Light.h"
 #include "ElevateEngine/Renderer/Light/DirectionalLight.h"
-#include "ElevateEngine/Core/GameObject.h" // find a way to remove from here
 #include "ElevateEngine/Renderer/Camera.h"
 
 
@@ -19,6 +18,7 @@
 
 namespace Elevate
 {
+	class GameObject;
 	class Shader;
 	using ShaderPtr = std::shared_ptr<Shader>;
 
@@ -41,30 +41,14 @@ namespace Elevate
 		void UseDirLight(DirectionalLight* newDirLight);
 
 		// Camera
-		inline void UpdateCamera(Camera& cam)
-		{
-			// TODO check if there is any better way to do this
-			SetUniform3f(EE_SHADER_CAMPOS, cam.gameObject->GetPosition());
-		}
+		void UpdateCamera(Camera& cam);
+			
+		void SetModelMatrix(glm::mat4& modelMatrix);
+		void SetModelMatrix(GameObject& object);
 
-		inline void SetModelMatrix(glm::mat4& modelMatrix)
-		{
-			SetUniformMatrix4fv(EE_SHADER_MODEL, modelMatrix); // set the model matrix
-		}
-		inline void SetModelMatrix(GameObject& object)
-		{
-			SetUniformMatrix4fv(EE_SHADER_MODEL, object.GetModelMatrix()); // set the model matrix
-		}
+		void SetProjectionViewMatrix(glm::mat4 viewProjMatrix);
 
-		inline void SetProjectionViewMatrix(glm::mat4 viewProjMatrix)
-		{
-			SetUniformMatrix4fv(EE_SHADER_VIEWPROJ, viewProjMatrix);
-		}
-
-		inline void SetProjectionViewMatrix(Camera& cam)
-		{
-			SetUniformMatrix4fv(EE_SHADER_VIEWPROJ, cam.GenViewProjectionMatrix());
-		}
+		void SetProjectionViewMatrix(Camera& cam);
 
 		/// UNIFORMS
 		// FLOATS

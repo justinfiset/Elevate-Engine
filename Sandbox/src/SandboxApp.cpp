@@ -45,9 +45,6 @@ private:
     Elevate::GameObjectPtr m_PointLightObject;
     // TODO make an ortographic and perspective cam class
 
-    // Light and env settings
-    std::unique_ptr<Elevate::Cubemap> m_Cubemap;
-
     Elevate::ScenePtr m_Scene;
 
     bool blinn = true;
@@ -81,7 +78,7 @@ public:
             (glslVesionDefine + "\n" + glslPointLightCountDefine)
         );
 
-        m_Cubemap.reset(Elevate::Cubemap::CreateFromFile("cubemap/default.sky"));
+        m_Scene->SetSkybox(Elevate::Cubemap::CreateFromFile("cubemap/default.sky"));
 
         // TODO impl dans un API a part entiere
         //// Bo�te de dialogue pour choisir un fichier
@@ -142,10 +139,6 @@ public:
         glm::mat4 view = glm::mat4(glm::mat3(cam->GenViewMatrix()));
         glm::vec3 camPos = cam->gameObject->GetPosition();
 
-        m_Cubemap->SetProjectionMatrix(cam->GetProjectionMatrix());
-        m_Cubemap->SetViewMatrix(view);
-        m_Cubemap->Draw();
-
         // On soumet les models et on les affiches en dessinant la stack
         // TODO -> passer par les commande Renderer:: ... pour faire le rendu � la place
         m_Shader->Bind();
@@ -154,7 +147,7 @@ public:
         m_Shader->SetUniform3f("camPos", camPos);
         m_Shader->SetProjectionViewMatrix(*cam);
 
-        m_Scene->RenderScene();
+        m_Scene->RenderScene(cam);
     }
 
     void OnUpdate() override

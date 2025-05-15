@@ -5,6 +5,7 @@
 
 #include <ElevateEngine/Renderer/OpenGL/Shader/OpenGLShader.h>
 #include "ElevateEngine/Files/FileUtility.h"
+#include "ElevateEngine/Core/GameObject.h"
 
 namespace Elevate 
 {
@@ -42,6 +43,31 @@ namespace Elevate
 	{
 		UseLight(newDirLight, "directional");
 		SetUniform3f("dirLight.direction", newDirLight->CalculateDirection());
+	}
+
+	void Shader::UpdateCamera(Camera& cam)
+	{
+		SetUniform3f(EE_SHADER_CAMPOS, cam.gameObject->GetPosition());
+	}
+
+	void Shader::SetModelMatrix(glm::mat4& modelMatrix)
+	{
+		SetUniformMatrix4fv(EE_SHADER_MODEL, modelMatrix); // set the model matrix
+	}
+
+	void Shader::SetModelMatrix(GameObject& object)
+	{
+		SetUniformMatrix4fv(EE_SHADER_MODEL, object.GetModelMatrix()); // set the model matrix
+	}
+
+	void Shader::SetProjectionViewMatrix(glm::mat4 viewProjMatrix)
+	{
+		SetUniformMatrix4fv(EE_SHADER_VIEWPROJ, viewProjMatrix);
+	}
+
+	void Shader::SetProjectionViewMatrix(Camera& cam)
+	{
+		SetUniformMatrix4fv(EE_SHADER_VIEWPROJ, cam.GenViewProjectionMatrix());
 	}
 
 	void Shader::UseMaterial(MaterialPtr newMaterial)

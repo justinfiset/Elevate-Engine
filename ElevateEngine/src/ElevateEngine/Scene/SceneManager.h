@@ -16,7 +16,7 @@ namespace Elevate
 		}
 
 		static inline ScenePtr GetCurrentScene() 
-		{ 
+		{
 			if (!m_Scenes.empty())
 			{
 				return m_Scenes.back();
