@@ -4,6 +4,14 @@
 
 namespace Elevate 
 {
+	struct TextureLoadResult
+	{
+		unsigned char* data;
+		int width, height, channelsCount;
+		std::string path;
+		bool loaded = false;
+	};
+
 	class TextureManager
 	{
 	public:

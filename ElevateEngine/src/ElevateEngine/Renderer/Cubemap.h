@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include "CubemapTexture.h"
 #include <memory>
 #include <filesystem>
 #include "Buffer.h"
@@ -28,8 +27,6 @@ namespace Elevate
 
 	private:
         std::shared_ptr<Shader> m_cubemapShader;
-
-		std::shared_ptr<CubemapTexture> m_textures[6];
 
         std::shared_ptr<VertexArray> m_VertexArray;
         std::shared_ptr<VertexBuffer> m_VertexBuffer;

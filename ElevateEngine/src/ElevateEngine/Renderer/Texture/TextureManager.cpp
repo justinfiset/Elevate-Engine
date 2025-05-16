@@ -57,7 +57,7 @@ namespace Elevate {
 			}
 		}
 
-		// Creation of a black image
+		// Creation of a blank texture
 		TexturePtr tex = Texture::Create(nullptr, 0, 0, 0, absPath);
 		instance().m_Textures[path] = tex;
 

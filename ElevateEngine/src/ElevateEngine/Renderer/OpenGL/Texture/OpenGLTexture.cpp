@@ -60,15 +60,35 @@ namespace Elevate
 	void OpenGLTexture::Bind(int index)
 	{
 		glActiveTexture(GL_TEXTURE0 + index);
-		glBindTexture(GL_TEXTURE_2D, m_textureID);
+
+		if (m_type == EE_TEXTURE_CUBEMAP)
+		{
+			glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
+		}
+		else 
+		{
+			glBindTexture(GL_TEXTURE_2D, m_textureID);
+		}
+
 		m_isBound = true;
 	}
+
 	void OpenGLTexture::Unbind(int index)
 	{
 		glActiveTexture(GL_TEXTURE0 + index);
-		glBindTexture(GL_TEXTURE_2D, 0);
+
+		if (m_type == EE_TEXTURE_CUBEMAP)
+		{
+			glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+		}
+		else
+		{
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+
 		m_isBound = false;
 	}
+
 	bool OpenGLTexture::IsBound() const
 	{
 		return m_isBound;

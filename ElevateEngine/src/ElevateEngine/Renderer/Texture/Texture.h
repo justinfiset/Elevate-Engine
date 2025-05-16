@@ -6,26 +6,19 @@
 #define EE_TEXTURE_SPECULAR "material.specular"
 #define EE_TEXTURE_NORMAL   "material.normal"
 #define EE_TEXTURE_HEIGHT   "material.height"
+#define EE_TEXTURE_CUBEMAP  "texture.cubemap"
 
 namespace Elevate
 {
 	class Texture;
 	using TexturePtr = std::shared_ptr<Texture>;
 
-	struct TextureLoadResult
-	{
-		unsigned char* data;
-		int width, height, channelsCount;
-		std::string path;
-		bool loaded = false;
-	};
-
 	class Texture
 	{
 	public:
 		Texture() = default;
-		Texture(const std::string& path) : m_path(path) { }
-		Texture(const std::string& path, const std::string& type) : m_path(path), m_type(type) { }
+		Texture(const std::string& path) : m_path(path), m_textureID(0) { }
+		Texture(const std::string& path, const std::string& type) : m_path(path), m_type(type), m_textureID(0) { }
 		~Texture() = default;
 
 		// TODO: IMPL

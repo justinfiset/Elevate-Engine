@@ -15,7 +15,7 @@ namespace Elevate::Editor
 			ImGui::SeparatorText("Skybox");
 			
 			auto scene = SceneManager::GetCurrentScene(RuntimeScene);
-			auto skybox = scene->GetSkybox();
+			auto skybox = scene->GetSkybox().lock();
 
 			if (ImGui::Button("Select Skybox File"))
 			{
@@ -35,13 +35,13 @@ namespace Elevate::Editor
 				}
 			}
 
-			if (scene)
+			if (scene && skybox)
 			{
-				ImGui::Text("Skybox : %s", skybox.lock()->GetFilePath().c_str());
+				ImGui::Text("Skybox : %s", skybox->GetFilePath().c_str());
 				// Skybox textures preview
 				for (int i = 0; i < 6; i++) 
 				{
-
+					
 				}
 			}
 			else
