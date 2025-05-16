@@ -4,6 +4,9 @@
 
 namespace Elevate
 {
+	class CubemapTexture;
+	using CubemapTexturePtr = std::shared_ptr<CubemapTexture>;
+
 	class CubemapTexture
 	{
 	public:
@@ -12,7 +15,7 @@ namespace Elevate
 		virtual void Bind(int index = 0) const = 0;
 		virtual void Unbind(int index = 0) const = 0;
 
-		static CubemapTexture* Create(std::string path);
+		static CubemapTexturePtr Create(std::string path);
 
 		inline uint32_t GetID() const { return m_textureID; }
 	protected:
