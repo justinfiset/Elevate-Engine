@@ -8,7 +8,7 @@
 
 #include "ElevateEngine/Renderer/Shader/ShaderManager.h"
 #include "ElevateEngine/Renderer/Model.h"
-
+#include <ElevateEngine/Editor/Widgets/SkyboxEditorWidget.h>
 namespace Elevate::Editor
 {
     EditorLayer* EditorLayer::s_Instance = nullptr;
@@ -55,6 +55,8 @@ namespace Elevate::Editor
 
         // TODO SET AUTOMATICLY SOMEWHERE
         SceneManager::LoadScene(m_EditorScene);
+
+        CreateWidget<SkyboxEditorWidget>();
     }
 
     void EditorLayer::OnUpdate()
@@ -73,7 +75,7 @@ namespace Elevate::Editor
         m_GridShader->SetProjectionViewMatrix(*GetCamera());
         m_GridObject->SetPosition({ camPos.x, 0, camPos.z });
 
-        m_EditorScene->RenderScene(); // TODO AUTOMATISER
+        m_EditorScene->RenderScene(GetCamera()); // TODO AUTOMATISER
     }
 
     void EditorLayer::OnImGuiRender()
@@ -129,11 +131,15 @@ namespace Elevate::Editor
 
         ImGui::DockSpaceOverViewport(ImGui::GetMainViewport()->ID);
 
+        // TODO add in the widget stack
         m_ScenePanel->OnImGuiRender();
         m_HierarchyPanel->OnImGuiRender();
         m_AnalyserPanel->OnImGuiRender();
         m_StatisticsPanel->OnImGuiRender();
         m_AssetBrowserPanel->OnImGuiRender();
+
+        for (auto& widgetPtr : m_widgets)
+            widgetPtr->OnImGuiRender();
     }
 
     void EditorLayer::OnEvent(Event& event)

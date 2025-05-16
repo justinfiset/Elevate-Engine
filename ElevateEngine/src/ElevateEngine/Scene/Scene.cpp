@@ -16,9 +16,22 @@ void Elevate::Scene::UpdateScene()
 	});
 }
 
-void Elevate::Scene::RenderScene()
+void Elevate::Scene::RenderScene(Camera* cam)
 {
-	// TODO REMETTRE AVEC LES WRAPPERS
+	// Render the cubemap / skybox
+	if (cam)
+	{
+		// Either do not calculate here or stop calculating it in the layer
+		glm::mat4 view = glm::mat4(glm::mat3(cam->GenViewMatrix()));
+
+		if (m_cubemap) 
+		{
+			m_cubemap->SetProjectionMatrix(cam->GetProjectionMatrix());
+			m_cubemap->SetViewMatrix(view);
+			m_cubemap->Draw();
+		}
+	}
+
 	m_Registry.view<ComponentWrapper>().each([](auto& wrapper)
 	{
 		if (wrapper.IsActive())
@@ -58,9 +71,19 @@ Elevate::ScenePtr Elevate::Scene::Create(std::string name, SceneType type)
 	return std::make_shared<Scene>(name, type);
 }
 
+void Elevate::Scene::SetSkybox(const char* skyboxFilePath)
+{
+	m_cubemap.reset(Cubemap::CreateFromFile(skyboxFilePath));
+}
+
+std::weak_ptr<Elevate::Cubemap> Elevate::Scene::GetSkybox()
+{
+	return m_cubemap;
+}
+
 void Elevate::Scene::RemoveFromRoot(GameObjectPtr object)
 {
-	m_RootObjects.erase(object);
+	m_rootObjects.erase(object);
 }
 
 void Elevate::Scene::AddRootObject(GameObjectPtr newRootObject)
@@ -68,5 +91,5 @@ void Elevate::Scene::AddRootObject(GameObjectPtr newRootObject)
 	// TODO MAYBE REMOVE IN THE FUTURE IS THE APP IS FOOL PROOF
 	newRootObject->m_Parent = nullptr;
 	newRootObject->m_Scene = this;
-	m_RootObjects.insert(newRootObject);
+	m_rootObjects.insert(newRootObject);
 }

@@ -3,18 +3,18 @@
 #include "CubemapTexture.h"
 #include <memory>
 #include <filesystem>
-
-
 #include "Buffer.h"
 #include "VertexArray.h"
-#include <ElevateEngine/Renderer/Shader/Shader.h>
+#include "ElevateEngine/Renderer/Shader/Shader.h"
 
 namespace Elevate
 {
+    class Shader;
+
 	class Cubemap
 	{
 	public:
-		Cubemap(std::string paths[6]);
+		Cubemap(std::string paths[6], std::string skyboxFilePath = "");
 
         static Cubemap* CreateFromFile(std::string filePath);
 
@@ -24,16 +24,20 @@ namespace Elevate
         void SetProjectionMatrix(glm::mat4 data);
         void SetViewMatrix(glm::mat4 data);
 
+        std::string GetFilePath();
+
 	private:
-        ShaderPtr m_cubemapShader;
+        std::shared_ptr<Shader> m_cubemapShader;
 
 		std::shared_ptr<CubemapTexture> m_textures[6];
 
-        std::shared_ptr<Elevate::VertexArray> m_VertexArray;
+        std::shared_ptr<VertexArray> m_VertexArray;
         std::shared_ptr<VertexBuffer> m_VertexBuffer;
         std::shared_ptr<IndexBuffer> m_IndexBuffer;
 
         uint32_t m_textureID; // todo maybe move to the opengl texture class if not needed in other APIs
+
+        std::string m_filePath;
 
         float s_skyboxVertices[3 * 8] = {
             // Positions         
@@ -47,24 +51,23 @@ namespace Elevate
             -1.0f,  1.0f,  1.0f
         };
 
-        // Les indices pour dessiner le cube en utilisant des triangles
         unsigned int s_skyboxIndices[6 * 2 *3] = {
-            // Face avant
+            // Front
             0, 1, 2,
             2, 3, 0,
-            // Face arrière
+            // Back
             4, 5, 6,
             6, 7, 4,
-            // Face gauche
+            // Left
             0, 3, 7,
             7, 4, 0,
-            // Face droite
+            // Right
             1, 2, 6,
             6, 5, 1,
-            // Face supérieure
+            // Top
             3, 2, 6,
             6, 7, 3,
-            // Face inférieure
+            // Bottom
             0, 1, 5,
             5, 4, 0
         };

@@ -10,8 +10,10 @@
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
 
-Elevate::Cubemap::Cubemap(std::string paths[6])
+Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 {
+	m_filePath = skyboxFilePath;
+
 	// Creating the Layout and the VertexBuffer
 	m_VertexBuffer.reset(Elevate::VertexBuffer::Create(&s_skyboxVertices[0], sizeof(s_skyboxVertices)));
 	// Creating the layout sent to the shader and the layout of the buffer
@@ -87,7 +89,7 @@ Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(std::string filePath)
 		doc["back"].GetString()
 	};
 
-	return new Cubemap(paths);
+	return new Cubemap(paths, filePath);
 }
 
 const void Elevate::Cubemap::Draw()
@@ -121,4 +123,9 @@ void Elevate::Cubemap::SetViewMatrix(glm::mat4 view)
 {
 	m_cubemapShader->Bind();
 	m_cubemapShader->SetUniformMatrix4fv("view", view);
+}
+
+std::string Elevate::Cubemap::GetFilePath()
+{
+	return m_filePath;
 }
