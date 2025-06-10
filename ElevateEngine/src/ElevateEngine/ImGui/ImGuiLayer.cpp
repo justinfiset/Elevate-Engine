@@ -10,11 +10,7 @@
 #include "ElevateEngine/Core/Application.h"
 
 #include "ElevateEngine/ImGui/ImGuiTheme.h"
-
-// TODO FIND A WAY TO REMOVE
-// TEMP
 #include <GLFW/glfw3.h>
-//#include <glad/glad.h>
 
 Elevate::ImGuiLayer::ImGuiLayer()
 	: Layer("ImGuiLayer") { }
@@ -38,9 +34,7 @@ void Elevate::ImGuiLayer::OnAttach()
     //io.ConfigViewportsNoTaskBarIcon = true;
 
     // TODO set dinamiquement avec l'�diteur
-    // TODO fix le dark theme pour enlever le manque d'opacit�
     UI::SetDarkTheme();
-    //UI::SetLightTheme();
     
     // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
     ImGuiStyle& style = ImGui::GetStyle();

@@ -1,10 +1,11 @@
 #pragma once
+#include <ElevateEngine/Editor/EditorWidget.h>
 
 namespace Elevate::Editor
 {
-	class AnalyserPanel
+	class AnalyserPanel : public EditorWidget
 	{
 	public:
-		void OnImGuiRender();
+		void OnImGuiRender() override;
 	};
 }

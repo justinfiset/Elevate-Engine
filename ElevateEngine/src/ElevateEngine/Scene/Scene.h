@@ -35,7 +35,7 @@ namespace Elevate
 		void RenderScene(Camera* cam);
 		void Notify(Event& event); // Dispatch an event to gameobjects
 
-		inline const std::string GetName() const { return m_Name; };
+		inline const std::string& GetName() const { return m_Name; };
 
 		void AddObject(GameObjectPtr newObject, GameObjectPtr parent);
 		const std::set<GameObjectPtr> GetRootObjects() const { return m_rootObjects; }

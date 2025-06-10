@@ -51,7 +51,5 @@ namespace Elevate::Editor
 
 			ImGui::End();
 		}
-
-	private:
 	};
 }

@@ -85,7 +85,7 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
             glm::value_ptr(cameraView),
             glm::value_ptr(cameraProjection),
             (ImGuizmo::OPERATION) m_CurrentEditorTool,
-            ImGuizmo::LOCAL,  // Change to WORLD if needed
+            ImGuizmo::LOCAL, // Change to WORLD if needed
             glm::value_ptr(entityMatrix)
         );
 

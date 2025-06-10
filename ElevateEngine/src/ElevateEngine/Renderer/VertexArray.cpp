@@ -10,7 +10,7 @@ namespace Elevate
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::GraphicAPI::None: return nullptr; break; // TODO implement
+		case RendererAPI::GraphicAPI::None: return nullptr; break;
 		case RendererAPI::GraphicAPI::OpenGL: return new OpenGLVertexArray();
 		}
 

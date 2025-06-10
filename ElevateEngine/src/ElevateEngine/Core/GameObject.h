@@ -9,13 +9,6 @@
 
 #define EE_VALIDATE_COMPONENT_TYPE() EE_CORE_ASSERT((std::is_base_of<Component, T>::value), "{0} : Type specifier must be a child of the Component class.", m_Name);
 
-// TODO REMOVE ASAP ONCE NOT NEEDED IN THE FILE (header)
-#include "imgui.h"
-#include "ImGuizmo.h"
-#include "glm/glm.hpp"
-#include <glm/gtc/type_ptr.hpp>
-/////// ^^^^^^ TO REMOVE ASAP
-
 namespace Elevate
 {
 
@@ -111,6 +104,7 @@ namespace Elevate
 		inline void SetName(std::string newName) { m_Name = newName; }
 		
 		void SetParent(GameObjectPtr newParent);
+		void Destroy();
 
 		// TODO SET LE PARENT DU CHILD COMME ÉTANT THIS
 		void SetChild(GameObjectPtr child);
@@ -118,70 +112,18 @@ namespace Elevate
 
 		inline const bool HasChild() const { return m_Childs.size() > 0; }
 		inline std::set<GameObjectPtr> GetChilds() const { return m_Childs; }
-		 
-		// TODO MOVE TO ANOTHER FILE
-		glm::mat4 GenGlobalMatrix() const;
 
 		static GameObjectPtr Create(std::string name, ScenePtr scene, GameObjectPtr parent = nullptr);
 
-		// TOdo mettre dans une autre fichier / classe
-		inline void SetFromGlobalMatrix(const glm::mat4& newWorld)
-		{
-			glm::mat4 newLocal;
-			if (m_Parent)
-			{
-				newLocal = glm::inverse(m_Parent->GenGlobalMatrix()) * newWorld;
-			}
-			else
-			{
-				newLocal = newWorld;
-			}
-
-			glm::vec3 position;
-			glm::vec3 rotation;
-			glm::vec3 scale;
-
-			ImGuizmo::DecomposeMatrixToComponents
-            (
-                glm::value_ptr(newLocal),
-                glm::value_ptr(position),
-                glm::value_ptr(rotation),
-                glm::value_ptr(scale)
-            );
-
-            // TODO SHOULD SET GLOBAL INSTEAD OF LOCAL, THEREFORE THESE DO NOT ALWYAS WORKS ON CHILDS FOR THE MOMENT
-            // -> IL FAUDRAIT UNE MÉTHODE QUI UPDATE LE TOUT À PARTIR D'UNE MÉTHODE SetFromGlobalMatrix() qui set le tout
-			SetScale(scale);
-            SetRotation(rotation);
-            SetPosition(position);
-		}
-
-		// TODO SET GETTERS ELSEWHERE ASAP AND OPTIMIZE
-		inline glm::vec3 GetGlobalPosition()
-		{
-			glm::mat4 global = GenGlobalMatrix();
-			glm::vec3 position;
-			glm::vec3 rotation;
-			glm::vec3 scale;
-
-			ImGuizmo::DecomposeMatrixToComponents
-			(
-				glm::value_ptr(global),
-				glm::value_ptr(position),
-				glm::value_ptr(rotation),
-				glm::value_ptr(scale)
-			);
-
-			return position;
-		}
+		glm::mat4 GenGlobalMatrix() const;
+		void SetFromGlobalMatrix(const glm::mat4& newWorld);
+		glm::vec3 GetGlobalPosition();
 	private :
 		void Initialize(); // Internal function to use just after constructor
 
 		// TODO MAYBE REMOVE AND FIND A BETTER STRUCTURE
 		// Transforms callbakcs
 		virtual void OnSetPosition() override;
-
-
 	private:
 		std::string m_Name;
 

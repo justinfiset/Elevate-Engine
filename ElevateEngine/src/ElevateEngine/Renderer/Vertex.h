@@ -9,5 +9,7 @@ namespace Elevate
 		glm::vec3 Position = { 0, 0, 0 };
 		glm::vec3 Normal = { 0, 0, 0, };
 		glm::vec2 TexCoords = { 0, 0 };
+		glm::vec3 Tangent = { 0, 0, 0 };
+		glm::vec3 Bitangent = { 0, 0, 0 };
 	};
 }

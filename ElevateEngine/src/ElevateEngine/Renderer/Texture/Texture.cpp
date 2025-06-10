@@ -35,7 +35,7 @@ namespace Elevate
 
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::GraphicAPI::None: texture = nullptr; break; // TODO implement
+		case RendererAPI::GraphicAPI::None: texture = nullptr; break;
 		case RendererAPI::GraphicAPI::OpenGL: texture = std::make_shared<OpenGLTexture>(data, width, height, channelCount, path);
 		}
 
@@ -56,7 +56,7 @@ namespace Elevate
 
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::GraphicAPI::None: tex = nullptr; break; // TODO implement
+		case RendererAPI::GraphicAPI::None: tex = nullptr; break;
 		case RendererAPI::GraphicAPI::OpenGL: tex = std::make_shared<OpenGLTexture>(path, index, type);
 		}
 

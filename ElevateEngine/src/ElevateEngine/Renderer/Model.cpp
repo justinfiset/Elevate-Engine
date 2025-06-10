@@ -15,8 +15,6 @@ Elevate::Model::Model(std::string path, ShaderPtr shader) : Model(path, shader, 
 
 Elevate::Model::Model(std::string path, ShaderPtr shader, MaterialPtr material)
 {
-    // TODO REMOVE IF USELESS
-//m_ModelMatrix = std::make_unique<glm::mat4>(1.0f);
     if (shader)
     {
         SetShader(shader);
@@ -81,43 +79,7 @@ Elevate::Mesh Elevate::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
         Vertex vertex;
-        // process vertex positions, normals and texture coordinates
-
-        // TODO PUT IN ANOTHER METHOD ExtractMeshVertex(mesh, index)
-        glm::vec3 vector;
-        vector.x = mesh->mVertices[i].x;
-        vector.y = mesh->mVertices[i].y;
-        vector.z = mesh->mVertices[i].z;
-        vertex.Position = vector;
-
-        vector.x = mesh->mNormals[i].x;
-        vector.y = mesh->mNormals[i].y;
-        vector.z = mesh->mNormals[i].z;
-        vertex.Normal = vector;
-
-        if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
-        {
-            glm::vec2 vec;
-            vec.x = mesh->mTextureCoords[0][i].x;
-            vec.y = mesh->mTextureCoords[0][i].y;
-            vertex.TexCoords = vec;
-            // todo add tangeant
-            // todo add bitangent
-            // tangent
-            //vector.x = mesh->mTangents[i].x;
-            //vector.y = mesh->mTangents[i].y;
-            //vector.z = mesh->mTangents[i].z;
-            //vertex.Tangent = vector;
-            //// bitangent
-            //vector.x = mesh->mBitangents[i].x;
-            //vector.y = mesh->mBitangents[i].y;
-            //vector.z = mesh->mBitangents[i].z;
-            //vertex.Bitangent = vector;
-        }
-        else
-        {
-            vertex.TexCoords = glm::vec2(0.0f, 0.0f);
-        }
+        ExtractMeshVertex(mesh, vertex, i);
         vertices.push_back(vertex);
     }
 
@@ -142,6 +104,48 @@ Elevate::Mesh Elevate::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
     }
 
     return Mesh(vertices, indices, textures);
+}
+
+void Elevate::Model::ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int i)
+{
+    // process vertex positions, normals and texture coordinates
+    glm::vec3 vector;
+    vector.x = mesh->mVertices[i].x;
+    vector.y = mesh->mVertices[i].y;
+    vector.z = mesh->mVertices[i].z;
+    vertex.Position = vector;
+
+    vector.x = mesh->mNormals[i].x;
+    vector.y = mesh->mNormals[i].y;
+    vector.z = mesh->mNormals[i].z;
+    vertex.Normal = vector;
+
+    if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
+    {
+        // text coords
+        glm::vec2 coords;
+        coords.x = mesh->mTextureCoords[0][i].x;
+        coords.y = mesh->mTextureCoords[0][i].y;
+        vertex.TexCoords = coords;
+    }
+
+    if (mesh->mTangents)
+    {
+        // tangent
+        vector.x = mesh->mTangents[i].x;
+        vector.y = mesh->mTangents[i].y;
+        vector.z = mesh->mTangents[i].z;
+        vertex.Tangent = vector;
+    }
+
+    if (mesh->mBitangents)
+    {
+        // bitangent
+        vector.x = mesh->mBitangents[i].x;
+        vector.y = mesh->mBitangents[i].y;
+        vector.z = mesh->mBitangents[i].z;
+        vertex.Bitangent = vector;
+    }
 }
 
 std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)

@@ -14,7 +14,6 @@ void Elevate::OpenGLRendererAPI::SetViewport(int x, int y, int width, int height
 
 void Elevate::OpenGLRendererAPI::Clear() const
 {
-	// todo a changer on ne veux pas clear les deux en meme temps
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 

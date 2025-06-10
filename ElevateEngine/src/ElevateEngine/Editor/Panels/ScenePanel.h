@@ -1,23 +1,22 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <ElevateEngine/Editor/EditorWidget.h>
 
 namespace Elevate::Editor 
 {
 	class EditorLayer;
 
-	class ScenePanel
+	class ScenePanel : public EditorWidget
 	{
 	public:
-		ScenePanel() = default;
-
-		void OnImGuiRender();
+		void OnImGuiRender() override;
 
 	private:
 		void UpdateViewportAspectRatio();
 		std::string GetAspectRatioText(glm::ivec2 ar);
-	private:
 
+	private:
 		// Editor tool option
 		int m_CurrentEditorTool = 7;
 

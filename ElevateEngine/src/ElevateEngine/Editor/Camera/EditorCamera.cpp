@@ -18,7 +18,6 @@ void Elevate::EditorCamera::Update()
     }
     float cameraSpeed = baseCamSpeed * Elevate::Time::GetDeltaTime();
 
-    // TODO faire des acesseurs public
     if (Elevate::Input::IsKeyPressed(EE_KEY_W))
         gameObject->GetPosition() += cameraSpeed * GetFrontVec();
     if (Elevate::Input::IsKeyPressed(EE_KEY_S))
@@ -63,6 +62,12 @@ void Elevate::EditorCamera::OnNotify(Event& event)
             m_followCursor = false;
         }
     }
+}
+
+void Elevate::EditorCamera::Init()
+{
+    gameObject->GetRotation().y = -90.0f;
+    Camera::Init();
 }
 
 void Elevate::EditorCamera::ClampRotation()

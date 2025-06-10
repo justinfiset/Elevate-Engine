@@ -115,9 +115,6 @@ public:
         m_Shader->SetUniform1f("pointLights[0].constant", 1.0f);
         m_Shader->SetUniform1f("pointLights[0].linear", 0.09f);
         m_Shader->SetUniform1f("pointLights[0].quadratic", 0.032f);
-
-        // TODO SET AUTOMATICLY SOMEWHERE (PROB IN PROJECT???)
-        Elevate::SceneManager::LoadScene(m_Scene);
     }
 
     // TODO ajouter un icon de point light qui suit avec imgui la point light

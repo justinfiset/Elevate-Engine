@@ -15,8 +15,6 @@ namespace Elevate
         Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::vector<std::shared_ptr<Texture>> textures);
         static Mesh* Create(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::vector<std::shared_ptr<Texture>> textures);
         
-        // TODO draw from the renderer when we submit the mesh;
-        //void Draw(Shader& shader);
         inline std::shared_ptr<VertexBuffer> GetVertexBuffer() const { return m_VertexBuffer; }
         inline std::shared_ptr<IndexBuffer> GetIndexBuffer() const { return m_IndexBuffer; }
 

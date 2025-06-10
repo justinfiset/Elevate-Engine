@@ -11,6 +11,8 @@
 
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
 
+#include <imgui.h>
+
 namespace fs = std::filesystem;
 
 Elevate::Editor::AssetBrowserPanel::AssetBrowserPanel()
@@ -67,9 +69,7 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
         ImGui::PushID(index);
         ImGui::BeginGroup();
 
-        if (ImGui::ImageButton("file_item", (ImTextureID)(intptr_t)texture->GetID(), buttonSize)) {
-            // TODO MAKE A PREVIEW SYSTEM FOR FILES
-        }
+        if (ImGui::ImageButton("file_item", (ImTextureID)(intptr_t)texture->GetID(), buttonSize)) { }
 
         if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
             if (item.type == Directory) {
@@ -127,9 +127,6 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
         }
         FileItem fileItem;
         if (meta.type == Image) {
-            // TODO FIX assetbrowser image preview
-            //EE_CORE_TRACE(fs::absolute(entry.path()));
-            //fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, meta.iconPath, meta.type);
             fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, entry.path().string(), meta.type);
         }
         else {
@@ -144,7 +141,7 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
 {
     FILE* fp = fopen(filepath.c_str(), "r");
     if (!fp) {
-        EE_CORE_ERROR("Impossible d'ouvrir le fichier JSON: {0}", filepath);
+        EE_CORE_ERROR("Cannot open JSON file : {0}", filepath);
         return;
     }
 
@@ -161,7 +158,7 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
     }
 
     if (!doc.HasMember("assets") || !doc["assets"].IsArray()) {
-        EE_CORE_ERROR("Cl� 'assets' non trouv�e ou invalide dans le fichier JSON");
+        EE_CORE_ERROR("Could not find valid assets key in JSON file.");
         return;
     }
 
@@ -172,7 +169,7 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
         if (!asset.HasMember("extension") || !asset["extension"].IsString() ||
             !asset.HasMember("iconPath") || !asset["iconPath"].IsString() ||
             !asset.HasMember("type") || !asset["type"].IsString()) {
-            EE_CORE_ERROR("L'asset {0} est invalide (donn�es manquantes ou type incorrect)", i + 1);
+            EE_CORE_ERROR("The asset {0} is invalid (missing data or incorrect type)", i + 1);
             continue;
         }
 

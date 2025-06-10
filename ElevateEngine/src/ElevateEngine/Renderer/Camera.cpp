@@ -23,14 +23,11 @@ Elevate::Camera::Camera(float fov, float aspectRatio)
     m_AspectRatio = aspectRatio;
 }
 
-
 void Elevate::Camera::Init()
 {
-    gameObject->GetRotation().y = -90.0f; // TODO ENLEVER AU PC
     UpdateProjectionMatrix();
     UpdateCameraVectors();
 }
-
 
 const void Elevate::Camera::UpdateAspectRatio(float aspectRatio)
 {

@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "ElevateEngine/Core/GameObject.h"
 #include "ElevateEngine/Core/ComponentWrapper.h"
-
+#include <ElevateEngine/Scene/SceneManager.h>
 #include "ElevateEngine/Renderer/Model.h"
 
 void Elevate::Scene::UpdateScene()
@@ -68,7 +68,9 @@ void Elevate::Scene::AddObject(GameObjectPtr newObject, GameObjectPtr parent)
 
 Elevate::ScenePtr Elevate::Scene::Create(std::string name, SceneType type)
 {
-	return std::make_shared<Scene>(name, type);
+	ScenePtr scene = std::make_shared<Scene>(name, type);
+	SceneManager::LoadScene(scene);
+	return scene;
 }
 
 void Elevate::Scene::SetSkybox(const char* skyboxFilePath)

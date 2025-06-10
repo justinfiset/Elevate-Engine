@@ -2,8 +2,62 @@
 #include "GameObject.h"
 #include "ElevateEngine/Scene/Scene.h"
 
+#include "imgui.h"
+#include "ImGuizmo.h"
+#include "glm/glm.hpp"
+#include <glm/gtc/type_ptr.hpp>
+
 Elevate::GameObject::GameObject(std::string name, ScenePtr scene, GameObjectPtr parent) 
 	: m_Name(name), m_Scene(scene.get()), m_Parent(parent) { }
+
+void Elevate::GameObject::SetFromGlobalMatrix(const glm::mat4& newWorld)
+{
+	glm::mat4 newLocal;
+	if (m_Parent)
+	{
+		newLocal = glm::inverse(m_Parent->GenGlobalMatrix()) * newWorld;
+	}
+	else
+	{
+		newLocal = newWorld;
+	}
+
+	glm::vec3 position;
+	glm::vec3 rotation;
+	glm::vec3 scale;
+
+	ImGuizmo::DecomposeMatrixToComponents
+	(
+		glm::value_ptr(newLocal),
+		glm::value_ptr(position),
+		glm::value_ptr(rotation),
+		glm::value_ptr(scale)
+	);
+
+	// TODO SHOULD SET GLOBAL INSTEAD OF LOCAL, THEREFORE THESE DO NOT ALWYAS WORKS ON CHILDS FOR THE MOMENT
+	// -> IL FAUDRAIT UNE MÉTHODE QUI UPDATE LE TOUT À PARTIR D'UNE MÉTHODE SetFromGlobalMatrix() qui set le tout
+	SetScale(scale);
+	SetRotation(rotation);
+	SetPosition(position);
+}
+
+glm::vec3 Elevate::GameObject::GetGlobalPosition()
+{
+	glm::mat4 global = GenGlobalMatrix();
+	glm::vec3 position;
+	glm::vec3 rotation;
+	glm::vec3 scale;
+
+	ImGuizmo::DecomposeMatrixToComponents
+	(
+		glm::value_ptr(global),
+		glm::value_ptr(position),
+		glm::value_ptr(rotation),
+		glm::value_ptr(scale)
+	);
+
+	return position;
+}
 
 void Elevate::GameObject::Initialize()
 {
@@ -49,6 +103,23 @@ void Elevate::GameObject::SetParent(GameObjectPtr newParent)
 	}
 }
 
+void Elevate::GameObject::Destroy()
+{
+	if (m_Parent) {
+		m_Parent->RemoveChild(shared_from_this());
+	}
+	else {
+		m_Scene->RemoveFromRoot(shared_from_this());
+	}
+
+	for (GameObjectPtr child : m_Childs)
+	{
+		child->Destroy();
+	}
+	m_Childs.clear();
+	m_Parent.reset();
+}
+
 void Elevate::GameObject::SetChild(GameObjectPtr child)
 {
 	if (child)
@@ -61,7 +132,7 @@ void Elevate::GameObject::SetChild(GameObjectPtr child)
 
 void Elevate::GameObject::RemoveChild(GameObjectPtr child)
 {
-	// TODO RemoveChild();
+	m_Childs.erase(child);
 }
 
 // TODO MOVE SOMEWHERE ELSE

@@ -5,7 +5,6 @@
 namespace Elevate::Editor {
     std::string GuizmoOperationToString(int tool)
     {
-        // TODO UTILISER DIRECTEMENT LES IMGUIZMO::TRANSLATE ETC...
         switch (tool)
         {
         case 7: return "Translate";

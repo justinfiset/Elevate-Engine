@@ -5,10 +5,20 @@
 #include <ElevateEngine/Scene/SceneManager.h>
 
 #include "imgui.h"
-
 #include "ElevateEngine/Renderer/Shader/ShaderManager.h"
 #include "ElevateEngine/Renderer/Model.h"
+
+#include <ElevateEngine/Editor/Camera/EditorCamera.h>
+
+#include <ElevateEngine/Editor/Panels/ScenePanel.h>
+#include <ElevateEngine/Editor/Panels/HierarchyPanel.h>
+#include <ElevateEngine/Editor/Panels/AnalyserPanel.h>
+#include <ElevateEngine/Editor/Panels/AssetBrowserPanel.h>
+#include <ElevateEngine/Editor/Panels/StatisticsPanel.h>
+
 #include <ElevateEngine/Editor/Widgets/SkyboxEditorWidget.h>
+
+
 namespace Elevate::Editor
 {
     EditorLayer* EditorLayer::s_Instance = nullptr;
@@ -22,11 +32,11 @@ namespace Elevate::Editor
 
     void EditorLayer::InitUI()
     {
-        m_ScenePanel = std::make_unique<ScenePanel>();
-        m_HierarchyPanel = std::make_unique<HierarchyPanel>();
-        m_AnalyserPanel = std::make_unique<AnalyserPanel>();
-        m_StatisticsPanel = std::make_unique<StatisticsPanel>();
-        m_AssetBrowserPanel = std::make_unique<AssetBrowserPanel>();
+        CreateWidget<HierarchyPanel>();
+        CreateWidget<ScenePanel>();
+        CreateWidget<AnalyserPanel>();
+        CreateWidget<StatisticsPanel>();
+        CreateWidget<AssetBrowserPanel>();
     }
 
     void EditorLayer::OnAttach()
@@ -53,29 +63,26 @@ namespace Elevate::Editor
         gridModel.SetShader(m_GridShader);
         m_GridObject->SetScale({ 50, 50, 50 });
 
-        // TODO SET AUTOMATICLY SOMEWHERE
-        SceneManager::LoadScene(m_EditorScene);
-
         CreateWidget<SkyboxEditorWidget>();
     }
 
     void EditorLayer::OnUpdate()
     {
-        m_AssetBrowserPanel->OnUpdate();
+        for (auto& widgetPtr : m_widgets)
+            widgetPtr->OnUpdate();
+
         m_EditorScene->UpdateScene();
     }
 
     void EditorLayer::OnRender()
     {
         // Rendering the editor grid
-        // TODO modif le shader pour le mettre a nos normes de nomencalture de nom
-        // TODO il faut modif le buffer (Dans Mesh) pour s'assurer que le shader recoit les infos qu'il veut et non top d'info inutiles
         glm::vec3 camPos = m_CameraObject->GetPosition();
         m_GridShader->Bind();
         m_GridShader->SetProjectionViewMatrix(*GetCamera());
         m_GridObject->SetPosition({ camPos.x, 0, camPos.z });
 
-        m_EditorScene->RenderScene(GetCamera()); // TODO AUTOMATISER
+        m_EditorScene->RenderScene(GetCamera());
     }
 
     void EditorLayer::OnImGuiRender()
@@ -131,24 +138,12 @@ namespace Elevate::Editor
 
         ImGui::DockSpaceOverViewport(ImGui::GetMainViewport()->ID);
 
-        // TODO add in the widget stack
-        m_ScenePanel->OnImGuiRender();
-        m_HierarchyPanel->OnImGuiRender();
-        m_AnalyserPanel->OnImGuiRender();
-        m_StatisticsPanel->OnImGuiRender();
-        m_AssetBrowserPanel->OnImGuiRender();
-
         for (auto& widgetPtr : m_widgets)
             widgetPtr->OnImGuiRender();
     }
 
     void EditorLayer::OnEvent(Event& event)
     {
-        if (event.GetEventType() == EventType::MouseMoved)
-        {
-            //MouseMovedEvent& mouseEvent = dynamic_cast<MouseMovedEvent&>(event);
-        }
-
         m_EditorScene->Notify(event);
     }
 

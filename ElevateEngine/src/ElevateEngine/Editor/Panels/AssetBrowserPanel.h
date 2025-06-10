@@ -1,6 +1,8 @@
 #pragma once
-#include <ElevateEngine/Core/GameObject.h>
 #include <filesystem>
+
+#include <ElevateEngine/Core/GameObject.h>
+#include <ElevateEngine/Editor/EditorWidget.h>
 
 namespace Elevate::Editor {
     
@@ -50,13 +52,13 @@ namespace Elevate::Editor {
             path(filePath), name(fileName), extension(fileExtension), iconPath(icon), type(type) { }
     };
 
-    class AssetBrowserPanel
+    class AssetBrowserPanel : public EditorWidget
     {
     public:
         AssetBrowserPanel();
 
-        void OnUpdate();
-        void OnImGuiRender();
+        void OnUpdate() override;
+        void OnImGuiRender() override;
 
     private:
         void LoadFileItemsList();

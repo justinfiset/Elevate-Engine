@@ -78,7 +78,6 @@ Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(std::string filePath)
 	////////////////
 
 	// TODO: add error handling to make sure all required members are present in the file
-	// TODO : find a solution if the file is wrong to prevent opengl errors and/or missing textures
 	std::string paths[6] =
 	{
 		doc["right"].GetString(),

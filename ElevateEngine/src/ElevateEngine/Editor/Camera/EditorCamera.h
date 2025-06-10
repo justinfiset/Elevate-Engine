@@ -10,6 +10,7 @@ namespace Elevate {
 	protected:
 		void Update() override;
 		void OnNotify(Event& event) override;
+		void Init() override;
 
 		void ClampRotation();
 	private:

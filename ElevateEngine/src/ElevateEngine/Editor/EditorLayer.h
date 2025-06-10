@@ -4,16 +4,9 @@
 #include <ElevateEngine/Core/Layers/Layer.h>
 #include <ElevateEngine/Core/GameObject.h>
 
-#include <ElevateEngine/Renderer/Camera.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
-
-#include <ElevateEngine/Editor/Panels/ScenePanel.h>
-#include <ElevateEngine/Editor/Panels/HierarchyPanel.h>
-#include <ElevateEngine/Editor/Panels/AnalyserPanel.h>
-#include <ElevateEngine/Editor/Camera/EditorCamera.h>
-#include <ElevateEngine/Editor/Panels/StatisticsPanel.h>
-#include <ElevateEngine/Editor/Panels/AssetBrowserPanel.h>
 #include <ElevateEngine/Editor/EditorWidget.h>
+#include <ElevateEngine/Editor/Camera/EditorCamera.h>
 
 namespace Elevate::Editor
 {
@@ -52,15 +45,9 @@ namespace Elevate::Editor
 
 		GameObjectPtr m_SelectedObject;
 
-		// Panels
-		std::unique_ptr<ScenePanel> m_ScenePanel;
-		std::unique_ptr<HierarchyPanel> m_HierarchyPanel;
-		std::unique_ptr<AnalyserPanel> m_AnalyserPanel;
-		std::unique_ptr<StatisticsPanel> m_StatisticsPanel;
-		std::unique_ptr<AssetBrowserPanel> m_AssetBrowserPanel;
-
-		// TODO set dans une autre classe
+		// Editor Scene
 		ScenePtr m_EditorScene;
+
 		// Grid
 		ShaderPtr m_GridShader;
 		GameObjectPtr m_GridObject;
