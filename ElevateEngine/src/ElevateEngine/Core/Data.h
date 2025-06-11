@@ -99,7 +99,7 @@ namespace Elevate
 		EE_DATA_TYPE_Mat5   // Mat5
 	};
 
-	enum class ShaderDataType
+	enum class EngineDataType
 	{
 		None = 0,
 		Bool,
@@ -108,15 +108,15 @@ namespace Elevate
 		Mat3, Mat4, Mat5
 	};
 
-	inline uint32_t GetShaderDataTypeCount(ShaderDataType type) {
+	inline uint32_t GetDataTypeCount(EngineDataType type) {
 		return ShaderDataTypeCount[static_cast<uint32_t>(type)];
 	}
 
-	inline uint32_t GetShaderDataTypeSize(ShaderDataType type) {
+	inline uint32_t GetDataTypeSize(EngineDataType type) {
 		return ShaderDataTypeSize[static_cast<uint32_t>(type)];
 	}
 
-	inline uint32_t GetShaderDataAPIType(ShaderDataType type) {
+	inline uint32_t GetDataAPIType(EngineDataType type) {
 		return ShaderDataAPIType[static_cast<uint32_t>(type)];
 	}
 }

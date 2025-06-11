@@ -65,7 +65,7 @@ void Elevate::GameObject::Initialize()
 	{
 		if (m_Parent)
 		{
-			m_Parent->SetChild(shared_from_this());
+			m_Parent->AddChild(shared_from_this());
 		}
 		else
 		{
@@ -82,7 +82,7 @@ void Elevate::GameObject::Initialize()
 
 void Elevate::GameObject::OnSetPosition()
 {
-	// TODO VERIF SI VRARIMENT UTILE
+
 }
 
 Elevate::GameObject::~GameObject()
@@ -95,11 +95,25 @@ Elevate::GameObject::~GameObject()
 
 void Elevate::GameObject::SetParent(GameObjectPtr newParent)
 {
+	if (newParent == m_Parent)
+		return;
+	
+	if (m_Parent) 
+	{
+		m_Parent->RemoveChild(shared_from_this());
+	}
+
+	this->m_Parent = newParent;
+
 	if (newParent)
 	{
-		this->m_Parent = newParent;
-		newParent->SetChild(shared_from_this());
-		m_Scene->RemoveFromRoot(shared_from_this());
+		newParent->AddChild(shared_from_this());
+		if (m_Scene)
+		{
+			m_Scene->RemoveFromRoot(shared_from_this());
+		}
+	} else {
+		m_Scene->AddRootObject(shared_from_this());
 	}
 }
 
@@ -120,7 +134,7 @@ void Elevate::GameObject::Destroy()
 	m_Parent.reset();
 }
 
-void Elevate::GameObject::SetChild(GameObjectPtr child)
+void Elevate::GameObject::AddChild(GameObjectPtr child)
 {
 	if (child)
 	{

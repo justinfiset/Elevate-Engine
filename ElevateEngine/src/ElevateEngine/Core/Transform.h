@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 
 namespace Elevate
 {
@@ -31,7 +32,18 @@ namespace Elevate
 
 		const glm::mat4& GetModelMatrix() const;
 		void UpdateModelMatrix();
-
+	
+		ComponentLayout GetLayout() const
+		{
+			return ComponentLayout(
+				"Transform",
+				{
+					{"Positon", ComponentDataType::Float3, &position},
+					{"Rotation", ComponentDataType::Float3, &rotation},
+					{"Scale", ComponentDataType::Float3, &scale}
+				}
+			);
+		}
 	private:
 		glm::vec3 position;
 		glm::vec3 rotation;

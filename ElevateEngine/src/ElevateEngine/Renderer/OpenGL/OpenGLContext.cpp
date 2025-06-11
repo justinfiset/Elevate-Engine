@@ -19,12 +19,11 @@ void Elevate::OpenGLContext::Init()
 	EE_CORE_ASSERT(status, "Failed to initialize Glad.");
 	glEnable(GL_DEPTH_TEST);
 
-	// todo reenable when ready
-	//glEnable(GL_CULL_FACE);
-	//glCullFace(GL_BACK);
-	//glFrontFace(GL_CCW);
+	// Hides faces that are not in the right direction
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
 
-	// TODO voir si n�cessaire
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

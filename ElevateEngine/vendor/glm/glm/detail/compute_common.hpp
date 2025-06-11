@@ -20,7 +20,6 @@ namespace detail
 				"'abs' only accept floating-point and integer scalar or vector inputs");
 
 			return x >= genFIType(0) ? x : -x;
-			// TODO, perf comp with: *(((int *) &x) + 1) &= 0x7fffffff;
 		}
 	};
 

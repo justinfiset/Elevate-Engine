@@ -11,6 +11,7 @@ namespace Elevate
 	class GameObject;
 	class Camera;
 	// TODO SET ELSEWHERE
+	// TODO CHANGE TO WEAKPTR ACCEPTED FOR SCENES ***
 	using GameObjectPtr = std::shared_ptr<GameObject>;
 
 	enum SceneType {

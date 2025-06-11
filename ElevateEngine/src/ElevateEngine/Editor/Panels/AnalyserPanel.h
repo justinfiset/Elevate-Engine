@@ -1,5 +1,6 @@
 #pragma once
 #include <ElevateEngine/Editor/EditorWidget.h>
+#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 
 namespace Elevate::Editor
 {
@@ -7,5 +8,8 @@ namespace Elevate::Editor
 	{
 	public:
 		void OnImGuiRender() override;
+	private:
+		void RenderComponentLayout(ComponentLayout& layout) const;
+		void RenderField(const ComponentField& field) const;
 	};
 }

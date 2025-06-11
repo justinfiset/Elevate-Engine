@@ -4,6 +4,8 @@
 
 namespace Elevate
 {
+	typedef EngineDataType ShaderDataType;
+
 	struct BufferElement
 	{
 		std::string Name;
@@ -13,16 +15,16 @@ namespace Elevate
 		unsigned int Count;
 		unsigned int Normalized;
 
-		BufferElement() { }
+		BufferElement() = default;
 
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
-			: Name(name), Type(type), Size(GetShaderDataTypeSize(type)), Offset(0), Count(GetShaderDataTypeCount(type)), Normalized(normalized) { }
+			: Name(name), Type(type), Size(GetDataTypeSize(type)), Offset(0), Count(GetDataTypeCount(type)), Normalized(normalized) { }
 	};
 
 	class BufferLayout
 	{
 	public:
-		BufferLayout() { }
+		BufferLayout() = default;
 
 		BufferLayout(const std::initializer_list<BufferElement>& elements)
 			: m_Elements(elements) 
@@ -58,7 +60,7 @@ namespace Elevate
 	class VertexBuffer
 	{
 	public:
-		virtual ~VertexBuffer() {}
+		virtual ~VertexBuffer() = default;
 
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& GetLayout() const = 0;

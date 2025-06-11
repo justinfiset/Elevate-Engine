@@ -15,6 +15,8 @@ namespace Elevate
     class Model : public Component
     {
     public:
+        COMPONENT_LAYOUT("Model", {});
+
         Model() = default;
         Model(std::string path);
         Model(std::string path, ShaderPtr shader);

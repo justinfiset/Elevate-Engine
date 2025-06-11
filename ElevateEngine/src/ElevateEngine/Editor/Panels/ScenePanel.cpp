@@ -28,6 +28,12 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
             ImGui::EndMenu();
         }
 
+        ImGui::SameLine();
+        if (ImGui::Button("Edit"))
+        {
+            // Ouvre un autre menu custom
+        }
+
         // Permet d'aligner le prochain menu � gauche en fonction de la taille du texte
         ImGui::Dummy(ImVec2(ImGui::GetWindowSize().x - ImGui::CalcTextSize("XXX:XXX").x - ImGui::GetCursorPos().x - 10.0f, 0.0f));
 
@@ -103,8 +109,6 @@ void Elevate::Editor::ScenePanel::UpdateViewportAspectRatio()
     Camera* cam = EditorLayer::Get().GetCamera();
     const glm::ivec2 values = s_AspectRatioSettings[m_AspectRatioValue];
     const float ratio = (float)values.x / (float)values.y;
-    // Todo: faire que ce soit toutes les cam�ras qui utilisent ce ratio
-    // ->>> IDÉE LE FAIRE VIA LE RENDERER
     cam->UpdateAspectRatio(ratio);
 }
 

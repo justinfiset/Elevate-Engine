@@ -184,7 +184,6 @@ std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextu
 
 void Elevate::Model::Render()
 {
-    // TODO aller chercher le shader directement
     // TODO send to render comment
     m_Shader->Bind();
     m_Shader->UseMaterial(m_Material);

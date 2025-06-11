@@ -4,8 +4,8 @@
 #include <vector>
 #include <entt/entt.hpp>
 #include "ElevateEngine/Scene/Scene.h"
+#include <ElevateEngine/Core/Component.h>
 #include "ElevateEngine/Core/ComponentWrapper.h"
-#include "ElevateEngine/Core/Component.h"
 
 #define EE_VALIDATE_COMPONENT_TYPE() EE_CORE_ASSERT((std::is_base_of<Component, T>::value), "{0} : Type specifier must be a child of the Component class.", m_Name);
 
@@ -18,7 +18,6 @@ namespace Elevate
 		GameObject(std::string name, ScenePtr scene, GameObjectPtr parent = nullptr);
 		~GameObject();
 
-		// TODO REMOVE USELESS CODE (IN COMMENTS)
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args)
 		{
@@ -31,34 +30,6 @@ namespace Elevate
 
 			T& component = static_cast<T&>(*emplacedWrapper.component.get());
 			return component;
-			//EE_VALIDATE_COMPONENT_TYPE();
-
-			//T& component = m_Scene->m_Registry.emplace<T>(m_Entity, std::forward<Args>(args)...);
-
-			//Component& baseComponent = static_cast<Component&>(component);
-			//baseComponent.gameObject = this;
-			//baseComponent.Init();
-
-			//return component;
-
-			// anciennec version
-			/*try
-			{
-				ComponentWrapper& tempWrapper = ComponentWrapper::Create<T>(std::forward<Args>(args)...);
-
-				tempWrapper.SetGameObject(this);
-				tempWrapper.Init();
-				
-				ComponentWrapper& emplacedWrapper = m_Scene->m_Registry.emplace_or_replace<ComponentWrapper>(m_Entity, std::move(tempWrapper));
-				T& component = static_cast<T&>(*emplacedWrapper.component);
-
-				EE_CORE_TRACE(m_Scene->GetName());
-				return component;
-			}
-			catch (...) 
-			{
-				EE_CORE_ERROR("{0} : Caught an unknown excpetion while adding a component.", m_Name);
-			}*/
 		}
 
 		template <typename T>
@@ -81,6 +52,26 @@ namespace Elevate
 			}
 
 			return foundComponent;
+		}
+
+		std::vector<std::weak_ptr<Component>> GetComponents() const
+		{
+			std::vector<std::weak_ptr<Component>> components;
+
+			if (m_Scene && m_Scene->m_Registry.valid(m_Entity))
+			{
+				auto view = m_Scene->m_Registry.view<ComponentWrapper>();
+				if (view.contains(m_Entity))
+				{
+					const auto& wrapper = view.get<ComponentWrapper>(m_Entity);
+					if (wrapper.component)
+					{
+						components.push_back(wrapper.component);
+					}
+				}
+			}
+
+			return components;
 		}
 
 		template <typename T>
@@ -106,8 +97,6 @@ namespace Elevate
 		void SetParent(GameObjectPtr newParent);
 		void Destroy();
 
-		// TODO SET LE PARENT DU CHILD COMME ÉTANT THIS
-		void SetChild(GameObjectPtr child);
 		void RemoveChild(GameObjectPtr child);
 
 		inline const bool HasChild() const { return m_Childs.size() > 0; }
@@ -115,10 +104,16 @@ namespace Elevate
 
 		static GameObjectPtr Create(std::string name, ScenePtr scene, GameObjectPtr parent = nullptr);
 
+		Scene* GetScene() { return m_Scene; }
+
 		glm::mat4 GenGlobalMatrix() const;
 		void SetFromGlobalMatrix(const glm::mat4& newWorld);
 		glm::vec3 GetGlobalPosition();
-	private :
+
+	protected:
+		// This method is protected as the main entry point to modify the parent should be SetParent()
+		void AddChild(GameObjectPtr child);
+	private:
 		void Initialize(); // Internal function to use just after constructor
 
 		// TODO MAYBE REMOVE AND FIND A BETTER STRUCTURE

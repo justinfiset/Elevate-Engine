@@ -7,8 +7,6 @@
 #include "ElevateEngine/Core/Application.h"
 #include "ElevateEngine/Core/GameObject.h"
 
-// TODO ADD PROTECTION WITH SETTER TO MAKE SURE IF OLD = NEW !GENERATENEW MATRIX FOR PROJECTION
-// (GOAL IS TO PREVENT USELESS MATRIX CALCULATION)
 Elevate::Camera::Camera(float fov)
 {
     m_FOV = fov;
@@ -31,8 +29,11 @@ void Elevate::Camera::Init()
 
 const void Elevate::Camera::UpdateAspectRatio(float aspectRatio)
 {
-    m_AspectRatio = aspectRatio;
-    UpdateProjectionMatrix();
+    if (m_AspectRatio != aspectRatio)
+    {
+        m_AspectRatio = aspectRatio;
+        UpdateProjectionMatrix();
+    }
 }
 
 glm::mat4 Elevate::Camera::GenViewProjectionMatrix()
@@ -47,20 +48,29 @@ glm::mat4 Elevate::Camera::GenViewMatrix()
 
 inline void Elevate::Camera::SetFOV(float fov)
 {
-    m_FOV = fov;
-    UpdateProjectionMatrix();
+    if (m_FOV != fov)
+    {
+        m_FOV = fov;
+        UpdateProjectionMatrix();
+    }
 }
 
 inline void Elevate::Camera::SetNear(float nearPlane)
 {
-    m_Near = nearPlane;
-    UpdateProjectionMatrix();
+    if (m_Near != nearPlane)
+    {
+        m_Near = nearPlane;
+        UpdateProjectionMatrix();
+    }
 }
 
 inline void Elevate::Camera::SetFar(float farPlane)
 {
-    m_Far = farPlane;
-    UpdateProjectionMatrix();
+    if (m_Far != farPlane)
+    {
+        m_Far = farPlane;
+        UpdateProjectionMatrix();
+    }
 }
 
 glm::mat4 Elevate::Camera::GenProjectionMatrix()

@@ -15,7 +15,6 @@ namespace Elevate
 		// Create and bind array buffer
 		glCreateBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-		// TODO utiliser &vertices à la place?
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 	}
 

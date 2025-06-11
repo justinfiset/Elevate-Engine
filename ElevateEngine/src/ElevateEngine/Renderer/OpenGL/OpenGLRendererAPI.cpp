@@ -86,7 +86,6 @@ void Elevate::OpenGLRendererAPI::DrawStack() const
 	}
 }
 
-// todo verif si nécessaire
 void Elevate::OpenGLRendererAPI::DrawTriangles(const std::shared_ptr<VertexArray>& vao) const
 {
 	vao->Bind();

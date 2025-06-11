@@ -1,10 +1,6 @@
 #pragma once
 #include "ElevateEngine/Renderer/FrameBuffer.h"
 
-// TODO try to remove by any way
-#include <cstdint>
-#include <glm/vec4.hpp>
-
 namespace Elevate
 {
 	class OpenGLFrameBuffer : public FrameBuffer
@@ -17,9 +13,12 @@ namespace Elevate
 		void Unbind() const override;
 		void Clear() const override;
 		void Rescale(uint32_t width, uint32_t height) override;
-		
+
 		inline uint32_t GetFrameBufferId() const override { return m_FrameBufferId;  }
 		inline uint32_t GetTextureId() const override { return m_TextureId; }
+	private:
+		bool CheckCompleteness() const;
+		const char* GetFramebufferStatusString(uint32_t status) const;
 	private:
 		// IDs
 		uint32_t m_FrameBufferId;

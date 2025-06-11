@@ -54,15 +54,23 @@ void Elevate::Scene::Notify(Event& e)
 
 void Elevate::Scene::AddObject(GameObjectPtr newObject, GameObjectPtr parent)
 {
-	// TODO TEST IN DEPTH
+	if (!newObject)
+		return;
+
 	if (!parent)
 	{
 		AddRootObject(newObject);
 	}
 	else
 	{
-		parent->SetChild(newObject);
-		newObject->SetParent(parent);
+		if (newObject->GetScene() == parent->GetScene())
+		{
+			newObject->SetParent(parent);
+		}
+		else 
+		{
+			EE_CORE_ERROR("Cannot add a child object from a different scene.");
+		}
 	}
 }
 
@@ -90,7 +98,6 @@ void Elevate::Scene::RemoveFromRoot(GameObjectPtr object)
 
 void Elevate::Scene::AddRootObject(GameObjectPtr newRootObject)
 {
-	// TODO MAYBE REMOVE IN THE FUTURE IS THE APP IS FOOL PROOF
 	newRootObject->m_Parent = nullptr;
 	newRootObject->m_Scene = this;
 	m_rootObjects.insert(newRootObject);

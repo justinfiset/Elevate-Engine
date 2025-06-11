@@ -17,7 +17,7 @@
 #include <ElevateEngine/Editor/Panels/StatisticsPanel.h>
 
 #include <ElevateEngine/Editor/Widgets/SkyboxEditorWidget.h>
-
+#include <ElevateEngine/ImGui/ImGuiTheme.h>
 
 namespace Elevate::Editor
 {
@@ -133,10 +133,66 @@ namespace Elevate::Editor
                 ImGui::EndMenu();
             }
 
+            if (ImGui::BeginMenu("Preferences"))
+            {
+                if (ImGui::BeginMenu("Theme"))
+                {
+                    if (ImGui::MenuItem("Dark", NULL, UI::GetCurrentTheme() == UI::UITheme::Dark))
+                    {
+                        UI::SetDarkTheme();
+                    }
+                    if (ImGui::MenuItem("Light", NULL, UI::GetCurrentTheme() == UI::UITheme::Light))
+                    {
+                        UI::SetLightTheme();
+                    }
+                    ImGui::EndMenu();
+                }
+                ImGui::EndMenu();
+            }
+
             ImGui::EndMainMenuBar();
         }
 
-        ImGui::DockSpaceOverViewport(ImGui::GetMainViewport()->ID);
+        ImGuiViewport* viewport = ImGui::GetMainViewport();
+
+        float toolbarHeight = 50.0f;
+
+        ImGui::SetNextWindowPos(ImVec2(viewport->Pos.x, viewport->Pos.y + toolbarHeight + ImGui::GetFrameHeight()));
+        ImGui::SetNextWindowSize(ImVec2(viewport->Size.x, viewport->Size.y - ImGui::GetFrameHeight() - toolbarHeight));
+        ImGui::SetNextWindowViewport(viewport->ID);
+
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse |
+            ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBringToFrontOnFocus |
+            ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_NoBackground;
+
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0)); // Prevent a weird black stripe arround the dockspace
+        ImGui::Begin("DockSpaceWindow", nullptr, window_flags);
+
+        ImGuiID dockspace_id = ImGui::GetID("MyDockspace");
+        ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
+
+        ImGui::End();
+        ImGui::PopStyleVar();
+
+        ImGui::SetNextWindowPos(viewport->Pos + ImVec2(0, ImGui::GetFrameHeight()));
+        ImGui::SetNextWindowSize(ImVec2(viewport->Size.x, toolbarHeight));
+        ImGuiWindowFlags toolbarFlags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
+            ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoDocking;
+
+        ImGui::Begin("Toolbar", nullptr, toolbarFlags);
+
+        TexturePtr playTexture = Texture::Create("./editor/icons/light/play.png");
+        if (ImGui::ImageButton("play", (ImTextureID)(intptr_t)playTexture->GetID(), ImVec2(32, 32)))
+        {
+
+        }
+        ImGui::SameLine();
+        TexturePtr pauseTexture = Texture::Create("./editor/icons/light/pause.png");
+        if (ImGui::ImageButton("pause", (ImTextureID)(intptr_t)pauseTexture->GetID(), ImVec2(32, 32)))
+        {
+
+        }
+        ImGui::End();
 
         for (auto& widgetPtr : m_widgets)
             widgetPtr->OnImGuiRender();

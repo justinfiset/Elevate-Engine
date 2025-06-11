@@ -36,7 +36,7 @@ void Elevate::OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuf
 	const auto& layout = vertexBuffer->GetLayout();
 	for (const auto& element : layout)
 	{
-		LinkAttribute(index, element.Count, GetShaderDataAPIType(element.Type),
+		LinkAttribute(index, element.Count, GetDataAPIType(element.Type),
 			element.Normalized, layout.GetStride(), (const void*)element.Offset);
 		index++;
 	}
