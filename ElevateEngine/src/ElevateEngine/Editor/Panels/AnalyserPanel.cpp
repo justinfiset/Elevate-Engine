@@ -13,18 +13,18 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 {
     ImGui::Begin("Analyse");
 
-    GameObjectPtr selected = EditorLayer::Get().GetSelectedObject();
-    if (selected != nullptr)
+    std::weak_ptr<GameObject> selected = EditorLayer::Get().GetSelectedObject();
+    if (selected.lock())
     {
-        Elevate::UI::InputField("Name: ", selected->GetName());
+        std::shared_ptr<GameObject> obj = selected.lock();
+        Elevate::UI::InputField("Name: ", obj->GetName());
 
         // Serialisation of the tranform and all other components
-        RenderComponentLayout(selected->GetTransform().GetLayout());
-        for (std::weak_ptr<Component> comp : selected->GetComponents())
+        RenderComponentLayout(obj->GetTransform().GetLayout());
+        for (Component* comp : obj->GetComponents())
         {
-            if (std::shared_ptr<Component> locked = comp.lock())
-            {
-                RenderComponentLayout(locked->GetLayout());
+            if (comp) {
+                RenderComponentLayout(comp->GetLayout());
             }
         }
     }

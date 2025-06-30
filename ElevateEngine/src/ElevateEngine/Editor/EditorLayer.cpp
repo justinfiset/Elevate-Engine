@@ -1,22 +1,24 @@
 ﻿#include "eepch.h"
 #include "EditorLayer.h"
 
-#include <ElevateEngine/Renderer/Model.h>
+#include "imgui.h"
+
+#include <ElevateEngine/Core/Application.h>
+
 #include <ElevateEngine/Scene/SceneManager.h>
 
-#include "imgui.h"
+#include <ElevateEngine/Renderer/Model.h>
 #include "ElevateEngine/Renderer/Shader/ShaderManager.h"
 #include "ElevateEngine/Renderer/Model.h"
 
 #include <ElevateEngine/Editor/Camera/EditorCamera.h>
-
 #include <ElevateEngine/Editor/Panels/ScenePanel.h>
 #include <ElevateEngine/Editor/Panels/HierarchyPanel.h>
 #include <ElevateEngine/Editor/Panels/AnalyserPanel.h>
 #include <ElevateEngine/Editor/Panels/AssetBrowserPanel.h>
 #include <ElevateEngine/Editor/Panels/StatisticsPanel.h>
-
 #include <ElevateEngine/Editor/Widgets/SkyboxEditorWidget.h>
+
 #include <ElevateEngine/ImGui/ImGuiTheme.h>
 
 namespace Elevate::Editor
@@ -115,12 +117,12 @@ namespace Elevate::Editor
             {
                 if (ImGui::MenuItem("Cube")) {
                     ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
-                    Elevate::GameObjectPtr m_DemoCube = Elevate::GameObject::Create("Cube", scene);
+                    std::shared_ptr<Elevate::GameObject> m_DemoCube = Elevate::GameObject::Create("Cube", scene);
                     m_DemoCube->AddComponent<Elevate::Model>("model/cube.obj");
                 }
                 if (ImGui::MenuItem("Plane")) {
                     ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
-                    Elevate::GameObjectPtr m_DemoCube = Elevate::GameObject::Create("Plane", scene);
+                    std::shared_ptr<Elevate::GameObject> m_DemoCube = Elevate::GameObject::Create("Plane", scene);
                     m_DemoCube->AddComponent<Elevate::Model>("model/plane.obj");
                 }
                 // TODO ADD OTHER MODELS
@@ -181,17 +183,23 @@ namespace Elevate::Editor
 
         ImGui::Begin("Toolbar", nullptr, toolbarFlags);
 
+        ImGui::SetCursorPosX(viewport->Size.x / 2 - toolbarHeight);
         TexturePtr playTexture = Texture::Create("./editor/icons/light/play.png");
-        if (ImGui::ImageButton("play", (ImTextureID)(intptr_t)playTexture->GetID(), ImVec2(32, 32)))
+        ImGui::BeginDisabled(Application::GameState() == GameContextState::Runtime);
+        if (ImGui::ImageButton("Play", (ImTextureID)(intptr_t)playTexture->GetID(), ImVec2(32, 32)))
         {
-
+            Application::SetGameState(GameContextState::Runtime);
         }
+        ImGui::EndDisabled();
+
         ImGui::SameLine();
         TexturePtr pauseTexture = Texture::Create("./editor/icons/light/pause.png");
-        if (ImGui::ImageButton("pause", (ImTextureID)(intptr_t)pauseTexture->GetID(), ImVec2(32, 32)))
+        ImGui::BeginDisabled(Application::GameState() != GameContextState::Runtime);
+        if (ImGui::ImageButton("Pause", (ImTextureID)(intptr_t)pauseTexture->GetID(), ImVec2(32, 32)))
         {
-
+            Application::SetGameState(GameContextState::Paused);
         }
+        ImGui::EndDisabled();
         ImGui::End();
 
         for (auto& widgetPtr : m_widgets)
@@ -203,9 +211,19 @@ namespace Elevate::Editor
         m_EditorScene->Notify(event);
     }
 
-    void EditorLayer::SelectObject(GameObjectPtr newSelection)
+    inline EditorCamera* EditorLayer::GetCamera()
     {
-        // TODO : FAIRE QUE TOUS LES OBJETS EN DESSOUS SOIT AUSSI SELECTIONN� MAIS PAS AU M�ME NIVEUA
-        m_SelectedObject = newSelection;
+        return m_CameraObject->GetComponent<EditorCamera>();
+    }
+
+    void EditorLayer::SelectObject(std::shared_ptr<GameObject> newSelection)
+    {
+        if (newSelection)
+        {
+            m_SelectedObject = newSelection;
+        }
+        else {
+            m_SelectedObject.reset();
+        }
     }
 }

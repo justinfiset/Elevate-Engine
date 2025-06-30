@@ -2,18 +2,21 @@
 #include "Scene.h"
 #include "ElevateEngine/Core/GameObject.h"
 #include "ElevateEngine/Core/ComponentWrapper.h"
-#include <ElevateEngine/Scene/SceneManager.h>
 #include "ElevateEngine/Renderer/Model.h"
+#include <ElevateEngine/Core/Application.h>
+#include <ElevateEngine/Scene/SceneManager.h>
 
 void Elevate::Scene::UpdateScene()
 {
-	m_Registry.view<ComponentWrapper>().each([](auto& wrapper) 
+	if (m_Type == SceneType::RuntimeScene && Application::GameState() != Runtime)
 	{
-		if (wrapper.IsActive())
-		{
-			wrapper.Update();
-		}
-	});
+		return;
+	}
+
+	for (std::shared_ptr<GameObject> obj : m_rootObjects)
+	{
+		obj->Update();
+	}
 }
 
 void Elevate::Scene::RenderScene(Camera* cam)
@@ -32,27 +35,21 @@ void Elevate::Scene::RenderScene(Camera* cam)
 		}
 	}
 
-	m_Registry.view<ComponentWrapper>().each([](auto& wrapper)
+	for (std::shared_ptr<GameObject> obj : m_rootObjects)
 	{
-		if (wrapper.IsActive())
-		{
-			wrapper.Render();
-		}
-	});
+		obj->Render();
+	}
 }
 
 void Elevate::Scene::Notify(Event& e)
 {
-	m_Registry.view<ComponentWrapper>().each([&e](auto& wrapper)
+	for (std::shared_ptr<GameObject> obj : m_rootObjects)
 	{
-		if (wrapper.IsActive())
-		{
-			wrapper.OnNotify(e);
-		}
-	});
+		obj->Notify(e);
+	}
 }
 
-void Elevate::Scene::AddObject(GameObjectPtr newObject, GameObjectPtr parent)
+void Elevate::Scene::AddObject(std::shared_ptr<GameObject> newObject, std::shared_ptr<GameObject> parent)
 {
 	if (!newObject)
 		return;
@@ -91,12 +88,12 @@ std::weak_ptr<Elevate::Cubemap> Elevate::Scene::GetSkybox()
 	return m_cubemap;
 }
 
-void Elevate::Scene::RemoveFromRoot(GameObjectPtr object)
+void Elevate::Scene::RemoveFromRoot(std::shared_ptr<GameObject> object)
 {
 	m_rootObjects.erase(object);
 }
 
-void Elevate::Scene::AddRootObject(GameObjectPtr newRootObject)
+void Elevate::Scene::AddRootObject(std::shared_ptr<GameObject> newRootObject)
 {
 	newRootObject->m_Parent = nullptr;
 	newRootObject->m_Scene = this;

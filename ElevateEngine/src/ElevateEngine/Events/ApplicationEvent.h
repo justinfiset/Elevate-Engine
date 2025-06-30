@@ -1,10 +1,33 @@
 #pragma once
 
-#include "ElevateEngine/Events/Event.h"
-
-#include "ElevateEngine/Core/Log.h"
+#include <ElevateEngine/Events/Event.h>
+#include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/GameContext.h>
 
 namespace Elevate {
+	class GameContextEvent : public Event
+	{
+	public:
+		GameContextEvent() = default;
+		GameContextEvent(GameContextState oldState, GameContextState newState)
+			: m_oldState(oldState), m_newState(newState) { }
+
+		inline GameContextState GetOldState() const { return m_oldState; }
+		inline GameContextState GetNewState() const { return m_newState; }
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "GameContextEvent: old:" << m_oldState << ", new:" << m_newState;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(GameContextChanged)
+		EVENT_CLASS_CATEGORY(EventCategoryGameContext)
+	private:
+		GameContextState m_newState;
+		GameContextState m_oldState;
+	};
 
 	class EE_API WindowResizeEvent : public Event
 	{

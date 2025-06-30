@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "ElevateEngine/Core/Log.h"
 
+// TODO REMOVE THIS CALSS IF IT REMAINS UNUSED
 namespace Elevate
 {
     struct ComponentWrapper 
@@ -22,7 +23,7 @@ namespace Elevate
         }
 
         inline bool IsActive() { 
-            if (component) {
+            if (component && component.use_count() > 0) {
                 return component->m_IsActive;
             }
             else return false;
@@ -34,7 +35,6 @@ namespace Elevate
         inline void Render() { component->Render(); }
         inline void OnNotify(Event& e) { component->OnNotify(e); }
 
-        // TODO trouver le moyen de mettre unique
         std::shared_ptr<Component> component;
     };
 }

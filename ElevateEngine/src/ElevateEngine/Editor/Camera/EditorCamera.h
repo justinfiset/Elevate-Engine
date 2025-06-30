@@ -7,11 +7,10 @@ namespace Elevate {
 	public:
 		EditorCamera(float fov = 60.0f); // TODO CHANGER, ON VEUT QUELQUE CHOSE DE CUSTUM
 
-	protected:
+		void Init() override;
 		void Update() override;
 		void OnNotify(Event& event) override;
-		void Init() override;
-
+	protected:
 		void ClampRotation();
 	private:
 		float m_lastX, m_lastY;

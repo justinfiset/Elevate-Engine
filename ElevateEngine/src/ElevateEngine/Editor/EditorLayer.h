@@ -1,9 +1,9 @@
 #pragma once
+
 #include <memory>
-
 #include <ElevateEngine/Core/Layers/Layer.h>
+#include "ElevateEngine/Scene/Scene.h"
 #include <ElevateEngine/Core/GameObject.h>
-
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Editor/Camera/EditorCamera.h>
@@ -24,10 +24,10 @@ namespace Elevate::Editor
 		virtual void OnImGuiRender() override;
 		virtual void OnEvent(Event& event) override;
 
-		inline EditorCamera* GetCamera() { return m_CameraObject->GetComponent<EditorCamera>(); }
-		inline ScenePtr GetScene() { return m_EditorScene; }
-		inline GameObjectPtr GetSelectedObject() { return m_SelectedObject; }
-		void SelectObject(GameObjectPtr newSelection);
+		inline EditorCamera* GetCamera();
+		inline std::weak_ptr<Scene> GetScene() { return m_EditorScene; }
+		inline std::weak_ptr<GameObject> GetSelectedObject() { return m_SelectedObject; }
+		void SelectObject(std::shared_ptr<GameObject> newSelection);
 		
 		inline static EditorLayer& Get() { return *s_Instance; }
 
@@ -41,16 +41,16 @@ namespace Elevate::Editor
 	private:
 		std::vector<std::unique_ptr<EditorWidget>> m_widgets;
 
-		Elevate::GameObjectPtr m_CameraObject;
+		std::shared_ptr<GameObject> m_CameraObject;
 
-		GameObjectPtr m_SelectedObject;
+		std::weak_ptr<GameObject> m_SelectedObject;
 
 		// Editor Scene
-		ScenePtr m_EditorScene;
+		std::shared_ptr<Scene> m_EditorScene;
 
 		// Grid
 		ShaderPtr m_GridShader;
-		GameObjectPtr m_GridObject;
+		std::shared_ptr<GameObject> m_GridObject;
 
 		static EditorLayer* s_Instance;
 	};

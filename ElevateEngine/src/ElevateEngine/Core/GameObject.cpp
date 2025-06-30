@@ -7,7 +7,8 @@
 #include "glm/glm.hpp"
 #include <glm/gtc/type_ptr.hpp>
 
-Elevate::GameObject::GameObject(std::string name, ScenePtr scene, GameObjectPtr parent) 
+
+Elevate::GameObject::GameObject(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent)
 	: m_Name(name), m_Scene(scene.get()), m_Parent(parent) { }
 
 void Elevate::GameObject::SetFromGlobalMatrix(const glm::mat4& newWorld)
@@ -59,6 +60,54 @@ glm::vec3 Elevate::GameObject::GetGlobalPosition()
 	return position;
 }
 
+void Elevate::GameObject::Update()
+{
+	for (Component* comp : GetComponents())
+	{
+		if (comp->IsActive())
+		{
+			comp->Update();
+		}
+	}
+
+	for (std::shared_ptr<Elevate::GameObject> child : m_Childs)
+	{
+		child->Update();
+	}
+}
+
+void Elevate::GameObject::Render()
+{
+	for (Component* comp : GetComponents())
+	{
+		if (comp->IsActive())
+		{
+			comp->Render();
+		}
+	}
+
+	for (std::shared_ptr<Elevate::GameObject> child : m_Childs)
+	{
+		child->Render();
+	}
+}
+
+void Elevate::GameObject::Notify(Event& e)
+{
+	for (Component* comp : GetComponents())
+	{
+		if (comp->IsActive())
+		{
+			comp->OnNotify(e);
+		}
+	}
+
+	for (std::shared_ptr<Elevate::GameObject> child : m_Childs)
+	{
+		child->Notify(e);
+	}
+}
+
 void Elevate::GameObject::Initialize()
 {
 	if (m_Scene)
@@ -93,7 +142,37 @@ Elevate::GameObject::~GameObject()
 	} else EE_CORE_ERROR("Object '{0}' must be destroyed from an existing scene!", m_Name);
 }
 
-void Elevate::GameObject::SetParent(GameObjectPtr newParent)
+namespace Elevate
+{
+	std::vector<Component*> Elevate::GameObject::GetComponents() const
+	{
+		std::vector<Component*> components;
+
+		if (!m_Scene) return components;
+
+		entt::registry* registry = &(m_Scene->m_Registry);
+		const entt::entity entity = m_Entity;
+
+		auto tryGet = [&components, registry, entity](auto tag) {
+			using T = typename decltype(tag)::type;
+			if (registry->all_of<T>(entity)) {
+				T* component = &(registry->get<T>(entity));
+				Component* base = static_cast<Component*>(component);
+				if (base) {
+					components.push_back(base);
+				}
+			}
+		};
+
+		std::apply([&tryGet](auto... tags) {
+			(tryGet(tags), ...);
+			}, RegisteredComponentTypes{});
+
+		return components;
+	}
+}
+
+void Elevate::GameObject::SetParent(std::shared_ptr<GameObject> newParent)
 {
 	if (newParent == m_Parent)
 		return;
@@ -126,15 +205,19 @@ void Elevate::GameObject::Destroy()
 		m_Scene->RemoveFromRoot(shared_from_this());
 	}
 
-	for (GameObjectPtr child : m_Childs)
+	auto childsCopy = m_Childs;
+	for (const auto& child : childsCopy)
 	{
-		child->Destroy();
+		if (child)
+		{
+			child->Destroy();
+		}
 	}
 	m_Childs.clear();
 	m_Parent.reset();
 }
 
-void Elevate::GameObject::AddChild(GameObjectPtr child)
+void Elevate::GameObject::AddChild(std::shared_ptr<GameObject> child)
 {
 	if (child)
 	{
@@ -144,9 +227,17 @@ void Elevate::GameObject::AddChild(GameObjectPtr child)
 	}
 }
 
-void Elevate::GameObject::RemoveChild(GameObjectPtr child)
+void Elevate::GameObject::RemoveChild(std::shared_ptr<GameObject> child)
 {
 	m_Childs.erase(child);
+}
+
+std::shared_ptr<Elevate::GameObject> Elevate::GameObject::Create(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent)
+{
+	std::shared_ptr<GameObject> obj = std::make_shared<GameObject>(name, scene, parent);
+	obj->Initialize();
+	obj->SetPosition({ 0.0f, 0.0f, 0.0f });
+	return obj;
 }
 
 // TODO MOVE SOMEWHERE ELSE
@@ -160,12 +251,4 @@ glm::mat4 Elevate::GameObject::GenGlobalMatrix() const
 	{
 		return GetModelMatrix();
 	}
-}
-
-Elevate::GameObjectPtr Elevate::GameObject::Create(std::string name, ScenePtr scene, GameObjectPtr parent)
-{
-	GameObjectPtr obj = std::make_shared<GameObject>(name, scene, parent);
-	obj->Initialize();
-	obj->SetPosition({ 0.0f, 0.0f, 0.0f });
-	return obj;
 }

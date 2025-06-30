@@ -13,11 +13,14 @@
 #include "ElevateEngine/Renderer/Buffer.h"
 #include "ElevateEngine/Renderer/FrameBuffer.h"
 #include "ElevateEngine/Renderer/VertexArray.h"
+#include <ElevateEngine/Core/GameContext.h>
 
 namespace Elevate {
-	class EE_API Application
+	class EE_API Application : public GameContext
 	{
 	public:
+		friend class Elevate::Editor::EditorLayer;
+
 		Application();
 		virtual ~Application();
 
@@ -34,6 +37,14 @@ namespace Elevate {
 
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
+
+		inline static GameContextState GameState() { return s_Instance->State(); }
+
+		// TODO METTRE PROTECTED
+		inline static void SetGameState(GameContextState state) { s_Instance->GameContext::SetState(state); }
+	protected:
+		
+		void OnStateChange(GameContextState oldState, GameContextState newState) override;
 	private:
 		/// Events Callback / Handler
 		//Keyboard

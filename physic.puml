@@ -1,0 +1,75 @@
+@startuml Elevate Engine Physic
+
+struct PhysicObject {
+    glm::vec3 Position;
+    glm::vec3 Velocity;
+    glm::vec3 Force;
+    float Mass;
+}
+
+class PhysicWorld {
+    -std::vector<PhysicObject*> m_objects;
+    -glm::vec3 m_gravity;
+
+    +void AddObject(PhysicObject* object);
+    +void RemoveObject(PhysicObject* object);
+
+    +void Update(float deltaTime);
+}
+
+note left of PhysicWorld::Update
+    for (PhysicObject* obj : m_objects) {
+			obj->Force += obj->Mass * m_gravity; // apply a force
+ 
+			obj->Velocity += obj->Force / obj->Mass * dt;
+			obj->Position += obj->Velocity * dt;
+ 
+			obj->Force = glm::vec3(0, 0, 0); // reset net force at the end
+		}
+end note
+
+struct CollisionPoints {
+    glm::vec3 PointA;
+    glm::vec3 PointB;
+    glm::vec3 Normal;
+    float Depth;
+    bool IsColliding;
+}
+
+enum ColliderType {
+    SPHERE,
+    PLANE
+}
+
+struct Collider {
+    ColliderType Type;
+}
+
+struct SphereCollider extends Collider {
+    glm::vec3 Center;
+    float Radius;
+}
+
+struct PlaneCollider extends Collider {
+    glm::vec3 Normal;
+    float Distance;
+}
+
+struct Collision {
+    PhysicObject* ObjectA;
+    PhysicObject* ObjectB;
+    CollisionPoints Points;
+}
+
+note 
+To find centroid of a mesh : 
+glm::vec3 ComputeCentroid(const std::vector<glm::vec3>& vertices) {
+    glm::vec3 sum(0.0f);
+    for (const auto& v : vertices) {
+        sum += v;
+    }
+    return sum / static_cast<float>(vertices.size());
+}
+end note
+
+@enduml

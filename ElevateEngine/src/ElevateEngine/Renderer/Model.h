@@ -28,10 +28,6 @@ namespace Elevate
         inline void SetShader(ShaderPtr newShader) { m_Shader = newShader; }
         inline void SetMaterial(MaterialPtr material) { m_Material = material; }
 
-        // TODO REMOVE IF NOT NEEDED ANYMORE
-        //inline glm::mat4& GetMatrix() const { return *m_ModelMatrix; }
-        //inline void SetMatrix(const glm::mat4& newMatrix) const { *m_ModelMatrix = newMatrix; }
-        void Init() override {}
         void Render() override;
 
         const inline std::shared_ptr<Shader>& GetShader() const { return m_Shader; }
@@ -40,8 +36,7 @@ namespace Elevate
         void ProcessNode(aiNode* node, const aiScene* scene);
         Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
         void ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int index);
-        std::vector<std::shared_ptr<Texture>> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string 
-        );
+        std::vector<std::shared_ptr<Texture>> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string );
 
     private:
         ShaderPtr m_Shader;

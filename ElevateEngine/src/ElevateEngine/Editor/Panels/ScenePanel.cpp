@@ -74,17 +74,18 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
     ImGui::Image((ImTextureID)(intptr_t)frameBuffer->GetTextureId(), ImVec2((float)window_width, (float)window_height), ImVec2(0, 1), ImVec2(1, 0));
 
     // ImGuizmo //////////////////////////////////////////
-    GameObjectPtr selected = EditorLayer::Get().GetSelectedObject();
+    std::weak_ptr<GameObject> selected = EditorLayer::Get().GetSelectedObject();
     Camera* cam = EditorLayer::Get().GetCamera();
-    if (selected)
+    if (selected.lock())
     {
+        std::shared_ptr<GameObject> selectedShared = selected.lock();
         ImGuizmo::SetDrawlist(ImGui::GetWindowDrawList());
         ImGuizmo::SetOrthographic(false); // TODO SET DINAMICLY FROM THE EDITOR AND SETUP THE CAMERA ACCORDINGLY
         ImGuizmo::SetRect(pos.x, pos.y, (float)window_width, (float)window_height);
 
         glm::mat4 cameraProjection = cam->GetProjectionMatrix();
         glm::mat4 cameraView = cam->GenViewMatrix();
-        glm::mat4 entityMatrix = selected->GenGlobalMatrix();
+        glm::mat4 entityMatrix = selectedShared->GenGlobalMatrix();
 
         // TODO SET VIA BUTTONS
         ImGuizmo::Manipulate(
@@ -97,7 +98,7 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 
         if (ImGuizmo::IsUsingAny())
         {
-            selected->SetFromGlobalMatrix(entityMatrix);
+            selectedShared->SetFromGlobalMatrix(entityMatrix);
         }
     }
 

@@ -27,6 +27,9 @@ namespace Elevate {
 
 		m_FrameBuffer.reset(FrameBuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
 
+		// TODO SET VIA PREPROCESS
+		SetState(GameContextState::EditorMode);
+
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 	}
@@ -126,6 +129,12 @@ namespace Elevate {
 	}
 
 #pragma region Events
+	void Application::OnStateChange(GameContextState oldState, GameContextState newState)
+	{
+		GameContextEvent e(oldState, newState);
+		OnEvent(e);
+	}
+
 	bool Application::OnKeyPressedEvent(KeyPressedEvent& e)
 	{
 		Input::OnKeyPressedEvent(e);

@@ -7,7 +7,7 @@
 
 namespace Elevate::Editor
 {
-    void HierarchyPanel::DrawTreeHierarchy(GameObjectPtr object)
+    void HierarchyPanel::DrawTreeHierarchy(std::shared_ptr<GameObject> object)
     {
         ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_OpenOnArrow;
 
@@ -16,7 +16,7 @@ namespace Elevate::Editor
             nodeFlags |= ImGuiTreeNodeFlags_Leaf;
         }
 
-        if (object == EditorLayer::Get().GetSelectedObject())
+        if (object == EditorLayer::Get().GetSelectedObject().lock())
         {
             nodeFlags |= ImGuiTreeNodeFlags_Selected;
         }
@@ -87,7 +87,7 @@ namespace Elevate::Editor
         }
     }
 
-    void HierarchyPanel::EndRename(GameObjectPtr object)
+    void HierarchyPanel::EndRename(std::shared_ptr<GameObject> object)
     {
         object->SetName(m_renameBuffer);
         m_renaming = false;

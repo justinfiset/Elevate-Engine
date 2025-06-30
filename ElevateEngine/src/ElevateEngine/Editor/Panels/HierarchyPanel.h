@@ -8,11 +8,11 @@ namespace Elevate::Editor {
     public:
         void OnImGuiRender() override;
     private:
-        void DrawTreeHierarchy(GameObjectPtr object);
-        void EndRename(GameObjectPtr object);
+        void DrawTreeHierarchy(std::shared_ptr<GameObject> object);
+        void EndRename(std::shared_ptr<GameObject> object);
     private:
         bool m_renaming = false;
-        GameObjectPtr m_renamedObject = nullptr;
+        std::shared_ptr<GameObject> m_renamedObject = nullptr;
         char m_renameBuffer[256] = { 0 };
     };
 }

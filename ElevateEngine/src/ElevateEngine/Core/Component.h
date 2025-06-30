@@ -19,7 +19,7 @@ namespace Elevate
 
 	public:
 		Component() = default;
-		~Component() = default;
+		virtual ~Component() = default;
 
 		inline void SetActive(bool newState) { m_IsActive = newState; }
 		inline bool IsActive() { return m_IsActive; }

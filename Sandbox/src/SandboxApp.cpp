@@ -32,6 +32,8 @@
 #include <ElevateEngine/Scene/SceneManager.h>
 #include "ElevateEngine/Editor/Camera/EditorCamera.h"
 
+#include <ElevateEngine/Physics.h>
+
 // TODO 
 // - rename fichier EditorLayout en EditorLayer
 class DebugLayer : public Elevate::Layer
@@ -39,8 +41,8 @@ class DebugLayer : public Elevate::Layer
 public:
     Elevate::ShaderPtr m_Shader;
 private:
-    Elevate::GameObjectPtr m_DemoObject;
-    Elevate::GameObjectPtr m_PointLightObject;
+    std::shared_ptr<Elevate::GameObject> m_DemoObject;
+    std::shared_ptr<Elevate::GameObject> m_PointLightObject;
     // TODO make an ortographic and perspective cam class
 
     Elevate::ScenePtr m_Scene;
@@ -93,6 +95,7 @@ public:
         //      IMPLEMENTER CETTE METHODE DANS LA SCENE.H
         m_DemoObject = Elevate::GameObject::Create("Backpack", m_Scene);
         Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
+        Elevate::Rigidbody& rb = m_DemoObject->AddComponent<Elevate::Rigidbody>();
         m_DemoObject->SetPosition({ 0.0f, 0.0f, -3.0f });
 
         // point light

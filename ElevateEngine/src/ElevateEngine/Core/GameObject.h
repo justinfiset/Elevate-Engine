@@ -3,19 +3,38 @@
 #include "ITransformable.h"
 #include <vector>
 #include <entt/entt.hpp>
-#include "ElevateEngine/Scene/Scene.h"
 #include <ElevateEngine/Core/Component.h>
-#include "ElevateEngine/Core/ComponentWrapper.h"
+#include <ElevateEngine/Scene/Scene.h>
 
 #define EE_VALIDATE_COMPONENT_TYPE() EE_CORE_ASSERT((std::is_base_of<Component, T>::value), "{0} : Type specifier must be a child of the Component class.", m_Name);
 
+// TODO AUTOMATE EN REMOVE INCLUDES FROM HERE
+#include "ElevateEngine/Renderer/Model.h"
+#include "ElevateEngine/Renderer/Camera.h"
+#include <ElevateEngine/Physics/Rigidbody.h>
+#include <ElevateEngine/Editor/Camera/EditorCamera.h>
+
+namespace Elevate {
+	class Scene;
+	class Component;
+}
+
 namespace Elevate
 {
+	template<typename T>
+	struct TypeTag { using type = T; };
+
+	using RegisteredComponentTypes = std::tuple<
+		TypeTag<Rigidbody>,
+		TypeTag<EditorCamera>,
+		TypeTag<Camera>,
+		TypeTag<Model>
+	>;
 
 	class GameObject : public ITransformable, public std::enable_shared_from_this<GameObject>
 	{
 	public:
-		GameObject(std::string name, ScenePtr scene, GameObjectPtr parent = nullptr);
+		GameObject(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent = nullptr);
 		~GameObject();
 
 		template<typename T, typename... Args>
@@ -23,13 +42,18 @@ namespace Elevate
 		{
 			EE_VALIDATE_COMPONENT_TYPE();
 
-		    ComponentWrapper& emplacedWrapper = m_Scene->m_Registry.emplace<ComponentWrapper>(m_Entity);
-			emplacedWrapper.SetComponent<T>(std::forward<Args>(args)...);
-			emplacedWrapper.SetGameObject(this);
-			emplacedWrapper.Init();
+		 //   ComponentWrapper& emplacedWrapper = m_Scene->m_Registry.emplace<ComponentWrapper>(m_Entity);
+			//emplacedWrapper.SetComponent<T>(std::forward<Args>(args)...);
+			//emplacedWrapper.SetGameObject(this);
+			//emplacedWrapper.Init();
 
-			T& component = static_cast<T&>(*emplacedWrapper.component.get());
-			return component;
+			//T& component = static_cast<T&>(*emplacedWrapper.component.get());
+			//return component;
+			auto& comp = m_Scene->m_Registry.emplace<T>(m_Entity, std::forward<Args>(args)...);
+			comp.gameObject = this;
+			comp.Init();
+
+			return comp;
 		}
 
 		template <typename T>
@@ -37,43 +61,44 @@ namespace Elevate
 		{
 			EE_VALIDATE_COMPONENT_TYPE();
 
-			T* foundComponent = nullptr;
-			m_Scene->m_Registry.view<ComponentWrapper>().each([&foundComponent](auto& wrapper)
-			{
-				if (wrapper.component && typeid(*wrapper.component) == typeid(T))
-				{
-					foundComponent = static_cast<T*>(wrapper.component.get());
-				}
-			});
+			//T* foundComponent = nullptr;
+			//m_Scene->m_Registry.view<ComponentWrapper>().each([&foundComponent](auto& wrapper)
+			//{
+			//	if (wrapper.component && typeid(*wrapper.component) == typeid(T))
+			//	{
+			//		foundComponent = static_cast<T*>(wrapper.component.get());
+			//	}
+			//});
 
-			if (!foundComponent)
-			{
-				EE_CORE_TRACE("{} : Trying to get a missing component. You need to add the component before retrieving it.", m_Name);
-			}
+			//if (!foundComponent)
+			//{
+			//	EE_CORE_TRACE("{} : Trying to get a missing component. You need to add the component before retrieving it.", m_Name);
+			//}
 
-			return foundComponent;
+			//return foundComponent;
+			return m_Scene->m_Registry.try_get<T>(m_Entity);
 		}
 
-		std::vector<std::weak_ptr<Component>> GetComponents() const
-		{
-			std::vector<std::weak_ptr<Component>> components;
+		std::vector<Component*> GetComponents() const;
+		//{
+		//	//std::vector<std::weak_ptr<Component>> components;
 
-			if (m_Scene && m_Scene->m_Registry.valid(m_Entity))
-			{
-				auto view = m_Scene->m_Registry.view<ComponentWrapper>();
-				if (view.contains(m_Entity))
-				{
-					const auto& wrapper = view.get<ComponentWrapper>(m_Entity);
-					if (wrapper.component)
-					{
-						components.push_back(wrapper.component);
-					}
-				}
-			}
+		//	//if (m_Scene && m_Scene->m_Registry.valid(m_Entity))
+		//	//{
+		//	//	auto view = m_Scene->m_Registry.view<ComponentWrapper>();
+		//	//	if (view.contains(m_Entity))
+		//	//	{
+		//	//		const auto& wrapper = view.get<ComponentWrapper>(m_Entity);
+		//	//		if (wrapper.component)
+		//	//		{
+		//	//			components.push_back(wrapper.component);
+		//	//		}
+		//	//	}
+		//	//}
 
-			return components;
-		}
-
+		//	//return components
+		//}
+			
 		template <typename T>
 		bool HasComponent()
 		{
@@ -94,15 +119,15 @@ namespace Elevate
 		inline std::string& GetName() { return m_Name; }
 		inline void SetName(std::string newName) { m_Name = newName; }
 		
-		void SetParent(GameObjectPtr newParent);
+		void SetParent(std::shared_ptr<GameObject> newParent);
 		void Destroy();
 
-		void RemoveChild(GameObjectPtr child);
+		void RemoveChild(std::shared_ptr<GameObject> child);
 
 		inline const bool HasChild() const { return m_Childs.size() > 0; }
-		inline std::set<GameObjectPtr> GetChilds() const { return m_Childs; }
+		inline std::set<std::shared_ptr<GameObject>> GetChilds() const { return m_Childs; }
 
-		static GameObjectPtr Create(std::string name, ScenePtr scene, GameObjectPtr parent = nullptr);
+		static std::shared_ptr<GameObject> Create(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent = nullptr);
 
 		Scene* GetScene() { return m_Scene; }
 
@@ -111,8 +136,12 @@ namespace Elevate
 		glm::vec3 GetGlobalPosition();
 
 	protected:
+		void Update();
+		void Render();
+		void Notify(Event& event);
+
 		// This method is protected as the main entry point to modify the parent should be SetParent()
-		void AddChild(GameObjectPtr child);
+		void AddChild(std::shared_ptr<GameObject> child);
 	private:
 		void Initialize(); // Internal function to use just after constructor
 
@@ -123,12 +152,11 @@ namespace Elevate
 		std::string m_Name;
 
 		// Parent and Child
-		GameObjectPtr m_Parent;
-		std::set<GameObjectPtr> m_Childs;
+		std::shared_ptr<GameObject> m_Parent;
+		std::set<std::shared_ptr<GameObject>> m_Childs;
 
 		entt::entity m_Entity { entt::null };
 		Scene* m_Scene;
-
 		friend class Scene;
 	};
 }

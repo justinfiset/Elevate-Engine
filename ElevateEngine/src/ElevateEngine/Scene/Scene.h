@@ -1,19 +1,20 @@
 #pragma once
 
-#include <memory>
 #include <entt/entt.hpp>
 #include <ElevateEngine/Events/Event.h>
 
 #include <ElevateEngine/Renderer/Cubemap.h>
+#include <ElevateEngine/Core/GameContext.h>
+#include <memory>
+
+// Forward declarations
+namespace Elevate {
+	class GameObject;
+	class Camera;
+}
 
 namespace Elevate
 {
-	class GameObject;
-	class Camera;
-	// TODO SET ELSEWHERE
-	// TODO CHANGE TO WEAKPTR ACCEPTED FOR SCENES ***
-	using GameObjectPtr = std::shared_ptr<GameObject>;
-
 	enum SceneType {
 		RuntimeScene,
 		EditorScene,
@@ -38,8 +39,8 @@ namespace Elevate
 
 		inline const std::string& GetName() const { return m_Name; };
 
-		void AddObject(GameObjectPtr newObject, GameObjectPtr parent);
-		const std::set<GameObjectPtr> GetRootObjects() const { return m_rootObjects; }
+		void AddObject(std::shared_ptr<GameObject> newObject, std::shared_ptr<GameObject> parent);
+		const std::set<std::shared_ptr<GameObject>> GetRootObjects() const { return m_rootObjects; }
 
 		inline SceneType GetType() { return m_Type; }
 
@@ -49,19 +50,18 @@ namespace Elevate
 		void SetSkybox(const char* skyboxFilePath);
 		std::weak_ptr<Cubemap> GetSkybox();
 	private:
-		void RemoveFromRoot(GameObjectPtr object);
-		void AddRootObject(GameObjectPtr newRootObject);
+		void RemoveFromRoot(std::shared_ptr<GameObject> object);
+		void AddRootObject(std::shared_ptr<GameObject> newRootObject);
 
 	private:
 		std::string m_Name;
 
 		entt::registry m_Registry; // Component registry for all entt::entity
 
-		//std::unique_ptr<Cubemap> m_cubemap;
 		std::shared_ptr<Cubemap> m_cubemap;
 
 		// TODO ENLEVER ON VA REMPLACER PAR LE REGISTRY ENTT OU EXTENDRE LA CLASSE GAMEOBJECT
-		std::set<GameObjectPtr> m_rootObjects;
+		std::set<std::shared_ptr<GameObject>> m_rootObjects;
 		SceneType m_Type;
 
 		friend class GameObject;
