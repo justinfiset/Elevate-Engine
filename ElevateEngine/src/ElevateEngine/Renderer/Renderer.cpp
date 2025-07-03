@@ -33,7 +33,7 @@ namespace Elevate
 	}
 
 	// RENDER API STATIC WRAPPER
-	void Renderer::SetClearColor(const glm::vec4 color)
+	void Renderer::SetClearColor(const glm::vec4& color)
 	{
 		s_API->SetClearColor(color);
 	}

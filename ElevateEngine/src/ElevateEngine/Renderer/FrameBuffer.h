@@ -22,7 +22,7 @@ namespace Elevate
 		static FrameBuffer* Create(uint32_t width, uint32_t height);
 
 	protected:
-		glm::vec4 m_ClearColor;
+		glm::vec4 m_ClearColor = { 1.0f, 1.0f, 1.0f, 1.0f };
 	};
 }
 

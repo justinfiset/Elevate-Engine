@@ -26,6 +26,7 @@ namespace Elevate {
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		m_FrameBuffer.reset(FrameBuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
+		m_FrameBuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
 
 		// TODO SET VIA PREPROCESS
 		SetState(GameContextState::EditorMode);
@@ -87,15 +88,15 @@ namespace Elevate {
 
 				TextureManager::UpdateLoadingTextures();
 
-				m_ImGuiLayer->PreRender();
-
 				//ImGui
+				m_ImGuiLayer->PreRender();
 				m_ImGuiLayer->Begin();
-				for (Layer* layer : m_LayerStack)
-					layer->OnImGuiRender();
 
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate();
+
+				for (Layer* layer : m_LayerStack)
+					layer->OnImGuiRender();
 
 				m_FrameBuffer->Bind(); // Rendering the screen in a single texture
 				m_FrameBuffer->Clear();
@@ -111,7 +112,7 @@ namespace Elevate {
 
 				Input::ManageMidStates(); // Manage Key/Button up and down state
 
-				Renderer::FlushBuffers();
+				Renderer::FlushBuffers();	
 				// Poll events and swap buffers
 				m_Window->OnUpdate();
 			}

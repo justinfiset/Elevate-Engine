@@ -2,7 +2,7 @@
 #include "OpenGLRendererAPI.h"
 #include <glad/glad.h>
 
-void Elevate::OpenGLRendererAPI::SetClearColor(const glm::vec4 color) const
+void Elevate::OpenGLRendererAPI::SetClearColor(const glm::vec4& color) const
 {
 	glClearColor(color.r, color.g, color.b, color.a);
 }

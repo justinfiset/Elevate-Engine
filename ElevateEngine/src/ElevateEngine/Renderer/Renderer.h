@@ -22,7 +22,7 @@ namespace Elevate
 		inline static RendererAPI::GraphicAPI GetAPI() { return RendererAPI::GetAPI(); }
 
 		// RENDER API STATIC WRAPPER
-		static void SetClearColor(const glm::vec4 color);
+		static void SetClearColor(const glm::vec4& color);
 		static void Clear();
 		static void FlushBuffers();
 		static void SetViewport(int x, int y, int width, int height);
