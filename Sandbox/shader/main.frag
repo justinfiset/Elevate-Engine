@@ -12,7 +12,7 @@ uniform sampler2D ambientTex;
 uniform sampler2D diffuseTex;
 uniform sampler2D specularTex;
 
-uniform bool blinn;
+bool blinn = true; // use blinn-phong shading or not
 
 struct Material {
     vec3 ambient;
@@ -31,6 +31,7 @@ struct DirLight {
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+    float intensity;
 };
 uniform DirLight dirLight;
 
@@ -64,13 +65,14 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
     vec3 diffuse  = light.diffuse  * diff * GetTextureColor(diffuseTex, textCord, material.diffuse);
     vec3 specular = light.specular * spec * GetTextureColor(specularTex, textCord, material.specular);
 
-    return (ambient + diffuse + specular);
+    return (ambient + diffuse + specular) * light.intensity;
 }
 
 // POINT LIGHT CALCULATION
 struct PointLight {    
     vec3 position;
     
+    float intensity;
     float constant;
     float linear;
     float quadratic;  
@@ -102,11 +104,12 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 
     // attenuation
     float attenuation = 1.0 / (light.constant + light.linear * distance + 
-  			     light.quadratic * (distance * distance));    
+  			     light.quadratic * (distance * distance));   
     // combine results
-    vec3 ambient  = light.ambient  * GetTextureColor(ambientTex, textCord, material.ambient);
-    vec3 diffuse  = light.diffuse  * diff * GetTextureColor(diffuseTex, textCord, material.diffuse);
-    vec3 specular = light.specular * spec * GetTextureColor(specularTex, textCord, material.specular);
+    vec3 ambient  = light.ambient  * light.intensity * GetTextureColor(ambientTex, textCord, material.ambient);
+    vec3 diffuse  = light.diffuse  * light.intensity * diff * GetTextureColor(diffuseTex, textCord, material.diffuse);
+    vec3 specular = light.specular * light.intensity * spec * GetTextureColor(specularTex, textCord, material.specular);
+
     ambient  *= attenuation;
     diffuse  *= attenuation;
     specular *= attenuation;

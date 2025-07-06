@@ -31,6 +31,7 @@ namespace Elevate
 					return ptr;
 				}
 			}
+			return nullptr;
 		}
 
 		static inline std::vector<ScenePtr>::iterator begin() { return m_Scenes.begin(); }

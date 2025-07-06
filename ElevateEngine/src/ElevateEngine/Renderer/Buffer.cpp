@@ -16,6 +16,7 @@ namespace Elevate
 		}
 
 		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
+		return nullptr;
 	}
 
 	IndexBuffer* IndexBuffer::Create(void* vertices, uint32_t count)
@@ -27,5 +28,6 @@ namespace Elevate
 		}
 
 		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
+		return nullptr;
 	}
 }

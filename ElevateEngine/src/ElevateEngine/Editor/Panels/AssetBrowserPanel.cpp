@@ -37,7 +37,7 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
     ImVec2 buttonSize(72, 72);
     float spacing = ImGui::GetStyle().ItemSpacing.x * 2;
     float panelWidth = ImGui::GetWindowSize().x;
-    int colNb = std::floor(panelWidth / (buttonSize.x + spacing));
+    int colNb = (int) std::floor(panelWidth / (buttonSize.x + spacing));
     colNb = std::max(1, colNb);
 
     int index = 0;

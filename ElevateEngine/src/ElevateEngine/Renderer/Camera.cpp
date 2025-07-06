@@ -7,6 +7,11 @@
 #include "ElevateEngine/Core/Application.h"
 #include "ElevateEngine/Core/GameObject.h"
 
+namespace Elevate
+{
+    REGISTER_COMPONENT(Camera);
+}
+
 Elevate::Camera::Camera(float fov)
 {
     m_FOV = fov;

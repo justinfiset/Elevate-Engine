@@ -4,15 +4,10 @@
 #include <vector>
 #include <entt/entt.hpp>
 #include <ElevateEngine/Core/Component.h>
+#include <ElevateEngine/Core/ComponentRegistry.h>
 #include <ElevateEngine/Scene/Scene.h>
 
 #define EE_VALIDATE_COMPONENT_TYPE() EE_CORE_ASSERT((std::is_base_of<Component, T>::value), "{0} : Type specifier must be a child of the Component class.", m_Name);
-
-// TODO AUTOMATE EN REMOVE INCLUDES FROM HERE
-#include "ElevateEngine/Renderer/Model.h"
-#include "ElevateEngine/Renderer/Camera.h"
-#include <ElevateEngine/Physics/Rigidbody.h>
-#include <ElevateEngine/Editor/Camera/EditorCamera.h>
 
 namespace Elevate {
 	class Scene;
@@ -21,16 +16,6 @@ namespace Elevate {
 
 namespace Elevate
 {
-	template<typename T>
-	struct TypeTag { using type = T; };
-
-	using RegisteredComponentTypes = std::tuple<
-		TypeTag<Rigidbody>,
-		TypeTag<EditorCamera>,
-		TypeTag<Camera>,
-		TypeTag<Model>
-	>;
-
 	class GameObject : public ITransformable, public std::enable_shared_from_this<GameObject>
 	{
 	public:
@@ -42,13 +27,6 @@ namespace Elevate
 		{
 			EE_VALIDATE_COMPONENT_TYPE();
 
-		 //   ComponentWrapper& emplacedWrapper = m_Scene->m_Registry.emplace<ComponentWrapper>(m_Entity);
-			//emplacedWrapper.SetComponent<T>(std::forward<Args>(args)...);
-			//emplacedWrapper.SetGameObject(this);
-			//emplacedWrapper.Init();
-
-			//T& component = static_cast<T&>(*emplacedWrapper.component.get());
-			//return component;
 			auto& comp = m_Scene->m_Registry.emplace<T>(m_Entity, std::forward<Args>(args)...);
 			comp.gameObject = this;
 			comp.Init();
@@ -61,43 +39,10 @@ namespace Elevate
 		{
 			EE_VALIDATE_COMPONENT_TYPE();
 
-			//T* foundComponent = nullptr;
-			//m_Scene->m_Registry.view<ComponentWrapper>().each([&foundComponent](auto& wrapper)
-			//{
-			//	if (wrapper.component && typeid(*wrapper.component) == typeid(T))
-			//	{
-			//		foundComponent = static_cast<T*>(wrapper.component.get());
-			//	}
-			//});
-
-			//if (!foundComponent)
-			//{
-			//	EE_CORE_TRACE("{} : Trying to get a missing component. You need to add the component before retrieving it.", m_Name);
-			//}
-
-			//return foundComponent;
 			return m_Scene->m_Registry.try_get<T>(m_Entity);
 		}
 
 		std::vector<Component*> GetComponents() const;
-		//{
-		//	//std::vector<std::weak_ptr<Component>> components;
-
-		//	//if (m_Scene && m_Scene->m_Registry.valid(m_Entity))
-		//	//{
-		//	//	auto view = m_Scene->m_Registry.view<ComponentWrapper>();
-		//	//	if (view.contains(m_Entity))
-		//	//	{
-		//	//		const auto& wrapper = view.get<ComponentWrapper>(m_Entity);
-		//	//		if (wrapper.component)
-		//	//		{
-		//	//			components.push_back(wrapper.component);
-		//	//		}
-		//	//	}
-		//	//}
-
-		//	//return components
-		//}
 			
 		template <typename T>
 		bool HasComponent()
@@ -137,7 +82,9 @@ namespace Elevate
 
 	protected:
 		void Update();
+		void PreRender();
 		void Render();
+		void RenderInEditor();
 		void Notify(Event& event);
 
 		// This method is protected as the main entry point to modify the parent should be SetParent()

@@ -9,7 +9,6 @@ namespace Elevate {
 		static ShaderPtr LoadShader(std::string name, std::string vertexSrcPath, std::string fragSrcPath, std::string customVertCode, std::string customFragCode);
 
 		static ShaderPtr GetShader(std::string name);
-
 	private:
 		ShaderManager() = default;
 

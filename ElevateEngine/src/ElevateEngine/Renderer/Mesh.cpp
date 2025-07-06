@@ -6,7 +6,7 @@ Elevate::Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices,
 	: m_Vertices(vertices), m_Indices(indices), m_Textures(textures)
 { 
 	// Creating the Layout and the VertexBuffer
-	m_VertexBuffer.reset(Elevate::VertexBuffer::Create(&m_Vertices[0], m_Vertices.size() * sizeof(Vertex)));
+	m_VertexBuffer.reset(Elevate::VertexBuffer::Create(&m_Vertices[0], (uint32_t) m_Vertices.size() * sizeof(Vertex)));
 	// Creating the layout sent to the shader and the layout of the buffer
 	m_VertexBuffer->SetLayout({ // The layout is based on the Vertex struct (see Vertex.h)
 		{ Elevate::ShaderDataType::Float3, "a_Position" },
@@ -17,7 +17,7 @@ Elevate::Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices,
 	});
 
 	//Creating the IndexBuffer (containing indices)
-	m_IndexBuffer.reset(Elevate::IndexBuffer::Create(&indices[0], indices.size()));
+	m_IndexBuffer.reset(Elevate::IndexBuffer::Create(&indices[0], (uint32_t) indices.size()));
 	
 	m_VertexArray.reset(VertexArray::Create());
 	m_VertexArray->AddVertexBuffer(m_VertexBuffer);

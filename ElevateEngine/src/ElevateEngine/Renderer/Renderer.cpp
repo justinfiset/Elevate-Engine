@@ -2,10 +2,29 @@
 #include "Renderer.h"
 
 #include "ElevateEngine/Renderer/OpenGL/OpenGLRendererAPI.h"
+#include <ElevateEngine/Scene/Scene.h>
 
 namespace Elevate
 {
 	RendererAPI* Renderer::s_API = new OpenGLRendererAPI();
+	std::unordered_set<Shader*> Renderer::s_pendingShaders;
+
+	void Renderer::SubmitShaderForSetup(std::shared_ptr<Shader> shader)
+	{
+		s_pendingShaders.emplace(shader.get());
+	}
+
+	void Renderer::SetupShaders(Scene* scene)
+	{
+		if (scene)
+		{
+			for (auto* shader : s_pendingShaders)
+			{
+				scene->GetSceneLighting()->UploadToShader(shader);
+			}
+			s_pendingShaders.clear();
+		}
+	}
 
 	void Renderer::SubmitModel(const Model& model)
 	{

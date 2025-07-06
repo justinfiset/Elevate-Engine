@@ -15,5 +15,6 @@ namespace Elevate
 		}
 
 		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
+		return nullptr;
 	}
 }

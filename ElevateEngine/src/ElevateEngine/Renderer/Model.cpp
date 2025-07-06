@@ -9,6 +9,11 @@
 
 #include "ElevateEngine/Renderer/Renderer.h"
 
+namespace Elevate
+{
+    REGISTER_COMPONENT(Model);
+}
+
 Elevate::Model::Model(std::string path) : Model(path, nullptr) { }
 
 Elevate::Model::Model(std::string path, ShaderPtr shader) : Model(path, shader, nullptr) { }
@@ -180,6 +185,11 @@ std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextu
         }
     }
     return textures;
+}
+
+void Elevate::Model::PreRender()
+{
+    Renderer::SubmitShaderForSetup(m_Shader);
 }
 
 void Elevate::Model::Render()

@@ -5,6 +5,7 @@
 
 #include <ElevateEngine/Renderer/Cubemap.h>
 #include <ElevateEngine/Core/GameContext.h>
+#include <ElevateEngine/Renderer/Light/SceneLighting.h>
 #include <memory>
 
 // Forward declarations
@@ -27,7 +28,7 @@ namespace Elevate
 	class Scene
 	{
 	public:
-		Scene() = default;
+		Scene();
 		Scene(std::string name, SceneType type = SceneType::RuntimeScene) 
 			: m_Name(name), m_Type(type) {}
 
@@ -45,14 +46,22 @@ namespace Elevate
 		inline SceneType GetType() { return m_Type; }
 
 		static ScenePtr Create(std::string name, SceneType type = SceneType::RuntimeScene);
-
+			
 		// Cubemap
 		void SetSkybox(const char* skyboxFilePath);
 		std::weak_ptr<Cubemap> GetSkybox();
+
+		inline void SetLighting(std::unique_ptr<SceneLighting> newLighting)
+		{
+			m_sceneLighting = std::move(newLighting);
+		}
+		inline SceneLighting* GetSceneLighting() 
+		{
+			return m_sceneLighting.get();
+		}
 	private:
 		void RemoveFromRoot(std::shared_ptr<GameObject> object);
 		void AddRootObject(std::shared_ptr<GameObject> newRootObject);
-
 	private:
 		std::string m_Name;
 
@@ -63,6 +72,8 @@ namespace Elevate
 		// TODO ENLEVER ON VA REMPLACER PAR LE REGISTRY ENTT OU EXTENDRE LA CLASSE GAMEOBJECT
 		std::set<std::shared_ptr<GameObject>> m_rootObjects;
 		SceneType m_Type;
+
+		std::unique_ptr<SceneLighting> m_sceneLighting = nullptr;
 
 		friend class GameObject;
 	};

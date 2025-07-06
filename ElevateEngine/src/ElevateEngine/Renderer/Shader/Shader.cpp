@@ -16,6 +16,7 @@ namespace Elevate
 		case RendererAPI::GraphicAPI::None : EE_CORE_ASSERT(false, "Renderer none is not supported");
 		case RendererAPI::GraphicAPI::OpenGL: return std::make_shared<OpenGLShader>(vertexSource, fragmentSouce);
 		}
+		return nullptr;
 	}
 
 	ShaderPtr Shader::CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath)
@@ -34,20 +35,22 @@ namespace Elevate
 
 	void Shader::UseLight(Light* newLightSetting, std::string lightName)
 	{
-		SetUniform3f("dirLight.ambient", newLightSetting->GetAmbientColor());
-		SetUniform3f("dirLight.diffuse", newLightSetting->GetDiffuseColor());
-		SetUniform3f("dirLight.specular", newLightSetting->GetSpecularColor());
+		SetUniform3f(lightName + ".ambient", newLightSetting->GetAmbientColor());
+		SetUniform3f(lightName + ".diffuse", newLightSetting->GetDiffuseColor());
+		SetUniform3f(lightName + ".specular", newLightSetting->GetSpecularColor());
+		SetUniform1f(lightName + ".intensity", newLightSetting->GetIntensity());
 	}
 
 	void Shader::UseDirLight(DirectionalLight* newDirLight)
 	{
-		UseLight(newDirLight, "directional");
+		UseLight(newDirLight, "dirLight");
 		SetUniform3f("dirLight.direction", newDirLight->CalculateDirection());
 	}
 
 	void Shader::UpdateCamera(Camera& cam)
 	{
 		SetUniform3f(EE_SHADER_CAMPOS, cam.gameObject->GetPosition());
+		SetProjectionViewMatrix(cam);
 	}
 
 	void Shader::SetModelMatrix(glm::mat4& modelMatrix)

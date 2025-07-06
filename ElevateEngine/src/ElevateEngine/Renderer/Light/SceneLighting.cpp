@@ -4,11 +4,21 @@
 
 namespace Elevate
 {
-	void SceneLighting::UploadToShader(std::shared_ptr<Shader> shader) const
+	void SceneLighting::UploadToShader(Shader* shader) const
 	{
 		if (shader)
 		{
-			shader->UseDirLight(m_dirLight.get());
+			shader->Bind();
+
+			if (m_dirLight)
+			{
+				shader->UseDirLight(m_dirLight);
+			}
+
+			for (size_t i = 0; i < m_pointLights.size(); i++)
+			{
+				m_pointLights[i]->UploadToShader(shader, (uint32_t) i);
+			}
 		}
 	}
 }

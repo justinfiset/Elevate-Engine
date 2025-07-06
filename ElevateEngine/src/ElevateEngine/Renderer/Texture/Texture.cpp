@@ -60,14 +60,8 @@ namespace Elevate
 		case RendererAPI::GraphicAPI::OpenGL: tex = std::make_shared<OpenGLTexture>(path, index, type);
 		}
 
-		if (tex)
-		{
-			return tex;
-		}
-		else
-		{
-			EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
-		}
+		EE_CORE_ASSERT(tex, "A supported RendererAPI needs to be supported!");
+		return tex;
 	}
 
 	TexturePtr Texture::CreateAsync(const std::string& path)

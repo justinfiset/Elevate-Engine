@@ -1,10 +1,11 @@
 #include "eepch.h"
 #include "Scene.h"
 #include "ElevateEngine/Core/GameObject.h"
-#include "ElevateEngine/Core/ComponentWrapper.h"
 #include "ElevateEngine/Renderer/Model.h"
 #include <ElevateEngine/Core/Application.h>
 #include <ElevateEngine/Scene/SceneManager.h>
+#include <ElevateEngine/Core/GameContext.h>
+#include <ElevateEngine/Renderer/Renderer.h>
 
 void Elevate::Scene::UpdateScene()
 {
@@ -27,7 +28,7 @@ void Elevate::Scene::RenderScene(Camera* cam)
 		// Either do not calculate here or stop calculating it in the layer
 		glm::mat4 view = glm::mat4(glm::mat3(cam->GenViewMatrix()));
 
-		if (m_cubemap) 
+		if (m_cubemap)
 		{
 			m_cubemap->SetProjectionMatrix(cam->GetProjectionMatrix());
 			m_cubemap->SetViewMatrix(view);
@@ -37,7 +38,24 @@ void Elevate::Scene::RenderScene(Camera* cam)
 
 	for (std::shared_ptr<GameObject> obj : m_rootObjects)
 	{
+		obj->PreRender();
+	}
+
+	if (m_sceneLighting)
+	{
+		Renderer::SetupShaders(this);
+	}
+
+	for (std::shared_ptr<GameObject> obj : m_rootObjects)
+	{
 		obj->Render();
+
+		// Call specific functions depending on current context status.
+		switch (Application::GameState())
+		{
+		case GameContextState::EditorMode:
+			obj->RenderInEditor();
+		}
 	}
 }
 

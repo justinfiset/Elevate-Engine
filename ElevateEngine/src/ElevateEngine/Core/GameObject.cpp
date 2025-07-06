@@ -76,6 +76,22 @@ void Elevate::GameObject::Update()
 	}
 }
 
+void Elevate::GameObject::PreRender()
+{
+	for (Component* comp : GetComponents())
+	{
+		if (comp->IsActive())
+		{
+			comp->PreRender();
+		}
+	}
+
+	for (std::shared_ptr<Elevate::GameObject> child : m_Childs)
+	{
+		child->PreRender();
+	}
+}
+
 void Elevate::GameObject::Render()
 {
 	for (Component* comp : GetComponents())
@@ -150,25 +166,32 @@ namespace Elevate
 
 		if (!m_Scene) return components;
 
-		entt::registry* registry = &(m_Scene->m_Registry);
+		entt::registry& registry = m_Scene->m_Registry;
 		const entt::entity entity = m_Entity;
 
-		auto tryGet = [&components, registry, entity](auto tag) {
-			using T = typename decltype(tag)::type;
-			if (registry->all_of<T>(entity)) {
-				T* component = &(registry->get<T>(entity));
-				Component* base = static_cast<Component*>(component);
-				if (base) {
-					components.push_back(base);
-				}
+		for (const auto& [type, factory] : ComponentRegistry::GetFactories()) {
+			if (Component* component = factory(registry, entity)) {
+				components.push_back(component);
 			}
-		};
-
-		std::apply([&tryGet](auto... tags) {
-			(tryGet(tags), ...);
-			}, RegisteredComponentTypes{});
+		}
 
 		return components;
+	}
+
+	void Elevate::GameObject::RenderInEditor()
+	{
+		for (Component* comp : GetComponents())
+		{
+			if (comp->IsActive())
+			{
+				comp->RenderInEditor();
+			}
+		}
+
+		for (std::shared_ptr<Elevate::GameObject> child : m_Childs)
+		{
+			child->RenderInEditor();
+		}
 	}
 }
 

@@ -27,7 +27,6 @@ namespace Elevate
 	{
 	public:
 		COMPONENT_LAYOUT(
-			"Rigidbody",
 			{
 				//{"FOV", ComponentDataType::Float, &m_FOV}
 			}
@@ -39,6 +38,4 @@ namespace Elevate
 	private:
 		RigidbodyData m_data;
 	};
-
-	using RigidbodyPtr = std::weak_ptr<Rigidbody>;
 }

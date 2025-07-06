@@ -16,8 +16,7 @@
 #include <GLFW/include/GLFW/glfw3.h>
 
 #include "ElevateEngine/Renderer/Cubemap.h"
-#include "ElevateEngine/Renderer/Light/DirectionalLight.h"
-#include "ElevateEngine/Renderer/Light/PointLight.h"
+#include "ElevateEngine/Renderer/Light/SceneLighting.h"
 
 #include "ElevateEngine/ImGui/CustomImGuiCommand.h"
 #include "ElevateEngine/ImGui/ImGuiTheme.h"
@@ -34,8 +33,6 @@
 
 #include <ElevateEngine/Physics.h>
 
-// TODO 
-// - rename fichier EditorLayout en EditorLayer
 class DebugLayer : public Elevate::Layer
 {
 public:
@@ -43,12 +40,8 @@ public:
 private:
     std::shared_ptr<Elevate::GameObject> m_DemoObject;
     std::shared_ptr<Elevate::GameObject> m_PointLightObject;
-    // TODO make an ortographic and perspective cam class
 
     Elevate::ScenePtr m_Scene;
-
-    bool blinn = true;
-
 public:
     DebugLayer() : Layer("Debug") { }
 
@@ -90,9 +83,6 @@ public:
         //);
 
         // Backpack
-        // TODO AJOUTER DIRECTEMENT A LA SCENE PAR LA CONSTRUCTEUR ET AJOUTER COMME ROOT OBJECT
-        // TODO AJOUTER UN ARGUMENT DANS LE CONSTRUCTEUR DE CREATE POUR SET LE PARENT -> SI NULL, ROOT OBJECT,
-        //      IMPLEMENTER CETTE METHODE DANS LA SCENE.H
         m_DemoObject = Elevate::GameObject::Create("Backpack", m_Scene);
         Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
         Elevate::Rigidbody& rb = m_DemoObject->AddComponent<Elevate::Rigidbody>();
@@ -101,23 +91,22 @@ public:
         // point light
         m_PointLightObject = Elevate::GameObject::Create("Point Light", m_Scene);
         m_PointLightObject->SetParent(m_DemoObject);
-        m_PointLightObject->SetPosition({ -2.0f, 0.0f, 0.0f });
+        m_PointLightObject->SetPosition({ -2.0f, 0.0f, 2.0f });
+        Elevate::PointLight& pointLight = m_PointLightObject->AddComponent<Elevate::PointLight>(glm::vec3(1.0f, 1.0f, 1.0f));
+        pointLight.SetIntensity(0.7);
 
-        m_Shader->Bind();
-
-        Elevate::DirectionalLight dirLight;
-        m_Shader->UseDirLight(&dirLight);
-
-        // todo envoyer dans la classe pointlight
-        // Set avoir le composant que l'on va cr�er
-        // TODO ne plus utiliser le GetTransform, faire les méthodes appropriées pour que le tout soit dans l'interface
-        m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetGlobalPosition());
-        m_Shader->SetUniform3f("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
-        m_Shader->SetUniform3f("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
-        m_Shader->SetUniform3f("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
-        m_Shader->SetUniform1f("pointLights[0].constant", 1.0f);
-        m_Shader->SetUniform1f("pointLights[0].linear", 0.09f);
-        m_Shader->SetUniform1f("pointLights[0].quadratic", 0.032f);
+        auto m_dirLightObj = Elevate::GameObject::Create("Directional Light", m_Scene);
+        m_dirLightObj->SetRotation({ 0.0f, 45.0f, 20.0f });
+        Elevate::DirectionalLight& dirLight = m_dirLightObj->AddComponent<Elevate::DirectionalLight>(
+            glm::vec3(1.0f, 1.0f, 1.0f)
+        );
+        dirLight.SetIntensity(0.7f);
+        
+        // TODO CONSTRUIRE AUTOMATIQUEMENT VIA LA SCÈNE!!!!
+        m_Scene->SetLighting(std::make_unique<Elevate::SceneLighting>(
+            &dirLight,
+            std::vector<Elevate::PointLight*>{ &pointLight }
+        ));
     }
 
     // TODO ajouter un icon de point light qui suit avec imgui la point light
@@ -127,25 +116,13 @@ public:
         glm::mat4 view = glm::mat4(glm::mat3(cam->GenViewMatrix()));
         glm::vec3 camPos = cam->gameObject->GetPosition();
 
-        // On soumet les models et on les affiches en dessinant la stack
-        // TODO -> passer par les commande Renderer:: ... pour faire le rendu � la place
         m_Shader->Bind();
-        m_Shader->SetUniform1i("blinn", blinn);
-        m_Shader->SetUniform3f("pointLights[0].position", m_PointLightObject->GetGlobalPosition());
-        m_Shader->SetUniform3f("camPos", camPos);
-        m_Shader->SetProjectionViewMatrix(*cam);
-
+        m_Shader->UpdateCamera(*cam);
         m_Scene->RenderScene(cam);
     }
 
     void OnUpdate() override
     {
-        // Toggle the blinn light mode
-        if (Elevate::Input::IsKeyDown(EE_KEY_B)) {
-            EE_CORE_TRACE("Blinn toggled! : Now {}", blinn);
-            blinn = !blinn;
-        }
-
         m_Scene->UpdateScene();
     }
 

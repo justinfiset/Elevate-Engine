@@ -15,7 +15,7 @@ namespace Elevate
     class Model : public Component
     {
     public:
-        COMPONENT_LAYOUT("Model", {});
+        COMPONENT_LAYOUT({});
 
         Model() = default;
         Model(std::string path);
@@ -28,6 +28,7 @@ namespace Elevate
         inline void SetShader(ShaderPtr newShader) { m_Shader = newShader; }
         inline void SetMaterial(MaterialPtr material) { m_Material = material; }
 
+        void PreRender() override;
         void Render() override;
 
         const inline std::shared_ptr<Shader>& GetShader() const { return m_Shader; }

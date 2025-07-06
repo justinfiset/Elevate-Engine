@@ -34,7 +34,7 @@ namespace Elevate
 		EVENT_CLASS_TYPE(KeyPressed)
 		
 	private:
-		int m_RepeatCount;
+		int m_RepeatCount = 0;
 	};
 
 	class EE_API KeyReleasedEvent : public KeyEvent
@@ -53,7 +53,7 @@ namespace Elevate
 		EVENT_CLASS_TYPE(KeyReleased)
 
 	private:
-		int m_RepeatCount;
+		int m_RepeatCount = 0;
 	};
 
 	class EE_API KeyTypedEvent : public KeyEvent
@@ -72,6 +72,6 @@ namespace Elevate
 		EVENT_CLASS_TYPE(KeyTyped)
 
 	private:
-		int m_RepeatCount;
+		int m_RepeatCount = 0;
 	};
 }

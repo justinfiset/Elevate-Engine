@@ -1,11 +1,7 @@
 #pragma once
 #include "ElevateEngine/Core/Component.h"
-
 #include "glm/glm.hpp"
 
-
-// TODO setup like an object/gameobject or component in the future
-// TODO rename to CameraComponent
 // TODO add ortographic or projection settings (bool value or constructors)
 namespace Elevate
 {
@@ -13,7 +9,6 @@ namespace Elevate
 	{
 	public:
 		COMPONENT_LAYOUT(
-			"Camera",
 			{
 				{"FOV", ComponentDataType::Float, &m_FOV}
 			}
@@ -65,6 +60,5 @@ namespace Elevate
 		float m_Near = 0.1f;
 		float m_Far = 100.0f;
 	};
-
 	using CameraPtr = std::shared_ptr<Camera>;
 }

@@ -2,11 +2,11 @@
 
 #include <memory>
 #include <ElevateEngine/Core/Layers/Layer.h>
-#include "ElevateEngine/Scene/Scene.h"
 #include <ElevateEngine/Core/GameObject.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Editor/Camera/EditorCamera.h>
+#include "ElevateEngine/Scene/Scene.h"
 
 namespace Elevate::Editor
 {

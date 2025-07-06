@@ -81,7 +81,7 @@ namespace Elevate {
 			try
 			{
 				// TIME UPDATE //////////////////
-				Time::currentTime_ = m_Window->GetTime();
+				Time::currentTime_ = (float) m_Window->GetTime();
 				Time::deltaTime_ = Time::currentTime_ - lastTime;
 				lastTime = Time::currentTime_;
 				/////////////////////////////////

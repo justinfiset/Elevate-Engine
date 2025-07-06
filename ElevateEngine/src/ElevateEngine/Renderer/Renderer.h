@@ -11,6 +11,8 @@ namespace Elevate
 	public:
 		//static void BeginSceneFrame(const std::shared_ptr<Shader> shader);
 		//static void EndSceneFrame(const std::shared_ptr<Shader> shader);
+		static void SubmitShaderForSetup(std::shared_ptr<Shader> shader);
+		static void SetupShaders(Scene* scene);
 
 		static void SubmitModel(const Model& model);
 		static void RemoveModel(const Model& model);
@@ -29,6 +31,7 @@ namespace Elevate
 		static void DrawArray(const std::shared_ptr<VertexArray>& vao);
 		static void DrawStack();
 	private:
+		static std::unordered_set<Shader*> s_pendingShaders;
 		static RendererAPI* s_API;
 	};
 }
