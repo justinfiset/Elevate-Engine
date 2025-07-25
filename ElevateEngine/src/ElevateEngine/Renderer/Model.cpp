@@ -14,6 +14,41 @@ namespace Elevate
     REGISTER_COMPONENT(Model);
 }
 
+Elevate::Model::Model(PrimitiveType type) : Model("", nullptr)
+{
+    Mesh mesh;
+    switch (type)
+    {
+    case PrimitiveType::Cube:
+        //return Mesh::GeneraCube();
+        break;
+    case PrimitiveType::UVSphere:
+        mesh = Mesh::GenerateUVSphere(1.0f, 36, 18);
+        break;
+    case PrimitiveType::Cubesphere:
+        break;
+    case PrimitiveType::Icosphere:
+        break;
+    case PrimitiveType::Cylinder:
+        break;
+    case PrimitiveType::Capsule:
+        break;
+    case PrimitiveType::Plane:
+        mesh = Mesh::GeneratePlane(1.0f, 1);
+        break;
+    case PrimitiveType::Quad:
+        mesh = Mesh::GenerateQuad(1.0f);
+        break;
+    case PrimitiveType::Torus:
+        break;
+    default:
+        EE_CORE_ASSERT(false, "Unsupported primitive shape given for mesh creation.");
+        break;
+    }
+
+    m_Meshes.push_back(mesh);
+}
+
 Elevate::Model::Model(std::string path) : Model(path, nullptr) { }
 
 Elevate::Model::Model(std::string path, ShaderPtr shader) : Model(path, shader, nullptr) { }
@@ -38,7 +73,11 @@ Elevate::Model::Model(std::string path, ShaderPtr shader, MaterialPtr material)
         // TODO GET A DEFAULT PTR FROM SOMEWHERE LIKE A MATERIAL MANAGER OR LIBRARY
         SetMaterial(std::make_shared<Material>());
     }
-    LoadModel(path);
+
+    if (path.length() > 0)
+    {
+        LoadModel(path);
+    }
 }
 
 void Elevate::Model::LoadModel(std::string path)

@@ -16,8 +16,8 @@ namespace Elevate
     {
     public:
         COMPONENT_LAYOUT({});
-
         Model() = default;
+        Model(PrimitiveType type);
         Model(std::string path);
         Model(std::string path, ShaderPtr shader);
         Model(std::string path, ShaderPtr shader, MaterialPtr material);

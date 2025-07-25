@@ -8,6 +8,8 @@
 #include <ElevateEngine/Editor/Camera/EditorCamera.h>
 #include "ElevateEngine/Scene/Scene.h"
 
+#define EE_EDITOR_BUILD
+
 namespace Elevate::Editor
 {
 	class EditorLayer : public Layer

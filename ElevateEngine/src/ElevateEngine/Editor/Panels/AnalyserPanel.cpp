@@ -27,6 +27,26 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
                 RenderComponentLayout(comp->GetLayout());
             }
         }
+
+        if (ImGui::Button("Add Component", ImVec2(ImGui::GetContentRegionAvail().x, 0)))
+        {
+            ImGui::OpenPopup("AddComponentPopup");
+        }
+
+        if (ImGui::BeginPopup("AddComponentPopup"))
+        {
+            ImGui::Text("Add component :");
+            ImGui::Separator();
+            for (const auto& [key, name] : ComponentRegistry::GetTypeNames())
+            {
+                if (ImGui::Selectable(name.c_str()))
+                {
+                    // TODO: TRANSFORM IN AN EDITOR COMMAND
+                }
+            }
+
+            ImGui::EndPopup();
+        }
     }
 
     ImGui::End();

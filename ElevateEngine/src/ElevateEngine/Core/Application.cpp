@@ -28,8 +28,9 @@ namespace Elevate {
 		m_FrameBuffer.reset(FrameBuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
 		m_FrameBuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
 
-		// TODO SET VIA PREPROCESS
-		SetState(GameContextState::EditorMode);
+		#ifdef EE_EDITOR_BUILD
+				SetState(GameContextState::EditorMode);
+		#endif
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);

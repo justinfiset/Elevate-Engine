@@ -115,23 +115,28 @@ namespace Elevate::Editor
 
             if (ImGui::BeginMenu("Objects"))
             {
+                // TODO: CONVERT TO COMMANDS
                 if (ImGui::MenuItem("Cube")) {
                     ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
-                    std::shared_ptr<Elevate::GameObject> m_DemoCube = Elevate::GameObject::Create("Cube", scene);
-                    m_DemoCube->AddComponent<Elevate::Model>("model/cube.obj");
+                    std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Cube", scene);
+                    obj->AddComponent<Elevate::Model>("model/cube.obj");
                 }
                 if (ImGui::MenuItem("Plane")) {
                     ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
-                    std::shared_ptr<Elevate::GameObject> m_DemoCube = Elevate::GameObject::Create("Plane", scene);
-                    m_DemoCube->AddComponent<Elevate::Model>("model/plane.obj");
+                    std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Plane", scene);
+                    obj->AddComponent<Elevate::Model>(PrimitiveType::Plane);
+                }
+                if (ImGui::MenuItem("Quad")) {
+                    ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
+                    std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Quad", scene);
+                    obj->AddComponent<Elevate::Model>(PrimitiveType::Quad);
+                }
+                if (ImGui::MenuItem("UV Sphere")) {
+                    ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
+                    std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("UV Sphere", scene);
+                    obj->AddComponent<Elevate::Model>(PrimitiveType::UVSphere);
                 }
                 // TODO ADD OTHER MODELS
-                //if (ImGui::MenuItem("Sphere")) {
-
-                //}
-                //if (ImGui::MenuItem("Ico Sphere")) {
-
-                //}
                 ImGui::EndMenu();
             }
 

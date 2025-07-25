@@ -93,14 +93,14 @@ public:
         m_PointLightObject->SetParent(m_DemoObject);
         m_PointLightObject->SetPosition({ -2.0f, 0.0f, 2.0f });
         Elevate::PointLight& pointLight = m_PointLightObject->AddComponent<Elevate::PointLight>(glm::vec3(1.0f, 1.0f, 1.0f));
-        pointLight.SetIntensity(0.7);
+        pointLight.SetIntensity(0.5);
 
         auto m_dirLightObj = Elevate::GameObject::Create("Directional Light", m_Scene);
         m_dirLightObj->SetRotation({ 0.0f, 45.0f, 20.0f });
         Elevate::DirectionalLight& dirLight = m_dirLightObj->AddComponent<Elevate::DirectionalLight>(
             glm::vec3(1.0f, 1.0f, 1.0f)
         );
-        dirLight.SetIntensity(0.7f);
+        dirLight.SetIntensity(0.1f);
         
         // TODO CONSTRUIRE AUTOMATIQUEMENT VIA LA SCÈNE!!!!
         m_Scene->SetLighting(std::make_unique<Elevate::SceneLighting>(
