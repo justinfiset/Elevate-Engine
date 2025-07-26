@@ -88,6 +88,36 @@ public:
         Elevate::Rigidbody& rb = m_DemoObject->AddComponent<Elevate::Rigidbody>();
         m_DemoObject->SetPosition({ 0.0f, 0.0f, -3.0f });
 
+        m_DemoObject = Elevate::GameObject::Create("Backpack", m_Scene);
+        Elevate::Model& demoModel1 = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
+        Elevate::Rigidbody& rb1 = m_DemoObject->AddComponent<Elevate::Rigidbody>();
+        m_DemoObject->SetPosition({ 0.0f, 0.0f, 0.0f });
+
+        m_DemoObject = Elevate::GameObject::Create("Backpack", m_Scene);
+        Elevate::Model& demoModel2 = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
+        Elevate::Rigidbody& rb2 = m_DemoObject->AddComponent<Elevate::Rigidbody>();
+        m_DemoObject->SetPosition({ 0.0f, 0.0f, 3.0f });
+
+        m_DemoObject = Elevate::GameObject::Create("Backpack", m_Scene);
+        Elevate::Model& demoModel3 = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
+        Elevate::Rigidbody& rb3 = m_DemoObject->AddComponent<Elevate::Rigidbody>();
+        m_DemoObject->SetPosition({ 0.0f, 0.0f, 6.0f });
+
+        m_DemoObject = Elevate::GameObject::Create("Backpack", m_Scene);
+        Elevate::Model& demoModel4 = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
+        Elevate::Rigidbody& rb4 = m_DemoObject->AddComponent<Elevate::Rigidbody>();
+        m_DemoObject->SetPosition({ 0.0f, 0.0f, 9.0f });
+
+        m_DemoObject = Elevate::GameObject::Create("Backpack", m_Scene);
+        Elevate::Model& demoModel5 = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
+        Elevate::Rigidbody& rb5 = m_DemoObject->AddComponent<Elevate::Rigidbody>();
+        m_DemoObject->SetPosition({ 0.0f, 0.0f, 12.0f });
+
+        m_DemoObject = Elevate::GameObject::Create("Backpack", m_Scene);
+        Elevate::Model& demoModel6 = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
+        Elevate::Rigidbody& rb6 = m_DemoObject->AddComponent<Elevate::Rigidbody>();
+        m_DemoObject->SetPosition({ 0.0f, 0.0f, 15.0f });
+
         // point light
         m_PointLightObject = Elevate::GameObject::Create("Point Light", m_Scene);
         m_PointLightObject->SetParent(m_DemoObject);

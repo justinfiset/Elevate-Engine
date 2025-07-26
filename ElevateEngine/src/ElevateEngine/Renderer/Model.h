@@ -21,8 +21,6 @@ namespace Elevate
         Model(std::string path);
         Model(std::string path, ShaderPtr shader);
         Model(std::string path, ShaderPtr shader, MaterialPtr material);
-        // TODO move somewhere else // PUT PRIVATE;
-        inline const std::vector<Mesh>& GetMeshes() const { return m_Meshes; }
 
         // TODO : should change the shader in the renderer
         inline void SetShader(ShaderPtr newShader) { m_Shader = newShader; }
@@ -34,7 +32,7 @@ namespace Elevate
         const inline std::shared_ptr<Shader>& GetShader() const { return m_Shader; }
     private:
         void LoadModel(std::string path);
-        void ProcessNode(aiNode* node, const aiScene* scene);
+        void ProcessNode(aiNode* node, const aiScene* scene, std::vector<Mesh>& meshes);
         Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
         void ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int index);
         std::vector<std::shared_ptr<Texture>> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string );
@@ -43,7 +41,7 @@ namespace Elevate
         ShaderPtr m_Shader;
         MaterialPtr m_Material;
         // model data
-        std::vector<Mesh> m_Meshes;
+        Mesh m_batchedMesh;
         std::string m_Directory;
     };
 }

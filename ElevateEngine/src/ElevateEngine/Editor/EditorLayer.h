@@ -7,12 +7,13 @@
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Editor/Camera/EditorCamera.h>
 #include "ElevateEngine/Scene/Scene.h"
+#include <ElevateEngine/Core/Command.h>
 
 #define EE_EDITOR_BUILD
 
 namespace Elevate::Editor
 {
-	class EditorLayer : public Layer
+	class EditorLayer : public Layer, public CommandManager
 	{
 	public:
 		EditorLayer();

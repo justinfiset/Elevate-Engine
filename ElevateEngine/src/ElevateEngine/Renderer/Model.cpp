@@ -17,22 +17,19 @@ namespace Elevate
 Elevate::Model::Model(PrimitiveType type) : Model("", nullptr)
 {
     Mesh mesh;
+
     switch (type)
     {
     case PrimitiveType::Cube:
-        //return Mesh::GeneraCube();
+        mesh = Mesh::GenerateCube(1.0f);
         break;
     case PrimitiveType::UVSphere:
         mesh = Mesh::GenerateUVSphere(1.0f, 36, 18);
         break;
     case PrimitiveType::Cubesphere:
-        break;
     case PrimitiveType::Icosphere:
-        break;
     case PrimitiveType::Cylinder:
-        break;
     case PrimitiveType::Capsule:
-        break;
     case PrimitiveType::Plane:
         mesh = Mesh::GeneratePlane(1.0f, 1);
         break;
@@ -40,13 +37,12 @@ Elevate::Model::Model(PrimitiveType type) : Model("", nullptr)
         mesh = Mesh::GenerateQuad(1.0f);
         break;
     case PrimitiveType::Torus:
-        break;
     default:
         EE_CORE_ASSERT(false, "Unsupported primitive shape given for mesh creation.");
         break;
     }
 
-    m_Meshes.push_back(mesh);
+    m_batchedMesh = mesh;
 }
 
 Elevate::Model::Model(std::string path) : Model(path, nullptr) { }
@@ -93,23 +89,35 @@ void Elevate::Model::LoadModel(std::string path)
         return;
     }
     m_Directory = path.substr(0, path.find_last_of('/')); // Used to get the textures afterward
+
     // Recursive method to process all the nodes in the model
-    ProcessNode(scene->mRootNode, scene);
+    std::vector<Mesh> meshes;
+    ProcessNode(scene->mRootNode, scene, meshes);
+
+    if (!meshes.empty()) 
+    {
+        m_batchedMesh = Mesh::CombineMeshes(meshes);
+    }
+    else 
+    {
+        EE_CORE_WARN("(Model loader) : No meshes found in node : {}.", path);
+    }
+
     Renderer::SubmitModel(*this);
 }
 
-void Elevate::Model::ProcessNode(aiNode* node, const aiScene* scene)
+void Elevate::Model::ProcessNode(aiNode* node, const aiScene* scene, std::vector<Mesh>& meshes)
 {
     // process all the node's MESHES (if any)
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        m_Meshes.push_back(ProcessMesh(mesh, scene));
+        meshes.push_back(ProcessMesh(mesh, scene));
     }
     // then do the same for each of its CHILDREN(S)
     for (unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        ProcessNode(node->mChildren[i], scene); // Continue till we run out of childrens
+        ProcessNode(node->mChildren[i], scene, meshes); // Continue till we run out of childrens
     }
 }
 
@@ -237,6 +245,5 @@ void Elevate::Model::Render()
     m_Shader->Bind();
     m_Shader->UseMaterial(m_Material);
     m_Shader->SetModelMatrix(*gameObject);
-    for (unsigned int i = 0; i < m_Meshes.size(); i++)
-        m_Meshes[i].Draw(m_Shader);
+    m_batchedMesh.Draw(m_Shader);
 }

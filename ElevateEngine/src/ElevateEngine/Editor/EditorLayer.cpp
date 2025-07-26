@@ -61,7 +61,7 @@ namespace Elevate::Editor
 
         // Grid
         m_GridObject = GameObject::Create("Editor Grid", m_EditorScene);
-        Model& gridModel = m_GridObject->AddComponent<Model>("model/plane.obj");
+        Model& gridModel = m_GridObject->AddComponent<Model>(PrimitiveType::Quad);
         gridModel.SetShader(m_GridShader);
         m_GridObject->SetScale({ 50, 50, 50 });
 
@@ -119,7 +119,7 @@ namespace Elevate::Editor
                 if (ImGui::MenuItem("Cube")) {
                     ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
                     std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Cube", scene);
-                    obj->AddComponent<Elevate::Model>("model/cube.obj");
+                    obj->AddComponent<Elevate::Model>(PrimitiveType::Cube);
                 }
                 if (ImGui::MenuItem("Plane")) {
                     ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);

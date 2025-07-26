@@ -43,7 +43,6 @@ namespace Elevate
 		unsigned int normalNr = 1;
 		unsigned int heightNr = 1;
 
-
 		for (unsigned int i = 0; i < m_Textures.size(); i++)
 		{
 			// retrieve texture number (the N in diffuse_textureN)
@@ -55,7 +54,7 @@ namespace Elevate
 				number = std::to_string(specularNr++); // transfer unsigned int to string
 			else if (name == "material.normal")
 				number = std::to_string(normalNr++); // transfer unsigned int to string
-			else if (name == "material.height")
+			else if (name == "material.height")	
 				number = std::to_string(heightNr++); // transfer unsigned int to string
 
 			// now set the sampler to the correct texture unit
@@ -69,18 +68,84 @@ namespace Elevate
 
 		m_VertexArray->Bind();
 		glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, 0);
-		m_VertexArray->Unbind(); // Always good to unbind before doing something else
 
 		for (unsigned int i = 0; i < m_Textures.size(); i++)
 		{
 			m_Textures[i]->Unbind(i);
 		}
-		glActiveTexture(GL_TEXTURE0);
 	}
 
 	Mesh Mesh::GenerateCube(float size)
 	{
-		return GenerateCubephere(size, 1);
+		const float halfSize = size * 0.5f;
+
+		std::vector<Vertex> vertices;
+		std::vector<uint32_t> indices;
+
+		auto addFace = [&](glm::vec3 normal, glm::vec3 v0, glm::vec3 v1, glm::vec3 v2, glm::vec3 v3) {
+			size_t startIndex = vertices.size();
+
+			Vertex a{ v0, normal, {0.0f, 0.0f} };
+			Vertex b{ v1, normal, {1.0f, 0.0f} };
+			Vertex c{ v2, normal, {1.0f, 1.0f} };
+			Vertex d{ v3, normal, {0.0f, 1.0f} };
+
+			vertices.push_back(a);
+			vertices.push_back(b);
+			vertices.push_back(c);
+			vertices.push_back(d);
+
+			indices.push_back(startIndex);
+			indices.push_back(startIndex + 1);
+			indices.push_back(startIndex + 2);
+			indices.push_back(startIndex);
+			indices.push_back(startIndex + 2);
+			indices.push_back(startIndex + 3);
+		};
+
+		// Front (+Z)
+		addFace({ 0, 0, 1 },
+			{ -halfSize, -halfSize, halfSize },
+			{ halfSize, -halfSize, halfSize },
+			{ halfSize,  halfSize, halfSize },
+			{ -halfSize,  halfSize, halfSize });
+
+		// Back (-Z)
+		addFace({ 0, 0, -1 },
+			{ halfSize, -halfSize, -halfSize },
+			{ -halfSize, -halfSize, -halfSize },
+			{ -halfSize,  halfSize, -halfSize },
+			{ halfSize,  halfSize, -halfSize });
+
+		// Right (+X)
+		addFace({ 1, 0, 0 },
+			{ halfSize, -halfSize, halfSize },
+			{ halfSize, -halfSize, -halfSize },
+			{ halfSize,  halfSize, -halfSize },
+			{ halfSize,  halfSize, halfSize });
+
+		// Left (-X)
+		addFace({ -1, 0, 0 },
+			{ -halfSize, -halfSize, -halfSize },
+			{ -halfSize, -halfSize, halfSize },
+			{ -halfSize,  halfSize, halfSize },
+			{ -halfSize,  halfSize, -halfSize });
+
+		// Top (+Y)
+		addFace({ 0, 1, 0 },
+			{ -halfSize, halfSize, halfSize },
+			{ halfSize,  halfSize, halfSize },
+			{ halfSize,  halfSize, -halfSize },
+			{ -halfSize, halfSize, -halfSize });
+
+		// Bottom (-Y)
+		addFace({ 0, -1, 0 },
+			{ -halfSize, -halfSize, -halfSize },
+			{ halfSize,  -halfSize, -halfSize },
+			{ halfSize,  -halfSize, halfSize },
+			{ -halfSize, -halfSize, halfSize });
+
+		return Mesh(vertices, indices, {});
 	}
 
 	Mesh Mesh::GenerateUVSphere(float radius, int latitudes, int longitudes)
@@ -153,13 +218,14 @@ namespace Elevate
 		std::vector<uint32_t> indices;
 
 		float step = size / resolution;
-		
+		float offset = size * 0.5f;
+
 		for (int i = 0; i <= resolution; i++)
 		{
 			for (int j = 0; j <= resolution; j++)
 			{
 				Vertex v;
-				v.Position = { j * step, 0.0f, i * step };
+				v.Position = { j * step - offset, 0.0f, i * step - offset };
 				v.Normal = { 0.0f, 1.0f, 0.0f };
 				v.TexCoords = { (float) j / resolution, (float) i / resolution };
 				vertices.push_back(v);
