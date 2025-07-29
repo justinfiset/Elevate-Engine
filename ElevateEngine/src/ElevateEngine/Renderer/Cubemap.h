@@ -2,9 +2,11 @@
 #include <string>
 #include <memory>
 #include <filesystem>
-#include "Buffer.h"
-#include "VertexArray.h"
-#include "ElevateEngine/Renderer/Shader/Shader.h"
+
+#include <ElevateEngine/Renderer/Buffer.h>
+#include <ElevateEngine/Renderer/VertexArray.h>
+#include <ElevateEngine/Renderer/Shader/Shader.h>
+#include <ElevateEngine/Renderer/RenderState.h>
 
 namespace Elevate
 {
@@ -26,6 +28,7 @@ namespace Elevate
         std::string GetFilePath();
 
 	private:
+        RenderState m_renderState;
         std::shared_ptr<Shader> m_cubemapShader;
 
         std::shared_ptr<VertexArray> m_VertexArray;

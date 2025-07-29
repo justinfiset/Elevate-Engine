@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "ElevateEngine/Core/Assert.h"
+#include <ElevateEngine/Renderer/Renderer.h>
 
 Elevate::OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 	: m_WindowHandle(windowHandle)
@@ -17,10 +18,8 @@ void Elevate::OpenGLContext::Init()
 	glfwMakeContextCurrent(m_WindowHandle);
 	int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	EE_CORE_ASSERT(status, "Failed to initialize Glad.");
-	glEnable(GL_DEPTH_TEST);
 
 	// Hides faces that are not in the right direction
-	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
 

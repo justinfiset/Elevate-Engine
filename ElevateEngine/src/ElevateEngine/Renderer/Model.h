@@ -8,6 +8,7 @@
 
 #include "ElevateEngine/Core/Component.h"
 #include <ElevateEngine/Renderer/Texture/Texture.h>
+#include <ElevateEngine/Renderer/RenderState.h>
 #include "Mesh.h"
 
 namespace Elevate
@@ -30,18 +31,20 @@ namespace Elevate
         void Render() override;
 
         const inline std::shared_ptr<Shader>& GetShader() const { return m_Shader; }
+
+        RenderState& GetRenderState() { return m_attributes; }
     private:
         void LoadModel(std::string path);
         void ProcessNode(aiNode* node, const aiScene* scene, std::vector<Mesh>& meshes);
         Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
         void ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int index);
-        std::vector<std::shared_ptr<Texture>> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string );
-
+        std::vector<std::shared_ptr<Texture>> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, TextureType texType);
     private:
         ShaderPtr m_Shader;
         MaterialPtr m_Material;
         // model data
         Mesh m_batchedMesh;
         std::string m_Directory;
+        RenderState m_attributes;
     };
 }

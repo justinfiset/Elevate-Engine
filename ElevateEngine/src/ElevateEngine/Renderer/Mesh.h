@@ -38,6 +38,7 @@ namespace Elevate
 
         inline std::shared_ptr<VertexBuffer> GetVertexBuffer() const { return m_VertexBuffer; }
         inline std::shared_ptr<IndexBuffer> GetIndexBuffer() const { return m_IndexBuffer; }
+        inline std::shared_ptr<VertexArray> GetVertexArray() const { return m_VertexArray; }
 
         inline const std::vector<std::shared_ptr<Texture>>& GetTextures() const { return m_Textures; }
 
@@ -50,49 +51,7 @@ namespace Elevate
         static Mesh GenerateQuad(float size = 1.0f);
         static Mesh GeneratePlane(float size, int resolution);
 
-        static Mesh CombineMeshes(std::vector<Mesh>& meshes)
-        {
-            size_t indexOffset = 0;
-
-            std::vector<Vertex> vertices;
-            std::vector<uint32_t> indices;
-            std::vector<std::shared_ptr<Texture>> textures;
-
-            for (const Mesh& mesh : meshes)
-            {
-                vertices.insert(
-                    vertices.end(),
-                    mesh.m_Vertices.begin(),
-                    mesh.m_Vertices.end()
-                );
-
-                for (uint32_t index : mesh.m_Indices)
-                {
-                    indices.push_back(index + (uint32_t) indexOffset);
-                }
-                indexOffset += mesh.m_Indices.size();
-                 
-                for (std::shared_ptr<Texture> tex : mesh.m_Textures)
-                {
-                    bool found = false;
-                    for (std::shared_ptr<Texture> insertedTex : textures)
-                    {
-                        if (insertedTex->GetID() == tex->GetID())
-                        {
-                            found = true;
-                            break;
-                        }
-                    }
-                    
-                    if (!found)
-                    {
-                        textures.push_back(tex);
-                    }
-                }
-            }
-
-            return Mesh(vertices, indices, textures);
-        }
+        static Mesh CombineMeshes(std::vector<Mesh>& meshes);
 
         /*
         TODO: GENERATIONS FOR THESE PRIMITIVES : 

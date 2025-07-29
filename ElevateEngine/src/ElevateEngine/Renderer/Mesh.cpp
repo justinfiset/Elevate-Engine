@@ -2,6 +2,7 @@
 #include "Mesh.h"
 
 #include <glad/glad.h>
+#include <ElevateEngine/Renderer/Texture/TextureManager.h>
 
 namespace Elevate
 {
@@ -27,6 +28,11 @@ namespace Elevate
 		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 
 		m_VertexArray->Unbind();
+
+		if (m_Textures.empty())
+		{
+			m_Textures.push_back(TextureManager::GetDefaultTexture());
+		}
 	}
 
 	Mesh* Mesh::Create(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::vector<std::shared_ptr<Texture>> textures)
@@ -38,31 +44,45 @@ namespace Elevate
 	void Mesh::Draw(std::shared_ptr<Shader> shader)
 	{
 		// bind appropriate textures
-		unsigned int diffuseNr = 1;
-		unsigned int specularNr = 1;
-		unsigned int normalNr = 1;
-		unsigned int heightNr = 1;
+		//unsigned int diffuseNr = 1;
+		//unsigned int specularNr = 1;
+		//unsigned int normalNr = 1;
+		//unsigned int heightNr = 1;
 
 		for (unsigned int i = 0; i < m_Textures.size(); i++)
 		{
+			// TODO REMOVE AND FIND OUT WHY SOME TEXTURES ARE NULL
+			if (!m_Textures[i]) continue;
+
 			// retrieve texture number (the N in diffuse_textureN)
 			std::string number;
-			std::string name = m_Textures[i]->GetType();
-			if (name == "material.diffuse")
-				number = std::to_string(diffuseNr++);
-			else if (name == "material.specular")
-				number = std::to_string(specularNr++); // transfer unsigned int to string
-			else if (name == "material.normal")
-				number = std::to_string(normalNr++); // transfer unsigned int to string
-			else if (name == "material.height")	
-				number = std::to_string(heightNr++); // transfer unsigned int to string
+			TextureType type = m_Textures[i]->GetUsage();
+			std::string uniform;
+
+			switch (type)
+			{
+			case TextureType::Diffuse:
+				uniform = "material.diffuse";
+				//number = std::to_string(diffuseNr++);
+				break;
+			case TextureType::Specular:
+				uniform = "material.specular";
+				//number = std::to_string(specularNr++); // transfer unsigned int to string
+				break;
+			case TextureType::Normal:
+				uniform = "material.normal";
+				//number = std::to_string(normalNr++); // transfer unsigned int to string
+				break;
+			case TextureType::Height:
+				uniform = "material.height";
+				//number = std::to_string(heightNr++); // transfer unsigned int to string
+				break;
+			}
 
 			// now set the sampler to the correct texture unit
-			shader->SetUniform1i((name /* + number*/).c_str(), i);
+			shader->SetUniform1i((uniform /* + number*/).c_str(), i);
 
 			// and finally bind the texture
-			glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-			glBindTexture(GL_TEXTURE_2D, m_Textures[i]->GetID());
 			m_Textures[i]->Bind(i);
 		}
 
@@ -71,7 +91,10 @@ namespace Elevate
 
 		for (unsigned int i = 0; i < m_Textures.size(); i++)
 		{
-			m_Textures[i]->Unbind(i);
+			// TODO REMOVE AND FIND OUT WHY SOME TEXTURES ARE NULL
+			if (!m_Textures[i]) continue;
+
+			m_Textures[i]->Unbind();
 		}
 	}
 
@@ -83,7 +106,7 @@ namespace Elevate
 		std::vector<uint32_t> indices;
 
 		auto addFace = [&](glm::vec3 normal, glm::vec3 v0, glm::vec3 v1, glm::vec3 v2, glm::vec3 v3) {
-			size_t startIndex = vertices.size();
+			uint32_t startIndex = (uint32_t) vertices.size();
 
 			Vertex a{ v0, normal, {0.0f, 0.0f} };
 			Vertex b{ v1, normal, {1.0f, 0.0f} };
@@ -212,30 +235,25 @@ namespace Elevate
 		return GeneratePlane(size, 1);
 	}
 
-	Mesh Mesh::GeneratePlane(float size, int resolution)
-	{
+	Mesh Mesh::GeneratePlane(float size, int resolution) {
 		std::vector<Vertex> vertices;
 		std::vector<uint32_t> indices;
 
 		float step = size / resolution;
 		float offset = size * 0.5f;
 
-		for (int i = 0; i <= resolution; i++)
-		{
-			for (int j = 0; j <= resolution; j++)
-			{
+		for (int i = 0; i <= resolution; i++) {
+			for (int j = 0; j <= resolution; j++) {
 				Vertex v;
 				v.Position = { j * step - offset, 0.0f, i * step - offset };
 				v.Normal = { 0.0f, 1.0f, 0.0f };
-				v.TexCoords = { (float) j / resolution, (float) i / resolution };
+				v.TexCoords = { (float)j / resolution, (float)i / resolution };
 				vertices.push_back(v);
 			}
 		}
 
-		for (int i = 0; i < resolution; i++)
-		{
-			for (int j = 0; j < resolution; j++)
-			{
+		for (int i = 0; i < resolution; i++) {
+			for (int j = 0; j < resolution; j++) {
 				int row1 = i * (resolution + 1);
 				int row2 = (i + 1) * (resolution + 1);
 
@@ -244,17 +262,62 @@ namespace Elevate
 				uint32_t v2 = row2 + j;
 				uint32_t v3 = row2 + j + 1;
 
-				// Creating the two triangles
 				indices.push_back(v0);
 				indices.push_back(v2);
-				indices.push_back(v3);
-
-				indices.push_back(v0);
-				indices.push_back(v3);
 				indices.push_back(v1);
+
+				indices.push_back(v1);
+				indices.push_back(v2);
+				indices.push_back(v3);
 			}
 		}
 
 		return Mesh(vertices, indices, {});
+	}
+
+	Mesh Mesh::CombineMeshes(std::vector<Mesh>& meshes)
+	{
+		size_t indexOffset = 0;
+
+		std::vector<Vertex> vertices;
+		std::vector<uint32_t> indices;
+		std::vector<std::shared_ptr<Texture>> textures;
+
+		for (const Mesh& mesh : meshes)
+		{
+			vertices.insert(
+				vertices.end(),
+				mesh.m_Vertices.begin(),
+				mesh.m_Vertices.end()
+			);
+
+			for (uint32_t index : mesh.m_Indices)
+			{
+				indices.push_back(index + (uint32_t)indexOffset);
+			}
+			indexOffset += mesh.m_Vertices.size();
+
+			for (std::shared_ptr<Texture> tex : mesh.m_Textures)
+			{
+				if (!tex) continue; // TODO FIND IF AND WHY A TEXTURE COULD BE NULL
+
+				bool found = false;
+				for (std::shared_ptr<Texture> insertedTex : textures)
+				{
+					if (insertedTex->GetNativeHandle() == tex->GetNativeHandle())
+					{
+						found = true;
+						break;
+					}
+				}
+
+				if (!found)
+				{
+					textures.push_back(tex);
+				}
+			}
+		}
+
+		return Mesh(vertices, indices, textures);
 	}
 }

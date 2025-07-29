@@ -12,6 +12,10 @@
 
 Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 {
+	m_renderState.Cullface = false;
+	m_renderState.DepthWrite = false;
+	m_renderState.DepthTest = false;
+
 	m_filePath = skyboxFilePath;
 
 	// Creating the Layout and the VertexBuffer
@@ -25,7 +29,6 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 	m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 	m_VertexArray->Unbind();
-
 
 	glGenTextures(1, &m_textureID);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
@@ -98,18 +101,12 @@ const void Elevate::Cubemap::Draw()
 
 void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader)
 {
-	bool reActiveCull = glIsEnabled(GL_CULL_FACE);
-	glDisable(GL_CULL_FACE);
+	Renderer::PushRenderState(m_renderState);
 
 	shader->Bind();
-	glDepthMask(GL_FALSE);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
 	Renderer::SubmitVertexArray(m_VertexArray);
-	glDepthMask(GL_TRUE);
-
-	if (reActiveCull) glEnable(GL_CULL_FACE);
 }
-
 
 // TODO PREVENT CODE REPETITION
 void Elevate::Cubemap::SetProjectionMatrix(glm::mat4 proj)

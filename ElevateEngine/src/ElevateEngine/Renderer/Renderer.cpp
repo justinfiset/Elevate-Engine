@@ -6,6 +6,7 @@
 
 namespace Elevate
 {
+	RenderState Renderer::s_currentState = RenderState();
 	RendererAPI* Renderer::s_API = new OpenGLRendererAPI();
 	std::unordered_set<Shader*> Renderer::s_pendingShaders;
 
@@ -46,11 +47,6 @@ namespace Elevate
 		Renderer::DrawArray(vao);
 	}
 
-	void Renderer::SubmitTrianglesArray(const std::shared_ptr<VertexArray>& vao)
-	{
-		s_API->DrawTriangles(vao);
-	}
-
 	// RENDER API STATIC WRAPPER
 	void Renderer::SetClearColor(const glm::vec4& color)
 	{
@@ -78,5 +74,25 @@ namespace Elevate
 	void Renderer::DrawStack()
 	{
 		s_API->DrawStack();
+	}
+
+	void Renderer::PushRenderState(const RenderState& newState)
+	{
+		if (newState.Cullface != s_currentState.Cullface)
+		{
+			s_API->SetCullingState(newState.Cullface);
+		}
+
+		if (newState.DepthWrite != s_currentState.DepthWrite)
+		{
+			s_API->SetDepthWrittingState(newState.DepthWrite);
+		}
+
+		if (newState.DepthTest != s_currentState.DepthTest)
+		{
+			s_API->SetDepthTestingState(newState.DepthTest);
+		}
+
+		s_currentState = newState;
 	}
 }

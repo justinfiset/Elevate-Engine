@@ -149,9 +149,9 @@ Elevate::Mesh Elevate::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
     if (mesh->mMaterialIndex >= 0)
     {
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-        std::vector<std::shared_ptr<Texture>> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, EE_TEXTURE_DIFFUSE);
+        std::vector<std::shared_ptr<Texture>> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, TextureType::Diffuse);
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-        std::vector<std::shared_ptr<Texture>> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, EE_TEXTURE_SPECULAR);
+        std::vector<std::shared_ptr<Texture>> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, TextureType::Specular);
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     }
 
@@ -200,7 +200,7 @@ void Elevate::Model::ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int i)
     }
 }
 
-std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
+std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, TextureType texType)
 {
     std::vector<std::shared_ptr<Texture>> textures;
 
@@ -226,8 +226,7 @@ std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextu
         }
         if (!skip)
         {
-            TexturePtr texture = Texture::Create(path);
-            texture->SetType(typeName);
+            TexturePtr texture = Texture::CreateFromFile(path, texType);
             textures.push_back(texture);
         }
     }
@@ -242,6 +241,7 @@ void Elevate::Model::PreRender()
 void Elevate::Model::Render()
 {
     // TODO send to render comment
+    Renderer::PushRenderState(m_attributes);
     m_Shader->Bind();
     m_Shader->UseMaterial(m_Material);
     m_Shader->SetModelMatrix(*gameObject);

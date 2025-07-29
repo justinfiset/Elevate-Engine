@@ -2,93 +2,100 @@
 #include "OpenGLRendererAPI.h"
 #include <glad/glad.h>
 
-void Elevate::OpenGLRendererAPI::SetClearColor(const glm::vec4& color) const
+namespace Elevate
 {
-	glClearColor(color.r, color.g, color.b, color.a);
-}
-
-void Elevate::OpenGLRendererAPI::SetViewport(int x, int y, int width, int height) const
-{
-	glViewport(x, y, width, height);
-}
-
-void Elevate::OpenGLRendererAPI::Clear() const
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-
-void Elevate::OpenGLRendererAPI::FlushBuffers() const
-{
-	glFlush();
-}
-
-void Elevate::OpenGLRendererAPI::DrawArray(const std::shared_ptr<VertexArray>& vao) const
-{
-	vao->Bind();
-	glDrawElements(GL_TRIANGLES, vao->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-}
-
-void Elevate::OpenGLRendererAPI::DrawStack() const
-{
-	// TODO optimize texture binding to prevent multiple binding of the same texture
-	// Batch directement en 
-	for (const auto& pair : m_MeshStack)
+	void OpenGLRendererAPI::SetClearColor(const glm::vec4& color) const
 	{
-		const auto& shader = pair.first;
-		pair.first->Bind(); // binding the shader
-		for (const auto& mesh : pair.second) 
-		{
-			// bind appropriate textures
-			unsigned int diffuseNr = 1;
-			unsigned int specularNr = 1;
-			unsigned int normalNr = 1;
-			unsigned int heightNr = 1;
+		glClearColor(color.r, color.g, color.b, color.a);
+	}
 
-			int textureCount = 0;
-			for (const auto& texture : mesh.GetTextures())
-			{
-				// todo remove verification / just a test to see if texture is the problem for fps decrease
-				if (!texture->IsBound())
-				{
-					// retrieve texture number (the N in diffuse_textureN)
-					std::string number;
-					std::string name = texture->GetType();
-					if (name == "material.diffuse")
-						number = std::to_string(diffuseNr++);
-					else if (name == "material.specular")
-						number = std::to_string(specularNr++); // transfer unsigned int to string
-					else if (name == "material.normal")
-						number = std::to_string(normalNr++); // transfer unsigned int to string
-					else if (name == "material.height")
-						number = std::to_string(heightNr++); // transfer unsigned int to string
+	void OpenGLRendererAPI::SetViewport(int x, int y, int width, int height) const
+	{
+		glViewport(x, y, width, height);
+	}
 
-					// now set the sampler to the correct texture unit
-					shader->SetUniform1i((name /* + number*/).c_str(), textureCount);
-					texture->Bind(textureCount);
+	void OpenGLRendererAPI::Clear() const
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
 
-					textureCount++;
-				}
-			}
+	void OpenGLRendererAPI::FlushBuffers() const
+	{
+		glFlush();
+	}
 
-			// todo push un vao dans un stack
-			std::shared_ptr<VertexArray> vao(Elevate::VertexArray::Create());
-			vao->AddVertexBuffer(mesh.GetVertexBuffer());
-			vao->SetIndexBuffer(mesh.GetIndexBuffer());
-			DrawArray(vao);
+	void OpenGLRendererAPI::DrawArray(const std::shared_ptr<VertexArray>& vao) const
+	{
+		vao->Bind();
+		glDrawElements(GL_TRIANGLES, vao->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+	}
 
-			// todo maybe remove le unbind car on doit rebind apres
-			for (const auto& texture : mesh.GetTextures())
-			{
-				texture->Unbind();
-			}
-			glActiveTexture(GL_TEXTURE0);
-		}
+	void OpenGLRendererAPI::DrawStack() const
+	{
+		// TODO optimize texture binding to prevent multiple binding of the same texture
+		// Batch directement en 
+		//for (const auto& pair : m_MeshStack)
+		//{
+		//	const auto& shader = pair.first;
+		//	pair.first->Bind(); // binding the shader
+		//	for (const auto& mesh : pair.second)
+		//	{
+		//		// bind appropriate textures
+		//		unsigned int diffuseNr = 1;
+		//		unsigned int specularNr = 1;
+		//		unsigned int normalNr = 1;
+		//		unsigned int heightNr = 1;
+
+		//		int textureCount = 0;
+		//		for (const auto& texture : mesh.GetTextures())
+		//		{
+		//			// todo remove verification / just a test to see if texture is the problem for fps decrease
+		//			if (!texture->IsBound())
+		//			{
+		//				// retrieve texture number (the N in diffuse_textureN)
+		//				std::string number;
+		//				std::string name = texture->GetType();
+		//				if (name == "material.diffuse")
+		//					number = std::to_string(diffuseNr++);
+		//				else if (name == "material.specular")
+		//					number = std::to_string(specularNr++); // transfer unsigned int to string
+		//				else if (name == "material.normal")
+		//					number = std::to_string(normalNr++); // transfer unsigned int to string
+		//				else if (name == "material.height")
+		//					number = std::to_string(heightNr++); // transfer unsigned int to string
+
+		//				// now set the sampler to the correct texture unit
+		//				shader->SetUniform1i((name /* + number*/).c_str(), textureCount);
+		//				texture->Bind(textureCount);
+
+		//				textureCount++;
+		//			}
+		//		}
+
+		//		DrawArray(mesh.GetVertexArray());
+
+		//		// todo maybe remove le unbind car on doit rebind apres
+		//		for (const auto& texture : mesh.GetTextures())
+		//		{
+		//			texture->Unbind();
+		//		}
+		//		glActiveTexture(GL_TEXTURE0);
+		//	}
+		//}
+	}
+
+	void OpenGLRendererAPI::SetCullingState(bool enabled) const
+	{
+		if(enabled) glEnable(GL_CULL_FACE);
+		else        glDisable(GL_CULL_FACE);
+	}
+	void OpenGLRendererAPI::SetDepthWrittingState(bool enabled) const
+	{
+		glDepthMask(enabled ? GL_TRUE : GL_FALSE);
+	}
+	void OpenGLRendererAPI::SetDepthTestingState(bool enabled) const
+	{
+		if (enabled) glEnable(GL_DEPTH_TEST);
+		else        glDisable(GL_DEPTH_TEST);
 	}
 }
-
-void Elevate::OpenGLRendererAPI::DrawTriangles(const std::shared_ptr<VertexArray>& vao) const
-{
-	vao->Bind();
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-}
-

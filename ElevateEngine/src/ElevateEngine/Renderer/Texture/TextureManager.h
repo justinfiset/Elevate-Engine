@@ -7,19 +7,18 @@ namespace Elevate
 	struct TextureLoadResult
 	{
 		unsigned char* data;
-		int width, height, channelsCount;
-		std::string path;
-		bool loaded = false;
+		TextureMetadata meta;
 	};
 
 	class TextureManager
 	{
 	public:
-		static TexturePtr LoadTexture(TexturePtr texture);
-		static TexturePtr LoadTexture(std::string& path);
+		static TexturePtr RegisterTexture(TexturePtr texture);
 
 		static TexturePtr GetTexture(const std::string& path);
 		static TexturePtr LoadTextureAsync(const std::string& path);
+
+		inline static TexturePtr GetDefaultTexture() { return  instance().m_defaultTexture; }
 
 		inline static bool IsAllLoaded() { return instance().m_loadingTextures.empty(); }
 
@@ -27,13 +26,15 @@ namespace Elevate
 	protected:
 		static void UpdateLoadingTextures();
 	private:
-		TextureManager() = default;
+		TextureManager();
 
 		static TextureManager& instance()
 		{
 			static TextureManager instance;
 			return instance;
 		}
+
+		TexturePtr m_defaultTexture;
 
 		// Async loading
 		std::vector<TextureLoadResult> m_loadingTextures;

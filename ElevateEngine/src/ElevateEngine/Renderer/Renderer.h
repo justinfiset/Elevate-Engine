@@ -3,6 +3,7 @@
 #include "Mesh.h"
 #include "Model.h"
 #include <ElevateEngine/Renderer/Shader/Shader.h>
+#include <ElevateEngine/Renderer/RenderState.h>
 
 namespace Elevate
 {
@@ -19,7 +20,6 @@ namespace Elevate
 		static void SubmitMesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh);
 
 		static void SubmitVertexArray(const std::shared_ptr<VertexArray>& vao);
-		static void SubmitTrianglesArray(const std::shared_ptr<VertexArray>& vao);
 
 		inline static RendererAPI::GraphicAPI GetAPI() { return RendererAPI::GetAPI(); }
 
@@ -30,8 +30,10 @@ namespace Elevate
 		static void SetViewport(int x, int y, int width, int height);
 		static void DrawArray(const std::shared_ptr<VertexArray>& vao);
 		static void DrawStack();
+		static void PushRenderState(const RenderState& newState);
 	private:
 		static std::unordered_set<Shader*> s_pendingShaders;
 		static RendererAPI* s_API;
+		static RenderState s_currentState;
 	};
 }

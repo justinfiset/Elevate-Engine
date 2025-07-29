@@ -14,6 +14,9 @@ namespace Elevate
 
 		virtual void DrawArray(const std::shared_ptr<VertexArray>& vao) const override;
 		virtual void DrawStack() const override;
-		virtual void DrawTriangles(const std::shared_ptr<VertexArray>& vao) const override;
+
+		virtual void SetCullingState(bool enabled) const override;
+		virtual void SetDepthWrittingState(bool enabled) const override;
+		virtual void SetDepthTestingState(bool enabled) const override;
 	};
 }

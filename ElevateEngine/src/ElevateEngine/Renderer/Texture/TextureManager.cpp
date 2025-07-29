@@ -6,34 +6,50 @@
 #include <filesystem>
 
 namespace Elevate {
-	TexturePtr Elevate::TextureManager::LoadTexture(TexturePtr texture)
+	TextureManager::TextureManager()
 	{
-		if (instance().m_Textures.count(texture->GetPath()) > 0)
-		{
-			return instance().m_Textures[texture->GetPath()];
-		}
-		else
-		{
-			instance().m_Textures[texture->GetPath()] = texture;
-			return texture;
-		}
+		//TODO : UNCOMMENT AND IMPL 
+		m_defaultTexture = Texture::CreateFromColor({ 1.0,1.0,1.0,1.0 }, "default");
+		EE_CORE_INFO("Texture Manager Initialized.");
 	}
 
-	TexturePtr TextureManager::LoadTexture(std::string& path)
+	TexturePtr Elevate::TextureManager::RegisterTexture(TexturePtr texture)
 	{
-		int width, height, channels;
-		unsigned char* data = stbi_load(path.c_str(), &width, &height, &channels, STBI_rgb_alpha);
+		std::string key;
 
-		if (!data)
+		// TODO FIN A WAY TO GET THE ABOSLUTE PATH AND TO NORMALIZE IT
+		if (texture->GetMetadata().Source == TextureSource::File)
 		{
-			EE_CORE_ERROR("Failed to load texture {}", path);
-			return nullptr;
+			if (instance().m_Textures.count(texture->GetPath()) > 0)
+			{
+				return instance().m_Textures[texture->GetPath()];
+			}
+			else
+			{
+				instance().m_Textures[texture->GetPath()] = texture;
+				return texture;
+			}
 		}
-
-		auto texture = LoadTexture(Texture::Create(data, width, height, channels, path));
-		stbi_image_free(data);
-		return texture;
+		else return texture;
 	}
+
+	// TODO REMOVE OR IMPL. BUT WE NEED TO DO SOMETHING WITH IT
+	/// FUNCTION TO LOAD AND GET A TEXTURE SYNCED WITH THE CURRENT THREAD
+	//TexturePtr TextureManager::RegisterTexture(std::string& path)
+	//{
+	//	int width, height, channels;
+	//	unsigned char* data = stbi_load(path.c_str(), &width, &height, &channels, STBI_rgb_alpha);
+
+	//	if (!data)
+	//	{
+	//		EE_CORE_ERROR("Failed to load texture {}", path);
+	//		return nullptr;
+	//	}
+
+	//	auto texture = AddOrGetTexture(Texture::CreateFromData(data, width, height, (TextureFormat) channels, path));
+	//	stbi_image_free(data);
+	//	return texture;
+	//}
 
 	TexturePtr TextureManager::GetTexture(const std::string& path)
 	{
@@ -49,30 +65,49 @@ namespace Elevate {
 		EE_CORE_TRACE(absPath);
 
 		// If the texture is already loading, or already loaded, return and cancel
-		if (!GetTexture(absPath))
+		TexturePtr tex = GetTexture(absPath);
+		if (!tex)
 		{
 			for (TextureLoadResult& res : instance().m_loadingTextures) {
-				if (res.path == absPath)
+				if (res.meta.Path == absPath)
 				{
+					// todo: change, should return an empty texture placeholder
 					return nullptr;
 				}
 			}
 		}
+		else
+		{
+			return tex;
+		}
 
 		// Creation of a blank texture
-		TexturePtr tex = Texture::Create(nullptr, 0, 0, 0, absPath);
-		instance().m_Textures[path] = tex;
+		TextureMetadata meta = {
+			fsPath.filename().string(), absPath, 0, 0,
+			0, TextureFormat::EMPTY, TextureType::Diffuse,
+			TextureSource::File, TextureState::Unloaded
+		};
+		tex = Texture::CreateFromData(nullptr, meta);
+
+		// Add the texture to the list of textures
+		instance().m_Textures[absPath] = tex;
 
 		TextureLoadResult res;
-
-		res.path = absPath; // Store the absolute path in the result (security for the map later on)
+		res.meta = meta;
 
 		// Get the texture data async with stbi_load
 		std::thread([res]() mutable {
-				res.data = stbi_load(res.path.c_str(), &res.width, &res.height, &res.channelsCount, STBI_rgb_alpha);
+				TextureMetadata& resMeta = res.meta;
+
+				int width, height, channels;
+				res.data = stbi_load(resMeta.Path.c_str(), &width, &height, &channels, STBI_rgb_alpha);
+
+				resMeta.Width = static_cast<uint32_t>(width);
+				resMeta.Height = static_cast<uint32_t>(height);
+				resMeta.Channels = static_cast<uint8_t>(channels);
 
 				std::lock_guard<std::mutex> lock(instance().m_textureMutex);
-				res.loaded = (res.data != nullptr); // Loaded if the texture is not null
+				res.meta.State = (res.data != nullptr) ? TextureState::Loaded : TextureState::Failed;
 				instance().m_loadingTextures.push_back(res);
 			}
 		).detach();
@@ -88,13 +123,12 @@ namespace Elevate {
 		auto it = manager.m_loadingTextures.begin();
 		while (it != manager.m_loadingTextures.end())
 		{
-			if (it->loaded)
+			if (it->meta.State == TextureState::Loaded)
 			{
-				EE_CORE_INFO(it->path);
-				
-				if (manager.m_Textures.count(it->path))
+				if (manager.m_Textures.count(it->meta.Path))
 				{
-					manager.m_Textures[it->path]->SetData(it->data, it->width, it->height, it->channelsCount);
+					EE_CORE_INFO(it->meta.Path);
+					manager.m_Textures[it->meta.Path]->SetData(it->data, it->meta);
 					stbi_image_free(it->data);
 					it->data = nullptr;
 				}

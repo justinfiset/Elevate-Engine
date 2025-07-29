@@ -43,10 +43,10 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
     int index = 0;
 
     if (m_CurrentPath != ".") {
-        TexturePtr texture = Texture::Create(m_FileMetadata["DIRECTORY"].iconPath);
+        TexturePtr texture = Texture::CreateFromFile(m_FileMetadata["DIRECTORY"].iconPath);
         ImGui::PushID(index);
         ImGui::BeginGroup();
-        ImGui::ImageButton("back", (ImTextureID)(intptr_t)texture->GetID(), buttonSize);
+        ImGui::ImageButton("back", (ImTextureID) texture->GetNativeHandle(), buttonSize);
 
         if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
             m_CurrentPath = m_CurrentPath.parent_path();
@@ -64,12 +64,10 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
     int id = 0;
     for (FileItem item : m_FileItems)
     {
-        TexturePtr texture = Texture::Create(item.iconPath);
-
         ImGui::PushID(index);
         ImGui::BeginGroup();
 
-        if (ImGui::ImageButton("file_item", (ImTextureID)(intptr_t)texture->GetID(), buttonSize)) { }
+        if (ImGui::ImageButton("file_item", (ImTextureID) m_currentTextures[item.iconPath]->GetNativeHandle(), buttonSize)) {}
 
         if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
             if (item.type == Directory) {
@@ -100,6 +98,8 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
 {
     m_FileItems.clear();
+    m_currentTextures.clear();
+
     for (const auto& entry : fs::directory_iterator(m_CurrentPath)) {
         FileMetadata meta;
         std::string ext = "";
@@ -133,6 +133,7 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
             fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, meta.iconPath, meta.type);
         }
         
+        m_currentTextures[fileItem.iconPath] = Texture::CreateFromFile(fileItem.iconPath);
         m_FileItems.push_back(fileItem);
     }
 }

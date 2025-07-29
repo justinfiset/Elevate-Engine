@@ -37,8 +37,8 @@ namespace Elevate::Editor
         CreateWidget<HierarchyPanel>();
         CreateWidget<ScenePanel>();
         CreateWidget<AnalyserPanel>();
-        CreateWidget<StatisticsPanel>();
         CreateWidget<AssetBrowserPanel>();
+        CreateWidget<StatisticsPanel>();
     }
 
     void EditorLayer::OnAttach()
@@ -62,6 +62,10 @@ namespace Elevate::Editor
         // Grid
         m_GridObject = GameObject::Create("Editor Grid", m_EditorScene);
         Model& gridModel = m_GridObject->AddComponent<Model>(PrimitiveType::Quad);
+        RenderState& state = gridModel.GetRenderState();
+        state.Cullface = false;
+        state.DepthWrite = true;
+        state.DepthTest = true;
         gridModel.SetShader(m_GridShader);
         m_GridObject->SetScale({ 50, 50, 50 });
 
@@ -189,18 +193,18 @@ namespace Elevate::Editor
         ImGui::Begin("Toolbar", nullptr, toolbarFlags);
 
         ImGui::SetCursorPosX(viewport->Size.x / 2 - toolbarHeight);
-        TexturePtr playTexture = Texture::Create("./editor/icons/light/play.png");
+        TexturePtr playTexture = Texture::CreateFromFile("./editor/icons/light/play.png");
         ImGui::BeginDisabled(Application::GameState() == GameContextState::Runtime);
-        if (ImGui::ImageButton("Play", (ImTextureID)(intptr_t)playTexture->GetID(), ImVec2(32, 32)))
+        if (ImGui::ImageButton("Play", (ImTextureID) playTexture->GetNativeHandle(), ImVec2(32, 32)))
         {
             Application::SetGameState(GameContextState::Runtime);
         }
         ImGui::EndDisabled();
 
         ImGui::SameLine();
-        TexturePtr pauseTexture = Texture::Create("./editor/icons/light/pause.png");
+        TexturePtr pauseTexture = Texture::CreateFromFile("./editor/icons/light/pause.png");
         ImGui::BeginDisabled(Application::GameState() != GameContextState::Runtime);
-        if (ImGui::ImageButton("Pause", (ImTextureID)(intptr_t)pauseTexture->GetID(), ImVec2(32, 32)))
+        if (ImGui::ImageButton("Pause", (ImTextureID) pauseTexture->GetNativeHandle(), ImVec2(32, 32)))
         {
             Application::SetGameState(GameContextState::Paused);
         }

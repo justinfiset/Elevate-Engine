@@ -44,7 +44,6 @@ void Elevate::OpenGLFrameBuffer::Unbind() const
 
 void Elevate::OpenGLFrameBuffer::Clear() const
 {
-	glEnable(GL_DEPTH_TEST);
 	Elevate::Renderer::SetClearColor({ m_ClearColor.r, m_ClearColor.g, m_ClearColor.b, m_ClearColor.a });
 	Elevate::Renderer::Clear();
 }
