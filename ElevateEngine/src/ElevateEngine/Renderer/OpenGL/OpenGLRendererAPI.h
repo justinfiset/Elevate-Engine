@@ -2,6 +2,11 @@
 
 #include "ElevateEngine/Renderer/RendererAPI.h"
 
+// TODO REMOVE C'EST POUR DEBUG ONLY
+#define GLCheck(x) \
+    x; \
+    { GLenum err = glGetError(); if (err != GL_NO_ERROR) EE_CORE_ERROR("OpenGL Error {} at {}:{}", err, __FILE__, __LINE__); }
+
 namespace Elevate
 {
 	class OpenGLRendererAPI : public RendererAPI

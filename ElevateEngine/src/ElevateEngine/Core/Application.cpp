@@ -19,6 +19,7 @@ namespace Elevate {
 
 	Application::Application()
 	{
+		EE_CORE_TRACE("Application()");
 		EE_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
@@ -89,18 +90,12 @@ namespace Elevate {
 
 				TextureManager::UpdateLoadingTextures();
 
-				//ImGui
-				m_ImGuiLayer->PreRender();
-				m_ImGuiLayer->Begin();
+				m_FrameBuffer->Bind(); // Rendering the screen in a single texture
+				m_FrameBuffer->Clear();
+
 
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate();
-
-				for (Layer* layer : m_LayerStack)
-					layer->OnImGuiRender();
-
-				m_FrameBuffer->Bind(); // Rendering the screen in a single texture
-				m_FrameBuffer->Clear();
 
 				// Draw Layers and Scenes
 				for (Layer* layer : m_LayerStack)
@@ -108,8 +103,15 @@ namespace Elevate {
 
 				m_FrameBuffer->Unbind(); // Back to normal
 
-				m_ImGuiLayer->Render(); // Render ImGui
-				m_ImGuiLayer->End(); // Finish the ImGui Rendering
+				//imgui
+				m_ImGuiLayer->PreRender();
+				m_ImGuiLayer->Begin();
+
+				for (Layer* layer : m_LayerStack)
+					layer->OnImGuiRender();
+				
+				m_ImGuiLayer->Render(); // render imgui
+				m_ImGuiLayer->End(); // finish the imgui rendering
 
 				Input::ManageMidStates(); // Manage Key/Button up and down state
 

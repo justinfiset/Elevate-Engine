@@ -16,71 +16,45 @@ namespace Elevate
 
 Elevate::Model::Model(PrimitiveType type) : Model("", nullptr)
 {
-    Mesh mesh;
-
     switch (type)
     {
     case PrimitiveType::Cube:
-        mesh = Mesh::GenerateCube(1.0f);
+        m_batchedMesh = Mesh::GenerateCube(1.0f);
         break;
     case PrimitiveType::UVSphere:
-        mesh = Mesh::GenerateUVSphere(1.0f, 36, 18);
+        m_batchedMesh = Mesh::GenerateUVSphere(1.0f, 36, 18);
         break;
     case PrimitiveType::Cubesphere:
     case PrimitiveType::Icosphere:
     case PrimitiveType::Cylinder:
     case PrimitiveType::Capsule:
     case PrimitiveType::Plane:
-        mesh = Mesh::GeneratePlane(1.0f, 1);
+        m_batchedMesh = Mesh::GeneratePlane(1.0f, 1);
         break;
     case PrimitiveType::Quad:
-        mesh = Mesh::GenerateQuad(1.0f);
+        m_batchedMesh = Mesh::GenerateQuad(1.0f);
         break;
     case PrimitiveType::Torus:
     default:
         EE_CORE_ASSERT(false, "Unsupported primitive shape given for mesh creation.");
         break;
     }
-
-    m_batchedMesh = mesh;
 }
-
-Elevate::Model::Model(std::string path) : Model(path, nullptr) { }
-
-Elevate::Model::Model(std::string path, ShaderPtr shader) : Model(path, shader, nullptr) { }
 
 Elevate::Model::Model(std::string path, ShaderPtr shader, MaterialPtr material)
 {
-    if (shader)
-    {
-        SetShader(shader);
-    }
-    else
-    {
-        SetShader(ShaderManager::GetShader("default"));
-    }
+    SetShader(shader ? shader : ShaderManager::GetShader("default"));
+    SetMaterial(material ? material : std::make_shared<Material>());
 
-    if (material)
-    {
-        SetMaterial(material);
-    }
-    else 
-    {
-        // TODO GET A DEFAULT PTR FROM SOMEWHERE LIKE A MATERIAL MANAGER OR LIBRARY
-        SetMaterial(std::make_shared<Material>());
-    }
-
-    if (path.length() > 0)
-    {
+    if (!path.empty())
         LoadModel(path);
-    }
 }
 
 void Elevate::Model::LoadModel(std::string path)
 {
     // Importing the scene
     Assimp::Importer import;
-    const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_GenNormals);
+    const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_OptimizeMeshes | aiProcess_ImproveCacheLocality);
 
     // Error checking and exception catcher
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -91,48 +65,38 @@ void Elevate::Model::LoadModel(std::string path)
     m_Directory = path.substr(0, path.find_last_of('/')); // Used to get the textures afterward
 
     // Recursive method to process all the nodes in the model
+    MeshData data;
     std::vector<Mesh> meshes;
-    ProcessNode(scene->mRootNode, scene, meshes);
+    ProcessNode(scene->mRootNode, scene, data);
 
-    if (!meshes.empty()) 
-    {
-        m_batchedMesh = Mesh::CombineMeshes(meshes);
-    }
-    else 
-    {
-        EE_CORE_WARN("(Model loader) : No meshes found in node : {}.", path);
-    }
-
-    Renderer::SubmitModel(*this);
+    m_batchedMesh = Mesh(data);
 }
 
-void Elevate::Model::ProcessNode(aiNode* node, const aiScene* scene, std::vector<Mesh>& meshes)
+void Elevate::Model::ProcessNode(aiNode* node, const aiScene* scene, MeshData& data)
 {
     // process all the node's MESHES (if any)
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        meshes.push_back(ProcessMesh(mesh, scene));
+        ProcessMesh(mesh, scene, data);
     }
     // then do the same for each of its CHILDREN(S)
     for (unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        ProcessNode(node->mChildren[i], scene, meshes); // Continue till we run out of childrens
+        ProcessNode(node->mChildren[i], scene, data); // Continue till we run out of childrens
     }
 }
 
-Elevate::Mesh Elevate::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+void Elevate::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, MeshData& data)
 {
-    std::vector<Vertex> vertices;
-    std::vector<unsigned int> indices;
-    std::vector<std::shared_ptr<Texture>> textures;
+    uint32_t offset = (uint32_t) data.Vertices.size();
 
     // Process vertices
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
         Vertex vertex;
         ExtractMeshVertex(mesh, vertex, i);
-        vertices.push_back(vertex);
+        data.Vertices.emplace_back(vertex);
     }
 
     // process indices
@@ -141,7 +105,7 @@ Elevate::Mesh Elevate::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         aiFace face = mesh->mFaces[i];
         for (unsigned int j = 0; j < face.mNumIndices; j++)
         {
-            indices.push_back(face.mIndices[j]);
+            data.Indices.emplace_back(face.mIndices[j] + offset);
         }
     }
 
@@ -149,13 +113,9 @@ Elevate::Mesh Elevate::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
     if (mesh->mMaterialIndex >= 0)
     {
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-        std::vector<std::shared_ptr<Texture>> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, TextureType::Diffuse);
-        textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-        std::vector<std::shared_ptr<Texture>> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, TextureType::Specular);
-        textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+        LoadMaterialTextures(material, aiTextureType_DIFFUSE, TextureType::Diffuse, data);
+        LoadMaterialTextures(material, aiTextureType_SPECULAR, TextureType::Specular, data);
     }
-
-    return Mesh(vertices, indices, textures);
 }
 
 void Elevate::Model::ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int i)
@@ -200,37 +160,30 @@ void Elevate::Model::ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int i)
     }
 }
 
-std::vector<std::shared_ptr<Elevate::Texture>> Elevate::Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, TextureType texType)
+void Elevate::Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data)
 {
-    std::vector<std::shared_ptr<Texture>> textures;
-
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
     {
         aiString str;
         mat->GetTexture(type, i, &str);
 
         std::string path = str.C_Str();
-        size_t lastSlash = path.find_last_of("/\\");
-        if (lastSlash != std::string::npos) {
-            path = path.substr(lastSlash + 1);
-        }
 
         bool skip = false;
-        for (unsigned int j = 0; j < textures.size(); j++)
+        for (TexturePtr tex : data.Textures)
         {
-            if (textures[j]->MatchesPath(path)) {
-                textures.push_back(textures[j]);
+            if (tex->MatchesPath(path))
+            {
                 skip = true;
                 break;
             }
         }
+            
         if (!skip)
         {
-            TexturePtr texture = Texture::CreateFromFile(path, texType);
-            textures.push_back(texture);
+            data.Textures.emplace_back(Texture::CreateFromFile(path, texType));
         }
     }
-    return textures;
 }
 
 void Elevate::Model::PreRender()

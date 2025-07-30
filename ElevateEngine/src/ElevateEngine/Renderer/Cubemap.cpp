@@ -10,118 +10,117 @@
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
 
+// TODO PUT IN ANOTHER FILE W/ ONLY WHEN DEUBGGING
+#ifdef EE_DEBUG
+#define GLCheck(x) \
+        x; \
+        { GLenum err = glGetError(); \
+          if (err != GL_NO_ERROR) EE_CORE_ERROR("OpenGL Error {} at {}:{}", err, __FILE__, __LINE__); }
+#else
+#define GLCheck(x) x
+#endif
+
 Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 {
-	m_renderState.Cullface = false;
-	m_renderState.DepthWrite = false;
-	m_renderState.DepthTest = false;
+    m_renderState.Cullface = false;
+    m_renderState.DepthWrite = false;
+    m_renderState.DepthTest = false;
 
-	m_filePath = skyboxFilePath;
+    m_filePath = skyboxFilePath;
 
-	// Creating the Layout and the VertexBuffer
-	m_VertexBuffer.reset(Elevate::VertexBuffer::Create(&s_skyboxVertices[0], sizeof(s_skyboxVertices)));
-	// Creating the layout sent to the shader and the layout of the buffer
-	m_VertexBuffer->SetLayout({ // The layout is based on the Vertex struct (see Vertex.h)
-		{ Elevate::ShaderDataType::Float3, "a_Position" },
-	});
-	m_IndexBuffer.reset(Elevate::IndexBuffer::Create(&s_skyboxIndices[0], sizeof(s_skyboxIndices) / sizeof(unsigned int)));
-	m_VertexArray.reset(VertexArray::Create());
-	m_VertexArray->AddVertexBuffer(m_VertexBuffer);
-	m_VertexArray->SetIndexBuffer(m_IndexBuffer);
-	m_VertexArray->Unbind();
+    // Vertex & Index Buffers
+    m_VertexBuffer.reset(Elevate::VertexBuffer::Create(&s_skyboxVertices[0], sizeof(s_skyboxVertices)));
+    m_VertexBuffer->SetLayout({
+        { Elevate::ShaderDataType::Float3, "a_Position" },
+        });
 
-	glGenTextures(1, &m_textureID);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
+    m_IndexBuffer.reset(Elevate::IndexBuffer::Create(&s_skyboxIndices[0], sizeof(s_skyboxIndices) / sizeof(unsigned int)));
+    m_VertexArray.reset(VertexArray::Create());
+    m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+    m_VertexArray->SetIndexBuffer(m_IndexBuffer);
+    m_VertexArray->Unbind();
 
-	int width, height, nrChannels;
-	for (int i = 0; i < 6; i++)
-	{
-		unsigned char* data = stbi_load(paths[i].c_str(), &width, &height, &nrChannels, 0);
-		if (data)
-		{
-			// note that the awesomeface.png has transparency and thus an alpha channel, so make sure to tell OpenGL the data type is of GL_RGBA
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-			glGenerateMipmap(GL_TEXTURE_2D);
-		}
-		else
-		{
-			EE_CORE_TRACE("Unable to load cubemap texture [{0}] : {1}", i, paths[i].c_str());
-		}
-		stbi_image_free(data);
-	}
+    // Texture
+    GLCheck(glGenTextures(1, &m_textureID));
+    GLCheck(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));
 
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    int width, height, nrChannels;
+    for (int i = 0; i < 6; i++)
+    {
+        unsigned char* data = stbi_load(paths[i].c_str(), &width, &height, &nrChannels, 0);
+        if (data)
+        {
+            GLCheck(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data));
+        }
+        else
+        {
+            EE_CORE_TRACE("Unable to load cubemap texture [{}] : {}", i, paths[i].c_str());
+        }
+        stbi_image_free(data);
+    }
+    GLCheck(glGenerateMipmap(GL_TEXTURE_CUBE_MAP));
 
-	// We load the shaders from the files in the solution as this shader is rarely modified by the user
-	std::string vert = 
-		#include "ElevateEngine/Renderer/Cubemap/skybox.vert"
-	;
-	std::string frag = 
-		#include "ElevateEngine/Renderer/Cubemap/skybox.frag"
-	;
-	m_cubemapShader = Elevate::Shader::Create(vert, frag);
+    GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+    GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+    GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+    GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+    GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE));
+
+    // Shaders
+    std::string vert =
+#include "ElevateEngine/Renderer/Cubemap/skybox.vert"
+        ;
+    std::string frag =
+#include "ElevateEngine/Renderer/Cubemap/skybox.frag"
+        ;
+    m_cubemapShader = Elevate::Shader::Create(vert, frag);
 }
 
-// TODO USE CUSTOM LOADER INSTEADD OF REPETITIVE CODE
 Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(std::string filePath)
 {
-	///////////////
-	FILE* fp = fopen(filePath.c_str(), "r");
-	char readBuffer[65536];
-	rapidjson::FileReadStream is(fp, readBuffer,
-		sizeof(readBuffer));
-	rapidjson::Document doc;
-	doc.ParseStream(is);
+    FILE* fp = fopen(filePath.c_str(), "r");
+    char readBuffer[65536];
+    rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+    rapidjson::Document doc;
+    doc.ParseStream(is);
+    fclose(fp);
 
-	fclose(fp);
-	////////////////
+    std::string paths[6] =
+    {
+        doc["right"].GetString(),
+        doc["left"].GetString(),
+        doc["up"].GetString(),
+        doc["down"].GetString(),
+        doc["front"].GetString(),
+        doc["back"].GetString()
+    };
 
-	// TODO: add error handling to make sure all required members are present in the file
-	std::string paths[6] =
-	{
-		doc["right"].GetString(),
-		doc["left"].GetString(),
-		doc["up"].GetString(),
-		doc["down"].GetString(),
-		doc["front"].GetString(),
-		doc["back"].GetString()
-	};
-
-	return new Cubemap(paths, filePath);
-}
-
-const void Elevate::Cubemap::Draw()
-{
-	this->Draw(m_cubemapShader);
+    return new Cubemap(paths, filePath);
 }
 
 void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader)
 {
-	Renderer::PushRenderState(m_renderState);
+    if (!shader) shader = m_cubemapShader;
 
-	shader->Bind();
-	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
-	Renderer::SubmitVertexArray(m_VertexArray);
+    Renderer::PushRenderState(m_renderState);
+    shader->Bind();
+    GLCheck(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));
+    Renderer::DrawArray(m_VertexArray);
 }
 
-// TODO PREVENT CODE REPETITION
 void Elevate::Cubemap::SetProjectionMatrix(glm::mat4 proj)
 {
-	m_cubemapShader->Bind();
-	m_cubemapShader->SetUniformMatrix4fv("projection", proj);
+    m_cubemapShader->Bind();
+    m_cubemapShader->SetUniformMatrix4fv("projection", proj);
 }
 
 void Elevate::Cubemap::SetViewMatrix(glm::mat4 view)
 {
-	m_cubemapShader->Bind();
-	m_cubemapShader->SetUniformMatrix4fv("view", view);
+    m_cubemapShader->Bind();
+    m_cubemapShader->SetUniformMatrix4fv("view", view);
 }
 
 std::string Elevate::Cubemap::GetFilePath()
 {
-	return m_filePath;
+    return m_filePath;
 }

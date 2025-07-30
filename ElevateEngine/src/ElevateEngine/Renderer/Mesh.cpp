@@ -3,6 +3,7 @@
 
 #include <glad/glad.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
+#include <ElevateEngine/Renderer/Renderer.h>
 
 namespace Elevate
 {
@@ -18,7 +19,7 @@ namespace Elevate
 			{ ShaderDataType::Float2, "a_TexCord" },
 			{ ShaderDataType::Float3, "a_Tangent" },
 			{ ShaderDataType::Float3, "a_Bitangent" }
-			});
+		});
 
 		//Creating the IndexBuffer (containing indices)
 		m_IndexBuffer.reset(IndexBuffer::Create(&indices[0], (uint32_t)indices.size()));
@@ -54,40 +55,39 @@ namespace Elevate
 			// TODO REMOVE AND FIND OUT WHY SOME TEXTURES ARE NULL
 			if (!m_Textures[i]) continue;
 
-			// retrieve texture number (the N in diffuse_textureN)
-			std::string number;
-			TextureType type = m_Textures[i]->GetUsage();
-			std::string uniform;
+			//// retrieve texture number (the N in diffuse_textureN)
+			//std::string number;
+			//TextureType type = m_Textures[i]->GetUsage();
+			//std::string uniform;
 
-			switch (type)
-			{
-			case TextureType::Diffuse:
-				uniform = "material.diffuse";
-				//number = std::to_string(diffuseNr++);
-				break;
-			case TextureType::Specular:
-				uniform = "material.specular";
-				//number = std::to_string(specularNr++); // transfer unsigned int to string
-				break;
-			case TextureType::Normal:
-				uniform = "material.normal";
-				//number = std::to_string(normalNr++); // transfer unsigned int to string
-				break;
-			case TextureType::Height:
-				uniform = "material.height";
-				//number = std::to_string(heightNr++); // transfer unsigned int to string
-				break;
-			}
+			//switch (type)
+			//{
+			//case TextureType::Diffuse:
+			//	uniform = "material.diffuse";
+			//	//number = std::to_string(diffuseNr++);
+			//	break;
+			//case TextureType::Specular:
+			//	uniform = "material.specular";
+			//	//number = std::to_string(specularNr++); // transfer unsigned int to string
+			//	break;
+			//case TextureType::Normal:
+			//	uniform = "material.normal";
+			//	//number = std::to_string(normalNr++); // transfer unsigned int to string
+			//	break;
+			//case TextureType::Height:
+			//	uniform = "material.height";
+			//	//number = std::to_string(heightNr++); // transfer unsigned int to string
+			//	break;
+			//}
 
-			// now set the sampler to the correct texture unit
-			shader->SetUniform1i((uniform /* + number*/).c_str(), i);
+			//// now set the sampler to the correct texture unit
+			//shader->SetUniform1i((uniform /* + number*/).c_str(), i);
 
 			// and finally bind the texture
 			m_Textures[i]->Bind(i);
 		}
 
-		m_VertexArray->Bind();
-		glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, 0);
+		Renderer::DrawArray(m_VertexArray);
 
 		for (unsigned int i = 0; i < m_Textures.size(); i++)
 		{

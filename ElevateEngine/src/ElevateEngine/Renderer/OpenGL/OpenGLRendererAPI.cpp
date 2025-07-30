@@ -27,11 +27,12 @@ namespace Elevate
 	void OpenGLRendererAPI::DrawArray(const std::shared_ptr<VertexArray>& vao) const
 	{
 		vao->Bind();
-		glDrawElements(GL_TRIANGLES, vao->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		GLCheck(glDrawElements(GL_TRIANGLES, vao->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr));
 	}
 
 	void OpenGLRendererAPI::DrawStack() const
 	{
+		// TODO EITHER IMPL OR REMOVE
 		// TODO optimize texture binding to prevent multiple binding of the same texture
 		// Batch directement en 
 		//for (const auto& pair : m_MeshStack)

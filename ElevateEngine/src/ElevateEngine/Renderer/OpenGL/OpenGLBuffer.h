@@ -25,7 +25,7 @@ namespace Elevate
 	class OpenGLIndexBuffer : public IndexBuffer
 	{
 	public:
-		OpenGLIndexBuffer(void* indices, unsigned int count);
+		OpenGLIndexBuffer(void* indices, uint32_t count);
 		virtual ~OpenGLIndexBuffer();
 
 		virtual unsigned int GetCount() const { return m_Count; }

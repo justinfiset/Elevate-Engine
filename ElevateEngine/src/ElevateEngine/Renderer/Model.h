@@ -19,9 +19,7 @@ namespace Elevate
         COMPONENT_LAYOUT({});
         Model() = default;
         Model(PrimitiveType type);
-        Model(std::string path);
-        Model(std::string path, ShaderPtr shader);
-        Model(std::string path, ShaderPtr shader, MaterialPtr material);
+        Model(std::string path, ShaderPtr shader = nullptr, MaterialPtr material = nullptr);
 
         // TODO : should change the shader in the renderer
         inline void SetShader(ShaderPtr newShader) { m_Shader = newShader; }
@@ -35,10 +33,10 @@ namespace Elevate
         RenderState& GetRenderState() { return m_attributes; }
     private:
         void LoadModel(std::string path);
-        void ProcessNode(aiNode* node, const aiScene* scene, std::vector<Mesh>& meshes);
-        Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
+        void ProcessNode(aiNode* node, const aiScene* scene, MeshData& data);
+        void ProcessMesh(aiMesh* mesh, const aiScene* scene, MeshData& data);
         void ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int index);
-        std::vector<std::shared_ptr<Texture>> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, TextureType texType);
+        void LoadMaterialTextures(aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data);
     private:
         ShaderPtr m_Shader;
         MaterialPtr m_Material;

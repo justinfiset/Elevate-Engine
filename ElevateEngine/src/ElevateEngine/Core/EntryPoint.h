@@ -9,6 +9,7 @@ int main(int argc, char** argv) {
     EE_CORE_TRACE("Logger Initialized.");
 
     auto app = Elevate::CreateApplication();
+    EE_CORE_TRACE("Application Initialized.");
     app->Run();
     delete app;
 }

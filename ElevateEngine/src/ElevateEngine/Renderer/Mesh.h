@@ -14,7 +14,7 @@ namespace Elevate
     struct MeshData {
         std::vector<Vertex> Vertices;
         std::vector<uint32_t> Indices;
-        std::vector<Texture*> Textures;
+        std::vector<TexturePtr> Textures;
     };
 
     enum class PrimitiveType : uint8_t
@@ -33,6 +33,7 @@ namespace Elevate
     class Mesh {
     public:
         Mesh() = default;
+        Mesh(const MeshData& data) : Mesh(data.Vertices, data.Indices, data.Textures) { }
         Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::vector<std::shared_ptr<Texture>> textures);
         static Mesh* Create(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::vector<std::shared_ptr<Texture>> textures);
 

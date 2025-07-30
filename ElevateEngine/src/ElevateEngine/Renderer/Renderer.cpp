@@ -71,6 +71,7 @@ namespace Elevate
 	{
 		s_API->DrawArray(vao);
 	}
+
 	void Renderer::DrawStack()
 	{
 		s_API->DrawStack();

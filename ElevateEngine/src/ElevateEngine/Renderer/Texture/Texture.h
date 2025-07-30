@@ -45,15 +45,16 @@ namespace Elevate
 
 	struct TextureMetadata
 	{
-		std::string Name;                           // Logical name -> for display purposes
-		std::string Path;                           // The absolute file path
-		uint32_t Width = 0;                         // Width in px
-		uint32_t Height = 0;                        // Height in px
-		uint8_t Channels = 0;                       // 3 for rgb, 4 for rgba
-		TextureFormat Format = TextureFormat::RGB;  // ex: EE_RGB, EE_RGBA
-		TextureType Usage = TextureType::Diffuse;   // ex: Diffuse, Specular...
-		TextureSource Source = TextureSource::File; // Loaded from a file, generated or from a framebuffer
-		TextureState State = TextureState::Unloaded;
+		std::string Name;                            // Logical name -> for display purposes
+		std::string Path;                            // The absolute file path
+		uint32_t Width = 0;                          // Width in px
+		uint32_t Height = 0;                         // Height in px
+		uint8_t Channels = 0;                        // 3 for rgb, 4 for rgba
+		TextureFormat Format = TextureFormat::RGB;   // ex: EE_RGB, EE_RGBA
+		TextureType Usage = TextureType::Diffuse;    // ex: Diffuse, Specular...
+		TextureSource Source = TextureSource::File;  // Loaded from a file, generated or from a framebuffer
+		TextureState State = TextureState::Unloaded; // General state of the texxture, unloaded, loaded, failed etc.
+		uint32_t Layer = 0;                          // Default: 0 -> Used for cubemap faces, texture arrays, etc.
 		// TODO IMPL : bool GenerateMipmaps = true;
 
 		TextureMetadata() = default;

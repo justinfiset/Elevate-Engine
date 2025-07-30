@@ -19,8 +19,7 @@ namespace Elevate
 
         static Cubemap* CreateFromFile(std::string filePath);
 
-        const void Draw();
-        void Draw(std::shared_ptr<Shader> shader);
+        void Draw(std::shared_ptr<Shader> shader = nullptr);
 
         void SetProjectionMatrix(glm::mat4 data);
         void SetViewMatrix(glm::mat4 data);

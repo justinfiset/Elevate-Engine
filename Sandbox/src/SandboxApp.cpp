@@ -177,6 +177,7 @@ class Sandbox : public Elevate::Application
 public:
     Sandbox() 
     {
+        EE_CORE_TRACE("Sandbox()");
         PushLayer(new DebugLayer());
         PushLayer(new Elevate::Editor::EditorLayer()); // TODO AUTOMATISER SI ON EST DANS L'ÉDITEUR, NE PAS METTRE POUR UNE APP
     }

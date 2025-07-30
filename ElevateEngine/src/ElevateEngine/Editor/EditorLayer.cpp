@@ -28,7 +28,8 @@ namespace Elevate::Editor
     EditorLayer::EditorLayer()
     {
         s_Instance = this;
-
+        m_playTexture = Texture::CreateFromFile("./editor/icons/light/play.png");
+        m_pauseTexture = Texture::CreateFromFile("./editor/icons/light/pause.png");
         InitUI();
     }
 
@@ -193,18 +194,16 @@ namespace Elevate::Editor
         ImGui::Begin("Toolbar", nullptr, toolbarFlags);
 
         ImGui::SetCursorPosX(viewport->Size.x / 2 - toolbarHeight);
-        TexturePtr playTexture = Texture::CreateFromFile("./editor/icons/light/play.png");
         ImGui::BeginDisabled(Application::GameState() == GameContextState::Runtime);
-        if (ImGui::ImageButton("Play", (ImTextureID) playTexture->GetNativeHandle(), ImVec2(32, 32)))
+        if (ImGui::ImageButton("Play", (ImTextureID) m_playTexture->GetNativeHandle(), ImVec2(32, 32)))
         {
             Application::SetGameState(GameContextState::Runtime);
         }
         ImGui::EndDisabled();
 
         ImGui::SameLine();
-        TexturePtr pauseTexture = Texture::CreateFromFile("./editor/icons/light/pause.png");
         ImGui::BeginDisabled(Application::GameState() != GameContextState::Runtime);
-        if (ImGui::ImageButton("Pause", (ImTextureID) pauseTexture->GetNativeHandle(), ImVec2(32, 32)))
+        if (ImGui::ImageButton("Pause", (ImTextureID) m_pauseTexture->GetNativeHandle(), ImVec2(32, 32)))
         {
             Application::SetGameState(GameContextState::Paused);
         }
