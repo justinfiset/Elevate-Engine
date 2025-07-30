@@ -10,15 +10,7 @@
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
 
-// TODO PUT IN ANOTHER FILE W/ ONLY WHEN DEUBGGING
-#ifdef EE_DEBUG
-#define GLCheck(x) \
-        x; \
-        { GLenum err = glGetError(); \
-          if (err != GL_NO_ERROR) EE_CORE_ERROR("OpenGL Error {} at {}:{}", err, __FILE__, __LINE__); }
-#else
-#define GLCheck(x) x
-#endif
+#include <ElevateEngine/Renderer/GLDebug.h>
 
 Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 {

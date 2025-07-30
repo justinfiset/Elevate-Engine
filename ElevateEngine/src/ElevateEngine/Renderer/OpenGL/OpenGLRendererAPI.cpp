@@ -2,6 +2,8 @@
 #include "OpenGLRendererAPI.h"
 #include <glad/glad.h>
 
+#include <ElevateEngine/Renderer/GLDebug.h>
+
 namespace Elevate
 {
 	void OpenGLRendererAPI::SetClearColor(const glm::vec4& color) const

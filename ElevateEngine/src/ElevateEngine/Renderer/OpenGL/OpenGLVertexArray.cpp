@@ -5,10 +5,7 @@
 #include <glad/glad.h>
 #include <ElevateEngine/Core/Log.h>
 
-// TODO REMOVE
-#define GLCheck(x) \
-    x; \
-    { GLenum err = glGetError(); if (err != GL_NO_ERROR) EE_CORE_ERROR("OpenGL Error {} at {}:{}", err, __FILE__, __LINE__); }
+#include <ElevateEngine/Renderer/GLDebug.h>
 
 Elevate::OpenGLVertexArray::OpenGLVertexArray()
 {

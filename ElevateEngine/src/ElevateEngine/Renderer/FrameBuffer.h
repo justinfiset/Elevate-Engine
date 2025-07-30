@@ -1,6 +1,7 @@
 #pragma once
 
 #include "glm/glm.hpp"
+#include <ElevateEngine/Renderer/Texture/Texture.h>
 
 namespace Elevate
 {

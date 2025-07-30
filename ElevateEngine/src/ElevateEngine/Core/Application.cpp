@@ -93,7 +93,6 @@ namespace Elevate {
 				m_FrameBuffer->Bind(); // Rendering the screen in a single texture
 				m_FrameBuffer->Clear();
 
-
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate();
 
