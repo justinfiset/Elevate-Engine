@@ -6,12 +6,10 @@ namespace Elevate
 	class OpenGLFrameBuffer : public FrameBuffer
 	{
 	public:
-		OpenGLFrameBuffer() : OpenGLFrameBuffer(1280, 720) { }
-		OpenGLFrameBuffer(uint32_t width, uint32_t height);
+		OpenGLFrameBuffer(TexturePtr tex);
 
 		void Bind() const override;
 		void Unbind() const override;
-		void Clear() const override;
 		void Rescale(uint32_t width, uint32_t height) override;
 
 		inline uint32_t GetFrameBufferId() const override { return m_FrameBufferId;  }
@@ -24,9 +22,5 @@ namespace Elevate
 		uint32_t m_FrameBufferId;
 		uint32_t m_RenderBufferId;
 		uint32_t m_TextureId;
-
-		// Size
-		uint32_t m_Width;
-		uint32_t m_Height;
 	};
 }

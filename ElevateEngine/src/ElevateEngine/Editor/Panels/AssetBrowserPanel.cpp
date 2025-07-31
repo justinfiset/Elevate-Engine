@@ -18,7 +18,6 @@ namespace fs = std::filesystem;
 Elevate::Editor::AssetBrowserPanel::AssetBrowserPanel()
 {
     LoadExtensionsMeta();
-    LoadFileItemsList();
     EE_CORE_INFO("Editor Assets Browser Initiated.");
 }
 

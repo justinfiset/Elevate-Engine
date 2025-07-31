@@ -93,7 +93,6 @@ namespace Elevate
 		virtual void Bind(uint32_t index = 0) = 0;
 		virtual void Unbind() = 0;
 		virtual bool IsBound() const = 0;
-		virtual void SetDataImpl(unsigned char* data) = 0;
 		virtual void* GetNativeHandle() const = 0; // Return a handle to the texture differs from the backend
 
 		inline bool IsTextureLoaded() const { return m_meta.State == TextureState::Loaded; }
@@ -115,6 +114,8 @@ namespace Elevate
 	protected:
 		Texture() = default;
 		Texture(TextureMetadata meta) : m_meta(meta) {}
+
+		virtual void SetDataImpl(unsigned char* data) = 0;
 	protected:
 		TextureMetadata m_meta;
 	};

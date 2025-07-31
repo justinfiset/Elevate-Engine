@@ -19,7 +19,6 @@ namespace Elevate {
 
 	Application::Application()
 	{
-		EE_CORE_TRACE("Application()");
 		EE_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
