@@ -14,7 +14,11 @@ namespace Elevate
 		virtual void Unbind() const = 0;
 		virtual void Rescale(uint32_t width, uint32_t height) = 0;
 
-		virtual uint32_t GetTextureId() const = 0;
+		inline void* GetNativeTextureHandle() const {
+			return m_texture->GetNativeHandle();
+		}
+
+		// TODO REMOVE
 		virtual uint32_t GetFrameBufferId() const = 0;
 
 		inline void SetClearColor(glm::vec4 color) { m_clearColor = color; }

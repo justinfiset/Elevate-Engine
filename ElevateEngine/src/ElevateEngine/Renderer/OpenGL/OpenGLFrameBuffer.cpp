@@ -9,19 +9,19 @@ Elevate::OpenGLFrameBuffer::OpenGLFrameBuffer(TexturePtr tex) : FrameBuffer(tex)
 	EE_CORE_ASSERT(tex->GetWidth() > 0 && tex->GetHeight() > 0, "Framebuffer dimensions must be positive");
 
 	// Creating and binding
-	glGenFramebuffers(1, &m_FrameBufferId);
+	glGenFramebuffers(1, &m_frameBufferId);
 	Bind();
 
-	m_TextureId = static_cast<GLuint>(reinterpret_cast<intptr_t>(tex->GetNativeHandle()));
+	m_textureId = static_cast<GLuint>(reinterpret_cast<intptr_t>(tex->GetNativeHandle()));
 
 	// Bind the texture with the Frame Buffer
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_TextureId, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_textureId, 0);
 	
 	// render buffer
-	glGenRenderbuffers(1, &m_RenderBufferId);
-	glBindRenderbuffer(GL_RENDERBUFFER, m_RenderBufferId);
+	glGenRenderbuffers(1, &m_renderBufferId);
+	glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, tex->GetWidth(), tex->GetHeight());
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_RenderBufferId);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_renderBufferId);
 
 	CheckCompleteness();
 	Unbind();
@@ -29,7 +29,7 @@ Elevate::OpenGLFrameBuffer::OpenGLFrameBuffer(TexturePtr tex) : FrameBuffer(tex)
 
 void Elevate::OpenGLFrameBuffer::Bind() const
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, m_FrameBufferId);
+	glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferId);
 }
 
 void Elevate::OpenGLFrameBuffer::Unbind() const
@@ -53,10 +53,10 @@ void Elevate::OpenGLFrameBuffer::Rescale(uint32_t width, uint32_t height)
 	m_texture->SetData(nullptr, meta);
 
 	// Attacher la texture redimensionnée au framebuffer
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_TextureId, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_textureId, 0);
 
 	// Redimensionner le renderbuffer pour le depth/stencil
-	glBindRenderbuffer(GL_RENDERBUFFER, m_RenderBufferId);
+	glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
 	glBindRenderbuffer(GL_RENDERBUFFER, 0); // Unbind renderbuffer
 

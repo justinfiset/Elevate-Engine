@@ -71,7 +71,7 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 
     // we get the screen position of the window
     ImVec2 pos = ImGui::GetCursorScreenPos();
-    ImGui::Image((ImTextureID)(intptr_t)frameBuffer->GetTextureId(), ImVec2((float)window_width, (float)window_height), ImVec2(0, 1), ImVec2(1, 0));
+    ImGui::Image((ImTextureID) frameBuffer->GetNativeTextureHandle(), ImVec2((float)window_width, (float)window_height), ImVec2(0, 1), ImVec2(1, 0));
 
     // ImGuizmo //////////////////////////////////////////
     std::weak_ptr<GameObject> selected = EditorLayer::Get().GetSelectedObject();
