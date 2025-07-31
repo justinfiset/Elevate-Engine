@@ -29,6 +29,7 @@ namespace Elevate {
 		m_FrameBuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
 
 		#ifdef EE_EDITOR_BUILD
+				PushOverlay(new Elevate::Editor::EditorLayer());
 				SetState(GameContextState::EditorMode);
 		#endif
 

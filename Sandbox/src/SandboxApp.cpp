@@ -178,7 +178,6 @@ public:
     Sandbox() 
     {
         PushLayer(new DebugLayer());
-        PushLayer(new Elevate::Editor::EditorLayer()); // TODO AUTOMATISER SI ON EST DANS L'ÉDITEUR, NE PAS METTRE POUR UNE APP
     }
     ~Sandbox() = default;
 };
