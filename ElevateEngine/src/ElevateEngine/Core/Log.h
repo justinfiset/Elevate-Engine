@@ -10,14 +10,31 @@ namespace Elevate {
 	public:
 		static void Init();
 	
-		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
-		inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
+		static inline bool IsInitalized() { return s_loggerInitialized; }
+
+		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() 
+		{ 
+			if(!s_coreLogger)
+			{
+				Init();
+			}
+			return s_coreLogger;
+		}
+		inline static std::shared_ptr<spdlog::logger>& GetClientLogger() 
+		{ 
+			if (!s_clientLogger)
+			{
+				Init();
+			}
+			return s_clientLogger; 
+		}
 	private:
-		static std::shared_ptr<spdlog::logger> s_CoreLogger;
-		static std::shared_ptr<spdlog::logger> s_ClientLogger;
+		static std::shared_ptr<spdlog::logger> s_coreLogger;
+		static std::shared_ptr<spdlog::logger> s_clientLogger;
+
+		static bool s_loggerInitialized;
 	};
 }
-
 
 // TODO prevent from being acessible from the client // other projects (only usable by this build)
 // Core log macros
@@ -29,7 +46,7 @@ namespace Elevate {
 
 // Client log macros
 #define EE_TRACE(...)          ::Elevate::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define RH_INFO(...)           ::Elevate::Log::GetClientLogger()->info(__VA_ARGS__)
-#define RH_WARN(...)           ::Elevate::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define RH_ERROR(...)          ::Elevate::Log::GetClientLogger()->error(__VA_ARGS__)
-#define RH_FATAL(...)          ::Elevate::Log::GetClientLogger()->fatal(__VA_ARGS__)
+#define EE_INFO(...)           ::Elevate::Log::GetClientLogger()->info(__VA_ARGS__)
+#define EE_WARN(...)           ::Elevate::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define EE_ERROR(...)          ::Elevate::Log::GetClientLogger()->error(__VA_ARGS__)
+#define EE_FATAL(...)          ::Elevate::Log::GetClientLogger()->fatal(__VA_ARGS__)

@@ -41,49 +41,10 @@ namespace Elevate
 		return new Mesh(vertices, indices, textures);
 	}
 
-	// TODO optimiser la gestions des texture et retirer la gestion de opengl d'ici
 	void Mesh::Draw(std::shared_ptr<Shader> shader)
 	{
-		// bind appropriate textures
-		//unsigned int diffuseNr = 1;
-		//unsigned int specularNr = 1;
-		//unsigned int normalNr = 1;
-		//unsigned int heightNr = 1;
-
 		for (unsigned int i = 0; i < m_Textures.size(); i++)
 		{
-			// TODO REMOVE AND FIND OUT WHY SOME TEXTURES ARE NULL
-			if (!m_Textures[i]) continue;
-
-			//// retrieve texture number (the N in diffuse_textureN)
-			//std::string number;
-			//TextureType type = m_Textures[i]->GetUsage();
-			//std::string uniform;
-
-			//switch (type)
-			//{
-			//case TextureType::Diffuse:
-			//	uniform = "material.diffuse";
-			//	//number = std::to_string(diffuseNr++);
-			//	break;
-			//case TextureType::Specular:
-			//	uniform = "material.specular";
-			//	//number = std::to_string(specularNr++); // transfer unsigned int to string
-			//	break;
-			//case TextureType::Normal:
-			//	uniform = "material.normal";
-			//	//number = std::to_string(normalNr++); // transfer unsigned int to string
-			//	break;
-			//case TextureType::Height:
-			//	uniform = "material.height";
-			//	//number = std::to_string(heightNr++); // transfer unsigned int to string
-			//	break;
-			//}
-
-			//// now set the sampler to the correct texture unit
-			//shader->SetUniform1i((uniform /* + number*/).c_str(), i);
-
-			// and finally bind the texture
 			m_Textures[i]->Bind(i);
 		}
 
@@ -92,7 +53,6 @@ namespace Elevate
 		for (unsigned int i = 0; i < m_Textures.size(); i++)
 		{
 			// TODO REMOVE AND FIND OUT WHY SOME TEXTURES ARE NULL
-			if (!m_Textures[i]) continue;
 
 			m_Textures[i]->Unbind();
 		}

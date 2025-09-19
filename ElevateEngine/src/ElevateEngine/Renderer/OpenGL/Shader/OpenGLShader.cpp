@@ -4,9 +4,7 @@
 #include <glad/glad.h>
 #include "glm/gtc/type_ptr.hpp"
 
-#define GLCheck(x) \
-    x; \
-    { GLenum err = glGetError(); if (err != GL_NO_ERROR) EE_CORE_ERROR("OpenGL Error {} at {}:{}", err, __FILE__, __LINE__); }
+#include <ElevateEngine/Renderer/GLDebug.h>
 
 uint32_t Elevate::OpenGLShader::s_CurrentBoundShaderID = 0;
 

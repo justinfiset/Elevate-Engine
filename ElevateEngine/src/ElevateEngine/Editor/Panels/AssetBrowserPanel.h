@@ -46,7 +46,7 @@ namespace Elevate::Editor {
         std::string path;
         std::string extension;
         std::string iconPath;
-        FileType type;
+        FileType type = File;
 
         FileItem() = default;
         FileItem(std::string filePath, std::string fileName, std::string fileExtension, std::string icon, FileType type) :
@@ -68,6 +68,7 @@ namespace Elevate::Editor {
         std::filesystem::path m_CurrentPath = ".";
         //      < Path , Texture >   
         std::map<std::string, TexturePtr> m_currentTextures;
+        TexturePtr m_folderTexture;
 
         std::vector<FileItem> m_FileItems;
         std::unordered_map<std::string, FileMetadata> m_FileMetadata;

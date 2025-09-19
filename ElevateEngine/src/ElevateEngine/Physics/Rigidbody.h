@@ -26,16 +26,19 @@ namespace Elevate
 	class Rigidbody : public Component
 	{
 	public:
-		COMPONENT_LAYOUT(
-			{
-				//{"FOV", ComponentDataType::Float, &m_FOV}
-			}
-		);
+		BEGIN_COMPONENT(Rigidbody)
 
 		Rigidbody();
 
 		void Update() override;
 	private:
 		RigidbodyData m_data;
+
+		float m_testData = 123.0f;
+		EXPOSE(m_testData, ComponentDataType::Float)
+
+		END_COMPONENT();
 	};
+
+	REGISTER_COMPONENT(Rigidbody);
 }

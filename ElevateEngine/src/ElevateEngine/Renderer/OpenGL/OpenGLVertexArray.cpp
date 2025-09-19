@@ -5,10 +5,7 @@
 #include <glad/glad.h>
 #include <ElevateEngine/Core/Log.h>
 
-// TODO REMOVE
-#define GLCheck(x) \
-    x; \
-    { GLenum err = glGetError(); if (err != GL_NO_ERROR) EE_CORE_ERROR("OpenGL Error {} at {}:{}", err, __FILE__, __LINE__); }
+#include <ElevateEngine/Renderer/GLDebug.h>
 
 Elevate::OpenGLVertexArray::OpenGLVertexArray()
 {
@@ -46,8 +43,6 @@ void Elevate::OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuf
 		// TODO REMOVES THE LOGS FROM HERE
 		EE_CORE_TRACE("Attrib {} | Count={} | Type={} | Stride={} | Offset={}",
 			index, element.Count, GetDataAPIType(element.Type), layout.GetStride(), element.Offset);
-
-		EE_CORE_TRACE("Before attrib {}: VAO={}", index, m_RendererID);
 
 		LinkAttribute(index, element.Count, GetDataAPIType(element.Type),
 			element.Normalized, layout.GetStride(), (const void*)element.Offset);
