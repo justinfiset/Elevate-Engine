@@ -20,6 +20,9 @@
 #include <ElevateEngine/Editor/Widgets/SkyboxEditorWidget.h>
 
 #include <ElevateEngine/ImGui/ImGuiTheme.h>
+#include <ElevateEngine/Inputs/Input.h>
+
+#include <ElevateEngine/Editor/Commands/GameobjectCommands.h>
 
 namespace Elevate::Editor
 {
@@ -216,7 +219,25 @@ namespace Elevate::Editor
 
     void EditorLayer::OnEvent(Event& event)
     {
-        m_EditorScene->Notify(event);
+        switch (event.GetEventType())
+        {
+        case EventType::KeyPressed:
+            KeyEvent& ke = (KeyEvent&)event;
+            
+            if (ke.GetKeyCode() == EE_KEY_DELETE) {
+                Execute(std::make_unique<DeleteGameobjectCommand>(m_SelectedObject));
+            }
+
+            if (Input::IsKeyPressed(EE_KEY_LEFT_CONTROL)) {
+                if (ke.GetKeyCode() == EE_KEY_Z) {
+                    Undo();
+                } else if (ke.GetKeyCode() == EE_KEY_Y) {
+                    Redo();
+                }
+            }
+        }
+
+        m_EditorScene->Notify(event);        
     }
 
     inline EditorCamera* EditorLayer::GetCamera()
@@ -226,8 +247,7 @@ namespace Elevate::Editor
 
     void EditorLayer::SelectObject(std::shared_ptr<GameObject> newSelection)
     {
-        if (newSelection)
-        {
+        if (newSelection) {
             m_SelectedObject = newSelection;
         }
         else {

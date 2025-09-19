@@ -18,8 +18,10 @@ namespace Elevate
 
 	enum class TextureFormat : uint8_t {
 		EMPTY = 0,
+		GRAYSCALE = 1,
 		RGB = 3,
-	    RGBA = 4
+	    RGBA = 4,
+		DEPTH
 	};
 
 	enum class TextureType : uint8_t {
@@ -65,6 +67,9 @@ namespace Elevate
 
 	struct TextureMetadataBuilder {
 		TextureMetadata data;
+
+		TextureMetadataBuilder() = default;
+		TextureMetadataBuilder(TextureMetadata& base) : data(base) { }
 
 		TextureMetadataBuilder& Name(const std::string name) { data.Name = name; return *this; }
 		TextureMetadataBuilder& Path(const std::string& path) { data.Path = path; return *this; }

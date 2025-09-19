@@ -6,7 +6,6 @@ int main(int argc, char** argv) {
     // Init sequence - Later to be put in another method
     Elevate::Log::Init();
     EE_CORE_INFO("Initializing ElevateEngine...");
-    EE_CORE_TRACE("Logger Initialized.");
 
     auto app = Elevate::CreateApplication();
     EE_CORE_TRACE("Application Initialized.");

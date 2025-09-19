@@ -12,11 +12,12 @@ namespace Elevate
 	{
 		std::string name;
 		ComponentDataType type;
-		const void* data = nullptr;
+		const void* data = nullptr; // TODO RETIRER
+		size_t offset = 0;
 		uint32_t size = 0;
 
 		ComponentField() = default;
-		ComponentField(const std::string& name, ComponentDataType type, const void* dataPtr)
+		ComponentField(const std::string& name, ComponentDataType type, const void* dataPtr) // TODO RETIRER
 			: name(name), type(type), data(dataPtr), size(GetDataTypeSize(type)) 
 		{
 			if (!dataPtr)
@@ -24,6 +25,10 @@ namespace Elevate
 				EE_CORE_ASSERT(false, "Cannot pass a null data ptr to a component field : {0}. Asserting.", name)
 			}
 		}
+
+		ComponentField(const std::string& name, ComponentDataType type, size_t offset)
+			: name(name), type(type), offset(offset), size(GetDataTypeSize(type))
+		{}
 	};
 
 	class ComponentLayout
@@ -31,6 +36,7 @@ namespace Elevate
 	public:
 		ComponentLayout() = default;
 		ComponentLayout(const std::string& name, std::initializer_list<ComponentField> fields) : m_name(name), m_fields(fields) { }
+		ComponentLayout(const std::string& name, std::vector<ComponentField>& fields) : m_name(name), m_fields(fields) { }
 
 		// Regular and const operators to iterate easely trought fields
 		std::vector<ComponentField>::iterator begin() { return m_fields.begin(); }

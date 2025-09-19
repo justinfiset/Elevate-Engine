@@ -4,7 +4,7 @@
 
 #include <glad/glad.h>
 
-Elevate::OpenGLFrameBuffer::OpenGLFrameBuffer(TexturePtr tex) : FrameBuffer(tex)
+Elevate::OpenGLFrameBuffer::OpenGLFrameBuffer(TexturePtr tex) : Framebuffer(tex)
 {
 	EE_CORE_ASSERT(tex->GetWidth() > 0 && tex->GetHeight() > 0, "Framebuffer dimensions must be positive");
 
@@ -16,13 +16,12 @@ Elevate::OpenGLFrameBuffer::OpenGLFrameBuffer(TexturePtr tex) : FrameBuffer(tex)
 
 	// Bind the texture with the Frame Buffer
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_textureId, 0);
-	
 	// render buffer
 	glGenRenderbuffers(1, &m_renderBufferId);
 	glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, tex->GetWidth(), tex->GetHeight());
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_renderBufferId);
-
+	
 	CheckCompleteness();
 	Unbind();
 }

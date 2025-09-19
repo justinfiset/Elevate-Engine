@@ -2,13 +2,38 @@
 
 #include "glm/glm.hpp"
 #include <ElevateEngine/Renderer/Texture/Texture.h>
+#include <optional>
 
 namespace Elevate
 {
-	class FrameBuffer
+	struct FramebufferColorAttachment {
+		TexturePtr Texture;
+		uint8_t Index = 0;
+
+		FramebufferColorAttachment(TexturePtr tex) : Texture(tex) { }
+	};
+
+	struct FramebufferDepthAttachment {
+		void* NativeHandle = nullptr; // TODO CHANGER POUR METTRE UNE INTERFACE DE BINDABLE OU AUTRE
+		bool IsRenderbuffer = false;
+	};
+
+	struct FramebufferStencilAttachment {
+
+	};
+
+	struct FramebufferMetadata {
+		std::vector<FramebufferColorAttachment> ColorAttachments;
+		std::optional<FramebufferDepthAttachment> DepthAttachment;
+		std::optional<FramebufferDepthAttachment> Attachment;
+
+		glm::vec4 ClearColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+	};
+
+	class Framebuffer
 	{
 	public:
-		~FrameBuffer() { }
+		~Framebuffer() { }
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
@@ -25,14 +50,14 @@ namespace Elevate
 
 		virtual void Clear() const;
 
-		static FrameBuffer* Create(uint32_t width, uint32_t height);
+		static Framebuffer* Create(uint32_t width = 1280, uint32_t height = 720);
 
 	protected:
-		FrameBuffer(TexturePtr tex) : m_texture(tex) { }
+		Framebuffer(TexturePtr tex) : m_texture(tex) { }
 			
 	protected:
-		TexturePtr m_texture;
-		glm::vec4 m_clearColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+		TexturePtr m_texture; // TODO REMOVE
+		glm::vec4 m_clearColor = { 1.0f, 1.0f, 1.0f, 1.0f }; // TODO REMOVE
 	};
 }
 

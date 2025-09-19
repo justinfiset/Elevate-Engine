@@ -6,7 +6,7 @@
 
 namespace Elevate
 {
-	FrameBuffer* FrameBuffer::Create(uint32_t width, uint32_t height)
+	Framebuffer* Framebuffer::Create(uint32_t width, uint32_t height)
 	{
 		TextureMetadata meta = TextureMetadataBuilder()
 			.Size(width, height)
@@ -22,7 +22,7 @@ namespace Elevate
 		return new OpenGLFrameBuffer(Texture::CreateFromData(nullptr, meta));
 	}
 
-	void FrameBuffer::Clear() const
+	void Framebuffer::Clear() const
 	{
 		Renderer::SetClearColor(m_clearColor);
 		Renderer::Clear();

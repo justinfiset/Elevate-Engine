@@ -3,7 +3,7 @@
 
 namespace Elevate
 {
-	class OpenGLFrameBuffer : public FrameBuffer
+	class OpenGLFrameBuffer : public Framebuffer
 	{
 	public:
 		OpenGLFrameBuffer(TexturePtr tex);
