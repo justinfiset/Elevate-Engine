@@ -44,8 +44,6 @@ void Elevate::OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuf
 		EE_CORE_TRACE("Attrib {} | Count={} | Type={} | Stride={} | Offset={}",
 			index, element.Count, GetDataAPIType(element.Type), layout.GetStride(), element.Offset);
 
-		EE_CORE_TRACE("Before attrib {}: VAO={}", index, m_RendererID);
-
 		LinkAttribute(index, element.Count, GetDataAPIType(element.Type),
 			element.Normalized, layout.GetStride(), (const void*)element.Offset);
 		index++;

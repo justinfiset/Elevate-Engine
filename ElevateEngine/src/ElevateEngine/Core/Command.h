@@ -1,5 +1,8 @@
+#pragma once
+
 #include <stack>
 #include <memory>
+#include <vector>
 
 namespace Elevate
 {
@@ -10,6 +13,26 @@ namespace Elevate
         virtual void Execute() = 0;
         virtual void Undo() = 0;
         virtual bool IsUndoable() const { return true; }
+    };
+
+    /// @brief Class to combine multiples commands to execute then or undo them in batches.
+    class MacroCommand : public Command
+    {
+    public:
+        MacroCommand(std::vector<std::unique_ptr<Command>>&& commands) : m_commands(std::move(commands)) { }
+
+        inline virtual void Execute() override { 
+            for (auto it = m_commands.begin(); it != m_commands.end(); ++it) {
+                (*it)->Execute();
+            }
+        }
+        inline virtual void Undo() override {
+            for (auto it = m_commands.rbegin(); it != m_commands.rend(); ++it) {
+                (*it)->Undo();
+            }
+        }
+    private:
+        std::vector<std::unique_ptr<Command>> m_commands;
     };
 
     class CommandManager
@@ -50,8 +73,12 @@ namespace Elevate
         {
             if (!m_redoStack.empty())
             {
-                m_redoStack.top()->Execute();
+                auto cmd = std::move(m_redoStack.top());
                 m_redoStack.pop();
+                cmd->Execute();
+                if (cmd->IsUndoable()) {
+                    m_undoStack.push(std::move(cmd));
+                }
             }
         }
     private:

@@ -31,7 +31,8 @@ namespace Elevate
 		// Method to override to define a layout in the editor, not mandatory but higly recommanded
 		// If no overrode, an empty layout is generated and nothing is shown in the inspector
 		virtual ComponentLayout GetLayout() const { return ComponentLayout(GetName(), {}); }
-		virtual std::string GetName() const {
+
+		inline virtual std::string GetName() const {
 			return ComponentRegistry::GetName(typeid(*this));
 		}
 	protected:

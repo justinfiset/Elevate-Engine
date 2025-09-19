@@ -82,11 +82,16 @@ namespace Elevate {
 		}
 
 		// Creation of a blank texture
-		TextureMetadata meta = {
-			fsPath.filename().string(), absPath, 0, 0,
-			0, TextureFormat::EMPTY, TextureType::Diffuse,
-			TextureSource::File, TextureState::Unloaded
-		};
+		TextureMetadata meta = TextureMetadataBuilder()
+			.Name(fsPath.filename().string())
+			.Path(absPath)
+			.Size(0, 0)
+			.Format(TextureFormat::EMPTY)
+			.Usage(TextureType::Diffuse)
+			.Source(TextureSource::File)
+			.State(TextureState::Unloaded)
+			.Build();
+
 		tex = Texture::CreateFromData(nullptr, meta);
 
 		// Add the texture to the list of textures
@@ -97,17 +102,16 @@ namespace Elevate {
 
 		// Get the texture data async with stbi_load
 		std::thread([res]() mutable {
-				TextureMetadata& resMeta = res.meta;
-
 				int width, height, channels;
-				res.data = stbi_load(resMeta.Path.c_str(), &width, &height, &channels, STBI_rgb_alpha);
+				res.data = stbi_load(res.meta.Path.c_str(), &width, &height, &channels, 0);
 
-				resMeta.Width = static_cast<uint32_t>(width);
-				resMeta.Height = static_cast<uint32_t>(height);
-				resMeta.Channels = static_cast<uint8_t>(channels);
+				res.meta = TextureMetadataBuilder(res.meta)
+					.Size(static_cast<uint32_t>(width), static_cast<uint32_t>(height))
+					.Format((TextureFormat) channels)
+					.State((res.data != nullptr) ? TextureState::Loaded : TextureState::Failed)
+					.Build();
 
 				std::lock_guard<std::mutex> lock(instance().m_textureMutex);
-				res.meta.State = (res.data != nullptr) ? TextureState::Loaded : TextureState::Failed;
 				instance().m_loadingTextures.push_back(res);
 			}
 		).detach();

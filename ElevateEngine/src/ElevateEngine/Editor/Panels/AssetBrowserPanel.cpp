@@ -18,7 +18,7 @@ namespace fs = std::filesystem;
 Elevate::Editor::AssetBrowserPanel::AssetBrowserPanel()
 {
     LoadExtensionsMeta();
-    LoadFileItemsList();
+    m_folderTexture = Texture::CreateFromFile(m_FileMetadata["DIRECTORY"].iconPath);
     EE_CORE_INFO("Editor Assets Browser Initiated.");
 }
 
@@ -43,10 +43,9 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
     int index = 0;
 
     if (m_CurrentPath != ".") {
-        TexturePtr texture = Texture::CreateFromFile(m_FileMetadata["DIRECTORY"].iconPath);
         ImGui::PushID(index);
         ImGui::BeginGroup();
-        ImGui::ImageButton("back", (ImTextureID) texture->GetNativeHandle(), buttonSize);
+        ImGui::ImageButton("back", (ImTextureID) m_folderTexture->GetNativeHandle(), buttonSize);
 
         if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
             m_CurrentPath = m_CurrentPath.parent_path();

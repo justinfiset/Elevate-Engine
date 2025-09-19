@@ -4,37 +4,31 @@
 
 #include <glad/glad.h>
 
-Elevate::OpenGLFrameBuffer::OpenGLFrameBuffer(uint32_t width, uint32_t height)
-	: m_Width(width), m_Height(height), m_FrameBufferId(0), m_TextureId(0), m_RenderBufferId(0)
+Elevate::OpenGLFrameBuffer::OpenGLFrameBuffer(TexturePtr tex) : Framebuffer(tex)
 {
-	EE_CORE_ASSERT(width > 0 && height > 0, "Framebuffer dimensions must be positive");
+	EE_CORE_ASSERT(tex->GetWidth() > 0 && tex->GetHeight() > 0, "Framebuffer dimensions must be positive");
 
 	// Creating and binding
-	glGenFramebuffers(1, &m_FrameBufferId);
+	glGenFramebuffers(1, &m_frameBufferId);
 	Bind();
 
-	// Create color texture
-	glGenTextures(1, &m_TextureId); // Bind texture
-	glBindTexture(GL_TEXTURE_2D, m_TextureId);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	// Bind the texture with the Frame Buffer
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_TextureId, 0);
-	
-	// render buffer
-	glGenRenderbuffers(1, &m_RenderBufferId);
-	glBindRenderbuffer(GL_RENDERBUFFER, m_RenderBufferId);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Width, m_Height);
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_RenderBufferId);
+	m_textureId = static_cast<GLuint>(reinterpret_cast<intptr_t>(tex->GetNativeHandle()));
 
+	// Bind the texture with the Frame Buffer
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_textureId, 0);
+	// render buffer
+	glGenRenderbuffers(1, &m_renderBufferId);
+	glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, tex->GetWidth(), tex->GetHeight());
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_renderBufferId);
+	
 	CheckCompleteness();
 	Unbind();
 }
 
 void Elevate::OpenGLFrameBuffer::Bind() const
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, m_FrameBufferId);
+	glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferId);
 }
 
 void Elevate::OpenGLFrameBuffer::Unbind() const
@@ -42,31 +36,27 @@ void Elevate::OpenGLFrameBuffer::Unbind() const
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void Elevate::OpenGLFrameBuffer::Clear() const
-{
-	Elevate::Renderer::SetClearColor({ m_ClearColor.r, m_ClearColor.g, m_ClearColor.b, m_ClearColor.a });
-	Elevate::Renderer::Clear();
-}
-
 void Elevate::OpenGLFrameBuffer::Rescale(uint32_t width, uint32_t height)
 {
-	if (width == m_Width && height == m_Height) return;
+	if (width == m_texture->GetWidth() && height == m_texture->GetHeight()) return;
 	else if (width <= 0 || height <= 0) return;
-
-	m_Width = width;
-	m_Height = height;
 
 	Bind();
 
-	// Redimensionner la texture liée au framebuffer
-	glBindTexture(GL_TEXTURE_2D, m_TextureId);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	m_texture->Bind();
+
+	TextureMetadata meta = m_texture->GetMetadata();
+	meta.Width = width;
+	meta.Height = height;
+
+	m_texture->SetData(nullptr, meta);
+
 	// Attacher la texture redimensionnée au framebuffer
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_TextureId, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_textureId, 0);
 
 	// Redimensionner le renderbuffer pour le depth/stencil
-	glBindRenderbuffer(GL_RENDERBUFFER, m_RenderBufferId);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Width, m_Height);
+	glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
 	glBindRenderbuffer(GL_RENDERBUFFER, 0); // Unbind renderbuffer
 
 	CheckCompleteness();

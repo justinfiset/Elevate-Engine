@@ -20,14 +20,7 @@ void Elevate::OpenGLContext::Init()
 	EE_CORE_ASSERT(status, "Failed to initialize Glad.");
 
 	int profile = 0;
-	EE_CORE_TRACE("OpenGL version : {}", glGetString(GL_VERSION));
 	glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &profile);
-	if (profile & GL_CONTEXT_CORE_PROFILE_BIT) {
-		EE_CORE_INFO("OpenGL Context Profile: Core");
-	}
-	if (profile & GL_CONTEXT_COMPATIBILITY_PROFILE_BIT) {
-		EE_CORE_INFO("OpenGL Context Profile: Compatibility");
-	}
 
 	// Hides faces that are not in the right direction
 	glCullFace(GL_BACK);
@@ -36,7 +29,10 @@ void Elevate::OpenGLContext::Init()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	EE_CORE_INFO("OpenGL Renderer Initialized: {0}, {1}", glGetString(GL_VENDOR), glGetString(GL_RENDERER));
+	EE_CORE_TRACE("OpenGL version : {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
+	EE_CORE_INFO("OpenGL Renderer Initialized: {0}, {1}",
+		reinterpret_cast<const char*>(glGetString(GL_VENDOR)),
+		reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
 }
 	
 void Elevate::OpenGLContext::SwapBuffers()

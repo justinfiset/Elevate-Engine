@@ -19,17 +19,17 @@ namespace Elevate {
 
 	Application::Application()
 	{
-		EE_CORE_TRACE("Application()");
 		EE_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
-		m_FrameBuffer.reset(FrameBuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
+		m_FrameBuffer.reset(Framebuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
 		m_FrameBuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
 
 		#ifdef EE_EDITOR_BUILD
+				PushOverlay(new Elevate::Editor::EditorLayer());
 				SetState(GameContextState::EditorMode);
 		#endif
 

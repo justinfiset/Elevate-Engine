@@ -6,8 +6,6 @@
 
 namespace Elevate
 {
-	REGISTER_COMPONENT(Rigidbody);
-
 	Rigidbody::Rigidbody()
 	{
 	}
