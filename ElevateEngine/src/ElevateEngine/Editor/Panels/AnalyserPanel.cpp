@@ -9,6 +9,8 @@
 #include <ElevateEngine/Editor/EditorLayer.h>
 #include <ElevateEngine/ImGui/CustomImGuiCommand.h>
 
+#include <ElevateEngine/Editor/Commands/ComponentCommand.h>
+
 void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 {
     ImGui::Begin("Analyse");
@@ -20,7 +22,18 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
         Elevate::UI::InputField("Name: ", obj->GetName());
 
         // Serialisation of the tranform and all other components
+        glm::vec4 color = EECategory("Transform").GetCategoryColor() * 0.6f;
+
+        ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 1);
+        ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(color.r + 0.3f, color.g + 0.3f, color.b + 0.3f, 1.0f));
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(color.r, color.g, color.b, 1.0f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(color.r + 0.1f, color.g + 0.1f, color.b + 0.1f, 1.0f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(color.r + 0.2f, color.g + 0.2f, color.b + 0.2f, 1.0f));
+
         RenderComponentLayout(obj->GetTransform().GetLayout());
+
+        ImGui::PopStyleVar();
+        
 
         std::map<EECategory, std::vector<Component*>> m_sortedComponents;
         for (Component* comp : obj->GetComponents())
@@ -34,18 +47,29 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
             std::string headerLabel = categoryName.empty() ? "Default" : categoryName;
 
             glm::vec4 color = entry.first.GetCategoryColor();
+            ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 1);
+            ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(color.r + 0.3f, color.g + 0.3f, color.b + 0.3f, 1.0f));
             ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(color.r, color.g, color.b, 1.0f));
-            if(ImGui::CollapsingHeader(headerLabel.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+            ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(color.r + 0.1f, color.g + 0.1f, color.b + 0.1f, 1.0f));
+            ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(color.r + 0.2f, color.g + 0.2f, color.b + 0.2f, 1.0f));
+            if (ImGui::CollapsingHeader(headerLabel.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
             {
+                ImGui::PopStyleColor(4);
+                ImGui::PopStyleVar();
+
                 for (Component* comp : entry.second)
                 {
                     if (comp)
                     {
-                        RenderComponentLayout(comp->GetLayout());
+                        RenderComponent(comp);
                     }
                 }
             }
-            ImGui::PopStyleColor();
+            else 
+            {
+                ImGui::PopStyleColor(4);
+                ImGui::PopStyleVar();
+            }
         }
 
         if (ImGui::Button("Add Component", ImVec2(ImGui::GetContentRegionAvail().x, 0)))
@@ -72,17 +96,70 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
     ImGui::End();
 }
 
-void Elevate::Editor::AnalyserPanel::RenderComponentLayout(ComponentLayout& layout) const
+void Elevate::Editor::AnalyserPanel::RenderComponent(Component* comp) const
 {
-    ImGui::BeginChild(("ComponentContainer" + layout.GetName()).c_str(), ImVec2(0, 0), ImGuiChildFlags_AutoResizeY | ImGuiChildFlags_Border);
-    ImGui::SeparatorText(layout.GetName().c_str());
+    ComponentLayout& layout = comp->GetLayout();
 
-    for (ComponentField& field : layout)
+    EECategory category = comp->GetCategory();
+
+    glm::vec4 color = category.GetCategoryColor() * 0.5f;
+
+    ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(color.r + 0.3f, color.g + 0.3f, color.b + 0.3f, 1.0f));
+    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(color.r, color.g, color.b, 1.0f));
+    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(color.r + 0.1f, color.g + 0.1f, color.b + 0.1f, 1.0f));
+    ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(color.r + 0.2f, color.g + 0.2f, color.b + 0.2f, 1.0f));
+
+    RenderComponentLayout(layout, comp);
+}
+
+void Elevate::Editor::AnalyserPanel::RenderComponentLayout(ComponentLayout& layout, Component* component) const
+{
+    if (UI::EECollapsingHeader((layout.GetName()).c_str(),
+        layout.GetFieldCount() > 0,
+        [&layout, &component]()
+        {
+            float menu_width = 0;
+
+            if (component)
+            {
+                ImGuiWindow* window = ImGui::GetCurrentWindow();
+                ImGuiStyle& style = ImGui::GetStyle();
+
+                float customButtonWidth = 20.0f;
+                float customButtonHeight = ImGui::GetFontSize() + style.FramePadding.y * 2.0f;
+                menu_width = customButtonWidth + style.FramePadding.x;
+
+                ImGui::SetCursorPos(ImVec2(window->Size.x - customButtonWidth - style.FramePadding.x, ImGui::GetCursorPosY()));
+
+                ImGui::PushID(layout.GetName().c_str());
+                if (ImGui::Button("...", ImVec2(customButtonWidth, customButtonHeight)))
+                    ImGui::OpenPopup("HeaderMenu");
+
+                if (ImGui::BeginPopup("HeaderMenu"))
+                {
+                    if (ImGui::MenuItem("Remove Component"))
+                    {
+                        EditorLayer::Get().Execute(std::make_unique<RemoveComponentCommand>(component));
+                    }
+                    ImGui::EndPopup();
+                }
+                ImGui::PopID();
+            }
+
+            return menu_width;
+        }))
     {
-        RenderField(field);
-    }
+        ImGui::PopStyleColor(4);
 
-    ImGui::EndChild();
+        for (ComponentField& field : layout)
+        {
+            RenderField(field);
+        }
+    }
+    else
+    {
+        ImGui::PopStyleColor(4);
+    }
 }
 
 void Elevate::Editor::AnalyserPanel::RenderField(const ComponentField& field) const

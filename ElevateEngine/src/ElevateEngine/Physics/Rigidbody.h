@@ -1,6 +1,6 @@
 #pragma once
 #include "ElevateEngine/Core/Component.h"
-
+#include <ElevateEngine/Core/GameObject.h>
 #include "glm/glm.hpp"
 
 namespace Elevate

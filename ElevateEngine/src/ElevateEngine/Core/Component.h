@@ -33,6 +33,8 @@ namespace Elevate
 		// If no overrode, an empty layout is generated and nothing is shown in the inspector
 		virtual ComponentLayout GetLayout() const { return ComponentLayout(GetName(), {}); }
 
+		virtual bool RemoveFromGameObject() { return false; }
+
 		inline virtual std::string GetName() const {
 			return ComponentRegistry::GetName(typeid(*this));
 		}

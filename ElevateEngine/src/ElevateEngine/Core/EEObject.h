@@ -30,6 +30,7 @@ public:
 		if (m_path == "Render")   return glm::vec4(0.7f, 0.4f, 0.2f, 1.0f);   // Dark Vibrant Orange
 		if (m_path == "Audio")    return glm::vec4(0.3f, 0.5f, 0.8f, 1.0f);   // Dark Vibrant Blue
 		if (m_path == "Script")   return glm::vec4(0.6f, 0.3f, 0.7f, 1.0f);   // Dark Vibrant Purple
+		if (m_path == "Transform") return glm::vec4(0.9f, 0.9f, 0.3f, 1.0f);  // Bright Yellow
 		return glm::vec4(0.2f, 0.3f, 0.4f, 1.0f);                             // Dark Blue-Grey for Default
 	}
 

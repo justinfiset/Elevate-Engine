@@ -213,6 +213,7 @@ namespace Elevate
 // =======================================================
 
 #define BEGIN_COMPONENT(T) \
+    private: \
     using ThisComponentType = T; \
     inline static struct T##ClassEntry { \
         T##ClassEntry() { \
@@ -223,7 +224,12 @@ namespace Elevate
         size_t FieldStartIndex = 0; \
         std::string ClassName; \
         std::vector<Elevate::ComponentField> ClassFieldStack; \
-    } generated_classEntry;
+    } generated_classEntry; \
+    public: \
+        inline virtual bool RemoveFromGameObject() override { \
+            gameObject->RemoveComponent<T>(); \
+            return true; \
+        }
 
 #define EXPOSE(param, type) \
     inline static struct param##PropertyEntry { \
