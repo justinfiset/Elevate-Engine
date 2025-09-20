@@ -21,11 +21,31 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 
         // Serialisation of the tranform and all other components
         RenderComponentLayout(obj->GetTransform().GetLayout());
+
+        std::map<EECategory, std::vector<Component*>> m_sortedComponents;
         for (Component* comp : obj->GetComponents())
         {
-            if (comp) {
-                RenderComponentLayout(comp->GetLayout());
+            m_sortedComponents[comp->GetCategory()].push_back(comp);
+        }
+
+        for (std::pair<EECategory, std::vector<Component*>> entry : m_sortedComponents)
+        {
+            const std::string& categoryName = entry.first.GetName();
+            std::string headerLabel = categoryName.empty() ? "Default" : categoryName;
+
+            glm::vec4 color = entry.first.GetCategoryColor();
+            ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(color.r, color.g, color.b, 1.0f));
+            if(ImGui::CollapsingHeader(headerLabel.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+            {
+                for (Component* comp : entry.second)
+                {
+                    if (comp)
+                    {
+                        RenderComponentLayout(comp->GetLayout());
+                    }
+                }
             }
+            ImGui::PopStyleColor();
         }
 
         if (ImGui::Button("Add Component", ImVec2(ImGui::GetContentRegionAvail().x, 0)))
@@ -54,11 +74,15 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 
 void Elevate::Editor::AnalyserPanel::RenderComponentLayout(ComponentLayout& layout) const
 {
+    ImGui::BeginChild(("ComponentContainer" + layout.GetName()).c_str(), ImVec2(0, 0), ImGuiChildFlags_AutoResizeY | ImGuiChildFlags_Border);
     ImGui::SeparatorText(layout.GetName().c_str());
+
     for (ComponentField& field : layout)
     {
         RenderField(field);
     }
+
+    ImGui::EndChild();
 }
 
 void Elevate::Editor::AnalyserPanel::RenderField(const ComponentField& field) const

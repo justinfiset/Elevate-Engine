@@ -27,6 +27,7 @@ namespace Elevate
 	{
 	public:
 		BEGIN_COMPONENT(Rigidbody)
+		EECATEGORY("Physics");
 
 		Rigidbody();
 

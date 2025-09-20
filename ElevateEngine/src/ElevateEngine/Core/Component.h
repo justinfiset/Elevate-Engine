@@ -3,6 +3,7 @@
 #include <ElevateEngine/Events/Event.h>
 #include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 #include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Core/EEObject.h>
 
 #define COMPONENT_LAYOUT(...) \
 	ComponentLayout GetLayout() const override { return ComponentLayout(GetName(), __VA_ARGS__);}
@@ -14,7 +15,7 @@ namespace Elevate {
 
 namespace Elevate
 {
-	class Component
+	class Component : public EEObject
 	{
 		friend class GameObject;
 		friend class Scene;
