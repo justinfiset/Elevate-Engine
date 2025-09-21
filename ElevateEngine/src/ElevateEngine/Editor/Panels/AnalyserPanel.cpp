@@ -168,36 +168,43 @@ void Elevate::Editor::AnalyserPanel::RenderField(const ComponentField& field) co
     switch (field.type)
     {
     case ComponentDataType::Float:
-        ImGui::InputFloat(field.name.c_str(), (float*)(field.data));
+        ImGui::InputFloat(field.GetDisplayName().c_str(), (float*)(field.data));
         break;
 
     case ComponentDataType::Float2:
-        ImGui::InputFloat2(field.name.c_str(), (float*)(field.data));
+        ImGui::InputFloat2(field.GetDisplayName().c_str(), (float*)(field.data));
         break;
 
     case ComponentDataType::Float3:
-        ImGui::InputFloat3(field.name.c_str(), (float*)(field.data));
+        ImGui::InputFloat3(field.GetDisplayName().c_str(), (float*)(field.data));
         break;
 
     case ComponentDataType::Float4:
-        ImGui::InputFloat4(field.name.c_str(), (float*)(field.data));
+        ImGui::InputFloat4(field.GetDisplayName().c_str(), (float*)(field.data));
         break;
 
     //case ComponentDataType::Color:
-    //    ImGui::ColorEdit4(field.name.c_str(), static_cast<float*>(field.data));
+    //    ImGui::ColorEdit4(field.GetDisplayName().c_str(), static_cast<float*>(field.data));
     //    break;
 
     case ComponentDataType::Bool:
-        ImGui::Checkbox(field.name.c_str(), (bool*)(field.data));
+        ImGui::Checkbox(field.GetDisplayName().c_str(), (bool*)(field.data));
         break;
 
     case ComponentDataType::Custom:
-        if (ImGui::TreeNodeEx(field.name.c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_FramePadding))
+        if (!field.flatten)
+        {
+            if (ImGui::TreeNodeEx(field.GetDisplayName().c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_FramePadding))
+            {
+                for (const auto& child : field.children)
+                    RenderField(child);
+                ImGui::TreePop();
+            }
+        }
+        else
         {
             for (const auto& child : field.children)
                 RenderField(child);
-
-            ImGui::TreePop();
         }
         break;
 

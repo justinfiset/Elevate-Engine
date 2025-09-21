@@ -18,5 +18,3 @@ namespace Elevate
 		gameObject->SetPosition(pos);
 	}
 }
-
-	

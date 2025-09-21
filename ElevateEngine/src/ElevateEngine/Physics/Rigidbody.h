@@ -44,10 +44,7 @@ namespace Elevate
 		void Update() override;
 	private:
 		RigidbodyData m_data;
-		EXPOSE(m_data);
-
-		float m_testData = 123.0f;
-		EXPOSE(m_testData)
+		EXPOSE(m_data, Flatten);
 
 		END_COMPONENT()
 	};

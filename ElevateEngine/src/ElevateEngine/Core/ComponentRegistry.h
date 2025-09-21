@@ -7,6 +7,7 @@
 
 #include <stack>
 #include <map>
+#include <variant>
 
 #include <memory>
 #include <string>
@@ -45,6 +46,22 @@ namespace Elevate
             }
         }
     };
+
+    // Field Property ------------------------------------------------------
+    struct FlattenTag {};
+    struct DisplayNameTag {
+        const char* value;
+    };
+
+    #define Flatten        FlattenTag{}
+    #define DisplayName(x) DisplayNameTag{x}
+
+    using FieldOption = std::variant<FlattenTag, DisplayNameTag>;
+    struct FieldMeta {
+        bool flatten = false;
+        std::string displayName = "";
+    };
+    // Field Property ^ ----------------------------------------------------
 
     class ComponentRegistry {
     public:
@@ -214,31 +231,34 @@ namespace Elevate
         }
 
         template<typename Class, typename FieldType>
-        static void AddProperty(FieldType Class::* member, const std::string& name)
+        static void AddProperty(FieldType Class::* member, const std::string& name, std::initializer_list<FieldOption> options)
         {
-            constexpr EngineDataType deduced = DeduceEngineDataType<FieldType>();
+            constexpr EngineDataType type = DeduceEngineDataType<FieldType>();
 
-            EE_CORE_TRACE(" --> Exposed Field : {}", GetCleanedName(name));
+            FieldMeta meta;
+            for (auto&& opt : options) {
+                if (std::holds_alternative<FlattenTag>(opt)) {
+                    meta.flatten = true;
+                }
+                else if (std::holds_alternative<DisplayNameTag>(opt)) {
+                    meta.displayName = std::get<DisplayNameTag>(opt).value;
+                }
+            }
+
+            EE_CORE_TRACE(" --> Exposed field : {0} flatten={1}  displayName={2}", GetCleanedName(name), meta.flatten, meta.displayName);
 
             auto& customFields = GetCustomComponentFields();
             std::string typeName = typeid(FieldType).name();
             size_t offset = reinterpret_cast<size_t>(&(reinterpret_cast<Class const volatile*>(0)->*member));
             if (customFields.find(typeName) != customFields.end())
             {
-                CompilationClassFieldStack().push_back(ComponentField(
-                    GetCleanedName(name),
-                    EngineDataType::Custom,
-                    offset,
-                    customFields[typeName]
-                ));
+                ComponentField fieldWithChildren(GetCleanedName(name), EngineDataType::Custom, offset, meta.displayName, meta.flatten, customFields[typeName]);
+                CompilationClassFieldStack().push_back(fieldWithChildren);
             }
             else
             {
-                CompilationClassFieldStack().push_back(ComponentField(
-                    GetCleanedName(name),
-                    deduced,
-                    offset
-                ));
+                ComponentField field(GetCleanedName(name), type, offset, meta.displayName);
+                CompilationClassFieldStack().push_back(field);
             }
         }
 
@@ -318,14 +338,15 @@ public: \
         return false; \
     }
 
-#define EXPOSE(param) \
+#define EXPOSE(param, ...) \
 public: \
 inline static struct param##PropertyEntry { \
     param##PropertyEntry() { \
         using MemberT = decltype(ThisType::param); \
         ::Elevate::ComponentRegistry::AddProperty<ThisType, MemberT>( \
             &ThisType::param, \
-            #param \
+            #param, \
+            { __VA_ARGS__ } \
         ); \
     } \
 } generated_##param##PropertyEntry;
@@ -351,16 +372,16 @@ public: \
         std::vector<Elevate::ComponentField> instanceFields; \
         if (generated_classEntry.HasBaseClass) { \
             auto parentFields = ParentFieldsHelper<ThisType>::Get(); \
-            for (const auto& field : parentFields) { \
+            for (const Elevate::ComponentField& field : parentFields) { \
                 const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
                 instanceFields.push_back(Elevate::ComponentField( \
-                    field.name, field.type, fieldPtr, field.children \
+                    field, fieldPtr, field.children \
                 )); \
             } \
         } \
-        for (const auto& field : generated_classEntry.ClassFieldStack) { \
+        for (const Elevate::ComponentField& field : generated_classEntry.ClassFieldStack) { \
             const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
-            instanceFields.push_back(Elevate::ComponentField(field.name, field.type, fieldPtr, field.children)); \
+            instanceFields.push_back(Elevate::ComponentField(field, fieldPtr, field.children)); \
         } \
         return Elevate::ComponentLayout(generated_classEntry.ClassName, instanceFields); \
     } \
