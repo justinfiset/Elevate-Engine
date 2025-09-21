@@ -30,7 +30,7 @@ namespace Elevate
                 SetCursorScreenPos(prevCursor);
             }
 
-            bool* p_open = GetStateStorage()->GetBoolRef(id, false);
+            bool* p_open = GetStateStorage()->GetBoolRef(id, true);
 
             std::string btn_id = std::string("##EECollapsingHeaderBtn_") + label;
             bool clicked = Button(btn_id.c_str(), ImVec2(btnWidth, 0.0f));

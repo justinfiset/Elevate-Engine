@@ -105,7 +105,9 @@ namespace Elevate
 		Bool,
 		Int, Int2, Int3, Int4,
 		Float, Float2, Float3, Float4,
-		Mat3, Mat4, Mat5
+		Mat3, Mat4, Mat5,
+		Custom,
+		Unknown
 	};
 
 	inline uint32_t GetDataTypeCount(EngineDataType type) {

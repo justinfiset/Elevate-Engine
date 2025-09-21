@@ -11,8 +11,13 @@
 
 #include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+
 namespace Elevate {
     class Component;
+    class GameObject;
 }
 
 namespace Elevate
@@ -53,7 +58,7 @@ namespace Elevate
                 return type.name();
             }
         }
-        
+
         static std::vector<std::string> s_classPaths;
         static std::vector<std::string>& CompilationClassStack() {
             static std::vector<std::string> stack;
@@ -111,6 +116,21 @@ namespace Elevate
             return stack;
         }
 
+        template<typename T>
+        struct EngineDataTypeTrait
+        {
+            static constexpr EngineDataType value = EngineDataType::Custom;
+        };
+
+        template<> struct EngineDataTypeTrait<float> { static constexpr EngineDataType value = EngineDataType::Float; };
+        template<> struct EngineDataTypeTrait<int> { static constexpr EngineDataType value = EngineDataType::Int; };
+        template<> struct EngineDataTypeTrait<bool> { static constexpr EngineDataType value = EngineDataType::Bool; };
+        template<> struct EngineDataTypeTrait<glm::vec2> { static constexpr EngineDataType value = EngineDataType::Float2; };
+        template<> struct EngineDataTypeTrait<glm::vec3> { static constexpr EngineDataType value = EngineDataType::Float3; };
+        template<> struct EngineDataTypeTrait<glm::vec4> { static constexpr EngineDataType value = EngineDataType::Float4; };
+        template<typename T>
+        static constexpr EngineDataType DeduceEngineDataType() { return EngineDataTypeTrait<std::decay_t<T>>::value; }
+
         static std::string GetCleanedName(std::string rawName)
         {
             std::string cleanedName = "";
@@ -158,20 +178,39 @@ namespace Elevate
             CompilationClassStack().push_back(newClass);
         }
 
-        template<typename Class, typename FieldType>
-        static void AddProperty(FieldType Class::* member, const std::string& name, EngineDataType type)
+        static std::map<std::string, std::vector<ComponentField>>& GetCustomComponentFields()
         {
-            size_t offset = reinterpret_cast<size_t>(
-                &(reinterpret_cast<Class const volatile*>(0)->*member)
-                );
+            static std::map<std::string, std::vector<ComponentField>> m_customComponentFields;
+            return m_customComponentFields;
+        }
+
+        template<typename Class, typename FieldType>
+        static void AddProperty(FieldType Class::* member, const std::string& name)
+        {
+            constexpr EngineDataType deduced = DeduceEngineDataType<FieldType>();
 
             EE_CORE_TRACE(" -- {}", GetCleanedName(name));
 
-            CompilationClassFieldStack().push_back(ComponentField(
-                GetCleanedName(name),
-                type,
-                offset
-            ));
+            auto& customFields = GetCustomComponentFields();
+            std::string typeName = typeid(FieldType).name();
+            size_t offset = reinterpret_cast<size_t>(&(reinterpret_cast<Class const volatile*>(0)->*member));
+            if (customFields.find(typeName) != customFields.end())
+            {
+                CompilationClassFieldStack().push_back(ComponentField(
+                    GetCleanedName(name),
+                    EngineDataType::Custom,
+                    offset,
+                    customFields[typeName]
+                ));
+            }
+            else
+            {
+                CompilationClassFieldStack().push_back(ComponentField(
+                    GetCleanedName(name),
+                    deduced,
+                    offset
+                ));
+            }
         }
 
         static void PopClassStack()
@@ -196,6 +235,18 @@ namespace Elevate
             }
         }
     };
+
+    enum class EntryType
+    {
+        Component,
+        Struct
+    };
+
+    static std::stack<EntryType>& GetEntryTypes()
+    {
+        static std::stack<EntryType> s_entryTypes;
+        return s_entryTypes;
+    }
 }
 
 // TODO REMOVE THIS OBSELETE VERSION
@@ -214,9 +265,10 @@ namespace Elevate
 
 #define BEGIN_COMPONENT(T) \
     private: \
-    using ThisComponentType = T; \
+    using ThisType = T; \
     inline static struct T##ClassEntry { \
         T##ClassEntry() { \
+            Elevate::ComponentRegistry::Register<T>(#T); \
             FieldStartIndex = ::Elevate::ComponentRegistry::CompilationClassFieldStack().size(); \
             ::Elevate::ComponentRegistry::AddClassToStack(#T); \
             ClassName = ::Elevate::ComponentRegistry::GetCleanedName(#T); \
@@ -231,39 +283,75 @@ namespace Elevate
             return true; \
         }
 
-#define EXPOSE(param, type) \
+#define EXPOSE(param) \
+    public: \
     inline static struct param##PropertyEntry { \
         param##PropertyEntry() { \
-            ::Elevate::ComponentRegistry::AddProperty<ThisComponentType>( \
-                &ThisComponentType::param, \
-                #param, \
-                type \
+            using MemberT = decltype(ThisType::param); \
+            ::Elevate::ComponentRegistry::AddProperty<ThisType, MemberT>( \
+                &ThisType::param, \
+                #param \
             ); \
         } \
     } generated_##param##PropertyEntry;
 
 #define END_COMPONENT() \
+private: \
+inline static struct ClassEntryEnd { \
+    ClassEntryEnd() { \
+        ::Elevate::ComponentRegistry::PopClassStack(); \
+        auto& global = ::Elevate::ComponentRegistry::CompilationClassFieldStack(); \
+        size_t start = generated_classEntry.FieldStartIndex; \
+        for (size_t i = start; i < global.size(); ++i) { \
+            generated_classEntry.ClassFieldStack.push_back(global[i]); \
+        } \
+        if (start < global.size()) { \
+            global.erase(global.begin() + start, global.end()); \
+        } \
+    } \
+} generated_classEntryEnd; \
+public: \
+inline virtual std::string GetName() const override { return generated_classEntry.ClassName; } \
+inline virtual Elevate::ComponentLayout GetLayout() const override { \
+    std::vector<Elevate::ComponentField> instanceFields; \
+    for (const auto& field : generated_classEntry.ClassFieldStack) { \
+        /* Calcul du pointeur réel sur la donnée du composant */ \
+        const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
+        instanceFields.push_back(Elevate::ComponentField(field.name, field.type, fieldPtr, field.children)); \
+    } \
+    return Elevate::ComponentLayout(generated_classEntry.ClassName, instanceFields); \
+}
+
+
+#define BEGIN_STRUCT(T) \
     private: \
-    inline static struct ClassEntryEnd { \
-        ClassEntryEnd() { \
-            ::Elevate::ComponentRegistry::PopClassStack(); \
+    using ThisType = T; \
+    inline static struct T##StructEntry { \
+        T##StructEntry() { \
+            ::Elevate::ComponentRegistry::AddClassToStack(#T); \
+            FieldStartIndex = ::Elevate::ComponentRegistry::CompilationClassFieldStack().size(); \
+            StructName = ::Elevate::ComponentRegistry::GetCleanedName(#T); \
+            StructTypeName = typeid(T).name(); \
+        } \
+        size_t FieldStartIndex = 0; \
+        std::string StructName; \
+        std::string StructTypeName; \
+        std::vector<Elevate::ComponentField> StructFieldStack; \
+    } generated_structEntry; \
+    public:
+
+#define END_STRUCT() \
+    private: \
+    inline static struct StructEntryEnd { \
+        StructEntryEnd() { \
             auto& global = ::Elevate::ComponentRegistry::CompilationClassFieldStack(); \
-            size_t start = generated_classEntry.FieldStartIndex; \
+            size_t start = generated_structEntry.FieldStartIndex; \
             for (size_t i = start; i < global.size(); ++i) { \
-                generated_classEntry.ClassFieldStack.push_back(global[i]); \
+                generated_structEntry.StructFieldStack.push_back(global[i]); \
             } \
             if (start < global.size()) { \
                 global.erase(global.begin() + start, global.end()); \
             } \
+            ::Elevate::ComponentRegistry::GetCustomComponentFields()[generated_structEntry.StructTypeName] = generated_structEntry.StructFieldStack; \
         } \
-    } generated_classEntryEnd; \
-    public: \
-        inline virtual std::string GetName() const override { return generated_classEntry.ClassName; } \
-        inline virtual Elevate::ComponentLayout GetLayout() const override { \
-            std::vector<Elevate::ComponentField> instanceFields; \
-            for (const auto& field : generated_classEntry.ClassFieldStack) { \
-                const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
-                instanceFields.push_back(Elevate::ComponentField(field.name, field.type, fieldPtr)); \
-            } \
-            return Elevate::ComponentLayout(generated_classEntry.ClassName, instanceFields); \
-        }
+    } generated_structEntryEnd;

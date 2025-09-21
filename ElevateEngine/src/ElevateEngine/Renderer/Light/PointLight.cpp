@@ -5,8 +5,6 @@
 
 namespace Elevate
 {
-    REGISTER_COMPONENT(PointLight);
-
     void PointLight::UploadToShader(Shader* shader, uint32_t index)
     {
         const std::string name = "pointLights[" + std::to_string(index) + "]";
@@ -18,4 +16,3 @@ namespace Elevate
         shader->SetUniform1f(name + ".quadratic", 0.032f);
     }
 }
-

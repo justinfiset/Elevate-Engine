@@ -15,20 +15,41 @@ namespace Elevate
 		const void* data = nullptr; // TODO RETIRER
 		size_t offset = 0;
 		uint32_t size = 0;
+		std::vector<ComponentField> children;
 
 		ComponentField() = default;
 		ComponentField(const std::string& name, ComponentDataType type, const void* dataPtr) // TODO RETIRER
-			: name(name), type(type), data(dataPtr), size(GetDataTypeSize(type)) 
+			: name(name), type(type), data(dataPtr), size(GetDataTypeSize(type)) { }
+
+		ComponentField(const std::string& name, ComponentDataType type, size_t offset)
+			: name(name), type(type), offset(offset), size(GetDataTypeSize(type)) { }
+
+		ComponentField(
+			const std::string& name,
+			ComponentDataType type,
+			size_t offset,
+			const std::vector<ComponentField>& childrenFields
+		)
+			: name(name), type(type), offset(offset), size(GetDataTypeSize(type)), children(childrenFields)
+		{}
+
+		ComponentField(
+			const std::string& name,
+			ComponentDataType type,
+			const void* data,
+			const std::vector<ComponentField>& childrenFields
+		)
+			: name(name), type(type), offset(0), size(GetDataTypeSize(type)), data(data)
 		{
-			if (!dataPtr)
-			{
-				EE_CORE_ASSERT(false, "Cannot pass a null data ptr to a component field : {0}. Asserting.", name)
+			// copie récursive des enfants en ajustant leur data
+			for (auto child : childrenFields) {
+				ComponentField f = child;
+				f.data = reinterpret_cast<const char*>(data) + f.offset;
+				children.push_back(f);
 			}
 		}
 
-		ComponentField(const std::string& name, ComponentDataType type, size_t offset)
-			: name(name), type(type), offset(offset), size(GetDataTypeSize(type))
-		{}
+		inline bool HasChildrens() { return !children.empty(); }
 	};
 
 	class ComponentLayout

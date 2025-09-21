@@ -190,6 +190,16 @@ void Elevate::Editor::AnalyserPanel::RenderField(const ComponentField& field) co
         ImGui::Checkbox(field.name.c_str(), (bool*)(field.data));
         break;
 
+    case ComponentDataType::Custom:
+        if (ImGui::TreeNodeEx(field.name.c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_FramePadding))
+        {
+            for (const auto& child : field.children)
+                RenderField(child);
+
+            ImGui::TreePop();
+        }
+        break;
+
     default:
         ImGui::TextColored(ImVec4(1, 0, 0, 1), "Unsupported data type: %s", field.name.c_str());
         break;
