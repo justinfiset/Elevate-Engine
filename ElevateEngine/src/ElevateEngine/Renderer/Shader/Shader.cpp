@@ -3,6 +3,8 @@
 
 #include <ElevateEngine/Renderer/Renderer.h>
 
+#include "ElevateEngine/Renderer/Light/Light.h"
+#include "ElevateEngine/Renderer/Light/DirectionalLight.h"
 #include <ElevateEngine/Renderer/OpenGL/Shader/OpenGLShader.h>
 #include "ElevateEngine/Files/FileUtility.h"
 #include "ElevateEngine/Core/GameObject.h"

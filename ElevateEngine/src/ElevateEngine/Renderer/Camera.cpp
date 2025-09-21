@@ -7,6 +7,8 @@
 #include "ElevateEngine/Core/Application.h"
 #include "ElevateEngine/Core/GameObject.h"
 
+#include <ElevateEngine/Core/ComponentRegistry.h> // TODO REMOVE IF REGISTER_COMPONENT IS NOT USED ANYMORE
+
 namespace Elevate
 {
     REGISTER_COMPONENT(Camera);

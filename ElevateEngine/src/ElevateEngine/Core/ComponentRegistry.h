@@ -1,30 +1,59 @@
 #pragma once
 
 #include <typeindex>
+#include <type_traits>
+
+#include <entt/entt.hpp>
+
+#include <stack>
 #include <map>
+
+#include <memory>
 #include <string>
 #include <functional>
-#include <entt/entt.hpp>
-#include <stack>
-#include <ElevateEngine/Core/Data.h>
-#include <memory>
 
+#include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 
-namespace Elevate {
-    class Component;
-    class GameObject;
-}
+#include <ElevateEngine/Core/GameObject.h>
 
 namespace Elevate
 {
+    template<typename T, typename = void>
+    struct has_super : std::false_type {};
+    template<typename T>
+    struct has_super<T, std::void_t<typename T::Super>> : std::true_type {};
+
+    template<typename T, bool = has_super<T>::value>
+    struct ParentFieldsHelper {
+        static std::vector<ComponentField> Get() { return {}; }
+    };
+
+    template<typename T>
+    struct ParentFieldsHelper<T, true> {
+        static std::vector<ComponentField> Get() {
+            using Super = typename T::Super;
+            if constexpr (!std::is_same_v<Super, void> && std::is_base_of_v<Component, Super>) {
+                return Super::generated_classEntry.ClassFieldStack;
+            }
+            else {
+                return {};
+            }
+        }
+    };
+
     class ComponentRegistry {
     public:
         using ComponentFactory = std::function<Component* (entt::registry&, entt::entity)>;
+
+        template<typename T>
+        static auto GetParentFieldsIfPossible(const T* obj) -> std::vector<ComponentField> {
+            return ParentFieldsHelper<T>::Get(obj);
+        }
 
         template<typename T>
         static void Register(const std::string& name) {
@@ -189,7 +218,7 @@ namespace Elevate
         {
             constexpr EngineDataType deduced = DeduceEngineDataType<FieldType>();
 
-            EE_CORE_TRACE(" -- {}", GetCleanedName(name));
+            EE_CORE_TRACE(" --> Exposed Field : {}", GetCleanedName(name));
 
             auto& customFields = GetCustomComponentFields();
             std::string typeName = typeid(FieldType).name();
@@ -264,64 +293,85 @@ namespace Elevate
 // =======================================================
 
 #define BEGIN_COMPONENT(T) \
-    private: \
-    using ThisType = T; \
-    inline static struct T##ClassEntry { \
-        T##ClassEntry() { \
-            Elevate::ComponentRegistry::Register<T>(#T); \
-            FieldStartIndex = ::Elevate::ComponentRegistry::CompilationClassFieldStack().size(); \
-            ::Elevate::ComponentRegistry::AddClassToStack(#T); \
-            ClassName = ::Elevate::ComponentRegistry::GetCleanedName(#T); \
-        } \
-        size_t FieldStartIndex = 0; \
-        std::string ClassName; \
-        std::vector<Elevate::ComponentField> ClassFieldStack; \
-    } generated_classEntry; \
-    public: \
-        inline virtual bool RemoveFromGameObject() override { \
+private: \
+using ThisType = T; \
+public: \
+inline static struct T##ClassEntry { \
+    T##ClassEntry() { \
+        Elevate::ComponentRegistry::Register<T>(#T); \
+        FieldStartIndex = ::Elevate::ComponentRegistry::CompilationClassFieldStack().size(); \
+        ::Elevate::ComponentRegistry::AddClassToStack(#T); \
+        ClassName = ::Elevate::ComponentRegistry::GetCleanedName(#T); \
+        HasBaseClass = false; \
+    } \
+    size_t FieldStartIndex = 0; \
+    std::string ClassName; \
+    std::vector<Elevate::ComponentField> ClassFieldStack; \
+    bool HasBaseClass = false; \
+} generated_classEntry; \
+public: \
+    virtual bool RemoveFromGameObject() override { \
+        if (gameObject) { \
             gameObject->RemoveComponent<T>(); \
             return true; \
-        }
+        } \
+        return false; \
+    }
 
 #define EXPOSE(param) \
-    public: \
-    inline static struct param##PropertyEntry { \
-        param##PropertyEntry() { \
-            using MemberT = decltype(ThisType::param); \
-            ::Elevate::ComponentRegistry::AddProperty<ThisType, MemberT>( \
-                &ThisType::param, \
-                #param \
-            ); \
-        } \
-    } generated_##param##PropertyEntry;
+public: \
+inline static struct param##PropertyEntry { \
+    param##PropertyEntry() { \
+        using MemberT = decltype(ThisType::param); \
+        ::Elevate::ComponentRegistry::AddProperty<ThisType, MemberT>( \
+            &ThisType::param, \
+            #param \
+        ); \
+    } \
+} generated_##param##PropertyEntry;
 
 #define END_COMPONENT() \
 private: \
-inline static struct ClassEntryEnd { \
-    ClassEntryEnd() { \
-        ::Elevate::ComponentRegistry::PopClassStack(); \
-        auto& global = ::Elevate::ComponentRegistry::CompilationClassFieldStack(); \
-        size_t start = generated_classEntry.FieldStartIndex; \
-        for (size_t i = start; i < global.size(); ++i) { \
-            generated_classEntry.ClassFieldStack.push_back(global[i]); \
+    inline static struct ClassEntryEnd { \
+        ClassEntryEnd() { \
+            ::Elevate::ComponentRegistry::PopClassStack(); \
+            auto& global = ::Elevate::ComponentRegistry::CompilationClassFieldStack(); \
+            size_t start = generated_classEntry.FieldStartIndex; \
+            for (size_t i = start; i < global.size(); ++i) { \
+                generated_classEntry.ClassFieldStack.push_back(global[i]); \
+            } \
+            if (start < global.size()) { \
+                global.erase(global.begin() + start, global.end()); \
+            } \
         } \
-        if (start < global.size()) { \
-            global.erase(global.begin() + start, global.end()); \
-        } \
-    } \
-} generated_classEntryEnd; \
+    } generated_classEntryEnd; \
 public: \
-inline virtual std::string GetName() const override { return generated_classEntry.ClassName; } \
-inline virtual Elevate::ComponentLayout GetLayout() const override { \
-    std::vector<Elevate::ComponentField> instanceFields; \
-    for (const auto& field : generated_classEntry.ClassFieldStack) { \
-        /* Calcul du pointeur réel sur la donnée du composant */ \
-        const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
-        instanceFields.push_back(Elevate::ComponentField(field.name, field.type, fieldPtr, field.children)); \
+    inline virtual std::string GetName() const override { return generated_classEntry.ClassName; } \
+    inline virtual Elevate::ComponentLayout GetLayout() const override { \
+        std::vector<Elevate::ComponentField> instanceFields; \
+        if (generated_classEntry.HasBaseClass) { \
+            auto parentFields = ParentFieldsHelper<ThisType>::Get(); \
+            for (const auto& field : parentFields) { \
+                const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
+                instanceFields.push_back(Elevate::ComponentField( \
+                    field.name, field.type, fieldPtr, field.children \
+                )); \
+            } \
+        } \
+        for (const auto& field : generated_classEntry.ClassFieldStack) { \
+            const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
+            instanceFields.push_back(Elevate::ComponentField(field.name, field.type, fieldPtr, field.children)); \
+        } \
+        return Elevate::ComponentLayout(generated_classEntry.ClassName, instanceFields); \
     } \
-    return Elevate::ComponentLayout(generated_classEntry.ClassName, instanceFields); \
-}
 
+#define DECLARE_BASE(BaseType) \
+using Super = BaseType; \
+inline static struct BaseType##BaseClassDeclaration { \
+    BaseType##BaseClassDeclaration() { \
+        generated_classEntry.HasBaseClass = true; \
+    } \
+} generated_baseDeclaration;
 
 #define BEGIN_STRUCT(T) \
     private: \

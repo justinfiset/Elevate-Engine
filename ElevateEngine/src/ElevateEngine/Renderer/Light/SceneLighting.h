@@ -2,9 +2,6 @@
 
 #include <memory>
 
-#include "ElevateEngine/Renderer/Light/DirectionalLight.h"
-#include <ElevateEngine/Renderer/Light/PointLight.h>
-
 // The maximum number of each lights to have in the game, these numbers are passed to the shader at compile time
 #define MAX_DIRECTIONAL_LIGHT  1
 #define MAX_POINTLIGHT        32
@@ -12,6 +9,10 @@
 
 namespace Elevate
 {
+	class DirectionalLight;
+	class PointLight;
+	class Shader;
+
 	class SceneLighting
 	{
 	public:

@@ -31,6 +31,9 @@
 #include <ElevateEngine/Scene/SceneManager.h>
 #include "ElevateEngine/Editor/Camera/EditorCamera.h"
 
+#include <ElevateEngine/Renderer/Light/PointLight.h>
+#include <ElevateEngine/Renderer/Light/DirectionalLight.h>
+
 #include <ElevateEngine/Physics.h>
 
 class DebugLayer : public Elevate::Layer

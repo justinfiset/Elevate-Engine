@@ -7,6 +7,7 @@
 #include "glm/glm.hpp"
 #include <glm/gtc/type_ptr.hpp>
 
+#include <ElevateEngine/Core/ComponentRegistry.h>
 
 Elevate::GameObject::GameObject(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent)
 	: m_Name(name), m_Scene(scene.get()), m_Parent(parent) { }

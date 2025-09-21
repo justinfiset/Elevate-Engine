@@ -4,7 +4,6 @@
 #include <vector>
 #include <entt/entt.hpp>
 #include <ElevateEngine/Core/Component.h>
-#include <ElevateEngine/Core/ComponentRegistry.h>
 #include <ElevateEngine/Scene/Scene.h>
 
 #define EE_VALIDATE_COMPONENT_TYPE() EE_CORE_ASSERT((std::is_base_of<Component, T>::value), "{0} : Type specifier must be a child of the Component class.", m_Name);

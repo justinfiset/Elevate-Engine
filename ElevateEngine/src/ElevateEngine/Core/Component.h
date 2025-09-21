@@ -2,7 +2,6 @@
 
 #include <ElevateEngine/Events/Event.h>
 #include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
-#include <ElevateEngine/Core/ComponentRegistry.h>
 #include <ElevateEngine/Core/EEObject.h>
 
 #define COMPONENT_LAYOUT(...) \
@@ -21,6 +20,8 @@ namespace Elevate
 		friend class Scene;
 
 	public:
+		std::function<bool()> RemoveFromGOFunc;
+
 		Component() = default;
 		virtual ~Component() = default;
 
@@ -36,7 +37,8 @@ namespace Elevate
 		virtual bool RemoveFromGameObject() { return false; }
 
 		inline virtual std::string GetName() const {
-			return ComponentRegistry::GetName(typeid(*this));
+			return "Unknown Component Name";
+			//return ComponentRegistry::GetName(typeid(*this));
 		}
 	protected:
 		virtual void Init() {}

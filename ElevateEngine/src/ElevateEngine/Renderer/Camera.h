@@ -8,11 +8,11 @@ namespace Elevate
 	class Camera : public Component
 	{
 	public:
-		COMPONENT_LAYOUT(
-			{
-				{"FOV", ComponentDataType::Float, &m_FOV}
-			}
-		);
+		//COMPONENT_LAYOUT(
+		//	{
+		//		{"FOV", ComponentDataType::Float, &m_FOV}
+		//	}
+		//);
 
 		// All possible constructors
 		Camera(float fov = 60.0f);

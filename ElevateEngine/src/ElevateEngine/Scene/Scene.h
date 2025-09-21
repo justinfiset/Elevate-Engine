@@ -10,6 +10,8 @@
 
 // Forward declarations
 namespace Elevate {
+	class Cubemap;
+	class Shader;
 	class GameObject;
 	class Camera;
 }

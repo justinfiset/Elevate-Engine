@@ -9,6 +9,7 @@
 
 #include "ElevateEngine/Renderer/Renderer.h"
 
+#include <ElevateEngine/Core/ComponentRegistry.h> // TODO REMOVE IF REGISTER_COMPONENT IS NOT USED ANYMORE
 namespace Elevate
 {
     REGISTER_COMPONENT(Model);

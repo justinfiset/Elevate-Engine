@@ -1,26 +1,25 @@
 #pragma once
-#include <memory>
-#include <glm/vec3.hpp>
-#include <ElevateEngine/Core/Component.h>
 
-namespace Elevate
-{
-	class Shader;
-}
+#include <ElevateEngine/Core/Component.h>
+#include <ElevateEngine/Core/GameObject.h>
+#include <ElevateEngine/Core/ComponentRegistry.h>
+
+#include <glm/vec3.hpp>
 
 namespace Elevate
 {
 	class Light : public Component
 	{
 	public:
-		COMPONENT_LAYOUT(
+		BEGIN_COMPONENT(Light)
+		/*COMPONENT_LAYOUT(
 			{
 				{ "Intensity", ComponentDataType::Float, &m_intensity},
 				{ "Ambient Color", ComponentDataType::Float3, &m_ambientColor},
 				{ "Diffuse Color", ComponentDataType::Float3, &m_diffuseColor},
 				{ "Specular Color", ComponentDataType::Float3, &m_specularColor},
 			}
-		);
+		);*/
 
 		Light(const glm::vec3& color)
 			: m_ambientColor(color), m_diffuseColor(color), m_specularColor(color) { }
@@ -49,5 +48,11 @@ namespace Elevate
 		glm::vec3 m_diffuseColor;
 		glm::vec3 m_specularColor;
 		float m_intensity = 1.0f;
+
+		EXPOSE(m_ambientColor)
+		EXPOSE(m_diffuseColor)
+		EXPOSE(m_specularColor)
+		EXPOSE(m_intensity)
+		END_COMPONENT()
 	};
 }

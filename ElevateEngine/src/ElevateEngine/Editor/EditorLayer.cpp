@@ -8,6 +8,7 @@
 #include <ElevateEngine/Scene/SceneManager.h>
 
 #include <ElevateEngine/Renderer/Model.h>
+#include <ElevateEngine/Renderer/Shader/Shader.h>
 #include "ElevateEngine/Renderer/Shader/ShaderManager.h"
 #include "ElevateEngine/Renderer/Model.h"
 

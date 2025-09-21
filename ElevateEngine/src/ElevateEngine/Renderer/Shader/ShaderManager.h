@@ -1,4 +1,8 @@
 #pragma once
+
+#include <string>
+#include <unordered_map>
+#include <memory>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 
 namespace Elevate {

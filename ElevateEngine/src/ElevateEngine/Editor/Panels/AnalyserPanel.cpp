@@ -10,6 +10,7 @@
 #include <ElevateEngine/ImGui/CustomImGuiCommand.h>
 
 #include <ElevateEngine/Editor/Commands/ComponentCommand.h>
+#include <ElevateEngine/Core/ComponentRegistry.h>
 
 void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 {

@@ -5,10 +5,7 @@
 
 // TODO cleanup some of the imports
 #include "ElevateEngine/Renderer/Material.h"
-#include "ElevateEngine/Renderer/Light/Light.h"
-#include "ElevateEngine/Renderer/Light/DirectionalLight.h"
 #include "ElevateEngine/Renderer/Camera.h"
-
 
 // the list of uniform names used by the shader
 // TODO vérif si uniquement avec opengl ou non
@@ -19,8 +16,8 @@
 namespace Elevate
 {
 	class GameObject;
-	class Shader;
-	using ShaderPtr = std::shared_ptr<Shader>;
+	class Light;
+	class DirectionalLight;
 
 	class Shader
 	{
@@ -32,9 +29,9 @@ namespace Elevate
 		virtual bool IsBound() const = 0;
 		virtual uint32_t GetHashCode() const = 0;
 
-		static ShaderPtr Create(std::string vertexSource, std::string fragmentSouce);
-		static ShaderPtr CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath);
-		static ShaderPtr CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath, std::string customVertCode, std::string customFragCode);
+		static std::shared_ptr<Shader> Create(std::string vertexSource, std::string fragmentSouce);
+		static std::shared_ptr<Shader> CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath);
+		static std::shared_ptr<Shader> CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath, std::string customVertCode, std::string customFragCode);
 
 		// Lights
 		void UseLight(Light* newLightSetting, std::string lightName);
@@ -101,5 +98,7 @@ namespace Elevate
 		void UseMaterial(MaterialPtr newMaterial);
 		friend class Model;
 	};
+
+	using ShaderPtr = std::shared_ptr<Shader>;
 }
 

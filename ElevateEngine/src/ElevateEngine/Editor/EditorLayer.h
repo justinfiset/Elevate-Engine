@@ -7,10 +7,14 @@
 #include <ElevateEngine/Scene/Scene.h>
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Editor/Camera/EditorCamera.h>
-#include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 
 #define EE_EDITOR_BUILD
+
+namespace Elevate
+{
+	class Shader;
+}
 
 namespace Elevate::Editor
 {
@@ -55,7 +59,7 @@ namespace Elevate::Editor
 		std::shared_ptr<Scene> m_EditorScene;
 		
 		// Grid
-		ShaderPtr m_GridShader;
+		std::shared_ptr<Shader> m_GridShader;
 		std::shared_ptr<GameObject> m_GridObject;
 
 		static EditorLayer* s_Instance;
