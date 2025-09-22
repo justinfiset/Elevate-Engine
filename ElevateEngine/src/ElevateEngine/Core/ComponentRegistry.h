@@ -49,17 +49,30 @@ namespace Elevate
 
     // Field Property ------------------------------------------------------
     struct FlattenTag {};
-    struct DisplayNameTag {
-        const char* value;
-    };
+    #define Flatten FlattenTag{}
 
-    #define Flatten        FlattenTag{}
+    struct DisplayNameTag { const char* value; };
     #define DisplayName(x) DisplayNameTag{x}
 
-    using FieldOption = std::variant<FlattenTag, DisplayNameTag>;
+    struct TooltipTag { const char* text; };
+    #define Tooltip(x) TooltipTag{x}
+
+    struct ReadOnlyTag {};
+    #define ReadOnly ReadOnlyTag{}
+
+    struct ColorTag {};
+    #define Color ColorTag{}
+
+    using FieldOption = std::variant<
+        FlattenTag, DisplayNameTag, TooltipTag, ReadOnlyTag, ColorTag
+    >;
+
     struct FieldMeta {
         bool flatten = false;
         std::string displayName = "";
+        std::string tooltip;
+        bool readOnly = false;
+        bool isColor = false;
     };
     // Field Property ^ ----------------------------------------------------
 
@@ -234,7 +247,6 @@ namespace Elevate
         static void AddProperty(FieldType Class::* member, const std::string& name, std::initializer_list<FieldOption> options)
         {
             constexpr EngineDataType type = DeduceEngineDataType<FieldType>();
-
             FieldMeta meta;
             for (auto&& opt : options) {
                 if (std::holds_alternative<FlattenTag>(opt)) {
@@ -243,6 +255,15 @@ namespace Elevate
                 else if (std::holds_alternative<DisplayNameTag>(opt)) {
                     meta.displayName = std::get<DisplayNameTag>(opt).value;
                 }
+                else if (std::holds_alternative<TooltipTag>(opt)) {
+                    meta.tooltip = std::get<TooltipTag>(opt).text;
+                }
+                else if (std::holds_alternative<ReadOnlyTag>(opt)) {
+                    meta.readOnly = true;
+                }
+                else if (std::holds_alternative<ColorTag>(opt)) {
+                    meta.isColor = true;
+                }
             }
 
             EE_CORE_TRACE(" --> Exposed field : {0} flatten={1}  displayName={2}", GetCleanedName(name), meta.flatten, meta.displayName);
@@ -250,16 +271,21 @@ namespace Elevate
             auto& customFields = GetCustomComponentFields();
             std::string typeName = typeid(FieldType).name();
             size_t offset = reinterpret_cast<size_t>(&(reinterpret_cast<Class const volatile*>(0)->*member));
+
+            ComponentField field;
             if (customFields.find(typeName) != customFields.end())
             {
-                ComponentField fieldWithChildren(GetCleanedName(name), EngineDataType::Custom, offset, meta.displayName, meta.flatten, customFields[typeName]);
-                CompilationClassFieldStack().push_back(fieldWithChildren);
+                field = ComponentField(GetCleanedName(name), EngineDataType::Custom, offset, meta.displayName, customFields[typeName]);
+                field.flatten = meta.flatten;
             }
             else
             {
-                ComponentField field(GetCleanedName(name), type, offset, meta.displayName);
-                CompilationClassFieldStack().push_back(field);
+                field = ComponentField(GetCleanedName(name), type, offset, meta.displayName);
             }
+            field.isColor = meta.isColor;
+            field.tooltip = meta.tooltip;
+            field.readOnly = meta.readOnly;
+            CompilationClassFieldStack().push_back(field);
         }
 
         static void PopClassStack()
@@ -375,13 +401,13 @@ public: \
             for (const Elevate::ComponentField& field : parentFields) { \
                 const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
                 instanceFields.push_back(Elevate::ComponentField( \
-                    field, fieldPtr, field.children \
+                    field, fieldPtr \
                 )); \
             } \
         } \
         for (const Elevate::ComponentField& field : generated_classEntry.ClassFieldStack) { \
             const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
-            instanceFields.push_back(Elevate::ComponentField(field, fieldPtr, field.children)); \
+            instanceFields.push_back(Elevate::ComponentField(field, fieldPtr)); \
         } \
         return Elevate::ComponentLayout(generated_classEntry.ClassName, instanceFields); \
     } \

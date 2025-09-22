@@ -165,6 +165,8 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(ComponentLayout& layo
 
 void Elevate::Editor::AnalyserPanel::RenderField(const ComponentField& field) const
 {
+    ImGui::BeginDisabled(field.readOnly);
+
     switch (field.type)
     {
     case ComponentDataType::Float:
@@ -176,16 +178,18 @@ void Elevate::Editor::AnalyserPanel::RenderField(const ComponentField& field) co
         break;
 
     case ComponentDataType::Float3:
-        ImGui::InputFloat3(field.GetDisplayName().c_str(), (float*)(field.data));
+        if (field.isColor)
+            ImGui::ColorEdit3(field.GetDisplayName().c_str(), (float*)(field.data));
+        else
+            ImGui::InputFloat3(field.GetDisplayName().c_str(), (float*)(field.data));
         break;
 
     case ComponentDataType::Float4:
-        ImGui::InputFloat4(field.GetDisplayName().c_str(), (float*)(field.data));
+        if (field.isColor)
+            ImGui::ColorEdit4(field.GetDisplayName().c_str(), (float*)(field.data));
+        else
+            ImGui::InputFloat4(field.GetDisplayName().c_str(), (float*)(field.data));
         break;
-
-    //case ComponentDataType::Color:
-    //    ImGui::ColorEdit4(field.GetDisplayName().c_str(), static_cast<float*>(field.data));
-    //    break;
 
     case ComponentDataType::Bool:
         ImGui::Checkbox(field.GetDisplayName().c_str(), (bool*)(field.data));
@@ -211,5 +215,12 @@ void Elevate::Editor::AnalyserPanel::RenderField(const ComponentField& field) co
     default:
         ImGui::TextColored(ImVec4(1, 0, 0, 1), "Unsupported data type: %s", field.name.c_str());
         break;
+    }
+
+    ImGui::EndDisabled();
+
+    if (!field.tooltip.empty())
+    {
+        ImGui::SetItemTooltip(field.tooltip.c_str());
     }
 }

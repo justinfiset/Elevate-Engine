@@ -49,9 +49,9 @@ namespace Elevate
 		glm::vec3 m_specularColor;
 		float m_intensity = 1.0f;
 
-		EXPOSE(m_ambientColor)
-		EXPOSE(m_diffuseColor)
-		EXPOSE(m_specularColor)
+		EXPOSE(m_ambientColor, Color)
+		EXPOSE(m_diffuseColor, Color)
+		EXPOSE(m_specularColor, Color)
 		EXPOSE(m_intensity)
 		END_COMPONENT()
 	};

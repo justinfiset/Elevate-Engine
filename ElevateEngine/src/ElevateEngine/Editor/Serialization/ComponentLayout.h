@@ -12,11 +12,14 @@ namespace Elevate
 	{
 		std::string name;
 		std::string displayName;
+		std::string tooltip;
 		ComponentDataType type;
 		const void* data = nullptr; // TODO RETIRER
 		size_t offset = 0;
 		uint32_t size = 0;
 		bool flatten = false;
+		bool readOnly = false;
+		bool isColor = false;
 		std::vector<ComponentField> children;
 
 		ComponentField() = default;
@@ -34,27 +37,23 @@ namespace Elevate
 			ComponentDataType type,
 			size_t offset,
 			const std::string& displayName,
-			bool flatten,
 			const std::vector<ComponentField>& childrenFields
 		)
-			: name(name), type(type), offset(offset), size(GetDataTypeSize(type)), displayName(displayName), flatten(flatten), children(childrenFields)
+			: name(name), type(type), offset(offset), size(GetDataTypeSize(type)), displayName(displayName), children(childrenFields)
 		{}
 
 		ComponentField(const std::string& name, ComponentDataType type, const void* dataPtr)
 			: name(name), type(type), data(dataPtr) { }
 
-		// TODO: SIMPLIFY THE FOLLOWING IN A SINGLE CONSTRUCTOR, we already have the original field so we should be able to easely "copy" them without passing them on their own
 		ComponentField(const ComponentField& original, const void* dataPtr)
-			: name(original.name), type(original.type), offset(original.offset), size(original.size), displayName(original.displayName), flatten(original.flatten), data(dataPtr) { }
-
-		ComponentField(const ComponentField& original, const void* dataPtr, const std::vector<ComponentField>& childrenFields)
-			: name(original.name), type(original.type), offset(original.offset), size(original.size), displayName(original.displayName), flatten(original.flatten), data(dataPtr)
+			: name(original.name), type(original.type), offset(original.offset), size(original.size), 
+			displayName(original.displayName), flatten(original.flatten), readOnly(original.readOnly),
+			isColor(original.isColor), data(dataPtr) 
 		{
-			// recursive copy of childrens
-			for (auto child : childrenFields) {
-				ComponentField f = child;
-				f.data = reinterpret_cast<const char*>(data) + f.offset;
-				children.push_back(f);
+			for (const auto& child : original.children)
+			{
+				const void* childDataPtr = reinterpret_cast<const char*>(dataPtr) + child.offset;
+				children.emplace_back(child, childDataPtr);
 			}
 		}
 
