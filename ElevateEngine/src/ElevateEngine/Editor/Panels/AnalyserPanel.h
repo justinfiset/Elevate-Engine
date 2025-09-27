@@ -31,5 +31,7 @@ namespace Elevate::Editor
 		void InsertCategory(CategoryMenu& root, const ComponentRegistry::Entry& entry);
 		void DrawCategoryChildren(const CategoryMenu& category, std::weak_ptr<GameObject> obj);
 		void DrawCategoryMenu(const CategoryMenu& menu, std::weak_ptr<GameObject> obj);
+
+		std::vector<std::type_index> m_alredyAddedComponents;
 	};
 }

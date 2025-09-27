@@ -468,7 +468,7 @@ public: \
                 this->GetName(), other ? other->GetName() : "null"); \
         } \
     } \
-    virtual Elevate::GameObjectComponentFactory GetFactory() override { \
+    virtual Elevate::GameObjectComponentFactory GetFactory() const override { \
         auto& entries = ComponentRegistry::GetEntries(); \
         auto it = entries.find(typeid(ThisType)); \
         if (it != entries.end()) { \
@@ -476,14 +476,15 @@ public: \
         } \
         return nullptr; \
     } \
-    virtual Elevate::GameObjectComponentDestructor GetDestructor() override { \
+    virtual Elevate::GameObjectComponentDestructor GetDestructor() const override { \
         auto& entries = ComponentRegistry::GetEntries(); \
         auto it = entries.find(typeid(ThisType)); \
         if (it != entries.end()) { \
                 return it->second.destructor; \
         } \
         return nullptr; \
-    }
+    } \
+    virtual std::type_index GetTypeIndex() const override { return typeid(ThisType); }
 
 #define DECLARE_BASE(BaseType) \
 using Super = BaseType; \

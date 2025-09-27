@@ -36,10 +36,14 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 
         ImGui::PopStyleVar();
         
+        // TODO REMOVE AND / OR CHECK IF THE GAMEOBJECT IS DIFFERENT, THIS IS A COSTLY OPERATION FOR EACH FRAME
+        m_alredyAddedComponents.clear();
+
         std::map<EECategory, std::vector<Component*>> m_sortedComponents;
         for (Component* comp : obj->GetComponents())
         {
             m_sortedComponents[comp->GetCategory()].push_back(comp);
+            m_alredyAddedComponents.push_back(comp->GetTypeIndex());
         }
 
         for (std::pair<EECategory, std::vector<Component*>> entry : m_sortedComponents)
@@ -281,8 +285,20 @@ void Elevate::Editor::AnalyserPanel::InsertCategory(CategoryMenu& root, const Co
 
 void Elevate::Editor::AnalyserPanel::DrawCategoryChildren(const CategoryMenu& category, std::weak_ptr<GameObject> obj)
 {
+    // Grey out the item if it is already added to the current GameObject
     for (auto& entry : category.items)
     {
+        bool alreadyAdded = false;
+        for (auto& type : m_alredyAddedComponents)
+        {
+            if (type == entry.type)
+            {
+                alreadyAdded = true;
+                break;
+            }
+        }
+
+        ImGui::BeginDisabled(alreadyAdded);
         if (ImGui::Selectable(entry.name.c_str()))
         {
             if (auto go = obj.lock())
@@ -290,6 +306,7 @@ void Elevate::Editor::AnalyserPanel::DrawCategoryChildren(const CategoryMenu& ca
                 EditorLayer::Get().PushCommand(std::make_unique<AddComponentCommand>(go, entry.factory, entry.destructor));
             }
         }
+        ImGui::EndDisabled();
     }
 }
 

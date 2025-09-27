@@ -26,6 +26,7 @@ namespace Elevate
 		{
 			EE_VALIDATE_COMPONENT_TYPE();
 
+			// We can't add a second component of the same type
 			if (m_Scene->m_Registry.all_of<T>(m_Entity))
 			{
 				EE_CORE_ERROR("Error: Tried to add an already existing component to the {} GameObject", m_Name);

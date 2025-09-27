@@ -3,6 +3,7 @@
 #include <ElevateEngine/Events/Event.h>
 #include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 #include <ElevateEngine/Core/EEObject.h>
+#include <typeindex>
 
 #define COMPONENT_LAYOUT(...) \
 	ComponentLayout GetLayout() const override { return ComponentLayout(GetName(), __VA_ARGS__);}
@@ -30,8 +31,9 @@ namespace Elevate
 
 		virtual Component* Clone() = 0;
 		virtual void CopyFrom(Component* other) = 0;
-		virtual GameObjectComponentFactory GetFactory() = 0;
-		virtual GameObjectComponentDestructor GetDestructor() = 0;
+		virtual GameObjectComponentFactory GetFactory() const = 0;
+		virtual GameObjectComponentDestructor GetDestructor() const = 0;
+		virtual std::type_index GetTypeIndex() const = 0;
 
 		inline void SetActive(bool newState) { m_IsActive = newState; }
 		inline bool IsActive() { return m_IsActive; }
