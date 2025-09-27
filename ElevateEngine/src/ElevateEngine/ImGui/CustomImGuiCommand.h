@@ -24,8 +24,7 @@ namespace Elevate
             {
                 SetItemAllowOverlap();
                 ImVec2 prevCursor = GetCursorScreenPos();
-
-                btnWidth = window->Size.x - headerCustomContent() - style.FramePadding.x * 2;
+                btnWidth = ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - headerCustomContent() - style.FramePadding.x;
 
                 SetCursorScreenPos(prevCursor);
             }

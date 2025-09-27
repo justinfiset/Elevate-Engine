@@ -1,7 +1,5 @@
 #pragma once
 
-// TODO donner un meilleur nom au fichier
-
 // size in bytes
 #define EE_DATA_SIZE_None 0
 #define EE_DATA_SIZE_Bool 1

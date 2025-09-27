@@ -26,6 +26,12 @@ namespace Elevate
 		{
 			EE_VALIDATE_COMPONENT_TYPE();
 
+			if (m_Scene->m_Registry.all_of<T>(m_Entity))
+			{
+				EE_CORE_ERROR("Error: Tried to add an already existing component to the {} GameObject", m_Name);
+				return m_Scene->m_Registry.get<T>(m_Entity);
+			}
+
 			auto& comp = m_Scene->m_Registry.emplace<T>(m_Entity, std::forward<Args>(args)...);
 			comp.gameObject = this;
 			comp.Init();

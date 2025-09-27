@@ -1,5 +1,8 @@
 #pragma once
+#include "ElevateEngine/Core/GameObject.h"
 #include "ElevateEngine/Core/Component.h"
+#include "ElevateEngine/Core/ComponentRegistry.h"
+
 #include "glm/glm.hpp"
 
 // TODO add ortographic or projection settings (bool value or constructors)
@@ -8,11 +11,8 @@ namespace Elevate
 	class Camera : public Component
 	{
 	public:
-		//COMPONENT_LAYOUT(
-		//	{
-		//		{"FOV", ComponentDataType::Float, &m_FOV}
-		//	}
-		//);
+		BEGIN_COMPONENT(Camera)
+		EECATEGORY("Rendering")
 
 		// All possible constructors
 		Camera(float fov = 60.0f);
@@ -43,6 +43,8 @@ namespace Elevate
 
 		glm::mat4 GenViewProjectionMatrix();
 
+		//virtual Component* Clone() override;
+
 		void Init() override;
 	private:
 		glm::mat4 GenProjectionMatrix();
@@ -59,6 +61,8 @@ namespace Elevate
 
 		float m_Near = 0.1f;
 		float m_Far = 100.0f;
+
+		END_COMPONENT()
 	};
 	using CameraPtr = std::shared_ptr<Camera>;
 }

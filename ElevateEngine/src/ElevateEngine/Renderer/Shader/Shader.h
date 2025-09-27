@@ -5,7 +5,6 @@
 
 // TODO cleanup some of the imports
 #include "ElevateEngine/Renderer/Material.h"
-#include "ElevateEngine/Renderer/Camera.h"
 
 // the list of uniform names used by the shader
 // TODO vérif si uniquement avec opengl ou non
@@ -18,6 +17,7 @@ namespace Elevate
 	class GameObject;
 	class Light;
 	class DirectionalLight;
+	class Camera;
 
 	class Shader
 	{

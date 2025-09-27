@@ -13,6 +13,7 @@
 #include <string>
 #include <functional>
 
+#include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 
@@ -47,7 +48,10 @@ namespace Elevate
         }
     };
 
-    // Field Property ------------------------------------------------------
+    // Field / Component Property Tag ------------------------------------------------------
+    struct HideInInspectorTag {};
+    #define HideInInspector HideInInspectorTag{}
+
     struct FlattenTag {};
     #define Flatten FlattenTag{}
 
@@ -64,6 +68,7 @@ namespace Elevate
     #define Color ColorTag{}
 
     using FieldOption = std::variant<
+        HideInInspectorTag,
         FlattenTag, DisplayNameTag, TooltipTag, ReadOnlyTag, ColorTag
     >;
 
@@ -74,51 +79,87 @@ namespace Elevate
         bool readOnly = false;
         bool isColor = false;
     };
-    // Field Property ^ ----------------------------------------------------
 
     class ComponentRegistry {
     public:
-        using ComponentFactory = std::function<Component* (entt::registry&, entt::entity)>;
-
         template<typename T>
         static auto GetParentFieldsIfPossible(const T* obj) -> std::vector<ComponentField> {
             return ParentFieldsHelper<T>::Get(obj);
         }
 
+        // Component factory for a specific type (for who Component is a base class)
+        using ComponentFactory = std::function<Component* (entt::registry&, entt::entity)>;
+        
+        struct Entry
+        {
+            std::string name;
+            std::type_index type{ typeid(void) };
+            EECategory category;
+            ComponentFactory creator; // entt factory method
+            GameObjectComponentFactory factory; // factory to create / add to a gameObject
+            GameObjectComponentDestructor destructor; // component destructor / remove from a gameObject
+            bool visible;
+        };
+
         template<typename T>
-        static void Register(const std::string& name) {
-            GetFactories()[&typeid(T)] = [](entt::registry& registry, entt::entity entity) -> Component* {
-                if (registry.all_of<T>(entity)) {
-                    return static_cast<Component*>(&registry.get<T>(entity));
+        static void Register(const std::string& name, EECategory category, std::vector<FieldOption>& options) {
+            std::type_index ti(typeid(T));
+
+            bool visible = true;
+            for (FieldOption& option : options)
+            {
+                if (std::holds_alternative<HideInInspectorTag>(option))
+                {
+                    visible = false;
                 }
-                return nullptr;
-            };
+            }
 
-            GetTypeNames()[std::type_index(typeid(T))] = name;
+            GetEntries().emplace(ti, Entry{
+                name,
+                ti,
+                category,
+                [](entt::registry& registry, entt::entity entity) -> Component* {
+                    if (registry.all_of<T>(entity)) {
+                        return &registry.get<T>(entity);
+                    }
+                    return nullptr;
+                },
+                [](std::weak_ptr<GameObject> go) -> Component* {
+                    if (std::shared_ptr<GameObject> obj = go.lock()) {
+                        return &obj->AddComponent<T>();
+                    }
+                    return nullptr;
+                },
+                [](std::weak_ptr<GameObject> go) -> void {
+                    if (std::shared_ptr<GameObject> obj = go.lock()) {
+                        obj->RemoveComponent<T>();
+                    }
+                },
+                visible
+            });
         }
-
-        static auto& GetFactories() {
-            static std::unordered_map<const std::type_info*, ComponentFactory> factories;
-            return factories;
-        }
-
-        static auto& GetTypeNames() {
-            static std::unordered_map<std::type_index, std::string> names;
-            return names;
+        
+        static std::unordered_map<std::type_index, Entry>& GetEntries() {
+            static std::unordered_map<std::type_index, Entry> entries;
+            return entries;
         }
 
         static std::string GetName(const std::type_info& type) {
-            auto& names = GetTypeNames();
-            auto it = names.find(std::type_index(type));
-            if (it != names.end()) {
-                return it->second;
+            auto& entries = GetEntries();
+            auto it = entries.find(std::type_index(type));
+            if (it != entries.end()) {
+                return it->second.name;
             }
             else {
                 return type.name();
             }
         }
 
-        static std::vector<std::string> s_classPaths;
+        static std::vector<std::string>& ClassPaths() {
+            static std::vector<std::string> paths;
+            return paths;
+        }
+
         static std::vector<std::string>& CompilationClassStack() {
             static std::vector<std::string> stack;
             return stack;
@@ -288,68 +329,55 @@ namespace Elevate
             CompilationClassFieldStack().push_back(field);
         }
 
-        static void PopClassStack()
-        {
-            try
+        static void PopClassStack() {
+            if (CompilationClassStack().empty()) {
+                std::cerr << "[ELEVATE] ERROR: Tried to PopClassStack but stack is empty!" << std::endl;
+                return;
+            }
+
+            std::string fullName;
+            for (int i = 0; i < CompilationClassStack().size(); i++)
             {
-                std::string fullName;
-                for (int i = 0; i < CompilationClassStack().size(); i++)
+                fullName.append(CompilationClassStack()[i]);
+                if (i != CompilationClassStack().size() - 1)
                 {
-                    fullName.append(CompilationClassStack()[i]);
-                    if (i != CompilationClassStack().size() - 1)
-                    {
-                        fullName.append("/");
-                    }
+                    fullName.append("/");
                 }
-                CompilationClassStack().pop_back();
-                s_classPaths.push_back(fullName);
             }
-            catch (const std::exception&)
-            {
-                EE_CORE_ERROR("More BEGIN_COMPONENT() then END_COMPONENT, did you forgot to add a END_COMPONENT() to the end of your class?");
-            }
+            CompilationClassStack().pop_back();
+            ClassPaths().push_back(fullName);
         }
     };
-
-    enum class EntryType
-    {
-        Component,
-        Struct
-    };
-
-    static std::stack<EntryType>& GetEntryTypes()
-    {
-        static std::stack<EntryType> s_entryTypes;
-        return s_entryTypes;
-    }
 }
 
-// TODO REMOVE THIS OBSELETE VERSION
-#define REGISTER_COMPONENT(T) \
-    namespace { \
-        struct T##Registrar { \
-            T##Registrar() { \
-                Elevate::ComponentRegistry::Register<T>(#T); \
+#define EECATEGORY(name) \
+    private: \
+        inline static struct categoryRegistrar { \
+            categoryRegistrar() { \
+                generated_classEntry.Category = EECategory(name); \
             } \
-        } T##_registrar; \
-    }
+        } generated_categoryRegistrar; \
+        virtual EECategory GetCategory() const override { return generated_classEntry.Category; } \
+    public:
 
 // =======================================================
 // BEGIN_COMPONENT / EXPOSE / END_COMPONENT
 // =======================================================
 
-#define BEGIN_COMPONENT(T) \
+#define BEGIN_COMPONENT(T, ...) \
 private: \
 using ThisType = T; \
 public: \
 inline static struct T##ClassEntry { \
     T##ClassEntry() { \
-        Elevate::ComponentRegistry::Register<T>(#T); \
         FieldStartIndex = ::Elevate::ComponentRegistry::CompilationClassFieldStack().size(); \
         ::Elevate::ComponentRegistry::AddClassToStack(#T); \
         ClassName = ::Elevate::ComponentRegistry::GetCleanedName(#T); \
         HasBaseClass = false; \
+        Options = { __VA_ARGS__ }; \
     } \
+    std::vector<FieldOption> Options; \
+    EECategory Category; \
     size_t FieldStartIndex = 0; \
     std::string ClassName; \
     std::vector<Elevate::ComponentField> ClassFieldStack; \
@@ -381,6 +409,11 @@ inline static struct param##PropertyEntry { \
 private: \
     inline static struct ClassEntryEnd { \
         ClassEntryEnd() { \
+            ::Elevate::ComponentRegistry::Register<ThisType>( \
+                    generated_classEntry.ClassName, \
+                    generated_classEntry.Category, \
+                    generated_classEntry.Options \
+            ); \
             ::Elevate::ComponentRegistry::PopClassStack(); \
             auto& global = ::Elevate::ComponentRegistry::CompilationClassFieldStack(); \
             size_t start = generated_classEntry.FieldStartIndex; \
@@ -411,6 +444,46 @@ public: \
         } \
         return Elevate::ComponentLayout(generated_classEntry.ClassName, instanceFields); \
     } \
+    virtual Component* Clone() override { \
+        ThisType* clone = new ThisType(); \
+        for (auto& field : ComponentRegistry::GetCustomComponentFields()[typeid(ThisType).name()]) { \
+            field.CopyValue(this, clone); \
+        } \
+        return clone; \
+    } \
+    virtual void CopyFrom(Component* other) override { \
+        if (auto o = dynamic_cast<ThisType*>(other)) { \
+            if (generated_classEntry.HasBaseClass) { \
+                auto parentFields = ParentFieldsHelper<ThisType>::Get(); \
+                for (const Elevate::ComponentField& field : parentFields) { \
+                    field.CopyValue(o, this); \
+                } \
+            } \
+            for (const Elevate::ComponentField& field : generated_classEntry.ClassFieldStack) { \
+                field.CopyValue(o, this); \
+            } \
+        } \
+        else { \
+            EE_CORE_ERROR("Error: Tried setting a {0} from a {1} component in CopyFrom(Component*)", \
+                this->GetName(), other ? other->GetName() : "null"); \
+        } \
+    } \
+    virtual Elevate::GameObjectComponentFactory GetFactory() override { \
+        auto& entries = ComponentRegistry::GetEntries(); \
+        auto it = entries.find(typeid(ThisType)); \
+        if (it != entries.end()) { \
+            return it->second.factory; \
+        } \
+        return nullptr; \
+    } \
+    virtual Elevate::GameObjectComponentDestructor GetDestructor() override { \
+        auto& entries = ComponentRegistry::GetEntries(); \
+        auto it = entries.find(typeid(ThisType)); \
+        if (it != entries.end()) { \
+                return it->second.destructor; \
+        } \
+        return nullptr; \
+    }
 
 #define DECLARE_BASE(BaseType) \
 using Super = BaseType; \

@@ -1,5 +1,4 @@
 #pragma once
-#include <ElevateEngine/Editor/EditorLayer.h>
 
 namespace Elevate
 {

@@ -6,6 +6,8 @@
 
 namespace Elevate
 {
+	class Component;
+
 	typedef EngineDataType ComponentDataType;
 
 	struct ComponentField
@@ -14,7 +16,7 @@ namespace Elevate
 		std::string displayName;
 		std::string tooltip;
 		ComponentDataType type;
-		const void* data = nullptr; // TODO RETIRER
+		const void* data = nullptr;
 		size_t offset = 0;
 		uint32_t size = 0;
 		bool flatten = false;
@@ -30,7 +32,17 @@ namespace Elevate
 			size_t offset,
 			const std::string& displayName = ""
 		)
-			: name(name), type(type), offset(offset), size(GetDataTypeSize(type)), displayName(displayName) { }
+			: name(name), type(type), offset(offset), displayName(displayName) 
+		{
+			if (type == ComponentDataType::Custom)
+			{
+				size = 0;
+			}
+			else
+			{
+				size = GetDataTypeSize(type);
+			}
+		}
 
 		ComponentField(
 			const std::string& name,
@@ -39,8 +51,17 @@ namespace Elevate
 			const std::string& displayName,
 			const std::vector<ComponentField>& childrenFields
 		)
-			: name(name), type(type), offset(offset), size(GetDataTypeSize(type)), displayName(displayName), children(childrenFields)
-		{}
+			: name(name), type(type), offset(offset), displayName(displayName), children(childrenFields)
+		{
+			if (type == ComponentDataType::Custom)
+			{
+				size = 0;
+			}
+			else
+			{
+				size = GetDataTypeSize(type);
+			}
+		}
 
 		ComponentField(const std::string& name, ComponentDataType type, const void* dataPtr)
 			: name(name), type(type), data(dataPtr) { }
@@ -54,6 +75,24 @@ namespace Elevate
 			{
 				const void* childDataPtr = reinterpret_cast<const char*>(dataPtr) + child.offset;
 				children.emplace_back(child, childDataPtr);
+			}
+		}
+
+		void CopyValue(Component* src, Component* clone) const
+		{
+			const void* srcData = reinterpret_cast<const char*>(src) + offset;
+			void* destData = reinterpret_cast<char*>(clone) + offset;
+			
+			if (size > 0)
+			{
+				std::memcpy(destData, srcData, size);
+			}
+			else if (!children.empty())
+			{
+				for (auto& child : children)
+				{
+					child.CopyValue(src, clone);
+				}
 			}
 		}
 

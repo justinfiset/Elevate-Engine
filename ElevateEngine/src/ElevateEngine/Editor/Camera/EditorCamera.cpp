@@ -5,13 +5,8 @@
 #include <ElevateEngine/Core/Time.h>
 #include <ElevateEngine/Core/GameObject.h>
 
-// TODO REMOVE ONCE REGISTER_COMPONENT IS DEPRICATED COMPLETLY
-#include <ElevateEngine/Core/ComponentRegistry.h>
-
 namespace Elevate
 {
-    REGISTER_COMPONENT(EditorCamera);
-
     EditorCamera::EditorCamera(float fov)
         : Camera(fov) { }
 

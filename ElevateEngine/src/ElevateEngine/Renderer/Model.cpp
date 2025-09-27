@@ -9,12 +9,6 @@
 
 #include "ElevateEngine/Renderer/Renderer.h"
 
-#include <ElevateEngine/Core/ComponentRegistry.h> // TODO REMOVE IF REGISTER_COMPONENT IS NOT USED ANYMORE
-namespace Elevate
-{
-    REGISTER_COMPONENT(Model);
-}
-
 Elevate::Model::Model(PrimitiveType type) : Model("", nullptr)
 {
     switch (type)
@@ -50,6 +44,17 @@ Elevate::Model::Model(std::string path, ShaderPtr shader, MaterialPtr material)
     if (!path.empty())
         LoadModel(path);
 }
+
+//Elevate::Component* Elevate::Model::Clone()
+//{
+//    Model* model = new Model();
+//    model->m_Shader = m_Shader;
+//    model->m_Material = m_Material;
+//    model->m_batchedMesh = m_batchedMesh;
+//    model->m_Directory = m_Directory;
+//    model->m_attributes = m_attributes;
+//    return model;
+//}
 
 void Elevate::Model::LoadModel(std::string path)
 {
@@ -195,9 +200,12 @@ void Elevate::Model::PreRender()
 void Elevate::Model::Render()
 {
     // TODO send to render comment
-    Renderer::PushRenderState(m_attributes);
-    m_Shader->Bind();
-    m_Shader->UseMaterial(m_Material);
-    m_Shader->SetModelMatrix(*gameObject);
-    m_batchedMesh.Draw(m_Shader);
+    if (m_Shader)
+    {
+        Renderer::PushRenderState(m_attributes);
+        m_Shader->Bind();
+        m_Shader->UseMaterial(m_Material);
+        m_Shader->SetModelMatrix(*gameObject);
+        m_batchedMesh.Draw(m_Shader);
+    }
 }

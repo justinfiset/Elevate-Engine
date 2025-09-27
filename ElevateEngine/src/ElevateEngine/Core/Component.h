@@ -14,6 +14,9 @@ namespace Elevate {
 
 namespace Elevate
 {
+	using GameObjectComponentFactory = std::function<Component* (std::weak_ptr<GameObject>)>;
+	using GameObjectComponentDestructor = std::function<void(std::weak_ptr<GameObject>)>;
+
 	class Component : public EEObject
 	{
 		friend class GameObject;
@@ -24,6 +27,11 @@ namespace Elevate
 
 		Component() = default;
 		virtual ~Component() = default;
+
+		virtual Component* Clone() = 0;
+		virtual void CopyFrom(Component* other) = 0;
+		virtual GameObjectComponentFactory GetFactory() = 0;
+		virtual GameObjectComponentDestructor GetDestructor() = 0;
 
 		inline void SetActive(bool newState) { m_IsActive = newState; }
 		inline bool IsActive() { return m_IsActive; }

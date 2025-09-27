@@ -1,6 +1,8 @@
 #pragma once
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
+#include <ElevateEngine/Core/EEObject.h>
+#include <ElevateEngine/Core/ComponentRegistry.h>
 
 namespace Elevate
 {
@@ -17,5 +19,17 @@ namespace Elevate::Editor
 		void RenderComponent(Component* component) const;
 		void RenderComponentLayout(ComponentLayout& layout, Component* component = nullptr) const;
 		void RenderField(const ComponentField& field) const;
+
+		// TODO MOVE SOMEWHERE ELSE !!!! (ALL THE FOLLOWING UNDERNEATH)
+		struct CategoryMenu
+		{
+			EECategory category;
+			std::vector<ComponentRegistry::Entry> items;
+
+			std::vector<CategoryMenu> childs;
+		};
+		void InsertCategory(CategoryMenu& root, const ComponentRegistry::Entry& entry);
+		void DrawCategoryChildren(const CategoryMenu& category, std::weak_ptr<GameObject> obj);
+		void DrawCategoryMenu(const CategoryMenu& menu, std::weak_ptr<GameObject> obj);
 	};
 }

@@ -10,13 +10,16 @@
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Renderer/RenderState.h>
 #include "Mesh.h"
+#include <ElevateEngine/Core/ComponentRegistry.h>
 
 namespace Elevate
 {
     class Model : public Component
     {
     public:
-        COMPONENT_LAYOUT({});
+        BEGIN_COMPONENT(Model)
+        EECATEGORY("Rendering")
+
         Model() = default;
         Model(PrimitiveType type);
         Model(std::string path, ShaderPtr shader = nullptr, MaterialPtr material = nullptr);
@@ -31,6 +34,8 @@ namespace Elevate
         const inline std::shared_ptr<Shader>& GetShader() const { return m_Shader; }
 
         RenderState& GetRenderState() { return m_attributes; }
+
+        //virtual Component* Clone() override;
     private:
         void LoadModel(std::string path);
         void ProcessNode(aiNode* node, const aiScene* scene, MeshData& data);
@@ -44,5 +49,7 @@ namespace Elevate
         Mesh m_batchedMesh;
         std::string m_Directory;
         RenderState m_attributes;
+
+        END_COMPONENT()
     };
 }

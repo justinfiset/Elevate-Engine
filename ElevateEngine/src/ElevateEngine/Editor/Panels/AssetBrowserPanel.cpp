@@ -135,6 +135,17 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
         m_currentTextures[fileItem.iconPath] = Texture::CreateFromFile(fileItem.iconPath);
         m_FileItems.push_back(fileItem);
     }
+
+    std::sort(m_FileItems.begin(), m_FileItems.end(), [](const FileItem& a, const FileItem& b) {
+        if (a.type == b.type)
+        {
+            return a.name < b.name;
+        }
+        else
+        {
+            return a.type < b.type;
+        }
+    });
 }
 
 void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath)

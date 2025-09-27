@@ -8,6 +8,7 @@
 #include <ElevateEngine/Renderer/OpenGL/Shader/OpenGLShader.h>
 #include "ElevateEngine/Files/FileUtility.h"
 #include "ElevateEngine/Core/GameObject.h"
+#include <ElevateEngine/Renderer/Camera.h>
 
 namespace Elevate 
 {

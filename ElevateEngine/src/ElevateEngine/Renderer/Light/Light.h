@@ -11,21 +11,16 @@ namespace Elevate
 	class Light : public Component
 	{
 	public:
-		BEGIN_COMPONENT(Light)
-		/*COMPONENT_LAYOUT(
-			{
-				{ "Intensity", ComponentDataType::Float, &m_intensity},
-				{ "Ambient Color", ComponentDataType::Float3, &m_ambientColor},
-				{ "Diffuse Color", ComponentDataType::Float3, &m_diffuseColor},
-				{ "Specular Color", ComponentDataType::Float3, &m_specularColor},
-			}
-		);*/
+		BEGIN_COMPONENT(Light, HideInInspector)
+		EECATEGORY("Rendering")
+
+		Light() = default;
 
 		Light(const glm::vec3& color)
 			: m_ambientColor(color), m_diffuseColor(color), m_specularColor(color) { }
 
-		Light(const glm::vec3& amb, const glm::vec3& dif, const glm::vec3& spec)
-			: m_ambientColor(amb), m_diffuseColor(dif), m_specularColor(spec) { }
+		Light(const glm::vec3& amb, const glm::vec3& dif, const glm::vec3& spec, float intensity = 1.0f)
+			: m_ambientColor(amb), m_diffuseColor(dif), m_specularColor(spec), m_intensity(intensity) { }
 
 		// Getter and setters
 		inline void SetColor(const glm::vec3& color)
@@ -43,10 +38,12 @@ namespace Elevate
 		inline const glm::vec3& GetDiffuseColor() const { return m_diffuseColor; }
 		inline const glm::vec3& GetSpecularColor() const { return m_specularColor; }
 		inline const float& GetIntensity() const { return m_intensity; }
+
+		//virtual Component* Clone() override;
 	protected:
-		glm::vec3 m_ambientColor;
-		glm::vec3 m_diffuseColor;
-		glm::vec3 m_specularColor;
+		glm::vec3 m_ambientColor = { 1.0f, 1.0f, 1.0f };
+		glm::vec3 m_diffuseColor = { 1.0f, 1.0f, 1.0f };
+		glm::vec3 m_specularColor = { 1.0f, 1.0f, 1.0f };
 		float m_intensity = 1.0f;
 
 		EXPOSE(m_ambientColor, Color)

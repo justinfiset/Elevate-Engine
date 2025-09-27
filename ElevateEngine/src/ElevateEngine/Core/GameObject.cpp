@@ -8,6 +8,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Core/Log.h>
 
 Elevate::GameObject::GameObject(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent)
 	: m_Name(name), m_Scene(scene.get()), m_Parent(parent) { }
@@ -66,7 +67,7 @@ void Elevate::GameObject::Update()
 	for (Component* comp : GetComponents())
 	{
 		if (comp->IsActive())
-		{
+		{	
 			comp->Update();
 		}
 	}
@@ -170,8 +171,8 @@ namespace Elevate
 		entt::registry& registry = m_Scene->m_Registry;
 		const entt::entity entity = m_Entity;
 
-		for (const auto& [type, factory] : ComponentRegistry::GetFactories()) {
-			if (Component* component = factory(registry, entity)) {
+		for (auto& [type, entry] : ComponentRegistry::GetEntries()) {
+			if (Component* component = entry.creator(registry, entity)) {
 				components.push_back(component);
 			}
 		}

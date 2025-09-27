@@ -83,6 +83,8 @@ namespace Elevate::Editor
             widgetPtr->OnUpdate();
 
         m_EditorScene->UpdateScene();
+
+        ExecuteStack(); // Execute the command buffer
     }
 
     void EditorLayer::OnRender()

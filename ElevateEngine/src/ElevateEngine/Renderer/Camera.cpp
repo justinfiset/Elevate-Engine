@@ -7,13 +7,6 @@
 #include "ElevateEngine/Core/Application.h"
 #include "ElevateEngine/Core/GameObject.h"
 
-#include <ElevateEngine/Core/ComponentRegistry.h> // TODO REMOVE IF REGISTER_COMPONENT IS NOT USED ANYMORE
-
-namespace Elevate
-{
-    REGISTER_COMPONENT(Camera);
-}
-
 Elevate::Camera::Camera(float fov)
 {
     m_FOV = fov;
@@ -47,6 +40,20 @@ glm::mat4 Elevate::Camera::GenViewProjectionMatrix()
 {
     return m_ProjectionMatrix * GenViewMatrix();
 }
+
+//Elevate::Component* Elevate::Camera::Clone()
+//{
+//    Camera* cam = new Camera(m_FOV, m_AspectRatio);
+//
+//    cam->m_Front = m_Front;
+//    cam->m_Right = m_Right;
+//    cam->m_Up = m_Up;
+//    cam->m_ProjectionMatrix = m_ProjectionMatrix;
+//    cam->m_Near = m_Near;
+//    cam->m_Far = m_Far;
+//
+//    return cam;
+//}
 
 glm::mat4 Elevate::Camera::GenViewMatrix()
 {

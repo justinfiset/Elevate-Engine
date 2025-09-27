@@ -38,16 +38,34 @@ namespace Elevate
     class CommandManager
     {
     public:
+        inline void PushCommand(std::unique_ptr<Command> command)
+        {
+            m_executeStack.push(std::move(command));
+        }
+    protected:
+        inline void ExecuteStack()
+        {
+            while (!m_executeStack.empty())
+            {
+                EE_CORE_TRACE("ExecuteStack while loop iteration");
+                auto command = std::move(m_executeStack.top());
+                m_executeStack.pop();
+                Execute(std::move(command));
+            }
+        }
+
         inline void Execute(std::unique_ptr<Command> command)
         {
+            EE_CORE_TRACE("Execute");
             command->Execute();
 
             if (command->IsUndoable())
             {
                 m_undoStack.push(std::move(command));
 
-                // Clear the redo stack
-                while (!m_redoStack.empty()) m_redoStack.pop();
+                // Clear the redo stack with a swap trick (more safe with unique ptrs)
+                std::stack<std::unique_ptr<Command>> empty;
+                m_redoStack.swap(empty);
             }
         }
 
@@ -62,9 +80,10 @@ namespace Elevate
 
                 if (!m_undoStack.empty())
                 {
-                    m_undoStack.top()->Undo();
-                    m_redoStack.push(std::move(m_undoStack.top()));
+                    auto cmd = std::move(m_undoStack.top());
                     m_undoStack.pop();
+                    cmd->Undo();
+                    m_redoStack.push(std::move(cmd));
                 }
             }
         }
@@ -75,13 +94,11 @@ namespace Elevate
             {
                 auto cmd = std::move(m_redoStack.top());
                 m_redoStack.pop();
-                cmd->Execute();
-                if (cmd->IsUndoable()) {
-                    m_undoStack.push(std::move(cmd));
-                }
+                PushCommand(std::move(cmd));
             }
         }
     private:
+        std::stack<std::unique_ptr<Command>> m_executeStack;
         std::stack<std::unique_ptr<Command>> m_undoStack;
         std::stack<std::unique_ptr<Command>> m_redoStack;
     };

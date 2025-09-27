@@ -8,10 +8,10 @@
 namespace Elevate::Editor {
     
     enum FileType {
-        Directory,
-        File,
-        Internal,
-        Image
+        Directory = 0,
+        File = 1,
+        Internal = 2,
+        Image = 3
     };
 
     struct FileMetadata {

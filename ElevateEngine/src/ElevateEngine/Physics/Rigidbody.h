@@ -49,8 +49,11 @@ namespace Elevate
 		EECATEGORY("Physics")
 
 		Rigidbody();
+		Rigidbody(const Rigidbody& other);
 
 		void Update() override;
+
+		//virtual Component* Clone() override;
 	private:
 		RigidbodyData m_data;
 		EXPOSE(m_data, Flatten);

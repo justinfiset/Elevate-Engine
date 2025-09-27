@@ -2,18 +2,17 @@
 
 #include "Core.h"
 
-#include "ElevateEngine/Core/Layers/LayerStack.h"
-#include "ElevateEngine/Events/Event.h"
-#include "ElevateEngine/Events/ApplicationEvent.h"
-
-#include "ElevateEngine/Core/Window.h"
-#include "ElevateEngine/ImGui/ImGuiLayer.h"
-
+#include <ElevateEngine/Core/Layers/LayerStack.h>
+#include <ElevateEngine/Events/Event.h>
+#include <ElevateEngine/Events/ApplicationEvent.h>
+#include <ElevateEngine/Core/Window.h>
+#include <ElevateEngine/ImGui/ImGuiLayer.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
-#include "ElevateEngine/Renderer/Buffer.h"
-#include "ElevateEngine/Renderer/FrameBuffer.h"
-#include "ElevateEngine/Renderer/VertexArray.h"
+#include <ElevateEngine/Renderer/Buffer.h>
+#include <ElevateEngine/Renderer/FrameBuffer.h>
+#include <ElevateEngine/Renderer/VertexArray.h>
 #include <ElevateEngine/Core/GameContext.h>
+#include <ElevateEngine/Editor/EditorLayer.h>
 
 namespace Elevate {
 	class EE_API Application : public GameContext

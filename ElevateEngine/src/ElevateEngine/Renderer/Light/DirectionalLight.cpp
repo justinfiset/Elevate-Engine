@@ -6,8 +6,6 @@
 
 namespace Elevate
 {
-	REGISTER_COMPONENT(DirectionalLight);
-
 	const glm::vec3 DirectionalLight::CalculateDirection() const
 	{
 		glm::vec3 dir;
