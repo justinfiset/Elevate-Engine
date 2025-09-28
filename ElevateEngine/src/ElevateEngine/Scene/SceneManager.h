@@ -9,6 +9,8 @@ namespace Elevate
 	class SceneManager {
 	public:
 		static inline void LoadScene(ScenePtr scene) { PushScene(scene); }
+		static inline void UnloadScene(ScenePtr scene) { PopScene(scene); }
+
 		static inline void SetScene(ScenePtr scene) 
 		{ 
 			m_Scenes.clear();
