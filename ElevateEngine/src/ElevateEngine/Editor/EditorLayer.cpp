@@ -243,7 +243,7 @@ namespace Elevate::Editor
         m_EditorScene->Notify(event);        
     }
 
-    inline EditorCamera* EditorLayer::GetCamera()
+    EditorCamera* EditorLayer::GetCamera()
     {
         return m_CameraObject->GetComponent<EditorCamera>();
     }

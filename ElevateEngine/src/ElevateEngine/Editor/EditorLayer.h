@@ -32,7 +32,7 @@ namespace Elevate::Editor
 		virtual void OnImGuiRender() override;
 		virtual void OnEvent(Event& event) override;
 
-		inline EditorCamera* GetCamera();
+		EditorCamera* GetCamera();
 		inline std::weak_ptr<Scene> GetScene() { return m_EditorScene; }
 		inline std::weak_ptr<GameObject> GetSelectedObject() { return m_SelectedObject; }
 		void SelectObject(std::shared_ptr<GameObject> newSelection);

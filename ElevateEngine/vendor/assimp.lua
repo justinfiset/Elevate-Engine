@@ -25,10 +25,10 @@ project 'assimp'
     
         'assimp/code/AssetLib/Collada/**',
         'assimp/code/AssetLib/Obj/**',
-        -- 'assimp/code/AssetLib/Blender/**', 'assimp/contrib/poly2tri/poly2tri/**',
+        'assimp/code/AssetLib/Blender/**', 'assimp/contrib/poly2tri/poly2tri/**',
         'assimp/code/AssetLib/FBX/**',
-        -- 'assimp/code/glTF2/**',
-        -- 'assimp/code/glTF/**',
+        'assimp/code/glTF2/**',
+        'assimp/code/glTF/**',
         'assimp/code/Assbin/**' -- For caching
     }
     
@@ -57,13 +57,13 @@ project 'assimp'
 		'ASSIMP_BUILD_NO_ASE_IMPORTER',
         'ASSIMP_BUILD_NO_USD_IMPORTER',
         'ASSIMP_BUILD_NO_PBRT_IMPORTER',
-		-- 'ASSIMP_BUILD_NO_ASSBIN_IMPORTER'
+		'ASSIMP_BUILD_NO_ASSBIN_IMPORTER',
 		'ASSIMP_BUILD_NO_B3D_IMPORTER',
 		'ASSIMP_BUILD_NO_BLEND_IMPORTER',
 		'ASSIMP_BUILD_NO_BVH_IMPORTER',
 		'ASSIMP_BUILD_NO_C4D_IMPORTER',
 		'ASSIMP_BUILD_NO_COB_IMPORTER',
-		-- 'ASSIMP_BUILD_NO_COLLADA_IMPORTER',
+		'ASSIMP_BUILD_NO_COLLADA_IMPORTER',
 		'ASSIMP_BUILD_NO_CSM_IMPORTER',
 		'ASSIMP_BUILD_NO_DXF_IMPORTER',
 		-- 'ASSIMP_BUILD_NO_FBX_IMPORTER',
@@ -111,7 +111,7 @@ project 'assimp'
 		'ASSIMP_BUILD_NO_PLY_EXPORTER',
 		'ASSIMP_BUILD_NO_3DS_EXPORTER',
 		'ASSIMP_BUILD_NO_GLTF_EXPORTER',
-		-- 'ASSIMP_BUILD_NO_ASSBIN_EXPORTER',
+		'ASSIMP_BUILD_NO_ASSBIN_EXPORTER',
 		'ASSIMP_BUILD_NO_ASSXML_EXPORTER',
 		'ASSIMP_BUILD_NO_X3D_EXPORTER',
 		'ASSIMP_BUILD_NO_FBX_EXPORTER',
