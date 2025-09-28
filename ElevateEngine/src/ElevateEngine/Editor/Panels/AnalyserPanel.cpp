@@ -107,7 +107,7 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 
 void Elevate::Editor::AnalyserPanel::RenderComponent(Component* comp) const
 {
-    const ComponentLayout& layout = comp->GetLayout();
+    const ComponentLayout layout = comp->GetLayout();
 
     EECategory category = comp->GetCategory();
 

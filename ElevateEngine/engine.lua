@@ -97,8 +97,6 @@ project "ElevateEngine"
             "GLFW_INCLUDE_NONE",
             "STBI_NO_SIMD"
         }
-
-        buildoptions { "-Wno-unknown-pragmas" }
         
         links
         {
