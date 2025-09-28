@@ -1,4 +1,9 @@
 {
+    "ignore": [
+        "DS_Store", "db", 
+        "git", "gitignore",
+        "filters", "user"
+    ],
     "assets": [
         {
             "extension": "jpg",

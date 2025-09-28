@@ -66,8 +66,9 @@ namespace Elevate::Editor {
         void LoadExtensionsMeta(std::string filepath = "editor/config/file_browser.json");
 
         std::filesystem::path m_CurrentPath = ".";
-        //      < Path , Texture >   
+        //      < Path , Texture >
         std::map<std::string, TexturePtr> m_currentTextures;
+        std::vector<std::string> m_ignoredExtensions;
         TexturePtr m_folderTexture;
 
         std::vector<FileItem> m_FileItems;

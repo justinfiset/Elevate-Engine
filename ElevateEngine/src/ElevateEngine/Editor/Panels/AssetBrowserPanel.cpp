@@ -117,11 +117,19 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
                 ext = ext.substr(1);
             }
 
-            if (m_FileMetadata.find(ext) != m_FileMetadata.end()) {
-                meta = m_FileMetadata[ext];
+            // if the current extension is ignored
+            if (std::find(m_ignoredExtensions.begin(), m_ignoredExtensions.end(), ext) != m_ignoredExtensions.end())
+            {
+                continue;
             }
-            else {
-                meta = m_FileMetadata["ANY"];
+            else
+            {
+                if (m_FileMetadata.find(ext) != m_FileMetadata.end()) {
+                    meta = m_FileMetadata[ext];
+                }
+                else {
+                    meta = m_FileMetadata["ANY"];
+                }
             }
         }
         FileItem fileItem;
@@ -166,6 +174,18 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
     if (doc.HasParseError()) {
         EE_CORE_ERROR("Erreur parsing JSON : {0}", rapidjson::GetParseError_En(doc.GetParseError()));
         return;
+    }
+
+    if (doc.HasMember("ignore") && doc["ignore"].IsArray()) {
+        const rapidjson::Value& ignore = doc["ignore"];
+        for (rapidjson::SizeType i = 0; i < ignore.Size(); i++)
+        {
+            const rapidjson::Value& filetype = ignore[i];
+            if (filetype.IsString())
+            {
+                m_ignoredExtensions.push_back(filetype.GetString());
+            }
+        }
     }
 
     if (!doc.HasMember("assets") || !doc["assets"].IsArray()) {
