@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ElevateEngine/Core/Log.h>
+
 #ifdef EE_DEBUG
 #define GLCheck(x) \
         x; \

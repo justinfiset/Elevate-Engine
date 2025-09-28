@@ -1,11 +1,13 @@
 #include "eepch.h"
+
 #include "OpenGLVertexArray.h"
-#include "ElevateEngine/Renderer/Buffer.h"
 
 #include <glad/glad.h>
-#include <ElevateEngine/Core/Log.h>
 
+#include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
+#include <ElevateEngine/Renderer/Buffer.h>
 
 Elevate::OpenGLVertexArray::OpenGLVertexArray()
 {

@@ -5,6 +5,7 @@
 #include "glm/gtc/type_ptr.hpp"
 
 #include <ElevateEngine/Renderer/GLDebug.h>
+#include <ElevateEngine/Core/Assert.h>
 
 uint32_t Elevate::OpenGLShader::s_CurrentBoundShaderID = 0;
 

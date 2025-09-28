@@ -34,6 +34,7 @@ project "Sandbox"
 
     includedirs
     {
+        "%{IncludeDir.GLFW}",
 	    "%{IncludeDir.Glad}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.rapidjson}",

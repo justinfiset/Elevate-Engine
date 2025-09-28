@@ -4,6 +4,7 @@
 #include "stb/stb_image.h"
 #include <glad/glad.h>
 #include <filesystem>
+#include <ElevateEngine/Core/Log.h>
 
 namespace Elevate {
 	TextureManager::TextureManager()

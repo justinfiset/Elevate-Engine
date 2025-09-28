@@ -5,18 +5,40 @@
 #include <utility>
 #include <algorithm>
 #include <functional>
-
 #include <string>
-#include <sstream>
-#include <ostream>
+
 #include <vector>
+#include <map>
 #include <unordered_map>
 #include <unordered_set>
 
-#include "ElevateEngine/Core/Core.h"
-#include "ElevateEngine/Core/Log.h"
-#include "ElevateEngine/Core/Assert.h"
+#include <sstream>
+#include <ostream>
+#include <fstream>
+
+#include <filesystem>
+
+// GLM
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+// RAPIDJSON
+#include <rapidjson/filereadstream.h>
+#include <rapidjson/document.h>
+#include <rapidjson/error/en.h>
+
+// VENDORS
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
+#include <glad/glad.h>
+#include <imgui.h>
+#include <spdlog/spdlog.h>
+#include <assimp/scene.h>
+#include <tinyfiledialogs.h>
 
 #ifdef EE_PLATFORM_WINDOWS
+	#define NOMINMAX
+	#define WIN32_LEAN_AND_MEAN
 	#include <Windows.h>
 #endif

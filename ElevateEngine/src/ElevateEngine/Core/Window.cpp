@@ -1,6 +1,8 @@
 #include "eepch.h"
 #include "Window.h"
 
+#include <ElevateEngine/Core/Log.h>
+
 // TODO use our custom loader instead of repetitive code herre
 #include "rapidjson/document.h"
 #include "rapidjson/filereadstream.h"

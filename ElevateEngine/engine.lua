@@ -81,7 +81,6 @@ project "ElevateEngine"
         defines
         {
             "EE_PLATFORM_WINDOWS",
-            "GLFW_INCLUDE_NONE",
         }
 
 	links
@@ -95,7 +94,6 @@ project "ElevateEngine"
         defines
         {
             "EE_PLATFORM_LINUX",
-            "GLFW_INCLUDE_NONE",
             "STBI_NO_SIMD"
         }
         

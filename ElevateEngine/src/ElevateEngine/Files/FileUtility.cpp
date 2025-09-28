@@ -2,6 +2,7 @@
 #include "FileUtility.h"
 
 #include <fstream>
+#include <ElevateEngine/Core/Log.h>
 
 std::string Elevate::File::GetFileContent(std::string path)
 {
