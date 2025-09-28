@@ -17,7 +17,7 @@ namespace Elevate::Editor
 		void OnImGuiRender() override;
 	private:
 		void RenderComponent(Component* component) const;
-		void RenderComponentLayout(ComponentLayout& layout, Component* component = nullptr) const;
+		void RenderComponentLayout(const ComponentLayout& layout, Component* component = nullptr) const;
 		void RenderField(const ComponentField& field) const;
 
 		// TODO MOVE SOMEWHERE ELSE !!!! (ALL THE FOLLOWING UNDERNEATH)

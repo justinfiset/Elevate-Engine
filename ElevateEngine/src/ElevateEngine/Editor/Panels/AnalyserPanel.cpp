@@ -121,7 +121,7 @@ void Elevate::Editor::AnalyserPanel::RenderComponent(Component* comp) const
     RenderComponentLayout(layout, comp);
 }
 
-void Elevate::Editor::AnalyserPanel::RenderComponentLayout(ComponentLayout& layout, Component* component) const
+void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const ComponentLayout& layout, Component* component) const
 {
     if (UI::EECollapsingHeader((layout.GetName()).c_str(),
         layout.GetFieldCount() > 0,
@@ -159,7 +159,7 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(ComponentLayout& layo
     {
         ImGui::PopStyleColor(4);
 
-        for (ComponentField& field : layout)
+        for (const ComponentField& field : layout)
         {
             RenderField(field);
         }
@@ -228,7 +228,7 @@ void Elevate::Editor::AnalyserPanel::RenderField(const ComponentField& field) co
 
     if (!field.tooltip.empty())
     {
-        ImGui::SetItemTooltip(field.tooltip.c_str());
+        ImGui::SetItemTooltip("%s", field.tooltip.c_str());
     }
 }
 

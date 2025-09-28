@@ -98,14 +98,18 @@ project "ElevateEngine"
             "STBI_NO_SIMD"
         }
 
-	links
-	{
-	    "GL",
-	    "GLU",
-	    "X11",
-	    "dl",
-	    "pthread",
-	}
+        buildoptions {
+            "-Wno-pragma-once-outside-header"
+        }
+        
+        links
+        {
+            "GL",
+            "GLU",
+            "X11",
+            "dl",
+            "pthread",
+        }
 
 
     filter "configurations:Debug"

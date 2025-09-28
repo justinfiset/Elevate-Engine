@@ -118,7 +118,7 @@ namespace Elevate
 		std::vector<ComponentField>::iterator end() { return m_fields.end(); }
 		std::vector<ComponentField>::const_iterator begin() const { return m_fields.begin(); }
 		std::vector<ComponentField>::const_iterator end() const { return m_fields.end(); }
-		size_t GetFieldCount() { return m_fields.size(); }
+		size_t GetFieldCount() const { return m_fields.size(); }
 		const std::vector<ComponentField>& GetFields() const { return m_fields; }
 
 
