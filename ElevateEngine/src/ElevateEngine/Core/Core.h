@@ -1,6 +1,12 @@
 #pragma once
 
 #if defined(EE_PLATFORM_WINDOWS) || defined(EE_PLATFORM_LINUX)
+	#ifdef EE_DIST // Hide the console if in dist
+		#ifdef _WIN32
+			#pragma comment(linker, "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
+		#endif
+	#endif
+
 	#ifdef EE_DYNAMIC_LINK
 		#ifdef EE_BUILD_DLL
 			#define EE_API __declspec(dllexport)
