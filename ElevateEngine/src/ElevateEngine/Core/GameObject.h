@@ -27,13 +27,13 @@ namespace Elevate
 			EE_VALIDATE_COMPONENT_TYPE();
 
 			// We can't add a second component of the same type
-			if (m_Scene->m_Registry.all_of<T>(m_Entity))
+			if (m_scene->m_Registry.all_of<T>(m_Entity))
 			{
 				EE_CORE_ERROR("Error: Tried to add an already existing component to the {} GameObject", m_Name);
-				return m_Scene->m_Registry.get<T>(m_Entity);
+				return m_scene->m_Registry.get<T>(m_Entity);
 			}
 
-			auto& comp = m_Scene->m_Registry.emplace<T>(m_Entity, std::forward<Args>(args)...);
+			auto& comp = m_scene->m_Registry.emplace<T>(m_Entity, std::forward<Args>(args)...);
 			comp.gameObject = this;
 			comp.Init();
 
@@ -45,7 +45,7 @@ namespace Elevate
 		{
 			EE_VALIDATE_COMPONENT_TYPE();
 
-			return m_Scene->m_Registry.try_get<T>(m_Entity);
+			return m_scene->m_Registry.try_get<T>(m_Entity);
 		}
 
 		std::vector<Component*> GetComponents() const;
@@ -55,7 +55,7 @@ namespace Elevate
 		{
 			EE_VALIDATE_COMPONENT_TYPE();
 
-			return m_Scene->m_Registry.all_of<T>(m_Entity);
+			return m_scene->m_Registry.all_of<T>(m_Entity);
 		}
 
 		template <typename T>
@@ -63,7 +63,7 @@ namespace Elevate
 		{
 			EE_VALIDATE_COMPONENT_TYPE();
 
-			if (HasComponent<T>()) m_Scene->m_Registry.remove<T>(m_Entity);
+			if (HasComponent<T>()) m_scene->m_Registry.remove<T>(m_Entity);
 			else EE_CORE_ERROR("Trying to remove a missing component. You need to add the component before removing it.");
 		}
 
@@ -80,7 +80,7 @@ namespace Elevate
 
 		static std::shared_ptr<GameObject> Create(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent = nullptr);
 
-		Scene* GetScene() { return m_Scene; }
+		Scene* GetScene() { return m_scene; }
 
 		glm::mat4 GenGlobalMatrix() const;
 		void SetFromGlobalMatrix(const glm::mat4& newWorld);
@@ -109,7 +109,7 @@ namespace Elevate
 		std::set<std::shared_ptr<GameObject>> m_Childs;
 
 		entt::entity m_Entity { entt::null };
-		Scene* m_Scene;
+		Scene* m_scene;
 		friend class Scene;
 	};
 }

@@ -37,7 +37,7 @@ namespace Elevate
 		~Scene() = default;
 		
 		void UpdateScene();
-		void RenderScene(Camera* cam);
+		void RenderScene(Camera* cam = nullptr);
 		void Notify(Event& event); // Dispatch an event to gameobjects
 
 		inline const std::string& GetName() const { return m_Name; };
