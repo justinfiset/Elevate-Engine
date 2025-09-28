@@ -4,7 +4,7 @@
 
 void Elevate::UI::InputField(const char* label, std::string& data)
 {
-    ImGui::Text(label);
+    ImGui::Text("%s", label);
     ImGui::SameLine();
 
     char buffer[255];

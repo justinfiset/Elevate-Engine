@@ -79,7 +79,7 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
         }
 
         ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + buttonSize.x);
-        ImGui::TextWrapped(item.name.c_str());
+        ImGui::TextWrapped("%s", item.name.c_str());
         ImGui::PopTextWrapPos();
 
         ImGui::EndGroup();

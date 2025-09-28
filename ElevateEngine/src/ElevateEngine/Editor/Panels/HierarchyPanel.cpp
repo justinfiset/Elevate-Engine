@@ -65,7 +65,8 @@ namespace Elevate::Editor
                 {
                     m_renaming = true;
                     m_renamedObject = object;
-                    strncpy_s(m_renameBuffer, sizeof(m_renameBuffer), object->GetName().c_str(), _TRUNCATE);
+                    std::strncpy(m_renameBuffer, object->GetName().c_str(), sizeof(m_renameBuffer) - 1);
+                    m_renameBuffer[sizeof(m_renameBuffer) - 1] = '\0';
                 }
 
                 ImGui::EndPopup();
