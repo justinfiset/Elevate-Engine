@@ -98,9 +98,7 @@ project "ElevateEngine"
             "STBI_NO_SIMD"
         }
 
-        buildoptions {
-            "-Wno-pragma-once-outside-header"
-        }
+        buildoptions { "-Wno-unknown-pragmas" }
         
         links
         {
