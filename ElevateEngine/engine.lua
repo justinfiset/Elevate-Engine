@@ -32,8 +32,9 @@ project "ElevateEngine"
         "src/**.vert",
         "src/**.frag",
 
-        "vendor/ImGuizmo/ImGuizmo.h",
         "vendor/ImGuizmo/ImGuizmo.cpp",
+        "vendor/Glad/src/glad.c",
+        "vendor/tinyfiledialogs/tinyfiledialogs.cpp"
     }
 
     defines 
@@ -61,17 +62,17 @@ project "ElevateEngine"
 
     links
     {
-	    "Glad",
+	    -- "Glad", NOT A PROJECT ANYMORE
         "GLFW",
         "ImGui",
         "assimp",
-        "tinyfiledialogs",
+        -- "tinyfiledialogs", NOT A PROJECT ANYMORE
     }
 
-    filter { "files:vendor/ImGui/**.cpp" }
-        flags { "NoPCH" }
+    filter { "files:vendor/**.c" }
+            flags { "NoPCH" }
 
-    filter { "files:vendor/ImGuizmo/**.cpp" }
+    filter { "files:vendor/**.cpp" }
         flags { "NoPCH" }
 
     filter "system:windows"
