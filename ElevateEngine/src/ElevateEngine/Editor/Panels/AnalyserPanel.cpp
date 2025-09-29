@@ -131,7 +131,6 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const ComponentLayout
 
             if (component)
             {
-                ImGuiWindow* window = ImGui::GetCurrentWindow();
                 ImGuiStyle& style = ImGui::GetStyle();
 
                 float customButtonWidth = 25.0f;

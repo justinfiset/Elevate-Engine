@@ -273,11 +273,7 @@ namespace Elevate
             return cleanedName;
         }
 
-        static void AddClassToStack(std::string newClass)
-        {
-            EE_CORE_INFO(GetCleanedName(newClass));
-            CompilationClassStack().push_back(newClass);
-        }
+        static void AddClassToStack(std::string newClass);
 
         static std::map<std::string, std::vector<ComponentField>>& GetCustomComponentFields()
         {
@@ -308,7 +304,7 @@ namespace Elevate
                 }
             }
 
-            EE_CORE_TRACE(" --> Exposed field : {0} flatten={1}  displayName={2}", GetCleanedName(name), meta.flatten, meta.displayName);
+            EE_TRACE(" --> Exposed field : {0} flatten={1}  displayName={2}", GetCleanedName(name), meta.flatten, meta.displayName);
 
             auto& customFields = GetCustomComponentFields();
             std::string typeName = typeid(FieldType).name();
@@ -330,24 +326,7 @@ namespace Elevate
             CompilationClassFieldStack().push_back(field);
         }
 
-        static void PopClassStack() {
-            if (CompilationClassStack().empty()) {
-                std::cerr << "[ELEVATE] ERROR: Tried to PopClassStack but stack is empty!" << std::endl;
-                return;
-            }
-
-            std::string fullName;
-            for (int i = 0; i < CompilationClassStack().size(); i++)
-            {
-                fullName.append(CompilationClassStack()[i]);
-                if (i != CompilationClassStack().size() - 1)
-                {
-                    fullName.append("/");
-                }
-            }
-            CompilationClassStack().pop_back();
-            ClassPaths().push_back(fullName);
-        }
+        static void PopClassStack();
     };
 }
 
@@ -465,7 +444,7 @@ public: \
             } \
         } \
         else { \
-            EE_CORE_ERROR("Error: Tried setting a {0} from a {1} component in CopyFrom(Component*)", \
+            EE_ERROR("Error: Tried setting a {0} from a {1} component in CopyFrom(Component*)", \
                 this->GetName(), other ? other->GetName() : "null"); \
         } \
     } \

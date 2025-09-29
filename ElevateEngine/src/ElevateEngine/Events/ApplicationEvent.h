@@ -3,6 +3,7 @@
 #include <ElevateEngine/Events/Event.h>
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/GameContext.h>
+#include <sstream>
 
 namespace Elevate {
 	class GameContextEvent : public Event

@@ -34,11 +34,12 @@ project "ElevateEngine"
 
         "vendor/ImGuizmo/ImGuizmo.cpp",
         "vendor/Glad/src/glad.c",
-        "vendor/tinyfiledialogs/tinyfiledialogs.cpp"
+        "vendor/tinyfiledialogs/tinyfiledialogs.cpp",
     }
 
     defines 
     {
+        "EE_ENGINE_BUILD",
         "_CRT_SECURE_NO_WARNINGS",
         "IMGUI_DEFINE_MATH_OPERATORS",
     }

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "eepch.h"
 #include <ElevateEngine/Core/Command.h>
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/GameObject.h>

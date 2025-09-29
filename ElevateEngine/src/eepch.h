@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef EE_ENGINE_BUILD
+	#error "eepch.h should only be included while building the engine!"
+#endif
+
 #include <iostream>
 #include <memory>
 #include <utility>

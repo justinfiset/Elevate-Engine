@@ -8,6 +8,7 @@
 #include "ElevateEngine/Core/Log.h"
 #include "ElevateEngine/Core/Assert.h"
 #include "ElevateEngine/Core/Application.h"
+#include "ElevateEngine/Core/GameObject.h"
 #include "ElevateEngine/Core/Time.h"
 // ===================================
 
@@ -23,8 +24,20 @@
 #include "ElevateEngine/Renderer/Renderer.h"
 #include "ElevateEngine/Renderer/VertexArray.h"
 #include "ElevateEngine/Renderer/Buffer.h"
-#include <ElevateEngine/Renderer/Texture/Texture.h>
 #include "ElevateEngine/ImGui/ImGuiLayer.h"
+
+#include <ElevateEngine/Renderer/Texture/Texture.h>
+#include "ElevateEngine/Renderer/Material.h"
+#include "ElevateEngine/Renderer/Mesh.h"
+#include "ElevateEngine/Renderer/Camera.h"
+#include "ElevateEngine/Renderer/Model.h"
+// --- Lighting ----------------------
+#include <ElevateEngine/Renderer/Light/PointLight.h>
+#include <ElevateEngine/Renderer/Light/DirectionalLight.h>
+// ===================================
+
+// === Physics =====================
+#include <ElevateEngine/Physics.h>
 // ===================================
 
 // === Entry Point ===================

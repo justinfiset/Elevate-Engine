@@ -6,7 +6,7 @@
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Scene/Scene.h>
 
-#define EE_VALIDATE_COMPONENT_TYPE() EE_CORE_ASSERT((std::is_base_of<Component, T>::value), "{0} : Type specifier must be a child of the Component class.", m_Name);
+#define EE_VALIDATE_COMPONENT_TYPE() EE_ASSERT((std::is_base_of<Component, T>::value), "{0} : Type specifier must be a child of the Component class.", m_Name);
 
 namespace Elevate {
 	class Scene;
@@ -29,7 +29,7 @@ namespace Elevate
 			// We can't add a second component of the same type
 			if (m_scene->m_Registry.all_of<T>(m_Entity))
 			{
-				EE_CORE_ERROR("Error: Tried to add an already existing component to the {} GameObject", m_Name);
+				EE_ERROR("Error: Tried to add an already existing component to the {} GameObject", m_Name);
 				return m_scene->m_Registry.get<T>(m_Entity);
 			}
 
@@ -64,7 +64,7 @@ namespace Elevate
 			EE_VALIDATE_COMPONENT_TYPE();
 
 			if (HasComponent<T>()) m_scene->m_Registry.remove<T>(m_Entity);
-			else EE_CORE_ERROR("Trying to remove a missing component. You need to add the component before removing it.");
+			else EE_ERROR("Trying to remove a missing component. You need to add the component before removing it.");
 		}
 
 		inline std::string& GetName() { return m_Name; }

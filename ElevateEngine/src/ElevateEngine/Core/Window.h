@@ -1,7 +1,5 @@
 #pragma once
 
-#include "eepch.h"
-
 #include "ElevateEngine/Core/Core.h"
 #include "ElevateEngine/Events/Event.h"
 

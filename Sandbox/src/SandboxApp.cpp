@@ -1,12 +1,7 @@
 #include <ElevateEngine.h>
 
-#include <ImGui/imgui.h>
-
+#include "ElevateEngine/Scene/Scene.h"
 #include "ElevateEngine/Scene/SceneLayer.h"
-#include "ElevateEngine/Renderer/Material.h"
-#include "ElevateEngine/Renderer/Mesh.h"
-#include "ElevateEngine/Renderer/Camera.h"
-#include "ElevateEngine/Renderer/Model.h"
 #include "ElevateEngine/Editor/EditorLayer.h"
 
 // MATHS
@@ -14,7 +9,6 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <GLFW/include/GLFW/glfw3.h>
 
 #include "ElevateEngine/Renderer/Cubemap.h"
 #include "ElevateEngine/Renderer/Light/SceneLighting.h"
@@ -27,15 +21,9 @@
 #include "ElevateEngine/Renderer/Shader/ShaderManager.h"
 #include "ElevateEngine/Renderer/Shader/Shader.h"
 #include "ElevateEngine/Scene/Scene.h"
-#include "ElevateEngine/Core/GameObject.h"
-#include "ElevateEngine/Core/Transform.h"
+
 #include <ElevateEngine/Scene/SceneManager.h>
 #include "ElevateEngine/Editor/Camera/EditorCamera.h"
-
-#include <ElevateEngine/Renderer/Light/PointLight.h>
-#include <ElevateEngine/Renderer/Light/DirectionalLight.h>
-
-#include <ElevateEngine/Physics.h>
 
 class DebugLayer : public Elevate::SceneLayer
 {

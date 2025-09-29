@@ -1,7 +1,9 @@
 #pragma once
 
-#include "eepch.h"
 #include "ElevateEngine/Core/Core.h"
+#include <string>
+#include <ostream>
+#include <functional>
 
 namespace Elevate {
 	enum class EventType
