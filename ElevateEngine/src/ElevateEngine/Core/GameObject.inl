@@ -17,13 +17,13 @@ namespace Elevate
 		EE_VALIDATE_COMPONENT_TYPE();
 
 		// We can't add a second component of the same type
-		if (m_scene->m_Registry.all_of<T>(entt::entity(m_entityId)))
+		if (GetRegistryMap()[m_scene->m_registryId]->all_of<T>(entt::entity(m_entityId)))
 		{
 			EE_ERROR("Error: Tried to add an already existing component to the {} GameObject", m_name);
-			return m_scene->m_Registry.get<T>(entt::entity(m_entityId));
+			return GetRegistryMap()[m_scene->m_registryId]->get<T>(entt::entity(m_entityId));
 		}
 
-		auto& comp = m_scene->m_Registry.emplace<T>(entt::entity(m_entityId), std::forward<Args>(args)...);
+		auto& comp = GetRegistryMap()[m_scene->m_registryId]->emplace<T>(entt::entity(m_entityId), std::forward<Args>(args)...);
 		comp.gameObject = this;
 		comp.Init();
 
@@ -35,7 +35,7 @@ namespace Elevate
 	{
 		EE_VALIDATE_COMPONENT_TYPE();
 
-		return m_scene->m_Registry.try_get<T>(entt::entity(m_entityId));
+		return GetRegistryMap()[m_scene->m_registryId]->try_get<T>(entt::entity(m_entityId));
 	}
 
 	template <typename T>
@@ -43,7 +43,7 @@ namespace Elevate
 	{
 		EE_VALIDATE_COMPONENT_TYPE();
 
-		return m_scene->m_Registry.all_of<T>(entt::entity(m_entityId));
+		return GetRegistryMap()[m_scene->m_registryId]->all_of<T>(entt::entity(m_entityId));
 	}
 
 	template <typename T>
@@ -51,7 +51,7 @@ namespace Elevate
 	{
 		EE_VALIDATE_COMPONENT_TYPE();
 
-		if (HasComponent<T>()) m_scene->m_Registry.remove<T>(entt::entity(m_entityId));
+		if (HasComponent<T>()) GetRegistryMap()[m_scene->m_registryId]->remove<T>(entt::entity(m_entityId));
 		else EE_ERROR("Trying to remove a missing component. You need to add the component before removing it.");
 	}
 }

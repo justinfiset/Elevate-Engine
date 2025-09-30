@@ -15,6 +15,7 @@ namespace Elevate {
 
 namespace Elevate
 {
+	using GameObjectComponentGetter = std::function<Component* (std::weak_ptr<GameObject>)>;
 	using GameObjectComponentFactory = std::function<Component* (std::weak_ptr<GameObject>)>;
 	using GameObjectComponentDestructor = std::function<void(std::weak_ptr<GameObject>)>;
 

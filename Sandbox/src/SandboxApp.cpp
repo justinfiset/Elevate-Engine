@@ -1,6 +1,5 @@
 #include <ElevateEngine.h>
 
-#include "ElevateEngine/Scene/Scene.h"
 #include "ElevateEngine/Scene/SceneLayer.h"
 #include "ElevateEngine/Editor/EditorLayer.h"
 
@@ -20,7 +19,6 @@
 #include <ElevateEngine/Inputs/Input.h>
 #include "ElevateEngine/Renderer/Shader/ShaderManager.h"
 #include "ElevateEngine/Renderer/Shader/Shader.h"
-#include "ElevateEngine/Scene/Scene.h"
 
 #include <ElevateEngine/Scene/SceneManager.h>
 #include "ElevateEngine/Editor/Camera/EditorCamera.h"

@@ -12,12 +12,14 @@ namespace Elevate
 	class Event;
 	class Scene;
 	class Component;
+	class ComponentRegistry;
 
 	class GameObject : public ITransformable, public std::enable_shared_from_this<GameObject>
 	{
 	public:
 		GameObject(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent = nullptr);
-		~GameObject();
+		//~GameObject();
+		~GameObject() = default;
 
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args);
@@ -25,7 +27,7 @@ namespace Elevate
 		template <typename T>
 		T* GetComponent();
 
-		std::vector<Component*> GetComponents() const;
+		std::vector<Component*> GetComponents();
 			
 		template <typename T>
 		bool HasComponent();
@@ -74,10 +76,11 @@ namespace Elevate
 		std::shared_ptr<GameObject> m_parent;
 		std::set<std::shared_ptr<GameObject>> m_childs;
 
-		std::uint32_t m_entityId;
+		uint32_t m_entityId;
 
 		Scene* m_scene;
 		friend class Scene;
+		friend class ComponentRegistry;
 	};
 }
 
