@@ -4,6 +4,7 @@
 #include "ElevateEngine/Core/Time.h"
 #include "ElevateEngine/Core/Log.h"
 #include "ElevateEngine/Core/Assert.h"
+#include "ElevateEngine/Core/Layers/LayerStack.h"
 
 #include "ElevateEngine/Inputs/Input.h"
 #include "ElevateEngine/Files/FileUtility.h"
@@ -31,8 +32,8 @@ namespace Elevate {
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
-		m_FrameBuffer.reset(Framebuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
-		m_FrameBuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
+		FrameBuffer.reset(Framebuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
+		FrameBuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
 
 		#ifdef EE_EDITOR_BUILD
 				PushOverlay(new Elevate::Editor::EditorLayer());
@@ -96,8 +97,8 @@ namespace Elevate {
 
 				TextureManager::UpdateLoadingTextures();
 
-				m_FrameBuffer->Bind(); // Rendering the screen in a single texture
-				m_FrameBuffer->Clear();
+				FrameBuffer->Bind(); // Rendering the screen in a single texture
+				FrameBuffer->Clear();
 
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate();
@@ -106,7 +107,7 @@ namespace Elevate {
 				for (Layer* layer : m_LayerStack)
 					layer->OnRender();
 
-				m_FrameBuffer->Unbind(); // Back to normal
+				FrameBuffer->Unbind(); // Back to normal
 
 				//imgui
 				m_ImGuiLayer->PreRender();

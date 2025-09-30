@@ -129,53 +129,6 @@ namespace Elevate
             return stack;
         }
 
-        // TODO REMOVE THIS INTERFACE
-        struct IComponentPropertyEntry
-        {
-            virtual ~IComponentPropertyEntry() = default;
-
-            virtual const std::string& GetName() const = 0;
-            virtual EngineDataType GetType() const = 0;
-            virtual size_t GetOffset() const = 0;
-
-            virtual void* GetValuePtr(const void* instance) const = 0;
-        };
-
-        // TODO: REMOVE THIS CLASS (USELESS)
-        template<typename Class, typename FieldType>
-        struct ComponentPropertyEntry : public IComponentPropertyEntry
-        {
-            using MemberPointer = FieldType Class::*;
-
-            ComponentPropertyEntry(MemberPointer member, std::string name, EngineDataType type)
-                : m_member(member), m_name(std::move(name)), m_type(type)
-            {
-                m_offset = reinterpret_cast<size_t>(
-                    &(reinterpret_cast<Class const volatile*>(0)->*member)
-                    );
-            }
-
-            const std::string& GetName() const override { return m_name; }
-            EngineDataType GetType() const override { return m_type; }
-            size_t GetOffset() const override { return m_offset; }
-
-            FieldType& GetValue(Class& instance) const {
-                return instance.*m_member;
-            }
-
-            void* GetValuePtr(const void* instance) const override {
-                const Class* obj = static_cast<const Class*>(instance);
-                auto ptr = &(obj->*m_member);
-                return const_cast<void*>(reinterpret_cast<const void*>(ptr));
-            }
-
-        private:
-            MemberPointer m_member;
-            std::string m_name;
-            EngineDataType m_type;
-            size_t m_offset;
-        };
-
         static inline std::vector<ComponentField>& CompilationClassFieldStack()
         {
             static std::vector<ComponentField> stack;
@@ -350,6 +303,10 @@ inline static struct BaseType##BaseClassDeclaration { \
         generated_classEntry.HasBaseClass = true; \
     } \
 } generated_baseDeclaration;
+
+// =======================================================
+// BEGIN_STRUCT / END_STRUCT
+// =======================================================
 
 #define BEGIN_STRUCT(T) \
     private: \

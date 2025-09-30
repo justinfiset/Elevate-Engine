@@ -11,15 +11,17 @@ project "Sandbox"
     files 
     {
         "src/**.h",
+        "src/**.inl",
         "src/**.cpp",
+        
         "src/**.vert",
         "src/**.frag",
     }
 
     includedirs
     {
-        "../ElevateEngine/vendor/spdlog/include",
         "../ElevateEngine/vendor/entt/include",
+        "../ElevateEngine/vendor/spdlog/include",
         "../ElevateEngine/vendor/glm/",
         "../ElevateEngine/src"
     }

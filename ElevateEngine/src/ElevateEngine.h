@@ -13,6 +13,7 @@
 
 // === Scene =========================
 #include <ElevateEngine/Scene/Scene.h>
+#include <ElevateEngine/Scene/SceneLayer.h>
 // ===================================
 
 // === Inputs ========================
@@ -39,8 +40,14 @@
 #include <ElevateEngine/Renderer/Light/DirectionalLight.h>
 // ===================================
 
-// === Physics =====================
+// === Physics =======================
 #include <ElevateEngine/Physics.h>
+// ===================================
+
+// === Editor ========================
+#ifdef EE_EDITOR_BUILD
+	#include <ElevateEngine/Editor/EditorLayer.h>
+#endif
 // ===================================
 
 // === Entry Point ===================

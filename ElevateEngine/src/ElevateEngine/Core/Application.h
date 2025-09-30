@@ -14,7 +14,7 @@ namespace Elevate {
 	class WindowCloseEvent;
 	class WindowResizeEvent;
 
-	class LayerStack;
+	class Layer;
 	class ImGuiLayer;
 
 	namespace Editor
@@ -38,8 +38,8 @@ namespace Elevate {
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
-		// TODO changer pour mettre dans une classe qui s'occupe du rendu
-		inline std::shared_ptr<Framebuffer> GetFrameBuffer() { return m_FrameBuffer; }
+		// TODO Maybe move somewhere else
+		std::unique_ptr<Framebuffer> FrameBuffer;
 
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
@@ -67,9 +67,6 @@ namespace Elevate {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-
-		// TODO Maybe move somewhere else
-		std::shared_ptr<Framebuffer> m_FrameBuffer;
 
 		static Application* s_Instance;
 	};

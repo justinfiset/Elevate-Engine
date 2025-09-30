@@ -27,6 +27,7 @@ project "ElevateEngine"
     files 
     {
         "src/**.h",
+        "src/**.inl",
         "src/**.cpp",
 
         "src/**.vert",
