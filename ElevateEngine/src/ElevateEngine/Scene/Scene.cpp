@@ -117,7 +117,7 @@ void Elevate::Scene::RemoveFromRoot(std::shared_ptr<GameObject> object)
 
 void Elevate::Scene::AddRootObject(std::shared_ptr<GameObject> newRootObject)
 {
-	newRootObject->m_Parent = nullptr;
+	newRootObject->m_parent = nullptr;
 	newRootObject->m_scene = this;
 	m_rootObjects.insert(newRootObject);
 }
