@@ -5,11 +5,17 @@
 #include "ElevateEngine/Core/Log.h"
 #include "ElevateEngine/Core/Assert.h"
 
-#include "ElevateEngine/Renderer/Renderer.h"
 #include "ElevateEngine/Inputs/Input.h"
-
 #include "ElevateEngine/Files/FileUtility.h"
+
+#include "ElevateEngine/Renderer/Renderer.h"
 #include "ElevateEngine/Renderer/Texture/TextureManager.h"
+
+#include "ElevateEngine/Events/ApplicationEvent.h"
+
+#include "ElevateEngine/ImGui/ImGuiLayer.h"
+
+#include "ElevateEngine/Editor/EditorLayer.h"
 
 namespace Elevate {
 

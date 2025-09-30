@@ -29,6 +29,11 @@ project "Sandbox"
         "ElevateEngine"
     }
 
+    defines
+    {
+        "EE_EDITOR_BUILD"
+    }
+
     filter "system:windows"
         systemversion "latest"
         defines { "EE_PLATFORM_WINDOWS" }

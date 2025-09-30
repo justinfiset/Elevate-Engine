@@ -1,11 +1,15 @@
 #include "eepch.h"
 #include "Scene.h"
-#include "ElevateEngine/Core/GameObject.h"
-#include "ElevateEngine/Renderer/Model.h"
-#include <ElevateEngine/Core/Application.h>
-#include <ElevateEngine/Scene/SceneManager.h>
+
+#include <ElevateEngine/Core/GameObject.h>
 #include <ElevateEngine/Core/GameContext.h>
+#include <ElevateEngine/Core/Application.h>
+
+#include <ElevateEngine/Scene/SceneManager.h>
+
+#include <ElevateEngine/Renderer/Model.h>
 #include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Camera.h>
 
 void Elevate::Scene::UpdateScene()
 {

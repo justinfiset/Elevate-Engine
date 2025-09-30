@@ -1,11 +1,11 @@
 #pragma once
-
-#include "ElevateEngine/Core/Core.h"
-#include "Layer.h"
+#include <vector>
 
 namespace Elevate
 {
-	class EE_API LayerStack
+	class Layer;
+
+	class LayerStack
 	{
 	public:
 		LayerStack();
