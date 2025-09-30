@@ -1,10 +1,64 @@
 #pragma once
 #include "Core.h"
 
-#include "spdlog/spdlog.h"
-#include "spdlog/fmt/ostr.h"
-
 namespace Elevate { 
+	class EE_API ILogger {
+	public:
+		virtual ~ILogger() = default;
+
+        template<typename... Args>
+        void trace(const char* fmt, const Args&... args) {
+            trace_impl(fmt, args...);
+        }
+
+        template<typename... Args>
+        void info(const char* fmt, const Args&... args) {
+            info_impl(fmt, args...);
+        }
+
+        template<typename... Args>
+        void warn(const char* fmt, const Args&... args) {
+            warn_impl(fmt, args...);
+        }
+
+        template<typename... Args>
+        void error(const char* fmt, const Args&... args) {
+            error_impl(fmt, args...);
+        }
+
+        template<typename... Args>
+        void fatal(const char* fmt, const Args&... args) {
+            fatal_impl(fmt, args...);
+        }
+
+        void trace(const std::string& message) {
+            trace_impl(message.c_str());
+        }
+
+        void info(const std::string& message) {
+            info_impl(message.c_str());
+        }
+
+        void warn(const std::string& message) {
+            warn_impl(message.c_str());
+        }
+
+        void error(const std::string& message) {
+            error_impl(message.c_str());
+        }
+
+        void fatal(const std::string& message) {
+            fatal_impl(message.c_str());
+        }
+
+	protected:
+		virtual void trace_impl(const char* fmt, ...) = 0;
+		virtual void info_impl(const char* fmt, ...) = 0;
+		virtual void warn_impl(const char* fmt, ...) = 0;
+		virtual void error_impl(const char* fmt, ...) = 0;
+		virtual void fatal_impl(const char* fmt, ...) = 0;
+	};
+
 	class EE_API Log
 	{
 	public:
@@ -12,25 +66,12 @@ namespace Elevate {
 	
 		static inline bool IsInitalized() { return s_loggerInitialized; }
 
-		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() 
-		{ 
-			if(!s_coreLogger)
-			{
-				Init();
-			}
-			return s_coreLogger;
-		}
-		inline static std::shared_ptr<spdlog::logger>& GetClientLogger() 
-		{ 
-			if (!s_clientLogger)
-			{
-				Init();
-			}
-			return s_clientLogger; 
-		}
+		static ILogger* GetCoreLogger();
+		static ILogger* GetClientLogger();
+
 	private:
-		static std::shared_ptr<spdlog::logger> s_coreLogger;
-		static std::shared_ptr<spdlog::logger> s_clientLogger;
+		static ILogger* s_coreLogger;
+		static ILogger* s_clientLogger;
 
 		static bool s_loggerInitialized;
 	};

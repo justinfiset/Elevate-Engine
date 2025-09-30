@@ -27,6 +27,7 @@ namespace Elevate
 		}
 		virtual void OnStateChange(GameContextState oldState, GameContextState newState) { }
 	private:
-		GameContextState m_state;
+		// TODO DEFINE DEPENDING ON THE CURRENT BUILD TYPE
+		GameContextState m_state = EditorMode;
 	};
 }

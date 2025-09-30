@@ -75,6 +75,16 @@ namespace Elevate {
 		}
 	}
 
+	void Application::Start(int argc, char** argv)
+	{
+		Log::Init();
+		EE_CORE_INFO("Initializing ElevateEngine...");
+		auto app = CreateApplication();
+		EE_CORE_TRACE("Application Initialized.");
+		app->Run();
+		delete app;
+	}
+
 	void Application::Run() // Each frame
 	{
 		float lastTime = 0.0f;

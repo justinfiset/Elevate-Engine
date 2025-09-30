@@ -1,5 +1,7 @@
 #include "eepch.h"
-#include "ElevateEngine/Core/Layers/LayerStack.h"
+
+#include <ElevateEngine/Core/Layers/LayerStack.h>
+#include <ElevateEngine/Core/Layers/Layer.h>
 
 Elevate::LayerStack::LayerStack()
 {

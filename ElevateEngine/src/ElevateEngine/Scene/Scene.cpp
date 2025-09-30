@@ -9,6 +9,7 @@
 
 void Elevate::Scene::UpdateScene()
 {
+	GameContextState state = Application::GameState();
 	if (m_Type == SceneType::RuntimeScene && Application::GameState() != Runtime)
 	{
 		return;

@@ -1,13 +1,10 @@
 #pragma once
 
-// For use by ElevateEngine applications
-#include "ElevateEngine/Core/Application.h"
-#include "ElevateEngine/Core/Layers/Layer.h"
-
 // === Core ==========================
+#include "ElevateEngine/Core/Application.h"
 #include "ElevateEngine/Core/Log.h"
 #include "ElevateEngine/Core/Assert.h"
-#include "ElevateEngine/Core/Application.h"
+#include "ElevateEngine/Core/Layers/Layer.h"
 #include "ElevateEngine/Core/GameObject.h"
 #include "ElevateEngine/Core/Time.h"
 // ===================================

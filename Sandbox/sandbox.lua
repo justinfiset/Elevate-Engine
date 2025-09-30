@@ -18,7 +18,6 @@ project "Sandbox"
 
     includedirs
     {
-        "../ElevateEngine/vendor/spdlog/include",
         "../ElevateEngine/vendor/entt/include",
         "../ElevateEngine/vendor/glm/",
         "../ElevateEngine/src"

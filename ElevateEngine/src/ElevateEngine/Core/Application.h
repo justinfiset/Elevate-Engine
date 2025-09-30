@@ -6,16 +6,14 @@
 #include <ElevateEngine/Events/Event.h>
 #include <ElevateEngine/Events/ApplicationEvent.h>
 #include <ElevateEngine/Core/Window.h>
-#include <ElevateEngine/ImGui/ImGuiLayer.h>
-#include <ElevateEngine/Renderer/Shader/Shader.h>
-#include <ElevateEngine/Renderer/Buffer.h>
-#include <ElevateEngine/Renderer/FrameBuffer.h>
-#include <ElevateEngine/Renderer/VertexArray.h>
 #include <ElevateEngine/Core/GameContext.h>
+#include <ElevateEngine/ImGui/ImGuiLayer.h>
+
+#include <ElevateEngine/Renderer/FrameBuffer.h>
 #include <ElevateEngine/Editor/EditorLayer.h>
 
 namespace Elevate {
-	class EE_API Application : public GameContext
+	class Application : public GameContext
 	{
 	public:
 		friend class Elevate::Editor::EditorLayer;
@@ -23,6 +21,7 @@ namespace Elevate {
 		Application();
 		virtual ~Application();
 
+		static void Start(int argc, char** argv);
 		void Run();
 		void Exit();
 
@@ -31,7 +30,7 @@ namespace Elevate {
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
-		// TODO changer pour mettre dans une classe qui s'occupe du rendu
+		// TODO changer pour mettre dans une classe qui s'occupe du rendu (genre le renderer)
 		inline std::shared_ptr<Framebuffer> GetFrameBuffer() { return m_FrameBuffer; }
 
 		inline static Application& Get() { return *s_Instance; }
