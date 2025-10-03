@@ -41,6 +41,8 @@ namespace Elevate
 
 		void RemoveChild(std::shared_ptr<GameObject> child);
 
+		inline uint32_t GetEntityId() { return m_entityId; }
+
 		inline const bool HasChild() const { return m_childs.size() > 0; }
 		inline std::set<std::shared_ptr<GameObject>> GetChilds() const { return m_childs; }
 
@@ -74,7 +76,7 @@ namespace Elevate
 		std::shared_ptr<GameObject> m_parent;
 		std::set<std::shared_ptr<GameObject>> m_childs;
 
-		std::uint32_t m_entityId;
+		uint32_t m_entityId;
 
 		Scene* m_scene;
 		friend class Scene;

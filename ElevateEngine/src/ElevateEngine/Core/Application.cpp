@@ -17,6 +17,35 @@
 
 #include "ElevateEngine/Editor/EditorLayer.h"
 
+// Wwise Integration
+#include <AK/SoundEngine/Common/AkMemoryMgr.h>
+#include <AK/SoundEngine/Common/AkMemoryMgrModule.h>
+
+#include <AK/SoundEngine/Common/IAkStreamMgr.h>
+#include <AK/Tools/Common/AkPlatformFuncs.h>
+#include <ElevateEngine/Audio/Ak/Common/AkFilePackageLowLevelIODeferred.h>
+
+// Sound Engine
+#include <AK/SoundEngine/Common/AkSoundEngine.h>
+// Spatial audio
+#include <AK/SpatialAudio/Common/AkSpatialAudio.h>
+// Wwise Communication
+#ifndef AK_OPTIMIZED // Keep the following header out in release mode
+#include <AK/Comm/AkCommunication.h>
+#endif // AK_OPTIMIZED
+
+#include <AK/Plugin/AkVorbisDecoderFactory.h> // This is necessary to be able to play vorbis files
+#include <AK/Plugin/AkOpusDecoderFactory.h> // This is necessary to be able to play opus files
+
+// TODO REMOVE AND ABSTRACT IN A DEDICATED CLASS
+// For Wwise integration testing
+#define BANKNAME_INIT L"Init.bnk"
+#define BANKNAME_CAR L"Car.bnk"
+#define BANKNAME_HUMAN L"Human.bnk"
+#define BANKNAME_MARKERTEST L"MarkerTest.bnk"
+
+#include <filesystem>
+
 namespace Elevate {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -27,6 +56,10 @@ namespace Elevate {
 	{
 		EE_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
+
+		EE_CORE_TRACE("Current working directory : {}", std::filesystem::current_path().string());
+
+		InitSoundEngine();
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
@@ -45,6 +78,7 @@ namespace Elevate {
 
 	Application::~Application()	
 	{
+		TermSoundEngine();
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -94,6 +128,8 @@ namespace Elevate {
 				lastTime = Time::currentTime_;
 				/////////////////////////////////
 
+				ProcessAudio();
+
 				TextureManager::UpdateLoadingTextures();
 
 				m_FrameBuffer->Bind(); // Rendering the screen in a single texture
@@ -137,11 +173,147 @@ namespace Elevate {
 		m_ImGuiLayer->Cleanup();
 	}
 
-#pragma region Events
+#pragma region Events	
 	void Application::OnStateChange(GameContextState oldState, GameContextState newState)
 	{
 		GameContextEvent e(oldState, newState);
 		OnEvent(e);
+	}
+
+	// TODO: IMPLEMENT AN ABSTRACTION FOR THIS IMPLEMENTATION
+	bool Application::InitSoundEngine()
+	{
+		EE_CORE_INFO("Initializing Wwise Sound Engine...");
+
+		// Creating the memory manager
+		AkMemSettings memorySettings;
+		AK::MemoryMgr::GetDefaultSettings(memorySettings);
+		if (AK::MemoryMgr::Init(&memorySettings) != AK_Success)
+		{
+			EE_CORE_ASSERT(false, "ERROR: Failed to initialize the Wwise memory manager.");
+			return false;
+		}
+		else
+		{
+			EE_CORE_TRACE("Wwise memory manager initialized!");
+		}
+
+		// Creating the stream manager
+		AkStreamMgrSettings streamSettings;
+		AK::StreamMgr::GetDefaultSettings(streamSettings);
+		if (!AK::StreamMgr::Create(streamSettings))
+		{
+			EE_CORE_ASSERT(false, "ERROR: Failed to create the Wwise stream manager.");
+			return false;
+		}
+		else
+		{
+			EE_CORE_TRACE("Wwise stream manager initialized!");
+		}
+
+		// Creating a streaming device
+		AkDeviceSettings deviceSettings;
+		AK::StreamMgr::GetDefaultDeviceSettings(deviceSettings);
+		if (m_lowLevelIO.Init(deviceSettings) != AK_Success)
+		{
+			EE_CORE_ASSERT(false, "ERROR: Failed to create the Wwise streaming device and low-level I/O system.");
+			return false;
+		}
+		else
+		{
+			EE_CORE_TRACE("Wwise streaming device and low-level I/O initialized!");
+		}
+
+		// Initializing the sound engine itself
+		AkInitSettings initSettings;
+		AK::SoundEngine::GetDefaultInitSettings(initSettings);
+
+		AkPlatformInitSettings platformInitSettings;
+		AK::SoundEngine::GetDefaultPlatformInitSettings(platformInitSettings);
+
+		if (AK::SoundEngine::Init(&initSettings, &platformInitSettings) != AK_Success)
+		{
+			EE_CORE_ASSERT(false, "ERROR: Failded to initialize the Sound Engine.");
+			return false;
+		}
+		else
+		{
+			EE_CORE_TRACE("Wwise SoundEngine initialized!");
+		}
+
+		// Initializing the interactive music engine
+		AkSpatialAudioInitSettings spatialAudioSettings;
+		if (AK::SpatialAudio::Init(spatialAudioSettings) != AK_Success)
+		{
+			EE_CORE_ASSERT(false, "ERROR: Failded to initialize Spatial Audio.");
+			return false;
+		}
+		else
+		{
+			EE_CORE_TRACE("Wwise Spatial Audio initialized!");
+		}
+
+#ifndef AK_OPTIMIZED
+		AkCommSettings communicationSettings;
+		AK::Comm::GetDefaultInitSettings(communicationSettings);
+		if (AK::Comm::Init(communicationSettings) != AK_Success)
+		{
+			EE_CORE_ASSERT(false, "ERROR: Failded to initialize Wwise communication.");
+			return false;
+		}
+		else
+		{
+			EE_CORE_TRACE("Wwise communication initialized!");
+		}
+#endif // AK_OPTIMIZED
+
+		EE_CORE_INFO("Wwise Initialized!");
+
+		PrepareAudio();
+
+		return true;
+	}
+
+	void Application::PrepareAudio()
+	{
+		m_lowLevelIO.SetBasePath(AKTEXT("./WwiseProject/GeneratedSoundBanks/Windows/"));
+		AK::StreamMgr::SetCurrentLanguage(AKTEXT("English(US)"));
+
+		// TODO TRANSFORM IN A FUNCITON AND HAVE A BETTER ERROR LOGGING IN CASE OF ACCIDENT
+		// + RETURN TRUE / FALSE IN LOADED OR NO
+		// Load banks synchronously (from file name).
+		AkBankID bankID; // Not used. These banks can be unloaded with their file name.
+		AKRESULT eResult = AK::SoundEngine::LoadBank(BANKNAME_INIT, bankID);
+		EE_CORE_ASSERT(eResult == AK_Success, "ERROR: Failed to load bank.");
+		eResult = AK::SoundEngine::LoadBank(BANKNAME_CAR, bankID);
+		EE_CORE_ASSERT(eResult == AK_Success, "ERROR: Failed to load bank.");
+		eResult = AK::SoundEngine::LoadBank(BANKNAME_HUMAN, bankID);
+		EE_CORE_ASSERT(eResult == AK_Success, "ERROR: Failed to load bank.");
+		eResult = AK::SoundEngine::LoadBank(BANKNAME_MARKERTEST, bankID);
+		EE_CORE_ASSERT(eResult == AK_Success, "ERROR: Failed to load bank.");
+	}
+
+	void Application::TermSoundEngine()
+	{
+#ifndef AK_OPTIMIZED
+		AK::Comm::Term();
+#endif // AK_OPTIMIZED
+		//AK::SpatialAudio::Term(); // TODO FIND WHY NOT DEFINED
+		AK::SoundEngine::Term();
+		
+		m_lowLevelIO.Term();
+		if (AK::IAkStreamMgr::Get())
+		{
+			AK::IAkStreamMgr::Get()->Destroy();
+		}
+
+		AK::MemoryMgr::Term();
+	}
+
+	// TODO MOVE SOMEHWERE ELSE
+	void Application::ProcessAudio()
+	{
+		AK::SoundEngine::RenderAudio();
 	}
 
 	bool Application::OnKeyPressedEvent(KeyPressedEvent& e)

@@ -25,6 +25,9 @@
 #include <ElevateEngine/Scene/SceneManager.h>
 #include "ElevateEngine/Editor/Camera/EditorCamera.h"
 
+// Todo : remove from the application
+#include <AK/SoundEngine/Common/AkSoundEngine.h>
+
 class DebugLayer : public Elevate::SceneLayer
 {
 public:
@@ -141,6 +144,18 @@ public:
 
     void OnEvent(Elevate::Event& event) override
     {
+        switch (event.GetEventType())
+        {
+        case Elevate::EventType::KeyTyped:
+            Elevate::KeyPressedEvent kp = (Elevate::KeyPressedEvent&)event;
+            if (kp.GetKeyCode() == EE_KEY_SPACE)
+            {
+                AK::SoundEngine::PostEvent(L"Play_Hello", 0);
+                EE_TRACE("Space bar pressed");
+            }
+            break;
+        }
+
         SceneLayer::OnEvent(event);
     }
 

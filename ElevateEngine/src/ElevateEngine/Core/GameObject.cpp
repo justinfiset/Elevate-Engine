@@ -13,6 +13,7 @@
 #include <ElevateEngine/Core/ComponentRegistry.h>
 #include <ElevateEngine/Core/Log.h>
 
+#include <ElevateEngine/Audio/SoundEngine.h>
 
 Elevate::GameObject::GameObject(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent)
 	: m_name(name), m_scene(scene.get()), m_parent(parent) { }
@@ -144,6 +145,8 @@ void Elevate::GameObject::Initialize()
 
 		entt::entity entity = m_scene->m_Registry.create();
 		m_entityId = static_cast<std::uint32_t>(entity);
+
+		SoundEngine::RegisterGameObject(this);
 	}
 	else
 	{
@@ -158,6 +161,8 @@ void Elevate::GameObject::OnSetPosition()
 
 Elevate::GameObject::~GameObject()
 {
+	SoundEngine::UnregisterGameObject(this);
+
 	if (m_scene)
 	{
 		m_scene->m_Registry.destroy(entt::entity(m_entityId));
