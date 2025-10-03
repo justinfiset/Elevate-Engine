@@ -1,5 +1,7 @@
 #pragma once
 
+#define EE_EDITOR_BUILD
+
 #if defined(EE_PLATFORM_WINDOWS) || defined(EE_PLATFORM_LINUX)
 	#ifdef EE_DIST // Hide the console if in dist
 		#ifdef _WIN32

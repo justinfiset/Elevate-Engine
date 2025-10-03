@@ -24,6 +24,10 @@
 #include <ElevateEngine/Inputs/Input.h>
 
 #include <ElevateEngine/Editor/Commands/GameobjectCommands.h>
+#include <ElevateEngine/Scene/Scene.h>
+
+// TODO : CHECK ESSENTIAL INCLUDES KNOW ESSENTIAL BELLOW
+#include <ElevateEngine/Core/GameObject.h>
 
 namespace Elevate::Editor
 {

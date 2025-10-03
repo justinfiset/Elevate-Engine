@@ -15,8 +15,8 @@ namespace Elevate
 		EECATEGORY("Rendering")
 
 		// All possible constructors
-		Camera(float fov = 60.0f);
-		Camera(float fov, float aspectRatio);
+		Camera(float fov = 60.0f, bool overrideCurrent = true);
+		Camera(float fov, float aspectRatio, bool overrideCurrent = true);
 
 		const void UpdateAspectRatio(float aspectRatio);
 

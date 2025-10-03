@@ -8,14 +8,10 @@
 
 #include "ElevateEngine/Renderer/Cubemap.h"
 
-#include "ElevateEngine/ImGui/CustomImGuiCommand.h"
-#include "ElevateEngine/ImGui/ImGuiTheme.h"
-
 #include "ElevateEngine/Renderer/Shader/ShaderManager.h"
 #include "ElevateEngine/Renderer/Shader/Shader.h"
 
-#include <ElevateEngine/Scene/SceneManager.h>
-#include "ElevateEngine/Editor/Camera/EditorCamera.h"
+#include <ElevateEngine/Renderer/Camera/CameraManager.h>
 
 class DebugLayer : public Elevate::SceneLayer
 {
@@ -120,10 +116,10 @@ public:
 
     // TODO ajouter un icon de point light qui suit avec imgui la point light
     void OnRender() override {
-        Elevate::EditorCamera* cam = Elevate::Editor::EditorLayer::Get().GetCamera();
+        Elevate::Camera* cam = Elevate::CameraManager::GetCurrent();
         m_Shader->Bind();
         m_Shader->UpdateCamera(*cam); // TODO make the camera upload herself to the shader and check if there was any changes => if(changed) then updateUniforms()
-        SceneLayer::OnRender(cam);
+        SceneLayer::OnRender();
     }
 
     void OnUpdate() override

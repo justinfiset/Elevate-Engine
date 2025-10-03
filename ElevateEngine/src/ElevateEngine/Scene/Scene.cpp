@@ -9,7 +9,9 @@
 
 #include <ElevateEngine/Renderer/Model.h>
 #include <ElevateEngine/Renderer/Renderer.h>
+
 #include <ElevateEngine/Renderer/Camera.h>
+#include <ElevateEngine/Renderer/Camera/CameraManager.h>
 
 #include "ScenePrivate.h"
 
@@ -53,6 +55,11 @@ namespace Elevate
 
 	void Scene::RenderScene(Camera* cam)
 	{
+		if (!cam)
+		{
+			cam = Elevate::CameraManager::GetCurrent();
+		}
+
 		// Render the cubemap / skybox
 		if (cam)
 		{
@@ -79,13 +86,27 @@ namespace Elevate
 
 		for (std::shared_ptr<GameObject> obj : m_rootObjects)
 		{
-			obj->Render();
-
-			// Call specific functions depending on current context status.
-			switch (Application::GameState())
+			switch (m_type)
 			{
-			case GameContextState::EditorMode:
-				obj->RenderInEditor();
+			case EditorScene:
+				if (Application::GameState() == EditorMode)
+				{
+					obj->Render();
+				}
+
+				break;
+			case RuntimeScene:
+				obj->Render();
+
+				if (Application::GameState() == EditorMode)
+				{
+					obj->RenderInEditor();
+				}
+
+				break;
+			case DebugScene:
+				obj->Render();
+				break;
 			}
 		}
 	}

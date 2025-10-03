@@ -52,8 +52,11 @@ namespace Elevate
 
 	void Shader::UpdateCamera(Camera& cam)
 	{
-		SetUniform3f(EE_SHADER_CAMPOS, cam.gameObject->GetPosition());
-		SetProjectionViewMatrix(cam);
+		if (cam.gameObject)
+		{
+			SetUniform3f(EE_SHADER_CAMPOS, cam.gameObject->GetPosition());
+			SetProjectionViewMatrix(cam);
+		}
 	}
 
 	void Shader::SetModelMatrix(glm::mat4& modelMatrix)

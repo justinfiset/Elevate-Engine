@@ -3,7 +3,7 @@ layout(location = 0) out vec4 o_Color;
 in vec3 normal;
 in vec2 textCord;
 in vec3 fragPos;
-
+ 
 vec3 defaultColor = vec3(0.8, 0.8, 0.8);
 
 // MATERIAL IMPL.

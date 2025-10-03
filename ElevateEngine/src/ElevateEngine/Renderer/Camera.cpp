@@ -7,18 +7,30 @@
 #include "ElevateEngine/Core/Application.h"
 #include "ElevateEngine/Core/GameObject.h"
 
-Elevate::Camera::Camera(float fov)
+#include "ElevateEngine/Renderer/Camera/CameraManager.h"
+
+Elevate::Camera::Camera(float fov, bool overrideCurrent)
 {
     m_FOV = fov;
     Window& window = Application::Get().GetWindow();
     m_AspectRatio = (float)window.GetWidth() / (float)window.GetHeight();
+
+    if (overrideCurrent)
+    {
+        CameraManager::SetCurrent(this);
+    }
 }
 
-Elevate::Camera::Camera(float fov, float aspectRatio)
+Elevate::Camera::Camera(float fov, float aspectRatio, bool overrideCurrent)
 {
     m_FOV = fov;
     Window& window = Application::Get().GetWindow();
     m_AspectRatio = aspectRatio;
+
+    if (overrideCurrent)
+    {
+        CameraManager::SetCurrent(this);
+    }
 }
 
 void Elevate::Camera::Init()

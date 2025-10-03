@@ -73,31 +73,34 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
     ImGui::Image((ImTextureID)Application::Get().FrameBuffer->GetNativeTextureHandle(), ImVec2((float)window_width, (float)window_height), ImVec2(0, 1), ImVec2(1, 0));
 
     // ImGuizmo //////////////////////////////////////////
-    std::weak_ptr<GameObject> selected = EditorLayer::Get().GetSelectedObject();
-    Camera* cam = EditorLayer::Get().GetCamera();
-    if (selected.lock())
+    if (Application::GameState() == EditorMode)
     {
-        std::shared_ptr<GameObject> selectedShared = selected.lock();
-        ImGuizmo::SetDrawlist(ImGui::GetWindowDrawList());
-        ImGuizmo::SetOrthographic(false); // TODO SET DINAMICLY FROM THE EDITOR AND SETUP THE CAMERA ACCORDINGLY
-        ImGuizmo::SetRect(pos.x, pos.y, (float)window_width, (float)window_height);
-
-        glm::mat4 cameraProjection = cam->GetProjectionMatrix();
-        glm::mat4 cameraView = cam->GenViewMatrix();
-        glm::mat4 entityMatrix = selectedShared->GenGlobalMatrix();
-
-        // TODO SET VIA BUTTONS
-        ImGuizmo::Manipulate(
-            glm::value_ptr(cameraView),
-            glm::value_ptr(cameraProjection),
-            (ImGuizmo::OPERATION) m_CurrentEditorTool,
-            ImGuizmo::LOCAL, // Change to WORLD if needed
-            glm::value_ptr(entityMatrix)
-        );
-
-        if (ImGuizmo::IsUsingAny())
+        std::weak_ptr<GameObject> selected = EditorLayer::Get().GetSelectedObject();
+        Camera* cam = EditorLayer::Get().GetCamera();
+        if (selected.lock())
         {
-            selectedShared->SetFromGlobalMatrix(entityMatrix);
+            std::shared_ptr<GameObject> selectedShared = selected.lock();
+            ImGuizmo::SetDrawlist(ImGui::GetWindowDrawList());
+            ImGuizmo::SetOrthographic(false); // TODO SET DINAMICLY FROM THE EDITOR AND SETUP THE CAMERA ACCORDINGLY
+            ImGuizmo::SetRect(pos.x, pos.y, (float)window_width, (float)window_height);
+
+            glm::mat4 cameraProjection = cam->GetProjectionMatrix();
+            glm::mat4 cameraView = cam->GenViewMatrix();
+            glm::mat4 entityMatrix = selectedShared->GenGlobalMatrix();
+
+            // TODO SET VIA BUTTONS
+            ImGuizmo::Manipulate(
+                glm::value_ptr(cameraView),
+                glm::value_ptr(cameraProjection),
+                (ImGuizmo::OPERATION)m_CurrentEditorTool,
+                ImGuizmo::LOCAL, // Change to WORLD if needed
+                glm::value_ptr(entityMatrix)
+            );
+
+            if (ImGuizmo::IsUsingAny())
+            {
+                selectedShared->SetFromGlobalMatrix(entityMatrix);
+            }
         }
     }
 
