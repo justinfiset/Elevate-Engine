@@ -5,6 +5,8 @@
 #include <ElevateEngine/Renderer/FrameBuffer.h>
 #include <ElevateEngine/Core/GameContext.h>
 
+#include <ElevateEngine/Audio/Ak/Common/AkFilePackageLowLevelIODeferred.h>
+
 namespace Elevate {
 	class Event;
 	class KeyPressedEvent;
@@ -49,8 +51,12 @@ namespace Elevate {
 		// TODO METTRE PROTECTED
 		inline static void SetGameState(GameContextState state) { s_Instance->GameContext::SetState(state); }
 	protected:
-		
 		void OnStateChange(GameContextState oldState, GameContextState newState) override;
+
+		bool InitSoundEngine(); // TODO MOVE IN A SPECIFIC CLASS
+		void PrepareAudio();
+		void ProcessAudio();    // TODO MOVE IN A SPECIFIC CLASS
+		void TermSoundEngine(); // TODO MOVE IN A SPECIFIC CLASS
 	private:
 		/// Events Callback / Handler
 		//Keyboard
@@ -67,6 +73,12 @@ namespace Elevate {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+		// TODO Maybe move somewhere else
+		std::shared_ptr<Framebuffer> m_FrameBuffer;
+
+		// TODO ABSTRACT INTO A HIDDEN IMPL.
+		CAkFilePackageLowLevelIODeferred m_lowLevelIO;
 
 		static Application* s_Instance;
 	};

@@ -1,4 +1,4 @@
-#include "eepch.h"
+{#include "eepch.h"
 #include "GameObject.h"
 
 #include <ElevateEngine/Events/Event.h>
@@ -14,6 +14,7 @@
 #include <ElevateEngine/Core/Log.h>
 
 #include <ElevateEngine/Scene/ScenePrivate.h>
+#include <ElevateEngine/Audio/SoundEngine.h>
 
 namespace Elevate
 {
@@ -44,7 +45,7 @@ namespace Elevate
 		);
 
 		// TODO SHOULD SET GLOBAL INSTEAD OF LOCAL, THEREFORE THESE DO NOT ALWYAS WORKS ON CHILDS FOR THE MOMENT
-		// -> IL FAUDRAIT UNE MÉTHODE QUI UPDATE LE TOUT À PARTIR D'UNE MÉTHODE SetFromGlobalMatrix() qui set le tout
+		// -> IL FAUDRAIT UNE Mï¿½THODE QUI UPDATE LE TOUT ï¿½ PARTIR D'UNE Mï¿½THODE SetFromGlobalMatrix() qui set le tout
 		SetScale(scale);
 		SetRotation(rotation);
 		SetPosition(position);
@@ -160,18 +161,15 @@ namespace Elevate
 			}
 			entt::entity entity = registryIt->second->create();
 			m_entityId = static_cast<std::uint32_t>(entity);
+
+    		SoundEngine::RegisterGameObject(this);
 		}
 		else
 		{
 			EE_CORE_ERROR("Object '{0}' must be linked with an existing scene!", m_name);
 		}
 	}
-
-	void GameObject::OnSetPosition()
-	{
-
-	}
-
+    
 	//GameObject::~GameObject()
 	//{
 	//	if (m_scene)
@@ -188,10 +186,15 @@ namespace Elevate
 	//			return;
 	//		}
 
-	//		registryIt->second->destroy(entt::entity(m_entityId));
-	//	}
-	//	else EE_CORE_ERROR("Object '{0}' must be destroyed from an existing scene!", m_name);
-	//}
+Elevate::GameObject::~GameObject()
+{
+	SoundEngine::UnregisterGameObject(this);
+
+	if (m_scene)
+	{
+		m_scene->m_Registry.destroy(entt::entity(m_entityId));
+	} else EE_CORE_ERROR("Object '{0}' must be destroyed from an existing scene!", m_name);
+}
 
 	std::vector<Component*> GameObject::GetComponents()
 	{

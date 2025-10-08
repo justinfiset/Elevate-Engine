@@ -7,6 +7,7 @@ project "Sandbox"
 
     targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
     objdir ("../bin/temps")
+    debugdir ("./")
 
     files 
     {
@@ -18,9 +19,15 @@ project "Sandbox"
         "src/**.frag",
     }
 
+    local wwiseSDK = os.getenv("WWISESDK")
+    local wwiseIncludePath = wwiseSDK .. "/include"
+    -- TODO MAKE THIS PATH DYNAMIC AND NOT HARD CODED - LIKE THIS FOR TEST AND LEARNING PURPOSES
+    local wwiseLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
+
     includedirs
     {
         "../ElevateEngine/vendor/entt/include",
+        wwiseIncludePath,
         "../ElevateEngine/vendor/spdlog/include",
         "../ElevateEngine/vendor/glm/",
         "../ElevateEngine/src"
@@ -28,7 +35,19 @@ project "Sandbox"
 
     links 
     {
-        "ElevateEngine"
+        "ElevateEngine",
+
+        "AkSoundEngine",
+        "AkMemoryMgr",
+        "AkStreamMgr",
+        "AkSpatialAudio",
+        "CommunicationCentral", -- Not needed for release config
+        "AkVorbisDecoder"
+    }
+
+    libdirs
+    {
+        wwiseLinkPath
     }
 
     defines
@@ -39,6 +58,13 @@ project "Sandbox"
     filter "system:windows"
         systemversion "latest"
         defines { "EE_PLATFORM_WINDOWS" }
+
+        links
+        {
+            "ws2_32" -- For Wwise Communication WARNING NOT NEEDED IN RELEASE BUT STILL INCLUDED FOR THE MOMENT
+        }
+
+        buildoptions { "/Zc:wchar_t" }
 
     filter "system:linux"
         systemversion "latest"

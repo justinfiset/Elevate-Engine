@@ -8,6 +8,9 @@
 #include "ElevateEngine/Core/GameObject.h"
 
 #include "ElevateEngine/Renderer/Camera/CameraManager.h"
+// todo : remove when not necessary anymore
+#include <AK/SoundEngine/Common/AkSoundEngine.h>
+#include <ElevateEngine/Audio/SoundEngine.h>
 
 Elevate::Camera::Camera(float fov, bool overrideCurrent)
 {
@@ -37,6 +40,8 @@ void Elevate::Camera::Init()
 {
     UpdateProjectionMatrix();
     UpdateCameraVectors();
+    // todo : change this bit of code to be in the camera manager
+    SoundEngine::SetDefaultListener(gameObject);
 }
 
 const void Elevate::Camera::UpdateAspectRatio(float aspectRatio)
