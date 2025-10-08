@@ -1,4 +1,5 @@
-{#include "eepch.h"
+#include "eepch.h"
+
 #include "GameObject.h"
 
 #include <ElevateEngine/Events/Event.h>
@@ -190,10 +191,10 @@ Elevate::GameObject::~GameObject()
 {
 	SoundEngine::UnregisterGameObject(this);
 
-	if (m_scene)
-	{
-		m_scene->m_Registry.destroy(entt::entity(m_entityId));
-	} else EE_CORE_ERROR("Object '{0}' must be destroyed from an existing scene!", m_name);
+	//if (m_scene)
+	//{
+	//	m_scene->m_registryId.destroy(entt::entity(m_entityId));
+	//} else EE_CORE_ERROR("Object '{0}' must be destroyed from an existing scene!", m_name);
 }
 
 	std::vector<Component*> GameObject::GetComponents()

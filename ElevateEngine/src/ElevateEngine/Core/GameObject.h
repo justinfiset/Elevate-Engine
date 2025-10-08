@@ -18,8 +18,7 @@ namespace Elevate
 	{
 	public:
 		GameObject(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent = nullptr);
-		//~GameObject();
-		~GameObject() = default;
+		~GameObject();
 
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args);
@@ -65,12 +64,10 @@ namespace Elevate
 
 		// This method is protected as the main entry point to modify the parent should be SetParent()
 		void AddChild(std::shared_ptr<GameObject> child);
+
 	private:
 		void Initialize(); // Internal function to use just after constructor
 
-		// TODO MAYBE REMOVE AND FIND A BETTER STRUCTURE
-		// Transforms callbakcs
-		virtual void OnSetPosition() override;
 	private:
 		std::string m_name;
 

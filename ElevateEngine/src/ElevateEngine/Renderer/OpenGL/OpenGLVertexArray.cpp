@@ -17,8 +17,7 @@ Elevate::OpenGLVertexArray::OpenGLVertexArray()
 
 Elevate::OpenGLVertexArray::~OpenGLVertexArray()
 {
-	std::shared_ptr<GraphicsContext> context = GraphicsContext::Get().lock();
-	if (context && context->CanUseContext())
+	if (GraphicsContext::CanUseContext())
 	{
 		GLCheck(glDeleteVertexArrays(1, &m_RendererID));
 	}

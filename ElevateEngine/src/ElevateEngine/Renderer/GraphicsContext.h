@@ -11,15 +11,8 @@ namespace Elevate {
 	class GraphicsContext
 	{
 	public:
-		GraphicsContext() : m_state(GraphicsContextState::UNINITIALIZED) 
-		{
-			s_context.reset(this);
-		}
-		
-		~GraphicsContext()
-		{
-			m_state = GraphicsContextState::TERMINATED;
-		}
+		GraphicsContext();
+		~GraphicsContext();
 
 		virtual void Init()
 		{
@@ -27,19 +20,24 @@ namespace Elevate {
 		}
 
 		virtual void SwapBuffers() = 0;
-		
-		inline bool CanUseContext()
-		{
-			return m_state == GraphicsContextState::ACTIVE;
-		}
 
-		static std::weak_ptr<GraphicsContext> Get()
+		static GraphicsContext* Get()
 		{
 			return s_context;
+		}
+
+		static bool Valid()
+		{
+			return s_context != nullptr;
+		}
+
+		static bool CanUseContext()
+		{
+			return Valid() && s_context->m_state == GraphicsContextState::ACTIVE;
 		}
 	private:
 		GraphicsContextState m_state;
 
-		static std::shared_ptr<GraphicsContext> s_context;
+		static GraphicsContext* s_context;
 	};
 }
