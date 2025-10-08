@@ -43,6 +43,13 @@ namespace Elevate {
 	#define EE_CORE_WARN(...)      ::Elevate::Log::GetCoreLogger()->warn(__VA_ARGS__)
 	#define EE_CORE_ERROR(...)     ::Elevate::Log::GetCoreLogger()->error(__VA_ARGS__)
 	#define EE_CORE_FATAL(...)     ::Elevate::Log::GetCoreLogger()->fatal(__VA_ARGS__)
+
+	// Conditional logging
+	#define EE_CORE_CTRACE(condition, ...)  if(condition) { EE_CORE_TRACE(__VA_ARGS__); }
+	#define EE_CORE_CINFO(condition, ...)   if(condition) { EE_CORE_INFO(__VA_ARGS__);  }
+	#define EE_CORE_CWARN(condition, ...)   if(condition) { EE_CORE_WARN(__VA_ARGS__);  }
+	#define EE_CORE_CERROR(condition, ...)  if(condition) { EE_CORE_ERROR(__VA_ARGS__); }
+	#define EE_CORE_CFATAL(condition, ...)  if(condition) { EE_CORE_FATAL(__VA_ARGS__); }
 #endif
 
 // Client log macros
@@ -51,3 +58,10 @@ namespace Elevate {
 #define EE_WARN(...)           ::Elevate::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define EE_ERROR(...)          ::Elevate::Log::GetClientLogger()->error(__VA_ARGS__)
 #define EE_FATAL(...)          ::Elevate::Log::GetClientLogger()->fatal(__VA_ARGS__)
+
+// Conditional logging
+#define EE_CTRACE(condition, ...)  if(condition) { EE_TRACE(__VA_ARGS__); }
+#define EE_CINFO(condition, ...)   if(condition) { EE_INFO(__VA_ARGS__);  }
+#define EE_CWARN(condition, ...)   if(condition) { EE_WARN(__VA_ARGS__);  }
+#define EE_CERROR(condition, ...)  if(condition) { EE_ERROR(__VA_ARGS__); }
+#define EE_CFATAL(condition, ...)  if(condition) { EE_FATAL(__VA_ARGS__); }
