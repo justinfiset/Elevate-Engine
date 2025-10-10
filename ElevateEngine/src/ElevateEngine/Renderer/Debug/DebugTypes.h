@@ -16,7 +16,7 @@ namespace Elevate
         glm::vec3 end;
         glm::vec4 color;
         float width;
-        float lifetime; // duration in seconds, 0 if permanent
+        float lifetime; // duration in seconds, 0 for a single frame, < 0 if infinite
     };
 }
 

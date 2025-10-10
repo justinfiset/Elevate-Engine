@@ -18,6 +18,8 @@
 
 #include "ElevateEngine/Editor/EditorLayer.h"
 
+#include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
+
 // Wwise Integration
 #include <AK/SoundEngine/Common/AkMemoryMgr.h>
 #include <AK/SoundEngine/Common/AkMemoryMgrModule.h>
@@ -64,6 +66,8 @@ namespace Elevate {
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		DebugRenderer::Init();
 
 		FrameBuffer.reset(Framebuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
 		FrameBuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
@@ -142,6 +146,8 @@ namespace Elevate {
 				// Draw Layers and Scenes
 				for (Layer* layer : m_LayerStack)
 					layer->OnRender();
+
+				DebugRenderer::Render();
 
 				FrameBuffer->Unbind(); // Back to normal
 

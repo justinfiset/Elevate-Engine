@@ -63,7 +63,7 @@ namespace Elevate
     #define ReadOnly ReadOnlyTag{}
 
     struct ColorTag {};
-    #define Color ColorTag{}
+    #define ColorPicker ColorTag{}
 
     using FieldOption = std::variant<
         HideInInspectorTag,

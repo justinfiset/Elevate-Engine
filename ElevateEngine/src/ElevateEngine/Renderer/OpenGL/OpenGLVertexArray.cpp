@@ -47,8 +47,8 @@ void Elevate::OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuf
 	for (const auto& element : layout)
 	{
 		// TODO REMOVES THE LOGS FROM HERE
-		EE_CORE_TRACE("Attrib {} | Count={} | Type={} | Stride={} | Offset={}",
-			index, element.Count, GetDataAPIType(element.Type), layout.GetStride(), element.Offset);
+		EE_CORE_TRACE("Attrib {} : {} | Count={} | Type={} | Stride={} | Offset={}",
+			element.Name, index, element.Count, GetDataAPIType(element.Type), layout.GetStride(), element.Offset);
 
 		LinkAttribute(
 			index, 
