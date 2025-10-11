@@ -21,73 +21,19 @@ void Elevate::DebugRenderer::InternalInit()
 
 void Elevate::DebugRenderer::InternalRender()
 {
+    Renderer::PushRenderState({ false, true, false });
 	// Render the lines
-	m_lineShader->Bind();
+    m_lineShader->Bind();
     m_lineShader->UpdateCamera();
 	Renderer::DrawArray(m_lineArray, DrawPrimitiveType::Lines);
-	m_lineShader->Unbind();
+    m_debugLineArray.clear();
 }
 
 void Elevate::DebugRenderer::InitLineRender()
 {
-	m_lineShader = ShaderManager::LoadShader("Debug", "editor/shaders/debug.vert", "editor/shaders/debug.frag");
+    m_lineShader = ShaderManager::LoadShader("Debug", "editor/shaders/debug.vert", "editor/shaders/debug.frag");
 
-    AddDebugLine({
-        glm::vec3(-1.0f, 0.0f, 0.0f),
-        glm::vec3(1.0f, 0.0f, 0.0f),
-        glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)  // Rouge
-    });
-
-    // Ligne verte verticale
-    AddDebugLine({
-        glm::vec3(0.0f, -1.0f, 0.0f),
-        glm::vec3(0.0f, 1.0f, 0.0f),
-        glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)  // Vert
-        });
-
-    // Ligne bleue diagonale
-    AddDebugLine({
-        glm::vec3(-0.5f, -0.5f, 0.0f),
-        glm::vec3(0.5f, 0.5f, 0.0f),
-        glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)  // Bleu
-        });
-
-    // Ligne jaune en Z
-    AddDebugLine({
-        glm::vec3(-0.5f, 0.5f, -0.5f),
-        glm::vec3(-0.5f, 0.5f, 0.5f),
-        glm::vec4(1.0f, 1.0f, 0.0f, 1.0f)  // Jaune
-        });
-
-    // Carré blanc
-    float size = 0.3f;
-    glm::vec4 white = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-
-    AddDebugLine({
-        glm::vec3(-size, -size, 0.0f),
-        glm::vec3(size, -size, 0.0f),
-glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)
-        });
-
-    AddDebugLine({
-        glm::vec3(size, -size, 0.0f),
-        glm::vec3(size, size, 0.0f),
-glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)
-        });
-
-    AddDebugLine({
-        glm::vec3(size, size, 0.0f),
-        glm::vec3(-size, size, 0.0f),
-        {1.0f, 1.0f, 1.0f, 1.0f}
-        });
-
-    AddDebugLine({
-        glm::vec3(-size, size, 0.0f),
-        glm::vec3(-size, -size, 0.0f),
-glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)
-        });
-
-	m_lineBuffer.reset(VertexBuffer::Create(&m_debugLineArray[0], (uint32_t)m_debugLineArray.size() * sizeof(DebugVertex)));
+	m_lineBuffer.reset(VertexBuffer::Create(m_debugLineArray.data(), (uint32_t)m_debugLineArray.size() * sizeof(DebugVertex)));
 	m_lineBuffer->SetLayout({
 		{ ShaderDataType::Float3, "a_Position" },
 		{ ShaderDataType::Float4, "a_Color" },
@@ -100,11 +46,12 @@ glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)
 
 void Elevate::DebugRenderer::AddDebugLine(DebugLineData line)
 {
-	m_debugLineArray.push_back({ line.Start, line.Color });
-	m_debugLineArray.push_back({ line.End,   line.Color });
+    DebugRenderer& instance = Get();
+    instance.m_debugLineArray.push_back({ line.Start, line.Color });
+    instance.m_debugLineArray.push_back({ line.End,   line.Color });
 
-    if (m_lineBuffer)
+    if (instance.m_lineBuffer)
     {
-        m_lineBuffer->Resize((uint32_t)m_debugLineArray.size() * sizeof(DebugVertex));
+        instance.m_lineBuffer->SetData(instance.m_debugLineArray.data(), (uint32_t)instance.m_debugLineArray.size() * sizeof(DebugVertex));
     }
 }

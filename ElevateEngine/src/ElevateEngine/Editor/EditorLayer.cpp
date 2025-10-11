@@ -100,6 +100,11 @@ namespace Elevate::Editor
         m_GridObject->SetPosition({ camPos.x, 0, camPos.z });
 
         m_EditorScene->RenderScene(GetCamera());
+
+        if (m_SelectedObject.lock())
+        {
+            m_SelectedObject.lock()->RenderWhenSelected();
+        }
     }
 
     void EditorLayer::OnImGuiRender()

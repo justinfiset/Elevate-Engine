@@ -46,6 +46,6 @@ namespace Elevate
 		std::vector<DebugVertex> m_debugLineArray;
 		void InitLineRender();
 	public:
-		void AddDebugLine(DebugLineData line);
+		static void AddDebugLine(DebugLineData line);
 	};
 }

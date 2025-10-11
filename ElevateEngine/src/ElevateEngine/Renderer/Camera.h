@@ -43,9 +43,13 @@ namespace Elevate
 
 		glm::mat4 GenViewProjectionMatrix();
 
-		//virtual Component* Clone() override;
-
 		void Init() override;
+		void RenderWhenSelected() override;
+#ifdef EE_EDITOR_BUILD
+		void DrawDebugFrustum();
+		std::array<glm::vec3, 8> CalculateFrustumCorners(float visualFarScale = 0.5f);
+#endif
+
 	private:
 		glm::mat4 GenProjectionMatrix();
 		void UpdateProjectionMatrix();

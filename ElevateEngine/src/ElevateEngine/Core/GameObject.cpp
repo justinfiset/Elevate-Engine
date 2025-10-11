@@ -72,6 +72,7 @@ namespace Elevate
 
 	void GameObject::Update()
 	{
+		// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK
 		for (Component* comp : GetComponents())
 		{
 			if (comp->IsActive())
@@ -88,6 +89,7 @@ namespace Elevate
 
 	void GameObject::PreRender()
 	{
+		// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK
 		for (Component* comp : GetComponents())
 		{
 			if (comp->IsActive())
@@ -104,6 +106,7 @@ namespace Elevate
 
 	void GameObject::Render()
 	{
+		// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK
 		for (Component* comp : GetComponents())
 		{
 			if (comp->IsActive())
@@ -213,6 +216,7 @@ Elevate::GameObject::~GameObject()
 
 	void GameObject::RenderInEditor()
 	{
+		// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK
 		for (Component* comp : GetComponents())
 		{
 			if (comp->IsActive())
@@ -224,6 +228,23 @@ Elevate::GameObject::~GameObject()
 		for (std::shared_ptr<GameObject> child : m_childs)
 		{
 			child->RenderInEditor();
+		}
+	}
+
+	void GameObject::RenderWhenSelected()
+	{
+		// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK
+		for (Component* comp : GetComponents())
+		{
+			if (comp->IsActive())
+			{
+				comp->RenderWhenSelected();
+			}
+		}
+
+		for (std::shared_ptr<GameObject> child : m_childs)
+		{
+			child->RenderWhenSelected();
 		}
 	}
 

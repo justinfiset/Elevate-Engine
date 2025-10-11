@@ -14,6 +14,11 @@ namespace Elevate
 	class Component;
 	class ComponentRegistry;
 
+	namespace Editor
+	{
+		class EditorLayer;
+	}
+
 	class GameObject : public ITransformable, public std::enable_shared_from_this<GameObject>
 	{
 	public:
@@ -27,7 +32,7 @@ namespace Elevate
 		T* GetComponent();
 
 		std::vector<Component*> GetComponents();
-			
+
 		template <typename T>
 		bool HasComponent();
 
@@ -59,8 +64,11 @@ namespace Elevate
 		void Update();
 		void PreRender();
 		void Render();
-		void RenderInEditor();
 		void Notify(Event& event);
+
+		// Editor Rendering
+		void RenderInEditor();
+		void RenderWhenSelected();
 
 		// This method is protected as the main entry point to modify the parent should be SetParent()
 		void AddChild(std::shared_ptr<GameObject> child);
@@ -78,8 +86,10 @@ namespace Elevate
 		uint32_t m_entityId;
 
 		Scene* m_scene;
+
 		friend class Scene;
 		friend class ComponentRegistry;
+		friend class Editor::EditorLayer;
 	};
 }
 
