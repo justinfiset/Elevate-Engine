@@ -16,7 +16,7 @@ Elevate::Camera::Camera(float fov, bool overrideCurrent)
 {
     m_FOV = fov;
     Window& window = Application::Get().GetWindow();
-    m_AspectRatio = (float)window.GetWidth() / (float)window.GetHeight();
+    m_aspectRatio = (float)window.GetWidth() / (float)window.GetHeight();
 
     if (overrideCurrent)
     {
@@ -28,7 +28,7 @@ Elevate::Camera::Camera(float fov, float aspectRatio, bool overrideCurrent)
 {
     m_FOV = fov;
     Window& window = Application::Get().GetWindow();
-    m_AspectRatio = aspectRatio;
+    m_aspectRatio = aspectRatio;
 
     if (overrideCurrent)
     {
@@ -47,28 +47,23 @@ void Elevate::Camera::Init()
     SoundEngine::SetDefaultListener(gameObject);
 }
 
-void Elevate::Camera::RenderWhenSelected()
-{
-    DrawDebugFrustum();
-}
-
 const void Elevate::Camera::UpdateAspectRatio(float aspectRatio)
 {
-    if (m_AspectRatio != aspectRatio)
+    if (m_aspectRatio != aspectRatio)
     {
-        m_AspectRatio = aspectRatio;
+        m_aspectRatio = aspectRatio;
         UpdateProjectionMatrix();
     }
 }
 
 glm::mat4 Elevate::Camera::GenViewProjectionMatrix()
 {
-    return m_ProjectionMatrix * GenViewMatrix();
+    return m_projectionMatrix * GenViewMatrix();
 }
 
 glm::mat4 Elevate::Camera::GenViewMatrix()
 {
-    return glm::lookAt(gameObject->GetPosition(), gameObject->GetPosition() + m_Front, m_Up);
+    return glm::lookAt(gameObject->GetPosition(), gameObject->GetPosition() + m_front, m_up);
 }
 
 inline void Elevate::Camera::SetFOV(float fov)
@@ -82,30 +77,30 @@ inline void Elevate::Camera::SetFOV(float fov)
 
 inline void Elevate::Camera::SetNear(float nearPlane)
 {
-    if (m_Near != nearPlane)
+    if (m_near != nearPlane)
     {
-        m_Near = nearPlane;
+        m_near = nearPlane;
         UpdateProjectionMatrix();
     }
 }
 
 inline void Elevate::Camera::SetFar(float farPlane)
 {
-    if (m_Far != farPlane)
+    if (m_far != farPlane)
     {
-        m_Far = farPlane;
+        m_far = farPlane;
         UpdateProjectionMatrix();
     }
 }
 
 glm::mat4 Elevate::Camera::GenProjectionMatrix()
 {
-    return glm::perspective(glm::radians(m_FOV), m_AspectRatio, m_Near, m_Far);
+    return glm::perspective(glm::radians(m_FOV), m_aspectRatio, m_near, m_far);
 }
 
 void Elevate::Camera::UpdateProjectionMatrix()
 {
-    m_ProjectionMatrix = GenProjectionMatrix();
+    m_projectionMatrix = GenProjectionMatrix();
 }
 
 void Elevate::Camera::UpdateCameraVectors()
@@ -117,27 +112,33 @@ void Elevate::Camera::UpdateCameraVectors()
     front.x = cos(yaw) * cos(pitch);
     front.y = sin(pitch);
     front.z = sin(yaw) * cos(pitch);
-    m_Front = glm::normalize(front);
+    m_front = glm::normalize(front);
 
-    m_Right = glm::normalize(glm::cross(glm::vec3(0.0f, 1.0f, 0.0f), m_Front));
+    m_right = glm::normalize(glm::cross(glm::vec3(0.0f, 1.0f, 0.0f), m_front));
 
-    m_Up = glm::normalize(glm::cross(m_Front, m_Right));
+    m_up = glm::normalize(glm::cross(m_front, m_right));
 }
 
 // ONLY IN THE EDITOR
 #ifdef EE_ENGINE_BUILD
+void Elevate::Camera::RenderWhenSelected()
+{
+    UpdateCameraVectors();
+    DrawDebugFrustum();
+}
+
 void Elevate::Camera::DrawDebugFrustum()
 {
     auto corners = CalculateFrustumCorners();
 
     glm::vec4 color = glm::vec4(0.96f, 0.47f, 0.12f, 1.0f);
 
-    glm::vec3 origin = gameObject->GetGlobalPosition();
-    for (int i = 0; i < 8; i++) {
-        DebugRenderer::AddDebugLine({ origin, corners[i], glm::vec4(1.0f, 0.0f, 1.0f, 1.0f) }); // Magenta debug lines
+    // Draw the lines from the near corners to the far corners
+    for (int i = 0; i < 4; i++) 
+    {
+        DebugRenderer::AddDebugLine({ corners[i], corners[i + 4], color });
     }
 
-    // Then draw the frustum (your existing code)
     // Draw near plane
     DebugRenderer::AddDebugLine({ corners[0], corners[1], color });
     DebugRenderer::AddDebugLine({ corners[1], corners[2], color });
@@ -149,12 +150,6 @@ void Elevate::Camera::DrawDebugFrustum()
     DebugRenderer::AddDebugLine({ corners[5], corners[6], color });
     DebugRenderer::AddDebugLine({ corners[6], corners[7], color });
     DebugRenderer::AddDebugLine({ corners[7], corners[4], color });
-
-    // Draw connecting lines
-    DebugRenderer::AddDebugLine({ corners[0], corners[4], color });
-    DebugRenderer::AddDebugLine({ corners[1], corners[5], color });
-    DebugRenderer::AddDebugLine({ corners[2], corners[6], color });
-    DebugRenderer::AddDebugLine({ corners[3], corners[7], color });
 }
 
 std::array<glm::vec3, 8> Elevate::Camera::CalculateFrustumCorners(float visualFarScale)
@@ -168,14 +163,14 @@ std::array<glm::vec3, 8> Elevate::Camera::CalculateFrustumCorners(float visualFa
 
     float tanHalfFOV = tan(glm::radians(m_FOV * 0.5f));
 
-    float visualFar = m_Far * visualFarScale;
-    float nearHeight = 2.0f * tanHalfFOV * m_Near;
-    float nearWidth = nearHeight * m_AspectRatio;
+    float visualFar = m_far * visualFarScale;
+    float nearHeight = 2.0f * tanHalfFOV * m_near;
+    float nearWidth = nearHeight * m_aspectRatio;
 
     float farHeight = 2.0f * tanHalfFOV * visualFar;
-    float farWidth = farHeight * m_AspectRatio;
+    float farWidth = farHeight * m_aspectRatio;
 
-    glm::vec3 nearCenter = position + front * m_Near;
+    glm::vec3 nearCenter = position + front * m_near;
     glm::vec3 farCenter = position + front * visualFar;
 
     // Near Plane Corners

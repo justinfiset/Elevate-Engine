@@ -1,4 +1,7 @@
 #include "eepch.h"
+
+#ifdef EE_ENGINE_BUILD
+
 #include "DebugRenderer.h"
 
 #include <ElevateEngine/Renderer/Renderer.h>
@@ -26,7 +29,7 @@ void Elevate::DebugRenderer::InternalRender()
     m_lineShader->Bind();
     m_lineShader->UpdateCamera();
 	Renderer::DrawArray(m_lineArray, DrawPrimitiveType::Lines);
-    m_debugLineArray.clear();
+    ClearDebugLines();
 }
 
 void Elevate::DebugRenderer::InitLineRender()
@@ -44,6 +47,15 @@ void Elevate::DebugRenderer::InitLineRender()
     m_lineArray->Unbind();
 }
 
+void Elevate::DebugRenderer::ClearDebugLines()
+{
+    m_debugLineArray.clear();
+    if (m_lineBuffer)
+    {
+        m_lineBuffer->Resize(0);
+    }
+}
+
 void Elevate::DebugRenderer::AddDebugLine(DebugLineData line)
 {
     DebugRenderer& instance = Get();
@@ -55,3 +67,5 @@ void Elevate::DebugRenderer::AddDebugLine(DebugLineData line)
         instance.m_lineBuffer->SetData(instance.m_debugLineArray.data(), (uint32_t)instance.m_debugLineArray.size() * sizeof(DebugVertex));
     }
 }
+
+#endif

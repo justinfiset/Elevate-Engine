@@ -32,7 +32,7 @@ std::string Elevate::ComponentRegistry::GetCleanedName(std::string rawName)
                 cleanedName += std::toupper(c);
             }
         }
-        else if (std::isupper(c) && std::islower(rawName.at(i + 1)))
+        else if (rawName.length() > i + 1 && std::isupper(c) && std::islower(rawName.at(i + 1)))
         {
             cleanedName += ' ';
             cleanedName += c;

@@ -7,6 +7,7 @@
 #include <ElevateEngine/Core/Log.h>
 
 #include <ElevateEngine/Renderer/GLDebug.h>
+#include <ElevateEngine/Renderer/GraphicsContext.h>
 
 namespace Elevate
 {
@@ -22,7 +23,11 @@ namespace Elevate
 
     OpenGLVertexBuffer::~OpenGLVertexBuffer()
     {
-        GLCheck(glDeleteBuffers(1, &m_rendererID));
+        // Check if the OpenGl context is still active before performing actions
+        if (GraphicsContext::CanUseContext())
+        {
+            GLCheck(glDeleteBuffers(1, &m_rendererID));
+        }
     }
 
     void OpenGLVertexBuffer::Bind() const
@@ -75,7 +80,11 @@ namespace Elevate
 
     OpenGLIndexBuffer::~OpenGLIndexBuffer()
     {
-        GLCheck(glDeleteBuffers(1, &m_rendererID));
+        // Check if the OpenGl context is still active before performing actions
+        if (GraphicsContext::CanUseContext())
+        {
+            GLCheck(glDeleteBuffers(1, &m_rendererID));
+        }
     }
 
     void OpenGLIndexBuffer::Bind() const

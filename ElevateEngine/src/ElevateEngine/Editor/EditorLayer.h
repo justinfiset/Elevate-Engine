@@ -48,6 +48,8 @@ namespace Elevate::Editor
 		std::vector<std::unique_ptr<EditorWidget>> m_widgets;
 		TexturePtr m_playTexture;
 		TexturePtr m_pauseTexture;
+		TexturePtr m_stopTexture;
+		TexturePtr m_coloredStopTexture;
 
 		std::shared_ptr<GameObject> m_CameraObject;
 
