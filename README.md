@@ -21,9 +21,20 @@ ElevateEngine/
 ```
 
 ## Usage
-
+### Download the Project
+1. Clone the Repo
+   ```cmd
+   git clone https://github.com/justinfiset/Elevate-Engine
+   ```
+2. Open the Downloaded Folder
+   ```cmd
+   cd Elevate-Engine
+   ```
+3. Activate Submodules
+   ```cmd
+   git submodule update --init --recursive
+   ```
 ### First Time Setup
-
 1. Run the `bootstrap` script:
    - For **Windows**:
      ```cmd
