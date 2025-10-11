@@ -7,30 +7,64 @@ project "Sandbox"
 
     targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
     objdir ("../bin/temps")
+    debugdir ("./")
 
     files 
     {
         "src/**.h",
+        "src/**.inl",
         "src/**.cpp",
+        
         "src/**.vert",
         "src/**.frag",
     }
 
+    local wwiseSDK = os.getenv("WWISESDK")
+    local wwiseIncludePath = wwiseSDK .. "/include"
+    -- TODO MAKE THIS PATH DYNAMIC AND NOT HARD CODED - LIKE THIS FOR TEST AND LEARNING PURPOSES
+    local wwiseLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
+
     includedirs
     {
         "../ElevateEngine/vendor/entt/include",
+        wwiseIncludePath,
+        "../ElevateEngine/vendor/spdlog/include",
         "../ElevateEngine/vendor/glm/",
         "../ElevateEngine/src"
     }
 
     links 
     {
-        "ElevateEngine"
+        "ElevateEngine",
+
+        "AkSoundEngine",
+        "AkMemoryMgr",
+        "AkStreamMgr",
+        "AkSpatialAudio",
+        "CommunicationCentral", -- Not needed for release config
+        "AkVorbisDecoder"
+    }
+
+    libdirs
+    {
+        wwiseLinkPath
+    }
+
+    defines
+    {
+        "EE_EDITOR_BUILD"
     }
 
     filter "system:windows"
         systemversion "latest"
         defines { "EE_PLATFORM_WINDOWS" }
+
+        links
+        {
+            "ws2_32" -- For Wwise Communication WARNING NOT NEEDED IN RELEASE BUT STILL INCLUDED FOR THE MOMENT
+        }
+
+        buildoptions { "/Zc:wchar_t" }
 
     filter "system:linux"
         systemversion "latest"

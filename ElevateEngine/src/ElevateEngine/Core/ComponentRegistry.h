@@ -3,8 +3,6 @@
 #include <typeindex>
 #include <type_traits>
 
-#include <entt/entt.hpp>
-
 #include <stack>
 #include <map>
 #include <variant>
@@ -65,7 +63,7 @@ namespace Elevate
     #define ReadOnly ReadOnlyTag{}
 
     struct ColorTag {};
-    #define Color ColorTag{}
+    #define ColorPicker ColorTag{}
 
     using FieldOption = std::variant<
         HideInInspectorTag,
@@ -100,73 +98,26 @@ namespace Elevate
             return ParentFieldsHelper<T>::Get(obj);
         }
 
-        // Component factory for a specific type (for who Component is a base class)
-        using ComponentFactory = std::function<Component* (entt::registry&, entt::entity)>;
-        
         struct Entry
         {
             std::string name;
             std::type_index type{ typeid(void) };
             EECategory category;
-            ComponentFactory creator; // entt factory method
+            GameObjectComponentGetter getter; // method to get the type of component from a gameobject
             GameObjectComponentFactory factory; // factory to create / add to a gameObject
             GameObjectComponentDestructor destructor; // component destructor / remove from a gameObject
             bool visible;
         };
 
         template<typename T>
-        static void Register(const std::string& name, EECategory category, std::vector<FieldOption>& options) {
-            std::type_index ti(typeid(T));
-
-            bool visible = true;
-            for (FieldOption& option : options)
-            {
-                if (std::holds_alternative<HideInInspectorTag>(option))
-                {
-                    visible = false;
-                }
-            }
-
-            GetEntries().emplace(ti, Entry{
-                name,
-                ti,
-                category,
-                [](entt::registry& registry, entt::entity entity) -> Component* {
-                    if (registry.all_of<T>(entity)) {
-                        return &registry.get<T>(entity);
-                    }
-                    return nullptr;
-                },
-                [](std::weak_ptr<GameObject> go) -> Component* {
-                    if (std::shared_ptr<GameObject> obj = go.lock()) {
-                        return &obj->AddComponent<T>();
-                    }
-                    return nullptr;
-                },
-                [](std::weak_ptr<GameObject> go) -> void {
-                    if (std::shared_ptr<GameObject> obj = go.lock()) {
-                        obj->RemoveComponent<T>();
-                    }
-                },
-                visible
-            });
-        }
+        static void Register(const std::string& name, EECategory category, std::vector<FieldOption>& options);
         
         static std::unordered_map<std::type_index, Entry>& GetEntries() {
             static std::unordered_map<std::type_index, Entry> entries;
             return entries;
         }
 
-        static std::string GetName(const std::type_info& type) {
-            auto& entries = GetEntries();
-            auto it = entries.find(std::type_index(type));
-            if (it != entries.end()) {
-                return it->second.name;
-            }
-            else {
-                return type.name();
-            }
-        }
+        static std::string GetName(const std::type_info& type);
 
         static std::vector<std::string>& ClassPaths() {
             static std::vector<std::string> paths;
@@ -178,51 +129,6 @@ namespace Elevate
             return stack;
         }
 
-        struct IComponentPropertyEntry
-        {
-            virtual ~IComponentPropertyEntry() = default;
-
-            virtual const std::string& GetName() const = 0;
-            virtual EngineDataType GetType() const = 0;
-            virtual size_t GetOffset() const = 0;
-
-            virtual void* GetValuePtr(const void* instance) const = 0;
-        };
-
-        template<typename Class, typename FieldType>
-        struct ComponentPropertyEntry : public IComponentPropertyEntry
-        {
-            using MemberPointer = FieldType Class::*;
-
-            ComponentPropertyEntry(MemberPointer member, std::string name, EngineDataType type)
-                : m_member(member), m_name(std::move(name)), m_type(type)
-            {
-                m_offset = reinterpret_cast<size_t>(
-                    &(reinterpret_cast<Class const volatile*>(0)->*member)
-                    );
-            }
-
-            const std::string& GetName() const override { return m_name; }
-            EngineDataType GetType() const override { return m_type; }
-            size_t GetOffset() const override { return m_offset; }
-
-            FieldType& GetValue(Class& instance) const {
-                return instance.*m_member;
-            }
-
-            void* GetValuePtr(const void* instance) const override {
-                const Class* obj = static_cast<const Class*>(instance);
-                auto ptr = &(obj->*m_member);
-                return const_cast<void*>(reinterpret_cast<const void*>(ptr));
-            }
-
-        private:
-            MemberPointer m_member;
-            std::string m_name;
-            EngineDataType m_type;
-            size_t m_offset;
-        };
-
         static inline std::vector<ComponentField>& CompilationClassFieldStack()
         {
             static std::vector<ComponentField> stack;
@@ -230,50 +136,16 @@ namespace Elevate
         }
 
         template<typename T>
-        static constexpr EngineDataType DeduceEngineDataType() { return EngineDataTypeTrait<std::decay_t<T>>::value; }
-
-        static std::string GetCleanedName(std::string rawName)
+        static constexpr EngineDataType DeduceEngineDataType() 
         {
-            std::string cleanedName = "";
-
-            for (int i = 0; i < rawName.length(); i++)
-            {
-                char c = rawName.at(i); // Current char
-                if (i == 0)
-                {
-                    if ((c == 'm' || c == 's' || c == 'g') && rawName.at(i + 1) == '_') // If we have a notation of Hungarian style : m_myVariable
-                    {
-                        i = 1;
-                        continue;
-                    }
-                    else
-                    {
-                        cleanedName += std::toupper(c);
-                    }
-                }
-                else if (std::isupper(c) && std::islower(rawName.at(i + 1)))
-                {
-                    cleanedName += ' ';
-                    cleanedName += c;
-                }
-                else if (std::isalpha(c) && rawName.at(i - 1) == '_')
-                {
-                    cleanedName += std::toupper(c);
-                }
-                else if (c == '_')
-                {
-                    cleanedName += ' ';
-                }
-                else
-                {
-                    cleanedName += c;
-                }
-            }
-
-            return cleanedName;
+            return EngineDataTypeTrait<std::decay_t<T>>::value;
         }
 
+        // Simple method to convert a variable or class name to a display name, ex: m_myProperty -> My Property
+        static std::string GetCleanedName(std::string rawName);
+
         static void AddClassToStack(std::string newClass);
+        static void PopClassStack();
 
         static std::map<std::string, std::vector<ComponentField>>& GetCustomComponentFields()
         {
@@ -282,53 +154,11 @@ namespace Elevate
         }
 
         template<typename Class, typename FieldType>
-        static void AddProperty(FieldType Class::* member, const std::string& name, std::initializer_list<FieldOption> options)
-        {
-            constexpr EngineDataType type = DeduceEngineDataType<FieldType>();
-            FieldMeta meta;
-            for (auto&& opt : options) {
-                if (std::holds_alternative<FlattenTag>(opt)) {
-                    meta.flatten = true;
-                }
-                else if (std::holds_alternative<DisplayNameTag>(opt)) {
-                    meta.displayName = std::get<DisplayNameTag>(opt).value;
-                }
-                else if (std::holds_alternative<TooltipTag>(opt)) {
-                    meta.tooltip = std::get<TooltipTag>(opt).text;
-                }
-                else if (std::holds_alternative<ReadOnlyTag>(opt)) {
-                    meta.readOnly = true;
-                }
-                else if (std::holds_alternative<ColorTag>(opt)) {
-                    meta.isColor = true;
-                }
-            }
-
-            EE_TRACE(" --> Exposed field : {0} flatten={1}  displayName={2}", GetCleanedName(name), meta.flatten, meta.displayName);
-
-            auto& customFields = GetCustomComponentFields();
-            std::string typeName = typeid(FieldType).name();
-            size_t offset = reinterpret_cast<size_t>(&(reinterpret_cast<Class const volatile*>(0)->*member));
-
-            ComponentField field;
-            if (customFields.find(typeName) != customFields.end())
-            {
-                field = ComponentField(GetCleanedName(name), EngineDataType::Custom, offset, meta.displayName, customFields[typeName]);
-                field.flatten = meta.flatten;
-            }
-            else
-            {
-                field = ComponentField(GetCleanedName(name), type, offset, meta.displayName);
-            }
-            field.isColor = meta.isColor;
-            field.tooltip = meta.tooltip;
-            field.readOnly = meta.readOnly;
-            CompilationClassFieldStack().push_back(field);
-        }
-
-        static void PopClassStack();
+        static void AddProperty(FieldType Class::* member, const std::string& name, std::initializer_list<FieldOption> options);
     };
 }
+
+#include "ComponentRegistry.inl"
 
 #define EECATEGORY(name) \
     private: \
@@ -473,6 +303,10 @@ inline static struct BaseType##BaseClassDeclaration { \
         generated_classEntry.HasBaseClass = true; \
     } \
 } generated_baseDeclaration;
+
+// =======================================================
+// BEGIN_STRUCT / END_STRUCT
+// =======================================================
 
 #define BEGIN_STRUCT(T) \
     private: \

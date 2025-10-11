@@ -39,7 +39,7 @@ namespace Elevate
 		std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
 		std::vector<BufferElement>::const_iterator end() const { return m_Elements.end(); }
 
-		inline unsigned int GetStride() const { return m_Stride; }
+		inline uint32_t GetStride() const { return m_Stride; }
 	private:
 		void CalculateOffsetAndStride()
 		{
@@ -60,15 +60,28 @@ namespace Elevate
 	class VertexBuffer
 	{
 	public:
+		VertexBuffer(void* vertices, uint32_t size)
+			: m_data(vertices), m_size(size) { }
+
 		virtual ~VertexBuffer() = default;
 
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& GetLayout() const = 0;
 
+		virtual void SetData(void* newData, uint32_t size) = 0;
+		virtual void Resize(uint32_t size) = 0;
+
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 		
 		static VertexBuffer* Create(void* vertices, uint32_t size);
+
+		uint32_t GetSize() { return m_size; }
+	protected:
+		void SetSize(uint32_t newSize) { m_size = newSize; }
+	private:
+		uint32_t m_size;
+		void* m_data;
 	};
 
 	class IndexBuffer

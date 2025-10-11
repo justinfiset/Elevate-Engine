@@ -8,7 +8,7 @@
 namespace Elevate
 {
     EditorCamera::EditorCamera(float fov)
-        : Camera(fov) { }
+        : Camera(fov, false) { }
 
     void EditorCamera::Update()
     {

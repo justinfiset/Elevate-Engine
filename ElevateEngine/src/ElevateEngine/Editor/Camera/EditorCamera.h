@@ -12,7 +12,6 @@ namespace Elevate {
 
 		EditorCamera(float fov = 60.0f); // TODO CHANGER, ON VEUT QUELQUE CHOSE DE CUSTUM
 
-
 		void Init() override;
 		void Update() override;
 		void OnNotify(Event& event) override;

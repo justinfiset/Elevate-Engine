@@ -64,41 +64,43 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
     else
         window_width = (uint32_t)(qtY * arX);
 
-    std::shared_ptr<Elevate::Framebuffer> frameBuffer = Elevate::Application::Get().GetFrameBuffer();
     // we rescale the framebuffer to the actual window size here and reset the glViewport 
-    frameBuffer->Rescale(window_width, window_height);
+    Application::Get().FrameBuffer->Rescale(window_width, window_height);
     Renderer::SetViewport(0, 0, window_width, window_height);
 
     // we get the screen position of the window
     ImVec2 pos = ImGui::GetCursorScreenPos();
-    ImGui::Image((ImTextureID) frameBuffer->GetNativeTextureHandle(), ImVec2((float)window_width, (float)window_height), ImVec2(0, 1), ImVec2(1, 0));
+    ImGui::Image((ImTextureID)Application::Get().FrameBuffer->GetNativeTextureHandle(), ImVec2((float)window_width, (float)window_height), ImVec2(0, 1), ImVec2(1, 0));
 
     // ImGuizmo //////////////////////////////////////////
-    std::weak_ptr<GameObject> selected = EditorLayer::Get().GetSelectedObject();
-    Camera* cam = EditorLayer::Get().GetCamera();
-    if (selected.lock())
+    if (Application::GameState() == EditorMode)
     {
-        std::shared_ptr<GameObject> selectedShared = selected.lock();
-        ImGuizmo::SetDrawlist(ImGui::GetWindowDrawList());
-        ImGuizmo::SetOrthographic(false); // TODO SET DINAMICLY FROM THE EDITOR AND SETUP THE CAMERA ACCORDINGLY
-        ImGuizmo::SetRect(pos.x, pos.y, (float)window_width, (float)window_height);
-
-        glm::mat4 cameraProjection = cam->GetProjectionMatrix();
-        glm::mat4 cameraView = cam->GenViewMatrix();
-        glm::mat4 entityMatrix = selectedShared->GenGlobalMatrix();
-
-        // TODO SET VIA BUTTONS
-        ImGuizmo::Manipulate(
-            glm::value_ptr(cameraView),
-            glm::value_ptr(cameraProjection),
-            (ImGuizmo::OPERATION) m_CurrentEditorTool,
-            ImGuizmo::LOCAL, // Change to WORLD if needed
-            glm::value_ptr(entityMatrix)
-        );
-
-        if (ImGuizmo::IsUsingAny())
+        std::weak_ptr<GameObject> selected = EditorLayer::Get().GetSelectedObject();
+        Camera* cam = EditorLayer::Get().GetCamera();
+        if (selected.lock())
         {
-            selectedShared->SetFromGlobalMatrix(entityMatrix);
+            std::shared_ptr<GameObject> selectedShared = selected.lock();
+            ImGuizmo::SetDrawlist(ImGui::GetWindowDrawList());
+            ImGuizmo::SetOrthographic(false); // TODO SET DINAMICLY FROM THE EDITOR AND SETUP THE CAMERA ACCORDINGLY
+            ImGuizmo::SetRect(pos.x, pos.y, (float)window_width, (float)window_height);
+
+            glm::mat4 cameraProjection = cam->GetProjectionMatrix();
+            glm::mat4 cameraView = cam->GenViewMatrix();
+            glm::mat4 entityMatrix = selectedShared->GenGlobalMatrix();
+
+            // TODO SET VIA BUTTONS
+            ImGuizmo::Manipulate(
+                glm::value_ptr(cameraView),
+                glm::value_ptr(cameraProjection),
+                (ImGuizmo::OPERATION)m_CurrentEditorTool,
+                ImGuizmo::LOCAL, // Change to WORLD if needed
+                glm::value_ptr(entityMatrix)
+            );
+
+            if (ImGuizmo::IsUsingAny())
+            {
+                selectedShared->SetFromGlobalMatrix(entityMatrix);
+            }
         }
     }
 

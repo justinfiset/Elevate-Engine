@@ -38,6 +38,7 @@ namespace Elevate
 		void UseDirLight(DirectionalLight* newDirLight);
 
 		// Camera
+		void UpdateCamera();
 		void UpdateCamera(Camera& cam);
 			
 		void SetModelMatrix(glm::mat4& modelMatrix);

@@ -24,9 +24,15 @@ project "ElevateEngine"
     IncludeDir["ImGuizmo"] = "vendor/ImGuizmo"
     IncludeDir["entt"] = "vendor/entt/include"
 
+    local wwiseSDK = os.getenv("WWISESDK")
+    local wwiseIncludePath = wwiseSDK .. "/include"
+    -- TODO MAKE THIS PATH DYNAMIC AND NOT HARD CODED - LIKE THIS FOR TEST AND LEARNING PURPOSES
+    local wwiseLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
+
     files 
     {
         "src/**.h",
+        "src/**.inl",
         "src/**.cpp",
 
         "src/**.vert",
@@ -48,6 +54,7 @@ project "ElevateEngine"
     {
         "src",
 
+        wwiseIncludePath,
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.rapidjson}",
@@ -61,6 +68,11 @@ project "ElevateEngine"
         "%{IncludeDir.entt}"
     }
 
+    libdirs
+    {
+        wwiseLinkPath
+    }
+
     links
     {
 	    -- "Glad", NOT A PROJECT ANYMORE
@@ -68,26 +80,37 @@ project "ElevateEngine"
         "ImGui",
         "assimp",
         -- "tinyfiledialogs", NOT A PROJECT ANYMORE
+
+        "AkSoundEngine",
+        "AkMemoryMgr",
+        "AkStreamMgr",
+        "AkSpatialAudio",
+        "CommunicationCentral", -- Not needed for release config
+        "AkVorbisDecoder",
+        "AkOpusDecoder"
     }
+
 
     filter { "files:vendor/**.c" }
             flags { "NoPCH" }
 
     filter { "files:vendor/**.cpp" }
-        flags { "NoPCH" }
+        flags { "NoPCH" } 
 
     filter "system:windows"
         systemversion "latest"
+        buildoptions { "/Zc:wchar_t" }
 
         defines
         {
             "EE_PLATFORM_WINDOWS",
         }
 
-	links
-	{
-	    "opengl32.lib"
-	}
+        links
+        {
+            "opengl32.lib",
+            "ws2_32" -- For Wwise Communication WARNING NOT NEEDED IN RELEASE BUT STILL INCLUDED FOR THE MOMENT
+        }
 
     filter "system:linux"
         systemversion "latest"
@@ -110,6 +133,7 @@ project "ElevateEngine"
 
     filter "configurations:Debug"
         defines "EE_DEBUG"
+        
         runtime "Debug"
 	        symbols "on"
 

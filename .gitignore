@@ -97,3 +97,4 @@ ipch/
 *.app
 
 !Sandbox/**/*.obj
+Makefile

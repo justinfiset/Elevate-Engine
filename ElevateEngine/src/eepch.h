@@ -32,12 +32,15 @@
 #include <rapidjson/document.h>
 #include <rapidjson/error/en.h>
 
+// SPDLOG
+#include <spdlog/spdlog.h>
+
 // VENDORS
 #define GLFW_INCLUDE_NONE
+#include <entt/entt.hpp>
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 #include <imgui.h>
-#include <spdlog/spdlog.h>
 #include <assimp/scene.h>
 #include <tinyfiledialogs.h>
 

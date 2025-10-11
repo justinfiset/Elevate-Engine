@@ -1,11 +1,10 @@
 #pragma once
 
-#include "ElevateEngine/Core/Core.h"
-#include "ElevateEngine/Events/Event.h"
-
 namespace Elevate
 {
-	class EE_API Layer
+	class Event;
+
+	class Layer
 	{
 	public:
 		Layer(const std::string& name = "Layer");

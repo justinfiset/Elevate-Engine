@@ -67,9 +67,12 @@ namespace Elevate
 		s_API->SetViewport(x, y, width, height);
 	}
 
-	void Renderer::DrawArray(const std::shared_ptr<VertexArray>& vao)
+	void Renderer::DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive)
 	{
-		s_API->DrawArray(vao);
+		if (vao)
+		{
+			s_API->DrawArray(vao, primitive);
+		}
 	}
 
 	void Renderer::DrawStack()

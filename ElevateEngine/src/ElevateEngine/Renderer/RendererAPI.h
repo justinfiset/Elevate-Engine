@@ -9,6 +9,18 @@
 
 namespace Elevate
 {
+	enum class DrawPrimitiveType
+	{
+		Points,
+		Lines,
+		LineStrip,
+		LineLoop,      // OpenGL only
+		Triangles,
+		TriangleStrip,
+		TriangleFan,   // OpenGL only
+		Patches
+	};
+
 	class RendererAPI
 	{
 	public:
@@ -24,7 +36,7 @@ namespace Elevate
 		virtual void Clear() const = 0;
 		virtual void FlushBuffers() const = 0;
 
-		virtual void DrawArray(const std::shared_ptr<VertexArray>& vao) const = 0;
+		virtual void DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles) const = 0;
 		virtual void DrawStack() const = 0;
 
 		void SubmitModel(const Model& model);

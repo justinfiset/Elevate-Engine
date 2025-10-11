@@ -1,9 +1,10 @@
 #pragma once
 
 #include "ElevateEngine/Core/Core.h"
-#include "ElevateEngine/Events/Event.h"
 
 namespace Elevate {
+	class Event;
+
 	struct WindowProps
 	{
 		std::string Title;

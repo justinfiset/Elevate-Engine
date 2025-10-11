@@ -19,6 +19,7 @@ namespace Elevate
 		static void RemoveModel(const Model& model);
 		static void SubmitMesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh);
 
+		// TODO REMOVE AS ONLY CALLING THE DRAWARRAY
 		static void SubmitVertexArray(const std::shared_ptr<VertexArray>& vao);
 
 		inline static RendererAPI::GraphicAPI GetAPI() { return RendererAPI::GetAPI(); }
@@ -28,7 +29,7 @@ namespace Elevate
 		static void Clear();
 		static void FlushBuffers();
 		static void SetViewport(int x, int y, int width, int height);
-		static void DrawArray(const std::shared_ptr<VertexArray>& vao);
+		static void DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles);
 		static void DrawStack();
 		static void PushRenderState(const RenderState& newState);
 	private:

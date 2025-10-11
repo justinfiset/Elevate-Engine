@@ -1,120 +1,172 @@
 #include "eepch.h"
 #include "Scene.h"
-#include "ElevateEngine/Core/GameObject.h"
-#include "ElevateEngine/Renderer/Model.h"
-#include <ElevateEngine/Core/Application.h>
-#include <ElevateEngine/Scene/SceneManager.h>
+
+#include <ElevateEngine/Core/GameObject.h>
 #include <ElevateEngine/Core/GameContext.h>
+#include <ElevateEngine/Core/Application.h>
+
+#include <ElevateEngine/Scene/SceneManager.h>
+
+#include <ElevateEngine/Renderer/Model.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 
-void Elevate::Scene::UpdateScene()
+#include <ElevateEngine/Renderer/Camera.h>
+#include <ElevateEngine/Renderer/Camera/CameraManager.h>
+
+#include "ScenePrivate.h"
+
+namespace Elevate
 {
-	GameContextState state = Application::GameState();
-	if (m_Type == SceneType::RuntimeScene && Application::GameState() != Runtime)
+	std::uint32_t Scene::s_nextRegistryId = 1;
+
+	Scene::Scene() : Scene("DefaultScene", SceneType::RuntimeScene) { }
+
+	Scene::Scene(std::string name, SceneType type) : m_name(name), m_type(type)
 	{
-		return;
+		m_registryId = s_nextRegistryId;
+		s_nextRegistryId++;
+		GetRegistryMap()[m_registryId] = std::make_unique<entt::registry>();
+
+		EE_TRACE("Created scene '{}' with registry id: {}", m_name, m_registryId);
 	}
 
-	for (std::shared_ptr<GameObject> obj : m_rootObjects)
-	{
-		obj->Update();
-	}
-}
+	//Scene::~Scene()
+	//{
+	//	auto& registryMap = GetRegistryMap();
+	//	auto registryIt = registryMap.find(m_registryId);
 
-void Elevate::Scene::RenderScene(Camera* cam)
-{
-	// Render the cubemap / skybox
-	if (cam)
-	{
-		// Either do not calculate here or stop calculating it in the layer
-		glm::mat4 view = glm::mat4(glm::mat3(cam->GenViewMatrix()));
+	//	if (registryIt != registryMap.end()) {
+	//		registryMap.erase(registryIt);
+	//	}
+	//}
 
-		if (m_cubemap)
+	void Scene::UpdateScene()
+	{
+		if (m_type == SceneType::RuntimeScene && Application::GameState() != Runtime)
 		{
-			m_cubemap->SetProjectionMatrix(cam->GetProjectionMatrix());
-			m_cubemap->SetViewMatrix(view);
-			m_cubemap->Draw();
+			return;
+		}
+
+		for (std::shared_ptr<GameObject> obj : m_rootObjects)
+		{
+			obj->Update();
 		}
 	}
 
-	for (std::shared_ptr<GameObject> obj : m_rootObjects)
+	void Scene::RenderScene(Camera* cam)
 	{
-		obj->PreRender();
-	}
-
-	if (m_sceneLighting)
-	{
-		Renderer::SetupShaders(this);
-	}
-
-	for (std::shared_ptr<GameObject> obj : m_rootObjects)
-	{
-		obj->Render();
-
-		// Call specific functions depending on current context status.
-		switch (Application::GameState())
+		if (!cam)
 		{
-		case GameContextState::EditorMode:
-			obj->RenderInEditor();
+			cam = Elevate::CameraManager::GetCurrent();
+		}
+
+		// Render the cubemap / skybox
+		if (cam)
+		{
+			// Either do not calculate here or stop calculating it in the layer
+			glm::mat4 view = glm::mat4(glm::mat3(cam->GenViewMatrix()));
+
+			if (m_cubemap)
+			{
+				m_cubemap->SetProjectionMatrix(cam->GetProjectionMatrix());
+				m_cubemap->SetViewMatrix(view);
+				m_cubemap->Draw();
+			}
+		}
+
+		for (std::shared_ptr<GameObject> obj : m_rootObjects)
+		{
+			obj->PreRender();
+		}
+
+		if (m_sceneLighting)
+		{
+			Renderer::SetupShaders(this);
+		}
+
+		for (std::shared_ptr<GameObject> obj : m_rootObjects)
+		{
+			switch (m_type)
+			{
+			case EditorScene:
+				if (Application::GameState() == EditorMode)
+				{
+					obj->Render();
+				}
+
+				break;
+			case RuntimeScene:
+				obj->Render();
+
+				if (Application::GameState() == EditorMode)
+				{
+					obj->RenderInEditor();
+				}
+
+				break;
+			case DebugScene:
+				obj->Render();
+				break;
+			}
 		}
 	}
-}
 
-void Elevate::Scene::Notify(Event& e)
-{
-	for (std::shared_ptr<GameObject> obj : m_rootObjects)
+	void Scene::Notify(Event& e)
 	{
-		obj->Notify(e);
-	}
-}
-
-void Elevate::Scene::AddObject(std::shared_ptr<GameObject> newObject, std::shared_ptr<GameObject> parent)
-{
-	if (!newObject)
-		return;
-
-	if (!parent)
-	{
-		AddRootObject(newObject);
-	}
-	else
-	{
-		if (newObject->GetScene() == parent->GetScene())
+		for (std::shared_ptr<GameObject> obj : m_rootObjects)
 		{
-			newObject->SetParent(parent);
-		}
-		else 
-		{
-			EE_CORE_ERROR("Cannot add a child object from a different scene.");
+			obj->Notify(e);
 		}
 	}
-}
 
-Elevate::ScenePtr Elevate::Scene::Create(std::string name, SceneType type)
-{
-	ScenePtr scene = std::make_shared<Scene>(name, type);
-	SceneManager::LoadScene(scene);
-	return scene;
-}
+	void Scene::AddObject(std::shared_ptr<GameObject> newObject, std::shared_ptr<GameObject> parent)
+	{
+		if (!newObject)
+			return;
 
-void Elevate::Scene::SetSkybox(const char* skyboxFilePath)
-{
-	m_cubemap.reset(Cubemap::CreateFromFile(skyboxFilePath));
-}
+		if (!parent)
+		{
+			AddRootObject(newObject);
+		}
+		else
+		{
+			if (newObject->GetScene() == parent->GetScene())
+			{
+				newObject->SetParent(parent);
+			}
+			else
+			{
+				EE_CORE_ERROR("Cannot add a child object from a different scene.");
+			}
+		}
+	}
 
-std::weak_ptr<Elevate::Cubemap> Elevate::Scene::GetSkybox()
-{
-	return m_cubemap;
-}
+	ScenePtr Scene::Create(std::string name, SceneType type)
+	{
+		ScenePtr scene = std::make_shared<Scene>(name, type);
+		SceneManager::LoadScene(scene);
+		return scene;
+	}
 
-void Elevate::Scene::RemoveFromRoot(std::shared_ptr<GameObject> object)
-{
-	m_rootObjects.erase(object);
-}
+	void Scene::SetSkybox(const char* skyboxFilePath)
+	{
+		m_cubemap.reset(Cubemap::CreateFromFile(skyboxFilePath));
+	}
 
-void Elevate::Scene::AddRootObject(std::shared_ptr<GameObject> newRootObject)
-{
-	newRootObject->m_Parent = nullptr;
-	newRootObject->m_scene = this;
-	m_rootObjects.insert(newRootObject);
+	std::weak_ptr<Cubemap> Scene::GetSkybox()
+	{
+		return m_cubemap;
+	}
+
+	void Scene::RemoveFromRoot(std::shared_ptr<GameObject> object)
+	{
+		m_rootObjects.erase(object);
+	}
+
+	void Scene::AddRootObject(std::shared_ptr<GameObject> newRootObject)
+	{
+		newRootObject->m_parent = nullptr;
+		newRootObject->m_scene = this;
+		m_rootObjects.insert(newRootObject);
+	}
 }

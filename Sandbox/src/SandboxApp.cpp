@@ -1,9 +1,5 @@
 #include <ElevateEngine.h>
 
-#include "ElevateEngine/Scene/Scene.h"
-#include "ElevateEngine/Scene/SceneLayer.h"
-#include "ElevateEngine/Editor/EditorLayer.h"
-
 // MATHS
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
@@ -11,19 +7,14 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "ElevateEngine/Renderer/Cubemap.h"
-#include "ElevateEngine/Renderer/Light/SceneLighting.h"
 
-#include "ElevateEngine/ImGui/CustomImGuiCommand.h"
-#include "ElevateEngine/ImGui/ImGuiTheme.h"
-#include <ElevateEngine/Renderer/FrameBuffer.h>
-
-#include <ElevateEngine/Inputs/Input.h>
 #include "ElevateEngine/Renderer/Shader/ShaderManager.h"
 #include "ElevateEngine/Renderer/Shader/Shader.h"
-#include "ElevateEngine/Scene/Scene.h"
 
-#include <ElevateEngine/Scene/SceneManager.h>
-#include "ElevateEngine/Editor/Camera/EditorCamera.h"
+#include <ElevateEngine/Renderer/Camera/CameraManager.h>
+
+// Todo : remove from the application
+#include <AK/SoundEngine/Common/AkSoundEngine.h>
 
 class DebugLayer : public Elevate::SceneLayer
 {
@@ -128,10 +119,10 @@ public:
 
     // TODO ajouter un icon de point light qui suit avec imgui la point light
     void OnRender() override {
-        Elevate::EditorCamera* cam = Elevate::Editor::EditorLayer::Get().GetCamera();
+        Elevate::Camera* cam = Elevate::CameraManager::GetCurrent();
         m_Shader->Bind();
         m_Shader->UpdateCamera(*cam); // TODO make the camera upload herself to the shader and check if there was any changes => if(changed) then updateUniforms()
-        SceneLayer::OnRender(cam);
+        SceneLayer::OnRender();
     }
 
     void OnUpdate() override
@@ -141,6 +132,18 @@ public:
 
     void OnEvent(Elevate::Event& event) override
     {
+        switch (event.GetEventType())
+        {
+        case Elevate::EventType::KeyTyped:
+            Elevate::KeyPressedEvent kp = (Elevate::KeyPressedEvent&)event;
+            if (kp.GetKeyCode() == EE_KEY_SPACE)
+            {
+                AK::SoundEngine::PostEvent(L"Play_Hello", 0);
+                EE_TRACE("Space bar pressed");
+            }
+            break;
+        }
+
         SceneLayer::OnEvent(event);
     }
 

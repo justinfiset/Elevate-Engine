@@ -2,6 +2,7 @@
 
 namespace Elevate
 {
+	// TODO : CREATE A BUILDER PATTERN
     struct RenderState
 	{
 		bool Cullface = true;

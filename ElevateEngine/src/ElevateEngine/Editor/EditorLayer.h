@@ -2,18 +2,16 @@
 
 #include <memory>
 #include <ElevateEngine/Core/Layers/Layer.h>
-#include <ElevateEngine/Core/GameObject.h>
 #include <ElevateEngine/Core/Command.h>
-#include <ElevateEngine/Scene/Scene.h>
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Editor/Camera/EditorCamera.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 
-#define EE_EDITOR_BUILD
-
 namespace Elevate
 {
 	class Shader;
+	class GameObject;
+	class Scene;
 }
 
 namespace Elevate::Editor
@@ -50,6 +48,8 @@ namespace Elevate::Editor
 		std::vector<std::unique_ptr<EditorWidget>> m_widgets;
 		TexturePtr m_playTexture;
 		TexturePtr m_pauseTexture;
+		TexturePtr m_stopTexture;
+		TexturePtr m_coloredStopTexture;
 
 		std::shared_ptr<GameObject> m_CameraObject;
 

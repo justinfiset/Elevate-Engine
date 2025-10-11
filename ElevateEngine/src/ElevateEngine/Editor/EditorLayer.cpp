@@ -24,6 +24,10 @@
 #include <ElevateEngine/Inputs/Input.h>
 
 #include <ElevateEngine/Editor/Commands/GameobjectCommands.h>
+#include <ElevateEngine/Scene/Scene.h>
+
+// TODO : CHECK ESSENTIAL INCLUDES KNOW ESSENTIAL BELLOW
+#include <ElevateEngine/Core/GameObject.h>
 
 namespace Elevate::Editor
 {
@@ -32,8 +36,10 @@ namespace Elevate::Editor
     EditorLayer::EditorLayer()
     {
         s_Instance = this;
-        m_playTexture = Texture::CreateFromFile("./editor/icons/light/play.png");
+        m_playTexture = Texture::CreateFromFile("./editor/icons/light/colored/play.png");
         m_pauseTexture = Texture::CreateFromFile("./editor/icons/light/pause.png");
+        m_stopTexture = Texture::CreateFromFile("./editor/icons/light/stop.png");
+        m_coloredStopTexture = Texture::CreateFromFile("./editor/icons/light/colored/stop.png");
         InitUI();
     }
 
@@ -96,6 +102,11 @@ namespace Elevate::Editor
         m_GridObject->SetPosition({ camPos.x, 0, camPos.z });
 
         m_EditorScene->RenderScene(GetCamera());
+
+        if (m_SelectedObject.lock())
+        {
+            m_SelectedObject.lock()->RenderWhenSelected();
+        }
     }
 
     void EditorLayer::OnImGuiRender()
@@ -200,18 +211,27 @@ namespace Elevate::Editor
         ImGui::Begin("Toolbar", nullptr, toolbarFlags);
 
         ImGui::SetCursorPosX(viewport->Size.x / 2 - toolbarHeight);
-        ImGui::BeginDisabled(Application::GameState() == GameContextState::Runtime);
-        if (ImGui::ImageButton("Play", (ImTextureID) m_playTexture->GetNativeHandle(), ImVec2(32, 32)))
+        bool isPlaying = Application::GameState() == GameContextState::Runtime;
+        ImTextureID playTexID = isPlaying ? (ImTextureID)m_pauseTexture->GetNativeHandle() : (ImTextureID)m_playTexture->GetNativeHandle();
+        if (ImGui::ImageButton(isPlaying ? "Pause" : "Play", playTexID, ImVec2(32, 32)))
         {
-            Application::SetGameState(GameContextState::Runtime);
+            if (isPlaying)
+            {
+                Application::SetGameState(GameContextState::Paused);
+            }
+            else
+            {
+                Application::SetGameState(GameContextState::Runtime);
+            }
         }
-        ImGui::EndDisabled();
 
         ImGui::SameLine();
-        ImGui::BeginDisabled(Application::GameState() != GameContextState::Runtime);
-        if (ImGui::ImageButton("Pause", (ImTextureID) m_pauseTexture->GetNativeHandle(), ImVec2(32, 32)))
+        bool isInEditorMode = Application::GameState() == GameContextState::EditorMode;
+        ImTextureID stopTexID = isInEditorMode ? (ImTextureID)m_stopTexture->GetNativeHandle() : (ImTextureID)m_coloredStopTexture->GetNativeHandle();
+        ImGui::BeginDisabled(isInEditorMode);
+        if (ImGui::ImageButton("Stop", stopTexID, ImVec2(32, 32)))
         {
-            Application::SetGameState(GameContextState::Paused);
+            Application::SetGameState(GameContextState::EditorMode);
         }
         ImGui::EndDisabled();
         ImGui::End();

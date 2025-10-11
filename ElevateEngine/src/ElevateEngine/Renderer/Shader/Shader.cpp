@@ -9,6 +9,7 @@
 #include "ElevateEngine/Files/FileUtility.h"
 #include "ElevateEngine/Core/GameObject.h"
 #include <ElevateEngine/Renderer/Camera.h>
+#include <ElevateEngine/Renderer/Camera/CameraManager.h>
 
 namespace Elevate 
 {
@@ -50,10 +51,22 @@ namespace Elevate
 		SetUniform3f("dirLight.direction", newDirLight->CalculateDirection());
 	}
 
+	void Shader::UpdateCamera()
+	{
+		Camera* cam = CameraManager::GetCurrent();
+		if (cam)
+		{
+			UpdateCamera(*cam);
+		}
+	}
+
 	void Shader::UpdateCamera(Camera& cam)
 	{
-		SetUniform3f(EE_SHADER_CAMPOS, cam.gameObject->GetPosition());
-		SetProjectionViewMatrix(cam);
+		if (cam.gameObject)
+		{
+			SetUniform3f(EE_SHADER_CAMPOS, cam.gameObject->GetPosition());
+			SetProjectionViewMatrix(cam);
+		}
 	}
 
 	void Shader::SetModelMatrix(glm::mat4& modelMatrix)

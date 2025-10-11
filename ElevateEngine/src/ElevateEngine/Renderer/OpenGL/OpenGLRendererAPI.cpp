@@ -6,6 +6,21 @@
 
 namespace Elevate
 {
+	inline GLenum OpenGLRendererAPI::DrawPrimitiveTypeToOpenGL(DrawPrimitiveType type) const
+	{
+		switch (type)
+		{
+			case DrawPrimitiveType::Points:        return GL_POINTS;
+			case DrawPrimitiveType::Lines:         return GL_LINES;
+			case DrawPrimitiveType::LineStrip:     return GL_LINE_STRIP;
+			case DrawPrimitiveType::Triangles:     return GL_TRIANGLES;
+			case DrawPrimitiveType::TriangleStrip: return GL_TRIANGLE_STRIP;
+			case DrawPrimitiveType::TriangleFan:   return GL_TRIANGLE_FAN;
+			case DrawPrimitiveType::Patches:       return GL_PATCHES;
+		}
+		return GL_TRIANGLES;
+	}
+
 	void OpenGLRendererAPI::SetClearColor(const glm::vec4& color) const
 	{
 		glClearColor(color.r, color.g, color.b, color.a);
@@ -26,10 +41,23 @@ namespace Elevate
 		glFlush();
 	}
 
-	void OpenGLRendererAPI::DrawArray(const std::shared_ptr<VertexArray>& vao) const
+	void OpenGLRendererAPI::DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive) const
 	{
 		vao->Bind();
-		GLCheck(glDrawElements(GL_TRIANGLES, vao->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr));
+
+		uint32_t count = 0;
+		if (vao->GetIndexBuffer())
+		{
+			GLCheck(glDrawElements(DrawPrimitiveTypeToOpenGL(primitive), vao->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr));
+		}
+		else
+		{
+			for (const auto& vbo : vao->GetVertexBuffers())
+			{
+				uint32_t vertexCount = vbo->GetSize() / vbo->GetLayout().GetStride();
+				GLCheck(glDrawArrays(DrawPrimitiveTypeToOpenGL(primitive), 0, vertexCount));
+			}
+		}
 	}
 
 	void OpenGLRendererAPI::DrawStack() const
