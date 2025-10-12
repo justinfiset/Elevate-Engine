@@ -45,7 +45,7 @@ namespace Elevate
 	class Rigidbody : public Component
 	{
 	public:
-		BEGIN_COMPONENT(Rigidbody)
+		BEGIN_COMPONENT(Rigidbody, EditorIcon("./editor/icons/light/components/rigidbody.png"))
 		EECATEGORY("Physics")
 
 		Rigidbody();
