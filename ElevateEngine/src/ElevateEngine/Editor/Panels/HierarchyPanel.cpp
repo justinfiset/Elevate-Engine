@@ -24,7 +24,11 @@ namespace Elevate::Editor
         bool open = false;
         if (m_renaming && object == m_renamedObject) 
         {
+            ImGui::Image((ImTextureID)m_objectTexture->GetNativeHandle(), ImVec2(16, 16));
+            ImGui::SameLine();
+
             ImGui::PushID(object.get());
+
             open = ImGui::TreeNodeEx(("##" + std::to_string((uintptr_t)object.get())).c_str(), nodeFlags);
 
             ImGui::SameLine();
@@ -56,6 +60,9 @@ namespace Elevate::Editor
         }
         else
         {
+            ImGui::Image((ImTextureID)m_objectTexture->GetNativeHandle(), ImVec2(16, 16));
+            ImGui::SameLine();
+
             open = ImGui::TreeNodeEx((object->GetName() + "##" + std::to_string((uintptr_t)object.get())).c_str(), nodeFlags);
 
             if (ImGui::BeginPopupContextItem())
@@ -95,6 +102,12 @@ namespace Elevate::Editor
         m_renamedObject = nullptr;
     }
 
+    HierarchyPanel::HierarchyPanel()
+    {
+        m_sceneTexture = Texture::CreateFromFile("./editor/icons/light/scene.png");
+        m_objectTexture = Texture::CreateFromFile("./editor/icons/light/object.png");
+    }
+
     void HierarchyPanel::OnImGuiRender()
     {
         ImGui::Begin("Hierarchy");
@@ -104,6 +117,9 @@ namespace Elevate::Editor
             ScenePtr scene = *it;
             if (scene->GetType() == SceneType::RuntimeScene && !scene->GetRootObjects().empty())
             {
+                ImGui::Image((ImTextureID)m_sceneTexture->GetNativeHandle(), ImVec2(16, 16));
+                ImGui::SameLine();
+
                 if (ImGui::TreeNodeEx(scene->GetName().c_str(), ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth))
                 {
                     for (std::shared_ptr<Elevate::GameObject> object : scene->GetRootObjects())
