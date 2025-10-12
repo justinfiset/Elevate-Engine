@@ -13,11 +13,14 @@ namespace Elevate
         std::type_index ti(typeid(T));
 
         bool visible = true;
+        std::string iconPath;
         for (FieldOption& option : options)
         {
-            if (std::holds_alternative<HideInInspectorTag>(option))
-            {
+            if (std::holds_alternative<HideInInspectorTag>(option)) {
                 visible = false;
+            }
+            else if (std::holds_alternative<EditorIconTag>(option)) {
+                iconPath = std::get<EditorIconTag>(option).Path;
             }
         }
 
@@ -42,7 +45,8 @@ namespace Elevate
                     obj->RemoveComponent<T>();
                 }
             },
-            visible
+            visible,
+            iconPath
         });
     }
 
@@ -66,7 +70,7 @@ namespace Elevate
             }
             else if (std::holds_alternative<ColorTag>(opt)) {
                 meta.isColor = true;
-            }
+            }   
         }
 
         std::string cleanedName = GetCleanedName(name);

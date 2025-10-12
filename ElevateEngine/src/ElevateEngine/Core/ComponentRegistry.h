@@ -65,8 +65,14 @@ namespace Elevate
     struct ColorTag {};
     #define ColorPicker ColorTag{}
 
+    struct EditorIconTag 
+    {
+        std::string Path;
+    };
+    #define EditorIcon(path) EditorIconTag{path}
+
     using FieldOption = std::variant<
-        HideInInspectorTag,
+        HideInInspectorTag, EditorIconTag,
         FlattenTag, DisplayNameTag, TooltipTag, ReadOnlyTag, ColorTag
     >;
 
@@ -76,6 +82,7 @@ namespace Elevate
         std::string tooltip;
         bool readOnly = false;
         bool isColor = false;
+        std::string IconPath;
     };
 
     template<typename T>
@@ -107,6 +114,7 @@ namespace Elevate
             GameObjectComponentFactory factory; // factory to create / add to a gameObject
             GameObjectComponentDestructor destructor; // component destructor / remove from a gameObject
             bool visible;
+            std::string editorIconPath; // TODO RESTRAIN TO INSIDE THE EDITOR
         };
 
         template<typename T>
@@ -291,6 +299,16 @@ public: \
         auto it = entries.find(typeid(ThisType)); \
         if (it != entries.end()) { \
                 return it->second.destructor; \
+        } \
+        return nullptr; \
+    } \
+    virtual const void* GetEditorIconHandle() const override { \
+        auto& entries = ComponentRegistry::GetEntries(); \
+        auto it = entries.find(typeid(ThisType)); \
+        if (it != entries.end()) { \
+            if(!it->second.editorIconPath.empty()) { \
+                return Texture::CreateFromFile(it->second.editorIconPath)->GetNativeHandle(); \
+            } \
         } \
         return nullptr; \
     } \

@@ -5,6 +5,10 @@
 #include <ElevateEngine/Core/EEObject.h>
 #include <typeindex>
 
+#ifdef EE_ENGINE_BUILD
+#include <ElevateEngine/Renderer/Texture/Texture.h>
+#endif
+
 #define COMPONENT_LAYOUT(...) \
 	ComponentLayout GetLayout() const override { return ComponentLayout(GetName(), __VA_ARGS__);}
 
@@ -33,6 +37,7 @@ namespace Elevate
 		virtual void CopyFrom(Component* other) = 0;
 		virtual GameObjectComponentFactory GetFactory() const = 0;
 		virtual GameObjectComponentDestructor GetDestructor() const = 0;
+		virtual const void* GetEditorIconHandle() const { return nullptr; }
 		virtual std::type_index GetTypeIndex() const = 0;
 
 		inline void SetActive(bool newState) { m_IsActive = newState; }

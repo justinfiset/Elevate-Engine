@@ -11,7 +11,7 @@
 
 #include <ElevateEngine/Editor/Commands/ComponentCommand.h>
 #include <ElevateEngine/Core/ComponentRegistry.h>
-
+#include <ElevateEngine/Core/Component.h>
 
 void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 {
@@ -105,7 +105,7 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
     ImGui::End();
 }
 
-void Elevate::Editor::AnalyserPanel::RenderComponent(Component* comp) const
+void Elevate::Editor::AnalyserPanel::RenderComponent(Component* comp)
 {
     const ComponentLayout layout = comp->GetLayout();
 
@@ -121,10 +121,21 @@ void Elevate::Editor::AnalyserPanel::RenderComponent(Component* comp) const
     RenderComponentLayout(layout, comp);
 }
 
-void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const ComponentLayout& layout, Component* component) const
+void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const ComponentLayout& layout, Component* component)
 {
+    const void* texHandle = nullptr;
+    if (component)
+    {
+        if (!m_textureCache.count(component))
+        {
+            m_textureCache.insert({ component, component->GetEditorIconHandle() });
+        }
+        texHandle = m_textureCache.at(component);
+    }
+
     if (UI::EECollapsingHeader((layout.GetName()).c_str(),
         layout.GetFieldCount() > 0,
+        texHandle,
         [&layout, &component]()
         {
             float menu_width = 0;

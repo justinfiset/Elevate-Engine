@@ -11,7 +11,7 @@ namespace Elevate
 	class Camera : public Component
 	{
 	public:
-		BEGIN_COMPONENT(Camera)
+		BEGIN_COMPONENT(Camera, EditorIcon("./editor/icons/light/components/camera.png"))
 		EECATEGORY("Rendering")
 
 		// All possible constructors

@@ -7,6 +7,7 @@
 namespace Elevate
 {
 	class Component;
+	class Texture;
 }
 
 namespace Elevate::Editor
@@ -16,8 +17,8 @@ namespace Elevate::Editor
 	public:
 		void OnImGuiRender() override;
 	private:
-		void RenderComponent(Component* component) const;
-		void RenderComponentLayout(const ComponentLayout& layout, Component* component = nullptr) const;
+		void RenderComponent(Component* component);
+		void RenderComponentLayout(const ComponentLayout& layout, Component* component = nullptr);
 		void RenderField(const ComponentField& field) const;
 
 		// TODO MOVE SOMEWHERE ELSE !!!! (ALL THE FOLLOWING UNDERNEATH)
@@ -33,5 +34,7 @@ namespace Elevate::Editor
 		void DrawCategoryMenu(const CategoryMenu& menu, std::weak_ptr<GameObject> obj);
 
 		std::vector<std::type_index> m_alredyAddedComponents;
+
+		std::map<Component*, const void*> m_textureCache;
 	};
 }

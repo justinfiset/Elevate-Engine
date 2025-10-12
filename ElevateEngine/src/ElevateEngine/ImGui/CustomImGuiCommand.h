@@ -7,6 +7,6 @@ namespace Elevate
 	{
 		void InputField(const char* label, std::string& data);
 
-		bool EECollapsingHeader(const char* label, bool canOpen = true, std::function<float()> headerCustomContent = nullptr);
+		bool EECollapsingHeader(const char* label, bool canOpen = true, const void* icon = nullptr, std::function<float()> headerCustomContent = nullptr);
 	}
 }
