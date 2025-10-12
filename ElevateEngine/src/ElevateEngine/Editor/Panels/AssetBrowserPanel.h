@@ -53,6 +53,11 @@ namespace Elevate::Editor {
             path(filePath), name(fileName), extension(fileExtension), iconPath(icon), type(type) { }
     };
 
+    struct BrowserPath {
+        std::filesystem::path Path;
+        std::string DisplayName;
+    };
+
     class AssetBrowserPanel : public EditorWidget
     {
     public:
@@ -62,10 +67,16 @@ namespace Elevate::Editor {
         void OnImGuiRender() override;
 
     private:
+        // Update the paths at the top of the browser
+        void UpdateRelatedPaths();
+        void AddParentPaths(std::filesystem::path path);
+
         void LoadFileItemsList();
         void LoadExtensionsMeta(std::string filepath = "editor/config/file_browser.json");
 
         std::filesystem::path m_CurrentPath = ".";
+        std::vector<BrowserPath> m_relatedPaths;
+
         //      < Path , Texture >
         std::map<std::string, TexturePtr> m_currentTextures;
         std::vector<std::string> m_ignoredExtensions;

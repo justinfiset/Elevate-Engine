@@ -25,6 +25,7 @@ Elevate::Editor::AssetBrowserPanel::AssetBrowserPanel()
 void Elevate::Editor::AssetBrowserPanel::OnUpdate()
 {
     if (m_shouldUpdate) {
+        UpdateRelatedPaths();
         LoadFileItemsList();
         m_shouldUpdate = false;
     }
@@ -33,6 +34,24 @@ void Elevate::Editor::AssetBrowserPanel::OnUpdate()
 void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 {
 	ImGui::Begin("Asset Browser");
+
+    ImGui::BeginGroup();
+    for (auto it = m_relatedPaths.rbegin(); it != m_relatedPaths.rend(); ++it)
+    {
+        ImGui::BeginDisabled(it->Path == m_CurrentPath);
+        if (ImGui::Button(it->DisplayName.c_str()))
+        {
+            m_CurrentPath = it->Path;
+            m_shouldUpdate = true;
+        }
+        ImGui::EndDisabled();
+
+        ImGui::SameLine();
+        ImGui::Text("/");
+        ImGui::SameLine();
+    }
+    ImGui::EndGroup();
+    ImGui::Separator();
 
     ImVec2 buttonSize(72, 72);
     float spacing = ImGui::GetStyle().ItemSpacing.x * 2;
@@ -92,6 +111,26 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
         index++;
     }
 	ImGui::End();
+}
+
+void Elevate::Editor::AssetBrowserPanel::UpdateRelatedPaths()
+{
+    m_relatedPaths.clear();
+
+    std::string displayName = m_CurrentPath == "." ? "Game Content" : m_CurrentPath.filename().string();
+    m_relatedPaths.push_back({ m_CurrentPath, displayName });
+    AddParentPaths(m_CurrentPath);
+}
+
+void Elevate::Editor::AssetBrowserPanel::AddParentPaths(std::filesystem::path path)
+{
+    if (path.has_parent_path())
+    {
+        std::filesystem::path parent = path.parent_path();
+        std::string displayName = parent == "." ? "Game Content" : parent.filename().string();
+        m_relatedPaths.push_back({ parent, displayName });
+        AddParentPaths(parent);
+    }
 }
 
 void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
