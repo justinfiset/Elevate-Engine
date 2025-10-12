@@ -60,7 +60,7 @@ namespace Elevate {
 		EE_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
-		EE_CORE_TRACE("Current working directory : {}", std::filesystem::current_path().string());
+		EE_CORE_TRACE("Current working directory : %s", std::filesystem::current_path().string().c_str());
 
 		InitSoundEngine();
 
@@ -73,12 +73,17 @@ namespace Elevate {
 		FrameBuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
 
 		#ifdef EE_EDITOR_BUILD
-				PushOverlay(new Elevate::Editor::EditorLayer());
-				SetState(GameContextState::EditorMode);
+			PushOverlay(new Elevate::Editor::EditorLayer());
 		#endif
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
+
+		#ifdef EE_EDITOR_BUILD
+			SetGameState(GameContextState::EditorMode);
+		#else
+			SetGameState(GameContextState::Runtime);
+		#endif
 	}
 
 	Application::~Application()	
@@ -122,7 +127,7 @@ namespace Elevate {
 
 	void Application::Start(int argc, char** argv)
 	{
-		Log::Init();
+		//Log::Init(); // todo remove or uncomment depending on if the workarround worked
 		EE_CORE_INFO("Initializing ElevateEngine...");
 		auto app = CreateApplication();
 		EE_CORE_TRACE("Application Initialized.");
@@ -188,6 +193,26 @@ namespace Elevate {
 	void Application::Exit()
 	{
 		m_ImGuiLayer->Cleanup();
+	}
+
+	const GameContextState& Application::GetGameState()
+	{
+		return s_Instance->m_state;
+	}
+
+	void Application::SetGameState(GameContextState newState)
+	{
+		if (s_Instance->m_state != newState)
+		{
+			GameContextState oldState = s_Instance->m_state;
+			s_Instance->m_state = newState;
+
+			EE_CORE_INFO("GameContext state changed from %s to %s",
+				GetGameContextStateName(oldState),
+				GetGameContextStateName(newState));
+
+			s_Instance->OnStateChange(oldState, newState);
+		}
 	}
 
 #pragma region Events	

@@ -73,7 +73,7 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
     ImGui::Image((ImTextureID)Application::Get().FrameBuffer->GetNativeTextureHandle(), ImVec2((float)window_width, (float)window_height), ImVec2(0, 1), ImVec2(1, 0));
 
     // ImGuizmo //////////////////////////////////////////
-    if (Application::GameState() == EditorMode)
+    if (Application::GetGameState() == EditorMode)
     {
         std::weak_ptr<GameObject> selected = EditorLayer::Get().GetSelectedObject();
         Camera* cam = EditorLayer::Get().GetCamera();

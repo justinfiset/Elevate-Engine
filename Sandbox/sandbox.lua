@@ -28,7 +28,6 @@ project "Sandbox"
     {
         "../ElevateEngine/vendor/entt/include",
         wwiseIncludePath,
-        "../ElevateEngine/vendor/spdlog/include",
         "../ElevateEngine/vendor/glm/",
         "../ElevateEngine/src"
     }

@@ -49,10 +49,14 @@ void Elevate::DebugRenderer::InitLineRender()
 
 void Elevate::DebugRenderer::ClearDebugLines()
 {
-    m_debugLineArray.clear();
-    if (m_lineBuffer)
+    if (m_debugLineArray.size() > 0)
     {
-        m_lineBuffer->Resize(0);
+        m_debugLineArray.clear();
+
+        if (m_lineBuffer)
+        {
+            m_lineBuffer->Resize(0);
+        }
     }
 }
 

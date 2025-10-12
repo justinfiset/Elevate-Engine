@@ -2,6 +2,8 @@
 
 #include "ElevateEngine/Core/Core.h"
 
+#include <functional>
+
 namespace Elevate {
 	class Event;
 

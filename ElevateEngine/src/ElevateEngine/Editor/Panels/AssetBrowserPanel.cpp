@@ -160,7 +160,7 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
 {
     FILE* fp = fopen(filepath.c_str(), "r");
     if (!fp) {
-        EE_CORE_ERROR("Cannot open JSON file : {0}", filepath);
+        EE_CORE_ERROR("Cannot open JSON file : %s", filepath);
         return;
     }
 
@@ -172,7 +172,7 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
     fclose(fp);
 
     if (doc.HasParseError()) {
-        EE_CORE_ERROR("Erreur parsing JSON : {0}", rapidjson::GetParseError_En(doc.GetParseError()));
+        EE_CORE_ERROR("Erreur parsing JSON : %s", rapidjson::GetParseError_En(doc.GetParseError()));
         return;
     }
 
@@ -200,7 +200,7 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
         if (!asset.HasMember("extension") || !asset["extension"].IsString() ||
             !asset.HasMember("iconPath") || !asset["iconPath"].IsString() ||
             !asset.HasMember("type") || !asset["type"].IsString()) {
-            EE_CORE_ERROR("The asset {0} is invalid (missing data or incorrect type)", i + 1);
+            EE_CORE_ERROR("The asset %s is invalid (missing data or incorrect type)", i + 1);
             continue;
         }
 

@@ -27,7 +27,7 @@ namespace Elevate
 		s_nextRegistryId++;
 		GetRegistryMap()[m_registryId] = std::make_unique<entt::registry>();
 
-		EE_TRACE("Created scene '{}' with registry id: {}", m_name, m_registryId);
+		EE_TRACE("Created scene '%s' with registry id: %d", m_name.c_str(), m_registryId);
 	}
 
 	//Scene::~Scene()
@@ -42,7 +42,7 @@ namespace Elevate
 
 	void Scene::UpdateScene()
 	{
-		if (m_type == SceneType::RuntimeScene && Application::GameState() != Runtime)
+		if (m_type == SceneType::RuntimeScene && Application::GetGameState() != Runtime)
 		{
 			return;
 		}
@@ -89,7 +89,7 @@ namespace Elevate
 			switch (m_type)
 			{
 			case EditorScene:
-				if (Application::GameState() == EditorMode)
+				if (Application::GetGameState() == EditorMode)
 				{
 					obj->Render();
 				}
@@ -98,7 +98,7 @@ namespace Elevate
 			case RuntimeScene:
 				obj->Render();
 
-				if (Application::GameState() == EditorMode)
+				if (Application::GetGameState() == EditorMode)
 				{
 					obj->RenderInEditor();
 				}

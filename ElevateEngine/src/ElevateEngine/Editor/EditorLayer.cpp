@@ -211,7 +211,7 @@ namespace Elevate::Editor
         ImGui::Begin("Toolbar", nullptr, toolbarFlags);
 
         ImGui::SetCursorPosX(viewport->Size.x / 2 - toolbarHeight);
-        bool isPlaying = Application::GameState() == GameContextState::Runtime;
+        bool isPlaying = Application::GetGameState() == GameContextState::Runtime;
         ImTextureID playTexID = isPlaying ? (ImTextureID)m_pauseTexture->GetNativeHandle() : (ImTextureID)m_playTexture->GetNativeHandle();
         if (ImGui::ImageButton(isPlaying ? "Pause" : "Play", playTexID, ImVec2(32, 32)))
         {
@@ -226,7 +226,7 @@ namespace Elevate::Editor
         }
 
         ImGui::SameLine();
-        bool isInEditorMode = Application::GameState() == GameContextState::EditorMode;
+        bool isInEditorMode = Application::GetGameState() == GameContextState::EditorMode;
         ImTextureID stopTexID = isInEditorMode ? (ImTextureID)m_stopTexture->GetNativeHandle() : (ImTextureID)m_coloredStopTexture->GetNativeHandle();
         ImGui::BeginDisabled(isInEditorMode);
         if (ImGui::ImageButton("Stop", stopTexID, ImVec2(32, 32)))

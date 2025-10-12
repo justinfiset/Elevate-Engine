@@ -56,7 +56,7 @@ std::string Elevate::ComponentRegistry::GetCleanedName(std::string rawName)
 
 void Elevate::ComponentRegistry::AddClassToStack(std::string newClass)
 {
-    EE_CORE_INFO(GetCleanedName(newClass));
+    EE_CORE_INFO(GetCleanedName(newClass).c_str());
     CompilationClassStack().push_back(newClass);
 }
 

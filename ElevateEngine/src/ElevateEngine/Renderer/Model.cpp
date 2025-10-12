@@ -65,7 +65,7 @@ void Elevate::Model::LoadModel(std::string path)
     // Error checking and exception catcher
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
-        EE_CORE_ERROR("ASSIMP LOADING ERROR : {0}", import.GetErrorString());
+        EE_CORE_ERROR("ASSIMP LOADING ERROR : %s", import.GetErrorString());
         return;
     }
     m_Directory = path.substr(0, path.find_last_of('/')); // Used to get the textures afterward

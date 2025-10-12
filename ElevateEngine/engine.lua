@@ -99,7 +99,12 @@ project "ElevateEngine"
 
     filter "system:windows"
         systemversion "latest"
-        buildoptions { "/Zc:wchar_t" }
+        buildoptions
+        {
+            "/Zc:wchar_t",
+            "/Zc:preprocessor",
+            "/Zc:__cplusplus"
+        }
 
         defines
         {

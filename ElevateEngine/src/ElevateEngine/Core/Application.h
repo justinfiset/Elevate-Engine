@@ -24,7 +24,7 @@ namespace Elevate {
 		class EditorLayer;
 	}
 
-	class Application : public GameContext
+	class Application
 	{
 	public:
 		friend class Elevate::Editor::EditorLayer;
@@ -47,12 +47,12 @@ namespace Elevate {
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 
-		inline static GameContextState GameState() { return s_Instance->State(); }
+		// GameContextState
+		static const GameContextState& Application::GetGameState();
+		static void SetGameState(GameContextState newState);
 
-		// TODO METTRE PROTECTED
-		inline static void SetGameState(GameContextState state) { s_Instance->GameContext::SetState(state); }
 	protected:
-		void OnStateChange(GameContextState oldState, GameContextState newState) override;
+		void OnStateChange(GameContextState oldState, GameContextState newState);
 
 		bool InitSoundEngine(); // TODO MOVE IN A SPECIFIC CLASS
 		void PrepareAudio();
@@ -80,6 +80,8 @@ namespace Elevate {
 
 		// TODO ABSTRACT INTO A HIDDEN IMPL.
 		CAkFilePackageLowLevelIODeferred m_lowLevelIO;
+
+		GameContextState m_state = Initializing;
 
 		static Application* s_Instance;
 	};

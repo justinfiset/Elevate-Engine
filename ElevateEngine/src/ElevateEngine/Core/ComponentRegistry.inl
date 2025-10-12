@@ -69,7 +69,8 @@ namespace Elevate
             }
         }
 
-        EE_TRACE(" --> Exposed field : {0} flatten={1}  displayName={2}", GetCleanedName(name), meta.flatten, meta.displayName);
+        std::string cleanedName = GetCleanedName(name);
+        EE_TRACE(" --> Exposed field : %s flatten=%d  displayName=%s", cleanedName.c_str(), meta.flatten, meta.displayName.c_str());
 
         auto& customFields = GetCustomComponentFields();
         std::string typeName = typeid(FieldType).name();
@@ -78,12 +79,12 @@ namespace Elevate
         ComponentField field;
         if (customFields.find(typeName) != customFields.end())
         {
-            field = ComponentField(GetCleanedName(name), EngineDataType::Custom, offset, meta.displayName, customFields[typeName]);
+            field = ComponentField(cleanedName, EngineDataType::Custom, offset, meta.displayName, customFields[typeName]);
             field.flatten = meta.flatten;
         }
         else
         {
-            field = ComponentField(GetCleanedName(name), type, offset, meta.displayName);
+            field = ComponentField(cleanedName, type, offset, meta.displayName);
         }
         field.isColor = meta.isColor;
         field.tooltip = meta.tooltip;

@@ -42,15 +42,19 @@ namespace Elevate
 
     void OpenGLVertexBuffer::SetData(void* newData, uint32_t size)
     {
-        if (m_rendererID != 0 && newData)
+        if (m_rendererID != 0)
         {
             data = newData;
             SetSize(size);
-            GLCheck(glNamedBufferData(m_rendererID, size, data, GL_DYNAMIC_DRAW));
+
+            if (newData)
+            {
+                GLCheck(glNamedBufferData(m_rendererID, size, data, GL_DYNAMIC_DRAW));
+            }
         }
         else
         {
-            EE_CORE_ERROR("ERROR : (OpenGLVertexBuffer::SetData) Invalid data ptr provided.");
+            EE_CORE_ERROR("ERROR : (OpenGLVertexBuffer::SetData) Buffer is not initialized yet.");
         }
     }
 

@@ -43,7 +43,7 @@ namespace Elevate {
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
-		EE_CORE_TRACE("Creating window: {0} ({1}x{2})", props.Title, props.Width, props.Height);
+		EE_CORE_TRACE("Creating window: %s (%dx%d)", props.Title.c_str(), props.Width, props.Height);
 
 		if (!s_GLFWInitialized)
 		{ 

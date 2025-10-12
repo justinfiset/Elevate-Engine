@@ -6,7 +6,7 @@
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Scene/Scene.h>
 
-#define EE_VALIDATE_COMPONENT_TYPE() EE_ASSERT((std::is_base_of<Component, T>::value), "{0} : Type specifier must be a child of the Component class.", m_name);
+#define EE_VALIDATE_COMPONENT_TYPE() EE_ASSERT((std::is_base_of<Component, T>::value), "EE_VALIDATE_COMPONENT_TYPE() %s : Type specifier must be a child of the Component class.", m_name);
 
 // TODO REPLACE ALL EE_LOGS TO EE_CORE_LOGS (they are in the engine so they should use this feature)
 namespace Elevate
@@ -19,10 +19,10 @@ namespace Elevate
 		// We can't add a second component of the same type
 		if (GetRegistryMap()[m_scene->m_registryId]->all_of<T>(entt::entity(m_entityId)))
 		{
-			EE_ERROR("Error: Tried to add an already existing component to the {} GameObject", m_name);
+			EE_ERROR("Error: Tried to add an already existing component to the %s GameObject", m_name);
 			return GetRegistryMap()[m_scene->m_registryId]->get<T>(entt::entity(m_entityId));
 		}
-
+	
 		auto& comp = GetRegistryMap()[m_scene->m_registryId]->emplace<T>(entt::entity(m_entityId), std::forward<Args>(args)...);
 		comp.gameObject = this;
 		comp.Init();

@@ -154,12 +154,12 @@ namespace Elevate
 			auto registryIt = registryMap.find(m_scene->m_registryId);
 
 			if (registryIt == registryMap.end()) {
-				EE_CORE_ERROR("Registry not found for scene '{0}' with id: {1}",
+				EE_CORE_ERROR("Registry not found for scene '%s' with id: %d",
 					m_scene->GetName(), m_scene->m_registryId);
 				return;
 			}
 			if (!registryIt->second) {
-				EE_CORE_ERROR("Registry pointer is null for scene '{0}' with id: {1}",
+				EE_CORE_ERROR("Registry pointer is null for scene '%s' with id: %d",
 					m_scene->GetName(), m_scene->m_registryId);
 				return;
 			}
@@ -170,7 +170,7 @@ namespace Elevate
 		}
 		else
 		{
-			EE_CORE_ERROR("Object '{0}' must be linked with an existing scene!", m_name);
+			EE_CORE_ERROR("Object '%s' must be linked with an existing scene!", m_name);
 		}
 	}
     

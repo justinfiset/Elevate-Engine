@@ -43,11 +43,27 @@ namespace Elevate
 
 	void OpenGLRendererAPI::DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive) const
 	{
+		if (!glfwGetCurrentContext()) {
+			EE_CORE_ERROR("No OpenGL context active!");
+			return;
+		}
+
+		if (!vao)
+		{
+			EE_CORE_ERROR("VAO or IndexBuffer is null!");
+			return;
+		}
+
 		vao->Bind();
 
-		uint32_t count = 0;
 		if (vao->GetIndexBuffer())
 		{
+			if (vao->GetIndexBuffer()->GetCount() == 0) 
+			{
+				EE_CORE_ERROR("IndexBuffer has 0 indices!");
+				return;
+			}
+
 			GLCheck(glDrawElements(DrawPrimitiveTypeToOpenGL(primitive), vao->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr));
 		}
 		else

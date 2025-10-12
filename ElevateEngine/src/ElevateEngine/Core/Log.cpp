@@ -1,122 +1,121 @@
 #include "eepch.h"
-
 #include "Log.h"
 
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/spdlog.h"
-#include "spdlog/fmt/ostr.h"
+
+#include <cstdarg>
+#include <cstdio>
+#include <vector>
+
+#define EE_LOGGER_FORMAT(adr) \
+    va_list args; \
+    va_start(args, fmt); \
+    adr = Internal::FormatString(fmt, args); \
+    va_end(args) \
 
 namespace Elevate {
-    class SpdLogger : public ILogger {
-    private:
-        std::shared_ptr<spdlog::logger> m_logger;
-
-    public:
-        SpdLogger(const std::string& name, const std::string& pattern = "%^[%T] [%n] %v%$") {
-            m_logger = spdlog::stdout_color_mt(name);
-            m_logger->set_level(spdlog::level::trace);
-            m_logger->set_pattern(pattern);
+    namespace Internal {
+        static std::shared_ptr<spdlog::logger> GetCoreLogger() {
+            static auto logger = []() {
+                auto logger = spdlog::stdout_color_mt("ELEVATE");
+                logger->set_level(spdlog::level::trace);
+                logger->set_pattern("%^[%T] [%n] %v%$");
+                return logger;
+            }();
+            return logger;
         }
 
-        ~SpdLogger() {
-            spdlog::drop(m_logger->name());
+        static std::shared_ptr<spdlog::logger> GetClientLogger() {
+            static auto logger = []() {
+                auto logger = spdlog::stdout_color_mt("APP");
+                logger->set_level(spdlog::level::trace);
+                logger->set_pattern("%^[%T] [%n] %v%$");
+                return logger;
+            }();
+            return logger;
         }
 
-    protected:
-        // Implémentation avec templates pour le formatage spdlog
-        template<typename... Args>
-        void log_template(spdlog::level::level_enum level, const char* fmt, Args&&... args) {
-            m_logger->log(level, fmt, std::forward<Args>(args)...);
+        static std::string FormatString(const char* fmt, va_list args) {
+            if (!fmt) {
+                return "Error: null format string";
+            }
+
+            va_list args_copy;
+            va_copy(args_copy, args);
+
+            int size = vsnprintf(nullptr, 0, fmt, args_copy);
+            va_end(args_copy);
+
+            if (size < 0) {
+                return "Format error";
+            }
+
+            std::vector<char> buffer(size + 1);
+            vsnprintf(buffer.data(), buffer.size(), fmt, args);
+
+            return std::string(buffer.data(), size);
         }
+    }
 
-        void trace_impl(const char* fmt, ...) override {
-            va_list args;
-            va_start(args, fmt);
-            // Fallback pour la compatibilité variadique
-            char buffer[4096];
-            vsnprintf(buffer, sizeof(buffer), fmt, args);
-            m_logger->trace(buffer);
-            va_end(args);
-        }
+    void Log::Trace(const char* fmt, ...) {
+        std::string formatted;
+        EE_LOGGER_FORMAT(formatted);
+        Internal::GetCoreLogger()->trace("{}", formatted);
+    }
 
-        void info_impl(const char* fmt, ...) override {
-            va_list args;
-            va_start(args, fmt);
-            char buffer[4096];
-            vsnprintf(buffer, sizeof(buffer), fmt, args);
-            m_logger->info(buffer);
-            va_end(args);
-        }
+    void Log::Info(const char* fmt, ...) {
+        std::string formatted;
+        EE_LOGGER_FORMAT(formatted);
+        Internal::GetCoreLogger()->info("{}", formatted);
+    }
 
-        void warn_impl(const char* fmt, ...) override {
-            va_list args;
-            va_start(args, fmt);
-            char buffer[4096];
-            vsnprintf(buffer, sizeof(buffer), fmt, args);
-            m_logger->warn(buffer);
-            va_end(args);
-        }
+    void Log::Warn(const char* fmt, ...) {
+        std::string formatted;
+        EE_LOGGER_FORMAT(formatted);
+        Internal::GetCoreLogger()->warn("{}", formatted);
+    }
 
-        void error_impl(const char* fmt, ...) override {
-            va_list args;
-            va_start(args, fmt);
-            char buffer[4096];
-            vsnprintf(buffer, sizeof(buffer), fmt, args);
-            m_logger->error(buffer);
-            va_end(args);
-        }
+    void Log::Error(const char* fmt, ...) {
+        std::string formatted;
+        EE_LOGGER_FORMAT(formatted);
+        Internal::GetCoreLogger()->error("{}", formatted);
+    }
 
-        void fatal_impl(const char* fmt, ...) override {
-            va_list args;
-            va_start(args, fmt);
-            char buffer[4096];
-            vsnprintf(buffer, sizeof(buffer), fmt, args);
-            m_logger->critical(buffer);
-            va_end(args);
-        }
-    };
+    void Log::Fatal(const char* fmt, ...) {
+        std::string formatted;
+        EE_LOGGER_FORMAT(formatted);
+        Internal::GetCoreLogger()->critical("{}", formatted);
+    }
 
-    ILogger* Log::s_coreLogger = nullptr;
-    ILogger* Log::s_clientLogger = nullptr;
-	bool Log::s_loggerInitialized = false;
+    // Client versions
+    void Log::ClientTrace(const char* fmt, ...) {
+        std::string formatted;
+        EE_LOGGER_FORMAT(formatted);
+        Internal::GetClientLogger()->trace("{}", formatted);
+    }
 
-	void Log::Init() {
-		bool created = false;
-		if (!s_coreLogger)
-		{
-            s_coreLogger = new SpdLogger("ELEVATE");
-			created = true;
-		}
-		
-		if (!s_clientLogger)
-		{
-            s_clientLogger = new SpdLogger("APP");
-			created = true;
-		}
+    void Log::ClientInfo(const char* fmt, ...) {
+        std::string formatted;
+        EE_LOGGER_FORMAT(formatted);
+        Internal::GetClientLogger()->info("{}", formatted);
+    }
 
-		if (created)
-		{
-			EE_CORE_TRACE("Logger Initialized.");
-		}
+    void Log::ClientWarn(const char* fmt, ...) {
+        std::string formatted;
+        EE_LOGGER_FORMAT(formatted);
+        Internal::GetClientLogger()->warn("{}", formatted);
+    }
 
-		s_loggerInitialized;
-	}
+    void Log::ClientError(const char* fmt, ...) {
+        std::string formatted;
+        EE_LOGGER_FORMAT(formatted);
+        Internal::GetClientLogger()->error("{}", formatted);
+    }
 
-    ILogger* Log::GetCoreLogger()
-	{
-		if (!s_coreLogger)
-		{
-			Init();
-		}
-		return s_coreLogger;
-	}
-
-    ILogger* Log::GetClientLogger()
-	{
-		if (!s_clientLogger)
-		{
-			Init();
-		}
-		return s_clientLogger;
-	}
+    void Log::ClientFatal(const char* fmt, ...) {
+        std::string formatted;
+        EE_LOGGER_FORMAT(formatted);
+        Internal::GetClientLogger()->critical("{}", formatted);
+    }
 }

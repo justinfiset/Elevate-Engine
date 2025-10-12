@@ -1,6 +1,7 @@
 #include "eepch.h"
 
 #include "ElevateEngine/Inputs/Input.h"
+#include "ElevateEngine/Core/Assert.h"
 #include "ElevateEngine/Core/Log.h"
 #include "InputBuffer.h"
 
@@ -10,52 +11,50 @@ namespace Elevate
 	// Keyboard
 	bool InputBuffer::IsKeyPressed(int keycode)
 	{
-		return keyStates[keycode] == EE_STATE_PRESSED;
+		return GetKeyState(keycode) == EE_STATE_PRESSED;
 	}
 	bool InputBuffer::IsKeyDown(int keycode)
 	{
-		return keyStates[keycode] == EE_STATE_DOWN;
+		return GetKeyState(keycode) == EE_STATE_DOWN;
 	}
 	bool InputBuffer::IsKeyUp(int keycode)
 	{
-		return keyStates[keycode] == EE_STATE_UP;
+		return GetKeyState(keycode) == EE_STATE_UP;
 	}
 	// Mouse
 	bool InputBuffer::IsMouseButtonPressed(int mouseButtonCode)
 	{
-		return mouseButtonStates[mouseButtonCode] == EE_STATE_PRESSED;
+		return GetMouseButtonState(mouseButtonCode) == EE_STATE_PRESSED;
 	}
 	bool InputBuffer::IsMouseButtonDown(int mouseButtonCode)
 	{
-		return mouseButtonStates[mouseButtonCode] == EE_STATE_DOWN;
+		return GetMouseButtonState(mouseButtonCode) == EE_STATE_DOWN;
 	}
 	bool InputBuffer::IsMouseButtonUp(int mouseButtonCode)
 	{
-		return mouseButtonStates[mouseButtonCode] == EE_STATE_UP;
+		return GetMouseButtonState(mouseButtonCode) == EE_STATE_UP;
 	}
-	// Mouse
-
 
 	/// Internal - State Machine
 	// Keyboard
 	void InputBuffer::SetKeyPressed(int keycode, int repeatCount)
 	{
 		// if key is not down and not repeating -> down
-		if (keyStates[keycode] != 1 && repeatCount == 0)
+		if (GetKeyState(keycode) != EE_STATE_DOWN && repeatCount == 0)
 		{
-			keyStates[keycode] = EE_STATE_DOWN;
+			SetKeyState(keycode, EE_STATE_DOWN);
 		}
 		else // else -> pressed
 		{
-			keyStates[keycode] = EE_STATE_PRESSED;
+			SetKeyState(keycode, EE_STATE_PRESSED);
 		}
 	}
 	void InputBuffer::SetKeyReleased(int keycode)
 	{
 		// if key is down or pressed -> up
-		if (keyStates[keycode] == 1 || keyStates[keycode] == 2)
+		if (GetKeyState(keycode) == EE_STATE_DOWN || GetKeyState(keycode) == EE_STATE_PRESSED)
 		{
-			keyStates[keycode] = EE_STATE_UP;
+			SetKeyState(keycode, EE_STATE_UP);
 		}
 	}
 
@@ -63,51 +62,88 @@ namespace Elevate
 	void InputBuffer::SetMouseButtonPressed(int mouseButtonCode)
 	{
 		// if key is not down
-		if (keyStates[mouseButtonCode] != 1)
+		if (GetMouseButtonState(mouseButtonCode) != EE_STATE_DOWN)
 		{
-			mouseButtonStates[mouseButtonCode] = EE_STATE_DOWN;
+			SetMouseButtonState(mouseButtonCode, EE_STATE_DOWN);
 		}
 		else // else -> pressed
 		{
-			mouseButtonStates[mouseButtonCode] = EE_STATE_PRESSED;
+			SetMouseButtonState(mouseButtonCode, EE_STATE_PRESSED);
 		}
 	}
 	void InputBuffer::SetMouseButtonReleased(int mouseButtonCode)
 	{
 		// if key is down or pressed -> up
-		if (mouseButtonStates[mouseButtonCode] == 1 || mouseButtonStates[mouseButtonCode] == 2)
+		if (GetMouseButtonState(mouseButtonCode) == EE_STATE_DOWN || GetMouseButtonState(mouseButtonCode) == EE_STATE_PRESSED)
 		{
-			mouseButtonStates[mouseButtonCode] = EE_STATE_UP;
+			SetMouseButtonState(mouseButtonCode, EE_STATE_UP);
 		}
 	}
 
 	void InputBuffer::ManageMidSates()
 	{
 		// Keyboard
-		for (int i = 0; i < sizeof(keyStates); i++)
+		for (size_t i = 0; i < keyStates.size() / 2; i++)
 		{
-			if (keyStates[i] == 1)
+			uint8_t state = GetKeyState(i);
+			switch (state)
 			{
-				keyStates[i] = 2;
-				continue;
-			}
-			else if (keyStates[i] == 3)
-			{
-				keyStates[i] = 0;
+			case EE_STATE_DOWN:
+				SetKeyState(i, EE_STATE_PRESSED);
+				break;
+			case EE_STATE_UP:
+				SetKeyState(i, EE_STATE_RELEASED);
+				break;
 			}
 		}
+
 		// Mouse
-		for (int i = 0; i < sizeof(mouseButtonStates); i++)
+		for (size_t i = 0; i < mouseButtonStates.size() / 2; i++)
 		{
-			if (mouseButtonStates[i] == 1)
+			uint8_t state = GetMouseButtonState(i);
+			switch (state)
 			{
-				mouseButtonStates[i] = 2;
-				continue;
-			}
-			else if (mouseButtonStates[i] == 3)
-			{
-				mouseButtonStates[i] = 0;
+			case EE_STATE_DOWN:
+				SetMouseButtonState(i, EE_STATE_PRESSED);
+				break;
+			case EE_STATE_UP:
+				SetMouseButtonState(i, EE_STATE_RELEASED);
+				break;
 			}
 		}
+	}
+
+	// Bitset operation helper
+	std::uint8_t InputBuffer::GetKeyState(size_t index) const
+	{
+		size_t bitPos = index * 2;
+		EE_CORE_ASSERT(index >= 0 && bitPos < keyStates.size(), "InputBuffer::GetKeyState() : Invalid key index.");
+
+		return (keyStates[bitPos] ? 2 : 0) | (keyStates[bitPos + 1] ? 1 : 0);
+	}
+
+	void InputBuffer::SetKeyState(size_t index, std::uint8_t value)
+	{
+		size_t bitPos = index * 2;
+		EE_CORE_ASSERT(index >= 0 && bitPos < keyStates.size(), "InputBuffer::SetKeyState() : Invalid key index.");
+
+		keyStates[bitPos] = (value & 0x02) != 0;
+		keyStates[bitPos + 1] = (value & 0x01) != 0;
+	}
+
+	std::uint8_t InputBuffer::GetMouseButtonState(size_t index) const
+	{
+		size_t bitPos = index * 2;
+		EE_CORE_ASSERT(index >= 0 && bitPos < keyStates.size(), "InputBuffer::GetMouseButtonState() : Invalid buton index.");
+
+		return (mouseButtonStates[bitPos] ? 2 : 0) | (mouseButtonStates[bitPos + 1] ? 1 : 0);
+	}
+	void InputBuffer::SetMouseButtonState(size_t index, std::uint8_t value)
+	{
+		size_t bitPos = index * 2;
+		EE_CORE_ASSERT(index >= 0 && bitPos < keyStates.size(), "InputBuffer::SetMouseButtonState() : Invalid buton index.");
+
+		mouseButtonStates[bitPos] = (value & 0x02) != 0;
+		mouseButtonStates[bitPos + 1] = (value & 0x01) != 0;
 	}
 }

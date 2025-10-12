@@ -53,10 +53,9 @@ namespace Elevate
 
 		void Update() override;
 
-		//virtual Component* Clone() override;
 	private:
 		RigidbodyData m_data;
-		EXPOSE(m_data, Flatten);
+		EXPOSE(m_data, Flatten)
 
 		END_COMPONENT()
 	};

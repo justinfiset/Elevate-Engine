@@ -21,7 +21,7 @@ void Elevate::SoundEngine::RegisterGameObject(GameObject* obj)
 	{
 		AkGameObjectID id = obj->GetEntityId();
 		AK::SoundEngine::RegisterGameObj(id, obj->GetName().c_str());
-		EE_CORE_TRACE("SoundEngine registed gO => (name : {}), (id : {})", obj->GetEntityId(), obj->GetName());
+		EE_CORE_TRACE("SoundEngine registed gO => (name : %d), (id : %s)", obj->GetEntityId(), obj->GetName().c_str());
 	}
 }
 

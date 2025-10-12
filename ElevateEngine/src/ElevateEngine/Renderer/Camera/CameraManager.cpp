@@ -16,7 +16,7 @@ namespace Elevate
 	Camera* CameraManager::GetCurrent()
 	{
 		#ifdef EE_EDITOR_BUILD
-		if (Application::GameState() == EditorMode)
+		if (Application::GetGameState() == EditorMode)
 		{
 			return Editor::EditorLayer::Get().GetCamera();
 		}

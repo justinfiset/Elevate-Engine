@@ -16,10 +16,10 @@
 #define MOUSE_SIZE      16;
 
 // In order of execution when a key / button is pressed
-#define EE_STATE_RELEASED 0;
-#define EE_STATE_DOWN     1; // The instant moment when a key is pressed
-#define EE_STATE_PRESSED  2;
-#define EE_STATE_UP       3; // The instant moment when a key is released
+#define EE_STATE_RELEASED 0
+#define EE_STATE_DOWN     1 // The instant moment when a key is pressed
+#define EE_STATE_PRESSED  2
+#define EE_STATE_UP       3 // The instant moment when a key is released
 
 namespace Elevate {
 	class EE_API Input
