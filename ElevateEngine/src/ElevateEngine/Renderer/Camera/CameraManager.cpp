@@ -54,7 +54,7 @@ namespace Elevate
 
 	void CameraManager::NotifyDestruction(Camera* camera)
 	{
-		if (s_currentCamera && camera->GetID() == s_currentCamera->GetID())
+		if (s_currentCamera && camera == s_currentCamera)
 		{
 			s_currentCamera = nullptr;
 		}

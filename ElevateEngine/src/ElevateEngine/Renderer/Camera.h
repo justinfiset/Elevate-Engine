@@ -26,8 +26,6 @@ namespace Elevate
 		inline const glm::vec3& GetFrontVec() const { return m_front; }
 		inline const glm::vec3& GetRightVec() const { return m_right; }
 		inline const glm::vec3& GetUpVec() const { return m_up; }
-		
-		inline short GetID() { return m_cameraID; }
 
 		inline const float GetFOV() const { return m_FOV; }
 		inline void SetFOV(float fov);
@@ -76,9 +74,6 @@ namespace Elevate
 
 		float m_far = 100.0f;
 		EXPOSE(m_far)
-
-		short m_cameraID;
-		static short s_nextID;
 
 		END_COMPONENT()
 	};

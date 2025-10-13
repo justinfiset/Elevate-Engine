@@ -30,7 +30,7 @@ namespace Elevate {
 		friend class Elevate::Editor::EditorLayer;
 
 		Application();
-		virtual ~Application();
+		virtual ~Application() = default;
 
 		static void Start(int argc, char** argv);
 		void Run();
@@ -79,7 +79,7 @@ namespace Elevate {
 		std::shared_ptr<Framebuffer> m_FrameBuffer;
 
 		// TODO ABSTRACT INTO A HIDDEN IMPL.
-		CAkFilePackageLowLevelIODeferred m_lowLevelIO;
+		std::unique_ptr<CAkFilePackageLowLevelIODeferred> m_lowLevelIO;
 
 		GameContextState m_state = Initializing;
 

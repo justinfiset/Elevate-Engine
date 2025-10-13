@@ -86,11 +86,6 @@ namespace Elevate {
 		#endif
 	}
 
-	Application::~Application()	
-	{
-		TermSoundEngine();
-	}
-
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
@@ -193,6 +188,7 @@ namespace Elevate {
 	void Application::Exit()
 	{
 		m_ImGuiLayer->Cleanup();
+		TermSoundEngine();
 	}
 
 	const GameContextState& Application::GetGameState()
@@ -256,7 +252,9 @@ namespace Elevate {
 		// Creating a streaming device
 		AkDeviceSettings deviceSettings;
 		AK::StreamMgr::GetDefaultDeviceSettings(deviceSettings);
-		if (m_lowLevelIO.Init(deviceSettings) != AK_Success)
+
+		m_lowLevelIO = std::make_unique<CAkFilePackageLowLevelIODeferred>();
+		if (m_lowLevelIO->Init(deviceSettings) != AK_Success)
 		{
 			EE_CORE_ASSERT(false, "ERROR: Failed to create the Wwise streaming device and low-level I/O system.");
 			return false;
@@ -318,7 +316,7 @@ namespace Elevate {
 
 	void Application::PrepareAudio()
 	{
-		m_lowLevelIO.SetBasePath(AKTEXT("./WwiseProject/GeneratedSoundBanks/Windows/"));
+		m_lowLevelIO->SetBasePath(AKTEXT("./WwiseProject/GeneratedSoundBanks/Windows/"));
 		AK::StreamMgr::SetCurrentLanguage(AKTEXT("English(US)"));
 
 		// TODO TRANSFORM IN A FUNCITON AND HAVE A BETTER ERROR LOGGING IN CASE OF ACCIDENT
@@ -343,7 +341,7 @@ namespace Elevate {
 		//AK::SpatialAudio::Term(); // TODO FIND WHY NOT DEFINED
 		AK::SoundEngine::Term();
 		
-		m_lowLevelIO.Term();
+		m_lowLevelIO->Term();
 		if (AK::IAkStreamMgr::Get())
 		{
 			AK::IAkStreamMgr::Get()->Destroy();
