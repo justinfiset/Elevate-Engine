@@ -26,6 +26,8 @@
 #include <ElevateEngine/Editor/Commands/GameobjectCommands.h>
 #include <ElevateEngine/Scene/Scene.h>
 
+#include <ElevateEngine/Renderer/Camera/CameraManager.h>
+
 // TODO : CHECK ESSENTIAL INCLUDES KNOW ESSENTIAL BELLOW
 #include <ElevateEngine/Core/GameObject.h>
 
@@ -212,7 +214,9 @@ namespace Elevate::Editor
 
         ImGui::SetCursorPosX(viewport->Size.x / 2 - toolbarHeight);
         bool isPlaying = Application::GetGameState() == GameContextState::Runtime;
+        bool canPlay = CameraManager::GetRuntime() != nullptr;
         ImTextureID playTexID = isPlaying ? (ImTextureID)m_pauseTexture->GetNativeHandle() : (ImTextureID)m_playTexture->GetNativeHandle();
+        ImGui::BeginDisabled(!isPlaying && !canPlay);
         if (ImGui::ImageButton(isPlaying ? "Pause" : "Play", playTexID, ImVec2(32, 32)))
         {
             if (isPlaying)
@@ -224,6 +228,7 @@ namespace Elevate::Editor
                 Application::SetGameState(GameContextState::Runtime);
             }
         }
+        ImGui::EndDisabled();
 
         ImGui::SameLine();
         bool isInEditorMode = Application::GetGameState() == GameContextState::EditorMode;

@@ -27,6 +27,8 @@ namespace Elevate
 		inline const glm::vec3& GetRightVec() const { return m_right; }
 		inline const glm::vec3& GetUpVec() const { return m_up; }
 		
+		inline short GetID() { return m_cameraID; }
+
 		inline const float GetFOV() const { return m_FOV; }
 		inline void SetFOV(float fov);
 
@@ -44,7 +46,7 @@ namespace Elevate
 		glm::mat4 GenViewProjectionMatrix();
 
 		void Init() override;
-
+		void Destroy() override;
 
 #ifdef EE_EDITOR_BUILD
 		void RenderWhenSelected() override;
@@ -67,11 +69,16 @@ namespace Elevate
 		glm::vec3 m_up;
 		glm::mat4 m_projectionMatrix;
 
+		bool m_canBeMainCamera = true;
+
 		float m_near = 0.1f;
 		EXPOSE(m_near)
 
 		float m_far = 100.0f;
 		EXPOSE(m_far)
+
+		short m_cameraID;
+		static short s_nextID;
 
 		END_COMPONENT()
 	};

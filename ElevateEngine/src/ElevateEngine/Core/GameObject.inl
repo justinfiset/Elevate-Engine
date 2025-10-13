@@ -51,7 +51,11 @@ namespace Elevate
 	{
 		EE_VALIDATE_COMPONENT_TYPE();
 
-		if (HasComponent<T>()) GetRegistryMap()[m_scene->m_registryId]->remove<T>(entt::entity(m_entityId));
+		if (HasComponent<T>())
+		{
+			GetComponent<T>()->Destroy();
+			GetRegistryMap()[m_scene->m_registryId]->remove<T>(entt::entity(m_entityId));
+		}
 		else EE_ERROR("Trying to remove a missing component. You need to add the component before removing it.");
 	}
 }

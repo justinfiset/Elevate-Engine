@@ -12,16 +12,17 @@
 #include <AK/SoundEngine/Common/AkSoundEngine.h>
 #include <ElevateEngine/Audio/SoundEngine.h>
 
+short Elevate::Camera::s_nextID = 0;
+
 Elevate::Camera::Camera(float fov, bool overrideCurrent)
 {
     m_FOV = fov;
     Window& window = Application::Get().GetWindow();
     m_aspectRatio = (float)window.GetWidth() / (float)window.GetHeight();
 
-    if (overrideCurrent)
-    {
-        CameraManager::SetCurrent(this);
-    }
+    m_cameraID = s_nextID;
+    s_nextID++;
+    m_canBeMainCamera = overrideCurrent;
 }
 
 Elevate::Camera::Camera(float fov, float aspectRatio, bool overrideCurrent)
@@ -30,21 +31,28 @@ Elevate::Camera::Camera(float fov, float aspectRatio, bool overrideCurrent)
     Window& window = Application::Get().GetWindow();
     m_aspectRatio = aspectRatio;
 
-    if (overrideCurrent)
-    {
-        CameraManager::SetCurrent(this);
-    }
+    m_cameraID = s_nextID;
+    s_nextID++;
+    m_canBeMainCamera = overrideCurrent;
 }
-
-// TODO REMOVE THIS IS ONLY A TEST
-#include "ElevateEngine/Renderer/Debug/DebugRenderer.h"
 
 void Elevate::Camera::Init()
 {
     UpdateProjectionMatrix();
     UpdateCameraVectors();
+
+    if (m_canBeMainCamera)
+    {
+        CameraManager::SetCurrent(this);
+    }
+
     // todo : change this bit of code to be in the camera manager
     SoundEngine::SetDefaultListener(gameObject);
+}
+
+void Elevate::Camera::Destroy()
+{
+    CameraManager::NotifyDestruction(this);
 }
 
 const void Elevate::Camera::UpdateAspectRatio(float aspectRatio)
@@ -121,6 +129,8 @@ void Elevate::Camera::UpdateCameraVectors()
 
 // ONLY IN THE EDITOR
 #ifdef EE_ENGINE_BUILD
+#include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
+
 void Elevate::Camera::RenderWhenSelected()
 {
     UpdateCameraVectors();
