@@ -38,12 +38,17 @@ namespace Elevate
 			pixels[i + 2] = b;
 		}
 
-		TextureMetadata metaa = {
-			name, "", width, height, 
-			3, TextureFormat::RGB, TextureType::Diffuse, 
-			TextureSource::Generated, TextureState::Loaded 
-		};
-		return CreateFromData(pixels.data(), metaa);
+		TextureMetadata meta = TextureMetadataBuilder()
+			.Name(name)
+			.Path("")
+			.Size(width, height)
+			.Format(TextureFormat::RGB)
+			.Usage(TextureType::Diffuse)
+			.Source(TextureSource::Generated)
+			.State(TextureState::Loaded)
+			.Build();
+
+		return CreateFromData(pixels.data(), meta);
 	}
 
 	TexturePtr Texture::CreateFromColor(const glm::vec4& color, const std::string& name, uint32_t width, uint32_t height)
@@ -64,11 +69,16 @@ namespace Elevate
 			pixels[i + 3] = a;
 		}
 
-		TextureMetadata meta = {
-			name, "", width, height,
-			4, TextureFormat::RGBA, TextureType::Diffuse,
-			TextureSource::Generated, TextureState::Loaded
-		};
+		TextureMetadata meta = TextureMetadataBuilder()
+			.Name(name)
+			.Path("")
+			.Size(width, height)
+			.Format(TextureFormat::RGBA)
+			.Usage(TextureType::Diffuse)
+			.Source(TextureSource::Generated)
+			.State(TextureState::Loaded)
+			.Build();
+
 		return CreateFromData(pixels.data(), meta);
 	}
 

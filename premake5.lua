@@ -4,6 +4,8 @@ workspace "ElevateEngine"
 
     configurations
     {
+        "Editor Debug",
+        "Editor Release",
         "Debug",
         "Release",
         "Dist"

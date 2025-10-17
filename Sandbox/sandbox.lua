@@ -2,7 +2,7 @@ project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
-    cppdialect "C++17"
+    cppdialect "C++20"
     staticruntime "on"
 
     targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
@@ -40,7 +40,7 @@ project "Sandbox"
         "AkMemoryMgr",
         "AkStreamMgr",
         "AkSpatialAudio",
-        "CommunicationCentral", -- Not needed for release config
+        "CommunicationCentral", -- Not needed for release config -- TODO CHANGE THIS
         "AkVorbisDecoder"
     }
 
@@ -60,7 +60,7 @@ project "Sandbox"
 
         links
         {
-            "ws2_32" -- For Wwise Communication WARNING NOT NEEDED IN RELEASE BUT STILL INCLUDED FOR THE MOMENT
+            "ws2_32" -- For Wwise Communication WARNING NOT NEEDED IN RELEASE BUT STILL INCLUDED FOR THE MOMENT -- CHANGE THIS
         }
 
         buildoptions { "/Zc:wchar_t" }
@@ -75,6 +75,24 @@ project "Sandbox"
             "X11", "Xrandr", "Xinerama", "Xcursor", "Xi",
             "dl", "pthread"
         }
+
+    filter "configurations:Editor Debug"
+		defines
+		{
+			"EE_DEBUG",
+			"EE_EDITOR_BUILD"
+		}
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Editor Release"
+		defines 
+		{
+			"EE_RELEASE",
+			"EE_EDITOR_BUILD"
+		}
+        runtime "Release"
+        optimize "on"
 
     filter "configurations:Debug"
         defines "EE_DEBUG"

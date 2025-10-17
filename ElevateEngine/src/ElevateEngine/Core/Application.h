@@ -48,7 +48,7 @@ namespace Elevate {
 		inline Window& GetWindow() { return *m_Window; }
 
 		// GameContextState
-		static const GameContextState& Application::GetGameState();
+		static const GameContextState& GetGameState();
 		static void SetGameState(GameContextState newState);
 
 	protected:

@@ -2,6 +2,7 @@
 #include "Application.h"
 
 #include "ElevateEngine/Core/Time.h"
+#include "ElevateEngine/Core/Core.h"
 #include "ElevateEngine/Core/Log.h"
 #include "ElevateEngine/Core/Assert.h"
 #include "ElevateEngine/Core/Layers/LayerStack.h"
@@ -72,14 +73,14 @@ namespace Elevate {
 		FrameBuffer.reset(Framebuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
 		FrameBuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
 
-		#ifdef EE_EDITOR_BUILD
+		#ifdef EE_ENGINE_BUILD
 			PushOverlay(new Elevate::Editor::EditorLayer());
 		#endif
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-		#ifdef EE_EDITOR_BUILD
+		#ifdef EE_ENGINE_BUILD
 			SetGameState(GameContextState::EditorMode);
 		#else
 			SetGameState(GameContextState::Runtime);

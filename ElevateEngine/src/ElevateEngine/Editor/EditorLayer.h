@@ -1,17 +1,19 @@
 #pragma once
 
-#include <memory>
 #include <ElevateEngine/Core/Layers/Layer.h>
 #include <ElevateEngine/Core/Command.h>
 #include <ElevateEngine/Editor/EditorWidget.h>
-#include <ElevateEngine/Editor/Camera/EditorCamera.h>
-#include <ElevateEngine/Renderer/Texture/Texture.h>
+#include <ElevateEngine/Core/Assert.h>
+
+#include <memory>
 
 namespace Elevate
 {
 	class Shader;
 	class GameObject;
 	class Scene;
+	class EditorCamera;
+	class Texture;
 }
 
 namespace Elevate::Editor
@@ -46,10 +48,10 @@ namespace Elevate::Editor
 		}
 	private:
 		std::vector<std::unique_ptr<EditorWidget>> m_widgets;
-		TexturePtr m_playTexture;
-		TexturePtr m_pauseTexture;
-		TexturePtr m_stopTexture;
-		TexturePtr m_coloredStopTexture;
+		std::shared_ptr<Texture> m_playTexture;
+		std::shared_ptr<Texture> m_pauseTexture;
+		std::shared_ptr<Texture> m_stopTexture;
+		std::shared_ptr<Texture> m_coloredStopTexture;
 
 		std::shared_ptr<GameObject> m_CameraObject;
 
