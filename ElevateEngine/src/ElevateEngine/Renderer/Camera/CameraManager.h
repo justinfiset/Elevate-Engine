@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ElevateEngine/Core/Core.h>
 #include <memory>
 
 namespace Elevate
@@ -11,7 +12,7 @@ namespace Elevate
 	public:
 		static Camera* GetCurrent();
 
-#ifdef EE_ENGINE_BUILD
+#ifdef EE_EDITOR_BUILD
 		static Camera* GetEditor();
 #endif
 		static Camera* GetRuntime();

@@ -3,10 +3,11 @@
 #include "CameraManager.h"
 #include "ElevateEngine/Core/Application.h"
 
-#include "ElevateEngine/Core/Core.h"
+#include <ElevateEngine/Core/Assert.h>
 
 #ifdef EE_EDITOR_BUILD
 #include "ElevateEngine/Editor/EditorLayer.h"
+#include "ElevateEngine/Editor/Camera/EditorCamera.h"
 #endif
 
 namespace Elevate
@@ -15,12 +16,12 @@ namespace Elevate
 
 	Camera* CameraManager::GetCurrent()
 	{
-		#ifdef EE_EDITOR_BUILD
+#ifdef EE_EDITOR_BUILD
 		if (Application::GetGameState() == EditorMode)
 		{
 			return GetEditor();
 		}
-		#endif
+#endif
 
 		Camera* runtime = GetRuntime();
 		if (!runtime)
@@ -31,7 +32,7 @@ namespace Elevate
 		return runtime;
 	}
 
-#ifdef EE_ENGINE_BUILD
+#ifdef EE_EDITOR_BUILD
 	Camera* CameraManager::GetEditor()
 	{
 		return Editor::EditorLayer::Get().GetCamera();

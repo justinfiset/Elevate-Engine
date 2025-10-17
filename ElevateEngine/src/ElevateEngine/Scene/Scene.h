@@ -8,6 +8,8 @@
 #include <ElevateEngine/Renderer/Cubemap.h>
 #include <ElevateEngine/Renderer/Light/SceneLighting.h>
 
+#include <ElevateEngine/Serialization/ISerializable.h>
+
 // Forward declarations
 namespace Elevate {
 	class Cubemap;
@@ -28,7 +30,7 @@ namespace Elevate
 		DebugScene,
 	};
 
-	class Scene
+	class Scene : public ISerializable
 	{
 	public:
 		Scene();
@@ -61,6 +63,8 @@ namespace Elevate
 		{
 			return m_sceneLighting.get();
 		}
+
+		std::string Serialize() const override;
 	private:
 		void RemoveFromRoot(std::shared_ptr<GameObject> object);
 		void AddRootObject(std::shared_ptr<GameObject> newRootObject);

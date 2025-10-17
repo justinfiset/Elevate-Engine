@@ -5,6 +5,7 @@
 
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Scene/Scene.h>
+#include <ElevateEngine/Scene/ScenePrivate.h>
 
 #define EE_VALIDATE_COMPONENT_TYPE() EE_ASSERT((std::is_base_of<Component, T>::value), "EE_VALIDATE_COMPONENT_TYPE() %s : Type specifier must be a child of the Component class.", m_name);
 

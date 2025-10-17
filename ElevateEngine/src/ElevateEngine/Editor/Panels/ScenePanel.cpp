@@ -7,10 +7,12 @@
 #include "glm/glm.hpp"
 #include <glm/gtc/type_ptr.hpp>
 
-#include <ElevateEngine/Editor/GizmoUtility.h>
 #include <ElevateEngine/Core/Application.h>
 #include <ElevateEngine/Renderer/Renderer.h>
+
 #include <ElevateEngine/Editor/EditorLayer.h>
+#include <ElevateEngine/Editor/GizmoUtility.h>
+#include <ElevateEngine/Editor/Camera/EditorCamera.h>
 
 void Elevate::Editor::ScenePanel::OnImGuiRender()
 {

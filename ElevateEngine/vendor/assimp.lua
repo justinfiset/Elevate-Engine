@@ -126,11 +126,11 @@ project 'assimp'
 		'ASSIMP_BUILD_STATIC',
 	}
 
-	filter "configurations:Debug"
+	filter "configurations:Debug or configurations:Editor Debug"
 		runtime "Debug"
 		symbols "on"
 
-	filter "configurations:Release"
+	filter "configurations:Release or configurations:Editor Release or configurations:Dist"
 		runtime "Release"
 		optimize "on"
 
