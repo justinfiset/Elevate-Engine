@@ -20,14 +20,16 @@ namespace Elevate
         }
         float cameraSpeed = baseCamSpeed * Time::GetDeltaTime();
 
+        glm::vec3 offset = { 0.0f, 0.0f, 0.0f };
         if (Input::IsKeyPressed(EE_KEY_W))
-            gameObject->GetPosition() += cameraSpeed * GetFrontVec();
+            offset += cameraSpeed * GetFrontVec();
         if (Input::IsKeyPressed(EE_KEY_S))
-            gameObject->GetPosition() -= cameraSpeed * GetFrontVec();
+            offset -= cameraSpeed * GetFrontVec();
         if (Input::IsKeyPressed(EE_KEY_D))
-            gameObject->GetPosition() -= cameraSpeed * GetRightVec();
+            offset -= cameraSpeed * GetRightVec();
         if (Input::IsKeyPressed(EE_KEY_A))
-            gameObject->GetPosition() += cameraSpeed * GetRightVec();
+            offset += cameraSpeed * GetRightVec();
+        gameObject->SetPosition(gameObject->GetPosition() + offset);
 
         if (m_followCursor)
         {

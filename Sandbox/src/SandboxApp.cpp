@@ -7,14 +7,11 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "ElevateEngine/Renderer/Cubemap.h"
-
 #include "ElevateEngine/Renderer/Shader/ShaderManager.h"
 #include "ElevateEngine/Renderer/Shader/Shader.h"
-
 #include <ElevateEngine/Renderer/Camera/CameraManager.h>
 
-// Todo : remove from the application
-#include <AK/SoundEngine/Common/AkSoundEngine.h>
+#include <ElevateEngine/Audio/Components/AudioDistanceProbe.h>
 
 class DebugLayer : public Elevate::SceneLayer
 {
@@ -138,7 +135,7 @@ public:
             Elevate::KeyPressedEvent kp = (Elevate::KeyPressedEvent&)event;
             if (kp.GetKeyCode() == EE_KEY_SPACE)
             {
-                AK::SoundEngine::PostEvent(L"Play_Hello", 0);
+                Elevate::SoundEngine::PostEvent("Play_Sandstep", m_DemoObject.get());
                 EE_TRACE("Space bar pressed");
             }
             break;

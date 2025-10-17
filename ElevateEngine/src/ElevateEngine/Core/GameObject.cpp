@@ -19,8 +19,14 @@
 
 namespace Elevate
 {
+	uint32_t GameObject::s_goIdCount = 0;
+
 	GameObject::GameObject(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent)
-		: m_name(name), m_scene(scene.get()), m_parent(parent) { }
+		: m_name(name), m_scene(scene.get()), m_parent(parent)
+	{
+		m_goId = s_goIdCount;
+		s_goIdCount++;
+	}
 
 	void GameObject::SetFromGlobalMatrix(const glm::mat4& newWorld)
 	{
@@ -137,6 +143,14 @@ namespace Elevate
 		}
 	}
 
+	void GameObject::OnSetPosition()
+	{
+		if (m_entityId != EE_INVALID_ENTITY_ID && m_isInitialized)
+		{
+			SoundEngine::UpdatePosition(this);
+		}
+	}
+
 	void GameObject::Initialize()
 	{
 		if (m_scene)
@@ -167,6 +181,7 @@ namespace Elevate
 			m_entityId = static_cast<std::uint32_t>(entity);
 
     		SoundEngine::RegisterGameObject(this);
+			m_isInitialized = true;
 		}
 		else
 		{

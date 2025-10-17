@@ -45,6 +45,10 @@
 #include <ElevateEngine/Physics.h>
 // ===================================
 
+// == Audio ==========================
+#include <ElevateEngine/Audio/SoundEngine.h>
+// ===================================
+
 // === Editor ========================
 #ifdef EE_EDITOR_BUILD
 	#include <ElevateEngine/Editor/EditorLayer.h>

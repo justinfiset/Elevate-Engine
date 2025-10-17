@@ -1,35 +1,61 @@
 #include "eepch.h"
 #include "SoundEngine.h"
 
-#include <ElevateEngine/Core/GameObject.h>
+#include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/Assert.h>
 
-// TODO : REMOVE THIS FROM HERE, THIS SHOULD BE IN AN IMPLEMENTATION
-#include <AK/SoundEngine/Common/AkSoundEngine.h>
+#include <ElevateEngine/Audio/Wwise/WwiseSoundEngine.h>
+Elevate::SoundEngine* Elevate::SoundEngine::Impl = new Elevate::WwiseSoundEngine();
+
+bool Elevate::SoundEngine::Init()
+{
+	EE_CORE_ASSERT(Impl, "Error : No valid SoundEngine impl. found.");
+	bool result = Impl->InitImpl();
+	EE_CORE_CERROR(!result, "Error (SoundEngine::Init) : Could not initialize the sound engine.");
+	return result;
+}
+
+void Elevate::SoundEngine::RenderAudio()
+{
+	Impl->RenderAudioImpl();
+}
+
+void Elevate::SoundEngine::Terminate()
+{
+	Impl->TerminateImpl();
+}
 
 void Elevate::SoundEngine::SetDefaultListener(GameObject* obj)
 {
-	// todo move in an impl. This is a simple workaround to have the expected result as fast as possible
-	// TODO: IMPL A WAY TO MAKE SURE THE OBJECT WAS ALREADY REGISTERED VIA THE SOUND ENGINE
-	AkGameObjectID listenerId = obj->GetEntityId();
-	AK::SoundEngine::SetDefaultListeners(&listenerId, 1);
+	Impl->SetDefaultListenerImpl(obj);
+}
+
+void Elevate::SoundEngine::SetDistanceProbe(GameObject* obj)
+{
+	Impl->SetDistanceProbeImpl(obj);
+}
+
+void Elevate::SoundEngine::UnsetDistanceProbe()
+{
+	Impl->UnsetDistanceProbeImpl();
 }
 
 void Elevate::SoundEngine::RegisterGameObject(GameObject* obj)
 {
-	// todo move in an impl. This is a simple workaround to have the expected result as fast as possible
-	if (obj)
-	{
-		AkGameObjectID id = obj->GetEntityId();
-		AK::SoundEngine::RegisterGameObj(id, obj->GetName().c_str());
-		EE_CORE_TRACE("SoundEngine registed gO => (name : %d), (id : %s)", obj->GetEntityId(), obj->GetName().c_str());
-	}
+	Impl->RegisterGameObjectImpl(obj);
 }
 
 void Elevate::SoundEngine::UnregisterGameObject(GameObject* obj)
 {
-	if (obj)
-	{
-		AkGameObjectID id = obj->GetEntityId();
-		AK::SoundEngine::UnregisterGameObj(id);
-	}
+	Impl->UnregisterGameObjectImpl(obj);
+}
+
+void Elevate::SoundEngine::UpdatePosition(GameObject* obj)
+{
+	Impl->UpdateObjectPositionImpl(obj);
+}
+
+void Elevate::SoundEngine::PostEvent(const char* eventName, GameObject* object)
+{
+	Impl->PostEventImpl(eventName, object);
 }

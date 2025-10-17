@@ -16,7 +16,7 @@ Elevate::Transform::Transform()
 
 glm::vec3 Elevate::Transform::GetRight() const
 {
-	return m_ModelMatrix[0];
+	return m_ModelMatrix[2];
 }
 
 glm::vec3 Elevate::Transform::GetUp() const
@@ -26,7 +26,7 @@ glm::vec3 Elevate::Transform::GetUp() const
 
 glm::vec3 Elevate::Transform::GetBackward() const
 {
-	return m_ModelMatrix[2];
+	return m_ModelMatrix[0];
 }
 
 glm::vec3 Elevate::Transform::GetForward() const

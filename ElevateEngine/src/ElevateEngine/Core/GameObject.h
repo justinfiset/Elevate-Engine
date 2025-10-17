@@ -7,6 +7,8 @@
 #include <memory>
 #include <string>
 
+#define EE_INVALID_ENTITY_ID UINT32_MAX
+
 namespace Elevate
 {
 	class Event;
@@ -48,6 +50,7 @@ namespace Elevate
 		void RemoveChild(std::shared_ptr<GameObject> child);
 
 		inline uint32_t GetEntityId() { return m_entityId; }
+		inline uint32_t GetObjectId() { return m_goId; }
 
 		inline const bool HasChild() const { return m_childs.size() > 0; }
 		inline std::set<std::shared_ptr<GameObject>> GetChilds() const { return m_childs; }
@@ -66,6 +69,8 @@ namespace Elevate
 		void Render();
 		void Notify(Event& event);
 
+		void OnSetPosition() override;
+
 		// Editor Rendering
 		void RenderInEditor();
 		void RenderWhenSelected();
@@ -83,7 +88,12 @@ namespace Elevate
 		std::shared_ptr<GameObject> m_parent;
 		std::set<std::shared_ptr<GameObject>> m_childs;
 
-		uint32_t m_entityId;
+		// The entt id
+		uint32_t m_entityId = EE_INVALID_ENTITY_ID; // Invalid up until the initialization
+		// The gameObject static count
+		uint32_t m_goId = EE_INVALID_ENTITY_ID; // Invalid up until the initialization
+		static uint32_t s_goIdCount;
+		bool m_isInitialized = false;
 
 		Scene* m_scene;
 

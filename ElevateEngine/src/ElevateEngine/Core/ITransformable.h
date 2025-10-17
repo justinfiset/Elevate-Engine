@@ -13,11 +13,24 @@ namespace Elevate
 	{
 	public:
 		inline Transform& GetTransform() { return m_Transform; }
+		inline const Transform& GetTransform() const { return m_Transform; }
 
 		// position
-		inline void SetPosition(glm::vec3 pos) { m_Transform.SetPosition(pos); }
-		inline void SetRotation(glm::vec3 rotation) { m_Transform.SetRotation(rotation); }
-		inline void SetScale(glm::vec3 scale) { m_Transform.SetScale(scale); }
+		inline void SetPosition(glm::vec3 pos)
+		{ 
+			m_Transform.SetPosition(pos);
+			OnSetPosition();
+		}
+		inline void SetRotation(glm::vec3 rotation)
+		{
+			m_Transform.SetRotation(rotation);
+			OnSetRotation();
+		}
+		inline void SetScale(glm::vec3 scale)
+		{
+			m_Transform.SetScale(scale);
+			OnSetScale();
+		}
 
 		inline glm::vec3& GetPosition() { return m_Transform.GetPosition(); }
 		inline glm::vec3& GetRotation() { return m_Transform.GetRotation(); }
