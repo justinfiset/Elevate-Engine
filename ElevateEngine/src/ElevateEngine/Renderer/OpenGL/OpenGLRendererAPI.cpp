@@ -1,8 +1,11 @@
 #include "eepch.h"
 #include "OpenGLRendererAPI.h"
+
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 #include <ElevateEngine/Renderer/GLDebug.h>
+
 
 namespace Elevate
 {

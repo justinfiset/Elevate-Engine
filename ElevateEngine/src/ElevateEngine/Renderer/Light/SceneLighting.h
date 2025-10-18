@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <vector>
 
 // The maximum number of each lights to have in the game, these numbers are passed to the shader at compile time
 #define MAX_DIRECTIONAL_LIGHT  1

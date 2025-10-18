@@ -1,9 +1,14 @@
 #include "eepch.h"
-#include "OpenGLShader.h"
 
+#include <vector>
+
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
 #include <glad/glad.h>
+
 #include "glm/gtc/type_ptr.hpp"
 
+#include <ElevateEngine/Renderer/OpenGL/Shader/OpenGLShader.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
 #include <ElevateEngine/Core/Assert.h>
 
@@ -38,7 +43,7 @@ Elevate::OpenGLShader::OpenGLShader(const std::string& vertexSource, const std::
 		// We don't need the shader anymore.
 		glDeleteShader(vertexShader);
 
-		EE_CORE_ERROR(infoLog.data());
+		EE_CORE_ERROR("{}", infoLog.data());
 		EE_CORE_ASSERT(false, "Vertex shader compilation failure.");
 		return;
 	}
@@ -72,7 +77,7 @@ Elevate::OpenGLShader::OpenGLShader(const std::string& vertexSource, const std::
 		// Either of them. Don't leak shaders.
 		glDeleteShader(vertexShader);
 
-		EE_CORE_ERROR(infoLog.data());
+		EE_CORE_ERROR("{}", infoLog.data());
 		EE_CORE_ASSERT(false, "Fragment shader compilation failure.");
 		return;
 	}
@@ -111,7 +116,7 @@ Elevate::OpenGLShader::OpenGLShader(const std::string& vertexSource, const std::
 		// Use the infoLog as you see fit.
 
 		// Log and leave
-		EE_CORE_ERROR(infoLog.data());
+		EE_CORE_ERROR("{}", infoLog.data());
 		EE_CORE_ASSERT(false, "Unable to link shaders.");
 		return;
 	}

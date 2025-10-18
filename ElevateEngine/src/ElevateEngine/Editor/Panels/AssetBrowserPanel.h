@@ -1,7 +1,9 @@
 #pragma once
-#include <filesystem>
 
-#include <ElevateEngine/Core/GameObject.h>
+#include <filesystem>
+#include <unordered_map>
+#include <vector>
+
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 
@@ -78,7 +80,7 @@ namespace Elevate::Editor {
         std::vector<BrowserPath> m_relatedPaths;
 
         //      < Path , Texture >
-        std::map<std::string, TexturePtr> m_currentTextures;
+        std::unordered_map<std::string, TexturePtr> m_currentTextures;
         std::vector<std::string> m_ignoredExtensions;
         TexturePtr m_folderTexture;
 

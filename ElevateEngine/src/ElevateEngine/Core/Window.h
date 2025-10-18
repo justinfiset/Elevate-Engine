@@ -2,6 +2,7 @@
 
 #include "ElevateEngine/Core/Core.h"
 
+#include <string>
 #include <functional>
 
 namespace Elevate {

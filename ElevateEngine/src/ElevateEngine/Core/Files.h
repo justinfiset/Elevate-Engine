@@ -1,9 +1,13 @@
 #pragma once
-#ifdef _WIN32
-#include<shellapi.h>
-#endif  
-
+// TODO REMOVE WHITESPACE FROM THIS FILE
 #include <ElevateEngine/Core/Log.h>
+
+#ifdef _WIN32
+    #define WIN32_LEAN_AND_MEAN
+    #define NOMINMAX
+    #include <Windows.h>
+    #include <shellapi.h>
+#endif
 
 namespace Elevate::Files
 {

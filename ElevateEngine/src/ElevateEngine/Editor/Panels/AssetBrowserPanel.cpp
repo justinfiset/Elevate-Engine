@@ -1,14 +1,14 @@
-#include "eepch.h"
 #include "AssetBrowserPanel.h"
+
+#include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/Files.h>
 
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
 #include <rapidjson/error/en.h>
-#include <ElevateEngine/Core/Log.h>
+
 
 #include <ElevateEngine/Renderer/Texture/Texture.h>
-#include <ElevateEngine/Core/Files.h>
-
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
 
 #include <imgui.h>

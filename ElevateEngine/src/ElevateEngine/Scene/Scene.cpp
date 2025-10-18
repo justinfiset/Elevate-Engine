@@ -15,6 +15,9 @@
 #include "ScenePrivate.h"
 
 // rapidjson
+#include <rapidjson/filereadstream.h>
+#include <rapidjson/document.h>
+#include <rapidjson/error/en.h>
 #include <rapidjson/rapidjson.h>
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/writer.h>
@@ -192,7 +195,7 @@ namespace Elevate
 		rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
 		doc.Accept(writer);
 
-		EE_CORE_TRACE(buffer.GetString());
+		EE_CORE_TRACE("{}", buffer.GetString());
 		return buffer.GetString();
 	}
 }

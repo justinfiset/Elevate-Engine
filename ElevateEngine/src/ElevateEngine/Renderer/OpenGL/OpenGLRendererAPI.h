@@ -4,6 +4,8 @@
 
 namespace Elevate
 {
+	typedef unsigned int GLenum;
+
 	class OpenGLRendererAPI : public RendererAPI
 	{
 	public:

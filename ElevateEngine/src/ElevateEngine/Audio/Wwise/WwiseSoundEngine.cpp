@@ -236,7 +236,7 @@ void Elevate::WwiseSoundEngine::UpdateObjectPositionImpl(GameObject* obj)
 
 		if (AK::SoundEngine::SetPosition(id, soundPosition) == AK_InvalidParameter)
 		{
-			EE_CORE_ERROR("SoundEngine Error : could not set the transform values for %s with values {%f, %f, %f}", obj->GetName().c_str(), objectPosition.x, objectPosition.y, objectPosition.z);
+			EE_CORE_ERROR("SoundEngine Error : could not set the transform values for {} with values [{}, {}, {}]", obj->GetName(), objectPosition.x, objectPosition.y, objectPosition.z);
 		}
 	}
 }

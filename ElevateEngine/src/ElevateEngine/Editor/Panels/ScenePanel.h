@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include <glm/glm.hpp>
 #include <ElevateEngine/Editor/EditorWidget.h>
 

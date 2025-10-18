@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 // size in bytes
 #define EE_DATA_SIZE_None 0
 #define EE_DATA_SIZE_Bool 1

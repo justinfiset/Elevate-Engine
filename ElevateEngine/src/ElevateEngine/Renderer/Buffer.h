@@ -2,6 +2,10 @@
 
 #include "ElevateEngine/Core/Data.h"
 
+#include <vector>
+#include <iterator>
+#include <string>
+
 namespace Elevate
 {
 	typedef EngineDataType ShaderDataType;

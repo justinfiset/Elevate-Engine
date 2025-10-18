@@ -145,7 +145,7 @@ namespace Elevate {
 			}
 			catch (const std::exception& exc)
 			{
-				EE_CORE_ERROR(exc.what());
+				EE_CORE_ERROR("{}", exc.what());
 			}
 		}
 		Exit();

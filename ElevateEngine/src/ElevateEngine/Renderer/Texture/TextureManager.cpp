@@ -63,7 +63,7 @@ namespace Elevate {
 		std::filesystem::path fsPath = std::filesystem::absolute(path);
 		std::string absPath = fsPath.string();
 
-		EE_CORE_TRACE(absPath.c_str());
+		EE_CORE_TRACE("{}", absPath);
 
 		// If the texture is already loading, or already loaded, return and cancel
 		TexturePtr tex = GetTexture(absPath);
@@ -132,7 +132,7 @@ namespace Elevate {
 			{
 				if (manager.m_Textures.count(it->meta.Path))
 				{
-					EE_CORE_INFO(it->meta.Path.c_str());
+					EE_CORE_INFO("{}", it->meta.Path);
 					manager.m_Textures[it->meta.Path]->SetData(it->data, it->meta);
 					stbi_image_free(it->data);
 					it->data = nullptr;
