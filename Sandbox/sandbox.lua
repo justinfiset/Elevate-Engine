@@ -1,4 +1,41 @@
-project "Sandbox"
+function printInfo(message) 
+    print(" > " .. message)
+end
+
+function printSuccess(message)
+    print(" + " .. message)
+end
+
+function printWarning(message)
+    print(" * " .. message)
+end
+
+function parseProjectFile()
+    printInfo("Current directory: " .. os.getcwd())
+
+    local projectFile = io.open(".eeproj", "r")
+    if not projectFile then
+        error("No .eeproj file found in directory.")
+    end
+    printSuccess(".eeproj file found.")
+
+    local content = projectFile:read("*a")
+    projectFile:close()
+
+    -- Json parsing for basic informations
+    local project = {}
+    project.name = content:match('"name"%s*:%s*"([^"]+)"')
+    if not project.name then
+        error("Project name not found in .eeproj file.")
+    end
+    printSuccess("Project name: " .. project.name)
+
+    return project
+end
+
+local projectInfo = parseProjectFile()
+
+project(projectInfo.name)
     location "Build"
     kind "ConsoleApp"
     language "C++"

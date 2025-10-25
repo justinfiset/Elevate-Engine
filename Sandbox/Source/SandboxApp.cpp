@@ -11,6 +11,7 @@
 #include "ElevateEngine/Renderer/Shader/Shader.h"
 #include <ElevateEngine/Renderer/Camera/CameraManager.h>
 
+// TODO remove this is temporary as without the include the component is not registered
 #include <ElevateEngine/Audio/Components/AudioDistanceProbe.h>
 
 class DebugLayer : public Elevate::SceneLayer
