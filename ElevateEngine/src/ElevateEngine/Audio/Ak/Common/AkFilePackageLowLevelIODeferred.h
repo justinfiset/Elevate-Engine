@@ -28,6 +28,6 @@ written agreement between you and Audiokinetic Inc.
 #pragma once
 
 #include "../Common/AkFilePackageLowLevelIO.h"
-#include "AkDefaultIOHookDeferred.h"
+#include "../Win32/AkDefaultIOHookDeferred.h"
 
 typedef CAkFilePackageLowLevelIO<CAkDefaultIOHookDeferred> CAkFilePackageLowLevelIODeferred;

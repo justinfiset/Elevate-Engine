@@ -48,7 +48,7 @@ written agreement between you and Audiokinetic Inc.
 //////////////////////////////////////////////////////////////////////
 
 #include "AkFilePackageLowLevelIO.h"
-#include "AkFileHelpers.h"
+#include "../Win32/AkFileHelpers.h"
 #include <AK/Tools/Common/AkPlatformFuncs.h>
 #include <AK/SoundEngine/Common/AkCommonDefs.h>
 
