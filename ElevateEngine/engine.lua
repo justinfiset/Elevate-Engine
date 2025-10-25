@@ -1,5 +1,5 @@
 project "ElevateEngine"
-	location "ElevateEngine"
+	location "Build"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++20"
