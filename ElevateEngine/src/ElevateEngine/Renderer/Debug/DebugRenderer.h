@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef EE_ENGINE_BUILD
+#ifdef EE_EDITOR_BUILD
 #include <vector>
 #include "DebugTypes.h"
 #include <ElevateEngine/Renderer/VertexArray.h>
@@ -11,7 +11,7 @@ namespace Elevate
 {
 	struct DebugVertex
 	{
-#ifdef EE_ENGINE_BUILD
+#ifdef EE_EDITOR_BUILD
 		glm::vec3 Position;
 		glm::vec4 Color;
 #endif
@@ -19,14 +19,14 @@ namespace Elevate
 
 	struct DebugLineData
 	{
-#ifdef EE_ENGINE_BUILD
+#ifdef EE_EDITOR_BUILD
 		glm::vec3 Start;
 		glm::vec3 End;
 		glm::vec4 Color;
 #endif
 	};
 
-#ifdef EE_ENGINE_BUILD
+#ifdef EE_EDITOR_BUILD
 	class DebugRenderer
 	{
 	public:

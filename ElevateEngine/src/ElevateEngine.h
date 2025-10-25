@@ -36,6 +36,9 @@
 #include <ElevateEngine/Renderer/Mesh.h>
 #include <ElevateEngine/Renderer/Camera.h>
 #include <ElevateEngine/Renderer/Model.h>
+// --- Shaders -----------------------
+#include "ElevateEngine/Renderer/Shader/ShaderManager.h"
+#include "ElevateEngine/Renderer/Shader/Shader.h"
 // --- Lighting ----------------------
 #include <ElevateEngine/Renderer/Light/PointLight.h>
 #include <ElevateEngine/Renderer/Light/DirectionalLight.h>

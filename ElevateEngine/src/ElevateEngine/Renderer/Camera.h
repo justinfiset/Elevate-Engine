@@ -52,6 +52,8 @@ namespace Elevate
 		void RenderWhenSelected() override;
 		void DrawDebugFrustum();
 		std::array<glm::vec3, 8> CalculateFrustumCorners(float visualFarScale = 0.5f);
+#else
+		void RenderWhenSelected() override {}
 #endif
 
 	private:

@@ -120,7 +120,7 @@ void Elevate::Camera::UpdateCameraVectors()
 }
 
 // ONLY IN THE EDITOR
-#ifdef EE_ENGINE_BUILD
+#ifdef EE_EDITOR_BUILD
 #include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
 
 void Elevate::Camera::RenderWhenSelected()

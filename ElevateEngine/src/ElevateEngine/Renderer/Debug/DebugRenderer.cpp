@@ -1,6 +1,6 @@
 #include "eepch.h"
 
-#ifdef EE_ENGINE_BUILD
+#ifdef EE_EDITOR_BUILD
 
 #include "DebugRenderer.h"
 

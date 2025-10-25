@@ -1,14 +1,5 @@
 #pragma once
 
-#ifndef EE_ENGINE_BUILD
-	#define EE_ENGINE_BUILD
-#endif
-
-// TODO EITHER RENAME OR COMPLETLY ACCEPT IN THE CODE
-#ifndef EE_EDITOR_BUILD
-	#define EE_EDITOR_BUILD
-#endif
-
 #if defined(EE_PLATFORM_WINDOWS) || defined(EE_PLATFORM_LINUX)
 	#ifdef EE_DIST // Hide the console if in dist
 		#ifdef _WIN32
