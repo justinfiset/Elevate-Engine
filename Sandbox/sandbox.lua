@@ -11,12 +11,12 @@ project "Sandbox"
 
     files 
     {
-        "src/**.h",
-        "src/**.inl",
-        "src/**.cpp",
+        "Source/**.h",
+        "Source/**.inl",
+        "Source/**.cpp",
         
-        "src/**.vert",
-        "src/**.frag",
+        "Source/**.vert",
+        "Source/**.frag",
     }
 
     local wwiseSDK = os.getenv("WWISESDK")
