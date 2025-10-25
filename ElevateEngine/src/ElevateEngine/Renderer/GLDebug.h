@@ -6,7 +6,7 @@
 #define GLCheck(x) \
         x; \
         { GLenum err = glGetError(); \
-          if (err != GL_NO_ERROR) EE_CORE_ERROR("OpenGL Error %d at %s:%d", err, __FILE__, __LINE__); }
+          if (err != GL_NO_ERROR) EE_CORE_ERROR("OpenGL Error {} at {}:{}", err, __FILE__, __LINE__); }
 #else
 #define GLCheck(x) x
 #endif

@@ -29,6 +29,9 @@ namespace Elevate
 		virtual bool IsBound() const = 0;
 		virtual uint32_t GetHashCode() const = 0;
 
+		static std::shared_ptr<Shader> CreateDefault(); // Safe fallback in case of shader creation failure
+		static std::shared_ptr<Shader> CreateDefaultError(); // Safe fallback with an error pattern shader
+
 		static std::shared_ptr<Shader> Create(std::string vertexSource, std::string fragmentSouce);
 		static std::shared_ptr<Shader> CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath);
 		static std::shared_ptr<Shader> CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath, std::string customVertCode, std::string customFragCode);
@@ -94,12 +97,67 @@ namespace Elevate
 		// TODO CHECK IF NEEDED FOR OTHER APIS
 		virtual unsigned int GetRendererID() const = 0;
 
+		inline bool IsInitialized() { return m_isInitialized; }
 	protected:
+		inline void SetInitializationStatus(bool initialized) { m_isInitialized = initialized; }
+		bool m_isInitialized = false;
+
 		// Materials - For the renderer usages
 		void UseMaterial(MaterialPtr newMaterial);
 		friend class Model;
 	};
 
 	using ShaderPtr = std::shared_ptr<Shader>;
+
+	class DefaultShader
+	{
+	public:
+		static constexpr std::string_view GetVertexShader() {
+			return R"(
+#version 330 core
+layout(location = 0) in vec3 a_Position;
+layout(location = 1) in vec4 a_Color;
+
+uniform mat4 viewProj;
+
+out vec4 o_Color;
+
+void main()
+{
+    gl_Position = viewProj * vec4(a_Position, 1.0);
+    o_Color = a_Color;
+}
+)";
+		}	
+
+		static constexpr std::string_view GetFragmentShader() {
+			return R"(
+#version 330 core
+out vec4 FragColor;
+in vec3 ourColor;
+
+void main()
+{
+    FragColor = vec4(ourColor, 1.0);
+}
+)";
+		}
+
+		static constexpr std::string_view GetErrorShader() {
+			return R"(
+#version 330 core
+out vec4 FragColor;
+uniform float time;
+
+void main()
+{
+    // Create an obvious "error" pattern
+    vec2 uv = gl_FragCoord.xy / 100.0;
+    float pattern = sin(uv.x * 10.0 + time) * cos(uv.y * 10.0 + time);
+    FragColor = vec4(1.0, 0.0, 0.0, abs(pattern)); // Flashing red
+}
+)";
+		}
+	};
 }
 

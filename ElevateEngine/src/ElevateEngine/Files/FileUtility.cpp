@@ -13,6 +13,7 @@ std::string Elevate::File::GetFileContent(std::string path)
 	if (!s.is_open())
 	{
 		EE_CORE_ERROR("Could not open file : {0}, file does not exist", path);
+		return std::string();
 	}
 
 	// Get all of the lines from the file

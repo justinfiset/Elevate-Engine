@@ -34,7 +34,7 @@ written agreement between you and Audiokinetic Inc.
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "eepch.h"
+#include "stdafx.h"
 #include "AkDefaultLowLevelIODispatcher.h"
 #include <AK/Tools/Common/AkAssert.h>
 
@@ -109,3 +109,4 @@ void CAkDefaultLowLevelIODispatcher::RemoveAllDevices()
 		m_arDevices[uRecord] = AK_INVALID_DEVICE_ID;
 	m_uNumDevices = 0;
 }
+

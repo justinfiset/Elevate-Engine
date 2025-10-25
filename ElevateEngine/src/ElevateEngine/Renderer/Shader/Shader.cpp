@@ -13,14 +13,52 @@
 
 namespace Elevate 
 {
-	ShaderPtr Shader::Create(const std::string vertexSource, const std::string fragmentSouce)
+	std::shared_ptr<Shader> Shader::CreateDefault()
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::GraphicAPI::None : EE_CORE_ASSERT(false, "Renderer none is not supported");
-		case RendererAPI::GraphicAPI::OpenGL: return std::make_shared<OpenGLShader>(vertexSource, fragmentSouce);
+		case RendererAPI::GraphicAPI::None: EE_CORE_ASSERT(false, "Renderer none is not supported");
+		case RendererAPI::GraphicAPI::OpenGL: return std::make_shared<OpenGLShader>(std::string(DefaultShader::GetVertexShader()), std::string(DefaultShader::GetFragmentShader()));
 		}
 		return nullptr;
+	}
+
+	std::shared_ptr<Shader> Shader::CreateDefaultError()
+	{
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::GraphicAPI::None: EE_CORE_ASSERT(false, "Renderer none is not supported");
+		case RendererAPI::GraphicAPI::OpenGL: return std::make_shared<OpenGLShader>(std::string(DefaultShader::GetVertexShader()), std::string(DefaultShader::GetErrorShader()));
+		}
+		return nullptr;
+	}
+
+	ShaderPtr Shader::Create(const std::string vertexSource, const std::string fragmentSouce)
+	{
+		std::shared_ptr<Shader> shader = nullptr;
+		
+		if (!vertexSource.empty() && !fragmentSouce.empty())
+		{
+			switch (Renderer::GetAPI())
+			{
+			case RendererAPI::GraphicAPI::None: EE_CORE_ASSERT(false, "Renderer none is not supported");
+			case RendererAPI::GraphicAPI::OpenGL: shader = std::make_shared<OpenGLShader>(vertexSource, fragmentSouce);
+			}
+		}
+		else
+		{
+			EE_CORE_ERROR("Error : Tried to create a shader with an empty vertex or fragment source -> Vertex : {} And Fragment : {}", vertexSource, fragmentSouce);
+			return CreateDefaultError();
+		}
+
+		if (!shader->IsInitialized())
+		{
+			shader.reset(); // Free the memory of that unused shader and reset to nullptr
+			EE_CORE_ERROR("Error : Could not create a valid shader. Fallback to default shader.");
+			return CreateDefaultError();
+		}
+
+		return shader;
 	}
 
 	ShaderPtr Shader::CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath)
@@ -32,9 +70,20 @@ namespace Elevate
 
 	ShaderPtr Shader::CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath, std::string customVertCode, std::string customFragCode)
 	{
-		std::string vertexSource = customVertCode + "\n" + File::GetFileContent(vertexSrcPath);
-		std::string fragmentSource = customFragCode + "\n" + File::GetFileContent(fragSrcPath);
-		return Create(vertexSource, fragmentSource);
+		std::string vertexContent = File::GetFileContent(vertexSrcPath);
+		std::string fragmentContent = File::GetFileContent(fragSrcPath);
+
+		if (!vertexContent.empty() && !fragmentContent.empty())
+		{
+			std::string vertexSource = customVertCode + "\n" + vertexContent;
+			std::string fragmentSource = customFragCode + "\n" + fragmentContent;
+			return Create(vertexSource, fragmentSource);
+		}
+		else
+		{
+			EE_CORE_ERROR("Error : Tried to create a shader with an empty vertex or fragment source -> Vertex : {} And Fragment : {}", vertexContent, fragmentContent);
+			return CreateDefaultError();
+		}
 	}
 
 	void Shader::UseLight(Light* newLightSetting, std::string lightName)

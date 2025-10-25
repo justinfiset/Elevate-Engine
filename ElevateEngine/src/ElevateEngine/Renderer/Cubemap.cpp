@@ -43,12 +43,13 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
         if (data)
         {
             GLCheck(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data));
+            stbi_image_free(data);
         }
         else
         {
-            EE_CORE_TRACE("Unable to load cubemap texture [{}] : {}", i, paths[i].c_str());
+            EE_CORE_ERROR("Error : Unable to load cubemap texture [{}] : {} with the following skybox file : {}", i, paths[i].c_str(), skyboxFilePath);
+            return;
         }
-        stbi_image_free(data);
     }
     GLCheck(glGenerateMipmap(GL_TEXTURE_CUBE_MAP));
 
@@ -71,18 +72,25 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(std::string filePath)
 {
     FILE* fp = fopen(filePath.c_str(), "r");
+    if (!fp)
+    {
+        EE_CORE_ERROR("Error : Cannot open cubemap config file ({})", filePath);
+        return nullptr;
+    }
+
     char readBuffer[65536];
     rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
     rapidjson::Document doc;
     doc.ParseStream(is);
     fclose(fp);
 
+    // todo add more error catching, check if member exists or return
     std::string paths[6] =
     {
         doc["right"].GetString(),
         doc["left"].GetString(),
         doc["up"].GetString(),
-        doc["down"].GetString(),
+        doc["down"].GetString(),    
         doc["front"].GetString(),
         doc["back"].GetString()
     };

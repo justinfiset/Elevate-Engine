@@ -38,6 +38,7 @@ project "Sandbox"
 
         "AkSoundEngine",
         "AkMemoryMgr",
+        "AkMusicEngine",
         "AkStreamMgr",
         "AkSpatialAudio",
         "CommunicationCentral", -- Not needed for release config -- TODO CHANGE THIS

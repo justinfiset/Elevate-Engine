@@ -11,8 +11,6 @@ written agreement between you and Audiokinetic Inc.
 
   Copyright (c) 2025 Audiokinetic Inc.
 *******************************************************************************/
-
-#include "eepch.h"
 #include "AkJobWorkerMgr.h"
 #include <AK/Tools/Common/AkFifoQueue.h>
 #include <AK/Tools/Common/AkInstrument.h>
@@ -199,8 +197,7 @@ namespace JobWorkerMgr
 				pNextWorkerState,
 				in_implInitSettings.arThreadWorkerProperties ? in_implInitSettings.arThreadWorkerProperties[workerIdx] : defaultThreadProps,
 				&pNextWorkerState->workerThread,
-				threadName,
-				nullptr);
+				threadName);
 
 			if (!AKPLATFORM::AkIsValidThread(&pNextWorkerState->workerThread))
 			{
@@ -230,7 +227,7 @@ namespace JobWorkerMgr
 			for (AkUInt32 i = 0; i < g_settings.uNumWorkerThreads; ++i)
 			{
 				AKPLATFORM::AkWaitForSingleThread(&g_arWorkerThreadStates[i].workerThread);
-				AKPLATFORM::AkCloseThread(&g_arWorkerThreadStates[i].workerThread, nullptr);
+				AKPLATFORM::AkCloseThread(&g_arWorkerThreadStates[i].workerThread);
 			}
 
 			AKPLATFORM::AkDestroySemaphore(g_semaphore);

@@ -105,11 +105,10 @@ namespace Elevate {
 		std::thread([res]() mutable {
 				int width, height, channels;
 				res.data = stbi_load(res.meta.Path.c_str(), &width, &height, &channels, 0);
-
 				res.meta = TextureMetadataBuilder(res.meta)
 					.Size(static_cast<uint32_t>(width), static_cast<uint32_t>(height))
 					.Format((TextureFormat) channels)
-					.State((res.data != nullptr) ? TextureState::Loaded : TextureState::Failed)
+					.State((res.data) ? TextureState::Loaded : TextureState::Failed)
 					.Build();
 
 				std::lock_guard<std::mutex> lock(instance().m_textureMutex);
@@ -128,8 +127,9 @@ namespace Elevate {
 		auto it = manager.m_loadingTextures.begin();
 		while (it != manager.m_loadingTextures.end())
 		{
-			if (it->meta.State == TextureState::Loaded)
+			switch (it->meta.State)
 			{
+			case TextureState::Loaded:
 				if (manager.m_Textures.count(it->meta.Path))
 				{
 					EE_CORE_INFO("{}", it->meta.Path);
@@ -138,10 +138,23 @@ namespace Elevate {
 					it->data = nullptr;
 				}
 				it = manager.m_loadingTextures.erase(it);
-			}
-			else
-			{
+				break;
+			case TextureState::Failed:
+				if (manager.m_Textures.count(it->meta.Path))
+				{
+					EE_CORE_ERROR("Failed to load texture : {}", it->meta.Path);
+					manager.m_Textures[it->meta.Path]->SetData(it->data, it->meta);
+					if (it->data)
+					{
+						stbi_image_free(it->data);
+					}
+					it->data = nullptr;
+				}
+				it = manager.m_loadingTextures.erase(it);
+				break;
+			default:
 				++it;
+				break;
 			}
 		}
 	}

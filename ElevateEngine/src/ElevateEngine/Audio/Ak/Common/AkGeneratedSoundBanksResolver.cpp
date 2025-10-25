@@ -12,7 +12,7 @@ written agreement between you and Audiokinetic Inc.
   Copyright (c) 2025 Audiokinetic Inc.
 *******************************************************************************/
 
-#include "eepch.h"
+#include "stdafx.h"
 
 #include "AkGeneratedSoundBanksResolver.h"
 

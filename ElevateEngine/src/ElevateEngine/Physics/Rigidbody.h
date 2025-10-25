@@ -2,6 +2,8 @@
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/GameObject.h>
 #include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Editor/Components/ComponentsIcon.h>
+
 #include "glm/glm.hpp"
 
 namespace Elevate
@@ -45,7 +47,7 @@ namespace Elevate
 	class Rigidbody : public Component
 	{
 	public:
-		BEGIN_COMPONENT(Rigidbody, EditorIcon("./editor/icons/light/components/rigidbody.png"))
+		BEGIN_COMPONENT(Rigidbody, EditorIcon(std::string(Editor::Icons::COMPONENT_ICON_RIGIDBODY)))
 		EECATEGORY("Physics")
 
 		Rigidbody();

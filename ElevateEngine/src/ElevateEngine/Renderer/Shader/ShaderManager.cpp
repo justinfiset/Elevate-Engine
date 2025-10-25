@@ -1,6 +1,8 @@
 #include "eepch.h"
 #include "ShaderManager.h"
 
+#include <ElevateEngine/Renderer/Shader/Shader.h>
+
 namespace Elevate {
 	ShaderPtr ShaderManager::LoadShader(std::string name, ShaderPtr shader)
 	{

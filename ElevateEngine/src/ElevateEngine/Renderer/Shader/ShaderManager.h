@@ -3,9 +3,11 @@
 #include <string>
 #include <unordered_map>
 #include <memory>
-#include <ElevateEngine/Renderer/Shader/Shader.h>
 
 namespace Elevate {
+	class Shader;
+	using ShaderPtr = std::shared_ptr<Shader>;
+
 	class ShaderManager {
 	public:
 		static ShaderPtr LoadShader(std::string name, ShaderPtr shader);

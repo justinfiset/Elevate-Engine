@@ -117,13 +117,15 @@ Elevate::OpenGLShader::OpenGLShader(const std::string& vertexSource, const std::
 
 		// Log and leave
 		EE_CORE_ERROR("{}", infoLog.data());
-		EE_CORE_ASSERT(false, "Unable to link shaders.");
+		EE_CORE_ERROR("Error : Unable to link shaders.");
 		return;
 	}
 
 	// Always detach shaders after a successful link.
 	glDetachShader(m_RendererID, vertexShader);
 	glDetachShader(m_RendererID, fragmentShader);
+
+	SetInitializationStatus(true);
 }
 
 Elevate::OpenGLShader::~OpenGLShader()

@@ -140,13 +140,13 @@ void Elevate::WwiseSoundEngine::PrepareAudio()
 	// Load banks synchronously (from file name).
 	AkBankID bankID; // Not used. These banks can be unloaded with their file name.
 	AKRESULT eResult = AK::SoundEngine::LoadBank(BANKNAME_INIT, bankID);
-	EE_CORE_CERROR(eResult != AK_Success, "ERROR: Failed to load bank.");
+	EE_CORE_CERROR(eResult != AK_Success, "ERROR: Failed to load SoundBank.");
 	eResult = AK::SoundEngine::LoadBank(BANKNAME_CAR, bankID);
-	EE_CORE_CERROR(eResult != AK_Success, "ERROR: Failed to load bank.");
+	EE_CORE_CERROR(eResult != AK_Success, "ERROR: Failed to load SoundBank.");
 	eResult = AK::SoundEngine::LoadBank(BANKNAME_HUMAN, bankID);
-	EE_CORE_CERROR(eResult != AK_Success, "ERROR: Failed to load bank.");
+	EE_CORE_CERROR(eResult != AK_Success, "ERROR: Failed to load SoundBank.");
 	eResult = AK::SoundEngine::LoadBank(BANKNAME_MARKERTEST, bankID);
-	EE_CORE_CERROR(eResult != AK_Success, "ERROR: Failed to load bank.");
+	EE_CORE_CERROR(eResult != AK_Success, "ERROR: Failed to load SoundBank.");
 }
 
 void Elevate::WwiseSoundEngine::RenderAudioImpl()

@@ -40,13 +40,13 @@ public:
         
         m_Shader = Elevate::ShaderManager::LoadShader(
             "default",
-            "shader/main.vert",
-            "shader/main.frag",
+            "Content/Shaders/main.vert",
+            "Content/Shaders/main.frag",
             glslVesionDefine,
             (glslVesionDefine + "\n" + glslPointLightCountDefine)
         );
 
-        m_scene->SetSkybox("cubemap/default.sky");
+        m_scene->SetSkybox("Engine/Cubemap/default.sky");
 
         // TODO impl dans un API a part entiere
         //tinyfd_messageBox(
@@ -59,7 +59,7 @@ public:
 
         // Backpack
         m_DemoObject = Elevate::GameObject::Create("Backpack", m_scene);
-        Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
+        Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("Content/Models/backpack.obj");
         Elevate::Rigidbody& rb = m_DemoObject->AddComponent<Elevate::Rigidbody>();
         m_DemoObject->SetPosition({ 0.0f, 0.0f, -3.0f });
 

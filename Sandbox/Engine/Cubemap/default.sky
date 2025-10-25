@@ -1,0 +1,8 @@
+{
+    "right": "Engine/Textures/Skybox/Default/side.jpg",
+    "left": "Engine/Textures/Skybox/Default/side.jpg",
+    "up": "Engine/Textures/Skybox/Default/top.jpg",
+    "down": "Engine/Textures/Skybox/Default/bottom.jpg",
+    "front": "Engine/Textures/Skybox/Default/side.jpg",
+    "back": "Engine/Textures/Skybox/Default/side.jpg"
+}

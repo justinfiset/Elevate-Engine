@@ -23,7 +23,7 @@ written agreement between you and Audiokinetic Inc.
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "eepch.h"
+#include "stdafx.h"
 #include "AkFileLocationBase.h"
 
 #include <AK/SoundEngine/Common/AkStreamMgrModule.h>
@@ -34,10 +34,7 @@ written agreement between you and Audiokinetic Inc.
 #include <stdio.h>
 #include <AK/Tools/Common/AkAssert.h>
 
-//#include "AkFileHelpers.h"
-#ifdef EE_PLATFORM_WINDOWS
-#include "ElevateEngine/Audio/Ak/Win32/AkFileHelpers.h"
-#endif
+#include "AkFileHelpers.h"
 
 #include "AkGeneratedSoundBanksResolver.h"
 

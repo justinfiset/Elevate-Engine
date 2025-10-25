@@ -3,11 +3,12 @@
 #include "Model.h"
 
 #include <glm/glm.hpp>
+#include "ElevateEngine/Renderer/Renderer.h"
 #include "ElevateEngine/Renderer/Shader/Shader.h"
 #include "ElevateEngine/Renderer/Shader/ShaderManager.h"
 #include "ElevateEngine/Core/GameObject.h"
 
-#include "ElevateEngine/Renderer/Renderer.h"
+#include <filesystem>
 
 Elevate::Model::Model(PrimitiveType type) : Model("", nullptr)
 {
@@ -42,19 +43,10 @@ Elevate::Model::Model(std::string path, ShaderPtr shader, MaterialPtr material)
     SetMaterial(material ? material : std::make_shared<Material>());
 
     if (!path.empty())
+    {
         LoadModel(path);
+    }
 }
-
-//Elevate::Component* Elevate::Model::Clone()
-//{
-//    Model* model = new Model();
-//    model->m_Shader = m_Shader;
-//    model->m_Material = m_Material;
-//    model->m_batchedMesh = m_batchedMesh;
-//    model->m_Directory = m_Directory;
-//    model->m_attributes = m_attributes;
-//    return model;
-//}
 
 void Elevate::Model::LoadModel(std::string path)
 {
@@ -62,10 +54,11 @@ void Elevate::Model::LoadModel(std::string path)
     Assimp::Importer import;
     const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_OptimizeMeshes | aiProcess_ImproveCacheLocality);
 
-    // Error checking and exception catcher
+    // 
+    // checking and exception catcher
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
-        EE_CORE_ERROR("ASSIMP LOADING ERROR : %s", import.GetErrorString());
+        EE_CORE_ERROR("ASSIMP LOADING ERROR : {}", import.GetErrorString());
         return;
     }
     m_Directory = path.substr(0, path.find_last_of('/')); // Used to get the textures afterward
@@ -73,27 +66,28 @@ void Elevate::Model::LoadModel(std::string path)
     // Recursive method to process all the nodes in the model
     MeshData data;
     std::vector<Mesh> meshes;
-    ProcessNode(scene->mRootNode, scene, data);
+    std::filesystem::path fsPath(path);
+    ProcessNode(fsPath.parent_path().string(), scene->mRootNode, scene, data);
 
     m_batchedMesh = Mesh(data);
 }
 
-void Elevate::Model::ProcessNode(aiNode* node, const aiScene* scene, MeshData& data)
+void Elevate::Model::ProcessNode(std::string basePath, aiNode* node, const aiScene* scene, MeshData& data)
 {
     // process all the node's MESHES (if any)
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        ProcessMesh(mesh, scene, data);
+        ProcessMesh(basePath, mesh, scene, data);
     }
     // then do the same for each of its CHILDREN(S)
     for (unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        ProcessNode(node->mChildren[i], scene, data); // Continue till we run out of childrens
+        ProcessNode(basePath, node->mChildren[i], scene, data); // Continue till we run out of childrens
     }
 }
 
-void Elevate::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, MeshData& data)
+void Elevate::Model::ProcessMesh(std::string basePath, aiMesh* mesh, const aiScene* scene, MeshData& data)
 {
     uint32_t offset = (uint32_t) data.Vertices.size();
 
@@ -119,8 +113,8 @@ void Elevate::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, MeshData& d
     if (mesh->mMaterialIndex >= 0)
     {
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-        LoadMaterialTextures(material, aiTextureType_DIFFUSE, TextureType::Diffuse, data);
-        LoadMaterialTextures(material, aiTextureType_SPECULAR, TextureType::Specular, data);
+        LoadMaterialTextures(basePath, material, aiTextureType_DIFFUSE, TextureType::Diffuse, data);
+        LoadMaterialTextures(basePath, material, aiTextureType_SPECULAR, TextureType::Specular, data);
     }
 }
 
@@ -166,14 +160,16 @@ void Elevate::Model::ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int i)
     }
 }
 
-void Elevate::Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data)
+void Elevate::Model::LoadMaterialTextures(std::string basePath, aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data)
 {
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
     {
         aiString str;
         mat->GetTexture(type, i, &str);
 
-        std::string path = str.C_Str();
+        std::filesystem::path directory(basePath);
+        directory.append(str.C_Str());
+        std::string path = directory.string();
 
         bool skip = false;
         for (TexturePtr tex : data.Textures)

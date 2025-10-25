@@ -38,10 +38,10 @@ namespace Elevate
         //virtual Component* Clone() override;
     private:
         void LoadModel(std::string path);
-        void ProcessNode(aiNode* node, const aiScene* scene, MeshData& data);
-        void ProcessMesh(aiMesh* mesh, const aiScene* scene, MeshData& data);
+        void ProcessNode(std::string basePath, aiNode* node, const aiScene* scene, MeshData& data);
+        void ProcessMesh(std::string basePath, aiMesh* mesh, const aiScene* scene, MeshData& data);
         void ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int index);
-        void LoadMaterialTextures(aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data);
+        void LoadMaterialTextures(std::string basePath, aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data);
     private:
         ShaderPtr m_Shader;
         MaterialPtr m_Material;
