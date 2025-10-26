@@ -30,12 +30,19 @@ function parseProjectFile()
     end
     printSuccess("Project name: " .. project.name)
 
+    project.usesSoundEngine = content:match('"usesSoundEngine"%s*:%s*(true)') == "true"
+    if( project.usesSoundEngine ) then
+        printSuccess("Project uses Wwise Sound Engine.")
+    else
+        printWarning("Project does not use Wwise Sound Engine.")
+    end
+    
     return project
 end
 
-local projectInfo = parseProjectFile()
+local projectInfos = parseProjectFile()
 
-project(projectInfo.name)
+project(projectInfos.name)
     location "Build"
     kind "ConsoleApp"
     language "C++"
@@ -89,7 +96,7 @@ project(projectInfo.name)
 
     defines
     {
-        "EE_EDITOR_BUILD"
+        "EE_NO_SOUNDENGINE=" .. (projectInfos.usesSoundEngine and "0" or "1")
     }
 
     filter "system:windows"

@@ -1,5 +1,10 @@
 #pragma once
 
+// Soundengine
+#ifndef EE_NO_SOUNDENGINE
+	#define EE_NO_SOUNDENGINE 1
+#endif
+
 #if defined(EE_PLATFORM_WINDOWS) || defined(EE_PLATFORM_LINUX)
 	#ifdef EE_DIST // Hide the console if in dist
 		#ifdef _WIN32

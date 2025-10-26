@@ -1,3 +1,4 @@
 {
-    "name":"Elevate Launcher"
+    "name":"Elevate Launcher",
+    "usesSoundEngine":false
 }

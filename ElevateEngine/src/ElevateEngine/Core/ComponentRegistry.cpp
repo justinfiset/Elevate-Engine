@@ -56,13 +56,16 @@ std::string Elevate::ComponentRegistry::GetCleanedName(std::string rawName)
 
 void Elevate::ComponentRegistry::AddClassToStack(std::string newClass)
 {
+#ifdef EE_REGISTRY_LOG
     EE_CORE_INFO("{}", GetCleanedName(newClass));
+#endif
     CompilationClassStack().push_back(newClass);
 }
 
 void Elevate::ComponentRegistry::PopClassStack()
 {
-    if (CompilationClassStack().empty()) {
+    if (CompilationClassStack().empty())
+    {
         EE_CORE_ERROR("ERROR: Tried to PopClassStack but stack is empty!");
         return;
     }

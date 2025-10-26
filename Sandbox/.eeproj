@@ -1,3 +1,4 @@
 {
-    "name":"Sandbox"
+    "name":"Sandbox",
+    "usesSoundEngine":true
 }

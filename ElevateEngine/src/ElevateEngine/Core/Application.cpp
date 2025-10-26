@@ -30,7 +30,7 @@ namespace Elevate {
 		EE_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
-		EE_CORE_TRACE("Current working directory : %s", std::filesystem::current_path().string().c_str());
+		EE_CORE_TRACE("Current working directory : {}", std::filesystem::current_path().string().c_str());
 
 		SoundEngine::Init();
 

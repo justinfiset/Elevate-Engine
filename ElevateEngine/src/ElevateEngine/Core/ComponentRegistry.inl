@@ -74,7 +74,10 @@ namespace Elevate
         }
 
         std::string cleanedName = GetCleanedName(name);
+
+#ifdef EE_REGISTRY_LOG
         EE_TRACE(" --> Exposed field : %s flatten=%d  displayName=%s", cleanedName.c_str(), meta.flatten, meta.displayName.c_str());
+#endif
 
         auto& customFields = GetCustomComponentFields();
         std::string typeName = typeid(FieldType).name();

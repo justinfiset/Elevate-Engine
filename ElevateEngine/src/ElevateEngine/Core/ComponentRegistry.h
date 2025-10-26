@@ -21,6 +21,10 @@
 
 #include <ElevateEngine/Core/GameObject.h>
 
+#ifdef EE_RELEASE
+    #undef EE_REGISTRY_LOG
+#endif
+
 namespace Elevate
 {
     template<typename T, typename = void>

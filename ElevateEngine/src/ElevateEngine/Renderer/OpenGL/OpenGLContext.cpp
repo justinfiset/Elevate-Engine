@@ -29,8 +29,8 @@ void Elevate::OpenGLContext::Init()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	EE_CORE_TRACE("OpenGL version : %s", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
-	EE_CORE_INFO("OpenGL Renderer Initialized: %s, %s",
+	EE_CORE_TRACE("OpenGL version : {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
+	EE_CORE_INFO("OpenGL Renderer Initialized: {}, {}",
 		reinterpret_cast<const char*>(glGetString(GL_VENDOR)),
 		reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
 }

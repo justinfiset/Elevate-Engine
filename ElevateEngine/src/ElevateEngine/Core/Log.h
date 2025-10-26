@@ -3,8 +3,6 @@
 #include <string>
 #include <format>
 
-
-
 namespace Elevate {
     class LogImpl;
 
