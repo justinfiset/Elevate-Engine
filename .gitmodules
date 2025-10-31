@@ -1,12 +1,20 @@
 [submodule "ElevateEngine/vendor/rapidjson"]
 	path = ElevateEngine/vendor/rapidjson
 	url = https://github.com/Tencent/rapidjson
+	ignore = all
 [submodule "ElevateEngine/vendor/ImGuizmo"]
 	path = ElevateEngine/vendor/ImGuizmo
 	url = https://github.com/justinfiset/ImGuizmo
+	ignore = all
 [submodule "ElevateEngine/vendor/ImGui"]
 	path = ElevateEngine/vendor/ImGui
 	url = https://github.com/ocornut/imgui
+	ignore = all
 [submodule "ElevateEngine/vendor/assimp"]
 	path = ElevateEngine/vendor/assimp
 	url = https://github.com/assimp/assimp
+	ignore = all
+[submodule "ElevateEngine/vendor/rapidxml"]
+	path = ElevateEngine/vendor/rapidxml
+	url = https://github.com/0x08088405/rapidxml
+	ignore = all

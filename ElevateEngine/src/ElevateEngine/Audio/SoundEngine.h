@@ -78,6 +78,26 @@ namespace Elevate
             Impl->PostEventImpl(eventName, object);
         }
 
+        static inline void PostEvent(uint16_t eventId, GameObject* object)
+        {
+            EE_CHECK_SOUNDENGINE();
+            Impl->PostEventImpl(eventId, object);
+        }
+
+        static inline void PostEvent(const char* eventName)
+        {
+            EE_CHECK_SOUNDENGINE();
+            Impl->PostEventImpl(eventName);
+        }
+
+        static inline void PostEvent(uint16_t eventId)
+        {
+            EE_CHECK_SOUNDENGINE();
+            Impl->PostEventImpl(eventId);
+        }
+
+        static inline SoundEngine* GetImpl() { return Impl; }
+
     protected:
         virtual bool InitImpl() = 0;
         virtual void RenderAudioImpl() = 0;
@@ -92,7 +112,9 @@ namespace Elevate
         virtual void UpdateObjectPositionImpl(GameObject* obj) = 0;
 
         virtual void PostEventImpl(const char* eventName, GameObject* object) = 0;
-
+        virtual void PostEventImpl(uint16_t eventName, GameObject* object) = 0;
+        virtual void PostEventImpl(const char* eventName) = 0;
+        virtual void PostEventImpl(uint16_t eventName) = 0;
     private:
         static SoundEngine* Impl;
     };
