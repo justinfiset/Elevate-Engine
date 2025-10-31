@@ -13,6 +13,7 @@ project "ElevateEngine"
 	-- pchsource "src/eepch.cpp"
 
 	IncludeDir = {}
+	IncludeDir["Vendors"] = "vendor"
 	IncludeDir["GLFW"] = "vendor/GLFW/include" 
 	IncludeDir["Glad"] = "vendor/Glad/include"
 	IncludeDir["ImGui"] = "vendor/ImGui/"
@@ -56,10 +57,11 @@ project "ElevateEngine"
 		"src",
 
 		wwiseIncludePath,
+		"%{IncludeDir.Vendors}",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.rapidjson}",
-		"%{IncludeDir.stb}",	 
+		"%{IncludeDir.stb}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.tinyfiledialogs}",
@@ -76,11 +78,9 @@ project "ElevateEngine"
 
 	links
 	{
-		-- "Glad", NOT A PROJECT ANYMORE
 		"GLFW",
 		"ImGui",
 		"assimp",
-		-- "tinyfiledialogs", NOT A PROJECT ANYMORE
 
 		"AkSoundEngine",
 		"AkMemoryMgr",

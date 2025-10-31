@@ -2,7 +2,7 @@
 
 // Soundengine
 #ifndef EE_NO_SOUNDENGINE
-	#define EE_NO_SOUNDENGINE 1
+	#define EE_NO_SOUNDENGINE 0 // todo change back once managed by the lua
 #endif
 
 #if defined(EE_PLATFORM_WINDOWS) || defined(EE_PLATFORM_LINUX)

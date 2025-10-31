@@ -82,7 +82,7 @@ project(projectInfos.name)
 
         "AkSoundEngine",
         "AkMemoryMgr",
-        "AkMusicEngine",
+        -- "AkMusicEngine",
         "AkStreamMgr",
         "AkSpatialAudio",
         "CommunicationCentral", -- Not needed for release config -- TODO CHANGE THIS

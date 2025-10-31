@@ -28,6 +28,8 @@
 
 #include <ElevateEngine/Renderer/Camera/CameraManager.h>
 
+#include <ElevateEngine/Audio/Wwise/Editor/WwiseBrowserWidget.h>
+
 // TODO : CHECK ESSENTIAL INCLUDES KNOW ESSENTIAL BELLOW
 #include <ElevateEngine/Core/GameObject.h>
 
@@ -52,6 +54,8 @@ namespace Elevate::Editor
         CreateWidget<AnalyserPanel>();
         CreateWidget<AssetBrowserPanel>();
         CreateWidget<StatisticsPanel>();
+
+        CreateWidget<WwiseBrowserWidget>();
     }
 
     void EditorLayer::OnAttach()

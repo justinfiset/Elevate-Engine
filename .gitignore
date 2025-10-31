@@ -1,5 +1,8 @@
 PREMAKE_CONFIG
 
+Sandbox/WwiseProject/.cache
+Sandbox/WwiseProject/GeneratedSoundbanks
+
 # Binaries / remove compiled libs and projects
 bin/
 bin-int/
