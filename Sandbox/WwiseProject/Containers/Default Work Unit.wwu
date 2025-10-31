@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{9DF22DD9-5F6B-4808-8F79-C4DF48F0AFE7}" SchemaVersion="133">
+	<Containers>
+		<WorkUnit Name="Default Work Unit" ID="{9DF22DD9-5F6B-4808-8F79-C4DF48F0AFE7}" PersistMode="Standalone">
+			<ChildrenList>
+				<Sound Name="470281__erokia__menu-ui-click-229" ID="{FA991BFD-35AC-4D3F-8D41-4498AADB2C76}" ShortID="204882935">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{79AFE056-410B-40D9-A50F-8C941264F49D}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{2DAEF1B2-3EEB-4E9F-90B9-B151AD1376E8}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="470281__erokia__menu-ui-click-229" ID="{ADBE8066-A227-4A55-99C0-A67A9FFA433B}">
+							<Language>SFX</Language>
+							<AudioFile>470281__erokia__menu-ui-click-229.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="667930448"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="470281__erokia__menu-ui-click-229" ID="{ADBE8066-A227-4A55-99C0-A67A9FFA433B}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+			</ChildrenList>
+		</WorkUnit>
+	</Containers>
+</WwiseDocument>

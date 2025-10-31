@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{DC6B0A76-4FFE-46A5-B972-73DA0A24FC7A}" SchemaVersion="133">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{DC6B0A76-4FFE-46A5-B972-73DA0A24FC7A}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="TestEvent" ID="{41992B09-CFD2-43F8-BFC7-0DAFCE97E959}">
+					<ChildrenList>
+						<Action Name="" ID="{D618001E-30F3-466E-9186-3413DBF8DCC9}" ShortID="725524650">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="470281__erokia__menu-ui-click-229" ID="{FA991BFD-35AC-4D3F-8D41-4498AADB2C76}" WorkUnitID="{9DF22DD9-5F6B-4808-8F79-C4DF48F0AFE7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

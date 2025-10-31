@@ -270,7 +270,7 @@ namespace Elevate
 		}
 	}
 
-	void WwiseSoundEngine::PostEventImpl(uint16_t eventId, GameObject* obj)
+	void WwiseSoundEngine::PostEventImpl(uint32_t eventId, GameObject* obj)
 	{
 		if (obj)
 		{
@@ -288,7 +288,7 @@ namespace Elevate
 		AK::SoundEngine::PostEvent(eventName, m_currentListenerID);
 	}
 
-	void WwiseSoundEngine::PostEventImpl(uint16_t eventId)
+	void WwiseSoundEngine::PostEventImpl(uint32_t eventId)
 	{
 		AK::SoundEngine::PostEvent(eventId, m_currentListenerID);
 	}
