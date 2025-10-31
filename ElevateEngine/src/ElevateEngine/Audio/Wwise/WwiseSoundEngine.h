@@ -35,9 +35,9 @@ namespace Elevate
         virtual void UpdateObjectPositionImpl(GameObject* obj) override;
 
         virtual void PostEventImpl(const char* eventName, GameObject* object) override;
-        virtual void PostEventImpl(uint16_t eventId, GameObject* object) override;
+        virtual void PostEventImpl(uint32_t eventId, GameObject* object) override;
         virtual void PostEventImpl(const char* eventName) override;
-        virtual void PostEventImpl(uint16_t eventId) override;
+        virtual void PostEventImpl(uint32_t eventId) override;
     private:
         void PrepareAudio();
 

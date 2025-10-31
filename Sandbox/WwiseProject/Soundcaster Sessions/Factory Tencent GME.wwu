@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{3EA2E3B3-7F7D-4DDB-8BA8-CD777EC933AC}" SchemaVersion="133">
+	<SoundcasterSessions>
+		<WorkUnit Name="Factory Tencent GME" ID="{3EA2E3B3-7F7D-4DDB-8BA8-CD777EC933AC}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundcasterSession Name="Tencent GME" ID="{7255A455-7EFE-4D24-8ACB-872C5CB0ED2C}"/>
+			</ChildrenList>
+		</WorkUnit>
+	</SoundcasterSessions>
+</WwiseDocument>

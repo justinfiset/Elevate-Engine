@@ -5,7 +5,7 @@
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/Assert.h>
 
-#define EE_CHECK_SOUNDENGINE(x) if(EE_NO_SOUNDENGINE == 1) { return x; }
+#define EE_CHECK_SOUNDENGINE(...) if(EE_NO_SOUNDENGINE == 1) { return __VA_ARGS__; }
 
 namespace Elevate
 {
@@ -78,7 +78,7 @@ namespace Elevate
             Impl->PostEventImpl(eventName, object);
         }
 
-        static inline void PostEvent(uint16_t eventId, GameObject* object)
+        static inline void PostEvent(uint32_t eventId, GameObject* object)
         {
             EE_CHECK_SOUNDENGINE();
             Impl->PostEventImpl(eventId, object);
@@ -90,7 +90,7 @@ namespace Elevate
             Impl->PostEventImpl(eventName);
         }
 
-        static inline void PostEvent(uint16_t eventId)
+        static inline void PostEvent(uint32_t eventId)
         {
             EE_CHECK_SOUNDENGINE();
             Impl->PostEventImpl(eventId);
@@ -112,9 +112,9 @@ namespace Elevate
         virtual void UpdateObjectPositionImpl(GameObject* obj) = 0;
 
         virtual void PostEventImpl(const char* eventName, GameObject* object) = 0;
-        virtual void PostEventImpl(uint16_t eventName, GameObject* object) = 0;
+        virtual void PostEventImpl(uint32_t eventName, GameObject* object) = 0;
         virtual void PostEventImpl(const char* eventName) = 0;
-        virtual void PostEventImpl(uint16_t eventName) = 0;
+        virtual void PostEventImpl(uint32_t eventName) = 0;
     private:
         static SoundEngine* Impl;
     };
