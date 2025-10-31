@@ -1,6 +1,8 @@
 PREMAKE_CONFIG
 
 ElevateEngine/src/ElevateEngine/Audio/Ak/
+
+# Hide Sandbox wwise binaries
 Sandbox/WwiseProject/.cache
 Sandbox/WwiseProject/GeneratedSoundbanks
 
@@ -100,5 +102,4 @@ ipch/
 *.out
 *.app
 
-!Sandbox/**/*.obj
 Makefile

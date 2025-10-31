@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ValidationCache Version="1" SchemaVersion="133">
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Attenuations\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Busses\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Busses\Reflect_Demo.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Containers\3D_Audio_Demo.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Containers\3D_Bus_Demo.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Containers\Channels_Demo.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Containers\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Containers\Dialogues.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Containers\External Sources.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Containers\Footsteps With Multiple Variables.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Containers\MIDI.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Containers\Music\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Containers\Music\InteractiveMusic.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Containers\Music\Music Callbacks.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Containers\Reflect_Demo.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Containers\Spatial_Audio_Demo.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Control Surface Sessions\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Conversion Settings\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Conversion Settings\External Sources.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Devices\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Dynamic Dialogue\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Dynamic Dialogue\Dialogue.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Effects\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Effects\Factory Effects.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Effects\Factory Reflect Physically-Based.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Effects\Factory Reflect.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Effects\Footsteps Effects.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Events\3D_Audio_Demo.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Events\3dBusses.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Events\Channels_Demo.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Events\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Events\External Sources.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Events\InteractiveMusic.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Events\MIDI.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Events\MusicCallbacks.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Events\Reflect_Demo.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Events\Spatial_Audio_Demo.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Game Parameters\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Game Parameters\Footsteps With Multiple Variables.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\IntegrationDemo.wproj" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Metadata\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Mixing Sessions\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Modulators\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Presets\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Presets\Factory Reflect Physically-Based.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Presets\Factory Reflect.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Presets\Factory Spatial Audio.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Queries\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Queries\Factory Queries.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Sidechain Mixes\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\SoundBanks\Channels_Demo.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\SoundBanks\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\SoundBanks\Reflect_Demo.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\SoundBanks\Surface Related Banks.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Soundcaster Sessions\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\States\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\States\Dialogue.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Switches\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Switches\Footsteps With Multiple Variables.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Triggers\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Virtual Acoustics\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Audiokinetic\Wwise2025.1.3.8999\SDK\samples\IntegrationDemo\WwiseProject\Virtual Acoustics\Factory Acoustic Textures.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Attenuations\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Busses\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Busses\Reflect_Demo.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Containers\3D_Audio_Demo.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Containers\3D_Bus_Demo.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Containers\Channels_Demo.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Containers\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Containers\Dialogues.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Containers\External Sources.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Containers\Footsteps With Multiple Variables.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Containers\MIDI.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Containers\Music\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Containers\Music\InteractiveMusic.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Containers\Music\Music Callbacks.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Containers\Reflect_Demo.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Containers\Spatial_Audio_Demo.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Control Surface Sessions\Default Work Unit.wwu" DateLow="1761926139" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Conversion Settings\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Conversion Settings\External Sources.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Devices\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Dynamic Dialogue\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Dynamic Dialogue\Dialogue.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Effects\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Effects\Factory Effects.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Effects\Factory Reflect Physically-Based.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Effects\Factory Reflect.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Effects\Footsteps Effects.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Events\3D_Audio_Demo.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Events\3dBusses.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Events\Channels_Demo.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Events\Default Work Unit.wwu" DateLow="1761942085" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Events\External Sources.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Events\InteractiveMusic.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Events\MIDI.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Events\MusicCallbacks.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Events\Reflect_Demo.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Events\Spatial_Audio_Demo.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Game Parameters\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Game Parameters\Footsteps With Multiple Variables.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\IntegrationDemo.jfiset.wsettings" DateLow="1761942748" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\IntegrationDemo.wproj" DateLow="1761942085" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Metadata\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Mixing Sessions\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Modulators\Default Work Unit.wwu" DateLow="1760721625" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Presets\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Presets\Factory Reflect Physically-Based.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Presets\Factory Reflect.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Presets\Factory Spatial Audio.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Queries\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Queries\Factory Queries.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Sidechain Mixes\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\SoundBanks\Channels_Demo.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\SoundBanks\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\SoundBanks\Reflect_Demo.wwu" DateLow="1760721671" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\SoundBanks\Surface Related Banks.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Soundcaster Sessions\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\States\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\States\Dialogue.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Switches\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Switches\Footsteps With Multiple Variables.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Triggers\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Virtual Acoustics\Default Work Unit.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\GIT\Elevate-Engine\Sandbox\WwiseProject\Virtual Acoustics\Factory Acoustic Textures.wwu" DateLow="1760721630" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Users\jfiset\AppData\Roaming\Audiokinetic\MediaPool\2\MediaPoolQuery.wsettings" DateLow="1761942748" DateHigh="0"/>
+</ValidationCache>
