@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{49112D93-1B7C-417E-91B1-239065CEFC0A}" SchemaVersion="133">
+	<SoundcasterSessions>
+		<WorkUnit Name="Default Work Unit" ID="{49112D93-1B7C-417E-91B1-239065CEFC0A}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundcasterSession Name="New Soundcaster Session" ID="{81D5D696-B484-434D-ACFF-28B2735042D6}">
+					<ModuleList>
+						<Module>
+							<ObjectRef Name="Markers_Test" ID="{447BE3DF-9FCC-438D-B834-95621EDCBB98}" WorkUnitID="{88012962-D6A8-4400-BC86-DF1A5980EDFA}"/>
+							<Position X="0" Y="0"/>
+						</Module>
+					</ModuleList>
+				</SoundcasterSession>
+			</ChildrenList>
+		</WorkUnit>
+	</SoundcasterSessions>
+</WwiseDocument>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{61518E45-5812-4C9D-B977-7501311FFFB7}" SchemaVersion="133">
+	<Containers>
+		<WorkUnit Name="Channels_Demo" ID="{61518E45-5812-4C9D-B977-7501311FFFB7}" PersistMode="Standalone">
+			<ChildrenList>
+				<Sound Name="1_0" ID="{F825BE27-BE07-4886-90CC-6A0A82C71F6B}" ShortID="373316480">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="SFX" ID="{3A429FCB-87D8-458B-B315-DBE8023064B3}" WorkUnitID="{5793A36C-0278-4AE3-B21C-4737AF9F120D}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{B90D7019-72C6-46E8-990C-3BC04B2724DB}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="1_0" ID="{B7FF5266-5005-4E5E-9CE9-0075C250FB6B}">
+							<PropertyList>
+								<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
+								<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
+								<Property Name="TrimBegin" Type="Real64" Value="-0.001"/>
+								<Property Name="TrimEnd" Type="Real64" Value="-0.001"/>
+							</PropertyList>
+							<Language>SFX</Language>
+							<AudioFile>1_0.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="460788097"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists>
+						<ObjectList Name="Metadata">
+							<PluginInnerObject Name="" ID="{4AC77DE2-84DA-4790-848C-A694C39C0118}" PluginName="MetadataSlot" CompanyID="0" PluginID="85">
+								<ReferenceList>
+									<Reference Name="Metadata" PluginName="Wwise System Output Settings" CompanyID="0" PluginID="900" PluginType="9">
+										<ObjectRef Name="RouteToMainMix" ID="{10C2B58D-5565-42CF-A5BE-5DB6E9417FE3}" WorkUnitID="{FA5C26E2-8747-4387-A720-CCE1F9C8814E}"/>
+									</Reference>
+								</ReferenceList>
+							</PluginInnerObject>
+						</ObjectList>
+					</ObjectLists>
+					<ActiveSourceList>
+						<ActiveSource Name="1_0" ID="{B7FF5266-5005-4E5E-9CE9-0075C250FB6B}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="2_0" ID="{BB3D34F0-2A0B-442C-A5A9-8D75AFD64574}" ShortID="16179104">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="SFX" ID="{3A429FCB-87D8-458B-B315-DBE8023064B3}" WorkUnitID="{5793A36C-0278-4AE3-B21C-4737AF9F120D}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{B90D7019-72C6-46E8-990C-3BC04B2724DB}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="2_0" ID="{2459EDE6-7755-45C5-928B-2EC27703ECE7}">
+							<PropertyList>
+								<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
+								<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
+								<Property Name="TrimBegin" Type="Real64" Value="-0.001"/>
+								<Property Name="TrimEnd" Type="Real64" Value="-0.001"/>
+							</PropertyList>
+							<Language>SFX</Language>
+							<AudioFile>2_0.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="1067988940"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists>
+						<ObjectList Name="Metadata">
+							<PluginInnerObject Name="" ID="{C0363E5B-9BAE-42BC-A486-E29F28980514}" PluginName="MetadataSlot" CompanyID="0" PluginID="85">
+								<ReferenceList>
+									<Reference Name="Metadata" PluginName="Wwise System Output Settings" CompanyID="0" PluginID="900" PluginType="9">
+										<ObjectRef Name="RouteToMainMix" ID="{10C2B58D-5565-42CF-A5BE-5DB6E9417FE3}" WorkUnitID="{FA5C26E2-8747-4387-A720-CCE1F9C8814E}"/>
+									</Reference>
+								</ReferenceList>
+							</PluginInnerObject>
+						</ObjectList>
+					</ObjectLists>
+					<ActiveSourceList>
+						<ActiveSource Name="2_0" ID="{2459EDE6-7755-45C5-928B-2EC27703ECE7}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="5_1" ID="{EE45DFEA-513A-4A43-9CA4-5E3DA9FFDAEE}" ShortID="504677109">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="SFX" ID="{3A429FCB-87D8-458B-B315-DBE8023064B3}" WorkUnitID="{5793A36C-0278-4AE3-B21C-4737AF9F120D}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{B90D7019-72C6-46E8-990C-3BC04B2724DB}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="5_1" ID="{DBFC0D42-1C51-4C2D-943A-7A73217D9E9D}">
+							<PropertyList>
+								<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
+								<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
+								<Property Name="TrimBegin" Type="Real64" Value="-0.001"/>
+								<Property Name="TrimEnd" Type="Real64" Value="-0.001"/>
+							</PropertyList>
+							<Language>SFX</Language>
+							<AudioFile>5_1.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="636732928"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists>
+						<ObjectList Name="Metadata">
+							<PluginInnerObject Name="" ID="{1D73E01F-4582-4A0B-AA7F-C9AAA245E020}" PluginName="MetadataSlot" CompanyID="0" PluginID="85">
+								<ReferenceList>
+									<Reference Name="Metadata" PluginName="Wwise System Output Settings" CompanyID="0" PluginID="900" PluginType="9">
+										<ObjectRef Name="RouteToMainMix" ID="{10C2B58D-5565-42CF-A5BE-5DB6E9417FE3}" WorkUnitID="{FA5C26E2-8747-4387-A720-CCE1F9C8814E}"/>
+									</Reference>
+								</ReferenceList>
+							</PluginInnerObject>
+						</ObjectList>
+					</ObjectLists>
+					<ActiveSourceList>
+						<ActiveSource Name="5_1" ID="{DBFC0D42-1C51-4C2D-943A-7A73217D9E9D}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="7_1" ID="{1D3FE752-92D2-42A9-9523-848720DE2005}" ShortID="1001900093">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="SFX" ID="{3A429FCB-87D8-458B-B315-DBE8023064B3}" WorkUnitID="{5793A36C-0278-4AE3-B21C-4737AF9F120D}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{B90D7019-72C6-46E8-990C-3BC04B2724DB}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="7_1" ID="{F04E67ED-A6AA-46F2-B89A-1234A5EB52FA}">
+							<PropertyList>
+								<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
+								<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
+								<Property Name="TrimBegin" Type="Real64" Value="-0.001"/>
+								<Property Name="TrimEnd" Type="Real64" Value="-0.001"/>
+							</PropertyList>
+							<Language>SFX</Language>
+							<AudioFile>7_1.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="853023223"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists>
+						<ObjectList Name="Metadata">
+							<PluginInnerObject Name="" ID="{6D510472-0D6B-4042-B85E-7E1919676D13}" PluginName="MetadataSlot" CompanyID="0" PluginID="85">
+								<ReferenceList>
+									<Reference Name="Metadata" PluginName="Wwise System Output Settings" CompanyID="0" PluginID="900" PluginType="9">
+										<ObjectRef Name="RouteToMainMix" ID="{10C2B58D-5565-42CF-A5BE-5DB6E9417FE3}" WorkUnitID="{FA5C26E2-8747-4387-A720-CCE1F9C8814E}"/>
+									</Reference>
+								</ReferenceList>
+							</PluginInnerObject>
+						</ObjectList>
+					</ObjectLists>
+					<ActiveSourceList>
+						<ActiveSource Name="7_1" ID="{F04E67ED-A6AA-46F2-B89A-1234A5EB52FA}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="7_1_4" ID="{9CCC5CD7-7A63-4DDE-9A35-215DB2E3BE28}" ShortID="525371313">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="SFX" ID="{3A429FCB-87D8-458B-B315-DBE8023064B3}" WorkUnitID="{5793A36C-0278-4AE3-B21C-4737AF9F120D}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{B90D7019-72C6-46E8-990C-3BC04B2724DB}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="7_1_4" ID="{1BA618AA-A045-42EF-AC84-13B9850E9E83}">
+							<PropertyList>
+								<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
+								<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
+								<Property Name="TrimBegin" Type="Real64" Value="-0.001"/>
+								<Property Name="TrimEnd" Type="Real64" Value="-0.001"/>
+							</PropertyList>
+							<Language>SFX</Language>
+							<AudioFile>7_1_4.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="624951112"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists>
+						<ObjectList Name="Metadata">
+							<PluginInnerObject Name="" ID="{D27C0E7E-3735-48BB-B59B-38F5E4897209}" PluginName="MetadataSlot" CompanyID="0" PluginID="85">
+								<ReferenceList>
+									<Reference Name="Metadata" PluginName="Wwise System Output Settings" CompanyID="0" PluginID="900" PluginType="9">
+										<ObjectRef Name="RouteToMainMix" ID="{10C2B58D-5565-42CF-A5BE-5DB6E9417FE3}" WorkUnitID="{FA5C26E2-8747-4387-A720-CCE1F9C8814E}"/>
+									</Reference>
+								</ReferenceList>
+							</PluginInnerObject>
+						</ObjectList>
+					</ObjectLists>
+					<ActiveSourceList>
+						<ActiveSource Name="7_1_4" ID="{1BA618AA-A045-42EF-AC84-13B9850E9E83}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+			</ChildrenList>
+		</WorkUnit>
+	</Containers>
+</WwiseDocument>
