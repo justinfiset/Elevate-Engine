@@ -63,6 +63,11 @@ namespace Elevate
 		virtual void RenderInEditor() {} // Function that is only called if we are in the editor
 		virtual void RenderWhenSelected() {}
 
+		// Transform callbacks
+		virtual void OnSetPosition() {}
+		virtual void OnSetRotation() {}
+		virtual void OnSetScale()    {}
+
 		virtual void OnNotify(Event& event) {}
 
 	public:

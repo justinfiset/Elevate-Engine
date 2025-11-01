@@ -126,7 +126,10 @@ namespace Elevate {
 				DebugRenderer::Render();
 
 				FrameBuffer->Unbind(); // Back to normal
+
+				#ifndef EE_EDITOR_BUILD
 				FrameBuffer->BlitFramebufferToScreen(m_Window->GetWidth(), m_Window->GetHeight());
+				#endif
 
 				//imgui
 				m_ImGuiLayer->PreRender();

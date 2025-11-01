@@ -149,6 +149,51 @@ namespace Elevate
 		{
 			SoundEngine::UpdatePosition(this);
 		}
+
+		for (Component* comp : GetComponents())
+		{
+			if (comp->IsActive())
+			{
+				comp->OnSetPosition();
+			}
+		}
+
+		for (std::shared_ptr<GameObject> child : m_childs)
+		{
+			child->OnSetPosition();
+		}
+	}
+
+	void GameObject::OnSetRotation()
+	{
+		for (Component* comp : GetComponents())
+		{
+			if (comp->IsActive())
+			{
+				comp->OnSetRotation();
+			}
+		}
+
+		for (std::shared_ptr<GameObject> child : m_childs)
+		{
+			child->OnSetRotation();
+		}
+	}
+
+	void GameObject::OnSetScale()
+	{
+		for (Component* comp : GetComponents())
+		{
+			if (comp->IsActive())
+			{
+				comp->OnSetScale();
+			}
+		}
+
+		for (std::shared_ptr<GameObject> child : m_childs)
+		{
+			child->OnSetScale();
+		}
 	}
 
 	void GameObject::Initialize()

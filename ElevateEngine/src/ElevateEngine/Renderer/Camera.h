@@ -48,6 +48,8 @@ namespace Elevate
 		void Init() override;
 		void Destroy() override;
 
+		void OnSetRotation() override;
+
 #ifdef EE_EDITOR_BUILD
 		void RenderWhenSelected() override;
 		void DrawDebugFrustum();

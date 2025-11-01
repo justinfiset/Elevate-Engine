@@ -47,6 +47,11 @@ void Elevate::Camera::Destroy()
     CameraManager::NotifyDestruction(this);
 }
 
+void Elevate::Camera::OnSetRotation()
+{
+    UpdateCameraVectors();
+}
+
 const void Elevate::Camera::UpdateAspectRatio(float aspectRatio)
 {
     if (m_aspectRatio != aspectRatio)

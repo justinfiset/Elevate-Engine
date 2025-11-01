@@ -69,7 +69,10 @@ namespace Elevate
 		void Render();
 		void Notify(Event& event);
 
+		// ITransformable
 		void OnSetPosition() override;
+		void OnSetRotation() override;
+		void OnSetScale()    override;
 
 		// Editor Rendering
 		void RenderInEditor();

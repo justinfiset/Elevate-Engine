@@ -62,40 +62,15 @@ public:
         // Backpack
         m_DemoObject = Elevate::GameObject::Create("Backpack", m_scene);
         Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("Content/Models/backpack.obj");
-        Elevate::Rigidbody& rb = m_DemoObject->AddComponent<Elevate::Rigidbody>();
-        m_DemoObject->SetPosition({ 0.0f, 0.0f, -3.0f });
+        //Elevate::Rigidbody& rb = m_DemoObject->AddComponent<Elevate::Rigidbody>();
+        m_DemoObject->SetPosition({ 0.0f, 0.0f, -4.0f });
 
         m_demoCube = Elevate::GameObject::Create("Cube", m_scene);
         Elevate::Model& demoModel1 = m_demoCube->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Cube);
-        Elevate::Rigidbody& rb1 = m_demoCube->AddComponent<Elevate::Rigidbody>();
+        //Elevate::Rigidbody& rb1 = m_demoCube->AddComponent<Elevate::Rigidbody>();
         Elevate::Camera& cam = m_demoCube->AddComponent<Elevate::Camera>();
         m_demoCube->SetPosition({ 0.0f, 0.0f, 0.0f });
         m_demoCube->SetRotation({ 0.0, -90.0f, 0.0f });
-
-        //m_DemoObject = Elevate::GameObject::Create("Backpack", m_scene);
-        //Elevate::Model& demoModel2 = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
-        //Elevate::Rigidbody& rb2 = m_DemoObject->AddComponent<Elevate::Rigidbody>();
-        //m_DemoObject->SetPosition({ 0.0f, 0.0f, 3.0f });
-
-        //m_DemoObject = Elevate::GameObject::Create("Backpack", m_scene);
-        //Elevate::Model& demoModel3 = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
-        //Elevate::Rigidbody& rb3 = m_DemoObject->AddComponent<Elevate::Rigidbody>();
-        //m_DemoObject->SetPosition({ 0.0f, 0.0f, 6.0f });
-
-        //m_DemoObject = Elevate::GameObject::Create("Backpack", m_scene);
-        //Elevate::Model& demoModel4 = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
-        //Elevate::Rigidbody& rb4 = m_DemoObject->AddComponent<Elevate::Rigidbody>();
-        //m_DemoObject->SetPosition({ 0.0f, 0.0f, 9.0f });
-
-        //m_DemoObject = Elevate::GameObject::Create("Backpack", m_scene);
-        //Elevate::Model& demoModel5 = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
-        //Elevate::Rigidbody& rb5 = m_DemoObject->AddComponent<Elevate::Rigidbody>();
-        //m_DemoObject->SetPosition({ 0.0f, 0.0f, 12.0f });
-
-        //m_DemoObject = Elevate::GameObject::Create("Backpack", m_Scene);
-        //Elevate::Model& demoModel6 = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");
-        //Elevate::Rigidbody& rb6 = m_DemoObject->AddComponent<Elevate::Rigidbody>();
-        //m_DemoObject->SetPosition({ 0.0f, 0.0f, 15.0f });
 
         // point light
         m_PointLightObject = Elevate::GameObject::Create("Point Light", m_scene);
@@ -128,6 +103,7 @@ public:
 
     void OnUpdate() override
     {
+        m_DemoObject->SetRotation(m_DemoObject->GetRotation() + glm::vec3(0.0f, 0.2f, 0.0f));
         SceneLayer::OnUpdate();
     }
 
@@ -139,8 +115,7 @@ public:
             Elevate::KeyPressedEvent kp = (Elevate::KeyPressedEvent&)event;
             if (kp.GetKeyCode() == EE_KEY_SPACE)
             {
-                Elevate::SoundEngine::PostEvent("Play_Sandstep", m_DemoObject.get());
-                EE_TRACE("Space bar pressed");
+                // Do something here...
             }
             break;
         }
