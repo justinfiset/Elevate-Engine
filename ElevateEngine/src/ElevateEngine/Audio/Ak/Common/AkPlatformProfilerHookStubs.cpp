@@ -14,6 +14,8 @@ written agreement between you and Audiokinetic Inc.
 
 #include <AK/SoundEngine/Common/AkSoundEngine.h>
 
+#ifdef EE_RELEASE	
+
 // functions are intentionally left undefined
 // void AkPlatformProfilerPushTimer(AkPluginID in_uPluginID, const char* in_pszZoneName)
 // {
@@ -40,3 +42,5 @@ void AkClearPlatformProfilerHooks(AkInitSettings& initSettings)
 	initSettings.fnProfilerPopTimer = nullptr;
 	initSettings.fnProfilerPostMarker = nullptr;
 }
+
+#endif

@@ -1,8 +1,11 @@
 #include "eepch.h"
 #include "OpenGLFrameBuffer.h"
-#include "ElevateEngine/Renderer/Renderer.h"
 
+#include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/GLDebug.h>
 #include <glad/glad.h>
+
+// TODO : ADD GLCHECK TO EACH LINES
 
 Elevate::OpenGLFrameBuffer::OpenGLFrameBuffer(TexturePtr tex) : Framebuffer(tex)
 {
@@ -34,6 +37,19 @@ void Elevate::OpenGLFrameBuffer::Bind() const
 void Elevate::OpenGLFrameBuffer::Unbind() const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void Elevate::OpenGLFrameBuffer::BlitFramebufferToScreen(uint32_t screenWidth, uint32_t screenHeight) const
+{
+	GLCheck(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBufferId)); // Read from this framebuffer
+	GLCheck(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0)); // Draw to the main framebuffer
+
+	// TODO GIVE A CHOICE TO THE USER FOR THE FILTERING
+	glBlitFramebuffer(
+		0, 0, m_texture->GetWidth(), m_texture->GetHeight(),
+		0, 0, screenWidth, screenHeight,
+		GL_COLOR_BUFFER_BIT, GL_NEAREST
+	);
 }
 
 void Elevate::OpenGLFrameBuffer::Rescale(uint32_t width, uint32_t height)

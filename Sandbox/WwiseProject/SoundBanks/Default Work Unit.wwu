@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WwiseDocument Type="WorkUnit" ID="{75B28372-6AFF-4CBE-8F02-6C674EDD6A5C}" SchemaVersion="133">
+<WwiseDocument Type="WorkUnit" ID="{FD17D926-5E5A-41DA-81D6-17BF6C2ED8EE}" SchemaVersion="132">
 	<SoundBanks>
-		<WorkUnit Name="Default Work Unit" ID="{75B28372-6AFF-4CBE-8F02-6C674EDD6A5C}" PersistMode="Standalone">
+		<WorkUnit Name="Default Work Unit" ID="{FD17D926-5E5A-41DA-81D6-17BF6C2ED8EE}" PersistMode="Standalone">
 			<ChildrenList>
-				<SoundBank Name="Sandbox" ID="{EC8B93E4-4673-4506-BC3E-2757DD68E21E}">
+				<SoundBank Name="Global" ID="{4792C0E0-7E4D-4D8A-BA8B-F1BE994172E6}">
 					<ObjectInclusionList>
-						<ObjectRef Name="TestEvent" ID="{41992B09-CFD2-43F8-BFC7-0DAFCE97E959}" WorkUnitID="{DC6B0A76-4FFE-46A5-B972-73DA0A24FC7A}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_Test_SFX" ID="{69D9786F-5531-487F-926B-A38D34BF2E27}" WorkUnitID="{4C8C5A4C-B46D-41E9-BF99-B227CD8602A6}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>

@@ -19,15 +19,15 @@
 #endif
 
 #if EE_ASSERTS_ENABLED
-	#define EE_ASSERT(x, ...) { if(!(x)) { EE_ERROR("Assertions Failed: %s", __VA_ARGS__); DEBUG_BREAK(); } } 
+	#define EE_ASSERT(x, ...) { if(!(x)) { EE_ERROR("Assertions Failed: {}", __VA_ARGS__); DEBUG_BREAK(); } } 
 
-#define EE_CORE_ASSERT(x, ...) { if(!(x)) { EE_CORE_ERROR("Assertions Failed: %s", __VA_ARGS__); DEBUG_BREAK(); } } 
+#define EE_CORE_ASSERT(x, ...) { if(!(x)) { EE_CORE_ERROR("Assertions Failed: {}", __VA_ARGS__); DEBUG_BREAK(); } } 
 	#ifdef EE_ENGINE_BUILD
-		#define EE_CORE_ASSERT(x, ...) { if(!(x)) { EE_CORE_ERROR("Assertions Failed: %s", __VA_ARGS__); DEBUG_BREAK(); } } 
+		#define EE_CORE_ASSERT(x, ...) { if(!(x)) { EE_CORE_ERROR("Assertions Failed: {}", __VA_ARGS__); DEBUG_BREAK(); } } 
 	#endif
 #else
-	#define EE_ASSERT(x, ...) { if(!(x)) { EE_ERROR("Assertions Failed: %s", __VA_ARGS__); } } 
+	#define EE_ASSERT(x, ...) { if(!(x)) { EE_ERROR("Assertions Failed: {}", __VA_ARGS__); } } 
 	#if defined(EE_ENGINE_BUILD)
-		#define EE_CORE_ASSERT(x, ...) { if(!(x)) { EE_CORE_ERROR("Assertions Failed: %s", __VA_ARGS__); } } 
+		#define EE_CORE_ASSERT(x, ...) { if(!(x)) { EE_CORE_ERROR("Assertions Failed: {}", __VA_ARGS__); } } 
 	#endif
 #endif

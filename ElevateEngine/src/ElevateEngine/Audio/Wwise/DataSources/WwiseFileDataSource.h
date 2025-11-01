@@ -9,7 +9,7 @@
 
 namespace rapidxml
 {
-	template<class Ch = char>
+	template<class Ch>
 	class xml_node;
 }
 
@@ -28,7 +28,7 @@ namespace Elevate
 	protected:
 		void ProcessRootFolder(const std::filesystem::path& rootFolder);
 		void ProcessWorkUnit(WwiseItemPtr parent, const std::filesystem::path& workUnitPath);
-		void ProcessNode(WwiseItemPtr parent, rapidxml::xml_node<>* node);
+		void ProcessNode(WwiseItemPtr parent, rapidxml::xml_node<char>* node);
 		bool IsValidDirectory(std::string directoryName);
 	private:
 		WwiseType GetTypeFromName(std::string name);

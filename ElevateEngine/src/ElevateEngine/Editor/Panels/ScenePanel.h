@@ -1,4 +1,5 @@
 #pragma once
+#ifdef EE_EDITOR_BUILD
 
 #include <string>
 
@@ -35,3 +36,5 @@ namespace Elevate::Editor
 		};
 	};
 }
+
+#endif // EE_EDITOR_BUILD

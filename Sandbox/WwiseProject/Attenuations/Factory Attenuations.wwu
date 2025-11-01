@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WwiseDocument Type="WorkUnit" ID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}" SchemaVersion="133">
+<WwiseDocument Type="WorkUnit" ID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}" SchemaVersion="132">
 	<Attenuations>
 		<WorkUnit Name="Factory Attenuations" ID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}" PersistMode="Standalone">
 			<ChildrenList>
@@ -38,9 +38,9 @@
 						<HighPassFilterUsage>
 							<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
 						</HighPassFilterUsage>
-						<DualShelfUsage>
+						<HighShelfUsage>
 							<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
-						</DualShelfUsage>
+						</HighShelfUsage>
 						<SpreadUsage>
 							<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
 						</SpreadUsage>
@@ -74,9 +74,9 @@
 						<ObstructionHPFUsage>
 							<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
 						</ObstructionHPFUsage>
-						<ObstructionDSFUsage>
+						<ObstructionHSFUsage>
 							<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
-								<Curve Name="ObstructionDSF" ID="{8E3FB85D-187F-40F3-9D60-F06D299F4513}">
+								<Curve Name="ObstructionHS" ID="{8E3FB85D-187F-40F3-9D60-F06D299F4513}">
 									<PropertyList>
 										<Property Name="Flags" Type="int32" Value="3"/>
 									</PropertyList>
@@ -99,7 +99,7 @@
 									</PointList>
 								</Curve>
 							</CurveUsageInfo>
-						</ObstructionDSFUsage>
+						</ObstructionHSFUsage>
 						<OcclusionVolumeUsage>
 							<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
 								<Curve Name="OcclusionVolume" ID="{E265CE3B-699C-4D64-84B7-8FA07601CCFA}">
@@ -127,9 +127,9 @@
 						<OcclusionHPFUsage>
 							<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
 						</OcclusionHPFUsage>
-						<OcclusionDSFUsage>
+						<OcclusionHSFUsage>
 							<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
-								<Curve Name="OcclusionDSF" ID="{58EF6E46-A829-446A-8A08-6101E2E41812}">
+								<Curve Name="OcclusionHS" ID="{58EF6E46-A829-446A-8A08-6101E2E41812}">
 									<PropertyList>
 										<Property Name="Flags" Type="int32" Value="3"/>
 									</PropertyList>
@@ -152,7 +152,7 @@
 									</PointList>
 								</Curve>
 							</CurveUsageInfo>
-						</OcclusionDSFUsage>
+						</OcclusionHSFUsage>
 						<DiffractionVolumeUsage>
 							<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
 								<Curve Name="DiffractionVolume" ID="{7E80468D-AF15-4A51-BC4D-A2BBA818B931}">
@@ -195,9 +195,9 @@
 						<DiffractionHPFUsage>
 							<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
 						</DiffractionHPFUsage>
-						<DiffractionDSFUsage>
+						<DiffractionHSFUsage>
 							<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
-								<Curve Name="DiffractionDSF" ID="{7E9E7DCC-9F1B-4BBA-92E7-3D4AAC9757E4}">
+								<Curve Name="DiffractionHS" ID="{7E9E7DCC-9F1B-4BBA-92E7-3D4AAC9757E4}">
 									<PropertyList>
 										<Property Name="Flags" Type="int32" Value="3"/>
 									</PropertyList>
@@ -227,7 +227,7 @@
 									</PointList>
 								</Curve>
 							</CurveUsageInfo>
-						</DiffractionDSFUsage>
+						</DiffractionHSFUsage>
 						<TransmissionVolumeUsage>
 							<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
 								<Curve Name="TransmissionVolume" ID="{DF0981D2-E4E7-48D4-B849-91BE2188E2D4}">
@@ -260,9 +260,9 @@
 						<TransmissionHPFUsage>
 							<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
 						</TransmissionHPFUsage>
-						<TransmissionDSFUsage>
+						<TransmissionHSFUsage>
 							<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
-								<Curve Name="TransmissionDSF" ID="{61A8886D-9CD2-4877-836A-8395AE0D369B}">
+								<Curve Name="TransmissionHS" ID="{61A8886D-9CD2-4877-836A-8395AE0D369B}">
 									<PropertyList>
 										<Property Name="Flags" Type="int32" Value="3"/>
 									</PropertyList>
@@ -285,7 +285,7 @@
 									</PointList>
 								</Curve>
 							</CurveUsageInfo>
-						</TransmissionDSFUsage>
+						</TransmissionHSFUsage>
 					</CurveUsageInfoList>
 				</Attenuation>
 			</ChildrenList>

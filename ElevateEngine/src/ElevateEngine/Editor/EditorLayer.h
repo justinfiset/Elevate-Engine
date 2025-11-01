@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef EE_EDITOR_BUILD
+
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/Layers/Layer.h>
 #include <ElevateEngine/Core/Command.h>
@@ -68,3 +70,5 @@ namespace Elevate::Editor
 		static EditorLayer* s_Instance;
 	};
 }
+
+#endif // EE_EDITOR_BUILD

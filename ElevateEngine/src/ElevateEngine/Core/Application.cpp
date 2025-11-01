@@ -126,6 +126,7 @@ namespace Elevate {
 				DebugRenderer::Render();
 
 				FrameBuffer->Unbind(); // Back to normal
+				FrameBuffer->BlitFramebufferToScreen(m_Window->GetWidth(), m_Window->GetHeight());
 
 				//imgui
 				m_ImGuiLayer->PreRender();

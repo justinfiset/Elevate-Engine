@@ -1,6 +1,8 @@
 ﻿#include "eepch.h"
 #include "HierarchyPanel.h"
 
+#ifdef EE_EDITOR_BUILD
+
 #include "imgui.h"
 #include <ElevateEngine/Editor/EditorLayer.h>
 #include <ElevateEngine/Scene/SceneManager.h>
@@ -141,3 +143,5 @@ namespace Elevate::Editor
         ImGui::End();
     }
 }
+
+#endif // EE_EDITOR_BUILD

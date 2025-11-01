@@ -1,4 +1,5 @@
 #pragma once
+#ifdef EE_EDITOR_BUILD
 
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Audio/Wwise/WwiseItem.h>
@@ -17,3 +18,5 @@ namespace Elevate::Editor
 		void DrawItemsRecursive(WwiseItemPtr item);
 	};
 }
+
+#endif // EE_EDITOR_BUILD

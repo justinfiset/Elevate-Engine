@@ -7,7 +7,7 @@ namespace Elevate::Editor
 	public:
 		EditorWidget() = default;
 		virtual ~EditorWidget() = default;
-		virtual void OnImGuiRender() = 0;
+		virtual void OnImGuiRender() {};
 		virtual void OnUpdate() {}
 	};
 }

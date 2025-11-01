@@ -93,3 +93,8 @@ bool WwiseItem::HasChildren() const
 {
 	return !Children.empty();
 }
+
+bool WwiseItem::IsEvent() const
+{
+	return IsAnyOfType({ WwiseType::Event });
+}

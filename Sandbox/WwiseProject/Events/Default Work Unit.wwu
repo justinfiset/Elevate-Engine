@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WwiseDocument Type="WorkUnit" ID="{DC6B0A76-4FFE-46A5-B972-73DA0A24FC7A}" SchemaVersion="133">
+<WwiseDocument Type="WorkUnit" ID="{4C8C5A4C-B46D-41E9-BF99-B227CD8602A6}" SchemaVersion="132">
 	<Events>
-		<WorkUnit Name="Default Work Unit" ID="{DC6B0A76-4FFE-46A5-B972-73DA0A24FC7A}" PersistMode="Standalone">
+		<WorkUnit Name="Default Work Unit" ID="{4C8C5A4C-B46D-41E9-BF99-B227CD8602A6}" PersistMode="Standalone">
 			<ChildrenList>
-				<Event Name="TestEvent" ID="{41992B09-CFD2-43F8-BFC7-0DAFCE97E959}">
+				<Event Name="Play_Test_SFX" ID="{69D9786F-5531-487F-926B-A38D34BF2E27}">
 					<ChildrenList>
-						<Action Name="" ID="{D618001E-30F3-466E-9186-3413DBF8DCC9}" ShortID="725524650">
+						<Action Name="" ID="{FC87AA19-676E-4A9B-BDF9-1FD9480ECA92}" ShortID="545930455">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="470281__erokia__menu-ui-click-229" ID="{FA991BFD-35AC-4D3F-8D41-4498AADB2C76}" WorkUnitID="{9DF22DD9-5F6B-4808-8F79-C4DF48F0AFE7}"/>
+									<ObjectRef Name="470281__erokia__menu-ui-click-229" ID="{C85EBF6F-4BF5-474B-A42E-91B79E47B421}" WorkUnitID="{9612613A-CE94-4E9F-9B4D-2E98FA2BCA3A}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

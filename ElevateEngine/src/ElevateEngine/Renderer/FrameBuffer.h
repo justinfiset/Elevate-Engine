@@ -40,6 +40,7 @@ namespace Elevate
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
+		virtual void BlitFramebufferToScreen(uint32_t screenWidth, uint32_t screenHeight) const = 0;
 		virtual void Rescale(uint32_t width, uint32_t height) = 0;
 
 		inline void* GetNativeTextureHandle() const {

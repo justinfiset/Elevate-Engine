@@ -1,4 +1,7 @@
 #pragma once
+
+#ifdef EE_EDITOR_BUILD
+
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 #include <ElevateEngine/Core/EEObject.h>
@@ -38,3 +41,5 @@ namespace Elevate::Editor
 		std::map<Component*, const void*> m_textureCache;
 	};
 }
+
+#endif // EE_EDITOR_BUILD

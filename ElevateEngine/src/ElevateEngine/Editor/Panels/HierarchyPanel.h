@@ -1,4 +1,7 @@
 #pragma once
+
+#ifdef EE_EDITOR_BUILD
+
 #include <ElevateEngine/Core/GameObject.h>
 #include <ElevateEngine/Editor/EditorWidget.h>
 
@@ -26,3 +29,5 @@ namespace Elevate::Editor
         char m_renameBuffer[256] = { 0 };
     };
 }
+
+#endif // EE_EDITOR_BUILD

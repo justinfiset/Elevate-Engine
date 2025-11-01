@@ -1,5 +1,8 @@
 ﻿#include "eepch.h"
+
 #include "./AnalyserPanel.h"
+
+#ifdef EE_EDITOR_BUILD
 
 #include "imgui.h"
 
@@ -344,3 +347,5 @@ void Elevate::Editor::AnalyserPanel::DrawCategoryMenu(const CategoryMenu& menu, 
         }
     }
 }
+
+#endif // EE_EDITOR_BUILD

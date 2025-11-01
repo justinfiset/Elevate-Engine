@@ -1,5 +1,7 @@
 #include "WwiseBrowserWidget.h"
 
+#ifdef EE_EDITOR_BUILD
+
 #include <ElevateEngine/Audio/Wwise/WwiseSoundEngine.h>
 #include "imgui.h"
 
@@ -56,7 +58,10 @@ void Elevate::Editor::WwiseBrowserWidget::DrawItemsRecursive(WwiseItemPtr item)
 
     if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen())
     {
-        SoundEngine::PostEvent(1097980931);
+        if (item->IsEvent())
+        {
+            SoundEngine::PostEvent(item->Name.c_str());
+        }
         //EditorLayer::Get().SelectObject(object);         // todo impl.
     }
 
@@ -69,3 +74,5 @@ void Elevate::Editor::WwiseBrowserWidget::DrawItemsRecursive(WwiseItemPtr item)
         ImGui::TreePop();
     }
 }
+
+#endif // EE_EDITOR_BUILD

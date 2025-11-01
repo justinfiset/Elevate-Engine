@@ -46,6 +46,7 @@ struct WwiseItem
 	bool IsDirectory() const;
 	void AddChildren(std::shared_ptr<WwiseItem> newChild);
 	bool HasChildren() const;
+	bool IsEvent() const;
 
 	std::string GetTypeName() const;
 };

@@ -19,6 +19,8 @@ written agreement between you and Audiokinetic Inc.
 
 // These are sample implementations of the profiler hooks, to tie into the platform-specific profiler functionality.
 
+#ifdef EE_DEBUG
+
 #if defined(AK_XBOXGC)
 #define USE_PIX
 #include <pix.h>
@@ -73,3 +75,5 @@ void AkClearPlatformProfilerHooks(AkInitSettings& initSettings)
 }
 
 #endif
+
+#endif EE_DEBUG

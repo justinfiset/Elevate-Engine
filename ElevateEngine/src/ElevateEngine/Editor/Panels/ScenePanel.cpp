@@ -1,6 +1,8 @@
 ﻿#include "eepch.h"
 #include "ScenePanel.h"
 
+#ifdef EE_EDITOR_BUILD
+
 #include "imgui.h"
 #include "ImGuizmo.h"
 
@@ -121,3 +123,5 @@ std::string Elevate::Editor::ScenePanel::GetAspectRatioText(glm::ivec2 ar)
 {
     return (std::to_string(ar.x) + ":" + std::to_string(ar.y));
 }
+
+#endif // EE_EDITOR_BUILD

@@ -20,6 +20,7 @@ public:
     Elevate::ShaderPtr m_Shader;
 private:
     std::shared_ptr<Elevate::GameObject> m_DemoObject;
+    std::shared_ptr<Elevate::GameObject> m_demoCube;
     std::shared_ptr<Elevate::GameObject> m_PointLightObject;
 public:
     DebugLayer() : SceneLayer(Elevate::Scene::Create("Demo Scene")) { }
@@ -64,10 +65,12 @@ public:
         Elevate::Rigidbody& rb = m_DemoObject->AddComponent<Elevate::Rigidbody>();
         m_DemoObject->SetPosition({ 0.0f, 0.0f, -3.0f });
 
-        m_DemoObject = Elevate::GameObject::Create("Backpack", m_scene);
-        Elevate::Model& demoModel1 = m_DemoObject->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Cube);
-        Elevate::Rigidbody& rb1 = m_DemoObject->AddComponent<Elevate::Rigidbody>();
-        m_DemoObject->SetPosition({ 0.0f, 0.0f, 0.0f });
+        m_demoCube = Elevate::GameObject::Create("Cube", m_scene);
+        Elevate::Model& demoModel1 = m_demoCube->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Cube);
+        Elevate::Rigidbody& rb1 = m_demoCube->AddComponent<Elevate::Rigidbody>();
+        Elevate::Camera& cam = m_demoCube->AddComponent<Elevate::Camera>();
+        m_demoCube->SetPosition({ 0.0f, 0.0f, 0.0f });
+        m_demoCube->SetRotation({ 0.0, -90.0f, 0.0f });
 
         //m_DemoObject = Elevate::GameObject::Create("Backpack", m_scene);
         //Elevate::Model& demoModel2 = m_DemoObject->AddComponent<Elevate::Model>("backpack.obj");

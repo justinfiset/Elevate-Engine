@@ -1,6 +1,8 @@
 ﻿#include "eepch.h"
 #include "EditorLayer.h"
 
+#ifdef EE_EDITOR_BUILD
+
 #include "imgui.h"
 
 #include <ElevateEngine/Core/Application.h>
@@ -287,3 +289,5 @@ namespace Elevate::Editor
         }
     }
 }
+
+#endif // EE_EDITOR_BUILD
