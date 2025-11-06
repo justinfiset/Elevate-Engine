@@ -1,6 +1,7 @@
 #include "eepch.h"
 #include "OpenGLFrameBuffer.h"
 
+#include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
 #include <glad/glad.h>

@@ -7,29 +7,36 @@ namespace Elevate
 	// todo set the rendererAPI dinamicly and not staticly
 	RendererAPI::GraphicAPI RendererAPI::s_ActiveAPI = RendererAPI::GraphicAPI::OpenGL;
 
-	void RendererAPI::SubmitModel(const Model& model)
+	void RendererAPI::DrawStack()
 	{
-		m_ModelStack[model.GetShader()].push_back(model);
+		m_commands.Sort();
+		m_commands.FlushAll();
 	}
 
-	void RendererAPI::RemoveModel(const Model& model)
-	{
-		std::vector<Model>& stack = m_ModelStack[model.GetShader()];
+	// todo remove
+	//void RendererAPI::SubmitModel(const Model& model)
+	//{
+	//	m_ModelStack[model.GetShader()].push_back(model);
+	//}
 
-		auto it = std::find_if(stack.begin(), stack.end(),
-			[&model](const Model& m) {
-				return &m == &model; 
-			}
-		);
+	//void RendererAPI::RemoveModel(const Model& model)
+	//{
+	//	std::vector<Model>& stack = m_ModelStack[model.GetShader()];
 
-		if (it != stack.end()) // If the stack does contain the element to remove
-		{
-			stack.erase(it);
-		}
-	}
+	//	auto it = std::find_if(stack.begin(), stack.end(),
+	//		[&model](const Model& m) {
+	//			return &m == &model; 
+	//		}
+	//	);
 
-	void RendererAPI::Submitmesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh)
-	{
-		m_MeshStack[shader].push_back(mesh);
-	}
+	//	if (it != stack.end()) // If the stack does contain the element to remove
+	//	{
+	//		stack.erase(it);
+	//	}
+	//}
+
+	//void RendererAPI::Submitmesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh)
+	//{
+	//	m_MeshStack[shader].push_back(mesh);
+	//}
 }

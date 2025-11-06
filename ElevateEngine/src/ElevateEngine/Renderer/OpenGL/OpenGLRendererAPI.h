@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ElevateEngine/Renderer/RendererAPI.h"
+#include <ElevateEngine/Renderer/RendererAPI.h>
 
 namespace Elevate
 {
@@ -17,7 +17,6 @@ namespace Elevate
 		virtual void FlushBuffers() const override;
 
 		virtual void DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles) const override;
-		virtual void DrawStack() const override;
 
 		virtual void SetCullingState(bool enabled) const override;
 		virtual void SetDepthWrittingState(bool enabled) const override;

@@ -28,7 +28,6 @@ namespace Elevate
         inline void SetShader(ShaderPtr newShader) { m_Shader = newShader; }
         inline void SetMaterial(MaterialPtr material) { m_Material = material; }
 
-        void PreRender() override;
         void Render() override;
 
         const inline std::shared_ptr<Shader>& GetShader() const { return m_Shader; }

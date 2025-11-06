@@ -1,12 +1,14 @@
 #include "eepch.h"
-#include <ElevateEngine/Renderer/Renderer.h>
+
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 
+#include <filesystem>
+#include <glm/common.hpp>
+
+#include <ElevateEngine/Core/Assert.h>
+#include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/OpenGL/Texture/OpenGLTexture.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
-#include <filesystem>
-
-#include <glm/common.hpp>
 
 namespace Elevate
 {

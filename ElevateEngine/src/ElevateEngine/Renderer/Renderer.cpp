@@ -8,44 +8,27 @@ namespace Elevate
 {
 	RenderState Renderer::s_currentState = RenderState();
 	RendererAPI* Renderer::s_API = new OpenGLRendererAPI();
-	std::unordered_set<Shader*> Renderer::s_pendingShaders;
 
-	void Renderer::SubmitShaderForSetup(std::shared_ptr<Shader> shader)
-	{
-		s_pendingShaders.emplace(shader.get());
-	}
+	// todo remove
+	//void Renderer::SubmitModel(const Model& model)
+	//{
+	//	s_API->SubmitModel(model);
+	//}
 
-	void Renderer::SetupShaders(Scene* scene)
-	{
-		if (scene)
-		{
-			for (auto* shader : s_pendingShaders)
-			{
-				scene->GetSceneLighting()->UploadToShader(shader);
-			}
-			s_pendingShaders.clear();
-		}
-	}
+	//void Renderer::RemoveModel(const Model& model)
+	//{
+	//	s_API->RemoveModel(model);
+	//}
 
-	void Renderer::SubmitModel(const Model& model)
-	{
-		s_API->SubmitModel(model);
-	}
+	//void Renderer::SubmitMesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh)
+	//{
+	//	s_API->Submitmesh(shader, mesh);
+	//}
 
-	void Renderer::RemoveModel(const Model& model)
-	{
-		s_API->RemoveModel(model);
-	}
-
-	void Renderer::SubmitMesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh)
-	{
-		s_API->Submitmesh(shader, mesh);
-	}
-
-	void Renderer::SubmitVertexArray(const std::shared_ptr<VertexArray>& vao)
-	{
-		Renderer::DrawArray(vao);
-	}
+	//void Renderer::SubmitVertexArray(const std::shared_ptr<VertexArray>& vao)
+	//{
+	//	Renderer::SubmitVertexArray(vao);
+	//}
 
 	// RENDER API STATIC WRAPPER
 	void Renderer::SetClearColor(const glm::vec4& color)

@@ -188,11 +188,6 @@ void Elevate::Model::LoadMaterialTextures(std::string basePath, aiMaterial* mat,
     }
 }
 
-void Elevate::Model::PreRender()
-{
-    Renderer::SubmitShaderForSetup(m_Shader);
-}
-
 void Elevate::Model::Render()
 {
     // TODO send to render comment

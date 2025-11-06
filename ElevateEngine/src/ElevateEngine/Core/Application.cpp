@@ -1,4 +1,7 @@
 #include "eepch.h"
+
+#include <filesystem>
+
 #include "Application.h"
 
 #include "ElevateEngine/Core/Time.h"

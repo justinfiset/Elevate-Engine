@@ -93,23 +93,6 @@ namespace Elevate
 		}
 	}
 
-	void GameObject::PreRender()
-	{
-		// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK
-		for (Component* comp : GetComponents())
-		{
-			if (comp->IsActive())
-			{
-				comp->PreRender();
-			}
-		}
-
-		for (std::shared_ptr<GameObject> child : m_childs)
-		{
-			child->PreRender();
-		}
-	}
-
 	void GameObject::Render()
 	{
 		// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK

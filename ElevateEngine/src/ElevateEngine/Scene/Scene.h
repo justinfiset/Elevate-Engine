@@ -16,11 +16,12 @@ namespace Elevate {
 	class Shader;
 	class GameObject;
 	class Camera;
+	class ComponentRegistry;
+	class RendererAPI;
 }
 
 namespace Elevate
 {
-	class ComponentRegistry;
 	class Scene;
 	using ScenePtr = std::shared_ptr<Scene>;
 
@@ -35,12 +36,13 @@ namespace Elevate
 	public:
 		Scene();
 		Scene(std::string name, SceneType type = SceneType::RuntimeScene);
-		//~Scene();
+		//~Scene(); // todo check if we remove in the future
 		~Scene() = default;
 
 		void UpdateScene();
 		void RenderScene(Camera* cam = nullptr);
 		void Notify(Event& event); // Dispatch an event to gameobjects
+		void SubmitDrawCalls(RendererAPI& renderer);
 
 		inline const std::string& GetName() const { return m_name; };
 
@@ -68,8 +70,10 @@ namespace Elevate
 	private:
 		void RemoveFromRoot(std::shared_ptr<GameObject> object);
 		void AddRootObject(std::shared_ptr<GameObject> newRootObject);
+
 	private:
 		static uint32_t s_nextRegistryId;
+
 	private:
 		std::string m_name;
 		SceneType m_type;

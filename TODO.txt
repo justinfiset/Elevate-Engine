@@ -1,0 +1,22 @@
+move buffer scripts to buffer folderes
+-> in render folder
+-> in opengl folder
+
+move camera.h + camera.cpp to camera folder
+
+move cubemap file cpp + .h to cubemap folder
+
+
+mesh + model + vertices -> models folder
+
+rename light folder to Lights
+
+move GLDebug to opengl folder
+
+vertexarray to buffer directory	
+
+move fileutility content to core file.cpp and .h
+
+cleanup scene.h (horrible mess with inline and everything...)
+
+impl a root gameobj system to be able to place and change the location of a map
