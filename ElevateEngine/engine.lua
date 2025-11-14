@@ -27,8 +27,25 @@ project "ElevateEngine"
 
 	local wwiseSDK = os.getenv("WWISESDK")
 	local wwiseIncludePath = wwiseSDK .. "/include"
+	print("Wwise SDK Path : "..wwiseSDK)
+	if not os.isdir(wwiseSDK) then
+		error("ERROR : Wwise SDK folder, no such folder exists.")
+	end
+	print("Wwise Include Path : "..wwiseIncludePath)
+	if not os.isdir(wwiseIncludePath) then
+		error("ERROR : Wwise Include Folder, no such folder exists.")
+	end
 	-- TODO MAKE THIS PATH DYNAMIC AND NOT HARD CODED - LIKE THIS FOR TEST AND LEARNING PURPOSES
 	local wwiseLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
+
+	local wwiseSDKSoundEngineSamplesSrc = path.getabsolute(wwiseSDK.."/samples/SoundEngine")
+	local wwiseSDKSoundEngineSampleDest = path.getabsolute("src/ElevateEngine/Audio/Ak")
+	local samplesPlatform
+	if os.istarget("Windows") then
+		samplesPlatform = "Win32"
+	else
+		samplesPlatform = "POSX"
+	end
 
 	files 
 	{
@@ -55,7 +72,9 @@ project "ElevateEngine"
 	{
 		"src",
 
-		wwiseIncludePath,
+		wwiseIncludePath, -- include the Ak include path
+		wwiseSDKSoundEngineSampleDest.."/"..samplesPlatform, -- include the Ak sample/SoundEngine include path
+
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.rapidjson}",
@@ -68,6 +87,17 @@ project "ElevateEngine"
 		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.entt}"
 	}
+
+	-- todo : add a condition before doing so, make sure we want to compile with the soundengine
+	print("Build Commands Summary :")
+	print(" + Copy of Wwise SoundEngine Samples from "..wwiseSDKSoundEngineSamplesSrc.." to "..wwiseSDKSoundEngineSampleDest)
+	print("    + Copying /Common")
+	os.execute("{COPYDIR} "..wwiseSDKSoundEngineSamplesSrc.."/Common "..wwiseSDKSoundEngineSampleDest.."/Common") -- Copy the Soundengine samples from Wwise)
+	print("    > DONE")
+	print("    + Copying /"..samplesPlatform)
+	os.execute("{COPYDIR} "..wwiseSDKSoundEngineSamplesSrc.."/"..samplesPlatform.." "..wwiseSDKSoundEngineSampleDest.."/"..samplesPlatform) -- Copy the Soundengine samples from Wwise)
+	print("    > DONE")
+
 
 	libdirs
 	{
@@ -172,3 +202,5 @@ project "ElevateEngine"
 		defines "EE_DIST"
 		runtime "Release"
 		optimize "on"
+
+print("Finished Generating Engine Solution.\n")

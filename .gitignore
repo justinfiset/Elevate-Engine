@@ -1,5 +1,7 @@
 PREMAKE_CONFIG
 
+ElevateEngine/src/ElevateEngine/Audio/Ak/
+
 # Binaries / remove compiled libs and projects
 bin/
 bin-int/

@@ -1,8 +1,9 @@
 #pragma once
 
 // Soundengine
+// todo fix this asap
 #ifndef EE_NO_SOUNDENGINE
-	#define EE_NO_SOUNDENGINE 1
+	#define EE_NO_SOUNDENGINE 0
 #endif
 
 #if defined(EE_PLATFORM_WINDOWS) || defined(EE_PLATFORM_LINUX)
