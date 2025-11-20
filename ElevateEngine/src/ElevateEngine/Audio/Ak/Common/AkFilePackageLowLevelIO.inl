@@ -48,7 +48,7 @@ written agreement between you and Audiokinetic Inc.
 //////////////////////////////////////////////////////////////////////
 
 #include "AkFilePackageLowLevelIO.h"
-#include "../Win32/AkFileHelpers.h"
+#include "AkFileHelpers.h"
 #include <AK/Tools/Common/AkPlatformFuncs.h>
 #include <AK/SoundEngine/Common/AkCommonDefs.h>
 
@@ -452,7 +452,6 @@ AKRESULT CAkFilePackageLowLevelIO<T_LLIOHOOK,T_PACKAGE>::_LoadFilePackage(
 		if ( in_reader.Read( pFilePackageHeader+uHeaderReadOffset, uHeaderSize, uSizeRead, in_readerPriority ) != AK_Success
 			|| uSizeRead < uHeaderSize )
 		{
-			AKASSERT( !"Could not read file package" );
 			out_pPackage->Release();
 			return AK_Fail;
 		}

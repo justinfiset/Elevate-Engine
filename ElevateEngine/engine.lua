@@ -37,7 +37,8 @@ project "ElevateEngine"
 		error("ERROR : Wwise Include Folder, no such folder exists.")
 	end
 	-- TODO MAKE THIS PATH DYNAMIC AND NOT HARD CODED - LIKE THIS FOR TEST AND LEARNING PURPOSES
-	local wwiseLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
+	local wwiseLibLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
+	local wwiseBinLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/bin"
 
 	local wwiseSDKSoundEngineSamplesSrc = path.getabsolute(wwiseSDK.."/samples/SoundEngine")
 	local wwiseSDKSoundEngineSampleDest = path.getabsolute("src/ElevateEngine/Audio/Ak")
@@ -73,14 +74,12 @@ project "ElevateEngine"
 	{
 		"src",
 
-<<<<<<< HEAD
 		wwiseIncludePath, -- include the Ak include path
 		wwiseSDKSoundEngineSampleDest.."/"..samplesPlatform, -- include the Ak sample/SoundEngine include path
+		wwiseSDK.."/samples",
+		"C:/Audiokinetic/Wwise2026.0.1.9024/SDK/samples/WwiseProjectDatabase/WwiseProjectDatabase",
 
-=======
-		wwiseIncludePath,
 		"%{IncludeDir.Vendors}",
->>>>>>> e1e458a (Wwise file system duplicaiton in editor)
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.rapidjson}",
@@ -107,7 +106,8 @@ project "ElevateEngine"
 
 	libdirs
 	{
-		wwiseLinkPath
+		wwiseLibLinkPath,
+		wwiseBinLinkPath,
 	}
 
 	links
@@ -116,13 +116,14 @@ project "ElevateEngine"
 		"ImGui",
 		"assimp",
 
+		"WwiseProjectDatabase", -- todo set for editor only as only used for the Wwise Browser
 		"AkSoundEngine",
 		"AkMemoryMgr",
 		"AkStreamMgr",
 		"AkSpatialAudio",
 		"CommunicationCentral", -- Not needed for release config
 		"AkVorbisDecoder",
-		"AkOpusDecoder"
+		"AkOpusDecoder",
 	}
 
 	-- buildoptions { "/translateInclude" } 

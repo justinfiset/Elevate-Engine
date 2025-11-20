@@ -66,7 +66,8 @@ project(projectInfos.name)
     local wwiseSDK = os.getenv("WWISESDK")
     local wwiseIncludePath = wwiseSDK .. "/include"
     -- TODO MAKE THIS PATH DYNAMIC AND NOT HARD CODED - LIKE THIS FOR TEST AND LEARNING PURPOSES
-    local wwiseLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
+	local wwiseLibLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
+	local wwiseBinLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/bin"
 
     includedirs
     {
@@ -76,22 +77,24 @@ project(projectInfos.name)
         "../ElevateEngine/src"
     }
 
+    libdirs
+    {
+		wwiseLibLinkPath,
+		wwiseBinLinkPath,
+    }
+
     links 
     {
         "ElevateEngine",
 
         "AkSoundEngine",
         "AkMemoryMgr",
+        "WwiseProjectDatabase",
         -- "AkMusicEngine",
         "AkStreamMgr",
         "AkSpatialAudio",
         "CommunicationCentral", -- Not needed for release config -- TODO CHANGE THIS
         "AkVorbisDecoder"
-    }
-
-    libdirs
-    {
-        wwiseLinkPath
     }
 
     defines

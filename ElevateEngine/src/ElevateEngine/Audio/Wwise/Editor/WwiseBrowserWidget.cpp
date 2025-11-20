@@ -56,7 +56,7 @@ void Elevate::Editor::WwiseBrowserWidget::DrawItemsRecursive(WwiseItemPtr item)
 
     if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen())
     {
-        SoundEngine::PostEvent(1097980931);
+        SoundEngine::PostEvent(item->ShortID);
         //EditorLayer::Get().SelectObject(object);         // todo impl.
     }
 

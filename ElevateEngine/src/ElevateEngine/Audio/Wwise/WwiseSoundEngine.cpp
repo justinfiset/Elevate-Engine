@@ -34,12 +34,10 @@
 // TODO REMOVE
 // For Wwise integration testing
 #define BANKNAME_INIT L"Init.bnk"
-#define BANKNAME_CAR L"Car.bnk"
-#define BANKNAME_HUMAN L"Human.bnk"
-#define BANKNAME_MARKERTEST L"MarkerTest.bnk"
 
 #ifdef EE_EDITOR_BUILD
 #include <ElevateEngine/Audio/Wwise/DataSources/WwiseFileDataSource.h>
+#include <ElevateEngine/Audio/Wwise/DataSources/WwiseProjectDBDataSource.h>
 #endif
 
 namespace Elevate
@@ -141,6 +139,12 @@ namespace Elevate
 		std::string wwiseProjectPath = "./WwiseProject"; // todo get from the user
 		m_fileDataSource.reset(new WwiseFileDataSource(wwiseProjectPath));;
 		m_fileDataSource->InitializeSource();
+
+		// this is to complement the file datasource, fetching informations from the .json generated in parralel with banks.
+		std::string currentPlatform = "Windows";
+		std::unique_ptr<WwiseProjectDBDataSource> m_projectDataSource;
+		m_projectDataSource.reset(new WwiseProjectDBDataSource(wwiseProjectPath + "/GeneratedSoundBanks", currentPlatform));
+		m_projectDataSource->InitializeSource();
 #endif
 
 		return true;
@@ -157,11 +161,7 @@ namespace Elevate
 		AkBankID bankID; // Not used. These banks can be unloaded with their file name.
 		AKRESULT eResult = AK::SoundEngine::LoadBank(BANKNAME_INIT, bankID);
 		EE_CORE_CERROR(eResult != AK_Success, "ERROR: Failed to load SoundBank.");
-		eResult = AK::SoundEngine::LoadBank(BANKNAME_CAR, bankID);
-		EE_CORE_CERROR(eResult != AK_Success, "ERROR: Failed to load SoundBank.");
-		eResult = AK::SoundEngine::LoadBank(BANKNAME_HUMAN, bankID);
-		EE_CORE_CERROR(eResult != AK_Success, "ERROR: Failed to load SoundBank.");
-		eResult = AK::SoundEngine::LoadBank(BANKNAME_MARKERTEST, bankID);
+		eResult = AK::SoundEngine::LoadBank(L"Sandbox.bnk", bankID);
 		EE_CORE_CERROR(eResult != AK_Success, "ERROR: Failed to load SoundBank.");
 	}
 
