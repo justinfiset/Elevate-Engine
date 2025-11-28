@@ -69,6 +69,16 @@ project(projectInfos.name)
 	local wwiseLibLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
 	local wwiseBinLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/bin"
 
+    print(" + Adding Wwise lib path to libdirs : "..wwiseLibLinkPath)
+    print(" + Adding Wwise bin path to libdirs : "..wwiseBinLinkPath)
+    
+	if not os.isdir(wwiseLibLinkPath) then
+		error("ERROR : Wwise SDK lib folder, no such folder exists.")
+	end
+    if not os.isdir(wwiseBinLinkPath) then
+		error("ERROR : Wwise SDK bin folder, no such folder exists.")
+	end
+
     includedirs
     {
         "../ElevateEngine/vendor/entt/include",
@@ -156,3 +166,5 @@ project(projectInfos.name)
         defines "EE_DIST"
         runtime "Release"
         optimize "on"
+
+print("")

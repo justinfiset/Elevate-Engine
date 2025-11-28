@@ -22,7 +22,7 @@ void Elevate::WwiseProjectDBDataSource::RefreshSource()
 
 	PopulateSoundbanks(); // This also populates the events
 
-	PopulateSwitchGroups(); 
+	PopulateSwitchGroups();
 	PopulateSwitches();
 
 	PopulateStateGroups();
@@ -35,9 +35,9 @@ void Elevate::WwiseProjectDBDataSource::RefreshSource()
 
 void Elevate::WwiseProjectDBDataSource::PopulateSoundbanks()
 {
-	unsigned int count = GetSoundBankCount();
+	uint32_t count = (uint32_t) GetSoundBankCount();
 	void* arr = (void*) GetAllSoundBanksRef();
-	for (int i = 0; i < count; i++)
+	for (uint32_t i = 0; i < count; i++)
 	{
 		const ::WwiseCRefSoundBank* ref = GetSoundBankRefIndex(arr, i);
 		if (ref)
@@ -47,23 +47,23 @@ void Elevate::WwiseProjectDBDataSource::PopulateSoundbanks()
 			item->IsUserBank = ref->bIsUserBank;
 			item->IsValid = ref->bIsValid;
 			item->GUID = ref->guid->ToString().String;
-			item->ShortID = ref->shortId;
+			item->ShortID = (uint32_t) ref->shortId;
 			item->Language = ref->language;
 			item->Name = ref->name;
 			item->Path = ref->path;
 			item->ObjectPath = ref->objectPath;
-
+			m_treeRoot->AddChildren(item);
 			PopulateEvents(ref);
 		}
 	}
-	//DeleteSoundBanksArrayRef(arr);
+	DeleteSoundBanksArrayRef(arr);
 }
 
 void Elevate::WwiseProjectDBDataSource::PopulateEvents(const WwiseCRefSoundBank* bnkRef)
 {
-	unsigned int count = bnkRef->eventsCount;
+	uint32_t count = (uint32_t) bnkRef->eventsCount;
 	void* arr = (void*) bnkRef->events;
-	for (int i = 0; i < count; i++)
+	for (uint32_t i = 0; i < count; i++)
 	{
 		const ::WwiseCRefEvent* ref = GetEvent(arr, i);
 		if (ref)
@@ -75,22 +75,18 @@ void Elevate::WwiseProjectDBDataSource::PopulateEvents(const WwiseCRefSoundBank*
 			item->MinDuration = ref->minDuration;
 			item->Name = ref->name;
 			item->Path = ref->path;
-			item->ShortID = ref->shortId;
-
-			// Linking with the soundbank ref
-			item->SoundbankShortId = bnkRef->shortId;
-
+			item->ShortID = (uint32_t) ref->shortId;
+			item->SoundbankShortId = (uint32_t) bnkRef->shortId;
 			m_treeRoot->AddChildren(item);
 		}
 	}
-	//DeleteEventArrayRef(arr);
 }
 
 void Elevate::WwiseProjectDBDataSource::PopulateSwitchGroups()
 {
-	unsigned int count = GetSwitchGroupCount();
+	uint32_t count = (uint32_t) GetSwitchGroupCount();
 	void* arr = (void*) GetAllSwitchGroupRef();
-	for (int i = 0; i < count; i++)
+	for (uint32_t i = 0; i < count; i++)
 	{
 		const WwiseCRefGroup* ref = GetSwitchGroup(arr, i);
 		if (ref)
@@ -99,17 +95,18 @@ void Elevate::WwiseProjectDBDataSource::PopulateSwitchGroups()
 			item->GUID = ref->groupGuid->ToString().String;
 			item->Name = ref->groupName;
 			item->Path = ref->groupPath;
-			item->ShortID = ref->groupShortId;
+			item->ShortID = (uint32_t) ref->groupShortId;
+			m_treeRoot->AddChildren(item);
 		}
 	}
-	//DeleteSwitchGroupArrayRef(arr);
+	DeleteSwitchGroupArrayRef(arr);
 }
 
 void Elevate::WwiseProjectDBDataSource::PopulateSwitches()
 {
-	unsigned int count = GetSwitchCount();
+	uint32_t count = (uint32_t) GetSwitchCount();
 	void* arr = (void*)GetAllSwitchRef();
-	for (int i = 0; i < count; i++)
+	for (uint32_t i = 0; i < count; i++)
 	{
 		const WwiseCRefSwitch* ref = GetSwitch(arr, i);
 		if (ref)
@@ -118,18 +115,19 @@ void Elevate::WwiseProjectDBDataSource::PopulateSwitches()
 			item->GUID = ref->switchGuid->ToString().String;
 			item->Name = ref->switchName;
 			item->Path = ref->switchPath;
-			item->ShortID = ref->switchShortId;
-			item->GroupShortId = ref->groupShortId;
+			item->ShortID = (uint32_t) ref->switchShortId;
+			item->GroupShortId = (uint32_t) ref->groupShortId;
+			m_treeRoot->AddChildren(item);
 		}
 	}
-	//DeleteSwitchArrayRef(arr);
+	DeleteSwitchArrayRef(arr);
 }
 
 void Elevate::WwiseProjectDBDataSource::PopulateStateGroups()
 {
-	unsigned int count = GetStateGroupCount();
+	uint32_t count = (uint32_t) GetStateGroupCount();
 	void* arr = (void*)GetAllStateGroupRef();
-	for (int i = 0; i < count; i++)
+	for (uint32_t i = 0; i < count; i++)
 	{
 		const WwiseCRefGroup* ref = GetSwitchGroup(arr, i);
 		if (ref)
@@ -138,17 +136,18 @@ void Elevate::WwiseProjectDBDataSource::PopulateStateGroups()
 			item->GUID = ref->groupGuid->ToString().String;
 			item->Name = ref->groupName;
 			item->Path = ref->groupPath;
-			item->ShortID = ref->groupShortId;
+			item->ShortID = (uint32_t) ref->groupShortId;
+			m_treeRoot->AddChildren(item);
 		}
 	}
-	//DeleteStateGroupArrayRef(arr);
+	DeleteStateGroupArrayRef(arr);
 }
 
 void Elevate::WwiseProjectDBDataSource::PopulateStates()
 {
-	unsigned int count = GetStateCount();
+	uint32_t count = (uint32_t) GetStateCount();
 	void* arr = (void*)GetAllStateRef();
-	for (int i = 0; i < count; i++)
+	for (uint32_t i = 0; i < count; i++)
 	{
 		const WwiseCRefState* ref = GetState(arr, i);
 		if (ref)
@@ -157,38 +156,39 @@ void Elevate::WwiseProjectDBDataSource::PopulateStates()
 			item->GUID = ref->stateGuid->ToString().String;
 			item->Name = ref->stateName;
 			item->Path = ref->statePath;
-			item->ShortID = ref->stateShortId;
-			item->GroupShortId = ref->groupShortId;
+			item->ShortID = (uint32_t) ref->stateShortId;
+			item->GroupShortId = (uint32_t) ref->groupShortId;
+			m_treeRoot->AddChildren(item);
 		}
 	}
-	//DeleteSwitchArrayRef(arr);
+	DeleteSwitchArrayRef(arr);
 }
 
 void Elevate::WwiseProjectDBDataSource::PopulateGameParameters()
 {
-	unsigned int count = GetGameParameterCount();
+	uint32_t count = (uint32_t) GetGameParameterCount();
 	void* arr = (void*)GetAllGameParameterRef();
-	for (int i = 0; i < count; i++)
+	for (uint32_t i = 0; i < count; i++)
 	{
 		const WwiseCRefGameParameter* ref = GetGameParameter(arr, i);
 		if (ref)
 		{
-			WwiseStateGroupPtr item = WwiseStateGroup::Create();
-			item->GUID = ref->gameParameterGuid->ToString().String;
-			item->Name = ref->gameParameterName;
-			item->Path = ref->gameParameterPath;
-			item->ShortID = ref->gameParameterShortId;
-			DeleteGameParameterRef((void*)ref);
+			WwiseGameParameterPtr item = WwiseGameParameter::Create();
+			item->Name = std::string(GetGameParameterName((void*) ref));
+			item->Path = GetGameParameterPath((void*) ref);
+			item->ShortID = (uint32_t) GetGameParameterShortId((void*) ref);
+			item->GUID = GetGameParameterGuid((void*) ref)->Guid.ToString();
+			m_treeRoot->AddChildren(item);
 		}
 	}
-	//DeleteGameParameterArrayRef(arr);
+	DeleteGameParameterArrayRef(arr);
 }
 
 void Elevate::WwiseProjectDBDataSource::PopulateBusses()
 {
-	unsigned int count = GetBusCount();
+	uint32_t count = (uint32_t) GetBusCount();
 	void* arr = (void*)GetAllBusRef();
-	for (int i = 0; i < count; i++)
+	for (uint32_t i = 0; i < count; i++)
 	{
 		const WwiseCRefBus* ref = GetBus(arr, i);
 		if (ref)
@@ -197,18 +197,18 @@ void Elevate::WwiseProjectDBDataSource::PopulateBusses()
 			item->GUID = ref->busGuid->ToString().String;
 			item->Name = ref->busName;
 			item->Path = ref->busPath;
-			item->ShortID = ref->busShortId;
-			DeleteBusRef((void*)ref);
+			item->ShortID = (uint32_t) ref->busShortId;
+			m_treeRoot->AddChildren(item);
 		}
 	}
-	//DeleteBusArrayRef(arr);
+	DeleteBusArrayRef(arr);
 }
 
 void Elevate::WwiseProjectDBDataSource::PopulateAuxBusses()
 {
-	unsigned int count = GetAuxBusCount();
+	uint32_t count = (uint32_t) GetAuxBusCount();
 	void* arr = (void*)GetAllAuxBusRef();
-	for (int i = 0; i < count; i++)
+	for (uint32_t i = 0; i < count; i++)
 	{
 		const WwiseCRefAuxBus* ref = GetAuxBus(arr, i);
 		if (ref)
@@ -217,8 +217,9 @@ void Elevate::WwiseProjectDBDataSource::PopulateAuxBusses()
 			item->GUID = ref->auxBusGuid->ToString().String;
 			item->Name = ref->auxBusName;
 			item->Path = ref->auxBusPath;
-			item->ShortID = ref->auxBusShortId;
+			item->ShortID = (uint32_t) ref->auxBusShortId;
+			m_treeRoot->AddChildren(item);
 		}
 	}
-	//DeleteAuxBusArrayRef(arr);
+	DeleteAuxBusArrayRef(arr);
 }

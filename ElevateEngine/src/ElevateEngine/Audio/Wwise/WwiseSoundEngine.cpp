@@ -35,13 +35,34 @@
 // For Wwise integration testing
 #define BANKNAME_INIT L"Init.bnk"
 
-#ifdef EE_EDITOR_BUILD
-#include <ElevateEngine/Audio/Wwise/DataSources/WwiseFileDataSource.h>
-#include <ElevateEngine/Audio/Wwise/DataSources/WwiseProjectDBDataSource.h>
-#endif
-
 namespace Elevate
 {
+	WwiseSoundEngine* WwiseSoundEngine::Get()
+	{
+		return static_cast<WwiseSoundEngine*>(SoundEngine::GetImpl());
+	}
+
+	bool WwiseSoundEngine::LoadBank(const wchar_t* bankName)
+	{
+		AkBankID bankID; // Not used
+		AKRESULT res = AK::SoundEngine::LoadBank(bankName, bankID);
+		EE_CORE_CERROR(res != AK_Success, "ERROR: Failed to load SoundBank : {}", bankName);
+	}
+	bool WwiseSoundEngine::LoadBank(const std::wstring& bankName)
+	{
+		return LoadBank(bankName.c_str());
+	}
+	bool WwiseSoundEngine::LoadBank(const char* bankName)
+	{
+		AkBankID bankID; // Not used
+		AKRESULT res = AK::SoundEngine::LoadBank(bankName, bankID);
+		EE_CORE_CERROR(res != AK_Success, "ERROR: Failed to load SoundBank : {}", bankName);
+	}
+	bool WwiseSoundEngine::LoadBank(std::string& bankName)
+	{
+		return LoadBank(bankName.c_str());
+	}
+
 	bool WwiseSoundEngine::InitImpl()
 	{
 		EE_CORE_INFO("Initializing Wwise Sound Engine...");
@@ -135,16 +156,14 @@ namespace Elevate
 		PrepareAudio();
 
 #ifdef EE_EDITOR_BUILD
+		// todo move to a setting somewhere
 		// this is our test impl to check and discover wwise elemetns from the file browser
 		std::string wwiseProjectPath = "./WwiseProject"; // todo get from the user
-		m_fileDataSource.reset(new WwiseFileDataSource(wwiseProjectPath));;
-		m_fileDataSource->InitializeSource();
+		std::string rootOutputPath = wwiseProjectPath + "/GeneratedSoundBanks";
+		std::string currentPlatform = "Windows"; // todo set via macros
 
-		// this is to complement the file datasource, fetching informations from the .json generated in parralel with banks.
-		std::string currentPlatform = "Windows";
-		std::unique_ptr<WwiseProjectDBDataSource> m_projectDataSource;
-		m_projectDataSource.reset(new WwiseProjectDBDataSource(wwiseProjectPath + "/GeneratedSoundBanks", currentPlatform));
-		m_projectDataSource->InitializeSource();
+		m_mergedDataSource.reset(new WwiseMergedDataSource(wwiseProjectPath, rootOutputPath, currentPlatform));
+		m_mergedDataSource->InitializeSource();
 #endif
 
 		return true;
@@ -155,14 +174,8 @@ namespace Elevate
 		m_lowLevelIO->SetBasePath(AKTEXT("./WwiseProject/GeneratedSoundBanks/Windows/"));
 		AK::StreamMgr::SetCurrentLanguage(AKTEXT("English(US)"));
 
-		// TODO TRANSFORM IN A FUNCITON AND HAVE A BETTER ERROR LOGGING IN CASE OF ACCIDENT
-		// + RETURN TRUE / FALSE IN LOADED OR NO
-		// Load banks synchronously (from file name).
-		AkBankID bankID; // Not used. These banks can be unloaded with their file name.
-		AKRESULT eResult = AK::SoundEngine::LoadBank(BANKNAME_INIT, bankID);
-		EE_CORE_CERROR(eResult != AK_Success, "ERROR: Failed to load SoundBank.");
-		eResult = AK::SoundEngine::LoadBank(L"Sandbox.bnk", bankID);
-		EE_CORE_CERROR(eResult != AK_Success, "ERROR: Failed to load SoundBank.");
+		LoadBank(BANKNAME_INIT);
+		LoadBank(L"Sandbox.bnk");
 	}
 
 	void WwiseSoundEngine::RenderAudioImpl()
@@ -294,9 +307,9 @@ namespace Elevate
 	}
 
 #ifdef EE_EDITOR_BUILD
-	std::shared_ptr<WwiseFileDataSource> WwiseSoundEngine::GetFileDataSource()
+	std::shared_ptr<WwiseDataSource> WwiseSoundEngine::GetDataSource()
 	{
-		return m_fileDataSource;
+		return m_mergedDataSource;
 	}
 #endif
 }

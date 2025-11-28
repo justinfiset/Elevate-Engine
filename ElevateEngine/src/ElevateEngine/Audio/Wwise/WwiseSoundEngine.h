@@ -7,7 +7,7 @@
 #include <ElevateEngine/Audio/Ak/Common/AkFilePackageLowLevelIODeferred.h>
 
 #ifdef EE_EDITOR_BUILD
-#include <ElevateEngine/Audio/Wwise/DataSources/WwiseFileDataSource.h>
+#include <ElevateEngine/Audio/Wwise/DataSources/WwiseMergedDataSource.h>
 #endif
 
 namespace Elevate
@@ -17,8 +17,15 @@ namespace Elevate
     class WwiseSoundEngine : public SoundEngine
     {
     public:
+        static WwiseSoundEngine* Get();
+
+        bool LoadBank(const wchar_t* bankName);
+        bool LoadBank(const std::wstring& bankName);
+        bool LoadBank(const char* bankName);
+        bool LoadBank(std::string& bankName);
+
         #ifdef EE_EDITOR_BUILD
-        virtual std::shared_ptr<WwiseFileDataSource> GetFileDataSource();
+        virtual std::shared_ptr<WwiseDataSource> GetDataSource();
         #endif
 
     protected:
@@ -47,7 +54,7 @@ namespace Elevate
         std::unique_ptr<CAkFilePackageLowLevelIODeferred> m_lowLevelIO;
 
         #ifdef EE_EDITOR_BUILD
-        std::shared_ptr<WwiseFileDataSource> m_fileDataSource;
+        std::shared_ptr<WwiseMergedDataSource> m_mergedDataSource;
         #endif
     };
 }

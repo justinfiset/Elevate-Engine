@@ -16,6 +16,7 @@ enum class WwiseType : uint8_t
 
 	Event,
 	Bus,
+	AuxBus,
 	SwitchGroup,
 	Switch,
 	StateGroup,
@@ -23,7 +24,8 @@ enum class WwiseType : uint8_t
 	GameParameter,
 	Effect,
 	Trigger,
-	AudioDevice
+	AudioDevice,
+	SoundBank,
 };
 
 #define CREATE_STRUCT_PTR_TYPES(x) \
@@ -71,7 +73,9 @@ struct WwiseSoundbank : public WwiseItem
 
 	static WwiseSoundbankPtr Create()
 	{
-		return std::make_shared<WwiseSoundbank>();
+		auto item = std::make_shared<WwiseSoundbank>();
+		item->Type = WwiseType::SoundBank;
+		return item;
 	}
 };
 
@@ -86,7 +90,9 @@ struct WwiseEvent : public WwiseItem
 
 	static WwiseEventPtr Create()
 	{
-		return std::make_shared<WwiseEvent>();
+		auto item = std::make_shared<WwiseEvent>();
+		item->Type = WwiseType::Event;
+		return item;
 	}
 };
 
@@ -95,7 +101,9 @@ struct WwiseSwitchGroup : public WwiseItem
 {
 	static WwiseSwitchGroupPtr Create()
 	{
-		return std::make_shared<WwiseSwitchGroup>();
+		auto item = std::make_shared<WwiseSwitchGroup>();
+		item->Type = WwiseType::SwitchGroup;
+		return item;
 	}
 };
 
@@ -106,7 +114,9 @@ struct WwiseSwitch : public WwiseItem
 
 	static WwiseSwitchPtr Create()
 	{
-		return std::make_shared<WwiseSwitch>();
+		auto item = std::make_shared<WwiseSwitch>();
+		item->Type = WwiseType::Switch;
+		return item;
 	}
 };
 
@@ -115,7 +125,9 @@ struct WwiseStateGroup : public WwiseItem
 {
 	static WwiseStateGroupPtr Create()
 	{
-		return std::make_shared<WwiseStateGroup>();
+		auto item = std::make_shared<WwiseStateGroup>();
+		item->Type = WwiseType::StateGroup;
+		return item;
 	}
 };
 
@@ -126,7 +138,9 @@ struct WwiseState : public WwiseItem
 
 	static WwiseStatePtr Create()
 	{
-		return std::make_shared<WwiseState>();
+		auto item = std::make_shared<WwiseState>();
+		item->Type = WwiseType::State;
+		return item;
 	}
 };
 
@@ -139,7 +153,9 @@ struct WwiseGameParameter : public WwiseItem
 
 	static WwiseGameParameterPtr Create()
 	{
-		return std::make_shared<WwiseGameParameter>();
+		auto item = std::make_shared<WwiseGameParameter>();
+		item->Type = WwiseType::GameParameter;
+		return item;
 	}
 };
 
@@ -148,7 +164,9 @@ struct WwiseBus : public WwiseItem
 {
 	static WwiseBusPtr Create()
 	{
-		return std::make_shared<WwiseBus>();
+		auto item = std::make_shared<WwiseBus>();
+		item->Type = WwiseType::Bus;
+		return item;
 	}
 };
 
@@ -157,6 +175,8 @@ struct WwiseAuxBus : public WwiseItem
 {
 	static WwiseAuxBusPtr Create()
 	{
-		return std::make_shared<WwiseAuxBus>();
+		auto item = std::make_shared<WwiseAuxBus>();
+		item->Type = WwiseType::AuxBus;
+		return item;
 	}
 };
