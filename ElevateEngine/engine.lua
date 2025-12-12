@@ -40,8 +40,13 @@ project "ElevateEngine"
 	local wwiseLibLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
 	local wwiseBinLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/bin"
 
+	-- SoundEngine samples
 	local wwiseSDKSoundEngineSamplesSrc = path.getabsolute(wwiseSDK.."/samples/SoundEngine")
 	local wwiseSDKSoundEngineSampleDest = path.getabsolute("src/ElevateEngine/Audio/Ak")
+	-- WAAPI samples
+	-- local wwiseSDKWAAPISampleSrc = path.getabsolute(wwiseSDK.."/samples/WwiseAuthoringAPI/cpp/SampleClient/AkAutobahn")
+	-- local wwiseSDKWAAPISampleDest = path.getabsolute("src/ElevateEngine/Audio/Ak/AkAutobahn")
+	
 	local samplesPlatform
 	if os.istarget("Windows") then
 		samplesPlatform = "Win32"
@@ -74,10 +79,12 @@ project "ElevateEngine"
 	{
 		"src",
 
+		-- todo add conditions to make sure we really are using wwise.
 		wwiseIncludePath, -- include the Ak include path
 		wwiseSDKSoundEngineSampleDest.."/"..samplesPlatform, -- include the Ak sample/SoundEngine include path
 		wwiseSDK.."/samples",
-		"C:/Audiokinetic/Wwise2026.0.1.9024/SDK/samples/WwiseProjectDatabase/WwiseProjectDatabase",
+		wwiseSDK.."/samples/3rdParty/subprojects",
+		wwiseSDK.."/samples/WwiseProjectDatabase/WwiseProjectDatabase",
 
 		"%{IncludeDir.Vendors}",
 		"%{IncludeDir.GLFW}",
@@ -95,7 +102,7 @@ project "ElevateEngine"
 
 	-- todo : add a condition before doing so, make sure we want to compile with the soundengine
 	print("Build Commands Summary :")
-	print(" + Copy of Wwise SoundEngine Samples from "..wwiseSDKSoundEngineSamplesSrc.." to "..wwiseSDKSoundEngineSampleDest)
+	print(" + Copying Wwise SoundEngine Samples from "..wwiseSDKSoundEngineSamplesSrc.." to "..wwiseSDKSoundEngineSampleDest)
 	print("    + Copying /Common")
 	os.execute("{COPYDIR} "..wwiseSDKSoundEngineSamplesSrc.."/Common "..wwiseSDKSoundEngineSampleDest.."/Common") -- Copy the Soundengine samples from Wwise)
 	print("    > DONE")
@@ -103,6 +110,10 @@ project "ElevateEngine"
 	os.execute("{COPYDIR} "..wwiseSDKSoundEngineSamplesSrc.."/"..samplesPlatform.." "..wwiseSDKSoundEngineSampleDest.."/"..samplesPlatform) -- Copy the Soundengine samples from Wwise)
 	print("    > DONE")
 
+	-- todo : add a condition before doing so, make sure we want to compile with waapi
+	-- print(" + Copying Wwise WAAPI Sample from "..wwiseSDKWAAPISampleSrc.." to "..wwiseSDKWAAPISampleDest)
+	-- os.execute("{COPYDIR} "..wwiseSDKWAAPISampleSrc.." "..wwiseSDKWAAPISampleDest) -- Copy the WAAPI samples from Wwise)
+	-- print("    > DONE")
 
 	libdirs
 	{
@@ -117,6 +128,7 @@ project "ElevateEngine"
 		"assimp",
 
 		"WwiseProjectDatabase", -- todo set for editor only as only used for the Wwise Browser
+		"AkAutobahn", -- todo set for editor only
 		"AkSoundEngine",
 		"AkMemoryMgr",
 		"AkStreamMgr",

@@ -1,4 +1,5 @@
 {
     "name":"Sandbox",
-    "usesSoundEngine":true
+    "usesSoundEngine":true,
+    "usesWaapi":true
 }

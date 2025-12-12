@@ -32,6 +32,8 @@ namespace Elevate
         virtual bool InitImpl() override;
         virtual void RenderAudioImpl() override;
         virtual void TerminateImpl() override;
+        virtual void WakeUpImpl() override;
+        virtual void SuspendImpl(bool renderAnyway, bool fadeOut) override;
 
         virtual void SetDefaultListenerImpl(GameObject* obj) override;
         virtual void SetDistanceProbeImpl(GameObject* obj) override;

@@ -5,6 +5,7 @@
 #include "WwiseSoundEngine.h"
 
 #include <ElevateEngine/Core/GameObject.h>
+#include <ElevateEngine/Audio/Wwise/WAAPI/WAAPIClient.h>
 
 #include <glm/vec3.hpp>
 
@@ -46,7 +47,9 @@ namespace Elevate
 	{
 		AkBankID bankID; // Not used
 		AKRESULT res = AK::SoundEngine::LoadBank(bankName, bankID);
-		EE_CORE_CERROR(res != AK_Success, "ERROR: Failed to load SoundBank : {}", bankName);
+		bool success = res == AK_Success;
+		EE_CORE_CERROR(!success, "ERROR: Failed to load SoundBank : {}", std::string(bankName, bankName + std::wcslen(bankName) * sizeof(wchar_t)));
+		return success;
 	}
 	bool WwiseSoundEngine::LoadBank(const std::wstring& bankName)
 	{
@@ -56,7 +59,9 @@ namespace Elevate
 	{
 		AkBankID bankID; // Not used
 		AKRESULT res = AK::SoundEngine::LoadBank(bankName, bankID);
-		EE_CORE_CERROR(res != AK_Success, "ERROR: Failed to load SoundBank : {}", bankName);
+		bool success = res == AK_Success;
+		EE_CORE_CERROR(!success, "ERROR: Failed to load SoundBank : {}", bankName);
+		return success;
 	}
 	bool WwiseSoundEngine::LoadBank(std::string& bankName)
 	{
@@ -164,6 +169,9 @@ namespace Elevate
 
 		m_mergedDataSource.reset(new WwiseMergedDataSource(wwiseProjectPath, rootOutputPath, currentPlatform));
 		m_mergedDataSource->InitializeSource();
+
+		// todo add a check to check if we use waapi
+		WAAPIClient::Get(); // Simply force the creation of the instance.
 #endif
 
 		return true;
@@ -199,6 +207,18 @@ namespace Elevate
 		}
 
 		AK::MemoryMgr::Term();
+	}
+
+	void WwiseSoundEngine::WakeUpImpl()
+	{
+		// todo add the delay in ms option
+		AK::SoundEngine::WakeupFromSuspend();
+		AK::SoundEngine::RenderAudio();
+	}
+
+	void WwiseSoundEngine::SuspendImpl(bool renderAnyway, bool fadeOut)
+	{
+		AK::SoundEngine::Suspend(renderAnyway, fadeOut);
 	}
 
 	void WwiseSoundEngine::SetDefaultListenerImpl(GameObject* obj)

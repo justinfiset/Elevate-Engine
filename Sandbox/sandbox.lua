@@ -31,8 +31,13 @@ function parseProjectFile()
     printSuccess("Project name: " .. project.name)
 
     project.usesSoundEngine = content:match('"usesSoundEngine"%s*:%s*(true)') == "true"
-    if( project.usesSoundEngine ) then
+    if project.usesSoundEngine then
         printSuccess("Project uses Wwise Sound Engine.")
+
+        project.useWaapi = content:match('"usesWaapi"%s*:%s*(true)') == "true"
+        if project.useWaapi then
+            printSuccess("  Project uses WAAPI.")
+        end
     else
         printWarning("Project does not use Wwise Sound Engine.")
     end

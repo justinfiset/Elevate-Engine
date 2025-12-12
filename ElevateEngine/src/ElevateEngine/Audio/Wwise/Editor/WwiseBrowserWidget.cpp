@@ -2,6 +2,7 @@
 
 #include <ElevateEngine/Inputs/Input.h>
 #include <ElevateEngine/Audio/Wwise/WwiseSoundEngine.h>
+#include <ElevateEngine/Audio/Wwise/WAAPI/WAAPIClient.h>
 #include "imgui.h"
 
 namespace Elevate::Editor
@@ -12,6 +13,10 @@ namespace Elevate::Editor
         WwiseSoundEngine* wwiseEngine = WwiseSoundEngine::Get();
 
         ImGui::Begin("Wwise Browser");
+
+        ImGui::BeginGroup();
+        ImGui::Text(WAAPIClient::IsConnected() ? "Conntected to WAAPI." : "Not Connected to WAAPI");
+        ImGui::EndGroup();
 
         ImGui::BeginGroup();
         if (ImGui::Button("Expand All"))

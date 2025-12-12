@@ -28,12 +28,15 @@ enum class WwiseType : uint8_t
 	SoundBank,
 };
 
+#pragma warning(push)
+#pragma warning(disable : 5103)
+
 #define CREATE_STRUCT_PTR_TYPES(x) \
 struct x; \
 typedef std::shared_ptr<##x> x##Ptr; \
-typedef std::weak_ptr<##x> x##WeakPtr; \
+typedef std::weak_ptr<##x> x##WeakPtr;
 
-CREATE_STRUCT_PTR_TYPES(WwiseItem);
+CREATE_STRUCT_PTR_TYPES(WwiseItem)
 struct WwiseItem
 {
 	std::string Name;
@@ -62,7 +65,7 @@ struct WwiseItem
 	std::string GetTypeName() const;
 };
 
-CREATE_STRUCT_PTR_TYPES(WwiseSoundbank);
+CREATE_STRUCT_PTR_TYPES(WwiseSoundbank)
 struct WwiseSoundbank : public WwiseItem
 {
 	std::string Language;
@@ -79,7 +82,7 @@ struct WwiseSoundbank : public WwiseItem
 	}
 };
 
-CREATE_STRUCT_PTR_TYPES(WwiseEvent);
+CREATE_STRUCT_PTR_TYPES(WwiseEvent)
 struct WwiseEvent : public WwiseItem
 {
 	float MaxAttenuation;
@@ -96,7 +99,7 @@ struct WwiseEvent : public WwiseItem
 	}
 };
 
-CREATE_STRUCT_PTR_TYPES(WwiseSwitchGroup);
+CREATE_STRUCT_PTR_TYPES(WwiseSwitchGroup)
 struct WwiseSwitchGroup : public WwiseItem
 {
 	static WwiseSwitchGroupPtr Create()
@@ -107,7 +110,7 @@ struct WwiseSwitchGroup : public WwiseItem
 	}
 };
 
-CREATE_STRUCT_PTR_TYPES(WwiseSwitch);
+CREATE_STRUCT_PTR_TYPES(WwiseSwitch)
 struct WwiseSwitch : public WwiseItem
 {
 	uint32_t GroupShortId;
@@ -120,7 +123,7 @@ struct WwiseSwitch : public WwiseItem
 	}
 };
 
-CREATE_STRUCT_PTR_TYPES(WwiseStateGroup);
+CREATE_STRUCT_PTR_TYPES(WwiseStateGroup)
 struct WwiseStateGroup : public WwiseItem
 {
 	static WwiseStateGroupPtr Create()
@@ -131,7 +134,7 @@ struct WwiseStateGroup : public WwiseItem
 	}
 };
 
-CREATE_STRUCT_PTR_TYPES(WwiseState);
+CREATE_STRUCT_PTR_TYPES(WwiseState)
 struct WwiseState : public WwiseItem
 {
 	uint32_t GroupShortId;
@@ -144,7 +147,7 @@ struct WwiseState : public WwiseItem
 	}
 };
 
-CREATE_STRUCT_PTR_TYPES(WwiseGameParameter);
+CREATE_STRUCT_PTR_TYPES(WwiseGameParameter)
 struct WwiseGameParameter : public WwiseItem
 {
 	double InitialValue;
@@ -159,7 +162,7 @@ struct WwiseGameParameter : public WwiseItem
 	}
 };
 
-CREATE_STRUCT_PTR_TYPES(WwiseBus);
+CREATE_STRUCT_PTR_TYPES(WwiseBus)
 struct WwiseBus : public WwiseItem
 {
 	static WwiseBusPtr Create()
@@ -170,7 +173,7 @@ struct WwiseBus : public WwiseItem
 	}
 };
 
-CREATE_STRUCT_PTR_TYPES(WwiseAuxBus);
+CREATE_STRUCT_PTR_TYPES(WwiseAuxBus)
 struct WwiseAuxBus : public WwiseItem
 {
 	static WwiseAuxBusPtr Create()
@@ -180,3 +183,5 @@ struct WwiseAuxBus : public WwiseItem
 		return item;
 	}
 };
+
+#pragma warning(pop)
