@@ -29,6 +29,8 @@ namespace Elevate
 		inline static RendererAPI::GraphicAPI GetAPI() { return RendererAPI::GetAPI(); }
 
 		// RENDER API STATIC WRAPPER
+		// Performant function to bind a shader and to minimize API calls
+		static void BindShader(const std::shared_ptr<Shader>& shader);
 		static void SetClearColor(const glm::vec4& color);
 		static void Clear();
 		static void FlushBuffers();
@@ -37,10 +39,14 @@ namespace Elevate
 		static void DrawStack();
 		static void PushRenderState(const RenderState& newState);
 		static void SubmitDrawCall(RenderBucket::Type bucketType, std::shared_ptr<VertexArray>& array,/* std::shared_ptr<Material>& material,*/ const glm::mat4& transform, const RenderState& state);
-
+		static void Dispatch(RenderCommand& command);
+	
 	private:
 		//static std::unordered_set<Shader*> s_pendingShaders;
 		static RendererAPI* s_API;
+
+		// Current States
 		static RenderState s_currentState;
+		static uint32_t s_currentShaderID;
 	};
 }

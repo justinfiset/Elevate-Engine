@@ -50,10 +50,9 @@ namespace Elevate
 
 		Renderer::DrawArray(m_VertexArray);
 
+		// todo : stop unbinging, bad performance impact
 		for (unsigned int i = 0; i < m_Textures.size(); i++)
 		{
-			// TODO REMOVE AND FIND OUT WHY SOME TEXTURES ARE NULL
-
 			m_Textures[i]->Unbind();
 		}
 	}

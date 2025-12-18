@@ -8,10 +8,13 @@
 
 namespace Elevate
 {
+	class Shader;
+
 	struct RenderCommand
 	{
 		uint64_t SortingKey = 0;
 		// GEOMETRY
+		std::shared_ptr<Material> Material;
 		std::shared_ptr<VertexArray> VertexArray;;
 		glm::mat4 Transform = glm::mat4(1.0f);
 		// GPU STATE

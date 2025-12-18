@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include <ElevateEngine/Renderer/GLDebug.h>
+#include "Renderer.h"
 
 namespace Elevate
 {
@@ -41,6 +42,11 @@ namespace Elevate
 	void OpenGLRendererAPI::FlushBuffers() const
 	{
 		glFlush();
+	}
+
+	void OpenGLRendererAPI::Dispatch(RenderCommand& command) const
+	{
+		// todo make this heres
 	}
 
 	void OpenGLRendererAPI::DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive) const

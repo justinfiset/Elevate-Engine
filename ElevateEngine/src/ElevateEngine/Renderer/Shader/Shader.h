@@ -24,6 +24,11 @@ namespace Elevate
 	public:
 		~Shader() {}
 
+		uint32_t GetID() const
+		{
+			return static_cast<uint32_t>(reinterpret_cast<uintptr_t>(this) >> 4);
+		}
+
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 		virtual bool IsBound() const = 0;

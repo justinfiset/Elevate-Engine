@@ -57,8 +57,11 @@ namespace Elevate
 		inline static GraphicAPI GetAPI() { return s_ActiveAPI; }
 		
 	protected:
+		// todo remove this
 		//std::unordered_map<std::shared_ptr<Shader>, std::vector<Model>> m_ModelStack;
 		//std::unordered_map<std::shared_ptr<Shader>, std::vector<Mesh>> m_MeshStack;
+		
+		// todo remove commands from here and keep in renderer
 		RenderCommandQueue m_commands;
 
 	private:

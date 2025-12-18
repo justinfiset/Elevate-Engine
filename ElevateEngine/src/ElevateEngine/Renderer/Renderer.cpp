@@ -30,11 +30,20 @@ namespace Elevate
 	//	Renderer::SubmitVertexArray(vao);
 	//}
 
+	void Renderer::BindShader(const std::shared_ptr<Shader>& shader)
+	{
+		if (s_currentShaderID != shader->GetID())
+		{
+			shader->Bind();
+		}
+	}
+
 	// RENDER API STATIC WRAPPER
 	void Renderer::SetClearColor(const glm::vec4& color)
 	{
 		s_API->SetClearColor(color);
 	}
+
 	void Renderer::Clear()
 	{
 		s_API->Clear();
@@ -65,6 +74,7 @@ namespace Elevate
 
 	void Renderer::PushRenderState(const RenderState& newState)
 	{
+		// todo make a first invalid call to make sure the GPU is synced with this cache before the user does anything
 		if (newState.Cullface != s_currentState.Cullface)
 		{
 			s_API->SetCullingState(newState.Cullface);
@@ -81,5 +91,16 @@ namespace Elevate
 		}
 
 		s_currentState = newState;
+	}
+
+	void Renderer::Dispatch(RenderCommand& command)
+	{
+		// Update the renderer state if necessary
+		PushRenderState(command.State);
+		// Setup the Material and Shader
+		command.Material->Apply();
+		command.Material->GetShader()->SetModelMatrix(command.Transform);
+		// Actually render the vertex array
+		Renderer::DrawArray(command.VertexArray);
 	}
 }
