@@ -50,8 +50,8 @@ class CAkDefaultLowLevelIODispatcher : public AK::StreamMgr::IAkFileLocationReso
 {
 public:
 
-    CAkDefaultLowLevelIODispatcher( );
-    virtual ~CAkDefaultLowLevelIODispatcher( );
+	CAkDefaultLowLevelIODispatcher( );
+	virtual ~CAkDefaultLowLevelIODispatcher( );
 
 	virtual AKRESULT GetNextPreferredDevice(
 		AkAsyncFileOpenData& in_FileOpen,		///< File name and flags passed to the Open call.
@@ -64,13 +64,13 @@ public:
 
 	// Add a "device" (actually, a File Location Resolver) to the dispatcher's list. 
 	// The first device added will be the first device queried.
-    virtual AKRESULT AddDevice(
+	virtual AKRESULT AddDevice(
 		AkDeviceID in_idDevice /// Device ID as returned by AK::Stream::CreateDevice
-        );
+		);
 
 	// Remove all devices from the dispatcher's array.
 	virtual void RemoveAllDevices();
-    
+	
 protected:
 
 	// List of devices.

@@ -14,41 +14,41 @@
 
 namespace Elevate
 {
-    class Model : public Component
-    {
-    public:
-        BEGIN_COMPONENT(Model)
-        EECATEGORY("Rendering")
+	class Model : public Component
+	{
+	public:
+		BEGIN_COMPONENT(Model)
+		EECATEGORY("Rendering")
 
-        Model() = default;
-        Model(PrimitiveType type);
-        Model(std::string path, ShaderPtr shader = nullptr, MaterialPtr material = nullptr);
+		Model() = default;
+		Model(PrimitiveType type);
+		Model(std::string path, ShaderPtr shader = nullptr, MaterialPtr material = nullptr);
 
-        // TODO : should change the shader in the renderer
-        inline void SetShader(ShaderPtr newShader) { m_Shader = newShader; }
-        inline void SetMaterial(MaterialPtr material) { m_Material = material; }
+		// TODO : should change the shader in the renderer
+		inline void SetShader(ShaderPtr newShader) { m_Shader = newShader; }
+		inline void SetMaterial(MaterialPtr material) { m_Material = material; }
 
-        void Render() override;
+		void Render() override;
 
-        const inline std::shared_ptr<Shader>& GetShader() const { return m_Shader; }
+		const inline std::shared_ptr<Shader>& GetShader() const { return m_Shader; }
 
-        RenderState& GetRenderState() { return m_attributes; }
+		RenderState& GetRenderState() { return m_attributes; }
 
-        //virtual Component* Clone() override;
-    private:
-        void LoadModel(std::string path);
-        void ProcessNode(std::string basePath, aiNode* node, const aiScene* scene, MeshData& data);
-        void ProcessMesh(std::string basePath, aiMesh* mesh, const aiScene* scene, MeshData& data);
-        void ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int index);
-        void LoadMaterialTextures(std::string basePath, aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data);
-    private:
-        ShaderPtr m_Shader;
-        MaterialPtr m_Material;
-        // model data
-        Mesh m_batchedMesh;
-        std::string m_Directory;
-        RenderState m_attributes;
+		//virtual Component* Clone() override;
+	private:
+		void LoadModel(std::string path);
+		void ProcessNode(std::string basePath, aiNode* node, const aiScene* scene, MeshData& data);
+		void ProcessMesh(std::string basePath, aiMesh* mesh, const aiScene* scene, MeshData& data);
+		void ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int index);
+		void LoadMaterialTextures(std::string basePath, aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data);
+	private:
+		ShaderPtr m_Shader;
+		MaterialPtr m_Material;
+		// model data
+		Mesh m_batchedMesh;
+		std::string m_Directory;
+		RenderState m_attributes;
 
-        END_COMPONENT()
-    };
+		END_COMPONENT()
+	};
 }
