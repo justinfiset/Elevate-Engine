@@ -53,8 +53,8 @@ const TYPE& AkTemplMax( const TYPE& in_left, const TYPE& in_right )
 CAkFileLocationBase::CAkFileLocationBase()
 {
 	m_szBasePath[0] = '\0';
-    m_szBankPath[0] = '\0';
-    m_szAudioSrcPath[0] = '\0';
+	m_szBankPath[0] = '\0';
+	m_szAudioSrcPath[0] = '\0';
 }
 
 CAkFileLocationBase::~CAkFileLocationBase()
@@ -72,11 +72,11 @@ AKRESULT CAkFileLocationBase::GetFullFilePath(
 {
 	const AkOSChar* pEffectiveName = in_FileOpen.pszFileName;
 	AkOSChar pszTitle[MAX_FILETITLE_SIZE + 1];
-    if ( !in_FileOpen.pszFileName )
-    {
+	if ( !in_FileOpen.pszFileName )
+	{
 		AK::ConvertFileIdToFilename(pszTitle, MAX_FILETITLE_SIZE, in_FileOpen.pFlags->uCodecID, in_FileOpen.fileID);
 		pEffectiveName = pszTitle;
-    }
+	}
 
 	size_t fileNameLen = AKPLATFORM::OsStrLen(pEffectiveName);
 	if (AKPLATFORM::IsAbsolutePath(pEffectiveName, fileNameLen))
@@ -90,8 +90,8 @@ AKRESULT CAkFileLocationBase::GetFullFilePath(
 	AK::StringBuilder fullFilePath(out_pszFullFilePath, AK_MAX_PATH);
 	bool bSuccess = fullFilePath.Append(m_szBasePath, AKPLATFORM::OsStrLen(m_szBasePath));
 
-    if (in_FileOpen.pFlags && in_FileOpen.eOpenMode == AK_OpenModeRead )
-    {
+	if (in_FileOpen.pFlags && in_FileOpen.eOpenMode == AK_OpenModeRead )
+	{
 		bSuccess &= AK::ResolveGeneratedSoundBanksPath(fullFilePath, pEffectiveName, in_FileOpen.pFlags, in_bUseSubfolding);
 		
 		// Note: Standard streaming files do not use this overload. On the other hand, streaming external 
@@ -121,8 +121,8 @@ AKRESULT CAkFileLocationBase::GetFullFilePath(
 }
 
 AKRESULT CAkFileLocationBase::SetBasePath(
-    const AkOSChar*   in_pszBasePath
-    )
+	const AkOSChar*   in_pszBasePath
+	)
 {
 	size_t len = AKPLATFORM::OsStrLen(in_pszBasePath) + 2;	//+2 for possible missing slash
 	if (len + AkTemplMax(AKPLATFORM::OsStrLen(m_szBankPath), AKPLATFORM::OsStrLen(m_szAudioSrcPath)) + AKPLATFORM::OsStrLen(AK::StreamMgr::GetCurrentLanguage()) + 1 >= AK_MAX_PATH)
@@ -149,10 +149,10 @@ AKRESULT CAkFileLocationBase::SetBasePath(
 }
 
 AKRESULT CAkFileLocationBase::SetBankPath(
-    const AkOSChar*   in_pszBankPath
-    )
+	const AkOSChar*   in_pszBankPath
+	)
 {
-    if ( AKPLATFORM::OsStrLen( m_szBasePath ) + AkTemplMax( AKPLATFORM::OsStrLen( in_pszBankPath ), AKPLATFORM::OsStrLen( m_szAudioSrcPath ) ) + AKPLATFORM::OsStrLen( AK::StreamMgr::GetCurrentLanguage() ) + 1 >= AK_MAX_PATH )
+	if ( AKPLATFORM::OsStrLen( m_szBasePath ) + AkTemplMax( AKPLATFORM::OsStrLen( in_pszBankPath ), AKPLATFORM::OsStrLen( m_szAudioSrcPath ) ) + AKPLATFORM::OsStrLen( AK::StreamMgr::GetCurrentLanguage() ) + 1 >= AK_MAX_PATH )
 	{
 		return AK_InvalidParameter;
 	}
@@ -161,10 +161,10 @@ AKRESULT CAkFileLocationBase::SetBankPath(
 }
 
 AKRESULT CAkFileLocationBase::SetAudioSrcPath(
-    const AkOSChar*   in_pszAudioSrcPath
-    )
+	const AkOSChar*   in_pszAudioSrcPath
+	)
 {
-    if ( AKPLATFORM::OsStrLen( m_szBasePath ) + AkTemplMax( AKPLATFORM::OsStrLen( m_szBankPath ), AKPLATFORM::OsStrLen( in_pszAudioSrcPath ) ) + AKPLATFORM::OsStrLen( AK::StreamMgr::GetCurrentLanguage() ) + 1 >= AK_MAX_PATH )
+	if ( AKPLATFORM::OsStrLen( m_szBasePath ) + AkTemplMax( AKPLATFORM::OsStrLen( m_szBankPath ), AKPLATFORM::OsStrLen( in_pszAudioSrcPath ) ) + AKPLATFORM::OsStrLen( AK::StreamMgr::GetCurrentLanguage() ) + 1 >= AK_MAX_PATH )
 	{
 		return AK_InvalidParameter;
 	}

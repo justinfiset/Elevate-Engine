@@ -5,7 +5,7 @@
 
 namespace Elevate
 {
-    class RenderBucket
+	class RenderBucket
 	{
 	public:
 		enum Type : uint8_t

@@ -21,7 +21,7 @@ namespace Elevate
 		EMPTY = 0,
 		GRAYSCALE = 1,
 		RGB = 3,
-	    RGBA = 4,
+		RGBA = 4,
 		DEPTH
 	};
 
