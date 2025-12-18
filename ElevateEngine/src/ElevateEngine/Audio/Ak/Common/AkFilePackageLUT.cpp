@@ -212,7 +212,7 @@ AkUInt64 CAkFilePackageLUT::GetExternalID(
 	)
 {
 	char* szString; 
-    CONVERT_OSCHAR_TO_CHAR(in_pszExternalName, szString);
+	CONVERT_OSCHAR_TO_CHAR(in_pszExternalName, szString);
 	
 	size_t stringSize = strlen( szString );
 

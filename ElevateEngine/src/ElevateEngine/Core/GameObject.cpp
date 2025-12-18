@@ -208,7 +208,7 @@ namespace Elevate
 			entt::entity entity = registryIt->second->create();
 			m_entityId = static_cast<std::uint32_t>(entity);
 
-    		SoundEngine::RegisterGameObject(this);
+			SoundEngine::RegisterGameObject(this);
 			m_isInitialized = true;
 		}
 		else
@@ -216,7 +216,7 @@ namespace Elevate
 			EE_CORE_ERROR("Object '%s' must be linked with an existing scene!", m_name);
 		}
 	}
-    
+	
 	//GameObject::~GameObject()
 	//{
 	//	if (m_scene)

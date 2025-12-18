@@ -4,47 +4,47 @@
 #include <format>
 
 namespace Elevate {
-    class LogImpl;
+	class LogImpl;
 
-    class EE_API Log
-    {
-    public:
-        static void Trace(LogImpl* logger, std::string fmt);
-        static void Info(LogImpl* logger, std::string fmt);
-        static void Warn(LogImpl* logger, std::string fmt);
-        static void Error(LogImpl* logger, std::string fmt);
-        static void Fatal(LogImpl* logger, std::string fmt);
+	class EE_API Log
+	{
+	public:
+		static void Trace(LogImpl* logger, std::string fmt);
+		static void Info(LogImpl* logger, std::string fmt);
+		static void Warn(LogImpl* logger, std::string fmt);
+		static void Error(LogImpl* logger, std::string fmt);
+		static void Fatal(LogImpl* logger, std::string fmt);
 
-        static LogImpl* GetCoreLogger();
-        static LogImpl* GetClientLogger();
+		static LogImpl* GetCoreLogger();
+		static LogImpl* GetClientLogger();
 
-        // Fonctions templates pour le formatting
-        template<typename... Args>
-        static void TraceFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
-            Trace(logger, std::format(fmt, std::forward<Args>(args)...));
-        }
+		// Fonctions templates pour le formatting
+		template<typename... Args>
+		static void TraceFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
+			Trace(logger, std::format(fmt, std::forward<Args>(args)...));
+		}
 
-        template<typename... Args>
-        static void InfoFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
-            Info(logger, std::format(fmt, std::forward<Args>(args)...));
-        }
+		template<typename... Args>
+		static void InfoFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
+			Info(logger, std::format(fmt, std::forward<Args>(args)...));
+		}
 
-        template<typename... Args>
-        static void WarnFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
-            Warn(logger, std::format(fmt, std::forward<Args>(args)...));
-        }
+		template<typename... Args>
+		static void WarnFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
+			Warn(logger, std::format(fmt, std::forward<Args>(args)...));
+		}
 
-        template<typename... Args>
-        static void ErrorFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
-            Error(logger, std::format(fmt, std::forward<Args>(args)...));
-        }
+		template<typename... Args>
+		static void ErrorFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
+			Error(logger, std::format(fmt, std::forward<Args>(args)...));
+		}
 
-        template<typename... Args>
-        static void FatalFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
+		template<typename... Args>
+		static void FatalFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
 
-            Fatal(logger, std::format(fmt, std::forward<Args>(args)...));
-        }
-    };
+			Fatal(logger, std::format(fmt, std::forward<Args>(args)...));
+		}
+	};
 }
 
 // Core log macros avec formatting

@@ -124,8 +124,8 @@ out vec4 o_Color;
 
 void main()
 {
-    gl_Position = viewProj * vec4(a_Position, 1.0);
-    o_Color = a_Color;
+	gl_Position = viewProj * vec4(a_Position, 1.0);
+	o_Color = a_Color;
 }
 )";
 		}	
@@ -138,7 +138,7 @@ in vec3 ourColor;
 
 void main()
 {
-    FragColor = vec4(ourColor, 1.0);
+	FragColor = vec4(ourColor, 1.0);
 }
 )";
 		}
@@ -151,10 +151,10 @@ uniform float time;
 
 void main()
 {
-    // Create an obvious "error" pattern
-    vec2 uv = gl_FragCoord.xy / 100.0;
-    float pattern = sin(uv.x * 10.0 + time) * cos(uv.y * 10.0 + time);
-    FragColor = vec4(1.0, 0.0, 0.0, abs(pattern)); // Flashing red
+	// Create an obvious "error" pattern
+	vec2 uv = gl_FragCoord.xy / 100.0;
+	float pattern = sin(uv.x * 10.0 + time) * cos(uv.y * 10.0 + time);
+	FragColor = vec4(1.0, 0.0, 0.0, abs(pattern)); // Flashing red
 }
 )";
 		}
