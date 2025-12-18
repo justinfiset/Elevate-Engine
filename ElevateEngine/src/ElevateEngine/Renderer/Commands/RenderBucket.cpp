@@ -18,9 +18,35 @@ namespace Elevate
 
 	void RenderBucket::Sort()
 	{
+		// todo test this sorting algorithm performance against std::sort
+		// also test the optimal bit shift count (bit, 3 bits, byte ...)
+		// todo find optimal type to limit memory usage instead of ints
 		if (m_commands.empty() || m_isSorted) return;
 
-		// TODO Sort logic
+		std::vector<RenderCommand> output;
+
+		uint16_t maxShift = sizeof(m_commands[0].SortKey) * 8;
+		int bitCount = 1;
+		for (uint16_t shift = 0; shift < maxShift / bitCount; shift++)
+		{
+			int count[1 << bitCount];
+			output.resize(m_commands.size());
+
+			for (const RenderCommand& command : m_commands)
+			{
+				count[(command.SortingKey >> shift * bitCount) & ((1 << bitCount) - 1)]++;
+			}
+			for (int i = 0; i < (1 << bitCount); i++)
+			{
+				count[i] += count[i - 1];
+			}
+			for (int i = static_cast<int>(m_commands.size()) - 1; i >= 0; i--)
+			{
+				output[--count[(m_commands[i].SortingKey >> shift * bitCount) & ((1 << bitCount) - 1)]] = m_commands[i];
+			}
+			m_commands = output;
+		}
+
 		m_isSorted = true;
 	}
 

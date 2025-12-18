@@ -20,6 +20,7 @@ namespace Elevate
 		};
 
 		void Submit(const RenderCommand& command);
+		void Submit(RenderBucket::Type bucketType, std::shared_ptr<VertexArray>& array, const glm::mat4& transform, const RenderState& state)
 		void Sort();
 		void Flush();
 		void Clear();
