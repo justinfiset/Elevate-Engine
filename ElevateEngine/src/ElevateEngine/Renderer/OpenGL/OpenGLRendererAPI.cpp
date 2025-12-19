@@ -44,11 +44,6 @@ namespace Elevate
 		glFlush();
 	}
 
-	void OpenGLRendererAPI::Dispatch(RenderCommand& command) const
-	{
-		// todo make this heres
-	}
-
 	void OpenGLRendererAPI::DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive) const
 	{
 		if (!glfwGetCurrentContext()) {

@@ -138,11 +138,26 @@ namespace Elevate
 		SetUniformMatrix4fv(EE_SHADER_VIEWPROJ, cam.GenViewProjectionMatrix());
 	}
 
-	void Shader::UseMaterial(MaterialPtr newMaterial)
+	void Shader::SetUniform(const std::string& location, ShaderDataType& type, void* value)
 	{
-		SetUniform3f("material.ambient", newMaterial->GetAmbiant());
-		SetUniform3f("material.diffuse", newMaterial->GetDiffuse());
-		SetUniform3f("material.specular", newMaterial->GetSpecular());
-		SetUniform1f("material.shininess", newMaterial->GetShininess());
+		switch (type)
+		{
+			// todo impl all of the types here based on the functions we have in the shader part
+			// todo remove the need to cast to float* and directly use the SetUniform2fv functions (create them if necessary)
+		case ShaderDataType::Float:  SetUniform1f(location, *(float*)value); break;
+		case ShaderDataType::Float2: 
+			float* data = (float*)value;
+			SetUniform2f(location, data[0], data[1]); break;
+		case ShaderDataType::Float3:
+			float* data = (float*)value;
+			SetUniform3f(location, data[0], data[1], data[2]); break;
+		case ShaderDataType::Float4:
+			float* data = (float*)value;
+			SetUniform4f(location, data[0], data[1], data[2], data[3]); break;
+		case ShaderDataType::Int:
+			SetUniform1i(location, *(int*)value); break;
+		case ShaderDataType::Mat4:
+			SetUniformMatrix4fv(location, value); break;
+		}
 	}
 }

@@ -15,7 +15,6 @@ namespace Elevate
 		virtual void SetViewport(int x, int y, int width, int height) const override;
 		virtual void Clear() const override;
 		virtual void FlushBuffers() const override;
-		virtual void Dispatch(RenderCommand& command) const override;
 
 		virtual void DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles) const override;
 
