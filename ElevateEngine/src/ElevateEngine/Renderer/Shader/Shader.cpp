@@ -33,7 +33,7 @@ namespace Elevate
 		return nullptr;
 	}
 
-	ShaderPtr Shader::Create(const std::string vertexSource, const std::string fragmentSouce)
+	ShaderPtr Shader::Create(const std::string& vertexSource, const std::string& fragmentSouce)
 	{
 		std::shared_ptr<Shader> shader = nullptr;
 		
@@ -61,14 +61,14 @@ namespace Elevate
 		return shader;
 	}
 
-	ShaderPtr Shader::CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath)
+	ShaderPtr Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath)
 	{
 		std::string vertexSource = File::GetFileContent(vertexSrcPath);
 		std::string fragmentSource = File::GetFileContent(fragSrcPath);
 		return Create(vertexSource, fragmentSource);
 	}
 
-	ShaderPtr Shader::CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath, std::string customVertCode, std::string customFragCode)
+	ShaderPtr Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode)
 	{
 		std::string vertexContent = File::GetFileContent(vertexSrcPath);
 		std::string fragmentContent = File::GetFileContent(fragSrcPath);
@@ -86,7 +86,7 @@ namespace Elevate
 		}
 	}
 
-	void Shader::UseLight(Light* newLightSetting, std::string lightName)
+	void Shader::UseLight(Light* newLightSetting, const std::string& lightName)
 	{
 		SetUniform3f(lightName + ".ambient", newLightSetting->GetAmbientColor());
 		SetUniform3f(lightName + ".diffuse", newLightSetting->GetDiffuseColor());
