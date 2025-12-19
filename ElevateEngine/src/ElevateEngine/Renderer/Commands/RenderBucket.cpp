@@ -64,9 +64,10 @@ namespace Elevate
 				count[i] += count[i - 1];
 			}
 
-			for (size_t i = m_commands.size() - 1; i >= 0; --i)
+			for (long long i = (long long)m_commands.size() - 1; i >= 0; --i)
 			{
-				dst[--count[(src[i].SortingKey >> shift) & mask]] = src[i];
+				uint32_t bucket = (src[i].SortingKey >> shift) & mask;
+				dst[--count[bucket]] = src[i];
 			}
 
 			std::swap(src, dst);

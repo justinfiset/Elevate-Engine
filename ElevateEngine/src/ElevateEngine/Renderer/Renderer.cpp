@@ -8,6 +8,8 @@ namespace Elevate
 {
 	RenderState Renderer::s_currentState = RenderState();
 	RendererAPI* Renderer::s_API = new OpenGLRendererAPI();
+	RenderCommandQueue Renderer::s_commands = RenderCommandQueue();
+	uint32_t Renderer::s_currentShaderID = 0;
 
 	// todo remove
 	//void Renderer::SubmitModel(const Model& model)
@@ -59,7 +61,7 @@ namespace Elevate
 		s_API->SetViewport(x, y, width, height);
 	}
 
-	void Renderer::DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive)
+	void Renderer::DrawArray(const VertexArray* vao, DrawPrimitiveType primitive)
 	{
 		if (vao)
 		{
@@ -67,9 +69,15 @@ namespace Elevate
 		}
 	}
 
+	void Renderer::DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive)
+	{
+		DrawArray(vao.get(), primitive);
+	}
+
 	void Renderer::DrawStack()
 	{
-		s_API->DrawStack();
+		s_commands.Sort();
+		s_commands.FlushAll();
 	}
 
 	void Renderer::PushRenderState(const RenderState& newState)
@@ -93,14 +101,47 @@ namespace Elevate
 		s_currentState = newState;
 	}
 
-	void Renderer::Dispatch(RenderCommand& command)
+	void Renderer::Dispatch(const RenderCommand& command)
 	{
 		// Update the renderer state if necessary
 		PushRenderState(command.State);
 		// Setup the Material and Shader
-		command.Material->Apply();
-		command.Material->GetShader()->SetModelMatrix(command.Transform);
+		if (command.MaterialInstance)
+		{
+			command.MaterialInstance->Apply();
+
+			auto shader = command.MaterialInstance->GetShader();
+			if (shader)
+			{
+				shader->SetModelMatrix(command.Transform);
+			}
+		}
+
 		// Actually render the vertex array
 		Renderer::DrawArray(command.VertexArray);
+	}
+
+	void Renderer::Submit(RenderBucket::Type type, const RenderCommand& command)
+	{
+		s_commands.Submit(type, command);
+	}
+
+	void Renderer::SubmitMesh(const std::shared_ptr<VertexArray>& vao, const std::shared_ptr<Material>& material, const glm::mat4& transform, RenderBucket::Type bucketType)
+	{
+		RenderCommand command;
+		command.VertexArray = vao.get();
+		command.MaterialInstance = material.get();
+		command.Transform = transform;
+
+		if (bucketType == RenderBucket::Transparent) {
+			command.State.BlendEnable = true;
+			command.State.DepthWrite = false; // Transparents usually don't write to depth
+		}
+		else {
+			command.State.BlendEnable = false;
+			command.State.DepthWrite = true;
+		}
+
+		Submit(bucketType, command);
 	}
 }

@@ -1,6 +1,8 @@
 #include "eepch.h"
 #include "Shader.h"
 
+#include <glm/gtc/type_ptr.hpp>
+
 #include <ElevateEngine/Renderer/Renderer.h>
 
 #include "ElevateEngine/Renderer/Light/Light.h"
@@ -118,31 +120,67 @@ namespace Elevate
 		}
 	}
 
-	void Shader::SetModelMatrix(glm::mat4& modelMatrix)
+	void Shader::SetModelMatrix(const glm::mat4& modelMatrix)
 	{
 		SetUniformMatrix4fv(EE_SHADER_MODEL, modelMatrix); // set the model matrix
 	}
 
-	void Shader::SetModelMatrix(GameObject& object)
+	void Shader::SetModelMatrix(const GameObject& object)
 	{
 		SetUniformMatrix4fv(EE_SHADER_MODEL, object.GetModelMatrix()); // set the model matrix
 	}
 
-	void Shader::SetProjectionViewMatrix(glm::mat4 viewProjMatrix)
+	void Shader::SetProjectionViewMatrix(const glm::mat4 viewProjMatrix)
 	{
 		SetUniformMatrix4fv(EE_SHADER_VIEWPROJ, viewProjMatrix);
 	}
 
-	void Shader::SetProjectionViewMatrix(Camera& cam)
+	void Shader::SetProjectionViewMatrix(const Camera& cam)
 	{
 		SetUniformMatrix4fv(EE_SHADER_VIEWPROJ, cam.GenViewProjectionMatrix());
 	}
 
-	void Shader::UseMaterial(MaterialPtr newMaterial)
+	void Elevate::Shader::SetUniformMatrix2fv(const std::string& location, glm::mat2 data) const
 	{
-		SetUniform3f("material.ambient", newMaterial->GetAmbiant());
-		SetUniform3f("material.diffuse", newMaterial->GetDiffuse());
-		SetUniform3f("material.specular", newMaterial->GetSpecular());
-		SetUniform1f("material.shininess", newMaterial->GetShininess());
+		SetUniformMatrix2fv(location, glm::value_ptr(data));
+	}
+
+	void Elevate::Shader::SetUniformMatrix3fv(const std::string& location, glm::mat3 data) const
+	{
+		SetUniformMatrix3fv(location, glm::value_ptr(data));
+	}
+
+	void Elevate::Shader::SetUniformMatrix4fv(const std::string& location, glm::mat4 data) const
+	{
+		SetUniformMatrix4fv(location, glm::value_ptr(data));
+	}
+
+	void Shader::SetUniform(const std::string& location, ShaderDataType type, void* value)
+	{
+		switch (type)
+		{
+			// todo impl all of the types here based on the functions we have in the shader part
+			// todo remove the need to cast to float* and directly use the SetUniform2fv functions (create them if necessary)
+		case ShaderDataType::Float:  SetUniform1f(location, *(float*)value); break;
+		case ShaderDataType::Float2: 
+		{
+			float* data = (float*)value;
+			SetUniform2f(location, data[0], data[1]); break;
+		}
+		case ShaderDataType::Float3:
+		{
+			float* data = (float*)value;
+			SetUniform3f(location, data[0], data[1], data[2]); break;
+		}
+		case ShaderDataType::Float4:
+		{
+			float* data = (float*)value;
+			SetUniform4f(location, data[0], data[1], data[2], data[3]); break;
+		}
+		case ShaderDataType::Int:
+			SetUniform1i(location, *(int*)value); break;
+		case ShaderDataType::Mat4:
+			SetUniformMatrix4fv(location, (float*) value); break;
+		}
 	}
 }

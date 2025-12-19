@@ -61,12 +61,12 @@ const void Elevate::Camera::UpdateAspectRatio(float aspectRatio)
 	}
 }
 
-glm::mat4 Elevate::Camera::GenViewProjectionMatrix()
+glm::mat4 Elevate::Camera::GenViewProjectionMatrix() const
 {
 	return m_projectionMatrix * GenViewMatrix();
 }
 
-glm::mat4 Elevate::Camera::GenViewMatrix()
+glm::mat4 Elevate::Camera::GenViewMatrix() const
 {
 	return glm::lookAt(gameObject->GetPosition(), gameObject->GetPosition() + m_front, m_up);
 }

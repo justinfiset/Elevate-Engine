@@ -7,12 +7,6 @@ namespace Elevate
 	// todo set the rendererAPI dinamicly and not staticly
 	RendererAPI::GraphicAPI RendererAPI::s_ActiveAPI = RendererAPI::GraphicAPI::OpenGL;
 
-	void RendererAPI::DrawStack()
-	{
-		m_commands.Sort();
-		m_commands.FlushAll();
-	}
-
 	// todo remove
 	//void RendererAPI::SubmitModel(const Model& model)
 	//{

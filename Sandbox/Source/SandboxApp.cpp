@@ -27,12 +27,13 @@ public:
 
 	void OnAttach() override
 	{
-		Elevate::MaterialPtr material = Elevate::Material::Create(
-			{ 0.5f, 0.0f, 0.0f }, // Ambient
-			{ 0.5f, 0.0f, 0.0f }, // Diffuse
-			{ 0.5f, 0.0f, 0.0f }, // Specular
-			128.0f                // Shine
-		);
+		// TODO REMOVE
+		//Elevate::MaterialPtr material = Elevate::Material::Create(
+		//	{ 0.5f, 0.0f, 0.0f }, // Ambient
+		//	{ 0.5f, 0.0f, 0.0f }, // Diffuse
+		//	{ 0.5f, 0.0f, 0.0f }, // Specular
+		//	128.0f                // Shine
+		//);
 
 		uint32_t glslVersion = 410;
 		uint32_t glslPointLightCount = 1;

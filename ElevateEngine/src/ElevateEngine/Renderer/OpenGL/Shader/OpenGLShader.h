@@ -44,9 +44,9 @@ namespace Elevate
 		virtual void SetUniform4iv(const std::string& location, int count, int* value) const override;
 
 		// MATRIXES
-		virtual void SetUniformMatrix2fv(const std::string& location, glm::mat2 data) const override;
-		virtual void SetUniformMatrix3fv(const std::string& location, glm::mat3 data) const override;
-		virtual void SetUniformMatrix4fv(const std::string& location, glm::mat4 data) const override;
+		virtual void SetUniformMatrix2fv(const std::string& location, float* data) const override;
+		virtual void SetUniformMatrix3fv(const std::string& location, float* data) const override;
+		virtual void SetUniformMatrix4fv(const std::string& location, float* data) const override;
 	private:
 		static uint32_t s_CurrentBoundShaderID;
 

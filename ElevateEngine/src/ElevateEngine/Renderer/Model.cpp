@@ -190,13 +190,15 @@ void Elevate::Model::LoadMaterialTextures(std::string basePath, aiMaterial* mat,
 
 void Elevate::Model::Render()
 {
-	// TODO send to render comment
-	if (m_Shader)
-	{
-		Renderer::PushRenderState(m_attributes);
-		m_Shader->Bind();
-		m_Shader->UseMaterial(m_Material);
-		m_Shader->SetModelMatrix(*gameObject);
-		m_batchedMesh.Draw(m_Shader);
-	}
+	Renderer::SubmitMesh(m_batchedMesh.GetVertexArray(), m_Material, gameObject->GetModelMatrix(), RenderBucket::GBuffer);
+
+	// todo remove this useless code;
+	//if (m_Shader)
+	//{
+	//	Renderer::PushRenderState(m_attributes);
+	//	m_Shader->Bind();
+	//	m_Shader->UseMaterial(m_Material);
+	//	m_Shader->SetModelMatrix(*gameObject);
+	//	m_batchedMesh.Draw(m_Shader);
+	//}
 }

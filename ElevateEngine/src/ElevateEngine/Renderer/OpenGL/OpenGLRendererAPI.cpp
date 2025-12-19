@@ -5,7 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include <ElevateEngine/Renderer/GLDebug.h>
-#include "Renderer.h"
+#include <ElevateEngine/Renderer/Renderer.h>
 
 namespace Elevate
 {
@@ -44,12 +44,7 @@ namespace Elevate
 		glFlush();
 	}
 
-	void OpenGLRendererAPI::Dispatch(RenderCommand& command) const
-	{
-		// todo make this heres
-	}
-
-	void OpenGLRendererAPI::DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive) const
+	void OpenGLRendererAPI::DrawArray(const VertexArray* vao, DrawPrimitiveType primitive) const
 	{
 		if (!glfwGetCurrentContext()) {
 			EE_CORE_ERROR("No OpenGL context active!");
@@ -82,11 +77,6 @@ namespace Elevate
 				GLCheck(glDrawArrays(DrawPrimitiveTypeToOpenGL(primitive), 0, vertexCount));
 			}
 		}
-	}
-
-	void RendererAPI::SubmitDrawCall(RenderBucket::Type bucketType, std::shared_ptr<VertexArray>& array, const glm::mat4& transform, const RenderState& state)
-	{
-		m_commands.Submit(bucketType, array, transform, state);
 	}
 
 	void OpenGLRendererAPI::SetCullingState(bool enabled) const

@@ -241,17 +241,17 @@ void Elevate::OpenGLShader::SetUniform4iv(const std::string& location, int count
 	GLCheck(glUniform4iv(glGetUniformLocation(m_RendererID, location.c_str()), count, value));
 }
 
-void Elevate::OpenGLShader::SetUniformMatrix2fv(const std::string& location, glm::mat2 data) const
+void Elevate::OpenGLShader::SetUniformMatrix2fv(const std::string& location, float* data) const
 {
-	GLCheck(glUniformMatrix2fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, glm::value_ptr(data)));
+	GLCheck(glUniformMatrix2fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, data));
 }
 
-void Elevate::OpenGLShader::SetUniformMatrix3fv(const std::string& location, glm::mat3 data) const
+void Elevate::OpenGLShader::SetUniformMatrix3fv(const std::string& location, float* data) const
 {
-	GLCheck(glUniformMatrix3fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, glm::value_ptr(data)));
+	GLCheck(glUniformMatrix3fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, data));
 }
 
-void Elevate::OpenGLShader::SetUniformMatrix4fv(const std::string& location, glm::mat4 data) const
+void Elevate::OpenGLShader::SetUniformMatrix4fv(const std::string& location, float* data) const
 {
-	GLCheck(glUniformMatrix4fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, glm::value_ptr(data)));
+	GLCheck(glUniformMatrix4fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, data));
 }

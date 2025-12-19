@@ -4,6 +4,7 @@
 
 #include "DebugRenderer.h"
 
+#include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/Buffer.h>
 

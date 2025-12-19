@@ -26,6 +26,7 @@ namespace Elevate
 
 		uint32_t GetID() const
 		{
+			// return the pointer to this object as a uint32_t
 			return static_cast<uint32_t>(reinterpret_cast<uintptr_t>(this) >> 4);
 		}
 
@@ -49,14 +50,22 @@ namespace Elevate
 		void UpdateCamera();
 		void UpdateCamera(Camera& cam);
 			
-		void SetModelMatrix(glm::mat4& modelMatrix);
-		void SetModelMatrix(GameObject& object);
+		void SetModelMatrix(const glm::mat4& modelMatrix);
+		void SetModelMatrix(const GameObject& object);
 
-		void SetProjectionViewMatrix(glm::mat4 viewProjMatrix);
+		void SetProjectionViewMatrix(const glm::mat4 viewProjMatrix);
 
-		void SetProjectionViewMatrix(Camera& cam);
+		void SetProjectionViewMatrix(const Camera& cam);
 
 		/// UNIFORMS
+		
+		/// <summary>
+		/// Sets any uniform of any type. Dispatchs the uniform using the right setter function.
+		/// </summary>
+		/// <param name="location">The name of the uniform.</param>
+		/// <param name="value">The pointer to the data.</param>
+		virtual void SetUniform(const std::string& location, ShaderDataType type, void* value);
+
 		// FLOATS
 		virtual void SetUniform1f(const std::string& location, float value) const = 0;
 		virtual void SetUniform2f(const std::string& location, float x, float y) const = 0;
@@ -95,9 +104,12 @@ namespace Elevate
 		virtual void SetUniform4iv(const std::string& location, int count, int* value) const = 0;
 
 		// MATRIX
-		virtual void SetUniformMatrix2fv(const std::string& location, glm::mat2 data) const = 0;
-		virtual void SetUniformMatrix3fv(const std::string& location, glm::mat3 data) const = 0;
-		virtual void SetUniformMatrix4fv(const std::string& location, glm::mat4 data) const = 0;
+		virtual void SetUniformMatrix2fv(const std::string& location, float* data) const = 0;
+		void SetUniformMatrix2fv(const std::string& location, glm::mat2 data) const;
+		virtual void SetUniformMatrix3fv(const std::string& location, float* data) const = 0;
+		void SetUniformMatrix3fv(const std::string& location, glm::mat3 data) const;
+		virtual void SetUniformMatrix4fv(const std::string& location, float* data) const = 0;
+		void SetUniformMatrix4fv(const std::string& location, glm::mat4 data) const;
 
 		// TODO CHECK IF NEEDED FOR OTHER APIS
 		virtual unsigned int GetRendererID() const = 0;
@@ -106,10 +118,6 @@ namespace Elevate
 	protected:
 		inline void SetInitializationStatus(bool initialized) { m_isInitialized = initialized; }
 		bool m_isInitialized = false;
-
-		// Materials - For the renderer usages
-		void UseMaterial(MaterialPtr newMaterial);
-		friend class Model;
 	};
 
 	using ShaderPtr = std::shared_ptr<Shader>;

@@ -40,15 +40,13 @@ namespace Elevate
 		virtual void Clear() const = 0;
 		virtual void FlushBuffers() const = 0;
 
-		virtual void DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles) const = 0;
-		void DrawStack();
+		virtual void DrawArray(const VertexArray* vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles) const = 0;
 		//void SubmitModel(const Model& model);
 		//void RemoveModel(const Model& model);
 		//// TODO MAKE A REMOVE FROM DRAW STACK
 		//void Submitmesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh);
 		//static void SubmitVertexArray(const std::shared_ptr<VertexArray>& vao);
 		//static void SubmitTrianglesArray(const std::shared_ptr<VertexArray>& vao);
-		void SubmitDrawCall(RenderBucket::Type bucketType, std::shared_ptr<VertexArray>& array,/* std::shared_ptr<Material>& material,*/ const glm::mat4& transform, const RenderState& state);
 
 		virtual void SetCullingState(bool enabled) const = 0;
 		virtual void SetDepthWrittingState(bool enabled) const = 0;
@@ -60,9 +58,6 @@ namespace Elevate
 		// todo remove this
 		//std::unordered_map<std::shared_ptr<Shader>, std::vector<Model>> m_ModelStack;
 		//std::unordered_map<std::shared_ptr<Shader>, std::vector<Mesh>> m_MeshStack;
-		
-		// todo remove commands from here and keep in renderer
-		RenderCommandQueue m_commands;
 
 	private:
 		static GraphicAPI s_ActiveAPI;
