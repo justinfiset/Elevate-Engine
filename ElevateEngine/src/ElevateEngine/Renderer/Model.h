@@ -30,7 +30,8 @@ namespace Elevate
 
 		void Render() override;
 
-		const inline std::shared_ptr<Shader>& GetShader() const { return m_Shader; }
+		// todo change this to material and also make a setter
+		//const inline std::shared_ptr<Shader>& GetShader() const { return m_Shader; }
 
 		RenderState& GetRenderState() { return m_attributes; }
 

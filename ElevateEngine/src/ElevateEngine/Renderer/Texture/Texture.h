@@ -31,7 +31,9 @@ namespace Elevate
 		Specular,
 		Normal,
 		Height,
-		Cubemap
+		Cubemap,
+
+		Count
 	};
 
 	enum class TextureState : uint8_t {

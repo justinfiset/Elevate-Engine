@@ -6,6 +6,13 @@
 
 namespace Elevate
 {
+	MaterialID Material::s_nextId = 1; // Keep 0 for a default material
+
+	Material::Material()
+	{
+		m_id = s_nextId++;
+	}
+
 	Material::Material(const std::shared_ptr<Shader>& shader, const BufferLayout& layout)
 		: m_shader(shader), m_layout(layout)
 	{
