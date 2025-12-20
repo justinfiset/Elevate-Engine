@@ -1,8 +1,11 @@
 #include "eepch.h"
 #include "Renderer.h"
 
+// todo remove or fix these includes
 #include "ElevateEngine/Renderer/OpenGL/OpenGLRendererAPI.h"
 #include <ElevateEngine/Scene/Scene.h>
+
+#include <ElevateEngine/Renderer/Texture/Texture.h>
 
 namespace Elevate
 {
@@ -143,5 +146,22 @@ namespace Elevate
 		}
 
 		Submit(bucketType, command);
+	}
+
+	void Renderer::BindTexture(const std::shared_ptr<Texture>& texture, uint8_t slot)
+	{
+		uint32_t textureID = texture ? (uint32_t) texture->GetNativeHandle() : 0;
+		if (s_textures[slot] != textureID)
+		{
+			if (texture)
+			{
+				texture->Bind(slot);
+			}
+			else
+			{
+
+			}
+			s_textures[slot] = textureID;
+		}
 	}
 }

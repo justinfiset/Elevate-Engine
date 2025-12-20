@@ -10,6 +10,7 @@ namespace Elevate
 	class Shader;
 	class LayerStack;
 	class Layer;
+	class Texture;
 
 	class Renderer
 	{
@@ -49,13 +50,19 @@ namespace Elevate
 		// todo doc here
 		static void Submit(RenderBucket::Type type, const RenderCommand& command);
 		static void SubmitMesh(const std::shared_ptr<VertexArray>& vao, const std::shared_ptr<Material>& material, const glm::mat4& transform, RenderBucket::Type bucketType = RenderBucket::Opaque);
+
+		// Textures
+		static void BindTexture(const std::shared_ptr<Texture>& texture, uint8_t slot = 0);
+
 	private:
 		//static std::unordered_set<Shader*> s_pendingShaders;
 		static RendererAPI* s_API;
 
 		static RenderCommandQueue s_commands;
+
 		// Current States
 		static RenderState s_currentState;
 		static uint32_t s_currentShaderID;
+		static std::weak_ptr<Texture> s_textures[16];
 	};
 }

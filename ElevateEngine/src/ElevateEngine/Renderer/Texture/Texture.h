@@ -8,6 +8,7 @@
 
 namespace Elevate
 {
+	class Renderer;
 	class Texture;
 	using TexturePtr = std::shared_ptr<Texture>;
 
@@ -96,8 +97,6 @@ namespace Elevate
 			SetDataImpl(data);
 		}
 
-		virtual void Bind(uint32_t index = 0) = 0;
-		virtual void Unbind() = 0;
 		virtual bool IsBound() const = 0;
 		virtual void* GetNativeHandle() const = 0; // Return a handle to the texture differs from the backend
 
@@ -117,12 +116,20 @@ namespace Elevate
 		inline const TextureType GetUsage() const { return m_meta.Usage; }
 
 		inline const TextureMetadata& GetMetadata() const { return m_meta; }
+
 	protected:
 		Texture() = default;
 		Texture(TextureMetadata meta) : m_meta(meta) {}
 
 		virtual void SetDataImpl(unsigned char* data) = 0;
+
+	private:
+		virtual void Bind(uint32_t index = 0) = 0;
+		virtual void Unbind() = 0;
+
 	protected:
 		TextureMetadata m_meta;
+
+		friend class Renderer;
 	};
 }
