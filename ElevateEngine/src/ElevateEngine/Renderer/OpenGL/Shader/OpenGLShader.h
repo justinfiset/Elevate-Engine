@@ -11,6 +11,7 @@ namespace Elevate
 		OpenGLShader(const std::string& vertexSource, const std::string& fragmentSouce);
 		virtual ~OpenGLShader();
 
+		virtual uint32_t GetID() const override;
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 		virtual bool IsBound() const override;
@@ -47,6 +48,10 @@ namespace Elevate
 		virtual void SetUniformMatrix2fv(const std::string& location, float* data) const override;
 		virtual void SetUniformMatrix3fv(const std::string& location, float* data) const override;
 		virtual void SetUniformMatrix4fv(const std::string& location, float* data) const override;
+
+	protected:
+		virtual BufferLayout ExtractReflectionData() const override;
+
 	private:
 		static uint32_t s_CurrentBoundShaderID;
 

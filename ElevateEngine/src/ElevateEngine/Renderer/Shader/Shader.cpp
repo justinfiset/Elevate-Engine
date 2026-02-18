@@ -15,7 +15,7 @@
 
 namespace Elevate 
 {
-	std::shared_ptr<Shader> Shader::CreateDefault()
+	std::shared_ptr<Shader> Shader::CreateDefaultNative()
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -25,7 +25,7 @@ namespace Elevate
 		return nullptr;
 	}
 
-	std::shared_ptr<Shader> Shader::CreateDefaultError()
+	std::shared_ptr<Shader> Shader::CreateDefaultErrorNative()
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -33,6 +33,16 @@ namespace Elevate
 		case RendererAPI::GraphicAPI::OpenGL: return std::make_shared<OpenGLShader>(std::string(DefaultShader::GetVertexShader()), std::string(DefaultShader::GetErrorShader()));
 		}
 		return nullptr;
+	}
+
+	std::shared_ptr<Shader> Shader::CreateDefault()
+	{
+		return Create(std::string(DefaultShader::GetVertexShader()), std::string(DefaultShader::GetFragmentShader()));
+	}
+
+	std::shared_ptr<Shader> Shader::CreateDefaultError()
+	{
+		return Create(std::string(DefaultShader::GetVertexShader()), std::string(DefaultShader::GetErrorShader()));
 	}
 
 	ShaderPtr Shader::Create(const std::string& vertexSource, const std::string& fragmentSouce)
@@ -43,23 +53,26 @@ namespace Elevate
 		{
 			switch (Renderer::GetAPI())
 			{
-			case RendererAPI::GraphicAPI::None: EE_CORE_ASSERT(false, "Renderer none is not supported");
+			case RendererAPI::GraphicAPI::None: EE_CORE_ASSERT(false, "Renderer none is not supported"); break;
 			case RendererAPI::GraphicAPI::OpenGL: shader = std::make_shared<OpenGLShader>(vertexSource, fragmentSouce);
 			}
 		}
 		else
 		{
 			EE_CORE_ERROR("Error : Tried to create a shader with an empty vertex or fragment source -> Vertex : {} And Fragment : {}", vertexSource, fragmentSouce);
-			return CreateDefaultError();
+			return CreateDefaultErrorNative();
 		}
 
 		if (!shader->IsInitialized())
 		{
 			shader.reset(); // Free the memory of that unused shader and reset to nullptr
 			EE_CORE_ERROR("Error : Could not create a valid shader. Fallback to default shader.");
-			return CreateDefaultError();
+			return CreateDefaultErrorNative();
 		}
 
+		shader->m_layout = shader->ExtractReflectionData();
+
+		EE_CORE_TRACE("Shader layout has {} elements.", shader->m_layout.GetElements().size());
 		return shader;
 	}
 
@@ -102,22 +115,9 @@ namespace Elevate
 		SetUniform3f("dirLight.direction", newDirLight->CalculateDirection());
 	}
 
-	void Shader::UpdateCamera()
+	void Shader::SetCameraPosition(const glm::vec3 cameraPosition) const
 	{
-		Camera* cam = CameraManager::GetCurrent();
-		if (cam)
-		{
-			UpdateCamera(*cam);
-		}
-	}
-
-	void Shader::UpdateCamera(Camera& cam)
-	{
-		if (cam.gameObject)
-		{
-			SetUniform3f(EE_SHADER_CAMPOS, cam.gameObject->GetPosition());
-			SetProjectionViewMatrix(cam);
-		}
+		SetUniform3f(EE_SHADER_CAMPOS, cameraPosition);
 	}
 
 	void Shader::SetModelMatrix(const glm::mat4& modelMatrix)

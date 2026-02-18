@@ -26,7 +26,7 @@ written agreement between you and Audiokinetic Inc.
 // that were added to it using AddDevice(). These devices must thus also 
 // implement AK::StreamMgr::IAkFileLocationResolver.
 // 
-// The strategy for device dispatching is that of a chain of responsibility:
+// The strategy for deviceis that of a chain of responsibility:
 // the dispatcher asks the first file resolver hook to open the file. If it 
 // fails, then it tries with the second, and so on, until a hook succeeds. 
 // This is inefficient. In your game, you should implement a strategy of 

@@ -37,10 +37,10 @@ Elevate::Model::Model(PrimitiveType type) : Model("", nullptr)
 	}
 }
 
-Elevate::Model::Model(std::string path, ShaderPtr shader, MaterialPtr material)
+Elevate::Model::Model(std::string path, MaterialPtr material)
 {
-	SetShader(shader ? shader : ShaderManager::GetShader("default"));
-	SetMaterial(material ? material : std::make_shared<Material>());
+	// todo : add a macro or const expression for the default value in asset maangers
+	SetMaterial(material ? material : MaterialRegistry::GetMaterial(EE_DEFAULT_MATERIAL));
 
 	if (!path.empty())
 	{
@@ -190,15 +190,5 @@ void Elevate::Model::LoadMaterialTextures(std::string basePath, aiMaterial* mat,
 
 void Elevate::Model::Render()
 {
-	Renderer::SubmitMesh(m_batchedMesh.GetVertexArray(), m_Material, gameObject->GetModelMatrix(), RenderBucket::GBuffer);
-
-	// todo remove this useless code;
-	//if (m_Shader)
-	//{
-	//	Renderer::PushRenderState(m_attributes);
-	//	m_Shader->Bind();
-	//	m_Shader->UseMaterial(m_Material);
-	//	m_Shader->SetModelMatrix(*gameObject);
-	//	m_batchedMesh.Draw(m_Shader);
-	//}
+	Renderer::SubmitMesh(m_batchedMesh.GetVertexArray(), m_material, gameObject->GetModelMatrix(), RenderBucket::GBuffer);
 }

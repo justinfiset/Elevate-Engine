@@ -1,6 +1,8 @@
 #include "eepch.h"
 #include "SceneLayer.h"
 
+#include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Scene/SceneManager.h>
 
 void Elevate::SceneLayer::OnDetach()
@@ -20,7 +22,15 @@ void Elevate::SceneLayer::OnRender()
 
 void Elevate::SceneLayer::OnRender(Camera* cam)
 {
-	m_scene->RenderScene(cam);
+	if (cam)
+	{
+		Renderer::BeginFrame(*cam);
+		m_scene->RenderScene(cam);
+	}
+	else
+	{
+		EE_CORE_ERROR("Cannot render a scene with a nullptr camera.");
+	}
 }
 
 void Elevate::SceneLayer::OnEvent(Event& event)

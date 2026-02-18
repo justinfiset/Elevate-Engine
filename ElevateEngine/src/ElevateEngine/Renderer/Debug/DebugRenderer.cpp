@@ -27,8 +27,7 @@ void Elevate::DebugRenderer::InternalRender()
 {
 	Renderer::PushRenderState({ false, true, false });
 	// Render the lines
-	m_lineShader->Bind();
-	m_lineShader->UpdateCamera();
+	Renderer::ApplySystemUniforms(m_lineShader);
 	Renderer::DrawArray(m_lineArray, DrawPrimitiveType::Lines);
 	ClearDebugLines();
 }

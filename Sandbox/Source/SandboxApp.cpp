@@ -17,7 +17,7 @@
 class DebugLayer : public Elevate::SceneLayer
 {
 public:
-	Elevate::ShaderPtr m_Shader;
+	Elevate::ShaderPtr m_shader;
 private:
 	std::shared_ptr<Elevate::GameObject> m_DemoObject;
 	std::shared_ptr<Elevate::GameObject> m_demoCube;
@@ -27,27 +27,19 @@ public:
 
 	void OnAttach() override
 	{
-		// TODO REMOVE
-		//Elevate::MaterialPtr material = Elevate::Material::Create(
-		//	{ 0.5f, 0.0f, 0.0f }, // Ambient
-		//	{ 0.5f, 0.0f, 0.0f }, // Diffuse
-		//	{ 0.5f, 0.0f, 0.0f }, // Specular
-		//	128.0f                // Shine
-		//);
-
 		uint32_t glslVersion = 410;
 		uint32_t glslPointLightCount = 1;
-
 		std::string glslVesionDefine = "#version " + std::to_string(glslVersion);
 		std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(glslPointLightCount);
-		
-		m_Shader = Elevate::ShaderManager::LoadShader(
-			"default",
+		m_shader = Elevate::ShaderManager::LoadShader(
+			"main",
 			"Content/Shaders/main.vert",
 			"Content/Shaders/main.frag",
 			glslVesionDefine,
 			(glslVesionDefine + "\n" + glslPointLightCountDefine)
 		);
+
+		Elevate::MaterialPtr material = Elevate::MaterialRegistry::LoadMaterial(m_shader);
 
 		m_scene->SetSkybox("Engine/Cubemap/default.sky");
 
@@ -63,6 +55,7 @@ public:
 		// Backpack
 		m_DemoObject = Elevate::GameObject::Create("Backpack", m_scene);
 		Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("Content/Models/backpack.obj");
+		demoModel.SetMaterial(material);
 		//Elevate::Rigidbody& rb = m_DemoObject->AddComponent<Elevate::Rigidbody>();
 		m_DemoObject->SetPosition({ 0.0f, 0.0f, -4.0f });
 
@@ -97,14 +90,17 @@ public:
 	// TODO ajouter un icon de point light qui suit avec imgui la point light
 	void OnRender() override {
 		Elevate::Camera* cam = Elevate::CameraManager::GetCurrent();
-		m_Shader->Bind();
-		m_Shader->UpdateCamera(*cam); // TODO make the camera upload herself to the shader and check if there was any changes => if(changed) then updateUniforms()
-		SceneLayer::OnRender();
+		SceneLayer::OnRender(cam);
 	}
 
 	void OnUpdate() override
 	{
+		float dt = Elevate::Time::GetCurrentTime();
 		m_DemoObject->SetRotation(m_DemoObject->GetRotation() + glm::vec3(0.0f, 0.2f, 0.0f));
+		m_DemoObject->SetRotation({ 0.0f, dt * 20.0f, 0.0f });
+
+		float oscillation = glm::sin(dt) * 2.0f;
+		m_demoCube->SetPosition({ oscillation, 2.0f, 0.0f });
 		SceneLayer::OnUpdate();
 	}
 

@@ -60,7 +60,7 @@ void Elevate::OpenGLFrameBuffer::Rescale(uint32_t width, uint32_t height)
 
 	Bind();
 
-	m_texture->Bind();
+	Renderer::BindTexture(m_texture);
 
 	TextureMetadata meta = m_texture->GetMetadata();
 	meta.Width = width;

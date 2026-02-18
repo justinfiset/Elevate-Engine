@@ -14,15 +14,15 @@ namespace Elevate
 	{
 		std::string Name;
 		ShaderDataType Type;
-		unsigned int Size;
-		unsigned int Offset;
+		unsigned int size;
+		unsigned int offset;
 		unsigned int Count;
 		unsigned int Normalized;
 
 		BufferElement() = default;
 
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
-			: Name(name), Type(type), Size(GetDataTypeSize(type)), Offset(0), Count(GetDataTypeCount(type)), Normalized(normalized) { }
+			: Name(name), Type(type), size(GetDataTypeSize(type)), offset(0), Count(GetDataTypeCount(type)), Normalized(normalized) { }
 	};
 
 	class BufferLayout
@@ -31,34 +31,40 @@ namespace Elevate
 		BufferLayout() = default;
 
 		BufferLayout(const std::initializer_list<BufferElement>& elements)
-			: m_Elements(elements) 
+			: m_elements(elements) 
 		{
 			CalculateOffsetAndStride();
 		}
 
-		inline const std::vector<BufferElement>& GetElements() const { return m_Elements; }
+		BufferLayout(const std::vector<BufferElement>& elements)
+			: m_elements(elements)
+		{
+			CalculateOffsetAndStride();
+		}
 
-		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
-		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
-		std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
-		std::vector<BufferElement>::const_iterator end() const { return m_Elements.end(); }
+		inline const std::vector<BufferElement>& GetElements() const { return m_elements; }
 
-		inline uint32_t GetStride() const { return m_Stride; }
+		std::vector<BufferElement>::iterator begin() { return m_elements.begin(); }
+		std::vector<BufferElement>::iterator end() { return m_elements.end(); }
+		std::vector<BufferElement>::const_iterator begin() const { return m_elements.begin(); }
+		std::vector<BufferElement>::const_iterator end() const { return m_elements.end(); }
+
+		inline uint32_t GetStride() const { return m_stride; }
 	private:
 		void CalculateOffsetAndStride()
 		{
 			unsigned int offset = 0;
-			m_Stride = 0;
-			for (auto& element : m_Elements)
+			m_stride = 0;
+			for (auto& element : m_elements)
 			{
-				element.Offset = offset;
-				offset += element.Size;
-				m_Stride += element.Size;
+				element.offset = offset;
+				offset += element.size;
+				m_stride += element.size;
 			}
 		}
 	private:
-		std::vector<BufferElement> m_Elements;
-		unsigned int m_Stride = 0;
+		std::vector<BufferElement> m_elements;
+		uint32_t m_stride = 0;
 	};
 
 	class VertexBuffer

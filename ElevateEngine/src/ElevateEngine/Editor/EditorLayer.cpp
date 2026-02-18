@@ -73,9 +73,9 @@ namespace Elevate::Editor
 			"Editor/Shaders/grid.vert",
 			"Editor/Shaders/grid.frag"
 		);
-		m_GridShader->Bind();
-		m_GridShader->SetUniform4f("lineColor", { 0.9, 0.9, 0.9, 0.5 });
-		m_GridShader->SetUniform4f("backgroundColor", { 0.6, 0.6, 0.6, 0.025 });
+		MaterialPtr gridMaterial = MaterialRegistry::LoadMaterial(m_GridShader);
+		gridMaterial->Set<glm::vec4>("lineColor", { 0.9, 0.9, 0.9, 0.5 });
+		gridMaterial->Set<glm::vec4>("backgroundColor", { 0.6, 0.6, 0.6, 0.025 });
 		//////////////////////////////////////////////
 
 		// Grid
@@ -85,7 +85,7 @@ namespace Elevate::Editor
 		state.Cullface = false;
 		state.DepthWrite = true;
 		state.DepthTest = true;
-		gridModel.SetShader(m_GridShader);
+		gridModel.SetMaterial(gridMaterial);
 		m_GridObject->SetScale({ 50, 50, 50 });
 
 		CreateWidget<SkyboxEditorWidget>();

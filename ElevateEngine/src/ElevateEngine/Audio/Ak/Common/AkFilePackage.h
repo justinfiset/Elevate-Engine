@@ -69,7 +69,7 @@ public:
 		const AkOSChar*		in_pszPackageName,	// Name of the file package (for memory monitoring and ID generation).
 		AkUInt32 			in_uHeaderSize,		// File package header size, including the size of the header chunk AKPK_HEADER_CHUNK_DEF_SIZE.
 		AkUInt32			in_uBlockAlign,		// Alignment of memory block.
-		AkUInt32 &			out_uReservedHeaderSize, // Size reserved for header, taking mem align into account.
+		AkUInt32 &			out_uReservedHeaderSize, // size reserved for header, taking mem align into account.
 		AkUInt8 *&			out_pHeaderBuffer	// Returned address of memory for header.
 		)
 	{

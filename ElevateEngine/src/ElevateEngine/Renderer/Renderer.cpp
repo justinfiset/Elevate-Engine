@@ -5,41 +5,45 @@
 #include "ElevateEngine/Renderer/OpenGL/OpenGLRendererAPI.h"
 #include <ElevateEngine/Scene/Scene.h>
 
+#include <ElevateEngine/Renderer/Camera.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
+#include <ElevateEngine/Renderer/Material.h>
 
 namespace Elevate
 {
+	Renderer::RendererStorage Renderer::s_data = RendererStorage();
 	RenderState Renderer::s_currentState = RenderState();
 	RendererAPI* Renderer::s_API = new OpenGLRendererAPI();
 	RenderCommandQueue Renderer::s_commands = RenderCommandQueue();
 	uint32_t Renderer::s_currentShaderID = 0;
+	uintptr_t Renderer::s_textures[16];
 
-	// todo remove
-	//void Renderer::SubmitModel(const Model& model)
-	//{
-	//	s_API->SubmitModel(model);
-	//}
-
-	//void Renderer::RemoveModel(const Model& model)
-	//{
-	//	s_API->RemoveModel(model);
-	//}
-
-	//void Renderer::SubmitMesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh)
-	//{
-	//	s_API->Submitmesh(shader, mesh);
-	//}
-
-	//void Renderer::SubmitVertexArray(const std::shared_ptr<VertexArray>& vao)
-	//{
-	//	Renderer::SubmitVertexArray(vao);
-	//}
-
-	void Renderer::BindShader(const std::shared_ptr<Shader>& shader)
+	void Renderer::BeginFrame(Camera& cam)
 	{
-		if (s_currentShaderID != shader->GetID())
+		s_currentShaderID = 0;
+		s_data.CameraPosition = cam.gameObject->GetPosition();
+		s_data.ViewProj = cam.GenViewProjectionMatrix();
+	}
+
+	bool Renderer::BindShader(const std::shared_ptr<Shader>& shader)
+	{
+		uint32_t id = shader->GetID();
+		if (s_currentShaderID != id)
 		{
 			shader->Bind();
+			s_currentShaderID = id;
+			return true;
+		}
+		return false;
+	}
+
+	void Renderer::ApplySystemUniforms(const std::shared_ptr<Shader>& shader)
+	{
+		// If the binded shader changed
+		if (BindShader(shader))
+		{
+			shader->SetProjectionViewMatrix(s_data.ViewProj);
+			shader->SetCameraPosition(s_data.CameraPosition);
 		}
 	}
 
@@ -79,7 +83,6 @@ namespace Elevate
 
 	void Renderer::DrawStack()
 	{
-		s_commands.Sort();
 		s_commands.FlushAll();
 	}
 
@@ -108,18 +111,24 @@ namespace Elevate
 	{
 		// Update the renderer state if necessary
 		PushRenderState(command.State);
+
+		//float x = command.Transform[3][0];
+		//float y = command.Transform[3][1];
+		//float z = command.Transform[3][2];
+		//EE_CORE_INFO("Dispatching Command : Shader Render ID ({}), Transform (x: {}, y: {}, z: {})", command.MaterialInstance->GetShader()->GetRendererID(), x, y ,z);
+
 		// Setup the Material and Shader
+		uint32_t prevshader = s_currentShaderID;
 		if (command.MaterialInstance)
 		{
-			command.MaterialInstance->Apply();
-
 			auto shader = command.MaterialInstance->GetShader();
 			if (shader)
 			{
+				ApplySystemUniforms(shader);
 				shader->SetModelMatrix(command.Transform);
+				command.MaterialInstance->Apply();
 			}
 		}
-
 		// Actually render the vertex array
 		Renderer::DrawArray(command.VertexArray);
 	}
@@ -136,11 +145,13 @@ namespace Elevate
 		command.MaterialInstance = material.get();
 		command.Transform = transform;
 
-		if (bucketType == RenderBucket::Transparent) {
+		if (bucketType == RenderBucket::Transparent)
+		{
 			command.State.BlendEnable = true;
 			command.State.DepthWrite = false; // Transparents usually don't write to depth
 		}
-		else {
+		else
+		{
 			command.State.BlendEnable = false;
 			command.State.DepthWrite = true;
 		}
@@ -150,16 +161,12 @@ namespace Elevate
 
 	void Renderer::BindTexture(const std::shared_ptr<Texture>& texture, uint8_t slot)
 	{
-		uint32_t textureID = texture ? (uint32_t) texture->GetNativeHandle() : 0;
+		uintptr_t textureID = texture ? reinterpret_cast<uintptr_t>(texture->GetNativeHandle()) : 0;
 		if (s_textures[slot] != textureID)
 		{
 			if (texture)
 			{
 				texture->Bind(slot);
-			}
-			else
-			{
-
 			}
 			s_textures[slot] = textureID;
 		}

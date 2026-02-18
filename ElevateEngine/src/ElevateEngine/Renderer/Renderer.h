@@ -5,6 +5,7 @@
 
 namespace Elevate
 {
+	class Camera;
 	class Shader;
 	class Scene;
 	class Shader;
@@ -15,24 +16,13 @@ namespace Elevate
 	class Renderer
 	{
 	public:
-		// todo remove
-		//static void BeginSceneFrame(const std::shared_ptr<Shader> shader);
-		//static void EndSceneFrame(const std::shared_ptr<Shader> shader);
-		//static void SubmitShaderForSetup(std::shared_ptr<Shader> shader);
-		//static void SetupShaders(Scene* scene);
-
-		//static void SubmitModel(const Model& model);
-		//static void RemoveModel(const Model& model);
-		//static void SubmitMesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh);
-
-		// TODO REMOVE AS ONLY CALLING THE DRAWARRAY
-		//static void SubmitVertexArray(const std::shared_ptr<VertexArray>& vao);
-
 		inline static RendererAPI::GraphicAPI GetAPI() { return RendererAPI::GetAPI(); }
 
 		// RENDER API STATIC WRAPPER
+		static void BeginFrame(Camera& cam);
 		// Performant function to bind a shader and to minimize API calls
-		static void BindShader(const std::shared_ptr<Shader>& shader);
+		static bool BindShader(const std::shared_ptr<Shader>& shader); // Return true if the shader just changed
+		static void ApplySystemUniforms(const std::shared_ptr<Shader>& shader);
 		static void SetClearColor(const glm::vec4& color);
 		static void Clear();
 		static void FlushBuffers();
@@ -55,14 +45,17 @@ namespace Elevate
 		static void BindTexture(const std::shared_ptr<Texture>& texture, uint8_t slot = 0);
 
 	private:
-		//static std::unordered_set<Shader*> s_pendingShaders;
+		struct RendererStorage {
+			glm::mat4 ViewProj;
+			glm::vec3 CameraPosition;
+		};
 		static RendererAPI* s_API;
-
 		static RenderCommandQueue s_commands;
 
 		// Current States
+		static RendererStorage s_data;
 		static RenderState s_currentState;
 		static uint32_t s_currentShaderID;
-		static std::weak_ptr<Texture> s_textures[16];
+		static uintptr_t s_textures[];
 	};
 }

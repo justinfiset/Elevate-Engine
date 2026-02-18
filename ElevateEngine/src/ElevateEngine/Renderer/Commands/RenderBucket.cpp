@@ -13,11 +13,6 @@ namespace Elevate
 	{
 		if (m_commands.empty()) return;
 
-		if (!m_isSorted)
-		{
-			Sort();
-		}
-
 		// Sends each command to be executed by the renderer
 		for (const auto& command : m_commands)
 		{
@@ -35,8 +30,6 @@ namespace Elevate
 
 	void RenderBucket::Sort()
 	{
-		// todo also test the optimal bit shift count (bit, 3 bits, byte ...)
-		// todo find optimal type to limit memory usage instead of ints
 		if (m_commands.empty() || m_isSorted) return;
 
 		const size_t n = m_commands.size();

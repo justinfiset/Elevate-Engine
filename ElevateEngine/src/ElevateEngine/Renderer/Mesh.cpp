@@ -41,20 +41,21 @@ namespace Elevate
 		return new Mesh(vertices, indices, textures);
 	}
 
+	// TODO : REMOVE THIS AND FAST AS BUCKETING REPLACED THIS
 	void Mesh::Draw(std::shared_ptr<Shader> shader)
 	{
-		for (unsigned int i = 0; i < m_Textures.size(); i++)
-		{
-			m_Textures[i]->Bind(i);
-		}
+		//for (unsigned int i = 0; i < m_Textures.size(); i++)
+		//{
+		//	m_Textures[i]->Bind(i);
+		//}
 
-		Renderer::DrawArray(m_VertexArray);
+		//Renderer::DrawArray(m_VertexArray);
 
-		// todo : stop unbinging, bad performance impact
-		for (unsigned int i = 0; i < m_Textures.size(); i++)
-		{
-			m_Textures[i]->Unbind();
-		}
+		//// todo : stop unbinging, bad performance impact
+		//for (unsigned int i = 0; i < m_Textures.size(); i++)
+		//{
+		//	m_Textures[i]->Unbind();
+		//}
 	}
 
 	Mesh Mesh::GenerateCube(float size)

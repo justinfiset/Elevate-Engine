@@ -41,13 +41,6 @@ namespace Elevate
 		virtual void FlushBuffers() const = 0;
 
 		virtual void DrawArray(const VertexArray* vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles) const = 0;
-		//void SubmitModel(const Model& model);
-		//void RemoveModel(const Model& model);
-		//// TODO MAKE A REMOVE FROM DRAW STACK
-		//void Submitmesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh);
-		//static void SubmitVertexArray(const std::shared_ptr<VertexArray>& vao);
-		//static void SubmitTrianglesArray(const std::shared_ptr<VertexArray>& vao);
-
 		virtual void SetCullingState(bool enabled) const = 0;
 		virtual void SetDepthWrittingState(bool enabled) const = 0;
 		virtual void SetDepthTestingState(bool enabled) const = 0;

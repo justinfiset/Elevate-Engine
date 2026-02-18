@@ -170,7 +170,7 @@ public:
 		AkFileHandle &	in_hFile,			// Returned file identifier/handle.
 		void *			in_pBuffer,			// Buffer. Must be aligned on CAkFileHelpers::s_uRequiredBlockSize boundary.
 		AkUInt32		in_uPosition,		// Position from which to start reading.
-		AkUInt32		in_uSizeToRead,		// Size to read. Must be a multiple of CAkFileHelpers::s_uRequiredBlockSize.
+		AkUInt32		in_uSizeToRead,		// size to read. Must be a multiple of CAkFileHelpers::s_uRequiredBlockSize.
 		AkUInt32 &		out_uSizeRead		// Returned size read.        
 		)
 	{
@@ -188,7 +188,7 @@ public:
 		AkFileDesc& in_fileDesc,		// Returned file identifier/handle.
 		void*		in_pBuffer,			// Buffer. Must be aligned on CAkFileHelpers::s_uRequiredBlockSize boundary.
 		AkUInt32	in_uPosition,		// Position from which to start reading.
-		AkUInt32	in_uSizeToRead,		// Size to read. Must be a multiple of CAkFileHelpers::s_uRequiredBlockSize.
+		AkUInt32	in_uSizeToRead,		// size to read. Must be a multiple of CAkFileHelpers::s_uRequiredBlockSize.
 		AkUInt32&	out_uSizeRead		// Returned size read.        
 		)
 	{

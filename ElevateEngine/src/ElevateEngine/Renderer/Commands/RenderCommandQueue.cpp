@@ -25,6 +25,8 @@ namespace Elevate
 
 	void RenderCommandQueue::FlushAll()
 	{
+		Sort();
+
 		for (size_t i = 0; i < m_buckets.size(); i++)
 		{
 			m_buckets.at(i).Flush();

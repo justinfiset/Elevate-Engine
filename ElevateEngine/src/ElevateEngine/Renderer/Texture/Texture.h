@@ -77,7 +77,7 @@ namespace Elevate
 
 		TextureMetadataBuilder& Name(const std::string name) { data.Name = name; return *this; }
 		TextureMetadataBuilder& Path(const std::string& path) { data.Path = path; return *this; }
-		TextureMetadataBuilder& Size(const uint32_t w, const uint32_t h) { data.Width = w; data.Height = h; return *this; }
+		TextureMetadataBuilder& size(const uint32_t w, const uint32_t h) { data.Width = w; data.Height = h; return *this; }
 		TextureMetadataBuilder& Format(const TextureFormat fmt) { data.Format = fmt; data.Channels = (uint8_t)fmt; return *this; }
 		TextureMetadataBuilder& Usage(const TextureType type) { data.Usage = type; return *this; }
 		TextureMetadataBuilder& Source(const TextureSource src) { data.Source = src; return *this; }

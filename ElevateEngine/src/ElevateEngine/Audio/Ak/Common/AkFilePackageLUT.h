@@ -62,7 +62,7 @@ public:
 	struct AkFileEntry 
 	{
 		T_FILEID	fileID;		// File identifier. 
-		AkUInt32	uBlockSize;	// Size of one block, required alignment (in bytes).
+		AkUInt32	uBlockSize;	// size of one block, required alignment (in bytes).
 		AkUInt32	uFileSize;  // File size in bytes. 
 		AkUInt32	uStartBlock;// Start block, expressed in terms of uBlockSize. 
 		AkUInt32	uLanguageID;// Language ID. AK_INVALID_LANGUAGE_ID if not language-specific. 
@@ -76,7 +76,7 @@ public:
 	// The LUT sets pointers to appropriate location inside header data (in_pData).
 	AKRESULT Setup(
 		AkUInt8 *			in_pData,			// Header data.
-		AkUInt32			in_uHeaderSize		// Size of file package header.
+		AkUInt32			in_uHeaderSize		// size of file package header.
 		);
 
 	// Find a file entry by ID.

@@ -87,7 +87,7 @@ public:
 
 	AKRESULT Read(
 		void *			in_pBuffer,			// Buffer. Must be aligned with value returned by GetBlockSize().
-		AkUInt32		in_uSizeToRead,		// Size to read. Must be a multiple of value returned by GetBlockSize().
+		AkUInt32		in_uSizeToRead,		// size to read. Must be a multiple of value returned by GetBlockSize().
 		AkUInt32 &		out_uSizeRead,		// Returned size read.
 		AkPriority		in_priority = AK_DEFAULT_PRIORITY,	// Priority heuristic.
 		AkReal32		in_fThroughput = 0	// Throughput heuristic. 0 means "not set", and results in "immediate".
@@ -186,7 +186,7 @@ public:
 		AkFilePackageReader & in_reader,		// File package reader.
 		const AkOSChar*		in_pszPackageName,	// Name of the file package (for memory monitoring).
 		AkUInt32 			in_uHeaderSize,		// File package header size, including the size of the header chunk AKPK_HEADER_CHUNK_DEF_SIZE.
-		AkUInt32 &			out_uReservedHeaderSize, // Size reserved for header, taking mem align into account.
+		AkUInt32 &			out_uReservedHeaderSize, // size reserved for header, taking mem align into account.
 		AkUInt8 *&			out_pHeaderBuffer	// Returned address of memory for header.
 		)
 	{

@@ -86,7 +86,7 @@ namespace Elevate {
 		TextureMetadata meta = TextureMetadataBuilder()
 			.Name(fsPath.filename().string())
 			.Path(absPath)
-			.Size(0, 0)
+			.size(0, 0)
 			.Format(TextureFormat::EMPTY)
 			.Usage(TextureType::Diffuse)
 			.Source(TextureSource::File)
@@ -106,7 +106,7 @@ namespace Elevate {
 				int width, height, channels;
 				res.data = stbi_load(res.meta.Path.c_str(), &width, &height, &channels, 0);
 				res.meta = TextureMetadataBuilder(res.meta)
-					.Size(static_cast<uint32_t>(width), static_cast<uint32_t>(height))
+					.size(static_cast<uint32_t>(width), static_cast<uint32_t>(height))
 					.Format((TextureFormat) channels)
 					.State((res.data) ? TextureState::Loaded : TextureState::Failed)
 					.Build();

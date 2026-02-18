@@ -1,10 +1,10 @@
 #pragma once
 
 #include <string>
-#include "glm/glm.hpp"
+#include <memory>
 
-// TODO cleanup some of the imports
-#include "ElevateEngine/Renderer/Material.h"
+#include <glm/glm.hpp>
+#include <ElevateEngine/Renderer/Buffer.h>
 
 // the list of uniform names used by the shader
 // TODO v�rif si uniquement avec opengl ou non
@@ -24,19 +24,16 @@ namespace Elevate
 	public:
 		~Shader() {}
 
-		uint32_t GetID() const
-		{
-			// return the pointer to this object as a uint32_t
-			return static_cast<uint32_t>(reinterpret_cast<uintptr_t>(this) >> 4);
-		}
-
+		virtual uint32_t GetID() const = 0;
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 		virtual bool IsBound() const = 0;
 		virtual uint32_t GetHashCode() const = 0;
 
-		static std::shared_ptr<Shader> CreateDefault(); // Safe fallback in case of shader creation failure
-		static std::shared_ptr<Shader> CreateDefaultError(); // Safe fallback with an error pattern shader
+		static std::shared_ptr<Shader> CreateDefaultNative(); // Safe fallback in case of shader creation failure
+		static std::shared_ptr<Shader> CreateDefaultErrorNative(); // Safe fallback with an error pattern shader
+		static std::shared_ptr<Shader> CreateDefault();
+		static std::shared_ptr<Shader> CreateDefaultError();
 
 		static std::shared_ptr<Shader> Create(const std::string& vertexSource, const std::string& fragmentSouce);
 		static std::shared_ptr<Shader> CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath);
@@ -47,9 +44,7 @@ namespace Elevate
 		void UseDirLight(DirectionalLight* newDirLight);
 
 		// Camera
-		void UpdateCamera();
-		void UpdateCamera(Camera& cam);
-			
+		void SetCameraPosition(const glm::vec3 cameraPosition) const;
 		void SetModelMatrix(const glm::mat4& modelMatrix);
 		void SetModelMatrix(const GameObject& object);
 
@@ -115,9 +110,17 @@ namespace Elevate
 		virtual unsigned int GetRendererID() const = 0;
 
 		inline bool IsInitialized() { return m_isInitialized; }
+
+		inline const BufferLayout& GetLayout() { return m_layout; }
+
 	protected:
+		virtual BufferLayout ExtractReflectionData() const = 0;
 		inline void SetInitializationStatus(bool initialized) { m_isInitialized = initialized; }
+
 		bool m_isInitialized = false;
+
+	private:
+		BufferLayout m_layout;
 	};
 
 	using ShaderPtr = std::shared_ptr<Shader>;
@@ -129,29 +132,25 @@ namespace Elevate
 			return R"(
 #version 330 core
 layout(location = 0) in vec3 a_Position;
-layout(location = 1) in vec4 a_Color;
 
 uniform mat4 viewProj;
-
-out vec4 o_Color;
+uniform mat4 model;
 
 void main()
 {
-	gl_Position = viewProj * vec4(a_Position, 1.0);
-	o_Color = a_Color;
+    gl_Position = viewProj * model * vec4(a_Position, 1.0);
 }
 )";
-		}	
+		}
 
 		static constexpr std::string_view GetFragmentShader() {
 			return R"(
 #version 330 core
-out vec4 FragColor;
-in vec3 ourColor;
+layout(location = 0) out vec4 FragColor;
 
 void main()
 {
-	FragColor = vec4(ourColor, 1.0);
+    FragColor = vec4(1.0);
 }
 )";
 		}
@@ -159,18 +158,17 @@ void main()
 		static constexpr std::string_view GetErrorShader() {
 			return R"(
 #version 330 core
-out vec4 FragColor;
+layout(location = 0) out vec4 FragColor;
 uniform float time;
 
 void main()
 {
-	// Create an obvious "error" pattern
-	vec2 uv = gl_FragCoord.xy / 100.0;
-	float pattern = sin(uv.x * 10.0 + time) * cos(uv.y * 10.0 + time);
-	FragColor = vec4(1.0, 0.0, 0.0, abs(pattern)); // Flashing red
+    vec2 uv = gl_FragCoord.xy / 100.0;
+    float pattern = sin(uv.x * 10.0 + time) * cos(uv.y * 10.0 + time);
+    FragColor = vec4(1.0, 0.0, 1.0, 1.0);
+    if(pattern > 0.0) FragColor = vec4(0.0, 0.0, 0.0, 1.0);
 }
 )";
 		}
 	};
 }
-
