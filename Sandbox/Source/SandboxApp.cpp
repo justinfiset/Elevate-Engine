@@ -40,6 +40,10 @@ public:
 		);
 
 		Elevate::MaterialPtr material = Elevate::MaterialRegistry::LoadMaterial(m_shader);
+		material->Set("material.ambient", glm::vec3(1.0f, 1.0f, 1.0f));
+		material->Set("material.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
+		material->Set("material.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+		material->Set("material.shininess", 32.0f);
 
 		m_scene->SetSkybox("Engine/Cubemap/default.sky");
 
@@ -95,12 +99,6 @@ public:
 
 	void OnUpdate() override
 	{
-		float dt = Elevate::Time::GetCurrentTime();
-		m_DemoObject->SetRotation(m_DemoObject->GetRotation() + glm::vec3(0.0f, 0.2f, 0.0f));
-		m_DemoObject->SetRotation({ 0.0f, dt * 20.0f, 0.0f });
-
-		float oscillation = glm::sin(dt) * 2.0f;
-		m_demoCube->SetPosition({ oscillation, 2.0f, 0.0f });
 		SceneLayer::OnUpdate();
 	}
 

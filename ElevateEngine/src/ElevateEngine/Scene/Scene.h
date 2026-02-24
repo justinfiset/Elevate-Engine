@@ -61,7 +61,7 @@ namespace Elevate
 		{
 			m_sceneLighting = std::move(newLighting);
 		}
-		inline SceneLighting* GetSceneLighting() 
+		inline const SceneLighting* GetSceneLighting() 
 		{
 			return m_sceneLighting.get();
 		}

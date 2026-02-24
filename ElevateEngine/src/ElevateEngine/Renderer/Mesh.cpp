@@ -7,11 +7,11 @@
 
 namespace Elevate
 {
-	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::vector<std::shared_ptr<Texture>> textures)
-		: m_Vertices(vertices), m_Indices(indices), m_Textures(textures)
+	Mesh::Mesh(const MeshData& data)
+		: m_data(data)
 	{
 		// Creating the Layout and the VertexBuffer
-		m_VertexBuffer.reset(VertexBuffer::Create(&m_Vertices[0], (uint32_t)m_Vertices.size() * sizeof(Vertex)));
+		m_VertexBuffer.reset(VertexBuffer::Create(&data.Vertices[0], (uint32_t)data.Vertices.size() * sizeof(Vertex)));
 		// Creating the layout sent to the shader and the layout of the buffer
 		m_VertexBuffer->SetLayout({ // The layout is based on the Vertex struct (see Vertex.h)
 			{ ShaderDataType::Float3, "a_Position" },
@@ -22,7 +22,7 @@ namespace Elevate
 		});
 
 		//Creating the IndexBuffer (containing indices)
-		m_IndexBuffer.reset(IndexBuffer::Create(&indices[0], (uint32_t)indices.size()));
+		m_IndexBuffer.reset(IndexBuffer::Create(&data.Indices[0], (uint32_t)data.Indices.size()));
 
 		m_VertexArray.reset(VertexArray::Create());
 		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
@@ -30,32 +30,23 @@ namespace Elevate
 
 		m_VertexArray->Unbind();
 
-		if (m_Textures.empty())
+		if (m_data.Textures.empty())
 		{
-			m_Textures.push_back(TextureManager::GetDefaultTexture());
+			m_data.Textures.push_back(TextureManager::GetDefaultTexture());
 		}
 	}
 
-	Mesh* Mesh::Create(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::vector<std::shared_ptr<Texture>> textures)
+	Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices, const std::vector<std::shared_ptr<Texture>>& textures)
+		: Mesh(MeshData(vertices, indices, textures)) { }
+
+	Mesh* Mesh::Create(const MeshData& data)
 	{
-		return new Mesh(vertices, indices, textures);
+		return new Mesh(data);
 	}
 
-	// TODO : REMOVE THIS AND FAST AS BUCKETING REPLACED THIS
-	void Mesh::Draw(std::shared_ptr<Shader> shader)
+	Mesh* Mesh::Create(std::vector<Vertex>& vertices, std::vector<uint32_t>& indices, std::vector<std::shared_ptr<Texture>>& textures)
 	{
-		//for (unsigned int i = 0; i < m_Textures.size(); i++)
-		//{
-		//	m_Textures[i]->Bind(i);
-		//}
-
-		//Renderer::DrawArray(m_VertexArray);
-
-		//// todo : stop unbinging, bad performance impact
-		//for (unsigned int i = 0; i < m_Textures.size(); i++)
-		//{
-		//	m_Textures[i]->Unbind();
-		//}
+		return new Mesh(vertices, indices, textures);
 	}
 
 	Mesh Mesh::GenerateCube(float size)
@@ -247,17 +238,17 @@ namespace Elevate
 		{
 			vertices.insert(
 				vertices.end(),
-				mesh.m_Vertices.begin(),
-				mesh.m_Vertices.end()
+				mesh.m_data.Vertices.begin(),
+				mesh.m_data.Vertices.end()
 			);
 
-			for (uint32_t index : mesh.m_Indices)
+			for (uint32_t index : mesh.m_data.Indices)
 			{
 				indices.push_back(index + (uint32_t)indexOffset);
 			}
-			indexOffset += mesh.m_Vertices.size();
+			indexOffset += mesh.m_data.Vertices.size();
 
-			for (std::shared_ptr<Texture> tex : mesh.m_Textures)
+			for (std::shared_ptr<Texture> tex : mesh.m_data.Textures)
 			{
 				if (!tex) continue; // TODO FIND IF AND WHY A TEXTURE COULD BE NULL
 

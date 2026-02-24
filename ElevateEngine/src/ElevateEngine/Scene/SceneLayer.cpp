@@ -24,7 +24,7 @@ void Elevate::SceneLayer::OnRender(Camera* cam)
 {
 	if (cam)
 	{
-		Renderer::BeginFrame(*cam);
+		Renderer::BeginFrame(m_scene, *cam);
 		m_scene->RenderScene(cam);
 	}
 	else

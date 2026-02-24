@@ -32,6 +32,7 @@ namespace Elevate
 		Normal,
 		Height,
 		Cubemap,
+		Ambient,
 
 		Count
 	};
@@ -99,7 +100,6 @@ namespace Elevate
 			SetDataImpl(data);
 		}
 
-		virtual bool IsBound() const = 0;
 		virtual void* GetNativeHandle() const = 0; // Return a handle to the texture differs from the backend
 
 		inline bool IsTextureLoaded() const { return m_meta.State == TextureState::Loaded; }

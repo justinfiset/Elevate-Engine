@@ -22,11 +22,17 @@ namespace Elevate
 		if (shader)
 		{
 			m_buffer.resize(m_shader->GetLayout().GetStride());
+			m_definedUniforms.resize(m_shader->GetLayout().GetElements().size());
 		}
 		else
 		{
 			EE_CORE_ERROR("A Material can only be created from a valid Shader instance.");
 		}
+	}
+
+	void Material::SetTexture(const std::string& name, TexturePtr texture)
+	{
+		m_textures[name] = texture;
 	}
 
 	void Material::Apply()
@@ -38,6 +44,8 @@ namespace Elevate
 			for (const auto& uniform : m_shader->GetLayout())
 			{
 				// ignore system managed uniforms
+				if (uniform.Type == ShaderDataType::Sampler2D) continue;
+
 				if (uniform.Name == EE_SHADER_VIEWPROJ ||
 					uniform.Name == EE_SHADER_CAMPOS ||
 					uniform.Name == EE_SHADER_MODEL)
@@ -45,22 +53,26 @@ namespace Elevate
 					continue;
 				}
 
-				void* data = m_buffer.data() + uniform.offset;
-				m_shader->SetUniform(uniform.Name, uniform.Type, data);
+				void* data = m_buffer.data() + uniform.Offset;
+				// Only apply the uniform if it has been defined
+				if (m_definedUniforms[uniform.Index])
+				{
+					m_shader->SetUniform(uniform.Name, uniform.Type, data);
+				}
+			}
+
+			uint32_t slot = 0;
+			for (auto& tex : m_textures)
+			{
+				Renderer::BindTexture(tex.second, slot);
+				m_shader->SetUniform1i(tex.first, slot);
+				slot++;
 			}
 		}
 		else
 		{
 			EE_CORE_ERROR("Material::Apply() : Cannot apply uniforms to a shader that is nullptr.");
 		}
-
-
-		// todo : find a way to textures uniforms based on the shader
-
-		//for (unsigned int i = 0; i < m_Textures.size(); i++)
-		//{
-		//	m_Textures[i]->Bind(i);	
-		//}
 	}
 
 	std::shared_ptr<Shader> Material::GetShader()

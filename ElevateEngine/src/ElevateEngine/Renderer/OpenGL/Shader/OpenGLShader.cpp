@@ -14,8 +14,6 @@
 
 namespace Elevate
 {
-	uint32_t OpenGLShader::s_CurrentBoundShaderID = 0;
-
 	OpenGLShader::OpenGLShader(const std::string& vertexSource, const std::string& fragmentSouce)
 	{
 		// Create an empty vertex shader handle
@@ -142,25 +140,12 @@ namespace Elevate
 
 	void OpenGLShader::Bind() const
 	{
-		if (!IsBound()) // Prevent a shader from being binded twice
-		{
-			GLCheck(glUseProgram(m_RendererID));
-			s_CurrentBoundShaderID = m_RendererID;
-		}
+		GLCheck(glUseProgram(m_RendererID));
 	}
 
 	void OpenGLShader::Unbind() const
 	{
-		if (IsBound())
-		{
-			glUseProgram(0);
-			s_CurrentBoundShaderID = 0;
-		}
-	}
-
-	bool OpenGLShader::IsBound() const
-	{
-		return s_CurrentBoundShaderID == m_RendererID;
+		glUseProgram(0);
 	}
 
 	uint32_t OpenGLShader::GetHashCode() const
@@ -284,6 +269,7 @@ namespace Elevate
 		case GL_BOOL:               return EngineDataType::Bool;
 		case GL_FLOAT_MAT3:         return EngineDataType::Mat3;
 		case GL_FLOAT_MAT4:         return EngineDataType::Mat4;
+		case GL_SAMPLER_2D:         return EngineDataType::Sampler2D;
 		}
 		return EngineDataType::Unknown;
 	}

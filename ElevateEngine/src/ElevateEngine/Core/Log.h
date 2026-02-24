@@ -41,7 +41,6 @@ namespace Elevate {
 
 		template<typename... Args>
 		static void FatalFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
-
 			Fatal(logger, std::format(fmt, std::forward<Args>(args)...));
 		}
 	};

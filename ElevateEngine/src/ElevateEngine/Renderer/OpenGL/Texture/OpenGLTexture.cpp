@@ -83,18 +83,11 @@ namespace Elevate
 	{
 		GLCheck(glActiveTexture(GL_TEXTURE0 + index));
 		GLCheck(glBindTexture(ToOpenGL(m_meta.Usage), m_textureID));
-		m_isBound = true;
 	}
 
 	void OpenGLTexture::Unbind()
 	{
 		GLCheck(glBindTexture(ToOpenGL(m_meta.Usage), 0));
-		m_isBound = false;
-	}
-
-	bool OpenGLTexture::IsBound() const
-	{
-		return m_isBound;
 	}
 
 	void OpenGLTexture::SetDataImpl(unsigned char* data)
@@ -113,6 +106,8 @@ namespace Elevate
 			GLint swizzleMask[] = { GL_RED, GL_RED, GL_RED, GL_ONE };
 			glTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_RGBA, swizzleMask);
 		}
+
+		EE_CORE_INFO("Creating Texture: ID={}, Size={}x{}, Format={}", m_textureID, m_meta.Width, m_meta.Height, (int)m_meta.Format);
 
 		if (data || m_meta.Source == TextureSource::RenderTarget) 
 		{

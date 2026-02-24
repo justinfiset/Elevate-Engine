@@ -33,7 +33,10 @@
 #include <ElevateEngine/Audio/Wwise/Editor/WwiseBrowserWidget.h>
 
 // TODO : CHECK ESSENTIAL INCLUDES KNOW ESSENTIAL BELLOW
+// Core
 #include <ElevateEngine/Core/GameObject.h>
+// Rendering
+#include <ElevateEngine/Renderer/Renderer.h>
 
 namespace Elevate::Editor
 {
@@ -105,7 +108,8 @@ namespace Elevate::Editor
 	{
 		// Rendering the editor grid
 		glm::vec3 camPos = m_CameraObject->GetPosition();
-		m_GridShader->Bind();
+		// todo use materials instead
+		Renderer::BindShader(m_GridShader);
 		m_GridShader->SetProjectionViewMatrix(*GetCamera());
 		m_GridObject->SetPosition({ camPos.x, 0, camPos.z });
 

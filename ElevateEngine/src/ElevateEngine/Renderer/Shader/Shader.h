@@ -25,9 +25,6 @@ namespace Elevate
 		~Shader() {}
 
 		virtual uint32_t GetID() const = 0;
-		virtual void Bind() const = 0;
-		virtual void Unbind() const = 0;
-		virtual bool IsBound() const = 0;
 		virtual uint32_t GetHashCode() const = 0;
 
 		static std::shared_ptr<Shader> CreateDefaultNative(); // Safe fallback in case of shader creation failure
@@ -117,10 +114,15 @@ namespace Elevate
 		virtual BufferLayout ExtractReflectionData() const = 0;
 		inline void SetInitializationStatus(bool initialized) { m_isInitialized = initialized; }
 
-		bool m_isInitialized = false;
+	private:
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
 
 	private:
 		BufferLayout m_layout;
+		bool m_isInitialized = false;
+
+		friend class Renderer;
 	};
 
 	using ShaderPtr = std::shared_ptr<Shader>;

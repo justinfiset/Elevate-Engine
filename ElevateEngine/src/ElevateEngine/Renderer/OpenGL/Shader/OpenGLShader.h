@@ -14,7 +14,6 @@ namespace Elevate
 		virtual uint32_t GetID() const override;
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
-		virtual bool IsBound() const override;
 		virtual uint32_t GetHashCode() const override;
 
 		virtual unsigned int GetRendererID() const override { return m_RendererID;  }
@@ -53,8 +52,6 @@ namespace Elevate
 		virtual BufferLayout ExtractReflectionData() const override;
 
 	private:
-		static uint32_t s_CurrentBoundShaderID;
-
 		uint32_t m_RendererID = 0;
 	};
 }

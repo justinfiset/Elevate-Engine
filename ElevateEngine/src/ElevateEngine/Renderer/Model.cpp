@@ -10,6 +10,18 @@
 
 #include <filesystem>
 
+std::string GetUniformNameByType(Elevate::TexturePtr texture)
+{
+	switch (texture->GetUsage())
+	{
+	case Elevate::TextureType::Diffuse:  return "diffuseTex";
+	case Elevate::TextureType::Specular: return "specularTex";
+	case Elevate::TextureType::Ambient:  return "ambientText";
+	case Elevate::TextureType::Normal:   return "normalTex";
+	default: return "";
+	}
+}
+
 Elevate::Model::Model(PrimitiveType type) : Model("", nullptr)
 {
 	switch (type)
@@ -70,6 +82,10 @@ void Elevate::Model::LoadModel(std::string path)
 	ProcessNode(fsPath.parent_path().string(), scene->mRootNode, scene, data);
 
 	m_batchedMesh = Mesh(data);
+	for (auto& tex : m_batchedMesh.GetTextures())
+	{
+		m_material->SetTexture(GetUniformNameByType(tex), tex);
+	}
 }
 
 void Elevate::Model::ProcessNode(std::string basePath, aiNode* node, const aiScene* scene, MeshData& data)
@@ -115,6 +131,9 @@ void Elevate::Model::ProcessMesh(std::string basePath, aiMesh* mesh, const aiSce
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 		LoadMaterialTextures(basePath, material, aiTextureType_DIFFUSE, TextureType::Diffuse, data);
 		LoadMaterialTextures(basePath, material, aiTextureType_SPECULAR, TextureType::Specular, data);
+		LoadMaterialTextures(basePath, material, aiTextureType_AMBIENT, TextureType::Ambient, data);
+		LoadMaterialTextures(basePath, material, aiTextureType_AMBIENT_OCCLUSION, TextureType::Ambient, data); // todo create new texturetype
+		// todo : load all of the other texture types
 	}
 }
 

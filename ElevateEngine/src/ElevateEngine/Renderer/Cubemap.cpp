@@ -102,21 +102,22 @@ void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader)
 {
 	if (!shader) shader = m_cubemapShader;
 
+	// todo send as a render command
 	Renderer::PushRenderState(m_renderState);
-	shader->Bind();
+	Renderer::BindShader(shader);
 	GLCheck(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));
 	Renderer::DrawArray(m_VertexArray);
 }
 
 void Elevate::Cubemap::SetProjectionMatrix(glm::mat4 proj)
 {
-	m_cubemapShader->Bind();
+	Renderer::BindShader(m_cubemapShader);
 	m_cubemapShader->SetUniformMatrix4fv("projection", proj);
 }
 
 void Elevate::Cubemap::SetViewMatrix(glm::mat4 view)
 {
-	m_cubemapShader->Bind();
+	Renderer::BindShader(m_cubemapShader);
 	m_cubemapShader->SetUniformMatrix4fv("view", view);
 }
 

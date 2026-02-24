@@ -7,10 +7,15 @@ namespace Elevate
 {
 	class Camera;
 	class Shader;
+
 	class Scene;
-	class Shader;
+	using ScenePtr = std::shared_ptr<Scene>;
+	class SceneLighting;
+
 	class LayerStack;
 	class Layer;
+
+	class Shader;
 	class Texture;
 
 	class Renderer
@@ -19,7 +24,7 @@ namespace Elevate
 		inline static RendererAPI::GraphicAPI GetAPI() { return RendererAPI::GetAPI(); }
 
 		// RENDER API STATIC WRAPPER
-		static void BeginFrame(Camera& cam);
+		static void BeginFrame(const ScenePtr scene, const Camera& cam);
 		// Performant function to bind a shader and to minimize API calls
 		static bool BindShader(const std::shared_ptr<Shader>& shader); // Return true if the shader just changed
 		static void ApplySystemUniforms(const std::shared_ptr<Shader>& shader);
@@ -48,7 +53,9 @@ namespace Elevate
 		struct RendererStorage {
 			glm::mat4 ViewProj;
 			glm::vec3 CameraPosition;
+			const SceneLighting* ActiveLighting = nullptr;
 		};
+
 		static RendererAPI* s_API;
 		static RenderCommandQueue s_commands;
 

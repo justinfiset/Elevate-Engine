@@ -182,7 +182,7 @@ namespace Elevate {
 			GameContextState oldState = s_Instance->m_state;
 			s_Instance->m_state = newState;
 
-			EE_CORE_INFO("GameContext state changed from %s to %s",
+			EE_CORE_INFO("GameContext state changed from {} to {}",
 				GetGameContextStateName(oldState),
 				GetGameContextStateName(newState));
 

@@ -14,7 +14,7 @@ namespace Elevate
 	///////////////////////////////////////////////////////////////////////////////////////
 	// VertexBuffer ///////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////
-	OpenGLVertexBuffer::OpenGLVertexBuffer(void* vertices, uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(const void* vertices, uint32_t size)
 		: VertexBuffer(vertices, size)
 	{
 		GLCheck(glCreateBuffers(1, &m_rendererID));
@@ -40,7 +40,7 @@ namespace Elevate
 		GLCheck(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	}
 
-	void OpenGLVertexBuffer::SetData(void* newData, uint32_t size)
+	void OpenGLVertexBuffer::SetData(const void* newData, uint32_t size)
 	{
 		if (m_rendererID != 0)
 		{
@@ -74,7 +74,7 @@ namespace Elevate
 	///////////////////////////////////////////////////////////////////////////////////////
 	// IndexBuffer ////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////
-	OpenGLIndexBuffer::OpenGLIndexBuffer(void* indices, uint32_t count)
+	OpenGLIndexBuffer::OpenGLIndexBuffer(const void* indices, uint32_t count)
 		: m_count(count)
 	{
 		GLCheck(glCreateBuffers(1, &m_rendererID));

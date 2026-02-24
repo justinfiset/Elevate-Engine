@@ -18,11 +18,12 @@ namespace Elevate
 	uint32_t Renderer::s_currentShaderID = 0;
 	uintptr_t Renderer::s_textures[16];
 
-	void Renderer::BeginFrame(Camera& cam)
+	void Renderer::BeginFrame(const ScenePtr scene, const Camera& cam)
 	{
 		s_currentShaderID = 0;
 		s_data.CameraPosition = cam.gameObject->GetPosition();
 		s_data.ViewProj = cam.GenViewProjectionMatrix();
+		s_data.ActiveLighting = scene->GetSceneLighting();
 	}
 
 	bool Renderer::BindShader(const std::shared_ptr<Shader>& shader)
@@ -112,11 +113,6 @@ namespace Elevate
 		// Update the renderer state if necessary
 		PushRenderState(command.State);
 
-		//float x = command.Transform[3][0];
-		//float y = command.Transform[3][1];
-		//float z = command.Transform[3][2];
-		//EE_CORE_INFO("Dispatching Command : Shader Render ID ({}), Transform (x: {}, y: {}, z: {})", command.MaterialInstance->GetShader()->GetRendererID(), x, y ,z);
-
 		// Setup the Material and Shader
 		uint32_t prevshader = s_currentShaderID;
 		if (command.MaterialInstance)
@@ -126,6 +122,7 @@ namespace Elevate
 			{
 				ApplySystemUniforms(shader);
 				shader->SetModelMatrix(command.Transform);
+				s_data.ActiveLighting->UploadToShader(shader);
 				command.MaterialInstance->Apply();
 			}
 		}
@@ -161,14 +158,16 @@ namespace Elevate
 
 	void Renderer::BindTexture(const std::shared_ptr<Texture>& texture, uint8_t slot)
 	{
-		uintptr_t textureID = texture ? reinterpret_cast<uintptr_t>(texture->GetNativeHandle()) : 0;
-		if (s_textures[slot] != textureID)
-		{
-			if (texture)
-			{
-				texture->Bind(slot);
-			}
-			s_textures[slot] = textureID;
-		}
+		// todo optimize and make sure EVERY texture uses this
+		//uintptr_t textureID = texture ? reinterpret_cast<uintptr_t>(texture->GetNativeHandle()) : 0;
+		//if (s_textures[slot] != textureID)
+		//{
+		//	if (texture)
+		//	{
+		//		texture->Bind(slot);
+		//	}
+		//	s_textures[slot] = textureID;
+		//}
+		texture->Bind(slot);
 	}
 }

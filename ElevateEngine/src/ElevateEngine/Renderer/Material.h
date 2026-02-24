@@ -27,15 +27,17 @@ namespace Elevate
 		template<typename T>
 		void Set(const std::string& name, const T& value)
 		{
-			for (const auto& element : m_shader->GetLayout())
+			for (const auto& uniform : m_shader->GetLayout())
 			{
-				if (element.Name == name)
+				if (uniform.Name == name)
 				{
-					memcpy(m_buffer.data() + element.offset, &value, sizeof(T));
+					memcpy(m_buffer.data() + uniform.Offset, &value, sizeof(T));
+					m_definedUniforms[uniform.Index] = true;
 				}
 			}
 		}
 
+		void SetTexture(const std::string& name, TexturePtr texture);
 		void Apply();
 		std::shared_ptr<Shader> GetShader();
 		inline MaterialID GetID() { return m_id; }
@@ -47,9 +49,9 @@ namespace Elevate
 		std::shared_ptr<Shader> m_shader;
 		// Uniforms
 		std::vector<uint8_t> m_buffer;
+		std::vector<bool> m_definedUniforms;
 
-		TexturePtr m_mainTextures[(int)TextureType::Count];
-		std::vector<TexturePtr> m_additionalTextures;
+		std::unordered_map<std::string, TexturePtr> m_textures;
 
 		MaterialID m_id;
 		static MaterialID s_nextId;
