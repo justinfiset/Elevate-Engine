@@ -63,6 +63,7 @@ namespace Elevate {
 		//Window
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
+		bool OnWindowFocusEvent(WindowFocusEvent& e);
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;

@@ -116,36 +116,108 @@ namespace Elevate
 		auto optId = node->first_attribute("ID");
 		auto optShortId = node->first_attribute("ShortID");
 
-		WwiseType type = GetTypeFromName(std::string(node->name()));
-		if (type != WwiseType::Unknown)
+		WwiseItemPtr item = nullptr;
+		switch (type)
 		{
-			WwiseItemPtr childItem = WwiseItem::Create();
+		case WwiseType::Bus:
+			item = ProcessBus(parent, node);
+			break;
+		case WwiseType::AuxBus:
+			item = ProcessAuxBus(parent, node);
+			break;
+		case WwiseType::Event:
+			item = ProcessEvent(parent, node);
+			break;
+		case WwiseType::SoundBank:
+			item = ProcessSoundBank(parent, node);
+			break;
+		case WwiseType::StateGroup:
+			item = ProcessStateGroup(parent, node);
+			break;
+		case WwiseType::State:
+			item = ProcessState(parent, node);
+			break;
+		case WwiseType::SwitchGroup:
+			item = ProcessSwitchGroup(parent, node);
+			break;
+		case WwiseType::Switch:
+			item = ProcessSwitch(parent, node);
+			break;
+		}
 
-			childItem->Type = type;
-			if (optName)    childItem->Name = optName.get()->value();
-			if (optId)      childItem->GUID = optId.get()->value();
-			if (optShortId) childItem->ShortID = std::stoi(std::string(optShortId.get()->value()));
-			parent->AddChildren(childItem);
+		if (item)
+		{
+			item->IsOnDisk = true;
+			if (name)
+			{
+				item->Name = name->value();
+			}
+			if (id)
+			{
+				item->GUID = id->value();
+			}
+			if (shortId)
+			{
+				item->ShortID = std::stoi(shortId->value());
+			}
+			parent->AddChildren(item);
 
-			if (childItem->IsDirectory())
+			if (item->IsDirectory())
 			{
 				auto optChildrenList = node->first_node("ChildrenList");
 				if (optChildrenList)
 				{
-					auto childrenListNode = optChildrenList.get();
-					for (auto optChild = childrenListNode->first_node(); optChild; optChild = optChild.get()->next_sibling())
-					{
-						ProcessNode(childItem, optChild.get());
-					}
+					ProcessNode(childItem, child);
+					ProcessNode(item, child);
 				}
 			}
 		}
 	}
 
+	WwiseItemPtr WwiseFileDataSource::ProcessBus(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	{
+		return WwiseBus::Create(); 
+	}
+
+	WwiseItemPtr WwiseFileDataSource::ProcessAuxBus(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	{
+		return WwiseAuxBus::Create();
+	}
+
+	WwiseItemPtr WwiseFileDataSource::ProcessEvent(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	{
+		return WwiseEvent::Create();
+	}
+
+	WwiseItemPtr WwiseFileDataSource::ProcessSoundBank(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	{
+		return WwiseSoundbank::Create();
+	}
+
+	WwiseItemPtr WwiseFileDataSource::ProcessStateGroup(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	{
+		return WwiseStateGroup::Create();
+	}
+
+	WwiseItemPtr WwiseFileDataSource::ProcessState(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	{
+		return WwiseState::Create();
+	}
+
+	WwiseItemPtr WwiseFileDataSource::ProcessSwitchGroup(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	{
+		return WwiseSwitchGroup::Create();
+	}
+
+	WwiseItemPtr WwiseFileDataSource::ProcessSwitch(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	{
+		return WwiseSwitch::Create();
+	}
+
 	bool WwiseFileDataSource::IsValidDirectory(std::string directoryName)
 	{
 		constexpr std::array<std::string_view, 6> validDirectories = {
-			"Busses", "Devices", "Events", "SoundBanks", "States", "Switches"
+			"Busses", "Events", "SoundBanks", "States", "Switches"
 		};
 
 		for (const auto& name : validDirectories)
@@ -161,6 +233,8 @@ namespace Elevate
 	WwiseType WwiseFileDataSource::GetTypeFromName(std::string name)
 	{
 		if (name == "Bus")					return WwiseType::Bus;
+		if (name == "AuxBus")				return WwiseType::AuxBus;
+		else if (name == "SoundBank")		return WwiseType::SoundBank;
 		else if (name == "WorkUnit")		return WwiseType::WorkUnit;
 		else if (name == "AudioDevice")		return WwiseType::AudioDevice;
 		else if (name == "Event")			return WwiseType::Event;

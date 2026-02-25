@@ -7,46 +7,55 @@
 #include <ElevateEngine/Audio/Ak/Common/AkFilePackageLowLevelIODeferred.h>
 
 #ifdef EE_EDITOR_BUILD
-#include <ElevateEngine/Audio/Wwise/DataSources/WwiseFileDataSource.h>
+#include <ElevateEngine/Audio/Wwise/DataSources/WwiseMergedDataSource.h>
 #endif
 
 namespace Elevate
 {
-	class GameObject;
-	
-	class WwiseSoundEngine : public SoundEngine
-	{
-	public:
-		#ifdef EE_EDITOR_BUILD
-		virtual std::shared_ptr<WwiseFileDataSource> GetFileDataSource();
-		#endif
+    class GameObject;
+    
+    class WwiseSoundEngine : public SoundEngine
+    {
+    public:
+        static WwiseSoundEngine* Get();
 
-	protected:
-		virtual bool InitImpl() override;
-		virtual void RenderAudioImpl() override;
-		virtual void TerminateImpl() override;
+        bool LoadBank(const wchar_t* bankName);
+        bool LoadBank(const std::wstring& bankName);
+        bool LoadBank(const char* bankName);
+        bool LoadBank(std::string& bankName);
 
-		virtual void SetDefaultListenerImpl(GameObject* obj) override;
-		virtual void SetDistanceProbeImpl(GameObject* obj) override;
-		virtual void UnsetDistanceProbeImpl() override;
+        #ifdef EE_EDITOR_BUILD
+        virtual std::shared_ptr<WwiseDataSource> GetDataSource();
+        #endif
 
-		virtual void RegisterGameObjectImpl(GameObject* obj) override;
-		virtual void UnregisterGameObjectImpl(GameObject* obj) override;
-		virtual void UpdateObjectPositionImpl(GameObject* obj) override;
+    protected:
+        virtual bool InitImpl() override;
+        virtual void RenderAudioImpl() override;
+        virtual void TerminateImpl() override;
+        virtual void WakeUpImpl() override;
+        virtual void SuspendImpl(bool renderAnyway, bool fadeOut) override;
 
-		virtual void PostEventImpl(const char* eventName, GameObject* object) override;
-		virtual void PostEventImpl(uint32_t eventId, GameObject* object) override;
-		virtual void PostEventImpl(const char* eventName) override;
-		virtual void PostEventImpl(uint32_t eventId) override;
-	private:
-		void PrepareAudio();
+        virtual void SetDefaultListenerImpl(GameObject* obj) override;
+        virtual void SetDistanceProbeImpl(GameObject* obj) override;
+        virtual void UnsetDistanceProbeImpl() override;
 
-	private:
-		AkGameObjectID m_currentListenerID;
-		std::unique_ptr<CAkFilePackageLowLevelIODeferred> m_lowLevelIO;
+        virtual void RegisterGameObjectImpl(GameObject* obj) override;
+        virtual void UnregisterGameObjectImpl(GameObject* obj) override;
+        virtual void UpdateObjectPositionImpl(GameObject* obj) override;
 
-		#ifdef EE_EDITOR_BUILD
-		std::shared_ptr<WwiseFileDataSource> m_fileDataSource;
-		#endif
-	};
+        virtual void PostEventImpl(const char* eventName, GameObject* object) override;
+        virtual void PostEventImpl(uint32_t eventId, GameObject* object) override;
+        virtual void PostEventImpl(const char* eventName) override;
+        virtual void PostEventImpl(uint32_t eventId) override;
+    private:
+        void PrepareAudio();
+
+    private:
+        AkGameObjectID m_currentListenerID;
+        std::unique_ptr<CAkFilePackageLowLevelIODeferred> m_lowLevelIO;
+
+        #ifdef EE_EDITOR_BUILD
+        std::shared_ptr<WwiseMergedDataSource> m_mergedDataSource;
+        #endif
+    };
 }

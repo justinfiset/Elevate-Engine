@@ -9,20 +9,22 @@
 
 namespace Elevate
 {
-	class GameObject;
-	
-	class SoundEngine
-	{
-	public:
-		static inline bool Init()
-		{
-			// todo find a way to put back core assert and logging
-			EE_CHECK_SOUNDENGINE(false);
-			EE_ASSERT(Impl, "Error : No valid SoundEngine impl. found.");
-			bool result = Impl->InitImpl();
-			EE_CERROR(!result, "Error (SoundEngine::Init) : Could not initialize the sound engine.");
-			return result;
-		}
+    class GameObject;
+    
+    class SoundEngine
+    {
+    public:
+        static inline bool Init()
+        {
+            // todo find a way to put back core assert and logging
+            EE_CHECK_SOUNDENGINE(false);
+            EE_ASSERT(Impl, "Error : No valid SoundEngine impl. found.");
+            bool result = Impl->InitImpl();
+            EE_CERROR(!result, "Error (SoundEngine::Init) : Could not initialize the sound engine.");
+            return result;
+
+            // todo register to native window callbacks
+        }
 
 		static inline void RenderAudio()
 		{
@@ -96,16 +98,31 @@ namespace Elevate
 			Impl->PostEventImpl(eventId);
 		}
 
-		static inline SoundEngine* GetImpl() { return Impl; }
+        static inline void Wakeup()
+        {
+            EE_CHECK_SOUNDENGINE();
+            Impl->WakeUpImpl();
+        }
+
+        static inline void Suspend(bool renderAnyway = false, bool fadeOut = true)
+        {
+            EE_CHECK_SOUNDENGINE();
+            Impl->SuspendImpl(renderAnyway, fadeOut);
+        }
+
+        static inline SoundEngine* GetImpl() { return Impl; }
 
 	protected:
 		virtual bool InitImpl() = 0;
 		virtual void RenderAudioImpl() = 0;
 		virtual void TerminateImpl() = 0;
 
-		virtual void SetDefaultListenerImpl(GameObject* obj) = 0;
-		virtual void SetDistanceProbeImpl(GameObject* obj) = 0;
-		virtual void UnsetDistanceProbeImpl() = 0;
+        virtual void WakeUpImpl() = 0;
+        virtual void SuspendImpl(bool renderAnyway, bool fadeOut) = 0;
+
+        virtual void SetDefaultListenerImpl(GameObject* obj) = 0;
+        virtual void SetDistanceProbeImpl(GameObject* obj) = 0;
+        virtual void UnsetDistanceProbeImpl() = 0;
 
 		virtual void RegisterGameObjectImpl(GameObject* obj) = 0;
 		virtual void UnregisterGameObjectImpl(GameObject* obj) = 0;

@@ -74,6 +74,8 @@ namespace Elevate {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+		dispatcher.Dispatch<WindowFocusEvent>(BIND_EVENT_FN(OnWindowFocusEvent));
+
 		// Keyboard
 		dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(OnKeyPressedEvent));
 		dispatcher.Dispatch<KeyReleasedEvent>(BIND_EVENT_FN(OnKeyReleasedEvent));
@@ -230,6 +232,21 @@ namespace Elevate {
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
 		Renderer::SetViewport(0, 0, e.GetWidth(), e.GetHeight());
+		return true;
+	}
+
+	bool Application::OnWindowFocusEvent(WindowFocusEvent& e)
+	{
+		if (e.GetFocusState())
+		{
+			// todo add a setting to check the type of suspend to impl.
+			SoundEngine::Suspend(true);
+		}
+		else
+		{
+			SoundEngine::Wakeup();
+		}
+
 		return true;
 	}
 

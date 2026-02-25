@@ -14,6 +14,8 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="TestEventPasDansBanque" ID="{7AB93031-73A8-4CE7-BA30-7B027F82D5BE}"/>
+				<Event Name="testrefres" ID="{46A12D76-945D-4AFD-8491-E3AEDDFD3AED}"/>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
