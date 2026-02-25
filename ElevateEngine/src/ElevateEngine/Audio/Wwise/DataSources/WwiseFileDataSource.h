@@ -7,11 +7,7 @@
 #include <ElevateEngine/Audio/Wwise/DataSources/WwiseDataSource.h>
 #include <ElevateEngine/Audio/Wwise/WwiseItem.h>
 
-namespace rapidxml
-{
-	template<class Ch>
-	class xml_node;
-}
+#include <rapidxml.hpp>
 
 namespace Elevate
 {
