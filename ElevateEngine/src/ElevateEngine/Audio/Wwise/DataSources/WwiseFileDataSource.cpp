@@ -4,14 +4,12 @@
 #include <array>
 #include <filesystem>
 
-#include <rapidxml/rapidxml.hpp>
-#include <rapidxml/rapidxml_utils.hpp>
+#include <flxml/utils.h>
 
 #define WWISE_WORKUNIT_EXTENSION ".wwu"
-#define GET_FIRST_NODE_CHECKED(x) x; if(!x) return
 
 namespace fs = std::filesystem;
-using namespace rapidxml;
+using namespace flxml;
 
 namespace Elevate
 {
@@ -64,63 +62,81 @@ namespace Elevate
 			return;
 		}
 
-		file<> workUnitFile(workUnitPath.string().c_str());
+		rapidxml::
+			file<> workUnitFile(workUnitPath.string().c_str());
 		xml_document<> doc;
 		doc.parse<0>(workUnitFile.data());
 
 		// Get the second node as the first one is the xml
 		// todo check the document type to check if really workunit
-		xml_node<>* docNode = GET_FIRST_NODE_CHECKED(doc.first_node());
-		xml_node<>* typeNode = GET_FIRST_NODE_CHECKED(docNode->first_node());
-		xml_node<>* workUnitNode = GET_FIRST_NODE_CHECKED(typeNode->first_node());
+		auto optDocNode = doc.first_node();
+		if (!optDocNode) return;
+		xml_node<char>* docNode = optDocNode.get();
+
+		auto optTypeNode = docNode->first_node();
+		if (!optTypeNode) return;
+		xml_node<char>* typeNode = optTypeNode.get();
+
+		auto optWorkUnitNode = typeNode->first_node();
+		if (!optWorkUnitNode) return;
+		xml_node<char>* workUnitNode = optWorkUnitNode.get();
+
+		auto optIdAttr = workUnitNode->first_attribute("ID");
 
 		WwiseItemPtr workUnitItem = WwiseItem::Create();
 		workUnitItem->Name = workUnitPath.stem().string();
 		workUnitItem->Type = WwiseType::WorkUnit;
-		workUnitItem->GUID = workUnitNode->first_attribute("ID")->value();
 		workUnitItem->IsOnDisk = true;
+
+		if (optIdAttr)
+		{
+			workUnitItem->GUID = optIdAttr.get()->value();
+		}
+
 		parent->AddChildren(workUnitItem);
 
-		xml_node<>* childrenListNode = GET_FIRST_NODE_CHECKED(workUnitNode->first_node());
-		for (xml_node<>* child = childrenListNode->first_node(); child; child = child->next_sibling())
+		auto optChildrenListNode = workUnitNode->first_node();
+		if (optWorkUnitNode)
 		{
-			ProcessNode(workUnitItem, child);
+			for (auto child = optWorkUnitNode->first_node(); child; child = child->next_sibling())
+			{
+				if (child)
+				{
+					ProcessNode(workUnitItem, child.get());
+				}
+			}
 		}
 
 		doc.clear();
 	}
 
-	void Elevate::WwiseFileDataSource::ProcessNode(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	void Elevate::WwiseFileDataSource::ProcessNode(WwiseItemPtr parent, rapidxml::xml_node<char>* node)
 	{
-		xml_attribute<>* name = node->first_attribute("Name");
-		xml_attribute<>* id = node->first_attribute("ID");
-		xml_attribute<>* shortId = node->first_attribute("ShortID");
-		WwiseType type = GetTypeFromName(node->name());
+		auto optName = node->first_attribute("Name");
+		auto optId = node->first_attribute("ID");
+		auto optShortId = node->first_attribute("ShortID");
 
+		WwiseType type = GetTypeFromName(std::string(node->name()));
 		if (type != WwiseType::Unknown)
 		{
 			WwiseItemPtr childItem = WwiseItem::Create();
+
 			childItem->Type = type;
-			if (name)
-			{
-				childItem->Name = name->value();
-			}
-			if (id)
-			{
-				childItem->GUID = id->value();
-			}
-			if (shortId)
-			{
-				childItem->ShortID = std::stoi(shortId->value());
-			}
+			if (optName)    childItem->Name = optName.get()->value();
+			if (optId)      childItem->GUID = optId.get()->value();
+			if (optShortId) childItem->ShortID = std::stoi(std::string(optShortId.get()->value()));
 			parent->AddChildren(childItem);
 
 			if (childItem->IsDirectory())
 			{
-				xml_node<>* childrenListNode = GET_FIRST_NODE_CHECKED(node->first_node("ChildrenList"));
-				for (xml_node<>* child = childrenListNode->first_node(); child; child = child->next_sibling())
+				auto optChildrenList = node->first_node("ChildrenList");
+				if (optChildrenList)
 				{
-					ProcessNode(childItem, child);
+					auto childrenListNode = optChildrenList.get();
+					for (auto optChild = childrenListNode->first_node(); optChild; optChild = optChild.get()->next_sibling())
+					{
+						ProcessNode(childItem, optChild.get());
+					}
 				}
 			}
 		}

@@ -19,6 +19,7 @@ project "ElevateEngine"
 	IncludeDir["ImGui"] = "vendor/ImGui/"
 	IncludeDir["glm"] = "vendor/glm/"
 	IncludeDir["rapidjson"] = "vendor/rapidjson/include"
+	IncludeDir["rapidxml"] = "vendor/rapidxml/include"
 	IncludeDir["stb"] = "vendor/stb/"
 	IncludeDir["spdlog"] = "vendor/spdlog/include"
 	IncludeDir["assimp"] = "vendor/assimp/include"
@@ -61,6 +62,7 @@ project "ElevateEngine"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.rapidjson}",
+		"%{IncludeDir.rapidxml}",
 		"%{IncludeDir.stb}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",

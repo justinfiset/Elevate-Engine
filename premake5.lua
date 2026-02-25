@@ -14,7 +14,7 @@ workspace "ElevateEngine"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 group "Dependencies"
-	include "ElevateEngine/vendor/GLFW"
+	include "ElevateEngine/vendor/glfw.lua"
 	-- include "ElevateEngine/vendor/Glad"
 	include "ElevateEngine/vendor/imgui.lua"
 	-- include "ElevateEngine/vendor/tinyfiledialogs"  
