@@ -30,12 +30,12 @@ bool Elevate::UI::EECollapsingHeader(const char* label, bool canOpen, const void
 
     ImGuiID id = window->GetID(label);
 
-    float btnWidth;
-    if (headerCustomContent)
-    {
-        SetItemAllowOverlap();
-        ImVec2 prevCursor = GetCursorScreenPos();
-        btnWidth = ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - headerCustomContent() - style.FramePadding.x;
+	float btnWidth;
+	if (headerCustomContent)
+	{
+		SetNextItemAllowOverlap();
+		ImVec2 prevCursor = GetCursorScreenPos();
+		btnWidth = ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - headerCustomContent() - style.FramePadding.x;
 
         SetCursorScreenPos(prevCursor);
     }

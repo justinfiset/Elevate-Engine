@@ -15,7 +15,8 @@ namespace Elevate
 	{
 	public:
 		WwiseFileDataSource(const std::string projectPath)
-			: m_projectPath(projectPath) { }
+			: m_projectPath(projectPath) {
+		}
 		~WwiseFileDataSource() = default;
 
 		virtual void InitializeSource() override;

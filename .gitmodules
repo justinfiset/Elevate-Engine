@@ -10,6 +10,7 @@
 	path = ElevateEngine/vendor/ImGui
 	url = https://github.com/ocornut/imgui
 	ignore = all
+	branch = docking
 [submodule "ElevateEngine/vendor/assimp"]
 	path = ElevateEngine/vendor/assimp
 	url = https://github.com/assimp/assimp
@@ -17,3 +18,6 @@
 [submodule "ElevateEngine/vendor/rapidxml"]
 	path = ElevateEngine/vendor/rapidxml
 	url = https://github.com/dwd/rapidxml.git
+[submodule "ElevateEngine/vendor/GLFW"]
+	path = ElevateEngine/vendor/GLFW
+	url = https://github.com/glfw/glfw
