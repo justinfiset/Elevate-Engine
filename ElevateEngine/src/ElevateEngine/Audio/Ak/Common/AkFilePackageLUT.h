@@ -60,23 +60,23 @@ public:
 #pragma pack(push, 4)
 	template <class T_FILEID>
 	struct AkFileEntry 
-	{
-		T_FILEID	fileID;		// File identifier. 
-		AkUInt32	uBlockSize;	// size of one block, required alignment (in bytes).
+    {
+        T_FILEID	fileID;		// File identifier. 
+		AkUInt32	uBlockSize;	// Size of one block, required alignment (in bytes).
 		AkUInt32	uFileSize;  // File size in bytes. 
-		AkUInt32	uStartBlock;// Start block, expressed in terms of uBlockSize. 
-		AkUInt32	uLanguageID;// Language ID. AK_INVALID_LANGUAGE_ID if not language-specific. 
-	};
+        AkUInt32	uStartBlock;// Start block, expressed in terms of uBlockSize. 
+        AkUInt32	uLanguageID;// Language ID. AK_INVALID_LANGUAGE_ID if not language-specific. 
+    };
 #pragma pack(pop)
 
-	CAkFilePackageLUT();
-	virtual ~CAkFilePackageLUT();
+    CAkFilePackageLUT();
+    virtual ~CAkFilePackageLUT();
 
 	// Create a new LUT from a packaged file header.
 	// The LUT sets pointers to appropriate location inside header data (in_pData).
 	AKRESULT Setup(
 		AkUInt8 *			in_pData,			// Header data.
-		AkUInt32			in_uHeaderSize		// size of file package header.
+		AkUInt32			in_uHeaderSize		// Size of file package header.
 		);
 
 	// Find a file entry by ID.
@@ -85,7 +85,7 @@ public:
 		AkFileSystemFlags * in_pFlags			// Special flags. Do not pass NULL.
 		);
 	
-	// Find a file entry by ID with 64 bit ID.
+    // Find a file entry by ID with 64 bit ID.
 	const AkFileEntry<AkUInt64> * LookupFile(
 		AkUInt64			in_uID,				// File ID.
 		AkFileSystemFlags * in_pFlags			// Special flags. Do not pass NULL.
@@ -103,7 +103,7 @@ public:
 		const AkOSChar*			in_pszBankName		// Soundbank name.
 		);
 
-	// Return the id of an external file (by hashing its name in 64 bits)
+    // Return the id of an external file (by hashing its name in 64 bits)
 	AkUInt64 GetExternalID( 
 		const AkOSChar*			in_pszExternalName		// External Source name.
 		);	
@@ -168,13 +168,13 @@ private:
 	StringMap *			m_pLangMap;
 
 	// SoundBanks LUT.
-	FileLUT<AkFileID> *			m_pSoundBanks;
+    FileLUT<AkFileID> *			m_pSoundBanks;
 	
 	// StreamedFiles LUT.
-	FileLUT<AkFileID> *			m_pStmFiles;
+    FileLUT<AkFileID> *			m_pStmFiles;
 
 	// External Sources LUT.
-	FileLUT<AkUInt64> *			m_pExternals;
+    FileLUT<AkUInt64> *			m_pExternals;
 };
 
 // Helper: Find a file entry by ID.

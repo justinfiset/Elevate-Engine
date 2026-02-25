@@ -32,11 +32,11 @@ class CAkFileHelpers : public CAkFileHelpersBase
 public:
 	// Wrapper for Win32 CreateFile().
 	static AKRESULT OpenFile( 
-		const AkOSChar* in_pszFilename,     // File name.
-		AkOpenMode      in_eOpenMode,       // Open mode.
-		bool            in_bOverlappedIO,	// Use FILE_FLAG_OVERLAPPED flag.
-		AkFileHandle &  out_hFile           // Returned file identifier/handle.
-		)
+        const AkOSChar* in_pszFilename,     // File name.
+        AkOpenMode      in_eOpenMode,       // Open mode.
+        bool            in_bOverlappedIO,	// Use FILE_FLAG_OVERLAPPED flag.
+        AkFileHandle &  out_hFile           // Returned file identifier/handle.
+        )
 	{
 		// Check parameters.
 		if ( !in_pszFilename )
@@ -151,8 +151,8 @@ public:
 
 	// Open file to use with ReadBlocking().
 	static AKRESULT OpenBlocking(
-		const AkOSChar* in_pszFilename,     // File name.
-		AkFileHandle &  out_hFile           // Returned file handle.
+        const AkOSChar* in_pszFilename,     // File name.
+        AkFileHandle &  out_hFile           // Returned file handle.
 		)
 	{
 		return OpenFile( 
@@ -167,10 +167,10 @@ public:
 
 	// Simple blocking read method.
 	static AKRESULT ReadBlocking(
-		AkFileHandle &	in_hFile,			// Returned file identifier/handle.
+        AkFileHandle &	in_hFile,			// Returned file identifier/handle.
 		void *			in_pBuffer,			// Buffer. Must be aligned on CAkFileHelpers::s_uRequiredBlockSize boundary.
 		AkUInt32		in_uPosition,		// Position from which to start reading.
-		AkUInt32		in_uSizeToRead,		// size to read. Must be a multiple of CAkFileHelpers::s_uRequiredBlockSize.
+		AkUInt32		in_uSizeToRead,		// Size to read. Must be a multiple of CAkFileHelpers::s_uRequiredBlockSize.
 		AkUInt32 &		out_uSizeRead		// Returned size read.        
 		)
 	{
@@ -188,7 +188,7 @@ public:
 		AkFileDesc& in_fileDesc,		// Returned file identifier/handle.
 		void*		in_pBuffer,			// Buffer. Must be aligned on CAkFileHelpers::s_uRequiredBlockSize boundary.
 		AkUInt32	in_uPosition,		// Position from which to start reading.
-		AkUInt32	in_uSizeToRead,		// size to read. Must be a multiple of CAkFileHelpers::s_uRequiredBlockSize.
+		AkUInt32	in_uSizeToRead,		// Size to read. Must be a multiple of CAkFileHelpers::s_uRequiredBlockSize.
 		AkUInt32&	out_uSizeRead		// Returned size read.        
 		)
 	{

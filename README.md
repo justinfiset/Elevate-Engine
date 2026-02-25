@@ -37,14 +37,14 @@ ElevateEngine/
 ### First Time Setup
 1. Run the `bootstrap` script:
    - For **Windows**:
-	 ```cmd
-	 bootstrap.bat
-	 ```
+     ```cmd
+     bootstrap.bat
+     ```
 
    - For **macOS/Linux**:
-	 ```bash
-	 ./bootstrap.sh
-	 ```
+     ```bash
+     ./bootstrap.sh
+     ```
 
 2. Select a build option (e.g., Visual Studio, GNU Make, etc.) when prompted.
 

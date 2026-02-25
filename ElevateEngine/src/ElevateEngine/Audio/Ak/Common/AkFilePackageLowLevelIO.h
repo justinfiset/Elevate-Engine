@@ -87,7 +87,7 @@ public:
 
 	AKRESULT Read(
 		void *			in_pBuffer,			// Buffer. Must be aligned with value returned by GetBlockSize().
-		AkUInt32		in_uSizeToRead,		// size to read. Must be a multiple of value returned by GetBlockSize().
+		AkUInt32		in_uSizeToRead,		// Size to read. Must be a multiple of value returned by GetBlockSize().
 		AkUInt32 &		out_uSizeRead,		// Returned size read.
 		AkPriority		in_priority = AK_DEFAULT_PRIORITY,	// Priority heuristic.
 		AkReal32		in_fThroughput = 0	// Throughput heuristic. 0 means "not set", and results in "immediate".
@@ -186,7 +186,7 @@ public:
 		AkFilePackageReader & in_reader,		// File package reader.
 		const AkOSChar*		in_pszPackageName,	// Name of the file package (for memory monitoring).
 		AkUInt32 			in_uHeaderSize,		// File package header size, including the size of the header chunk AKPK_HEADER_CHUNK_DEF_SIZE.
-		AkUInt32 &			out_uReservedHeaderSize, // size reserved for header, taking mem align into account.
+		AkUInt32 &			out_uReservedHeaderSize, // Size reserved for header, taking mem align into account.
 		AkUInt8 *&			out_pHeaderBuffer	// Returned address of memory for header.
 		)
 	{
@@ -257,12 +257,12 @@ public:
 
 	typedef AkPackageFileDesc AkFileDescType;
 
-	CAkFilePackageLowLevelIO();
-	virtual ~CAkFilePackageLowLevelIO();
+    CAkFilePackageLowLevelIO();
+    virtual ~CAkFilePackageLowLevelIO();
 
 	// File package loading:
-	// Opens a package file, parses its header, fills LUT.
-	// Overrides of Open() will search files in loaded LUTs first, then use default Low-Level I/O 
+    // Opens a package file, parses its header, fills LUT.
+    // Overrides of Open() will search files in loaded LUTs first, then use default Low-Level I/O 
 	// services if they cannot be found.
 	// Any number of packages can be loaded at a time. Each LUT is searched until a match is found.
 	// Returns AK_Success if successful, AK_InvalidLanguage if the current language 
@@ -270,10 +270,10 @@ public:
 	// Also returns a package ID which can be used to unload it (see UnloadFilePackage()).
 	// WARNING: This method is not thread safe. Ensure there are no I/O occurring on this device
 	// when loading a file package.
-	virtual AKRESULT LoadFilePackage(
-		const AkOSChar* in_pszFilePackageName,	// File package name. Location is resolved using base class' Open().
+    virtual AKRESULT LoadFilePackage(
+        const AkOSChar* in_pszFilePackageName,	// File package name. Location is resolved using base class' Open().
 		AkUInt32 &		out_uPackageID			// Returned package ID.
-		);
+        );
 	
 	// Unload a file package.
 	// Returns AK_Success if in_uPackageID exists, AK_Fail otherwise.
@@ -287,7 +287,7 @@ public:
 	// Returns AK_Success;
 	// WARNING: This method is not thread safe. Ensure there are no I/O occurring on this device
 	// when unloading a file package.
-	virtual AKRESULT UnloadAllFilePackages();
+    virtual AKRESULT UnloadAllFilePackages();
 
 	// Change the policy when a file is not found in a package.
 	// By default, when a file is not found in a package, it will fall back on T_LLIOHOOK
@@ -299,8 +299,8 @@ public:
 	// Overriden base class policies.
 	// ---------------------------------------------------------------
 
-	// Clean up.
-	void Term();
+    // Clean up.
+    void Term();
 
 	// Returns true if file described by in_fileDesc is in a package.
 	inline bool IsInPackage(
@@ -341,7 +341,7 @@ protected:
 	virtual AkFileDesc* CreateDescriptor(const AkFileDesc* in_pCopy = nullptr) override;
 
 	// Language change handling.
-	// ------------------------------------------
+    // ------------------------------------------
 
 	// Handler for global language change.
 	static AK_FUNC( void, LanguageChangeHandler )( 
@@ -360,7 +360,7 @@ protected:
 
 
 	// File package handling methods.
-	// ------------------------------------------
+    // ------------------------------------------
 
 	virtual AKRESULT FindInPackages(
 		const AkFileOpenData& in_FileOpen,
@@ -369,16 +369,16 @@ protected:
 
 		// Loads a file package, with a given file package reader.
 	AKRESULT _LoadFilePackage(
-		const AkOSChar*			in_pszFilePackageName,	// File package name. Location is resolved using base class' Open().
+        const AkOSChar*			in_pszFilePackageName,	// File package name. Location is resolved using base class' Open().
 		AkFilePackageReader &	in_reader,				// File package reader.
 		AkPriority				in_readerPriority,		// File package reader priority heuristic.
 		T_PACKAGE *&			out_pPackage			// Returned package
-		);
+        );
 
-	// Searches the LUT to find the file data associated with the FileID.
-	// Returns AK_Success if the file is found.
+    // Searches the LUT to find the file data associated with the FileID.
+    // Returns AK_Success if the file is found.
 	template <class T_FILEID>
-	AKRESULT FindPackagedFile( 
+    AKRESULT FindPackagedFile( 
 		T_PACKAGE *			in_pPackage,	// Package to search into.
 		T_FILEID			in_fileID,		// File ID.
 		AkFileSystemFlags * in_pFlags,		// Special flags. Can pass NULL.

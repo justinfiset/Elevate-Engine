@@ -1,13 +1,13 @@
 #pragma once
 
 #include <string>
-#include <memory>
+#include "glm/glm.hpp"
 
-#include <glm/glm.hpp>
-#include <ElevateEngine/Renderer/Buffer.h>
+// TODO cleanup some of the imports
+#include "ElevateEngine/Renderer/Material.h"
 
 // the list of uniform names used by the shader
-// TODO vï¿½rif si uniquement avec opengl ou non
+// TODO vérif si uniquement avec opengl ou non
 #define EE_SHADER_MODEL "model"
 #define EE_SHADER_VIEWPROJ "viewProj"
 #define EE_SHADER_CAMPOS "camPos"
@@ -24,105 +24,87 @@ namespace Elevate
 	public:
 		~Shader() {}
 
-		virtual uint32_t GetID() const = 0;
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
+		virtual bool IsBound() const = 0;
 		virtual uint32_t GetHashCode() const = 0;
 
-		static std::shared_ptr<Shader> CreateDefaultNative(); // Safe fallback in case of shader creation failure
-		static std::shared_ptr<Shader> CreateDefaultErrorNative(); // Safe fallback with an error pattern shader
-		static std::shared_ptr<Shader> CreateDefault();
-		static std::shared_ptr<Shader> CreateDefaultError();
+		static std::shared_ptr<Shader> CreateDefault(); // Safe fallback in case of shader creation failure
+		static std::shared_ptr<Shader> CreateDefaultError(); // Safe fallback with an error pattern shader
 
-		static std::shared_ptr<Shader> Create(const std::string& vertexSource, const std::string& fragmentSouce);
-		static std::shared_ptr<Shader> CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath);
-		static std::shared_ptr<Shader> CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode);
+		static std::shared_ptr<Shader> Create(std::string vertexSource, std::string fragmentSouce);
+		static std::shared_ptr<Shader> CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath);
+		static std::shared_ptr<Shader> CreateFromFiles(std::string vertexSrcPath, std::string fragSrcPath, std::string customVertCode, std::string customFragCode);
 
 		// Lights
-		void UseLight(Light* newLightSetting, const std::string& lightName);
+		void UseLight(Light* newLightSetting, std::string lightName);
 		void UseDirLight(DirectionalLight* newDirLight);
 
 		// Camera
-		void SetCameraPosition(const glm::vec3 cameraPosition) const;
-		void SetModelMatrix(const glm::mat4& modelMatrix);
-		void SetModelMatrix(const GameObject& object);
+		void UpdateCamera();
+		void UpdateCamera(Camera& cam);
+			
+		void SetModelMatrix(glm::mat4& modelMatrix);
+		void SetModelMatrix(GameObject& object);
 
-		void SetProjectionViewMatrix(const glm::mat4 viewProjMatrix);
+		void SetProjectionViewMatrix(glm::mat4 viewProjMatrix);
 
-		void SetProjectionViewMatrix(const Camera& cam);
+		void SetProjectionViewMatrix(Camera& cam);
 
 		/// UNIFORMS
-		
-		/// <summary>
-		/// Sets any uniform of any type. Dispatchs the uniform using the right setter function.
-		/// </summary>
-		/// <param name="location">The name of the uniform.</param>
-		/// <param name="value">The pointer to the data.</param>
-		virtual void SetUniform(const std::string& location, ShaderDataType type, void* value);
-
 		// FLOATS
-		virtual void SetUniform1f(const std::string& location, float value) const = 0;
-		virtual void SetUniform2f(const std::string& location, float x, float y) const = 0;
-		virtual void SetUniform3f(const std::string& location, float x, float y, float z) const = 0;
-		virtual void SetUniform4f(const std::string& location, float x, float y, float z, float w) const = 0;
+		virtual void SetUniform1f(std::string location, float value) const = 0;
+		virtual void SetUniform2f(std::string location, float x, float y) const = 0;
+		virtual void SetUniform3f(std::string location, float x, float y, float z) const = 0;
+		virtual void SetUniform4f(std::string location, float x, float y, float z, float w) const = 0;
 		// with glm vectors
-		inline void SetUniform2f(const std::string& location, glm::vec2 value) const 
+		inline void SetUniform2f(std::string location, glm::vec2 value) const 
 		{
 			SetUniform2f(location, value.x, value.y);
 		}
-		inline void SetUniform3f(const std::string& location, glm::vec3 value) const 
+		inline void SetUniform3f(std::string location, glm::vec3 value) const 
 		{
 			SetUniform3f(location, value.x, value.y, value.z);
 		}
-		inline void SetUniform4f(const std::string& location, glm::vec4 value) const 
+		inline void SetUniform4f(std::string location, glm::vec4 value) const 
 		{
 			SetUniform4f(location, value.x, value.y, value.z, value.w);
 		}
 
 		// INT
-		virtual void SetUniform1i(const std::string& location, int value) const = 0;
-		virtual void SetUniform2i(const std::string& location, int x, int y) const = 0;
-		virtual void SetUniform3i(const std::string& location, int x, int y, int z) const = 0;
-		virtual void SetUniform4i(const std::string& location, int x, int y, int z, int w) const = 0;
+		virtual void SetUniform1i(std::string location, int value) const = 0;
+		virtual void SetUniform2i(std::string location, int x, int y) const = 0;
+		virtual void SetUniform3i(std::string location, int x, int y, int z) const = 0;
+		virtual void SetUniform4i(std::string location, int x, int y, int z, int w) const = 0;
 
 		// FLOAT VECTORS
-		virtual void SetUniform1fv(const std::string& location, int count, float* value) const = 0;
-		virtual void SetUniform2fv(const std::string& location, int count, float* value) const = 0;
-		virtual void SetUniform3fv(const std::string& location, int count, float* value) const = 0;
-		virtual void SetUniform4fv(const std::string& location, int count, float* value) const = 0;
+		virtual void SetUniform1fv(std::string location, int count, float* value) const = 0;
+		virtual void SetUniform2fv(std::string location, int count, float* value) const = 0;
+		virtual void SetUniform3fv(std::string location, int count, float* value) const = 0;
+		virtual void SetUniform4fv(std::string location, int count, float* value) const = 0;
 
 		// INT VECTORS
-		virtual void SetUniform1iv(const std::string& location, int count, int* value) const = 0;
-		virtual void SetUniform2iv(const std::string& location, int count, int* value) const = 0;
-		virtual void SetUniform3iv(const std::string& location, int count, int* value) const = 0;
-		virtual void SetUniform4iv(const std::string& location, int count, int* value) const = 0;
+		virtual void SetUniform1iv(std::string location, int count, int* value) const = 0;
+		virtual void SetUniform2iv(std::string location, int count, int* value) const = 0;
+		virtual void SetUniform3iv(std::string location, int count, int* value) const = 0;
+		virtual void SetUniform4iv(std::string location, int count, int* value) const = 0;
 
 		// MATRIX
-		virtual void SetUniformMatrix2fv(const std::string& location, float* data) const = 0;
-		void SetUniformMatrix2fv(const std::string& location, glm::mat2 data) const;
-		virtual void SetUniformMatrix3fv(const std::string& location, float* data) const = 0;
-		void SetUniformMatrix3fv(const std::string& location, glm::mat3 data) const;
-		virtual void SetUniformMatrix4fv(const std::string& location, float* data) const = 0;
-		void SetUniformMatrix4fv(const std::string& location, glm::mat4 data) const;
+		virtual void SetUniformMatrix2fv(std::string location, glm::mat2 data) const = 0;
+		virtual void SetUniformMatrix3fv(std::string location, glm::mat3 data) const = 0;
+		virtual void SetUniformMatrix4fv(std::string location, glm::mat4 data) const = 0;
 
 		// TODO CHECK IF NEEDED FOR OTHER APIS
 		virtual unsigned int GetRendererID() const = 0;
 
 		inline bool IsInitialized() { return m_isInitialized; }
-
-		inline const BufferLayout& GetLayout() { return m_layout; }
-
 	protected:
-		virtual BufferLayout ExtractReflectionData() const = 0;
 		inline void SetInitializationStatus(bool initialized) { m_isInitialized = initialized; }
-
-	private:
-		virtual void Bind() const = 0;
-		virtual void Unbind() const = 0;
-
-	private:
-		BufferLayout m_layout;
 		bool m_isInitialized = false;
 
-		friend class Renderer;
+		// Materials - For the renderer usages
+		void UseMaterial(MaterialPtr newMaterial);
+		friend class Model;
 	};
 
 	using ShaderPtr = std::shared_ptr<Shader>;
@@ -134,25 +116,29 @@ namespace Elevate
 			return R"(
 #version 330 core
 layout(location = 0) in vec3 a_Position;
+layout(location = 1) in vec4 a_Color;
 
 uniform mat4 viewProj;
-uniform mat4 model;
+
+out vec4 o_Color;
 
 void main()
 {
-    gl_Position = viewProj * model * vec4(a_Position, 1.0);
+    gl_Position = viewProj * vec4(a_Position, 1.0);
+    o_Color = a_Color;
 }
 )";
-		}
+		}	
 
 		static constexpr std::string_view GetFragmentShader() {
 			return R"(
 #version 330 core
-layout(location = 0) out vec4 FragColor;
+out vec4 FragColor;
+in vec3 ourColor;
 
 void main()
 {
-    FragColor = vec4(1.0);
+    FragColor = vec4(ourColor, 1.0);
 }
 )";
 		}
@@ -160,17 +146,18 @@ void main()
 		static constexpr std::string_view GetErrorShader() {
 			return R"(
 #version 330 core
-layout(location = 0) out vec4 FragColor;
+out vec4 FragColor;
 uniform float time;
 
 void main()
 {
+    // Create an obvious "error" pattern
     vec2 uv = gl_FragCoord.xy / 100.0;
     float pattern = sin(uv.x * 10.0 + time) * cos(uv.y * 10.0 + time);
-    FragColor = vec4(1.0, 0.0, 1.0, 1.0);
-    if(pattern > 0.0) FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+    FragColor = vec4(1.0, 0.0, 0.0, abs(pattern)); // Flashing red
 }
 )";
 		}
 	};
 }
+

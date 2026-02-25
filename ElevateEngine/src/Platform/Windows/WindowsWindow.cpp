@@ -1,8 +1,6 @@
 #include "eepch.h"
 #include "Platform/Windows/WindowsWindow.h"
 
-// todo fix the includes in this file to have the standart notation we use
-#include <ElevateEngine/Core/Assert.h>
 #include "ElevateEngine/Events/ApplicationEvent.h"
 #include "ElevateEngine/Events/MouseEvent.h"
 #include "ElevateEngine/Events/KeyEvent.h"

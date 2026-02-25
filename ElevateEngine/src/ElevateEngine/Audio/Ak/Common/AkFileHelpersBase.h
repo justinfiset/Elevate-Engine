@@ -34,149 +34,149 @@ class CAkFileHelpersBase
 {
 public:    
 
-	/// Joins input in_paths into out_path with AK_PATH_SEPARATOR for up to maxSize characters.
-	/// Expect Paths to be of type "[const] AkOSChar*".
-	template <typename... Paths>
-	static void JoinPath(AkOSChar* out_path, AkUInt32 maxLength, Paths... in_paths)
-	{
-		if (out_path == nullptr)
-			return;
+    /// Joins input in_paths into out_path with AK_PATH_SEPARATOR for up to maxSize characters.
+    /// Expect Paths to be of type "[const] AkOSChar*".
+    template <typename... Paths>
+    static void JoinPath(AkOSChar* out_path, AkUInt32 maxLength, Paths... in_paths)
+    {
+        if (out_path == nullptr)
+            return;
 
-		// Don't transform a relative path into an absolute path
-		// if first is empty (e.g. dir/file.txt -> /dir/file.txt).
-		// Also prevents duplicate path separators.
-		bool lastPathEmpty = true;
-		
-		out_path[0] = '\0';
-		const int nbPaths = sizeof...(in_paths);
-		const AkOSChar* paths[nbPaths] = { in_paths... };
-		for (AkUInt32 i = 0; i < nbPaths; ++i)
-		{
-			if (lastPathEmpty == false)
-				AKPLATFORM::SafeStrCat(out_path, AK_PATH_SEPARATOR, maxLength);
+        // Don't transform a relative path into an absolute path
+        // if first is empty (e.g. dir/file.txt -> /dir/file.txt).
+        // Also prevents duplicate path separators.
+        bool lastPathEmpty = true;
+        
+        out_path[0] = '\0';
+        const int nbPaths = sizeof...(in_paths);
+        const AkOSChar* paths[nbPaths] = { in_paths... };
+        for (AkUInt32 i = 0; i < nbPaths; ++i)
+        {
+            if (lastPathEmpty == false)
+                AKPLATFORM::SafeStrCat(out_path, AK_PATH_SEPARATOR, maxLength);
 
-			AKPLATFORM::SafeStrCat(out_path, paths[i], maxLength);
-			lastPathEmpty = AKPLATFORM::OsStrLen(paths[i]) == 0;
-		}
-	}
+            AKPLATFORM::SafeStrCat(out_path, paths[i], maxLength);
+            lastPathEmpty = AKPLATFORM::OsStrLen(paths[i]) == 0;
+        }
+    }
 
-	///
-	/// Calls function f for each directory level
-	/// E.g., for "./Folder/B/Filename.txt" with bSkipFilename = true:
-	///   -> ./Folder
-	///   -> ./Folder/B
-	///
-	/// Iteration is stopped if Func(const AkOsChar*) doesn't return AK_Success.
-	/// Accepts absolute Win32 and Unix paths as well as relative paths.
-	/// Using bSkipFilename = true will ignore the last part of the path.
-	///
-	template <class Func>
-	static AKRESULT ForEachDirectoryLevel(const AkOSChar* in_path, Func f, bool bSkipFilename = false)
-	{
-		if (in_path == nullptr)
-			return AK_Success;
+    ///
+    /// Calls function f for each directory level
+    /// E.g., for "./Folder/B/Filename.txt" with bSkipFilename = true:
+    ///   -> ./Folder
+    ///   -> ./Folder/B
+    ///
+    /// Iteration is stopped if Func(const AkOsChar*) doesn't return AK_Success.
+    /// Accepts absolute Win32 and Unix paths as well as relative paths.
+    /// Using bSkipFilename = true will ignore the last part of the path.
+    ///
+    template <class Func>
+    static AKRESULT ForEachDirectoryLevel(const AkOSChar* in_path, Func f, bool bSkipFilename = false)
+    {
+        if (in_path == nullptr)
+            return AK_Success;
 
-		size_t len = AKPLATFORM::OsStrLen(in_path);
-		if (len < 2)
-			return AK_Success;
+        size_t len = AKPLATFORM::OsStrLen(in_path);
+        if (len < 2)
+            return AK_Success;
 
-		// Create an overwritable local copy
-		AkOSChar* path = (AkOSChar*)AkAlloca((len + 1) * sizeof(AkOSChar));
-		AKPLATFORM::SafeStrCpy(path, in_path, len + 1);
+        // Create an overwritable local copy
+        AkOSChar* path = (AkOSChar*)AkAlloca((len + 1) * sizeof(AkOSChar));
+        AKPLATFORM::SafeStrCpy(path, in_path, len + 1);
 
-		AkOSChar* pChar = &path[0];
-		AkOSChar* pEnd = &path[len];
+        AkOSChar* pChar = &path[0];
+        AkOSChar* pEnd = &path[len];
 
-		auto IsSeparator = [](AkOSChar* pChar) {
-			return pChar[0] == '/' || pChar[0] == '\\';
-		};
+        auto IsSeparator = [](AkOSChar* pChar) {
+            return pChar[0] == '/' || pChar[0] == '\\';
+        };
 
-		if (bSkipFilename)
-		{
-			// Split path in two at the last separator to remove the file name
-			int lastSeparatorIndex = 0;
-			while (pChar < pEnd)
-			{
-				if (IsSeparator(pChar))
-					lastSeparatorIndex = (int)((const AkOSChar*)pChar - &path[0]);
+        if (bSkipFilename)
+        {
+            // Split path in two at the last separator to remove the file name
+            int lastSeparatorIndex = 0;
+            while (pChar < pEnd)
+            {
+                if (IsSeparator(pChar))
+                    lastSeparatorIndex = (int)((const AkOSChar*)pChar - &path[0]);
 
-				pChar++;
-			}
-			if (lastSeparatorIndex == 0)
-				return AK_Success;
+                pChar++;
+            }
+            if (lastSeparatorIndex == 0)
+                return AK_Success;
 
-			path[lastSeparatorIndex] = '\0';
-			pChar = &path[0];
-		}
+            path[lastSeparatorIndex] = '\0';
+            pChar = &path[0];
+        }
 
-		// Skip unix path first slash, e.g: /mnt
-		// or network drive first two slashes, e.g. \\NetworkDrive
-		while (IsSeparator(pChar) && pChar < pEnd)
-			pChar++;
+        // Skip unix path first slash, e.g: /mnt
+        // or network drive first two slashes, e.g. \\NetworkDrive
+        while (IsSeparator(pChar) && pChar < pEnd)
+            pChar++;
 
-		// Also skip the first part ("mnt" or "NetworkDrive")
-		if (pChar != &path[0])
-		{
-			while (IsSeparator(pChar) && pChar < pEnd)
-				pChar++;
-			while (!IsSeparator(pChar) && pChar < pEnd)
-				pChar++;
-		}
+        // Also skip the first part ("mnt" or "NetworkDrive")
+        if (pChar != &path[0])
+        {
+            while (IsSeparator(pChar) && pChar < pEnd)
+                pChar++;
+            while (!IsSeparator(pChar) && pChar < pEnd)
+                pChar++;
+        }
 
-		// Skip Win32 path drive, e.g. "C:/" or mount points (rom:)
-		if (pChar == &path[0])
-		{
-			bool foundColons = false;
+        // Skip Win32 path drive, e.g. "C:/" or mount points (rom:)
+        if (pChar == &path[0])
+        {
+            bool foundColons = false;
 
-			// "C:"
-			while (!IsSeparator(pChar) && pChar < pEnd)
-			{
-				if (pChar[0] == ':')
-					foundColons = true;
-				
-				pChar++;
-			}
+            // "C:"
+            while (!IsSeparator(pChar) && pChar < pEnd)
+            {
+                if (pChar[0] == ':')
+                    foundColons = true;
+                
+                pChar++;
+            }
 
-			// "/"
-			while (IsSeparator(pChar) && pChar < pEnd)
-				pChar++;
+            // "/"
+            while (IsSeparator(pChar) && pChar < pEnd)
+                pChar++;
 
-			// Found nothing, restore pointer to beginning.
-			if (!foundColons)
-				pChar = &path[0];
-		}
+            // Found nothing, restore pointer to beginning.
+            if (!foundColons)
+                pChar = &path[0];
+        }
 
-		// Skip "./" for relative paths
-		if (pChar == &path[0])
-		{
-			while ((pChar[0] == AK_PATH_SEPARATOR[0] || pChar[0] == '.') && pChar < pEnd)
-				pChar++;
-		}
+        // Skip "./" for relative paths
+        if (pChar == &path[0])
+        {
+            while ((pChar[0] == AK_PATH_SEPARATOR[0] || pChar[0] == '.') && pChar < pEnd)
+                pChar++;
+        }
 
-		while (pChar < pEnd)
-		{
-			// Handle duplicate separators
-			while (IsSeparator(pChar) && pChar < pEnd)
-				pChar++;
+        while (pChar < pEnd)
+        {
+            // Handle duplicate separators
+            while (IsSeparator(pChar) && pChar < pEnd)
+                pChar++;
 
-			// Move to the next separator
-			while (!IsSeparator(pChar) && pChar < pEnd)
-				pChar++;
+            // Move to the next separator
+            while (!IsSeparator(pChar) && pChar < pEnd)
+                pChar++;
 
-			// Split path by adding a null-termination char
-			AkOSChar separator = pChar[0];
-			pChar[0] = '\0';
-			
-			AKRESULT res = f(path);
-			if (res != AK_Success) // stop if requested
-				return res;
+            // Split path by adding a null-termination char
+            AkOSChar separator = pChar[0];
+            pChar[0] = '\0';
+            
+            AKRESULT res = f(path);
+            if (res != AK_Success) // stop if requested
+                return res;
 
-			pChar[0] = separator; // restore original path
-			pChar++;
-		}
+            pChar[0] = separator; // restore original path
+            pChar++;
+        }
 
-		return AK_Success;
-	}
+        return AK_Success;
+    }
 };
 
 #endif // _AK_FILE_HELPERS_BASE_H

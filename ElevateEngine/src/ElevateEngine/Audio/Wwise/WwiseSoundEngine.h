@@ -12,41 +12,41 @@
 
 namespace Elevate
 {
-	class GameObject;
-	
-	class WwiseSoundEngine : public SoundEngine
-	{
-	public:
-		#ifdef EE_EDITOR_BUILD
-		virtual std::shared_ptr<WwiseFileDataSource> GetFileDataSource();
-		#endif
+    class GameObject;
+    
+    class WwiseSoundEngine : public SoundEngine
+    {
+    public:
+        #ifdef EE_EDITOR_BUILD
+        virtual std::shared_ptr<WwiseFileDataSource> GetFileDataSource();
+        #endif
 
-	protected:
-		virtual bool InitImpl() override;
-		virtual void RenderAudioImpl() override;
-		virtual void TerminateImpl() override;
+    protected:
+        virtual bool InitImpl() override;
+        virtual void RenderAudioImpl() override;
+        virtual void TerminateImpl() override;
 
-		virtual void SetDefaultListenerImpl(GameObject* obj) override;
-		virtual void SetDistanceProbeImpl(GameObject* obj) override;
-		virtual void UnsetDistanceProbeImpl() override;
+        virtual void SetDefaultListenerImpl(GameObject* obj) override;
+        virtual void SetDistanceProbeImpl(GameObject* obj) override;
+        virtual void UnsetDistanceProbeImpl() override;
 
-		virtual void RegisterGameObjectImpl(GameObject* obj) override;
-		virtual void UnregisterGameObjectImpl(GameObject* obj) override;
-		virtual void UpdateObjectPositionImpl(GameObject* obj) override;
+        virtual void RegisterGameObjectImpl(GameObject* obj) override;
+        virtual void UnregisterGameObjectImpl(GameObject* obj) override;
+        virtual void UpdateObjectPositionImpl(GameObject* obj) override;
 
-		virtual void PostEventImpl(const char* eventName, GameObject* object) override;
-		virtual void PostEventImpl(uint32_t eventId, GameObject* object) override;
-		virtual void PostEventImpl(const char* eventName) override;
-		virtual void PostEventImpl(uint32_t eventId) override;
-	private:
-		void PrepareAudio();
+        virtual void PostEventImpl(const char* eventName, GameObject* object) override;
+        virtual void PostEventImpl(uint32_t eventId, GameObject* object) override;
+        virtual void PostEventImpl(const char* eventName) override;
+        virtual void PostEventImpl(uint32_t eventId) override;
+    private:
+        void PrepareAudio();
 
-	private:
-		AkGameObjectID m_currentListenerID;
-		std::unique_ptr<CAkFilePackageLowLevelIODeferred> m_lowLevelIO;
+    private:
+        AkGameObjectID m_currentListenerID;
+        std::unique_ptr<CAkFilePackageLowLevelIODeferred> m_lowLevelIO;
 
-		#ifdef EE_EDITOR_BUILD
-		std::shared_ptr<WwiseFileDataSource> m_fileDataSource;
-		#endif
-	};
+        #ifdef EE_EDITOR_BUILD
+        std::shared_ptr<WwiseFileDataSource> m_fileDataSource;
+        #endif
+    };
 }

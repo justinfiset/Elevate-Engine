@@ -1,81 +1,44 @@
 #pragma once
 
 #include <memory>
-#include <map>
 #include <glm/glm.hpp>
-
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Renderer/Buffer.h>
-#include <ElevateEngine/Renderer/Shader/Shader.h>
-#include <ElevateEngine/Renderer/Shader/ShaderManager.h>
-#include <ElevateEngine/Renderer/Texture/Texture.h>
-
-#define EE_DEFAULT_MATERIAL 0
 
 namespace Elevate
 {
 	class Material;
-	class MaterialFactory;
-	class MaterialRegistry;
 	using MaterialPtr = std::shared_ptr<Material>;
-
-	typedef uint32_t MaterialID;
 
 	class Material
 	{
 	public:
-		template<typename T>
-		void Set(const std::string& name, const T& value)
-		{
-			for (const auto& uniform : m_shader->GetLayout())
-			{
-				if (uniform.Name == name)
-				{
-					memcpy(m_buffer.data() + uniform.Offset, &value, sizeof(T));
-					m_definedUniforms[uniform.Index] = true;
-				}
-			}
-		}
+		Material() :
+			m_Ambient(1.0f, 1.0f, 1.0f),
+			m_Diffuse(1.0f, 1.0f, 1.0f),
+			m_Specular(1.0f, 1.0f, 1.0f),
+			m_Shininess(128.0f)
+		{ }
 
-		void SetTexture(const std::string& name, TexturePtr texture);
-		void Apply();
-		std::shared_ptr<Shader> GetShader();
-		inline MaterialID GetID() { return m_id; }
+		Material(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shininess) :
+			m_Ambient(ambient),
+			m_Diffuse(diffuse),
+			m_Specular(specular),
+			m_Shininess(shininess)
+		{ }
 
-	private:
-		Material();
-		Material(const std::shared_ptr<Shader>& shader);
+		inline glm::vec3& GetAmbiant() { return m_Ambient; }
+		inline glm::vec3& GetDiffuse() { return m_Diffuse; }
+		inline glm::vec3& GetSpecular() { return m_Specular; }
+		inline float GetShininess() { return m_Shininess; }
 
-		std::shared_ptr<Shader> m_shader;
-		// Uniforms
-		std::vector<uint8_t> m_buffer;
-		std::vector<bool> m_definedUniforms;
-
-		std::unordered_map<std::string, TexturePtr> m_textures;
-
-		MaterialID m_id;
-		static MaterialID s_nextId;
-
-		friend class MaterialFactory;
-	};
-
-	class MaterialFactory
-	{
-	protected:
-		static MaterialPtr Create(const std::shared_ptr<Shader>& shader);
-		friend class MaterialRegistry;
-	};
-
-	class MaterialRegistry
-	{
 	public:
-		static MaterialPtr LoadMaterial(const std::shared_ptr<Shader>& shader);
-		static MaterialPtr GetMaterial(MaterialID id);
+		inline static MaterialPtr Create() { return std::make_shared<Material>(); }
+		inline static MaterialPtr Create(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shininess) { return std::make_shared<Material>(ambient, diffuse, specular, shininess); }
 
+		// todo setter and make getter const (completly wrap the material)
 	private:
-		MaterialRegistry();
-		static MaterialRegistry& instance();
-
-		std::unordered_map<MaterialID, MaterialPtr> m_materials;
+		glm::vec3 m_Ambient;
+		glm::vec3 m_Diffuse;
+		glm::vec3 m_Specular;
+		float m_Shininess;
 	};
 }

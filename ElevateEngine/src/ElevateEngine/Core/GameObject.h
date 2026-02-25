@@ -65,6 +65,7 @@ namespace Elevate
 
 	protected:
 		void Update();
+		void PreRender();
 		void Render();
 		void Notify(Event& event);
 

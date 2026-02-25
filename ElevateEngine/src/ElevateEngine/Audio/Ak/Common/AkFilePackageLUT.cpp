@@ -66,7 +66,7 @@ CAkFilePackageLUT::~CAkFilePackageLUT()
 // The LUT sets pointers to appropriate location inside header data (in_pData).
 AKRESULT CAkFilePackageLUT::Setup(
 	AkUInt8 *			in_pData,			// Header data.
-	AkUInt32			in_uHeaderSize		// size of file package header.
+	AkUInt32			in_uHeaderSize		// Size of file package header.
 	)
 {
 	struct FileHeaderFormat
@@ -212,7 +212,7 @@ AkUInt64 CAkFilePackageLUT::GetExternalID(
 	)
 {
 	char* szString; 
-	CONVERT_OSCHAR_TO_CHAR(in_pszExternalName, szString);
+    CONVERT_OSCHAR_TO_CHAR(in_pszExternalName, szString);
 	
 	size_t stringSize = strlen( szString );
 

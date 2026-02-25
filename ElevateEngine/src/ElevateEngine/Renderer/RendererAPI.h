@@ -1,15 +1,11 @@
 #pragma once
 
 #include "glm/glm.hpp"
-#include <memory>
+#include "VertexArray.h"
+#include <ElevateEngine/Renderer/Shader/Shader.h>
 
-#include <ElevateEngine/Renderer/Commands/RenderCommandQueue.h>
-
-namespace Elevate
-{
-	class VertexArray;
-	class LayerStack;
-}
+#include "Mesh.h"
+#include "Model.h"
 
 namespace Elevate
 {
@@ -40,7 +36,16 @@ namespace Elevate
 		virtual void Clear() const = 0;
 		virtual void FlushBuffers() const = 0;
 
-		virtual void DrawArray(const VertexArray* vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles) const = 0;
+		virtual void DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles) const = 0;
+		virtual void DrawStack() const = 0;
+
+		void SubmitModel(const Model& model);
+		void RemoveModel(const Model& model);
+		// TODO MAKE A REMOVE FROM DRAW STACK
+		void Submitmesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh);
+		//static void SubmitVertexArray(const std::shared_ptr<VertexArray>& vao);
+		//static void SubmitTrianglesArray(const std::shared_ptr<VertexArray>& vao);
+
 		virtual void SetCullingState(bool enabled) const = 0;
 		virtual void SetDepthWrittingState(bool enabled) const = 0;
 		virtual void SetDepthTestingState(bool enabled) const = 0;
@@ -48,10 +53,8 @@ namespace Elevate
 		inline static GraphicAPI GetAPI() { return s_ActiveAPI; }
 		
 	protected:
-		// todo remove this
-		//std::unordered_map<std::shared_ptr<Shader>, std::vector<Model>> m_ModelStack;
-		//std::unordered_map<std::shared_ptr<Shader>, std::vector<Mesh>> m_MeshStack;
-
+		std::unordered_map<std::shared_ptr<Shader>, std::vector<Model>> m_ModelStack;
+		std::unordered_map<std::shared_ptr<Shader>, std::vector<Mesh>> m_MeshStack;
 	private:
 		static GraphicAPI s_ActiveAPI;
 	};

@@ -1,14 +1,13 @@
 #include "eepch.h"
 #include "Buffer.h"
 
-#include <ElevateEngine/Core/Assert.h>
-
 #include "Renderer.h"
+
 #include "OpenGL/OpenGLBuffer.h"
 
 namespace Elevate
 {
-	VertexBuffer* VertexBuffer::Create(const void* vertices, uint32_t size)
+	VertexBuffer* VertexBuffer::Create(void* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -20,7 +19,7 @@ namespace Elevate
 		return nullptr;
 	}
 
-	IndexBuffer* IndexBuffer::Create(const void* vertices, uint32_t count)
+	IndexBuffer* IndexBuffer::Create(void* vertices, uint32_t count)
 	{
 		switch (Renderer::GetAPI())
 		{

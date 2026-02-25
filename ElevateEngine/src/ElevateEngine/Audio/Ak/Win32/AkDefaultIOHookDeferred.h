@@ -139,18 +139,18 @@ public:
 
 	// Cleans up a file.
 	virtual AKRESULT Close(
-		AkFileDesc *			in_pFileDesc		// File descriptor.
-		) override;
+        AkFileDesc *			in_pFileDesc		// File descriptor.
+        ) override;
 
 	// Returns the block size for the file or its storage device. 
 	virtual AkUInt32 GetBlockSize(
-		AkFileDesc &  			in_fileDesc			// File descriptor.
-		) override;
+        AkFileDesc &  			in_fileDesc			// File descriptor.
+        ) override;
 
 	// Returns a description for the streaming device above this low-level hook.
-	virtual void GetDeviceDesc(
-		AkDeviceDesc &  		out_deviceDesc      // Description of associated low-level I/O device.
-		) override;
+    virtual void GetDeviceDesc(
+        AkDeviceDesc &  		out_deviceDesc      // Description of associated low-level I/O device.
+        ) override;
 
 	// Returns custom profiling data: 1 if file opens are asynchronous, 0 otherwise.
 	virtual AkUInt32 GetDeviceData() override;

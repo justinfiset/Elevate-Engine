@@ -4,7 +4,6 @@
 
 #include "DebugRenderer.h"
 
-#include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/Buffer.h>
 
@@ -25,16 +24,17 @@ void Elevate::DebugRenderer::InternalInit()
 
 void Elevate::DebugRenderer::InternalRender()
 {
-	Renderer::PushRenderState({ false, true, false });
+    Renderer::PushRenderState({ false, true, false });
 	// Render the lines
-	Renderer::ApplySystemUniforms(m_lineShader);
+    m_lineShader->Bind();
+    m_lineShader->UpdateCamera();
 	Renderer::DrawArray(m_lineArray, DrawPrimitiveType::Lines);
-	ClearDebugLines();
+    ClearDebugLines();
 }
 
 void Elevate::DebugRenderer::InitLineRender()
 {
-	m_lineShader = ShaderManager::LoadShader("Debug", "editor/shaders/debug.vert", "editor/shaders/debug.frag");
+    m_lineShader = ShaderManager::LoadShader("Debug", "editor/shaders/debug.vert", "editor/shaders/debug.frag");
 
 	m_lineBuffer.reset(VertexBuffer::Create(m_debugLineArray.data(), (uint32_t)m_debugLineArray.size() * sizeof(DebugVertex)));
 	m_lineBuffer->SetLayout({
@@ -42,34 +42,34 @@ void Elevate::DebugRenderer::InitLineRender()
 		{ ShaderDataType::Float4, "a_Color" },
 	});
 
-	m_lineArray.reset(VertexArray::Create());
-	m_lineArray->AddVertexBuffer(m_lineBuffer);
-	m_lineArray->Unbind();
+    m_lineArray.reset(VertexArray::Create());
+    m_lineArray->AddVertexBuffer(m_lineBuffer);
+    m_lineArray->Unbind();
 }
 
 void Elevate::DebugRenderer::ClearDebugLines()
 {
-	if (m_debugLineArray.size() > 0)
-	{
-		m_debugLineArray.clear();
+    if (m_debugLineArray.size() > 0)
+    {
+        m_debugLineArray.clear();
 
-		if (m_lineBuffer)
-		{
-			m_lineBuffer->Resize(0);
-		}
-	}
+        if (m_lineBuffer)
+        {
+            m_lineBuffer->Resize(0);
+        }
+    }
 }
 
 void Elevate::DebugRenderer::AddDebugLine(DebugLineData line)
 {
-	DebugRenderer& instance = Get();
-	instance.m_debugLineArray.push_back({ line.Start, line.Color });
-	instance.m_debugLineArray.push_back({ line.End,   line.Color });
+    DebugRenderer& instance = Get();
+    instance.m_debugLineArray.push_back({ line.Start, line.Color });
+    instance.m_debugLineArray.push_back({ line.End,   line.Color });
 
-	if (instance.m_lineBuffer)
-	{
-		instance.m_lineBuffer->SetData(instance.m_debugLineArray.data(), (uint32_t)instance.m_debugLineArray.size() * sizeof(DebugVertex));
-	}
+    if (instance.m_lineBuffer)
+    {
+        instance.m_lineBuffer->SetData(instance.m_debugLineArray.data(), (uint32_t)instance.m_debugLineArray.size() * sizeof(DebugVertex));
+    }
 }
 
 #endif

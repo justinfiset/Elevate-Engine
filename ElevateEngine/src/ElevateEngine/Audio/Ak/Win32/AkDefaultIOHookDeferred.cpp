@@ -206,10 +206,10 @@ void CAkDefaultIOHookDeferred::Read(
 	m_bWaitForAsyncIO = true;
 #endif
 	::SetLastError(ERROR_SUCCESS);
-	if ( ::ReadFileEx( in_fileDesc.hFile,
-					  io_transferInfo.pBuffer,
-					  io_transferInfo.uBufferSize,
-					  pOverlapped,
+    if ( ::ReadFileEx( in_fileDesc.hFile,
+                      io_transferInfo.pBuffer,
+                      io_transferInfo.uBufferSize,
+                      pOverlapped,
 					  CAkDefaultIOHookDeferred::FileIOCompletionRoutine ) )
 	{
 		g_eDebugReadError = ::GetLastError();
@@ -262,14 +262,14 @@ void CAkDefaultIOHookDeferred::Write(
 	pOverlapped->Offset = (DWORD)( io_transferInfo.uFilePosition & 0xFFFFFFFF );
 	pOverlapped->OffsetHigh = (DWORD)( ( io_transferInfo.uFilePosition >> 32 ) & 0xFFFFFFFF );
 
-	// File was open with asynchronous flag. 
+    // File was open with asynchronous flag. 
 #ifndef AK_SUPPORT_THREADS
 	m_bWaitForAsyncIO = true;
 #endif
-	if ( ::WriteFileEx( in_fileDesc.hFile,
-					  io_transferInfo.pBuffer,
-					  io_transferInfo.uRequestedSize,
-					  pOverlapped,
+    if ( ::WriteFileEx( in_fileDesc.hFile,
+                      io_transferInfo.pBuffer,
+                      io_transferInfo.uRequestedSize,
+                      pOverlapped,
 					  CAkDefaultIOHookDeferred::FileIOCompletionRoutine ) )
 	{
 #ifndef AK_SUPPORT_THREADS
@@ -291,8 +291,8 @@ void CAkDefaultIOHookDeferred::Write(
 
 // Close a file.
 AKRESULT CAkDefaultIOHookDeferred::Close(
-	AkFileDesc * in_pFileDesc      // File descriptor.
-	)
+    AkFileDesc * in_pFileDesc      // File descriptor.
+    )
 {
 	if (in_pFileDesc)
 	{
@@ -304,8 +304,8 @@ AKRESULT CAkDefaultIOHookDeferred::Close(
 
 // Returns the block size for the file or its storage device. 
 AkUInt32 CAkDefaultIOHookDeferred::GetBlockSize(
-	AkFileDesc &  in_fileDesc     // File descriptor.
-	)
+    AkFileDesc &  in_fileDesc     // File descriptor.
+    )
 {
 	AK_UNUSEDVAR(in_fileDesc);
 
@@ -314,11 +314,11 @@ AkUInt32 CAkDefaultIOHookDeferred::GetBlockSize(
 
 // Returns a description for the streaming device above this low-level hook.
 void CAkDefaultIOHookDeferred::GetDeviceDesc(
-	AkDeviceDesc &  
+    AkDeviceDesc &  
 #ifndef AK_OPTIMIZED
 	out_deviceDesc      // Description of associated low-level I/O device.
 #endif
-	)
+    )
 {
 #ifndef AK_OPTIMIZED
 	AKASSERT( m_deviceID != AK_INVALID_DEVICE_ID || !"Low-Level device was not initialized" );

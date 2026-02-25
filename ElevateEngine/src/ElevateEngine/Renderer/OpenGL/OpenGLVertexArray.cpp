@@ -44,12 +44,10 @@ void Elevate::OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuf
 
 	uint32_t index = 0;
 	const auto& layout = vertexBuffer->GetLayout();
-
-	EE_CORE_TRACE("Adding Vertex Buffer :");
 	for (const auto& element : layout)
 	{
 		// TODO REMOVES THE LOGS FROM HERE
-		EE_CORE_TRACE(" -> Attrib {} : {} | Count={} | Type={} | Stride={} | Offset={}",
+		EE_CORE_TRACE("Attrib %s : %d | Count=%d | Type=%d | Stride=%d | Offset=%d",
 			element.Name.c_str(), index, element.Count, GetDataAPIType(element.Type), layout.GetStride(), element.Offset);
 
 		LinkAttribute(

@@ -9,7 +9,7 @@ namespace Elevate
 	Framebuffer* Framebuffer::Create(uint32_t width, uint32_t height)
 	{
 		TextureMetadata meta = TextureMetadataBuilder()
-			.size(width, height)
+			.Size(width, height)
 			.Filter(TextureFilter::Nearest, TextureFilter::Nearest)
 			.Format(TextureFormat::RGBA)
 			.Mipmaps(false)

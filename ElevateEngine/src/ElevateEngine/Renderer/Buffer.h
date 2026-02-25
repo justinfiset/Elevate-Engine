@@ -18,13 +18,11 @@ namespace Elevate
 		unsigned int Offset;
 		unsigned int Count;
 		unsigned int Normalized;
-		uint32_t Index;
 
 		BufferElement() = default;
 
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
-			: Name(name), Type(type), Size(GetDataTypeSize(type)), Offset(0), Count(GetDataTypeCount(type)),
-			Normalized(normalized), Index(0) { }
+			: Name(name), Type(type), Size(GetDataTypeSize(type)), Offset(0), Count(GetDataTypeCount(type)), Normalized(normalized) { }
 	};
 
 	class BufferLayout
@@ -33,48 +31,40 @@ namespace Elevate
 		BufferLayout() = default;
 
 		BufferLayout(const std::initializer_list<BufferElement>& elements)
-			: m_elements(elements) 
+			: m_Elements(elements) 
 		{
 			CalculateOffsetAndStride();
 		}
 
-		BufferLayout(const std::vector<BufferElement>& elements)
-			: m_elements(elements)
-		{
-			CalculateOffsetAndStride();
-		}
+		inline const std::vector<BufferElement>& GetElements() const { return m_Elements; }
 
-		inline const std::vector<BufferElement>& GetElements() const { return m_elements; }
+		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
+		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
+		std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
+		std::vector<BufferElement>::const_iterator end() const { return m_Elements.end(); }
 
-		std::vector<BufferElement>::iterator begin() { return m_elements.begin(); }
-		std::vector<BufferElement>::iterator end() { return m_elements.end(); }
-		std::vector<BufferElement>::const_iterator begin() const { return m_elements.begin(); }
-		std::vector<BufferElement>::const_iterator end() const { return m_elements.end(); }
-
-		inline uint32_t GetStride() const { return m_stride; }
+		inline uint32_t GetStride() const { return m_Stride; }
 	private:
 		void CalculateOffsetAndStride()
 		{
 			unsigned int offset = 0;
-			uint32_t index = 0;
-			m_stride = 0;
-			for (auto& element : m_elements)
+			m_Stride = 0;
+			for (auto& element : m_Elements)
 			{
 				element.Offset = offset;
 				offset += element.Size;
-				m_stride += element.Size;
-				element.Index = index++;
+				m_Stride += element.Size;
 			}
 		}
 	private:
-		std::vector<BufferElement> m_elements;
-		uint32_t m_stride = 0;
+		std::vector<BufferElement> m_Elements;
+		unsigned int m_Stride = 0;
 	};
 
 	class VertexBuffer
 	{
 	public:
-		VertexBuffer(const void* vertices, uint32_t size)
+		VertexBuffer(void* vertices, uint32_t size)
 			: m_data(vertices), m_size(size) { }
 
 		virtual ~VertexBuffer() = default;
@@ -82,20 +72,20 @@ namespace Elevate
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& GetLayout() const = 0;
 
-		virtual void SetData(const void* newData, uint32_t size) = 0;
+		virtual void SetData(void* newData, uint32_t size) = 0;
 		virtual void Resize(uint32_t size) = 0;
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 		
-		static VertexBuffer* Create(const void* vertices, const uint32_t size);
+		static VertexBuffer* Create(void* vertices, uint32_t size);
 
 		uint32_t GetSize() { return m_size; }
 	protected:
 		void SetSize(uint32_t newSize) { m_size = newSize; }
 	private:
 		uint32_t m_size;
-		const void* m_data;
+		void* m_data;
 	};
 
 	class IndexBuffer
@@ -108,6 +98,6 @@ namespace Elevate
 
 		virtual uint32_t GetCount() const = 0;
 
-		static IndexBuffer* Create(const void* vertices, uint32_t count);
+		static IndexBuffer* Create(void* vertices, uint32_t count);
 	};
 }
