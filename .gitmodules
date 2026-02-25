@@ -16,5 +16,4 @@
 	ignore = all
 [submodule "ElevateEngine/vendor/rapidxml"]
 	path = ElevateEngine/vendor/rapidxml
-	url = https://github.com/0x08088405/rapidxml
-	ignore = all
+	url = https://github.com/dwd/rapidxml.git
