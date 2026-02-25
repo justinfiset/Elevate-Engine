@@ -14,7 +14,3 @@
 	path = ElevateEngine/vendor/assimp
 	url = https://github.com/assimp/assimp
 	ignore = all
-[submodule "ElevateEngine/vendor/rapidxml"]
-	path = ElevateEngine/vendor/rapidxml
-	url = https://github.com/Fe-Bell/RapidXML/tree/master
-	ignore = all
