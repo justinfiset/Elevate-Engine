@@ -16,5 +16,5 @@
 	ignore = all
 [submodule "ElevateEngine/vendor/rapidxml"]
 	path = ElevateEngine/vendor/rapidxml
-	url = https://github.com/0x08088405/rapidxml
+	url = https://github.com/Fe-Bell/RapidXML/tree/master
 	ignore = all
