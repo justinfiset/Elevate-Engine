@@ -129,7 +129,6 @@ project "ElevateEngine"
 		"ImGui",
 		"assimp",
 
-		"WwiseProjectDatabase", -- todo set for editor only as only used for the Wwise Browser
 		"AkAutobahn", -- todo set for editor only
 		"AkSoundEngine",
 		"AkMemoryMgr",

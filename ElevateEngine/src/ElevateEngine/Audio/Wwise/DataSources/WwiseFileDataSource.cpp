@@ -112,9 +112,7 @@ namespace Elevate
 
 	void Elevate::WwiseFileDataSource::ProcessNode(WwiseItemPtr parent, rapidxml::xml_node<char>* node)
 	{
-		auto optName = node->first_attribute("Name");
-		auto optId = node->first_attribute("ID");
-		auto optShortId = node->first_attribute("ShortID");
+		WwiseType type = GetTypeFromName(std::string(node->name()));
 
 		WwiseItemPtr item = nullptr;
 		switch (type)
@@ -148,17 +146,22 @@ namespace Elevate
 		if (item)
 		{
 			item->IsOnDisk = true;
-			if (name)
+
+			auto optName = node->first_attribute("Name");
+			auto optId = node->first_attribute("ID");
+			auto optShortId = node->first_attribute("ShortID");
+
+			if (optName)
 			{
-				item->Name = name->value();
+				item->Name = optName->value();
 			}
-			if (id)
+			if (optId)
 			{
-				item->GUID = id->value();
+				item->GUID = optId->value();
 			}
-			if (shortId)
+			if (optShortId)
 			{
-				item->ShortID = std::stoi(shortId->value());
+				item->ShortID = std::stoi(std::string(optShortId->value()));
 			}
 			parent->AddChildren(item);
 
@@ -167,8 +170,7 @@ namespace Elevate
 				auto optChildrenList = node->first_node("ChildrenList");
 				if (optChildrenList)
 				{
-					ProcessNode(childItem, child);
-					ProcessNode(item, child);
+					ProcessNode(item, optChildrenList.get());
 				}
 			}
 		}

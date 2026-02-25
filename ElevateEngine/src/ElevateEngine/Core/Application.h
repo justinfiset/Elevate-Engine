@@ -13,6 +13,7 @@ namespace Elevate {
 	class MouseButtonReleasedEvent;
 	class WindowCloseEvent;
 	class WindowResizeEvent;
+	class WindowFocusEvent;
 
 	class Layer;
 	class ImGuiLayer;

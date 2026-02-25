@@ -59,8 +59,6 @@ struct WwiseItem
 	bool HasChildren() const;
 	bool IsEvent() const;
 
-	bool IsEvent() const;
-
 	WwiseType GetContainerType() const;
 
 	std::string GetTypeName() const;
