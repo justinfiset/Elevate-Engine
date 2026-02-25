@@ -12,6 +12,7 @@ written agreement between you and Audiokinetic Inc.
   Copyright (c) 2025 Audiokinetic Inc.
 *******************************************************************************/
 
+#include "stdafx.h"
 #include <AK/SoundEngine/Common/AkSoundEngine.h>
 
 // functions are intentionally left undefined

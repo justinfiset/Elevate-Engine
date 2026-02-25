@@ -31,8 +31,13 @@ function parseProjectFile()
     printSuccess("Project name: " .. project.name)
 
     project.usesSoundEngine = content:match('"usesSoundEngine"%s*:%s*(true)') == "true"
-    if( project.usesSoundEngine ) then
+    if project.usesSoundEngine then
         printSuccess("Project uses Wwise Sound Engine.")
+
+        project.useWaapi = content:match('"usesWaapi"%s*:%s*(true)') == "true"
+        if project.useWaapi then
+            printSuccess("  Project uses WAAPI.")
+        end
     else
         printWarning("Project does not use Wwise Sound Engine.")
     end
@@ -66,7 +71,18 @@ project(projectInfos.name)
     local wwiseSDK = os.getenv("WWISESDK")
     local wwiseIncludePath = wwiseSDK .. "/include"
     -- TODO MAKE THIS PATH DYNAMIC AND NOT HARD CODED - LIKE THIS FOR TEST AND LEARNING PURPOSES
-    local wwiseLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
+	local wwiseLibLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
+	local wwiseBinLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/bin"
+
+    print(" + Adding Wwise lib path to libdirs : "..wwiseLibLinkPath)
+    print(" + Adding Wwise bin path to libdirs : "..wwiseBinLinkPath)
+    
+	if not os.isdir(wwiseLibLinkPath) then
+		error("ERROR : Wwise SDK lib folder, no such folder exists.")
+	end
+    if not os.isdir(wwiseBinLinkPath) then
+		error("ERROR : Wwise SDK bin folder, no such folder exists.")
+	end
 
     includedirs
     {
@@ -76,22 +92,24 @@ project(projectInfos.name)
         "../ElevateEngine/src"
     }
 
+    libdirs
+    {
+		wwiseLibLinkPath,
+		wwiseBinLinkPath,
+    }
+
     links 
     {
         "ElevateEngine",
 
         "AkSoundEngine",
         "AkMemoryMgr",
+        "WwiseProjectDatabase",
         -- "AkMusicEngine",
         "AkStreamMgr",
         "AkSpatialAudio",
         "CommunicationCentral", -- Not needed for release config -- TODO CHANGE THIS
         "AkVorbisDecoder"
-    }
-
-    libdirs
-    {
-        wwiseLinkPath
     }
 
     defines
@@ -153,3 +171,5 @@ project(projectInfos.name)
         defines "EE_DIST"
         runtime "Release"
         optimize "on"
+
+print("")

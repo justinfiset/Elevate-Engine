@@ -29,6 +29,18 @@ namespace Elevate
 		void ProcessRootFolder(const std::filesystem::path& rootFolder);
 		void ProcessWorkUnit(WwiseItemPtr parent, const std::filesystem::path& workUnitPath);
 		void ProcessNode(WwiseItemPtr parent, rapidxml::xml_node<>* node);
+
+		// Process each type of node in Wwise
+		//void P
+		WwiseItemPtr ProcessBus(WwiseItemPtr parent, rapidxml::xml_node<>* node);
+		WwiseItemPtr ProcessAuxBus(WwiseItemPtr parent, rapidxml::xml_node<>* node);
+		WwiseItemPtr ProcessEvent(WwiseItemPtr parent, rapidxml::xml_node<>* node);
+		WwiseItemPtr ProcessSoundBank(WwiseItemPtr parent, rapidxml::xml_node<>* node);
+		WwiseItemPtr ProcessStateGroup(WwiseItemPtr parent, rapidxml::xml_node<>* node);
+		WwiseItemPtr ProcessState(WwiseItemPtr parent, rapidxml::xml_node<>* node);
+		WwiseItemPtr ProcessSwitchGroup(WwiseItemPtr parent, rapidxml::xml_node<>* node);
+		WwiseItemPtr ProcessSwitch(WwiseItemPtr parent, rapidxml::xml_node<>* node);
+
 		bool IsValidDirectory(std::string directoryName);
 	private:
 		WwiseType GetTypeFromName(std::string name);

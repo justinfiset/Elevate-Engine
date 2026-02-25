@@ -39,9 +39,7 @@ written agreement between you and Audiokinetic Inc.
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "eepch.h"
-
-//#include "stdafx.h"
+#include "stdafx.h"
 #include "AkDefaultIOHookDeferred.h"
 #include <AK/SoundEngine/Common/AkMemoryMgr.h>
 #include "AkFileHelpers.h"
@@ -81,12 +79,14 @@ AKRESULT CAkDefaultIOHookDeferred::Init(
 
 void CAkDefaultIOHookDeferred::Term()
 {
+	// Destroy the device first. This will gracefully terminate any ongoing I/O tasks.
+	AK::StreamMgr::DestroyDevice(m_deviceID);
+
 	CAkMultipleFileLocation::Term();
 
 	if ( AK::StreamMgr::GetFileLocationResolver() == this )
 		AK::StreamMgr::SetFileLocationResolver( NULL );
 
-	AK::StreamMgr::DestroyDevice( m_deviceID );
 	m_pool.Term();
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 struct WwiseItem;
 
@@ -10,6 +11,8 @@ public:
 	virtual void InitializeSource() = 0;
 	virtual void RefreshSource() = 0;
 	virtual std::weak_ptr<WwiseItem> GetItems() const { return m_treeRoot; }
+
+	virtual void GetItemsOfType();
 
 protected:
 	WwiseDataSource() = default;

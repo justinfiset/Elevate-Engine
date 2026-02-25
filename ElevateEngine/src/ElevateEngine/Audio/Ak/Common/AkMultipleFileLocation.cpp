@@ -23,6 +23,8 @@ written agreement between you and Audiokinetic Inc.
 //
 //////////////////////////////////////////////////////////////////////
 
+#include "stdafx.h"
+
 #include <AK/SoundEngine/Common/AkStreamMgrModule.h>
 #include <AK/Tools/Common/AkPlatformFuncs.h>
 #ifdef AK_SUPPORT_WCHAR
@@ -32,7 +34,7 @@ written agreement between you and Audiokinetic Inc.
 #include <AK/Tools/Common/AkAssert.h>
 #include <AK/Tools/Common/AkObject.h>
 
-#include "../Win32/AkFileHelpers.h"
+#include "AkFileHelpers.h"
 #include "AkMultipleFileLocation.h"
 #include "AkGeneratedSoundBanksResolver.h"
 

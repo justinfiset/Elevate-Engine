@@ -1,6 +1,7 @@
 #pragma once
 
 // Soundengine
+// todo fix this asap
 #ifndef EE_NO_SOUNDENGINE
 	#define EE_NO_SOUNDENGINE 0 // todo change back once managed by the lua
 #endif
