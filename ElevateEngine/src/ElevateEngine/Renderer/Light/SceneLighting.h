@@ -23,7 +23,7 @@ namespace Elevate
 		SceneLighting(DirectionalLight* dirLight, const std::vector<PointLight*>& pointLights)
 			: m_dirLight(dirLight), m_pointLights(pointLights) {}
 
-		void UploadToShader(Shader* shader) const;
+		void UploadToShader(const std::shared_ptr<Shader>& shader) const;
 	private:
 		DirectionalLight* m_dirLight;
 		std::vector<PointLight*> m_pointLights;

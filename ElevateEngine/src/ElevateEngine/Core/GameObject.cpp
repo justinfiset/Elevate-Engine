@@ -93,23 +93,6 @@ namespace Elevate
 		}
 	}
 
-	void GameObject::PreRender()
-	{
-		// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK
-		for (Component* comp : GetComponents())
-		{
-			if (comp->IsActive())
-			{
-				comp->PreRender();
-			}
-		}
-
-		for (std::shared_ptr<GameObject> child : m_childs)
-		{
-			child->PreRender();
-		}
-	}
-
 	void GameObject::Render()
 	{
 		// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK
@@ -225,7 +208,7 @@ namespace Elevate
 			entt::entity entity = registryIt->second->create();
 			m_entityId = static_cast<std::uint32_t>(entity);
 
-    		SoundEngine::RegisterGameObject(this);
+			SoundEngine::RegisterGameObject(this);
 			m_isInitialized = true;
 		}
 		else
@@ -233,7 +216,7 @@ namespace Elevate
 			EE_CORE_ERROR("Object '%s' must be linked with an existing scene!", m_name);
 		}
 	}
-    
+	
 	//GameObject::~GameObject()
 	//{
 	//	if (m_scene)

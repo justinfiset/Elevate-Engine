@@ -1,12 +1,14 @@
 #include "eepch.h"
-#include <ElevateEngine/Renderer/Renderer.h>
+
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 
+#include <filesystem>
+#include <glm/common.hpp>
+
+#include <ElevateEngine/Core/Assert.h>
+#include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/OpenGL/Texture/OpenGLTexture.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
-#include <filesystem>
-
-#include <glm/common.hpp>
 
 namespace Elevate
 {
@@ -19,7 +21,7 @@ namespace Elevate
 
 	TexturePtr Texture::CreateFromFile(const std::string& path, TextureType usage)
 	{
-		return TextureManager::LoadTextureAsync(path);
+		return TextureManager::LoadTextureAsync(path, usage);
 	}
 
 	TexturePtr Texture::CreateFromColor(const glm::vec3& color, const std::string& name, uint32_t width, uint32_t height)
@@ -41,7 +43,7 @@ namespace Elevate
 		TextureMetadata meta = TextureMetadataBuilder()
 			.Name(name)
 			.Path("")
-			.Size(width, height)
+			.size(width, height)
 			.Format(TextureFormat::RGB)
 			.Usage(TextureType::Diffuse)
 			.Source(TextureSource::Generated)
@@ -72,7 +74,7 @@ namespace Elevate
 		TextureMetadata meta = TextureMetadataBuilder()
 			.Name(name)
 			.Path("")
-			.Size(width, height)
+			.size(width, height)
 			.Format(TextureFormat::RGBA)
 			.Usage(TextureType::Diffuse)
 			.Source(TextureSource::Generated)

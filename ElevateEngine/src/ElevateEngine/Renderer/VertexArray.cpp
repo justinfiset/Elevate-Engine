@@ -1,8 +1,9 @@
 #include "eepch.h"
 #include "VertexArray.h"
 
-#include "Renderer.h"
-#include "OpenGL/OpenGLVertexArray.h"
+#include <ElevateEngine/Core/Assert.h>
+#include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/OpenGL/OpenGLVertexArray.h>
 
 namespace Elevate
 {

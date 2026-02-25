@@ -5,6 +5,7 @@
 
 namespace Elevate
 {
+	class RendererAPI;
 	class Camera;
 
 	/// <summary>

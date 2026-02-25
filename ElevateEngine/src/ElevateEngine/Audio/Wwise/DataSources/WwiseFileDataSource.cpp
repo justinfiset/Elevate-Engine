@@ -62,7 +62,8 @@ namespace Elevate
 			return;
 		}
 
-		rapidxml::file<> workUnitFile(workUnitPath.string().c_str());
+		rapidxml::
+			file<> workUnitFile(workUnitPath.string().c_str());
 		xml_document<> doc;
 		doc.parse<0>(workUnitFile.data());
 

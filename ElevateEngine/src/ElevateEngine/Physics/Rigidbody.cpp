@@ -22,9 +22,4 @@ namespace Elevate
 		glm::vec3 pos = gameObject->GetPosition() + m_data.m_velocity * Time::GetDeltaTime();
 		gameObject->SetPosition(pos);
 	}
-
-	//Component* Rigidbody::Clone()
-	//{
-	//	return new Rigidbody(*this);
-	//}
 }

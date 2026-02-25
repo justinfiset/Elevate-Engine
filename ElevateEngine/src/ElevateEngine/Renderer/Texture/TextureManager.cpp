@@ -58,7 +58,7 @@ namespace Elevate {
 		return (instance().m_Textures.count(fsPath.string()) > 0) ? instance().m_Textures[fsPath.string()] : nullptr;
 	}
 
-	TexturePtr TextureManager::LoadTextureAsync(const std::string& path)
+	TexturePtr TextureManager::LoadTextureAsync(const std::string& path, TextureType usage)
 	{
 		std::filesystem::path fsPath = std::filesystem::absolute(path);
 		std::string absPath = fsPath.string();
@@ -86,9 +86,9 @@ namespace Elevate {
 		TextureMetadata meta = TextureMetadataBuilder()
 			.Name(fsPath.filename().string())
 			.Path(absPath)
-			.Size(0, 0)
+			.size(0, 0)
 			.Format(TextureFormat::EMPTY)
-			.Usage(TextureType::Diffuse)
+			.Usage(usage)
 			.Source(TextureSource::File)
 			.State(TextureState::Unloaded)
 			.Build();
@@ -106,7 +106,7 @@ namespace Elevate {
 				int width, height, channels;
 				res.data = stbi_load(res.meta.Path.c_str(), &width, &height, &channels, 0);
 				res.meta = TextureMetadataBuilder(res.meta)
-					.Size(static_cast<uint32_t>(width), static_cast<uint32_t>(height))
+					.size(static_cast<uint32_t>(width), static_cast<uint32_t>(height))
 					.Format((TextureFormat) channels)
 					.State((res.data) ? TextureState::Loaded : TextureState::Failed)
 					.Build();
@@ -132,9 +132,9 @@ namespace Elevate {
 			case TextureState::Loaded:
 				if (manager.m_Textures.count(it->meta.Path))
 				{
-					EE_CORE_INFO("{}", it->meta.Path);
+					EE_CORE_INFO("Loaded texture : {}, {}x{}", it->meta.Path, it->meta.Width, it->meta.Height);
 					manager.m_Textures[it->meta.Path]->SetData(it->data, it->meta);
-					stbi_image_free(it->data);
+					stbi_image_free(it->data);	
 					it->data = nullptr;
 				}
 				it = manager.m_loadingTextures.erase(it);

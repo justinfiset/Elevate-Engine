@@ -11,9 +11,9 @@ namespace Elevate
 		Transform();
 
 		// TODO mettre dans le fichier cpp
-		void SetPosition(glm::vec3 pos) { this->position = pos; UpdateModelMatrix(); }
-		void SetRotation(glm::vec3 rot) { this->rotation = rot; UpdateModelMatrix(); }
-		void SetScale(glm::vec3 scale) { this->scale = scale; UpdateModelMatrix(); }
+		void SetPosition(glm::vec3 pos) { this->position = pos; m_isDirty = true; }
+		void SetRotation(glm::vec3 rot) { this->rotation = rot; m_isDirty = true; }
+		void SetScale(glm::vec3 scale) { this->scale = scale; m_isDirty = true; }
 
 		glm::vec3& GetPosition() { return position; }
 		const glm::vec3& GetPosition() const { return position; }
@@ -45,6 +45,8 @@ namespace Elevate
 			);
 		}
 	private:
+		bool m_isDirty = true;
+
 		glm::vec3 position;
 		glm::vec3 rotation;
 		glm::vec3 scale;

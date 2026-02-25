@@ -81,15 +81,17 @@ namespace Elevate
 			}
 		}
 
-		for (std::shared_ptr<GameObject> obj : m_rootObjects)
-		{
-			obj->PreRender();
-		}
+		// todo remove
+		//for (std::shared_ptr<GameObject> obj : m_rootObjects)
+		//{
+		//	obj->PreRender();
+		//}
 
-		if (m_sceneLighting)
-		{
-			Renderer::SetupShaders(this);
-		}
+		// todo remove
+		//if (m_sceneLighting)
+		//{
+		//	Renderer::SetupShaders(this);
+		//}
 
 		for (std::shared_ptr<GameObject> obj : m_rootObjects)
 		{
@@ -180,22 +182,23 @@ namespace Elevate
 
 	std::string Scene::Serialize() const
 	{
-		rapidjson::Document doc;
-		doc.SetObject();
-		auto& allocator = doc.GetAllocator();
+		//rapidjson::Document doc;
+		//doc.SetObject();
+		//auto& allocator = doc.GetAllocator();
 
-		doc.AddMember("name", rapidjson::Value(m_name.c_str(), allocator), allocator);
-		doc.AddMember("type", rapidjson::Value().SetInt(m_type), allocator);
+		//doc.AddMember("name", rapidjson::Value(m_name.c_str(), allocator), allocator);
+		//doc.AddMember("type", rapidjson::Value().SetInt(m_type), allocator);
 
-		// todo for objetcs
-		// todo for cubemap
-		// todo for SceneLighting
+		//// todo for objetcs
+		//// todo for cubemap
+		//// todo for SceneLighting
 
-		rapidjson::StringBuffer buffer;
-		rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-		doc.Accept(writer);
+		//rapidjson::StringBuffer buffer;
+		//rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+		//doc.Accept(writer);
 
-		EE_CORE_TRACE("{}", buffer.GetString());
-		return buffer.GetString();
+		//EE_CORE_TRACE("{}", buffer.GetString());
+		//return buffer.GetString();
+		return "scene";
 	}
 }

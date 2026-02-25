@@ -1,4 +1,7 @@
 #include "eepch.h"
+
+#include <filesystem>
+
 #include "Application.h"
 
 #include "ElevateEngine/Core/Time.h"
@@ -102,8 +105,10 @@ namespace Elevate {
 		float lastTime = 0.0f;
 		while (m_Running)
 		{
+#if !EE_ASSERTS_ENABLED
 			try
 			{
+#endif // #if EE_ASSERTS_ENABLED
 				// TIME UPDATE //////////////////
 				Time::currentTime_ = (float) m_Window->GetTime();
 				Time::deltaTime_ = Time::currentTime_ - lastTime;
@@ -124,6 +129,7 @@ namespace Elevate {
 					layer->OnRender();
 
 				DebugRenderer::Render();
+				Renderer::DrawStack();
 
 				FrameBuffer->Unbind(); // Back to normal
 
@@ -146,11 +152,14 @@ namespace Elevate {
 				Renderer::FlushBuffers();	
 				// Poll events and swap buffers
 				m_Window->OnUpdate();
+
+#if !EE_ASSERTS_ENABLED
 			}
 			catch (const std::exception& exc)
 			{
 				EE_CORE_ERROR("{}", exc.what());
 			}
+#endif // #if EE_ASSERTS_ENABLED
 		}
 		Exit();
 	}
@@ -173,7 +182,7 @@ namespace Elevate {
 			GameContextState oldState = s_Instance->m_state;
 			s_Instance->m_state = newState;
 
-			EE_CORE_INFO("GameContext state changed from %s to %s",
+			EE_CORE_INFO("GameContext state changed from {} to {}",
 				GetGameContextStateName(oldState),
 				GetGameContextStateName(newState));
 

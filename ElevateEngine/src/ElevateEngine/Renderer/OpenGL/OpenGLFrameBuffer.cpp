@@ -1,6 +1,7 @@
 #include "eepch.h"
 #include "OpenGLFrameBuffer.h"
 
+#include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
 #include <glad/glad.h>
@@ -59,7 +60,7 @@ void Elevate::OpenGLFrameBuffer::Rescale(uint32_t width, uint32_t height)
 
 	Bind();
 
-	m_texture->Bind();
+	Renderer::BindTexture(m_texture);
 
 	TextureMetadata meta = m_texture->GetMetadata();
 	meta.Width = width;

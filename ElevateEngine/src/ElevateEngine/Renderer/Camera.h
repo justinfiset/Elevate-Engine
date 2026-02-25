@@ -23,7 +23,7 @@ namespace Elevate
 		const void UpdateAspectRatio(float aspectRatio);
 
 		inline const glm::mat4& GetProjectionMatrix() const { return m_projectionMatrix;  }
-		glm::mat4 GenViewMatrix();
+		glm::mat4 GenViewMatrix() const;
 
 		inline const glm::vec3& GetFrontVec() const { return m_front; }
 		inline const glm::vec3& GetRightVec() const { return m_right; }
@@ -43,7 +43,7 @@ namespace Elevate
 
 		void UpdateCameraVectors();
 
-		glm::mat4 GenViewProjectionMatrix();
+		glm::mat4 GenViewProjectionMatrix() const;
 
 		void Init() override;
 		void Destroy() override;

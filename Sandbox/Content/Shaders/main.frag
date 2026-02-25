@@ -6,6 +6,8 @@ in vec3 fragPos;
  
 vec3 defaultColor = vec3(0.8, 0.8, 0.8);
 
+uniform int u_NumPointLights;
+
 // MATERIAL IMPL.
 // TODO implement multiple diffuse texture functionallity
 uniform sampler2D ambientTex;
@@ -36,13 +38,7 @@ struct DirLight {
 uniform DirLight dirLight;
 
 vec3 GetTextureColor(sampler2D tex, vec2 uv, vec3 defaultColor) {
-    // TODO:change the way to process cuz texture can't include black;
-    vec3 texColor = texture(tex, uv).rgb;
-    if (texColor == vec3(0.0, 0.0, 0.0)) { 
-        return defaultColor;
-    } else {
-        return texColor;
-    }
+   return texture(tex, uv).rgb;
 }
 
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
@@ -125,11 +121,14 @@ void main()
     // phase 1: Directional lighting    
     vec3 result = CalcDirLight(dirLight, unitNormal, viewDir);
     // phase 2: Point lights
-    for(int i = 0; i < NR_POINT_LIGHTS; i++)
+    for(int i = 0; i < u_NumPointLights && i < NR_POINT_LIGHTS; i++)
         result += CalcPointLight(pointLights[i], unitNormal, fragPos, viewDir);    
     // phase 3: Spot light
     //result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
     
 	// OUTPUT
-    o_Color = vec4(result, 1.0);
+    // o_Color = vec4(result, 1.0);
+
+    vec3 testColor = texture(specularTex, textCord).rgb;
+    o_Color = vec4(testColor, 1.0);
 }

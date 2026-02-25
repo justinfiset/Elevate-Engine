@@ -8,6 +8,7 @@
 
 namespace Elevate
 {
+	class Renderer;
 	class Texture;
 	using TexturePtr = std::shared_ptr<Texture>;
 
@@ -21,7 +22,7 @@ namespace Elevate
 		EMPTY = 0,
 		GRAYSCALE = 1,
 		RGB = 3,
-	    RGBA = 4,
+		RGBA = 4,
 		DEPTH
 	};
 
@@ -30,7 +31,10 @@ namespace Elevate
 		Specular,
 		Normal,
 		Height,
-		Cubemap
+		Cubemap,
+		Ambient,
+
+		Count
 	};
 
 	enum class TextureState : uint8_t {
@@ -74,7 +78,7 @@ namespace Elevate
 
 		TextureMetadataBuilder& Name(const std::string name) { data.Name = name; return *this; }
 		TextureMetadataBuilder& Path(const std::string& path) { data.Path = path; return *this; }
-		TextureMetadataBuilder& Size(const uint32_t w, const uint32_t h) { data.Width = w; data.Height = h; return *this; }
+		TextureMetadataBuilder& size(const uint32_t w, const uint32_t h) { data.Width = w; data.Height = h; return *this; }
 		TextureMetadataBuilder& Format(const TextureFormat fmt) { data.Format = fmt; data.Channels = (uint8_t)fmt; return *this; }
 		TextureMetadataBuilder& Usage(const TextureType type) { data.Usage = type; return *this; }
 		TextureMetadataBuilder& Source(const TextureSource src) { data.Source = src; return *this; }
@@ -96,9 +100,6 @@ namespace Elevate
 			SetDataImpl(data);
 		}
 
-		virtual void Bind(uint32_t index = 0) = 0;
-		virtual void Unbind() = 0;
-		virtual bool IsBound() const = 0;
 		virtual void* GetNativeHandle() const = 0; // Return a handle to the texture differs from the backend
 
 		inline bool IsTextureLoaded() const { return m_meta.State == TextureState::Loaded; }
@@ -117,12 +118,20 @@ namespace Elevate
 		inline const TextureType GetUsage() const { return m_meta.Usage; }
 
 		inline const TextureMetadata& GetMetadata() const { return m_meta; }
+
 	protected:
 		Texture() = default;
 		Texture(TextureMetadata meta) : m_meta(meta) {}
 
 		virtual void SetDataImpl(unsigned char* data) = 0;
+
+	private:
+		virtual void Bind(uint32_t index = 0) = 0;
+		virtual void Unbind() = 0;
+
 	protected:
 		TextureMetadata m_meta;
+
+		friend class Renderer;
 	};
 }

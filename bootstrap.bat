@@ -6,17 +6,17 @@ if not exist PREMAKE_CONFIG (
   goto :config
 ) else (
   if "%1"=="edit" (
-    echo "Editing configuration."
-    goto :config
+	echo "Editing configuration."
+	goto :config
   ) else (
-    for /f "delims=" %%A in (PREMAKE_CONFIG) do set "contenu=%%A"
-    
-    if not defined contenu (
-      echo Error: PREMAKE_CONFIG file is empty.
-      exit /b
-    )
-    
-    set ACTION=!contenu!
+	for /f "delims=" %%A in (PREMAKE_CONFIG) do set "contenu=%%A"
+	
+	if not defined contenu (
+	  echo Error: PREMAKE_CONFIG file is empty.
+	  exit /b
+	)
+	
+	set ACTION=!contenu!
   )
 )
 

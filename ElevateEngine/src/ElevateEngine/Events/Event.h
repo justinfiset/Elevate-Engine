@@ -16,7 +16,7 @@ namespace Elevate {
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 
-	enum EventCategory
+	enum EventCategory : uint8_t
 	{
 		None = 0,
 		EventCategoryApplication    = BIT(0),

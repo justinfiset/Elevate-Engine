@@ -14786,7 +14786,7 @@ template<typename>
 
 template<typename Type, std::size_t... Index>
 [[nodiscard]] constexpr bool unpack_maybe_equality_comparable(std::index_sequence<Index...>) {
-    return (dispatch_is_equality_comparable<std::tuple_element_t<Index, Type>>() && ...);
+    return (#_is_equality_comparable<std::tuple_element_t<Index, Type>>() && ...);
 }
 
 template<typename>
