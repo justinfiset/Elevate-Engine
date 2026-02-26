@@ -2,7 +2,7 @@
 
 #include <ElevateEngine/Core/Layers/LayerStack.h>
 #include <ElevateEngine/Core/Window.h>
-#include <ElevateEngine/Renderer/FrameBuffer.h>
+#include <ElevateEngine/Renderer/FrameBuffer.h> // todo remove once the framebuffer is not present in this file anymore
 #include <ElevateEngine/Core/GameContext.h>
 
 namespace Elevate {
@@ -22,6 +22,16 @@ namespace Elevate {
 	{
 		class EditorLayer;
 	}
+
+	struct ApplicationArguments
+	{
+		int argc;
+		char** argv;
+
+		ApplicationArguments() = default;
+		ApplicationArguments(int argc, char** argv)
+			: argc(argc), argv(argv) { }
+	};
 
 	class Application
 	{
@@ -45,6 +55,7 @@ namespace Elevate {
 
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
+		static ApplicationArguments GetArguments();
 
 		// GameContextState
 		static const GameContextState& GetGameState();
@@ -71,10 +82,11 @@ namespace Elevate {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		// TODO Maybe move somewhere else
+		// TODO move somewhere else (renderer?)
 		std::shared_ptr<Framebuffer> m_FrameBuffer;
 
 		GameContextState m_state = Initializing;
+		ApplicationArguments m_args;
 
 		static Application* s_Instance;
 	};

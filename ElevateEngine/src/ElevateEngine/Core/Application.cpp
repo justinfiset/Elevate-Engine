@@ -97,6 +97,7 @@ namespace Elevate {
 		//Log::Init(); // todo remove or uncomment depending on if the workarround worked
 		EE_CORE_INFO("Initializing ElevateEngine...");
 		auto app = CreateApplication();
+		app->m_args = ApplicationArguments(argc, argv);
 		EE_CORE_TRACE("Application Initialized.");
 		app->Run();
 		delete app;
@@ -190,6 +191,11 @@ namespace Elevate {
 
 			s_Instance->OnStateChange(oldState, newState);
 		}
+	}
+
+	ApplicationArguments Application::GetArguments()
+	{
+		return s_Instance->m_args;
 	}
 
 #pragma region Events	

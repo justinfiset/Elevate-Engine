@@ -39,7 +39,7 @@ public:
 		ImGuiViewport* viewport = ImGui::GetMainViewport();
 
 		ImGui::SetNextWindowPos(viewport->Pos);
-		ImGui::SetNextWindowSize(viewport->size);
+		ImGui::SetNextWindowSize(viewport->Size);
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
