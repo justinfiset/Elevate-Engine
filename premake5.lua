@@ -1,5 +1,7 @@
 include "vendor/Wwise/wwise.lua"
 
+Wwise.Initialize()
+
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 workspace "ElevateEngine"

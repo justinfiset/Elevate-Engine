@@ -68,8 +68,6 @@ project(projectInfos.name)
 		"Source/**.frag",
 	}
 
-    local wwiseSDK = os.getenv("WWISESDK")
-    local wwiseIncludePath = wwiseSDK .. "/include"
     -- TODO MAKE THIS PATH DYNAMIC AND NOT HARD CODED - LIKE THIS FOR TEST AND LEARNING PURPOSES
 	local wwiseLibLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
 	local wwiseBinLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/bin"
@@ -171,4 +169,4 @@ project(projectInfos.name)
         runtime "Release"
         optimize "on"
 
-print("")
+print("Finished Generating " .. projectInfos.name .. " Solution.\n")

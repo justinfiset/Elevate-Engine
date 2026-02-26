@@ -1,6 +1,26 @@
-local wwiseSDK = os.getenv("WWISESDK")
+wwiseSDK = os.getenv("WWISESDK")
+wwiseIncludePath = wwiseSDK .. "/include"
 
 Wwise = {}
+
+function Wwise.Initialize()
+    if not Wwise.IsInstalled() then
+        print("Wwise SDK not found. Skipping Wwise integration.")
+        return
+    end
+
+    print("Wwise SDK found at : "..wwiseSDK)
+	if not os.isdir(wwiseSDK) then
+		error("ERROR : Wwise SDK folder, no such folder exists.")
+	end
+	print("Wwise Include found at : "..wwiseIncludePath)
+	if not os.isdir(wwiseIncludePath) then
+		error("ERROR : Wwise Include Folder, no such folder exists.")
+	end
+
+    print("")
+end
+
 function Wwise.IsInstalled()
     return wwiseSDK ~= nil and os.isdir(wwiseSDK)
 end
@@ -61,5 +81,5 @@ function Wwise.SetupWorkspace()
         
         group "" 
 
-        print(" > Finished Generating WwiseProjectDatabase Solution.\n")
+        print("Finished Generating WwiseProjectDatabase Solution.\n")
 end

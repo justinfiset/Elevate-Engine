@@ -1,6 +1,3 @@
-local wwiseSDK = os.getenv("WWISESDK")
-local wwiseIncludePath = wwiseSDK .. "/include"
-
 project "ElevateEngine"
 	location "Build"
 	kind "StaticLib"
@@ -30,14 +27,6 @@ project "ElevateEngine"
 	IncludeDir["ImGuizmo"] = "vendor/ImGuizmo"
 	IncludeDir["entt"] = "vendor/entt/include"
 
-	print("Wwise SDK Path : "..wwiseSDK)
-	if not os.isdir(wwiseSDK) then
-		error("ERROR : Wwise SDK folder, no such folder exists.")
-	end
-	print("Wwise Include Path : "..wwiseIncludePath)
-	if not os.isdir(wwiseIncludePath) then
-		error("ERROR : Wwise Include Folder, no such folder exists.")
-	end
 	-- TODO MAKE THIS PATH DYNAMIC AND NOT HARD CODED - LIKE THIS FOR TEST AND LEARNING PURPOSES
 	local wwiseLibLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
 	local wwiseBinLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/bin"
