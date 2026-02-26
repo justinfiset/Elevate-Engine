@@ -76,7 +76,7 @@ void Elevate::Model::LoadModel(std::string path)
 
 	// Recursive method to process all the nodes in the model
 	MeshData data;
-	std::vector<Mesh> meshes;
+	std::vector<Mesh> meshes;	
 	std::filesystem::path fsPath(path);
 	ProcessNode(fsPath.parent_path().string(), scene->mRootNode, scene, data);
 

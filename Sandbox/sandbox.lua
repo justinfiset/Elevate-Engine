@@ -105,7 +105,6 @@ project(projectInfos.name)
         "AkSoundEngine",
         "AkMemoryMgr",
         "WwiseProjectDatabase",
-        -- "AkMusicEngine",
         "AkStreamMgr",
         "AkSpatialAudio",
         "CommunicationCentral", -- Not needed for release config -- TODO CHANGE THIS

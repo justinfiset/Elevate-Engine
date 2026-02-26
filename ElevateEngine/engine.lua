@@ -1,3 +1,6 @@
+local wwiseSDK = os.getenv("WWISESDK")
+local wwiseIncludePath = wwiseSDK .. "/include"
+
 project "ElevateEngine"
 	location "Build"
 	kind "StaticLib"
@@ -27,8 +30,6 @@ project "ElevateEngine"
 	IncludeDir["ImGuizmo"] = "vendor/ImGuizmo"
 	IncludeDir["entt"] = "vendor/entt/include"
 
-	local wwiseSDK = os.getenv("WWISESDK")
-	local wwiseIncludePath = wwiseSDK .. "/include"
 	print("Wwise SDK Path : "..wwiseSDK)
 	if not os.isdir(wwiseSDK) then
 		error("ERROR : Wwise SDK folder, no such folder exists.")
@@ -44,6 +45,7 @@ project "ElevateEngine"
 	-- SoundEngine samples
 	local wwiseSDKSoundEngineSamplesSrc = path.getabsolute(wwiseSDK.."/samples/SoundEngine")
 	local wwiseSDKSoundEngineSampleDest = path.getabsolute("src/ElevateEngine/Audio/Ak")
+
 	-- WAAPI samples
 	-- local wwiseSDKWAAPISampleSrc = path.getabsolute(wwiseSDK.."/samples/WwiseAuthoringAPI/cpp/SampleClient/AkAutobahn")
 	-- local wwiseSDKWAAPISampleDest = path.getabsolute("src/ElevateEngine/Audio/Ak/AkAutobahn")
@@ -129,7 +131,6 @@ project "ElevateEngine"
 		"ImGui",
 		"assimp",
 
-		"AkAutobahn", -- todo set for editor only
 		"AkSoundEngine",
 		"AkMemoryMgr",
 		"AkStreamMgr",
@@ -138,17 +139,6 @@ project "ElevateEngine"
 		"AkVorbisDecoder",
 		"AkOpusDecoder",
 	}
-
-	-- buildoptions { "/translateInclude" } 
-	
-	-- filter "files:**.ixx or **.cppm"
-	--	   flags { "NoPCH" }
-
-	-- filter { "files:vendor/**.c" }
-	--		   flags { "NoPCH" }
-
-	-- filter { "files:vendor/**.cpp" }
-	--	   flags { "NoPCH" } 
 
 	filter "system:windows"
 		systemversion "latest"
@@ -167,8 +157,9 @@ project "ElevateEngine"
 		links
 		{
 			"opengl32.lib",
-			"ws2_32" -- For Wwise Communication WARNING NOT NEEDED IN RELEASE BUT STILL INCLUDED FOR THE MOMENT
 		}
+
+	-- All of the debug configs on Windows
 
 	filter "system:linux"
 		systemversion "latest"
@@ -194,6 +185,13 @@ project "ElevateEngine"
 			"EE_DEBUG",
 			"EE_EDITOR_BUILD"
 		}
+
+		links
+		{
+			"AkAutobahn",
+			"ws2_32"
+		}
+
 		runtime "Debug"
 		symbols "on"
 
@@ -203,6 +201,13 @@ project "ElevateEngine"
 			"EE_RELEASE",
 			"EE_EDITOR_BUILD"
 		}
+		
+		links
+		{
+			"AkAutobahn",
+			"ws2_32"
+		}
+
 		runtime "Release"
 		optimize "on"
 
@@ -210,6 +215,11 @@ project "ElevateEngine"
 		defines "EE_DEBUG"
 		runtime "Debug"
 		symbols "on"
+
+		links
+		{
+			"ws2_32"
+		}
 
 	filter "configurations:Release"
 		defines "EE_RELEASE"
@@ -221,4 +231,6 @@ project "ElevateEngine"
 		runtime "Release"
 		optimize "on"
 
+	filter {}
+	
 print("Finished Generating Engine Solution.\n")

@@ -1,3 +1,7 @@
+include "vendor/Wwise/wwise.lua"
+
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
 workspace "ElevateEngine"
 	architecture "x64"
 	startproject "Sandbox"
@@ -11,7 +15,7 @@ workspace "ElevateEngine"
 		"Dist"
 	}
 
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+	Wwise.SetupWorkspace()
 
 group "Dependencies"
 	include "ElevateEngine/vendor/glfw.lua"

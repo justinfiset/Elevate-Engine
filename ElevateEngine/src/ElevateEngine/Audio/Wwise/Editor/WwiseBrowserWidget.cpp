@@ -1,5 +1,7 @@
 #include "WwiseBrowserWidget.h"
 
+#ifdef EE_EDITOR_BUILD
+
 #include <ElevateEngine/Inputs/Input.h>
 #include <ElevateEngine/Audio/Wwise/WwiseSoundEngine.h>
 #include <ElevateEngine/Audio/Wwise/WAAPI/WAAPIClient.h>
@@ -158,3 +160,5 @@ namespace Elevate::Editor
         }
     }
 }
+
+#endif // EE_EDITOR_BUILD
