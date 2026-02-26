@@ -32,7 +32,7 @@ ElevateEngine/
    ```
 3. Activate Submodules
    ```cmd
-   git submodule update --init --recursive
+   git submodule update --init --recursive --remote
    ```
 ### First Time Setup
 1. Run the `bootstrap` script:
