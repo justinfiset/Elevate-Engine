@@ -21,3 +21,6 @@
 [submodule "ElevateEngine/vendor/GLFW"]
 	path = ElevateEngine/vendor/GLFW
 	url = https://github.com/glfw/glfw
+[submodule "ElevateEngine/vendor/JoltPhysics"]
+	path = ElevateEngine/vendor/JoltPhysics
+	url = https://github.com/jrouwe/JoltPhysics
