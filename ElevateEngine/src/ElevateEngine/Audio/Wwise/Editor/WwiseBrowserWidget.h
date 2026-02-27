@@ -43,6 +43,7 @@ namespace Elevate::Editor
 			case Information:
 				return { 0, 87, 184, 255 };
 			}
+			return { 0, 87, 184, 255 };
 		}
 	};
 

@@ -1,27 +1,11 @@
+#define _SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING
+
 #include "eepch.h"
 #include "Log.h"
 
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/spdlog.h"
-//static std::shared_ptr<spdlog::logger> GetCoreLogger() {
-//    static auto logger = []() {
-//        auto logger = spdlog::stdout_color_mt("ELEVATE");
-//        logger->set_level(spdlog::level::trace);
-//        logger->set_pattern("%^[%T] [%n] %v%$");
-//        return logger;
-//        }();
-//    return logger;
-//}
-//
-//static std::shared_ptr<spdlog::logger> GetClientLogger() {
-//    static auto logger = []() {
-//        auto logger = spdlog::stdout_color_mt("APP");
-//        logger->set_level(spdlog::level::trace);
-//        logger->set_pattern("%^[%T] [%n] %v%$");
-//        return logger;
-//        }();
-//    return logger;
-//}
+
 namespace Elevate
 {
 	class LogImpl

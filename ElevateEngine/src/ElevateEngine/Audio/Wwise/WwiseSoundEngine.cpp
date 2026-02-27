@@ -48,7 +48,12 @@ namespace Elevate
 		AkBankID bankID; // Not used
 		AKRESULT res = AK::SoundEngine::LoadBank(bankName, bankID);
 		bool success = res == AK_Success;
-		EE_CORE_CERROR(!success, "ERROR: Failed to load SoundBank : {}", std::string(bankName, bankName + std::wcslen(bankName) * sizeof(wchar_t)));
+
+		if (!success)
+		{
+			std::string nameAsStr = std::filesystem::path(bankName).string();
+			EE_CORE_CERROR(true, "ERROR: Failed to load SoundBank : {}", nameAsStr);
+		}
 		return success;
 	}
 	bool WwiseSoundEngine::LoadBank(const std::wstring& bankName)
