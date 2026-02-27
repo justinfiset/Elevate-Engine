@@ -250,11 +250,11 @@ namespace Elevate
 			AkGameObjectID id = obj->GetObjectId();
 			if (AK::SoundEngine::RegisterGameObj(id, obj->GetName().c_str()) != AK_Success)
 			{
-				EE_CORE_ERROR("SoundEngine Error : Unable to register gO => (name : %d), (id : %s)", obj->GetObjectId(), obj->GetName().c_str());
+				EE_CORE_ERROR("SoundEngine Error : Unable to register gO => (name : {}), (id : {})", obj->GetObjectId(), obj->GetName().c_str());
 			}
 			else
 			{
-				EE_CORE_TRACE("SoundEngine registed gO => (name : %d), (id : %s)", obj->GetObjectId(), obj->GetName().c_str());
+				EE_CORE_TRACE("SoundEngine registed gO => (name : {}), (id : {})", obj->GetObjectId(), obj->GetName().c_str());
 			}
 		}
 	}

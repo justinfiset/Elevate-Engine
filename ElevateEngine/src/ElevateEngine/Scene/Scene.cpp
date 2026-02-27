@@ -34,7 +34,7 @@ namespace Elevate
 		s_nextRegistryId++;
 		GetRegistryMap()[m_registryId] = std::make_unique<entt::registry>();
 
-		EE_TRACE("Created scene '%s' with registry id: %d", m_name.c_str(), m_registryId);
+		EE_TRACE("Created scene '{}' with registry id: {}", m_name.c_str(), m_registryId);
 	}
 
 	//Scene::~Scene()
