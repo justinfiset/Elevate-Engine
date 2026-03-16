@@ -40,7 +40,6 @@ ElevateEngine/
 	 ```cmd
 	 bootstrap.bat
 	 ```
-
    - For **macOS/Linux**:
 	 ```bash
 	 ./bootstrap.sh
@@ -55,7 +54,6 @@ To change the configuration later, run the `edit` script:
   ```cmd
   edit.bat
   ```
-
 - For **macOS/Linux**:
   ```bash
   ./edit.sh
