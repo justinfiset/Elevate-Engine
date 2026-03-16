@@ -2,6 +2,10 @@ PREMAKE_CONFIG
 
 ElevateEngine/src/ElevateEngine/Audio/Ak
 
+# Doxygen generated files
+Docs/html/
+Docs/latex/
+
 # Hide Sandbox wwise binaries
 Sandbox/WwiseProject/.cache
 Sandbox/WwiseProject/GeneratedSoundbanks

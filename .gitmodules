@@ -21,3 +21,6 @@
 [submodule "ElevateEngine/vendor/GLFW"]
 	path = ElevateEngine/vendor/GLFW
 	url = https://github.com/glfw/glfw
+[submodule "Docs/doxygen-awesome-css"]
+	path = Docs/doxygen-awesome-css
+	url = https://github.com/jothepro/doxygen-awesome-css.git
