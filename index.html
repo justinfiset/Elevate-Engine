@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Elevate Engine: Main Page</title>
+<title>Elevate Engine: Elevate Engine</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -93,10 +93,62 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">Elevate Engine Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title"><a class="el" href="namespaceElevate.html">Elevate</a> Engine </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_README"></a> <img src="logo-png.png" alt="" class="inline" title="Elevate Logo"/>     <img src="elevate.gif" alt="" class="inline" title="Elevate Demo"/>    </p>
+<h1><a class="anchor" id="autotoc_md0"></a>
+Project Setup and Usage Guide</h1>
+<p>This project includes scripts to configure and build your project. Below is a quick guide on how to use them.</p>
+<h2><a class="anchor" id="autotoc_md1"></a>
+Directory Structure</h2>
+<div class="fragment"><div class="line">ElevateEngine/</div>
+<div class="line">│</div>
+<div class="line">├── bootstrap.bat        (Windows)</div>
+<div class="line">├── bootstrap.sh         (macOS/Linux)</div>
+<div class="line">│</div>
+<div class="line">├── scripts/</div>
+<div class="line">│   ├── edit.bat         (Windows)</div>
+<div class="line">│   └── edit.sh          (macOS/Linux)</div>
+<div class="line">│</div>
+<div class="line">└── PREMAKE_CONFIG       (configuration file)</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md2"></a>
+Usage</h2>
+<h3><a class="anchor" id="autotoc_md3"></a>
+Download the Project</h3>
+<ol type="1">
+<li>Clone the Repo <div class="fragment"><div class="line">git clone https://github.com/justinfiset/Elevate-Engine</div>
+</div><!-- fragment --></li>
+<li>Open the Downloaded Folder <div class="fragment"><div class="line">cd Elevate-Engine</div>
+</div><!-- fragment --></li>
+<li>Activate Submodules <div class="fragment"><div class="line">git submodule update --init --recursive --remote</div>
+</div><!-- fragment --> </li>
+</ol>
+<h3><a class="anchor" id="autotoc_md4"></a>
+First Time Setup</h3>
+<ol type="1">
+<li>Run the <code>bootstrap</code> script:<ul>
+<li>For <b>Windows</b>: <div class="fragment"><div class="line">bootstrap.bat</div>
+</div><!-- fragment --></li>
+<li>For <b>macOS/Linux</b>: <div class="fragment"><div class="line">./bootstrap.sh</div>
+</div><!-- fragment --></li>
+</ul>
+</li>
+<li>Select a build option (e.g., Visual Studio, GNU Make, etc.) when prompted.</li>
+</ol>
+<h3><a class="anchor" id="autotoc_md5"></a>
+Edit Configuration</h3>
+<p>To change the configuration later, run the <code>edit</code> script:</p><ul>
+<li>For <b>Windows</b>: <div class="fragment"><div class="line">edit.bat</div>
+</div><!-- fragment --></li>
+<li>For <b>macOS/Linux</b>: <div class="fragment"><div class="line">./edit.sh</div>
+</div><!-- fragment --></li>
+</ul>
+<h3><a class="anchor" id="autotoc_md6"></a>
+Run the Build</h3>
+<p>Once the configuration is set, the script will automatically run <code>premake5</code> with the selected option. </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

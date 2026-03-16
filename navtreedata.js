@@ -25,6 +25,15 @@
 var NAVTREE =
 [
   [ "Elevate Engine", "index.html", [
+    [ "Project Setup and Usage Guide", "index.html#autotoc_md0", [
+      [ "Directory Structure", "index.html#autotoc_md1", null ],
+      [ "Usage", "index.html#autotoc_md2", [
+        [ "Download the Project", "index.html#autotoc_md3", null ],
+        [ "First Time Setup", "index.html#autotoc_md4", null ],
+        [ "Edit Configuration", "index.html#autotoc_md5", null ],
+        [ "Run the Build", "index.html#autotoc_md6", null ]
+      ] ]
+    ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -74,9 +83,9 @@ var NAVTREEINDEX =
 "classElevate_1_1OpenGLVertexBuffer.html#a55460800558590d5a4185450c3dcb4bf",
 "classElevate_1_1Shader.html#ae7fcc1e2ff71c3d6c82d91375661d250",
 "classElevate_1_1WindowsWindow.html#a5d05a269ff9481a87974459517895e49",
-"namespaceElevate.html#a6146041726c8a1f0fca97298ff0aa8f3",
-"structElevate_1_1Editor_1_1FileMetadata.html#aaa9f9e5f114894dfd041c33ed8d5d804",
-"structElevate_1_1WindowProps.html#add5a672a2ac6781f12b8a957654e04d5"
+"namespaceElevate.html#a2694563ec36a64f9cbfdcc020f2d8da9",
+"structElevate_1_1Editor_1_1FileMetadata.html",
+"structElevate_1_1WindowProps.html#a8d642cf689dff22104e9e695ecca4e50"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
