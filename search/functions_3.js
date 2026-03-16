@@ -1,0 +1,15 @@
+var searchData=
+[
+  ['deduceenginedatatype_0',['DeduceEngineDataType',['../classElevate_1_1ComponentRegistry.html#a95e8e47d9c291c8185142b7ec6d08eae',1,'Elevate::ComponentRegistry']]],
+  ['deletegameobjectcommand_1',['DeleteGameobjectCommand',['../classElevate_1_1DeleteGameobjectCommand.html#a5db2396ef90a0e40f6b53391490fda60',1,'Elevate::DeleteGameobjectCommand']]],
+  ['deserialize_2',['Deserialize',['../classElevate_1_1ISerializable.html#abaa64e560620e745d7cf63f7e2c1c6b6',1,'Elevate::ISerializable']]],
+  ['destroy_3',['Destroy',['../classElevate_1_1AudioDistanceProbe.html#a5083b42ccc1e5ffe388a0141be3a3b5a',1,'Elevate::AudioDistanceProbe::Destroy()'],['../classElevate_1_1Component.html#acf5caf9c2899580ff3d5f8878e5dcc68',1,'Elevate::Component::Destroy()'],['../classElevate_1_1GameObject.html#ac571bb9ded8d383e063a050682570166',1,'Elevate::GameObject::Destroy()'],['../classElevate_1_1Camera.html#a6cf5307d60da0a95b6af4ef477d54a4c',1,'Elevate::Camera::Destroy()']]],
+  ['directionallight_4',['DirectionalLight',['../classElevate_1_1DirectionalLight.html#a484da0b96c39fc21c5a50fd3ca3e2a8e',1,'Elevate::DirectionalLight::DirectionalLight()=default'],['../classElevate_1_1DirectionalLight.html#af31dc5186ffd25cc5312221449e1cae7',1,'Elevate::DirectionalLight::DirectionalLight(const glm::vec3 &amp;color)']]],
+  ['disconnect_5',['Disconnect',['../classElevate_1_1WAAPIClient.html#a586afcc97947d406c3767b3dc9fbfb11',1,'Elevate::WAAPIClient']]],
+  ['dispatch_6',['Dispatch',['../classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6',1,'Elevate::EventDispatcher::Dispatch()'],['../classElevate_1_1Renderer.html#ab9904838b703eea39d4b83dedf56f221',1,'Elevate::Renderer::Dispatch()']]],
+  ['distancetopoint_7',['DistanceToPoint',['../structElevate_1_1Plane.html#a6a76d8a50394fef74c243db73fd5fe59',1,'Elevate::Plane']]],
+  ['draw_8',['Draw',['../classElevate_1_1Cubemap.html#a0a7fa2d9f5d4580124b062958ca6a9d2',1,'Elevate::Cubemap']]],
+  ['drawarray_9',['DrawArray',['../classElevate_1_1OpenGLRendererAPI.html#a59ada8d31e530e8c366b4a9a3f8b6ec0',1,'Elevate::OpenGLRendererAPI::DrawArray()'],['../classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667',1,'Elevate::Renderer::DrawArray(const VertexArray *vao, DrawPrimitiveType primitive=DrawPrimitiveType::Triangles)'],['../classElevate_1_1Renderer.html#a7a8374e741355518c044251e1e698dce',1,'Elevate::Renderer::DrawArray(const std::shared_ptr&lt; VertexArray &gt; &amp;vao, DrawPrimitiveType primitive=DrawPrimitiveType::Triangles)'],['../classElevate_1_1RendererAPI.html#a3880f081005ef41481cdf767d85a19ae',1,'Elevate::RendererAPI::DrawArray()']]],
+  ['drawprimitivetypetoopengl_10',['DrawPrimitiveTypeToOpenGL',['../classElevate_1_1OpenGLRendererAPI.html#aebbcc44c6e574b9419ddc6f69bce786c',1,'Elevate::OpenGLRendererAPI']]],
+  ['drawstack_11',['DrawStack',['../classElevate_1_1Renderer.html#a95439191607dbd7586c6a1e5cdfc5ebd',1,'Elevate::Renderer']]]
+];
