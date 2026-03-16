@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef EE_USES_WWISE
+
 #include "WwiseDataSource.h"
 #include "WwiseProjectDBDataSource.h"
 #include "WwiseFileDataSource.h"
@@ -27,3 +29,5 @@ namespace Elevate
 		std::unique_ptr<WwiseProjectDBDataSource> m_projectDataSource; 
 	};
 }
+
+#endif // #ifdef EE_USES_WWISE

@@ -1,3 +1,5 @@
+#ifdef EE_USES_WWISE
+
 #include <ElevateEngine/Core/Log.h>
 
 #include "WwiseMergedDataSource.h"
@@ -51,3 +53,5 @@ void Elevate::WwiseMergedDataSource::ProcessChildrenMerge(WwiseItemPtr parent, s
 		ProcessChildrenMerge(item, projectDBRefs);
 	}
 }
+
+#endif // #ifdef EE_USES_WWISE

@@ -5,6 +5,10 @@
 #include <ElevateEngine/Renderer/FrameBuffer.h> // todo remove once the framebuffer is not present in this file anymore
 #include <ElevateEngine/Core/GameContext.h>
 
+#ifdef EE_USES_WWISE
+#include <ElevateEngine/Audio/Wwise/WwiseSoundEngine.h>
+#endif
+
 namespace Elevate {
 	class Event;
 	class KeyPressedEvent;
@@ -42,6 +46,7 @@ namespace Elevate {
 		virtual ~Application() = default;
 
 		static void Start(int argc, char** argv);
+		void Init();
 		void Run();
 		void Exit();
 

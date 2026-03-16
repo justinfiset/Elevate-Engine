@@ -1,128 +1,52 @@
 #pragma once
 
-#include <memory>
-
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Assert.h>
-
-#define EE_CHECK_SOUNDENGINE(...) if(EE_NO_SOUNDENGINE == 1) { return __VA_ARGS__; }
+#include <cstdint>
 
 namespace Elevate
 {
-    class GameObject;
-    
-    class SoundEngine
-    {
-    public:
-        static inline bool Init()
-        {
-            // todo find a way to put back core assert and logging
-            EE_CHECK_SOUNDENGINE(false);
-            EE_ASSERT(Impl, "Error : No valid SoundEngine impl. found.");
-            bool result = Impl->InitImpl();
-            EE_CERROR(!result, "Error (SoundEngine::Init) : Could not initialize the sound engine.");
-            return result;
+	class GameObject;
 
-            // todo register to native window callbacks
-        }
-
-		static inline void RenderAudio()
+	class SoundEngine
+	{
+	public:
+		static void SetImplementation(SoundEngine* implementation)
 		{
-			EE_CHECK_SOUNDENGINE();
-			Impl->RenderAudioImpl();
+			Impl = implementation;
 		}
 
-		static inline void Terminate()
-		{
-			EE_CHECK_SOUNDENGINE();
-			Impl->TerminateImpl();
-		}
+		static bool Init();
+		static void RenderAudio();
+		static void Terminate();
 
-		static inline void SetDefaultListener(GameObject* obj)
-		{
-			EE_CHECK_SOUNDENGINE();
-			Impl->SetDefaultListenerImpl(obj);
-		}
+		static void SetDefaultListener(GameObject* obj);
+		static void SetDistanceProbe(GameObject* obj);
+		static void UnsetDistanceProbe();
 
-		static inline void SetDistanceProbe(GameObject* obj)
-		{
-			EE_CHECK_SOUNDENGINE();
-			Impl->SetDistanceProbeImpl(obj);
-		}
+		static void RegisterGameObject(GameObject* obj);
+		static void UnregisterGameObject(GameObject* obj);
+		static void UpdatePosition(GameObject* obj);
 
-		static inline void UnsetDistanceProbe()
-		{
-			EE_CHECK_SOUNDENGINE();
-			Impl->UnsetDistanceProbeImpl();
-		}
+		static void PostEvent(const char* eventName, GameObject* object);
+		static void PostEvent(uint32_t eventId, GameObject* object);
+		static void PostEvent(const char* eventName);
+		static void PostEvent(uint32_t eventId);
 
-		static inline void RegisterGameObject(GameObject* obj)
-		{
-			EE_CHECK_SOUNDENGINE();
-			Impl->RegisterGameObjectImpl(obj);
-		}
+		static void Wakeup();
+		static void Suspend(bool renderAnyway = false, bool fadeOut = true);
 
-		static inline void UnregisterGameObject(GameObject* obj)
-		{
-			EE_CHECK_SOUNDENGINE();
-			Impl->UnregisterGameObjectImpl(obj);
-		}
-
-		static inline void UpdatePosition(GameObject* obj)
-		{
-			EE_CHECK_SOUNDENGINE();
-			Impl->UpdateObjectPositionImpl(obj);
-		}
-
-		static inline void PostEvent(const char* eventName, GameObject* object)
-		{
-			EE_CHECK_SOUNDENGINE();
-			Impl->PostEventImpl(eventName, object);
-		}
-
-		static inline void PostEvent(uint32_t eventId, GameObject* object)
-		{
-			EE_CHECK_SOUNDENGINE();
-			Impl->PostEventImpl(eventId, object);
-		}
-
-		static inline void PostEvent(const char* eventName)
-		{
-			EE_CHECK_SOUNDENGINE();
-			Impl->PostEventImpl(eventName);
-		}
-
-		static inline void PostEvent(uint32_t eventId)
-		{
-			EE_CHECK_SOUNDENGINE();
-			Impl->PostEventImpl(eventId);
-		}
-
-        static inline void Wakeup()
-        {
-            EE_CHECK_SOUNDENGINE();
-            Impl->WakeUpImpl();
-        }
-
-        static inline void Suspend(bool renderAnyway = false, bool fadeOut = true)
-        {
-            EE_CHECK_SOUNDENGINE();
-            Impl->SuspendImpl(renderAnyway, fadeOut);
-        }
-
-        static inline SoundEngine* GetImpl() { return Impl; }
+		static SoundEngine* GetImpl();
 
 	protected:
 		virtual bool InitImpl() = 0;
 		virtual void RenderAudioImpl() = 0;
 		virtual void TerminateImpl() = 0;
 
-        virtual void WakeUpImpl() = 0;
-        virtual void SuspendImpl(bool renderAnyway, bool fadeOut) = 0;
+		virtual void WakeUpImpl() = 0;
+		virtual void SuspendImpl(bool renderAnyway, bool fadeOut) = 0;
 
-        virtual void SetDefaultListenerImpl(GameObject* obj) = 0;
-        virtual void SetDistanceProbeImpl(GameObject* obj) = 0;
-        virtual void UnsetDistanceProbeImpl() = 0;
+		virtual void SetDefaultListenerImpl(GameObject* obj) = 0;
+		virtual void SetDistanceProbeImpl(GameObject* obj) = 0;
+		virtual void UnsetDistanceProbeImpl() = 0;
 
 		virtual void RegisterGameObjectImpl(GameObject* obj) = 0;
 		virtual void UnregisterGameObjectImpl(GameObject* obj) = 0;
@@ -132,6 +56,7 @@ namespace Elevate
 		virtual void PostEventImpl(uint32_t eventName, GameObject* object) = 0;
 		virtual void PostEventImpl(const char* eventName) = 0;
 		virtual void PostEventImpl(uint32_t eventName) = 0;
+
 	private:
 		static SoundEngine* Impl;
 	};

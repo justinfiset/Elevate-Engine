@@ -1,0 +1,47 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "171",
+  "SoundBanks": [
+   {
+    "Id": "1465331116",
+    "Type": "User",
+    "GUID": "{4792C0E0-7E4D-4D8A-BA8B-F1BE994172E6}",
+    "Language": "SFX",
+    "Hash": "{C762C380-379A-F509-20A4-B6CC80F5CB93}",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\Global",
+    "ShortName": "Global",
+    "Path": "Global.bnk",
+    "Media": [
+     {
+      "Id": "119985504",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "470281__erokia__menu-ui-click-229.wav",
+      "CachePath": "C9/{C989B01C-7DBF-B90B-60F7-C58360A7857B}.wem"
+     }
+    ],
+    "Events": [
+     {
+      "Id": "2417275882",
+      "Name": "Play_Test_SFX",
+      "ObjectPath": "\\Events\\Default Work Unit\\Play_Test_SFX",
+      "GUID": "{69D9786F-5531-487F-926B-A38D34BF2E27}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.53020406",
+      "DurationMax": "0.53020406",
+      "MediaRefs": [
+       {
+        "Id": "119985504"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "FileHash": "{9CAE5853-C97A-F1D4-ADFA-0EE51080FA0D}"
+ }
+}

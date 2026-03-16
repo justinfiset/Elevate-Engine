@@ -35,8 +35,6 @@ namespace Elevate {
 
 		EE_CORE_TRACE("Current working directory : {}", std::filesystem::current_path().string().c_str());
 
-		SoundEngine::Init();
-
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
@@ -101,6 +99,11 @@ namespace Elevate {
 		EE_CORE_TRACE("Application Initialized.");
 		app->Run();
 		delete app;
+	}
+
+	void Application::Init()
+	{
+		SoundEngine::Init();
 	}
 
 	void Application::Run() // Each frame

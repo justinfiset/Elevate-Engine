@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	2417275882	Play_Test_SFX			\Default Work Unit\Play_Test_SFX	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	119985504	470281__erokia__menu-ui-click-229	.cache\C9\{C989B01C-7DBF-B90B-60F7-C58360A7857B}.wem		\Containers\Default Work Unit\470281__erokia__menu-ui-click-229		93624
+

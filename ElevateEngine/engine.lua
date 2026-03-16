@@ -1,16 +1,14 @@
 project "ElevateEngine"
-	location "Build"
+	location "./Build"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "on"
 
-	targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("../bin/temps")
+	targetdir ("../Build/bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("../Build/bin-int/" .. outputdir .. "/%{prj.name}")
 
 	flags { "NoPCH" }
-	-- pchheader "eepch.h"
-	-- pchsource "src/eepch.cpp"
 
 	IncludeDir = {}
 	IncludeDir["Vendors"] = "vendor"
@@ -27,26 +25,7 @@ project "ElevateEngine"
 	IncludeDir["ImGuizmo"] = "vendor/ImGuizmo"
 	IncludeDir["entt"] = "vendor/entt/include"
 
-	-- TODO MAKE THIS PATH DYNAMIC AND NOT HARD CODED - LIKE THIS FOR TEST AND LEARNING PURPOSES
-	local wwiseLibLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib"
-	local wwiseBinLinkPath = wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/bin"
-
-	-- SoundEngine samples
-	local wwiseSDKSoundEngineSamplesSrc = path.getabsolute(wwiseSDK.."/samples/SoundEngine")
-	local wwiseSDKSoundEngineSampleDest = path.getabsolute("src/ElevateEngine/Audio/Ak")
-
-	-- WAAPI samples
-	-- local wwiseSDKWAAPISampleSrc = path.getabsolute(wwiseSDK.."/samples/WwiseAuthoringAPI/cpp/SampleClient/AkAutobahn")
-	-- local wwiseSDKWAAPISampleDest = path.getabsolute("src/ElevateEngine/Audio/Ak/AkAutobahn")
-	
-	local samplesPlatform
-	if os.istarget("Windows") then
-		samplesPlatform = "Win32"
-	else
-		samplesPlatform = "POSX"
-	end
-
-	files 
+	files
 	{
 		"src/**.h",
 		"src/**.inl",
@@ -63,6 +42,7 @@ project "ElevateEngine"
 	defines 
 	{
 		"EE_ENGINE_BUILD",
+		"EE_USES_WWISE",
 		"_CRT_SECURE_NO_WARNINGS",
 		"IMGUI_DEFINE_MATH_OPERATORS",
 	}
@@ -70,13 +50,6 @@ project "ElevateEngine"
 	includedirs
 	{
 		"src",
-
-		-- todo add conditions to make sure we really are using wwise.
-		wwiseIncludePath, -- include the Ak include path
-		wwiseSDKSoundEngineSampleDest.."/"..samplesPlatform, -- include the Ak sample/SoundEngine include path
-		wwiseSDK.."/samples",
-		wwiseSDK.."/samples/3rdParty/subprojects",
-		wwiseSDK.."/samples/WwiseProjectDatabase/WwiseProjectDatabase",
 
 		"%{IncludeDir.Vendors}",
 		"%{IncludeDir.GLFW}",
@@ -93,33 +66,14 @@ project "ElevateEngine"
 		"%{IncludeDir.entt}"
 	}
 
-	-- todo : add a condition before doing so, make sure we want to compile with the soundengine
-	print("Build Commands Summary :")
-	print(" + Copying Wwise SoundEngine Samples from "..wwiseSDKSoundEngineSamplesSrc.." to "..wwiseSDKSoundEngineSampleDest)
-	print("    + Copying /Common")
-	os.execute("{COPYDIR} "..wwiseSDKSoundEngineSamplesSrc.."/Common "..wwiseSDKSoundEngineSampleDest.."/Common") -- Copy the Soundengine samples from Wwise)
-	print("    > DONE")
-	print("    + Copying /"..samplesPlatform)
-	os.execute("{COPYDIR} "..wwiseSDKSoundEngineSamplesSrc.."/"..samplesPlatform.." "..wwiseSDKSoundEngineSampleDest.."/"..samplesPlatform) -- Copy the Soundengine samples from Wwise)
-	print("    > DONE")
-
-	-- todo : add a condition before doing so, make sure we want to compile with waapi
-	-- print(" + Copying Wwise WAAPI Sample from "..wwiseSDKWAAPISampleSrc.." to "..wwiseSDKWAAPISampleDest)
-	-- os.execute("{COPYDIR} "..wwiseSDKWAAPISampleSrc.." "..wwiseSDKWAAPISampleDest) -- Copy the WAAPI samples from Wwise)
-	-- print("    > DONE")
-
-	libdirs
-	{
-		wwiseLibLinkPath,
-		wwiseBinLinkPath,
-	}
+	Wwise.SetupEngine()
 
 	links
 	{
 		"GLFW",
 		"ImGui",
 		"assimp",
-
+		
 		"AkSoundEngine",
 		"AkMemoryMgr",
 		"AkStreamMgr",

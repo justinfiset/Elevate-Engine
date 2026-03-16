@@ -1,9 +1,12 @@
 #pragma once
 
+#include <ElevateEngine/Audio/SoundEngine.h>
+
+#ifdef EE_USES_WWISE
+
 #define EE_AUDIO_VORBIS 1
 #define EE_AUDIO_OPUS 1
 
-#include <ElevateEngine/Audio/SoundEngine.h>
 #include <ElevateEngine/Audio/Ak/Common/AkFilePackageLowLevelIODeferred.h>
 
 #ifdef EE_EDITOR_BUILD
@@ -59,3 +62,5 @@ namespace Elevate
         #endif
     };
 }
+
+#endif // #ifdef EE_USES_WWISE

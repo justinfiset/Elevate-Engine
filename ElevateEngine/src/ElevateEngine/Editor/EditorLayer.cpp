@@ -12,14 +12,9 @@
 #include <ElevateEngine/Renderer/Model.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include "ElevateEngine/Renderer/Shader/ShaderManager.h"
-#include "ElevateEngine/Renderer/Model.h"
 
 #include <ElevateEngine/Editor/Camera/EditorCamera.h>
-#include <ElevateEngine/Editor/Panels/ScenePanel.h>
-#include <ElevateEngine/Editor/Panels/HierarchyPanel.h>
-#include <ElevateEngine/Editor/Panels/AnalyserPanel.h>
-#include <ElevateEngine/Editor/Panels/AssetBrowserPanel.h>
-#include <ElevateEngine/Editor/Panels/StatisticsPanel.h>
+
 #include <ElevateEngine/Editor/Widgets/SkyboxEditorWidget.h>
 
 #include <ElevateEngine/ImGui/ImGuiTheme.h>
@@ -29,8 +24,6 @@
 #include <ElevateEngine/Scene/Scene.h>
 
 #include <ElevateEngine/Renderer/Camera/CameraManager.h>
-
-#include <ElevateEngine/Audio/Wwise/Editor/WwiseBrowserWidget.h>
 
 // TODO : CHECK ESSENTIAL INCLUDES KNOW ESSENTIAL BELLOW
 // Core
@@ -50,17 +43,6 @@ namespace Elevate::Editor
 		m_stopTexture = Texture::CreateFromFile("./Editor/Icons/Light/stop.png");
 		m_coloredStopTexture = Texture::CreateFromFile("./Editor/Icons/Light/Colored/stop.png");
 		InitUI();
-	}
-
-	void EditorLayer::InitUI()
-	{
-		CreateWidget<HierarchyPanel>();
-		CreateWidget<ScenePanel>();
-		CreateWidget<AnalyserPanel>();
-		CreateWidget<AssetBrowserPanel>();
-		CreateWidget<StatisticsPanel>();
-
-		CreateWidget<WwiseBrowserWidget>();
 	}
 
 	void EditorLayer::OnAttach()

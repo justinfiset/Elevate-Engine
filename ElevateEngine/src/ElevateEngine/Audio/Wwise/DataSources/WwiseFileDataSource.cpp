@@ -4,12 +4,12 @@
 #include <array>
 #include <filesystem>
 
+#include <rapidxml.hpp>
 #include <flxml/utils.h>
 
 #define WWISE_WORKUNIT_EXTENSION ".wwu"
 
 namespace fs = std::filesystem;
-using namespace flxml;
 
 namespace Elevate
 {
@@ -64,22 +64,22 @@ namespace Elevate
 
 		rapidxml::
 			file<> workUnitFile(workUnitPath.string().c_str());
-		xml_document<> doc;
+		flxml::xml_document<> doc;
 		doc.parse<0>(workUnitFile.data());
 
 		// Get the second node as the first one is the xml
 		// todo check the document type to check if really workunit
 		auto optDocNode = doc.first_node();
 		if (!optDocNode) return;
-		xml_node<char>* docNode = optDocNode.get();
+		flxml::xml_node<char>* docNode = optDocNode.get();
 
 		auto optTypeNode = docNode->first_node();
 		if (!optTypeNode) return;
-		xml_node<char>* typeNode = optTypeNode.get();
+		flxml::xml_node<char>* typeNode = optTypeNode.get();
 
 		auto optWorkUnitNode = typeNode->first_node();
 		if (!optWorkUnitNode) return;
-		xml_node<char>* workUnitNode = optWorkUnitNode.get();
+		flxml::xml_node<char>* workUnitNode = optWorkUnitNode.get();
 
 		auto optIdAttr = workUnitNode->first_attribute("ID");
 
@@ -176,42 +176,42 @@ namespace Elevate
 		}
 	}
 
-	WwiseItemPtr WwiseFileDataSource::ProcessBus(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	WwiseItemPtr WwiseFileDataSource::ProcessBus(WwiseItemPtr parent, flxml::xml_node<>* node)
 	{
 		return WwiseBus::Create(); 
 	}
 
-	WwiseItemPtr WwiseFileDataSource::ProcessAuxBus(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	WwiseItemPtr WwiseFileDataSource::ProcessAuxBus(WwiseItemPtr parent, flxml::xml_node<>* node)
 	{
 		return WwiseAuxBus::Create();
 	}
 
-	WwiseItemPtr WwiseFileDataSource::ProcessEvent(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	WwiseItemPtr WwiseFileDataSource::ProcessEvent(WwiseItemPtr parent, flxml::xml_node<>* node)
 	{
 		return WwiseEvent::Create();
 	}
 
-	WwiseItemPtr WwiseFileDataSource::ProcessSoundBank(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	WwiseItemPtr WwiseFileDataSource::ProcessSoundBank(WwiseItemPtr parent, flxml::xml_node<>* node)
 	{
 		return WwiseSoundbank::Create();
 	}
 
-	WwiseItemPtr WwiseFileDataSource::ProcessStateGroup(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	WwiseItemPtr WwiseFileDataSource::ProcessStateGroup(WwiseItemPtr parent, flxml::xml_node<>* node)
 	{
 		return WwiseStateGroup::Create();
 	}
 
-	WwiseItemPtr WwiseFileDataSource::ProcessState(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	WwiseItemPtr WwiseFileDataSource::ProcessState(WwiseItemPtr parent, flxml::xml_node<>* node)
 	{
 		return WwiseState::Create();
 	}
 
-	WwiseItemPtr WwiseFileDataSource::ProcessSwitchGroup(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	WwiseItemPtr WwiseFileDataSource::ProcessSwitchGroup(WwiseItemPtr parent, flxml::xml_node<>* node)
 	{
 		return WwiseSwitchGroup::Create();
 	}
 
-	WwiseItemPtr WwiseFileDataSource::ProcessSwitch(WwiseItemPtr parent, rapidxml::xml_node<>* node)
+	WwiseItemPtr WwiseFileDataSource::ProcessSwitch(WwiseItemPtr parent, flxml::xml_node<>* node)
 	{
 		return WwiseSwitch::Create();
 	}

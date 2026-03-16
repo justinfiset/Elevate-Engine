@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{4C8C5A4C-B46D-41E9-BF99-B227CD8602A6}" SchemaVersion="133">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{4C8C5A4C-B46D-41E9-BF99-B227CD8602A6}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_Test_SFX" ID="{69D9786F-5531-487F-926B-A38D34BF2E27}">
+					<ChildrenList>
+						<Action Name="" ID="{FC87AA19-676E-4A9B-BDF9-1FD9480ECA92}" ShortID="545930455">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="470281__erokia__menu-ui-click-229" ID="{C85EBF6F-4BF5-474B-A42E-91B79E47B421}" WorkUnitID="{9612613A-CE94-4E9F-9B4D-2E98FA2BCA3A}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="TestEventPasDansBanque" ID="{7AB93031-73A8-4CE7-BA30-7B027F82D5BE}"/>
+				<Event Name="testrefres" ID="{46A12D76-945D-4AFD-8491-E3AEDDFD3AED}"/>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

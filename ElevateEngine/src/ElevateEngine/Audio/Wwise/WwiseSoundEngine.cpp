@@ -1,4 +1,4 @@
-#include "eepch.h"
+#ifdef EE_USES_WWISE
 
 #include <filesystem>
 
@@ -338,3 +338,5 @@ namespace Elevate
 	}
 #endif
 }
+
+#endif // #ifdef EE_USES_WWISE

@@ -3,12 +3,22 @@
 #ifdef EE_EDITOR_BUILD
 
 #include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Core/Layers/Layer.h>
 #include <ElevateEngine/Core/Command.h>
+
 #include <ElevateEngine/Editor/EditorWidget.h>
-#include <ElevateEngine/Core/Assert.h>
+#include <ElevateEngine/Editor/Panels/ScenePanel.h>
+#include <ElevateEngine/Editor/Panels/HierarchyPanel.h>
+#include <ElevateEngine/Editor/Panels/AnalyserPanel.h>
+#include <ElevateEngine/Editor/Panels/AssetBrowserPanel.h>
+#include <ElevateEngine/Editor/Panels/StatisticsPanel.h>
 
 #include <memory>
+
+#ifdef EE_USES_WWISE
+#include <ElevateEngine/Audio/Wwise/Editor/WwiseBrowserWidget.h>
+#endif // #ifdef EE_USES_WWISE
 
 namespace Elevate
 {
@@ -26,7 +36,18 @@ namespace Elevate::Editor
 	public:
 		EditorLayer();
 
-		void InitUI();
+		void InitUI()
+		{
+			CreateWidget<HierarchyPanel>();
+			CreateWidget<ScenePanel>();
+			CreateWidget<AnalyserPanel>();
+			CreateWidget<AssetBrowserPanel>();
+			CreateWidget<StatisticsPanel>();
+
+#ifdef EE_USES_WWISE
+			CreateWidget<WwiseBrowserWidget>();
+#endif // #ifdef EE_USES_WWISE
+		}
 
 		virtual void OnAttach() override;
 		//virtual void OnDetach() {}

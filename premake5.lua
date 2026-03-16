@@ -1,6 +1,6 @@
-include "vendor/Wwise/wwise.lua"
-
-Wwise.Initialize()
+include "scripts/premake/Logs.lua"
+include "scripts/premake/Wwise.lua"
+include "scripts/premake/CommonProject.lua"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
@@ -19,14 +19,25 @@ workspace "ElevateEngine"
 
 	Wwise.SetupWorkspace()
 
+include "ElevateEngine/engine.lua"
+
 group "Dependencies"
 	include "ElevateEngine/vendor/glfw.lua"
-	-- include "ElevateEngine/vendor/Glad"
 	include "ElevateEngine/vendor/imgui.lua"
-	-- include "ElevateEngine/vendor/tinyfiledialogs"  
 	include "ElevateEngine/vendor/assimp.lua"
 
-group ""
-	include "ElevateEngine/engine.lua"
-	include "Sandbox/sandbox.lua"
-	include "ElevateLauncher/launcher.lua"
+-- Setup the Wwise SoundEngine if the SDK is found
+Wwise.Initialize()
+
+group "User Projects"
+	local userProjects = os.matchdirs("Projects/*")
+
+	for _, projectPath in ipairs(userProjects) do
+		includePath = projectPath .. "/project.lua"
+		Logger.Info("Loading User Project: " .. projectPath)
+        if os.isfile(includePath) then
+            include(includePath)
+		else -- If there is no custom config, try to set up a default project
+			CommonProject.SetupProject(projectPath)
+        end
+    end
