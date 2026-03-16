@@ -61,20 +61,20 @@ PROJECT_BRIEF          =
 # pixels and the maximum width should not exceed 200 pixels. Doxygen will copy
 # the logo to the output directory.
 
-PROJECT_LOGO           = ./logo.png
+PROJECT_LOGO           = ./Docs/logo.png
 
 # With the PROJECT_ICON tag one can specify an icon that is included in the tabs
 # when the HTML document is shown. Doxygen will copy the logo to the output
 # directory.
 
-PROJECT_ICON           = ./icon.png
+PROJECT_ICON           = ./Docs/icon.png
 
 # The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) path
 # into which the generated documentation will be written. If a relative path is
 # entered, it will be relative to the location where Doxygen was started. If
 # left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = ./
+OUTPUT_DIRECTORY       = ./Docs/
 
 # If the CREATE_SUBDIRS tag is set to YES then Doxygen will create up to 4096
 # sub-directories (in 2 levels) under the output directory of each output format
@@ -1026,7 +1026,7 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = ../ElevateEngine/src/
+INPUT                  = ./ElevateEngine/src/
 
 # This tag can be used to specify the character encoding of the source files
 # that Doxygen parses. Internally Doxygen uses the UTF-8 encoding. Doxygen uses
@@ -1130,7 +1130,7 @@ RECURSIVE              = YES
 # Note that relative paths are relative to the directory from which Doxygen is
 # run.
 
-EXCLUDE                = ./doxygen-awesome-css
+EXCLUDE                = ./Docs/doxygen-awesome-css
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
 # directories that are symbolic links (a Unix file system feature) are excluded
@@ -1378,7 +1378,7 @@ CLANG_OPTIONS          =
 # If clang assisted parsing is enabled you can provide the clang parser with the
 # path to the directory containing a file called compile_commands.json. This
 # file is the compilation database (see:
-# http://clang.llvm.org/./HowToSetupToolingForLLVM.html) containing the
+# http://clang.llvm.org/./Docs/HowToSetupToolingForLLVM.html) containing the
 # options used when the source files were built. This is equivalent to
 # specifying the -p option to a clang tool, such as clang-check. These options
 # will then be passed to the parser. Any options specified with CLANG_OPTIONS
@@ -1490,9 +1490,9 @@ HTML_STYLESHEET        =
 # documentation.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_EXTRA_STYLESHEET  = ./doxygen-awesome-css/doxygen-awesome.css \
-                         ./doxygen-awesome-css/doxygen-awesome-sidebar-only.css \
-                         ./doxygen-awesome-css/doxygen-awesome-sidebar-only-darkmode-toggle.css
+HTML_EXTRA_STYLESHEET  = ./Docs/doxygen-awesome-css/doxygen-awesome.css \
+                         ./Docs/doxygen-awesome-css/doxygen-awesome-sidebar-only.css \
+                         ./Docs/doxygen-awesome-css/doxygen-awesome-sidebar-only-darkmode-toggle.css
 
 # The HTML_EXTRA_FILES tag can be used to specify one or more extra images or
 # other source files which should be copied to the HTML output directory. Note
@@ -1502,7 +1502,7 @@ HTML_EXTRA_STYLESHEET  = ./doxygen-awesome-css/doxygen-awesome.css \
 # files will be copied as-is; there are no commands or markers available.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_EXTRA_FILES       = ./doxygen-awesome-css/doxygen-awesome-darkmode-toggle.js
+HTML_EXTRA_FILES       = ./Docs/doxygen-awesome-css/doxygen-awesome-darkmode-toggle.js
 
 # The HTML_COLORSTYLE tag can be used to specify if the generated HTML output
 # should be rendered with a dark or light theme.
@@ -1973,7 +1973,7 @@ MATHJAX_FORMAT         = HTML-CSS
 # output directory using the MATHJAX_RELPATH option. For Mathjax version 2 the
 # destination directory should contain the MathJax.js script. For instance, if
 # the mathjax directory is located at the same level as the HTML output
-# directory, then MATHJAX_RELPATH should be ../mathjax.s For Mathjax versions 3
+# directory, then MATHJAX_RELPATH should be ../Docs/mathjax.s For Mathjax versions 3
 # and 4 the destination directory should contain the tex-<format>.js script
 # (where <format> is either chtml or svg). The default value points to the
 # MathJax Content Delivery Network so you can quickly see the result without
