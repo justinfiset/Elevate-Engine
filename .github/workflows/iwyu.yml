@@ -38,10 +38,11 @@ jobs:
             include-what-you-use -p . > iwyu_report.txt 2>&1 || true
           fi
 
-      - name: Print IWYU Report
+      - name: Print and Filter IWYU Report
         run: |
           echo "===================================================="
           echo " IWYU REPORT (ELEVATE ENGINE)"
           echo "===================================================="
-          cat iwyu_report.txt
+          grep -v "error: no such file or directory" iwyu_report.txt | \
+          grep -E "ElevateEngine/src|should add|should remove|forward declare|---|^#" || echo "No suggestions found."
           echo "===================================================="
