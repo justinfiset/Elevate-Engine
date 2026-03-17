@@ -14,8 +14,12 @@ jobs:
       - name: Generate Compile Commands
         run: |
           chmod +x ./vendor/premake/premake5-linux
+
           ./vendor/premake/premake5-linux export-compile-commands
+
           cp compile_commands/editor_debug.json compile_commands.json
+
+          grep '"directory":' compile_commands.json | sed 's/.*"directory": "\(.*\)".*/\1/' | xargs mkdir -p
 
       - name: Run Include What You Use
         uses: EmilGedda/include-what-you-use-action@v1.0
