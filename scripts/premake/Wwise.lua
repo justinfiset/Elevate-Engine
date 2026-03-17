@@ -1,5 +1,14 @@
-wwiseSDK = os.getenv("WWISESDK")
-wwiseIncludePath = wwiseSDK .. "/include"
+local sdkPath = os.getenv("WWISESDK")
+
+wwiseSDK = nil
+if sdkPath then
+    wwiseSDK = sdkPath
+end
+
+wwiseIncludePath = nil
+if wwiseSDK then
+    wwiseIncludePath = wwiseSDK .. "/include"
+end
 
 Wwise = {}
 
