@@ -37,10 +37,11 @@ jobs:
           else
             include-what-you-use -p . > iwyu_report.txt 2>&1 || true
           fi
-          
-      - name: Upload IWYU Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: iwyu-analysis-report
-          path: iwyu_report.txt
-          retention-days: 5
+
+      - name: Print IWYU Report
+        run: |
+          echo "===================================================="
+          echo " IWYU REPORT (ELEVATE ENGINE)"
+          echo "===================================================="
+          cat iwyu_report.txt
+          echo "===================================================="
