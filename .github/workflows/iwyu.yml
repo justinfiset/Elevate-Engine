@@ -45,6 +45,15 @@ jobs:
           echo "===================================================="
           echo " IWYU REPORT (ELEVATE ENGINE)"
           echo "===================================================="
+
           grep -v "error: no such file or directory" iwyu_report.txt | \
+          grep -v "vendor/" | \
+          grep -v "error: expected a clang compiler command" | \
+          grep -v "^$" | \
+          sed '/^---/!b;n;/^[[:space:]]*$/d' > clean_report.txt
+
+          # On affiche le résultat
+          cat clean_report.txt || echo "No suggestions found."
+          
           grep -E "ElevateEngine/src|should add|should remove|forward declare|---|^#" || echo "No suggestions found."
           echo "===================================================="
