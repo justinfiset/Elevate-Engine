@@ -1,3 +1,5 @@
+require "vendor/premake-export-compile-commands/export-compile-commands"
+
 include "scripts/premake/Logs.lua"
 include "scripts/premake/Wwise.lua"
 include "scripts/premake/CommonProject.lua"

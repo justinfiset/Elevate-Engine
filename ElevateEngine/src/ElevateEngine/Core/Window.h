@@ -24,7 +24,7 @@ namespace Elevate {
 		WindowProps(const std::string appConfigFilePath);
 	};
 
-	class EE_API Window
+	class Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

@@ -1,0 +1,18 @@
+jobs:
+  iwyu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Compile Commands
+        run: |
+          chmod +x ./vendor/premake/premake5-linux
+          ./vendor/premake/premake5-linux export-compile-commands
+          cp compile_commands/editor_debug.json compile_commands.json
+
+      - name: Run Include What You Use
+        uses: EmilGedda/include-what-you-use-action@v1
+        with:
+          compilation-database-path: '.'
+          output-format: 'iwyu'
+          no-error: 'true' # todo: change to false in the future when we have fixed all the issues
