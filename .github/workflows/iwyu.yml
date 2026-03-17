@@ -19,14 +19,15 @@ jobs:
 
           cp compile_commands/editor_debug.json compile_commands.json
 
-          # IWYU doesn't support C++2x yet, so we need to add the flag manually
+          sed -i 's/-MMD//g' compile_commands.json
+          sed -i 's/-MP//g' compile_commands.json
           sed -i 's/"command": "cc/"command": "cc -std=c++2a/g' compile_commands.json
 
-          grep '"directory":' compile_commands.json | sed 's/.*"directory": "\(.*\)".*/\1/' | xargs mkdir -p
+          jq -r '.[].directory' compile_commands.json | xargs mkdir -p
 
       - name: Run Include What You Use
         uses: EmilGedda/include-what-you-use-action@v1.0
         with:
           compilation-database-path: '.'
           output-format: 'iwyu'
-          no-error: 'true' # todo: change to false in the future when we have fixed all the issues
+          no-error: 'true'
