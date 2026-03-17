@@ -1,7 +1,8 @@
+#include <string>
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/ComponentRegistry.h>
-
 #include <ElevateEngine/Audio/Wwise/WwiseItem.h>
+#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 
 namespace Elevate
 {

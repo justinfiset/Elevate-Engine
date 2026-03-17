@@ -1,8 +1,10 @@
 #pragma once
 
+#include <stdint.h>
 #include <string>
 #include <vector>
 #include <memory>
+#include <initializer_list>
 
 enum class WwiseType : uint8_t
 {
