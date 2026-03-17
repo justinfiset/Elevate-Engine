@@ -1,12 +1,10 @@
 #pragma once
 
-#include <vector>
-
-#include "VertexArray.h"
-#include "Buffer.h"
-#include "Vertex.h"
 #include <ElevateEngine/Renderer/Texture/Texture.h>
-#include <ElevateEngine/Renderer/Shader/Shader.h>
+#include <stdint.h>
+#include <memory>
+#include <vector>
+#include "Vertex.h"
 
 namespace Elevate
 {
