@@ -1,9 +1,16 @@
 #include "Material.h"
 
 #include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Renderer/Renderer.h>
-#include <ElevateEngine/Renderer/Shader/Shader.h>
+#include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Renderer/Buffer.h>
+#include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Texture/Texture.h>
+#include <ElevateEngine/Renderer/Shader/Shader.h>
+#include <ElevateEngine/Renderer/Shader/ShaderManager.h>
+#include <algorithm>
+#include <format>
+#include <utility>
+
 
 namespace Elevate
 {
