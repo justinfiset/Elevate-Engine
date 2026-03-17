@@ -9,7 +9,7 @@
 namespace Elevate
 {
     template<typename T>
-    static void ComponentRegistry::Register(const std::string& name, EECategory category, std::vector<FieldOption>& options) {
+    void ComponentRegistry::Register(const std::string& name, EECategory category, std::vector<FieldOption>& options) {
         std::type_index ti(typeid(T));
 
         bool visible = true;
@@ -51,7 +51,7 @@ namespace Elevate
     }
 
     template<typename Class, typename FieldType>
-    static void ComponentRegistry::AddProperty(FieldType Class::* member, const std::string& name, std::initializer_list<FieldOption> options)
+    void ComponentRegistry::AddProperty(FieldType Class::* member, const std::string& name, std::initializer_list<FieldOption> options)
     {
         constexpr EngineDataType type = DeduceEngineDataType<FieldType>();
         FieldMeta meta;

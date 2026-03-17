@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <cstring>
 #include <vector>
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/Assert.h>
