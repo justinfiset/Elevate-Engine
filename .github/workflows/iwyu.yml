@@ -19,8 +19,8 @@ jobs:
 
           cp compile_commands/editor_debug.json compile_commands.json
 
-          # IWYU doesn't support C++20 yet, so we need to add the flag manually
-          sed -i 's/"command": "cc/"command": "cc -std=c++20/g' compile_commands.json
+          # IWYU doesn't support C++2x yet, so we need to add the flag manually
+          sed -i 's/"command": "cc/"command": "cc -std=c++2a/g' compile_commands.json
 
           grep '"directory":' compile_commands.json | sed 's/.*"directory": "\(.*\)".*/\1/' | xargs mkdir -p
 
