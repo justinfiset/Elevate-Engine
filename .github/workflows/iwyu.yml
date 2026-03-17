@@ -1,3 +1,7 @@
+name: IWYU Automated Report
+
+on: [push]
+
 jobs:
   iwyu:
     runs-on: ubuntu-latest
