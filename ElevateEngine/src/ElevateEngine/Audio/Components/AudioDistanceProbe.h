@@ -1,7 +1,9 @@
 #pragma once
 
+#include <memory>
 #include <ElevateEngine/Core/Component.h>
-#include <ElevateEngine/Core/ComponentRegistry.h> // TODO PREVENT FROM HAVING TO INCLUDE IN PROJECTS
+#include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 
 namespace Elevate
 {
