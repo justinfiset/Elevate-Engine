@@ -6,7 +6,7 @@ jobs:
   iwyu:
     runs-on: ubuntu-latest
     steps:
-      - namme: Checkout code and submodules
+      - name: Checkout code and submodules
         uses: actions/checkout@v4
         with:
           submodules: recursive
