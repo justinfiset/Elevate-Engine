@@ -1,6 +1,6 @@
 name: IWYU Automated Report
 
-on: [push]
+on: [push, workflow_dispatch]
 
 jobs:
   iwyu:
@@ -14,20 +14,19 @@ jobs:
       - name: Generate Compile Commands
         run: |
           chmod +x ./vendor/premake/premake5-linux
-
+        
           ./vendor/premake/premake5-linux export-compile-commands
-
           cp compile_commands/editor_debug.json compile_commands.json
 
           sed -i 's/-MMD//g' compile_commands.json
           sed -i 's/-MP//g' compile_commands.json
-          sed -i 's/"command": "cc/"command": "cc -std=c++2a/g' compile_commands.json
+
+          sed -i 's/"command": "cc/"command": "cc -std=c++20/g' compile_commands.json
 
           jq -r '.[].directory' compile_commands.json | xargs mkdir -p
 
       - name: Run Include What You Use
-        uses: EmilGedda/include-what-you-use-action@v1.0
+        uses: muttleyxd/clang-tools-static-binaries@master
         with:
-          compilation-database-path: '.'
-          output-format: 'iwyu'
-          no-error: 'true'
+          command: iwyu
+          args: -p . -- -std=c++20
