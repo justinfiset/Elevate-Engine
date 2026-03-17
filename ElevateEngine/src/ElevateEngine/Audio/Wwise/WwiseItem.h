@@ -33,8 +33,8 @@ enum class WwiseType : uint8_t
 
 #define CREATE_STRUCT_PTR_TYPES(x) \
 struct x; \
-typedef std::shared_ptr<##x> x##Ptr; \
-typedef std::weak_ptr<##x> x##WeakPtr;
+typedef std::shared_ptr<x> x##Ptr; \
+typedef std::weak_ptr<x> x##WeakPtr;
 
 CREATE_STRUCT_PTR_TYPES(WwiseItem)
 struct WwiseItem
