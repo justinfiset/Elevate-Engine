@@ -84,7 +84,8 @@ function CommonProject.SetupProject(directory)
 	links
     {
         "ElevateEngine",
-		"ImGui"
+		"ImGui",
+		"GLFW",
     }
 
 	defines
