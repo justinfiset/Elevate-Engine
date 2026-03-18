@@ -113,18 +113,18 @@ function CommonProject.SetupProject(directory)
 		links
 		{
 			"ElevateEngine",
-            "ImGui",
-            "assimp",
-            "GLFW",
-            "GL",
-            "X11",
-            "Xrandr",
-            "Xinerama",
-            "Xcursor",
-            "Xi",
-            "pthread",
-            "dl",
-            "m"
+			"ImGui",
+			"assimp",
+			"GLFW",
+			"GL",
+			"X11",
+			"Xrandr",
+			"Xinerama",
+			"Xcursor",
+			"Xi",
+			"dl",
+			"pthread",
+			"m"
 		}
 
 	filter "configurations:Editor Debug"
