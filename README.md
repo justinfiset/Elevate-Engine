@@ -62,3 +62,6 @@ To change the configuration later, run the `edit` script:
 ### Run the Build
 
 Once the configuration is set, the script will automatically run `premake5` with the selected option.
+
+# Build Status
+[![Ubuntu Build](https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml/badge.svg)](https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml)
