@@ -31,10 +31,10 @@ var NAVTREE =
         [ "Download the Project", "index.html#autotoc_md3", null ],
         [ "First Time Setup", "index.html#autotoc_md4", null ],
         [ "Edit Configuration", "index.html#autotoc_md5", null ],
-        [ "Run the Build", "index.html#autotoc_md6", null ]
+        [ "Run the Build", "index.html#autotoc_md6", null ],
+        [ "Build Status", "index.html#autotoc_md7", null ]
       ] ]
     ] ],
-    [ "Build Status", "index.html#autotoc_md7", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
