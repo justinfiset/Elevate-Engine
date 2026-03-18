@@ -1,11 +1,13 @@
-#include "eepch.h"
 #include "Window.h"
 
 #include <ElevateEngine/Core/Log.h>
 
-// TODO use our custom loader instead of repetitive code herre
-#include "rapidjson/document.h"
-#include "rapidjson/filereadstream.h"
+#include <rapidjson/document.h>
+#include <rapidjson/allocators.h>
+#include <rapidjson/filereadstream.h>
+#include <rapidjson/encodings.h>
+#include <rapidjson/rapidjson.h>
+
 Elevate::WindowProps::WindowProps(const std::string appConfigFilePath)
 {
 	// TODO put this part in a util somehwerre to get the document

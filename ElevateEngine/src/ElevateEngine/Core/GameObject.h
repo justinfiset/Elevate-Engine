@@ -1,11 +1,15 @@
 #pragma once
 
-#include "ITransformable.h"
 #include <vector>
 #include <set>
-
 #include <memory>
 #include <string>
+#include <stdint.h>
+
+#include <glm/ext/matrix_float4x4.hpp>
+#include <glm/ext/vector_float3.hpp>
+
+#include <ElevateEngine/Core/ITransformable.h>
 
 #define EE_INVALID_ENTITY_ID UINT32_MAX
 

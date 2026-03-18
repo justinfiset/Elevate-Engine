@@ -1,6 +1,11 @@
 #pragma once
 
-#include <glm/glm.hpp>
+#include <memory>
+
+#include <glm/mat4x4.hpp>
+#include <glm/vec3.hpp>
+
+#include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 
 namespace Elevate

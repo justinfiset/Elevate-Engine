@@ -1,5 +1,3 @@
-#include "eepch.h"
-
 #include "GameContext.h"
 
 namespace Elevate

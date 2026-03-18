@@ -1,10 +1,31 @@
 #pragma once
-
-#include "ComponentRegistry.h"
+#include <ElevateEngine/Core/ComponentRegistry.h>
 
 #include <entt/entt.hpp>
+#include <initializer_list>
+#include <string>
+#include <typeindex>
+#include <typeinfo>
+#include <variant>
 
-#include <ElevateEngine/Scene/ScenePrivate.h>
+#include <ElevateEngine/Core/Data.h>
+#include <ElevateEngine/Core/EEObject.h>
+#include <ElevateEngine/Core/GameObject.inl>
+#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
+
+namespace Elevate
+{
+    class Component;
+    class GameObject;
+
+    struct ColorTag;
+    struct DisplayNameTag;
+    struct EditorIconTag;
+    struct FlattenTag;
+    struct HideInInspectorTag;
+    struct ReadOnlyTag;
+    struct TooltipTag;
+}
 
 namespace Elevate
 {

@@ -1,4 +1,3 @@
-#include "eepch.h"
 #include "Mesh.h"
 
 #include <stddef.h>
@@ -6,6 +5,7 @@
 #include <glad/glad.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
 #include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Buffer.h>
 
 namespace Elevate
 {

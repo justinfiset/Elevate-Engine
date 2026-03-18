@@ -1,9 +1,10 @@
 #pragma once
 #include "ElevateEngine/Renderer/Camera.h"
-#include <ElevateEngine/Core/GameObject.h>
 #include "ElevateEngine/Core/ComponentRegistry.h"
 
 namespace Elevate {
+	class Event;
+
 	class EditorCamera : public Camera
 	{
 	public:

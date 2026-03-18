@@ -1,4 +1,4 @@
-#include "eepch.h"
+#include <algorithm>
 
 #include <ElevateEngine/Core/Layers/LayerStack.h>
 #include <ElevateEngine/Core/Layers/Layer.h>

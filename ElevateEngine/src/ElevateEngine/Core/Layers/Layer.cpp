@@ -1,4 +1,3 @@
-#include "eepch.h"
 #include "Layer.h"
 
 namespace Elevate
