@@ -58,8 +58,8 @@ function CommonProject.SetupProject(directory)
 	staticruntime "on"
 	CommonProject.SetupProjectKind()
 
-	targetdir ("./Build/bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("./Build/bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/Build/bin-int/" .. outputdir .. "/%{prj.name}")
 	debugdir (directory)
 
 	files 
@@ -111,7 +111,7 @@ function CommonProject.SetupProject(directory)
 
 		links
 		{
-			"GL", "GLU",
+			"GL",
 			"X11", "Xrandr", "Xinerama", "Xcursor", "Xi",
 			"dl", "pthread"
 		}

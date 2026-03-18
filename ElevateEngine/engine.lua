@@ -5,8 +5,8 @@ project "ElevateEngine"
 	cppdialect "C++20"
 	staticruntime "on"
 
-	targetdir ("../Build/bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("../Build/bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/Build/bin-int/" .. outputdir .. "/%{prj.name}")
 	
 	flags { "NoPCH" }
 
