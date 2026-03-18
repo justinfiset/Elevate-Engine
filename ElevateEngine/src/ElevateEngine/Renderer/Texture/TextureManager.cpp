@@ -1,9 +1,11 @@
-#include "eepch.h"
 #include "TextureManager.h"
 
 #include <filesystem>
-#include "stb/stb_image.h"
+#include <thread>
+
+#include <stb/stb_image.h>
 #include <glad/glad.h>
+
 #include <ElevateEngine/Core/Log.h>
 
 namespace Elevate {
