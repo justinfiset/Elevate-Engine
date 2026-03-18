@@ -111,23 +111,23 @@ namespace Elevate
 	void Renderer::Dispatch(const RenderCommand& command)
 	{
 		// Update the renderer state if necessary
-		PushRenderState(command.State);
+		PushRenderState(command.m_State);
 
 		// Setup the Material and Shader
 		uint32_t prevshader = s_currentShaderID;
-		if (command.MaterialInstance)
+		if (command.m_MaterialInstance)
 		{
-			auto shader = command.MaterialInstance->GetShader();
+			auto shader = command.m_MaterialInstance->GetShader();
 			if (shader)
 			{
 				ApplySystemUniforms(shader);
 				shader->SetModelMatrix(command.Transform);
 				s_data.ActiveLighting->UploadToShader(shader);
-				command.MaterialInstance->Apply();
+				command.m_MaterialInstance->Apply();
 			}
 		}
 		// Actually render the vertex array
-		Renderer::DrawArray(command.VertexArray);
+		Renderer::DrawArray(command.m_VertexArray);
 	}
 
 	void Renderer::Submit(RenderBucket::Type type, const RenderCommand& command)
@@ -138,19 +138,19 @@ namespace Elevate
 	void Renderer::SubmitMesh(const std::shared_ptr<VertexArray>& vao, const std::shared_ptr<Material>& material, const glm::mat4& transform, RenderBucket::Type bucketType)
 	{
 		RenderCommand command;
-		command.VertexArray = vao.get();
-		command.MaterialInstance = material.get();
+		command.m_VertexArray = vao.get();
+		command.m_MaterialInstance = material.get();
 		command.Transform = transform;
 
 		if (bucketType == RenderBucket::Transparent)
 		{
-			command.State.BlendEnable = true;
-			command.State.DepthWrite = false; // Transparents usually don't write to depth
+			command.m_State.BlendEnable = true;
+			command.m_State.DepthWrite = false; // Transparents usually don't write to depth
 		}
 		else
 		{
-			command.State.BlendEnable = false;
-			command.State.DepthWrite = true;
+			command.m_State.BlendEnable = false;
+			command.m_State.DepthWrite = true;
 		}
 
 		Submit(bucketType, command);

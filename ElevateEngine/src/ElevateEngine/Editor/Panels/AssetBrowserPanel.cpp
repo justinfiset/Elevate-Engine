@@ -1,17 +1,17 @@
 #include "AssetBrowserPanel.h"
 
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Files.h>
+#include <algorithm>
+#include <cmath>
 
+#include <imgui.h>
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
 #include <rapidjson/error/en.h>
 
-
+#include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/Files.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
-
-#include <imgui.h>
 
 namespace fs = std::filesystem;
 
