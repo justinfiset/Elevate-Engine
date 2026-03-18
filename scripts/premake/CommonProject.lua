@@ -83,9 +83,7 @@ function CommonProject.SetupProject(directory)
 
 	links
     {
-        "ElevateEngine",
-		"ImGui",
-		"GLFW",
+        "ElevateEngine"
     }
 
 	defines
@@ -114,6 +112,10 @@ function CommonProject.SetupProject(directory)
 
 		links
 		{
+			"ImGui",
+       		"assimp",
+       		"GLFW",
+
 			"GL",
 			"X11", "Xrandr", "Xinerama", "Xcursor", "Xi",
 			"dl", "pthread"
