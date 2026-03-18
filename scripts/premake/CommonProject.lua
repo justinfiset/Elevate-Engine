@@ -52,6 +52,7 @@ function CommonProject.SetupProject(directory)
 	local infos = CommonProject.ParseProjectFile(directory)
 
 	project(infos.name)
+	targetname(infos.name)
 	location(directory.."/Build")
 	language "C++"
 	cppdialect "C++20"
@@ -83,6 +84,7 @@ function CommonProject.SetupProject(directory)
 	links
     {
         "ElevateEngine",
+		"ImGui"
     }
 
 	defines
