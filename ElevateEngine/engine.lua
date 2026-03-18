@@ -7,7 +7,7 @@ project "ElevateEngine"
 
 	targetdir ("%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Build/bin-int/" .. outputdir .. "/%{prj.name}")
-	
+
 	flags { "NoPCH" }
 
 	IncludeDir = {}
@@ -115,10 +115,9 @@ project "ElevateEngine"
 		links
 		{
 			"GL",
-			"GLU",
 			"X11",
-			"dl",
 			"pthread",
+			"dl",
 		}
 
 	filter "configurations:Editor Debug"
