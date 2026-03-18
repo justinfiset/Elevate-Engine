@@ -26,3 +26,17 @@ jobs:
 
       - name: Compile
         run: make config=editor_debug -j$(nproc)
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Generate Projects (Premake)
+        run: ./vendor/premake/premake5.exe vs2022
+
+      - name: Compile
+        run: msbuild Elevate-Engine.sln /p:Configuration=Editor_Debug
