@@ -1,7 +1,10 @@
 #pragma once
-#include <ElevateEngine/Renderer/Texture/Texture.h>
+
+#include <vector>
 #include <unordered_map>
 #include <mutex>
+
+#include <ElevateEngine/Renderer/Texture/Texture.h>
 
 namespace Elevate 
 {
