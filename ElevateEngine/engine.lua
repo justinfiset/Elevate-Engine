@@ -7,7 +7,7 @@ project "ElevateEngine"
 
 	targetdir ("../Build/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("../Build/bin-int/" .. outputdir .. "/%{prj.name}")
-
+	
 	flags { "NoPCH" }
 
 	IncludeDir = {}
