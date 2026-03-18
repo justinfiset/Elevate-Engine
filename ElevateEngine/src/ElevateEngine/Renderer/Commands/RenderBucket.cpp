@@ -41,7 +41,7 @@ namespace Elevate
 		const int bitsPerPass = 8;
 		const int bucketCount = 1 << bitsPerPass;
 		const uint32_t mask = bucketCount - 1;
-		const uint16_t keySizeBits = sizeof(m_commands[0].SortingKey) * 8;
+		const uint16_t keySizeBits = sizeof(m_commands[0].m_SortingKey) * 8;
 
 		for (uint16_t shift = 0; shift < keySizeBits; shift += bitsPerPass)
 		{
@@ -49,7 +49,7 @@ namespace Elevate
 
 			for (size_t i = 0; i < n; i++)
 			{
-				count[(src[i].SortingKey >> shift) & mask]++;
+				count[(src[i].m_SortingKey >> shift) & mask]++;
 			}
 
 			for (int i = 1; i < bucketCount; ++i)
@@ -59,7 +59,7 @@ namespace Elevate
 
 			for (long long i = (long long)m_commands.size() - 1; i >= 0; --i)
 			{
-				uint32_t bucket = (src[i].SortingKey >> shift) & mask;
+				uint32_t bucket = (src[i].m_SortingKey >> shift) & mask;
 				dst[--count[bucket]] = src[i];
 			}
 
