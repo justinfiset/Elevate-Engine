@@ -59,8 +59,8 @@ function CommonProject.SetupProject(directory)
 	staticruntime "on"
 	CommonProject.SetupProjectKind()
 
-	targetdir ("%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("%{wks.location}/Build/bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name:gsub(' ', '-')}")
+	objdir ("%{wks.location}/Build/bin-int/" .. outputdir .. "/%{prj.name:gsub(' ', '-')}")
 	debugdir (directory)
 
 	files 
