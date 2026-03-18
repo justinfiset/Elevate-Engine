@@ -53,7 +53,7 @@ function CommonProject.SetupProject(directory)
 
 	project(infos.name)
 	targetname(infos.name)
-	location(directory.."/Build")
+	location(directory.."/Build/" .. infos.name)
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "on"
@@ -113,14 +113,18 @@ function CommonProject.SetupProject(directory)
 		links
 		{
 			"ElevateEngine",
-
-			"ImGui",
-       		"assimp",
-       		"GLFW",
-
-			"GL",
-			"X11", "Xrandr", "Xinerama", "Xcursor", "Xi",
-			"pthread", "dl", "m"
+            "ImGui",
+            "assimp",
+            "GLFW",
+            "GL",
+            "X11",
+            "Xrandr",
+            "Xinerama",
+            "Xcursor",
+            "Xi",
+            "pthread",
+            "dl",
+            "m"
 		}
 
 	filter "configurations:Editor Debug"
