@@ -144,7 +144,7 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00008">8</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00013">13</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa5379a5bfc40f1cf16ad437a2e194b33" name="aa5379a5bfc40f1cf16ad437a2e194b33"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa5379a5bfc40f1cf16ad437a2e194b33">&#9670;&#160;</a></span>Transform()</h2>
@@ -161,13 +161,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00010">10</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   11</span>{</div>
-<div class="line"><span class="lineno">   12</span>    position = glm::vec3(0.0f);</div>
-<div class="line"><span class="lineno">   13</span>    rotation = glm::vec3(0.0f);</div>
-<div class="line"><span class="lineno">   14</span>    scale = glm::vec3(1.0f);</div>
-<div class="line"><span class="lineno">   15</span>    m_isDirty = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">   16</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00007">7</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">    8</span>{</div>
+<div class="line"><span class="lineno">    9</span>    m_ModelMatrix = glm::mat4(0.0f);</div>
+<div class="line"><span class="lineno">   10</span>    position = glm::vec3(0.0f);</div>
+<div class="line"><span class="lineno">   11</span>    rotation = glm::vec3(0.0f);</div>
+<div class="line"><span class="lineno">   12</span>    scale = glm::vec3(1.0f);</div>
+<div class="line"><span class="lineno">   13</span>    m_isDirty = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   14</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -187,11 +188,11 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00028">28</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   29</span>{</div>
-<div class="line"><span class="lineno">   30</span>    <span class="keywordflow">return</span> glm::normalize(glm::vec3(<a class="code hl_function" href="classElevate_1_1Transform.html#a4c0064a635ca58561d456a94dabdcb78">GetModelMatrix</a>()[2]));</div>
-<div class="line"><span class="lineno">   31</span>}</div>
-<div class="ttc" id="aclassElevate_1_1Transform_html_a4c0064a635ca58561d456a94dabdcb78"><div class="ttname"><a href="classElevate_1_1Transform.html#a4c0064a635ca58561d456a94dabdcb78">Elevate::Transform::GetModelMatrix</a></div><div class="ttdeci">const glm::mat4 &amp; GetModelMatrix() const</div><div class="ttdef"><b>Definition:</b> <a href="Transform_8cpp_source.html#l00043">Transform.cpp:43</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00026">26</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   27</span>{</div>
+<div class="line"><span class="lineno">   28</span>    <span class="keywordflow">return</span> glm::normalize(glm::vec3(<a class="code hl_function" href="classElevate_1_1Transform.html#a4c0064a635ca58561d456a94dabdcb78">GetModelMatrix</a>()[2]));</div>
+<div class="line"><span class="lineno">   29</span>}</div>
+<div class="ttc" id="aclassElevate_1_1Transform_html_a4c0064a635ca58561d456a94dabdcb78"><div class="ttname"><a href="classElevate_1_1Transform.html#a4c0064a635ca58561d456a94dabdcb78">Elevate::Transform::GetModelMatrix</a></div><div class="ttdeci">const glm::mat4 &amp; GetModelMatrix() const</div><div class="ttdef"><b>Definition:</b> <a href="Transform_8cpp_source.html#l00041">Transform.cpp:41</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -210,10 +211,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00033">33</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   34</span>{</div>
-<div class="line"><span class="lineno">   35</span>    <span class="keywordflow">return</span> -glm::normalize(glm::vec3(<a class="code hl_function" href="classElevate_1_1Transform.html#a4c0064a635ca58561d456a94dabdcb78">GetModelMatrix</a>()[2]));</div>
-<div class="line"><span class="lineno">   36</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00031">31</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   32</span>{</div>
+<div class="line"><span class="lineno">   33</span>    <span class="keywordflow">return</span> -glm::normalize(glm::vec3(<a class="code hl_function" href="classElevate_1_1Transform.html#a4c0064a635ca58561d456a94dabdcb78">GetModelMatrix</a>()[2]));</div>
+<div class="line"><span class="lineno">   34</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -232,13 +233,13 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00038">38</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   39</span>{</div>
-<div class="line"><span class="lineno">   40</span>    <span class="keywordflow">return</span> { glm::length(<a class="code hl_function" href="classElevate_1_1Transform.html#aefc9f2c3957ff40a6f6f7ebab106ea05">GetRight</a>()), glm::length(<a class="code hl_function" href="classElevate_1_1Transform.html#abb41860e13248bca18bce3b20011262b">GetUp</a>()), glm::length(<a class="code hl_function" href="classElevate_1_1Transform.html#a32665d8312e519d7dc0034f2b6081bf2">GetBackward</a>()) };</div>
-<div class="line"><span class="lineno">   41</span>}</div>
-<div class="ttc" id="aclassElevate_1_1Transform_html_a32665d8312e519d7dc0034f2b6081bf2"><div class="ttname"><a href="classElevate_1_1Transform.html#a32665d8312e519d7dc0034f2b6081bf2">Elevate::Transform::GetBackward</a></div><div class="ttdeci">glm::vec3 GetBackward() const</div><div class="ttdef"><b>Definition:</b> <a href="Transform_8cpp_source.html#l00028">Transform.cpp:28</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Transform_html_abb41860e13248bca18bce3b20011262b"><div class="ttname"><a href="classElevate_1_1Transform.html#abb41860e13248bca18bce3b20011262b">Elevate::Transform::GetUp</a></div><div class="ttdeci">glm::vec3 GetUp() const</div><div class="ttdef"><b>Definition:</b> <a href="Transform_8cpp_source.html#l00023">Transform.cpp:23</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Transform_html_aefc9f2c3957ff40a6f6f7ebab106ea05"><div class="ttname"><a href="classElevate_1_1Transform.html#aefc9f2c3957ff40a6f6f7ebab106ea05">Elevate::Transform::GetRight</a></div><div class="ttdeci">glm::vec3 GetRight() const</div><div class="ttdef"><b>Definition:</b> <a href="Transform_8cpp_source.html#l00018">Transform.cpp:18</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00036">36</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   37</span>{</div>
+<div class="line"><span class="lineno">   38</span>    <span class="keywordflow">return</span> { glm::length(<a class="code hl_function" href="classElevate_1_1Transform.html#aefc9f2c3957ff40a6f6f7ebab106ea05">GetRight</a>()), glm::length(<a class="code hl_function" href="classElevate_1_1Transform.html#abb41860e13248bca18bce3b20011262b">GetUp</a>()), glm::length(<a class="code hl_function" href="classElevate_1_1Transform.html#a32665d8312e519d7dc0034f2b6081bf2">GetBackward</a>()) };</div>
+<div class="line"><span class="lineno">   39</span>}</div>
+<div class="ttc" id="aclassElevate_1_1Transform_html_a32665d8312e519d7dc0034f2b6081bf2"><div class="ttname"><a href="classElevate_1_1Transform.html#a32665d8312e519d7dc0034f2b6081bf2">Elevate::Transform::GetBackward</a></div><div class="ttdeci">glm::vec3 GetBackward() const</div><div class="ttdef"><b>Definition:</b> <a href="Transform_8cpp_source.html#l00026">Transform.cpp:26</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Transform_html_abb41860e13248bca18bce3b20011262b"><div class="ttname"><a href="classElevate_1_1Transform.html#abb41860e13248bca18bce3b20011262b">Elevate::Transform::GetUp</a></div><div class="ttdeci">glm::vec3 GetUp() const</div><div class="ttdef"><b>Definition:</b> <a href="Transform_8cpp_source.html#l00021">Transform.cpp:21</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Transform_html_aefc9f2c3957ff40a6f6f7ebab106ea05"><div class="ttname"><a href="classElevate_1_1Transform.html#aefc9f2c3957ff40a6f6f7ebab106ea05">Elevate::Transform::GetRight</a></div><div class="ttdeci">glm::vec3 GetRight() const</div><div class="ttdef"><b>Definition:</b> <a href="Transform_8cpp_source.html#l00016">Transform.cpp:16</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -265,17 +266,17 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00036">36</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   37</span>        {</div>
-<div class="line"><span class="lineno">   38</span>            <span class="keywordflow">return</span> ComponentLayout(</div>
-<div class="line"><span class="lineno">   39</span>                <span class="stringliteral">&quot;Transform&quot;</span>,</div>
-<div class="line"><span class="lineno">   40</span>                {</div>
-<div class="line"><span class="lineno">   41</span>                    {<span class="stringliteral">&quot;Positon&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">ComponentDataType::Float3</a>, &amp;position},</div>
-<div class="line"><span class="lineno">   42</span>                    {<span class="stringliteral">&quot;Rotation&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">ComponentDataType::Float3</a>, &amp;rotation},</div>
-<div class="line"><span class="lineno">   43</span>                    {<span class="stringliteral">&quot;Scale&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">ComponentDataType::Float3</a>, &amp;scale}</div>
-<div class="line"><span class="lineno">   44</span>                }</div>
-<div class="line"><span class="lineno">   45</span>            );</div>
-<div class="line"><span class="lineno">   46</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00041">41</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   42</span>        {</div>
+<div class="line"><span class="lineno">   43</span>            <span class="keywordflow">return</span> ComponentLayout(</div>
+<div class="line"><span class="lineno">   44</span>                <span class="stringliteral">&quot;Transform&quot;</span>,</div>
+<div class="line"><span class="lineno">   45</span>                {</div>
+<div class="line"><span class="lineno">   46</span>                    {<span class="stringliteral">&quot;Positon&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">ComponentDataType::Float3</a>, &amp;position},</div>
+<div class="line"><span class="lineno">   47</span>                    {<span class="stringliteral">&quot;Rotation&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">ComponentDataType::Float3</a>, &amp;rotation},</div>
+<div class="line"><span class="lineno">   48</span>                    {<span class="stringliteral">&quot;Scale&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">ComponentDataType::Float3</a>, &amp;scale}</div>
+<div class="line"><span class="lineno">   49</span>                }</div>
+<div class="line"><span class="lineno">   50</span>            );</div>
+<div class="line"><span class="lineno">   51</span>        }</div>
 <div class="ttc" id="anamespaceElevate_html_a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121"><div class="ttname"><a href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">Elevate::EngineDataType::Float3</a></div><div class="ttdeci">@ Float3</div></div>
 </div><!-- fragment -->
 </div>
@@ -295,16 +296,16 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00043">43</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   44</span>{</div>
-<div class="line"><span class="lineno">   45</span>    <span class="keywordflow">if</span> (m_isDirty)</div>
-<div class="line"><span class="lineno">   46</span>    {</div>
-<div class="line"><span class="lineno">   47</span>        <span class="keyword">const_cast&lt;</span><a class="code hl_function" href="classElevate_1_1Transform.html#aa5379a5bfc40f1cf16ad437a2e194b33">Transform</a>*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;<a class="code hl_function" href="classElevate_1_1Transform.html#a197875da8f326cb6361bd22fd858ff7f">UpdateModelMatrix</a>();</div>
-<div class="line"><span class="lineno">   48</span>    }</div>
-<div class="line"><span class="lineno">   49</span>    <span class="keywordflow">return</span> m_ModelMatrix;</div>
-<div class="line"><span class="lineno">   50</span>}</div>
-<div class="ttc" id="aclassElevate_1_1Transform_html_a197875da8f326cb6361bd22fd858ff7f"><div class="ttname"><a href="classElevate_1_1Transform.html#a197875da8f326cb6361bd22fd858ff7f">Elevate::Transform::UpdateModelMatrix</a></div><div class="ttdeci">void UpdateModelMatrix()</div><div class="ttdef"><b>Definition:</b> <a href="Transform_8cpp_source.html#l00052">Transform.cpp:52</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Transform_html_aa5379a5bfc40f1cf16ad437a2e194b33"><div class="ttname"><a href="classElevate_1_1Transform.html#aa5379a5bfc40f1cf16ad437a2e194b33">Elevate::Transform::Transform</a></div><div class="ttdeci">Transform()</div><div class="ttdef"><b>Definition:</b> <a href="Transform_8cpp_source.html#l00010">Transform.cpp:10</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00041">41</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   42</span>{</div>
+<div class="line"><span class="lineno">   43</span>    <span class="keywordflow">if</span> (m_isDirty)</div>
+<div class="line"><span class="lineno">   44</span>    {</div>
+<div class="line"><span class="lineno">   45</span>        <span class="keyword">const_cast&lt;</span><a class="code hl_function" href="classElevate_1_1Transform.html#aa5379a5bfc40f1cf16ad437a2e194b33">Transform</a>*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;<a class="code hl_function" href="classElevate_1_1Transform.html#a197875da8f326cb6361bd22fd858ff7f">UpdateModelMatrix</a>();</div>
+<div class="line"><span class="lineno">   46</span>    }</div>
+<div class="line"><span class="lineno">   47</span>    <span class="keywordflow">return</span> m_ModelMatrix;</div>
+<div class="line"><span class="lineno">   48</span>}</div>
+<div class="ttc" id="aclassElevate_1_1Transform_html_a197875da8f326cb6361bd22fd858ff7f"><div class="ttname"><a href="classElevate_1_1Transform.html#a197875da8f326cb6361bd22fd858ff7f">Elevate::Transform::UpdateModelMatrix</a></div><div class="ttdeci">void UpdateModelMatrix()</div><div class="ttdef"><b>Definition:</b> <a href="Transform_8cpp_source.html#l00050">Transform.cpp:50</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Transform_html_aa5379a5bfc40f1cf16ad437a2e194b33"><div class="ttname"><a href="classElevate_1_1Transform.html#aa5379a5bfc40f1cf16ad437a2e194b33">Elevate::Transform::Transform</a></div><div class="ttdeci">Transform()</div><div class="ttdef"><b>Definition:</b> <a href="Transform_8cpp_source.html#l00007">Transform.cpp:7</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -331,8 +332,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00018">18</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   18</span>{ <span class="keywordflow">return</span> position; }</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00023">23</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   23</span>{ <span class="keywordflow">return</span> position; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -359,8 +360,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00019">19</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   19</span>{ <span class="keywordflow">return</span> position; }</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00024">24</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   24</span>{ <span class="keywordflow">return</span> position; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -379,10 +380,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00018">18</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   19</span>{</div>
-<div class="line"><span class="lineno">   20</span>    <span class="keywordflow">return</span> glm::normalize(glm::vec3(<a class="code hl_function" href="classElevate_1_1Transform.html#a4c0064a635ca58561d456a94dabdcb78">GetModelMatrix</a>()[0]));</div>
-<div class="line"><span class="lineno">   21</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00016">16</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   17</span>{</div>
+<div class="line"><span class="lineno">   18</span>    <span class="keywordflow">return</span> glm::normalize(glm::vec3(<a class="code hl_function" href="classElevate_1_1Transform.html#a4c0064a635ca58561d456a94dabdcb78">GetModelMatrix</a>()[0]));</div>
+<div class="line"><span class="lineno">   19</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -409,8 +410,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00020">20</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   20</span>{ <span class="keywordflow">return</span> rotation; }</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00025">25</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   25</span>{ <span class="keywordflow">return</span> rotation; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -437,8 +438,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00021">21</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   21</span>{ <span class="keywordflow">return</span> rotation; }</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00026">26</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   26</span>{ <span class="keywordflow">return</span> rotation; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -465,8 +466,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00022">22</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   22</span>{ <span class="keywordflow">return</span> scale; }</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00027">27</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   27</span>{ <span class="keywordflow">return</span> scale; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -493,8 +494,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00023">23</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   23</span>{ <span class="keywordflow">return</span> scale; }</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00028">28</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   28</span>{ <span class="keywordflow">return</span> scale; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -513,10 +514,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00023">23</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   24</span>{</div>
-<div class="line"><span class="lineno">   25</span>    <span class="keywordflow">return</span> glm::normalize(glm::vec3(<a class="code hl_function" href="classElevate_1_1Transform.html#a4c0064a635ca58561d456a94dabdcb78">GetModelMatrix</a>()[1]));</div>
-<div class="line"><span class="lineno">   26</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00021">21</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   22</span>{</div>
+<div class="line"><span class="lineno">   23</span>    <span class="keywordflow">return</span> glm::normalize(glm::vec3(<a class="code hl_function" href="classElevate_1_1Transform.html#a4c0064a635ca58561d456a94dabdcb78">GetModelMatrix</a>()[1]));</div>
+<div class="line"><span class="lineno">   24</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -544,8 +545,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00014">14</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   14</span>{ this-&gt;position = pos; m_isDirty = <span class="keyword">true</span>; }</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00019">19</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   19</span>{ this-&gt;position = pos; m_isDirty = <span class="keyword">true</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -573,8 +574,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00015">15</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   15</span>{ this-&gt;rotation = rot; m_isDirty = <span class="keyword">true</span>; }</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00020">20</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   20</span>{ this-&gt;rotation = rot; m_isDirty = <span class="keyword">true</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -602,8 +603,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00016">16</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   16</span>{ this-&gt;scale = scale; m_isDirty = <span class="keyword">true</span>; }</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00021">21</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   21</span>{ this-&gt;scale = scale; m_isDirty = <span class="keyword">true</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -622,19 +623,19 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00052">52</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   53</span>{</div>
-<div class="line"><span class="lineno">   54</span>    glm::mat4 model = glm::mat4(1.0f);</div>
-<div class="line"><span class="lineno">   55</span>    model = glm::translate(model, position);</div>
-<div class="line"><span class="lineno">   56</span> </div>
-<div class="line"><span class="lineno">   57</span>    model = glm::rotate(model, glm::radians(rotation.y), { 0, 1, 0 });</div>
-<div class="line"><span class="lineno">   58</span>    model = glm::rotate(model, glm::radians(rotation.x), { 1, 0, 0 });</div>
-<div class="line"><span class="lineno">   59</span>    model = glm::rotate(model, glm::radians(rotation.z), { 0, 0, 1 });</div>
-<div class="line"><span class="lineno">   60</span> </div>
-<div class="line"><span class="lineno">   61</span>    model = glm::scale(model, scale);</div>
-<div class="line"><span class="lineno">   62</span>    m_ModelMatrix = model;</div>
-<div class="line"><span class="lineno">   63</span>    m_isDirty = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   64</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Transform_8cpp_source.html#l00050">50</a> of file <a class="el" href="Transform_8cpp_source.html">Transform.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   51</span>{</div>
+<div class="line"><span class="lineno">   52</span>    glm::mat4 model = glm::mat4(1.0f);</div>
+<div class="line"><span class="lineno">   53</span>    model = glm::translate(model, position);</div>
+<div class="line"><span class="lineno">   54</span> </div>
+<div class="line"><span class="lineno">   55</span>    model = glm::rotate(model, glm::radians(rotation.y), { 0, 1, 0 });</div>
+<div class="line"><span class="lineno">   56</span>    model = glm::rotate(model, glm::radians(rotation.x), { 1, 0, 0 });</div>
+<div class="line"><span class="lineno">   57</span>    model = glm::rotate(model, glm::radians(rotation.z), { 0, 0, 1 });</div>
+<div class="line"><span class="lineno">   58</span> </div>
+<div class="line"><span class="lineno">   59</span>    model = glm::scale(model, scale);</div>
+<div class="line"><span class="lineno">   60</span>    m_ModelMatrix = model;</div>
+<div class="line"><span class="lineno">   61</span>    m_isDirty = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   62</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -112,7 +112,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Material_8h_source.html#l00069">69</a> of file <a class="el" href="Material_8h_source.html">Material.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8h_source.html#l00073">73</a> of file <a class="el" href="Material_8h_source.html">Material.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae2952edd7510d0657926c3684b5a762b" name="ae2952edd7510d0657926c3684b5a762b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae2952edd7510d0657926c3684b5a762b">&#9670;&#160;</a></span>GetMaterial()</h2>
@@ -138,14 +138,14 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Material_8cpp_source.html#l00101">101</a> of file <a class="el" href="Material_8cpp_source.html">Material.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  102</span>    {</div>
-<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">if</span> (instance().m_materials.contains(<span class="keywordtype">id</span>))</div>
-<div class="line"><span class="lineno">  104</span>        {</div>
-<div class="line"><span class="lineno">  105</span>            <span class="keywordflow">return</span> instance().m_materials.at(<span class="keywordtype">id</span>);</div>
-<div class="line"><span class="lineno">  106</span>        }</div>
-<div class="line"><span class="lineno">  107</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">  108</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Material_8cpp_source.html#l00108">108</a> of file <a class="el" href="Material_8cpp_source.html">Material.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  109</span>    {</div>
+<div class="line"><span class="lineno">  110</span>        <span class="keywordflow">if</span> (instance().m_materials.contains(<span class="keywordtype">id</span>))</div>
+<div class="line"><span class="lineno">  111</span>        {</div>
+<div class="line"><span class="lineno">  112</span>            <span class="keywordflow">return</span> instance().m_materials.at(<span class="keywordtype">id</span>);</div>
+<div class="line"><span class="lineno">  113</span>        }</div>
+<div class="line"><span class="lineno">  114</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  115</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -173,16 +173,16 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Material_8cpp_source.html#l00093">93</a> of file <a class="el" href="Material_8cpp_source.html">Material.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   94</span>    {</div>
-<div class="line"><span class="lineno">   95</span>        <a class="code hl_define" href="Log_8h.html#ab7be034f24bde5249968651dca39c09b">EE_TRACE</a>(<span class="stringliteral">&quot;(MaterialRegistry) : Creating shader for shader : {}&quot;</span>, shader-&gt;GetRendererID());</div>
-<div class="line"><span class="lineno">   96</span>        <a class="code hl_typedef" href="namespaceElevate.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7">MaterialPtr</a> material = <a class="code hl_function" href="classElevate_1_1MaterialFactory.html#a24c4ca23d6e5638cf1d570d674aed69f">MaterialFactory::Create</a>(shader);</div>
-<div class="line"><span class="lineno">   97</span>        instance().m_materials[material-&gt;GetID()] = material;</div>
-<div class="line"><span class="lineno">   98</span>        <span class="keywordflow">return</span> material;</div>
-<div class="line"><span class="lineno">   99</span>    }</div>
-<div class="ttc" id="aLog_8h_html_ab7be034f24bde5249968651dca39c09b"><div class="ttname"><a href="Log_8h.html#ab7be034f24bde5249968651dca39c09b">EE_TRACE</a></div><div class="ttdeci">#define EE_TRACE(...)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00066">Log.h:66</a></div></div>
-<div class="ttc" id="aclassElevate_1_1MaterialFactory_html_a24c4ca23d6e5638cf1d570d674aed69f"><div class="ttname"><a href="classElevate_1_1MaterialFactory.html#a24c4ca23d6e5638cf1d570d674aed69f">Elevate::MaterialFactory::Create</a></div><div class="ttdeci">static MaterialPtr Create(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition:</b> <a href="Material_8cpp_source.html#l00083">Material.cpp:83</a></div></div>
-<div class="ttc" id="anamespaceElevate_html_a5d6b19f0e8ea5bcb7a115eeb8ee69aa7"><div class="ttname"><a href="namespaceElevate.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7">Elevate::MaterialPtr</a></div><div class="ttdeci">std::shared_ptr&lt; Material &gt; MaterialPtr</div><div class="ttdef"><b>Definition:</b> <a href="Material_8h_source.html#l00020">Material.h:20</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Material_8cpp_source.html#l00100">100</a> of file <a class="el" href="Material_8cpp_source.html">Material.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  101</span>    {</div>
+<div class="line"><span class="lineno">  102</span>        <a class="code hl_define" href="Log_8h.html#ab7be034f24bde5249968651dca39c09b">EE_TRACE</a>(<span class="stringliteral">&quot;(MaterialRegistry) : Creating shader for shader : {}&quot;</span>, shader-&gt;GetRendererID());</div>
+<div class="line"><span class="lineno">  103</span>        <a class="code hl_typedef" href="namespaceElevate.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7">MaterialPtr</a> material = <a class="code hl_function" href="classElevate_1_1MaterialFactory.html#a24c4ca23d6e5638cf1d570d674aed69f">MaterialFactory::Create</a>(shader);</div>
+<div class="line"><span class="lineno">  104</span>        instance().m_materials[material-&gt;GetID()] = material;</div>
+<div class="line"><span class="lineno">  105</span>        <span class="keywordflow">return</span> material;</div>
+<div class="line"><span class="lineno">  106</span>    }</div>
+<div class="ttc" id="aLog_8h_html_ab7be034f24bde5249968651dca39c09b"><div class="ttname"><a href="Log_8h.html#ab7be034f24bde5249968651dca39c09b">EE_TRACE</a></div><div class="ttdeci">#define EE_TRACE(...)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00069">Log.h:69</a></div></div>
+<div class="ttc" id="aclassElevate_1_1MaterialFactory_html_a24c4ca23d6e5638cf1d570d674aed69f"><div class="ttname"><a href="classElevate_1_1MaterialFactory.html#a24c4ca23d6e5638cf1d570d674aed69f">Elevate::MaterialFactory::Create</a></div><div class="ttdeci">static MaterialPtr Create(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition:</b> <a href="Material_8cpp_source.html#l00090">Material.cpp:90</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a5d6b19f0e8ea5bcb7a115eeb8ee69aa7"><div class="ttname"><a href="namespaceElevate.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7">Elevate::MaterialPtr</a></div><div class="ttdeci">std::shared_ptr&lt; Material &gt; MaterialPtr</div><div class="ttdef"><b>Definition:</b> <a href="Material_8h_source.html#l00024">Material.h:24</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

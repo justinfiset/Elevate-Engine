@@ -101,9 +101,11 @@ $(document).ready(function(){initNavTree('WwiseItem_8h.html',''); initResizable(
   <div class="headertitle"><div class="title">WwiseItem.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;initializer_list&gt;</code><br />
 </div>
 <p><a href="WwiseItem_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -181,10 +183,10 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>x; \</div>
-<div class="line"><span class="keyword">typedef</span> std::shared_ptr&lt;##x&gt; x##Ptr; \</div>
-<div class="line"><span class="keyword">typedef</span> std::weak_ptr&lt;##x&gt; x##WeakPtr;</div>
+<div class="line"><span class="keyword">typedef</span> std::shared_ptr&lt;x&gt; x##Ptr; \</div>
+<div class="line"><span class="keyword">typedef</span> std::weak_ptr&lt;x&gt; x##WeakPtr;</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="WwiseItem_8h_source.html#l00034">34</a> of file <a class="el" href="WwiseItem_8h_source.html">WwiseItem.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="WwiseItem_8h_source.html#l00036">36</a> of file <a class="el" href="WwiseItem_8h_source.html">WwiseItem.h</a>.</p>
 
 </div>
 </div>
@@ -229,29 +231,29 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="a293bc3e540223762b7a17e3c890f8c4aa2933741a383b42b1168a0acc7b470aa7" name="a293bc3e540223762b7a17e3c890f8c4aa2933741a383b42b1168a0acc7b470aa7"></a>SoundBank&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="WwiseItem_8h_source.html#l00007">7</a> of file <a class="el" href="WwiseItem_8h_source.html">WwiseItem.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    8</span>{</div>
-<div class="line"><span class="lineno">    9</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a>,</div>
-<div class="line"><span class="lineno">   10</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa6adf97f83acf6453d4a6a4b1070f3754">None</a>,</div>
-<div class="line"><span class="lineno">   11</span> </div>
-<div class="line"><span class="lineno">   12</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa854850c3956619e8783c5b5b7bde693d">TreeRoot</a>,</div>
-<div class="line"><span class="lineno">   13</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aad2e81d1a83038f281ebc32e011e5f2ee">RootDirectory</a>,</div>
-<div class="line"><span class="lineno">   14</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aab1688e51ea1301c3b559a44520910adf">WorkUnit</a>,</div>
-<div class="line"><span class="lineno">   15</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aab582824881ff6b3fe6efd1e15f34f7fd">VirtualFolder</a>,</div>
-<div class="line"><span class="lineno">   16</span> </div>
-<div class="line"><span class="lineno">   17</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aaa4ecfc70574394990cf17bd83df499f7">Event</a>,</div>
-<div class="line"><span class="lineno">   18</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa6e4b38bfd57741ac1597c440a1c98074">Bus</a>,</div>
-<div class="line"><span class="lineno">   19</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aae64bbbec850d346727123f3a3903a638">AuxBus</a>,</div>
-<div class="line"><span class="lineno">   20</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa91f8fcbb63f18a6b1d71ca485b97c899">SwitchGroup</a>,</div>
-<div class="line"><span class="lineno">   21</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aabbc155fb2b111bf61c4f5ff892915e6b">Switch</a>,</div>
-<div class="line"><span class="lineno">   22</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa39ccfd9ccbfc3a526d1ce3126cf49c39">StateGroup</a>,</div>
-<div class="line"><span class="lineno">   23</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa46a2a41cc6e552044816a2d04634545d">State</a>,</div>
-<div class="line"><span class="lineno">   24</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa7c593b06d5236936fd6db7c0cbe52704">GameParameter</a>,</div>
-<div class="line"><span class="lineno">   25</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aaa62d22910732d5343689f5117999abfa">Effect</a>,</div>
-<div class="line"><span class="lineno">   26</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aaf698f67f5666aff10729d8a1cb1c14d2">Trigger</a>,</div>
-<div class="line"><span class="lineno">   27</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa5cf4261f6bcddcb30f02a3efe897487d">AudioDevice</a>,</div>
-<div class="line"><span class="lineno">   28</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa2933741a383b42b1168a0acc7b470aa7">SoundBank</a>,</div>
-<div class="line"><span class="lineno">   29</span>};</div>
+<p class="definition">Definition at line <a class="el" href="WwiseItem_8h_source.html#l00009">9</a> of file <a class="el" href="WwiseItem_8h_source.html">WwiseItem.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   10</span>{</div>
+<div class="line"><span class="lineno">   11</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a>,</div>
+<div class="line"><span class="lineno">   12</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa6adf97f83acf6453d4a6a4b1070f3754">None</a>,</div>
+<div class="line"><span class="lineno">   13</span> </div>
+<div class="line"><span class="lineno">   14</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa854850c3956619e8783c5b5b7bde693d">TreeRoot</a>,</div>
+<div class="line"><span class="lineno">   15</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aad2e81d1a83038f281ebc32e011e5f2ee">RootDirectory</a>,</div>
+<div class="line"><span class="lineno">   16</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aab1688e51ea1301c3b559a44520910adf">WorkUnit</a>,</div>
+<div class="line"><span class="lineno">   17</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aab582824881ff6b3fe6efd1e15f34f7fd">VirtualFolder</a>,</div>
+<div class="line"><span class="lineno">   18</span> </div>
+<div class="line"><span class="lineno">   19</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aaa4ecfc70574394990cf17bd83df499f7">Event</a>,</div>
+<div class="line"><span class="lineno">   20</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa6e4b38bfd57741ac1597c440a1c98074">Bus</a>,</div>
+<div class="line"><span class="lineno">   21</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aae64bbbec850d346727123f3a3903a638">AuxBus</a>,</div>
+<div class="line"><span class="lineno">   22</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa91f8fcbb63f18a6b1d71ca485b97c899">SwitchGroup</a>,</div>
+<div class="line"><span class="lineno">   23</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aabbc155fb2b111bf61c4f5ff892915e6b">Switch</a>,</div>
+<div class="line"><span class="lineno">   24</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa39ccfd9ccbfc3a526d1ce3126cf49c39">StateGroup</a>,</div>
+<div class="line"><span class="lineno">   25</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa46a2a41cc6e552044816a2d04634545d">State</a>,</div>
+<div class="line"><span class="lineno">   26</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa7c593b06d5236936fd6db7c0cbe52704">GameParameter</a>,</div>
+<div class="line"><span class="lineno">   27</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aaa62d22910732d5343689f5117999abfa">Effect</a>,</div>
+<div class="line"><span class="lineno">   28</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aaf698f67f5666aff10729d8a1cb1c14d2">Trigger</a>,</div>
+<div class="line"><span class="lineno">   29</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa5cf4261f6bcddcb30f02a3efe897487d">AudioDevice</a>,</div>
+<div class="line"><span class="lineno">   30</span>    <a class="code hl_enumvalue" href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa2933741a383b42b1168a0acc7b470aa7">SoundBank</a>,</div>
+<div class="line"><span class="lineno">   31</span>};</div>
 <div class="ttc" id="aWwiseItem_8h_html_a293bc3e540223762b7a17e3c890f8c4aa2933741a383b42b1168a0acc7b470aa7"><div class="ttname"><a href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa2933741a383b42b1168a0acc7b470aa7">WwiseType::SoundBank</a></div><div class="ttdeci">@ SoundBank</div></div>
 <div class="ttc" id="aWwiseItem_8h_html_a293bc3e540223762b7a17e3c890f8c4aa39ccfd9ccbfc3a526d1ce3126cf49c39"><div class="ttname"><a href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa39ccfd9ccbfc3a526d1ce3126cf49c39">WwiseType::StateGroup</a></div><div class="ttdeci">@ StateGroup</div></div>
 <div class="ttc" id="aWwiseItem_8h_html_a293bc3e540223762b7a17e3c890f8c4aa46a2a41cc6e552044816a2d04634545d"><div class="ttname"><a href="WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa46a2a41cc6e552044816a2d04634545d">WwiseType::State</a></div><div class="ttdeci">@ State</div></div>

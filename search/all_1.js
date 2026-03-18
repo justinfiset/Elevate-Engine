@@ -10,7 +10,7 @@ var searchData=
   ['adddebugline_7',['AddDebugLine',['../classElevate_1_1DebugRenderer.html#ae8ed1160e2e87d4b644eca5e8f1c77c8',1,'Elevate::DebugRenderer']]],
   ['addgameobjectcommand_8',['AddGameobjectCommand',['../classElevate_1_1AddGameobjectCommand.html',1,'Elevate']]],
   ['addobject_9',['AddObject',['../classElevate_1_1Scene.html#a457b6dfea301be9c4b33ff01ab084d31',1,'Elevate::Scene']]],
-  ['addproperty_10',['AddProperty',['../classElevate_1_1ComponentRegistry.html#a25a1613813c7fdc1c774ddee36ac4690',1,'Elevate::ComponentRegistry::AddProperty(FieldType Class::*member, const std::string &amp;name, std::initializer_list&lt; FieldOption &gt; options)'],['../classElevate_1_1ComponentRegistry.html#a25a1613813c7fdc1c774ddee36ac4690',1,'Elevate::ComponentRegistry::AddProperty(FieldType Class::*member, const std::string &amp;name, std::initializer_list&lt; FieldOption &gt; options)']]],
+  ['addproperty_10',['AddProperty',['../classElevate_1_1ComponentRegistry.html#aafd998e0578ab22d22f205dfa7b67e57',1,'Elevate::ComponentRegistry']]],
   ['addvertexbuffer_11',['AddVertexBuffer',['../classElevate_1_1VertexArray.html#a51d2fbac4c583012659c915e212aa898',1,'Elevate::VertexArray::AddVertexBuffer()'],['../classElevate_1_1OpenGLVertexArray.html#a1fadce043631ef6290642703e64f852c',1,'Elevate::OpenGLVertexArray::AddVertexBuffer()']]],
   ['ak_12',['AK',['../namespaceAK.html',1,'']]],
   ['akbank_13',['AkBank',['../classElevate_1_1AkBank.html',1,'Elevate']]],

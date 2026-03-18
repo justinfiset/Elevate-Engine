@@ -137,7 +137,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00009">9</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00012">12</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a85dfc899cae01453961a0e40c68bc850" name="a85dfc899cae01453961a0e40c68bc850"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a85dfc899cae01453961a0e40c68bc850">&#9670;&#160;</a></span>Error()</h2>
@@ -173,8 +173,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8cpp_source.html#l00029">29</a> of file <a class="el" href="Log_8cpp_source.html">Log.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   29</span>{ logger-&gt;Error(fmt); }</div>
+<p class="definition">Definition at line <a class="el" href="Log_8cpp_source.html#l00032">32</a> of file <a class="el" href="Log_8cpp_source.html">Log.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   32</span>{ logger-&gt;Error(fmt); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -220,11 +220,11 @@ template&lt;typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00038">38</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   38</span>                                                                                                {</div>
-<div class="line"><span class="lineno">   39</span>            <a class="code hl_function" href="classElevate_1_1Log.html#a85dfc899cae01453961a0e40c68bc850">Error</a>(logger, std::format(fmt, std::forward&lt;Args&gt;(args)...));</div>
-<div class="line"><span class="lineno">   40</span>        }</div>
-<div class="ttc" id="aclassElevate_1_1Log_html_a85dfc899cae01453961a0e40c68bc850"><div class="ttname"><a href="classElevate_1_1Log.html#a85dfc899cae01453961a0e40c68bc850">Elevate::Log::Error</a></div><div class="ttdeci">static void Error(LogImpl *logger, std::string fmt)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8cpp_source.html#l00029">Log.cpp:29</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00041">41</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   41</span>                                                                                                {</div>
+<div class="line"><span class="lineno">   42</span>            <a class="code hl_function" href="classElevate_1_1Log.html#a85dfc899cae01453961a0e40c68bc850">Error</a>(logger, std::format(fmt, std::forward&lt;Args&gt;(args)...));</div>
+<div class="line"><span class="lineno">   43</span>        }</div>
+<div class="ttc" id="aclassElevate_1_1Log_html_a85dfc899cae01453961a0e40c68bc850"><div class="ttname"><a href="classElevate_1_1Log.html#a85dfc899cae01453961a0e40c68bc850">Elevate::Log::Error</a></div><div class="ttdeci">static void Error(LogImpl *logger, std::string fmt)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8cpp_source.html#l00032">Log.cpp:32</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -262,8 +262,8 @@ template&lt;typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8cpp_source.html#l00030">30</a> of file <a class="el" href="Log_8cpp_source.html">Log.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   30</span>{ logger-&gt;Fatal(fmt); }</div>
+<p class="definition">Definition at line <a class="el" href="Log_8cpp_source.html#l00033">33</a> of file <a class="el" href="Log_8cpp_source.html">Log.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   33</span>{ logger-&gt;Fatal(fmt); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -309,11 +309,11 @@ template&lt;typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00043">43</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   43</span>                                                                                                {</div>
-<div class="line"><span class="lineno">   44</span>            <a class="code hl_function" href="classElevate_1_1Log.html#a559893f0474a359cac639f8ba2d615c7">Fatal</a>(logger, std::format(fmt, std::forward&lt;Args&gt;(args)...));</div>
-<div class="line"><span class="lineno">   45</span>        }</div>
-<div class="ttc" id="aclassElevate_1_1Log_html_a559893f0474a359cac639f8ba2d615c7"><div class="ttname"><a href="classElevate_1_1Log.html#a559893f0474a359cac639f8ba2d615c7">Elevate::Log::Fatal</a></div><div class="ttdeci">static void Fatal(LogImpl *logger, std::string fmt)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8cpp_source.html#l00030">Log.cpp:30</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00046">46</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   46</span>                                                                                                {</div>
+<div class="line"><span class="lineno">   47</span>            <a class="code hl_function" href="classElevate_1_1Log.html#a559893f0474a359cac639f8ba2d615c7">Fatal</a>(logger, std::format(fmt, std::forward&lt;Args&gt;(args)...));</div>
+<div class="line"><span class="lineno">   48</span>        }</div>
+<div class="ttc" id="aclassElevate_1_1Log_html_a559893f0474a359cac639f8ba2d615c7"><div class="ttname"><a href="classElevate_1_1Log.html#a559893f0474a359cac639f8ba2d615c7">Elevate::Log::Fatal</a></div><div class="ttdeci">static void Fatal(LogImpl *logger, std::string fmt)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8cpp_source.html#l00033">Log.cpp:33</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -340,16 +340,16 @@ template&lt;typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8cpp_source.html#l00043">43</a> of file <a class="el" href="Log_8cpp_source.html">Log.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   44</span>    {</div>
-<div class="line"><span class="lineno">   45</span>        <span class="keyword">static</span> LogImpl* logger = <span class="keyword">new</span> LogImpl([]() {</div>
-<div class="line"><span class="lineno">   46</span>            <span class="keyword">auto</span> spdlogger = spdlog::stdout_color_mt(<span class="stringliteral">&quot;APP&quot;</span>);</div>
-<div class="line"><span class="lineno">   47</span>            spdlogger-&gt;set_level(spdlog::level::trace);</div>
-<div class="line"><span class="lineno">   48</span>            spdlogger-&gt;set_pattern(<span class="stringliteral">&quot;%^[%T] [%n] %v%$&quot;</span>);</div>
-<div class="line"><span class="lineno">   49</span>            <span class="keywordflow">return</span> spdlogger;</div>
-<div class="line"><span class="lineno">   50</span>        }());</div>
-<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">return</span> logger;</div>
-<div class="line"><span class="lineno">   52</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Log_8cpp_source.html#l00046">46</a> of file <a class="el" href="Log_8cpp_source.html">Log.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   47</span>    {</div>
+<div class="line"><span class="lineno">   48</span>        <span class="keyword">static</span> LogImpl* logger = <span class="keyword">new</span> LogImpl([]() {</div>
+<div class="line"><span class="lineno">   49</span>            <span class="keyword">auto</span> spdlogger = spdlog::stdout_color_mt(<span class="stringliteral">&quot;APP&quot;</span>);</div>
+<div class="line"><span class="lineno">   50</span>            spdlogger-&gt;set_level(spdlog::level::trace);</div>
+<div class="line"><span class="lineno">   51</span>            spdlogger-&gt;set_pattern(<span class="stringliteral">&quot;%^[%T] [%n] %v%$&quot;</span>);</div>
+<div class="line"><span class="lineno">   52</span>            <span class="keywordflow">return</span> spdlogger;</div>
+<div class="line"><span class="lineno">   53</span>        }());</div>
+<div class="line"><span class="lineno">   54</span>        <span class="keywordflow">return</span> logger;</div>
+<div class="line"><span class="lineno">   55</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -376,16 +376,16 @@ template&lt;typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8cpp_source.html#l00032">32</a> of file <a class="el" href="Log_8cpp_source.html">Log.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   33</span>    {</div>
-<div class="line"><span class="lineno">   34</span>        <span class="keyword">static</span> LogImpl* logger = <span class="keyword">new</span> LogImpl([]() {</div>
-<div class="line"><span class="lineno">   35</span>            <span class="keyword">auto</span> spdlogger = spdlog::stdout_color_mt(<span class="stringliteral">&quot;ELEVATE&quot;</span>);</div>
-<div class="line"><span class="lineno">   36</span>            spdlogger-&gt;set_level(spdlog::level::trace);</div>
-<div class="line"><span class="lineno">   37</span>            spdlogger-&gt;set_pattern(<span class="stringliteral">&quot;%^[%T] [%n] %v%$&quot;</span>);</div>
-<div class="line"><span class="lineno">   38</span>            <span class="keywordflow">return</span> spdlogger;</div>
-<div class="line"><span class="lineno">   39</span>        }());</div>
-<div class="line"><span class="lineno">   40</span>        <span class="keywordflow">return</span> logger;</div>
-<div class="line"><span class="lineno">   41</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Log_8cpp_source.html#l00035">35</a> of file <a class="el" href="Log_8cpp_source.html">Log.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   36</span>    {</div>
+<div class="line"><span class="lineno">   37</span>        <span class="keyword">static</span> LogImpl* logger = <span class="keyword">new</span> LogImpl([]() {</div>
+<div class="line"><span class="lineno">   38</span>            <span class="keyword">auto</span> spdlogger = spdlog::stdout_color_mt(<span class="stringliteral">&quot;ELEVATE&quot;</span>);</div>
+<div class="line"><span class="lineno">   39</span>            spdlogger-&gt;set_level(spdlog::level::trace);</div>
+<div class="line"><span class="lineno">   40</span>            spdlogger-&gt;set_pattern(<span class="stringliteral">&quot;%^[%T] [%n] %v%$&quot;</span>);</div>
+<div class="line"><span class="lineno">   41</span>            <span class="keywordflow">return</span> spdlogger;</div>
+<div class="line"><span class="lineno">   42</span>        }());</div>
+<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">return</span> logger;</div>
+<div class="line"><span class="lineno">   44</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -423,8 +423,8 @@ template&lt;typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8cpp_source.html#l00027">27</a> of file <a class="el" href="Log_8cpp_source.html">Log.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   27</span>{ logger-&gt;Info(fmt);  }</div>
+<p class="definition">Definition at line <a class="el" href="Log_8cpp_source.html#l00030">30</a> of file <a class="el" href="Log_8cpp_source.html">Log.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   30</span>{ logger-&gt;Info(fmt);  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -470,11 +470,11 @@ template&lt;typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00028">28</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   28</span>                                                                                               {</div>
-<div class="line"><span class="lineno">   29</span>            <a class="code hl_function" href="classElevate_1_1Log.html#a512e56f81d9729565a4a1fd3eadbe5e8">Info</a>(logger, std::format(fmt, std::forward&lt;Args&gt;(args)...));</div>
-<div class="line"><span class="lineno">   30</span>        }</div>
-<div class="ttc" id="aclassElevate_1_1Log_html_a512e56f81d9729565a4a1fd3eadbe5e8"><div class="ttname"><a href="classElevate_1_1Log.html#a512e56f81d9729565a4a1fd3eadbe5e8">Elevate::Log::Info</a></div><div class="ttdeci">static void Info(LogImpl *logger, std::string fmt)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8cpp_source.html#l00027">Log.cpp:27</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00031">31</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   31</span>                                                                                               {</div>
+<div class="line"><span class="lineno">   32</span>            <a class="code hl_function" href="classElevate_1_1Log.html#a512e56f81d9729565a4a1fd3eadbe5e8">Info</a>(logger, std::format(fmt, std::forward&lt;Args&gt;(args)...));</div>
+<div class="line"><span class="lineno">   33</span>        }</div>
+<div class="ttc" id="aclassElevate_1_1Log_html_a512e56f81d9729565a4a1fd3eadbe5e8"><div class="ttname"><a href="classElevate_1_1Log.html#a512e56f81d9729565a4a1fd3eadbe5e8">Elevate::Log::Info</a></div><div class="ttdeci">static void Info(LogImpl *logger, std::string fmt)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8cpp_source.html#l00030">Log.cpp:30</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -512,8 +512,8 @@ template&lt;typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8cpp_source.html#l00026">26</a> of file <a class="el" href="Log_8cpp_source.html">Log.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   26</span>{ logger-&gt;Trace(fmt); }</div>
+<p class="definition">Definition at line <a class="el" href="Log_8cpp_source.html#l00029">29</a> of file <a class="el" href="Log_8cpp_source.html">Log.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   29</span>{ logger-&gt;Trace(fmt); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -559,11 +559,11 @@ template&lt;typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00023">23</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   23</span>                                                                                                {</div>
-<div class="line"><span class="lineno">   24</span>            <a class="code hl_function" href="classElevate_1_1Log.html#abae6482221fe968b42c8d0944c6f37c8">Trace</a>(logger, std::format(fmt, std::forward&lt;Args&gt;(args)...));</div>
-<div class="line"><span class="lineno">   25</span>        }</div>
-<div class="ttc" id="aclassElevate_1_1Log_html_abae6482221fe968b42c8d0944c6f37c8"><div class="ttname"><a href="classElevate_1_1Log.html#abae6482221fe968b42c8d0944c6f37c8">Elevate::Log::Trace</a></div><div class="ttdeci">static void Trace(LogImpl *logger, std::string fmt)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8cpp_source.html#l00026">Log.cpp:26</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00026">26</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   26</span>                                                                                                {</div>
+<div class="line"><span class="lineno">   27</span>            <a class="code hl_function" href="classElevate_1_1Log.html#abae6482221fe968b42c8d0944c6f37c8">Trace</a>(logger, std::format(fmt, std::forward&lt;Args&gt;(args)...));</div>
+<div class="line"><span class="lineno">   28</span>        }</div>
+<div class="ttc" id="aclassElevate_1_1Log_html_abae6482221fe968b42c8d0944c6f37c8"><div class="ttname"><a href="classElevate_1_1Log.html#abae6482221fe968b42c8d0944c6f37c8">Elevate::Log::Trace</a></div><div class="ttdeci">static void Trace(LogImpl *logger, std::string fmt)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8cpp_source.html#l00029">Log.cpp:29</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -601,8 +601,8 @@ template&lt;typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8cpp_source.html#l00028">28</a> of file <a class="el" href="Log_8cpp_source.html">Log.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   28</span>{ logger-&gt;Warn(fmt);  }</div>
+<p class="definition">Definition at line <a class="el" href="Log_8cpp_source.html#l00031">31</a> of file <a class="el" href="Log_8cpp_source.html">Log.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   31</span>{ logger-&gt;Warn(fmt);  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -648,11 +648,11 @@ template&lt;typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00033">33</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   33</span>                                                                                               {</div>
-<div class="line"><span class="lineno">   34</span>            <a class="code hl_function" href="classElevate_1_1Log.html#af3ea5c3149672394af7a2ecc7c90a0fb">Warn</a>(logger, std::format(fmt, std::forward&lt;Args&gt;(args)...));</div>
-<div class="line"><span class="lineno">   35</span>        }</div>
-<div class="ttc" id="aclassElevate_1_1Log_html_af3ea5c3149672394af7a2ecc7c90a0fb"><div class="ttname"><a href="classElevate_1_1Log.html#af3ea5c3149672394af7a2ecc7c90a0fb">Elevate::Log::Warn</a></div><div class="ttdeci">static void Warn(LogImpl *logger, std::string fmt)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8cpp_source.html#l00028">Log.cpp:28</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00036">36</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   36</span>                                                                                               {</div>
+<div class="line"><span class="lineno">   37</span>            <a class="code hl_function" href="classElevate_1_1Log.html#af3ea5c3149672394af7a2ecc7c90a0fb">Warn</a>(logger, std::format(fmt, std::forward&lt;Args&gt;(args)...));</div>
+<div class="line"><span class="lineno">   38</span>        }</div>
+<div class="ttc" id="aclassElevate_1_1Log_html_af3ea5c3149672394af7a2ecc7c90a0fb"><div class="ttname"><a href="classElevate_1_1Log.html#af3ea5c3149672394af7a2ecc7c90a0fb">Elevate::Log::Warn</a></div><div class="ttdeci">static void Warn(LogImpl *logger, std::string fmt)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8cpp_source.html#l00031">Log.cpp:31</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
