@@ -1,15 +1,18 @@
 #pragma once
 
+#include <stdint.h>
+#include <memory>
 #include <vector>
 
-#include "VertexArray.h"
-#include "Buffer.h"
-#include "Vertex.h"
+#include <ElevateEngine/Renderer/Vertex.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
-#include <ElevateEngine/Renderer/Shader/Shader.h>
 
 namespace Elevate
 {
+	class VertexBuffer;
+	class IndexBuffer;
+	class VertexArray;
+
 	struct MeshData
 	{
 		std::vector<Vertex> Vertices;
@@ -65,7 +68,7 @@ namespace Elevate
 		Torus,
 		*/
 	private:
-		std::shared_ptr<Elevate::VertexArray> m_VertexArray;
+		std::shared_ptr<VertexArray> m_VertexArray;
 		std::shared_ptr<VertexBuffer> m_VertexBuffer;
 		std::shared_ptr<IndexBuffer> m_IndexBuffer;
 

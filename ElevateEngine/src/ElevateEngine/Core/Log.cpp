@@ -1,10 +1,13 @@
 #define _SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING
 
-#include "eepch.h"
 #include "Log.h"
 
-#include "spdlog/sinks/stdout_color_sinks.h"
-#include "spdlog/spdlog.h"
+#include <memory>
+
+#include <spdlog/common.h>
+#include <spdlog/logger.h>
+#include <spdlog/sinks/ansicolor_sink.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 namespace Elevate
 {

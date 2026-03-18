@@ -24,3 +24,6 @@
 [submodule "Docs/doxygen-awesome-css"]
 	path = Docs/doxygen-awesome-css
 	url = https://github.com/jothepro/doxygen-awesome-css.git
+[submodule "vendor/premake-export-compile-commands"]
+	path = vendor/premake-export-compile-commands
+	url = https://github.com/tarruda/premake-export-compile-commands

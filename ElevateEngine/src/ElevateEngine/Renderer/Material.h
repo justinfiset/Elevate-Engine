@@ -1,8 +1,12 @@
 #pragma once
 
+#include <stdint.h>
 #include <memory>
 #include <map>
+#include <string>
+#include <vector>
 #include <glm/glm.hpp>
+#include <unordered_map>
 
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Renderer/Buffer.h>

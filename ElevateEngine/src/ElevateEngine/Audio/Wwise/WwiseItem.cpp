@@ -1,7 +1,5 @@
 #include "WwiseItem.h"
 
-#include <ElevateEngine/Core/Log.h>
-
 WwiseItemPtr WwiseItem::Create()
 {
 	return std::make_shared<WwiseItem>();

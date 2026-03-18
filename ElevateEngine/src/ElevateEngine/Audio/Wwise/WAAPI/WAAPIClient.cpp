@@ -2,14 +2,17 @@
 
 #include <ElevateEngine/Core/Log.h>
 
+#ifdef EE_USES_WWISE
 #include <AK/WwiseAuthoringAPI/AkAutobahn/Client.h>
 #include <AK/WwiseAuthoringAPI/AkAutobahn/Logger.h>
 #include <AK/WwiseAuthoringAPI/waapi.h>
+#endif
 
 namespace Elevate
 {
 	bool WAAPIClient::Connect()
 	{
+#ifdef EE_USES_WWISE
 		m_isConnected = m_client->Connect(m_ip.c_str(), m_port);
 		if (!m_isConnected)
 		{
@@ -71,18 +74,24 @@ namespace Elevate
 		//}
 
 		return m_isConnected;
+#else
+		return false;
+#endif
 	}
 
 	void WAAPIClient::Disconnect()
 	{
+#ifdef EE_USES_WWISE
 		if (m_client)
 		{
 			m_client->Disconnect();
 		}
+#endif
 	}
 
 	WAAPIClient::WAAPIClient()
 	{
+#ifdef EE_USES_WWISE
 		m_client = new AK::WwiseAuthoringAPI::Client();
 
 		AK::WwiseAuthoringAPI::Logger::Get()->SetLoggerFunction(LoggerCallback);
@@ -90,11 +99,14 @@ namespace Elevate
 		Connect();
 		// todo create an async system to try and reconnect if not working
 		// 1s -> 2s -> 4s -> 8s -> 16s mult. tiime by 2 each time.
+#endif
 	}
 
 	WAAPIClient::~WAAPIClient()
 	{
+#ifdef EE_USES_WWISE
 		delete m_client;
+#endif
 	}
 
 	void WAAPIClient::LoggerCallback(const char* logMessage)
@@ -105,6 +117,10 @@ namespace Elevate
 
 	bool WAAPIClient::IsConnected()
 	{
+#ifdef EE_USES_WWISE
 		return Get().m_isConnected;
+#else
+		return false;
+#endif
 	}
 }

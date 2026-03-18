@@ -1,11 +1,18 @@
 #include "WwiseFileDataSource.h"
+
 #include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Audio/Wwise/WwiseItem.h>
 
 #include <array>
+#include <format>
+#include <memory>
+#include <string>
+#include <string_view>
 #include <filesystem>
 
 #include <rapidxml.hpp>
 #include <flxml/utils.h>
+#include <flxml/wrappers.h>
 
 #define WWISE_WORKUNIT_EXTENSION ".wwu"
 
@@ -141,6 +148,8 @@ namespace Elevate
 		case WwiseType::Switch:
 			item = ProcessSwitch(parent, node);
 			break;
+		default:
+			return;
 		}
 
 		if (item)

@@ -2,6 +2,7 @@
 
 #include "ElevateEngine/Core/Core.h"
 #include <string>
+#include <cstdint>
 #include <ostream>
 #include <functional>
 
@@ -33,7 +34,7 @@ namespace Elevate {
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-	class EE_API Event
+	class Event
 	{
 		friend class EventDispatcher;
 	public:

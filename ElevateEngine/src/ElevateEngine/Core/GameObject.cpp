@@ -1,21 +1,19 @@
-#include "eepch.h"
-
 #include "GameObject.h"
 
-#include <ElevateEngine/Events/Event.h>
-#include <ElevateEngine/Scene/Scene.h>
+#include <format>
 
-#include <imgui.h>
-#include "ImGuizmo.h"
+#include <entt/entt.hpp>
+#include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
 
-#include <glm/gtc/matrix_inverse.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
+#include <ElevateEngine/Audio/SoundEngine.h>
+#include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/ComponentRegistry.h>
 #include <ElevateEngine/Core/Log.h>
-
+#include <ElevateEngine/Scene/Scene.h>
 #include <ElevateEngine/Scene/ScenePrivate.h>
-#include <ElevateEngine/Audio/SoundEngine.h>
+
 
 namespace Elevate
 {
@@ -30,50 +28,26 @@ namespace Elevate
 
 	void GameObject::SetFromGlobalMatrix(const glm::mat4& newWorld)
 	{
-		glm::mat4 newLocal;
-		if (m_parent)
-		{
-			newLocal = glm::inverse(m_parent->GenGlobalMatrix()) * newWorld;
-		}
-		else
-		{
-			newLocal = newWorld;
-		}
+		glm::mat4 newLocal = m_parent ? glm::inverse(m_parent->GenGlobalMatrix()) * newWorld : newWorld;
 
-		glm::vec3 position;
-		glm::vec3 rotation;
 		glm::vec3 scale;
-		ImGuizmo::DecomposeMatrixToComponents
-		(
-			glm::value_ptr(newLocal),
-			glm::value_ptr(position),
-			glm::value_ptr(rotation),
-			glm::value_ptr(scale)
-		);
+		glm::quat rotationQuat;
+		glm::vec3 position;
+		glm::vec3 skew;
+		glm::vec4 perspective;
 
-		// TODO SHOULD SET GLOBAL INSTEAD OF LOCAL, THEREFORE THESE DO NOT ALWYAS WORKS ON CHILDS FOR THE MOMENT
-		// -> IL FAUDRAIT UNE M�THODE QUI UPDATE LE TOUT � PARTIR D'UNE M�THODE SetFromGlobalMatrix() qui set le tout
+		glm::decompose(newLocal, scale, rotationQuat, position, skew, perspective);
+		glm::vec3 rotationEuler = glm::degrees(glm::eulerAngles(rotationQuat));
+
 		SetScale(scale);
-		SetRotation(rotation);
+		SetRotation(rotationEuler);
 		SetPosition(position);
 	}
 
 	glm::vec3 GameObject::GetGlobalPosition()
 	{
 		glm::mat4 global = GenGlobalMatrix();
-		glm::vec3 position;
-		glm::vec3 rotation;
-		glm::vec3 scale;
-
-		ImGuizmo::DecomposeMatrixToComponents
-		(
-			glm::value_ptr(global),
-			glm::value_ptr(position),
-			glm::value_ptr(rotation),
-			glm::value_ptr(scale)
-		);
-
-		return position;
+		return glm::vec3(global[3]);
 	}
 
 	void GameObject::Update()

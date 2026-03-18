@@ -1,25 +1,22 @@
 #pragma once
 
-#include <typeindex>
-#include <type_traits>
-
-#include <stack>
+#include <initializer_list>
 #include <map>
+#include <string>
+#include <type_traits>
+#include <typeindex>
+#include <typeinfo>
 #include <variant>
 
-#include <memory>
-#include <string>
-#include <functional>
-
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Data.h>
-#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
-
-#include <glm/vec2.hpp>
-#include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
+#include <entt/entt.hpp>
+#include <glm/fwd.hpp>
 
 #include <ElevateEngine/Core/GameObject.h>
+#include <ElevateEngine/Core/Data.h>
+#include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/Component.h>
+#include <ElevateEngine/Core/EEObject.h>
+#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 
 #ifdef EE_RELEASE
 	#undef EE_REGISTRY_LOG
@@ -27,6 +24,8 @@
 
 namespace Elevate
 {
+	class GameObject;
+
 	template<typename T, typename = void>
 	struct has_super : std::false_type {};
 	template<typename T>
@@ -170,8 +169,6 @@ namespace Elevate
 	};
 }
 
-#include "ComponentRegistry.inl"
-
 #define EECATEGORY(name) \
 	private: \
 		inline static struct categoryRegistrar { \
@@ -185,6 +182,7 @@ namespace Elevate
 // =======================================================
 // BEGIN_COMPONENT / EXPOSE / END_COMPONENT
 // =======================================================
+#include "ComponentRegistry.inl"
 
 #define BEGIN_COMPONENT(T, ...) \
 private: \

@@ -1,6 +1,5 @@
-#include "eepch.h"
 #include "Command.h"
-
+#include <format>
 #include <ElevateEngine/Core/Log.h>
 
 void Elevate::CommandManager::ExecuteStack()

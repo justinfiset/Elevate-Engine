@@ -1,11 +1,19 @@
 #pragma once
 #include "GameObject.h"
 
+#include <format>
+
 #include <entt/entt.hpp>
 
-#include <ElevateEngine/Core/Component.h>
+#include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Scene/Scene.h>
 #include <ElevateEngine/Scene/ScenePrivate.h>
+
+namespace Elevate
+{
+	class Component;
+}
 
 #define EE_VALIDATE_COMPONENT_TYPE() EE_ASSERT((std::is_base_of<Component, T>::value), "EE_VALIDATE_COMPONENT_TYPE() %s : Type specifier must be a child of the Component class.", m_name);
 

@@ -1,7 +1,10 @@
 #pragma once
-#include "Core.h"
-#include <string>
+
 #include <format>
+#include <string>
+#include <utility>
+
+#include "Core.h"
 
 namespace Elevate {
 	class LogImpl;

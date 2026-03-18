@@ -1,9 +1,8 @@
-#include "eepch.h"
 #include "SoundEngine.h"
 
+#include <format>
 #include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Assert.h>
-#include <ElevateEngine/Audio/Components/AudioDistanceProbe.h>
+#include <ElevateEngine/Core/Core.h>
 
 Elevate::SoundEngine* Elevate::SoundEngine::Impl = nullptr;
 

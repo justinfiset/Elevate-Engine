@@ -1,15 +1,36 @@
 #pragma once
-
-#include "ComponentRegistry.h"
+#include <ElevateEngine/Core/ComponentRegistry.h>
 
 #include <entt/entt.hpp>
+#include <initializer_list>
+#include <string>
+#include <typeindex>
+#include <typeinfo>
+#include <variant>
 
-#include <ElevateEngine/Scene/ScenePrivate.h>
+#include <ElevateEngine/Core/Data.h>
+#include <ElevateEngine/Core/EEObject.h>
+#include <ElevateEngine/Core/GameObject.inl>
+#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
+
+namespace Elevate
+{
+    class Component;
+    class GameObject;
+
+    struct ColorTag;
+    struct DisplayNameTag;
+    struct EditorIconTag;
+    struct FlattenTag;
+    struct HideInInspectorTag;
+    struct ReadOnlyTag;
+    struct TooltipTag;
+}
 
 namespace Elevate
 {
     template<typename T>
-    static void ComponentRegistry::Register(const std::string& name, EECategory category, std::vector<FieldOption>& options) {
+    void ComponentRegistry::Register(const std::string& name, EECategory category, std::vector<FieldOption>& options) {
         std::type_index ti(typeid(T));
 
         bool visible = true;
@@ -51,7 +72,7 @@ namespace Elevate
     }
 
     template<typename Class, typename FieldType>
-    static void ComponentRegistry::AddProperty(FieldType Class::* member, const std::string& name, std::initializer_list<FieldOption> options)
+    void ComponentRegistry::AddProperty(FieldType Class::* member, const std::string& name, std::initializer_list<FieldOption> options)
     {
         constexpr EngineDataType type = DeduceEngineDataType<FieldType>();
         FieldMeta meta;
