@@ -318,7 +318,7 @@ Protected Attributes</h2></td></tr>
 <div class="line"><span class="lineno">   41</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> bitsPerPass = 8;</div>
 <div class="line"><span class="lineno">   42</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> bucketCount = 1 &lt;&lt; bitsPerPass;</div>
 <div class="line"><span class="lineno">   43</span>        <span class="keyword">const</span> uint32_t mask = bucketCount - 1;</div>
-<div class="line"><span class="lineno">   44</span>        <span class="keyword">const</span> uint16_t keySizeBits = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>[0].SortingKey) * 8;</div>
+<div class="line"><span class="lineno">   44</span>        <span class="keyword">const</span> uint16_t keySizeBits = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>[0].m_SortingKey) * 8;</div>
 <div class="line"><span class="lineno">   45</span> </div>
 <div class="line"><span class="lineno">   46</span>        <span class="keywordflow">for</span> (uint16_t shift = 0; shift &lt; keySizeBits; shift += bitsPerPass)</div>
 <div class="line"><span class="lineno">   47</span>        {</div>
@@ -326,7 +326,7 @@ Protected Attributes</h2></td></tr>
 <div class="line"><span class="lineno">   49</span> </div>
 <div class="line"><span class="lineno">   50</span>            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; n; i++)</div>
 <div class="line"><span class="lineno">   51</span>            {</div>
-<div class="line"><span class="lineno">   52</span>                count[(src[i].SortingKey &gt;&gt; shift) &amp; mask]++;</div>
+<div class="line"><span class="lineno">   52</span>                count[(src[i].m_SortingKey &gt;&gt; shift) &amp; mask]++;</div>
 <div class="line"><span class="lineno">   53</span>            }</div>
 <div class="line"><span class="lineno">   54</span> </div>
 <div class="line"><span class="lineno">   55</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; bucketCount; ++i)</div>
@@ -336,7 +336,7 @@ Protected Attributes</h2></td></tr>
 <div class="line"><span class="lineno">   59</span> </div>
 <div class="line"><span class="lineno">   60</span>            <span class="keywordflow">for</span> (<span class="keywordtype">long</span> <span class="keywordtype">long</span> i = (<span class="keywordtype">long</span> <span class="keywordtype">long</span>)<a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.size() - 1; i &gt;= 0; --i)</div>
 <div class="line"><span class="lineno">   61</span>            {</div>
-<div class="line"><span class="lineno">   62</span>                uint32_t bucket = (src[i].SortingKey &gt;&gt; shift) &amp; mask;</div>
+<div class="line"><span class="lineno">   62</span>                uint32_t bucket = (src[i].m_SortingKey &gt;&gt; shift) &amp; mask;</div>
 <div class="line"><span class="lineno">   63</span>                dst[--count[bucket]] = src[i];</div>
 <div class="line"><span class="lineno">   64</span>            }</div>
 <div class="line"><span class="lineno">   65</span> </div>
