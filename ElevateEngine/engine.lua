@@ -72,14 +72,6 @@ project "ElevateEngine"
 		"GLFW",
 		"ImGui",
 		"assimp",
-		
-		"AkSoundEngine",
-		"AkMemoryMgr",
-		"AkStreamMgr",
-		"AkSpatialAudio",
-		"CommunicationCentral", -- Not needed for release config
-		"AkVorbisDecoder",
-		"AkOpusDecoder",
 	}
 
 	filter "system:windows"
@@ -127,12 +119,6 @@ project "ElevateEngine"
 			"EE_EDITOR_BUILD"
 		}
 
-		links
-		{
-			"AkAutobahn",
-			"ws2_32"
-		}
-
 		runtime "Debug"
 		symbols "on"
 
@@ -141,12 +127,6 @@ project "ElevateEngine"
 		{
 			"EE_RELEASE",
 			"EE_EDITOR_BUILD"
-		}
-		
-		links
-		{
-			"AkAutobahn",
-			"ws2_32"
 		}
 
 		runtime "Release"
