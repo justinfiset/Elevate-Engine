@@ -52,14 +52,15 @@ function CommonProject.SetupProject(directory)
 	local infos = CommonProject.ParseProjectFile(directory)
 
 	project(infos.name)
-	location(directory.."/Build")
+	targetname(infos.name)
+	location(directory.."/Build/" .. infos.name)
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "on"
 	CommonProject.SetupProjectKind()
 
-	targetdir ("./Build/bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("./Build/bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name:gsub(' ', '-')}")
+	objdir ("%{wks.location}/Build/bin-int/" .. outputdir .. "/%{prj.name:gsub(' ', '-')}")
 	debugdir (directory)
 
 	files 
@@ -82,7 +83,7 @@ function CommonProject.SetupProject(directory)
 
 	links
     {
-        "ElevateEngine",
+        "ElevateEngine"
     }
 
 	defines
@@ -111,9 +112,19 @@ function CommonProject.SetupProject(directory)
 
 		links
 		{
-			"GL", "GLU",
-			"X11", "Xrandr", "Xinerama", "Xcursor", "Xi",
-			"dl", "pthread"
+			"ElevateEngine",
+			"ImGui",
+			"assimp",
+			"GLFW",
+			"GL",
+			"X11",
+			"Xrandr",
+			"Xinerama",
+			"Xcursor",
+			"Xi",
+			"dl",
+			"pthread",
+			"m"
 		}
 
 	filter "configurations:Editor Debug"

@@ -13,17 +13,17 @@ namespace Elevate
 
 	struct RenderCommand
 	{
-		uint64_t SortingKey = 0;
+		uint64_t m_SortingKey = 0;
 		// GEOMETRY
-		Material* MaterialInstance;
-		VertexArray* VertexArray;;
+		Material* m_MaterialInstance;
+		VertexArray* m_VertexArray;;
 		glm::mat4 Transform = glm::mat4(1.0f);
 		// GPU STATE
-		RenderState State;
+		RenderState m_State;
 
 		RenderCommand() = default;
 		RenderCommand(const std::shared_ptr<Material>& material, const std::shared_ptr<Elevate::VertexArray>& vertexArray, const glm::mat4& transform, const RenderState& state)
-			: MaterialInstance(material.get()), VertexArray(vertexArray.get()), Transform(transform), State(state), SortingKey(GetSortKey()) { }
+			: m_MaterialInstance(material.get()), m_VertexArray(vertexArray.get()), Transform(transform), m_State(state), m_SortingKey(GetSortKey()) { }
 
 	public:
 		uint64_t GetSortKey() const;

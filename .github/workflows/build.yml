@@ -1,0 +1,28 @@
+name: Build Elevate Engine
+
+on: [push, pull_request]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1-mesa-dev libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev
+
+      - name: Cleanup Project
+        run: |
+          rm -rf Build/ bin/ bin-int/
+
+      - name: Generate Projects (Premake)
+        run: |
+          chmod +x vendor/premake/premake5-linux
+          ./vendor/premake/premake5-linux gmake2
+
+      - name: Compile
+        run: make config=editor_debug -j$(nproc)

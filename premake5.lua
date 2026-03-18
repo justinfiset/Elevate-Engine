@@ -4,7 +4,7 @@ include "scripts/premake/Logs.lua"
 include "scripts/premake/Wwise.lua"
 include "scripts/premake/CommonProject.lua"
 
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+outputdir = "%{cfg.buildcfg:gsub(' ', '-')}-%{cfg.system}-%{cfg.architecture}"
 
 workspace "ElevateEngine"
 	architecture "x64"

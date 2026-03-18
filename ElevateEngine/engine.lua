@@ -5,8 +5,8 @@ project "ElevateEngine"
 	cppdialect "C++20"
 	staticruntime "on"
 
-	targetdir ("../Build/bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("../Build/bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/Build/bin-int/" .. outputdir .. "/%{prj.name}")
 
 	flags { "NoPCH" }
 
@@ -42,7 +42,6 @@ project "ElevateEngine"
 	defines 
 	{
 		"EE_ENGINE_BUILD",
-		"EE_USES_WWISE", -- We still include the Wwise synmbolds in the engine even if the user doesn't use Wwise, as it doesn't cause any issues and allows users to easily add Wwise support if they want to.
 		"_CRT_SECURE_NO_WARNINGS",
 		"IMGUI_DEFINE_MATH_OPERATORS",
 	}
@@ -116,10 +115,9 @@ project "ElevateEngine"
 		links
 		{
 			"GL",
-			"GLU",
 			"X11",
-			"dl",
 			"pthread",
+			"dl",
 		}
 
 	filter "configurations:Editor Debug"

@@ -6,7 +6,7 @@ project "ImGui"
 	targetdir ("imgui/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("imgui/bin-int/" .. outputdir .. "/%{prj.name}")
 	
-	includedirs { "ImGui/", "glad/include", "glfw/include/" }
+	includedirs { "ImGui/", "Glad/include", "GLFW/include/" }
 
 	files
 	{
