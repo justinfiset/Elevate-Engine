@@ -42,7 +42,6 @@ project "ElevateEngine"
 	defines 
 	{
 		"EE_ENGINE_BUILD",
-		"EE_USES_WWISE", -- We still include the Wwise synmbolds in the engine even if the user doesn't use Wwise, as it doesn't cause any issues and allows users to easily add Wwise support if they want to.
 		"_CRT_SECURE_NO_WARNINGS",
 		"IMGUI_DEFINE_MATH_OPERATORS",
 	}

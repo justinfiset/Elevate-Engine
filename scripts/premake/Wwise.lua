@@ -104,6 +104,9 @@ function Wwise.SetupEngine()
 
     links { "WwiseProjectDatabase" }
 
+    -- If Wwise is installed, we compile the engine using the Wwise SDK and SoundEngine
+    defines { "EE_USES_WWISE" }
+
     local wwiseSDKSoundEngineSamplesSrc = path.getabsolute(wwiseSDK.."/samples/SoundEngine")
 	local wwiseSDKSoundEngineSampleDest = path.getabsolute("src/ElevateEngine/Audio/Ak")
 
