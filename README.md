@@ -63,5 +63,9 @@ To change the configuration later, run the `edit` script:
 
 Once the configuration is set, the script will automatically run `premake5` with the selected option.
 
-# Build Status
-[![Ubuntu Build](https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml/badge.svg)](https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml)
+### Build Status
+
+| Platform | OS | Compiler | Status |
+| :--- | :--- | :--- | :--- |
+| ![Windows](https://img.shields.io/badge/Windows-0078D4?style=flat&logo=windows&logoColor=white) | `windows-latest` | MSVC (vs2022) | [![Windows Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-windows&label=)](https://github.com/justinfiset/Elevate-Engine/actions) |
+| ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black) | `ubuntu-latest` | GCC (gmake2) | [![Linux Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-linux&label=)](https://github.com/justinfiset/Elevate-Engine/actions) |
