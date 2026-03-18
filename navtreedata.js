@@ -34,6 +34,7 @@ var NAVTREE =
         [ "Run the Build", "index.html#autotoc_md6", null ]
       ] ]
     ] ],
+    [ "Build Status", "index.html#autotoc_md7", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -83,9 +84,9 @@ var NAVTREEINDEX =
 "classElevate_1_1OpenGLVertexBuffer.html#a55460800558590d5a4185450c3dcb4bf",
 "classElevate_1_1Shader.html#ae7fcc1e2ff71c3d6c82d91375661d250",
 "classElevate_1_1WindowsWindow.html#a5d05a269ff9481a87974459517895e49",
-"namespaceElevate.html#a2694563ec36a64f9cbfdcc020f2d8da9",
-"structElevate_1_1Editor_1_1FileMetadata.html",
-"structElevate_1_1WindowProps.html#a8d642cf689dff22104e9e695ecca4e50"
+"namespaceElevate.html#a225575101fdde82b46ebe7da4c37bae9a899b2fc1d31b703dcb0092903fe04992",
+"structElevate_1_1Editor_1_1FileItem.html#af874e4cc981d09457c731c95f0f3fc60",
+"structElevate_1_1WindowProps.html#a8879f707c416e3e89606fe340cad1ece"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
