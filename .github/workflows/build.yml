@@ -39,4 +39,4 @@ jobs:
         run: ./vendor/premake/premake5.exe vs2022
 
       - name: Compile
-        run: msbuild Elevate-Engine.sln /p:Configuration=Editor_Debug
+        run: msbuild ElevateEngine.sln /p:Configuration=Editor_Debug
