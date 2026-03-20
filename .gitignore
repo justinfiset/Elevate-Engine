@@ -109,3 +109,4 @@ ipch/
 *.app
 
 Makefile
+compile_commands.json
