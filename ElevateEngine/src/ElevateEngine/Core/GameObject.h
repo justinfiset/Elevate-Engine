@@ -35,7 +35,7 @@ namespace Elevate
 		T& AddComponent(Args&&... args);
 
 		template <typename T>
-		T* GetComponent();
+		T* GetComponent(bool onlyReturnActive = false);
 
 		std::vector<Component*> GetComponents();
 

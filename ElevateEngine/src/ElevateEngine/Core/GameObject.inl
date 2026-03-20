@@ -40,11 +40,23 @@ namespace Elevate
 	}
 
 	template <typename T>
-	T* GameObject::GetComponent()
+	T* GameObject::GetComponent(bool onlyReturnActive)
 	{
 		EE_VALIDATE_COMPONENT_TYPE();
 
-		return GetRegistryMap()[m_scene->m_registryId]->try_get<T>(entt::entity(m_entityId));
+		T* component = GetRegistryMap()[m_scene->m_registryId]->try_get<T>(entt::entity(m_entityId));
+
+		if (!component)
+		{
+			return nullptr;
+		}
+
+		if (onlyReturnActive && !component->IsActive())
+		{
+			return nullptr;
+		}
+
+		return component;
 	}
 
 	template <typename T>
