@@ -7,7 +7,7 @@ var classElevate_1_1GameObject =
     [ "Destroy", "classElevate_1_1GameObject.html#ac571bb9ded8d383e063a050682570166", null ],
     [ "GenGlobalMatrix", "classElevate_1_1GameObject.html#a91640cf9c6201af6148c8ff71d82c674", null ],
     [ "GetChilds", "classElevate_1_1GameObject.html#af37d9dac3f23b89048e39fcb8a826445", null ],
-    [ "GetComponent", "classElevate_1_1GameObject.html#a03cf43b4bc90b614342a50a71d8bc736", null ],
+    [ "GetComponent", "classElevate_1_1GameObject.html#a5e170978bd9e1a49141b642112e7c43a", null ],
     [ "GetComponents", "classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435", null ],
     [ "GetEntityId", "classElevate_1_1GameObject.html#a1227c89e98362999356e35fbc9837be5", null ],
     [ "GetGlobalPosition", "classElevate_1_1GameObject.html#a9df2b494b005355108e56ef86b7d3646", null ],

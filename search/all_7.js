@@ -41,7 +41,7 @@ var searchData=
   ['getcleanedname_38',['GetCleanedName',['../classElevate_1_1ComponentRegistry.html#a91f8c8208dc8202f5c37ba1f96230f26',1,'Elevate::ComponentRegistry']]],
   ['getclientlogger_39',['GetClientLogger',['../classElevate_1_1Log.html#ae76b9dac6ef1d645e1005fb8bf9ca00a',1,'Elevate::Log']]],
   ['getcommandcount_40',['GetCommandCount',['../classElevate_1_1RenderBucket.html#a301ab2c53063fc517b593919520d2000',1,'Elevate::RenderBucket']]],
-  ['getcomponent_41',['GetComponent',['../classElevate_1_1GameObject.html#a03cf43b4bc90b614342a50a71d8bc736',1,'Elevate::GameObject']]],
+  ['getcomponent_41',['GetComponent',['../classElevate_1_1GameObject.html#a5e170978bd9e1a49141b642112e7c43a',1,'Elevate::GameObject']]],
   ['getcomponents_42',['GetComponents',['../classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435',1,'Elevate::GameObject']]],
   ['getcontainertype_43',['GetContainerType',['../structWwiseItem.html#a0463e4820aa8306a04662c98c2d04df7',1,'WwiseItem']]],
   ['getcorelogger_44',['GetCoreLogger',['../classElevate_1_1Log.html#a1f193cddb7e05aa7c44434963242ca70',1,'Elevate::Log']]],
