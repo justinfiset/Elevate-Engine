@@ -7,7 +7,7 @@ namespace Elevate
 	class InputBuffer
 	{
 	private:
-		std::bitset<348 * 2> keyStates; // 0 to 3 -> released, down, pressed, up (2 bits per key)
+		std::bitset<512 * 2> keyStates; // 0 to 3 -> released, down, pressed, up (2 bits per key)
 		std::bitset<8 * 2> mouseButtonStates;
 
 	public:
