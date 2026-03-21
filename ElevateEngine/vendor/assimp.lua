@@ -126,11 +126,15 @@ project 'assimp'
 		'ASSIMP_BUILD_STATIC',
 	}
 
-	filter "configurations:Debug or configurations:Editor Debug"
+	filter "system:emscripten"
+		defines { "HAVE_UNISTD_H" }
+	filter {}
+	
+	filter "configurations:Debug or configurations:Editor_Debug"
 		runtime "Debug"
 		symbols "on"
 
-	filter "configurations:Release or configurations:Editor Release or configurations:Dist"
+	filter "configurations:Release or configurations:Editor_Release or configurations:Dist"
 		runtime "Release"
 		optimize "on"
 

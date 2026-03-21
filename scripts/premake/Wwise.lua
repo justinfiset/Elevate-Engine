@@ -47,13 +47,13 @@ function Wwise.SetupWorkspace()
     project "WwiseProjectDatabase"
     kind "StaticLib"
     language "C++"
-    cppdialect "C++20"
+    cppdialect "C++20"      
     staticruntime "on"
 
     configmap {
-        ["Editor Debug"] = "Debug(StaticCRT)",
-        ["Editor Release"] = "Release(StaticCRT)",
-        ["Dist"] = "Release(StaticCRT)"
+        ["Editor_Debug"] = "DebugStaticCRT",
+        ["Editor_Release"] = "ReleaseStaticCRT)",
+        ["Dist"] = "ReleaseStaticCRT"
     }
 
     local basePath = wwiseSDK .. "/samples/WwiseProjectDatabase"
@@ -126,9 +126,9 @@ function Wwise.SetupEngine()
 
     Wwise.SetupLibDirs()
 
-    filter "configurations:Editor Debug"
+    filter "configurations:Editor_Debug"
     links {"AkAutobahn", "ws2_32"}
-    filter "configurations:Editor Release"
+    filter "configurations:Editor_Release"
     links {"AkAutobahn", "ws2_32"}
     filter {}
 

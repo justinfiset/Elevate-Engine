@@ -51,9 +51,10 @@ function CommonProject.SetupProject(directory)
 
 	local infos = CommonProject.ParseProjectFile(directory)
 
-	project(infos.name)
-	targetname(infos.name)
-	location(directory.."/Build/" .. infos.name)
+	local projectSafeName = infos.name:gsub(" ", "-")
+	project(projectSafeName)
+	targetname(projectSafeName)
+	location(directory.."/Build/" .. projectSafeName)
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "on"

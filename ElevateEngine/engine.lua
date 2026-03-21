@@ -93,7 +93,13 @@ project "ElevateEngine"
 			"opengl32.lib",
 		}
 
-	-- All of the debug configs on Windows
+	filter "system:emscripten"
+		systemversion "latest"
+
+		defines
+		{
+			"EE_PLATFORM_WEB",
+		}
 
 	filter "system:linux"
 		systemversion "latest"
