@@ -4,7 +4,7 @@
 #include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
-#include <glad/glad.h>
+#include <ElevateEngine/Renderer/GraphicsAPI.h>
 
 // TODO : ADD GLCHECK TO EACH LINES
 
@@ -68,7 +68,7 @@ void Elevate::OpenGLFrameBuffer::Rescale(uint32_t width, uint32_t height)
 
 	m_texture->SetData(nullptr, meta);
 
-	// Attacher la texture redimensionnée au framebuffer
+	// Attacher la texture redimensionnï¿½e au framebuffer
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_textureId, 0);
 
 	// Redimensionner le renderbuffer pour le depth/stencil

@@ -47,6 +47,7 @@ namespace Elevate {
 
 		static void Start(int argc, char** argv);
 		void Init();
+		void EngineFrame();
 		void Run();
 		void Exit();
 

@@ -6,25 +6,30 @@
 	#define EE_NO_SOUNDENGINE 0 // todo change back once managed by the lua
 #endif
 
-#if defined(EE_PLATFORM_WINDOWS) || defined(EE_PLATFORM_LINUX)
-	#ifdef EE_DIST // Hide the console if in dist
-		#ifdef _WIN32
-			#pragma comment(linker, "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
-		#endif
-	#endif
+#define EE_API
 
-	#ifdef EE_DYNAMIC_LINK
-		#ifdef EE_BUILD_DLL
-			#define EE_API __declspec(dllexport)
-		#else 
-			#define EE_API __declspec(dllimport)
-		#endif // EE_BUILD_DLL
-	#else
-		#define EE_API // does absolutly nothing if we are doing static linking and compile
-	#endif
+#if defined(EE_PLATFORM_WINDOWS) || defined(EE_PLATFORM_LINUX) || defined(EE_PLATFORM_WEB)
+    #ifdef EE_DIST
+        #ifdef _WIN32
+            #pragma comment(linker, "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
+        #endif
+    #endif
 #else
-	#error ElevateEngine is currently only supported on Windows.
-#endif // EE_PLATFORM_WINDOWS or EE_PLATFORM_LINUX
+    #error ElevateEngine is currently only supported on Windows, Linux and Web.
+#endif
+
+#ifdef EE_PLATFORM_WEB
+    #define EE_SHADER_VERSION_STRING "#version 300"
+    #define EE_SHADER_PROFILE_STRING "es"
+    #define EE_SHADER_PRECISION_STRING "precision highp float;\n"
+#else
+    #define EE_SHADER_VERSION_STRING "#version 410"
+    #define EE_SHADER_PROFILE_STRING "core"
+    #define EE_SHADER_PRECISION_STRING "" 
+#endif
+
+#define EE_SHADER_VERSION_HEADER EE_SHADER_VERSION_STRING " " EE_SHADER_PROFILE_STRING
+#define EE_SHADER_HEADER EE_SHADER_VERSION_HEADER "\n" EE_SHADER_PRECISION_STRING
 
 #define BIT(x) (1 << x)
 

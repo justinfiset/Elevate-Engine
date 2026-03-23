@@ -110,3 +110,9 @@ ipch/
 
 Makefile
 compile_commands.json
+
+*.ninja
+.ninja_deps
+*.ninja
+.ninja_log
+*.ninja

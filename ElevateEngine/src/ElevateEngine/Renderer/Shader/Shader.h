@@ -132,7 +132,6 @@ namespace Elevate
 	public:
 		static constexpr std::string_view GetVertexShader() {
 			return R"(
-#version 330 core
 layout(location = 0) in vec3 a_Position;
 
 uniform mat4 viewProj;
@@ -147,7 +146,6 @@ void main()
 
 		static constexpr std::string_view GetFragmentShader() {
 			return R"(
-#version 330 core
 layout(location = 0) out vec4 FragColor;
 
 void main()
@@ -159,7 +157,6 @@ void main()
 
 		static constexpr std::string_view GetErrorShader() {
 			return R"(
-#version 330 core
 layout(location = 0) out vec4 FragColor;
 uniform float time;
 

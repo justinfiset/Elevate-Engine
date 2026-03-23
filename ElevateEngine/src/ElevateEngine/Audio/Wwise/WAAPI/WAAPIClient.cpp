@@ -2,17 +2,20 @@
 
 #include <ElevateEngine/Core/Log.h>
 
-#ifdef EE_USES_WWISE
-#include <AK/WwiseAuthoringAPI/AkAutobahn/Client.h>
-#include <AK/WwiseAuthoringAPI/AkAutobahn/Logger.h>
-#include <AK/WwiseAuthoringAPI/waapi.h>
+#if defined(EE_USES_WWISE) && !defined(EE_PLATFORM_WEB)
+	#include <AK/WwiseAuthoringAPI/AkAutobahn/Client.h>
+	#include <AK/WwiseAuthoringAPI/AkAutobahn/Logger.h>
+	#include <AK/WwiseAuthoringAPI/waapi.h>
+	#define EE_WAAPI_AVAILABLE 1
+#else
+    #define EE_WAAPI_AVAILABLE 0
 #endif
 
 namespace Elevate
 {
 	bool WAAPIClient::Connect()
 	{
-#ifdef EE_USES_WWISE
+#if EE_WAAPI_AVAILABLE
 		m_isConnected = m_client->Connect(m_ip.c_str(), m_port);
 		if (!m_isConnected)
 		{
@@ -81,7 +84,7 @@ namespace Elevate
 
 	void WAAPIClient::Disconnect()
 	{
-#ifdef EE_USES_WWISE
+#if EE_WAAPI_AVAILABLE
 		if (m_client)
 		{
 			m_client->Disconnect();
@@ -91,7 +94,7 @@ namespace Elevate
 
 	WAAPIClient::WAAPIClient()
 	{
-#ifdef EE_USES_WWISE
+#if EE_WAAPI_AVAILABLE
 		m_client = new AK::WwiseAuthoringAPI::Client();
 
 		AK::WwiseAuthoringAPI::Logger::Get()->SetLoggerFunction(LoggerCallback);
@@ -104,20 +107,22 @@ namespace Elevate
 
 	WAAPIClient::~WAAPIClient()
 	{
-#ifdef EE_USES_WWISE
+#if EE_WAAPI_AVAILABLE
 		delete m_client;
 #endif
 	}
 
 	void WAAPIClient::LoggerCallback(const char* logMessage)
 	{
+#if EE_WAAPI_AVAILABLE
 		// todo use a custom logger here to know who prints what
 		EE_CORE_TRACE("{}", logMessage);
+#endif
 	}
 
 	bool WAAPIClient::IsConnected()
 	{
-#ifdef EE_USES_WWISE
+#if EE_WAAPI_AVAILABLE
 		return Get().m_isConnected;
 #else
 		return false;

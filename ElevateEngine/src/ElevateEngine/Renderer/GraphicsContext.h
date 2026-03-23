@@ -16,7 +16,7 @@ namespace Elevate {
 
 		virtual void Init()
 		{
-			GraphicsContextState::ACTIVE;
+			s_context->m_state = GraphicsContextState::ACTIVE;
 		}
 
 		virtual void SwapBuffers() = 0;

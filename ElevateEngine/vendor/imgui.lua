@@ -31,6 +31,10 @@ project "ImGui"
 			"_IMGUI_X11"
 		}
 
+	filter "system:emscripten"
+		architecture "wasm32"
+		systemversion "latest"
+
 	filter "system:windows"
 		systemversion "latest"
 		staticruntime "On"

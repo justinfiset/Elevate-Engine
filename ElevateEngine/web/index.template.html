@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>${PROJECT_NAME}</title>
+    <style>
+        body, html { margin: 0; padding: 0; background: #000; overflow: hidden; height: 100%; width: 100%; }
+        canvas { display: block; width: 100vw; height: 100vh; border: none; outline: none; }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1"></canvas>
+    
+    <script type='text/javascript'>
+        var Module = {
+            canvas: document.getElementById('canvas'),
+            print: (text) => console.log("[Elevate] " + text),
+            printErr: (text) => console.error("[Elevate Error] " + text)
+        };
+    </script>
+    <script async src="${PROJECT_NAME}.js"></script>
+</body>
+</html>

@@ -4,7 +4,7 @@
 #include <thread>
 
 #include <stb/stb_image.h>
-#include <glad/glad.h>
+#include <ElevateEngine/Renderer/GraphicsAPI.h>
 
 #include <ElevateEngine/Core/Log.h>
 

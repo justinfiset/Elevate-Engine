@@ -18,7 +18,9 @@ rule rc_emcc
   description = Compiling resource $in
 
 rule ar_emcc
-  command = emar -rcs $out $in
+  command = emar.bat -rcs $out @$out.rsp
+  rspfile = $out.rsp
+  rspfile_content = $in
   description = Archiving static library $out
 
 rule pch_emcc
@@ -63,7 +65,9 @@ rule rc_gcc
   description = Compiling resource $in
 
 rule ar_gcc
-  command = ar -rcs $out $in
+  command = emar.bat -rcs $out @$out.rsp
+  rspfile = $out.rsp
+  rspfile_content = $in
   description = Archiving static library $out
 
 rule pch_gcc
@@ -77,13 +81,13 @@ rule pch_gcc
 
 
 rule cc_clang
-  command = clang $cflags -c $in -o $out
+  command = cmd /c emcc.bat $cflags -c $in -o $out
   deps = gcc
   depfile = $out.d
   description = Compiling C source $in
 
 rule cxx_clang
-  command = clang++ $cxxflags -c $in -o $out
+  command = cmd /c em++.bat $cxxflags -c $in -o $out
   deps = gcc
   depfile = $out.d
   description = Compiling C++ source $in
@@ -93,11 +97,13 @@ rule rc_clang
   description = Compiling resource $in
 
 rule ar_clang
-  command = ar -rcs $out $in
+  command = emar.bat -rcs $out @$out.rsp
+  rspfile = $out.rsp
+  rspfile_content = $in
   description = Archiving static library $out
 
 rule pch_clang
-  command = clang -x c-header $cflags -o $out -MD -MF $out.d -c $in
+  command = cmd /c emcc.bat -x c-header $cflags -o $out -MD -MF $out.d -c $in
   description = Generating precompiled header $in
   depfile = $out.d
 
@@ -218,8 +224,9 @@ build ElevateEngine/vendor/bin/Editor_Debug-linux-x86_64/GLFW/libGLFW.a: ar_gcc 
 
 # Configuration: GLFW_Editor_Debug_Web
 
-cflags_GLFW_Editor_Debug_Web = -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include
-cxxflags_GLFW_Editor_Debug_Web = -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include
+cflags_GLFW_Editor_Debug_Web = -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include -pthread -matomics -mbulk-memory -Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma
+cxxflags_GLFW_Editor_Debug_Web = -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include -pthread -matomics -mbulk-memory -Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma
+ldflags_GLFW_Editor_Debug_Web = -pthread -matomics -mbulk-memory -s STACK_SIZE=5MB -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=16 -s USE_GLFW=3 -s FULL_ES3=1 -s AUDIO_WORKLET=1 -s WASM_WORKERS=1 -s ALLOW_MEMORY_GROWTH=1 -s INITIAL_MEMORY=512MB -s FORCE_FILESYSTEM=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s EXPORTED_RUNTIME_METHODS=['FS','wasmTable'] -qext
 objdir_GLFW_Editor_Debug_Web = bin-int/Editor_Debug-emscripten-wasm32/GLFW
 targetdir_GLFW_Editor_Debug_Web = bin/Editor_Debug-emscripten-wasm32/GLFW
 target_GLFW_Editor_Debug_Web = libGLFW.a
@@ -360,8 +367,9 @@ build ElevateEngine/vendor/bin/Editor_Release-linux-x86_64/GLFW/libGLFW.a: ar_gc
 
 # Configuration: GLFW_Editor_Release_Web
 
-cflags_GLFW_Editor_Release_Web = -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include
-cxxflags_GLFW_Editor_Release_Web = -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include
+cflags_GLFW_Editor_Release_Web = -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include -pthread -matomics -mbulk-memory -Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma
+cxxflags_GLFW_Editor_Release_Web = -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include -pthread -matomics -mbulk-memory -Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma
+ldflags_GLFW_Editor_Release_Web = -pthread -matomics -mbulk-memory -s STACK_SIZE=5MB -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=16 -s USE_GLFW=3 -s FULL_ES3=1 -s AUDIO_WORKLET=1 -s WASM_WORKERS=1 -s ALLOW_MEMORY_GROWTH=1 -s INITIAL_MEMORY=512MB -s FORCE_FILESYSTEM=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s EXPORTED_RUNTIME_METHODS=['FS','wasmTable'] -qext
 objdir_GLFW_Editor_Release_Web = bin-int/Editor_Release-emscripten-wasm32/GLFW
 targetdir_GLFW_Editor_Release_Web = bin/Editor_Release-emscripten-wasm32/GLFW
 target_GLFW_Editor_Release_Web = libGLFW.a
@@ -502,8 +510,9 @@ build ElevateEngine/vendor/bin/Debug-linux-x86_64/GLFW/libGLFW.a: ar_gcc Elevate
 
 # Configuration: GLFW_Debug_Web
 
-cflags_GLFW_Debug_Web = -g -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include
-cxxflags_GLFW_Debug_Web = -g -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include
+cflags_GLFW_Debug_Web = -g -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include -pthread -matomics -mbulk-memory -Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma
+cxxflags_GLFW_Debug_Web = -g -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include -pthread -matomics -mbulk-memory -Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma
+ldflags_GLFW_Debug_Web = -pthread -matomics -mbulk-memory -s STACK_SIZE=5MB -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=16 -s USE_GLFW=3 -s FULL_ES3=1 -s AUDIO_WORKLET=1 -s WASM_WORKERS=1 -s ALLOW_MEMORY_GROWTH=1 -s INITIAL_MEMORY=512MB -s FORCE_FILESYSTEM=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s EXPORTED_RUNTIME_METHODS=['FS','wasmTable'] -qext
 objdir_GLFW_Debug_Web = bin-int/Debug-emscripten-wasm32/GLFW
 targetdir_GLFW_Debug_Web = bin/Debug-emscripten-wasm32/GLFW
 target_GLFW_Debug_Web = libGLFW.a
@@ -644,8 +653,9 @@ build ElevateEngine/vendor/bin/Release-linux-x86_64/GLFW/libGLFW.a: ar_gcc Eleva
 
 # Configuration: GLFW_Release_Web
 
-cflags_GLFW_Release_Web = -O2 -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include
-cxxflags_GLFW_Release_Web = -O2 -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include
+cflags_GLFW_Release_Web = -O2 -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include -pthread -matomics -mbulk-memory -Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma
+cxxflags_GLFW_Release_Web = -O2 -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include -pthread -matomics -mbulk-memory -Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma
+ldflags_GLFW_Release_Web = -pthread -matomics -mbulk-memory -s STACK_SIZE=5MB -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=16 -s USE_GLFW=3 -s FULL_ES3=1 -s AUDIO_WORKLET=1 -s WASM_WORKERS=1 -s ALLOW_MEMORY_GROWTH=1 -s INITIAL_MEMORY=512MB -s FORCE_FILESYSTEM=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s EXPORTED_RUNTIME_METHODS=['FS','wasmTable'] -qext
 objdir_GLFW_Release_Web = bin-int/Release-emscripten-wasm32/GLFW
 targetdir_GLFW_Release_Web = bin/Release-emscripten-wasm32/GLFW
 target_GLFW_Release_Web = libGLFW.a
@@ -786,8 +796,9 @@ build ElevateEngine/vendor/bin/Dist-linux-x86_64/GLFW/libGLFW.a: ar_gcc ElevateE
 
 # Configuration: GLFW_Dist_Web
 
-cflags_GLFW_Dist_Web = -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include
-cxxflags_GLFW_Dist_Web = -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include
+cflags_GLFW_Dist_Web = -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include -pthread -matomics -mbulk-memory -Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma
+cxxflags_GLFW_Dist_Web = -D"TESTING_WWISE_PROJECT_DATABASE" -D"EE_USES_WWISEPROJECTDATABASE" -IElevateEngine/vendor/_config_headers -IElevateEngine/vendor/_config_headers/assimp -IElevateEngine/vendor/assimp/include -pthread -matomics -mbulk-memory -Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma
+ldflags_GLFW_Dist_Web = -pthread -matomics -mbulk-memory -s STACK_SIZE=5MB -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=16 -s USE_GLFW=3 -s FULL_ES3=1 -s AUDIO_WORKLET=1 -s WASM_WORKERS=1 -s ALLOW_MEMORY_GROWTH=1 -s INITIAL_MEMORY=512MB -s FORCE_FILESYSTEM=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s EXPORTED_RUNTIME_METHODS=['FS','wasmTable'] -qext
 objdir_GLFW_Dist_Web = bin-int/Dist-emscripten-wasm32/GLFW
 targetdir_GLFW_Dist_Web = bin/Dist-emscripten-wasm32/GLFW
 target_GLFW_Dist_Web = libGLFW.a

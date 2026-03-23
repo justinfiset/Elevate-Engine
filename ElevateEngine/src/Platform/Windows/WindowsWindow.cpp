@@ -184,7 +184,7 @@ namespace Elevate {
 			glfwSwapInterval(0);
 
 		m_Data.VSync = enabled;
-	}
+	}	
 
 	bool WindowsWindow::IsVSync() const
 	{

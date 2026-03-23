@@ -2,7 +2,7 @@
 
 #include "OpenGLVertexArray.h"
 
-#include <glad/glad.h>
+#include <ElevateEngine/Renderer/GraphicsAPI.h>
 
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/Assert.h>
@@ -12,7 +12,11 @@
 
 Elevate::OpenGLVertexArray::OpenGLVertexArray()
 {
+#ifdef EE_SUPPORTS_DSA
 	GLCheck(glCreateVertexArrays(1, &m_RendererID));
+#else
+	GLCheck(glGenVertexArrays(1, &m_RendererID));
+#endif
 }
 
 Elevate::OpenGLVertexArray::~OpenGLVertexArray()

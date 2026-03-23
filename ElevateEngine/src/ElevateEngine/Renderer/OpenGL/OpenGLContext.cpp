@@ -1,7 +1,7 @@
 #include "eepch.h"
 #include "OpenGLContext.h"
 
-#include <glad/glad.h>
+#include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <GLFW/glfw3.h>
 
 #include "ElevateEngine/Core/Assert.h"
@@ -15,24 +15,30 @@ Elevate::OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 
 void Elevate::OpenGLContext::Init()
 {
-	glfwMakeContextCurrent(m_WindowHandle);
-	int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-	EE_CORE_ASSERT(status, "Failed to initialize Glad.");
+    glfwMakeContextCurrent(m_WindowHandle);
 
-	int profile = 0;
-	glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &profile);
+#ifndef EE_PLATFORM_WEB
+    int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    EE_CORE_ASSERT(status, "Failed to initialize Glad.");
 
-	// Hides faces that are not in the right direction
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
+    int profile = 0;
+    glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &profile);
+#endif
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
 
-	EE_CORE_TRACE("OpenGL version : {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
-	EE_CORE_INFO("OpenGL Renderer Initialized: {}, {}",
-		reinterpret_cast<const char*>(glGetString(GL_VENDOR)),
-		reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    const char* version = reinterpret_cast<const char*>(glGetString(GL_VERSION));
+    const char* vendor = reinterpret_cast<const char*>(glGetString(GL_VENDOR));
+    const char* renderer = reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+
+    EE_CORE_TRACE("OpenGL version : {}", version ? version : "Unknown");
+    EE_CORE_INFO("OpenGL Renderer Initialized: {}, {}", 
+        vendor ? vendor : "Unknown", 
+        renderer ? renderer : "Unknown");
 }
 	
 void Elevate::OpenGLContext::SwapBuffers()

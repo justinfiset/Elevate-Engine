@@ -34,7 +34,13 @@ void Elevate::DebugRenderer::InternalRender()
 
 void Elevate::DebugRenderer::InitLineRender()
 {
-	m_lineShader = ShaderManager::LoadShader("Debug", "editor/shaders/debug.vert", "editor/shaders/debug.frag");
+	m_lineShader = ShaderManager::LoadShader(
+		"Debug",
+		"Editor/Shaders/debug.vert",
+		"Editor/Shaders/debug.frag",
+		EE_SHADER_HEADER,
+		EE_SHADER_HEADER
+	);
 
 	m_lineBuffer.reset(VertexBuffer::Create(m_debugLineArray.data(), (uint32_t)m_debugLineArray.size() * sizeof(DebugVertex)));
 	m_lineBuffer->SetLayout({

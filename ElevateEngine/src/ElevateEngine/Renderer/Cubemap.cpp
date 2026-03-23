@@ -3,7 +3,7 @@
 #include "Cubemap.h"
 #include "ElevateEngine/Renderer/Renderer.h"
 
-#include <glad/glad.h>
+#include <ElevateEngine/Renderer/GraphicsAPI.h>
 
 #include <stb/stb_image.h>
 
@@ -60,10 +60,10 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE));
 
 	// Shaders
-	std::string vert =
+	std::string vert = std::string(EE_SHADER_HEADER) +
 #include "ElevateEngine/Renderer/Cubemap/skybox.vert"
 		;
-	std::string frag =
+	std::string frag = std::string(EE_SHADER_HEADER) +
 #include "ElevateEngine/Renderer/Cubemap/skybox.frag"
 		;
 	m_cubemapShader = Elevate::Shader::Create(vert, frag);

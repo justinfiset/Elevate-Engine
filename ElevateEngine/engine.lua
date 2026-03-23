@@ -35,7 +35,6 @@ project "ElevateEngine"
 		"src/**.frag",
 
 		"vendor/ImGuizmo/ImGuizmo.cpp",
-		"vendor/Glad/src/glad.c",
 		"vendor/tinyfiledialogs/tinyfiledialogs.cpp",
 	}
 
@@ -69,10 +68,15 @@ project "ElevateEngine"
 
 	links
 	{
-		"GLFW",
 		"ImGui",
 		"assimp",
 	}
+
+	filter "not system:emscripten"
+		links { "GLFW" }
+        files { "vendor/Glad/src/glad.c" }
+    filter {}
+
 
 	filter "system:windows"
 		systemversion "latest"
@@ -95,12 +99,8 @@ project "ElevateEngine"
 
 	filter "system:emscripten"
 		systemversion "latest"
-
-		defines
-		{
-			"EE_PLATFORM_WEB",
-		}
-
+		defines { "EE_PLATFORM_WEB" }
+		
 	filter "system:linux"
 		systemversion "latest"
 
@@ -118,7 +118,7 @@ project "ElevateEngine"
 			"dl",
 		}
 
-	filter "configurations:Editor Debug"
+	filter "configurations:Editor_Debug"
 		defines
 		{
 			"EE_DEBUG",
@@ -128,7 +128,7 @@ project "ElevateEngine"
 		runtime "Debug"
 		symbols "on"
 
-	 filter "configurations:Editor Release"
+	 filter "configurations:Editor_Release"
 		defines 
 		{
 			"EE_RELEASE",

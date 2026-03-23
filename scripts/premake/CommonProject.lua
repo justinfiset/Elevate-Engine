@@ -60,7 +60,8 @@ function CommonProject.SetupProject(directory)
 	staticruntime "on"
 	CommonProject.SetupProjectKind()
 
-	targetdir ("%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name:gsub(' ', '-')}")
+	local targetDirLocation = "%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name:gsub(' ', '-')}"
+	targetdir (targetDirLocation)
 	objdir ("%{wks.location}/Build/bin-int/" .. outputdir .. "/%{prj.name:gsub(' ', '-')}")
 	debugdir (directory)
 
@@ -79,7 +80,8 @@ function CommonProject.SetupProject(directory)
 		directory.."/../../ElevateEngine/vendor/entt/include",
 		directory.."/../../ElevateEngine/vendor/ImGui/",
 		directory.."/../../ElevateEngine/vendor/glm/",
-		directory.."/../../ElevateEngine/src"
+		directory.."/../../ElevateEngine/vendor/spdlog/include",
+		directory.."/../../ElevateEngine/src",
 	}
 
 	links
@@ -106,7 +108,7 @@ function CommonProject.SetupProject(directory)
 		}
 
 		buildoptions { "/Zc:wchar_t" }
-
+		
 	filter "system:linux"
 		systemversion "latest"
 		defines { "EE_PLATFORM_LINUX" }
@@ -126,6 +128,27 @@ function CommonProject.SetupProject(directory)
 			"dl",
 			"pthread",
 			"m"
+		}
+
+	filter "system:emscripten"
+		systemversion "latest"
+		defines { "EE_PLATFORM_WEB" }
+		links { "ElevateEngine", "ImGui","assimp" }
+
+		-- todo make these optionals based on the settings
+		linkoptions
+        {
+			"--preload-file "..directory.."/Content@/Content",
+			"--preload-file "..directory.."/Engine@/Engine",
+			"--preload-file "..directory.."/app.config@/app.config",
+			
+			"--preload-file "..directory.."/WwiseProject@/WwiseProject",
+		}
+
+	filter { "system:emscripten", "configurations:Editor_*" }
+		linkoptions
+		{
+			"--preload-file "..directory.."/Editor@/Editor",
 		}
 
 	filter "configurations:Editor Debug"
@@ -160,6 +183,16 @@ function CommonProject.SetupProject(directory)
         defines "EE_DIST"
         runtime "Release"
         optimize "on"
+
+	if _OPTIONS and _OPTIONS["os"] == "emscripten" then
+        local platform = "emscripten-wasm32"
+
+        for _, configName in ipairs(ElevateConfigs) do
+            local targetPath = _MAIN_SCRIPT_DIR .. "/Build/bin/" .. configName .. "-" .. platform .. "/" .. projectSafeName
+            os.mkdir(targetPath)
+            WebBuild.GenerateHTML(infos, targetPath)
+        end
+    end
 
 print("Finished Generating " .. infos.name .. " Solution.\n")
 end

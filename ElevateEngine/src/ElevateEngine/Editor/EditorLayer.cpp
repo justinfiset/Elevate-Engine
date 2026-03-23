@@ -56,7 +56,9 @@ namespace Elevate::Editor
 		// Setup the grid shader ///////////////////////////
 		m_GridShader = Shader::CreateFromFiles(
 			"Editor/Shaders/grid.vert",
-			"Editor/Shaders/grid.frag"
+			"Editor/Shaders/grid.frag",
+			EE_SHADER_HEADER,
+			EE_SHADER_HEADER
 		);
 		MaterialPtr gridMaterial = MaterialRegistry::LoadMaterial(m_GridShader);
 		gridMaterial->Set<glm::vec4>("lineColor", { 0.9, 0.9, 0.9, 0.5 });
@@ -242,6 +244,7 @@ namespace Elevate::Editor
 		switch (event.GetEventType())
 		{
 		case EventType::KeyPressed:
+		{
 			KeyEvent& ke = (KeyEvent&)event;
 			
 			if (ke.GetKeyCode() == EE_KEY_DELETE) {
@@ -255,6 +258,10 @@ namespace Elevate::Editor
 					Redo();
 				}
 			}
+			break;
+		}
+		default:
+			break;
 		}
 
 		m_EditorScene->Notify(event);        
