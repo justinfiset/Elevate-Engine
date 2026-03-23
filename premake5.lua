@@ -51,9 +51,9 @@ workspace "ElevateEngine"
 
     if os.target() == "windows" then
         architecture "x64"
-    else if os.target() == "linux" then
+    elseif os.target() == "linux" then
         architecture "x64"
-    else if os.target() == "emscripten" then
+    elseif os.target() == "emscripten" then
         architecture "wasm32"
         toolset "clang"
     end
