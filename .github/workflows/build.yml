@@ -13,8 +13,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgl1-mesa-dev libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev
-
+          sudo apt-get install -y libgl1-mesa-dev libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-de
       - name: Cleanup Project
         run: |
           rm -rf Build/ bin/ bin-int/
@@ -23,6 +22,8 @@ jobs:
         run: |
           chmod +x vendor/premake/premake5-linux
           ./vendor/premake/premake5-linux gmake2
+      - name: Print Makefile
+        run: cat Makefile
 
       - name: Compile
         run: |
