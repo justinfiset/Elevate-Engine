@@ -1,7 +1,6 @@
 project 'assimp'
 	kind 'StaticLib'
 	warnings 'Off'
-	optimize 'Speed'
     cppdialect "C++17"
 	staticruntime "on"
 	
@@ -132,10 +131,12 @@ project 'assimp'
 	
 	filter "configurations:Debug or configurations:Editor_Debug"
 		runtime "Debug"
+		optimize "Off"
 		symbols "on"
 
 	filter "configurations:Release or configurations:Editor_Release or configurations:Dist"
 		runtime "Release"
+		optimize "Speed"
 		optimize "on"
 
 project '*'

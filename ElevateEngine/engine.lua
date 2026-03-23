@@ -8,8 +8,6 @@ project "ElevateEngine"
 	targetdir ("%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Build/bin-int/" .. outputdir .. "/%{prj.name}")
 
-	flags { "NoPCH" }
-
 	IncludeDir = {}
 	IncludeDir["Vendors"] = "vendor"
 	IncludeDir["GLFW"] = "vendor/GLFW/include" 
