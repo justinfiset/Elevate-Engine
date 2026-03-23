@@ -107,7 +107,7 @@ function CommonProject.SetupProject(directory)
 			"ws2_32" -- For Wwise Communication WARNING NOT NEEDED IN RELEASE BUT STILL INCLUDED FOR THE MOMENT -- CHANGE THIS
 		}
 
-		buildoptions { "/Zc:wchar_t" }
+		buildoptions { "/Zc:wchar_t", "/utf-8" }
 		
 	filter "system:linux"
 		systemversion "latest"

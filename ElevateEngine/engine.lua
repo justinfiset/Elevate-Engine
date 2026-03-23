@@ -82,7 +82,8 @@ project "ElevateEngine"
 		{
 			"/Zc:wchar_t",
 			"/Zc:preprocessor",
-			"/Zc:__cplusplus"
+			"/Zc:__cplusplus",
+			"/utf-8"
 		}
 
 		defines
