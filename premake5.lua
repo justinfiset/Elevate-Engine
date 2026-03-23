@@ -2,7 +2,6 @@ require "vendor/premake-export-compile-commands/export-compile-commands"
 
 outputdir = "%{cfg.buildcfg:gsub(' ', '-')}-%{cfg.system}-%{cfg.architecture}"
 ElevateConfigs = { "Editor_Debug", "Editor_Release", "Debug", "Release", "Dist" }
-ElevatePlatforms = { "Win64", "Linux", "Web" }
 
 include "scripts/premake/Logs.lua"
 include "scripts/premake/FileUtils.lua"
@@ -14,13 +13,7 @@ include "scripts/premake/WebBuild.lua"
 workspace "ElevateEngine"
 	architecture "x64"
 	startproject "Sandbox"
-
-	platforms (ElevatePlatforms)
 	configurations (ElevateConfigs)
-
-	-- Platform specific toolchain and settings 
-	filter "action:vs*"
-        platforms { "Win64" }
 
 	filter "system:emscripten"
         toolset "clang"
@@ -56,22 +49,14 @@ workspace "ElevateEngine"
 			"-Wno-deprecated-pragma"
     	}
 
-	filter "platforms:Win64"
-        system "windows"
+    if os.target() == "windows" then
         architecture "x64"
-        toolset "msc"
-
-    filter "platforms:Linux"
-        system "linux"
+    else if os.target() == "linux" then
         architecture "x64"
-        toolset "gcc"
-
-	filter "platforms:Web"
-        system "emscripten"
+    else if os.target() == "emscripten" then
         architecture "wasm32"
         toolset "clang"
-
-    filter {}
+    end
 
 	Wwise.SetupWorkspace()
 

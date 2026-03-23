@@ -21,7 +21,7 @@ jobs:
           chmod +x ./vendor/premake/premake5-linux
 
           ./vendor/premake/premake5-linux export-compile-commands
-          cp compile_commands/editor_debug_win64.json compile_commands.json
+          cp compile_commands/editor_debug.json compile_commands.json
 
           sed -i 's/-MMD//g' compile_commands.json
           sed -i 's/-MP//g' compile_commands.json
