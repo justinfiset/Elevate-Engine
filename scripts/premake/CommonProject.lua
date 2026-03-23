@@ -151,7 +151,7 @@ function CommonProject.SetupProject(directory)
 			"--preload-file "..directory.."/Editor@/Editor",
 		}
 
-	filter "configurations:Editor Debug"
+	filter "configurations:Editor_Debug"
 		defines
 		{
 			"EE_DEBUG",
@@ -160,7 +160,7 @@ function CommonProject.SetupProject(directory)
 		runtime "Debug"
 		symbols "on"
 
-	filter "configurations:Editor Release"
+	filter "configurations:Editor_Release"
 		defines 
 		{
 			"EE_RELEASE",
