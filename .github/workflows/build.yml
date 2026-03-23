@@ -28,7 +28,7 @@ jobs:
       - name: Compile
         run: |
            grep '^[^#[:space:]].*:' Makefile
-           make config=Editor_Debug_Linux -j$(nproc)
+           make config=editor_debug_linux -j$(nproc)
   build-windows:
     runs-on: windows-latest
     steps:
