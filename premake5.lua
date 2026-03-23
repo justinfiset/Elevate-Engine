@@ -63,7 +63,6 @@ workspace "ElevateEngine"
     filter "platforms:Linux"
         system "linux"
         architecture "x64"
-        toolset "gcc"
 		filter "action:gmake*"
             toolset "gcc"
         filter {}
