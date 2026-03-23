@@ -4,7 +4,7 @@
 
 #include "DebugRenderer.h"
 
-#inckude <ElevateEngine/Core/Core.h>
+#include <ElevateEngine/Core/Core.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/Buffer.h>
