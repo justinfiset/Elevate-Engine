@@ -25,7 +25,7 @@ jobs:
           ./vendor/premake/premake5-linux gmake2
 
       - name: Compile
-        run: make config=editor_debug -j$(nproc)
+        run: make config=Editor_Debug_Linux -j$(nproc)
   build-windows:
     runs-on: windows-latest
     steps:
