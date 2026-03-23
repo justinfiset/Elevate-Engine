@@ -59,13 +59,12 @@ workspace "ElevateEngine"
 	filter "platforms:Win64"
         system "windows"
         architecture "x64"
+        toolset "msc"
 
     filter "platforms:Linux"
         system "linux"
         architecture "x64"
-		filter "action:gmake*"
-            toolset "gcc"
-        filter {}
+        toolset "gcc"
 
 	filter "platforms:Web"
         system "emscripten"
