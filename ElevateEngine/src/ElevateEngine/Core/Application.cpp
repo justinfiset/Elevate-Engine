@@ -22,6 +22,10 @@
 
 #include <ElevateEngine/Audio/SoundEngine.h>
 
+#ifdef EE_PLATFORM_WEB
+    #include <emscripten.h>
+#endif
+
 namespace Elevate {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
