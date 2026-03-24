@@ -6,7 +6,8 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name : Checkout code
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -32,7 +33,8 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - name : Checkout code
+        uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: Setup MSBuild
@@ -43,3 +45,25 @@ jobs:
 
       - name: Compile
         run: msbuild ElevateEngine.sln /p:Configuration="Editor_Debug"
+
+  build-web-windows-ninja:  
+    runs-on: windows-latest
+    steps:
+      - name : Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Ninja
+        uses: jpbandroid/setup-ninja@v1.2
+
+      - name: Setup Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 'latest'
+
+      - name: Generate Projects (Premake)
+        run: ./vendor/premake/premake5.exe --os=emscripten ninja
+
+      - name: Compile
+        run: ninja Editor_Debug
