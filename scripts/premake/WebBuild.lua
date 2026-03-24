@@ -54,6 +54,80 @@ function WebBuild.ApplyCompilerSettings()
     }
 end
 
+local function isWebBuild()
+    return (_OPTIONS and _OPTIONS["os"] == "emscripten") or (os.target and os.target() == "emscripten")
+end
+
+local function detectNewline(content)
+    return content:find("\r\n", 1, true) and "\r\n" or "\n"
+end
+
+local function makeArchiveRuleBlock(emar_cmd, nl)
+    return "  command = " .. emar_cmd .. " -rcs $out @$out.rsp" .. nl
+        .. "  rspfile = $out.rsp" .. nl
+        .. "  rspfile_content = $in"
+end
+
+local function normalizeArchiveRules(content, ar_rule_block, nl)
+    -- Emscripten generates non-standard archive rules that we need to patch to work with our emar wrapper
+    content = content:gsub("rule%s+ar_[%w_]+\r?\n%s*command%s*=%s*[^\r\n]*", function(rule_and_command)
+        local rule_name = rule_and_command:match("rule%s+(ar_[%w_]+)")
+        if rule_name then
+            return "rule " .. rule_name .. nl .. ar_rule_block
+        end
+        return rule_and_command
+    end)
+    
+    -- In case there are any rules we missed, also directly replace any command lines for archiving
+    content = content:gsub(
+        "(rule%s+ar_[%w_]+)\r?\n%s*description%s*=%s*Archiving static library %$out",
+        "%1" .. nl .. ar_rule_block .. nl .. "  description = Archiving static library $out"
+    )
+
+    return content
+end
+
+local function deduplicateRules(content, nl)
+    local seen_rules = {}
+    local pattern = "(rule%s+([%w_]+)\r?\n%s+command%s+=[^\r\n]+\r?\n%s+description%s+=[^\r\n]+\r?\n)"
+    return content:gsub(pattern, function(full_rule, rule_name)
+        if seen_rules[rule_name] then
+            return ""
+        end
+        seen_rules[rule_name] = true
+        return full_rule
+    end)
+end
+
+local function patchNinjaContent(content, filename, emar_cmd, web_build)
+    local is_web_ninja = web_build or filename:find("emscripten") or filename:find("wasm") or content:find("emcc")
+    local nl = detectNewline(content)
+    local ar_rule_block = makeArchiveRuleBlock(emar_cmd, nl)
+
+    -- Make sure there are no parentheses in paths (Ninja doesn't like them)
+    content = content:gsub("[%(%)]", "_")
+    -- Fix absolute path with drive letters
+    content = content:gsub("([%a]):/", "%1$:/")
+    content = content:gsub("([%a]):\\", "%1$:/")
+    -- Fix archive rules if it's a web ninja (Emscripten generates non-standard rules that we need to patch)
+    if is_web_ninja then
+        content = normalizeArchiveRules(content, ar_rule_block, nl)
+    end
+    -- Redirect compilation commands to use emcc/em++ wrappers that set the right environment for Emscripten
+    content = content:gsub("command = ar %-rcs", "command = " .. emar_cmd .. " -rcs")
+    content = content:gsub("command = ar f%-rcs", "command = " .. emar_cmd .. " -rcs")
+    -- Redirect clang/clang++ to emcc/em++
+    content = content:gsub("command%s*=%s*clang%+%+([^\n]*)", "command = cmd /c em++.bat%1")
+    content = content:gsub("command%s*=%s*clang%s([^\n]*)", "command = cmd /c emcc.bat %1")
+    -- Remove duplicate rules
+    content = deduplicateRules(content, nl)
+    -- Force output to .js for wasm builds
+    content = content:gsub("-o%s+(.+%.wasm)", "-o %1")
+    content = content:gsub("%.wasm", ".js")
+
+    return content
+end
+
 function WebBuild.CleanupBuildFiles()
     if _ACTION == "ninja" then
         premake.override(premake.main, "postAction", function(base, ...)
@@ -67,7 +141,7 @@ function WebBuild.CleanupBuildFiles()
             end
 
             Logger.Info("Elevate Engine: Patching Ninja files for WebAssembly build...")
-            local is_web_build = (_OPTIONS and _OPTIONS["os"] == "emscripten") or (os.target and os.target() == "emscripten")
+            local web_build = isWebBuild()
             local files = os.matchfiles(_MAIN_SCRIPT_DIR .. "/**.ninja")
             for _, filename in ipairs(files) do
                 Logger.Info("   Patching file: " .. filename)
@@ -75,61 +149,7 @@ function WebBuild.CleanupBuildFiles()
                 if f then
                     local content = f:read("*all")
                     f:close()
-                    local is_web_ninja = is_web_build or filename:find("emscripten") or filename:find("wasm") or content:find("emcc")
-                    local nl = content:find("\r\n", 1, true) and "\r\n" or "\n"
-                    local ar_rule_block = "  command = " .. emar_cmd .. " -rcs $out @$out.rsp" .. nl
-                        .. "  rspfile = $out.rsp" .. nl
-                        .. "  rspfile_content = $in"
-
-                    -- 1. FIX PARENTHÈSES (Wwise)
-                    content = content:gsub("[%(%)]", "_")
-                    
-                    -- 2. FIX CHEMINS : "D:/" -> "D$:/ "
-                    content = content:gsub("([%a]):/", "%1$:/")
-                    content = content:gsub("([%a]):\\", "%1$:/")
-
-                    -- 3. FIX GLOBAL DES RÈGLES D'ARCHIVAGE (Catch-all)
-                    -- Forcer toutes les règles ar_* du web vers emar + response file,
-                    -- quel que soit l'outil déjà présent (ar/emar/llvm-ar) et même si la commande manque.
-                    if is_web_ninja then
-                        -- Cas standard: rule ar_* suivi d'une ligne command = ...
-                        content = content:gsub("rule%s+ar_[%w_]+\r?\n%s*command%s*=%s*[^\r\n]*", function(rule_and_command)
-                            local rule_name = rule_and_command:match("rule%s+(ar_[%w_]+)")
-                            if rule_name then
-                                return "rule " .. rule_name .. nl .. ar_rule_block
-                            end
-                            return rule_and_command
-                        end)
-
-                        -- Cas sans command (rare): injecte command + rsp avant description.
-                        content = content:gsub(
-                            "(rule%s+ar_[%w_]+)\r?\n%s*description%s*=%s*Archiving static library %$out",
-                            "%1" .. nl .. ar_rule_block .. nl .. "  description = Archiving static library $out"
-                        )
-                    end
-
-                    -- 4. FIX DES COMMANDES DIRECTES (Au cas où ce n'est pas une règle)
-                    -- Remplace 'command = ar -rcs' par 'command = emar.bat -rcs' avec response files
-                    content = content:gsub("command = ar %-rcs", "command = " .. emar_cmd .. " -rcs")
-                    content = content:gsub("command = ar f%-rcs", "command = " .. emar_cmd .. " -rcs")
-
-                    -- 5. REDIRECTIONS COMPILATION 
-                    content = content:gsub("command%s*=%s*clang%+%+([^\n]*)", "command = cmd /c em++.bat%1")
-                    content = content:gsub("command%s*=%s*clang%s([^\n]*)", "command = cmd /c emcc.bat %1")
-
-                    -- 6. DÉDOUBLONNAGE DES RÈGLES
-                    local seen_rules = {}
-                    content = content:gsub("(rule%s+([%w_]+)\n%s+command%s+=[^\n]+\n%s+description%s+=[^\n]+\n)", function(full_rule, rule_name)
-                        if seen_rules[rule_name] then return "" else
-                            seen_rules[rule_name] = true
-                            return full_rule 
-                        end
-                    end)
-
-                    -- 7. FORCE OUTPUT TO .JS (To generate the JS glue code + WASM)
-                    -- On cible spécifiquement la fin de la commande de linkage
-                    content = content:gsub("-o%s+(.+%.wasm)", "-o %1") -- On garde le .wasm
-                    content = content:gsub("%.wasm", ".js")           -- Mais on change l'extension globale
+                    content = patchNinjaContent(content, filename, emar_cmd, web_build)
 
                     local f_out = io.open(filename, "w")
                     if f_out then
