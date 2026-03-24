@@ -124,14 +124,12 @@ function CommonProject.SetupProject(directory)
 	filter "system:emscripten"
 		links { "ElevateEngine", "ImGui","assimp" }
 
-		-- todo make these optionals based on the settings
 		linkoptions
         {
 			"--preload-file "..directory.."/Content@/Content",
 			"--preload-file "..directory.."/Engine@/Engine",
 			"--preload-file "..directory.."/app.config@/app.config",
-			
-			"--preload-file "..directory.."/WwiseProject@/WwiseProject",
+			"--preload-file "..directory.."/imgui.ini@/imgui.ini",
 		}
 
 	filter { "system:emscripten", "configurations:Editor_*" }
