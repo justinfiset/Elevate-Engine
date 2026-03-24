@@ -1,10 +1,17 @@
+local function values(t)
+    local res = {}
+    for _, v in pairs(t) do table.insert(res, v) end
+    return res
+end
+
 project "ElevateEngine"
 	location "./Build"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "on"
-
+	systemversion "latest"
+	
 	targetdir ("%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Build/bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -43,97 +50,31 @@ project "ElevateEngine"
 		"IMGUI_DEFINE_MATH_OPERATORS",
 	}
 
-	includedirs
-	{
-		"src",
+	includedirs { "src", values(IncludeDir) }
 
-		"%{IncludeDir.Vendors}",
-		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.glm}",
-		"%{IncludeDir.rapidjson}",
-		"%{IncludeDir.rapidxml}",
-		"%{IncludeDir.stb}",
-		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.tinyfiledialogs}",
-		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.assimp}",
-		"%{IncludeDir.ImGuizmo}",
-		"%{IncludeDir.entt}"
-	}
+	links { "ImGui", "assimp" }
 
 	Wwise.SetupEngine()
-
-	links
-	{
-		"ImGui",
-		"assimp",
-	}
-
 	filter "not system:emscripten"
 		links { "GLFW" }
         files { "vendor/Glad/src/glad.c" }
     filter {}
 
+	BuildPlatform.SetPlatformDefines()
 
 	filter "system:windows"
-		systemversion "latest"
-		buildoptions
-		{
-			"/Zc:wchar_t",
-			"/Zc:preprocessor",
-			"/Zc:__cplusplus",
-			"/utf-8"
-		}
-
-		defines
-		{
-			"EE_PLATFORM_WINDOWS",
-		}
-
-		links
-		{
-			"opengl32.lib",
-		}
-
-	filter "system:emscripten"
-		systemversion "latest"
-		defines { "EE_PLATFORM_WEB" }
+		links { "opengl32.lib" }
 		
 	filter "system:linux"
-		systemversion "latest"
-
-		defines
-		{
-			"EE_PLATFORM_LINUX",
-			"STBI_NO_SIMD"
-		}
-		
-		links
-		{
-			"GL",
-			"X11",
-			"pthread",
-			"dl",
-		}
+		links { "GL", "X11", "pthread", "dl" }
 
 	filter "configurations:Editor_Debug"
-		defines
-		{
-			"EE_DEBUG",
-			"EE_EDITOR_BUILD"
-		}
-
+		defines { "EE_DEBUG", "EE_EDITOR_BUILD" }
 		runtime "Debug"
 		symbols "on"
 
 	 filter "configurations:Editor_Release"
-		defines 
-		{
-			"EE_RELEASE",
-			"EE_EDITOR_BUILD"
-		}
-
+		defines { "EE_RELEASE", "EE_EDITOR_BUILD" }
 		runtime "Release"
 		optimize "on"
 
@@ -141,11 +82,7 @@ project "ElevateEngine"
 		defines "EE_DEBUG"
 		runtime "Debug"
 		symbols "on"
-
-		links
-		{
-			"ws2_32"
-		}
+		links { "ws2_32" }
 
 	filter "configurations:Release"
 		defines "EE_RELEASE"

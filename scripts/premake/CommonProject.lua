@@ -43,6 +43,10 @@ function CommonProject.SetupProjectKind()
     filter {}
 end
 
+function CommonProject.GetSafeProjectName(name)
+	return name:gsub(" ", "-")
+end
+
 function CommonProject.SetupProject(directory)
 	-- Make sure the directory exists before trying to set up the project
 	if not os.isdir(directory) then
@@ -51,7 +55,7 @@ function CommonProject.SetupProject(directory)
 
 	local infos = CommonProject.ParseProjectFile(directory)
 
-	local projectSafeName = infos.name:gsub(" ", "-")
+	local projectSafeName = CommonProject.GetSafeProjectName(infos.name)
 	project(projectSafeName)
 	targetname(projectSafeName)
 	location(directory.."/Build/" .. projectSafeName)
@@ -59,6 +63,7 @@ function CommonProject.SetupProject(directory)
 	cppdialect "C++20"
 	staticruntime "on"
 	CommonProject.SetupProjectKind()
+	systemversion "latest"
 
 	local targetDirLocation = "%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name:gsub(' ', '-')}"
 	targetdir (targetDirLocation)
@@ -84,35 +89,21 @@ function CommonProject.SetupProject(directory)
 		directory.."/../../ElevateEngine/src",
 	}
 
-	links
-    {
-        "ElevateEngine"
-    }
+	links { "ElevateEngine" }
 
-	defines
-    {
-        "EE_NO_SOUNDENGINE=" .. (infos.usesSoundEngine and "0" or "1")
-    }
-
+	-- Config sound engine if needed
+	defines { "EE_NO_SOUNDENGINE=" .. (infos.usesSoundEngine and "0" or "1") }
 	if infos.usesSoundEngine then
 		Wwise.SetupProject()
 	end
 
+	BuildPlatform.SetPlatformDefines()
+
 	filter "system:windows"
-		systemversion "latest"
-		defines { "EE_PLATFORM_WINDOWS" }
-
-		links
-		{
-			"ws2_32" -- For Wwise Communication WARNING NOT NEEDED IN RELEASE BUT STILL INCLUDED FOR THE MOMENT -- CHANGE THIS
-		}
-
+		links { "ws2_32" } -- For Wwise Communication WARNING NOT NEEDED IN RELEASE BUT STILL INCLUDED FOR THE MOMENT -- CHANGE THIS}
 		buildoptions { "/Zc:wchar_t", "/utf-8" }
 		
 	filter "system:linux"
-		systemversion "latest"
-		defines { "EE_PLATFORM_LINUX" }
-
 		links
 		{
 			"ElevateEngine",
@@ -131,8 +122,6 @@ function CommonProject.SetupProject(directory)
 		}
 
 	filter "system:emscripten"
-		systemversion "latest"
-		defines { "EE_PLATFORM_WEB" }
 		links { "ElevateEngine", "ImGui","assimp" }
 
 		-- todo make these optionals based on the settings
@@ -152,20 +141,12 @@ function CommonProject.SetupProject(directory)
 		}
 
 	filter "configurations:Editor_Debug"
-		defines
-		{
-			"EE_DEBUG",
-			"EE_EDITOR_BUILD"
-		}
+		defines { "EE_DEBUG", "EE_EDITOR_BUILD" }
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Editor_Release"
-		defines 
-		{
-			"EE_RELEASE",
-			"EE_EDITOR_BUILD"
-		}
+		defines { "EE_RELEASE", "EE_EDITOR_BUILD" }
 		runtime "Release"
 		optimize "on"
 
@@ -184,15 +165,7 @@ function CommonProject.SetupProject(directory)
         runtime "Release"
         optimize "on"
 
-	if _OPTIONS and _OPTIONS["os"] == "emscripten" then
-        local platform = "emscripten-wasm32"
-
-        for _, configName in ipairs(ElevateConfigs) do
-            local targetPath = _MAIN_SCRIPT_DIR .. "/Build/bin/" .. configName .. "-" .. platform .. "/" .. projectSafeName
-            os.mkdir(targetPath)
-            WebBuild.GenerateHTML(infos, targetPath)
-        end
-    end
+	BuildPlatform.ConfigureProject(directory, infos)
 
 print("Finished Generating " .. infos.name .. " Solution.\n")
 end
