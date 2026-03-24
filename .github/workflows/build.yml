@@ -55,7 +55,9 @@ jobs:
           submodules: recursive
 
       - name: Setup Ninja
-        uses: jpbandroid/setup-ninja@v1.2
+        uses: ashutoshvarma/setup-ninja@master
+        with:
+          version: 1.12.1
 
       - name: Setup Emscripten
         uses: mymindstorm/setup-emsdk@v14
