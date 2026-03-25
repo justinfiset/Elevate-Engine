@@ -1,6 +1,6 @@
 WebBuild = {}
 
-local htmlTemplatePath = _MAIN_SCRIPT_DIR .. "/ElevateEngine/web/index.template.html"
+local htmlTemplatePath = _MAIN_SCRIPT_DIR .. "/ElevateEngine/Web/index.template.html"
 
 function WebBuild.GenerateHTML(project, outputDir)
     local f = io.open(htmlTemplatePath, "r")
@@ -9,6 +9,7 @@ function WebBuild.GenerateHTML(project, outputDir)
         f:close()
 
         content = content:gsub("${PROJECT_NAME}", project.name)
+        content = content:gsub("${PROJECT_SAFE_NAME}", CommonProject.GetSafeProjectName(project.name)) 
 
         local outPath = outputDir .. "/index.html"
         local outFile = io.open(outPath, "w")

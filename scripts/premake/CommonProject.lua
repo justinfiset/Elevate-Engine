@@ -126,8 +126,8 @@ function CommonProject.SetupProject(directory)
 
 		linkoptions
         {
+			"--preload-file ".._MAIN_SCRIPT_DIR.."/ElevateEngine/Resources/Engine@/Engine",
 			"--preload-file "..directory.."/Content@/Content",
-			"--preload-file "..directory.."/Engine@/Engine",
 			"--preload-file "..directory.."/app.config@/app.config",
 			"--preload-file "..directory.."/imgui.ini@/imgui.ini",
 		}
@@ -135,7 +135,7 @@ function CommonProject.SetupProject(directory)
 	filter { "system:emscripten", "configurations:Editor_*" }
 		linkoptions
 		{
-			"--preload-file "..directory.."/Editor@/Editor",
+			"--preload-file ".._MAIN_SCRIPT_DIR.."/ElevateEngine/Resources/Editor@/Editor",
 		}
 
 	filter "configurations:Editor_Debug"
