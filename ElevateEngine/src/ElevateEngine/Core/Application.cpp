@@ -123,7 +123,7 @@ namespace Elevate {
 
 	void Application::EngineFrame() // Each frame
 	{
-		float lastTime = 0.0f;
+		static float lastTime = 0.0f;
 
 #if !EE_ASSERTS_ENABLED
 		try
