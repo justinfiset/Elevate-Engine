@@ -8,8 +8,8 @@ function WebBuild.GenerateHTML(project, outputDir)
         local content = f:read("*all")
         f:close()
 
-        content = content:gsub("${PROJECT_NAME}", project.name)
-        content = content:gsub("${PROJECT_SAFE_NAME}", CommonProject.GetSafeProjectName(project.name)) 
+        content = content:gsub("%${PROJECT_NAME}", project.name)
+        content = content:gsub("%${PROJECT_SAFE_NAME}", CommonProject.GetSafeProjectName(project.name)) 
 
         local outPath = outputDir .. "/index.html"
         local outFile = io.open(outPath, "w")

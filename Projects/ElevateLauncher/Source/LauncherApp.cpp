@@ -31,7 +31,7 @@ public:
 
 	void OnAttach() override
 	{
-		m_elevateIcon = Texture::CreateFromFile("./Content/Textures/Elevate.png");
+		m_elevateIcon = Texture::CreateFromFile("Content/Textures/Elevate.png");
 	}
 
 	void OnImGuiRender() override
