@@ -27,6 +27,16 @@ namespace Elevate {
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
 
+		struct WindowData
+		{
+			std::string Title;
+			unsigned int Width, Height;
+			bool Focused;
+			bool VSync;
+
+			EventCallbackFn EventCallback;
+		};
+
 		virtual ~Window() { }
 
 		virtual void Init(const WindowProps& props);
@@ -48,17 +58,12 @@ namespace Elevate {
 
 		virtual void* GetNativeWindow() const = 0; // Ex: Get the GLFW window on Windows
 
+		const WindowData& GetWindowData() const { return m_Data; }
+		
+		void SetWindowSize(unsigned int width, unsigned int height);
+		void EventCallback(Event& event) { m_Data.EventCallback(event); }
+	
 	protected:
-		struct WindowData
-		{
-			std::string Title;
-			unsigned int Width, Height;
-			bool Focused;
-			bool VSync;
-
-			EventCallbackFn EventCallback;
-		};
-
 		WindowData m_Data;
 	};
 }

@@ -1,6 +1,7 @@
 #include "Window.h"
 
 #include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Events/ApplicationEvent.h>
 
 #include <rapidjson/document.h>
 #include <rapidjson/allocators.h>
@@ -9,7 +10,7 @@
 #include <rapidjson/rapidjson.h>
 
 #if defined(EE_PLATFORM_WINDOWS)
-	#include <Platform/Windows/WindowsWindow.h"
+	#include <Platform/Windows/WindowsWindow.h>
 #elif defined(EE_PLATFORM_LINUX)
 	#include <Platform/Linux/LinuxWindow.h>
 #elif defined(EE_PLATFORM_WEB)
@@ -84,5 +85,13 @@ namespace Elevate
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 		EE_CORE_TRACE("Creating window: {} ({}x{})", props.Title.c_str(), props.Width, props.Height);
+	}
+
+	void Window::SetWindowSize(unsigned int width, unsigned int height)
+	{ 
+		m_Data.Width = width;
+		m_Data.Height = height;
+		WindowResizeEvent event(width, height);
+		EventCallback(event);
 	}
 }
