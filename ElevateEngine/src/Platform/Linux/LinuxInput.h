@@ -1,10 +1,10 @@
 #pragma once
 
-#ifdef EE_PLATFORM_WINDOWS
+#ifdef EE_PLATFORM_LINUX
 #include "Platform/GLFW/GlfwInput.h"
 
 namespace Elevate
 {
-	class WindowsInput : public GlfwInput { };
+	class LinuxInput : public GlfwInput { };
 }
 #endif

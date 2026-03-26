@@ -29,6 +29,7 @@ namespace Elevate {
 
 		virtual ~Window() { }
 
+		virtual void Init(const WindowProps& props);
 		virtual void OnUpdate() = 0;
 
 		virtual unsigned int GetWidth() const = 0;
@@ -46,5 +47,18 @@ namespace Elevate {
 		virtual double GetTime() const = 0;
 
 		virtual void* GetNativeWindow() const = 0; // Ex: Get the GLFW window on Windows
+
+	protected:
+		struct WindowData
+		{
+			std::string Title;
+			unsigned int Width, Height;
+			bool Focused;
+			bool VSync;
+
+			EventCallbackFn EventCallback;
+		};
+
+		WindowData m_Data;
 	};
 }

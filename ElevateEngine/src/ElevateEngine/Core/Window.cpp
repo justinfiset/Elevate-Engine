@@ -8,45 +8,81 @@
 #include <rapidjson/encodings.h>
 #include <rapidjson/rapidjson.h>
 
-Elevate::WindowProps::WindowProps(const std::string appConfigFilePath)
+#if defined(EE_PLATFORM_WINDOWS)
+	#include <Platform/Windows/WindowsWindow.h"
+#elif defined(EE_PLATFORM_LINUX)
+	#include <Platform/Linux/LinuxWindow.h>
+#elif defined(EE_PLATFORM_WEB)
+	#include <Platform/Web/WebWindow.h>
+#else
+	#error "Unknown platform! Cannot create window on this platform."
+#endif
+
+namespace Elevate
 {
-	// TODO put this part in a util somehwerre to get the document
-///////////////////////////////////////////////////////
-	FILE* fp = fopen(appConfigFilePath.c_str(), "r");
-	char readBuffer[65536];
-	rapidjson::FileReadStream is(fp, readBuffer,
-		sizeof(readBuffer));
-	rapidjson::Document doc;
-	doc.ParseStream(is);
-	fclose(fp);
+#if defined(EE_PLATFORM_WINDOWS)
+	using PlatformWindow = WindowsWindow;
+#elif defined(EE_PLATFORM_LINUX)
+	using PlatformWindow = LinuxWindow;
+#elif defined(EE_PLATFORM_WEB)
+	using PlatformWindow = WebWindow;
+#else
+	#error "Unknown platform! Cannot create window on this platform."
+#endif
 
-	// Error handling
-	if (doc.HasParseError())
+	WindowProps::WindowProps(const std::string appConfigFilePath)
 	{
-		EE_CORE_TRACE("ERROR PARSING JSON");
-	}
-	///////////////////////////////////////////////////////
+		// TODO put this part in a util somehwerre to get the document
+		///////////////////////////////////////////////////////
+		FILE* fp = fopen(appConfigFilePath.c_str(), "r");
+		char readBuffer[65536];
+		rapidjson::FileReadStream is(fp, readBuffer,
+			sizeof(readBuffer));
+		rapidjson::Document doc;
+		doc.ParseStream(is);
+		fclose(fp);
 
-	if (doc.HasMember("title") && doc["title"].IsString())
-	{
-		this->Title = doc["title"].GetString();
-	}
-
-	if (doc.HasMember("size"))
-	{
-		const rapidjson::Value& size = doc["size"];
-		if (size.HasMember("x") && size["x"].IsInt())
+		// Error handling
+		if (doc.HasParseError())
 		{
-			this->Width = size["x"].GetInt();
+			EE_CORE_TRACE("ERROR PARSING The WindowProps JSON");
 		}
-		if (size.HasMember("y") && size["y"].IsInt())
+		///////////////////////////////////////////////////////
+
+		if (doc.HasMember("title") && doc["title"].IsString())
 		{
-			this->Height = size["y"].GetInt();
+			this->Title = doc["title"].GetString();
+		}
+
+		if (doc.HasMember("size"))
+		{
+			const rapidjson::Value& size = doc["size"];
+			if (size.HasMember("x") && size["x"].IsInt())
+			{
+				this->Width = size["x"].GetInt();
+			}
+			if (size.HasMember("y") && size["y"].IsInt())
+			{
+				this->Height = size["y"].GetInt();
+			}
+		}
+
+		if (doc.HasMember("vsync") && doc["vsync"].IsBool())
+		{
+			this->VSync = doc["vsync"].GetBool();
 		}
 	}
 
-	if (doc.HasMember("vsync") && doc["vsync"].IsBool())
+	Window* Window::Create(const WindowProps& props)
 	{
-		this->VSync = doc["vsync"].GetBool();
+		return new PlatformWindow(props);
+	}
+
+	void Window::Init(const WindowProps& props)
+	{
+		m_Data.Title = props.Title;
+		m_Data.Width = props.Width;
+		m_Data.Height = props.Height;
+		EE_CORE_TRACE("Creating window: {} ({}x{})", props.Title.c_str(), props.Width, props.Height);
 	}
 }

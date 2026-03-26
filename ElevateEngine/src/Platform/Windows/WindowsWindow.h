@@ -1,53 +1,14 @@
 #pragma once
-
-#include "ElevateEngine/Core/Window.h"
-
-#include "ElevateEngine/Renderer/GraphicsContext.h"
-
-#include <GLFW/glfw3.h>
-#include <string>
+#ifdef EE_PLATFORM_WINDOWS
+#include <Platform/GLFW/GlfwWindow.h>
 
 namespace Elevate
 {
-	class WindowsWindow : public Window
+	class WindowsWindow : public GlfwWindow 
 	{
 	public:
-		WindowsWindow(const WindowProps&);
-		virtual ~WindowsWindow();
-
-		void OnUpdate() override;
-
-		inline unsigned int GetWidth() const override { return m_Data.Width; }
-		inline unsigned int GetHeight() const override { return m_Data.Height; }
-		inline bool GetFocus() const override { return m_Data.Focused; }
-
-		// Widnow attributess
-		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
-		void SetVSync(bool enabled) override;
-		bool IsVSync() const override;
-
-		inline virtual void* GetNativeWindow() const override { return m_Window; };
-
-		virtual double GetTime() const override;
-	private:
-		virtual void Init(const WindowProps& props);
-		virtual void Shutdown();
-
-		GLFWwindow* m_Window;
-		GraphicsContext* m_Context;
-
-		// Informations that may be requested by GLFW callbacks
-		struct WindowData
-		{
-			std::string Title;
-			unsigned int Width, Height;
-			bool Focused;
-			bool VSync;
-
-			EventCallbackFn EventCallback;
-		};
-
-		WindowData m_Data;
+		WindowsWindow(const WindowProps& props) : GlfwWindow(props) {}
 	};
 }
 
+#endif

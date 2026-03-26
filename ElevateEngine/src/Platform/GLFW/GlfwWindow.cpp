@@ -1,14 +1,11 @@
-#include "eepch.h"
-#include "Platform/Windows/WindowsWindow.h"
+#include "GlfwWindow.h"
 
-// todo fix the includes in this file to have the standart notation we use
 #include <ElevateEngine/Core/Assert.h>
-#include "ElevateEngine/Events/ApplicationEvent.h"
-#include "ElevateEngine/Events/MouseEvent.h"
-#include "ElevateEngine/Events/KeyEvent.h"
-#include "ElevateEngine/Inputs/Input.h"
-
-#include "ElevateEngine/Renderer/OpenGL/OpenGLContext.h"
+#include <ElevateEngine/Events/ApplicationEvent.h>
+#include <ElevateEngine/Events/MouseEvent.h>
+#include <ElevateEngine/Events/KeyEvent.h>
+#include <ElevateEngine/Inputs/Input.h>
+#include <ElevateEngine/Renderer/OpenGL/OpenGLContext.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 
 namespace Elevate {
@@ -19,36 +16,27 @@ namespace Elevate {
 		EE_CORE_ERROR("GLFW Error: ({0}): {1}", error, description);
 	}
 
-	Window* Window::Create(const WindowProps& props)
-	{
-		return new WindowsWindow(props);
-	}
-
-	WindowsWindow::WindowsWindow(const WindowProps& props)
+	GlfwWindow::GlfwWindow(const WindowProps& props)
 	{
 		Init(props);
 	}
 
-	WindowsWindow::~WindowsWindow()
+	GlfwWindow::~GlfwWindow()
 	{
 		Shutdown();
 	}
 
-	double WindowsWindow::GetTime() const
+	double GlfwWindow::GetTime() const
 	{
 		return glfwGetTime();
 	}
 
-	void WindowsWindow::Init(const WindowProps& props)
+	void GlfwWindow::Init(const WindowProps& props)
 	{
-		m_Data.Title = props.Title;
-		m_Data.Width = props.Width;
-		m_Data.Height = props.Height;
-
-		EE_CORE_TRACE("Creating window: {} ({}x{})", props.Title.c_str(), props.Width, props.Height);
+		Window::Init(props);	
 
 		if (!s_GLFWInitialized)
-		{ 
+		{
 			int success = glfwInit();
 			EE_CORE_ASSERT(success, "Could not initialize GLFW.");
 			glfwSetErrorCallback(GLFWErrorCallback);
@@ -165,18 +153,18 @@ namespace Elevate {
 		});
 	}
 
-	void WindowsWindow::Shutdown()
+	void GlfwWindow::Shutdown()
 	{
 		glfwDestroyWindow(m_Window);
 	}
 
-	void WindowsWindow::OnUpdate()
+	void GlfwWindow::OnUpdate()
 	{
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
-	void WindowsWindow::SetVSync(bool enabled)
+	void GlfwWindow::SetVSync(bool enabled)
 	{
 		if (enabled)
 			glfwSwapInterval(1);
@@ -186,7 +174,7 @@ namespace Elevate {
 		m_Data.VSync = enabled;
 	}	
 
-	bool WindowsWindow::IsVSync() const
+	bool GlfwWindow::IsVSync() const
 	{
 		return m_Data.VSync;
 	}
