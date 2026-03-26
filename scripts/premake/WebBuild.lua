@@ -5,11 +5,12 @@ local htmlTemplatePath = _MAIN_SCRIPT_DIR .. "/ElevateEngine/Web/index.template.
 function WebBuild.GenerateHTML(project, outputDir)
     local f = io.open(htmlTemplatePath, "r")
     if f then
+        local safeName = CommonProject.GetSafeProjectName(project.name)
         local content = f:read("*all")
         f:close()
-
-        content = content:gsub("%${PROJECT_NAME}", project.name)
-        content = content:gsub("%${PROJECT_SAFE_NAME}", CommonProject.GetSafeProjectName(project.name)) 
+        
+        content = content:gsub("%$%{PROJECT_NAME%}", project.name)
+        content = content:gsub("%$%{PROJECT_SAFE_NAME%}", safeName)
 
         local outPath = outputDir .. "/index.html"
         local outFile = io.open(outPath, "w")
