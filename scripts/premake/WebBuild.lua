@@ -1,6 +1,7 @@
 WebBuild = {}
 
-local htmlTemplatePath = _MAIN_SCRIPT_DIR .. "/ElevateEngine/Web/index.template.html"
+local htmlTemplatePath = _MAIN_SCRIPT_DIR .. "/ElevateEngine/Web/Templates/index.template.html"
+local htmlAssetsPath = _MAIN_SCRIPT_DIR .. "/ElevateEngine/Web/Assets/"
 
 function WebBuild.GenerateHTML(project, outputDir)
     local f = io.open(htmlTemplatePath, "r")
@@ -8,7 +9,10 @@ function WebBuild.GenerateHTML(project, outputDir)
         local safeName = CommonProject.GetSafeProjectName(project.name)
         local content = f:read("*all")
         f:close()
-        
+
+        -- Copy Assets
+        FileUtils.SafeCopy(htmlAssetsPath, outputDir)
+
         content = content:gsub("%$%{PROJECT_NAME%}", project.name)
         content = content:gsub("%$%{PROJECT_SAFE_NAME%}", safeName)
 
@@ -19,6 +23,7 @@ function WebBuild.GenerateHTML(project, outputDir)
             outFile:close()
             Logger.Info("Generated index.html at " .. outPath)
         end
+
     end
 end
 
