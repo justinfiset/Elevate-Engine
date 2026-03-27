@@ -6,6 +6,18 @@
 namespace Elevate {
 	class Event;
 
+	using EventCallbackFn = std::function<void(Event&)>;
+
+	struct WindowData
+	{
+		std::string Title;
+		unsigned int Width, Height;
+		bool Focused;
+		bool VSync;
+
+		EventCallbackFn EventCallback;
+	};
+
 	struct WindowProps
 	{
 		std::string Title;
@@ -25,18 +37,7 @@ namespace Elevate {
 	class Window
 	{
 	public:
-		using EventCallbackFn = std::function<void(Event&)>;
-
-		struct WindowData
-		{
-			std::string Title;
-			unsigned int Width, Height;
-			bool Focused;
-			bool VSync;
-
-			EventCallbackFn EventCallback;
-		};
-
+		Window() = default;
 		virtual ~Window() { }
 
 		virtual void Init(const WindowProps& props);

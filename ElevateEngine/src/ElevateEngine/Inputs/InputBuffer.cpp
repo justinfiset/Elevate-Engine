@@ -80,6 +80,12 @@ namespace Elevate
 		}
 	}
 
+	void InputBuffer::ResetAllStates()
+	{
+		keyStates.reset();
+		mouseButtonStates.reset();
+	}
+
 	void InputBuffer::ManageMidSates()
 	{
 		// Keyboard

@@ -50,6 +50,7 @@ namespace Elevate {
 
 		// Has to be called before polling events to reset all the intermediates states of the keys (down or up)
 		inline static void ManageMidStates() { s_Instance->inputBuffer.ManageMidSates(); }
+		inline static void ResetAllStates() { s_Instance->inputBuffer.ResetAllStates(); }
 			
 		/// Managed Callbacks // Could be used to simulate inputs to an app by sending events
 		// Keyboard

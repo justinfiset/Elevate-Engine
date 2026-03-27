@@ -28,6 +28,7 @@ namespace Elevate
 		//Mouse
 		void SetMouseButtonPressed(int mouseButtonCode);
 		void SetMouseButtonReleased(int mouseButtonCode);
+		void ResetAllStates();
 
 		void ManageMidSates();
 

@@ -8,7 +8,26 @@
 #include <ElevateEngine/Renderer/OpenGL/OpenGLContext.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 
-namespace Elevate {
+static void Elevate_MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+{
+	auto* dataPtr = static_cast<Elevate::WindowData*>(glfwGetWindowUserPointer(window));
+	if (!dataPtr)
+		return;
+
+	if (action == GLFW_PRESS)
+	{
+		Elevate::MouseButtonPressedEvent event(button);
+		dataPtr->EventCallback(event);
+	}
+	else if (action == GLFW_RELEASE)
+	{
+		Elevate::MouseButtonReleasedEvent event(button);
+		dataPtr->EventCallback(event);
+	}
+}
+
+namespace Elevate
+{
 	static bool s_GLFWInitialized = false;
 
 	static void GLFWErrorCallback(int error, const char* description)
@@ -33,7 +52,7 @@ namespace Elevate {
 
 	void GlfwWindow::Init(const WindowProps& props)
 	{
-		Window::Init(props);	
+		Window::Init(props);
 
 		if (!s_GLFWInitialized)
 		{
@@ -53,56 +72,61 @@ namespace Elevate {
 		m_Context = new OpenGLContext(m_Window);
 		m_Context->Init();
 
-		glfwSetWindowUserPointer(m_Window, &m_Data);
+		
 		SetVSync(props.VSync);
 
 		// Set GLFW callbacks
+		glfwSetWindowUserPointer(m_Window, &m_Data);
+
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			data.Width = width;
-			data.Height = height;
-			
+			void* userPtr = glfwGetWindowUserPointer(window);
+			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+			dataPtr->Width = width;
+			dataPtr->Height = height;
 			WindowResizeEvent event(width, height);
-			data.EventCallback(event);
+			dataPtr->EventCallback(event);
 		});
 
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			void* userPtr = glfwGetWindowUserPointer(window);
+			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
 			WindowCloseEvent event;
-			data.EventCallback(event);
+			dataPtr->EventCallback(event);
 		});
 
 		glfwSetWindowFocusCallback(m_Window, [](GLFWwindow* window, int focused)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			void* userPtr = glfwGetWindowUserPointer(window);
+			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
 			WindowFocusEvent event(focused);
-			data.EventCallback(event);
+			dataPtr->EventCallback(event);
 		});
 
 		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			void* userPtr = glfwGetWindowUserPointer(window);
+			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
 
 			switch(action)
 			{
 				case GLFW_PRESS:
 				{
 					KeyPressedEvent event(key, 0);
-					data.EventCallback(event);
+					dataPtr->EventCallback(event);
 					break;
 				}
 				case GLFW_RELEASE:
 				{
 					KeyReleasedEvent event(key);
-					data.EventCallback(event);
+					dataPtr->EventCallback(event);
 					break;
 				}
 				case GLFW_REPEAT:
 				{
 					KeyPressedEvent event(key, 1);
-					data.EventCallback(event);
+					dataPtr->EventCallback(event);
 					break;
 				}
 			}
@@ -110,46 +134,28 @@ namespace Elevate {
 
 		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
 		{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-
-				KeyTypedEvent event(keycode);
-				data.EventCallback(event);
+			void* userPtr = glfwGetWindowUserPointer(window);
+			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+			KeyTypedEvent event(keycode);
+			dataPtr->EventCallback(event);
 		});
 
-		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
-		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-
-			switch (action)
-			{
-				case GLFW_PRESS:
-				{
-					MouseButtonPressedEvent event(button);
-					data.EventCallback(event);
-					break;
-				}
-				case GLFW_RELEASE:
-				{
-					MouseButtonReleasedEvent event(button);
-					data.EventCallback(event);
-					break;
-				}
-			}
-		});
+		glfwSetMouseButtonCallback(m_Window, Elevate_MouseButtonCallback);
 
 		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-
+			void* userPtr = glfwGetWindowUserPointer(window);
+			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
 			MouseScrolledEvent event((float)xOffset, (float)yOffset);
-			data.EventCallback(event);
+			dataPtr->EventCallback(event);
 		});
 
 		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xPos, double yPos)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			void* userPtr = glfwGetWindowUserPointer(window);
+			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
 			MouseMovedEvent event((float)xPos, (float)yPos);
-			data.EventCallback(event);
+			dataPtr->EventCallback(event);
 		});
 	}
 

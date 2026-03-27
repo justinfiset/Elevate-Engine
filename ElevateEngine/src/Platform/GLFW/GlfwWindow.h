@@ -12,6 +12,7 @@ namespace Elevate
 	class GlfwWindow : public Window
 	{
 	public:
+		GlfwWindow() = default;
 		GlfwWindow(const WindowProps&);
 		virtual ~GlfwWindow();
 
@@ -28,9 +29,10 @@ namespace Elevate
 
 		inline virtual void* GetNativeWindow() const override { return m_Window; };
 
+		virtual void Init(const WindowProps& props) override;
+
 		virtual double GetTime() const override;
 	private:
-		virtual void Init(const WindowProps& props) override;
 		virtual void Shutdown();
 
 		GLFWwindow* m_Window;

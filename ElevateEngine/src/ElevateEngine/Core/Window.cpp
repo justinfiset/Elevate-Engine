@@ -11,10 +11,10 @@
 
 #if defined(EE_PLATFORM_WINDOWS)
 	#include <Platform/Windows/WindowsWindow.h>
-#elif defined(EE_PLATFORM_LINUX)
-	#include <Platform/Linux/LinuxWindow.h>
 #elif defined(EE_PLATFORM_WEB)
 	#include <Platform/Web/WebWindow.h>
+#elif defined(EE_PLATFORM_LINUX)
+	#include <Platform/Linux/LinuxWindow.h>
 #else
 	#error "Unknown platform! Cannot create window on this platform."
 #endif
@@ -23,10 +23,10 @@ namespace Elevate
 {
 #if defined(EE_PLATFORM_WINDOWS)
 	using PlatformWindow = WindowsWindow;
-#elif defined(EE_PLATFORM_LINUX)
-	using PlatformWindow = LinuxWindow;
 #elif defined(EE_PLATFORM_WEB)
 	using PlatformWindow = WebWindow;
+#elif defined(EE_PLATFORM_LINUX)
+	using PlatformWindow = LinuxWindow;
 #else
 	#error "Unknown platform! Cannot create window on this platform."
 #endif
@@ -88,7 +88,8 @@ namespace Elevate
 	}
 
 	void Window::SetWindowSize(unsigned int width, unsigned int height)
-	{ 
+	{
+		EE_CORE_INFO("Setting window size to {}x{}", width, height);
 		m_Data.Width = width;
 		m_Data.Height = height;
 		WindowResizeEvent event(width, height);

@@ -7,7 +7,11 @@ namespace Elevate
 	class WebWindow : public GlfwWindow 
 	{
 	public:
-		WebWindow(const WindowProps& props) : GlfwWindow(props) {}
+		WebWindow(const WindowProps& props);
+		virtual void Init(const WindowProps& props) override;
+
+		// Web Specific Functions
+		void GetCanvasSize(unsigned int& width, unsigned int& height);
 	};
 }
 

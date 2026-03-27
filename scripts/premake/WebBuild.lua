@@ -17,7 +17,7 @@ function WebBuild.GenerateHTML(project, outputDir)
         if outFile then
             outFile:write(content)
             outFile:close()
-            Logger.Info("Elevate Engine: Generated index.html for " .. project.name .. " at " .. outPath)
+            Logger.Info("Generated index.html at " .. outPath)
         end
     end
 end
@@ -33,13 +33,15 @@ function WebBuild.ApplyCompilerSettings()
         "-s PTHREAD_POOL_SIZE=16",
         "-s USE_GLFW=3",
         "-s FULL_ES3=1",
-        "-s AUDIO_WORKLET=1",
-        "-s WASM_WORKERS=1",
+        "-s ASSERTIONS=1",
+        "-s EMULATE_FUNCTION_POINTER_CASTS=1",
+        "-s NO_EXIT_RUNTIME=1",
+        "-s DISABLE_DEPRECATED_FIND_EVENT_TARGET_BEHAVIOR=0",
+        "-s EXPORTED_RUNTIME_METHODS=['FS','wasmTable','ccall','cwrap']",
         "-s ALLOW_MEMORY_GROWTH=1",
         "-s INITIAL_MEMORY=512MB",
         "-s FORCE_FILESYSTEM=1",
         "-s ERROR_ON_UNDEFINED_SYMBOLS=0",
-        "-s EXPORTED_RUNTIME_METHODS=['FS','wasmTable']",
         "-qext"
     }
 

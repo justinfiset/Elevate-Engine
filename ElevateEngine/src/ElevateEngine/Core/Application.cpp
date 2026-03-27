@@ -279,6 +279,8 @@ namespace Elevate {
 
 	bool Application::OnWindowFocusEvent(WindowFocusEvent& e)
 	{
+		Input::ResetAllStates();
+
 		if (e.GetFocusState())
 		{
 			// todo add a setting to check the type of suspend to impl.
