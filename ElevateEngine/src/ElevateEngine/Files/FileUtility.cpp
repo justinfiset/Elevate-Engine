@@ -3,16 +3,19 @@
 
 #include <fstream>
 #include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/PathResolver.h>
 
 std::string Elevate::File::GetFileContent(std::string path)
 {
+	std::string resolvedPath = PathResolver::Resolve(path);
+
 	std::string content;
-	std::ifstream s(path, std::ios::in);
+	std::ifstream s(resolvedPath, std::ios::in);
 
 	// If file does not exists
 	if (!s.is_open())
 	{
-		EE_CORE_ERROR("Could not open file : {0}, file does not exist", path);
+		EE_CORE_ERROR("Could not open file : {0}, file does not exist", resolvedPath);
 		return std::string();
 	}
 

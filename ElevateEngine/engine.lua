@@ -45,6 +45,7 @@ project "ElevateEngine"
 
 	defines 
 	{
+		"EE_RESOURCE_DIR=\""..path.getabsolute("./Resources/").."\"",
 		"EE_ENGINE_BUILD",
 		"_CRT_SECURE_NO_WARNINGS",
 		"IMGUI_DEFINE_MATH_OPERATORS",

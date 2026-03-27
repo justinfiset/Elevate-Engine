@@ -7,6 +7,7 @@
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 
 #include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/PathResolver.h>
 
 namespace Elevate {
 	TextureManager::TextureManager()
@@ -62,7 +63,8 @@ namespace Elevate {
 
 	TexturePtr TextureManager::LoadTextureAsync(const std::string& path, TextureType usage)
 	{
-		std::filesystem::path fsPath = std::filesystem::absolute(path);
+		std::string resolvedPath = PathResolver::Resolve(path);
+		std::filesystem::path fsPath = std::filesystem::absolute(resolvedPath);
 		std::string absPath = fsPath.string();
 
 		EE_CORE_TRACE("{}", absPath);

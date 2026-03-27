@@ -9,6 +9,7 @@
 #include <rapidjson/error/en.h>
 
 #include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/PathResolver.h>
 #include <ElevateEngine/Core/Files.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
@@ -197,9 +198,10 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
 
 void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath)
 {
-	FILE* fp = fopen(filepath.c_str(), "r");
+	std::string resolvedPath = PathResolver::Resolve(filepath);
+	FILE* fp = fopen(resolvedPath.c_str(), "r");
 	if (!fp) {
-		EE_CORE_ERROR("Cannot open JSON file : %s", filepath);
+		EE_CORE_ERROR("Cannot open JSON file : {}", resolvedPath);
 		return;
 	}
 

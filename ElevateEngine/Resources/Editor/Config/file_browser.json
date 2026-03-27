@@ -7,27 +7,27 @@
     "assets": [
         {
             "extension": "jpg",
-            "iconPath": "editor/debug.png",
+            "iconPath": "editor://debug.png",
             "type": "IMAGE"
         },
         {
             "extension": "png",
-            "iconPath": "editor/debug.png",
+            "iconPath": "editor://debug.png",
             "type": "IMAGE"
         },
         {
             "extension": "ANY",
-            "iconPath": "editor/icons/assets/file.png",
+            "iconPath": "editor://Icons/Assets/file.png",
             "type": "FILE"
         },
         {
             "extension": "DIRECTORY",
-            "iconPath": "editor/icons/assets/folder.png", 
+            "iconPath": "editor://Icons/Assets/folder.png", 
             "type": "DIRECTORY"
         },
         {
             "extension": "EMPTY_DIRECTORY",
-            "iconPath": "editor/icons/assets/empty_folder.png",
+            "iconPath": "editor://Icons/Assets/empty_folder.png",
             "type": "DIRECTORY"
         }
     ]

@@ -31,6 +31,15 @@
 #define EE_SHADER_VERSION_HEADER EE_SHADER_VERSION_STRING " " EE_SHADER_PROFILE_STRING
 #define EE_SHADER_HEADER EE_SHADER_VERSION_HEADER "\n" EE_SHADER_PRECISION_STRING
 
+#ifndef EE_PLATFORM_WEB
+    #define EE_ENGINE_DIR EE_RESOURCE_DIR "/Engine/"
+    #define EE_EDITOR_DIR EE_RESOURCE_DIR "/Editor/"
+#else
+    #define EE_ENGINE_DIR "/Engine/"
+    #define EE_EDITOR_DIR "/Editor/"
+#endif
+#define EE_CONTENT_ROOT "./Content/"
+
 #define BIT(x) (1 << x)
 
 #define EE_BIND_EVNT_FN(fn) std::bind(&fn, this, std::placeholders::_1)

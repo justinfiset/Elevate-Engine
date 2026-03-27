@@ -106,8 +106,8 @@ namespace Elevate::Editor
 
 	HierarchyPanel::HierarchyPanel()
 	{
-		m_sceneTexture = Texture::CreateFromFile("./editor/icons/light/scene.png");
-		m_objectTexture = Texture::CreateFromFile("./editor/icons/light/object.png");
+		m_sceneTexture = Texture::CreateFromFile("editor://Icons/Light/scene.png");
+		m_objectTexture = Texture::CreateFromFile("editor://Icons/Light/object.png");
 	}
 
 	void HierarchyPanel::OnImGuiRender()

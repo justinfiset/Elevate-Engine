@@ -37,8 +37,8 @@ void Elevate::DebugRenderer::InitLineRender()
 {
 	m_lineShader = ShaderManager::LoadShader(
 		"Debug",
-		"Editor/Shaders/debug.vert",
-		"Editor/Shaders/debug.frag",
+		"editor://Shaders/debug.vert",
+		"editor://Shaders/debug.frag",
 		EE_SHADER_HEADER,
 		EE_SHADER_HEADER
 	);

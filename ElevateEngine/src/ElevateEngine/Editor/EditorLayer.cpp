@@ -38,10 +38,10 @@ namespace Elevate::Editor
 	EditorLayer::EditorLayer()
 	{
 		s_Instance = this;
-		m_playTexture = Texture::CreateFromFile("./Editor/Icons/Light/Colored/play.png");
-		m_pauseTexture = Texture::CreateFromFile("./Editor/Icons/Light/pause.png");
-		m_stopTexture = Texture::CreateFromFile("./Editor/Icons/Light/stop.png");
-		m_coloredStopTexture = Texture::CreateFromFile("./Editor/Icons/Light/Colored/stop.png");
+		m_playTexture = Texture::CreateFromFile("editor://Icons/Light/Colored/play.png");
+		m_pauseTexture = Texture::CreateFromFile("editor://Icons/Light/pause.png");
+		m_stopTexture = Texture::CreateFromFile("editor://Icons/Light/stop.png");
+		m_coloredStopTexture = Texture::CreateFromFile("editor://Icons/Light/Colored/stop.png");
 		InitUI();
 	}
 
@@ -55,8 +55,8 @@ namespace Elevate::Editor
 
 		// Setup the grid shader ///////////////////////////
 		m_GridShader = Shader::CreateFromFiles(
-			"Editor/Shaders/grid.vert",
-			"Editor/Shaders/grid.frag",
+			"editor://Shaders/grid.vert",
+			"editor://Shaders/grid.frag",
 			EE_SHADER_HEADER,
 			EE_SHADER_HEADER
 		);
