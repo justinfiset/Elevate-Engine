@@ -8,23 +8,36 @@
 
 #include "Core.h"
 
+// Create a simple system to tell the .js what we are trying to log if building for the web
+#ifdef EE_PLATFORM_WEB
+    #define EE_TRACE_PREFIX "[TRACE] "
+    #define EE_INFO_PREFIX "[INFO] "
+    #define EE_WARN_PREFIX "[WARN] "
+    #define EE_ERROR_PREFIX "[ERROR] "
+    #define EE_FATAL_PREFIX "[FATAL] "
+#else
+    #define EE_TRACE_PREFIX ""
+    #define EE_INFO_PREFIX ""
+    #define EE_WARN_PREFIX ""
+    #define EE_ERROR_PREFIX ""
+    #define EE_FATAL_PREFIX ""
+#endif
+
 namespace Elevate {
     class LogImpl {
     public:
         LogImpl(std::shared_ptr<spdlog::logger> logger) : m_logger(logger) { }
-        // Utilise const std::string& ici
-        inline void Trace(const std::string& text) { m_logger->trace(text);    }
-        inline void Info(const std::string& text)  { m_logger->info(text);     }
-        inline void Warn(const std::string& text)  { m_logger->warn(text);     }
-        inline void Error(const std::string& text) { m_logger->error(text);    }
-        inline void Fatal(const std::string& text) { m_logger->critical(text); }
+        inline void Trace(const std::string& text) { m_logger->trace(EE_TRACE_PREFIX "{}", text);    }
+        inline void Info(const std::string& text)  { m_logger->info(EE_INFO_PREFIX "{}", text);     }
+        inline void Warn(const std::string& text)  { m_logger->warn(EE_WARN_PREFIX "{}", text);     }
+        inline void Error(const std::string& text) { m_logger->error(EE_ERROR_PREFIX "{}", text);    }
+        inline void Fatal(const std::string& text) { m_logger->critical(EE_FATAL_PREFIX "{}", text); }
     private:
         std::shared_ptr<spdlog::logger> m_logger;
     };
 
     class Log {
     public:
-        // Utilise const std::string& ici aussi
         static inline void Trace(LogImpl* logger, const std::string& text) { if(logger) logger->Trace(text); }
         static inline void Info(LogImpl* logger, const std::string& text)  { if(logger) logger->Info(text);  }
         static inline void Warn(LogImpl* logger, const std::string& text)  { if(logger) logger->Warn(text);  }
@@ -36,7 +49,6 @@ namespace Elevate {
     };
 }
 
-// Macros Core : Le std::format est appelé ici, côté appelant.
 #if defined(EE_ENGINE_BUILD) || defined(EE_ENGINE_INTERNAL)
 #define EE_CORE_TRACE(...)     ::Elevate::Log::Trace(::Elevate::Log::GetCoreLogger(), std::format(__VA_ARGS__))
 #define EE_CORE_INFO(...)      ::Elevate::Log::Info(::Elevate::Log::GetCoreLogger(),  std::format(__VA_ARGS__))
@@ -51,7 +63,6 @@ namespace Elevate {
 #define EE_CORE_CFATAL(condition, ...)  if(condition) { EE_CORE_FATAL(__VA_ARGS__); }
 #endif
 
-// Macros Client
 #define EE_TRACE(...)          ::Elevate::Log::Trace(::Elevate::Log::GetClientLogger(), std::format(__VA_ARGS__))
 #define EE_INFO(...)           ::Elevate::Log::Info(::Elevate::Log::GetClientLogger(),  std::format(__VA_ARGS__))
 #define EE_WARN(...)           ::Elevate::Log::Warn(::Elevate::Log::GetClientLogger(),  std::format(__VA_ARGS__))
