@@ -1,6 +1,6 @@
 #pragma once
 #ifdef EE_PLATFORM_LINUX
-#include <Platform/GLFW/GlfwWindow.h>
+#include <Platform/Shared/GLFW/GlfwWindow.h>
 
 namespace Elevate
 {

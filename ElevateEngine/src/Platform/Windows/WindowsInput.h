@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef EE_PLATFORM_WINDOWS
-#include "Platform/GLFW/GlfwInput.h"
+#include <Platform/Shared/GLFW/GlfwInput.h>
 
 namespace Elevate
 {
