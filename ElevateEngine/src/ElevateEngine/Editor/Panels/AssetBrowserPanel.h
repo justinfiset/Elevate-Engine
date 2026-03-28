@@ -74,7 +74,7 @@ namespace Elevate::Editor {
 		void AddParentPaths(std::filesystem::path path);
 
 		void LoadFileItemsList();
-		void LoadExtensionsMeta(std::string filepath = "editor://config/file_browser.json");
+		void LoadExtensionsMeta(std::string filepath = "editor://Config/file_browser.json");
 
 		std::filesystem::path m_CurrentPath = ".";
 		std::vector<BrowserPath> m_relatedPaths;
