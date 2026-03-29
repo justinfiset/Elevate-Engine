@@ -1,7 +1,7 @@
 #include "eepch.h"
 #include "OpenGLRendererAPI.h"
 
-#include <glad/glad.h>
+#include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <GLFW/glfw3.h>
 
 #include <ElevateEngine/Renderer/GLDebug.h>
@@ -20,6 +20,7 @@ namespace Elevate
 			case DrawPrimitiveType::TriangleStrip: return GL_TRIANGLE_STRIP;
 			case DrawPrimitiveType::TriangleFan:   return GL_TRIANGLE_FAN;
 			case DrawPrimitiveType::Patches:       return GL_PATCHES;
+			default:							   return GL_TRIANGLES;
 		}
 		return GL_TRIANGLES;
 	}

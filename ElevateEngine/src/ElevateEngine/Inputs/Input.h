@@ -6,9 +6,9 @@
 #include <ElevateEngine/Inputs/MouseButtonCodes.h>
 // =======================================
 
-#include "ElevateEngine/Events/KeyEvent.h"
+#include <ElevateEngine/Events/KeyEvent.h>
 #include <ElevateEngine/Events/MouseEvent.h>
-#include "ElevateEngine/Inputs/InputBuffer.h"
+#include <ElevateEngine/Inputs/InputBuffer.h>
 
 #include <glm/glm.hpp>
 
@@ -22,7 +22,7 @@
 #define EE_STATE_UP       3 // The instant moment when a key is released
 
 namespace Elevate {
-	class EE_API Input
+	class Input
 	{
 		friend class Application;
 	public:
@@ -50,6 +50,7 @@ namespace Elevate {
 
 		// Has to be called before polling events to reset all the intermediates states of the keys (down or up)
 		inline static void ManageMidStates() { s_Instance->inputBuffer.ManageMidSates(); }
+		inline static void ResetAllStates() { s_Instance->inputBuffer.ResetAllStates(); }
 			
 		/// Managed Callbacks // Could be used to simulate inputs to an app by sending events
 		// Keyboard

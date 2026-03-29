@@ -43,6 +43,10 @@ function CommonProject.SetupProjectKind()
     filter {}
 end
 
+function CommonProject.GetSafeProjectName(name)
+	return name:gsub(" ", "-")
+end
+
 function CommonProject.SetupProject(directory)
 	-- Make sure the directory exists before trying to set up the project
 	if not os.isdir(directory) then
@@ -51,15 +55,18 @@ function CommonProject.SetupProject(directory)
 
 	local infos = CommonProject.ParseProjectFile(directory)
 
-	project(infos.name)
-	targetname(infos.name)
-	location(directory.."/Build/" .. infos.name)
+	local projectSafeName = CommonProject.GetSafeProjectName(infos.name)
+	project(projectSafeName)
+	targetname(projectSafeName)
+	location(directory.."/Build/" .. projectSafeName)
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "on"
 	CommonProject.SetupProjectKind()
+	systemversion "latest"
 
-	targetdir ("%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name:gsub(' ', '-')}")
+	local targetDirLocation = "%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name:gsub(' ', '-')}"
+	targetdir (targetDirLocation)
 	objdir ("%{wks.location}/Build/bin-int/" .. outputdir .. "/%{prj.name:gsub(' ', '-')}")
 	debugdir (directory)
 
@@ -78,38 +85,27 @@ function CommonProject.SetupProject(directory)
 		directory.."/../../ElevateEngine/vendor/entt/include",
 		directory.."/../../ElevateEngine/vendor/ImGui/",
 		directory.."/../../ElevateEngine/vendor/glm/",
-		directory.."/../../ElevateEngine/src"
+		directory.."/../../ElevateEngine/vendor/spdlog/include",
+		directory.."/../../ElevateEngine/src",
 	}
 
-	links
-    {
-        "ElevateEngine"
-    }
+	links { "ElevateEngine" }
 
-	defines
-    {
-        "EE_NO_SOUNDENGINE=" .. (infos.usesSoundEngine and "0" or "1")
-    }
-
+	-- Config sound engine if needed
+	defines { "EE_NO_SOUNDENGINE=" .. (infos.usesSoundEngine and "0" or "1") }
 	if infos.usesSoundEngine then
 		Wwise.SetupProject()
 	end
 
+	BuildPlatform.SetPlatformDefines()
+
+	defines { "EE_RESOURCE_DIR=\"" ..path.getabsolute(_MAIN_SCRIPT_DIR.."/ElevateEngine/Resources/").."\"" }
+
 	filter "system:windows"
-		systemversion "latest"
-		defines { "EE_PLATFORM_WINDOWS" }
-
-		links
-		{
-			"ws2_32" -- For Wwise Communication WARNING NOT NEEDED IN RELEASE BUT STILL INCLUDED FOR THE MOMENT -- CHANGE THIS
-		}
-
-		buildoptions { "/Zc:wchar_t" }
-
+		links { "ws2_32" } -- For Wwise Communication WARNING NOT NEEDED IN RELEASE BUT STILL INCLUDED FOR THE MOMENT -- CHANGE THIS}
+		buildoptions { "/Zc:wchar_t", "/utf-8" }
+		
 	filter "system:linux"
-		systemversion "latest"
-		defines { "EE_PLATFORM_LINUX" }
-
 		links
 		{
 			"ElevateEngine",
@@ -127,21 +123,30 @@ function CommonProject.SetupProject(directory)
 			"m"
 		}
 
-	filter "configurations:Editor Debug"
-		defines
-		{
-			"EE_DEBUG",
-			"EE_EDITOR_BUILD"
+	filter "system:emscripten"
+		links { "ElevateEngine", "ImGui","assimp" }
+
+		linkoptions
+        {
+			"--preload-file ".._MAIN_SCRIPT_DIR.."/ElevateEngine/Resources/Engine@/Engine",
+			"--preload-file "..directory.."/Content@/Content",
+			"--preload-file "..directory.."/app.config@/app.config",
+			"--preload-file "..directory.."/imgui.ini@/imgui.ini",
 		}
+
+	filter { "system:emscripten", "configurations:Editor_*" }
+		linkoptions
+		{
+			"--preload-file ".._MAIN_SCRIPT_DIR.."/ElevateEngine/Resources/Editor@/Editor",
+		}
+
+	filter "configurations:Editor_Debug"
+		defines { "EE_DEBUG", "EE_EDITOR_BUILD" }
 		runtime "Debug"
 		symbols "on"
 
-	filter "configurations:Editor Release"
-		defines 
-		{
-			"EE_RELEASE",
-			"EE_EDITOR_BUILD"
-		}
+	filter "configurations:Editor_Release"
+		defines { "EE_RELEASE", "EE_EDITOR_BUILD" }
 		runtime "Release"
 		optimize "on"
 
@@ -159,6 +164,8 @@ function CommonProject.SetupProject(directory)
         defines "EE_DIST"
         runtime "Release"
         optimize "on"
+
+	BuildPlatform.ConfigureProject(directory, infos)
 
 print("Finished Generating " .. infos.name .. " Solution.\n")
 end

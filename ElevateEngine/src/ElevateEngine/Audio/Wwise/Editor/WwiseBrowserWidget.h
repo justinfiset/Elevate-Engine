@@ -182,14 +182,14 @@ namespace Elevate::Editor
 				EditorMessage msg = GetDiskStatusText(item);
 				glm::vec4 color = msg.GetColor();
 				ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(color.r, color.g, color.b, color.a));
-				ImGui::Text(msg.message.c_str());
+				ImGui::Text("%s", msg.message.c_str());
 				ImGui::PopStyleColor();
 
 				ImGui::TableSetColumnIndex(2);
 				msg = GetSoundBanksStatusText(item);
 				color = msg.GetColor();
 				ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(color.r, color.g, color.b, color.a));
-				ImGui::Text(msg.message.c_str());
+				ImGui::Text("%s", msg.message.c_str());
 				ImGui::PopStyleColor();
 			}
 		}

@@ -2,7 +2,7 @@
 #include "OpenGLBuffer.h"
 #include "ElevateEngine/Renderer/Vertex.h"
 
-#include <glad/glad.h>
+#include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <GLFW/glfw3.h>
 #include <ElevateEngine/Core/Log.h>
 
@@ -11,13 +11,31 @@
 
 namespace Elevate
 {
+	inline void CreateBuffers(int32_t n, uint32_t* ids)
+	{
+#ifdef EE_SUPPORTS_DSA
+		glCreateBuffers(n, ids);
+#else
+		glGenBuffers(n, ids);
+#endif
+    }
+
+	inline void NamedBufferData(uint32_t buffer, uint32_t target, size_t size, const void* data, uint32_t usage) {
+#ifdef EE_SUPPORTS_DSA
+		glNamedBufferData(buffer, size, data, usage);
+#else
+        glBindBuffer(target, buffer);
+        glBufferData(target, size, data, usage);
+#endif
+    }
+
 	///////////////////////////////////////////////////////////////////////////////////////
 	// VertexBuffer ///////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////
 	OpenGLVertexBuffer::OpenGLVertexBuffer(const void* vertices, uint32_t size)
 		: VertexBuffer(vertices, size)
 	{
-		GLCheck(glCreateBuffers(1, &m_rendererID));
+		GLCheck(CreateBuffers(1, &m_rendererID));
 		SetData(vertices, size);
 	}
 
@@ -49,7 +67,7 @@ namespace Elevate
 
 			if (newData)
 			{
-				GLCheck(glNamedBufferData(m_rendererID, size, data, GL_DYNAMIC_DRAW));
+				GLCheck(NamedBufferData(m_rendererID, GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW));
 			}
 		}
 		else
@@ -62,7 +80,7 @@ namespace Elevate
 	{
 		if (m_rendererID != 0 && data)
 		{
-			GLCheck(glNamedBufferData(m_rendererID, newSize, data, GL_DYNAMIC_DRAW));
+			GLCheck(NamedBufferData(m_rendererID, GL_ARRAY_BUFFER, newSize, data, GL_DYNAMIC_DRAW));
 			SetSize(newSize);
 		}
 		else
@@ -77,7 +95,7 @@ namespace Elevate
 	OpenGLIndexBuffer::OpenGLIndexBuffer(const void* indices, uint32_t count)
 		: m_count(count)
 	{
-		GLCheck(glCreateBuffers(1, &m_rendererID));
+		GLCheck(CreateBuffers(1, &m_rendererID));
 		GLCheck(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_rendererID));
 		GLCheck(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW));
 	}

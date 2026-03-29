@@ -24,16 +24,14 @@ public:
 
 	void OnAttach() override
 	{
-		uint32_t glslVersion = 410;
 		uint32_t glslPointLightCount = 1;
-		std::string glslVesionDefine = "#version " + std::to_string(glslVersion);
 		std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(glslPointLightCount);
 		m_shader = Elevate::ShaderManager::LoadShader(
 			"main",
-			"Content/Shaders/main.vert",
-			"Content/Shaders/main.frag",
-			glslVesionDefine,
-			(glslVesionDefine + "\n" + glslPointLightCountDefine)
+			"content://Shaders/main.vert",
+			"content://Shaders/main.frag",
+			EE_SHADER_HEADER,
+			EE_SHADER_HEADER + glslPointLightCountDefine
 		);
 
 		Elevate::MaterialPtr material = Elevate::MaterialRegistry::LoadMaterial(m_shader);
@@ -42,7 +40,7 @@ public:
 		material->Set("material.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 		material->Set("material.shininess", 32.0f);
 
-		m_scene->SetSkybox("Engine/Cubemap/default.sky");
+		m_scene->SetSkybox("engine://Cubemap/default.sky");
 
 		// TODO impl dans un API a part entiere
 		//tinyfd_messageBox(
@@ -104,12 +102,15 @@ public:
 		switch (event.GetEventType())
 		{
 		case Elevate::EventType::KeyTyped:
+		{
 			Elevate::KeyPressedEvent kp = (Elevate::KeyPressedEvent&)event;
 			if (kp.GetKeyCode() == EE_KEY_SPACE)
 			{
 				// Do something here...
 			}
 			break;
+		}
+		default: break;
 		}
 
 		SceneLayer::OnEvent(event);

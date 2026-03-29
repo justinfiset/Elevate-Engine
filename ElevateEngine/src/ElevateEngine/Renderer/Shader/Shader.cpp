@@ -20,7 +20,7 @@ namespace Elevate
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::GraphicAPI::None: EE_CORE_ASSERT(false, "Renderer none is not supported");
-		case RendererAPI::GraphicAPI::OpenGL: return std::make_shared<OpenGLShader>(std::string(DefaultShader::GetVertexShader()), std::string(DefaultShader::GetFragmentShader()));
+		case RendererAPI::GraphicAPI::OpenGL: return std::make_shared<OpenGLShader>(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetFragmentShader()));
 		}
 		return nullptr;
 	}
@@ -30,19 +30,19 @@ namespace Elevate
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::GraphicAPI::None: EE_CORE_ASSERT(false, "Renderer none is not supported");
-		case RendererAPI::GraphicAPI::OpenGL: return std::make_shared<OpenGLShader>(std::string(DefaultShader::GetVertexShader()), std::string(DefaultShader::GetErrorShader()));
+		case RendererAPI::GraphicAPI::OpenGL: return std::make_shared<OpenGLShader>(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetErrorShader()));
 		}
 		return nullptr;
 	}
 
 	std::shared_ptr<Shader> Shader::CreateDefault()
 	{
-		return Create(std::string(DefaultShader::GetVertexShader()), std::string(DefaultShader::GetFragmentShader()));
+		return Create(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetFragmentShader()));
 	}
 
 	std::shared_ptr<Shader> Shader::CreateDefaultError()
 	{
-		return Create(std::string(DefaultShader::GetVertexShader()), std::string(DefaultShader::GetErrorShader()));
+		return Create(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetErrorShader()));
 	}
 
 	ShaderPtr Shader::Create(const std::string& vertexSource, const std::string& fragmentSouce)
@@ -165,22 +165,29 @@ namespace Elevate
 		case ShaderDataType::Float2: 
 		{
 			float* data = (float*)value;
-			SetUniform2f(location, data[0], data[1]); break;
+			SetUniform2f(location, data[0], data[1]);
+			break;
 		}
 		case ShaderDataType::Float3:
 		{
 			float* data = (float*)value;
-			SetUniform3f(location, data[0], data[1], data[2]); break;
+			SetUniform3f(location, data[0], data[1], data[2]);
+			break;
 		}
 		case ShaderDataType::Float4:
 		{
 			float* data = (float*)value;
-			SetUniform4f(location, data[0], data[1], data[2], data[3]); break;
+			SetUniform4f(location, data[0], data[1], data[2], data[3]);
+			break;
 		}
 		case ShaderDataType::Int:
-			SetUniform1i(location, *(int*)value); break;
+			SetUniform1i(location, *(int*)value);
+			break;
 		case ShaderDataType::Mat4:
-			SetUniformMatrix4fv(location, (float*) value); break;
+			SetUniformMatrix4fv(location, (float*) value);
+			break;
+		default:
+			break;
 		}
 	}
 }

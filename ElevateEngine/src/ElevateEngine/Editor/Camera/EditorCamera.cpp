@@ -1,4 +1,3 @@
-#include "eepch.h"
 #include "EditorCamera.h"
 
 #include <ElevateEngine/Inputs/Input.h>

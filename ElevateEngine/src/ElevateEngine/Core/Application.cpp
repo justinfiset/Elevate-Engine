@@ -22,6 +22,10 @@
 
 #include <ElevateEngine/Audio/SoundEngine.h>
 
+#ifdef EE_PLATFORM_WEB
+    #include <emscripten.h>
+#endif
+
 namespace Elevate {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -90,6 +94,14 @@ namespace Elevate {
 		}
 	}
 
+#ifdef EE_PLATFORM_WEB
+	// Intermediate function to call the main loop in web builds
+	void WebMainLoop(void* arg)
+	{
+		static_cast<Application*>(arg)->EngineFrame();
+	}
+#endif
+
 	void Application::Start(int argc, char** argv)
 	{
 		//Log::Init(); // todo remove or uncomment depending on if the workarround worked
@@ -98,7 +110,10 @@ namespace Elevate {
 		app->m_args = ApplicationArguments(argc, argv);
 		EE_CORE_TRACE("Application Initialized.");
 		app->Run();
+
+#ifndef EE_PLATFORM_WEB
 		delete app;
+#endif
 	}
 
 	void Application::Init()
@@ -106,68 +121,86 @@ namespace Elevate {
 		SoundEngine::Init();
 	}
 
-	void Application::Run() // Each frame
+	void Application::EngineFrame() // Each frame
 	{
-		float lastTime = 0.0f;
+		static float lastTime = 0.0f;
+
+#if !EE_ASSERTS_ENABLED
+		try
+		{
+#endif // #if EE_ASSERTS_ENABLED
+			// TIME UPDATE //////////////////
+			Time::currentTime_ = (float) m_Window->GetTime();
+			Time::deltaTime_ = Time::currentTime_ - lastTime;
+			lastTime = Time::currentTime_;
+			/////////////////////////////////
+
+			SoundEngine::RenderAudio();
+			TextureManager::UpdateLoadingTextures();
+
+			FrameBuffer->Bind(); // Rendering the screen in a single texture
+			FrameBuffer->Clear();
+
+			for (Layer* layer : m_LayerStack)
+				layer->OnUpdate();
+
+			// Draw Layers and Scenes
+			for (Layer* layer : m_LayerStack)
+				layer->OnRender();
+
+			DebugRenderer::Render();
+			Renderer::DrawStack();
+
+			FrameBuffer->Unbind(); // Back to normal
+
+			#ifndef EE_EDITOR_BUILD
+			FrameBuffer->BlitFramebufferToScreen(m_Window->GetWidth(), m_Window->GetHeight());
+			#endif
+
+			//imgui
+			m_ImGuiLayer->PreRender();
+			m_ImGuiLayer->Begin();
+
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+				
+			m_ImGuiLayer->Render(); // render imgui
+			m_ImGuiLayer->End(); // finish the imgui rendering
+
+			Input::ManageMidStates(); // Manage Key/Button up and down state
+
+			Renderer::FlushBuffers();	
+			// Poll events and swap buffers
+			m_Window->OnUpdate();
+
+#ifdef EE_PLATFORM_WEB
+			if (!m_Running)
+			{
+				emscripten_cancel_main_loop();
+				Exit();
+			}
+#endif
+
+#if !EE_ASSERTS_ENABLED
+		}
+		catch (const std::exception& exc)
+		{
+			EE_CORE_ERROR("{}", exc.what());
+		}
+#endif // #if EE_ASSERTS_ENABLED
+	}
+
+	void Application::Run()
+	{
+#ifdef EE_PLATFORM_WEB
+		emscripten_set_main_loop_arg(WebMainLoop, this, 0, true);
+#else
 		while (m_Running)
 		{
-#if !EE_ASSERTS_ENABLED
-			try
-			{
-#endif // #if EE_ASSERTS_ENABLED
-				// TIME UPDATE //////////////////
-				Time::currentTime_ = (float) m_Window->GetTime();
-				Time::deltaTime_ = Time::currentTime_ - lastTime;
-				lastTime = Time::currentTime_;
-				/////////////////////////////////
-
-				SoundEngine::RenderAudio();
-				TextureManager::UpdateLoadingTextures();
-
-				FrameBuffer->Bind(); // Rendering the screen in a single texture
-				FrameBuffer->Clear();
-
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate();
-
-				// Draw Layers and Scenes
-				for (Layer* layer : m_LayerStack)
-					layer->OnRender();
-
-				DebugRenderer::Render();
-				Renderer::DrawStack();
-
-				FrameBuffer->Unbind(); // Back to normal
-
-				#ifndef EE_EDITOR_BUILD
-				FrameBuffer->BlitFramebufferToScreen(m_Window->GetWidth(), m_Window->GetHeight());
-				#endif
-
-				//imgui
-				m_ImGuiLayer->PreRender();
-				m_ImGuiLayer->Begin();
-
-				for (Layer* layer : m_LayerStack)
-					layer->OnImGuiRender();
-				
-				m_ImGuiLayer->Render(); // render imgui
-				m_ImGuiLayer->End(); // finish the imgui rendering
-
-				Input::ManageMidStates(); // Manage Key/Button up and down state
-
-				Renderer::FlushBuffers();	
-				// Poll events and swap buffers
-				m_Window->OnUpdate();
-
-#if !EE_ASSERTS_ENABLED
-			}
-			catch (const std::exception& exc)
-			{
-				EE_CORE_ERROR("{}", exc.what());
-			}
-#endif // #if EE_ASSERTS_ENABLED
+			EngineFrame();
 		}
 		Exit();
+#endif
 	}
 
 	void Application::Exit()
@@ -246,6 +279,8 @@ namespace Elevate {
 
 	bool Application::OnWindowFocusEvent(WindowFocusEvent& e)
 	{
+		Input::ResetAllStates();
+
 		if (e.GetFocusState())
 		{
 			// todo add a setting to check the type of suspend to impl.

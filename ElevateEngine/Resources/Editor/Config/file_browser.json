@@ -1,0 +1,34 @@
+{
+    "ignore": [
+        "DS_Store", "db", 
+        "git", "gitignore",
+        "filters", "user"
+    ],
+    "assets": [
+        {
+            "extension": "jpg",
+            "iconPath": "editor://debug.png",
+            "type": "IMAGE"
+        },
+        {
+            "extension": "png",
+            "iconPath": "editor://debug.png",
+            "type": "IMAGE"
+        },
+        {
+            "extension": "ANY",
+            "iconPath": "editor://Icons/Assets/file.png",
+            "type": "FILE"
+        },
+        {
+            "extension": "DIRECTORY",
+            "iconPath": "editor://Icons/Assets/folder.png", 
+            "type": "DIRECTORY"
+        },
+        {
+            "extension": "EMPTY_DIRECTORY",
+            "iconPath": "editor://Icons/Assets/empty_folder.png",
+            "type": "DIRECTORY"
+        }
+    ]
+}

@@ -1,25 +1,22 @@
 require "vendor/premake-export-compile-commands/export-compile-commands"
 
+outputdir = "%{cfg.buildcfg:gsub(' ', '-')}-%{cfg.system}-%{cfg.architecture}"
+ElevateConfigs = { "Editor_Debug", "Editor_Release", "Debug", "Release", "Dist" }
+
 include "scripts/premake/Logs.lua"
+include "scripts/premake/FileUtils.lua"
 include "scripts/premake/Wwise.lua"
 include "scripts/premake/CommonProject.lua"
-
-outputdir = "%{cfg.buildcfg:gsub(' ', '-')}-%{cfg.system}-%{cfg.architecture}"
+include "scripts/premake/PlatformStrategies.lua"
 
 workspace "ElevateEngine"
 	architecture "x64"
 	startproject "Sandbox"
+	configurations (ElevateConfigs)
 
-	configurations
-	{
-		"Editor Debug",
-		"Editor Release",
-		"Debug",
-		"Release",
-		"Dist"
-	}
-
+    BuildPlatform.ConfigureWorkspace()
 	Wwise.SetupWorkspace()
+    BuildPlatform.ConfigureWorkspaceAction()
 
 include "ElevateEngine/engine.lua"
 

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>${PROJECT_NAME}</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <style>
+        body, html { 
+            margin: 0; padding: 0; background: #000; overflow: hidden; height: 100%; width: 100%;
+            user-select: none;
+        }
+        canvas { display: block; width: 100vw; height: 100vh; border: none; outline: none; }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1"></canvas>
+    
+    <script type='text/javascript'>
+        var Module = {
+            canvas: document.getElementById('canvas'),
+            print: (text) => {
+                if (!text) return;
+                if (text.includes("[ERROR]") || text.includes("[FATAL]")) {
+                    console.error(text);
+                } else if (text.includes("[WARN]")) {
+                    console.warn(text);
+                } else if (text.includes("[INFO]")) {
+                    console.info(text);
+                } else if (text.includes("[TRACE]")) {
+                    console.debug(text);
+                } else {
+                    console.log(text);
+                }
+            },
+            printErr: (text) => console.error(text)
+        };
+
+        const suppressContextMenu = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        };
+
+        globalThis.addEventListener('contextmenu', suppressContextMenu, true);
+        document.addEventListener('contextmenu', suppressContextMenu, true);
+        Module.canvas.addEventListener('contextmenu', suppressContextMenu, true);
+        globalThis.addEventListener('selectstart', e => e.preventDefault(), true);
+    </script>
+    <script async src="${PROJECT_SAFE_NAME}.js"></script>
+</body>
+</html>

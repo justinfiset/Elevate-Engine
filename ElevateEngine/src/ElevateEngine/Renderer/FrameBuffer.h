@@ -36,7 +36,7 @@ namespace Elevate
 	class Framebuffer
 	{
 	public:
-		~Framebuffer() { }
+		virtual ~Framebuffer() = default;
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;

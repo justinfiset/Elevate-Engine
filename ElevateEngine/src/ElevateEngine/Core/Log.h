@@ -2,62 +2,60 @@
 
 #include <format>
 #include <string>
-#include <utility>
+#include <memory>
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 #include "Core.h"
 
+// Create a simple system to tell the .js what we are trying to log if building for the web
+#ifdef EE_PLATFORM_WEB
+    #define EE_TRACE_PREFIX "[TRACE] "
+    #define EE_INFO_PREFIX "[INFO] "
+    #define EE_WARN_PREFIX "[WARN] "
+    #define EE_ERROR_PREFIX "[ERROR] "
+    #define EE_FATAL_PREFIX "[FATAL] "
+#else
+    #define EE_TRACE_PREFIX ""
+    #define EE_INFO_PREFIX ""
+    #define EE_WARN_PREFIX ""
+    #define EE_ERROR_PREFIX ""
+    #define EE_FATAL_PREFIX ""
+#endif
+
 namespace Elevate {
-	class LogImpl;
+    class LogImpl {
+    public:
+        LogImpl(std::shared_ptr<spdlog::logger> logger) : m_logger(logger) { }
+        inline void Trace(const std::string& text) { m_logger->trace(EE_TRACE_PREFIX "{}", text);    }
+        inline void Info(const std::string& text)  { m_logger->info(EE_INFO_PREFIX "{}", text);     }
+        inline void Warn(const std::string& text)  { m_logger->warn(EE_WARN_PREFIX "{}", text);     }
+        inline void Error(const std::string& text) { m_logger->error(EE_ERROR_PREFIX "{}", text);    }
+        inline void Fatal(const std::string& text) { m_logger->critical(EE_FATAL_PREFIX "{}", text); }
+    private:
+        std::shared_ptr<spdlog::logger> m_logger;
+    };
 
-	class EE_API Log
-	{
-	public:
-		static void Trace(LogImpl* logger, std::string fmt);
-		static void Info(LogImpl* logger, std::string fmt);
-		static void Warn(LogImpl* logger, std::string fmt);
-		static void Error(LogImpl* logger, std::string fmt);
-		static void Fatal(LogImpl* logger, std::string fmt);
+    class Log {
+    public:
+        static inline void Trace(LogImpl* logger, const std::string& text) { if(logger) logger->Trace(text); }
+        static inline void Info(LogImpl* logger, const std::string& text)  { if(logger) logger->Info(text);  }
+        static inline void Warn(LogImpl* logger, const std::string& text)  { if(logger) logger->Warn(text);  }
+        static inline void Error(LogImpl* logger, const std::string& text) { if(logger) logger->Error(text); }
+        static inline void Fatal(LogImpl* logger, const std::string& text) { if(logger) logger->Fatal(text); }
 
-		static LogImpl* GetCoreLogger();
-		static LogImpl* GetClientLogger();
-
-		// Fonctions templates pour le formatting
-		template<typename... Args>
-		static void TraceFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
-			Trace(logger, std::format(fmt, std::forward<Args>(args)...));
-		}
-
-		template<typename... Args>
-		static void InfoFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
-			Info(logger, std::format(fmt, std::forward<Args>(args)...));
-		}
-
-		template<typename... Args>
-		static void WarnFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
-			Warn(logger, std::format(fmt, std::forward<Args>(args)...));
-		}
-
-		template<typename... Args>
-		static void ErrorFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
-			Error(logger, std::format(fmt, std::forward<Args>(args)...));
-		}
-
-		template<typename... Args>
-		static void FatalFormat(LogImpl* logger, std::format_string<Args...> fmt, Args&&... args) {
-			Fatal(logger, std::format(fmt, std::forward<Args>(args)...));
-		}
-	};
+        static LogImpl* GetCoreLogger();
+        static LogImpl* GetClientLogger();
+    };
 }
 
-// Core log macros avec formatting
 #if defined(EE_ENGINE_BUILD) || defined(EE_ENGINE_INTERNAL)
-#define EE_CORE_TRACE(...)     ::Elevate::Log::TraceFormat(::Elevate::Log::GetCoreLogger(), __VA_ARGS__)
-#define EE_CORE_INFO(...)      ::Elevate::Log::InfoFormat(::Elevate::Log::GetCoreLogger(), __VA_ARGS__)
-#define EE_CORE_WARN(...)      ::Elevate::Log::WarnFormat(::Elevate::Log::GetCoreLogger(), __VA_ARGS__)
-#define EE_CORE_ERROR(...)     ::Elevate::Log::ErrorFormat(::Elevate::Log::GetCoreLogger(), __VA_ARGS__)
-#define EE_CORE_FATAL(...)     ::Elevate::Log::FatalFormat(::Elevate::Log::GetCoreLogger(), __VA_ARGS__)
+#define EE_CORE_TRACE(...)     ::Elevate::Log::Trace(::Elevate::Log::GetCoreLogger(), std::format(__VA_ARGS__))
+#define EE_CORE_INFO(...)      ::Elevate::Log::Info(::Elevate::Log::GetCoreLogger(),  std::format(__VA_ARGS__))
+#define EE_CORE_WARN(...)      ::Elevate::Log::Warn(::Elevate::Log::GetCoreLogger(),  std::format(__VA_ARGS__))
+#define EE_CORE_ERROR(...)     ::Elevate::Log::Error(::Elevate::Log::GetCoreLogger(), std::format(__VA_ARGS__))
+#define EE_CORE_FATAL(...)     ::Elevate::Log::Fatal(::Elevate::Log::GetCoreLogger(), std::format(__VA_ARGS__))
 
-// Conditional logging
 #define EE_CORE_CTRACE(condition, ...)  if(condition) { EE_CORE_TRACE(__VA_ARGS__); }
 #define EE_CORE_CINFO(condition, ...)   if(condition) { EE_CORE_INFO(__VA_ARGS__);  }
 #define EE_CORE_CWARN(condition, ...)   if(condition) { EE_CORE_WARN(__VA_ARGS__);  }
@@ -65,14 +63,12 @@ namespace Elevate {
 #define EE_CORE_CFATAL(condition, ...)  if(condition) { EE_CORE_FATAL(__VA_ARGS__); }
 #endif
 
-// Client log macros
-#define EE_TRACE(...)          ::Elevate::Log::TraceFormat(::Elevate::Log::GetClientLogger(), __VA_ARGS__)
-#define EE_INFO(...)           ::Elevate::Log::InfoFormat(::Elevate::Log::GetClientLogger(), __VA_ARGS__)
-#define EE_WARN(...)           ::Elevate::Log::WarnFormat(::Elevate::Log::GetClientLogger(), __VA_ARGS__)
-#define EE_ERROR(...)          ::Elevate::Log::ErrorFormat(::Elevate::Log::GetClientLogger(), __VA_ARGS__)
-#define EE_FATAL(...)          ::Elevate::Log::FatalFormat(::Elevate::Log::GetClientLogger(), __VA_ARGS__)
+#define EE_TRACE(...)          ::Elevate::Log::Trace(::Elevate::Log::GetClientLogger(), std::format(__VA_ARGS__))
+#define EE_INFO(...)           ::Elevate::Log::Info(::Elevate::Log::GetClientLogger(),  std::format(__VA_ARGS__))
+#define EE_WARN(...)           ::Elevate::Log::Warn(::Elevate::Log::GetClientLogger(),  std::format(__VA_ARGS__))
+#define EE_ERROR(...)          ::Elevate::Log::Error(::Elevate::Log::GetClientLogger(), std::format(__VA_ARGS__))
+#define EE_FATAL(...)          ::Elevate::Log::Fatal(::Elevate::Log::GetClientLogger(), std::format(__VA_ARGS__))
 
-// Conditional logging
 #define EE_CTRACE(condition, ...)  if(condition) { EE_TRACE(__VA_ARGS__); }
 #define EE_CINFO(condition, ...)   if(condition) { EE_INFO(__VA_ARGS__);  }
 #define EE_CWARN(condition, ...)   if(condition) { EE_WARN(__VA_ARGS__);  }

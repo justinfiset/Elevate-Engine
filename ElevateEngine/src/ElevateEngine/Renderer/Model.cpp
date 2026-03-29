@@ -3,10 +3,11 @@
 #include "Model.h"
 
 #include <glm/glm.hpp>
-#include "ElevateEngine/Renderer/Renderer.h"
-#include "ElevateEngine/Renderer/Shader/Shader.h"
-#include "ElevateEngine/Renderer/Shader/ShaderManager.h"
-#include "ElevateEngine/Core/GameObject.h"
+#include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Shader/Shader.h>
+#include <ElevateEngine/Renderer/Shader/ShaderManager.h>
+#include <ElevateEngine/Core/GameObject.h>
+#include <ElevateEngine/Core/PathResolver.h>
 
 #include <filesystem>
 
@@ -62,9 +63,10 @@ Elevate::Model::Model(std::string path, MaterialPtr material)
 
 void Elevate::Model::LoadModel(std::string path)
 {
+	std::string resolvedPath = PathResolver::Resolve(path);
 	// Importing the scene
 	Assimp::Importer import;
-	const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_OptimizeMeshes | aiProcess_ImproveCacheLocality);
+	const aiScene* scene = import.ReadFile(resolvedPath, aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_OptimizeMeshes | aiProcess_ImproveCacheLocality);
 
 	// checking and exception catcher
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -72,12 +74,12 @@ void Elevate::Model::LoadModel(std::string path)
 		EE_CORE_ERROR("ASSIMP LOADING ERROR : {}", import.GetErrorString());
 		return;
 	}
-	m_Directory = path.substr(0, path.find_last_of('/')); // Used to get the textures afterward
+	m_Directory = resolvedPath.substr(0, resolvedPath.find_last_of('/')); // Used to get the textures afterward
 
 	// Recursive method to process all the nodes in the model
 	MeshData data;
 	std::vector<Mesh> meshes;	
-	std::filesystem::path fsPath(path);
+	std::filesystem::path fsPath(resolvedPath);
 	ProcessNode(fsPath.parent_path().string(), scene->mRootNode, scene, data);
 
 	m_batchedMesh = Mesh(data);

@@ -1,14 +1,10 @@
 #pragma once
 
-#include "ElevateEngine/Inputs/Input.h"
-#include "ElevateEngine/Inputs/InputBuffer.h"
+#ifdef EE_PLATFORM_WINDOWS
+#include <Platform/Shared/GLFW/GlfwInput.h>
 
-namespace Elevate {
-	class WindowsInput : public Input
-	{
-	protected:
-		//Mouse Impl
-		virtual glm::vec2 GetMousePositionImpl() override;
-	};
+namespace Elevate
+{
+	class WindowsInput : public GlfwInput { };
 }
-
+#endif

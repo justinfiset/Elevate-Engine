@@ -6,7 +6,8 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name : Checkout code
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -14,7 +15,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libgl1-mesa-dev libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev
-
       - name: Cleanup Project
         run: |
           rm -rf Build/ bin/ bin-int/
@@ -22,21 +22,50 @@ jobs:
       - name: Generate Projects (Premake)
         run: |
           chmod +x vendor/premake/premake5-linux
-          ./vendor/premake/premake5-linux gmake2
+          ./vendor/premake/premake5-linux --os=linux gmake2 
+      - name: Print Makefile
+        run: cat Makefile
 
       - name: Compile
-        run: make config=editor_debug -j$(nproc)
+        run: |
+           grep '^[^#[:space:]].*:' Makefile
+           make config=editor_debug -j$(nproc)
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - name : Checkout code
+        uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
       - name: Generate Projects (Premake)
-        run: ./vendor/premake/premake5.exe vs2022
+        run: ./vendor/premake/premake5.exe --os=windows vs2022
 
       - name: Compile
-        run: msbuild ElevateEngine.sln /p:Configuration="Editor Debug"
+        run: msbuild ElevateEngine.sln /p:Configuration="Editor_Debug"
+
+  build-web-windows-ninja:  
+    runs-on: windows-latest
+    steps:
+      - name : Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Ninja
+        uses: ashutoshvarma/setup-ninja@master
+        with:
+          version: 1.12.1
+
+      - name: Setup Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 'latest'
+
+      - name: Generate Projects (Premake)
+        run: ./vendor/premake/premake5.exe --os=emscripten ninja
+
+      - name: Compile
+        run: ninja Editor_Debug

@@ -2,7 +2,7 @@
 
 #include <stddef.h>
 #include <cmath>
-#include <glad/glad.h>
+#include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/Buffer.h>

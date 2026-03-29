@@ -1,16 +1,14 @@
 #include "eepch.h"
 
 #include "Cubemap.h"
-#include "ElevateEngine/Renderer/Renderer.h"
-
-#include <glad/glad.h>
+#include <ElevateEngine/Core/PathResolver.h>
+#include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/GLDebug.h>
 
 #include <stb/stb_image.h>
-
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
-
-#include <ElevateEngine/Renderer/GLDebug.h>
 
 Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 {
@@ -60,10 +58,10 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE));
 
 	// Shaders
-	std::string vert =
+	std::string vert = std::string(EE_SHADER_HEADER) +
 #include "ElevateEngine/Renderer/Cubemap/skybox.vert"
 		;
-	std::string frag =
+	std::string frag = std::string(EE_SHADER_HEADER) +
 #include "ElevateEngine/Renderer/Cubemap/skybox.frag"
 		;
 	m_cubemapShader = Elevate::Shader::Create(vert, frag);
@@ -71,10 +69,11 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 
 Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(std::string filePath)
 {
-	FILE* fp = fopen(filePath.c_str(), "r");
+	std::string resolvedPath = PathResolver::Resolve(filePath);
+	FILE* fp = fopen(resolvedPath.c_str(), "r");
 	if (!fp)
 	{
-		EE_CORE_ERROR("Error : Cannot open cubemap config file ({})", filePath);
+		EE_CORE_ERROR("Error : Cannot open cubemap config file ({})", resolvedPath);
 		return nullptr;
 	}
 
@@ -87,15 +86,15 @@ Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(std::string filePath)
 	// todo add more error catching, check if member exists or return
 	std::string paths[6] =
 	{
-		doc["right"].GetString(),
-		doc["left"].GetString(),
-		doc["up"].GetString(),
-		doc["down"].GetString(),    
-		doc["front"].GetString(),
-		doc["back"].GetString()
+		PathResolver::Resolve(doc["right"].GetString()),
+		PathResolver::Resolve(doc["left"].GetString()),
+		PathResolver::Resolve(doc["up"].GetString()),
+		PathResolver::Resolve(doc["down"].GetString()),
+		PathResolver::Resolve(doc["front"].GetString()),
+		PathResolver::Resolve(doc["back"].GetString())
 	};
 
-	return new Cubemap(paths, filePath);
+	return new Cubemap(paths, resolvedPath);
 }
 
 void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader)

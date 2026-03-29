@@ -6,7 +6,7 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
-#include <glad/glad.h>
+#include <ElevateEngine/Renderer/GraphicsAPI.h>
 
 #include <ElevateEngine/Renderer/GLDebug.h>
 
@@ -102,10 +102,12 @@ namespace Elevate
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, ToOpenGL(m_meta.MagFilter));
 
 		// Swizzle if there is only a single channnel
+#ifdef EE_SUPPORTS_DSA
 		if (m_meta.Format == TextureFormat::GRAYSCALE) {
 			GLint swizzleMask[] = { GL_RED, GL_RED, GL_RED, GL_ONE };
 			glTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_RGBA, swizzleMask);
 		}
+#endif
 
 		EE_CORE_INFO("Creating Texture: ID={}, Size={}x{}, Format={}", m_textureID, m_meta.Width, m_meta.Height, (int)m_meta.Format);
 

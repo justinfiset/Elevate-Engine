@@ -4,7 +4,7 @@ config() {
   echo "Please choose a build option:"
   echo "1 - Visual Studio 2022"
   echo "2 - Visual Studio 2019"
-  echo "3 - GNU Make [gmake2]"
+  echo "3 - GNU Make [gmake]"
   echo "4 - Xcode"
   echo "5 - Exit"
   echo ""
@@ -21,7 +21,7 @@ config() {
 	  ACTION="vs2019"
 	  ;;
 	"3")
-	  ACTION="gmake2"
+	  ACTION="gmake"
 	  ;;
 	"4")
 	  ACTION="xcode4"

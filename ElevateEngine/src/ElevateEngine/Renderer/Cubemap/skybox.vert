@@ -1,5 +1,4 @@
-R""(#version 330 core
-layout (location = 0) in vec3 a_Pos;
+R""(layout (location = 0) in vec3 a_Pos;
 
 out vec3 TexCoords;
 

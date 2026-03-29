@@ -27,3 +27,9 @@
 [submodule "vendor/premake-export-compile-commands"]
 	path = vendor/premake-export-compile-commands
 	url = https://github.com/tarruda/premake-export-compile-commands
+[submodule "ElevateEngine/vendor/spdlog"]
+	path = ElevateEngine/vendor/spdlog
+	url = https://github.com/gabime/spdlog.git
+[submodule "ElevateEngine/vendor/glm"]
+	path = ElevateEngine/vendor/glm
+	url = https://github.com/g-truc/glm
