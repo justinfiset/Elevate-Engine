@@ -205,62 +205,64 @@ $(document).ready(function(){initNavTree('TextureManager_8cpp_source.html',''); 
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="comment">// Get the texture data async with stbi_load</span></div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        std::thread([res]() <span class="keyword">mutable</span> {</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                <span class="keywordtype">int</span> width, height, channels;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                res.<a class="code hl_variable" href="structElevate_1_1TextureLoadResult.html#a89db8b602edff389d88f0edd01027b92">data</a> = stbi_load(res.<a class="code hl_variable" href="structElevate_1_1TextureLoadResult.html#a8284b006ebe4c7c8d383e19ae7ef31ca">meta</a>.<a class="code hl_variable" href="structElevate_1_1TextureMetadata.html#a5bbcc692c67e2b1ad0cbd756c9270059">Path</a>.c_str(), &amp;width, &amp;height, &amp;channels, 0);</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                res.<a class="code hl_variable" href="structElevate_1_1TextureLoadResult.html#a8284b006ebe4c7c8d383e19ae7ef31ca">meta</a> = <a class="code hl_struct" href="structElevate_1_1TextureMetadataBuilder.html">TextureMetadataBuilder</a>(res.<a class="code hl_variable" href="structElevate_1_1TextureLoadResult.html#a8284b006ebe4c7c8d383e19ae7ef31ca">meta</a>)</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                    .<a class="code hl_function" href="structElevate_1_1TextureMetadataBuilder.html#a9b4cd61add19888747815e8d80b7bbc6">size</a>(<span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(width), <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(height))</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                    .<a class="code hl_function" href="structElevate_1_1TextureMetadataBuilder.html#a10284b2604330b1b8f69461df57c4649">Format</a>((<a class="code hl_enumeration" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">TextureFormat</a>) channels)</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                    .<a class="code hl_function" href="structElevate_1_1TextureMetadataBuilder.html#ab2fbaa2edc5c74c82bd93f2c84c5684e">State</a>((res.<a class="code hl_variable" href="structElevate_1_1TextureLoadResult.html#a89db8b602edff389d88f0edd01027b92">data</a>) ? <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a7381d487d18845b379422325c0a768d6">TextureState::Loaded</a> : <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ad7c8c85bf79bbe1b7188497c32c3b0ca">TextureState::Failed</a>)</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                    .<a class="code hl_function" href="structElevate_1_1TextureMetadataBuilder.html#a16286b4837bf1ca8ab16daebac3d6ad8">Build</a>();</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                std::lock_guard&lt;std::mutex&gt; lock(instance().m_textureMutex);</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                instance().m_loadingTextures.push_back(res);</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            }</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        ).detach();</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordflow">return</span> tex;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    }</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="classElevate_1_1TextureManager.html#ad83628c7ee56217d5c29999bdcc0da0f">  126</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1TextureManager.html#ad83628c7ee56217d5c29999bdcc0da0f">TextureManager::UpdateLoadingTextures</a>()</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    {</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <a class="code hl_class" href="classElevate_1_1TextureManager.html">TextureManager</a>&amp; manager = instance();</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        std::lock_guard&lt;std::mutex&gt; lock(manager.m_textureMutex);</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keyword">auto</span> it = manager.m_loadingTextures.begin();</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="keywordflow">while</span> (it != manager.m_loadingTextures.end())</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        {</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            <span class="keywordflow">switch</span> (it-&gt;meta.State)</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            {</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a7381d487d18845b379422325c0a768d6">TextureState::Loaded</a>:</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                <span class="keywordflow">if</span> (manager.m_Textures.count(it-&gt;meta.Path))</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                {</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                    EE_CORE_INFO(<span class="stringliteral">&quot;Loaded texture : {}, {}x{}&quot;</span>, it-&gt;meta.Path, it-&gt;meta.Width, it-&gt;meta.Height);</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                    manager.m_Textures[it-&gt;meta.Path]-&gt;SetData(it-&gt;data, it-&gt;meta);</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                    stbi_image_free(it-&gt;data);  </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                    it-&gt;data = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                }</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                it = manager.m_loadingTextures.erase(it);</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ad7c8c85bf79bbe1b7188497c32c3b0ca">TextureState::Failed</a>:</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                <span class="keywordflow">if</span> (manager.m_Textures.count(it-&gt;meta.Path))</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                {</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                    EE_CORE_ERROR(<span class="stringliteral">&quot;Failed to load texture : {}&quot;</span>, it-&gt;meta.Path);</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                    manager.m_Textures[it-&gt;meta.Path]-&gt;SetData(it-&gt;data, it-&gt;meta);</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                    <span class="keywordflow">if</span> (it-&gt;data)</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                    {</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                        stbi_image_free(it-&gt;data);</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                    }</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                    it-&gt;data = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                }</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                it = manager.m_loadingTextures.erase(it);</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                ++it;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            }</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        }</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    }</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>}</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                <span class="keywordtype">int</span> width = 0;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                <span class="keywordtype">int</span> height = 0;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                <span class="keywordtype">int</span> channels = 0;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                res.<a class="code hl_variable" href="structElevate_1_1TextureLoadResult.html#a89db8b602edff389d88f0edd01027b92">data</a> = stbi_load(res.<a class="code hl_variable" href="structElevate_1_1TextureLoadResult.html#a8284b006ebe4c7c8d383e19ae7ef31ca">meta</a>.<a class="code hl_variable" href="structElevate_1_1TextureMetadata.html#a5bbcc692c67e2b1ad0cbd756c9270059">Path</a>.c_str(), &amp;width, &amp;height, &amp;channels, 0);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                res.<a class="code hl_variable" href="structElevate_1_1TextureLoadResult.html#a8284b006ebe4c7c8d383e19ae7ef31ca">meta</a> = <a class="code hl_struct" href="structElevate_1_1TextureMetadataBuilder.html">TextureMetadataBuilder</a>(res.<a class="code hl_variable" href="structElevate_1_1TextureLoadResult.html#a8284b006ebe4c7c8d383e19ae7ef31ca">meta</a>)</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                    .<a class="code hl_function" href="structElevate_1_1TextureMetadataBuilder.html#a9b4cd61add19888747815e8d80b7bbc6">size</a>(<span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(width), <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(height))</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                    .<a class="code hl_function" href="structElevate_1_1TextureMetadataBuilder.html#a10284b2604330b1b8f69461df57c4649">Format</a>((<a class="code hl_enumeration" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">TextureFormat</a>) channels)</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                    .<a class="code hl_function" href="structElevate_1_1TextureMetadataBuilder.html#ab2fbaa2edc5c74c82bd93f2c84c5684e">State</a>((res.<a class="code hl_variable" href="structElevate_1_1TextureLoadResult.html#a89db8b602edff389d88f0edd01027b92">data</a>) ? <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a7381d487d18845b379422325c0a768d6">TextureState::Loaded</a> : <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ad7c8c85bf79bbe1b7188497c32c3b0ca">TextureState::Failed</a>)</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                    .<a class="code hl_function" href="structElevate_1_1TextureMetadataBuilder.html#a16286b4837bf1ca8ab16daebac3d6ad8">Build</a>();</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                std::lock_guard&lt;std::mutex&gt; lock(instance().m_textureMutex);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                instance().m_loadingTextures.push_back(res);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            }</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        ).detach();</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">return</span> tex;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    }</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="classElevate_1_1TextureManager.html#ad83628c7ee56217d5c29999bdcc0da0f">  128</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1TextureManager.html#ad83628c7ee56217d5c29999bdcc0da0f">TextureManager::UpdateLoadingTextures</a>()</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <a class="code hl_class" href="classElevate_1_1TextureManager.html">TextureManager</a>&amp; manager = instance();</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        std::lock_guard&lt;std::mutex&gt; lock(manager.m_textureMutex);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keyword">auto</span> it = manager.m_loadingTextures.begin();</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordflow">while</span> (it != manager.m_loadingTextures.end())</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        {</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <span class="keywordflow">switch</span> (it-&gt;meta.State)</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            {</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a7381d487d18845b379422325c0a768d6">TextureState::Loaded</a>:</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                <span class="keywordflow">if</span> (manager.m_Textures.count(it-&gt;meta.Path))</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                    EE_CORE_INFO(<span class="stringliteral">&quot;Loaded texture : {}, {}x{}&quot;</span>, it-&gt;meta.Path, it-&gt;meta.Width, it-&gt;meta.Height);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                    manager.m_Textures[it-&gt;meta.Path]-&gt;SetData(it-&gt;data, it-&gt;meta);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                    stbi_image_free(it-&gt;data);  </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                    it-&gt;data = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                }</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                it = manager.m_loadingTextures.erase(it);</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ad7c8c85bf79bbe1b7188497c32c3b0ca">TextureState::Failed</a>:</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                <span class="keywordflow">if</span> (manager.m_Textures.count(it-&gt;meta.Path))</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                {</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                    EE_CORE_ERROR(<span class="stringliteral">&quot;Failed to load texture : {}&quot;</span>, it-&gt;meta.Path);</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                    manager.m_Textures[it-&gt;meta.Path]-&gt;SetData(it-&gt;data, it-&gt;meta);</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                    <span class="keywordflow">if</span> (it-&gt;data)</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                    {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                        stbi_image_free(it-&gt;data);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                    }</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                    it-&gt;data = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                }</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                it = manager.m_loadingTextures.erase(it);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                ++it;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            }</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        }</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    }</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>}</div>
 <div class="ttc" id="aGraphicsAPI_8h_html"><div class="ttname"><a href="GraphicsAPI_8h.html">GraphicsAPI.h</a></div></div>
 <div class="ttc" id="aLog_8h_html"><div class="ttname"><a href="Log_8h.html">Log.h</a></div></div>
 <div class="ttc" id="aPathResolver_8h_html"><div class="ttname"><a href="PathResolver_8h.html">PathResolver.h</a></div></div>
@@ -269,7 +271,7 @@ $(document).ready(function(){initNavTree('TextureManager_8cpp_source.html',''); 
 <div class="ttc" id="aclassElevate_1_1TextureManager_html"><div class="ttname"><a href="classElevate_1_1TextureManager.html">Elevate::TextureManager</a></div><div class="ttdef"><b>Definition:</b> <a href="TextureManager_8h_source.html#l00017">TextureManager.h:18</a></div></div>
 <div class="ttc" id="aclassElevate_1_1TextureManager_html_a1e89b1dc4ed8176cbae57d00deb1b9b2"><div class="ttname"><a href="classElevate_1_1TextureManager.html#a1e89b1dc4ed8176cbae57d00deb1b9b2">Elevate::TextureManager::RegisterTexture</a></div><div class="ttdeci">static TexturePtr RegisterTexture(TexturePtr texture)</div><div class="ttdef"><b>Definition:</b> <a href="TextureManager_8cpp_source.html#l00020">TextureManager.cpp:20</a></div></div>
 <div class="ttc" id="aclassElevate_1_1TextureManager_html_ab5bb403165aaf03be59eb585cee38f44"><div class="ttname"><a href="classElevate_1_1TextureManager.html#ab5bb403165aaf03be59eb585cee38f44">Elevate::TextureManager::GetTexture</a></div><div class="ttdeci">static TexturePtr GetTexture(const std::string &amp;path)</div><div class="ttdoc">FUNCTION TO LOAD AND GET A TEXTURE SYNCED WITH THE CURRENT THREAD.</div><div class="ttdef"><b>Definition:</b> <a href="TextureManager_8cpp_source.html#l00058">TextureManager.cpp:58</a></div></div>
-<div class="ttc" id="aclassElevate_1_1TextureManager_html_ad83628c7ee56217d5c29999bdcc0da0f"><div class="ttname"><a href="classElevate_1_1TextureManager.html#ad83628c7ee56217d5c29999bdcc0da0f">Elevate::TextureManager::UpdateLoadingTextures</a></div><div class="ttdeci">static void UpdateLoadingTextures()</div><div class="ttdef"><b>Definition:</b> <a href="TextureManager_8cpp_source.html#l00126">TextureManager.cpp:126</a></div></div>
+<div class="ttc" id="aclassElevate_1_1TextureManager_html_ad83628c7ee56217d5c29999bdcc0da0f"><div class="ttname"><a href="classElevate_1_1TextureManager.html#ad83628c7ee56217d5c29999bdcc0da0f">Elevate::TextureManager::UpdateLoadingTextures</a></div><div class="ttdeci">static void UpdateLoadingTextures()</div><div class="ttdef"><b>Definition:</b> <a href="TextureManager_8cpp_source.html#l00128">TextureManager.cpp:128</a></div></div>
 <div class="ttc" id="aclassElevate_1_1TextureManager_html_af474cf47e4912e322380634b2819d0e8"><div class="ttname"><a href="classElevate_1_1TextureManager.html#af474cf47e4912e322380634b2819d0e8">Elevate::TextureManager::LoadTextureAsync</a></div><div class="ttdeci">static TexturePtr LoadTextureAsync(const std::string &amp;path, TextureType usage=TextureType::Diffuse)</div><div class="ttdef"><b>Definition:</b> <a href="TextureManager_8cpp_source.html#l00064">TextureManager.cpp:64</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Texture_html_a606c329aa9de1b19e3024241e416d82e"><div class="ttname"><a href="classElevate_1_1Texture.html#a606c329aa9de1b19e3024241e416d82e">Elevate::Texture::CreateFromData</a></div><div class="ttdeci">static TexturePtr CreateFromData(unsigned char *data, TextureMetadata &amp;meta)</div><div class="ttdef"><b>Definition:</b> <a href="Texture_8cpp_source.html#l00087">Texture.cpp:87</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Texture_html_a96383600657a41874880c3dd9a3ae89d"><div class="ttname"><a href="classElevate_1_1Texture.html#a96383600657a41874880c3dd9a3ae89d">Elevate::Texture::CreateFromColor</a></div><div class="ttdeci">static TexturePtr CreateFromColor(const glm::vec3 &amp;color, const std::string &amp;name, uint32_t width=1, uint32_t height=1)</div><div class="ttdef"><b>Definition:</b> <a href="Texture_8cpp_source.html#l00027">Texture.cpp:27</a></div></div>

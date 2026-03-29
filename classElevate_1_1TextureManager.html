@@ -303,21 +303,23 @@ Friends</h2></td></tr>
 <div class="line"><span class="lineno">  107</span> </div>
 <div class="line"><span class="lineno">  108</span>        <span class="comment">// Get the texture data async with stbi_load</span></div>
 <div class="line"><span class="lineno">  109</span>        std::thread([res]() <span class="keyword">mutable</span> {</div>
-<div class="line"><span class="lineno">  110</span>                <span class="keywordtype">int</span> width, height, channels;</div>
-<div class="line"><span class="lineno">  111</span>                res.data = stbi_load(res.meta.Path.c_str(), &amp;width, &amp;height, &amp;channels, 0);</div>
-<div class="line"><span class="lineno">  112</span>                res.meta = TextureMetadataBuilder(res.meta)</div>
-<div class="line"><span class="lineno">  113</span>                    .size(<span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(width), <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(height))</div>
-<div class="line"><span class="lineno">  114</span>                    .Format((<a class="code hl_enumeration" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">TextureFormat</a>) channels)</div>
-<div class="line"><span class="lineno">  115</span>                    .State((res.data) ? <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a7381d487d18845b379422325c0a768d6">TextureState::Loaded</a> : <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ad7c8c85bf79bbe1b7188497c32c3b0ca">TextureState::Failed</a>)</div>
-<div class="line"><span class="lineno">  116</span>                    .Build();</div>
-<div class="line"><span class="lineno">  117</span> </div>
-<div class="line"><span class="lineno">  118</span>                std::lock_guard&lt;std::mutex&gt; lock(instance().m_textureMutex);</div>
-<div class="line"><span class="lineno">  119</span>                instance().m_loadingTextures.push_back(res);</div>
-<div class="line"><span class="lineno">  120</span>            }</div>
-<div class="line"><span class="lineno">  121</span>        ).detach();</div>
-<div class="line"><span class="lineno">  122</span> </div>
-<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">return</span> tex;</div>
-<div class="line"><span class="lineno">  124</span>    }</div>
+<div class="line"><span class="lineno">  110</span>                <span class="keywordtype">int</span> width = 0;</div>
+<div class="line"><span class="lineno">  111</span>                <span class="keywordtype">int</span> height = 0;</div>
+<div class="line"><span class="lineno">  112</span>                <span class="keywordtype">int</span> channels = 0;</div>
+<div class="line"><span class="lineno">  113</span>                res.data = stbi_load(res.meta.Path.c_str(), &amp;width, &amp;height, &amp;channels, 0);</div>
+<div class="line"><span class="lineno">  114</span>                res.meta = TextureMetadataBuilder(res.meta)</div>
+<div class="line"><span class="lineno">  115</span>                    .size(<span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(width), <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(height))</div>
+<div class="line"><span class="lineno">  116</span>                    .Format((<a class="code hl_enumeration" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">TextureFormat</a>) channels)</div>
+<div class="line"><span class="lineno">  117</span>                    .State((res.data) ? <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a7381d487d18845b379422325c0a768d6">TextureState::Loaded</a> : <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ad7c8c85bf79bbe1b7188497c32c3b0ca">TextureState::Failed</a>)</div>
+<div class="line"><span class="lineno">  118</span>                    .Build();</div>
+<div class="line"><span class="lineno">  119</span> </div>
+<div class="line"><span class="lineno">  120</span>                std::lock_guard&lt;std::mutex&gt; lock(instance().m_textureMutex);</div>
+<div class="line"><span class="lineno">  121</span>                instance().m_loadingTextures.push_back(res);</div>
+<div class="line"><span class="lineno">  122</span>            }</div>
+<div class="line"><span class="lineno">  123</span>        ).detach();</div>
+<div class="line"><span class="lineno">  124</span> </div>
+<div class="line"><span class="lineno">  125</span>        <span class="keywordflow">return</span> tex;</div>
+<div class="line"><span class="lineno">  126</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1PathResolver_html_a29cad9f644f4ab10936b43f652903fe9"><div class="ttname"><a href="classElevate_1_1PathResolver.html#a29cad9f644f4ab10936b43f652903fe9">Elevate::PathResolver::Resolve</a></div><div class="ttdeci">static std::string Resolve(const std::string &amp;virtualPath)</div><div class="ttdef"><b>Definition:</b> <a href="PathResolver_8cpp_source.html#l00006">PathResolver.cpp:6</a></div></div>
 <div class="ttc" id="aclassElevate_1_1TextureManager_html_ab5bb403165aaf03be59eb585cee38f44"><div class="ttname"><a href="classElevate_1_1TextureManager.html#ab5bb403165aaf03be59eb585cee38f44">Elevate::TextureManager::GetTexture</a></div><div class="ttdeci">static TexturePtr GetTexture(const std::string &amp;path)</div><div class="ttdoc">FUNCTION TO LOAD AND GET A TEXTURE SYNCED WITH THE CURRENT THREAD.</div><div class="ttdef"><b>Definition:</b> <a href="TextureManager_8cpp_source.html#l00058">TextureManager.cpp:58</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Texture_html_a606c329aa9de1b19e3024241e416d82e"><div class="ttname"><a href="classElevate_1_1Texture.html#a606c329aa9de1b19e3024241e416d82e">Elevate::Texture::CreateFromData</a></div><div class="ttdeci">static TexturePtr CreateFromData(unsigned char *data, TextureMetadata &amp;meta)</div><div class="ttdef"><b>Definition:</b> <a href="Texture_8cpp_source.html#l00087">Texture.cpp:87</a></div></div>
@@ -400,45 +402,45 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00126">126</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  127</span>    {</div>
-<div class="line"><span class="lineno">  128</span>        TextureManager&amp; manager = instance();</div>
-<div class="line"><span class="lineno">  129</span>        std::lock_guard&lt;std::mutex&gt; lock(manager.m_textureMutex);</div>
-<div class="line"><span class="lineno">  130</span> </div>
-<div class="line"><span class="lineno">  131</span>        <span class="keyword">auto</span> it = manager.m_loadingTextures.begin();</div>
-<div class="line"><span class="lineno">  132</span>        <span class="keywordflow">while</span> (it != manager.m_loadingTextures.end())</div>
-<div class="line"><span class="lineno">  133</span>        {</div>
-<div class="line"><span class="lineno">  134</span>            <span class="keywordflow">switch</span> (it-&gt;meta.State)</div>
-<div class="line"><span class="lineno">  135</span>            {</div>
-<div class="line"><span class="lineno">  136</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a7381d487d18845b379422325c0a768d6">TextureState::Loaded</a>:</div>
-<div class="line"><span class="lineno">  137</span>                <span class="keywordflow">if</span> (manager.m_Textures.count(it-&gt;meta.Path))</div>
-<div class="line"><span class="lineno">  138</span>                {</div>
-<div class="line"><span class="lineno">  139</span>                    EE_CORE_INFO(<span class="stringliteral">&quot;Loaded texture : {}, {}x{}&quot;</span>, it-&gt;meta.Path, it-&gt;meta.Width, it-&gt;meta.Height);</div>
-<div class="line"><span class="lineno">  140</span>                    manager.m_Textures[it-&gt;meta.Path]-&gt;SetData(it-&gt;data, it-&gt;meta);</div>
-<div class="line"><span class="lineno">  141</span>                    stbi_image_free(it-&gt;data);  </div>
-<div class="line"><span class="lineno">  142</span>                    it-&gt;data = <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">  143</span>                }</div>
-<div class="line"><span class="lineno">  144</span>                it = manager.m_loadingTextures.erase(it);</div>
-<div class="line"><span class="lineno">  145</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  146</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ad7c8c85bf79bbe1b7188497c32c3b0ca">TextureState::Failed</a>:</div>
-<div class="line"><span class="lineno">  147</span>                <span class="keywordflow">if</span> (manager.m_Textures.count(it-&gt;meta.Path))</div>
-<div class="line"><span class="lineno">  148</span>                {</div>
-<div class="line"><span class="lineno">  149</span>                    EE_CORE_ERROR(<span class="stringliteral">&quot;Failed to load texture : {}&quot;</span>, it-&gt;meta.Path);</div>
-<div class="line"><span class="lineno">  150</span>                    manager.m_Textures[it-&gt;meta.Path]-&gt;SetData(it-&gt;data, it-&gt;meta);</div>
-<div class="line"><span class="lineno">  151</span>                    <span class="keywordflow">if</span> (it-&gt;data)</div>
-<div class="line"><span class="lineno">  152</span>                    {</div>
-<div class="line"><span class="lineno">  153</span>                        stbi_image_free(it-&gt;data);</div>
-<div class="line"><span class="lineno">  154</span>                    }</div>
-<div class="line"><span class="lineno">  155</span>                    it-&gt;data = <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">  156</span>                }</div>
-<div class="line"><span class="lineno">  157</span>                it = manager.m_loadingTextures.erase(it);</div>
-<div class="line"><span class="lineno">  158</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  159</span>            <span class="keywordflow">default</span>:</div>
-<div class="line"><span class="lineno">  160</span>                ++it;</div>
-<div class="line"><span class="lineno">  161</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  162</span>            }</div>
-<div class="line"><span class="lineno">  163</span>        }</div>
-<div class="line"><span class="lineno">  164</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00128">128</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  129</span>    {</div>
+<div class="line"><span class="lineno">  130</span>        TextureManager&amp; manager = instance();</div>
+<div class="line"><span class="lineno">  131</span>        std::lock_guard&lt;std::mutex&gt; lock(manager.m_textureMutex);</div>
+<div class="line"><span class="lineno">  132</span> </div>
+<div class="line"><span class="lineno">  133</span>        <span class="keyword">auto</span> it = manager.m_loadingTextures.begin();</div>
+<div class="line"><span class="lineno">  134</span>        <span class="keywordflow">while</span> (it != manager.m_loadingTextures.end())</div>
+<div class="line"><span class="lineno">  135</span>        {</div>
+<div class="line"><span class="lineno">  136</span>            <span class="keywordflow">switch</span> (it-&gt;meta.State)</div>
+<div class="line"><span class="lineno">  137</span>            {</div>
+<div class="line"><span class="lineno">  138</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a7381d487d18845b379422325c0a768d6">TextureState::Loaded</a>:</div>
+<div class="line"><span class="lineno">  139</span>                <span class="keywordflow">if</span> (manager.m_Textures.count(it-&gt;meta.Path))</div>
+<div class="line"><span class="lineno">  140</span>                {</div>
+<div class="line"><span class="lineno">  141</span>                    EE_CORE_INFO(<span class="stringliteral">&quot;Loaded texture : {}, {}x{}&quot;</span>, it-&gt;meta.Path, it-&gt;meta.Width, it-&gt;meta.Height);</div>
+<div class="line"><span class="lineno">  142</span>                    manager.m_Textures[it-&gt;meta.Path]-&gt;SetData(it-&gt;data, it-&gt;meta);</div>
+<div class="line"><span class="lineno">  143</span>                    stbi_image_free(it-&gt;data);  </div>
+<div class="line"><span class="lineno">  144</span>                    it-&gt;data = <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  145</span>                }</div>
+<div class="line"><span class="lineno">  146</span>                it = manager.m_loadingTextures.erase(it);</div>
+<div class="line"><span class="lineno">  147</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  148</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ad7c8c85bf79bbe1b7188497c32c3b0ca">TextureState::Failed</a>:</div>
+<div class="line"><span class="lineno">  149</span>                <span class="keywordflow">if</span> (manager.m_Textures.count(it-&gt;meta.Path))</div>
+<div class="line"><span class="lineno">  150</span>                {</div>
+<div class="line"><span class="lineno">  151</span>                    EE_CORE_ERROR(<span class="stringliteral">&quot;Failed to load texture : {}&quot;</span>, it-&gt;meta.Path);</div>
+<div class="line"><span class="lineno">  152</span>                    manager.m_Textures[it-&gt;meta.Path]-&gt;SetData(it-&gt;data, it-&gt;meta);</div>
+<div class="line"><span class="lineno">  153</span>                    <span class="keywordflow">if</span> (it-&gt;data)</div>
+<div class="line"><span class="lineno">  154</span>                    {</div>
+<div class="line"><span class="lineno">  155</span>                        stbi_image_free(it-&gt;data);</div>
+<div class="line"><span class="lineno">  156</span>                    }</div>
+<div class="line"><span class="lineno">  157</span>                    it-&gt;data = <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  158</span>                }</div>
+<div class="line"><span class="lineno">  159</span>                it = manager.m_loadingTextures.erase(it);</div>
+<div class="line"><span class="lineno">  160</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  161</span>            <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">  162</span>                ++it;</div>
+<div class="line"><span class="lineno">  163</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  164</span>            }</div>
+<div class="line"><span class="lineno">  165</span>        }</div>
+<div class="line"><span class="lineno">  166</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
