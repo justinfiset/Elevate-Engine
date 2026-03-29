@@ -105,29 +105,43 @@ $(document).ready(function(){initNavTree('Core_8h_source.html',''); initResizabl
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="Core_8h.html#a2c8a57532c7dd6e41331208afc2aca1d">    6</a></span><span class="preprocessor">    #define EE_NO_SOUNDENGINE 0 </span><span class="comment">// todo change back once managed by the lua</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#if defined(EE_PLATFORM_WINDOWS) || defined(EE_PLATFORM_LINUX)</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">    #ifdef EE_DIST </span><span class="comment">// Hide the console if in dist</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">        #ifdef _WIN32</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">            #pragma comment(linker, &quot;/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup&quot;</span>)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">        #endif</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">    #ifdef EE_DYNAMIC_LINK</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">        #ifdef EE_BUILD_DLL</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">            #define EE_API __declspec(dllexport)</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">        #else </span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">            #define EE_API __declspec(dllimport)</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">        #endif </span><span class="comment">// EE_BUILD_DLL</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">    #else</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">        #define EE_API </span><span class="comment">// does absolutly nothing if we are doing static linking and compile</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="Core_8h.html#a705e4ce005f895b4953ab2b8f440e171">    9</a></span><span class="preprocessor">#define EE_API</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#if defined(EE_PLATFORM_WINDOWS) || defined(EE_PLATFORM_LINUX) || defined(EE_PLATFORM_WEB)</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">    #ifdef EE_DIST</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">        #ifdef _WIN32</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">            #pragma comment(linker, &quot;/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup&quot;</span>)</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">        #endif</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">    #error ElevateEngine is currently only supported on Windows, Linux and Web.</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#ifdef EE_PLATFORM_WEB</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">    #define EE_SHADER_VERSION_STRING &quot;#version 300&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">    #define EE_SHADER_PROFILE_STRING &quot;es&quot;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">    #define EE_SHADER_PRECISION_STRING &quot;precision highp float;\n&quot;</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">    #error ElevateEngine is currently only supported on Windows.</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#endif </span><span class="comment">// EE_PLATFORM_WINDOWS or EE_PLATFORM_LINUX</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="Core_8h.html#ad27cc17b25bb93134368d5eb21126eae">   29</a></span><span class="preprocessor">#define BIT(x) (1 &lt;&lt; x)</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="Core_8h.html#a48cfb0c04a085ec6084ac702c2ca37d5">   26</a></span><span class="preprocessor">    #define EE_SHADER_VERSION_STRING &quot;#version 410&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="Core_8h.html#a784096685dfc1ecff6abb7ea9eccd21a">   27</a></span><span class="preprocessor">    #define EE_SHADER_PROFILE_STRING &quot;core&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="Core_8h.html#a8483c70fda95b9f148cf4054218a1fbd">   28</a></span><span class="preprocessor">    #define EE_SHADER_PRECISION_STRING &quot;&quot;</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="Core_8h.html#a909fa0ce15a7b2fc97a2f4ca7f785c2a">   31</a></span><span class="preprocessor">#define EE_BIND_EVNT_FN(fn) std::bind(&amp;fn, this, std::placeholders::_1)</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="Core_8h.html#aa15139a47ab04fd65aad3f010ce549e6">   31</a></span><span class="preprocessor">#define EE_SHADER_VERSION_HEADER EE_SHADER_VERSION_STRING &quot; &quot;</span> EE_SHADER_PROFILE_STRING</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="Core_8h.html#a2ab88033038deb2307b90ef9b351135c">   32</a></span><span class="preprocessor">#define EE_SHADER_HEADER EE_SHADER_VERSION_HEADER &quot;\n&quot;</span> EE_SHADER_PRECISION_STRING</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#ifndef EE_PLATFORM_WEB</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="Core_8h.html#a41e488bd2b17d92a05079af55e2f0498">   35</a></span><span class="preprocessor">    #define EE_ENGINE_DIR EE_RESOURCE_DIR &quot;/Engine/&quot;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="Core_8h.html#aab59be60af9c904532041989cc5607f9">   36</a></span><span class="preprocessor">    #define EE_EDITOR_DIR EE_RESOURCE_DIR &quot;/Editor/&quot;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">    #define EE_ENGINE_DIR &quot;/Engine/&quot;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">    #define EE_EDITOR_DIR &quot;/Editor/&quot;</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="Core_8h.html#a6bdc844a285ee9758e30f4282dd455fa">   41</a></span><span class="preprocessor">#define EE_CONTENT_ROOT &quot;./Content/&quot;</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="Core_8h.html#ad27cc17b25bb93134368d5eb21126eae">   43</a></span><span class="preprocessor">#define BIT(x) (1 &lt;&lt; x)</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="Core_8h.html#a909fa0ce15a7b2fc97a2f4ca7f785c2a">   45</a></span><span class="preprocessor">#define EE_BIND_EVNT_FN(fn) std::bind(&amp;fn, this, std::placeholders::_1)</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

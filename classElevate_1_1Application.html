@@ -115,6 +115,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a53484e4781da8b26974058f2de2ad599"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c9da7f60f67242f732a6445023111d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Application.html#a4c9da7f60f67242f732a6445023111d2">Init</a> ()</td></tr>
 <tr class="separator:a4c9da7f60f67242f732a6445023111d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a556140869007d2bc9ea5713a5e50cb63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Application.html#a556140869007d2bc9ea5713a5e50cb63">EngineFrame</a> ()</td></tr>
+<tr class="separator:a556140869007d2bc9ea5713a5e50cb63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc88552c66339d2aee991eee71681bed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Application.html#abc88552c66339d2aee991eee71681bed">Run</a> ()</td></tr>
 <tr class="separator:abc88552c66339d2aee991eee71681bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad747e7f9492296cc567503202400e7e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">Exit</a> ()</td></tr>
@@ -175,39 +177,39 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00031">31</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   32</span>    {</div>
-<div class="line"><span class="lineno">   33</span>        EE_CORE_ASSERT(!s_Instance, <span class="stringliteral">&quot;Application already exists!&quot;</span>);</div>
-<div class="line"><span class="lineno">   34</span>        s_Instance = <span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">   35</span> </div>
-<div class="line"><span class="lineno">   36</span>        EE_CORE_TRACE(<span class="stringliteral">&quot;Current working directory : {}&quot;</span>, std::filesystem::current_path().<span class="keywordtype">string</span>().c_str());</div>
-<div class="line"><span class="lineno">   37</span> </div>
-<div class="line"><span class="lineno">   38</span>        m_Window = std::unique_ptr&lt;Window&gt;(<a class="code hl_function" href="classElevate_1_1Window.html#adab57419e9f9fbc1a9d8c8f019dbf04b">Window::Create</a>());</div>
-<div class="line"><span class="lineno">   39</span>        m_Window-&gt;SetEventCallback(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(<a class="code hl_function" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">OnEvent</a>));</div>
-<div class="line"><span class="lineno">   40</span> </div>
-<div class="line"><span class="lineno">   41</span>        <a class="code hl_function" href="classElevate_1_1DebugRenderer.html#ae3de6bf8a3f250956815a14395b3547c">DebugRenderer::Init</a>();</div>
-<div class="line"><span class="lineno">   42</span> </div>
-<div class="line"><span class="lineno">   43</span>        <a class="code hl_variable" href="classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7">FrameBuffer</a>.reset(<a class="code hl_function" href="classElevate_1_1Framebuffer.html#a4656fd0589b187d83eae192a13852f9b">Framebuffer::Create</a>(m_Window-&gt;GetWidth(), m_Window-&gt;GetHeight())); </div>
-<div class="line"><span class="lineno">   44</span>        <a class="code hl_variable" href="classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7">FrameBuffer</a>-&gt;SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); <span class="comment">// Pink / purple for debug purposes</span></div>
-<div class="line"><span class="lineno">   45</span> </div>
-<div class="line"><span class="lineno">   46</span><span class="preprocessor">        #ifdef EE_EDITOR_BUILD</span></div>
-<div class="line"><span class="lineno">   47</span>            <a class="code hl_function" href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">PushOverlay</a>(<span class="keyword">new</span> Elevate::Editor::EditorLayer());</div>
-<div class="line"><span class="lineno">   48</span>            <a class="code hl_function" href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">SetGameState</a>(<a class="code hl_enumvalue" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3aae6c2ed48a530ad4cb8d885091236e617">GameContextState::EditorMode</a>);</div>
-<div class="line"><span class="lineno">   49</span><span class="preprocessor">        #else</span></div>
-<div class="line"><span class="lineno">   50</span>            <a class="code hl_function" href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">SetGameState</a>(<a class="code hl_enumvalue" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3aa09d1f32e99057000ce7197ae39f8e87e">GameContextState::Runtime</a>);</div>
-<div class="line"><span class="lineno">   51</span><span class="preprocessor">        #endif</span></div>
-<div class="line"><span class="lineno">   52</span> </div>
-<div class="line"><span class="lineno">   53</span>        m_ImGuiLayer = <span class="keyword">new</span> ImGuiLayer();</div>
-<div class="line"><span class="lineno">   54</span>        <a class="code hl_function" href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">PushOverlay</a>(m_ImGuiLayer);</div>
-<div class="line"><span class="lineno">   55</span>    }</div>
-<div class="ttc" id="aApplication_8cpp_html_a2290aac021a7119e86af0aa6d962a226"><div class="ttname"><a href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a></div><div class="ttdeci">#define BIND_EVENT_FN(x)</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00027">Application.cpp:27</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_a02a1a7ebe8506044892c3def4d809ca7"><div class="ttname"><a href="classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7">Elevate::Application::FrameBuffer</a></div><div class="ttdeci">std::unique_ptr&lt; Framebuffer &gt; FrameBuffer</div><div class="ttdef"><b>Definition:</b> <a href="Application_8h_source.html#l00059">Application.h:59</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_a1dd78859e8268d44a61ea74816932734"><div class="ttname"><a href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">Elevate::Application::SetGameState</a></div><div class="ttdeci">static void SetGameState(GameContextState newState)</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00184">Application.cpp:184</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_a718bde7add1f023ecb6f9547c6e6de88"><div class="ttname"><a href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">Elevate::Application::OnEvent</a></div><div class="ttdeci">void OnEvent(Event &amp;e)</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00070">Application.cpp:70</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_aacbb8a9174ea0c18fdfb403c13c684a2"><div class="ttname"><a href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">Elevate::Application::PushOverlay</a></div><div class="ttdeci">void PushOverlay(Layer *overlay)</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00063">Application.cpp:63</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00035">35</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   36</span>    {</div>
+<div class="line"><span class="lineno">   37</span>        EE_CORE_ASSERT(!s_Instance, <span class="stringliteral">&quot;Application already exists!&quot;</span>);</div>
+<div class="line"><span class="lineno">   38</span>        s_Instance = <span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">   39</span> </div>
+<div class="line"><span class="lineno">   40</span>        EE_CORE_TRACE(<span class="stringliteral">&quot;Current working directory : {}&quot;</span>, std::filesystem::current_path().<span class="keywordtype">string</span>().c_str());</div>
+<div class="line"><span class="lineno">   41</span> </div>
+<div class="line"><span class="lineno">   42</span>        m_Window = std::unique_ptr&lt;Window&gt;(<a class="code hl_function" href="classElevate_1_1Window.html#adab57419e9f9fbc1a9d8c8f019dbf04b">Window::Create</a>());</div>
+<div class="line"><span class="lineno">   43</span>        m_Window-&gt;SetEventCallback(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(<a class="code hl_function" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">OnEvent</a>));</div>
+<div class="line"><span class="lineno">   44</span> </div>
+<div class="line"><span class="lineno">   45</span>        <a class="code hl_function" href="classElevate_1_1DebugRenderer.html#ae3de6bf8a3f250956815a14395b3547c">DebugRenderer::Init</a>();</div>
+<div class="line"><span class="lineno">   46</span> </div>
+<div class="line"><span class="lineno">   47</span>        <a class="code hl_variable" href="classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7">FrameBuffer</a>.reset(<a class="code hl_function" href="classElevate_1_1Framebuffer.html#a4656fd0589b187d83eae192a13852f9b">Framebuffer::Create</a>(m_Window-&gt;GetWidth(), m_Window-&gt;GetHeight())); </div>
+<div class="line"><span class="lineno">   48</span>        <a class="code hl_variable" href="classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7">FrameBuffer</a>-&gt;SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); <span class="comment">// Pink / purple for debug purposes</span></div>
+<div class="line"><span class="lineno">   49</span> </div>
+<div class="line"><span class="lineno">   50</span><span class="preprocessor">        #ifdef EE_EDITOR_BUILD</span></div>
+<div class="line"><span class="lineno">   51</span>            <a class="code hl_function" href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">PushOverlay</a>(<span class="keyword">new</span> Elevate::Editor::EditorLayer());</div>
+<div class="line"><span class="lineno">   52</span>            <a class="code hl_function" href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">SetGameState</a>(<a class="code hl_enumvalue" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3aae6c2ed48a530ad4cb8d885091236e617">GameContextState::EditorMode</a>);</div>
+<div class="line"><span class="lineno">   53</span><span class="preprocessor">        #else</span></div>
+<div class="line"><span class="lineno">   54</span>            <a class="code hl_function" href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">SetGameState</a>(<a class="code hl_enumvalue" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3aa09d1f32e99057000ce7197ae39f8e87e">GameContextState::Runtime</a>);</div>
+<div class="line"><span class="lineno">   55</span><span class="preprocessor">        #endif</span></div>
+<div class="line"><span class="lineno">   56</span> </div>
+<div class="line"><span class="lineno">   57</span>        m_ImGuiLayer = <span class="keyword">new</span> ImGuiLayer();</div>
+<div class="line"><span class="lineno">   58</span>        <a class="code hl_function" href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">PushOverlay</a>(m_ImGuiLayer);</div>
+<div class="line"><span class="lineno">   59</span>    }</div>
+<div class="ttc" id="aApplication_8cpp_html_a2290aac021a7119e86af0aa6d962a226"><div class="ttname"><a href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a></div><div class="ttdeci">#define BIND_EVENT_FN(x)</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00031">Application.cpp:31</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a02a1a7ebe8506044892c3def4d809ca7"><div class="ttname"><a href="classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7">Elevate::Application::FrameBuffer</a></div><div class="ttdeci">std::unique_ptr&lt; Framebuffer &gt; FrameBuffer</div><div class="ttdef"><b>Definition:</b> <a href="Application_8h_source.html#l00060">Application.h:60</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a1dd78859e8268d44a61ea74816932734"><div class="ttname"><a href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">Elevate::Application::SetGameState</a></div><div class="ttdeci">static void SetGameState(GameContextState newState)</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00217">Application.cpp:217</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a718bde7add1f023ecb6f9547c6e6de88"><div class="ttname"><a href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">Elevate::Application::OnEvent</a></div><div class="ttdeci">void OnEvent(Event &amp;e)</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00074">Application.cpp:74</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_aacbb8a9174ea0c18fdfb403c13c684a2"><div class="ttname"><a href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">Elevate::Application::PushOverlay</a></div><div class="ttdeci">void PushOverlay(Layer *overlay)</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00067">Application.cpp:67</a></div></div>
 <div class="ttc" id="aclassElevate_1_1DebugRenderer_html_ae3de6bf8a3f250956815a14395b3547c"><div class="ttname"><a href="classElevate_1_1DebugRenderer.html#ae3de6bf8a3f250956815a14395b3547c">Elevate::DebugRenderer::Init</a></div><div class="ttdeci">static void Init()</div><div class="ttdef"><b>Definition:</b> <a href="DebugRenderer_8h_source.html#l00063">DebugRenderer.h:63</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Framebuffer_html_a4656fd0589b187d83eae192a13852f9b"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a4656fd0589b187d83eae192a13852f9b">Elevate::Framebuffer::Create</a></div><div class="ttdeci">static Framebuffer * Create(uint32_t width=1280, uint32_t height=720)</div><div class="ttdef"><b>Definition:</b> <a href="FrameBuffer_8cpp_source.html#l00009">FrameBuffer.cpp:9</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Window_html_adab57419e9f9fbc1a9d8c8f019dbf04b"><div class="ttname"><a href="classElevate_1_1Window.html#adab57419e9f9fbc1a9d8c8f019dbf04b">Elevate::Window::Create</a></div><div class="ttdeci">static Window * Create(const WindowProps &amp;props=WindowProps(&quot;app.config&quot;))</div><div class="ttdef"><b>Definition:</b> <a href="WindowsWindow_8cpp_source.html#l00022">WindowsWindow.cpp:22</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Window_html_adab57419e9f9fbc1a9d8c8f019dbf04b"><div class="ttname"><a href="classElevate_1_1Window.html#adab57419e9f9fbc1a9d8c8f019dbf04b">Elevate::Window::Create</a></div><div class="ttdeci">static Window * Create(const WindowProps &amp;props=WindowProps(&quot;app.config&quot;))</div><div class="ttdef"><b>Definition:</b> <a href="Window_8cpp_source.html#l00077">Window.cpp:77</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_aaca313f9381f3f38cd912f89f63b6b3aa09d1f32e99057000ce7197ae39f8e87e"><div class="ttname"><a href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3aa09d1f32e99057000ce7197ae39f8e87e">Elevate::Runtime</a></div><div class="ttdeci">@ Runtime</div><div class="ttdef"><b>Definition:</b> <a href="GameContext_8h_source.html#l00009">GameContext.h:9</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_aaca313f9381f3f38cd912f89f63b6b3aae6c2ed48a530ad4cb8d885091236e617"><div class="ttname"><a href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3aae6c2ed48a530ad4cb8d885091236e617">Elevate::EditorMode</a></div><div class="ttdeci">@ EditorMode</div><div class="ttdef"><b>Definition:</b> <a href="GameContext_8h_source.html#l00008">GameContext.h:8</a></div></div>
 </div><!-- fragment -->
@@ -239,6 +241,102 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a556140869007d2bc9ea5713a5e50cb63" name="a556140869007d2bc9ea5713a5e50cb63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a556140869007d2bc9ea5713a5e50cb63">&#9670;&#160;</a></span>EngineFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Elevate::Application::EngineFrame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00124">124</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  125</span>    {</div>
+<div class="line"><span class="lineno">  126</span>        <span class="keyword">static</span> <span class="keywordtype">float</span> lastTime = 0.0f;</div>
+<div class="line"><span class="lineno">  127</span> </div>
+<div class="line"><span class="lineno">  128</span><span class="preprocessor">#if !EE_ASSERTS_ENABLED</span></div>
+<div class="line"><span class="lineno">  129</span>        <span class="keywordflow">try</span></div>
+<div class="line"><span class="lineno">  130</span>        {</div>
+<div class="line"><span class="lineno">  131</span><span class="preprocessor">#endif </span><span class="comment">// #if EE_ASSERTS_ENABLED</span></div>
+<div class="line"><span class="lineno">  132</span>            <span class="comment">// TIME UPDATE //////////////////</span></div>
+<div class="line"><span class="lineno">  133</span>            Time::currentTime_ = (float) m_Window-&gt;GetTime();</div>
+<div class="line"><span class="lineno">  134</span>            Time::deltaTime_ = Time::currentTime_ - lastTime;</div>
+<div class="line"><span class="lineno">  135</span>            lastTime = Time::currentTime_;</div>
+<div class="line"><span class="lineno">  137</span> </div>
+<div class="line"><span class="lineno">  138</span>            <a class="code hl_function" href="classElevate_1_1SoundEngine.html#ab41d72c921536de6a4c18993ef6e6f99">SoundEngine::RenderAudio</a>();</div>
+<div class="line"><span class="lineno">  139</span>            <a class="code hl_function" href="classElevate_1_1TextureManager.html#ad83628c7ee56217d5c29999bdcc0da0f">TextureManager::UpdateLoadingTextures</a>();</div>
+<div class="line"><span class="lineno">  140</span> </div>
+<div class="line"><span class="lineno">  141</span>            <a class="code hl_variable" href="classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7">FrameBuffer</a>-&gt;Bind(); <span class="comment">// Rendering the screen in a single texture</span></div>
+<div class="line"><span class="lineno">  142</span>            <a class="code hl_variable" href="classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7">FrameBuffer</a>-&gt;Clear();</div>
+<div class="line"><span class="lineno">  143</span> </div>
+<div class="line"><span class="lineno">  144</span>            <span class="keywordflow">for</span> (Layer* layer : m_LayerStack)</div>
+<div class="line"><span class="lineno">  145</span>                layer-&gt;OnUpdate();</div>
+<div class="line"><span class="lineno">  146</span> </div>
+<div class="line"><span class="lineno">  147</span>            <span class="comment">// Draw Layers and Scenes</span></div>
+<div class="line"><span class="lineno">  148</span>            <span class="keywordflow">for</span> (Layer* layer : m_LayerStack)</div>
+<div class="line"><span class="lineno">  149</span>                layer-&gt;OnRender();</div>
+<div class="line"><span class="lineno">  150</span> </div>
+<div class="line"><span class="lineno">  151</span>            <a class="code hl_function" href="classElevate_1_1DebugRenderer.html#aadaffa474d3c99a4aeb8940dabf4027f">DebugRenderer::Render</a>();</div>
+<div class="line"><span class="lineno">  152</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#a95439191607dbd7586c6a1e5cdfc5ebd">Renderer::DrawStack</a>();</div>
+<div class="line"><span class="lineno">  153</span> </div>
+<div class="line"><span class="lineno">  154</span>            <a class="code hl_variable" href="classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7">FrameBuffer</a>-&gt;Unbind(); <span class="comment">// Back to normal</span></div>
+<div class="line"><span class="lineno">  155</span> </div>
+<div class="line"><span class="lineno">  156</span><span class="preprocessor">            #ifndef EE_EDITOR_BUILD</span></div>
+<div class="line"><span class="lineno">  157</span>            <a class="code hl_variable" href="classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7">FrameBuffer</a>-&gt;BlitFramebufferToScreen(m_Window-&gt;GetWidth(), m_Window-&gt;GetHeight());</div>
+<div class="line"><span class="lineno">  158</span><span class="preprocessor">            #endif</span></div>
+<div class="line"><span class="lineno">  159</span> </div>
+<div class="line"><span class="lineno">  160</span>            <span class="comment">//imgui</span></div>
+<div class="line"><span class="lineno">  161</span>            m_ImGuiLayer-&gt;<a class="code hl_function" href="classElevate_1_1ImGuiLayer.html#a889324a45197eff440c492853527a20a">PreRender</a>();</div>
+<div class="line"><span class="lineno">  162</span>            m_ImGuiLayer-&gt;<a class="code hl_function" href="classElevate_1_1ImGuiLayer.html#a14cb8726010c5ffb844ff6ec391944c1">Begin</a>();</div>
+<div class="line"><span class="lineno">  163</span> </div>
+<div class="line"><span class="lineno">  164</span>            <span class="keywordflow">for</span> (Layer* layer : m_LayerStack)</div>
+<div class="line"><span class="lineno">  165</span>                layer-&gt;OnImGuiRender();</div>
+<div class="line"><span class="lineno">  166</span>                </div>
+<div class="line"><span class="lineno">  167</span>            m_ImGuiLayer-&gt;<a class="code hl_function" href="classElevate_1_1ImGuiLayer.html#a7d96a474b7ebed03b52e2641db623716">Render</a>(); <span class="comment">// render imgui</span></div>
+<div class="line"><span class="lineno">  168</span>            m_ImGuiLayer-&gt;<a class="code hl_function" href="classElevate_1_1ImGuiLayer.html#ae074757b5a04dbb5c82787630cabd9c1">End</a>(); <span class="comment">// finish the imgui rendering</span></div>
+<div class="line"><span class="lineno">  169</span> </div>
+<div class="line"><span class="lineno">  170</span>            <a class="code hl_function" href="classElevate_1_1Input.html#a248336b6c0e4a2812fb8559d0c0f4fa6">Input::ManageMidStates</a>(); <span class="comment">// Manage Key/Button up and down state</span></div>
+<div class="line"><span class="lineno">  171</span> </div>
+<div class="line"><span class="lineno">  172</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#a16519688fb3e0f350b480ecf7a1cbfc1">Renderer::FlushBuffers</a>();   </div>
+<div class="line"><span class="lineno">  173</span>            <span class="comment">// Poll events and swap buffers</span></div>
+<div class="line"><span class="lineno">  174</span>            m_Window-&gt;OnUpdate();</div>
+<div class="line"><span class="lineno">  175</span> </div>
+<div class="line"><span class="lineno">  176</span><span class="preprocessor">#ifdef EE_PLATFORM_WEB</span></div>
+<div class="line"><span class="lineno">  177</span>            <span class="keywordflow">if</span> (!m_Running)</div>
+<div class="line"><span class="lineno">  178</span>            {</div>
+<div class="line"><span class="lineno">  179</span>                emscripten_cancel_main_loop();</div>
+<div class="line"><span class="lineno">  180</span>                <a class="code hl_function" href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">Exit</a>();</div>
+<div class="line"><span class="lineno">  181</span>            }</div>
+<div class="line"><span class="lineno">  182</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  183</span> </div>
+<div class="line"><span class="lineno">  184</span><span class="preprocessor">#if !EE_ASSERTS_ENABLED</span></div>
+<div class="line"><span class="lineno">  185</span>        }</div>
+<div class="line"><span class="lineno">  186</span>        <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; exc)</div>
+<div class="line"><span class="lineno">  187</span>        {</div>
+<div class="line"><span class="lineno">  188</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;{}&quot;</span>, exc.what());</div>
+<div class="line"><span class="lineno">  189</span>        }</div>
+<div class="line"><span class="lineno">  190</span><span class="preprocessor">#endif </span><span class="comment">// #if EE_ASSERTS_ENABLED</span></div>
+<div class="line"><span class="lineno">  191</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1Application_html_ad747e7f9492296cc567503202400e7e3"><div class="ttname"><a href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">Elevate::Application::Exit</a></div><div class="ttdeci">void Exit()</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00206">Application.cpp:206</a></div></div>
+<div class="ttc" id="aclassElevate_1_1DebugRenderer_html_aadaffa474d3c99a4aeb8940dabf4027f"><div class="ttname"><a href="classElevate_1_1DebugRenderer.html#aadaffa474d3c99a4aeb8940dabf4027f">Elevate::DebugRenderer::Render</a></div><div class="ttdeci">static void Render()</div><div class="ttdef"><b>Definition:</b> <a href="DebugRenderer_8h_source.html#l00064">DebugRenderer.h:64</a></div></div>
+<div class="ttc" id="aclassElevate_1_1ImGuiLayer_html_a14cb8726010c5ffb844ff6ec391944c1"><div class="ttname"><a href="classElevate_1_1ImGuiLayer.html#a14cb8726010c5ffb844ff6ec391944c1">Elevate::ImGuiLayer::Begin</a></div><div class="ttdeci">void Begin()</div><div class="ttdef"><b>Definition:</b> <a href="ImGuiLayer_8cpp_source.html#l00070">ImGuiLayer.cpp:70</a></div></div>
+<div class="ttc" id="aclassElevate_1_1ImGuiLayer_html_a7d96a474b7ebed03b52e2641db623716"><div class="ttname"><a href="classElevate_1_1ImGuiLayer.html#a7d96a474b7ebed03b52e2641db623716">Elevate::ImGuiLayer::Render</a></div><div class="ttdeci">void Render()</div><div class="ttdef"><b>Definition:</b> <a href="ImGuiLayer_8cpp_source.html#l00078">ImGuiLayer.cpp:78</a></div></div>
+<div class="ttc" id="aclassElevate_1_1ImGuiLayer_html_a889324a45197eff440c492853527a20a"><div class="ttname"><a href="classElevate_1_1ImGuiLayer.html#a889324a45197eff440c492853527a20a">Elevate::ImGuiLayer::PreRender</a></div><div class="ttdeci">void PreRender()</div><div class="ttdef"><b>Definition:</b> <a href="ImGuiLayer_8cpp_source.html#l00064">ImGuiLayer.cpp:64</a></div></div>
+<div class="ttc" id="aclassElevate_1_1ImGuiLayer_html_ae074757b5a04dbb5c82787630cabd9c1"><div class="ttname"><a href="classElevate_1_1ImGuiLayer.html#ae074757b5a04dbb5c82787630cabd9c1">Elevate::ImGuiLayer::End</a></div><div class="ttdeci">void End()</div><div class="ttdef"><b>Definition:</b> <a href="ImGuiLayer_8cpp_source.html#l00083">ImGuiLayer.cpp:83</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Input_html_a248336b6c0e4a2812fb8559d0c0f4fa6"><div class="ttname"><a href="classElevate_1_1Input.html#a248336b6c0e4a2812fb8559d0c0f4fa6">Elevate::Input::ManageMidStates</a></div><div class="ttdeci">static void ManageMidStates()</div><div class="ttdef"><b>Definition:</b> <a href="Input_8h_source.html#l00052">Input.h:52</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a16519688fb3e0f350b480ecf7a1cbfc1"><div class="ttname"><a href="classElevate_1_1Renderer.html#a16519688fb3e0f350b480ecf7a1cbfc1">Elevate::Renderer::FlushBuffers</a></div><div class="ttdeci">static void FlushBuffers()</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00062">Renderer.cpp:62</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a95439191607dbd7586c6a1e5cdfc5ebd"><div class="ttname"><a href="classElevate_1_1Renderer.html#a95439191607dbd7586c6a1e5cdfc5ebd">Elevate::Renderer::DrawStack</a></div><div class="ttdeci">static void DrawStack()</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00085">Renderer.cpp:85</a></div></div>
+<div class="ttc" id="aclassElevate_1_1SoundEngine_html_ab41d72c921536de6a4c18993ef6e6f99"><div class="ttname"><a href="classElevate_1_1SoundEngine.html#ab41d72c921536de6a4c18993ef6e6f99">Elevate::SoundEngine::RenderAudio</a></div><div class="ttdeci">static void RenderAudio()</div><div class="ttdef"><b>Definition:</b> <a href="SoundEngine_8cpp_source.html#l00022">SoundEngine.cpp:22</a></div></div>
+<div class="ttc" id="aclassElevate_1_1TextureManager_html_ad83628c7ee56217d5c29999bdcc0da0f"><div class="ttname"><a href="classElevate_1_1TextureManager.html#ad83628c7ee56217d5c29999bdcc0da0f">Elevate::TextureManager::UpdateLoadingTextures</a></div><div class="ttdeci">static void UpdateLoadingTextures()</div><div class="ttdef"><b>Definition:</b> <a href="TextureManager_8cpp_source.html#l00126">TextureManager.cpp:126</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="ad747e7f9492296cc567503202400e7e3" name="ad747e7f9492296cc567503202400e7e3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad747e7f9492296cc567503202400e7e3">&#9670;&#160;</a></span>Exit()</h2>
 
@@ -254,11 +352,11 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00173">173</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  174</span>    {</div>
-<div class="line"><span class="lineno">  175</span>        m_ImGuiLayer-&gt;<a class="code hl_function" href="classElevate_1_1ImGuiLayer.html#a347e2095dbce95f51002a4b1f8849fb2">Cleanup</a>();</div>
-<div class="line"><span class="lineno">  176</span>        <a class="code hl_function" href="classElevate_1_1SoundEngine.html#a27f89cfed26100f929193364c0ed9a1b">SoundEngine::Terminate</a>();</div>
-<div class="line"><span class="lineno">  177</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00206">206</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  207</span>    {</div>
+<div class="line"><span class="lineno">  208</span>        m_ImGuiLayer-&gt;<a class="code hl_function" href="classElevate_1_1ImGuiLayer.html#a347e2095dbce95f51002a4b1f8849fb2">Cleanup</a>();</div>
+<div class="line"><span class="lineno">  209</span>        <a class="code hl_function" href="classElevate_1_1SoundEngine.html#a27f89cfed26100f929193364c0ed9a1b">SoundEngine::Terminate</a>();</div>
+<div class="line"><span class="lineno">  210</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1ImGuiLayer_html_a347e2095dbce95f51002a4b1f8849fb2"><div class="ttname"><a href="classElevate_1_1ImGuiLayer.html#a347e2095dbce95f51002a4b1f8849fb2">Elevate::ImGuiLayer::Cleanup</a></div><div class="ttdeci">void Cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="ImGuiLayer_8cpp_source.html#l00100">ImGuiLayer.cpp:100</a></div></div>
 <div class="ttc" id="aclassElevate_1_1SoundEngine_html_a27f89cfed26100f929193364c0ed9a1b"><div class="ttname"><a href="classElevate_1_1SoundEngine.html#a27f89cfed26100f929193364c0ed9a1b">Elevate::SoundEngine::Terminate</a></div><div class="ttdeci">static void Terminate()</div><div class="ttdef"><b>Definition:</b> <a href="SoundEngine_8cpp_source.html#l00028">SoundEngine.cpp:28</a></div></div>
 </div><!-- fragment -->
@@ -287,8 +385,8 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8h_source.html#l00061">61</a> of file <a class="el" href="Application_8h_source.html">Application.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   61</span>{ <span class="keywordflow">return</span> *s_Instance; }</div>
+<p class="definition">Definition at line <a class="el" href="Application_8h_source.html#l00062">62</a> of file <a class="el" href="Application_8h_source.html">Application.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   62</span>{ <span class="keywordflow">return</span> *s_Instance; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -315,10 +413,10 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00199">199</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  200</span>    {</div>
-<div class="line"><span class="lineno">  201</span>        <span class="keywordflow">return</span> s_Instance-&gt;m_args;</div>
-<div class="line"><span class="lineno">  202</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00232">232</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  233</span>    {</div>
+<div class="line"><span class="lineno">  234</span>        <span class="keywordflow">return</span> s_Instance-&gt;m_args;</div>
+<div class="line"><span class="lineno">  235</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -345,10 +443,10 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00179">179</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  180</span>    {</div>
-<div class="line"><span class="lineno">  181</span>        <span class="keywordflow">return</span> s_Instance-&gt;m_state;</div>
-<div class="line"><span class="lineno">  182</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00212">212</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  213</span>    {</div>
+<div class="line"><span class="lineno">  214</span>        <span class="keywordflow">return</span> s_Instance-&gt;m_state;</div>
+<div class="line"><span class="lineno">  215</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -375,8 +473,8 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8h_source.html#l00062">62</a> of file <a class="el" href="Application_8h_source.html">Application.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   62</span>{ <span class="keywordflow">return</span> *m_Window; }</div>
+<p class="definition">Definition at line <a class="el" href="Application_8h_source.html#l00063">63</a> of file <a class="el" href="Application_8h_source.html">Application.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   63</span>{ <span class="keywordflow">return</span> *m_Window; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -395,10 +493,10 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00104">104</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  105</span>    {</div>
-<div class="line"><span class="lineno">  106</span>        <a class="code hl_function" href="classElevate_1_1SoundEngine.html#a459edc585c5d6925fbd95dc1fa97140d">SoundEngine::Init</a>();</div>
-<div class="line"><span class="lineno">  107</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00119">119</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  120</span>    {</div>
+<div class="line"><span class="lineno">  121</span>        <a class="code hl_function" href="classElevate_1_1SoundEngine.html#a459edc585c5d6925fbd95dc1fa97140d">SoundEngine::Init</a>();</div>
+<div class="line"><span class="lineno">  122</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1SoundEngine_html_a459edc585c5d6925fbd95dc1fa97140d"><div class="ttname"><a href="classElevate_1_1SoundEngine.html#a459edc585c5d6925fbd95dc1fa97140d">Elevate::SoundEngine::Init</a></div><div class="ttdeci">static bool Init()</div><div class="ttdef"><b>Definition:</b> <a href="SoundEngine_8cpp_source.html#l00012">SoundEngine.cpp:12</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -419,28 +517,28 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00070">70</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   71</span>    {</div>
-<div class="line"><span class="lineno">   72</span>        EventDispatcher dispatcher(e);</div>
-<div class="line"><span class="lineno">   73</span>        dispatcher.Dispatch&lt;WindowCloseEvent&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnWindowClose));</div>
-<div class="line"><span class="lineno">   74</span>        dispatcher.Dispatch&lt;WindowResizeEvent&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnWindowResize));</div>
-<div class="line"><span class="lineno">   75</span>        dispatcher.Dispatch&lt;WindowFocusEvent&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnWindowFocusEvent));</div>
-<div class="line"><span class="lineno">   76</span> </div>
-<div class="line"><span class="lineno">   77</span>        <span class="comment">// Keyboard</span></div>
-<div class="line"><span class="lineno">   78</span>        dispatcher.Dispatch&lt;KeyPressedEvent&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnKeyPressedEvent));</div>
-<div class="line"><span class="lineno">   79</span>        dispatcher.Dispatch&lt;KeyReleasedEvent&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnKeyReleasedEvent));</div>
+<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00074">74</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   75</span>    {</div>
+<div class="line"><span class="lineno">   76</span>        EventDispatcher dispatcher(e);</div>
+<div class="line"><span class="lineno">   77</span>        dispatcher.Dispatch&lt;WindowCloseEvent&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnWindowClose));</div>
+<div class="line"><span class="lineno">   78</span>        dispatcher.Dispatch&lt;WindowResizeEvent&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnWindowResize));</div>
+<div class="line"><span class="lineno">   79</span>        dispatcher.Dispatch&lt;WindowFocusEvent&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnWindowFocusEvent));</div>
 <div class="line"><span class="lineno">   80</span> </div>
-<div class="line"><span class="lineno">   81</span>        <span class="comment">// Mousse</span></div>
-<div class="line"><span class="lineno">   82</span>        dispatcher.Dispatch&lt;MouseButtonPressedEvent&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnMouseButtonPressedEvent));</div>
-<div class="line"><span class="lineno">   83</span>        dispatcher.Dispatch&lt;MouseButtonReleasedEvent&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnMouseButtonReleasedEvent));</div>
+<div class="line"><span class="lineno">   81</span>        <span class="comment">// Keyboard</span></div>
+<div class="line"><span class="lineno">   82</span>        dispatcher.Dispatch&lt;KeyPressedEvent&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnKeyPressedEvent));</div>
+<div class="line"><span class="lineno">   83</span>        dispatcher.Dispatch&lt;KeyReleasedEvent&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnKeyReleasedEvent));</div>
 <div class="line"><span class="lineno">   84</span> </div>
-<div class="line"><span class="lineno">   85</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_LayerStack.<a class="code hl_function" href="classElevate_1_1LayerStack.html#a3ba8e7bd30d744e0d33c91037cd6f7fb">end</a>(); it != m_LayerStack.<a class="code hl_function" href="classElevate_1_1LayerStack.html#a0550612d07a2ad4ea022b829348724aa">begin</a>();)</div>
-<div class="line"><span class="lineno">   86</span>        {</div>
-<div class="line"><span class="lineno">   87</span>            (*--it)-&gt;<a class="code hl_function" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">OnEvent</a>(e);</div>
-<div class="line"><span class="lineno">   88</span>            <span class="keywordflow">if</span> (e.Handled)</div>
-<div class="line"><span class="lineno">   89</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   90</span>        }</div>
-<div class="line"><span class="lineno">   91</span>    }</div>
+<div class="line"><span class="lineno">   85</span>        <span class="comment">// Mousse</span></div>
+<div class="line"><span class="lineno">   86</span>        dispatcher.Dispatch&lt;MouseButtonPressedEvent&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnMouseButtonPressedEvent));</div>
+<div class="line"><span class="lineno">   87</span>        dispatcher.Dispatch&lt;MouseButtonReleasedEvent&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnMouseButtonReleasedEvent));</div>
+<div class="line"><span class="lineno">   88</span> </div>
+<div class="line"><span class="lineno">   89</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_LayerStack.<a class="code hl_function" href="classElevate_1_1LayerStack.html#a3ba8e7bd30d744e0d33c91037cd6f7fb">end</a>(); it != m_LayerStack.<a class="code hl_function" href="classElevate_1_1LayerStack.html#a0550612d07a2ad4ea022b829348724aa">begin</a>();)</div>
+<div class="line"><span class="lineno">   90</span>        {</div>
+<div class="line"><span class="lineno">   91</span>            (*--it)-&gt;<a class="code hl_function" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">OnEvent</a>(e);</div>
+<div class="line"><span class="lineno">   92</span>            <span class="keywordflow">if</span> (e.Handled)</div>
+<div class="line"><span class="lineno">   93</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   94</span>        }</div>
+<div class="line"><span class="lineno">   95</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1LayerStack_html_a0550612d07a2ad4ea022b829348724aa"><div class="ttname"><a href="classElevate_1_1LayerStack.html#a0550612d07a2ad4ea022b829348724aa">Elevate::LayerStack::begin</a></div><div class="ttdeci">std::vector&lt; Layer * &gt;::iterator begin()</div><div class="ttdef"><b>Definition:</b> <a href="LayerStack_8h_source.html#l00019">LayerStack.h:19</a></div></div>
 <div class="ttc" id="aclassElevate_1_1LayerStack_html_a3ba8e7bd30d744e0d33c91037cd6f7fb"><div class="ttname"><a href="classElevate_1_1LayerStack.html#a3ba8e7bd30d744e0d33c91037cd6f7fb">Elevate::LayerStack::end</a></div><div class="ttdeci">std::vector&lt; Layer * &gt;::iterator end()</div><div class="ttdef"><b>Definition:</b> <a href="LayerStack_8h_source.html#l00020">LayerStack.h:20</a></div></div>
 </div><!-- fragment -->
@@ -480,11 +578,11 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00205">205</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  206</span>    {</div>
-<div class="line"><span class="lineno">  207</span>        GameContextEvent e(oldState, newState);</div>
-<div class="line"><span class="lineno">  208</span>        <a class="code hl_function" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">OnEvent</a>(e);</div>
-<div class="line"><span class="lineno">  209</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00238">238</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  239</span>    {</div>
+<div class="line"><span class="lineno">  240</span>        GameContextEvent e(oldState, newState);</div>
+<div class="line"><span class="lineno">  241</span>        <a class="code hl_function" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">OnEvent</a>(e);</div>
+<div class="line"><span class="lineno">  242</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -504,11 +602,11 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00057">57</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   58</span>    {</div>
-<div class="line"><span class="lineno">   59</span>        m_LayerStack.<a class="code hl_function" href="classElevate_1_1LayerStack.html#ad7420daf770aedb71d656277814929cc">PushLayer</a>(layer);</div>
-<div class="line"><span class="lineno">   60</span>        layer-&gt;OnAttach();</div>
-<div class="line"><span class="lineno">   61</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00061">61</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   62</span>    {</div>
+<div class="line"><span class="lineno">   63</span>        m_LayerStack.<a class="code hl_function" href="classElevate_1_1LayerStack.html#ad7420daf770aedb71d656277814929cc">PushLayer</a>(layer);</div>
+<div class="line"><span class="lineno">   64</span>        layer-&gt;OnAttach();</div>
+<div class="line"><span class="lineno">   65</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1LayerStack_html_ad7420daf770aedb71d656277814929cc"><div class="ttname"><a href="classElevate_1_1LayerStack.html#ad7420daf770aedb71d656277814929cc">Elevate::LayerStack::PushLayer</a></div><div class="ttdeci">void PushLayer(Layer *layer)</div><div class="ttdef"><b>Definition:</b> <a href="LayerStack_8cpp_source.html#l00016">LayerStack.cpp:16</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -529,11 +627,11 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00063">63</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   64</span>    {</div>
-<div class="line"><span class="lineno">   65</span>        m_LayerStack.<a class="code hl_function" href="classElevate_1_1LayerStack.html#a4f4eff4a983f6cf163a2fe00c1b8cdec">PushOverlay</a>(overlay);</div>
-<div class="line"><span class="lineno">   66</span>        overlay-&gt;OnAttach();</div>
-<div class="line"><span class="lineno">   67</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00067">67</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   68</span>    {</div>
+<div class="line"><span class="lineno">   69</span>        m_LayerStack.<a class="code hl_function" href="classElevate_1_1LayerStack.html#a4f4eff4a983f6cf163a2fe00c1b8cdec">PushOverlay</a>(overlay);</div>
+<div class="line"><span class="lineno">   70</span>        overlay-&gt;OnAttach();</div>
+<div class="line"><span class="lineno">   71</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1LayerStack_html_a4f4eff4a983f6cf163a2fe00c1b8cdec"><div class="ttname"><a href="classElevate_1_1LayerStack.html#a4f4eff4a983f6cf163a2fe00c1b8cdec">Elevate::LayerStack::PushOverlay</a></div><div class="ttdeci">void PushOverlay(Layer *overlay)</div><div class="ttdef"><b>Definition:</b> <a href="LayerStack_8cpp_source.html#l00022">LayerStack.cpp:22</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -553,79 +651,19 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00109">109</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  110</span>    {</div>
-<div class="line"><span class="lineno">  111</span>        <span class="keywordtype">float</span> lastTime = 0.0f;</div>
-<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">while</span> (m_Running)</div>
-<div class="line"><span class="lineno">  113</span>        {</div>
-<div class="line"><span class="lineno">  114</span><span class="preprocessor">#if !EE_ASSERTS_ENABLED</span></div>
-<div class="line"><span class="lineno">  115</span>            <span class="keywordflow">try</span></div>
-<div class="line"><span class="lineno">  116</span>            {</div>
-<div class="line"><span class="lineno">  117</span><span class="preprocessor">#endif </span><span class="comment">// #if EE_ASSERTS_ENABLED</span></div>
-<div class="line"><span class="lineno">  118</span>                <span class="comment">// TIME UPDATE //////////////////</span></div>
-<div class="line"><span class="lineno">  119</span>                Time::currentTime_ = (float) m_Window-&gt;GetTime();</div>
-<div class="line"><span class="lineno">  120</span>                Time::deltaTime_ = Time::currentTime_ - lastTime;</div>
-<div class="line"><span class="lineno">  121</span>                lastTime = Time::currentTime_;</div>
-<div class="line"><span class="lineno">  123</span> </div>
-<div class="line"><span class="lineno">  124</span>                <a class="code hl_function" href="classElevate_1_1SoundEngine.html#ab41d72c921536de6a4c18993ef6e6f99">SoundEngine::RenderAudio</a>();</div>
-<div class="line"><span class="lineno">  125</span>                <a class="code hl_function" href="classElevate_1_1TextureManager.html#ad83628c7ee56217d5c29999bdcc0da0f">TextureManager::UpdateLoadingTextures</a>();</div>
-<div class="line"><span class="lineno">  126</span> </div>
-<div class="line"><span class="lineno">  127</span>                <a class="code hl_variable" href="classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7">FrameBuffer</a>-&gt;Bind(); <span class="comment">// Rendering the screen in a single texture</span></div>
-<div class="line"><span class="lineno">  128</span>                <a class="code hl_variable" href="classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7">FrameBuffer</a>-&gt;Clear();</div>
-<div class="line"><span class="lineno">  129</span> </div>
-<div class="line"><span class="lineno">  130</span>                <span class="keywordflow">for</span> (Layer* layer : m_LayerStack)</div>
-<div class="line"><span class="lineno">  131</span>                    layer-&gt;OnUpdate();</div>
-<div class="line"><span class="lineno">  132</span> </div>
-<div class="line"><span class="lineno">  133</span>                <span class="comment">// Draw Layers and Scenes</span></div>
-<div class="line"><span class="lineno">  134</span>                <span class="keywordflow">for</span> (Layer* layer : m_LayerStack)</div>
-<div class="line"><span class="lineno">  135</span>                    layer-&gt;OnRender();</div>
-<div class="line"><span class="lineno">  136</span> </div>
-<div class="line"><span class="lineno">  137</span>                <a class="code hl_function" href="classElevate_1_1DebugRenderer.html#aadaffa474d3c99a4aeb8940dabf4027f">DebugRenderer::Render</a>();</div>
-<div class="line"><span class="lineno">  138</span>                <a class="code hl_function" href="classElevate_1_1Renderer.html#a95439191607dbd7586c6a1e5cdfc5ebd">Renderer::DrawStack</a>();</div>
-<div class="line"><span class="lineno">  139</span> </div>
-<div class="line"><span class="lineno">  140</span>                <a class="code hl_variable" href="classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7">FrameBuffer</a>-&gt;Unbind(); <span class="comment">// Back to normal</span></div>
-<div class="line"><span class="lineno">  141</span> </div>
-<div class="line"><span class="lineno">  142</span><span class="preprocessor">                #ifndef EE_EDITOR_BUILD</span></div>
-<div class="line"><span class="lineno">  143</span>                <a class="code hl_variable" href="classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7">FrameBuffer</a>-&gt;BlitFramebufferToScreen(m_Window-&gt;GetWidth(), m_Window-&gt;GetHeight());</div>
-<div class="line"><span class="lineno">  144</span><span class="preprocessor">                #endif</span></div>
-<div class="line"><span class="lineno">  145</span> </div>
-<div class="line"><span class="lineno">  146</span>                <span class="comment">//imgui</span></div>
-<div class="line"><span class="lineno">  147</span>                m_ImGuiLayer-&gt;<a class="code hl_function" href="classElevate_1_1ImGuiLayer.html#a889324a45197eff440c492853527a20a">PreRender</a>();</div>
-<div class="line"><span class="lineno">  148</span>                m_ImGuiLayer-&gt;<a class="code hl_function" href="classElevate_1_1ImGuiLayer.html#a14cb8726010c5ffb844ff6ec391944c1">Begin</a>();</div>
-<div class="line"><span class="lineno">  149</span> </div>
-<div class="line"><span class="lineno">  150</span>                <span class="keywordflow">for</span> (Layer* layer : m_LayerStack)</div>
-<div class="line"><span class="lineno">  151</span>                    layer-&gt;OnImGuiRender();</div>
-<div class="line"><span class="lineno">  152</span>                </div>
-<div class="line"><span class="lineno">  153</span>                m_ImGuiLayer-&gt;<a class="code hl_function" href="classElevate_1_1ImGuiLayer.html#a7d96a474b7ebed03b52e2641db623716">Render</a>(); <span class="comment">// render imgui</span></div>
-<div class="line"><span class="lineno">  154</span>                m_ImGuiLayer-&gt;<a class="code hl_function" href="classElevate_1_1ImGuiLayer.html#ae074757b5a04dbb5c82787630cabd9c1">End</a>(); <span class="comment">// finish the imgui rendering</span></div>
-<div class="line"><span class="lineno">  155</span> </div>
-<div class="line"><span class="lineno">  156</span>                <a class="code hl_function" href="classElevate_1_1Input.html#a248336b6c0e4a2812fb8559d0c0f4fa6">Input::ManageMidStates</a>(); <span class="comment">// Manage Key/Button up and down state</span></div>
-<div class="line"><span class="lineno">  157</span> </div>
-<div class="line"><span class="lineno">  158</span>                <a class="code hl_function" href="classElevate_1_1Renderer.html#a16519688fb3e0f350b480ecf7a1cbfc1">Renderer::FlushBuffers</a>();   </div>
-<div class="line"><span class="lineno">  159</span>                <span class="comment">// Poll events and swap buffers</span></div>
-<div class="line"><span class="lineno">  160</span>                m_Window-&gt;OnUpdate();</div>
-<div class="line"><span class="lineno">  161</span> </div>
-<div class="line"><span class="lineno">  162</span><span class="preprocessor">#if !EE_ASSERTS_ENABLED</span></div>
-<div class="line"><span class="lineno">  163</span>            }</div>
-<div class="line"><span class="lineno">  164</span>            <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; exc)</div>
-<div class="line"><span class="lineno">  165</span>            {</div>
-<div class="line"><span class="lineno">  166</span>                EE_CORE_ERROR(<span class="stringliteral">&quot;{}&quot;</span>, exc.what());</div>
-<div class="line"><span class="lineno">  167</span>            }</div>
-<div class="line"><span class="lineno">  168</span><span class="preprocessor">#endif </span><span class="comment">// #if EE_ASSERTS_ENABLED</span></div>
-<div class="line"><span class="lineno">  169</span>        }</div>
-<div class="line"><span class="lineno">  170</span>        <a class="code hl_function" href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">Exit</a>();</div>
-<div class="line"><span class="lineno">  171</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1Application_html_ad747e7f9492296cc567503202400e7e3"><div class="ttname"><a href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">Elevate::Application::Exit</a></div><div class="ttdeci">void Exit()</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00173">Application.cpp:173</a></div></div>
-<div class="ttc" id="aclassElevate_1_1DebugRenderer_html_aadaffa474d3c99a4aeb8940dabf4027f"><div class="ttname"><a href="classElevate_1_1DebugRenderer.html#aadaffa474d3c99a4aeb8940dabf4027f">Elevate::DebugRenderer::Render</a></div><div class="ttdeci">static void Render()</div><div class="ttdef"><b>Definition:</b> <a href="DebugRenderer_8h_source.html#l00064">DebugRenderer.h:64</a></div></div>
-<div class="ttc" id="aclassElevate_1_1ImGuiLayer_html_a14cb8726010c5ffb844ff6ec391944c1"><div class="ttname"><a href="classElevate_1_1ImGuiLayer.html#a14cb8726010c5ffb844ff6ec391944c1">Elevate::ImGuiLayer::Begin</a></div><div class="ttdeci">void Begin()</div><div class="ttdef"><b>Definition:</b> <a href="ImGuiLayer_8cpp_source.html#l00070">ImGuiLayer.cpp:70</a></div></div>
-<div class="ttc" id="aclassElevate_1_1ImGuiLayer_html_a7d96a474b7ebed03b52e2641db623716"><div class="ttname"><a href="classElevate_1_1ImGuiLayer.html#a7d96a474b7ebed03b52e2641db623716">Elevate::ImGuiLayer::Render</a></div><div class="ttdeci">void Render()</div><div class="ttdef"><b>Definition:</b> <a href="ImGuiLayer_8cpp_source.html#l00078">ImGuiLayer.cpp:78</a></div></div>
-<div class="ttc" id="aclassElevate_1_1ImGuiLayer_html_a889324a45197eff440c492853527a20a"><div class="ttname"><a href="classElevate_1_1ImGuiLayer.html#a889324a45197eff440c492853527a20a">Elevate::ImGuiLayer::PreRender</a></div><div class="ttdeci">void PreRender()</div><div class="ttdef"><b>Definition:</b> <a href="ImGuiLayer_8cpp_source.html#l00064">ImGuiLayer.cpp:64</a></div></div>
-<div class="ttc" id="aclassElevate_1_1ImGuiLayer_html_ae074757b5a04dbb5c82787630cabd9c1"><div class="ttname"><a href="classElevate_1_1ImGuiLayer.html#ae074757b5a04dbb5c82787630cabd9c1">Elevate::ImGuiLayer::End</a></div><div class="ttdeci">void End()</div><div class="ttdef"><b>Definition:</b> <a href="ImGuiLayer_8cpp_source.html#l00083">ImGuiLayer.cpp:83</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Input_html_a248336b6c0e4a2812fb8559d0c0f4fa6"><div class="ttname"><a href="classElevate_1_1Input.html#a248336b6c0e4a2812fb8559d0c0f4fa6">Elevate::Input::ManageMidStates</a></div><div class="ttdeci">static void ManageMidStates()</div><div class="ttdef"><b>Definition:</b> <a href="Input_8h_source.html#l00052">Input.h:52</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a16519688fb3e0f350b480ecf7a1cbfc1"><div class="ttname"><a href="classElevate_1_1Renderer.html#a16519688fb3e0f350b480ecf7a1cbfc1">Elevate::Renderer::FlushBuffers</a></div><div class="ttdeci">static void FlushBuffers()</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00062">Renderer.cpp:62</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a95439191607dbd7586c6a1e5cdfc5ebd"><div class="ttname"><a href="classElevate_1_1Renderer.html#a95439191607dbd7586c6a1e5cdfc5ebd">Elevate::Renderer::DrawStack</a></div><div class="ttdeci">static void DrawStack()</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00085">Renderer.cpp:85</a></div></div>
-<div class="ttc" id="aclassElevate_1_1SoundEngine_html_ab41d72c921536de6a4c18993ef6e6f99"><div class="ttname"><a href="classElevate_1_1SoundEngine.html#ab41d72c921536de6a4c18993ef6e6f99">Elevate::SoundEngine::RenderAudio</a></div><div class="ttdeci">static void RenderAudio()</div><div class="ttdef"><b>Definition:</b> <a href="SoundEngine_8cpp_source.html#l00022">SoundEngine.cpp:22</a></div></div>
-<div class="ttc" id="aclassElevate_1_1TextureManager_html_ad83628c7ee56217d5c29999bdcc0da0f"><div class="ttname"><a href="classElevate_1_1TextureManager.html#ad83628c7ee56217d5c29999bdcc0da0f">Elevate::TextureManager::UpdateLoadingTextures</a></div><div class="ttdeci">static void UpdateLoadingTextures()</div><div class="ttdef"><b>Definition:</b> <a href="TextureManager_8cpp_source.html#l00124">TextureManager.cpp:124</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00193">193</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  194</span>    {</div>
+<div class="line"><span class="lineno">  195</span><span class="preprocessor">#ifdef EE_PLATFORM_WEB</span></div>
+<div class="line"><span class="lineno">  196</span>        emscripten_set_main_loop_arg(WebMainLoop, <span class="keyword">this</span>, 0, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  197</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  198</span>        <span class="keywordflow">while</span> (m_Running)</div>
+<div class="line"><span class="lineno">  199</span>        {</div>
+<div class="line"><span class="lineno">  200</span>            <a class="code hl_function" href="classElevate_1_1Application.html#a556140869007d2bc9ea5713a5e50cb63">EngineFrame</a>();</div>
+<div class="line"><span class="lineno">  201</span>        }</div>
+<div class="line"><span class="lineno">  202</span>        <a class="code hl_function" href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">Exit</a>();</div>
+<div class="line"><span class="lineno">  203</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  204</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a556140869007d2bc9ea5713a5e50cb63"><div class="ttname"><a href="classElevate_1_1Application.html#a556140869007d2bc9ea5713a5e50cb63">Elevate::Application::EngineFrame</a></div><div class="ttdeci">void EngineFrame()</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00124">Application.cpp:124</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -653,21 +691,21 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00184">184</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  185</span>    {</div>
-<div class="line"><span class="lineno">  186</span>        <span class="keywordflow">if</span> (s_Instance-&gt;m_state != newState)</div>
-<div class="line"><span class="lineno">  187</span>        {</div>
-<div class="line"><span class="lineno">  188</span>            <a class="code hl_enumeration" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3a">GameContextState</a> oldState = s_Instance-&gt;m_state;</div>
-<div class="line"><span class="lineno">  189</span>            s_Instance-&gt;m_state = newState;</div>
-<div class="line"><span class="lineno">  190</span> </div>
-<div class="line"><span class="lineno">  191</span>            EE_CORE_INFO(<span class="stringliteral">&quot;GameContext state changed from {} to {}&quot;</span>,</div>
-<div class="line"><span class="lineno">  192</span>                <a class="code hl_function" href="namespaceElevate.html#a3334896a162702230b934d59cb3bbe83">GetGameContextStateName</a>(oldState),</div>
-<div class="line"><span class="lineno">  193</span>                <a class="code hl_function" href="namespaceElevate.html#a3334896a162702230b934d59cb3bbe83">GetGameContextStateName</a>(newState));</div>
-<div class="line"><span class="lineno">  194</span> </div>
-<div class="line"><span class="lineno">  195</span>            s_Instance-&gt;<a class="code hl_function" href="classElevate_1_1Application.html#aad6b7689f0baa931a61363980fc9ac09">OnStateChange</a>(oldState, newState);</div>
-<div class="line"><span class="lineno">  196</span>        }</div>
-<div class="line"><span class="lineno">  197</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1Application_html_aad6b7689f0baa931a61363980fc9ac09"><div class="ttname"><a href="classElevate_1_1Application.html#aad6b7689f0baa931a61363980fc9ac09">Elevate::Application::OnStateChange</a></div><div class="ttdeci">void OnStateChange(GameContextState oldState, GameContextState newState)</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00205">Application.cpp:205</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00217">217</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  218</span>    {</div>
+<div class="line"><span class="lineno">  219</span>        <span class="keywordflow">if</span> (s_Instance-&gt;m_state != newState)</div>
+<div class="line"><span class="lineno">  220</span>        {</div>
+<div class="line"><span class="lineno">  221</span>            <a class="code hl_enumeration" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3a">GameContextState</a> oldState = s_Instance-&gt;m_state;</div>
+<div class="line"><span class="lineno">  222</span>            s_Instance-&gt;m_state = newState;</div>
+<div class="line"><span class="lineno">  223</span> </div>
+<div class="line"><span class="lineno">  224</span>            EE_CORE_INFO(<span class="stringliteral">&quot;GameContext state changed from {} to {}&quot;</span>,</div>
+<div class="line"><span class="lineno">  225</span>                <a class="code hl_function" href="namespaceElevate.html#a3334896a162702230b934d59cb3bbe83">GetGameContextStateName</a>(oldState),</div>
+<div class="line"><span class="lineno">  226</span>                <a class="code hl_function" href="namespaceElevate.html#a3334896a162702230b934d59cb3bbe83">GetGameContextStateName</a>(newState));</div>
+<div class="line"><span class="lineno">  227</span> </div>
+<div class="line"><span class="lineno">  228</span>            s_Instance-&gt;<a class="code hl_function" href="classElevate_1_1Application.html#aad6b7689f0baa931a61363980fc9ac09">OnStateChange</a>(oldState, newState);</div>
+<div class="line"><span class="lineno">  229</span>        }</div>
+<div class="line"><span class="lineno">  230</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1Application_html_aad6b7689f0baa931a61363980fc9ac09"><div class="ttname"><a href="classElevate_1_1Application.html#aad6b7689f0baa931a61363980fc9ac09">Elevate::Application::OnStateChange</a></div><div class="ttdeci">void OnStateChange(GameContextState oldState, GameContextState newState)</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00238">Application.cpp:238</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a3334896a162702230b934d59cb3bbe83"><div class="ttname"><a href="namespaceElevate.html#a3334896a162702230b934d59cb3bbe83">Elevate::GetGameContextStateName</a></div><div class="ttdeci">const char * GetGameContextStateName(GameContextState state)</div><div class="ttdef"><b>Definition:</b> <a href="GameContext_8cpp_source.html#l00005">GameContext.cpp:5</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_aaca313f9381f3f38cd912f89f63b6b3a"><div class="ttname"><a href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3a">Elevate::GameContextState</a></div><div class="ttdeci">GameContextState</div><div class="ttdef"><b>Definition:</b> <a href="GameContext_8h_source.html#l00005">GameContext.h:6</a></div></div>
 </div><!-- fragment -->
@@ -707,16 +745,19 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00093">93</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   94</span>    {</div>
-<div class="line"><span class="lineno">   95</span>        <span class="comment">//Log::Init(); // todo remove or uncomment depending on if the workarround worked</span></div>
-<div class="line"><span class="lineno">   96</span>        EE_CORE_INFO(<span class="stringliteral">&quot;Initializing ElevateEngine...&quot;</span>);</div>
-<div class="line"><span class="lineno">   97</span>        <span class="keyword">auto</span> app = <a class="code hl_function" href="namespaceElevate.html#af81b10f7c72d9514fbbbd926e9556a79">CreateApplication</a>();</div>
-<div class="line"><span class="lineno">   98</span>        app-&gt;m_args = ApplicationArguments(argc, argv);</div>
-<div class="line"><span class="lineno">   99</span>        EE_CORE_TRACE(<span class="stringliteral">&quot;Application Initialized.&quot;</span>);</div>
-<div class="line"><span class="lineno">  100</span>        app-&gt;Run();</div>
-<div class="line"><span class="lineno">  101</span>        <span class="keyword">delete</span> app;</div>
-<div class="line"><span class="lineno">  102</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00105">105</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  106</span>    {</div>
+<div class="line"><span class="lineno">  107</span>        <span class="comment">//Log::Init(); // todo remove or uncomment depending on if the workarround worked</span></div>
+<div class="line"><span class="lineno">  108</span>        EE_CORE_INFO(<span class="stringliteral">&quot;Initializing ElevateEngine...&quot;</span>);</div>
+<div class="line"><span class="lineno">  109</span>        <span class="keyword">auto</span> app = <a class="code hl_function" href="namespaceElevate.html#af81b10f7c72d9514fbbbd926e9556a79">CreateApplication</a>();</div>
+<div class="line"><span class="lineno">  110</span>        app-&gt;m_args = ApplicationArguments(argc, argv);</div>
+<div class="line"><span class="lineno">  111</span>        EE_CORE_TRACE(<span class="stringliteral">&quot;Application Initialized.&quot;</span>);</div>
+<div class="line"><span class="lineno">  112</span>        app-&gt;Run();</div>
+<div class="line"><span class="lineno">  113</span> </div>
+<div class="line"><span class="lineno">  114</span><span class="preprocessor">#ifndef EE_PLATFORM_WEB</span></div>
+<div class="line"><span class="lineno">  115</span>        <span class="keyword">delete</span> app;</div>
+<div class="line"><span class="lineno">  116</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  117</span>    }</div>
 <div class="ttc" id="anamespaceElevate_html_af81b10f7c72d9514fbbbd926e9556a79"><div class="ttname"><a href="namespaceElevate.html#af81b10f7c72d9514fbbbd926e9556a79">Elevate::CreateApplication</a></div><div class="ttdeci">Application * CreateApplication()</div></div>
 </div><!-- fragment -->
 </div>
@@ -759,7 +800,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Application_8h_source.html#l00059">59</a> of file <a class="el" href="Application_8h_source.html">Application.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Application_8h_source.html#l00060">60</a> of file <a class="el" href="Application_8h_source.html">Application.h</a>.</p>
 
 </div>
 </div>

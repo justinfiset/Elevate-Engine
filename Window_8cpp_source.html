@@ -100,60 +100,122 @@ $(document).ready(function(){initNavTree('Window_8cpp_source.html',''); initResi
 <a href="Window_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="Window_8h.html">Window.h</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="Log_8h.html">ElevateEngine/Core/Log.h</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;rapidjson/document.h&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;rapidjson/allocators.h&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;rapidjson/filereadstream.h&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;rapidjson/encodings.h&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;rapidjson/rapidjson.h&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="structElevate_1_1WindowProps.html#a8d642cf689dff22104e9e695ecca4e50">   11</a></span><a class="code hl_function" href="structElevate_1_1WindowProps.html#a09de9630653d0ff1414c2dd9b1998a53">Elevate::WindowProps::WindowProps</a>(<span class="keyword">const</span> std::string appConfigFilePath)</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="comment">// TODO put this part in a util somehwerre to get the document</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"></span>    FILE* fp = fopen(appConfigFilePath.c_str(), <span class="stringliteral">&quot;r&quot;</span>);</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordtype">char</span> readBuffer[65536];</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    rapidjson::FileReadStream is(fp, readBuffer,</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keyword">sizeof</span>(readBuffer));</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    rapidjson::Document doc;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    doc.ParseStream(is);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    fclose(fp);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">// Error handling</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">if</span> (doc.HasParseError())</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        EE_CORE_TRACE(<span class="stringliteral">&quot;ERROR PARSING JSON&quot;</span>);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">if</span> (doc.HasMember(<span class="stringliteral">&quot;title&quot;</span>) &amp;&amp; doc[<span class="stringliteral">&quot;title&quot;</span>].IsString())</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#ac792c3775b21ced52ede6829394916d5">Title</a> = doc[<span class="stringliteral">&quot;title&quot;</span>].GetString();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">if</span> (doc.HasMember(<span class="stringliteral">&quot;size&quot;</span>))</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keyword">const</span> rapidjson::Value&amp; size = doc[<span class="stringliteral">&quot;size&quot;</span>];</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">if</span> (size.HasMember(<span class="stringliteral">&quot;x&quot;</span>) &amp;&amp; size[<span class="stringliteral">&quot;x&quot;</span>].IsInt())</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#a8879f707c416e3e89606fe340cad1ece">Width</a> = size[<span class="stringliteral">&quot;x&quot;</span>].GetInt();</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        }</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">if</span> (size.HasMember(<span class="stringliteral">&quot;y&quot;</span>) &amp;&amp; size[<span class="stringliteral">&quot;y&quot;</span>].IsInt())</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#a7bd2e5894fc974f71209b74fb7b7a14f">Height</a> = size[<span class="stringliteral">&quot;y&quot;</span>].GetInt();</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        }</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">if</span> (doc.HasMember(<span class="stringliteral">&quot;vsync&quot;</span>) &amp;&amp; doc[<span class="stringliteral">&quot;vsync&quot;</span>].IsBool())</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#add5a672a2ac6781f12b8a957654e04d5">VSync</a> = doc[<span class="stringliteral">&quot;vsync&quot;</span>].GetBool();</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="ApplicationEvent_8h.html">ElevateEngine/Events/ApplicationEvent.h</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;rapidjson/document.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;rapidjson/allocators.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;rapidjson/filereadstream.h&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;rapidjson/encodings.h&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;rapidjson/rapidjson.h&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#if defined(EE_PLATFORM_WINDOWS)</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">    #include &lt;<a class="code" href="WindowsWindow_8h.html">Platform/Windows/WindowsWindow.h</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#elif defined(EE_PLATFORM_WEB)</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">    #include &lt;<a class="code" href="WebWindow_8h.html">Platform/Web/WebWindow.h</a>&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#elif defined(EE_PLATFORM_LINUX)</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">    #include &lt;<a class="code" href="LinuxWindow_8h.html">Platform/Linux/LinuxWindow.h</a>&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">    #error &quot;Unknown platform! Cannot create window on this platform.&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceElevate.html">Elevate</a></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#if defined(EE_PLATFORM_WINDOWS)</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">using </span>PlatformWindow = WindowsWindow;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#elif defined(EE_PLATFORM_WEB)</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">using </span>PlatformWindow = WebWindow;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#elif defined(EE_PLATFORM_LINUX)</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">using </span>PlatformWindow = LinuxWindow;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">    #error &quot;Unknown platform! Cannot create window on this platform.&quot;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structElevate_1_1WindowProps.html#a8d642cf689dff22104e9e695ecca4e50">   34</a></span>    <a class="code hl_function" href="structElevate_1_1WindowProps.html#a09de9630653d0ff1414c2dd9b1998a53">WindowProps::WindowProps</a>(<span class="keyword">const</span> std::string appConfigFilePath)</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="comment">// TODO put this part in a util somehwerre to get the document</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"></span>        FILE* fp = fopen(appConfigFilePath.c_str(), <span class="stringliteral">&quot;r&quot;</span>);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordtype">char</span> readBuffer[65536];</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        rapidjson::FileReadStream is(fp, readBuffer,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="keyword">sizeof</span>(readBuffer));</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        rapidjson::Document doc;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        doc.ParseStream(is);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        fclose(fp);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="comment">// Error handling</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">if</span> (doc.HasParseError())</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            EE_CORE_TRACE(<span class="stringliteral">&quot;ERROR PARSING The WindowProps JSON&quot;</span>);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">if</span> (doc.HasMember(<span class="stringliteral">&quot;title&quot;</span>) &amp;&amp; doc[<span class="stringliteral">&quot;title&quot;</span>].IsString())</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#ac792c3775b21ced52ede6829394916d5">Title</a> = doc[<span class="stringliteral">&quot;title&quot;</span>].GetString();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">if</span> (doc.HasMember(<span class="stringliteral">&quot;size&quot;</span>))</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keyword">const</span> rapidjson::Value&amp; size = doc[<span class="stringliteral">&quot;size&quot;</span>];</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keywordflow">if</span> (size.HasMember(<span class="stringliteral">&quot;x&quot;</span>) &amp;&amp; size[<span class="stringliteral">&quot;x&quot;</span>].IsInt())</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#a8879f707c416e3e89606fe340cad1ece">Width</a> = size[<span class="stringliteral">&quot;x&quot;</span>].GetInt();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <span class="keywordflow">if</span> (size.HasMember(<span class="stringliteral">&quot;y&quot;</span>) &amp;&amp; size[<span class="stringliteral">&quot;y&quot;</span>].IsInt())</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#a7bd2e5894fc974f71209b74fb7b7a14f">Height</a> = size[<span class="stringliteral">&quot;y&quot;</span>].GetInt();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        }</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">if</span> (doc.HasMember(<span class="stringliteral">&quot;vsync&quot;</span>) &amp;&amp; doc[<span class="stringliteral">&quot;vsync&quot;</span>].IsBool())</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#add5a672a2ac6781f12b8a957654e04d5">VSync</a> = doc[<span class="stringliteral">&quot;vsync&quot;</span>].GetBool();</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classElevate_1_1Window.html#adab57419e9f9fbc1a9d8c8f019dbf04b">   77</a></span>    <a class="code hl_class" href="classElevate_1_1Window.html">Window</a>* <a class="code hl_function" href="classElevate_1_1Window.html#adab57419e9f9fbc1a9d8c8f019dbf04b">Window::Create</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structElevate_1_1WindowProps.html">WindowProps</a>&amp; props)</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> PlatformWindow(props);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="classElevate_1_1Window.html#a54a1da25b4547e024b71222e5b0c10b1">   82</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Window.html#a54a1da25b4547e024b71222e5b0c10b1">Window::Init</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structElevate_1_1WindowProps.html">WindowProps</a>&amp; props)</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    {</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <a class="code hl_variable" href="classElevate_1_1Window.html#a35eeda63cc04234f1337f616372de663">m_Data</a>.<a class="code hl_variable" href="structElevate_1_1WindowData.html#a9f7c42340f1eb76d39cbe4342f114a10">Title</a> = props.<a class="code hl_variable" href="structElevate_1_1WindowProps.html#ac792c3775b21ced52ede6829394916d5">Title</a>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <a class="code hl_variable" href="classElevate_1_1Window.html#a35eeda63cc04234f1337f616372de663">m_Data</a>.<a class="code hl_variable" href="structElevate_1_1WindowData.html#a1d7a4de67a9014bc843543f62c9bbac8">Width</a> = props.<a class="code hl_variable" href="structElevate_1_1WindowProps.html#a8879f707c416e3e89606fe340cad1ece">Width</a>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <a class="code hl_variable" href="classElevate_1_1Window.html#a35eeda63cc04234f1337f616372de663">m_Data</a>.<a class="code hl_variable" href="structElevate_1_1WindowData.html#a4bb867ab9cfcb30e4cb23bdd4dba3e86">Height</a> = props.<a class="code hl_variable" href="structElevate_1_1WindowProps.html#a7bd2e5894fc974f71209b74fb7b7a14f">Height</a>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        EE_CORE_TRACE(<span class="stringliteral">&quot;Creating window: {} ({}x{})&quot;</span>, props.<a class="code hl_variable" href="structElevate_1_1WindowProps.html#ac792c3775b21ced52ede6829394916d5">Title</a>.c_str(), props.<a class="code hl_variable" href="structElevate_1_1WindowProps.html#a8879f707c416e3e89606fe340cad1ece">Width</a>, props.<a class="code hl_variable" href="structElevate_1_1WindowProps.html#a7bd2e5894fc974f71209b74fb7b7a14f">Height</a>);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="classElevate_1_1Window.html#aa76d05dc5223bc6949f16d497307eb4d">   90</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Window.html#aa76d05dc5223bc6949f16d497307eb4d">Window::SetWindowSize</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height)</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        EE_CORE_INFO(<span class="stringliteral">&quot;Setting window size to {}x{}&quot;</span>, width, height);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <a class="code hl_variable" href="classElevate_1_1Window.html#a35eeda63cc04234f1337f616372de663">m_Data</a>.<a class="code hl_variable" href="structElevate_1_1WindowData.html#a1d7a4de67a9014bc843543f62c9bbac8">Width</a> = width;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <a class="code hl_variable" href="classElevate_1_1Window.html#a35eeda63cc04234f1337f616372de663">m_Data</a>.<a class="code hl_variable" href="structElevate_1_1WindowData.html#a4bb867ab9cfcb30e4cb23bdd4dba3e86">Height</a> = height;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <a class="code hl_class" href="classElevate_1_1WindowResizeEvent.html">WindowResizeEvent</a> event(width, height);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <a class="code hl_function" href="classElevate_1_1Window.html#a496cfaf800cffe5296dcfae399c30a05">EventCallback</a>(event);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
+<div class="ttc" id="aApplicationEvent_8h_html"><div class="ttname"><a href="ApplicationEvent_8h.html">ApplicationEvent.h</a></div></div>
+<div class="ttc" id="aLinuxWindow_8h_html"><div class="ttname"><a href="LinuxWindow_8h.html">LinuxWindow.h</a></div></div>
 <div class="ttc" id="aLog_8h_html"><div class="ttname"><a href="Log_8h.html">Log.h</a></div></div>
+<div class="ttc" id="aWebWindow_8h_html"><div class="ttname"><a href="WebWindow_8h.html">WebWindow.h</a></div></div>
 <div class="ttc" id="aWindow_8h_html"><div class="ttname"><a href="Window_8h.html">Window.h</a></div></div>
-<div class="ttc" id="astructElevate_1_1WindowProps_html_a09de9630653d0ff1414c2dd9b1998a53"><div class="ttname"><a href="structElevate_1_1WindowProps.html#a09de9630653d0ff1414c2dd9b1998a53">Elevate::WindowProps::WindowProps</a></div><div class="ttdeci">WindowProps()</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00016">Window.h:16</a></div></div>
-<div class="ttc" id="astructElevate_1_1WindowProps_html_a7bd2e5894fc974f71209b74fb7b7a14f"><div class="ttname"><a href="structElevate_1_1WindowProps.html#a7bd2e5894fc974f71209b74fb7b7a14f">Elevate::WindowProps::Height</a></div><div class="ttdeci">unsigned int Height</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00013">Window.h:13</a></div></div>
-<div class="ttc" id="astructElevate_1_1WindowProps_html_a8879f707c416e3e89606fe340cad1ece"><div class="ttname"><a href="structElevate_1_1WindowProps.html#a8879f707c416e3e89606fe340cad1ece">Elevate::WindowProps::Width</a></div><div class="ttdeci">unsigned int Width</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00012">Window.h:12</a></div></div>
-<div class="ttc" id="astructElevate_1_1WindowProps_html_ac792c3775b21ced52ede6829394916d5"><div class="ttname"><a href="structElevate_1_1WindowProps.html#ac792c3775b21ced52ede6829394916d5">Elevate::WindowProps::Title</a></div><div class="ttdeci">std::string Title</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00011">Window.h:11</a></div></div>
-<div class="ttc" id="astructElevate_1_1WindowProps_html_add5a672a2ac6781f12b8a957654e04d5"><div class="ttname"><a href="structElevate_1_1WindowProps.html#add5a672a2ac6781f12b8a957654e04d5">Elevate::WindowProps::VSync</a></div><div class="ttdeci">bool VSync</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00014">Window.h:14</a></div></div>
+<div class="ttc" id="aWindowsWindow_8h_html"><div class="ttname"><a href="WindowsWindow_8h.html">WindowsWindow.h</a></div></div>
+<div class="ttc" id="aclassElevate_1_1WindowResizeEvent_html"><div class="ttname"><a href="classElevate_1_1WindowResizeEvent.html">Elevate::WindowResizeEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="ApplicationEvent_8h_source.html#l00033">ApplicationEvent.h:34</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Window_html"><div class="ttname"><a href="classElevate_1_1Window.html">Elevate::Window</a></div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00037">Window.h:38</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Window_html_a35eeda63cc04234f1337f616372de663"><div class="ttname"><a href="classElevate_1_1Window.html#a35eeda63cc04234f1337f616372de663">Elevate::Window::m_Data</a></div><div class="ttdeci">WindowData m_Data</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00068">Window.h:68</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Window_html_a496cfaf800cffe5296dcfae399c30a05"><div class="ttname"><a href="classElevate_1_1Window.html#a496cfaf800cffe5296dcfae399c30a05">Elevate::Window::EventCallback</a></div><div class="ttdeci">void EventCallback(Event &amp;event)</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00065">Window.h:65</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Window_html_a54a1da25b4547e024b71222e5b0c10b1"><div class="ttname"><a href="classElevate_1_1Window.html#a54a1da25b4547e024b71222e5b0c10b1">Elevate::Window::Init</a></div><div class="ttdeci">virtual void Init(const WindowProps &amp;props)</div><div class="ttdef"><b>Definition:</b> <a href="Window_8cpp_source.html#l00082">Window.cpp:82</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Window_html_aa76d05dc5223bc6949f16d497307eb4d"><div class="ttname"><a href="classElevate_1_1Window.html#aa76d05dc5223bc6949f16d497307eb4d">Elevate::Window::SetWindowSize</a></div><div class="ttdeci">void SetWindowSize(unsigned int width, unsigned int height)</div><div class="ttdef"><b>Definition:</b> <a href="Window_8cpp_source.html#l00090">Window.cpp:90</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Window_html_adab57419e9f9fbc1a9d8c8f019dbf04b"><div class="ttname"><a href="classElevate_1_1Window.html#adab57419e9f9fbc1a9d8c8f019dbf04b">Elevate::Window::Create</a></div><div class="ttdeci">static Window * Create(const WindowProps &amp;props=WindowProps(&quot;app.config&quot;))</div><div class="ttdef"><b>Definition:</b> <a href="Window_8cpp_source.html#l00077">Window.cpp:77</a></div></div>
+<div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition:</b> <a href="AudioDistanceProbe_8h_source.html#l00008">AudioDistanceProbe.h:9</a></div></div>
+<div class="ttc" id="astructElevate_1_1WindowData_html_a1d7a4de67a9014bc843543f62c9bbac8"><div class="ttname"><a href="structElevate_1_1WindowData.html#a1d7a4de67a9014bc843543f62c9bbac8">Elevate::WindowData::Width</a></div><div class="ttdeci">unsigned int Width</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00014">Window.h:14</a></div></div>
+<div class="ttc" id="astructElevate_1_1WindowData_html_a4bb867ab9cfcb30e4cb23bdd4dba3e86"><div class="ttname"><a href="structElevate_1_1WindowData.html#a4bb867ab9cfcb30e4cb23bdd4dba3e86">Elevate::WindowData::Height</a></div><div class="ttdeci">unsigned int Height</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00014">Window.h:14</a></div></div>
+<div class="ttc" id="astructElevate_1_1WindowData_html_a9f7c42340f1eb76d39cbe4342f114a10"><div class="ttname"><a href="structElevate_1_1WindowData.html#a9f7c42340f1eb76d39cbe4342f114a10">Elevate::WindowData::Title</a></div><div class="ttdeci">std::string Title</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00013">Window.h:13</a></div></div>
+<div class="ttc" id="astructElevate_1_1WindowProps_html"><div class="ttname"><a href="structElevate_1_1WindowProps.html">Elevate::WindowProps</a></div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00021">Window.h:22</a></div></div>
+<div class="ttc" id="astructElevate_1_1WindowProps_html_a09de9630653d0ff1414c2dd9b1998a53"><div class="ttname"><a href="structElevate_1_1WindowProps.html#a09de9630653d0ff1414c2dd9b1998a53">Elevate::WindowProps::WindowProps</a></div><div class="ttdeci">WindowProps()</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00028">Window.h:28</a></div></div>
+<div class="ttc" id="astructElevate_1_1WindowProps_html_a7bd2e5894fc974f71209b74fb7b7a14f"><div class="ttname"><a href="structElevate_1_1WindowProps.html#a7bd2e5894fc974f71209b74fb7b7a14f">Elevate::WindowProps::Height</a></div><div class="ttdeci">unsigned int Height</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00025">Window.h:25</a></div></div>
+<div class="ttc" id="astructElevate_1_1WindowProps_html_a8879f707c416e3e89606fe340cad1ece"><div class="ttname"><a href="structElevate_1_1WindowProps.html#a8879f707c416e3e89606fe340cad1ece">Elevate::WindowProps::Width</a></div><div class="ttdeci">unsigned int Width</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00024">Window.h:24</a></div></div>
+<div class="ttc" id="astructElevate_1_1WindowProps_html_ac792c3775b21ced52ede6829394916d5"><div class="ttname"><a href="structElevate_1_1WindowProps.html#ac792c3775b21ced52ede6829394916d5">Elevate::WindowProps::Title</a></div><div class="ttdeci">std::string Title</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00023">Window.h:23</a></div></div>
+<div class="ttc" id="astructElevate_1_1WindowProps_html_add5a672a2ac6781f12b8a957654e04d5"><div class="ttname"><a href="structElevate_1_1WindowProps.html#add5a672a2ac6781f12b8a957654e04d5">Elevate::WindowProps::VSync</a></div><div class="ttdeci">bool VSync</div><div class="ttdef"><b>Definition:</b> <a href="Window_8h_source.html#l00026">Window.h:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -129,8 +129,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa2272fe88957316961885fc8e495b95f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1OpenGLVertexArray.html#aa2272fe88957316961885fc8e495b95f">LinkAttribute</a> (uint32_t layout, uint32_t size, uint32_t type, bool normalized, uint32_t stride, const void *offset) const</td></tr>
 <tr class="separator:aa2272fe88957316961885fc8e495b95f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classElevate_1_1VertexArray"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classElevate_1_1VertexArray')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classElevate_1_1VertexArray.html">Elevate::VertexArray</a></td></tr>
-<tr class="memitem:adba41073ed5ec3b308026b0efb6b5a85 inherit pub_methods_classElevate_1_1VertexArray"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1VertexArray.html#adba41073ed5ec3b308026b0efb6b5a85">~VertexArray</a> ()=default</td></tr>
-<tr class="separator:adba41073ed5ec3b308026b0efb6b5a85 inherit pub_methods_classElevate_1_1VertexArray"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaed26f3e18c8fb8dbf8cf556e64ecad8 inherit pub_methods_classElevate_1_1VertexArray"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1VertexArray.html#aaed26f3e18c8fb8dbf8cf556e64ecad8">~VertexArray</a> ()=default</td></tr>
+<tr class="separator:aaed26f3e18c8fb8dbf8cf556e64ecad8 inherit pub_methods_classElevate_1_1VertexArray"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d0f08ea7f4d766f31145169094a93df inherit pub_methods_classElevate_1_1VertexArray"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1VertexArray.html#a3d0f08ea7f4d766f31145169094a93df">Bind</a> () const =0</td></tr>
 <tr class="separator:a3d0f08ea7f4d766f31145169094a93df inherit pub_methods_classElevate_1_1VertexArray"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d9c2afe0488dab4810d4331421704e6 inherit pub_methods_classElevate_1_1VertexArray"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1VertexArray.html#a9d9c2afe0488dab4810d4331421704e6">Unbind</a> () const =0</td></tr>
@@ -175,8 +175,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="OpenGLVertexArray_8cpp_source.html#l00013">13</a> of file <a class="el" href="OpenGLVertexArray_8cpp_source.html">OpenGLVertexArray.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   14</span>{</div>
-<div class="line"><span class="lineno">   15</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glCreateVertexArrays(1, &amp;m_RendererID));</div>
-<div class="line"><span class="lineno">   16</span>}</div>
+<div class="line"><span class="lineno">   15</span><span class="preprocessor">#ifdef EE_SUPPORTS_DSA</span></div>
+<div class="line"><span class="lineno">   16</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glCreateVertexArrays(1, &amp;m_RendererID));</div>
+<div class="line"><span class="lineno">   17</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">   18</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glGenVertexArrays(1, &amp;m_RendererID));</div>
+<div class="line"><span class="lineno">   19</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   20</span>}</div>
 <div class="ttc" id="aGLDebug_8h_html_adf70631301afb22944d6d461e8e9b5a7"><div class="ttname"><a href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a></div><div class="ttdeci">#define GLCheck(x)</div><div class="ttdef"><b>Definition:</b> <a href="GLDebug_8h_source.html#l00011">GLDebug.h:11</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -196,13 +200,13 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OpenGLVertexArray_8cpp_source.html#l00018">18</a> of file <a class="el" href="OpenGLVertexArray_8cpp_source.html">OpenGLVertexArray.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   19</span>{</div>
-<div class="line"><span class="lineno">   20</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="classElevate_1_1GraphicsContext.html#ac825bf6d6723a5e4a11bd213a4fb8376">GraphicsContext::CanUseContext</a>())</div>
-<div class="line"><span class="lineno">   21</span>    {</div>
-<div class="line"><span class="lineno">   22</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDeleteVertexArrays(1, &amp;m_RendererID));</div>
-<div class="line"><span class="lineno">   23</span>    }</div>
-<div class="line"><span class="lineno">   24</span>}</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLVertexArray_8cpp_source.html#l00022">22</a> of file <a class="el" href="OpenGLVertexArray_8cpp_source.html">OpenGLVertexArray.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   23</span>{</div>
+<div class="line"><span class="lineno">   24</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="classElevate_1_1GraphicsContext.html#ac825bf6d6723a5e4a11bd213a4fb8376">GraphicsContext::CanUseContext</a>())</div>
+<div class="line"><span class="lineno">   25</span>    {</div>
+<div class="line"><span class="lineno">   26</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDeleteVertexArrays(1, &amp;m_RendererID));</div>
+<div class="line"><span class="lineno">   27</span>    }</div>
+<div class="line"><span class="lineno">   28</span>}</div>
 <div class="ttc" id="aclassElevate_1_1GraphicsContext_html_ac825bf6d6723a5e4a11bd213a4fb8376"><div class="ttname"><a href="classElevate_1_1GraphicsContext.html#ac825bf6d6723a5e4a11bd213a4fb8376">Elevate::GraphicsContext::CanUseContext</a></div><div class="ttdeci">static bool CanUseContext()</div><div class="ttdef"><b>Definition:</b> <a href="GraphicsContext_8h_source.html#l00034">GraphicsContext.h:34</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -234,38 +238,38 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classElevate_1_1VertexArray.html#a51d2fbac4c583012659c915e212aa898">Elevate::VertexArray</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLVertexArray_8cpp_source.html#l00036">36</a> of file <a class="el" href="OpenGLVertexArray_8cpp_source.html">OpenGLVertexArray.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   37</span>{</div>
-<div class="line"><span class="lineno">   38</span>    <a class="code hl_function" href="classElevate_1_1VertexArray.html#a51d2fbac4c583012659c915e212aa898">VertexArray::AddVertexBuffer</a>(vertexBuffer);</div>
-<div class="line"><span class="lineno">   39</span> </div>
-<div class="line"><span class="lineno">   40</span>    EE_CORE_ASSERT(vertexBuffer-&gt;GetLayout().GetElements().size(), <span class="stringliteral">&quot;Vertex buffer layout is empty, assertion failed&quot;</span>);</div>
-<div class="line"><span class="lineno">   41</span> </div>
-<div class="line"><span class="lineno">   42</span>    <a class="code hl_function" href="classElevate_1_1OpenGLVertexArray.html#a5fa4fd9522da15c0f8f64b4701629e5a">Bind</a>();               <span class="comment">// bind VAO</span></div>
-<div class="line"><span class="lineno">   43</span>    vertexBuffer-&gt;Bind(); <span class="comment">// bind VBO</span></div>
-<div class="line"><span class="lineno">   44</span> </div>
-<div class="line"><span class="lineno">   45</span>    uint32_t index = 0;</div>
-<div class="line"><span class="lineno">   46</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; layout = vertexBuffer-&gt;GetLayout();</div>
-<div class="line"><span class="lineno">   47</span> </div>
-<div class="line"><span class="lineno">   48</span>    EE_CORE_TRACE(<span class="stringliteral">&quot;Adding Vertex Buffer :&quot;</span>);</div>
-<div class="line"><span class="lineno">   49</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; element : layout)</div>
-<div class="line"><span class="lineno">   50</span>    {</div>
-<div class="line"><span class="lineno">   51</span>        <span class="comment">// TODO REMOVES THE LOGS FROM HERE</span></div>
-<div class="line"><span class="lineno">   52</span>        EE_CORE_TRACE(<span class="stringliteral">&quot; -&gt; Attrib {} : {} | Count={} | Type={} | Stride={} | Offset={}&quot;</span>,</div>
-<div class="line"><span class="lineno">   53</span>            element.Name.c_str(), index, element.Count, <a class="code hl_function" href="namespaceElevate.html#af5a38a4b356e2b30f17e2cf472956263">GetDataAPIType</a>(element.Type), layout.GetStride(), element.Offset);</div>
-<div class="line"><span class="lineno">   54</span> </div>
-<div class="line"><span class="lineno">   55</span>        <a class="code hl_function" href="classElevate_1_1OpenGLVertexArray.html#aa2272fe88957316961885fc8e495b95f">LinkAttribute</a>(</div>
-<div class="line"><span class="lineno">   56</span>            index, </div>
-<div class="line"><span class="lineno">   57</span>            element.Count, <a class="code hl_function" href="namespaceElevate.html#af5a38a4b356e2b30f17e2cf472956263">GetDataAPIType</a>(element.Type),</div>
-<div class="line"><span class="lineno">   58</span>            element.Normalized, </div>
-<div class="line"><span class="lineno">   59</span>            layout.GetStride(), </div>
-<div class="line"><span class="lineno">   60</span>            (<span class="keyword">const</span> <span class="keywordtype">void</span>*)(uintptr_t)element.Offset</div>
-<div class="line"><span class="lineno">   61</span>        );</div>
-<div class="line"><span class="lineno">   62</span>        </div>
-<div class="line"><span class="lineno">   63</span>        index++;</div>
-<div class="line"><span class="lineno">   64</span>    }</div>
-<div class="line"><span class="lineno">   65</span>}</div>
-<div class="ttc" id="aclassElevate_1_1OpenGLVertexArray_html_a5fa4fd9522da15c0f8f64b4701629e5a"><div class="ttname"><a href="classElevate_1_1OpenGLVertexArray.html#a5fa4fd9522da15c0f8f64b4701629e5a">Elevate::OpenGLVertexArray::Bind</a></div><div class="ttdeci">virtual void Bind() const override</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLVertexArray_8cpp_source.html#l00026">OpenGLVertexArray.cpp:26</a></div></div>
-<div class="ttc" id="aclassElevate_1_1OpenGLVertexArray_html_aa2272fe88957316961885fc8e495b95f"><div class="ttname"><a href="classElevate_1_1OpenGLVertexArray.html#aa2272fe88957316961885fc8e495b95f">Elevate::OpenGLVertexArray::LinkAttribute</a></div><div class="ttdeci">void LinkAttribute(uint32_t layout, uint32_t size, uint32_t type, bool normalized, uint32_t stride, const void *offset) const</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLVertexArray_8cpp_source.html#l00074">OpenGLVertexArray.cpp:74</a></div></div>
+<p class="definition">Definition at line <a class="el" href="OpenGLVertexArray_8cpp_source.html#l00040">40</a> of file <a class="el" href="OpenGLVertexArray_8cpp_source.html">OpenGLVertexArray.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   41</span>{</div>
+<div class="line"><span class="lineno">   42</span>    <a class="code hl_function" href="classElevate_1_1VertexArray.html#a51d2fbac4c583012659c915e212aa898">VertexArray::AddVertexBuffer</a>(vertexBuffer);</div>
+<div class="line"><span class="lineno">   43</span> </div>
+<div class="line"><span class="lineno">   44</span>    EE_CORE_ASSERT(vertexBuffer-&gt;GetLayout().GetElements().size(), <span class="stringliteral">&quot;Vertex buffer layout is empty, assertion failed&quot;</span>);</div>
+<div class="line"><span class="lineno">   45</span> </div>
+<div class="line"><span class="lineno">   46</span>    <a class="code hl_function" href="classElevate_1_1OpenGLVertexArray.html#a5fa4fd9522da15c0f8f64b4701629e5a">Bind</a>();               <span class="comment">// bind VAO</span></div>
+<div class="line"><span class="lineno">   47</span>    vertexBuffer-&gt;Bind(); <span class="comment">// bind VBO</span></div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>    uint32_t index = 0;</div>
+<div class="line"><span class="lineno">   50</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; layout = vertexBuffer-&gt;GetLayout();</div>
+<div class="line"><span class="lineno">   51</span> </div>
+<div class="line"><span class="lineno">   52</span>    EE_CORE_TRACE(<span class="stringliteral">&quot;Adding Vertex Buffer :&quot;</span>);</div>
+<div class="line"><span class="lineno">   53</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; element : layout)</div>
+<div class="line"><span class="lineno">   54</span>    {</div>
+<div class="line"><span class="lineno">   55</span>        <span class="comment">// TODO REMOVES THE LOGS FROM HERE</span></div>
+<div class="line"><span class="lineno">   56</span>        EE_CORE_TRACE(<span class="stringliteral">&quot; -&gt; Attrib {} : {} | Count={} | Type={} | Stride={} | Offset={}&quot;</span>,</div>
+<div class="line"><span class="lineno">   57</span>            element.Name.c_str(), index, element.Count, <a class="code hl_function" href="namespaceElevate.html#af5a38a4b356e2b30f17e2cf472956263">GetDataAPIType</a>(element.Type), layout.GetStride(), element.Offset);</div>
+<div class="line"><span class="lineno">   58</span> </div>
+<div class="line"><span class="lineno">   59</span>        <a class="code hl_function" href="classElevate_1_1OpenGLVertexArray.html#aa2272fe88957316961885fc8e495b95f">LinkAttribute</a>(</div>
+<div class="line"><span class="lineno">   60</span>            index, </div>
+<div class="line"><span class="lineno">   61</span>            element.Count, <a class="code hl_function" href="namespaceElevate.html#af5a38a4b356e2b30f17e2cf472956263">GetDataAPIType</a>(element.Type),</div>
+<div class="line"><span class="lineno">   62</span>            element.Normalized, </div>
+<div class="line"><span class="lineno">   63</span>            layout.GetStride(), </div>
+<div class="line"><span class="lineno">   64</span>            (<span class="keyword">const</span> <span class="keywordtype">void</span>*)(uintptr_t)element.Offset</div>
+<div class="line"><span class="lineno">   65</span>        );</div>
+<div class="line"><span class="lineno">   66</span>        </div>
+<div class="line"><span class="lineno">   67</span>        index++;</div>
+<div class="line"><span class="lineno">   68</span>    }</div>
+<div class="line"><span class="lineno">   69</span>}</div>
+<div class="ttc" id="aclassElevate_1_1OpenGLVertexArray_html_a5fa4fd9522da15c0f8f64b4701629e5a"><div class="ttname"><a href="classElevate_1_1OpenGLVertexArray.html#a5fa4fd9522da15c0f8f64b4701629e5a">Elevate::OpenGLVertexArray::Bind</a></div><div class="ttdeci">virtual void Bind() const override</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLVertexArray_8cpp_source.html#l00030">OpenGLVertexArray.cpp:30</a></div></div>
+<div class="ttc" id="aclassElevate_1_1OpenGLVertexArray_html_aa2272fe88957316961885fc8e495b95f"><div class="ttname"><a href="classElevate_1_1OpenGLVertexArray.html#aa2272fe88957316961885fc8e495b95f">Elevate::OpenGLVertexArray::LinkAttribute</a></div><div class="ttdeci">void LinkAttribute(uint32_t layout, uint32_t size, uint32_t type, bool normalized, uint32_t stride, const void *offset) const</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLVertexArray_8cpp_source.html#l00078">OpenGLVertexArray.cpp:78</a></div></div>
 <div class="ttc" id="aclassElevate_1_1VertexArray_html_a51d2fbac4c583012659c915e212aa898"><div class="ttname"><a href="classElevate_1_1VertexArray.html#a51d2fbac4c583012659c915e212aa898">Elevate::VertexArray::AddVertexBuffer</a></div><div class="ttdeci">virtual void AddVertexBuffer(const std::shared_ptr&lt; VertexBuffer &gt; &amp;vertexBuffer)</div><div class="ttdef"><b>Definition:</b> <a href="VertexArray_8cpp_source.html#l00010">VertexArray.cpp:10</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_af5a38a4b356e2b30f17e2cf472956263"><div class="ttname"><a href="namespaceElevate.html#af5a38a4b356e2b30f17e2cf472956263">Elevate::GetDataAPIType</a></div><div class="ttdeci">uint32_t GetDataAPIType(EngineDataType type)</div><div class="ttdef"><b>Definition:</b> <a href="Data_8h_source.html#l00122">Data.h:122</a></div></div>
 </div><!-- fragment -->
@@ -296,10 +300,10 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1VertexArray.html#a3d0f08ea7f4d766f31145169094a93df">Elevate::VertexArray</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLVertexArray_8cpp_source.html#l00026">26</a> of file <a class="el" href="OpenGLVertexArray_8cpp_source.html">OpenGLVertexArray.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   27</span>{</div>
-<div class="line"><span class="lineno">   28</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindVertexArray(m_RendererID));</div>
-<div class="line"><span class="lineno">   29</span>}</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLVertexArray_8cpp_source.html#l00030">30</a> of file <a class="el" href="OpenGLVertexArray_8cpp_source.html">OpenGLVertexArray.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   31</span>{</div>
+<div class="line"><span class="lineno">   32</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindVertexArray(m_RendererID));</div>
+<div class="line"><span class="lineno">   33</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -353,11 +357,11 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OpenGLVertexArray_8cpp_source.html#l00074">74</a> of file <a class="el" href="OpenGLVertexArray_8cpp_source.html">OpenGLVertexArray.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   75</span>{</div>
-<div class="line"><span class="lineno">   76</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glEnableVertexAttribArray(layout));</div>
-<div class="line"><span class="lineno">   77</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glVertexAttribPointer(layout, size, type, normalized ? GL_TRUE : GL_FALSE, stride, offset));</div>
-<div class="line"><span class="lineno">   78</span>}</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLVertexArray_8cpp_source.html#l00078">78</a> of file <a class="el" href="OpenGLVertexArray_8cpp_source.html">OpenGLVertexArray.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   79</span>{</div>
+<div class="line"><span class="lineno">   80</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glEnableVertexAttribArray(layout));</div>
+<div class="line"><span class="lineno">   81</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glVertexAttribPointer(layout, size, type, normalized ? GL_TRUE : GL_FALSE, stride, offset));</div>
+<div class="line"><span class="lineno">   82</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -387,12 +391,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classElevate_1_1VertexArray.html#a903462f449860507e225ae2b8227231b">Elevate::VertexArray</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLVertexArray_8cpp_source.html#l00067">67</a> of file <a class="el" href="OpenGLVertexArray_8cpp_source.html">OpenGLVertexArray.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   68</span>{</div>
-<div class="line"><span class="lineno">   69</span>    <a class="code hl_function" href="classElevate_1_1VertexArray.html#a903462f449860507e225ae2b8227231b">VertexArray::SetIndexBuffer</a>(indexBuffer);</div>
-<div class="line"><span class="lineno">   70</span>    <a class="code hl_function" href="classElevate_1_1OpenGLVertexArray.html#a5fa4fd9522da15c0f8f64b4701629e5a">Bind</a>();</div>
-<div class="line"><span class="lineno">   71</span>    indexBuffer-&gt;Bind();</div>
-<div class="line"><span class="lineno">   72</span>}</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLVertexArray_8cpp_source.html#l00071">71</a> of file <a class="el" href="OpenGLVertexArray_8cpp_source.html">OpenGLVertexArray.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   72</span>{</div>
+<div class="line"><span class="lineno">   73</span>    <a class="code hl_function" href="classElevate_1_1VertexArray.html#a903462f449860507e225ae2b8227231b">VertexArray::SetIndexBuffer</a>(indexBuffer);</div>
+<div class="line"><span class="lineno">   74</span>    <a class="code hl_function" href="classElevate_1_1OpenGLVertexArray.html#a5fa4fd9522da15c0f8f64b4701629e5a">Bind</a>();</div>
+<div class="line"><span class="lineno">   75</span>    indexBuffer-&gt;Bind();</div>
+<div class="line"><span class="lineno">   76</span>}</div>
 <div class="ttc" id="aclassElevate_1_1VertexArray_html_a903462f449860507e225ae2b8227231b"><div class="ttname"><a href="classElevate_1_1VertexArray.html#a903462f449860507e225ae2b8227231b">Elevate::VertexArray::SetIndexBuffer</a></div><div class="ttdeci">virtual void SetIndexBuffer(const std::shared_ptr&lt; IndexBuffer &gt; &amp;indexBuffer)</div><div class="ttdef"><b>Definition:</b> <a href="VertexArray_8cpp_source.html#l00018">VertexArray.cpp:18</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -422,10 +426,10 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1VertexArray.html#a9d9c2afe0488dab4810d4331421704e6">Elevate::VertexArray</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLVertexArray_8cpp_source.html#l00031">31</a> of file <a class="el" href="OpenGLVertexArray_8cpp_source.html">OpenGLVertexArray.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   32</span>{</div>
-<div class="line"><span class="lineno">   33</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindVertexArray(0));</div>
-<div class="line"><span class="lineno">   34</span>}</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLVertexArray_8cpp_source.html#l00035">35</a> of file <a class="el" href="OpenGLVertexArray_8cpp_source.html">OpenGLVertexArray.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   36</span>{</div>
+<div class="line"><span class="lineno">   37</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindVertexArray(0));</div>
+<div class="line"><span class="lineno">   38</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

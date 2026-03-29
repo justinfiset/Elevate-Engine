@@ -122,31 +122,33 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="FileUtility_8cpp_source.html#l00007">7</a> of file <a class="el" href="FileUtility_8cpp_source.html">FileUtility.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    8</span>{</div>
-<div class="line"><span class="lineno">    9</span>    std::string content;</div>
-<div class="line"><span class="lineno">   10</span>    std::ifstream s(path, std::ios::in);</div>
+<p class="definition">Definition at line <a class="el" href="FileUtility_8cpp_source.html#l00008">8</a> of file <a class="el" href="FileUtility_8cpp_source.html">FileUtility.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">    9</span>{</div>
+<div class="line"><span class="lineno">   10</span>    std::string resolvedPath = PathResolver::Resolve(path);</div>
 <div class="line"><span class="lineno">   11</span> </div>
-<div class="line"><span class="lineno">   12</span>    <span class="comment">// If file does not exists</span></div>
-<div class="line"><span class="lineno">   13</span>    <span class="keywordflow">if</span> (!s.is_open())</div>
-<div class="line"><span class="lineno">   14</span>    {</div>
-<div class="line"><span class="lineno">   15</span>        EE_CORE_ERROR(<span class="stringliteral">&quot;Could not open file : {0}, file does not exist&quot;</span>, path);</div>
-<div class="line"><span class="lineno">   16</span>        <span class="keywordflow">return</span> std::string();</div>
-<div class="line"><span class="lineno">   17</span>    }</div>
-<div class="line"><span class="lineno">   18</span> </div>
-<div class="line"><span class="lineno">   19</span>    <span class="comment">// Get all of the lines from the file</span></div>
-<div class="line"><span class="lineno">   20</span>    std::string line = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><span class="lineno">   21</span>    <span class="keywordflow">while</span> (!s.eof())</div>
-<div class="line"><span class="lineno">   22</span>    {</div>
-<div class="line"><span class="lineno">   23</span>        std::getline(s, line);</div>
-<div class="line"><span class="lineno">   24</span>        content.append(line + <span class="stringliteral">&quot;\n&quot;</span>);</div>
-<div class="line"><span class="lineno">   25</span>    }</div>
-<div class="line"><span class="lineno">   26</span> </div>
-<div class="line"><span class="lineno">   27</span>    <span class="comment">// Close the file (good practice)</span></div>
-<div class="line"><span class="lineno">   28</span>    s.close();</div>
+<div class="line"><span class="lineno">   12</span>    std::string content;</div>
+<div class="line"><span class="lineno">   13</span>    std::ifstream s(resolvedPath, std::ios::in);</div>
+<div class="line"><span class="lineno">   14</span> </div>
+<div class="line"><span class="lineno">   15</span>    <span class="comment">// If file does not exists</span></div>
+<div class="line"><span class="lineno">   16</span>    <span class="keywordflow">if</span> (!s.is_open())</div>
+<div class="line"><span class="lineno">   17</span>    {</div>
+<div class="line"><span class="lineno">   18</span>        EE_CORE_ERROR(<span class="stringliteral">&quot;Could not open file : {0}, file does not exist&quot;</span>, resolvedPath);</div>
+<div class="line"><span class="lineno">   19</span>        <span class="keywordflow">return</span> std::string();</div>
+<div class="line"><span class="lineno">   20</span>    }</div>
+<div class="line"><span class="lineno">   21</span> </div>
+<div class="line"><span class="lineno">   22</span>    <span class="comment">// Get all of the lines from the file</span></div>
+<div class="line"><span class="lineno">   23</span>    std::string line = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><span class="lineno">   24</span>    <span class="keywordflow">while</span> (!s.eof())</div>
+<div class="line"><span class="lineno">   25</span>    {</div>
+<div class="line"><span class="lineno">   26</span>        std::getline(s, line);</div>
+<div class="line"><span class="lineno">   27</span>        content.append(line + <span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   28</span>    }</div>
 <div class="line"><span class="lineno">   29</span> </div>
-<div class="line"><span class="lineno">   30</span>    <span class="keywordflow">return</span> content;</div>
-<div class="line"><span class="lineno">   31</span>}</div>
+<div class="line"><span class="lineno">   30</span>    <span class="comment">// Close the file (good practice)</span></div>
+<div class="line"><span class="lineno">   31</span>    s.close();</div>
+<div class="line"><span class="lineno">   32</span> </div>
+<div class="line"><span class="lineno">   33</span>    <span class="keywordflow">return</span> content;</div>
+<div class="line"><span class="lineno">   34</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

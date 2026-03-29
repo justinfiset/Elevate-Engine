@@ -127,8 +127,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac46bbacc6e887e9f7a84fcdb9bb0dbfa"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1OpenGLFrameBuffer.html#ac46bbacc6e887e9f7a84fcdb9bb0dbfa">GetFrameBufferId</a> () const override</td></tr>
 <tr class="separator:ac46bbacc6e887e9f7a84fcdb9bb0dbfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classElevate_1_1Framebuffer"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classElevate_1_1Framebuffer')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classElevate_1_1Framebuffer.html">Elevate::Framebuffer</a></td></tr>
-<tr class="memitem:a2169a5b9e208ff282e45c9583a79e1f8 inherit pub_methods_classElevate_1_1Framebuffer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Framebuffer.html#a2169a5b9e208ff282e45c9583a79e1f8">~Framebuffer</a> ()</td></tr>
-<tr class="separator:a2169a5b9e208ff282e45c9583a79e1f8 inherit pub_methods_classElevate_1_1Framebuffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ca07118f569c92310584201b846a263 inherit pub_methods_classElevate_1_1Framebuffer"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Framebuffer.html#a1ca07118f569c92310584201b846a263">~Framebuffer</a> ()=default</td></tr>
+<tr class="separator:a1ca07118f569c92310584201b846a263 inherit pub_methods_classElevate_1_1Framebuffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85d1a1f861c135e0442b579a0b2e669e inherit pub_methods_classElevate_1_1Framebuffer"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Framebuffer.html#a85d1a1f861c135e0442b579a0b2e669e">Bind</a> () const =0</td></tr>
 <tr class="separator:a85d1a1f861c135e0442b579a0b2e669e inherit pub_methods_classElevate_1_1Framebuffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49b8765310f450a72f7604405a9f0e5e inherit pub_methods_classElevate_1_1Framebuffer"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Framebuffer.html#a49b8765310f450a72f7604405a9f0e5e">Unbind</a> () const =0</td></tr>
@@ -375,7 +375,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">   68</span> </div>
 <div class="line"><span class="lineno">   69</span>    <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a516ef8989b19d397a206df8d6464a9f2">m_texture</a>-&gt;SetData(<span class="keyword">nullptr</span>, meta);</div>
 <div class="line"><span class="lineno">   70</span> </div>
-<div class="line"><span class="lineno">   71</span>    <span class="comment">// Attacher la texture redimensionnée au framebuffer</span></div>
+<div class="line"><span class="lineno">   71</span>    <span class="comment">// Attacher la texture redimensionnï¿½e au framebuffer</span></div>
 <div class="line"><span class="lineno">   72</span>    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_textureId, 0);</div>
 <div class="line"><span class="lineno">   73</span> </div>
 <div class="line"><span class="lineno">   74</span>    <span class="comment">// Redimensionner le renderbuffer pour le depth/stencil</span></div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Elevate Engine: Elevate::WindowsInput Class Reference</title>
+<title>Elevate Engine: Elevate::GlfwInput Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,7 +68,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classElevate_1_1WindowsInput.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classElevate_1_1GlfwInput.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,26 +96,26 @@ $(document).ready(function(){initNavTree('classElevate_1_1WindowsInput.html','')
 <div class="header">
   <div class="summary">
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="classElevate_1_1WindowsInput-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">Elevate::WindowsInput Class Reference</div></div>
+<a href="classElevate_1_1GlfwInput-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">Elevate::GlfwInput Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="WindowsInput_8h_source.html">WindowsInput.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="GlfwInput_8h_source.html">GlfwInput.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for Elevate::WindowsInput:</div>
+Inheritance diagram for Elevate::GlfwInput:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classElevate_1_1WindowsInput.png" usemap="#Elevate::WindowsInput_map" alt=""/>
-  <map id="Elevate::WindowsInput_map" name="Elevate::WindowsInput_map">
-<area href="classElevate_1_1Input.html" alt="Elevate::Input" shape="rect" coords="0,0,137,24"/>
+  <img src="classElevate_1_1GlfwInput.png" usemap="#Elevate::GlfwInput_map" alt=""/>
+  <map id="Elevate::GlfwInput_map" name="Elevate::GlfwInput_map">
+<area href="classElevate_1_1Input.html" alt="Elevate::Input" shape="rect" coords="0,0,112,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a8188088f00d01d44739cb0c6860feb54"><td class="memItemLeft" align="right" valign="top">virtual glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1WindowsInput.html#a8188088f00d01d44739cb0c6860feb54">GetMousePositionImpl</a> () override</td></tr>
-<tr class="separator:a8188088f00d01d44739cb0c6860feb54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae52d098c5f52dd42a9c0ed1a973df47a"><td class="memItemLeft" align="right" valign="top">virtual glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1GlfwInput.html#ae52d098c5f52dd42a9c0ed1a973df47a">GetMousePositionImpl</a> () override</td></tr>
+<tr class="separator:ae52d098c5f52dd42a9c0ed1a973df47a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4946f98fd7c97146df5302b15bbe7b7b"><td class="memItemLeft" align="right" valign="top">virtual glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Input.html#a4946f98fd7c97146df5302b15bbe7b7b">GetMousePositionImpl</a> ()=0</td></tr>
 <tr class="separator:a4946f98fd7c97146df5302b15bbe7b7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -149,6 +149,8 @@ Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_static_methods_classElevate_1_1Input"><td colspan="2" onclick="javascript:toggleInherit('pro_static_methods_classElevate_1_1Input')"><img src="closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="classElevate_1_1Input.html">Elevate::Input</a></td></tr>
 <tr class="memitem:a248336b6c0e4a2812fb8559d0c0f4fa6 inherit pro_static_methods_classElevate_1_1Input"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Input.html#a248336b6c0e4a2812fb8559d0c0f4fa6">ManageMidStates</a> ()</td></tr>
 <tr class="separator:a248336b6c0e4a2812fb8559d0c0f4fa6 inherit pro_static_methods_classElevate_1_1Input"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b0ce43dda45ae9adfffda1ed9d3f056 inherit pro_static_methods_classElevate_1_1Input"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Input.html#a9b0ce43dda45ae9adfffda1ed9d3f056">ResetAllStates</a> ()</td></tr>
+<tr class="separator:a9b0ce43dda45ae9adfffda1ed9d3f056 inherit pro_static_methods_classElevate_1_1Input"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0406ffb401963012630d03e95ad07b30 inherit pro_static_methods_classElevate_1_1Input"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Input.html#a0406ffb401963012630d03e95ad07b30">OnKeyPressedEvent</a> (<a class="el" href="classElevate_1_1KeyPressedEvent.html">KeyPressedEvent</a> &amp;e)</td></tr>
 <tr class="memdesc:a0406ffb401963012630d03e95ad07b30 inherit pro_static_methods_classElevate_1_1Input"><td class="mdescLeft">&#160;</td><td class="mdescRight">Managed Callbacks // Could be used to simulate inputs to an app by sending events.  <br /></td></tr>
 <tr class="separator:a0406ffb401963012630d03e95ad07b30 inherit pro_static_methods_classElevate_1_1Input"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,10 +163,10 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="WindowsInput_8h_source.html#l00007">7</a> of file <a class="el" href="WindowsInput_8h_source.html">WindowsInput.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="GlfwInput_8h_source.html#l00007">7</a> of file <a class="el" href="GlfwInput_8h_source.html">GlfwInput.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8188088f00d01d44739cb0c6860feb54" name="a8188088f00d01d44739cb0c6860feb54"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8188088f00d01d44739cb0c6860feb54">&#9670;&#160;</a></span>GetMousePositionImpl()</h2>
+<a id="ae52d098c5f52dd42a9c0ed1a973df47a" name="ae52d098c5f52dd42a9c0ed1a973df47a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae52d098c5f52dd42a9c0ed1a973df47a">&#9670;&#160;</a></span>GetMousePositionImpl()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -173,7 +175,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">glm::vec2 Elevate::WindowsInput::GetMousePositionImpl </td>
+          <td class="memname">glm::vec2 Elevate::GlfwInput::GetMousePositionImpl </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -188,30 +190,30 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1Input.html#a4946f98fd7c97146df5302b15bbe7b7b">Elevate::Input</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="WindowsInput_8cpp_source.html#l00013">13</a> of file <a class="el" href="WindowsInput_8cpp_source.html">WindowsInput.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   14</span>{</div>
-<div class="line"><span class="lineno">   15</span>    <span class="keyword">auto</span> window = <span class="keyword">static_cast&lt;</span>GLFWwindow*<span class="keyword">&gt;</span>(<a class="code hl_function" href="classElevate_1_1Application.html#aaa9ed07c2b919f9c2473dcf6f8393017">Application::Get</a>().<a class="code hl_function" href="classElevate_1_1Application.html#a40e89e611348fde47d0e9364adbac7f4">GetWindow</a>().<a class="code hl_function" href="classElevate_1_1Window.html#a550820a23cdf8631430796b661845673">GetNativeWindow</a>());</div>
-<div class="line"><span class="lineno">   16</span>    <span class="keywordtype">double</span> xpos, ypos;</div>
-<div class="line"><span class="lineno">   17</span>    glfwGetCursorPos(window, &amp;xpos, &amp;ypos);</div>
-<div class="line"><span class="lineno">   18</span> </div>
-<div class="line"><span class="lineno">   19</span>    <span class="keywordflow">return</span> { (float)xpos, (<span class="keywordtype">float</span>)ypos };    </div>
-<div class="line"><span class="lineno">   20</span>}</div>
-<div class="ttc" id="aclassElevate_1_1Application_html_a40e89e611348fde47d0e9364adbac7f4"><div class="ttname"><a href="classElevate_1_1Application.html#a40e89e611348fde47d0e9364adbac7f4">Elevate::Application::GetWindow</a></div><div class="ttdeci">Window &amp; GetWindow()</div><div class="ttdef"><b>Definition:</b> <a href="Application_8h_source.html#l00062">Application.h:62</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_aaa9ed07c2b919f9c2473dcf6f8393017"><div class="ttname"><a href="classElevate_1_1Application.html#aaa9ed07c2b919f9c2473dcf6f8393017">Elevate::Application::Get</a></div><div class="ttdeci">static Application &amp; Get()</div><div class="ttdef"><b>Definition:</b> <a href="Application_8h_source.html#l00061">Application.h:61</a></div></div>
+<p class="definition">Definition at line <a class="el" href="GlfwInput_8cpp_source.html#l00006">6</a> of file <a class="el" href="GlfwInput_8cpp_source.html">GlfwInput.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">    7</span>{</div>
+<div class="line"><span class="lineno">    8</span>    <span class="keyword">auto</span> window = <span class="keyword">static_cast&lt;</span>GLFWwindow*<span class="keyword">&gt;</span>(<a class="code hl_function" href="classElevate_1_1Application.html#aaa9ed07c2b919f9c2473dcf6f8393017">Application::Get</a>().<a class="code hl_function" href="classElevate_1_1Application.html#a40e89e611348fde47d0e9364adbac7f4">GetWindow</a>().<a class="code hl_function" href="classElevate_1_1Window.html#a550820a23cdf8631430796b661845673">GetNativeWindow</a>());</div>
+<div class="line"><span class="lineno">    9</span>    <span class="keywordtype">double</span> xpos, ypos;</div>
+<div class="line"><span class="lineno">   10</span>    glfwGetCursorPos(window, &amp;xpos, &amp;ypos);</div>
+<div class="line"><span class="lineno">   11</span> </div>
+<div class="line"><span class="lineno">   12</span>    <span class="keywordflow">return</span> { (float)xpos, (<span class="keywordtype">float</span>)ypos };    </div>
+<div class="line"><span class="lineno">   13</span>}</div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a40e89e611348fde47d0e9364adbac7f4"><div class="ttname"><a href="classElevate_1_1Application.html#a40e89e611348fde47d0e9364adbac7f4">Elevate::Application::GetWindow</a></div><div class="ttdeci">Window &amp; GetWindow()</div><div class="ttdef"><b>Definition:</b> <a href="Application_8h_source.html#l00063">Application.h:63</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_aaa9ed07c2b919f9c2473dcf6f8393017"><div class="ttname"><a href="classElevate_1_1Application.html#aaa9ed07c2b919f9c2473dcf6f8393017">Elevate::Application::Get</a></div><div class="ttdeci">static Application &amp; Get()</div><div class="ttdef"><b>Definition:</b> <a href="Application_8h_source.html#l00062">Application.h:62</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Window_html_a550820a23cdf8631430796b661845673"><div class="ttname"><a href="classElevate_1_1Window.html#a550820a23cdf8631430796b661845673">Elevate::Window::GetNativeWindow</a></div><div class="ttdeci">virtual void * GetNativeWindow() const =0</div></div>
 </div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>ElevateEngine/src/Platform/Windows/<a class="el" href="WindowsInput_8h_source.html">WindowsInput.h</a></li>
-<li>ElevateEngine/src/Platform/Windows/<a class="el" href="WindowsInput_8cpp_source.html">WindowsInput.cpp</a></li>
+<li>ElevateEngine/src/Platform/Shared/GLFW/<a class="el" href="GlfwInput_8h_source.html">GlfwInput.h</a></li>
+<li>ElevateEngine/src/Platform/Shared/GLFW/<a class="el" href="GlfwInput_8cpp_source.html">GlfwInput.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceElevate.html">Elevate</a></li><li class="navelem"><a class="el" href="classElevate_1_1WindowsInput.html">WindowsInput</a></li>
+    <li class="navelem"><a class="el" href="namespaceElevate.html">Elevate</a></li><li class="navelem"><a class="el" href="classElevate_1_1GlfwInput.html">GlfwInput</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>

@@ -54,7 +54,6 @@ var NAVTREE =
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", null ],
-        [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Enumerator", "functions_eval.html", null ],
         [ "Related Functions", "functions_rela.html", null ]
@@ -75,18 +74,18 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AddComponent_8h.html",
-"Frustum_8h.html#a622c3d7de5705ecabab238d92cd07435",
-"KeyCodes_8h.html#add2f3fa55d5583e73870a11b9fd457e8",
-"Texture_8h.html#abbc8ef8e3bb95c91c8071d7f6302466fae93f994f01c537c4e2f7d8528c3eb5e9",
-"classElevate_1_1CommandManager.html",
-"classElevate_1_1GameObject.html#a5e170978bd9e1a49141b642112e7c43a",
-"classElevate_1_1Log.html",
-"classElevate_1_1OpenGLVertexBuffer.html#a55460800558590d5a4185450c3dcb4bf",
-"classElevate_1_1Shader.html#ae7fcc1e2ff71c3d6c82d91375661d250",
-"classElevate_1_1WindowsWindow.html#a5d05a269ff9481a87974459517895e49",
-"namespaceElevate.html#a225575101fdde82b46ebe7da4c37bae9a899b2fc1d31b703dcb0092903fe04992",
-"structElevate_1_1Editor_1_1FileItem.html#af874e4cc981d09457c731c95f0f3fc60",
-"structElevate_1_1WindowProps.html#a8879f707c416e3e89606fe340cad1ece"
+"FrameBuffer_8h.html",
+"KeyCodes_8h.html#ab600d3944459cb47563043ca443f9962",
+"SoundEngine_8cpp_source.html",
+"classElevate_1_1Camera.html#a6cf5307d60da0a95b6af4ef477d54a4c",
+"classElevate_1_1Framebuffer.html#a85d1a1f861c135e0442b579a0b2e669e",
+"classElevate_1_1KeyTypedEvent.html#ab99cf4d9bfc153465a4d5d3cd549c075",
+"classElevate_1_1OpenGLShader.html#a0e63940250d818dfdd3d62ccbd794381",
+"classElevate_1_1SceneLighting.html#a54901fe63cdbb1ff7a67e9d912e437a0",
+"classElevate_1_1VertexBuffer.html#af2e1a7d7dba29892b9a5d7b4fb440328",
+"globals_n.html",
+"structElevate_1_1ComponentField.html#a99f1036278af1e6ce926de6e4ff239fd",
+"structElevate_1_1TextureMetadata.html#ab318e09412f24785e6fa868c8f747762"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

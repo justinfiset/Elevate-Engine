@@ -238,33 +238,33 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Model_8cpp_source.html#l00025">25</a> of file <a class="el" href="Model_8cpp_source.html">Model.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   25</span>                                      : <a class="code hl_function" href="classElevate_1_1Model.html#af6d41ed84f865f7a07059feb53f3a991">Model</a>(<span class="stringliteral">&quot;&quot;</span>, <span class="keyword">nullptr</span>)</div>
-<div class="line"><span class="lineno">   26</span>{</div>
-<div class="line"><span class="lineno">   27</span>    <span class="keywordflow">switch</span> (type)</div>
-<div class="line"><span class="lineno">   28</span>    {</div>
-<div class="line"><span class="lineno">   29</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1aa296104f0c61a9cf39f4824d05315e12">PrimitiveType::Cube</a>:</div>
-<div class="line"><span class="lineno">   30</span>        m_batchedMesh = <a class="code hl_function" href="classElevate_1_1Mesh.html#ab0d6241f1e04dd33619dbee4d4f53813">Mesh::GenerateCube</a>(1.0f);</div>
-<div class="line"><span class="lineno">   31</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   32</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1aee6aaf22abac7bd5c8c8b1edc1164cd1">PrimitiveType::UVSphere</a>:</div>
-<div class="line"><span class="lineno">   33</span>        m_batchedMesh = <a class="code hl_function" href="classElevate_1_1Mesh.html#a953c8383b9cbb3edd9838dad2c93254b">Mesh::GenerateUVSphere</a>(1.0f, 36, 18);</div>
-<div class="line"><span class="lineno">   34</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   35</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1ace1e467293d9b3110edaffcddb74b63e">PrimitiveType::Cubesphere</a>:</div>
-<div class="line"><span class="lineno">   36</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1afd8a9233da3895cba640f2065708fa69">PrimitiveType::Icosphere</a>:</div>
-<div class="line"><span class="lineno">   37</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1a2ec2c2961c7ce5a114d969c1f562a563">PrimitiveType::Cylinder</a>:</div>
-<div class="line"><span class="lineno">   38</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1a4880c0f12c06dd6d142e7a40b041bf1a">PrimitiveType::Capsule</a>:</div>
-<div class="line"><span class="lineno">   39</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1a0d3adee051531c15b3509b4d4d75ce7b">PrimitiveType::Plane</a>:</div>
-<div class="line"><span class="lineno">   40</span>        m_batchedMesh = <a class="code hl_function" href="classElevate_1_1Mesh.html#a1bf8ca2f939e65fa1fdcd4d96ec97060">Mesh::GeneratePlane</a>(1.0f, 1);</div>
-<div class="line"><span class="lineno">   41</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   42</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1ae9017664588010860a92ceb5f8fcb824">PrimitiveType::Quad</a>:</div>
-<div class="line"><span class="lineno">   43</span>        m_batchedMesh = <a class="code hl_function" href="classElevate_1_1Mesh.html#a9e1e36e7552d5b52b3bb369e4ea8074d">Mesh::GenerateQuad</a>(1.0f);</div>
-<div class="line"><span class="lineno">   44</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   45</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1a5c22b826138634df6ddf1e22fdb7e66e">PrimitiveType::Torus</a>:</div>
-<div class="line"><span class="lineno">   46</span>    <span class="keywordflow">default</span>:</div>
-<div class="line"><span class="lineno">   47</span>        EE_CORE_ASSERT(<span class="keyword">false</span>, <span class="stringliteral">&quot;Unsupported primitive shape given for mesh creation.&quot;</span>);</div>
-<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   49</span>    }</div>
-<div class="line"><span class="lineno">   50</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Model_8cpp_source.html#l00026">26</a> of file <a class="el" href="Model_8cpp_source.html">Model.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   26</span>                                      : <a class="code hl_function" href="classElevate_1_1Model.html#af6d41ed84f865f7a07059feb53f3a991">Model</a>(<span class="stringliteral">&quot;&quot;</span>, <span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">   27</span>{</div>
+<div class="line"><span class="lineno">   28</span>    <span class="keywordflow">switch</span> (type)</div>
+<div class="line"><span class="lineno">   29</span>    {</div>
+<div class="line"><span class="lineno">   30</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1aa296104f0c61a9cf39f4824d05315e12">PrimitiveType::Cube</a>:</div>
+<div class="line"><span class="lineno">   31</span>        m_batchedMesh = <a class="code hl_function" href="classElevate_1_1Mesh.html#ab0d6241f1e04dd33619dbee4d4f53813">Mesh::GenerateCube</a>(1.0f);</div>
+<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   33</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1aee6aaf22abac7bd5c8c8b1edc1164cd1">PrimitiveType::UVSphere</a>:</div>
+<div class="line"><span class="lineno">   34</span>        m_batchedMesh = <a class="code hl_function" href="classElevate_1_1Mesh.html#a953c8383b9cbb3edd9838dad2c93254b">Mesh::GenerateUVSphere</a>(1.0f, 36, 18);</div>
+<div class="line"><span class="lineno">   35</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   36</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1ace1e467293d9b3110edaffcddb74b63e">PrimitiveType::Cubesphere</a>:</div>
+<div class="line"><span class="lineno">   37</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1afd8a9233da3895cba640f2065708fa69">PrimitiveType::Icosphere</a>:</div>
+<div class="line"><span class="lineno">   38</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1a2ec2c2961c7ce5a114d969c1f562a563">PrimitiveType::Cylinder</a>:</div>
+<div class="line"><span class="lineno">   39</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1a4880c0f12c06dd6d142e7a40b041bf1a">PrimitiveType::Capsule</a>:</div>
+<div class="line"><span class="lineno">   40</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1a0d3adee051531c15b3509b4d4d75ce7b">PrimitiveType::Plane</a>:</div>
+<div class="line"><span class="lineno">   41</span>        m_batchedMesh = <a class="code hl_function" href="classElevate_1_1Mesh.html#a1bf8ca2f939e65fa1fdcd4d96ec97060">Mesh::GeneratePlane</a>(1.0f, 1);</div>
+<div class="line"><span class="lineno">   42</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   43</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1ae9017664588010860a92ceb5f8fcb824">PrimitiveType::Quad</a>:</div>
+<div class="line"><span class="lineno">   44</span>        m_batchedMesh = <a class="code hl_function" href="classElevate_1_1Mesh.html#a9e1e36e7552d5b52b3bb369e4ea8074d">Mesh::GenerateQuad</a>(1.0f);</div>
+<div class="line"><span class="lineno">   45</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   46</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1a5c22b826138634df6ddf1e22fdb7e66e">PrimitiveType::Torus</a>:</div>
+<div class="line"><span class="lineno">   47</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">   48</span>        EE_CORE_ASSERT(<span class="keyword">false</span>, <span class="stringliteral">&quot;Unsupported primitive shape given for mesh creation.&quot;</span>);</div>
+<div class="line"><span class="lineno">   49</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   50</span>    }</div>
+<div class="line"><span class="lineno">   51</span>}</div>
 <div class="ttc" id="aclassElevate_1_1Mesh_html_a1bf8ca2f939e65fa1fdcd4d96ec97060"><div class="ttname"><a href="classElevate_1_1Mesh.html#a1bf8ca2f939e65fa1fdcd4d96ec97060">Elevate::Mesh::GeneratePlane</a></div><div class="ttdeci">static Mesh GeneratePlane(float size, int resolution)</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8cpp_source.html#l00191">Mesh.cpp:191</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Mesh_html_a953c8383b9cbb3edd9838dad2c93254b"><div class="ttname"><a href="classElevate_1_1Mesh.html#a953c8383b9cbb3edd9838dad2c93254b">Elevate::Mesh::GenerateUVSphere</a></div><div class="ttdeci">static Mesh GenerateUVSphere(float radius, int latitudes, int longitudes)</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8cpp_source.html#l00127">Mesh.cpp:127</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Mesh_html_a9e1e36e7552d5b52b3bb369e4ea8074d"><div class="ttname"><a href="classElevate_1_1Mesh.html#a9e1e36e7552d5b52b3bb369e4ea8074d">Elevate::Mesh::GenerateQuad</a></div><div class="ttdeci">static Mesh GenerateQuad(float size=1.0f)</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8cpp_source.html#l00186">Mesh.cpp:186</a></div></div>
@@ -308,16 +308,16 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Model_8cpp_source.html#l00052">52</a> of file <a class="el" href="Model_8cpp_source.html">Model.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   53</span>{</div>
-<div class="line"><span class="lineno">   54</span>    <span class="comment">// todo : add a macro or const expression for the default value in asset maangers</span></div>
-<div class="line"><span class="lineno">   55</span>    <a class="code hl_function" href="classElevate_1_1Model.html#a5ddf9d4b4dd23e862da19a4d915f5d91">SetMaterial</a>(material ? material : <a class="code hl_function" href="classElevate_1_1MaterialRegistry.html#ae2952edd7510d0657926c3684b5a762b">MaterialRegistry::GetMaterial</a>(<a class="code hl_define" href="Material_8h.html#af1a2739c35a006bf87c56bccab1ec327">EE_DEFAULT_MATERIAL</a>));</div>
-<div class="line"><span class="lineno">   56</span> </div>
-<div class="line"><span class="lineno">   57</span>    <span class="keywordflow">if</span> (!path.empty())</div>
-<div class="line"><span class="lineno">   58</span>    {</div>
-<div class="line"><span class="lineno">   59</span>        LoadModel(path);</div>
-<div class="line"><span class="lineno">   60</span>    }</div>
-<div class="line"><span class="lineno">   61</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Model_8cpp_source.html#l00053">53</a> of file <a class="el" href="Model_8cpp_source.html">Model.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   54</span>{</div>
+<div class="line"><span class="lineno">   55</span>    <span class="comment">// todo : add a macro or const expression for the default value in asset maangers</span></div>
+<div class="line"><span class="lineno">   56</span>    <a class="code hl_function" href="classElevate_1_1Model.html#a5ddf9d4b4dd23e862da19a4d915f5d91">SetMaterial</a>(material ? material : <a class="code hl_function" href="classElevate_1_1MaterialRegistry.html#ae2952edd7510d0657926c3684b5a762b">MaterialRegistry::GetMaterial</a>(<a class="code hl_define" href="Material_8h.html#af1a2739c35a006bf87c56bccab1ec327">EE_DEFAULT_MATERIAL</a>));</div>
+<div class="line"><span class="lineno">   57</span> </div>
+<div class="line"><span class="lineno">   58</span>    <span class="keywordflow">if</span> (!path.empty())</div>
+<div class="line"><span class="lineno">   59</span>    {</div>
+<div class="line"><span class="lineno">   60</span>        LoadModel(path);</div>
+<div class="line"><span class="lineno">   61</span>    }</div>
+<div class="line"><span class="lineno">   62</span>}</div>
 <div class="ttc" id="aMaterial_8h_html_af1a2739c35a006bf87c56bccab1ec327"><div class="ttname"><a href="Material_8h.html#af1a2739c35a006bf87c56bccab1ec327">EE_DEFAULT_MATERIAL</a></div><div class="ttdeci">#define EE_DEFAULT_MATERIAL</div><div class="ttdef"><b>Definition:</b> <a href="Material_8h_source.html#l00017">Material.h:17</a></div></div>
 <div class="ttc" id="aclassElevate_1_1MaterialRegistry_html_ae2952edd7510d0657926c3684b5a762b"><div class="ttname"><a href="classElevate_1_1MaterialRegistry.html#ae2952edd7510d0657926c3684b5a762b">Elevate::MaterialRegistry::GetMaterial</a></div><div class="ttdeci">static MaterialPtr GetMaterial(MaterialID id)</div><div class="ttdef"><b>Definition:</b> <a href="Material_8cpp_source.html#l00108">Material.cpp:108</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Model_html_a5ddf9d4b4dd23e862da19a4d915f5d91"><div class="ttname"><a href="classElevate_1_1Model.html#a5ddf9d4b4dd23e862da19a4d915f5d91">Elevate::Model::SetMaterial</a></div><div class="ttdeci">void SetMaterial(MaterialPtr material)</div><div class="ttdef"><b>Definition:</b> <a href="Model_8h_source.html#l00028">Model.h:28</a></div></div>
@@ -378,10 +378,10 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classElevate_1_1Component.html#ad406f3e52963b93f37e3f5c773dacf62">Elevate::Component</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Model_8cpp_source.html#l00209">209</a> of file <a class="el" href="Model_8cpp_source.html">Model.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  210</span>{</div>
-<div class="line"><span class="lineno">  211</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a565f12793e2a5807c60fbd1c13690892">Renderer::SubmitMesh</a>(m_batchedMesh.<a class="code hl_function" href="classElevate_1_1Mesh.html#a0a4c5a5d17c1271239d83503eda48ab3">GetVertexArray</a>(), m_material, <a class="code hl_variable" href="classElevate_1_1Component.html#a43e0110b9bd752db08c4035ee01e3573">gameObject</a>-&gt;<a class="code hl_function" href="classElevate_1_1ITransformable.html#a1551eeba7a86b703dab6ca94baaf5af6">GetModelMatrix</a>(), <a class="code hl_enumvalue" href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a043349080a0e319e357e727c34b25653">RenderBucket::GBuffer</a>);</div>
-<div class="line"><span class="lineno">  212</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Model_8cpp_source.html#l00211">211</a> of file <a class="el" href="Model_8cpp_source.html">Model.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  212</span>{</div>
+<div class="line"><span class="lineno">  213</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a565f12793e2a5807c60fbd1c13690892">Renderer::SubmitMesh</a>(m_batchedMesh.<a class="code hl_function" href="classElevate_1_1Mesh.html#a0a4c5a5d17c1271239d83503eda48ab3">GetVertexArray</a>(), m_material, <a class="code hl_variable" href="classElevate_1_1Component.html#a43e0110b9bd752db08c4035ee01e3573">gameObject</a>-&gt;<a class="code hl_function" href="classElevate_1_1ITransformable.html#a1551eeba7a86b703dab6ca94baaf5af6">GetModelMatrix</a>(), <a class="code hl_enumvalue" href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a043349080a0e319e357e727c34b25653">RenderBucket::GBuffer</a>);</div>
+<div class="line"><span class="lineno">  214</span>}</div>
 <div class="ttc" id="aclassElevate_1_1Component_html_a43e0110b9bd752db08c4035ee01e3573"><div class="ttname"><a href="classElevate_1_1Component.html#a43e0110b9bd752db08c4035ee01e3573">Elevate::Component::gameObject</a></div><div class="ttdeci">GameObject * gameObject</div><div class="ttdef"><b>Definition:</b> <a href="Component_8h_source.html#l00073">Component.h:73</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ITransformable_html_a1551eeba7a86b703dab6ca94baaf5af6"><div class="ttname"><a href="classElevate_1_1ITransformable.html#a1551eeba7a86b703dab6ca94baaf5af6">Elevate::ITransformable::GetModelMatrix</a></div><div class="ttdeci">const glm::mat4 &amp; GetModelMatrix() const</div><div class="ttdef"><b>Definition:</b> <a href="ITransformable_8h_source.html#l00039">ITransformable.h:39</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Mesh_html_a0a4c5a5d17c1271239d83503eda48ab3"><div class="ttname"><a href="classElevate_1_1Mesh.html#a0a4c5a5d17c1271239d83503eda48ab3">Elevate::Mesh::GetVertexArray</a></div><div class="ttdeci">std::shared_ptr&lt; VertexArray &gt; GetVertexArray() const</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8h_source.html#l00051">Mesh.h:51</a></div></div>

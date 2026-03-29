@@ -127,6 +127,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:accb573bfbf8f071b37fb5ded6d11b997"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c119864d2c96e6fc85645aa544d3309"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1InputBuffer.html#a4c119864d2c96e6fc85645aa544d3309">SetMouseButtonReleased</a> (int mouseButtonCode)</td></tr>
 <tr class="separator:a4c119864d2c96e6fc85645aa544d3309"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7693106416023ff529d49df046e7848"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1InputBuffer.html#ae7693106416023ff529d49df046e7848">ResetAllStates</a> ()</td></tr>
+<tr class="separator:ae7693106416023ff529d49df046e7848"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a112546eea644d924adff91583c34d390"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1InputBuffer.html#a112546eea644d924adff91583c34d390">ManageMidSates</a> ()</td></tr>
 <tr class="separator:a112546eea644d924adff91583c34d390"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -292,39 +294,62 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="InputBuffer_8cpp_source.html#l00089">89</a> of file <a class="el" href="InputBuffer_8cpp_source.html">InputBuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   90</span>    {</div>
+<div class="line"><span class="lineno">   91</span>        <span class="comment">// Keyboard</span></div>
+<div class="line"><span class="lineno">   92</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; keyStates.size() / 2; i++)</div>
+<div class="line"><span class="lineno">   93</span>        {</div>
+<div class="line"><span class="lineno">   94</span>            uint8_t state = GetKeyState(i);</div>
+<div class="line"><span class="lineno">   95</span>            <span class="keywordflow">switch</span> (state)</div>
+<div class="line"><span class="lineno">   96</span>            {</div>
+<div class="line"><span class="lineno">   97</span>            <span class="keywordflow">case</span> <a class="code hl_define" href="Input_8h.html#aade48df16b18b04558783ad48554397a">EE_STATE_DOWN</a>:</div>
+<div class="line"><span class="lineno">   98</span>                SetKeyState(i, <a class="code hl_define" href="Input_8h.html#aa8d6a922ed0205f1866da1602277df34">EE_STATE_PRESSED</a>);</div>
+<div class="line"><span class="lineno">   99</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  100</span>            <span class="keywordflow">case</span> <a class="code hl_define" href="Input_8h.html#a0eb940c38864bae70871cca3e68fdfcf">EE_STATE_UP</a>:</div>
+<div class="line"><span class="lineno">  101</span>                SetKeyState(i, <a class="code hl_define" href="Input_8h.html#a8d417cc45379034d43c8b027bb722ce5">EE_STATE_RELEASED</a>);</div>
+<div class="line"><span class="lineno">  102</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  103</span>            }</div>
+<div class="line"><span class="lineno">  104</span>        }</div>
+<div class="line"><span class="lineno">  105</span> </div>
+<div class="line"><span class="lineno">  106</span>        <span class="comment">// Mouse</span></div>
+<div class="line"><span class="lineno">  107</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; mouseButtonStates.size() / 2; i++)</div>
+<div class="line"><span class="lineno">  108</span>        {</div>
+<div class="line"><span class="lineno">  109</span>            uint8_t state = GetMouseButtonState(i);</div>
+<div class="line"><span class="lineno">  110</span>            <span class="keywordflow">switch</span> (state)</div>
+<div class="line"><span class="lineno">  111</span>            {</div>
+<div class="line"><span class="lineno">  112</span>            <span class="keywordflow">case</span> <a class="code hl_define" href="Input_8h.html#aade48df16b18b04558783ad48554397a">EE_STATE_DOWN</a>:</div>
+<div class="line"><span class="lineno">  113</span>                SetMouseButtonState(i, <a class="code hl_define" href="Input_8h.html#aa8d6a922ed0205f1866da1602277df34">EE_STATE_PRESSED</a>);</div>
+<div class="line"><span class="lineno">  114</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  115</span>            <span class="keywordflow">case</span> <a class="code hl_define" href="Input_8h.html#a0eb940c38864bae70871cca3e68fdfcf">EE_STATE_UP</a>:</div>
+<div class="line"><span class="lineno">  116</span>                SetMouseButtonState(i, <a class="code hl_define" href="Input_8h.html#a8d417cc45379034d43c8b027bb722ce5">EE_STATE_RELEASED</a>);</div>
+<div class="line"><span class="lineno">  117</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  118</span>            }</div>
+<div class="line"><span class="lineno">  119</span>        }</div>
+<div class="line"><span class="lineno">  120</span>    }</div>
+<div class="ttc" id="aInput_8h_html_a8d417cc45379034d43c8b027bb722ce5"><div class="ttname"><a href="Input_8h.html#a8d417cc45379034d43c8b027bb722ce5">EE_STATE_RELEASED</a></div><div class="ttdeci">#define EE_STATE_RELEASED</div><div class="ttdef"><b>Definition:</b> <a href="Input_8h_source.html#l00019">Input.h:19</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae7693106416023ff529d49df046e7848" name="ae7693106416023ff529d49df046e7848"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7693106416023ff529d49df046e7848">&#9670;&#160;</a></span>ResetAllStates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Elevate::InputBuffer::ResetAllStates </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 <p class="definition">Definition at line <a class="el" href="InputBuffer_8cpp_source.html#l00083">83</a> of file <a class="el" href="InputBuffer_8cpp_source.html">InputBuffer.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   84</span>    {</div>
-<div class="line"><span class="lineno">   85</span>        <span class="comment">// Keyboard</span></div>
-<div class="line"><span class="lineno">   86</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; keyStates.size() / 2; i++)</div>
-<div class="line"><span class="lineno">   87</span>        {</div>
-<div class="line"><span class="lineno">   88</span>            uint8_t state = GetKeyState(i);</div>
-<div class="line"><span class="lineno">   89</span>            <span class="keywordflow">switch</span> (state)</div>
-<div class="line"><span class="lineno">   90</span>            {</div>
-<div class="line"><span class="lineno">   91</span>            <span class="keywordflow">case</span> <a class="code hl_define" href="Input_8h.html#aade48df16b18b04558783ad48554397a">EE_STATE_DOWN</a>:</div>
-<div class="line"><span class="lineno">   92</span>                SetKeyState(i, <a class="code hl_define" href="Input_8h.html#aa8d6a922ed0205f1866da1602277df34">EE_STATE_PRESSED</a>);</div>
-<div class="line"><span class="lineno">   93</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   94</span>            <span class="keywordflow">case</span> <a class="code hl_define" href="Input_8h.html#a0eb940c38864bae70871cca3e68fdfcf">EE_STATE_UP</a>:</div>
-<div class="line"><span class="lineno">   95</span>                SetKeyState(i, <a class="code hl_define" href="Input_8h.html#a8d417cc45379034d43c8b027bb722ce5">EE_STATE_RELEASED</a>);</div>
-<div class="line"><span class="lineno">   96</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   97</span>            }</div>
-<div class="line"><span class="lineno">   98</span>        }</div>
-<div class="line"><span class="lineno">   99</span> </div>
-<div class="line"><span class="lineno">  100</span>        <span class="comment">// Mouse</span></div>
-<div class="line"><span class="lineno">  101</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; mouseButtonStates.size() / 2; i++)</div>
-<div class="line"><span class="lineno">  102</span>        {</div>
-<div class="line"><span class="lineno">  103</span>            uint8_t state = GetMouseButtonState(i);</div>
-<div class="line"><span class="lineno">  104</span>            <span class="keywordflow">switch</span> (state)</div>
-<div class="line"><span class="lineno">  105</span>            {</div>
-<div class="line"><span class="lineno">  106</span>            <span class="keywordflow">case</span> <a class="code hl_define" href="Input_8h.html#aade48df16b18b04558783ad48554397a">EE_STATE_DOWN</a>:</div>
-<div class="line"><span class="lineno">  107</span>                SetMouseButtonState(i, <a class="code hl_define" href="Input_8h.html#aa8d6a922ed0205f1866da1602277df34">EE_STATE_PRESSED</a>);</div>
-<div class="line"><span class="lineno">  108</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  109</span>            <span class="keywordflow">case</span> <a class="code hl_define" href="Input_8h.html#a0eb940c38864bae70871cca3e68fdfcf">EE_STATE_UP</a>:</div>
-<div class="line"><span class="lineno">  110</span>                SetMouseButtonState(i, <a class="code hl_define" href="Input_8h.html#a8d417cc45379034d43c8b027bb722ce5">EE_STATE_RELEASED</a>);</div>
-<div class="line"><span class="lineno">  111</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  112</span>            }</div>
-<div class="line"><span class="lineno">  113</span>        }</div>
-<div class="line"><span class="lineno">  114</span>    }</div>
-<div class="ttc" id="aInput_8h_html_a8d417cc45379034d43c8b027bb722ce5"><div class="ttname"><a href="Input_8h.html#a8d417cc45379034d43c8b027bb722ce5">EE_STATE_RELEASED</a></div><div class="ttdeci">#define EE_STATE_RELEASED</div><div class="ttdef"><b>Definition:</b> <a href="Input_8h_source.html#l00019">Input.h:19</a></div></div>
+<div class="line"><span class="lineno">   85</span>        keyStates.reset();</div>
+<div class="line"><span class="lineno">   86</span>        mouseButtonStates.reset();</div>
+<div class="line"><span class="lineno">   87</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

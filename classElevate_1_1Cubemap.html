@@ -152,62 +152,63 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00015">15</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   16</span>{</div>
-<div class="line"><span class="lineno">   17</span>    m_renderState.<a class="code hl_variable" href="structElevate_1_1RenderState.html#a838a8e031c81ef8df85d6ecb7acdc704">Cullface</a> = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   18</span>    m_renderState.<a class="code hl_variable" href="structElevate_1_1RenderState.html#aa9e367e4b57b2d3149c937384aab192a">DepthWrite</a> = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   19</span>    m_renderState.<a class="code hl_variable" href="structElevate_1_1RenderState.html#a088c9781880a2a670fddc3c7a38b8cad">DepthTest</a> = <span class="keyword">false</span>;</div>
+<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00013">13</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   14</span>{</div>
+<div class="line"><span class="lineno">   15</span>    m_renderState.<a class="code hl_variable" href="structElevate_1_1RenderState.html#a838a8e031c81ef8df85d6ecb7acdc704">Cullface</a> = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   16</span>    m_renderState.<a class="code hl_variable" href="structElevate_1_1RenderState.html#aa9e367e4b57b2d3149c937384aab192a">DepthWrite</a> = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   17</span>    m_renderState.<a class="code hl_variable" href="structElevate_1_1RenderState.html#a088c9781880a2a670fddc3c7a38b8cad">DepthTest</a> = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   18</span> </div>
+<div class="line"><span class="lineno">   19</span>    m_filePath = skyboxFilePath;</div>
 <div class="line"><span class="lineno">   20</span> </div>
-<div class="line"><span class="lineno">   21</span>    m_filePath = skyboxFilePath;</div>
-<div class="line"><span class="lineno">   22</span> </div>
-<div class="line"><span class="lineno">   23</span>    <span class="comment">// Vertex &amp; Index Buffers</span></div>
-<div class="line"><span class="lineno">   24</span>    m_VertexBuffer.reset(<a class="code hl_function" href="classElevate_1_1VertexBuffer.html#ac8a994fd567722b801198b80c1f2613e">Elevate::VertexBuffer::Create</a>(&amp;s_skyboxVertices[0], <span class="keyword">sizeof</span>(s_skyboxVertices)));</div>
-<div class="line"><span class="lineno">   25</span>    m_VertexBuffer-&gt;SetLayout({</div>
-<div class="line"><span class="lineno">   26</span>        { <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">Elevate::ShaderDataType::Float3</a>, <span class="stringliteral">&quot;a_Position&quot;</span> },</div>
-<div class="line"><span class="lineno">   27</span>        });</div>
-<div class="line"><span class="lineno">   28</span> </div>
-<div class="line"><span class="lineno">   29</span>    m_IndexBuffer.reset(<a class="code hl_function" href="classElevate_1_1IndexBuffer.html#ae21ecb4fdae45359a6541505fed12473">Elevate::IndexBuffer::Create</a>(&amp;s_skyboxIndices[0], <span class="keyword">sizeof</span>(s_skyboxIndices) / <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)));</div>
-<div class="line"><span class="lineno">   30</span>    m_VertexArray.reset(<a class="code hl_function" href="classElevate_1_1VertexArray.html#af79bb22e55a6514a933d739c73397e1e">VertexArray::Create</a>());</div>
-<div class="line"><span class="lineno">   31</span>    m_VertexArray-&gt;AddVertexBuffer(m_VertexBuffer);</div>
-<div class="line"><span class="lineno">   32</span>    m_VertexArray-&gt;SetIndexBuffer(m_IndexBuffer);</div>
-<div class="line"><span class="lineno">   33</span>    m_VertexArray-&gt;Unbind();</div>
-<div class="line"><span class="lineno">   34</span> </div>
-<div class="line"><span class="lineno">   35</span>    <span class="comment">// Texture</span></div>
-<div class="line"><span class="lineno">   36</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glGenTextures(1, &amp;m_textureID));</div>
-<div class="line"><span class="lineno">   37</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));</div>
-<div class="line"><span class="lineno">   38</span> </div>
-<div class="line"><span class="lineno">   39</span>    <span class="keywordtype">int</span> width, height, nrChannels;</div>
-<div class="line"><span class="lineno">   40</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 6; i++)</div>
-<div class="line"><span class="lineno">   41</span>    {</div>
-<div class="line"><span class="lineno">   42</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* data = stbi_load(paths[i].c_str(), &amp;width, &amp;height, &amp;nrChannels, 0);</div>
-<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">if</span> (data)</div>
-<div class="line"><span class="lineno">   44</span>        {</div>
-<div class="line"><span class="lineno">   45</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data));</div>
-<div class="line"><span class="lineno">   46</span>            stbi_image_free(data);</div>
-<div class="line"><span class="lineno">   47</span>        }</div>
-<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   49</span>        {</div>
-<div class="line"><span class="lineno">   50</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;Error : Unable to load cubemap texture [{}] : {} with the following skybox file : {}&quot;</span>, i, paths[i].c_str(), skyboxFilePath);</div>
-<div class="line"><span class="lineno">   51</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   52</span>        }</div>
-<div class="line"><span class="lineno">   53</span>    }</div>
-<div class="line"><span class="lineno">   54</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glGenerateMipmap(GL_TEXTURE_CUBE_MAP));</div>
-<div class="line"><span class="lineno">   55</span> </div>
-<div class="line"><span class="lineno">   56</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR));</div>
-<div class="line"><span class="lineno">   57</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR));</div>
-<div class="line"><span class="lineno">   58</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));</div>
-<div class="line"><span class="lineno">   59</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));</div>
-<div class="line"><span class="lineno">   60</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE));</div>
-<div class="line"><span class="lineno">   61</span> </div>
-<div class="line"><span class="lineno">   62</span>    <span class="comment">// Shaders</span></div>
-<div class="line"><span class="lineno">   63</span>    std::string vert =</div>
-<div class="line"><span class="lineno">   64</span><span class="preprocessor">#include &quot;ElevateEngine/Renderer/Cubemap/skybox.vert&quot;</span></div>
-<div class="line"><span class="lineno">   65</span>        ;</div>
-<div class="line"><span class="lineno">   66</span>    std::string frag =</div>
-<div class="line"><span class="lineno">   67</span><span class="preprocessor">#include &quot;ElevateEngine/Renderer/Cubemap/skybox.frag&quot;</span></div>
-<div class="line"><span class="lineno">   68</span>        ;</div>
-<div class="line"><span class="lineno">   69</span>    m_cubemapShader = <a class="code hl_function" href="classElevate_1_1Shader.html#a73e24a45084e80156dd293de8242b9d4">Elevate::Shader::Create</a>(vert, frag);</div>
-<div class="line"><span class="lineno">   70</span>}</div>
+<div class="line"><span class="lineno">   21</span>    <span class="comment">// Vertex &amp; Index Buffers</span></div>
+<div class="line"><span class="lineno">   22</span>    m_VertexBuffer.reset(<a class="code hl_function" href="classElevate_1_1VertexBuffer.html#ac8a994fd567722b801198b80c1f2613e">Elevate::VertexBuffer::Create</a>(&amp;s_skyboxVertices[0], <span class="keyword">sizeof</span>(s_skyboxVertices)));</div>
+<div class="line"><span class="lineno">   23</span>    m_VertexBuffer-&gt;SetLayout({</div>
+<div class="line"><span class="lineno">   24</span>        { <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">Elevate::ShaderDataType::Float3</a>, <span class="stringliteral">&quot;a_Position&quot;</span> },</div>
+<div class="line"><span class="lineno">   25</span>        });</div>
+<div class="line"><span class="lineno">   26</span> </div>
+<div class="line"><span class="lineno">   27</span>    m_IndexBuffer.reset(<a class="code hl_function" href="classElevate_1_1IndexBuffer.html#ae21ecb4fdae45359a6541505fed12473">Elevate::IndexBuffer::Create</a>(&amp;s_skyboxIndices[0], <span class="keyword">sizeof</span>(s_skyboxIndices) / <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)));</div>
+<div class="line"><span class="lineno">   28</span>    m_VertexArray.reset(<a class="code hl_function" href="classElevate_1_1VertexArray.html#af79bb22e55a6514a933d739c73397e1e">VertexArray::Create</a>());</div>
+<div class="line"><span class="lineno">   29</span>    m_VertexArray-&gt;AddVertexBuffer(m_VertexBuffer);</div>
+<div class="line"><span class="lineno">   30</span>    m_VertexArray-&gt;SetIndexBuffer(m_IndexBuffer);</div>
+<div class="line"><span class="lineno">   31</span>    m_VertexArray-&gt;Unbind();</div>
+<div class="line"><span class="lineno">   32</span> </div>
+<div class="line"><span class="lineno">   33</span>    <span class="comment">// Texture</span></div>
+<div class="line"><span class="lineno">   34</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glGenTextures(1, &amp;m_textureID));</div>
+<div class="line"><span class="lineno">   35</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));</div>
+<div class="line"><span class="lineno">   36</span> </div>
+<div class="line"><span class="lineno">   37</span>    <span class="keywordtype">int</span> width, height, nrChannels;</div>
+<div class="line"><span class="lineno">   38</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 6; i++)</div>
+<div class="line"><span class="lineno">   39</span>    {</div>
+<div class="line"><span class="lineno">   40</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* data = stbi_load(paths[i].c_str(), &amp;width, &amp;height, &amp;nrChannels, 0);</div>
+<div class="line"><span class="lineno">   41</span>        <span class="keywordflow">if</span> (data)</div>
+<div class="line"><span class="lineno">   42</span>        {</div>
+<div class="line"><span class="lineno">   43</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data));</div>
+<div class="line"><span class="lineno">   44</span>            stbi_image_free(data);</div>
+<div class="line"><span class="lineno">   45</span>        }</div>
+<div class="line"><span class="lineno">   46</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   47</span>        {</div>
+<div class="line"><span class="lineno">   48</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;Error : Unable to load cubemap texture [{}] : {} with the following skybox file : {}&quot;</span>, i, paths[i].c_str(), skyboxFilePath);</div>
+<div class="line"><span class="lineno">   49</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   50</span>        }</div>
+<div class="line"><span class="lineno">   51</span>    }</div>
+<div class="line"><span class="lineno">   52</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glGenerateMipmap(GL_TEXTURE_CUBE_MAP));</div>
+<div class="line"><span class="lineno">   53</span> </div>
+<div class="line"><span class="lineno">   54</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR));</div>
+<div class="line"><span class="lineno">   55</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR));</div>
+<div class="line"><span class="lineno">   56</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));</div>
+<div class="line"><span class="lineno">   57</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));</div>
+<div class="line"><span class="lineno">   58</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE));</div>
+<div class="line"><span class="lineno">   59</span> </div>
+<div class="line"><span class="lineno">   60</span>    <span class="comment">// Shaders</span></div>
+<div class="line"><span class="lineno">   61</span>    std::string vert = std::string(<a class="code hl_define" href="Core_8h.html#a2ab88033038deb2307b90ef9b351135c">EE_SHADER_HEADER</a>) +</div>
+<div class="line"><span class="lineno">   62</span><span class="preprocessor">#include &quot;ElevateEngine/Renderer/Cubemap/skybox.vert&quot;</span></div>
+<div class="line"><span class="lineno">   63</span>        ;</div>
+<div class="line"><span class="lineno">   64</span>    std::string frag = std::string(<a class="code hl_define" href="Core_8h.html#a2ab88033038deb2307b90ef9b351135c">EE_SHADER_HEADER</a>) +</div>
+<div class="line"><span class="lineno">   65</span><span class="preprocessor">#include &quot;ElevateEngine/Renderer/Cubemap/skybox.frag&quot;</span></div>
+<div class="line"><span class="lineno">   66</span>        ;</div>
+<div class="line"><span class="lineno">   67</span>    m_cubemapShader = <a class="code hl_function" href="classElevate_1_1Shader.html#a73e24a45084e80156dd293de8242b9d4">Elevate::Shader::Create</a>(vert, frag);</div>
+<div class="line"><span class="lineno">   68</span>}</div>
+<div class="ttc" id="aCore_8h_html_a2ab88033038deb2307b90ef9b351135c"><div class="ttname"><a href="Core_8h.html#a2ab88033038deb2307b90ef9b351135c">EE_SHADER_HEADER</a></div><div class="ttdeci">#define EE_SHADER_HEADER</div><div class="ttdef"><b>Definition:</b> <a href="Core_8h_source.html#l00032">Core.h:32</a></div></div>
 <div class="ttc" id="aGLDebug_8h_html_adf70631301afb22944d6d461e8e9b5a7"><div class="ttname"><a href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a></div><div class="ttdeci">#define GLCheck(x)</div><div class="ttdef"><b>Definition:</b> <a href="GLDebug_8h_source.html#l00011">GLDebug.h:11</a></div></div>
 <div class="ttc" id="aclassElevate_1_1IndexBuffer_html_ae21ecb4fdae45359a6541505fed12473"><div class="ttname"><a href="classElevate_1_1IndexBuffer.html#ae21ecb4fdae45359a6541505fed12473">Elevate::IndexBuffer::Create</a></div><div class="ttdeci">static IndexBuffer * Create(const void *vertices, uint32_t count)</div><div class="ttdef"><b>Definition:</b> <a href="Buffer_8cpp_source.html#l00023">Buffer.cpp:23</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Shader_html_a73e24a45084e80156dd293de8242b9d4"><div class="ttname"><a href="classElevate_1_1Shader.html#a73e24a45084e80156dd293de8242b9d4">Elevate::Shader::Create</a></div><div class="ttdeci">static std::shared_ptr&lt; Shader &gt; Create(const std::string &amp;vertexSource, const std::string &amp;fragmentSouce)</div><div class="ttdef"><b>Definition:</b> <a href="Shader_8cpp_source.html#l00048">Shader.cpp:48</a></div></div>
@@ -245,35 +246,37 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00072">72</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   73</span>{</div>
-<div class="line"><span class="lineno">   74</span>    FILE* fp = fopen(filePath.c_str(), <span class="stringliteral">&quot;r&quot;</span>);</div>
-<div class="line"><span class="lineno">   75</span>    <span class="keywordflow">if</span> (!fp)</div>
-<div class="line"><span class="lineno">   76</span>    {</div>
-<div class="line"><span class="lineno">   77</span>        EE_CORE_ERROR(<span class="stringliteral">&quot;Error : Cannot open cubemap config file ({})&quot;</span>, filePath);</div>
-<div class="line"><span class="lineno">   78</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">   79</span>    }</div>
-<div class="line"><span class="lineno">   80</span> </div>
-<div class="line"><span class="lineno">   81</span>    <span class="keywordtype">char</span> readBuffer[65536];</div>
-<div class="line"><span class="lineno">   82</span>    rapidjson::FileReadStream is(fp, readBuffer, <span class="keyword">sizeof</span>(readBuffer));</div>
-<div class="line"><span class="lineno">   83</span>    rapidjson::Document doc;</div>
-<div class="line"><span class="lineno">   84</span>    doc.ParseStream(is);</div>
-<div class="line"><span class="lineno">   85</span>    fclose(fp);</div>
-<div class="line"><span class="lineno">   86</span> </div>
-<div class="line"><span class="lineno">   87</span>    <span class="comment">// todo add more error catching, check if member exists or return</span></div>
-<div class="line"><span class="lineno">   88</span>    std::string paths[6] =</div>
-<div class="line"><span class="lineno">   89</span>    {</div>
-<div class="line"><span class="lineno">   90</span>        doc[<span class="stringliteral">&quot;right&quot;</span>].GetString(),</div>
-<div class="line"><span class="lineno">   91</span>        doc[<span class="stringliteral">&quot;left&quot;</span>].GetString(),</div>
-<div class="line"><span class="lineno">   92</span>        doc[<span class="stringliteral">&quot;up&quot;</span>].GetString(),</div>
-<div class="line"><span class="lineno">   93</span>        doc[<span class="stringliteral">&quot;down&quot;</span>].GetString(),    </div>
-<div class="line"><span class="lineno">   94</span>        doc[<span class="stringliteral">&quot;front&quot;</span>].GetString(),</div>
-<div class="line"><span class="lineno">   95</span>        doc[<span class="stringliteral">&quot;back&quot;</span>].GetString()</div>
-<div class="line"><span class="lineno">   96</span>    };</div>
-<div class="line"><span class="lineno">   97</span> </div>
-<div class="line"><span class="lineno">   98</span>    <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_function" href="classElevate_1_1Cubemap.html#ac8c6718d7c0b76f2a121e800bc640cec">Cubemap</a>(paths, filePath);</div>
-<div class="line"><span class="lineno">   99</span>}</div>
-<div class="ttc" id="aclassElevate_1_1Cubemap_html_ac8c6718d7c0b76f2a121e800bc640cec"><div class="ttname"><a href="classElevate_1_1Cubemap.html#ac8c6718d7c0b76f2a121e800bc640cec">Elevate::Cubemap::Cubemap</a></div><div class="ttdeci">Cubemap(std::string paths[6], std::string skyboxFilePath=&quot;&quot;)</div><div class="ttdef"><b>Definition:</b> <a href="Cubemap_8cpp_source.html#l00015">Cubemap.cpp:15</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00070">70</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   71</span>{</div>
+<div class="line"><span class="lineno">   72</span>    std::string resolvedPath = <a class="code hl_function" href="classElevate_1_1PathResolver.html#a29cad9f644f4ab10936b43f652903fe9">PathResolver::Resolve</a>(filePath);</div>
+<div class="line"><span class="lineno">   73</span>    FILE* fp = fopen(resolvedPath.c_str(), <span class="stringliteral">&quot;r&quot;</span>);</div>
+<div class="line"><span class="lineno">   74</span>    <span class="keywordflow">if</span> (!fp)</div>
+<div class="line"><span class="lineno">   75</span>    {</div>
+<div class="line"><span class="lineno">   76</span>        EE_CORE_ERROR(<span class="stringliteral">&quot;Error : Cannot open cubemap config file ({})&quot;</span>, resolvedPath);</div>
+<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   78</span>    }</div>
+<div class="line"><span class="lineno">   79</span> </div>
+<div class="line"><span class="lineno">   80</span>    <span class="keywordtype">char</span> readBuffer[65536];</div>
+<div class="line"><span class="lineno">   81</span>    rapidjson::FileReadStream is(fp, readBuffer, <span class="keyword">sizeof</span>(readBuffer));</div>
+<div class="line"><span class="lineno">   82</span>    rapidjson::Document doc;</div>
+<div class="line"><span class="lineno">   83</span>    doc.ParseStream(is);</div>
+<div class="line"><span class="lineno">   84</span>    fclose(fp);</div>
+<div class="line"><span class="lineno">   85</span> </div>
+<div class="line"><span class="lineno">   86</span>    <span class="comment">// todo add more error catching, check if member exists or return</span></div>
+<div class="line"><span class="lineno">   87</span>    std::string paths[6] =</div>
+<div class="line"><span class="lineno">   88</span>    {</div>
+<div class="line"><span class="lineno">   89</span>        <a class="code hl_function" href="classElevate_1_1PathResolver.html#a29cad9f644f4ab10936b43f652903fe9">PathResolver::Resolve</a>(doc[<span class="stringliteral">&quot;right&quot;</span>].GetString()),</div>
+<div class="line"><span class="lineno">   90</span>        <a class="code hl_function" href="classElevate_1_1PathResolver.html#a29cad9f644f4ab10936b43f652903fe9">PathResolver::Resolve</a>(doc[<span class="stringliteral">&quot;left&quot;</span>].GetString()),</div>
+<div class="line"><span class="lineno">   91</span>        <a class="code hl_function" href="classElevate_1_1PathResolver.html#a29cad9f644f4ab10936b43f652903fe9">PathResolver::Resolve</a>(doc[<span class="stringliteral">&quot;up&quot;</span>].GetString()),</div>
+<div class="line"><span class="lineno">   92</span>        <a class="code hl_function" href="classElevate_1_1PathResolver.html#a29cad9f644f4ab10936b43f652903fe9">PathResolver::Resolve</a>(doc[<span class="stringliteral">&quot;down&quot;</span>].GetString()),</div>
+<div class="line"><span class="lineno">   93</span>        <a class="code hl_function" href="classElevate_1_1PathResolver.html#a29cad9f644f4ab10936b43f652903fe9">PathResolver::Resolve</a>(doc[<span class="stringliteral">&quot;front&quot;</span>].GetString()),</div>
+<div class="line"><span class="lineno">   94</span>        <a class="code hl_function" href="classElevate_1_1PathResolver.html#a29cad9f644f4ab10936b43f652903fe9">PathResolver::Resolve</a>(doc[<span class="stringliteral">&quot;back&quot;</span>].GetString())</div>
+<div class="line"><span class="lineno">   95</span>    };</div>
+<div class="line"><span class="lineno">   96</span> </div>
+<div class="line"><span class="lineno">   97</span>    <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_function" href="classElevate_1_1Cubemap.html#ac8c6718d7c0b76f2a121e800bc640cec">Cubemap</a>(paths, resolvedPath);</div>
+<div class="line"><span class="lineno">   98</span>}</div>
+<div class="ttc" id="aclassElevate_1_1Cubemap_html_ac8c6718d7c0b76f2a121e800bc640cec"><div class="ttname"><a href="classElevate_1_1Cubemap.html#ac8c6718d7c0b76f2a121e800bc640cec">Elevate::Cubemap::Cubemap</a></div><div class="ttdeci">Cubemap(std::string paths[6], std::string skyboxFilePath=&quot;&quot;)</div><div class="ttdef"><b>Definition:</b> <a href="Cubemap_8cpp_source.html#l00013">Cubemap.cpp:13</a></div></div>
+<div class="ttc" id="aclassElevate_1_1PathResolver_html_a29cad9f644f4ab10936b43f652903fe9"><div class="ttname"><a href="classElevate_1_1PathResolver.html#a29cad9f644f4ab10936b43f652903fe9">Elevate::PathResolver::Resolve</a></div><div class="ttdeci">static std::string Resolve(const std::string &amp;virtualPath)</div><div class="ttdef"><b>Definition:</b> <a href="PathResolver_8cpp_source.html#l00006">PathResolver.cpp:6</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -293,16 +296,16 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00101">101</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  102</span>{</div>
-<div class="line"><span class="lineno">  103</span>    <span class="keywordflow">if</span> (!shader) shader = m_cubemapShader;</div>
-<div class="line"><span class="lineno">  104</span> </div>
-<div class="line"><span class="lineno">  105</span>    <span class="comment">// todo send as a render command</span></div>
-<div class="line"><span class="lineno">  106</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">Renderer::PushRenderState</a>(m_renderState);</div>
-<div class="line"><span class="lineno">  107</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Renderer::BindShader</a>(shader);</div>
-<div class="line"><span class="lineno">  108</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));</div>
-<div class="line"><span class="lineno">  109</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">Renderer::DrawArray</a>(m_VertexArray);</div>
-<div class="line"><span class="lineno">  110</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00100">100</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  101</span>{</div>
+<div class="line"><span class="lineno">  102</span>    <span class="keywordflow">if</span> (!shader) shader = m_cubemapShader;</div>
+<div class="line"><span class="lineno">  103</span> </div>
+<div class="line"><span class="lineno">  104</span>    <span class="comment">// todo send as a render command</span></div>
+<div class="line"><span class="lineno">  105</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">Renderer::PushRenderState</a>(m_renderState);</div>
+<div class="line"><span class="lineno">  106</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Renderer::BindShader</a>(shader);</div>
+<div class="line"><span class="lineno">  107</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));</div>
+<div class="line"><span class="lineno">  108</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">Renderer::DrawArray</a>(m_VertexArray);</div>
+<div class="line"><span class="lineno">  109</span>}</div>
 <div class="ttc" id="aclassElevate_1_1Renderer_html_a0174d02b9894e9d18702b10add0e3fcb"><div class="ttname"><a href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">Elevate::Renderer::PushRenderState</a></div><div class="ttdeci">static void PushRenderState(const RenderState &amp;newState)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00090">Renderer.cpp:90</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Renderer_html_a9a0e9683c75b87fb1653900877bba302"><div class="ttname"><a href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Elevate::Renderer::BindShader</a></div><div class="ttdeci">static bool BindShader(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00029">Renderer.cpp:29</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Renderer_html_aa8fb2f24ccd1629ea1bd98ddce55e667"><div class="ttname"><a href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">Elevate::Renderer::DrawArray</a></div><div class="ttdeci">static void DrawArray(const VertexArray *vao, DrawPrimitiveType primitive=DrawPrimitiveType::Triangles)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00072">Renderer.cpp:72</a></div></div>
@@ -324,10 +327,10 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00124">124</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  125</span>{</div>
-<div class="line"><span class="lineno">  126</span>    <span class="keywordflow">return</span> m_filePath;</div>
-<div class="line"><span class="lineno">  127</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00123">123</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  124</span>{</div>
+<div class="line"><span class="lineno">  125</span>    <span class="keywordflow">return</span> m_filePath;</div>
+<div class="line"><span class="lineno">  126</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -347,11 +350,11 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00112">112</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  113</span>{</div>
-<div class="line"><span class="lineno">  114</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Renderer::BindShader</a>(m_cubemapShader);</div>
-<div class="line"><span class="lineno">  115</span>    m_cubemapShader-&gt;SetUniformMatrix4fv(<span class="stringliteral">&quot;projection&quot;</span>, proj);</div>
-<div class="line"><span class="lineno">  116</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00111">111</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  112</span>{</div>
+<div class="line"><span class="lineno">  113</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Renderer::BindShader</a>(m_cubemapShader);</div>
+<div class="line"><span class="lineno">  114</span>    m_cubemapShader-&gt;SetUniformMatrix4fv(<span class="stringliteral">&quot;projection&quot;</span>, proj);</div>
+<div class="line"><span class="lineno">  115</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -371,11 +374,11 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00118">118</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  119</span>{</div>
-<div class="line"><span class="lineno">  120</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Renderer::BindShader</a>(m_cubemapShader);</div>
-<div class="line"><span class="lineno">  121</span>    m_cubemapShader-&gt;SetUniformMatrix4fv(<span class="stringliteral">&quot;view&quot;</span>, view);</div>
-<div class="line"><span class="lineno">  122</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00117">117</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  118</span>{</div>
+<div class="line"><span class="lineno">  119</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Renderer::BindShader</a>(m_cubemapShader);</div>
+<div class="line"><span class="lineno">  120</span>    m_cubemapShader-&gt;SetUniformMatrix4fv(<span class="stringliteral">&quot;view&quot;</span>, view);</div>
+<div class="line"><span class="lineno">  121</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

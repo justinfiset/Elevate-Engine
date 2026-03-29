@@ -189,15 +189,16 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OpenGLBuffer_8cpp_source.html#l00017">17</a> of file <a class="el" href="OpenGLBuffer_8cpp_source.html">OpenGLBuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   18</span>        : <a class="code hl_function" href="classElevate_1_1VertexBuffer.html#a012cfdc6c00472d482f530eed278c7e2">VertexBuffer</a>(vertices, size)</div>
-<div class="line"><span class="lineno">   19</span>    {</div>
-<div class="line"><span class="lineno">   20</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glCreateBuffers(1, &amp;m_rendererID));</div>
-<div class="line"><span class="lineno">   21</span>        <a class="code hl_function" href="classElevate_1_1OpenGLVertexBuffer.html#a55460800558590d5a4185450c3dcb4bf">SetData</a>(vertices, size);</div>
-<div class="line"><span class="lineno">   22</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLBuffer_8cpp_source.html#l00035">35</a> of file <a class="el" href="OpenGLBuffer_8cpp_source.html">OpenGLBuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   36</span>        : <a class="code hl_function" href="classElevate_1_1VertexBuffer.html#a012cfdc6c00472d482f530eed278c7e2">VertexBuffer</a>(vertices, size)</div>
+<div class="line"><span class="lineno">   37</span>    {</div>
+<div class="line"><span class="lineno">   38</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(<a class="code hl_function" href="namespaceElevate.html#a39a4828ecbc5697c5bb04abfe62b1124">CreateBuffers</a>(1, &amp;m_rendererID));</div>
+<div class="line"><span class="lineno">   39</span>        <a class="code hl_function" href="classElevate_1_1OpenGLVertexBuffer.html#a55460800558590d5a4185450c3dcb4bf">SetData</a>(vertices, size);</div>
+<div class="line"><span class="lineno">   40</span>    }</div>
 <div class="ttc" id="aGLDebug_8h_html_adf70631301afb22944d6d461e8e9b5a7"><div class="ttname"><a href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a></div><div class="ttdeci">#define GLCheck(x)</div><div class="ttdef"><b>Definition:</b> <a href="GLDebug_8h_source.html#l00011">GLDebug.h:11</a></div></div>
-<div class="ttc" id="aclassElevate_1_1OpenGLVertexBuffer_html_a55460800558590d5a4185450c3dcb4bf"><div class="ttname"><a href="classElevate_1_1OpenGLVertexBuffer.html#a55460800558590d5a4185450c3dcb4bf">Elevate::OpenGLVertexBuffer::SetData</a></div><div class="ttdeci">virtual void SetData(const void *newData, uint32_t size) override</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLBuffer_8cpp_source.html#l00043">OpenGLBuffer.cpp:43</a></div></div>
+<div class="ttc" id="aclassElevate_1_1OpenGLVertexBuffer_html_a55460800558590d5a4185450c3dcb4bf"><div class="ttname"><a href="classElevate_1_1OpenGLVertexBuffer.html#a55460800558590d5a4185450c3dcb4bf">Elevate::OpenGLVertexBuffer::SetData</a></div><div class="ttdeci">virtual void SetData(const void *newData, uint32_t size) override</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLBuffer_8cpp_source.html#l00061">OpenGLBuffer.cpp:61</a></div></div>
 <div class="ttc" id="aclassElevate_1_1VertexBuffer_html_a012cfdc6c00472d482f530eed278c7e2"><div class="ttname"><a href="classElevate_1_1VertexBuffer.html#a012cfdc6c00472d482f530eed278c7e2">Elevate::VertexBuffer::VertexBuffer</a></div><div class="ttdeci">VertexBuffer(const void *vertices, uint32_t size)</div><div class="ttdef"><b>Definition:</b> <a href="Buffer_8h_source.html#l00077">Buffer.h:77</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a39a4828ecbc5697c5bb04abfe62b1124"><div class="ttname"><a href="namespaceElevate.html#a39a4828ecbc5697c5bb04abfe62b1124">Elevate::CreateBuffers</a></div><div class="ttdeci">void CreateBuffers(int32_t n, uint32_t *ids)</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLBuffer_8cpp_source.html#l00014">OpenGLBuffer.cpp:14</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -224,14 +225,14 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OpenGLBuffer_8cpp_source.html#l00024">24</a> of file <a class="el" href="OpenGLBuffer_8cpp_source.html">OpenGLBuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   25</span>    {</div>
-<div class="line"><span class="lineno">   26</span>        <span class="comment">// Check if the OpenGl context is still active before performing actions</span></div>
-<div class="line"><span class="lineno">   27</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classElevate_1_1GraphicsContext.html#ac825bf6d6723a5e4a11bd213a4fb8376">GraphicsContext::CanUseContext</a>())</div>
-<div class="line"><span class="lineno">   28</span>        {</div>
-<div class="line"><span class="lineno">   29</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDeleteBuffers(1, &amp;m_rendererID));</div>
-<div class="line"><span class="lineno">   30</span>        }</div>
-<div class="line"><span class="lineno">   31</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLBuffer_8cpp_source.html#l00042">42</a> of file <a class="el" href="OpenGLBuffer_8cpp_source.html">OpenGLBuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   43</span>    {</div>
+<div class="line"><span class="lineno">   44</span>        <span class="comment">// Check if the OpenGl context is still active before performing actions</span></div>
+<div class="line"><span class="lineno">   45</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classElevate_1_1GraphicsContext.html#ac825bf6d6723a5e4a11bd213a4fb8376">GraphicsContext::CanUseContext</a>())</div>
+<div class="line"><span class="lineno">   46</span>        {</div>
+<div class="line"><span class="lineno">   47</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDeleteBuffers(1, &amp;m_rendererID));</div>
+<div class="line"><span class="lineno">   48</span>        }</div>
+<div class="line"><span class="lineno">   49</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1GraphicsContext_html_ac825bf6d6723a5e4a11bd213a4fb8376"><div class="ttname"><a href="classElevate_1_1GraphicsContext.html#ac825bf6d6723a5e4a11bd213a4fb8376">Elevate::GraphicsContext::CanUseContext</a></div><div class="ttdeci">static bool CanUseContext()</div><div class="ttdef"><b>Definition:</b> <a href="GraphicsContext_8h_source.html#l00034">GraphicsContext.h:34</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -262,10 +263,10 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1VertexBuffer.html#aba7dad68cb21b1f6758a950a3575d4a1">Elevate::VertexBuffer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLBuffer_8cpp_source.html#l00033">33</a> of file <a class="el" href="OpenGLBuffer_8cpp_source.html">OpenGLBuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   34</span>    {</div>
-<div class="line"><span class="lineno">   35</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindBuffer(GL_ARRAY_BUFFER, m_rendererID));</div>
-<div class="line"><span class="lineno">   36</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLBuffer_8cpp_source.html#l00051">51</a> of file <a class="el" href="OpenGLBuffer_8cpp_source.html">OpenGLBuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   52</span>    {</div>
+<div class="line"><span class="lineno">   53</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindBuffer(GL_ARRAY_BUFFER, m_rendererID));</div>
+<div class="line"><span class="lineno">   54</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -325,19 +326,20 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1VertexBuffer.html#a562b268e0fe205c53b82f95cb6e00f60">Elevate::VertexBuffer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLBuffer_8cpp_source.html#l00061">61</a> of file <a class="el" href="OpenGLBuffer_8cpp_source.html">OpenGLBuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   62</span>    {</div>
-<div class="line"><span class="lineno">   63</span>        <span class="keywordflow">if</span> (m_rendererID != 0 &amp;&amp; data)</div>
-<div class="line"><span class="lineno">   64</span>        {</div>
-<div class="line"><span class="lineno">   65</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glNamedBufferData(m_rendererID, newSize, data, GL_DYNAMIC_DRAW));</div>
-<div class="line"><span class="lineno">   66</span>            <a class="code hl_function" href="classElevate_1_1VertexBuffer.html#af2e1a7d7dba29892b9a5d7b4fb440328">SetSize</a>(newSize);</div>
-<div class="line"><span class="lineno">   67</span>        }</div>
-<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   69</span>        {</div>
-<div class="line"><span class="lineno">   70</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;ERROR : (OpenGLVertexBuffer::Resize) You must initialize the VertexBuffer before resizing it.&quot;</span>);</div>
-<div class="line"><span class="lineno">   71</span>        }</div>
-<div class="line"><span class="lineno">   72</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLBuffer_8cpp_source.html#l00079">79</a> of file <a class="el" href="OpenGLBuffer_8cpp_source.html">OpenGLBuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   80</span>    {</div>
+<div class="line"><span class="lineno">   81</span>        <span class="keywordflow">if</span> (m_rendererID != 0 &amp;&amp; data)</div>
+<div class="line"><span class="lineno">   82</span>        {</div>
+<div class="line"><span class="lineno">   83</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(<a class="code hl_function" href="namespaceElevate.html#ae1cdc9a887a2c2803a4bb303b1660ae9">NamedBufferData</a>(m_rendererID, GL_ARRAY_BUFFER, newSize, data, GL_DYNAMIC_DRAW));</div>
+<div class="line"><span class="lineno">   84</span>            <a class="code hl_function" href="classElevate_1_1VertexBuffer.html#af2e1a7d7dba29892b9a5d7b4fb440328">SetSize</a>(newSize);</div>
+<div class="line"><span class="lineno">   85</span>        }</div>
+<div class="line"><span class="lineno">   86</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   87</span>        {</div>
+<div class="line"><span class="lineno">   88</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;ERROR : (OpenGLVertexBuffer::Resize) You must initialize the VertexBuffer before resizing it.&quot;</span>);</div>
+<div class="line"><span class="lineno">   89</span>        }</div>
+<div class="line"><span class="lineno">   90</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1VertexBuffer_html_af2e1a7d7dba29892b9a5d7b4fb440328"><div class="ttname"><a href="classElevate_1_1VertexBuffer.html#af2e1a7d7dba29892b9a5d7b4fb440328">Elevate::VertexBuffer::SetSize</a></div><div class="ttdeci">void SetSize(uint32_t newSize)</div><div class="ttdef"><b>Definition:</b> <a href="Buffer_8h_source.html#l00095">Buffer.h:95</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_ae1cdc9a887a2c2803a4bb303b1660ae9"><div class="ttname"><a href="namespaceElevate.html#ae1cdc9a887a2c2803a4bb303b1660ae9">Elevate::NamedBufferData</a></div><div class="ttdeci">void NamedBufferData(uint32_t buffer, uint32_t target, size_t size, const void *data, uint32_t usage)</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLBuffer_8cpp_source.html#l00023">OpenGLBuffer.cpp:23</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -377,23 +379,23 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1VertexBuffer.html#a5e201e5217c1545daf3bd26bffe25c4b">Elevate::VertexBuffer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLBuffer_8cpp_source.html#l00043">43</a> of file <a class="el" href="OpenGLBuffer_8cpp_source.html">OpenGLBuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   44</span>    {</div>
-<div class="line"><span class="lineno">   45</span>        <span class="keywordflow">if</span> (m_rendererID != 0)</div>
-<div class="line"><span class="lineno">   46</span>        {</div>
-<div class="line"><span class="lineno">   47</span>            data = newData;</div>
-<div class="line"><span class="lineno">   48</span>            <a class="code hl_function" href="classElevate_1_1VertexBuffer.html#af2e1a7d7dba29892b9a5d7b4fb440328">SetSize</a>(size);</div>
-<div class="line"><span class="lineno">   49</span> </div>
-<div class="line"><span class="lineno">   50</span>            <span class="keywordflow">if</span> (newData)</div>
-<div class="line"><span class="lineno">   51</span>            {</div>
-<div class="line"><span class="lineno">   52</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glNamedBufferData(m_rendererID, size, data, GL_DYNAMIC_DRAW));</div>
-<div class="line"><span class="lineno">   53</span>            }</div>
-<div class="line"><span class="lineno">   54</span>        }</div>
-<div class="line"><span class="lineno">   55</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   56</span>        {</div>
-<div class="line"><span class="lineno">   57</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;ERROR : (OpenGLVertexBuffer::SetData) Buffer is not initialized yet.&quot;</span>);</div>
-<div class="line"><span class="lineno">   58</span>        }</div>
-<div class="line"><span class="lineno">   59</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLBuffer_8cpp_source.html#l00061">61</a> of file <a class="el" href="OpenGLBuffer_8cpp_source.html">OpenGLBuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   62</span>    {</div>
+<div class="line"><span class="lineno">   63</span>        <span class="keywordflow">if</span> (m_rendererID != 0)</div>
+<div class="line"><span class="lineno">   64</span>        {</div>
+<div class="line"><span class="lineno">   65</span>            data = newData;</div>
+<div class="line"><span class="lineno">   66</span>            <a class="code hl_function" href="classElevate_1_1VertexBuffer.html#af2e1a7d7dba29892b9a5d7b4fb440328">SetSize</a>(size);</div>
+<div class="line"><span class="lineno">   67</span> </div>
+<div class="line"><span class="lineno">   68</span>            <span class="keywordflow">if</span> (newData)</div>
+<div class="line"><span class="lineno">   69</span>            {</div>
+<div class="line"><span class="lineno">   70</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(<a class="code hl_function" href="namespaceElevate.html#ae1cdc9a887a2c2803a4bb303b1660ae9">NamedBufferData</a>(m_rendererID, GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW));</div>
+<div class="line"><span class="lineno">   71</span>            }</div>
+<div class="line"><span class="lineno">   72</span>        }</div>
+<div class="line"><span class="lineno">   73</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   74</span>        {</div>
+<div class="line"><span class="lineno">   75</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;ERROR : (OpenGLVertexBuffer::SetData) Buffer is not initialized yet.&quot;</span>);</div>
+<div class="line"><span class="lineno">   76</span>        }</div>
+<div class="line"><span class="lineno">   77</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -453,10 +455,10 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1VertexBuffer.html#a9ebf92473d7cd42689471ac3411ee35e">Elevate::VertexBuffer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLBuffer_8cpp_source.html#l00038">38</a> of file <a class="el" href="OpenGLBuffer_8cpp_source.html">OpenGLBuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   39</span>    {</div>
-<div class="line"><span class="lineno">   40</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindBuffer(GL_ARRAY_BUFFER, 0));</div>
-<div class="line"><span class="lineno">   41</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLBuffer_8cpp_source.html#l00056">56</a> of file <a class="el" href="OpenGLBuffer_8cpp_source.html">OpenGLBuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   57</span>    {</div>
+<div class="line"><span class="lineno">   58</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindBuffer(GL_ARRAY_BUFFER, 0));</div>
+<div class="line"><span class="lineno">   59</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

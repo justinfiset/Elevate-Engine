@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('OpenGLContext_8cpp_source.html',''); i
 <a href="OpenGLContext_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="eepch_8h.html">eepch.h</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="OpenGLContext_8h.html">OpenGLContext.h</a>&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;glad/glad.h&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="GraphicsAPI_8h.html">ElevateEngine/Renderer/GraphicsAPI.h</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;GLFW/glfw3.h&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="Assert_8h.html">ElevateEngine/Core/Assert.h</a>&quot;</span></div>
@@ -115,33 +115,40 @@ $(document).ready(function(){initNavTree('OpenGLContext_8cpp_source.html',''); i
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classElevate_1_1OpenGLContext.html#aa3f11f992685ab7e4695f68362ef6042">   16</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1OpenGLContext.html#aa3f11f992685ab7e4695f68362ef6042">Elevate::OpenGLContext::Init</a>()</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    glfwMakeContextCurrent(m_WindowHandle);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordtype">int</span> status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    EE_CORE_ASSERT(status, <span class="stringliteral">&quot;Failed to initialize Glad.&quot;</span>);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordtype">int</span> profile = 0;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &amp;profile);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="comment">// Hides faces that are not in the right direction</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    glCullFace(GL_BACK);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    glFrontFace(GL_CCW);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    glEnable(GL_BLEND);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    EE_CORE_TRACE(<span class="stringliteral">&quot;OpenGL version : {}&quot;</span>, <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(glGetString(GL_VERSION)));</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    EE_CORE_INFO(<span class="stringliteral">&quot;OpenGL Renderer Initialized: {}, {}&quot;</span>,</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(glGetString(GL_VENDOR)),</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(glGetString(GL_RENDERER)));</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="classElevate_1_1OpenGLContext.html#a602f0a4a918e6ca99c0c69ae0565f6ae">   38</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1OpenGLContext.html#a602f0a4a918e6ca99c0c69ae0565f6ae">Elevate::OpenGLContext::SwapBuffers</a>()</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>{</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    glfwSwapBuffers(m_WindowHandle);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#ifndef EE_PLATFORM_WEB</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordtype">int</span> status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    EE_CORE_ASSERT(status, <span class="stringliteral">&quot;Failed to initialize Glad.&quot;</span>);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordtype">int</span> profile = 0;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &amp;profile);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    glCullFace(GL_BACK);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    glFrontFace(GL_CCW);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    glEnable(GL_BLEND);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* version = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(glGetString(GL_VERSION));</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* vendor = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(glGetString(GL_VENDOR));</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* renderer = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(glGetString(GL_RENDERER));</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    EE_CORE_TRACE(<span class="stringliteral">&quot;OpenGL version : {}&quot;</span>, version ? version : <span class="stringliteral">&quot;Unknown&quot;</span>);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    EE_CORE_INFO(<span class="stringliteral">&quot;OpenGL Renderer Initialized: {}, {}&quot;</span>, </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        vendor ? vendor : <span class="stringliteral">&quot;Unknown&quot;</span>, </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        renderer ? renderer : <span class="stringliteral">&quot;Unknown&quot;</span>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classElevate_1_1OpenGLContext.html#a602f0a4a918e6ca99c0c69ae0565f6ae">   44</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1OpenGLContext.html#a602f0a4a918e6ca99c0c69ae0565f6ae">Elevate::OpenGLContext::SwapBuffers</a>()</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    glfwSwapBuffers(m_WindowHandle);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
 <div class="ttc" id="aAssert_8h_html"><div class="ttname"><a href="Assert_8h.html">Assert.h</a></div></div>
+<div class="ttc" id="aGraphicsAPI_8h_html"><div class="ttname"><a href="GraphicsAPI_8h.html">GraphicsAPI.h</a></div></div>
 <div class="ttc" id="aOpenGLContext_8h_html"><div class="ttname"><a href="OpenGLContext_8h.html">OpenGLContext.h</a></div></div>
 <div class="ttc" id="aRenderer_8h_html"><div class="ttname"><a href="Renderer_8h.html">Renderer.h</a></div></div>
-<div class="ttc" id="aclassElevate_1_1OpenGLContext_html_a602f0a4a918e6ca99c0c69ae0565f6ae"><div class="ttname"><a href="classElevate_1_1OpenGLContext.html#a602f0a4a918e6ca99c0c69ae0565f6ae">Elevate::OpenGLContext::SwapBuffers</a></div><div class="ttdeci">virtual void SwapBuffers() override</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLContext_8cpp_source.html#l00038">OpenGLContext.cpp:38</a></div></div>
+<div class="ttc" id="aclassElevate_1_1OpenGLContext_html_a602f0a4a918e6ca99c0c69ae0565f6ae"><div class="ttname"><a href="classElevate_1_1OpenGLContext.html#a602f0a4a918e6ca99c0c69ae0565f6ae">Elevate::OpenGLContext::SwapBuffers</a></div><div class="ttdeci">virtual void SwapBuffers() override</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLContext_8cpp_source.html#l00044">OpenGLContext.cpp:44</a></div></div>
 <div class="ttc" id="aclassElevate_1_1OpenGLContext_html_aa3f11f992685ab7e4695f68362ef6042"><div class="ttname"><a href="classElevate_1_1OpenGLContext.html#aa3f11f992685ab7e4695f68362ef6042">Elevate::OpenGLContext::Init</a></div><div class="ttdeci">virtual void Init() override</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLContext_8cpp_source.html#l00016">OpenGLContext.cpp:16</a></div></div>
 <div class="ttc" id="aclassElevate_1_1OpenGLContext_html_afb00c28f5535924bd5382e4e69112b73"><div class="ttname"><a href="classElevate_1_1OpenGLContext.html#afb00c28f5535924bd5382e4e69112b73">Elevate::OpenGLContext::OpenGLContext</a></div><div class="ttdeci">OpenGLContext(GLFWwindow *windowHandle)</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLContext_8cpp_source.html#l00010">OpenGLContext.cpp:10</a></div></div>
 <div class="ttc" id="aeepch_8h_html"><div class="ttname"><a href="eepch_8h.html">eepch.h</a></div></div>

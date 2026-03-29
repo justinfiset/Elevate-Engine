@@ -149,12 +149,12 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AssetBrowserPanel_8cpp_source.html#l00018">18</a> of file <a class="el" href="AssetBrowserPanel_8cpp_source.html">AssetBrowserPanel.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   19</span>{</div>
-<div class="line"><span class="lineno">   20</span>    LoadExtensionsMeta();</div>
-<div class="line"><span class="lineno">   21</span>    m_folderTexture = <a class="code hl_function" href="classElevate_1_1Texture.html#aea24f7434fbeb7c32566548a551a1200">Texture::CreateFromFile</a>(m_FileMetadata[<span class="stringliteral">&quot;DIRECTORY&quot;</span>].iconPath);</div>
-<div class="line"><span class="lineno">   22</span>    EE_CORE_INFO(<span class="stringliteral">&quot;Editor Assets Browser Initiated.&quot;</span>);</div>
-<div class="line"><span class="lineno">   23</span>}</div>
+<p class="definition">Definition at line <a class="el" href="AssetBrowserPanel_8cpp_source.html#l00019">19</a> of file <a class="el" href="AssetBrowserPanel_8cpp_source.html">AssetBrowserPanel.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   20</span>{</div>
+<div class="line"><span class="lineno">   21</span>    LoadExtensionsMeta();</div>
+<div class="line"><span class="lineno">   22</span>    m_folderTexture = <a class="code hl_function" href="classElevate_1_1Texture.html#aea24f7434fbeb7c32566548a551a1200">Texture::CreateFromFile</a>(m_FileMetadata[<span class="stringliteral">&quot;DIRECTORY&quot;</span>].iconPath);</div>
+<div class="line"><span class="lineno">   23</span>    EE_CORE_INFO(<span class="stringliteral">&quot;Editor Assets Browser Initiated.&quot;</span>);</div>
+<div class="line"><span class="lineno">   24</span>}</div>
 <div class="ttc" id="aclassElevate_1_1Texture_html_aea24f7434fbeb7c32566548a551a1200"><div class="ttname"><a href="classElevate_1_1Texture.html#aea24f7434fbeb7c32566548a551a1200">Elevate::Texture::CreateFromFile</a></div><div class="ttdeci">static TexturePtr CreateFromFile(const std::string &amp;path, TextureType usage=TextureType::Diffuse)</div><div class="ttdef"><b>Definition:</b> <a href="Texture_8cpp_source.html#l00022">Texture.cpp:22</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -185,87 +185,87 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classElevate_1_1Editor_1_1EditorWidget.html#ac43be72705d4d4f1f18487eaa4cd4a6f">Elevate::Editor::EditorWidget</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AssetBrowserPanel_8cpp_source.html#l00034">34</a> of file <a class="el" href="AssetBrowserPanel_8cpp_source.html">AssetBrowserPanel.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   35</span>{</div>
-<div class="line"><span class="lineno">   36</span>    ImGui::Begin(<span class="stringliteral">&quot;Asset Browser&quot;</span>);</div>
-<div class="line"><span class="lineno">   37</span> </div>
-<div class="line"><span class="lineno">   38</span>    ImGui::BeginGroup();</div>
-<div class="line"><span class="lineno">   39</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_relatedPaths.rbegin(); it != m_relatedPaths.rend(); ++it)</div>
-<div class="line"><span class="lineno">   40</span>    {</div>
-<div class="line"><span class="lineno">   41</span>        ImGui::BeginDisabled(it-&gt;Path == m_CurrentPath);</div>
-<div class="line"><span class="lineno">   42</span>        <span class="keywordflow">if</span> (ImGui::Button(it-&gt;DisplayName.c_str()))</div>
-<div class="line"><span class="lineno">   43</span>        {</div>
-<div class="line"><span class="lineno">   44</span>            m_CurrentPath = it-&gt;Path;</div>
-<div class="line"><span class="lineno">   45</span>            m_shouldUpdate = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">   46</span>        }</div>
-<div class="line"><span class="lineno">   47</span>        ImGui::EndDisabled();</div>
-<div class="line"><span class="lineno">   48</span> </div>
-<div class="line"><span class="lineno">   49</span>        ImGui::SameLine();</div>
-<div class="line"><span class="lineno">   50</span>        ImGui::Text(<span class="stringliteral">&quot;/&quot;</span>);</div>
-<div class="line"><span class="lineno">   51</span>        ImGui::SameLine();</div>
-<div class="line"><span class="lineno">   52</span>    }</div>
-<div class="line"><span class="lineno">   53</span>    ImGui::EndGroup();</div>
-<div class="line"><span class="lineno">   54</span>    ImGui::Separator();</div>
-<div class="line"><span class="lineno">   55</span> </div>
-<div class="line"><span class="lineno">   56</span>    ImVec2 buttonSize(72, 72);</div>
-<div class="line"><span class="lineno">   57</span>    <span class="keywordtype">float</span> spacing = ImGui::GetStyle().ItemSpacing.x * 2;</div>
-<div class="line"><span class="lineno">   58</span>    <span class="keywordtype">float</span> panelWidth = ImGui::GetWindowSize().x;</div>
-<div class="line"><span class="lineno">   59</span>    <span class="keywordtype">int</span> colNb = (int) std::floor(panelWidth / (buttonSize.x + spacing));</div>
-<div class="line"><span class="lineno">   60</span>    colNb = std::max(1, colNb);</div>
-<div class="line"><span class="lineno">   61</span> </div>
-<div class="line"><span class="lineno">   62</span>    <span class="keywordtype">int</span> index = 0;</div>
-<div class="line"><span class="lineno">   63</span> </div>
-<div class="line"><span class="lineno">   64</span>    <span class="keywordflow">if</span> (m_CurrentPath != <span class="stringliteral">&quot;.&quot;</span>) {</div>
-<div class="line"><span class="lineno">   65</span>        ImGui::PushID(index);</div>
-<div class="line"><span class="lineno">   66</span>        ImGui::BeginGroup();</div>
-<div class="line"><span class="lineno">   67</span>        ImGui::ImageButton(<span class="stringliteral">&quot;back&quot;</span>, (ImTextureID) m_folderTexture-&gt;GetNativeHandle(), buttonSize);</div>
-<div class="line"><span class="lineno">   68</span> </div>
-<div class="line"><span class="lineno">   69</span>        <span class="keywordflow">if</span> (ImGui::IsItemHovered() &amp;&amp; ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {</div>
-<div class="line"><span class="lineno">   70</span>            m_CurrentPath = m_CurrentPath.parent_path();</div>
-<div class="line"><span class="lineno">   71</span>            m_shouldUpdate = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">   72</span>        }</div>
-<div class="line"><span class="lineno">   73</span> </div>
-<div class="line"><span class="lineno">   74</span>        ImGui::TextWrapped(<span class="stringliteral">&quot;../&quot;</span>);</div>
-<div class="line"><span class="lineno">   75</span> </div>
-<div class="line"><span class="lineno">   76</span>        ImGui::EndGroup();</div>
-<div class="line"><span class="lineno">   77</span>        ImGui::PopID();</div>
-<div class="line"><span class="lineno">   78</span>        ImGui::SameLine();</div>
-<div class="line"><span class="lineno">   79</span>        index++;</div>
-<div class="line"><span class="lineno">   80</span>    }</div>
-<div class="line"><span class="lineno">   81</span> </div>
-<div class="line"><span class="lineno">   82</span>    <span class="keywordtype">int</span> <span class="keywordtype">id</span> = 0;</div>
-<div class="line"><span class="lineno">   83</span>    <span class="keywordflow">for</span> (FileItem item : m_FileItems)</div>
-<div class="line"><span class="lineno">   84</span>    {</div>
-<div class="line"><span class="lineno">   85</span>        ImGui::PushID(index);</div>
-<div class="line"><span class="lineno">   86</span>        ImGui::BeginGroup();</div>
-<div class="line"><span class="lineno">   87</span> </div>
-<div class="line"><span class="lineno">   88</span>        <span class="keywordflow">if</span> (ImGui::ImageButton(<span class="stringliteral">&quot;file_item&quot;</span>, (ImTextureID) m_currentTextures[item.iconPath]-&gt;GetNativeHandle(), buttonSize)) {}</div>
-<div class="line"><span class="lineno">   89</span> </div>
-<div class="line"><span class="lineno">   90</span>        <span class="keywordflow">if</span> (ImGui::IsItemHovered() &amp;&amp; ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {</div>
-<div class="line"><span class="lineno">   91</span>            <span class="keywordflow">if</span> (item.type == <a class="code hl_enumvalue" href="namespaceElevate_1_1Editor.html#a718eccadaf819ea1260da6dd98dbd25caa4265c2a39925337bbe826b399f8e6a5">Directory</a>) {</div>
-<div class="line"><span class="lineno">   92</span>                m_CurrentPath += <span class="stringliteral">&quot;/&quot;</span> + item.name;</div>
-<div class="line"><span class="lineno">   93</span>                m_shouldUpdate = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">   94</span>            }</div>
-<div class="line"><span class="lineno">   95</span>            <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   96</span>                <a class="code hl_function" href="namespaceElevate_1_1Files.html#a49bcee940c569f34ea4e0123826642ec">Files::OpenWithDefaultApp</a>(item.path);</div>
-<div class="line"><span class="lineno">   97</span>            }</div>
-<div class="line"><span class="lineno">   98</span>        }</div>
-<div class="line"><span class="lineno">   99</span> </div>
-<div class="line"><span class="lineno">  100</span>        ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + buttonSize.x);</div>
-<div class="line"><span class="lineno">  101</span>        ImGui::TextWrapped(<span class="stringliteral">&quot;%s&quot;</span>, item.name.c_str());</div>
-<div class="line"><span class="lineno">  102</span>        ImGui::PopTextWrapPos();</div>
-<div class="line"><span class="lineno">  103</span> </div>
-<div class="line"><span class="lineno">  104</span>        ImGui::EndGroup();</div>
-<div class="line"><span class="lineno">  105</span>        ImGui::PopID();</div>
-<div class="line"><span class="lineno">  106</span> </div>
-<div class="line"><span class="lineno">  107</span>        <span class="keywordflow">if</span> ((index + 1) % colNb != 0)</div>
-<div class="line"><span class="lineno">  108</span>        {</div>
-<div class="line"><span class="lineno">  109</span>            ImGui::SameLine();</div>
-<div class="line"><span class="lineno">  110</span>        }</div>
-<div class="line"><span class="lineno">  111</span>        index++;</div>
-<div class="line"><span class="lineno">  112</span>    }</div>
-<div class="line"><span class="lineno">  113</span>    ImGui::End();</div>
-<div class="line"><span class="lineno">  114</span>}</div>
+<p class="definition">Definition at line <a class="el" href="AssetBrowserPanel_8cpp_source.html#l00035">35</a> of file <a class="el" href="AssetBrowserPanel_8cpp_source.html">AssetBrowserPanel.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   36</span>{</div>
+<div class="line"><span class="lineno">   37</span>    ImGui::Begin(<span class="stringliteral">&quot;Asset Browser&quot;</span>);</div>
+<div class="line"><span class="lineno">   38</span> </div>
+<div class="line"><span class="lineno">   39</span>    ImGui::BeginGroup();</div>
+<div class="line"><span class="lineno">   40</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_relatedPaths.rbegin(); it != m_relatedPaths.rend(); ++it)</div>
+<div class="line"><span class="lineno">   41</span>    {</div>
+<div class="line"><span class="lineno">   42</span>        ImGui::BeginDisabled(it-&gt;Path == m_CurrentPath);</div>
+<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">if</span> (ImGui::Button(it-&gt;DisplayName.c_str()))</div>
+<div class="line"><span class="lineno">   44</span>        {</div>
+<div class="line"><span class="lineno">   45</span>            m_CurrentPath = it-&gt;Path;</div>
+<div class="line"><span class="lineno">   46</span>            m_shouldUpdate = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   47</span>        }</div>
+<div class="line"><span class="lineno">   48</span>        ImGui::EndDisabled();</div>
+<div class="line"><span class="lineno">   49</span> </div>
+<div class="line"><span class="lineno">   50</span>        ImGui::SameLine();</div>
+<div class="line"><span class="lineno">   51</span>        ImGui::Text(<span class="stringliteral">&quot;/&quot;</span>);</div>
+<div class="line"><span class="lineno">   52</span>        ImGui::SameLine();</div>
+<div class="line"><span class="lineno">   53</span>    }</div>
+<div class="line"><span class="lineno">   54</span>    ImGui::EndGroup();</div>
+<div class="line"><span class="lineno">   55</span>    ImGui::Separator();</div>
+<div class="line"><span class="lineno">   56</span> </div>
+<div class="line"><span class="lineno">   57</span>    ImVec2 buttonSize(72, 72);</div>
+<div class="line"><span class="lineno">   58</span>    <span class="keywordtype">float</span> spacing = ImGui::GetStyle().ItemSpacing.x * 2;</div>
+<div class="line"><span class="lineno">   59</span>    <span class="keywordtype">float</span> panelWidth = ImGui::GetWindowSize().x;</div>
+<div class="line"><span class="lineno">   60</span>    <span class="keywordtype">int</span> colNb = (int) std::floor(panelWidth / (buttonSize.x + spacing));</div>
+<div class="line"><span class="lineno">   61</span>    colNb = std::max(1, colNb);</div>
+<div class="line"><span class="lineno">   62</span> </div>
+<div class="line"><span class="lineno">   63</span>    <span class="keywordtype">int</span> index = 0;</div>
+<div class="line"><span class="lineno">   64</span> </div>
+<div class="line"><span class="lineno">   65</span>    <span class="keywordflow">if</span> (m_CurrentPath != <span class="stringliteral">&quot;.&quot;</span>) {</div>
+<div class="line"><span class="lineno">   66</span>        ImGui::PushID(index);</div>
+<div class="line"><span class="lineno">   67</span>        ImGui::BeginGroup();</div>
+<div class="line"><span class="lineno">   68</span>        ImGui::ImageButton(<span class="stringliteral">&quot;back&quot;</span>, (ImTextureID) m_folderTexture-&gt;GetNativeHandle(), buttonSize);</div>
+<div class="line"><span class="lineno">   69</span> </div>
+<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">if</span> (ImGui::IsItemHovered() &amp;&amp; ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {</div>
+<div class="line"><span class="lineno">   71</span>            m_CurrentPath = m_CurrentPath.parent_path();</div>
+<div class="line"><span class="lineno">   72</span>            m_shouldUpdate = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   73</span>        }</div>
+<div class="line"><span class="lineno">   74</span> </div>
+<div class="line"><span class="lineno">   75</span>        ImGui::TextWrapped(<span class="stringliteral">&quot;../&quot;</span>);</div>
+<div class="line"><span class="lineno">   76</span> </div>
+<div class="line"><span class="lineno">   77</span>        ImGui::EndGroup();</div>
+<div class="line"><span class="lineno">   78</span>        ImGui::PopID();</div>
+<div class="line"><span class="lineno">   79</span>        ImGui::SameLine();</div>
+<div class="line"><span class="lineno">   80</span>        index++;</div>
+<div class="line"><span class="lineno">   81</span>    }</div>
+<div class="line"><span class="lineno">   82</span> </div>
+<div class="line"><span class="lineno">   83</span>    <span class="keywordtype">int</span> <span class="keywordtype">id</span> = 0;</div>
+<div class="line"><span class="lineno">   84</span>    <span class="keywordflow">for</span> (FileItem item : m_FileItems)</div>
+<div class="line"><span class="lineno">   85</span>    {</div>
+<div class="line"><span class="lineno">   86</span>        ImGui::PushID(index);</div>
+<div class="line"><span class="lineno">   87</span>        ImGui::BeginGroup();</div>
+<div class="line"><span class="lineno">   88</span> </div>
+<div class="line"><span class="lineno">   89</span>        <span class="keywordflow">if</span> (ImGui::ImageButton(<span class="stringliteral">&quot;file_item&quot;</span>, (ImTextureID) m_currentTextures[item.iconPath]-&gt;GetNativeHandle(), buttonSize)) {}</div>
+<div class="line"><span class="lineno">   90</span> </div>
+<div class="line"><span class="lineno">   91</span>        <span class="keywordflow">if</span> (ImGui::IsItemHovered() &amp;&amp; ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {</div>
+<div class="line"><span class="lineno">   92</span>            <span class="keywordflow">if</span> (item.type == <a class="code hl_enumvalue" href="namespaceElevate_1_1Editor.html#a718eccadaf819ea1260da6dd98dbd25caa4265c2a39925337bbe826b399f8e6a5">Directory</a>) {</div>
+<div class="line"><span class="lineno">   93</span>                m_CurrentPath += <span class="stringliteral">&quot;/&quot;</span> + item.name;</div>
+<div class="line"><span class="lineno">   94</span>                m_shouldUpdate = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   95</span>            }</div>
+<div class="line"><span class="lineno">   96</span>            <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   97</span>                <a class="code hl_function" href="namespaceElevate_1_1Files.html#a49bcee940c569f34ea4e0123826642ec">Files::OpenWithDefaultApp</a>(item.path);</div>
+<div class="line"><span class="lineno">   98</span>            }</div>
+<div class="line"><span class="lineno">   99</span>        }</div>
+<div class="line"><span class="lineno">  100</span> </div>
+<div class="line"><span class="lineno">  101</span>        ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + buttonSize.x);</div>
+<div class="line"><span class="lineno">  102</span>        ImGui::TextWrapped(<span class="stringliteral">&quot;%s&quot;</span>, item.name.c_str());</div>
+<div class="line"><span class="lineno">  103</span>        ImGui::PopTextWrapPos();</div>
+<div class="line"><span class="lineno">  104</span> </div>
+<div class="line"><span class="lineno">  105</span>        ImGui::EndGroup();</div>
+<div class="line"><span class="lineno">  106</span>        ImGui::PopID();</div>
+<div class="line"><span class="lineno">  107</span> </div>
+<div class="line"><span class="lineno">  108</span>        <span class="keywordflow">if</span> ((index + 1) % colNb != 0)</div>
+<div class="line"><span class="lineno">  109</span>        {</div>
+<div class="line"><span class="lineno">  110</span>            ImGui::SameLine();</div>
+<div class="line"><span class="lineno">  111</span>        }</div>
+<div class="line"><span class="lineno">  112</span>        index++;</div>
+<div class="line"><span class="lineno">  113</span>    }</div>
+<div class="line"><span class="lineno">  114</span>    ImGui::End();</div>
+<div class="line"><span class="lineno">  115</span>}</div>
 <div class="ttc" id="anamespaceElevate_1_1Editor_html_a718eccadaf819ea1260da6dd98dbd25caa4265c2a39925337bbe826b399f8e6a5"><div class="ttname"><a href="namespaceElevate_1_1Editor.html#a718eccadaf819ea1260da6dd98dbd25caa4265c2a39925337bbe826b399f8e6a5">Elevate::Editor::Directory</a></div><div class="ttdeci">@ Directory</div><div class="ttdef"><b>Definition:</b> <a href="AssetBrowserPanel_8h_source.html#l00013">AssetBrowserPanel.h:13</a></div></div>
 <div class="ttc" id="anamespaceElevate_1_1Files_html_a49bcee940c569f34ea4e0123826642ec"><div class="ttname"><a href="namespaceElevate_1_1Files.html#a49bcee940c569f34ea4e0123826642ec">Elevate::Files::OpenWithDefaultApp</a></div><div class="ttdeci">void OpenWithDefaultApp(const std::string &amp;filePath)</div><div class="ttdef"><b>Definition:</b> <a href="Files_8h_source.html#l00014">Files.h:14</a></div></div>
 </div><!-- fragment -->
@@ -296,14 +296,14 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classElevate_1_1Editor_1_1EditorWidget.html#a02f379d4d7e82f9dd5582be2c9c83752">Elevate::Editor::EditorWidget</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AssetBrowserPanel_8cpp_source.html#l00025">25</a> of file <a class="el" href="AssetBrowserPanel_8cpp_source.html">AssetBrowserPanel.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   26</span>{</div>
-<div class="line"><span class="lineno">   27</span>    <span class="keywordflow">if</span> (m_shouldUpdate) {</div>
-<div class="line"><span class="lineno">   28</span>        UpdateRelatedPaths();</div>
-<div class="line"><span class="lineno">   29</span>        LoadFileItemsList();</div>
-<div class="line"><span class="lineno">   30</span>        m_shouldUpdate = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   31</span>    }</div>
-<div class="line"><span class="lineno">   32</span>}</div>
+<p class="definition">Definition at line <a class="el" href="AssetBrowserPanel_8cpp_source.html#l00026">26</a> of file <a class="el" href="AssetBrowserPanel_8cpp_source.html">AssetBrowserPanel.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   27</span>{</div>
+<div class="line"><span class="lineno">   28</span>    <span class="keywordflow">if</span> (m_shouldUpdate) {</div>
+<div class="line"><span class="lineno">   29</span>        UpdateRelatedPaths();</div>
+<div class="line"><span class="lineno">   30</span>        LoadFileItemsList();</div>
+<div class="line"><span class="lineno">   31</span>        m_shouldUpdate = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   32</span>    }</div>
+<div class="line"><span class="lineno">   33</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

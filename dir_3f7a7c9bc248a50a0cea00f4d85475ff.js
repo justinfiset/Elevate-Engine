@@ -24,11 +24,14 @@ var dir_3f7a7c9bc248a50a0cea00f4d85475ff =
     [ "ITransformable.h", "ITransformable_8h.html", "ITransformable_8h" ],
     [ "Log.cpp", "Log_8cpp.html", "Log_8cpp" ],
     [ "Log.h", "Log_8h.html", "Log_8h" ],
+    [ "PathResolver.cpp", "PathResolver_8cpp.html", null ],
+    [ "PathResolver.h", "PathResolver_8h.html", "PathResolver_8h" ],
     [ "Thread.h", "Thread_8h.html", "Thread_8h" ],
     [ "Time.h", "Time_8h.html", "Time_8h" ],
     [ "Transform.cpp", "Transform_8cpp.html", null ],
     [ "Transform.h", "Transform_8h.html", "Transform_8h" ],
     [ "UUID.h", "UUID_8h.html", "UUID_8h" ],
+    [ "WASM.cpp", "WASM_8cpp.html", null ],
     [ "Window.cpp", "Window_8cpp.html", null ],
     [ "Window.h", "Window_8h.html", "Window_8h" ]
 ];

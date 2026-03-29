@@ -111,7 +111,7 @@ Inheritance diagram for Elevate::Input:</div>
  <div class="center">
   <img src="classElevate_1_1Input.png" usemap="#Elevate::Input_map" alt=""/>
   <map id="Elevate::Input_map" name="Elevate::Input_map">
-<area href="classElevate_1_1WindowsInput.html" alt="Elevate::WindowsInput" shape="rect" coords="0,56,137,80"/>
+<area href="classElevate_1_1GlfwInput.html" alt="Elevate::GlfwInput" shape="rect" coords="0,56,112,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -151,6 +151,8 @@ Protected Member Functions</h2></td></tr>
 Static Protected Member Functions</h2></td></tr>
 <tr class="memitem:a248336b6c0e4a2812fb8559d0c0f4fa6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Input.html#a248336b6c0e4a2812fb8559d0c0f4fa6">ManageMidStates</a> ()</td></tr>
 <tr class="separator:a248336b6c0e4a2812fb8559d0c0f4fa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b0ce43dda45ae9adfffda1ed9d3f056"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Input.html#a9b0ce43dda45ae9adfffda1ed9d3f056">ResetAllStates</a> ()</td></tr>
+<tr class="separator:a9b0ce43dda45ae9adfffda1ed9d3f056"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0406ffb401963012630d03e95ad07b30"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Input.html#a0406ffb401963012630d03e95ad07b30">OnKeyPressedEvent</a> (<a class="el" href="classElevate_1_1KeyPressedEvent.html">KeyPressedEvent</a> &amp;e)</td></tr>
 <tr class="memdesc:a0406ffb401963012630d03e95ad07b30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Managed Callbacks // Could be used to simulate inputs to an app by sending events.  <br /></td></tr>
 <tr class="separator:a0406ffb401963012630d03e95ad07b30"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -222,7 +224,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classElevate_1_1WindowsInput.html#a8188088f00d01d44739cb0c6860feb54">Elevate::WindowsInput</a>.</p>
+<p>Implemented in <a class="el" href="classElevate_1_1GlfwInput.html#ae52d098c5f52dd42a9c0ed1a973df47a">Elevate::GlfwInput</a>.</p>
 
 </div>
 </div>
@@ -578,7 +580,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Input_8h_source.html#l00052">52</a> of file <a class="el" href="Input_8h_source.html">Input.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   52</span>{ s_Instance-&gt;inputBuffer.<a class="code hl_function" href="classElevate_1_1InputBuffer.html#a112546eea644d924adff91583c34d390">ManageMidSates</a>(); }</div>
-<div class="ttc" id="aclassElevate_1_1InputBuffer_html_a112546eea644d924adff91583c34d390"><div class="ttname"><a href="classElevate_1_1InputBuffer.html#a112546eea644d924adff91583c34d390">Elevate::InputBuffer::ManageMidSates</a></div><div class="ttdeci">void ManageMidSates()</div><div class="ttdef"><b>Definition:</b> <a href="InputBuffer_8cpp_source.html#l00083">InputBuffer.cpp:83</a></div></div>
+<div class="ttc" id="aclassElevate_1_1InputBuffer_html_a112546eea644d924adff91583c34d390"><div class="ttname"><a href="classElevate_1_1InputBuffer.html#a112546eea644d924adff91583c34d390">Elevate::InputBuffer::ManageMidSates</a></div><div class="ttdeci">void ManageMidSates()</div><div class="ttdef"><b>Definition:</b> <a href="InputBuffer_8cpp_source.html#l00089">InputBuffer.cpp:89</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -608,10 +610,10 @@ Friends</h2></td></tr>
 
 <p>Managed Callbacks // Could be used to simulate inputs to an app by sending events. </p>
 
-<p class="definition">Definition at line <a class="el" href="Input_8h_source.html#l00056">56</a> of file <a class="el" href="Input_8h_source.html">Input.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   57</span>        {</div>
-<div class="line"><span class="lineno">   58</span>            s_Instance-&gt;inputBuffer.<a class="code hl_function" href="classElevate_1_1InputBuffer.html#a1a6ac0d82871e54c3010be0087c7f429">SetKeyPressed</a>(e.GetKeyCode(), e.GetRepeatCount());</div>
-<div class="line"><span class="lineno">   59</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8h_source.html#l00057">57</a> of file <a class="el" href="Input_8h_source.html">Input.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   58</span>        {</div>
+<div class="line"><span class="lineno">   59</span>            s_Instance-&gt;inputBuffer.<a class="code hl_function" href="classElevate_1_1InputBuffer.html#a1a6ac0d82871e54c3010be0087c7f429">SetKeyPressed</a>(e.GetKeyCode(), e.GetRepeatCount());</div>
+<div class="line"><span class="lineno">   60</span>        }</div>
 <div class="ttc" id="aclassElevate_1_1InputBuffer_html_a1a6ac0d82871e54c3010be0087c7f429"><div class="ttname"><a href="classElevate_1_1InputBuffer.html#a1a6ac0d82871e54c3010be0087c7f429">Elevate::InputBuffer::SetKeyPressed</a></div><div class="ttdeci">void SetKeyPressed(int keycode, int repeatCount)</div><div class="ttdoc">Setter.</div><div class="ttdef"><b>Definition:</b> <a href="InputBuffer_8cpp_source.html#l00040">InputBuffer.cpp:40</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -640,10 +642,10 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8h_source.html#l00060">60</a> of file <a class="el" href="Input_8h_source.html">Input.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   61</span>        {</div>
-<div class="line"><span class="lineno">   62</span>            s_Instance-&gt;inputBuffer.<a class="code hl_function" href="classElevate_1_1InputBuffer.html#a00c96d9b3ed1e59fe613c03bc4e4528e">SetKeyReleased</a>(e.GetKeyCode());</div>
-<div class="line"><span class="lineno">   63</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8h_source.html#l00061">61</a> of file <a class="el" href="Input_8h_source.html">Input.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   62</span>        {</div>
+<div class="line"><span class="lineno">   63</span>            s_Instance-&gt;inputBuffer.<a class="code hl_function" href="classElevate_1_1InputBuffer.html#a00c96d9b3ed1e59fe613c03bc4e4528e">SetKeyReleased</a>(e.GetKeyCode());</div>
+<div class="line"><span class="lineno">   64</span>        }</div>
 <div class="ttc" id="aclassElevate_1_1InputBuffer_html_a00c96d9b3ed1e59fe613c03bc4e4528e"><div class="ttname"><a href="classElevate_1_1InputBuffer.html#a00c96d9b3ed1e59fe613c03bc4e4528e">Elevate::InputBuffer::SetKeyReleased</a></div><div class="ttdeci">void SetKeyReleased(int keycode)</div><div class="ttdef"><b>Definition:</b> <a href="InputBuffer_8cpp_source.html#l00052">InputBuffer.cpp:52</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -672,10 +674,10 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8h_source.html#l00065">65</a> of file <a class="el" href="Input_8h_source.html">Input.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   66</span>        {</div>
-<div class="line"><span class="lineno">   67</span>            s_Instance-&gt;inputBuffer.<a class="code hl_function" href="classElevate_1_1InputBuffer.html#accb573bfbf8f071b37fb5ded6d11b997">SetMouseButtonPressed</a>(e.GetMouseButton());</div>
-<div class="line"><span class="lineno">   68</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8h_source.html#l00066">66</a> of file <a class="el" href="Input_8h_source.html">Input.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   67</span>        {</div>
+<div class="line"><span class="lineno">   68</span>            s_Instance-&gt;inputBuffer.<a class="code hl_function" href="classElevate_1_1InputBuffer.html#accb573bfbf8f071b37fb5ded6d11b997">SetMouseButtonPressed</a>(e.GetMouseButton());</div>
+<div class="line"><span class="lineno">   69</span>        }</div>
 <div class="ttc" id="aclassElevate_1_1InputBuffer_html_accb573bfbf8f071b37fb5ded6d11b997"><div class="ttname"><a href="classElevate_1_1InputBuffer.html#accb573bfbf8f071b37fb5ded6d11b997">Elevate::InputBuffer::SetMouseButtonPressed</a></div><div class="ttdeci">void SetMouseButtonPressed(int mouseButtonCode)</div><div class="ttdef"><b>Definition:</b> <a href="InputBuffer_8cpp_source.html#l00062">InputBuffer.cpp:62</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -704,11 +706,40 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8h_source.html#l00069">69</a> of file <a class="el" href="Input_8h_source.html">Input.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   70</span>        {</div>
-<div class="line"><span class="lineno">   71</span>            s_Instance-&gt;inputBuffer.<a class="code hl_function" href="classElevate_1_1InputBuffer.html#a4c119864d2c96e6fc85645aa544d3309">SetMouseButtonReleased</a>(e.GetMouseButton());</div>
-<div class="line"><span class="lineno">   72</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8h_source.html#l00070">70</a> of file <a class="el" href="Input_8h_source.html">Input.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   71</span>        {</div>
+<div class="line"><span class="lineno">   72</span>            s_Instance-&gt;inputBuffer.<a class="code hl_function" href="classElevate_1_1InputBuffer.html#a4c119864d2c96e6fc85645aa544d3309">SetMouseButtonReleased</a>(e.GetMouseButton());</div>
+<div class="line"><span class="lineno">   73</span>        }</div>
 <div class="ttc" id="aclassElevate_1_1InputBuffer_html_a4c119864d2c96e6fc85645aa544d3309"><div class="ttname"><a href="classElevate_1_1InputBuffer.html#a4c119864d2c96e6fc85645aa544d3309">Elevate::InputBuffer::SetMouseButtonReleased</a></div><div class="ttdeci">void SetMouseButtonReleased(int mouseButtonCode)</div><div class="ttdef"><b>Definition:</b> <a href="InputBuffer_8cpp_source.html#l00074">InputBuffer.cpp:74</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a9b0ce43dda45ae9adfffda1ed9d3f056" name="a9b0ce43dda45ae9adfffda1ed9d3f056"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b0ce43dda45ae9adfffda1ed9d3f056">&#9670;&#160;</a></span>ResetAllStates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void Elevate::Input::ResetAllStates </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Input_8h_source.html#l00053">53</a> of file <a class="el" href="Input_8h_source.html">Input.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   53</span>{ s_Instance-&gt;inputBuffer.<a class="code hl_function" href="classElevate_1_1InputBuffer.html#ae7693106416023ff529d49df046e7848">ResetAllStates</a>(); }</div>
+<div class="ttc" id="aclassElevate_1_1InputBuffer_html_ae7693106416023ff529d49df046e7848"><div class="ttname"><a href="classElevate_1_1InputBuffer.html#ae7693106416023ff529d49df046e7848">Elevate::InputBuffer::ResetAllStates</a></div><div class="ttdeci">void ResetAllStates()</div><div class="ttdef"><b>Definition:</b> <a href="InputBuffer_8cpp_source.html#l00083">InputBuffer.cpp:83</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -739,7 +770,7 @@ Friends</h2></td></tr>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>ElevateEngine/src/ElevateEngine/Inputs/<a class="el" href="Input_8h_source.html">Input.h</a></li>
-<li>ElevateEngine/src/Platform/Windows/<a class="el" href="WindowsInput_8cpp_source.html">WindowsInput.cpp</a></li>
+<li>ElevateEngine/src/ElevateEngine/Inputs/<a class="el" href="Input_8cpp_source.html">Input.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -104,7 +104,7 @@ var hierarchy =
       [ "Elevate::OpenGLIndexBuffer", "classElevate_1_1OpenGLIndexBuffer.html", null ]
     ] ],
     [ "Elevate::Input", "classElevate_1_1Input.html", [
-      [ "Elevate::WindowsInput", "classElevate_1_1WindowsInput.html", null ]
+      [ "Elevate::GlfwInput", "classElevate_1_1GlfwInput.html", null ]
     ] ],
     [ "Elevate::InputBuffer", "classElevate_1_1InputBuffer.html", null ],
     [ "Elevate::ISerializable", "classElevate_1_1ISerializable.html", [
@@ -127,6 +127,7 @@ var hierarchy =
     [ "Elevate::MeshData", "structElevate_1_1MeshData.html", null ],
     [ "Elevate::ParentFieldsHelper< T, bool >", "structElevate_1_1ParentFieldsHelper.html", null ],
     [ "Elevate::ParentFieldsHelper< T, true >", "structElevate_1_1ParentFieldsHelper_3_01T_00_01true_01_4.html", null ],
+    [ "Elevate::PathResolver", "classElevate_1_1PathResolver.html", null ],
     [ "Elevate::Plane", "structElevate_1_1Plane.html", null ],
     [ "Elevate::ReadOnlyTag", "structElevate_1_1ReadOnlyTag.html", null ],
     [ "Elevate::RenderBucket", "classElevate_1_1RenderBucket.html", null ],
@@ -169,8 +170,9 @@ var hierarchy =
     ] ],
     [ "Elevate::WAAPIClient", "classElevate_1_1WAAPIClient.html", null ],
     [ "Elevate::Window", "classElevate_1_1Window.html", [
-      [ "Elevate::WindowsWindow", "classElevate_1_1WindowsWindow.html", null ]
+      [ "Elevate::GlfwWindow", "classElevate_1_1GlfwWindow.html", null ]
     ] ],
+    [ "Elevate::WindowData", "structElevate_1_1WindowData.html", null ],
     [ "Elevate::WindowProps", "structElevate_1_1WindowProps.html", null ],
     [ "WwiseDataSource", "classWwiseDataSource.html", [
       [ "Elevate::WwiseFileDataSource", "classElevate_1_1WwiseFileDataSource.html", null ]

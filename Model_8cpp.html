@@ -102,10 +102,11 @@ $(document).ready(function(){initNavTree('Model_8cpp.html',''); initResizable();
 <div class="textblock"><code>#include &quot;<a class="el" href="eepch_8h_source.html">eepch.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Model_8h_source.html">Model.h</a>&quot;</code><br />
 <code>#include &lt;glm/glm.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="Renderer_8h_source.html">ElevateEngine/Renderer/Renderer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Shader_8h_source.html">ElevateEngine/Renderer/Shader/Shader.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ShaderManager_8h_source.html">ElevateEngine/Renderer/Shader/ShaderManager.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="GameObject_8h_source.html">ElevateEngine/Core/GameObject.h</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="Renderer_8h_source.html">ElevateEngine/Renderer/Renderer.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Shader_8h_source.html">ElevateEngine/Renderer/Shader/Shader.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ShaderManager_8h_source.html">ElevateEngine/Renderer/Shader/ShaderManager.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="GameObject_8h_source.html">ElevateEngine/Core/GameObject.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="PathResolver_8h_source.html">ElevateEngine/Core/PathResolver.h</a>&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 </div>
 <p><a href="Model_8cpp_source.html">Go to the source code of this file.</a></p>
@@ -132,17 +133,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Model_8cpp_source.html#l00013">13</a> of file <a class="el" href="Model_8cpp_source.html">Model.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   14</span>{</div>
-<div class="line"><span class="lineno">   15</span>    <span class="keywordflow">switch</span> (texture-&gt;GetUsage())</div>
-<div class="line"><span class="lineno">   16</span>    {</div>
-<div class="line"><span class="lineno">   17</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa41178642cae095a6bdb909119b4d16e8">Elevate::TextureType::Diffuse</a>:  <span class="keywordflow">return</span> <span class="stringliteral">&quot;diffuseTex&quot;</span>;</div>
-<div class="line"><span class="lineno">   18</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa39b0044dd8789d333e7794f359406740">Elevate::TextureType::Specular</a>: <span class="keywordflow">return</span> <span class="stringliteral">&quot;specularTex&quot;</span>;</div>
-<div class="line"><span class="lineno">   19</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466faed8e37bad13d76c6dbeb58152440b41e">Elevate::TextureType::Ambient</a>:  <span class="keywordflow">return</span> <span class="stringliteral">&quot;ambientText&quot;</span>;</div>
-<div class="line"><span class="lineno">   20</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa960b44c579bc2f6818d2daaf9e4c16f0">Elevate::TextureType::Normal</a>:   <span class="keywordflow">return</span> <span class="stringliteral">&quot;normalTex&quot;</span>;</div>
-<div class="line"><span class="lineno">   21</span>    <span class="keywordflow">default</span>: <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><span class="lineno">   22</span>    }</div>
-<div class="line"><span class="lineno">   23</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Model_8cpp_source.html#l00014">14</a> of file <a class="el" href="Model_8cpp_source.html">Model.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   15</span>{</div>
+<div class="line"><span class="lineno">   16</span>    <span class="keywordflow">switch</span> (texture-&gt;GetUsage())</div>
+<div class="line"><span class="lineno">   17</span>    {</div>
+<div class="line"><span class="lineno">   18</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa41178642cae095a6bdb909119b4d16e8">Elevate::TextureType::Diffuse</a>:  <span class="keywordflow">return</span> <span class="stringliteral">&quot;diffuseTex&quot;</span>;</div>
+<div class="line"><span class="lineno">   19</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa39b0044dd8789d333e7794f359406740">Elevate::TextureType::Specular</a>: <span class="keywordflow">return</span> <span class="stringliteral">&quot;specularTex&quot;</span>;</div>
+<div class="line"><span class="lineno">   20</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466faed8e37bad13d76c6dbeb58152440b41e">Elevate::TextureType::Ambient</a>:  <span class="keywordflow">return</span> <span class="stringliteral">&quot;ambientText&quot;</span>;</div>
+<div class="line"><span class="lineno">   21</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa960b44c579bc2f6818d2daaf9e4c16f0">Elevate::TextureType::Normal</a>:   <span class="keywordflow">return</span> <span class="stringliteral">&quot;normalTex&quot;</span>;</div>
+<div class="line"><span class="lineno">   22</span>    <span class="keywordflow">default</span>: <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><span class="lineno">   23</span>    }</div>
+<div class="line"><span class="lineno">   24</span>}</div>
 <div class="ttc" id="anamespaceElevate_html_abbc8ef8e3bb95c91c8071d7f6302466fa39b0044dd8789d333e7794f359406740"><div class="ttname"><a href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa39b0044dd8789d333e7794f359406740">Elevate::TextureType::Specular</a></div><div class="ttdeci">@ Specular</div></div>
 <div class="ttc" id="anamespaceElevate_html_abbc8ef8e3bb95c91c8071d7f6302466fa41178642cae095a6bdb909119b4d16e8"><div class="ttname"><a href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa41178642cae095a6bdb909119b4d16e8">Elevate::TextureType::Diffuse</a></div><div class="ttdeci">@ Diffuse</div></div>
 <div class="ttc" id="anamespaceElevate_html_abbc8ef8e3bb95c91c8071d7f6302466fa960b44c579bc2f6818d2daaf9e4c16f0"><div class="ttname"><a href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa960b44c579bc2f6818d2daaf9e4c16f0">Elevate::TextureType::Normal</a></div><div class="ttdeci">@ Normal</div></div>
