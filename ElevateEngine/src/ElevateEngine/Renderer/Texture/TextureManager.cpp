@@ -107,7 +107,9 @@ namespace Elevate {
 
 		// Get the texture data async with stbi_load
 		std::thread([res]() mutable {
-				int width, height, channels;
+				int width = 0;
+				int height = 0;
+				int channels = 0;
 				res.data = stbi_load(res.meta.Path.c_str(), &width, &height, &channels, 0);
 				res.meta = TextureMetadataBuilder(res.meta)
 					.size(static_cast<uint32_t>(width), static_cast<uint32_t>(height))

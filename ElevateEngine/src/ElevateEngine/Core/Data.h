@@ -80,7 +80,10 @@ namespace Elevate
 		EE_DATA_SIZE_Float4,// Float4
 		EE_DATA_SIZE_Mat3,  // Mat3
 		EE_DATA_SIZE_Mat4,  // Mat4
-		EE_DATA_SIZE_Mat5   // Mat5
+		EE_DATA_SIZE_Mat5,  // Mat5
+		EE_DATA_SIZE_None,  // Sampler2D
+		EE_DATA_SIZE_None,  // Custom
+		EE_DATA_SIZE_None   // Unknown
 	};
 
 	const unsigned int ShaderDataAPIType[] = {
