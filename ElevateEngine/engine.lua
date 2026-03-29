@@ -49,6 +49,7 @@ project "ElevateEngine"
 		"EE_ENGINE_BUILD",
 		"_CRT_SECURE_NO_WARNINGS",
 		"IMGUI_DEFINE_MATH_OPERATORS",
+		"GLM_ENABLE_EXPERIMENTAL",
 	}
 
 	includedirs { "src", values(IncludeDir) }

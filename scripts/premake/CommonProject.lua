@@ -99,7 +99,11 @@ function CommonProject.SetupProject(directory)
 
 	BuildPlatform.SetPlatformDefines()
 
-	defines { "EE_RESOURCE_DIR=\"" ..path.getabsolute(_MAIN_SCRIPT_DIR.."/ElevateEngine/Resources/").."\"" }
+	defines
+	{ 
+		"EE_RESOURCE_DIR=\"" ..path.getabsolute(_MAIN_SCRIPT_DIR.."/ElevateEngine/Resources/").."\"",
+		"GLM_ENABLE_EXPERIMENTAL",
+	}
 
 	filter "system:windows"
 		links { "ws2_32" } -- For Wwise Communication WARNING NOT NEEDED IN RELEASE BUT STILL INCLUDED FOR THE MOMENT -- CHANGE THIS}
