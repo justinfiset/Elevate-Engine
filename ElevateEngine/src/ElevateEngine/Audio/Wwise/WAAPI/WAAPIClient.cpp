@@ -112,7 +112,7 @@ namespace Elevate
 #endif
 	}
 
-	void WAAPIClient::LoggerCallback(const char* logMessage)
+	void WAAPIClient::LoggerCallback([[maybe_unused]] const char* logMessage)
 	{
 #if EE_WAAPI_AVAILABLE
 		// todo use a custom logger here to know who prints what
