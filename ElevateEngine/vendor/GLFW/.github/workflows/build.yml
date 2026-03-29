@@ -4,12 +4,12 @@ on:
     push:
         branches: [ ci, master, latest, 3.3-stable ]
     workflow_dispatch:
-permissions:
-    statuses: write
-    contents: read
 
 jobs:
     build-linux-clang:
+        permissions:
+          statuses: write
+          contents: read
         name: Linux (Clang)
         runs-on: ubuntu-latest
         timeout-minutes: 4
@@ -49,6 +49,9 @@ jobs:
               run: cmake --build build-full-shared --parallel
 
     build-macos-clang:
+        permissions:
+          statuses: write
+          contents: read
         name: macOS (Clang)
         runs-on: macos-latest
         timeout-minutes: 4
@@ -75,6 +78,9 @@ jobs:
               run: cmake --build build-cocoa-shared --parallel
 
     build-windows-vs2022:
+        permissions:
+          statuses: write
+          contents: read
         name: Windows (VS2022)
         runs-on: windows-latest
         timeout-minutes: 4
