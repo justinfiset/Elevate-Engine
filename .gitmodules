@@ -33,3 +33,6 @@
 [submodule "ElevateEngine/vendor/glm"]
 	path = ElevateEngine/vendor/glm
 	url = https://github.com/g-truc/glm
+[submodule "ElevateEngine/vendor/ImGuiFileDialog"]
+	path = ElevateEngine/vendor/ImGuiFileDialog
+	url = https://github.com/aiekick/ImGuiFileDialog
