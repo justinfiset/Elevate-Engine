@@ -51,7 +51,7 @@ jobs:
       - name: Generate Projects (Premake) 
         run: ./vendor/premake/premake5.exe --os=emscripten ninja
 
-      - name: Compile
+      - name: Compile Editor_Release Config
         run: ninja Editor_Release
 
       - name: Upload Editor Release Web Artifact
@@ -60,7 +60,7 @@ jobs:
           name: web-build-editor
           path: Build/bin/Editor_Release-emscripten-wasm32/
 
-      - name: Compile
+      - name: Compile Release Config
         run: ninja Release
 
       - name: Upload Release Web Artifact
