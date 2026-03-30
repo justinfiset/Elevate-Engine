@@ -1,37 +1,47 @@
 #include <ElevateEngine.h>
 #include "ElevateEngine/../../vendor/ImGui/imgui.h"
 
+#include <span>
 #include <vector>
 
-using namespace Elevate;
+// Elevate Launcher includes
+#include "Managers/ProjectManager.h"
+#include "Controllers/ProjectController.h"
+
+using namespace EL;
+
+using ButtonAction = std::function<void()>;
+using LauncherButton = std::pair<std::string, ButtonAction>;
 
 class LauncherLayer : public Elevate::Layer
 {
-public:
+private:
+	ProjectController& m_controller;
+
 	static constexpr  float headerHeight = 60.0f;
 	static constexpr float sidebarWidth = 300.0f;
 
-	static constexpr std::array<const char*, 2> projectOptions = {
-		"New Project",
-		"Open Project",
-	};
+	std::shared_ptr<Elevate::Texture> m_elevateIcon = nullptr;
+	std::array<LauncherButton, 2> m_projectOptions = {{
+		{ "New Project", [this]() { m_controller.SetActiveTab(LauncherTab::ProjectCreation); } },
+		{ "Open Project", [this]() { m_controller.SetActiveTab(LauncherTab::ProjectList); } }
+	}};
 
-	static constexpr std::array<const char*, 1> learningOptions = {
-		"Documentation",
-	};
+	std::array<LauncherButton, 1> m_learningOptions = {{
+		{ "Documentation", [this]() { m_controller.OpenDocumentation(); } }
+	}};
 
-	static constexpr std::array<const char*, 2> communityOptions = {
-		"Report an Issue",
-		"Rate the Engine"
-	};
+	std::array<LauncherButton, 2> m_communityOptions = {{
+		{ "Report an Issue", [this]() { m_controller.ReportIssue(); } },
+		{ "Rate the Engine", [this]() { m_controller.RateEngine(); } }
+	}};
 
-	std::shared_ptr<Texture> m_elevateIcon = nullptr;
-
-	LauncherLayer() : Layer("Launcher") {}
+public:
+	LauncherLayer(ProjectController& controller) : Layer("Launcher"), m_controller(controller) { }
 
 	void OnAttach() override
 	{
-		m_elevateIcon = Texture::CreateFromFile("Content/Textures/Elevate.png");
+		m_elevateIcon = Elevate::Texture::CreateFromFile("Content/Textures/Elevate.png");
 	}
 
 	void OnImGuiRender() override
@@ -84,54 +94,61 @@ public:
 		ImGui::Image((ImTextureID)m_elevateIcon->GetNativeHandle(), ImVec2(iconWidth, headerHeight));
 	}
 
+	void DrawButtonList(std::span<const LauncherButton> buttons, float buttonHeight)
+	{
+		for (LauncherButton button : buttons)
+		{
+			if (ImGui::Button(button.first.c_str(), ImVec2(sidebarWidth, buttonHeight)))
+			{
+				button.second();
+			}
+		}
+	}
+
 	void DrawSidebar()
 	{
 		static float buttonHeight = 40.0f;
 
 		ImGui::SeparatorText("Projects");
-		for (const char* option : projectOptions)
-		{
-			if (ImGui::Button(option, ImVec2(sidebarWidth, buttonHeight)))
-			{
-				// Button action
-			}
-		}
+		DrawButtonList(m_projectOptions, buttonHeight);
 
 		ImGui::Dummy(ImVec2(sidebarWidth, buttonHeight / 4));
-
 		ImGui::SeparatorText("Learn");
-		for (const char* option : learningOptions)
-		{
-			if (ImGui::Button(option, ImVec2(sidebarWidth, buttonHeight)))
-			{
-				// Button action
-			}
-		}
+		DrawButtonList(m_learningOptions, buttonHeight);
 
 		ImGui::SeparatorText("Community");
-		for (const char* option : communityOptions)
-		{
-			if (ImGui::Button(option, ImVec2(sidebarWidth, buttonHeight)))
-			{
-				// Button action
-			}
-		}
+		DrawButtonList(m_communityOptions, buttonHeight);
 	}
+
+	// Content panel drawing
+	void DrawProjectCreationMenu() { }
+	void DrawProjectList() { }
+	void DrawSettings() { }
 
 	void DrawContent()
 	{
-
+		switch (m_controller.GetActiveTab())
+		{
+		case LauncherTab::ProjectCreation:		DrawProjectCreationMenu(); break;
+		case LauncherTab::ProjectList:			DrawProjectList(); break;
+		case LauncherTab::Settings:				DrawSettings(); break;
+		default: return;
+		}
 	}
 };
 
 class LauncherApp : public Elevate::Application
 {
 public:
-	LauncherApp()
+	LauncherApp() : m_controller(m_manager)
 	{
-		PushLayer(new LauncherLayer());
+		PushLayer(new LauncherLayer(m_controller));
 	}
 	~LauncherApp() = default;
+
+private:
+	ProjectManager m_manager;
+	ProjectController m_controller;
 };
 
 Elevate::Application* Elevate::CreateApplication() 
