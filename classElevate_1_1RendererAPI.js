@@ -5,6 +5,7 @@ var classElevate_1_1RendererAPI =
       [ "OpenGL", "classElevate_1_1RendererAPI.html#ad30acad1326768eff346c30ffb38dc0ba760716b590ee7c0adc25f434f577d8be", null ]
     ] ],
     [ "Clear", "classElevate_1_1RendererAPI.html#a38c73f71d7c001d3354a37103fe6f4cc", null ],
+    [ "ClearTextureBindings", "classElevate_1_1RendererAPI.html#a92314b04adca4ed73c1fdbd6360717cc", null ],
     [ "DrawArray", "classElevate_1_1RendererAPI.html#a3880f081005ef41481cdf767d85a19ae", null ],
     [ "FlushBuffers", "classElevate_1_1RendererAPI.html#a369d435c3b2500a5d8a8cd94af4c91b1", null ],
     [ "SetClearColor", "classElevate_1_1RendererAPI.html#a40473b8c59c5758289288b35663856de", null ],

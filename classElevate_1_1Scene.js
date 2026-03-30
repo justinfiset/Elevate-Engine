@@ -13,7 +13,7 @@ var classElevate_1_1Scene =
     [ "RenderScene", "classElevate_1_1Scene.html#a550483f1b65d799012c6e1d3d5897aee", null ],
     [ "Serialize", "classElevate_1_1Scene.html#acd209dbb2406fd089f0a3b208fa873c6", null ],
     [ "SetLighting", "classElevate_1_1Scene.html#ace2d8fdce4d4d7f0c7876de7d2246903", null ],
-    [ "SetSkybox", "classElevate_1_1Scene.html#a52b833b54a07ec2d85bc8a232ce8bfa0", null ],
+    [ "SetSkybox", "classElevate_1_1Scene.html#a7d5283f04c99226e5717bc8c52496629", null ],
     [ "SubmitDrawCalls", "classElevate_1_1Scene.html#a35c92de3fcaef58f5b19ce4fb726674a", null ],
     [ "UpdateScene", "classElevate_1_1Scene.html#a40bd4e29f681f5a743aac11c8d6e5dee", null ],
     [ "ComponentRegistry", "classElevate_1_1Scene.html#a1da30f92d011625cd9eed0403ad64dbf", null ],

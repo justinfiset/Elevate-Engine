@@ -139,6 +139,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a565f12793e2a5807c60fbd1c13690892"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40c4ae753051b335221fcca86f005df7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Renderer.html#a40c4ae753051b335221fcca86f005df7">BindTexture</a> (const std::shared_ptr&lt; <a class="el" href="classElevate_1_1Texture.html">Texture</a> &gt; &amp;texture, uint8_t slot=0)</td></tr>
 <tr class="separator:a40c4ae753051b335221fcca86f005df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87ad2947f16f20c073bafde61b987574"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Renderer.html#a87ad2947f16f20c073bafde61b987574">InvalidateStateCache</a> ()</td></tr>
+<tr class="separator:a87ad2947f16f20c073bafde61b987574"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -168,16 +170,16 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00041">41</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   42</span>    {</div>
-<div class="line"><span class="lineno">   43</span>        <span class="comment">// If the binded shader changed</span></div>
-<div class="line"><span class="lineno">   44</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">BindShader</a>(shader))</div>
-<div class="line"><span class="lineno">   45</span>        {</div>
-<div class="line"><span class="lineno">   46</span>            shader-&gt;SetProjectionViewMatrix(s_data.ViewProj);</div>
-<div class="line"><span class="lineno">   47</span>            shader-&gt;SetCameraPosition(s_data.CameraPosition);</div>
-<div class="line"><span class="lineno">   48</span>        }</div>
-<div class="line"><span class="lineno">   49</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a9a0e9683c75b87fb1653900877bba302"><div class="ttname"><a href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Elevate::Renderer::BindShader</a></div><div class="ttdeci">static bool BindShader(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00029">Renderer.cpp:29</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00042">42</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   43</span>    {</div>
+<div class="line"><span class="lineno">   44</span>        <span class="comment">// If the binded shader changed</span></div>
+<div class="line"><span class="lineno">   45</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">BindShader</a>(shader))</div>
+<div class="line"><span class="lineno">   46</span>        {</div>
+<div class="line"><span class="lineno">   47</span>            shader-&gt;SetProjectionViewMatrix(s_data.ViewProj);</div>
+<div class="line"><span class="lineno">   48</span>            shader-&gt;SetCameraPosition(s_data.CameraPosition);</div>
+<div class="line"><span class="lineno">   49</span>        }</div>
+<div class="line"><span class="lineno">   50</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a9a0e9683c75b87fb1653900877bba302"><div class="ttname"><a href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Elevate::Renderer::BindShader</a></div><div class="ttdeci">static bool BindShader(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00030">Renderer.cpp:30</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -217,11 +219,13 @@ Static Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00021">21</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   22</span>    {</div>
-<div class="line"><span class="lineno">   23</span>        s_currentShaderID = 0;</div>
-<div class="line"><span class="lineno">   24</span>        s_data.CameraPosition = cam.gameObject-&gt;GetPosition();</div>
-<div class="line"><span class="lineno">   25</span>        s_data.ViewProj = cam.GenViewProjectionMatrix();</div>
-<div class="line"><span class="lineno">   26</span>        s_data.ActiveLighting = scene-&gt;GetSceneLighting();</div>
-<div class="line"><span class="lineno">   27</span>    }</div>
+<div class="line"><span class="lineno">   23</span>        s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a92314b04adca4ed73c1fdbd6360717cc">ClearTextureBindings</a>();</div>
+<div class="line"><span class="lineno">   24</span>        s_currentShaderID = 0;</div>
+<div class="line"><span class="lineno">   25</span>        s_data.CameraPosition = cam.gameObject-&gt;GetPosition();</div>
+<div class="line"><span class="lineno">   26</span>        s_data.ViewProj = cam.GenViewProjectionMatrix();</div>
+<div class="line"><span class="lineno">   27</span>        s_data.ActiveLighting = scene-&gt;GetSceneLighting();</div>
+<div class="line"><span class="lineno">   28</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1RendererAPI_html_a92314b04adca4ed73c1fdbd6360717cc"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#a92314b04adca4ed73c1fdbd6360717cc">Elevate::RendererAPI::ClearTextureBindings</a></div><div class="ttdeci">virtual void ClearTextureBindings() const =0</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -249,17 +253,17 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00029">29</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   30</span>    {</div>
-<div class="line"><span class="lineno">   31</span>        uint32_t <span class="keywordtype">id</span> = shader-&gt;GetID();</div>
-<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">if</span> (s_currentShaderID != <span class="keywordtype">id</span>)</div>
-<div class="line"><span class="lineno">   33</span>        {</div>
-<div class="line"><span class="lineno">   34</span>            shader-&gt;Bind();</div>
-<div class="line"><span class="lineno">   35</span>            s_currentShaderID = id;</div>
-<div class="line"><span class="lineno">   36</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">   37</span>        }</div>
-<div class="line"><span class="lineno">   38</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   39</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00030">30</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   31</span>    {</div>
+<div class="line"><span class="lineno">   32</span>        uint32_t <span class="keywordtype">id</span> = shader-&gt;GetID();</div>
+<div class="line"><span class="lineno">   33</span>        <span class="keywordflow">if</span> (s_currentShaderID != <span class="keywordtype">id</span>)</div>
+<div class="line"><span class="lineno">   34</span>        {</div>
+<div class="line"><span class="lineno">   35</span>            shader-&gt;Bind();</div>
+<div class="line"><span class="lineno">   36</span>            s_currentShaderID = id;</div>
+<div class="line"><span class="lineno">   37</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   38</span>        }</div>
+<div class="line"><span class="lineno">   39</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   40</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -297,19 +301,18 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00159">159</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  160</span>    {</div>
-<div class="line"><span class="lineno">  161</span>        <span class="comment">// todo optimize and make sure EVERY texture uses this</span></div>
-<div class="line"><span class="lineno">  162</span>        <span class="comment">//uintptr_t textureID = texture ? reinterpret_cast&lt;uintptr_t&gt;(texture-&gt;GetNativeHandle()) : 0;</span></div>
-<div class="line"><span class="lineno">  163</span>        <span class="comment">//if (s_textures[slot] != textureID)</span></div>
-<div class="line"><span class="lineno">  164</span>        <span class="comment">//{</span></div>
-<div class="line"><span class="lineno">  165</span>        <span class="comment">//  if (texture)</span></div>
-<div class="line"><span class="lineno">  166</span>        <span class="comment">//  {</span></div>
-<div class="line"><span class="lineno">  167</span>        <span class="comment">//      texture-&gt;Bind(slot);</span></div>
-<div class="line"><span class="lineno">  168</span>        <span class="comment">//  }</span></div>
-<div class="line"><span class="lineno">  169</span>        <span class="comment">//  s_textures[slot] = textureID;</span></div>
-<div class="line"><span class="lineno">  170</span>        <span class="comment">//}</span></div>
-<div class="line"><span class="lineno">  171</span>        texture-&gt;Bind(slot);</div>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00160">160</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  161</span>    {</div>
+<div class="line"><span class="lineno">  162</span>        <span class="comment">// todo optimize and make sure EVERY texture uses this</span></div>
+<div class="line"><span class="lineno">  163</span>        uintptr_t textureID = texture ? <span class="keyword">reinterpret_cast&lt;</span>uintptr_t<span class="keyword">&gt;</span>(texture-&gt;GetNativeHandle()) : 0;</div>
+<div class="line"><span class="lineno">  164</span>        <span class="keywordflow">if</span> (s_textures[slot] != textureID)</div>
+<div class="line"><span class="lineno">  165</span>        {</div>
+<div class="line"><span class="lineno">  166</span>            <span class="keywordflow">if</span> (texture)</div>
+<div class="line"><span class="lineno">  167</span>            {</div>
+<div class="line"><span class="lineno">  168</span>                texture-&gt;Bind(slot);</div>
+<div class="line"><span class="lineno">  169</span>            }</div>
+<div class="line"><span class="lineno">  170</span>            s_textures[slot] = textureID;</div>
+<div class="line"><span class="lineno">  171</span>        }</div>
 <div class="line"><span class="lineno">  172</span>    }</div>
 </div><!-- fragment -->
 </div>
@@ -337,10 +340,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00057">57</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   58</span>    {</div>
-<div class="line"><span class="lineno">   59</span>        s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a38c73f71d7c001d3354a37103fe6f4cc">Clear</a>();</div>
-<div class="line"><span class="lineno">   60</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00058">58</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   59</span>    {</div>
+<div class="line"><span class="lineno">   60</span>        s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a38c73f71d7c001d3354a37103fe6f4cc">Clear</a>();</div>
+<div class="line"><span class="lineno">   61</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1RendererAPI_html_a38c73f71d7c001d3354a37103fe6f4cc"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#a38c73f71d7c001d3354a37103fe6f4cc">Elevate::RendererAPI::Clear</a></div><div class="ttdeci">virtual void Clear() const =0</div></div>
 </div><!-- fragment -->
 </div>
@@ -377,30 +380,30 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00111">111</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  112</span>    {</div>
-<div class="line"><span class="lineno">  113</span>        <span class="comment">// Update the renderer state if necessary</span></div>
-<div class="line"><span class="lineno">  114</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">PushRenderState</a>(command.m_State);</div>
-<div class="line"><span class="lineno">  115</span> </div>
-<div class="line"><span class="lineno">  116</span>        <span class="comment">// Setup the Material and Shader</span></div>
-<div class="line"><span class="lineno">  117</span>        uint32_t prevshader = s_currentShaderID;</div>
-<div class="line"><span class="lineno">  118</span>        <span class="keywordflow">if</span> (command.m_MaterialInstance)</div>
-<div class="line"><span class="lineno">  119</span>        {</div>
-<div class="line"><span class="lineno">  120</span>            <span class="keyword">auto</span> shader = command.m_MaterialInstance-&gt;GetShader();</div>
-<div class="line"><span class="lineno">  121</span>            <span class="keywordflow">if</span> (shader)</div>
-<div class="line"><span class="lineno">  122</span>            {</div>
-<div class="line"><span class="lineno">  123</span>                <a class="code hl_function" href="classElevate_1_1Renderer.html#abf405456c7a08e9c084a9b4f2d383254">ApplySystemUniforms</a>(shader);</div>
-<div class="line"><span class="lineno">  124</span>                shader-&gt;SetModelMatrix(command.Transform);</div>
-<div class="line"><span class="lineno">  125</span>                s_data.ActiveLighting-&gt;UploadToShader(shader);</div>
-<div class="line"><span class="lineno">  126</span>                command.m_MaterialInstance-&gt;Apply();</div>
-<div class="line"><span class="lineno">  127</span>            }</div>
-<div class="line"><span class="lineno">  128</span>        }</div>
-<div class="line"><span class="lineno">  129</span>        <span class="comment">// Actually render the vertex array</span></div>
-<div class="line"><span class="lineno">  130</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">Renderer::DrawArray</a>(command.m_VertexArray);</div>
-<div class="line"><span class="lineno">  131</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a0174d02b9894e9d18702b10add0e3fcb"><div class="ttname"><a href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">Elevate::Renderer::PushRenderState</a></div><div class="ttdeci">static void PushRenderState(const RenderState &amp;newState)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00090">Renderer.cpp:90</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_aa8fb2f24ccd1629ea1bd98ddce55e667"><div class="ttname"><a href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">Elevate::Renderer::DrawArray</a></div><div class="ttdeci">static void DrawArray(const VertexArray *vao, DrawPrimitiveType primitive=DrawPrimitiveType::Triangles)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00072">Renderer.cpp:72</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_abf405456c7a08e9c084a9b4f2d383254"><div class="ttname"><a href="classElevate_1_1Renderer.html#abf405456c7a08e9c084a9b4f2d383254">Elevate::Renderer::ApplySystemUniforms</a></div><div class="ttdeci">static void ApplySystemUniforms(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00041">Renderer.cpp:41</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00112">112</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  113</span>    {</div>
+<div class="line"><span class="lineno">  114</span>        <span class="comment">// Update the renderer state if necessary</span></div>
+<div class="line"><span class="lineno">  115</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">PushRenderState</a>(command.m_State);</div>
+<div class="line"><span class="lineno">  116</span> </div>
+<div class="line"><span class="lineno">  117</span>        <span class="comment">// Setup the Material and Shader</span></div>
+<div class="line"><span class="lineno">  118</span>        uint32_t prevshader = s_currentShaderID;</div>
+<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">if</span> (command.m_MaterialInstance)</div>
+<div class="line"><span class="lineno">  120</span>        {</div>
+<div class="line"><span class="lineno">  121</span>            <span class="keyword">auto</span> shader = command.m_MaterialInstance-&gt;GetShader();</div>
+<div class="line"><span class="lineno">  122</span>            <span class="keywordflow">if</span> (shader)</div>
+<div class="line"><span class="lineno">  123</span>            {</div>
+<div class="line"><span class="lineno">  124</span>                <a class="code hl_function" href="classElevate_1_1Renderer.html#abf405456c7a08e9c084a9b4f2d383254">ApplySystemUniforms</a>(shader);</div>
+<div class="line"><span class="lineno">  125</span>                shader-&gt;SetModelMatrix(command.Transform);</div>
+<div class="line"><span class="lineno">  126</span>                s_data.ActiveLighting-&gt;UploadToShader(shader);</div>
+<div class="line"><span class="lineno">  127</span>                command.m_MaterialInstance-&gt;Apply();</div>
+<div class="line"><span class="lineno">  128</span>            }</div>
+<div class="line"><span class="lineno">  129</span>        }</div>
+<div class="line"><span class="lineno">  130</span>        <span class="comment">// Actually render the vertex array</span></div>
+<div class="line"><span class="lineno">  131</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">Renderer::DrawArray</a>(command.m_VertexArray);</div>
+<div class="line"><span class="lineno">  132</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a0174d02b9894e9d18702b10add0e3fcb"><div class="ttname"><a href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">Elevate::Renderer::PushRenderState</a></div><div class="ttdeci">static void PushRenderState(const RenderState &amp;newState)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00091">Renderer.cpp:91</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_aa8fb2f24ccd1629ea1bd98ddce55e667"><div class="ttname"><a href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">Elevate::Renderer::DrawArray</a></div><div class="ttdeci">static void DrawArray(const VertexArray *vao, DrawPrimitiveType primitive=DrawPrimitiveType::Triangles)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00073">Renderer.cpp:73</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_abf405456c7a08e9c084a9b4f2d383254"><div class="ttname"><a href="classElevate_1_1Renderer.html#abf405456c7a08e9c084a9b4f2d383254">Elevate::Renderer::ApplySystemUniforms</a></div><div class="ttdeci">static void ApplySystemUniforms(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00042">Renderer.cpp:42</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -438,10 +441,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00080">80</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   81</span>    {</div>
-<div class="line"><span class="lineno">   82</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">DrawArray</a>(vao.get(), primitive);</div>
-<div class="line"><span class="lineno">   83</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00081">81</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   82</span>    {</div>
+<div class="line"><span class="lineno">   83</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">DrawArray</a>(vao.get(), primitive);</div>
+<div class="line"><span class="lineno">   84</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -479,13 +482,13 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00072">72</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   73</span>    {</div>
-<div class="line"><span class="lineno">   74</span>        <span class="keywordflow">if</span> (vao)</div>
-<div class="line"><span class="lineno">   75</span>        {</div>
-<div class="line"><span class="lineno">   76</span>            s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a3880f081005ef41481cdf767d85a19ae">DrawArray</a>(vao, primitive);</div>
-<div class="line"><span class="lineno">   77</span>        }</div>
-<div class="line"><span class="lineno">   78</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00073">73</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   74</span>    {</div>
+<div class="line"><span class="lineno">   75</span>        <span class="keywordflow">if</span> (vao)</div>
+<div class="line"><span class="lineno">   76</span>        {</div>
+<div class="line"><span class="lineno">   77</span>            s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a3880f081005ef41481cdf767d85a19ae">DrawArray</a>(vao, primitive);</div>
+<div class="line"><span class="lineno">   78</span>        }</div>
+<div class="line"><span class="lineno">   79</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1RendererAPI_html_a3880f081005ef41481cdf767d85a19ae"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#a3880f081005ef41481cdf767d85a19ae">Elevate::RendererAPI::DrawArray</a></div><div class="ttdeci">virtual void DrawArray(const VertexArray *vao, DrawPrimitiveType primitive=DrawPrimitiveType::Triangles) const =0</div></div>
 </div><!-- fragment -->
 </div>
@@ -513,10 +516,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00085">85</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   86</span>    {</div>
-<div class="line"><span class="lineno">   87</span>        s_commands.<a class="code hl_function" href="classElevate_1_1RenderCommandQueue.html#ad652aa40a068595fa267ca500e5bfcff">FlushAll</a>();</div>
-<div class="line"><span class="lineno">   88</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00086">86</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   87</span>    {</div>
+<div class="line"><span class="lineno">   88</span>        s_commands.<a class="code hl_function" href="classElevate_1_1RenderCommandQueue.html#ad652aa40a068595fa267ca500e5bfcff">FlushAll</a>();</div>
+<div class="line"><span class="lineno">   89</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1RenderCommandQueue_html_ad652aa40a068595fa267ca500e5bfcff"><div class="ttname"><a href="classElevate_1_1RenderCommandQueue.html#ad652aa40a068595fa267ca500e5bfcff">Elevate::RenderCommandQueue::FlushAll</a></div><div class="ttdeci">void FlushAll()</div><div class="ttdef"><b>Definition:</b> <a href="RenderCommandQueue_8cpp_source.html#l00026">RenderCommandQueue.cpp:26</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -544,10 +547,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00062">62</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   63</span>    {</div>
-<div class="line"><span class="lineno">   64</span>        s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a369d435c3b2500a5d8a8cd94af4c91b1">FlushBuffers</a>();</div>
-<div class="line"><span class="lineno">   65</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00063">63</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   64</span>    {</div>
+<div class="line"><span class="lineno">   65</span>        s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a369d435c3b2500a5d8a8cd94af4c91b1">FlushBuffers</a>();</div>
+<div class="line"><span class="lineno">   66</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1RendererAPI_html_a369d435c3b2500a5d8a8cd94af4c91b1"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#a369d435c3b2500a5d8a8cd94af4c91b1">Elevate::RendererAPI::FlushBuffers</a></div><div class="ttdeci">virtual void FlushBuffers() const =0</div></div>
 </div><!-- fragment -->
 </div>
@@ -577,7 +580,40 @@ Static Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Renderer_8h_source.html#l00024">24</a> of file <a class="el" href="Renderer_8h_source.html">Renderer.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   24</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1RendererAPI.html#ae117c58dba454076b959ada74db593ed">RendererAPI::GetAPI</a>(); }</div>
-<div class="ttc" id="aclassElevate_1_1RendererAPI_html_ae117c58dba454076b959ada74db593ed"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#ae117c58dba454076b959ada74db593ed">Elevate::RendererAPI::GetAPI</a></div><div class="ttdeci">static GraphicAPI GetAPI()</div><div class="ttdef"><b>Definition:</b> <a href="RendererAPI_8h_source.html#l00048">RendererAPI.h:48</a></div></div>
+<div class="ttc" id="aclassElevate_1_1RendererAPI_html_ae117c58dba454076b959ada74db593ed"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#ae117c58dba454076b959ada74db593ed">Elevate::RendererAPI::GetAPI</a></div><div class="ttdeci">static GraphicAPI GetAPI()</div><div class="ttdef"><b>Definition:</b> <a href="RendererAPI_8h_source.html#l00049">RendererAPI.h:49</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a87ad2947f16f20c073bafde61b987574" name="a87ad2947f16f20c073bafde61b987574"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87ad2947f16f20c073bafde61b987574">&#9670;&#160;</a></span>InvalidateStateCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Elevate::Renderer::InvalidateStateCache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00174">174</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  175</span>    {</div>
+<div class="line"><span class="lineno">  176</span>        <span class="comment">// Make each texture ptr to an impossible value to make sure we bind each frame.</span></div>
+<div class="line"><span class="lineno">  177</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; std::size(s_textures); i++) {</div>
+<div class="line"><span class="lineno">  178</span>            s_textures[i] = (uintptr_t)-1;</div>
+<div class="line"><span class="lineno">  179</span>        }</div>
+<div class="line"><span class="lineno">  180</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -605,26 +641,26 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00090">90</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   91</span>    {</div>
-<div class="line"><span class="lineno">   92</span>        <span class="comment">// todo make a first invalid call to make sure the GPU is synced with this cache before the user does anything</span></div>
-<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">if</span> (newState.Cullface != s_currentState.<a class="code hl_variable" href="structElevate_1_1RenderState.html#a838a8e031c81ef8df85d6ecb7acdc704">Cullface</a>)</div>
-<div class="line"><span class="lineno">   94</span>        {</div>
-<div class="line"><span class="lineno">   95</span>            s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a2373a92caab02ac087dd3739f41fbb0b">SetCullingState</a>(newState.Cullface);</div>
-<div class="line"><span class="lineno">   96</span>        }</div>
-<div class="line"><span class="lineno">   97</span> </div>
-<div class="line"><span class="lineno">   98</span>        <span class="keywordflow">if</span> (newState.DepthWrite != s_currentState.<a class="code hl_variable" href="structElevate_1_1RenderState.html#aa9e367e4b57b2d3149c937384aab192a">DepthWrite</a>)</div>
-<div class="line"><span class="lineno">   99</span>        {</div>
-<div class="line"><span class="lineno">  100</span>            s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a6ddc6e2f8dc24fc7abc369696e1062d9">SetDepthWrittingState</a>(newState.DepthWrite);</div>
-<div class="line"><span class="lineno">  101</span>        }</div>
-<div class="line"><span class="lineno">  102</span> </div>
-<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">if</span> (newState.DepthTest != s_currentState.<a class="code hl_variable" href="structElevate_1_1RenderState.html#a088c9781880a2a670fddc3c7a38b8cad">DepthTest</a>)</div>
-<div class="line"><span class="lineno">  104</span>        {</div>
-<div class="line"><span class="lineno">  105</span>            s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#aa4c5d8cb7aa6eee9808cb9faedf664af">SetDepthTestingState</a>(newState.DepthTest);</div>
-<div class="line"><span class="lineno">  106</span>        }</div>
-<div class="line"><span class="lineno">  107</span> </div>
-<div class="line"><span class="lineno">  108</span>        s_currentState = newState;</div>
-<div class="line"><span class="lineno">  109</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00091">91</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   92</span>    {</div>
+<div class="line"><span class="lineno">   93</span>        <span class="comment">// todo make a first invalid call to make sure the GPU is synced with this cache before the user does anything</span></div>
+<div class="line"><span class="lineno">   94</span>        <span class="keywordflow">if</span> (newState.Cullface != s_currentState.<a class="code hl_variable" href="structElevate_1_1RenderState.html#a838a8e031c81ef8df85d6ecb7acdc704">Cullface</a>)</div>
+<div class="line"><span class="lineno">   95</span>        {</div>
+<div class="line"><span class="lineno">   96</span>            s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a2373a92caab02ac087dd3739f41fbb0b">SetCullingState</a>(newState.Cullface);</div>
+<div class="line"><span class="lineno">   97</span>        }</div>
+<div class="line"><span class="lineno">   98</span> </div>
+<div class="line"><span class="lineno">   99</span>        <span class="keywordflow">if</span> (newState.DepthWrite != s_currentState.<a class="code hl_variable" href="structElevate_1_1RenderState.html#aa9e367e4b57b2d3149c937384aab192a">DepthWrite</a>)</div>
+<div class="line"><span class="lineno">  100</span>        {</div>
+<div class="line"><span class="lineno">  101</span>            s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a6ddc6e2f8dc24fc7abc369696e1062d9">SetDepthWrittingState</a>(newState.DepthWrite);</div>
+<div class="line"><span class="lineno">  102</span>        }</div>
+<div class="line"><span class="lineno">  103</span> </div>
+<div class="line"><span class="lineno">  104</span>        <span class="keywordflow">if</span> (newState.DepthTest != s_currentState.<a class="code hl_variable" href="structElevate_1_1RenderState.html#a088c9781880a2a670fddc3c7a38b8cad">DepthTest</a>)</div>
+<div class="line"><span class="lineno">  105</span>        {</div>
+<div class="line"><span class="lineno">  106</span>            s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#aa4c5d8cb7aa6eee9808cb9faedf664af">SetDepthTestingState</a>(newState.DepthTest);</div>
+<div class="line"><span class="lineno">  107</span>        }</div>
+<div class="line"><span class="lineno">  108</span> </div>
+<div class="line"><span class="lineno">  109</span>        s_currentState = newState;</div>
+<div class="line"><span class="lineno">  110</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1RendererAPI_html_a2373a92caab02ac087dd3739f41fbb0b"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#a2373a92caab02ac087dd3739f41fbb0b">Elevate::RendererAPI::SetCullingState</a></div><div class="ttdeci">virtual void SetCullingState(bool enabled) const =0</div></div>
 <div class="ttc" id="aclassElevate_1_1RendererAPI_html_a6ddc6e2f8dc24fc7abc369696e1062d9"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#a6ddc6e2f8dc24fc7abc369696e1062d9">Elevate::RendererAPI::SetDepthWrittingState</a></div><div class="ttdeci">virtual void SetDepthWrittingState(bool enabled) const =0</div></div>
 <div class="ttc" id="aclassElevate_1_1RendererAPI_html_aa4c5d8cb7aa6eee9808cb9faedf664af"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#aa4c5d8cb7aa6eee9808cb9faedf664af">Elevate::RendererAPI::SetDepthTestingState</a></div><div class="ttdeci">virtual void SetDepthTestingState(bool enabled) const =0</div></div>
@@ -658,10 +694,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00052">52</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   53</span>    {</div>
-<div class="line"><span class="lineno">   54</span>        s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a40473b8c59c5758289288b35663856de">SetClearColor</a>(color);</div>
-<div class="line"><span class="lineno">   55</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00053">53</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   54</span>    {</div>
+<div class="line"><span class="lineno">   55</span>        s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a40473b8c59c5758289288b35663856de">SetClearColor</a>(color);</div>
+<div class="line"><span class="lineno">   56</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1RendererAPI_html_a40473b8c59c5758289288b35663856de"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#a40473b8c59c5758289288b35663856de">Elevate::RendererAPI::SetClearColor</a></div><div class="ttdeci">virtual void SetClearColor(const glm::vec4 &amp;color) const =0</div></div>
 </div><!-- fragment -->
 </div>
@@ -712,10 +748,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00067">67</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   68</span>    {</div>
-<div class="line"><span class="lineno">   69</span>        s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a24b4e678ac741bb125f04fad133d1222">SetViewport</a>(x, y, width, height);</div>
-<div class="line"><span class="lineno">   70</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00068">68</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   69</span>    {</div>
+<div class="line"><span class="lineno">   70</span>        s_API-&gt;<a class="code hl_function" href="classElevate_1_1RendererAPI.html#a24b4e678ac741bb125f04fad133d1222">SetViewport</a>(x, y, width, height);</div>
+<div class="line"><span class="lineno">   71</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1RendererAPI_html_a24b4e678ac741bb125f04fad133d1222"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#a24b4e678ac741bb125f04fad133d1222">Elevate::RendererAPI::SetViewport</a></div><div class="ttdeci">virtual void SetViewport(int x, int y, int width, int height) const =0</div></div>
 </div><!-- fragment -->
 </div>
@@ -754,10 +790,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00133">133</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  134</span>    {</div>
-<div class="line"><span class="lineno">  135</span>        s_commands.<a class="code hl_function" href="classElevate_1_1RenderCommandQueue.html#a06da97c3a1f16955b53b51a35db316ac">Submit</a>(type, command);</div>
-<div class="line"><span class="lineno">  136</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00134">134</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  135</span>    {</div>
+<div class="line"><span class="lineno">  136</span>        s_commands.<a class="code hl_function" href="classElevate_1_1RenderCommandQueue.html#a06da97c3a1f16955b53b51a35db316ac">Submit</a>(type, command);</div>
+<div class="line"><span class="lineno">  137</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1RenderCommandQueue_html_a06da97c3a1f16955b53b51a35db316ac"><div class="ttname"><a href="classElevate_1_1RenderCommandQueue.html#a06da97c3a1f16955b53b51a35db316ac">Elevate::RenderCommandQueue::Submit</a></div><div class="ttdeci">void Submit(RenderBucket::Type type, const RenderCommand &amp;command)</div><div class="ttdef"><b>Definition:</b> <a href="RenderCommandQueue_8cpp_source.html#l00005">RenderCommandQueue.cpp:5</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -808,28 +844,28 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00138">138</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  139</span>    {</div>
-<div class="line"><span class="lineno">  140</span>        RenderCommand command;</div>
-<div class="line"><span class="lineno">  141</span>        command.m_VertexArray = vao.get();</div>
-<div class="line"><span class="lineno">  142</span>        command.m_MaterialInstance = material.get();</div>
-<div class="line"><span class="lineno">  143</span>        command.Transform = transform;</div>
-<div class="line"><span class="lineno">  144</span> </div>
-<div class="line"><span class="lineno">  145</span>        <span class="keywordflow">if</span> (bucketType == <a class="code hl_enumvalue" href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a068c7634323788c9364a2f69b3f9dee7">RenderBucket::Transparent</a>)</div>
-<div class="line"><span class="lineno">  146</span>        {</div>
-<div class="line"><span class="lineno">  147</span>            command.m_State.BlendEnable = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  148</span>            command.m_State.DepthWrite = <span class="keyword">false</span>; <span class="comment">// Transparents usually don&#39;t write to depth</span></div>
-<div class="line"><span class="lineno">  149</span>        }</div>
-<div class="line"><span class="lineno">  150</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  151</span>        {</div>
-<div class="line"><span class="lineno">  152</span>            command.m_State.BlendEnable = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  153</span>            command.m_State.DepthWrite = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  154</span>        }</div>
-<div class="line"><span class="lineno">  155</span> </div>
-<div class="line"><span class="lineno">  156</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#aa4688c12a8d15750e0288ac062779dfb">Submit</a>(bucketType, command);</div>
-<div class="line"><span class="lineno">  157</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00139">139</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  140</span>    {</div>
+<div class="line"><span class="lineno">  141</span>        RenderCommand command;</div>
+<div class="line"><span class="lineno">  142</span>        command.m_VertexArray = vao.get();</div>
+<div class="line"><span class="lineno">  143</span>        command.m_MaterialInstance = material.get();</div>
+<div class="line"><span class="lineno">  144</span>        command.Transform = transform;</div>
+<div class="line"><span class="lineno">  145</span> </div>
+<div class="line"><span class="lineno">  146</span>        <span class="keywordflow">if</span> (bucketType == <a class="code hl_enumvalue" href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a068c7634323788c9364a2f69b3f9dee7">RenderBucket::Transparent</a>)</div>
+<div class="line"><span class="lineno">  147</span>        {</div>
+<div class="line"><span class="lineno">  148</span>            command.m_State.BlendEnable = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  149</span>            command.m_State.DepthWrite = <span class="keyword">false</span>; <span class="comment">// Transparents usually don&#39;t write to depth</span></div>
+<div class="line"><span class="lineno">  150</span>        }</div>
+<div class="line"><span class="lineno">  151</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  152</span>        {</div>
+<div class="line"><span class="lineno">  153</span>            command.m_State.BlendEnable = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  154</span>            command.m_State.DepthWrite = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  155</span>        }</div>
+<div class="line"><span class="lineno">  156</span> </div>
+<div class="line"><span class="lineno">  157</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#aa4688c12a8d15750e0288ac062779dfb">Submit</a>(bucketType, command);</div>
+<div class="line"><span class="lineno">  158</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1RenderBucket_html_a3f870944d2537ae2f1f26ebb8481c7a2a068c7634323788c9364a2f69b3f9dee7"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a068c7634323788c9364a2f69b3f9dee7">Elevate::RenderBucket::Transparent</a></div><div class="ttdeci">@ Transparent</div><div class="ttdef"><b>Definition:</b> <a href="RenderBucket_8h_source.html#l00016">RenderBucket.h:16</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_aa4688c12a8d15750e0288ac062779dfb"><div class="ttname"><a href="classElevate_1_1Renderer.html#aa4688c12a8d15750e0288ac062779dfb">Elevate::Renderer::Submit</a></div><div class="ttdeci">static void Submit(RenderBucket::Type type, const RenderCommand &amp;command)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00133">Renderer.cpp:133</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_aa4688c12a8d15750e0288ac062779dfb"><div class="ttname"><a href="classElevate_1_1Renderer.html#aa4688c12a8d15750e0288ac062779dfb">Elevate::Renderer::Submit</a></div><div class="ttdeci">static void Submit(RenderBucket::Type type, const RenderCommand &amp;command)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00134">Renderer.cpp:134</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

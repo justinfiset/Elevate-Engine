@@ -168,24 +168,33 @@ Friends</h2></td></tr>
 <div class="line"><span class="lineno">   68</span>                }</div>
 <div class="line"><span class="lineno">   69</span>            }</div>
 <div class="line"><span class="lineno">   70</span> </div>
-<div class="line"><span class="lineno">   71</span>            uint32_t slot = 0;</div>
-<div class="line"><span class="lineno">   72</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; tex : m_textures)</div>
-<div class="line"><span class="lineno">   73</span>            {</div>
-<div class="line"><span class="lineno">   74</span>                <a class="code hl_function" href="classElevate_1_1Renderer.html#a40c4ae753051b335221fcca86f005df7">Renderer::BindTexture</a>(tex.second, slot);</div>
-<div class="line"><span class="lineno">   75</span>                m_shader-&gt;SetUniform1i(tex.first, slot);</div>
-<div class="line"><span class="lineno">   76</span>                slot++;</div>
-<div class="line"><span class="lineno">   77</span>            }</div>
-<div class="line"><span class="lineno">   78</span>        }</div>
-<div class="line"><span class="lineno">   79</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   80</span>        {</div>
-<div class="line"><span class="lineno">   81</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;Material::Apply() : Cannot apply uniforms to a shader that is nullptr.&quot;</span>);</div>
-<div class="line"><span class="lineno">   82</span>        }</div>
-<div class="line"><span class="lineno">   83</span>    }</div>
+<div class="line"><span class="lineno">   71</span>            <span class="comment">// Reset all texture bindings</span></div>
+<div class="line"><span class="lineno">   72</span>            m_shader-&gt;SetUniform1i(<span class="stringliteral">&quot;has_diffuseTex&quot;</span>, 0);</div>
+<div class="line"><span class="lineno">   73</span>            m_shader-&gt;SetUniform1i(<span class="stringliteral">&quot;has_specularTex&quot;</span>, 0);</div>
+<div class="line"><span class="lineno">   74</span>            m_shader-&gt;SetUniform1i(<span class="stringliteral">&quot;has_ambientTex&quot;</span>, 0);</div>
+<div class="line"><span class="lineno">   75</span> </div>
+<div class="line"><span class="lineno">   76</span>            uint32_t slot = 0;</div>
+<div class="line"><span class="lineno">   77</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; tex : m_textures)</div>
+<div class="line"><span class="lineno">   78</span>            {</div>
+<div class="line"><span class="lineno">   79</span>                <span class="keywordflow">if</span> (tex.second &amp;&amp; tex.second-&gt;IsTextureLoaded())</div>
+<div class="line"><span class="lineno">   80</span>                {</div>
+<div class="line"><span class="lineno">   81</span>                    <a class="code hl_function" href="classElevate_1_1Renderer.html#a40c4ae753051b335221fcca86f005df7">Renderer::BindTexture</a>(tex.second, slot);</div>
+<div class="line"><span class="lineno">   82</span>                    m_shader-&gt;SetUniform1i(tex.first, slot);</div>
+<div class="line"><span class="lineno">   83</span>                    m_shader-&gt;SetUniform1i(<span class="stringliteral">&quot;has_&quot;</span> + tex.first, 1);</div>
+<div class="line"><span class="lineno">   84</span>                    slot++;</div>
+<div class="line"><span class="lineno">   85</span>                }</div>
+<div class="line"><span class="lineno">   86</span>            }</div>
+<div class="line"><span class="lineno">   87</span>        }</div>
+<div class="line"><span class="lineno">   88</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   89</span>        {</div>
+<div class="line"><span class="lineno">   90</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;Material::Apply() : Cannot apply uniforms to a shader that is nullptr.&quot;</span>);</div>
+<div class="line"><span class="lineno">   91</span>        }</div>
+<div class="line"><span class="lineno">   92</span>    }</div>
 <div class="ttc" id="aShader_8h_html_a255521a346a962f6ad62bb861402863d"><div class="ttname"><a href="Shader_8h.html#a255521a346a962f6ad62bb861402863d">EE_SHADER_MODEL</a></div><div class="ttdeci">#define EE_SHADER_MODEL</div><div class="ttdef"><b>Definition:</b> <a href="Shader_8h_source.html#l00011">Shader.h:11</a></div></div>
 <div class="ttc" id="aShader_8h_html_a37170057fcee6e4d0c887a2e4d276892"><div class="ttname"><a href="Shader_8h.html#a37170057fcee6e4d0c887a2e4d276892">EE_SHADER_VIEWPROJ</a></div><div class="ttdeci">#define EE_SHADER_VIEWPROJ</div><div class="ttdef"><b>Definition:</b> <a href="Shader_8h_source.html#l00012">Shader.h:12</a></div></div>
 <div class="ttc" id="aShader_8h_html_ae9062f7b2ef6959e3c78b2423415854a"><div class="ttname"><a href="Shader_8h.html#ae9062f7b2ef6959e3c78b2423415854a">EE_SHADER_CAMPOS</a></div><div class="ttdeci">#define EE_SHADER_CAMPOS</div><div class="ttdef"><b>Definition:</b> <a href="Shader_8h_source.html#l00013">Shader.h:13</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a40c4ae753051b335221fcca86f005df7"><div class="ttname"><a href="classElevate_1_1Renderer.html#a40c4ae753051b335221fcca86f005df7">Elevate::Renderer::BindTexture</a></div><div class="ttdeci">static void BindTexture(const std::shared_ptr&lt; Texture &gt; &amp;texture, uint8_t slot=0)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00159">Renderer.cpp:159</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a9a0e9683c75b87fb1653900877bba302"><div class="ttname"><a href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Elevate::Renderer::BindShader</a></div><div class="ttdeci">static bool BindShader(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00029">Renderer.cpp:29</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a40c4ae753051b335221fcca86f005df7"><div class="ttname"><a href="classElevate_1_1Renderer.html#a40c4ae753051b335221fcca86f005df7">Elevate::Renderer::BindTexture</a></div><div class="ttdeci">static void BindTexture(const std::shared_ptr&lt; Texture &gt; &amp;texture, uint8_t slot=0)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00160">Renderer.cpp:160</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a9a0e9683c75b87fb1653900877bba302"><div class="ttname"><a href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Elevate::Renderer::BindShader</a></div><div class="ttdeci">static bool BindShader(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00030">Renderer.cpp:30</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a084798f901873cb9a7cb959b62006324a6f0987d6f82566fca538d8c3b8f07ee1"><div class="ttname"><a href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a6f0987d6f82566fca538d8c3b8f07ee1">Elevate::EngineDataType::Sampler2D</a></div><div class="ttdeci">@ Sampler2D</div></div>
 </div><!-- fragment -->
 </div>
@@ -233,10 +242,10 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Material_8cpp_source.html#l00085">85</a> of file <a class="el" href="Material_8cpp_source.html">Material.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   86</span>    {</div>
-<div class="line"><span class="lineno">   87</span>        <span class="keywordflow">return</span> m_shader;</div>
-<div class="line"><span class="lineno">   88</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Material_8cpp_source.html#l00094">94</a> of file <a class="el" href="Material_8cpp_source.html">Material.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   95</span>    {</div>
+<div class="line"><span class="lineno">   96</span>        <span class="keywordflow">return</span> m_shader;</div>
+<div class="line"><span class="lineno">   97</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

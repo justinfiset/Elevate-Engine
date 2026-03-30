@@ -145,8 +145,8 @@ Static Public Member Functions</h2></td></tr>
 <div class="line"><span class="lineno">   12</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (virtualPath.starts_with(<span class="stringliteral">&quot;editor://&quot;</span>))</div>
 <div class="line"><span class="lineno">   13</span>    {</div>
 <div class="line"><span class="lineno">   14</span><span class="preprocessor">#ifndef EE_EDITOR_BUILD</span></div>
-<div class="line"><span class="lineno">   15</span>        EE_CORE_ERROR(<span class="stringliteral">&quot;You cannot use editor:// path while building without the editor.&quot;</span>)</div>
-<div class="line"><span class="lineno">   16</span>        return virtualPath;</div>
+<div class="line"><span class="lineno">   15</span>        EE_CORE_ERROR(<span class="stringliteral">&quot;You cannot use editor:// path while building without the editor.&quot;</span>);</div>
+<div class="line"><span class="lineno">   16</span>        <span class="keywordflow">return</span> virtualPath;</div>
 <div class="line"><span class="lineno">   17</span><span class="preprocessor">#else</span></div>
 <div class="line"><span class="lineno">   18</span>        <span class="keywordflow">return</span> std::string(<a class="code hl_define" href="Core_8h.html#aab59be60af9c904532041989cc5607f9">EE_EDITOR_DIR</a>) + virtualPath.substr(9);</div>
 <div class="line"><span class="lineno">   19</span><span class="preprocessor">#endif</span></div>

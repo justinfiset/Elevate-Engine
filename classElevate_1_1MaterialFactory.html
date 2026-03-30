@@ -142,15 +142,15 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Material_8cpp_source.html#l00090">90</a> of file <a class="el" href="Material_8cpp_source.html">Material.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   91</span>    {</div>
-<div class="line"><span class="lineno">   92</span>        <span class="keywordflow">if</span> (!shader)</div>
-<div class="line"><span class="lineno">   93</span>        {</div>
-<div class="line"><span class="lineno">   94</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;(MaterialFactory) : Cannot create a material from a null shader.&quot;</span>);</div>
-<div class="line"><span class="lineno">   95</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">   96</span>        }</div>
-<div class="line"><span class="lineno">   97</span>        <span class="keywordflow">return</span> std::shared_ptr&lt;Material&gt;(<span class="keyword">new</span> Material(shader));</div>
-<div class="line"><span class="lineno">   98</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Material_8cpp_source.html#l00099">99</a> of file <a class="el" href="Material_8cpp_source.html">Material.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  100</span>    {</div>
+<div class="line"><span class="lineno">  101</span>        <span class="keywordflow">if</span> (!shader)</div>
+<div class="line"><span class="lineno">  102</span>        {</div>
+<div class="line"><span class="lineno">  103</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;(MaterialFactory) : Cannot create a material from a null shader.&quot;</span>);</div>
+<div class="line"><span class="lineno">  104</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  105</span>        }</div>
+<div class="line"><span class="lineno">  106</span>        <span class="keywordflow">return</span> std::shared_ptr&lt;Material&gt;(<span class="keyword">new</span> Material(shader));</div>
+<div class="line"><span class="lineno">  107</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

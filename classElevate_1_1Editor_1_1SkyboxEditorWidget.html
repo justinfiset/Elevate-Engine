@@ -128,7 +128,7 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="SkyboxEditorWidget_8h_source.html#l00009">9</a> of file <a class="el" href="SkyboxEditorWidget_8h_source.html">SkyboxEditorWidget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SkyboxEditorWidget_8h_source.html#l00010">10</a> of file <a class="el" href="SkyboxEditorWidget_8h_source.html">SkyboxEditorWidget.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7d2ec58f44292d24111a1cb5232b1f89" name="a7d2ec58f44292d24111a1cb5232b1f89"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7d2ec58f44292d24111a1cb5232b1f89">&#9670;&#160;</a></span>OnImGuiRender()</h2>
@@ -155,48 +155,53 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classElevate_1_1Editor_1_1EditorWidget.html#ac43be72705d4d4f1f18487eaa4cd4a6f">Elevate::Editor::EditorWidget</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="SkyboxEditorWidget_8h_source.html#l00012">12</a> of file <a class="el" href="SkyboxEditorWidget_8h_source.html">SkyboxEditorWidget.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   13</span>        {</div>
-<div class="line"><span class="lineno">   14</span>            ImGui::Begin(<span class="stringliteral">&quot;Environment&quot;</span>);</div>
-<div class="line"><span class="lineno">   15</span>            ImGui::SeparatorText(<span class="stringliteral">&quot;Skybox&quot;</span>);</div>
-<div class="line"><span class="lineno">   16</span>            </div>
-<div class="line"><span class="lineno">   17</span>            <span class="keyword">auto</span> scene = <a class="code hl_function" href="classElevate_1_1SceneManager.html#a488dfec26cab92be149f3aac30a9cf90">SceneManager::GetCurrentScene</a>(<a class="code hl_enumvalue" href="namespaceElevate.html#a225575101fdde82b46ebe7da4c37bae9a10f4f44d88dec9bb10d99475347bbe5b">RuntimeScene</a>);</div>
-<div class="line"><span class="lineno">   18</span>            <span class="keyword">auto</span> skybox = scene-&gt;GetSkybox().lock();</div>
-<div class="line"><span class="lineno">   19</span> </div>
-<div class="line"><span class="lineno">   20</span>            <span class="keywordflow">if</span> (ImGui::Button(<span class="stringliteral">&quot;Select Skybox File&quot;</span>))</div>
-<div class="line"><span class="lineno">   21</span>            {</div>
-<div class="line"><span class="lineno">   22</span>                <span class="keyword">const</span> <span class="keywordtype">char</span>* filters[] = { <span class="stringliteral">&quot;*.sky&quot;</span> };</div>
-<div class="line"><span class="lineno">   23</span>                <span class="keyword">const</span> <span class="keywordtype">char</span>* filePath = tinyfd_openFileDialog(</div>
+<p class="definition">Definition at line <a class="el" href="SkyboxEditorWidget_8h_source.html#l00013">13</a> of file <a class="el" href="SkyboxEditorWidget_8h_source.html">SkyboxEditorWidget.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   14</span>        {</div>
+<div class="line"><span class="lineno">   15</span>            ImGui::Begin(<span class="stringliteral">&quot;Environment&quot;</span>);</div>
+<div class="line"><span class="lineno">   16</span>            ImGui::SeparatorText(<span class="stringliteral">&quot;Skybox&quot;</span>);</div>
+<div class="line"><span class="lineno">   17</span>            </div>
+<div class="line"><span class="lineno">   18</span>            <span class="keyword">auto</span> scene = <a class="code hl_function" href="classElevate_1_1SceneManager.html#a488dfec26cab92be149f3aac30a9cf90">SceneManager::GetCurrentScene</a>(<a class="code hl_enumvalue" href="namespaceElevate.html#a225575101fdde82b46ebe7da4c37bae9a10f4f44d88dec9bb10d99475347bbe5b">RuntimeScene</a>);</div>
+<div class="line"><span class="lineno">   19</span>            <span class="keyword">auto</span> skybox = scene-&gt;GetSkybox().lock();</div>
+<div class="line"><span class="lineno">   20</span> </div>
+<div class="line"><span class="lineno">   21</span>            <span class="keywordflow">if</span> (ImGui::Button(<span class="stringliteral">&quot;Select Skybox File&quot;</span>))</div>
+<div class="line"><span class="lineno">   22</span>            {</div>
+<div class="line"><span class="lineno">   23</span>                <a class="code hl_function" href="classElevate_1_1FileDialog.html#ab9abf6f75dcc3e92c58f85e6b453b350">FileDialog::RequestOpenFile</a>(</div>
 <div class="line"><span class="lineno">   24</span>                    <span class="stringliteral">&quot;Select a skybox file&quot;</span>,</div>
 <div class="line"><span class="lineno">   25</span>                    <span class="stringliteral">&quot;&quot;</span>,</div>
-<div class="line"><span class="lineno">   26</span>                    1,</div>
-<div class="line"><span class="lineno">   27</span>                    filters,</div>
-<div class="line"><span class="lineno">   28</span>                    <span class="stringliteral">&quot;*.sky - Elevate Skybox File&quot;</span>,</div>
-<div class="line"><span class="lineno">   29</span>                    0</div>
-<div class="line"><span class="lineno">   30</span>                );</div>
+<div class="line"><span class="lineno">   26</span>                    { <span class="stringliteral">&quot;*.sky&quot;</span> },</div>
+<div class="line"><span class="lineno">   27</span>                    <span class="stringliteral">&quot;*.sky - Elevate Skybox File&quot;</span>,</div>
+<div class="line"><span class="lineno">   28</span>                    false</div>
+<div class="line"><span class="lineno">   29</span>                );</div>
+<div class="line"><span class="lineno">   30</span>            }</div>
 <div class="line"><span class="lineno">   31</span> </div>
-<div class="line"><span class="lineno">   32</span>                <span class="keywordflow">if</span> (filePath)</div>
-<div class="line"><span class="lineno">   33</span>                {</div>
-<div class="line"><span class="lineno">   34</span>                    scene-&gt;SetSkybox(filePath);</div>
-<div class="line"><span class="lineno">   35</span>                }</div>
-<div class="line"><span class="lineno">   36</span>            }</div>
-<div class="line"><span class="lineno">   37</span> </div>
-<div class="line"><span class="lineno">   38</span>            <span class="keywordflow">if</span> (scene &amp;&amp; skybox)</div>
-<div class="line"><span class="lineno">   39</span>            {</div>
-<div class="line"><span class="lineno">   40</span>                ImGui::Text(<span class="stringliteral">&quot;Skybox : %s&quot;</span>, skybox-&gt;GetFilePath().c_str());</div>
-<div class="line"><span class="lineno">   41</span>                <span class="comment">// Skybox textures preview</span></div>
-<div class="line"><span class="lineno">   42</span>                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 6; i++) </div>
-<div class="line"><span class="lineno">   43</span>                {</div>
-<div class="line"><span class="lineno">   44</span>                    </div>
-<div class="line"><span class="lineno">   45</span>                }</div>
-<div class="line"><span class="lineno">   46</span>            }</div>
-<div class="line"><span class="lineno">   47</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   48</span>            {</div>
-<div class="line"><span class="lineno">   49</span>                ImGui::Text(<span class="stringliteral">&quot;Skybox : (none)&quot;</span>);</div>
+<div class="line"><span class="lineno">   32</span>            std::string filePath;</div>
+<div class="line"><span class="lineno">   33</span>            <span class="keywordflow">if</span> (<a class="code hl_function" href="classElevate_1_1FileDialog.html#ac4c9c768933c3569ede652a6edab2f59">FileDialog::DisplayAndGetResult</a>(filePath))</div>
+<div class="line"><span class="lineno">   34</span>            {</div>
+<div class="line"><span class="lineno">   35</span>                EE_CORE_TRACE(<span class="stringliteral">&quot;Setting new scene skybox from file : {}&quot;</span>, filePath);</div>
+<div class="line"><span class="lineno">   36</span>                <span class="keywordflow">if</span> (!filePath.empty())</div>
+<div class="line"><span class="lineno">   37</span>                {</div>
+<div class="line"><span class="lineno">   38</span>                    scene-&gt;SetSkybox(filePath);</div>
+<div class="line"><span class="lineno">   39</span>                }</div>
+<div class="line"><span class="lineno">   40</span>            }</div>
+<div class="line"><span class="lineno">   41</span> </div>
+<div class="line"><span class="lineno">   42</span>            <span class="keywordflow">if</span> (scene &amp;&amp; skybox)</div>
+<div class="line"><span class="lineno">   43</span>            {</div>
+<div class="line"><span class="lineno">   44</span>                ImGui::Text(<span class="stringliteral">&quot;Skybox : %s&quot;</span>, skybox-&gt;GetFilePath().c_str());</div>
+<div class="line"><span class="lineno">   45</span>                <span class="comment">// Skybox textures preview</span></div>
+<div class="line"><span class="lineno">   46</span>                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 6; i++) </div>
+<div class="line"><span class="lineno">   47</span>                {</div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>                }</div>
 <div class="line"><span class="lineno">   50</span>            }</div>
-<div class="line"><span class="lineno">   51</span> </div>
-<div class="line"><span class="lineno">   52</span>            ImGui::End();</div>
-<div class="line"><span class="lineno">   53</span>        }</div>
+<div class="line"><span class="lineno">   51</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   52</span>            {</div>
+<div class="line"><span class="lineno">   53</span>                ImGui::Text(<span class="stringliteral">&quot;Skybox : (none)&quot;</span>);</div>
+<div class="line"><span class="lineno">   54</span>            }</div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>            ImGui::End();</div>
+<div class="line"><span class="lineno">   57</span>        }</div>
+<div class="ttc" id="aclassElevate_1_1FileDialog_html_ab9abf6f75dcc3e92c58f85e6b453b350"><div class="ttname"><a href="classElevate_1_1FileDialog.html#ab9abf6f75dcc3e92c58f85e6b453b350">Elevate::FileDialog::RequestOpenFile</a></div><div class="ttdeci">static std::string RequestOpenFile(const std::string &amp;title, const std::string &amp;defaultPathOrFile, const std::vector&lt; std::string &gt; &amp;filters, const std::string &amp;filterDescription, bool allowMultiple)</div><div class="ttdef"><b>Definition:</b> <a href="FileDialog_8cpp_source.html#l00043">FileDialog.cpp:43</a></div></div>
+<div class="ttc" id="aclassElevate_1_1FileDialog_html_ac4c9c768933c3569ede652a6edab2f59"><div class="ttname"><a href="classElevate_1_1FileDialog.html#ac4c9c768933c3569ede652a6edab2f59">Elevate::FileDialog::DisplayAndGetResult</a></div><div class="ttdeci">static bool DisplayAndGetResult(std::string &amp;outPath)</div><div class="ttdef"><b>Definition:</b> <a href="FileDialog_8cpp_source.html#l00070">FileDialog.cpp:70</a></div></div>
 <div class="ttc" id="aclassElevate_1_1SceneManager_html_a488dfec26cab92be149f3aac30a9cf90"><div class="ttname"><a href="classElevate_1_1SceneManager.html#a488dfec26cab92be149f3aac30a9cf90">Elevate::SceneManager::GetCurrentScene</a></div><div class="ttdeci">static ScenePtr GetCurrentScene()</div><div class="ttdef"><b>Definition:</b> <a href="SceneManager_8h_source.html#l00020">SceneManager.h:20</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a225575101fdde82b46ebe7da4c37bae9a10f4f44d88dec9bb10d99475347bbe5b"><div class="ttname"><a href="namespaceElevate.html#a225575101fdde82b46ebe7da4c37bae9a10f4f44d88dec9bb10d99475347bbe5b">Elevate::RuntimeScene</a></div><div class="ttdeci">@ RuntimeScene</div><div class="ttdef"><b>Definition:</b> <a href="Scene_8h_source.html#l00029">Scene.h:29</a></div></div>
 </div><!-- fragment -->

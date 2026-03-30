@@ -85,6 +85,10 @@ var hierarchy =
       [ "Elevate::has_super< T, typename >", "structElevate_1_1has__super.html", null ]
     ] ],
     [ "Elevate::FieldMeta", "structElevate_1_1FieldMeta.html", null ],
+    [ "Elevate::FileDialog", "classElevate_1_1FileDialog.html", null ],
+    [ "Elevate::FileDialogImpl", "classElevate_1_1FileDialogImpl.html", [
+      [ "Elevate::DesktropFileDialog", "classElevate_1_1DesktropFileDialog.html", null ]
+    ] ],
     [ "Elevate::Editor::FileItem", "structElevate_1_1Editor_1_1FileItem.html", null ],
     [ "Elevate::Editor::FileMetadata", "structElevate_1_1Editor_1_1FileMetadata.html", null ],
     [ "Elevate::FlattenTag", "structElevate_1_1FlattenTag.html", null ],

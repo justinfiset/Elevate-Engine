@@ -286,10 +286,11 @@ $(document).ready(function(){initNavTree('Shader_8cpp_source.html',''); initResi
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            <a class="code hl_function" href="classElevate_1_1Shader.html#a20dda2bb34ea57704f5d85430fc23555">SetUniformMatrix4fv</a>(location, (<span class="keywordtype">float</span>*) value);</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        }</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    }</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>}</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            EE_CORE_ASSERT(<span class="keyword">false</span>, <span class="stringliteral">&quot;(Shader::SetUniform()) : Unsupported datatype provided.&quot;</span>);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        }</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    }</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>}</div>
 <div class="ttc" id="aCameraManager_8h_html"><div class="ttname"><a href="CameraManager_8h.html">CameraManager.h</a></div></div>
 <div class="ttc" id="aCamera_8h_html"><div class="ttname"><a href="Camera_8h.html">Camera.h</a></div></div>
 <div class="ttc" id="aCore_8h_html_a2ab88033038deb2307b90ef9b351135c"><div class="ttname"><a href="Core_8h.html#a2ab88033038deb2307b90ef9b351135c">EE_SHADER_HEADER</a></div><div class="ttdeci">#define EE_SHADER_HEADER</div><div class="ttdef"><b>Definition:</b> <a href="Core_8h_source.html#l00032">Core.h:32</a></div></div>

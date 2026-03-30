@@ -17,10 +17,13 @@ var searchData=
   ['renderineditor_14',['RenderInEditor',['../classElevate_1_1Component.html#a0b3dedcebc4f56d07a98b0fdf8aacaa7',1,'Elevate::Component::RenderInEditor()'],['../classElevate_1_1GameObject.html#a605f1eb5f38d1030f67a5f881d020765',1,'Elevate::GameObject::RenderInEditor()']]],
   ['renderscene_15',['RenderScene',['../classElevate_1_1Scene.html#a550483f1b65d799012c6e1d3d5897aee',1,'Elevate::Scene']]],
   ['renderwhenselected_16',['RenderWhenSelected',['../classElevate_1_1Component.html#a041dd6bacbb1a9b5700534f8e1370cfa',1,'Elevate::Component::RenderWhenSelected()'],['../classElevate_1_1GameObject.html#a9a201939fd5776a5e77712ce5a4338fc',1,'Elevate::GameObject::RenderWhenSelected()'],['../classElevate_1_1Camera.html#afe9889653ab683100acf46c389593760',1,'Elevate::Camera::RenderWhenSelected()']]],
-  ['rescale_17',['Rescale',['../classElevate_1_1Framebuffer.html#a85ecc2bb2226709df11f43763a8e8308',1,'Elevate::Framebuffer::Rescale()'],['../classElevate_1_1OpenGLFrameBuffer.html#a8a7892aff304e92065ad8884dc86c3ed',1,'Elevate::OpenGLFrameBuffer::Rescale()']]],
-  ['resetallstates_18',['ResetAllStates',['../classElevate_1_1Input.html#a9b0ce43dda45ae9adfffda1ed9d3f056',1,'Elevate::Input::ResetAllStates()'],['../classElevate_1_1InputBuffer.html#ae7693106416023ff529d49df046e7848',1,'Elevate::InputBuffer::ResetAllStates()']]],
-  ['resize_19',['Resize',['../classElevate_1_1VertexBuffer.html#a562b268e0fe205c53b82f95cb6e00f60',1,'Elevate::VertexBuffer::Resize()'],['../classElevate_1_1OpenGLVertexBuffer.html#a98e33925c9e458f09d16f66805448d91',1,'Elevate::OpenGLVertexBuffer::Resize()']]],
-  ['resolve_20',['Resolve',['../classElevate_1_1PathResolver.html#a29cad9f644f4ab10936b43f652903fe9',1,'Elevate::PathResolver']]],
-  ['rigidbody_21',['Rigidbody',['../classElevate_1_1Rigidbody.html#ab2e5cd7997ed2aa6ac6936889d58fbc8',1,'Elevate::Rigidbody']]],
-  ['run_22',['Run',['../classElevate_1_1Application.html#abc88552c66339d2aee991eee71681bed',1,'Elevate::Application']]]
+  ['requestopenfile_17',['RequestOpenFile',['../classElevate_1_1FileDialog.html#ab9abf6f75dcc3e92c58f85e6b453b350',1,'Elevate::FileDialog']]],
+  ['requestsavefile_18',['RequestSaveFile',['../classElevate_1_1FileDialog.html#ac02fbf846720b1262192b59cb1a0f8b9',1,'Elevate::FileDialog']]],
+  ['requestselectfolder_19',['RequestSelectFolder',['../classElevate_1_1FileDialog.html#a2adffb735f9c48378290aa17a14b1f52',1,'Elevate::FileDialog']]],
+  ['rescale_20',['Rescale',['../classElevate_1_1Framebuffer.html#a85ecc2bb2226709df11f43763a8e8308',1,'Elevate::Framebuffer::Rescale()'],['../classElevate_1_1OpenGLFrameBuffer.html#a8a7892aff304e92065ad8884dc86c3ed',1,'Elevate::OpenGLFrameBuffer::Rescale()']]],
+  ['resetallstates_21',['ResetAllStates',['../classElevate_1_1Input.html#a9b0ce43dda45ae9adfffda1ed9d3f056',1,'Elevate::Input::ResetAllStates()'],['../classElevate_1_1InputBuffer.html#ae7693106416023ff529d49df046e7848',1,'Elevate::InputBuffer::ResetAllStates()']]],
+  ['resize_22',['Resize',['../classElevate_1_1VertexBuffer.html#a562b268e0fe205c53b82f95cb6e00f60',1,'Elevate::VertexBuffer::Resize()'],['../classElevate_1_1OpenGLVertexBuffer.html#a98e33925c9e458f09d16f66805448d91',1,'Elevate::OpenGLVertexBuffer::Resize()']]],
+  ['resolve_23',['Resolve',['../classElevate_1_1PathResolver.html#a29cad9f644f4ab10936b43f652903fe9',1,'Elevate::PathResolver']]],
+  ['rigidbody_24',['Rigidbody',['../classElevate_1_1Rigidbody.html#ab2e5cd7997ed2aa6ac6936889d58fbc8',1,'Elevate::Rigidbody']]],
+  ['run_25',['Run',['../classElevate_1_1Application.html#abc88552c66339d2aee991eee71681bed',1,'Elevate::Application']]]
 ];

@@ -138,8 +138,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afeadbfbe3b3c93a19d8c2b3dd146141e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5cb146f1497389300ec4f6e71d253b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceElevate.html#a225575101fdde82b46ebe7da4c37bae9">SceneType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Scene.html#ab5cb146f1497389300ec4f6e71d253b6">GetType</a> ()</td></tr>
 <tr class="separator:ab5cb146f1497389300ec4f6e71d253b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52b833b54a07ec2d85bc8a232ce8bfa0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Scene.html#a52b833b54a07ec2d85bc8a232ce8bfa0">SetSkybox</a> (const char *skyboxFilePath)</td></tr>
-<tr class="separator:a52b833b54a07ec2d85bc8a232ce8bfa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d5283f04c99226e5717bc8c52496629"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Scene.html#a7d5283f04c99226e5717bc8c52496629">SetSkybox</a> (const std::string &amp;skyboxFilePath)</td></tr>
+<tr class="separator:a7d5283f04c99226e5717bc8c52496629"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e0b0a56cf9fc558cd0245497ef6bcbf"><td class="memItemLeft" align="right" valign="top">std::weak_ptr&lt; <a class="el" href="classElevate_1_1Cubemap.html">Cubemap</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Scene.html#a8e0b0a56cf9fc558cd0245497ef6bcbf">GetSkybox</a> ()</td></tr>
 <tr class="separator:a8e0b0a56cf9fc558cd0245497ef6bcbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace2d8fdce4d4d7f0c7876de7d2246903"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Scene.html#ace2d8fdce4d4d7f0c7876de7d2246903">SetLighting</a> (std::unique_ptr&lt; <a class="el" href="classElevate_1_1SceneLighting.html">SceneLighting</a> &gt; newLighting)</td></tr>
@@ -591,7 +591,7 @@ Friends</h2></td></tr>
 <div class="line"><span class="lineno">  119</span>            }</div>
 <div class="line"><span class="lineno">  120</span>        }</div>
 <div class="line"><span class="lineno">  121</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1Application_html_a30e25b0a4d18f5f780a79475edfa8da8"><div class="ttname"><a href="classElevate_1_1Application.html#a30e25b0a4d18f5f780a79475edfa8da8">Elevate::Application::GetGameState</a></div><div class="ttdeci">static const GameContextState &amp; GetGameState()</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00212">Application.cpp:212</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a30e25b0a4d18f5f780a79475edfa8da8"><div class="ttname"><a href="classElevate_1_1Application.html#a30e25b0a4d18f5f780a79475edfa8da8">Elevate::Application::GetGameState</a></div><div class="ttdeci">static const GameContextState &amp; GetGameState()</div><div class="ttdef"><b>Definition:</b> <a href="Application_8cpp_source.html#l00213">Application.cpp:213</a></div></div>
 <div class="ttc" id="aclassElevate_1_1CameraManager_html_a3ebfe8165be953d5615650d7551fe62a"><div class="ttname"><a href="classElevate_1_1CameraManager.html#a3ebfe8165be953d5615650d7551fe62a">Elevate::CameraManager::GetCurrent</a></div><div class="ttdeci">static Camera * GetCurrent()</div><div class="ttdef"><b>Definition:</b> <a href="CameraManager_8cpp_source.html#l00017">CameraManager.cpp:17</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a225575101fdde82b46ebe7da4c37bae9a4432b488c226ae98624a8e2046416eaf"><div class="ttname"><a href="namespaceElevate.html#a225575101fdde82b46ebe7da4c37bae9a4432b488c226ae98624a8e2046416eaf">Elevate::DebugScene</a></div><div class="ttdeci">@ DebugScene</div><div class="ttdef"><b>Definition:</b> <a href="Scene_8h_source.html#l00031">Scene.h:31</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a225575101fdde82b46ebe7da4c37bae9a899b2fc1d31b703dcb0092903fe04992"><div class="ttname"><a href="namespaceElevate.html#a225575101fdde82b46ebe7da4c37bae9a899b2fc1d31b703dcb0092903fe04992">Elevate::EditorScene</a></div><div class="ttdeci">@ EditorScene</div><div class="ttdef"><b>Definition:</b> <a href="Scene_8h_source.html#l00030">Scene.h:30</a></div></div>
@@ -676,8 +676,8 @@ Friends</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a52b833b54a07ec2d85bc8a232ce8bfa0" name="a52b833b54a07ec2d85bc8a232ce8bfa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52b833b54a07ec2d85bc8a232ce8bfa0">&#9670;&#160;</a></span>SetSkybox()</h2>
+<a id="a7d5283f04c99226e5717bc8c52496629" name="a7d5283f04c99226e5717bc8c52496629"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d5283f04c99226e5717bc8c52496629">&#9670;&#160;</a></span>SetSkybox()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -685,7 +685,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void Elevate::Scene::SetSkybox </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>skyboxFilePath</em></td><td>)</td>
           <td></td>
         </tr>
@@ -694,9 +694,9 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Scene_8cpp_source.html#l00161">161</a> of file <a class="el" href="Scene_8cpp_source.html">Scene.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  162</span>    {</div>
-<div class="line"><span class="lineno">  163</span>        m_cubemap.reset(<a class="code hl_function" href="classElevate_1_1Cubemap.html#a1e3354107314dbb335de0637a49c9bac">Cubemap::CreateFromFile</a>(skyboxFilePath));</div>
+<div class="line"><span class="lineno">  163</span>        m_cubemap.reset(<a class="code hl_function" href="classElevate_1_1Cubemap.html#a2aaf42e6ce5563fc6a5065b9c9d8207b">Cubemap::CreateFromFile</a>(skyboxFilePath));</div>
 <div class="line"><span class="lineno">  164</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1Cubemap_html_a1e3354107314dbb335de0637a49c9bac"><div class="ttname"><a href="classElevate_1_1Cubemap.html#a1e3354107314dbb335de0637a49c9bac">Elevate::Cubemap::CreateFromFile</a></div><div class="ttdeci">static Cubemap * CreateFromFile(std::string filePath)</div><div class="ttdef"><b>Definition:</b> <a href="Cubemap_8cpp_source.html#l00070">Cubemap.cpp:70</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Cubemap_html_a2aaf42e6ce5563fc6a5065b9c9d8207b"><div class="ttname"><a href="classElevate_1_1Cubemap.html#a2aaf42e6ce5563fc6a5065b9c9d8207b">Elevate::Cubemap::CreateFromFile</a></div><div class="ttdeci">static Cubemap * CreateFromFile(const std::string &amp;filePath)</div><div class="ttdef"><b>Definition:</b> <a href="Cubemap_8cpp_source.html#l00070">Cubemap.cpp:70</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

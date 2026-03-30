@@ -1,6 +1,7 @@
 var classElevate_1_1OpenGLRendererAPI =
 [
     [ "Clear", "classElevate_1_1OpenGLRendererAPI.html#a890e2ea8b9e7c823fc551586854b78a6", null ],
+    [ "ClearTextureBindings", "classElevate_1_1OpenGLRendererAPI.html#ad960e76a2da387b14d80d5854e563b04", null ],
     [ "DrawArray", "classElevate_1_1OpenGLRendererAPI.html#a59ada8d31e530e8c366b4a9a3f8b6ec0", null ],
     [ "DrawPrimitiveTypeToOpenGL", "classElevate_1_1OpenGLRendererAPI.html#aebbcc44c6e574b9419ddc6f69bce786c", null ],
     [ "FlushBuffers", "classElevate_1_1OpenGLRendererAPI.html#aad93608c5e07e7d5dd5daa19570ba050", null ],

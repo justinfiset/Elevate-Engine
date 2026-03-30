@@ -971,9 +971,10 @@ Friends</h2></td></tr>
 <div class="line"><span class="lineno">  187</span>            <a class="code hl_function" href="classElevate_1_1Shader.html#a20dda2bb34ea57704f5d85430fc23555">SetUniformMatrix4fv</a>(location, (<span class="keywordtype">float</span>*) value);</div>
 <div class="line"><span class="lineno">  188</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  189</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><span class="lineno">  190</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  191</span>        }</div>
-<div class="line"><span class="lineno">  192</span>    }</div>
+<div class="line"><span class="lineno">  190</span>            EE_CORE_ASSERT(<span class="keyword">false</span>, <span class="stringliteral">&quot;(Shader::SetUniform()) : Unsupported datatype provided.&quot;</span>);</div>
+<div class="line"><span class="lineno">  191</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  192</span>        }</div>
+<div class="line"><span class="lineno">  193</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1Shader_html_a0793bae622fb98cc78f599da4fc2e5f9"><div class="ttname"><a href="classElevate_1_1Shader.html#a0793bae622fb98cc78f599da4fc2e5f9">Elevate::Shader::SetUniform4f</a></div><div class="ttdeci">virtual void SetUniform4f(const std::string &amp;location, float x, float y, float z, float w) const =0</div></div>
 <div class="ttc" id="aclassElevate_1_1Shader_html_a2e71d8d9431e605f6ca0ebf21d7e116f"><div class="ttname"><a href="classElevate_1_1Shader.html#a2e71d8d9431e605f6ca0ebf21d7e116f">Elevate::Shader::SetUniform1i</a></div><div class="ttdeci">virtual void SetUniform1i(const std::string &amp;location, int value) const =0</div></div>
 <div class="ttc" id="aclassElevate_1_1Shader_html_a675152768039671032bea34e6002aa83"><div class="ttname"><a href="classElevate_1_1Shader.html#a675152768039671032bea34e6002aa83">Elevate::Shader::SetUniform1f</a></div><div class="ttdeci">virtual void SetUniform1f(const std::string &amp;location, float value) const =0</div></div>

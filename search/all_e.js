@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['name_0',['name',['../structElevate_1_1Editor_1_1FileItem.html#acf558fd6d71e29477aa770b7b3126048',1,'Elevate::Editor::FileItem::name()'],['../structElevate_1_1ComponentRegistry_1_1Entry.html#a0e351aed1a473ca6edd3b28d84aedd57',1,'Elevate::ComponentRegistry::Entry::name()']]],
-  ['name_1',['Name',['../structElevate_1_1TextureMetadataBuilder.html#a8f60381bc024886f3a4ef34479e67271',1,'Elevate::TextureMetadataBuilder::Name()'],['../structElevate_1_1TextureMetadata.html#a13084132841a27b9d7ad468e007f9028',1,'Elevate::TextureMetadata::Name()'],['../structElevate_1_1BufferElement.html#af2dfa68b9deb46adc9fa8d64e9895e27',1,'Elevate::BufferElement::Name()'],['../structWwiseItem.html#a24a9785aadb923fe08c031d22555c7b9',1,'WwiseItem::Name()']]],
-  ['name_2',['name',['../structElevate_1_1ComponentField.html#afdd8501025838cc30bcb19285687b5a7',1,'Elevate::ComponentField']]],
+  ['name_0',['Name',['../structElevate_1_1BufferElement.html#af2dfa68b9deb46adc9fa8d64e9895e27',1,'Elevate::BufferElement::Name()'],['../structWwiseItem.html#a24a9785aadb923fe08c031d22555c7b9',1,'WwiseItem::Name()']]],
+  ['name_1',['name',['../structElevate_1_1ComponentField.html#afdd8501025838cc30bcb19285687b5a7',1,'Elevate::ComponentField::name()'],['../structElevate_1_1Editor_1_1FileItem.html#acf558fd6d71e29477aa770b7b3126048',1,'Elevate::Editor::FileItem::name()'],['../structElevate_1_1ComponentRegistry_1_1Entry.html#a0e351aed1a473ca6edd3b28d84aedd57',1,'Elevate::ComponentRegistry::Entry::name()']]],
+  ['name_2',['Name',['../structElevate_1_1TextureMetadataBuilder.html#a8f60381bc024886f3a4ef34479e67271',1,'Elevate::TextureMetadataBuilder::Name()'],['../structElevate_1_1TextureMetadata.html#a13084132841a27b9d7ad468e007f9028',1,'Elevate::TextureMetadata::Name()']]],
   ['namedbufferdata_3',['NamedBufferData',['../namespaceElevate.html#ae1cdc9a887a2c2803a4bb303b1660ae9',1,'Elevate']]],
   ['nativehandle_4',['NativeHandle',['../structElevate_1_1FramebufferDepthAttachment.html#adf077b4a95fc5f1efadcff6564610aae',1,'Elevate::FramebufferDepthAttachment']]],
   ['ndebug_5',['NDEBUG',['../Assert_8h.html#a8de3ed741dadc9c979a4ff17c0a9116e',1,'Assert.h']]],

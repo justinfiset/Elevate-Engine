@@ -131,6 +131,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a38c73f71d7c001d3354a37103fe6f4cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a369d435c3b2500a5d8a8cd94af4c91b1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1RendererAPI.html#a369d435c3b2500a5d8a8cd94af4c91b1">FlushBuffers</a> () const =0</td></tr>
 <tr class="separator:a369d435c3b2500a5d8a8cd94af4c91b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92314b04adca4ed73c1fdbd6360717cc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1RendererAPI.html#a92314b04adca4ed73c1fdbd6360717cc">ClearTextureBindings</a> () const =0</td></tr>
+<tr class="separator:a92314b04adca4ed73c1fdbd6360717cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3880f081005ef41481cdf767d85a19ae"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1RendererAPI.html#a3880f081005ef41481cdf767d85a19ae">DrawArray</a> (const <a class="el" href="classElevate_1_1VertexArray.html">VertexArray</a> *vao, <a class="el" href="namespaceElevate.html#a7f8942dfad890eaf465cb12b3bfb050d">DrawPrimitiveType</a> primitive=<a class="el" href="namespaceElevate.html#a7f8942dfad890eaf465cb12b3bfb050da7ca66fdfaad3eb33fc65d7490178f856">DrawPrimitiveType::Triangles</a>) const =0</td></tr>
 <tr class="separator:a3880f081005ef41481cdf767d85a19ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2373a92caab02ac087dd3739f41fbb0b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1RendererAPI.html#a2373a92caab02ac087dd3739f41fbb0b">SetCullingState</a> (bool enabled) const =0</td></tr>
@@ -208,6 +210,33 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implemented in <a class="el" href="classElevate_1_1OpenGLRendererAPI.html#a890e2ea8b9e7c823fc551586854b78a6">Elevate::OpenGLRendererAPI</a>.</p>
+
+</div>
+</div>
+<a id="a92314b04adca4ed73c1fdbd6360717cc" name="a92314b04adca4ed73c1fdbd6360717cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92314b04adca4ed73c1fdbd6360717cc">&#9670;&#160;</a></span>ClearTextureBindings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Elevate::RendererAPI::ClearTextureBindings </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classElevate_1_1OpenGLRendererAPI.html#ad960e76a2da387b14d80d5854e563b04">Elevate::OpenGLRendererAPI</a>.</p>
 
 </div>
 </div>
@@ -299,8 +328,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RendererAPI_8h_source.html#l00048">48</a> of file <a class="el" href="RendererAPI_8h_source.html">RendererAPI.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   48</span>{ <span class="keywordflow">return</span> s_ActiveAPI; }</div>
+<p class="definition">Definition at line <a class="el" href="RendererAPI_8h_source.html#l00049">49</a> of file <a class="el" href="RendererAPI_8h_source.html">RendererAPI.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   49</span>{ <span class="keywordflow">return</span> s_ActiveAPI; }</div>
 </div><!-- fragment -->
 </div>
 </div>
