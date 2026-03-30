@@ -45,6 +45,12 @@ namespace Elevate
 		glFlush();
 	}
 
+	void OpenGLRendererAPI::ClearTextureBindings() const
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
 	void OpenGLRendererAPI::DrawArray(const VertexArray* vao, DrawPrimitiveType primitive) const
 	{
 		if (!glfwGetCurrentContext()) {

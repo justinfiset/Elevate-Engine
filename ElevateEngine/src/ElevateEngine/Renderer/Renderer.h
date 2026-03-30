@@ -49,6 +49,7 @@ namespace Elevate
 		// Textures
 		static void BindTexture(const std::shared_ptr<Texture>& texture, uint8_t slot = 0);
 
+		static void InvalidateStateCache();
 	private:
 		struct RendererStorage {
 			glm::mat4 ViewProj;

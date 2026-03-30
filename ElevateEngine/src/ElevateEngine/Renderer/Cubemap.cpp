@@ -30,6 +30,15 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 	m_VertexArray->Unbind();
 
+	// Shaders
+	std::string vert = std::string(EE_SHADER_HEADER) +
+#include "ElevateEngine/Renderer/Cubemap/skybox.vert"
+		;
+	std::string frag = std::string(EE_SHADER_HEADER) +
+#include "ElevateEngine/Renderer/Cubemap/skybox.frag"
+		;
+	m_cubemapShader = Elevate::Shader::Create(vert, frag);
+
 	// Texture
 	GLCheck(glGenTextures(1, &m_textureID));
 	GLCheck(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));
@@ -56,20 +65,12 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE));
-
-	// Shaders
-	std::string vert = std::string(EE_SHADER_HEADER) +
-#include "ElevateEngine/Renderer/Cubemap/skybox.vert"
-		;
-	std::string frag = std::string(EE_SHADER_HEADER) +
-#include "ElevateEngine/Renderer/Cubemap/skybox.frag"
-		;
-	m_cubemapShader = Elevate::Shader::Create(vert, frag);
 }
 
-Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(std::string filePath)
+Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(const std::string& filePath)
 {
 	std::string resolvedPath = PathResolver::Resolve(filePath);
+
 	FILE* fp = fopen(resolvedPath.c_str(), "r");
 	if (!fp)
 	{

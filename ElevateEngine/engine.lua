@@ -40,6 +40,7 @@ project "ElevateEngine"
 		"src/**.frag",
 
 		"vendor/ImGuizmo/ImGuizmo.cpp",
+		"vendor/ImGuiFileDialog/**.cpp",
 		"vendor/tinyfiledialogs/tinyfiledialogs.cpp",
 	}
 

@@ -1,8 +1,8 @@
 {
-    "right": "Skybox/mountain-skyboxes/Maskonaive/right.jpg",
-    "left": "Skybox/mountain-skyboxes/Maskonaive/left.jpg",
-    "up": "Skybox/mountain-skyboxes/Maskonaive/top.jpg",
-    "down": "Skybox/mountain-skyboxes/Maskonaive/bottom.jpg",
-    "front": "Skybox/mountain-skyboxes/Maskonaive/back.jpg",
-    "back": "Skybox/mountain-skyboxes/Maskonaive/front.jpg"
+    "right": "content://Skybox/mountain-skyboxes/Maskonaive/right.jpg",
+    "left": "content://Skybox/mountain-skyboxes/Maskonaive/left.jpg",
+    "up": "content://Skybox/mountain-skyboxes/Maskonaive/top.jpg",
+    "down": "content://Skybox/mountain-skyboxes/Maskonaive/bottom.jpg",
+    "front": "content://Skybox/mountain-skyboxes/Maskonaive/back.jpg",
+    "back": "content://Skybox/mountain-skyboxes/Maskonaive/front.jpg"
 }

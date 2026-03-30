@@ -187,6 +187,7 @@ namespace Elevate
 			SetUniformMatrix4fv(location, (float*) value);
 			break;
 		default:
+			EE_CORE_ASSERT(false, "(Shader::SetUniform()) : Unsupported datatype provided.");
 			break;
 		}
 	}

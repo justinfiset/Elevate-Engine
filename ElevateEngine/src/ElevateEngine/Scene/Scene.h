@@ -54,7 +54,7 @@ namespace Elevate
 		static ScenePtr Create(std::string name, SceneType type = SceneType::RuntimeScene);
 			
 		// Cubemap
-		void SetSkybox(const char* skyboxFilePath);
+		void SetSkybox(const std::string& skyboxFilePath);
 		std::weak_ptr<Cubemap> GetSkybox();
 
 		inline void SetLighting(std::unique_ptr<SceneLighting> newLighting)

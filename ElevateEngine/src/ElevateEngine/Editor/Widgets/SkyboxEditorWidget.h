@@ -1,8 +1,9 @@
 #pragma once
+#include <ElevateEngine/Files/FileDialog.h>
+#include <ElevateEngine/Scene/SceneManager.h>
 #include <ElevateEngine/Editor/EditorWidget.h>
 
 #include "imgui.h"
-#include "tinyfiledialogs.h"
 
 namespace Elevate::Editor
 {
@@ -19,17 +20,20 @@ namespace Elevate::Editor
 
 			if (ImGui::Button("Select Skybox File"))
 			{
-				const char* filters[] = { "*.sky" };
-				const char* filePath = tinyfd_openFileDialog(
+				FileDialog::RequestOpenFile(
 					"Select a skybox file",
 					"",
-					1,
-					filters,
+					{ "*.sky" },
 					"*.sky - Elevate Skybox File",
-					0
+					false
 				);
+			}
 
-				if (filePath)
+			std::string filePath;
+			if (FileDialog::DisplayAndGetResult(filePath))
+			{
+				EE_CORE_TRACE("Setting new scene skybox from file : {}", filePath);
+				if (!filePath.empty())
 				{
 					scene->SetSkybox(filePath);
 				}
@@ -41,7 +45,7 @@ namespace Elevate::Editor
 				// Skybox textures preview
 				for (int i = 0; i < 6; i++) 
 				{
-					
+
 				}
 			}
 			else
