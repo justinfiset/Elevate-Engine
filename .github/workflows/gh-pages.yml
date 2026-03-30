@@ -1,0 +1,101 @@
+name: Doxygen and Web Build Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
+      - name: Install Doxygen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen
+
+      - name: Generate Doxygen Docs
+        run: doxygen Docs/Doxyfile
+
+      - name: Upload Docs Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-site
+          path: Docs/html/
+
+  deploy-web-builds:
+    runs-on: windows-latest
+    steps:
+      - name : Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Ninja
+        uses: ashutoshvarma/setup-ninja@master
+        with:
+          version: 1.12.1
+
+      - name: Setup Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 'latest'
+
+      - name: Generate Projects (Premake) 
+        run: ./vendor/premake/premake5.exe --os=emscripten ninja
+
+      - name: Compile
+        run: ninja Editor_Release
+
+      - name: Upload Editor Release Web Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build-editor
+          path: Build/bin/Editor_Release-emscripten-wasm32/
+
+      - name: Compile
+        run: ninja Release
+
+      - name: Upload Release Web Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: Build/bin/Release-emscripten-wasm32/
+  
+  finalize-deployment:
+    needs: [deploy-docs, deploy-web-builds]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download Docs Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docs-site
+          path: public
+
+      - name: Download Web Editor Release Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-build-editor
+          path: public/editor
+
+      - name: Download Web Release Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-build
+          path: public/runtime
+
+      - name: Deploy to GitHub Pages
+            uses: JamesIves/github-pages-deploy-action@v4
+            with:
+              folder: public
+              branch: gh-pages
+              clean: true
