@@ -116,3 +116,5 @@ compile_commands.json
 *.ninja
 .ninja_log
 *.ninja
+
+*.make
