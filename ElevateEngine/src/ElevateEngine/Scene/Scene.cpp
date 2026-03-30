@@ -158,7 +158,7 @@ namespace Elevate
 		return scene;
 	}
 
-	void Scene::SetSkybox(const char* skyboxFilePath)
+	void Scene::SetSkybox(const std::string& skyboxFilePath)
 	{
 		m_cubemap.reset(Cubemap::CreateFromFile(skyboxFilePath));
 	}

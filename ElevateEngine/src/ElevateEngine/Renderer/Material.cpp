@@ -68,12 +68,21 @@ namespace Elevate
 				}
 			}
 
+			// Reset all texture bindings
+			m_shader->SetUniform1i("has_diffuseTex", 0);
+			m_shader->SetUniform1i("has_specularTex", 0);
+			m_shader->SetUniform1i("has_ambientTex", 0);
+
 			uint32_t slot = 0;
 			for (auto& tex : m_textures)
 			{
-				Renderer::BindTexture(tex.second, slot);
-				m_shader->SetUniform1i(tex.first, slot);
-				slot++;
+				if (tex.second && tex.second->IsTextureLoaded())
+				{
+					Renderer::BindTexture(tex.second, slot);
+					m_shader->SetUniform1i(tex.first, slot);
+					m_shader->SetUniform1i("has_" + tex.first, 1);
+					slot++;
+				}
 			}
 		}
 		else

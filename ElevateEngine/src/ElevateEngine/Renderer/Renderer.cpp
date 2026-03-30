@@ -20,6 +20,7 @@ namespace Elevate
 
 	void Renderer::BeginFrame(const ScenePtr scene, const Camera& cam)
 	{
+		s_API->ClearTextureBindings();
 		s_currentShaderID = 0;
 		s_data.CameraPosition = cam.gameObject->GetPosition();
 		s_data.ViewProj = cam.GenViewProjectionMatrix();
@@ -159,15 +160,22 @@ namespace Elevate
 	void Renderer::BindTexture(const std::shared_ptr<Texture>& texture, uint8_t slot)
 	{
 		// todo optimize and make sure EVERY texture uses this
-		//uintptr_t textureID = texture ? reinterpret_cast<uintptr_t>(texture->GetNativeHandle()) : 0;
-		//if (s_textures[slot] != textureID)
-		//{
-		//	if (texture)
-		//	{
-		//		texture->Bind(slot);
-		//	}
-		//	s_textures[slot] = textureID;
-		//}
-		texture->Bind(slot);
+		uintptr_t textureID = texture ? reinterpret_cast<uintptr_t>(texture->GetNativeHandle()) : 0;
+		if (s_textures[slot] != textureID)
+		{
+			if (texture)
+			{
+				texture->Bind(slot);
+			}
+			s_textures[slot] = textureID;
+		}
+	}
+
+	void Renderer::InvalidateStateCache()
+	{
+		// Make each texture ptr to an impossible value to make sure we bind each frame.
+		for (int i = 0; i < std::size(s_textures); i++) {
+			s_textures[i] = (uintptr_t)-1;
+		}
 	}
 }

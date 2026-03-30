@@ -167,6 +167,7 @@ namespace Elevate {
 			m_ImGuiLayer->Render(); // render imgui
 			m_ImGuiLayer->End(); // finish the imgui rendering
 
+			Renderer::InvalidateStateCache(); // Clear the renderer state after ImGui rendering
 			Input::ManageMidStates(); // Manage Key/Button up and down state
 
 			Renderer::FlushBuffers();	

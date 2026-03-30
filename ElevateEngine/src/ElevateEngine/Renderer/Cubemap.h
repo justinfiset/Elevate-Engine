@@ -17,7 +17,7 @@ namespace Elevate
 	public:
 		Cubemap(std::string paths[6], std::string skyboxFilePath = "");
 
-		static Cubemap* CreateFromFile(std::string filePath);
+		static Cubemap* CreateFromFile(const std::string& filePath);
 
 		void Draw(std::shared_ptr<Shader> shader = nullptr);
 
