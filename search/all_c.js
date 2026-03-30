@@ -1,14 +1,14 @@
 var searchData=
 [
   ['language_0',['Language',['../structWwiseSoundbank.html#aef79f02a4e6fa4e8181dce02a51a905d',1,'WwiseSoundbank']]],
-  ['layer_1',['Layer',['../classElevate_1_1Layer.html',1,'Elevate::Layer'],['../structElevate_1_1TextureMetadataBuilder.html#a43dd8414593b01b1c193afe5c30a2b67',1,'Elevate::TextureMetadataBuilder::Layer()'],['../classElevate_1_1Layer.html#ad94e7f11cf18019d19a234c4aa5bb5f9',1,'Elevate::Layer::Layer()'],['../structElevate_1_1TextureMetadata.html#a2c0dae6494d0a379fdac7daa346402b1',1,'Elevate::TextureMetadata::Layer()']]],
+  ['layer_1',['layer',['../classElevate_1_1Layer.html',1,'Elevate::Layer'],['../structElevate_1_1TextureMetadataBuilder.html#a43dd8414593b01b1c193afe5c30a2b67',1,'Elevate::TextureMetadataBuilder::Layer()'],['../classElevate_1_1Layer.html#ad94e7f11cf18019d19a234c4aa5bb5f9',1,'Elevate::Layer::Layer()'],['../structElevate_1_1TextureMetadata.html#a2c0dae6494d0a379fdac7daa346402b1',1,'Elevate::TextureMetadata::Layer']]],
   ['layer_2ecpp_2',['Layer.cpp',['../Layer_8cpp.html',1,'']]],
   ['layer_2eh_3',['Layer.h',['../Layer_8h.html',1,'']]],
-  ['layerstack_4',['LayerStack',['../classElevate_1_1LayerStack.html',1,'Elevate::LayerStack'],['../classElevate_1_1LayerStack.html#aa1bf4ac9abb9e621cd893c46c4113de9',1,'Elevate::LayerStack::LayerStack()']]],
+  ['layerstack_4',['layerstack',['../classElevate_1_1LayerStack.html',1,'Elevate::LayerStack'],['../classElevate_1_1LayerStack.html#aa1bf4ac9abb9e621cd893c46c4113de9',1,'Elevate::LayerStack::LayerStack()']]],
   ['layerstack_2ecpp_5',['LayerStack.cpp',['../LayerStack_8cpp.html',1,'']]],
   ['layerstack_2eh_6',['LayerStack.h',['../LayerStack_8h.html',1,'']]],
   ['left_5fplane_7',['LEFT_PLANE',['../namespaceElevate.html#a622c3d7de5705ecabab238d92cd07435af0c0d4fdba65a665a2c3239df9555cdb',1,'Elevate']]],
-  ['light_8',['Light',['../classElevate_1_1Light.html',1,'Elevate::Light'],['../classElevate_1_1Light.html#a18ff3714d694d068a66f49b29a24b692',1,'Elevate::Light::Light()=default'],['../classElevate_1_1Light.html#a8b0d649f400841130661b09523944be5',1,'Elevate::Light::Light(const glm::vec3 &amp;color)'],['../classElevate_1_1Light.html#a10f436e9d78b79750f4c66df6140c7e8',1,'Elevate::Light::Light(const glm::vec3 &amp;amb, const glm::vec3 &amp;dif, const glm::vec3 &amp;spec, float intensity=1.0f)'],['../namespaceElevate_1_1UI.html#a45f09e5fb8d80c73eda6fdb623be39cba9914a0ce04a7b7b6a8e39bec55064b82',1,'Elevate::UI::Light()']]],
+  ['light_8',['light',['../classElevate_1_1Light.html',1,'Elevate::Light'],['../namespaceElevate_1_1UI.html#a45f09e5fb8d80c73eda6fdb623be39cba9914a0ce04a7b7b6a8e39bec55064b82',1,'Elevate::UI::Light'],['../classElevate_1_1Light.html#a10f436e9d78b79750f4c66df6140c7e8',1,'Elevate::Light::Light(const glm::vec3 &amp;amb, const glm::vec3 &amp;dif, const glm::vec3 &amp;spec, float intensity=1.0f)'],['../classElevate_1_1Light.html#a8b0d649f400841130661b09523944be5',1,'Elevate::Light::Light(const glm::vec3 &amp;color)'],['../classElevate_1_1Light.html#a18ff3714d694d068a66f49b29a24b692',1,'Elevate::Light::Light()=default']]],
   ['light_2ecpp_9',['Light.cpp',['../Light_8cpp.html',1,'']]],
   ['light_2eh_10',['Light.h',['../Light_8h.html',1,'']]],
   ['linear_11',['Linear',['../namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b',1,'Elevate']]],
@@ -22,10 +22,10 @@ var searchData=
   ['loading_19',['Loading',['../namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a16bfbf9c462762cf1cba4134ec53c504',1,'Elevate']]],
   ['loadmaterial_20',['LoadMaterial',['../classElevate_1_1MaterialRegistry.html#a63e843a5ae0b6561235dcd0972afdafc',1,'Elevate::MaterialRegistry']]],
   ['loadscene_21',['LoadScene',['../classElevate_1_1SceneManager.html#a02a1d1d2e5c952eb7942e54ad7675a3d',1,'Elevate::SceneManager']]],
-  ['loadshader_22',['LoadShader',['../classElevate_1_1ShaderManager.html#a0ad9c890c16f793b9cceffec759b1c8e',1,'Elevate::ShaderManager::LoadShader(const std::string &amp;name, const std::string &amp;vertexSrcPath, const std::string &amp;, const std::string &amp;customVertCode, const std::string &amp;customFragCode)'],['../classElevate_1_1ShaderManager.html#ad37649feecdd1a531d982b54ead3e5ba',1,'Elevate::ShaderManager::LoadShader(const std::string &amp;name, const std::string &amp;vertexSrcPath, const std::string &amp;fragSrcPath)'],['../classElevate_1_1ShaderManager.html#a5072c12a616182c1558bfbc6e2037979',1,'Elevate::ShaderManager::LoadShader(const std::string &amp;name, ShaderPtr shader)']]],
+  ['loadshader_22',['loadshader',['../classElevate_1_1ShaderManager.html#a0ad9c890c16f793b9cceffec759b1c8e',1,'Elevate::ShaderManager::LoadShader(const std::string &amp;name, const std::string &amp;vertexSrcPath, const std::string &amp;, const std::string &amp;customVertCode, const std::string &amp;customFragCode)'],['../classElevate_1_1ShaderManager.html#ad37649feecdd1a531d982b54ead3e5ba',1,'Elevate::ShaderManager::LoadShader(const std::string &amp;name, const std::string &amp;vertexSrcPath, const std::string &amp;fragSrcPath)'],['../classElevate_1_1ShaderManager.html#a5072c12a616182c1558bfbc6e2037979',1,'Elevate::ShaderManager::LoadShader(const std::string &amp;name, ShaderPtr shader)']]],
   ['loadtextureasync_23',['LoadTextureAsync',['../classElevate_1_1TextureManager.html#af474cf47e4912e322380634b2819d0e8',1,'Elevate::TextureManager']]],
   ['log_24',['Log',['../classElevate_1_1Log.html',1,'Elevate']]],
   ['log_2ecpp_25',['Log.cpp',['../Log_8cpp.html',1,'']]],
   ['log_2eh_26',['Log.h',['../Log_8h.html',1,'']]],
-  ['logimpl_27',['LogImpl',['../classElevate_1_1LogImpl.html',1,'Elevate::LogImpl'],['../classElevate_1_1LogImpl.html#a8bcd7622316d43807f8d13ca7ad6cc28',1,'Elevate::LogImpl::LogImpl()']]]
+  ['logimpl_27',['logimpl',['../classElevate_1_1LogImpl.html#a8bcd7622316d43807f8d13ca7ad6cc28',1,'Elevate::LogImpl::LogImpl()'],['../classElevate_1_1LogImpl.html',1,'Elevate::LogImpl']]]
 ];
