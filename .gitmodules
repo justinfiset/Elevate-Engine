@@ -36,3 +36,6 @@
 [submodule "ElevateEngine/vendor/ImGuiFileDialog"]
 	path = ElevateEngine/vendor/ImGuiFileDialog
 	url = https://github.com/aiekick/ImGuiFileDialog
+[submodule "ElevateEngine/vendor/tinyfiledialogs"]
+	path = ElevateEngine/vendor/tinyfiledialogs
+	url = https://git.code.sf.net/p/tinyfiledialogs/code

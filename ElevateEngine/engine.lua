@@ -41,7 +41,7 @@ project "ElevateEngine"
 
 		"vendor/ImGuizmo/ImGuizmo.cpp",
 		"vendor/ImGuiFileDialog/**.cpp",
-		"vendor/tinyfiledialogs/tinyfiledialogs.cpp",
+		"vendor/tinyfiledialogs/tinyfiledialogs.c",
 	}
 
 	defines 
