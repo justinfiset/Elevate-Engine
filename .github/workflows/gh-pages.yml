@@ -94,8 +94,8 @@ jobs:
           path: public/runtime
 
       - name: Deploy to GitHub Pages
-            uses: JamesIves/github-pages-deploy-action@v4
-            with:
-              folder: public
-              branch: gh-pages
-              clean: true
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: public
+          branch: gh-pages
+          clean: true
