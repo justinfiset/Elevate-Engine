@@ -56,7 +56,7 @@ namespace EL
 
 		// Project Managment
 		void OpenSelectedProject() {} // todo impl
-		void CreateNewProject(const ProjectCreationProps& props);
+		bool CreateNewProject(const ProjectCreationProps& props);
 		const std::vector<Project>& GetProjectList();
 		void RemoveProjectFromList(uint32_t projectId);
 

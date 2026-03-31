@@ -16,30 +16,31 @@ namespace EL
 		return m_activeTab;
 	}
 
-	void ProjectController::CreateNewProject(const ProjectCreationProps& props)
+	bool ProjectController::CreateNewProject(const ProjectCreationProps& props)
 	{
 		m_notifications.clear();
 
 		if (props.Name.empty())
 		{
 			PushNotification("You must enter a valid name for the project.", Notification::MsgType::Error);
-			return;
+			return false;
 		}
 
 		if (props.Path.empty())
 		{
 			PushNotification("You must enter a valid path for the project.", Notification::MsgType::Error);
-			return;
+			return false;
 		}
 
 		bool success = m_manager.CreateNewProject(props);
 		if (!success)
 		{
 			PushLastManagerError();
-			return;
+			return false;
 		}
 		SetActiveTab(LauncherTab::ProjectList);
 		PushNotification("Successfully created project named " + props.Name, Notification::MsgType::Success);
+		return true;
 	}
 
 	const std::vector<Project>& ProjectController::GetProjectList()

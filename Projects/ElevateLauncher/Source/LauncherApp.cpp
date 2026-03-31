@@ -21,6 +21,7 @@ namespace Color
 	inline const ImVec4 Orange = { 1.000f, 0.757f, 0.027f, 1.0f };
 	inline const ImVec4 Red = { 0.863f, 0.208f, 0.271f, 1.0f };
 	inline const ImVec4 Accent = { 0.2f, 0.4f, 0.8f, 1.0f };
+	inline const ImVec4 White = { 1.0f, 1.0f, 1.0f, 1.0f };
 }
 
 class LauncherLayer : public Elevate::Layer
@@ -181,22 +182,43 @@ public:
 		ImGui::PopStyleVar(1);
 	}
 
+	void PushInputStyle()
+	{
+		ImGui::PushStyleColor(ImGuiCol_TextSelectedBg, Color::Accent);
+
+		ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 1.0f);
+		ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 5.0f);
+		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(padding, padding));
+	}
+
+	void PopInputStyle()
+	{
+		ImGui::PopStyleColor(1);
+		ImGui::PopStyleVar(3);
+	}
+
 	// Content panel drawing
 	void DrawProjectCreationMenu()
 	{
 		static ProjectCreationProps props;
 		LauncherButton cancelButton = { "Cancel", [this]() { m_controller.SetActiveTab(LauncherTab::ProjectList); } };
-		LauncherButton createButton = { "Create", [this]() { m_controller.CreateNewProject(props); } };
+		LauncherButton createButton = { "Create", [this]() { 
+			if (m_controller.CreateNewProject(props)) {
+				props = ProjectCreationProps();
+			}
+		}};
 
 		ImGui::SeparatorText("Create a New Project");
 		ImGui::NewLine();
 
 		// Project form
+		PushInputStyle();
 		ImGui::Text("Project Name");
 		ImGui::InputText("##ProjectName", &props.Name);
 		ImGui::NewLine();
 		ImGui::Text("Project Path");
 		ImGui::InputText("##ProjectPath", &props.Path);
+		PopInputStyle();
 
 		// Buttons at the bottom
 		ImGui::NewLine();
@@ -216,28 +238,42 @@ public:
 	void DrawProject(const Project& project)
 	{
 		ImVec2 pos = ImGui::GetCursorScreenPos();
+		float height = 50.0f;
 		float maxWidth = ImGui::GetContentRegionAvail().x - padding;
 		float maxTextWidth = maxWidth - closeButtonSize - padding;
-		ImVec2 size = ImGui::CalcTextSize(project.Name.c_str(), nullptr, false, maxTextWidth);
-		ImGui::PushID(project.Id);
-		float rectHeight = size.y + 2 * padding;
-		ImGui::GetWindowDrawList()->AddRectFilled(
-			pos,
-			ImVec2(pos.x + maxWidth, pos.y + rectHeight),
-			ImGui::GetColorU32(ImGuiCol_FrameBg),
-			5.0f
-		);
+		ImVec4 textColor = project.IsValid ? Color::White : Color::Orange;
 
-		LauncherButton closeBtn = { "x", [this, project]() { m_controller.RemoveProjectFromList(project.Id); } };
+		ImGui::PushID(std::string("project" + project.Id).c_str());
+		ImGui::GetWindowDrawList()->AddRectFilled(pos, ImVec2(pos.x + maxWidth, pos.y + height), ImGui::GetColorU32(ImGuiCol_FrameBg), 5.0f);
+		ImGui::GetWindowDrawList()->AddRect(pos, ImVec2(pos.x + maxWidth, pos.y + height), ImGui::GetColorU32(ImGuiCol_Border), 5.0f);
 
-		ImGui::SetCursorScreenPos(ImVec2(pos.x + maxWidth - closeButtonSize - padding, pos.y + (size.y) / 2));
-		DrawButtonList(std::span(&closeBtn, 1), closeButtonSize, closeButtonSize);
+		float optionButtonSize = 30.0f;
+		ImGui::SetCursorScreenPos(ImVec2(pos.x + maxWidth - optionButtonSize - padding, pos.y + (height - optionButtonSize) / 2));
+		ImVec2 optionsButtonPos = ImGui::GetCursorScreenPos();
+		ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 5.0f);
+		if (ImGui::Button("...", ImVec2(optionButtonSize, optionButtonSize)))
+		{
+			ImGui::OpenPopup("ProjectContextMenu");
+		}
+		ImGui::PopStyleVar();
+		ImGui::GetWindowDrawList()->AddRect(optionsButtonPos, ImVec2(optionsButtonPos.x + optionButtonSize, optionsButtonPos.y + optionButtonSize), ImGui::GetColorU32(ImGuiCol_Border), 5.0f);
+
+		if (ImGui::BeginPopupContextItem("ProjectContextMenu"))
+		{
+			if (ImGui::MenuItem("Remove From List"))
+			{
+				m_controller.RemoveProjectFromList(project.Id);
+			}
+			ImGui::EndPopup();
+		}
 
 		ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, pos.y + padding));
-		ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + maxWidth - padding * 4 - closeButtonSize);
-		ImGui::TextUnformatted(project.Name.c_str());
+		ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + maxWidth - padding * 4 - optionButtonSize);
+		ImGui::TextColored(textColor, project.Name.c_str());
+		ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, ImGui::GetCursorScreenPos().y));
+		ImGui::TextDisabled(project.Path.c_str());
 		ImGui::PopTextWrapPos();
-		ImGui::SetCursorScreenPos(ImVec2(pos.x, pos.y + rectHeight + padding));
+		ImGui::SetCursorScreenPos(ImVec2(pos.x, pos.y + height + padding));
 		ImGui::PopID();
 	}
 
@@ -262,7 +298,7 @@ public:
 			ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, pos.y + padding));
 			ImGui::TextColored(Color::Orange, "No project found.");
 
-			ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, pos.y + padding + 20.0f));
+			ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, pos.y + padding * 3));
 			ImGui::TextDisabled("Start by creating a new project or opening an existing one.");
 
 			ImGui::SetCursorScreenPos(ImVec2(pos.x, pos.y + height + padding));
@@ -311,24 +347,20 @@ public:
 			ImVec2 size = ImGui::CalcTextSize(text.c_str(), nullptr, false, maxTextWidth);
 			ImGui::PushID(notification.Id);
 			float rectHeight = size.y + 2 * padding;
-			ImGui::GetWindowDrawList()->AddRectFilled(
-				pos,
-				ImVec2(pos.x + maxWidth, pos.y + rectHeight),
-				ImGui::GetColorU32(backgroundColor),
-				5.0f
-			);
-			ImGui::GetWindowDrawList()->AddRect(
-				pos,
-				ImVec2(pos.x + maxWidth, pos.y + rectHeight),
-				ImGui::GetColorU32(color),
-				5.0f
-			);
+			ImGui::GetWindowDrawList()->AddRectFilled(pos, ImVec2(pos.x + maxWidth, pos.y + rectHeight), ImGui::GetColorU32(backgroundColor), 5.0f);
+			ImGui::GetWindowDrawList()->AddRect(pos, ImVec2(pos.x + maxWidth, pos.y + rectHeight), ImGui::GetColorU32(color), 5.0f);
 			
-			LauncherButton closeBtn = { "x", [this, notification]() { m_controller.RemoveNotification(notification.Id); } };
+			// Draw the close button
+			ImGui::SetCursorScreenPos(ImVec2(pos.x + maxWidth - closeButtonSize - padding, pos.y + (rectHeight - closeButtonSize) / 2.0f));
+			ImVec2 closeButtonPos = ImGui::GetCursorScreenPos();
+			ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 5.0f);
+			if (ImGui::Button("x", ImVec2(closeButtonSize, closeButtonSize)))
+			{
+				m_controller.RemoveNotification(notification.Id);
+			}
+			ImGui::PopStyleVar();
+			ImGui::GetWindowDrawList()->AddRect(closeButtonPos, ImVec2(closeButtonPos.x + closeButtonSize, closeButtonPos.y + closeButtonSize), ImGui::GetColorU32(ImGuiCol_Border), 5.0f);
 
-			ImGui::SetCursorScreenPos(ImVec2(pos.x + maxWidth - closeButtonSize - padding, pos.y + (size.y) / 2));
-			DrawButtonList(std::span(&closeBtn, 1), closeButtonSize, closeButtonSize);
-			
 			ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, pos.y + padding));
 			ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + maxWidth - padding * 4 - closeButtonSize);
 			ImGui::TextUnformatted(text.c_str());
