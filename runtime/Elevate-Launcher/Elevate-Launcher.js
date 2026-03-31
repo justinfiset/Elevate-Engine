@@ -85,7 +85,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpv2vg02g4.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp9_c0gn4e.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -247,23 +247,23 @@ Module["expectedDataFileDownloads"]++;
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpv2vg02g4.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpjtp3pmjz.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp9_c0gn4e.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpye3k4x4j.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpjtp3pmjz.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpchztcgs8.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpye3k4x4j.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpv65b6llh.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpchztcgs8.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpv65b6llh.js
 var arguments_ = [];
 
 var thisProgram = "./this.program";
@@ -9761,7 +9761,7 @@ function checkIncomingModuleAPI() {
 }
 
 var ASM_CONSTS = {
-  5504288: $0 => {
+  5506752: $0 => {
     var url = UTF8ToString($0);
     window.open(url, "_blank");
   }
@@ -9819,9 +9819,9 @@ var __emscripten_stack_alloc = makeInvalidEarlyAccess("__emscripten_stack_alloc"
 
 var _emscripten_stack_get_current = makeInvalidEarlyAccess("_emscripten_stack_get_current");
 
-var dynCall_vi = makeInvalidEarlyAccess("dynCall_vi");
-
 var dynCall_ii = makeInvalidEarlyAccess("dynCall_ii");
+
+var dynCall_vi = makeInvalidEarlyAccess("dynCall_vi");
 
 var dynCall_vii = makeInvalidEarlyAccess("dynCall_vii");
 
@@ -9897,8 +9897,8 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports["_emscripten_stack_restore"] != "undefined", "missing Wasm export: _emscripten_stack_restore");
   assert(typeof wasmExports["_emscripten_stack_alloc"] != "undefined", "missing Wasm export: _emscripten_stack_alloc");
   assert(typeof wasmExports["emscripten_stack_get_current"] != "undefined", "missing Wasm export: emscripten_stack_get_current");
-  assert(typeof wasmExports["dynCall_vi"] != "undefined", "missing Wasm export: dynCall_vi");
   assert(typeof wasmExports["dynCall_ii"] != "undefined", "missing Wasm export: dynCall_ii");
+  assert(typeof wasmExports["dynCall_vi"] != "undefined", "missing Wasm export: dynCall_vi");
   assert(typeof wasmExports["dynCall_vii"] != "undefined", "missing Wasm export: dynCall_vii");
   assert(typeof wasmExports["dynCall_iiii"] != "undefined", "missing Wasm export: dynCall_iiii");
   assert(typeof wasmExports["dynCall_viii"] != "undefined", "missing Wasm export: dynCall_viii");
@@ -9946,8 +9946,8 @@ function assignWasmExports(wasmExports) {
   __emscripten_stack_restore = wasmExports["_emscripten_stack_restore"];
   __emscripten_stack_alloc = wasmExports["_emscripten_stack_alloc"];
   _emscripten_stack_get_current = wasmExports["emscripten_stack_get_current"];
-  dynCall_vi = createExportWrapper("dynCall_vi", 2);
   dynCall_ii = createExportWrapper("dynCall_ii", 2);
+  dynCall_vi = createExportWrapper("dynCall_vi", 2);
   dynCall_vii = createExportWrapper("dynCall_vii", 3);
   dynCall_iiii = createExportWrapper("dynCall_iiii", 4);
   dynCall_viii = createExportWrapper("dynCall_viii", 4);
