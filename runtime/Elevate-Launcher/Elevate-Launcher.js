@@ -85,7 +85,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpeelk9zcn.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpupiaj0j_.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -247,23 +247,23 @@ Module["expectedDataFileDownloads"]++;
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpeelk9zcn.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp8yml341v.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpupiaj0j_.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp48sur7cc.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp8yml341v.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpvbf5p9cz.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp48sur7cc.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpu23l_89y.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpvbf5p9cz.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpu23l_89y.js
 var arguments_ = [];
 
 var thisProgram = "./this.program";
@@ -4552,13 +4552,23 @@ function ___syscall_fcntl64(fd, cmd, varargs) {
   }
 }
 
+function ___syscall_fstat64(fd, buf) {
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(4, 0, 1, fd, buf);
+  try {
+    return SYSCALLS.writeStat(buf, FS.fstat(fd));
+  } catch (e) {
+    if (typeof FS == "undefined" || !(e.name === "ErrnoError")) throw e;
+    return -e.errno;
+  }
+}
+
 var stringToUTF8 = (str, outPtr, maxBytesToWrite) => {
   assert(typeof maxBytesToWrite == "number", "stringToUTF8(str, outPtr, maxBytesToWrite) is missing the third parameter that specifies the length of the output buffer!");
   return stringToUTF8Array(str, (growMemViews(), HEAPU8), outPtr, maxBytesToWrite);
 };
 
 function ___syscall_getcwd(buf, size) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(4, 0, 1, buf, size);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(5, 0, 1, buf, size);
   try {
     if (size === 0) return -28;
     var cwd = FS.cwd();
@@ -4572,8 +4582,65 @@ function ___syscall_getcwd(buf, size) {
   }
 }
 
+function ___syscall_getdents64(fd, dirp, count) {
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(6, 0, 1, fd, dirp, count);
+  try {
+    var stream = SYSCALLS.getStreamFromFD(fd);
+    stream.getdents ||= FS.readdir(stream.path);
+    var struct_size = 280;
+    var pos = 0;
+    var off = FS.llseek(stream, 0, 1);
+    var startIdx = Math.floor(off / struct_size);
+    var endIdx = Math.min(stream.getdents.length, startIdx + Math.floor(count / struct_size));
+    for (var idx = startIdx; idx < endIdx; idx++) {
+      var id;
+      var type;
+      var name = stream.getdents[idx];
+      if (name === ".") {
+        id = stream.node.id;
+        type = 4;
+      } else if (name === "..") {
+        var lookup = FS.lookupPath(stream.path, {
+          parent: true
+        });
+        id = lookup.node.id;
+        type = 4;
+      } else {
+        var child;
+        try {
+          child = FS.lookupNode(stream.node, name);
+        } catch (e) {
+          // If the entry is not a directory, file, or symlink, nodefs
+          // lookupNode will raise EINVAL. Skip these and continue.
+          if (e?.errno === 28) {
+            continue;
+          }
+          throw e;
+        }
+        id = child.id;
+        type = FS.isChrdev(child.mode) ? 2 : // character device.
+        FS.isDir(child.mode) ? 4 : // directory
+        FS.isLink(child.mode) ? 10 : // symbolic link.
+        8;
+      }
+      assert(id);
+      (growMemViews(), HEAP64)[((dirp + pos) >> 3)] = BigInt(id);
+      (growMemViews(), HEAP64)[(((dirp + pos) + (8)) >> 3)] = BigInt((idx + 1) * struct_size);
+      (growMemViews(), HEAP16)[(((dirp + pos) + (16)) >> 1)] = 280;
+      (growMemViews(), HEAP8)[(dirp + pos) + (18)] = type;
+      stringToUTF8(name, dirp + pos + 19, 256);
+      pos += struct_size;
+    }
+    FS.llseek(stream, idx * struct_size, 0);
+    return pos;
+  } catch (e) {
+    if (typeof FS == "undefined" || !(e.name === "ErrnoError")) throw e;
+    return -e.errno;
+  }
+}
+
 function ___syscall_ioctl(fd, op, varargs) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(5, 0, 1, fd, op, varargs);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(7, 0, 1, fd, op, varargs);
   SYSCALLS.varargs = varargs;
   try {
     var stream = SYSCALLS.getStreamFromFD(fd);
@@ -4695,14 +4762,52 @@ function ___syscall_ioctl(fd, op, varargs) {
   }
 }
 
+function ___syscall_lstat64(path, buf) {
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(8, 0, 1, path, buf);
+  try {
+    path = SYSCALLS.getStr(path);
+    return SYSCALLS.writeStat(buf, FS.lstat(path));
+  } catch (e) {
+    if (typeof FS == "undefined" || !(e.name === "ErrnoError")) throw e;
+    return -e.errno;
+  }
+}
+
+function ___syscall_newfstatat(dirfd, path, buf, flags) {
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(9, 0, 1, dirfd, path, buf, flags);
+  try {
+    path = SYSCALLS.getStr(path);
+    var nofollow = flags & 256;
+    var allowEmpty = flags & 4096;
+    flags = flags & (~6400);
+    assert(!flags, `unknown flags in __syscall_newfstatat: ${flags}`);
+    path = SYSCALLS.calculateAt(dirfd, path, allowEmpty);
+    return SYSCALLS.writeStat(buf, nofollow ? FS.lstat(path) : FS.stat(path));
+  } catch (e) {
+    if (typeof FS == "undefined" || !(e.name === "ErrnoError")) throw e;
+    return -e.errno;
+  }
+}
+
 function ___syscall_openat(dirfd, path, flags, varargs) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(6, 0, 1, dirfd, path, flags, varargs);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(10, 0, 1, dirfd, path, flags, varargs);
   SYSCALLS.varargs = varargs;
   try {
     path = SYSCALLS.getStr(path);
     path = SYSCALLS.calculateAt(dirfd, path);
     var mode = varargs ? syscallGetVarargI() : 0;
     return FS.open(path, flags, mode).fd;
+  } catch (e) {
+    if (typeof FS == "undefined" || !(e.name === "ErrnoError")) throw e;
+    return -e.errno;
+  }
+}
+
+function ___syscall_stat64(path, buf) {
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(11, 0, 1, path, buf);
+  try {
+    path = SYSCALLS.getStr(path);
+    return SYSCALLS.writeStat(buf, FS.stat(path));
   } catch (e) {
     if (typeof FS == "undefined" || !(e.name === "ErrnoError")) throw e;
     return -e.errno;
@@ -5321,7 +5426,7 @@ var getBoundingClientRect = e => specialHTMLTargets.indexOf(e) < 0 ? e.getBoundi
 };
 
 function _emscripten_get_element_css_size(target, width, height) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(7, 0, 1, target, width, height);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(12, 0, 1, target, width, height);
   target = target ? findEventTarget(target) : Module["canvas"];
   if (!target) return -4;
   var rect = getBoundingClientRect(target);
@@ -5606,7 +5711,7 @@ var registerUiEventCallback = (target, userData, useCapture, callbackfunc, event
 };
 
 function _emscripten_set_resize_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(8, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(13, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
   return registerUiEventCallback(target, userData, useCapture, callbackfunc, 10, "resize", targetThread);
 }
 
@@ -5669,7 +5774,7 @@ var registerWheelEventCallback = (target, userData, useCapture, callbackfunc, ev
 };
 
 function _emscripten_set_wheel_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(9, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(14, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
   target = findEventTarget(target);
   if (!target) return -4;
   if (typeof target.onwheel != "undefined") {
@@ -5714,7 +5819,7 @@ var getEnvStrings = () => {
 };
 
 function _environ_get(__environ, environ_buf) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(10, 0, 1, __environ, environ_buf);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(15, 0, 1, __environ, environ_buf);
   var bufSize = 0;
   var envp = 0;
   for (var string of getEnvStrings()) {
@@ -5727,7 +5832,7 @@ function _environ_get(__environ, environ_buf) {
 }
 
 function _environ_sizes_get(penviron_count, penviron_buf_size) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(11, 0, 1, penviron_count, penviron_buf_size);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(16, 0, 1, penviron_count, penviron_buf_size);
   var strings = getEnvStrings();
   (growMemViews(), HEAPU32)[((penviron_count) >> 2)] = strings.length;
   var bufSize = 0;
@@ -5739,7 +5844,7 @@ function _environ_sizes_get(penviron_count, penviron_buf_size) {
 }
 
 function _fd_close(fd) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(12, 0, 1, fd);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(17, 0, 1, fd);
   try {
     var stream = SYSCALLS.getStreamFromFD(fd);
     FS.close(stream);
@@ -5751,7 +5856,7 @@ function _fd_close(fd) {
 }
 
 function _fd_fdstat_get(fd, pbuf) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(13, 0, 1, fd, pbuf);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(18, 0, 1, fd, pbuf);
   try {
     var rightsBase = 0;
     var rightsInheriting = 0;
@@ -5792,7 +5897,7 @@ function _fd_fdstat_get(fd, pbuf) {
 };
 
 function _fd_read(fd, iov, iovcnt, pnum) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(14, 0, 1, fd, iov, iovcnt, pnum);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(19, 0, 1, fd, iov, iovcnt, pnum);
   try {
     var stream = SYSCALLS.getStreamFromFD(fd);
     var num = doReadv(stream, iov, iovcnt);
@@ -5805,7 +5910,7 @@ function _fd_read(fd, iov, iovcnt, pnum) {
 }
 
 function _fd_seek(fd, offset, whence, newOffset) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(15, 0, 1, fd, offset, whence, newOffset);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(20, 0, 1, fd, offset, whence, newOffset);
   offset = bigintToI53Checked(offset);
   try {
     if (isNaN(offset)) return 61;
@@ -5842,7 +5947,7 @@ function _fd_seek(fd, offset, whence, newOffset) {
 };
 
 function _fd_write(fd, iov, iovcnt, pnum) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(16, 0, 1, fd, iov, iovcnt, pnum);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(21, 0, 1, fd, iov, iovcnt, pnum);
   try {
     var stream = SYSCALLS.getStreamFromFD(fd);
     var num = doWritev(stream, iov, iovcnt);
@@ -7857,7 +7962,7 @@ var Browser = {
 }
 
 function _emscripten_set_window_title(title) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(17, 0, 1, title);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(22, 0, 1, title);
   return document.title = UTF8ToString(title);
 }
 
@@ -9748,7 +9853,7 @@ unexportedSymbols.forEach(unexportedRuntimeSymbol);
 // either synchronously or asynchronously from other threads in postMessage()d
 // or internally queued events. This way a pthread in a Worker can synchronously
 // access e.g. the DOM on the main thread.
-var proxiedFunctionTable = [ _proc_exit, exitOnMainThread, pthreadCreateProxied, ___syscall_fcntl64, ___syscall_getcwd, ___syscall_ioctl, ___syscall_openat, _emscripten_get_element_css_size, _emscripten_set_resize_callback_on_thread, _emscripten_set_wheel_callback_on_thread, _environ_get, _environ_sizes_get, _fd_close, _fd_fdstat_get, _fd_read, _fd_seek, _fd_write, _emscripten_set_window_title ];
+var proxiedFunctionTable = [ _proc_exit, exitOnMainThread, pthreadCreateProxied, ___syscall_fcntl64, ___syscall_fstat64, ___syscall_getcwd, ___syscall_getdents64, ___syscall_ioctl, ___syscall_lstat64, ___syscall_newfstatat, ___syscall_openat, ___syscall_stat64, _emscripten_get_element_css_size, _emscripten_set_resize_callback_on_thread, _emscripten_set_wheel_callback_on_thread, _environ_get, _environ_sizes_get, _fd_close, _fd_fdstat_get, _fd_read, _fd_seek, _fd_write, _emscripten_set_window_title ];
 
 function checkIncomingModuleAPI() {
   ignoredModuleProp("fetchSettings");
@@ -9761,7 +9866,7 @@ function checkIncomingModuleAPI() {
 }
 
 var ASM_CONSTS = {
-  5506752: $0 => {
+  5507056: $0 => {
     var url = UTF8ToString($0);
     window.open(url, "_blank");
   }
@@ -9983,9 +10088,14 @@ function assignWasmImports() {
     /** @export */ __cxa_throw: ___cxa_throw,
     /** @export */ __pthread_create_js: ___pthread_create_js,
     /** @export */ __syscall_fcntl64: ___syscall_fcntl64,
+    /** @export */ __syscall_fstat64: ___syscall_fstat64,
     /** @export */ __syscall_getcwd: ___syscall_getcwd,
+    /** @export */ __syscall_getdents64: ___syscall_getdents64,
     /** @export */ __syscall_ioctl: ___syscall_ioctl,
+    /** @export */ __syscall_lstat64: ___syscall_lstat64,
+    /** @export */ __syscall_newfstatat: ___syscall_newfstatat,
     /** @export */ __syscall_openat: ___syscall_openat,
+    /** @export */ __syscall_stat64: ___syscall_stat64,
     /** @export */ _abort_js: __abort_js,
     /** @export */ _emscripten_init_main_thread_js: __emscripten_init_main_thread_js,
     /** @export */ _emscripten_notify_mailbox_postmessage: __emscripten_notify_mailbox_postmessage,
