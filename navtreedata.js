@@ -25,14 +25,15 @@
 var NAVTREE =
 [
   [ "Elevate Engine", "index.html", [
-    [ "Project Setup and Usage Guide", "index.html#autotoc_md0", [
-      [ "Directory Structure", "index.html#autotoc_md1", null ],
-      [ "Usage", "index.html#autotoc_md2", [
-        [ "Download the Project", "index.html#autotoc_md3", null ],
-        [ "First Time Setup", "index.html#autotoc_md4", null ],
-        [ "Edit Configuration", "index.html#autotoc_md5", null ],
-        [ "Run the Build", "index.html#autotoc_md6", null ],
-        [ "Build Status", "index.html#autotoc_md7", null ]
+    [ "Web Build Demo", "index.html#autotoc_md0", null ],
+    [ "Project Setup and Usage Guide", "index.html#autotoc_md1", [
+      [ "Directory Structure", "index.html#autotoc_md2", null ],
+      [ "Usage", "index.html#autotoc_md3", [
+        [ "Download the Project", "index.html#autotoc_md4", null ],
+        [ "First Time Setup", "index.html#autotoc_md5", null ],
+        [ "Edit Configuration", "index.html#autotoc_md6", null ],
+        [ "Run the Build", "index.html#autotoc_md7", null ],
+        [ "Build Status", "index.html#autotoc_md8", null ]
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
@@ -84,8 +85,8 @@ var NAVTREEINDEX =
 "classElevate_1_1Scene.html#a008a9b8810a4553a83bef0c9c1ae35b9",
 "classElevate_1_1Transform.html#aa5379a5bfc40f1cf16ad437a2e194b33",
 "functions_func_o.html",
-"namespacemembers_eval.html",
-"structElevate_1_1RenderCommand.html#aca274c43ef960c82486f0f47391f7d47"
+"namespacemembers_enum.html",
+"structElevate_1_1RenderCommand.html#ab93a89a16bb799e94cf11036fe537895"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

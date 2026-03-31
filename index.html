@@ -99,9 +99,22 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a> <img src="logo-png.png" alt="" class="inline" title="Elevate Logo"/>     <img src="elevate.gif" alt="" class="inline" title="Elevate Demo"/>    </p>
 <h1><a class="anchor" id="autotoc_md0"></a>
+Web Build Demo</h1>
+<p>Editor and Runtime emscripten builds are automaticly deployed on the gh-page branch. Here is a list of deployed projects :</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadLeft">Project   </th><th class="markdownTableHeadLeft">Configuration   </th><th class="markdownTableHeadLeft">Link    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">Launcher   </td><td class="markdownTableBodyLeft">Release   </td><td class="markdownTableBodyLeft"><a href="https://justinfiset.github.io/Elevate-Engine/runtime/Elevate-Launcher/">Launcher</a>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">Sandbox   </td><td class="markdownTableBodyLeft">Release   </td><td class="markdownTableBodyLeft"><a href="https://justinfiset.github.io/Elevate-Engine/runtime/Sandbox/">Sandbox</a>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">Sandbox   </td><td class="markdownTableBodyLeft">Editor_Release   </td><td class="markdownTableBodyLeft"><a href="https://justinfiset.github.io/Elevate-Engine/editor/Sandbox/">Sandbox Editor</a>   </td></tr>
+</table>
+<h1><a class="anchor" id="autotoc_md1"></a>
 Project Setup and Usage Guide</h1>
 <p>This project includes scripts to configure and build your project. Below is a quick guide on how to use them.</p>
-<h2><a class="anchor" id="autotoc_md1"></a>
+<h2><a class="anchor" id="autotoc_md2"></a>
 Directory Structure</h2>
 <div class="fragment"><div class="line">ElevateEngine/</div>
 <div class="line">│</div>
@@ -113,9 +126,9 @@ Directory Structure</h2>
 <div class="line">│   └── edit.sh          (macOS/Linux)</div>
 <div class="line">│</div>
 <div class="line">└── PREMAKE_CONFIG       (configuration file)</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md2"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md3"></a>
 Usage</h2>
-<h3><a class="anchor" id="autotoc_md3"></a>
+<h3><a class="anchor" id="autotoc_md4"></a>
 Download the Project</h3>
 <ol type="1">
 <li>Clone the Repo <div class="fragment"><div class="line">git clone https://github.com/justinfiset/Elevate-Engine</div>
@@ -123,32 +136,34 @@ Download the Project</h3>
 <li>Open the Downloaded Folder <div class="fragment"><div class="line">cd Elevate-Engine</div>
 </div><!-- fragment --></li>
 <li>Activate Submodules <div class="fragment"><div class="line">git submodule update --init --recursive --remote</div>
-</div><!-- fragment --> </li>
+</div><!-- fragment --></li>
 </ol>
-<h3><a class="anchor" id="autotoc_md4"></a>
+<h3><a class="anchor" id="autotoc_md5"></a>
 First Time Setup</h3>
 <ol type="1">
-<li>Run the <code>bootstrap</code> script:<ul>
-<li>For <b>Windows</b>: <div class="fragment"><div class="line">bootstrap.bat</div>
-</div><!-- fragment --></li>
-<li>For <b>macOS/Linux</b>: <div class="fragment"><div class="line">./bootstrap.sh</div>
-</div><!-- fragment --></li>
+<li><p class="startli">Run the <code>bootstrap</code> script:</p><ul>
+<li>For <b>Windows</b>:</li>
 </ul>
+<p class="startli"><code>cmd bootstrap.bat </code></p><ul>
+<li>For <b>macOS/Linux</b>:</li>
+</ul>
+<p class="startli"><code>bash ./bootstrap.sh </code></p>
 </li>
 <li>Select a build option (e.g., Visual Studio, GNU Make, etc.) when prompted.</li>
 </ol>
-<h3><a class="anchor" id="autotoc_md5"></a>
+<h3><a class="anchor" id="autotoc_md6"></a>
 Edit Configuration</h3>
-<p>To change the configuration later, run the <code>edit</code> script:</p><ul>
+<p>To change the configuration later, run the <code>edit</code> script:</p>
+<ul>
 <li>For <b>Windows</b>: <div class="fragment"><div class="line">edit.bat</div>
 </div><!-- fragment --></li>
 <li>For <b>macOS/Linux</b>: <div class="fragment"><div class="line">./edit.sh</div>
 </div><!-- fragment --></li>
 </ul>
-<h3><a class="anchor" id="autotoc_md6"></a>
+<h3><a class="anchor" id="autotoc_md7"></a>
 Run the Build</h3>
 <p>Once the configuration is set, the script will automatically run <code>premake5</code> with the selected option.</p>
-<h3><a class="anchor" id="autotoc_md7"></a>
+<h3><a class="anchor" id="autotoc_md8"></a>
 Build Status</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
