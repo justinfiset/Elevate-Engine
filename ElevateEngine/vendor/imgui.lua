@@ -12,7 +12,8 @@ project "ImGui"
 	{
 		"ImGui/*.cpp",
 		"ImGui/backends/imgui_impl_glfw.cpp",
-		"ImGui/backends/imgui_impl_opengl3.cpp"
+		"ImGui/backends/imgui_impl_opengl3.cpp",
+		"ImGui/misc/cpp/imgui_stdlib.cpp"
 	}
 
 	defines 

@@ -1,12 +1,31 @@
 #pragma once
 
 #include <string_view>
+#include <string>
+#include <vector>
 
 namespace EL
 {
+	struct ProjectCreationProps;
 	class ProjectManager;
 
-	enum class LauncherTab {
+	struct Notification
+	{
+		enum class MsgType
+		{
+			Success,
+			Info,
+			Warning,
+			Error
+		};
+
+		uint16_t Id;
+		std::string Message;
+		MsgType Type;
+	};
+
+	enum class LauncherTab
+	{
 		ProjectList,
 		ProjectCreation,
 		Settings
@@ -15,26 +34,39 @@ namespace EL
 	class ProjectController
 	{
 	private:
-		static constexpr std::string_view DocumentationURL = "https://justinfiset.github.io/Elevate-Engine/";
+		static constexpr std::string_view DocumentationURL	= "https://justinfiset.github.io/Elevate-Engine/";
+		static constexpr std::string_view IssueReportURL	= "https://github.com/justinfiset/Elevate-Engine/issues";
+		static constexpr std::string_view RateEngineURL = "https://github.com/justinfiset/Elevate-Engine/discussions/128";
 
-		ProjectManager& m_projectManager;
+		ProjectManager& m_manager;
+		LauncherTab m_activeTab = LauncherTab::ProjectList;
+
+		std::vector<Notification> m_notifications;
+		uint16_t m_nextNotificationId = 0;
 
 	public:
-		LauncherTab m_ActiveTab = LauncherTab::ProjectList;
-
 		ProjectController(ProjectManager& manager)
-			: m_projectManager(manager) { }
+			: m_manager(manager) { }
 
 		// Change launcher tab
-		void SetActiveTab(LauncherTab tab) { m_ActiveTab = tab; }
-		LauncherTab GetActiveTab() const { return m_ActiveTab; }
+		void SetActiveTab(LauncherTab tab);
+		LauncherTab GetActiveTab() const;
 
+		// Project Managment
 		void OpenSelectedProject() {} // todo impl
-		void CreateNewProject() {} // todo impl
+		void CreateNewProject(const ProjectCreationProps& props);
 
-		void OpenDocumentation();
+		// Navigation
+		void OpenDocumentation() const;
+		void ReportIssue() const;
+		void RateEngine() const;
 
-		void ReportIssue() {} // todo impl
-		void RateEngine() {} // todo impl
+		// Notification System
+		void PushNotification(const std::string& msg, Notification::MsgType type);
+		void RemoveNotification(uint16_t id);
+		const std::vector<Notification>& GetNotifications();
+
+	private:
+		void PushLastManagerError();
 	};
 }

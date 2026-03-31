@@ -1,11 +1,91 @@
 #include "ProjectController.h"
 
 #include <ElevateEngine/Core/Platform.h>
+#include "../Managers/ProjectManager.h"
 
 namespace EL
 {
-	void ProjectController::OpenDocumentation()
+	void ProjectController::SetActiveTab(LauncherTab tab)
+	{
+		m_activeTab = tab;
+		m_notifications.clear();
+	}
+
+	LauncherTab ProjectController::GetActiveTab() const
+	{
+		return m_activeTab;
+	}
+
+	void ProjectController::CreateNewProject(const ProjectCreationProps& props)
+	{
+		m_notifications.clear();
+
+		if (props.Name.empty())
+		{
+			PushNotification("You must enter a valid name for the project.", Notification::MsgType::Error);
+			return;
+		}
+
+		if (props.Path.empty())
+		{
+			PushNotification("You must enter a valid path for the project.", Notification::MsgType::Error);
+			return;
+		}
+
+		bool success = m_manager.CreateNewProject(props);
+		if (!success)
+		{
+			PushLastManagerError();
+			return;
+		}
+		SetActiveTab(LauncherTab::ProjectList);
+		PushNotification("Successfully created project named " + props.Name, Notification::MsgType::Success);
+	}
+
+	void ProjectController::OpenDocumentation() const
 	{
 		Elevate::Platform::OpenURL(std::string(DocumentationURL));
+	}
+
+	void ProjectController::ReportIssue() const
+	{
+		Elevate::Platform::OpenURL(std::string(IssueReportURL));
+	}
+
+	void ProjectController::RateEngine() const
+	{
+		Elevate::Platform::OpenURL(std::string(RateEngineURL));
+	}
+
+	void ProjectController::PushNotification(const std::string& msg, Notification::MsgType type)
+	{
+		if (msg.empty()) return;
+		Notification notification;
+		notification.Id = m_nextNotificationId++;
+		notification.Message = msg;
+		notification.Type = type;
+		m_notifications.push_back(notification);
+	}
+
+	void ProjectController::RemoveNotification(uint16_t id)
+	{
+		auto it = std::find_if(m_notifications.begin(), m_notifications.end(), [id](const Notification& n) {
+			return n.Id == id;
+		});
+
+		if (it != m_notifications.end())
+		{
+			m_notifications.erase(it);
+		}
+	}
+
+	const std::vector<Notification>& ProjectController::GetNotifications()
+	{
+		return m_notifications;
+	}
+
+	void ProjectController::PushLastManagerError()
+	{
+		PushNotification(m_manager.GetLastMessage(), Notification::MsgType::Error);
 	}
 }
