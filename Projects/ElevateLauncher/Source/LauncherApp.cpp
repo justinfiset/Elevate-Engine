@@ -8,6 +8,7 @@
 // Elevate Launcher includes
 #include "Managers/ProjectManager.h"
 #include "Controllers/ProjectController.h"
+#include "Models/Project.h"
 
 using namespace EL;
 
@@ -136,14 +137,48 @@ public:
 
 	void SetButtonColor(ImVec4 baseColor)
 	{
+		ImVec4 borderColor = ImVec4(
+			std::min(baseColor.x + 0.15f, 1.0f),
+			std::min(baseColor.y + 0.15f, 1.0f),
+			std::min(baseColor.z + 0.15f, 1.0f),
+			1.0f
+		);
+
+		ImVec4 hoverColor = ImVec4(baseColor.x + 0.08f, baseColor.y + 0.08f, baseColor.z + 0.08f, 1.0f);
+		ImVec4 activeColor = ImVec4(baseColor.x - 0.1f, baseColor.y - 0.1f, baseColor.z - 0.1f, 1.0f);
+
 		ImGui::PushStyleColor(ImGuiCol_Button, baseColor);
-		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(baseColor.x + 0.1f, baseColor.y + 0.1f, baseColor.z + 0.1f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(baseColor.x - 0.1f, baseColor.y - 0.1f, baseColor.z - 0.1f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, hoverColor);
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, activeColor);
+
+		ImGui::PushStyleColor(ImGuiCol_Border, borderColor);
+		ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 1.2f);
 	}
 
 	void PopButtonColor()
 	{
-		ImGui::PopStyleColor(3);
+		ImGui::PopStyleColor(4);
+		ImGui::PopStyleVar(1);
+	}
+
+	void SetButtonColorOutlined(ImVec4 baseColor)
+	{
+		ImVec4 bg = baseColor; bg.w = 0.1f;
+		ImVec4 hover = baseColor; hover.w = 0.25f;
+		ImVec4 active = baseColor; active.w = 0.4f;
+
+		ImGui::PushStyleColor(ImGuiCol_Button, bg);
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, hover);
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, active);
+
+		ImGui::PushStyleColor(ImGuiCol_Border, baseColor);
+		ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 1.0f);
+	}
+
+	void PopButtonColorOutlined()
+	{
+		ImGui::PopStyleColor(4);
+		ImGui::PopStyleVar(1);
 	}
 
 	// Content panel drawing
@@ -165,20 +200,82 @@ public:
 
 		// Buttons at the bottom
 		ImGui::NewLine();
-		SetButtonColor(Color::Red);
+		SetButtonColorOutlined(Color::Red);
 		DrawButtonList(std::span(&cancelButton, 1), sidebarWidth, sidebarButtonHeight);
-		PopButtonColor();
+		PopButtonColorOutlined();
 
 		ImGui::SameLine();
 		ImGui::Dummy(ImVec2(padding, sidebarButtonHeight));
 		ImGui::SameLine();
 
-		SetButtonColor(Color::Accent);
+		SetButtonColor(Color::Green);
 		DrawButtonList(std::span(&createButton, 1), sidebarWidth, sidebarButtonHeight);
 		PopButtonColor();
 	}
 
-	void DrawProjectList() { }
+	void DrawProject(const Project& project)
+	{
+		ImVec2 pos = ImGui::GetCursorScreenPos();
+		float maxWidth = ImGui::GetContentRegionAvail().x - padding;
+		float maxTextWidth = maxWidth - closeButtonSize - padding;
+		ImVec2 size = ImGui::CalcTextSize(project.Name.c_str(), nullptr, false, maxTextWidth);
+		ImGui::PushID(project.Id);
+		float rectHeight = size.y + 2 * padding;
+		ImGui::GetWindowDrawList()->AddRectFilled(
+			pos,
+			ImVec2(pos.x + maxWidth, pos.y + rectHeight),
+			ImGui::GetColorU32(ImGuiCol_FrameBg),
+			5.0f
+		);
+
+		LauncherButton closeBtn = { "x", [this, project]() { m_controller.RemoveProjectFromList(project.Id); } };
+
+		ImGui::SetCursorScreenPos(ImVec2(pos.x + maxWidth - closeButtonSize - padding, pos.y + (size.y) / 2));
+		DrawButtonList(std::span(&closeBtn, 1), closeButtonSize, closeButtonSize);
+
+		ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, pos.y + padding));
+		ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + maxWidth - padding * 4 - closeButtonSize);
+		ImGui::TextUnformatted(project.Name.c_str());
+		ImGui::PopTextWrapPos();
+		ImGui::SetCursorScreenPos(ImVec2(pos.x, pos.y + rectHeight + padding));
+		ImGui::PopID();
+	}
+
+	void DrawProjectList()
+	{
+		ImGui::SeparatorText("Open a Project");
+		ImGui::NewLine();
+
+		const auto& projects = m_controller.GetProjectList();
+		if (projects.empty())
+		{
+			ImVec4 warningColor = Color::Orange;
+			warningColor.w = 0.15f;
+
+			ImVec2 pos = ImGui::GetCursorScreenPos();
+			float width = ImGui::GetContentRegionAvail().x - padding;
+			float height = 60.0f;
+
+			ImGui::GetWindowDrawList()->AddRectFilled(pos, ImVec2(pos.x + width, pos.y + height), ImGui::GetColorU32(warningColor), 5.0f);
+			ImGui::GetWindowDrawList()->AddRect(pos, ImVec2(pos.x + width, pos.y + height), ImGui::GetColorU32(Color::Orange), 5.0f);
+
+			ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, pos.y + padding));
+			ImGui::TextColored(Color::Orange, "No project found.");
+
+			ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, pos.y + padding + 20.0f));
+			ImGui::TextDisabled("Start by creating a new project or opening an existing one.");
+
+			ImGui::SetCursorScreenPos(ImVec2(pos.x, pos.y + height + padding));
+		}
+		else
+		{
+			for (const auto& project : projects)
+			{
+				DrawProject(project);
+			}
+		}
+	}
+
 	void DrawSettings() { }
 	
 	void DrawNotifications()
@@ -206,6 +303,8 @@ public:
 				color = Color::Red;
 				break;
 			}
+			ImVec4 backgroundColor = color;
+			backgroundColor.w = 0.15f;
 
 			float maxWidth = ImGui::GetContentRegionAvail().x - padding;
 			float maxTextWidth = maxWidth - closeButtonSize - padding;
@@ -213,6 +312,12 @@ public:
 			ImGui::PushID(notification.Id);
 			float rectHeight = size.y + 2 * padding;
 			ImGui::GetWindowDrawList()->AddRectFilled(
+				pos,
+				ImVec2(pos.x + maxWidth, pos.y + rectHeight),
+				ImGui::GetColorU32(backgroundColor),
+				5.0f
+			);
+			ImGui::GetWindowDrawList()->AddRect(
 				pos,
 				ImVec2(pos.x + maxWidth, pos.y + rectHeight),
 				ImGui::GetColorU32(color),

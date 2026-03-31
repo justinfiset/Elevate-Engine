@@ -42,6 +42,16 @@ namespace EL
 		PushNotification("Successfully created project named " + props.Name, Notification::MsgType::Success);
 	}
 
+	const std::vector<Project>& ProjectController::GetProjectList()
+	{
+		return m_manager.GetProjectList();
+	}
+
+	void ProjectController::RemoveProjectFromList(uint32_t projectId)
+	{
+		m_manager.RemoveProjectFromList(projectId);
+	}
+
 	void ProjectController::OpenDocumentation() const
 	{
 		Elevate::Platform::OpenURL(std::string(DocumentationURL));

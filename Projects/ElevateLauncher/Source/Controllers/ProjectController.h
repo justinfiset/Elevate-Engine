@@ -7,6 +7,7 @@
 
 namespace EL
 {
+	struct Project;
 	struct ProjectCreationProps;
 	class ProjectManager;
 
@@ -56,6 +57,8 @@ namespace EL
 		// Project Managment
 		void OpenSelectedProject() {} // todo impl
 		void CreateNewProject(const ProjectCreationProps& props);
+		const std::vector<Project>& GetProjectList();
+		void RemoveProjectFromList(uint32_t projectId);
 
 		// Navigation
 		void OpenDocumentation() const;
