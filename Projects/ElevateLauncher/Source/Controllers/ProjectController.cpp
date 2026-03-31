@@ -1,5 +1,5 @@
 #include "ProjectController.h"
-
+#include <algorithm>
 #include <ElevateEngine/Core/Platform.h>
 #include "../Managers/ProjectManager.h"
 
