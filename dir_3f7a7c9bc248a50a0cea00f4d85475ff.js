@@ -26,6 +26,7 @@ var dir_3f7a7c9bc248a50a0cea00f4d85475ff =
     [ "Log.h", "Log_8h.html", "Log_8h" ],
     [ "PathResolver.cpp", "PathResolver_8cpp.html", null ],
     [ "PathResolver.h", "PathResolver_8h.html", "PathResolver_8h" ],
+    [ "Platform.h", "Platform_8h.html", "Platform_8h" ],
     [ "Thread.h", "Thread_8h.html", "Thread_8h" ],
     [ "Time.h", "Time_8h.html", "Time_8h" ],
     [ "Transform.cpp", "Transform_8cpp.html", null ],

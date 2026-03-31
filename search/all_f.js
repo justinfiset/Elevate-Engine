@@ -42,10 +42,11 @@ var searchData=
   ['openglvertexarray_2ecpp_39',['OpenGLVertexArray.cpp',['../OpenGLVertexArray_8cpp.html',1,'']]],
   ['openglvertexarray_2eh_40',['OpenGLVertexArray.h',['../OpenGLVertexArray_8h.html',1,'']]],
   ['openglvertexbuffer_41',['openglvertexbuffer',['../classElevate_1_1OpenGLVertexBuffer.html',1,'Elevate::OpenGLVertexBuffer'],['../classElevate_1_1OpenGLVertexBuffer.html#a5f26d95f56f4a3165e43b170a2d6c190',1,'Elevate::OpenGLVertexBuffer::OpenGLVertexBuffer()']]],
-  ['openwithdefaultapp_42',['OpenWithDefaultApp',['../namespaceElevate_1_1Files.html#a49bcee940c569f34ea4e0123826642ec',1,'Elevate::Files']]],
-  ['operator_3c_43',['operator&lt;',['../classEECategory.html#aa6aa9ae3db3e2397e61b2f0a9c3112d6',1,'EECategory']]],
-  ['operator_3c_3c_44',['operator&lt;&lt;',['../namespaceElevate.html#a07459f730257a31806ceb39f2b73f301',1,'Elevate']]],
-  ['operator_3d_45',['operator=',['../classElevate_1_1WAAPIClient.html#a152a3297c3cffdf007e0debbd44fcb86',1,'Elevate::WAAPIClient']]],
-  ['operator_3d_3d_46',['operator==',['../classEECategory.html#a75ffb0579d0e1dae79f52886d9309137',1,'EECategory']]],
-  ['overridecurrent_47',['overrideCurrent',['../classElevate_1_1Camera.html#a7e954a6afd0b2803e48b6d41ec404814',1,'Elevate::Camera']]]
+  ['openurl_42',['OpenURL',['../namespaceElevate_1_1Platform.html#a978cdb896856704e627198d6a2341e12',1,'Elevate::Platform']]],
+  ['openwithdefaultapp_43',['OpenWithDefaultApp',['../namespaceElevate_1_1Files.html#a49bcee940c569f34ea4e0123826642ec',1,'Elevate::Files']]],
+  ['operator_3c_44',['operator&lt;',['../classEECategory.html#aa6aa9ae3db3e2397e61b2f0a9c3112d6',1,'EECategory']]],
+  ['operator_3c_3c_45',['operator&lt;&lt;',['../namespaceElevate.html#a07459f730257a31806ceb39f2b73f301',1,'Elevate']]],
+  ['operator_3d_46',['operator=',['../classElevate_1_1WAAPIClient.html#a152a3297c3cffdf007e0debbd44fcb86',1,'Elevate::WAAPIClient']]],
+  ['operator_3d_3d_47',['operator==',['../classEECategory.html#a75ffb0579d0e1dae79f52886d9309137',1,'EECategory']]],
+  ['overridecurrent_48',['overrideCurrent',['../classElevate_1_1Camera.html#a7e954a6afd0b2803e48b6d41ec404814',1,'Elevate::Camera']]]
 ];

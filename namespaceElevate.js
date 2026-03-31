@@ -7,6 +7,9 @@ var namespaceElevate =
     [ "Files", "namespaceElevate_1_1Files.html", [
       [ "OpenWithDefaultApp", "namespaceElevate_1_1Files.html#a49bcee940c569f34ea4e0123826642ec", null ]
     ] ],
+    [ "Platform", "namespaceElevate_1_1Platform.html", [
+      [ "OpenURL", "namespaceElevate_1_1Platform.html#a978cdb896856704e627198d6a2341e12", null ]
+    ] ],
     [ "UI", "namespaceElevate_1_1UI.html", [
       [ "UITheme", "namespaceElevate_1_1UI.html#a45f09e5fb8d80c73eda6fdb623be39cb", [
         [ "Dark", "namespaceElevate_1_1UI.html#a45f09e5fb8d80c73eda6fdb623be39cbaa18366b217ebf811ad1886e4f4f865b2", null ],

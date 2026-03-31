@@ -23,9 +23,10 @@ var searchData=
   ['opengltexture_20',['OpenGLTexture',['../classElevate_1_1OpenGLTexture.html#a0d9f9e744c4623bb410414d3970b8109',1,'Elevate::OpenGLTexture']]],
   ['openglvertexarray_21',['OpenGLVertexArray',['../classElevate_1_1OpenGLVertexArray.html#a10c31cc3cfe5efbd7e85e6dcce5ef755',1,'Elevate::OpenGLVertexArray']]],
   ['openglvertexbuffer_22',['OpenGLVertexBuffer',['../classElevate_1_1OpenGLVertexBuffer.html#a5f26d95f56f4a3165e43b170a2d6c190',1,'Elevate::OpenGLVertexBuffer']]],
-  ['openwithdefaultapp_23',['OpenWithDefaultApp',['../namespaceElevate_1_1Files.html#a49bcee940c569f34ea4e0123826642ec',1,'Elevate::Files']]],
-  ['operator_3c_24',['operator&lt;',['../classEECategory.html#aa6aa9ae3db3e2397e61b2f0a9c3112d6',1,'EECategory']]],
-  ['operator_3c_3c_25',['operator&lt;&lt;',['../namespaceElevate.html#a07459f730257a31806ceb39f2b73f301',1,'Elevate']]],
-  ['operator_3d_26',['operator=',['../classElevate_1_1WAAPIClient.html#a152a3297c3cffdf007e0debbd44fcb86',1,'Elevate::WAAPIClient']]],
-  ['operator_3d_3d_27',['operator==',['../classEECategory.html#a75ffb0579d0e1dae79f52886d9309137',1,'EECategory']]]
+  ['openurl_23',['OpenURL',['../namespaceElevate_1_1Platform.html#a978cdb896856704e627198d6a2341e12',1,'Elevate::Platform']]],
+  ['openwithdefaultapp_24',['OpenWithDefaultApp',['../namespaceElevate_1_1Files.html#a49bcee940c569f34ea4e0123826642ec',1,'Elevate::Files']]],
+  ['operator_3c_25',['operator&lt;',['../classEECategory.html#aa6aa9ae3db3e2397e61b2f0a9c3112d6',1,'EECategory']]],
+  ['operator_3c_3c_26',['operator&lt;&lt;',['../namespaceElevate.html#a07459f730257a31806ceb39f2b73f301',1,'Elevate']]],
+  ['operator_3d_27',['operator=',['../classElevate_1_1WAAPIClient.html#a152a3297c3cffdf007e0debbd44fcb86',1,'Elevate::WAAPIClient']]],
+  ['operator_3d_3d_28',['operator==',['../classEECategory.html#a75ffb0579d0e1dae79f52886d9309137',1,'EECategory']]]
 ];
