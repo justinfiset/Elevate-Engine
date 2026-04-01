@@ -353,6 +353,13 @@ public:
 			textSize = ImGui::CalcTextSize(emptyListInstruction);
 			ImGui::SetCursorPos(ImVec2(pos.x + (availWidth - textSize.x) / 2.0f, pos.y + padding));
 			ImGui::TextDisabled(emptyListInstruction);
+
+			pos = ImGui::GetCursorPos();
+			ImGui::SetCursorPos(ImVec2(pos.x + (availWidth - sidebarWidth) / 2.0f, pos.y + padding));
+			SetButtonColor(Color::Accent);
+			LauncherButton cancelButton = { "Create Project", [this]() { m_controller.SetActiveTab(LauncherTab::ProjectCreation); } };
+			DrawButtonList(std::span(&cancelButton, 1), sidebarWidth, sidebarButtonHeight);
+			PopButtonColor();
 		}
 		else
 		{
