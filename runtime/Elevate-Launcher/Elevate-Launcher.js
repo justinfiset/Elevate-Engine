@@ -85,7 +85,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpupiaj0j_.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp1h_me6wf.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -167,6 +167,7 @@ Module["expectedDataFileDownloads"]++;
         if (!check) throw new Error(msg);
       }
       Module["FS_createPath"]("/", "Content", true, true);
+      Module["FS_createPath"]("/Content", "Fonts", true, true);
       Module["FS_createPath"]("/Content", "Textures", true, true);
       Module["FS_createPath"]("/", "Engine", true, true);
       Module["FS_createPath"]("/Engine", "Cubemap", true, true);
@@ -211,59 +212,71 @@ Module["expectedDataFileDownloads"]++;
   }
   loadPackage({
     "files": [ {
-      "filename": "/Content/Textures/Elevate.png",
+      "filename": "/Content/Fonts/OpenSans_SemiCondensed-SemiBold.ttf",
       "start": 0,
-      "end": 117425
+      "end": 130856
+    }, {
+      "filename": "/Content/Textures/Elevate.png",
+      "start": 130856,
+      "end": 248281
+    }, {
+      "filename": "/Content/Textures/add-files.png",
+      "start": 248281,
+      "end": 319516
+    }, {
+      "filename": "/Content/Textures/void.png",
+      "start": 319516,
+      "end": 419222
     }, {
       "filename": "/Engine/Cubemap/default.sky",
-      "start": 117425,
-      "end": 117777
+      "start": 419222,
+      "end": 419574
     }, {
       "filename": "/Engine/Textures/Skybox/Default/bottom.jpg",
-      "start": 117777,
-      "end": 185420
+      "start": 419574,
+      "end": 487217
     }, {
       "filename": "/Engine/Textures/Skybox/Default/side.jpg",
-      "start": 185420,
-      "end": 266723
+      "start": 487217,
+      "end": 568520
     }, {
       "filename": "/Engine/Textures/Skybox/Default/top.jpg",
-      "start": 266723,
-      "end": 334376
+      "start": 568520,
+      "end": 636173
     }, {
       "filename": "/Engine/Textures/debug.png",
-      "start": 334376,
-      "end": 338731
+      "start": 636173,
+      "end": 640528
     }, {
       "filename": "/app.config",
-      "start": 338731,
-      "end": 338834
+      "start": 640528,
+      "end": 640631
     }, {
       "filename": "/imgui.ini",
-      "start": 338834,
-      "end": 338919
+      "start": 640631,
+      "end": 640716
     } ],
-    "remote_package_size": 338919
+    "remote_package_size": 640716
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpupiaj0j_.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp48sur7cc.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp1h_me6wf.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpg9qt9tli.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp48sur7cc.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpu23l_89y.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpg9qt9tli.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpt4qc90cd.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpu23l_89y.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpt4qc90cd.js
 var arguments_ = [];
 
 var thisProgram = "./this.program";
@@ -9866,7 +9879,7 @@ function checkIncomingModuleAPI() {
 }
 
 var ASM_CONSTS = {
-  5507056: $0 => {
+  5507248: $0 => {
     var url = UTF8ToString($0);
     window.open(url, "_blank");
   }

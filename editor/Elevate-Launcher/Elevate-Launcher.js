@@ -85,7 +85,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp38sheflq.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmptfygj5lr.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -167,6 +167,7 @@ Module["expectedDataFileDownloads"]++;
         if (!check) throw new Error(msg);
       }
       Module["FS_createPath"]("/", "Content", true, true);
+      Module["FS_createPath"]("/Content", "Fonts", true, true);
       Module["FS_createPath"]("/Content", "Textures", true, true);
       Module["FS_createPath"]("/", "Editor", true, true);
       Module["FS_createPath"]("/Editor", "Config", true, true);
@@ -219,139 +220,151 @@ Module["expectedDataFileDownloads"]++;
   }
   loadPackage({
     "files": [ {
-      "filename": "/Content/Textures/Elevate.png",
+      "filename": "/Content/Fonts/OpenSans_SemiCondensed-SemiBold.ttf",
       "start": 0,
-      "end": 117425
+      "end": 130856
+    }, {
+      "filename": "/Content/Textures/Elevate.png",
+      "start": 130856,
+      "end": 248281
+    }, {
+      "filename": "/Content/Textures/add-files.png",
+      "start": 248281,
+      "end": 319516
+    }, {
+      "filename": "/Content/Textures/void.png",
+      "start": 319516,
+      "end": 419222
     }, {
       "filename": "/Editor/Config/file_browser.json",
-      "start": 117425,
-      "end": 118293
+      "start": 419222,
+      "end": 420090
     }, {
       "filename": "/Editor/Icons/Assets/empty_folder.png",
-      "start": 118293,
-      "end": 129265
+      "start": 420090,
+      "end": 431062
     }, {
       "filename": "/Editor/Icons/Assets/file.png",
-      "start": 129265,
-      "end": 134389
+      "start": 431062,
+      "end": 436186
     }, {
       "filename": "/Editor/Icons/Assets/folder.png",
-      "start": 134389,
-      "end": 145148
+      "start": 436186,
+      "end": 446945
     }, {
       "filename": "/Editor/Icons/Light/Colored/play.png",
-      "start": 145148,
-      "end": 145633
+      "start": 446945,
+      "end": 447430
     }, {
       "filename": "/Editor/Icons/Light/Colored/stop.png",
-      "start": 145633,
-      "end": 145794
+      "start": 447430,
+      "end": 447591
     }, {
       "filename": "/Editor/Icons/Light/Components/camera.png",
-      "start": 145794,
-      "end": 146137
+      "start": 447591,
+      "end": 447934
     }, {
       "filename": "/Editor/Icons/Light/Components/rigidbody.png",
-      "start": 146137,
-      "end": 147144
+      "start": 447934,
+      "end": 448941
     }, {
       "filename": "/Editor/Icons/Light/flare.png",
-      "start": 147144,
-      "end": 148435
+      "start": 448941,
+      "end": 450232
     }, {
       "filename": "/Editor/Icons/Light/lightbulb.png",
-      "start": 148435,
-      "end": 149864
+      "start": 450232,
+      "end": 451661
     }, {
       "filename": "/Editor/Icons/Light/object.png",
-      "start": 149864,
-      "end": 150715
+      "start": 451661,
+      "end": 452512
     }, {
       "filename": "/Editor/Icons/Light/pause.png",
-      "start": 150715,
-      "end": 150993
+      "start": 452512,
+      "end": 452790
     }, {
       "filename": "/Editor/Icons/Light/play.png",
-      "start": 150993,
-      "end": 151444
+      "start": 452790,
+      "end": 453241
     }, {
       "filename": "/Editor/Icons/Light/scene.png",
-      "start": 151444,
-      "end": 151990
+      "start": 453241,
+      "end": 453787
     }, {
       "filename": "/Editor/Icons/Light/stop.png",
-      "start": 151990,
-      "end": 152147
+      "start": 453787,
+      "end": 453944
     }, {
       "filename": "/Editor/Icons/Light/sun.png",
-      "start": 152147,
-      "end": 153880
+      "start": 453944,
+      "end": 455677
     }, {
       "filename": "/Editor/Shaders/debug.frag",
-      "start": 153880,
-      "end": 153964
+      "start": 455677,
+      "end": 455761
     }, {
       "filename": "/Editor/Shaders/debug.vert",
-      "start": 153964,
-      "end": 154188
+      "start": 455761,
+      "end": 455985
     }, {
       "filename": "/Editor/Shaders/grid.frag",
-      "start": 154188,
-      "end": 154712
+      "start": 455985,
+      "end": 456509
     }, {
       "filename": "/Editor/Shaders/grid.vert",
-      "start": 154712,
-      "end": 155057
+      "start": 456509,
+      "end": 456854
     }, {
       "filename": "/Engine/Cubemap/default.sky",
-      "start": 155057,
-      "end": 155409
+      "start": 456854,
+      "end": 457206
     }, {
       "filename": "/Engine/Textures/Skybox/Default/bottom.jpg",
-      "start": 155409,
-      "end": 223052
+      "start": 457206,
+      "end": 524849
     }, {
       "filename": "/Engine/Textures/Skybox/Default/side.jpg",
-      "start": 223052,
-      "end": 304355
+      "start": 524849,
+      "end": 606152
     }, {
       "filename": "/Engine/Textures/Skybox/Default/top.jpg",
-      "start": 304355,
-      "end": 372008
+      "start": 606152,
+      "end": 673805
     }, {
       "filename": "/Engine/Textures/debug.png",
-      "start": 372008,
-      "end": 376363
+      "start": 673805,
+      "end": 678160
     }, {
       "filename": "/app.config",
-      "start": 376363,
-      "end": 376466
+      "start": 678160,
+      "end": 678263
     }, {
       "filename": "/imgui.ini",
-      "start": 376466,
-      "end": 376551
+      "start": 678263,
+      "end": 678348
     } ],
-    "remote_package_size": 376551
+    "remote_package_size": 678348
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp38sheflq.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpv16nsu73.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmptfygj5lr.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp825242mn.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpv16nsu73.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpdkvuccaj.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp825242mn.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpcmy7by4c.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpdkvuccaj.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpcmy7by4c.js
 var arguments_ = [];
 
 var thisProgram = "./this.program";
@@ -10328,7 +10341,7 @@ function checkIncomingModuleAPI() {
 }
 
 var ASM_CONSTS = {
-  5600872: $0 => {
+  5601048: $0 => {
     var url = UTF8ToString($0);
     window.open(url, "_blank");
   }
