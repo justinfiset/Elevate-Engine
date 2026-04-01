@@ -2,7 +2,9 @@
 #include <ElevateEngine/Core/PathResolver.h>
 #include <ElevateEngine/Files/FileDialog.h>
 
+
 #include <imgui.h>
+#include <ElevateEngine/ImGui/ImGuiLoadingIndicator.h>
 #include <misc/cpp/imgui_stdlib.h>
 
 #include <span>
@@ -78,6 +80,11 @@ public:
 		m_bigFont = io.Fonts->AddFontFromFileTTF(Elevate::PathResolver::Resolve("content://Fonts/OpenSans_SemiCondensed-SemiBold.ttf").c_str(), 40.0f);
 	}
 
+	void OnUpdate() override
+	{
+		m_controller.UpdateLoading();
+	}
+
 	void OnImGuiRender() override
 	{
 		ImGui::PushFont(m_defaultFont);
@@ -99,6 +106,37 @@ public:
 			ImGuiWindowFlags_NoDocking |
 			ImGuiWindowFlags_NoNavFocus
 		);
+
+		// Display the loading indicator if necessary
+		if (m_controller.IsLoading() && !ImGui::IsPopupOpen("loading"))
+		{
+			ImGui::OpenPopup("loading");
+		}
+
+		ImGui::PushStyleColor(ImGuiCol_ModalWindowDimBg, ImGui::GetColorU32(ImGuiCol_FrameBg));
+		ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(0, 0, 0, 0));
+		ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0, 0, 0, 0));
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+		if (ImGui::BeginPopupModal("loading", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove))
+		{
+			ImVec2 avail = ImGui::GetContentRegionAvail();
+			ImVec2 pos = ImGui::GetCursorScreenPos();
+			static constexpr float spinnerRadius = 15.0f;
+
+			// Simple hack to make sure the windows is big enought for the spinner
+			ImGui::Dummy(ImVec2(spinnerRadius * 3, spinnerRadius * 3));
+
+			ImGui::SetCursorScreenPos(ImVec2(pos.x + avail.x / 2 - spinnerRadius, pos.y + avail.y / 2 - spinnerRadius));
+			ImGui::Spinner("##launcher_loading_spinner", spinnerRadius, 4, ImGui::GetColorU32(Color::Accent));
+
+			if (!m_controller.IsLoading())
+			{
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+		ImGui::PopStyleVar();
+		ImGui::PopStyleColor(3);
 
 		ImGui::BeginChild("Header", ImVec2(0, headerHeight), true);
 		{

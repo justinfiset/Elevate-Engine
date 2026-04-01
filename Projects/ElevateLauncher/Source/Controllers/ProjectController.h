@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <cstdint>
+#include <future>
 
 namespace EL
 {
@@ -47,9 +48,15 @@ namespace EL
 		std::vector<Notification> m_notifications;
 		uint16_t m_nextNotificationId = 0;
 
+		std::future<bool> m_creationFuture;
+		bool m_isCreating = false;
 	public:
 		ProjectController(ProjectManager& manager)
 			: m_manager(manager) { }
+
+		// Loading
+		bool IsLoading();
+		void UpdateLoading();
 
 		// Change launcher tab
 		void SetActiveTab(LauncherTab tab);
@@ -75,6 +82,7 @@ namespace EL
 		const std::vector<Notification>& GetNotifications();
 
 	private:
+		void SetLoadingState(bool newState);
 		void PushLastManagerError();
 	};
 }

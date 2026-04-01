@@ -25,11 +25,20 @@ namespace EL
 		project.Path = props.Path;
 		project.Id = (uint32_t) m_projectList.size();
 		project.UsesWwise = props.bUsesWwise;
+		std::string projectDir = project.Path + "/" + project.Name;
 
 		// Check if the given path is valid
 		if (!fs::exists(props.Path) || !fs::is_directory(props.Path))
 		{
-			EE_ERROR("The provided path is not a valid directory.");
+			EE_ERROR("The provided path is not a valid directory. : {}", projectDir);
+			m_lastMessage = "The provided path is not a valid directory.";
+			return false;
+		}
+
+		if (fs::exists(projectDir))
+		{
+			EE_ERROR("A directory with this path already exists. : {}", projectDir);
+			m_lastMessage = "A directory with this path already exists.";
 			return false;
 		}
 
@@ -37,19 +46,22 @@ namespace EL
 		if (IsProjectValid(project))
 		{
 			EE_ERROR("A project is already present in the folder.");
+			m_lastMessage = "A project is already present in the folder.";
 			return false;
 		}
 
 		// Create the project based on the template
 		try
 		{
-			fs::copy(props.TemplatePath + "/Assets/", props.Path, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
+			fs::create_directory(projectDir);
+			fs::copy(props.TemplatePath + "/Assets/", projectDir, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
 			// todo : create the .eeproj config file
 		}
 		catch (fs::filesystem_error e)
 		{
 			EE_ERROR("Error Filesystem: {0}", e.what());
 			EE_ERROR("Error code: {0}", e.code().value());
+			m_lastMessage = std::string("FileSystem Error : ") + e.what();
 			return false;
 		}
 
@@ -111,12 +123,13 @@ namespace EL
 
 	bool ProjectManager::IsProjectValid(const Project& project) const
 	{
-		if (!fs::exists(project.Path) || !fs::is_directory(project.Path))
+		std::string fullPath = project.Path + "/" + project.Name;
+		if (!fs::exists(fullPath))
 		{
 			return false;
 		}
 
-		for (const auto& entry : fs::directory_iterator(project.Path)) {
+		for (const auto& entry : fs::directory_iterator(project.Path + "/" + project.Name)) {
 			if (entry.is_regular_file() && entry.path().extension() == ".eproj") {
 				return true;
 			}

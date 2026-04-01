@@ -1,10 +1,37 @@
 #include "ProjectController.h"
+#include "../Managers/ProjectManager.h"
+
 #include <algorithm>
 #include <ElevateEngine/Core/Platform.h>
-#include "../Managers/ProjectManager.h"
 
 namespace EL
 {
+	bool ProjectController::IsLoading()
+	{
+		return m_isCreating;
+	}
+
+	void ProjectController::UpdateLoading()
+	{
+		if (m_isCreating && m_creationFuture.valid())
+		{
+			if (m_creationFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+			{
+				bool success = m_creationFuture.get();
+				m_isCreating = false;
+				if (!success)
+				{
+					PushLastManagerError();
+				}
+				else
+				{
+					SetActiveTab(LauncherTab::ProjectList);
+					PushNotification("Successfully created project.", Notification::MsgType::Success);
+				}
+			}
+		}
+	}
+
 	void ProjectController::SetActiveTab(LauncherTab tab)
 	{
 		m_activeTab = tab;
@@ -37,14 +64,17 @@ namespace EL
 			return false;
 		}
 
-		bool success = m_manager.CreateNewProject(props);
-		if (!success)
+		if (m_isCreating)
 		{
-			PushLastManagerError();
+			PushNotification("A project is already in creation. Please try again later.", Notification::MsgType::Error);
 			return false;
 		}
-		SetActiveTab(LauncherTab::ProjectList);
-		PushNotification("Successfully created project named " + props.Name, Notification::MsgType::Success);
+
+		m_isCreating = true;
+		m_creationFuture = std::async(std::launch::async, [this, props]() {
+			return m_manager.CreateNewProject(props);
+		});
+
 		return true;
 	}
 

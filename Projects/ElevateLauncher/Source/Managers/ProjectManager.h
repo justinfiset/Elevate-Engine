@@ -9,8 +9,8 @@ namespace EL
 {
 	struct ProjectCreationProps {
 		std::string Name = "NewProject";
-		std::string TemplatePath = ".";
-		std::string Path = ".";
+		std::string TemplatePath = "";
+		std::string Path = "";
 		bool bUsesWwise = false;
 	};
 
