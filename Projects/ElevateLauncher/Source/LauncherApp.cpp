@@ -1,5 +1,6 @@
 #include <ElevateEngine.h>
 #include <ElevateEngine/Core/PathResolver.h>
+#include <ElevateEngine/Files/FileDialog.h>
 
 #include <imgui.h>
 #include <misc/cpp/imgui_stdlib.h>
@@ -249,15 +250,43 @@ public:
 			// Project Configuration
 			ImGui::TableSetColumnIndex(0);
 			ImGui::NewLine();
+
+			float buttonSize = 30.0f;
+			float spacing = ImGui::GetStyle().ItemSpacing.x;
+			ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x - spacing);
+
 			// Project form
 			ImGui::Text("Project Name");
 			ImGui::InputText("##ProjectName", &props.Name);
 			ImGui::NewLine();
 			ImGui::Text("Project Path");
+			ImVec2 btnPos = ImGui::GetCursorPos();
+			ImGui::BeginDisabled();
+			ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x - buttonSize - spacing);
 			ImGui::InputText("##ProjectPath", &props.Path);
+			ImGui::PopItemWidth();
+			ImGui::EndDisabled();
+			ImGui::SetCursorPos(ImVec2(btnPos.x + ImGui::GetContentRegionAvail().x - buttonSize  - spacing, btnPos.y));
+			if (ImGui::Button("..."))
+			{
+				Elevate::FileDialog::RequestSelectFolder("Select a directory", ".");
+			}
+			
+			std::string selectedPath;
+			if (Elevate::FileDialog::DisplayAndGetResult(selectedPath))
+			{
+				props.Path = selectedPath;
+			}
 
 			const char* templateLabel = templates[selectedTemplate].Name.c_str();
 			ImGui::NewLine();
+
+			// Force the TemplatePath to be the first template path on the list.
+			if (props.TemplatePath.empty() || props.TemplatePath == ".")
+			{
+				props.TemplatePath = templates[selectedTemplate].Path;
+			}
+
 			ImGui::Text("Template");
 			if (ImGui::BeginCombo("##templateSelection", templateLabel))
 			{
@@ -266,6 +295,7 @@ public:
 					const bool isSelected = (selectedTemplate == i);
 					if (ImGui::Selectable(templates[i].Name.c_str(), isSelected))
 					{
+						props.TemplatePath = templates[i].Path;
 						selectedTemplate = i;
 					}
 
@@ -276,11 +306,14 @@ public:
 				}
 				ImGui::EndCombo();
 			}
+			ImGui::PopItemWidth();
 
 			ImGui::Dummy(ImVec2(ImGui::GetColumnWidth(), ImGui::GetContentRegionAvail().y - footerHeight - padding));
 
 			// Template Preview
 			ImGui::TableSetColumnIndex(1);
+			ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, ImGui::GetColorU32(ImGuiCol_FrameBg));
+
 			ImGui::PushFont(m_subHeaderFont);
 			ImGui::Text(templates[selectedTemplate].Name.c_str());
 			ImGui::Separator();
@@ -309,11 +342,12 @@ public:
 					0,
 					1.5f
 				);
-				ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, p_max.y + padding));
+				ImGui::SetCursorScreenPos(ImVec2(pos.x, p_max.y + padding));
 			}
 			ImGui::SeparatorText("Template Description");
 			ImGui::TextWrapped(templates[selectedTemplate].Desription.c_str());
-
+			ImGui::SeparatorText("Template Path");
+			ImGui::TextWrapped(templates[selectedTemplate].Path.c_str());
 			ImGui::EndTable();
 		}
 
@@ -392,10 +426,17 @@ public:
 		const auto& projects = m_controller.GetProjectList();
 		if (projects.empty())
 		{
+			ImGui::GetWindowDrawList()->ChannelsSplit(2);
+			ImGui::GetWindowDrawList()->ChannelsSetCurrent(1);
+
+			ImVec2 startPos = ImGui::GetCursorScreenPos();
+			startPos = ImVec2(startPos.x + padding * 2, startPos.y);
+
 			float availWidth = ImGui::GetContentRegionAvail().x - padding;
 			float textureSize = (availWidth) / 3;
+
 			ImVec2 pos = ImGui::GetCursorPos();
-			ImGui::SetCursorPos(ImVec2(pos.x + (availWidth - textureSize) / 2.0f, pos.y + padding));
+			ImGui::SetCursorPos(ImVec2(pos.x + (availWidth - textureSize) / 2.0f, pos.y + padding * 4));
 			ImGui::Image((ImTextureID)m_voidTexture->GetNativeHandle(), ImVec2(textureSize, textureSize));
 			
 			const char* emptyListText = "No project yet.";
@@ -419,6 +460,13 @@ public:
 			LauncherButton cancelButton = { "Create Project", [this]() { m_controller.SetActiveTab(LauncherTab::ProjectCreation); } };
 			DrawButtonList(std::span(&cancelButton, 1), sidebarWidth, sidebarButtonHeight);
 			PopButtonColor();
+
+			// Draw the background rect underneath
+			ImGui::GetWindowDrawList()->ChannelsSetCurrent(0);
+			ImVec2 endPos = ImVec2(startPos.x + availWidth - padding * 4, ImGui::GetCursorScreenPos().y + padding * 2);
+			ImGui::GetWindowDrawList()->AddRectFilled(startPos, endPos, ImGui::GetColorU32(ImGuiCol_FrameBg), 5.0f);
+			ImGui::GetWindowDrawList()->AddRect(startPos, endPos, ImGui::GetColorU32(ImGuiCol_Border), 5.0f);
+			ImGui::GetWindowDrawList()->ChannelsMerge();
 		}
 		else
 		{

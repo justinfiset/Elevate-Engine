@@ -26,6 +26,13 @@ namespace EL
 		project.Id = (uint32_t) m_projectList.size();
 		project.UsesWwise = props.bUsesWwise;
 
+		// Check if the given path is valid
+		if (!fs::exists(props.Path) || !fs::is_directory(props.Path))
+		{
+			EE_ERROR("The provided path is not a valid directory.");
+			return false;
+		}
+
 		// Check if the project already exists
 		if (IsProjectValid(project))
 		{
@@ -34,8 +41,18 @@ namespace EL
 		}
 
 		// Create the project based on the template
-		fs::copy(props.TemplatePath + "/Assets/", props.Path, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
-		// todo : create the .eeproj config file
+		try
+		{
+			fs::copy(props.TemplatePath + "/Assets/", props.Path, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
+			// todo : create the .eeproj config file
+		}
+		catch (fs::filesystem_error e)
+		{
+			EE_ERROR("Error Filesystem: {0}", e.what());
+			EE_ERROR("Error code: {0}", e.code().value());
+			return false;
+		}
+
 		project.IsValid = IsProjectValid(project);
 		if (!project.IsValid)
 		{
@@ -47,10 +64,12 @@ namespace EL
 		return true;
 	}
 
-	std::vector<ProjectTemplate> ProjectManager::GetProjectTemplates() const
+	std::vector<ProjectTemplate> ProjectManager::GetProjectTemplates()
 	{
-		// Todo : prevent from loading each frame
-		std::vector<ProjectTemplate> templates;
+		if (m_templatesLoaded)
+		{
+			return m_projectTemplates;
+		}
 
 		for (const auto& entry : fs::directory_iterator(EE_RESOURCE_DIR + std::string(templatePath))) {
 			if (!entry.is_directory())
@@ -73,10 +92,11 @@ namespace EL
 			{
 				projTemplate.Thumbnail = Elevate::Texture::CreateFromFile(thumbnailFile);
 			}
-			templates.push_back(projTemplate);
+			m_projectTemplates.push_back(projTemplate);
 		}
 
-		return templates;
+		m_templatesLoaded = true;
+		return m_projectTemplates;
 	}
 
 	void ProjectManager::RefreshProjectList()

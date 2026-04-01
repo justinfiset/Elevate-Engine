@@ -19,11 +19,14 @@ namespace EL
 		std::string m_lastMessage = "";
 		std::vector<Project> m_projectList;
 
+		std::vector<ProjectTemplate> m_projectTemplates;
+		bool m_templatesLoaded = false;
+
 	public:
 		ProjectManager();
 
 		// Project Templates
-		std::vector<ProjectTemplate> GetProjectTemplates() const;
+		std::vector<ProjectTemplate> GetProjectTemplates();
 
 		// Project Managment
 		bool CreateNewProject(const ProjectCreationProps& props);
