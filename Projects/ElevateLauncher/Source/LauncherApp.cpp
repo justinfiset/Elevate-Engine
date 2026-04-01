@@ -444,7 +444,7 @@ public:
 			ImVec2 textSize = ImGui::CalcTextSize(emptyListText);
 			pos = ImGui::GetCursorPos();
 			ImGui::SetCursorPos(ImVec2(pos.x + (availWidth - textSize.x) / 2.0f, pos.y + padding));
-			ImGui::Text(emptyListText);
+			ImGui::Text("%s", emptyListText);
 			ImGui::GetIO().FontGlobalScale = 1.0f;
 			ImGui::PopFont();
 
@@ -452,7 +452,7 @@ public:
 			pos = ImGui::GetCursorPos();
 			textSize = ImGui::CalcTextSize(emptyListInstruction);
 			ImGui::SetCursorPos(ImVec2(pos.x + (availWidth - textSize.x) / 2.0f, pos.y + padding));
-			ImGui::TextDisabled(emptyListInstruction);
+			ImGui::TextDisabled("%s", emptyListInstruction);
 
 			pos = ImGui::GetCursorPos();
 			ImGui::SetCursorPos(ImVec2(pos.x + (availWidth - sidebarWidth) / 2.0f, pos.y + padding));

@@ -11,7 +11,6 @@ namespace Elevate
 
 	void EditorCamera::Update()
 	{
-		// sprint
 		float baseCamSpeed = 0.5f;
 		if (Input::IsKeyPressed(EE_KEY_LEFT_SHIFT))
 		{
@@ -32,7 +31,6 @@ namespace Elevate
 
 		if (m_followCursor)
 		{
-			// Calcul du décalage de souris avec sensibilité configurable
 			float xpos = Input::GetMouseX();
 			float ypos = Input::GetMouseY();
 
@@ -45,7 +43,7 @@ namespace Elevate
 			gameObject->GetRotation().y += xoffset;
 			gameObject->GetRotation().x += yoffset;
 
-			ClampRotation();  // Utilisation de la méthode helper
+			ClampRotation();
 			UpdateCameraVectors();
 		}
 	}

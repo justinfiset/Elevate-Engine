@@ -46,10 +46,12 @@ project "ImGui"
 			"_CRT_SECURE_NO_WARNINGS"
 		}
 
-	filter "configurations:Debug"
+	filter "configurations:Debug or configurations:Editor_Debug"
 		runtime "Debug"
+		optimize "Off"
 		symbols "on"
 
-	filter "configurations:Release"
+	filter "configurations:Release or configurations:Editor_Release or configurations:Dist"
 		runtime "Release"
+		optimize "Speed"
 		optimize "on"
