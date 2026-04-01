@@ -1,4 +1,6 @@
 #include <ElevateEngine.h>
+#include <ElevateEngine/Core/PathResolver.h>
+
 #include <imgui.h>
 #include <misc/cpp/imgui_stdlib.h>
 
@@ -37,6 +39,12 @@ private:
 	static constexpr float closeButtonSize = 20.0f;
 
 	std::shared_ptr<Elevate::Texture> m_elevateIcon = nullptr;
+	std::shared_ptr<Elevate::Texture> m_createTexture = nullptr;
+	std::shared_ptr<Elevate::Texture> m_voidTexture = nullptr;
+
+	ImFont* m_defaultFont = nullptr;
+	ImFont* m_bigFont = nullptr;
+
 	std::array<LauncherButton, 2> m_projectOptions = {{
 		{ "New Project", [this]() { m_controller.SetActiveTab(LauncherTab::ProjectCreation); } },
 		{ "Open Project", [this]() { m_controller.SetActiveTab(LauncherTab::ProjectList); } }
@@ -56,11 +64,19 @@ public:
 
 	void OnAttach() override
 	{
-		m_elevateIcon = Elevate::Texture::CreateFromFile("Content/Textures/Elevate.png");
+		m_elevateIcon = Elevate::Texture::CreateFromFile("content://Textures/Elevate.png");
+		m_createTexture = Elevate::Texture::CreateFromFile("content://Textures/add-files.png");
+		m_voidTexture = Elevate::Texture::CreateFromFile("content://Textures/void.png");
+
+		ImGuiIO& io = ImGui::GetIO();
+		m_defaultFont = io.Fonts->AddFontFromFileTTF(Elevate::PathResolver::Resolve("content://Fonts/OpenSans_SemiCondensed-SemiBold.ttf").c_str(), 18.0f);
+		m_bigFont = io.Fonts->AddFontFromFileTTF(Elevate::PathResolver::Resolve("content://Fonts/OpenSans_SemiCondensed-SemiBold.ttf").c_str(), 40.0f);
 	}
 
 	void OnImGuiRender() override
 	{
+		ImGui::PushFont(m_defaultFont);
+
 		ImGuiViewport* viewport = ImGui::GetMainViewport();
 
 		ImGui::SetNextWindowPos(viewport->Pos);
@@ -102,6 +118,7 @@ public:
 
 		ImGui::End();
 		ImGui::PopStyleVar();
+		ImGui::PopFont();
 	}
 
 	void DrawHeader()
@@ -285,23 +302,26 @@ public:
 		const auto& projects = m_controller.GetProjectList();
 		if (projects.empty())
 		{
-			ImVec4 warningColor = Color::Orange;
-			warningColor.w = 0.15f;
+			float availWidth = ImGui::GetContentRegionAvail().x - padding;
+			float textureSize = (availWidth) / 3;
+			ImVec2 pos = ImGui::GetCursorPos();
+			ImGui::SetCursorPos(ImVec2(pos.x + (availWidth - textureSize) / 2.0f, pos.y + padding));
+			ImGui::Image((ImTextureID)m_voidTexture->GetNativeHandle(), ImVec2(textureSize, textureSize));
+			
+			const char* emptyListText = "No project yet.";
+			ImGui::PushFont(m_bigFont);
+			ImVec2 textSize = ImGui::CalcTextSize(emptyListText);
+			pos = ImGui::GetCursorPos();
+			ImGui::SetCursorPos(ImVec2(pos.x + (availWidth - textSize.x) / 2.0f, pos.y + padding));
+			ImGui::Text(emptyListText);
+			ImGui::GetIO().FontGlobalScale = 1.0f;
+			ImGui::PopFont();
 
-			ImVec2 pos = ImGui::GetCursorScreenPos();
-			float width = ImGui::GetContentRegionAvail().x - padding;
-			float height = 60.0f;
-
-			ImGui::GetWindowDrawList()->AddRectFilled(pos, ImVec2(pos.x + width, pos.y + height), ImGui::GetColorU32(warningColor), 5.0f);
-			ImGui::GetWindowDrawList()->AddRect(pos, ImVec2(pos.x + width, pos.y + height), ImGui::GetColorU32(Color::Orange), 5.0f);
-
-			ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, pos.y + padding));
-			ImGui::TextColored(Color::Orange, "No project found.");
-
-			ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, pos.y + padding * 3));
-			ImGui::TextDisabled("Start by creating a new project or opening an existing one.");
-
-			ImGui::SetCursorScreenPos(ImVec2(pos.x, pos.y + height + padding));
+			const char* emptyListInstruction = "Start by creating a new project...";
+			pos = ImGui::GetCursorPos();
+			textSize = ImGui::CalcTextSize(emptyListInstruction);
+			ImGui::SetCursorPos(ImVec2(pos.x + (availWidth - textSize.x) / 2.0f, pos.y + padding));
+			ImGui::TextDisabled(emptyListInstruction);
 		}
 		else
 		{

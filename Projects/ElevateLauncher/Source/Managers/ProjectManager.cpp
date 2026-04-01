@@ -14,6 +14,10 @@ namespace EL
 
 	bool ProjectManager::CreateNewProject(const ProjectCreationProps& props)
 	{
+		// Create the project based on the template
+
+
+		// Create the project object and add it to the list
 		Project project;
 		project.Name = props.Name;
 		project.Path = props.Path;
