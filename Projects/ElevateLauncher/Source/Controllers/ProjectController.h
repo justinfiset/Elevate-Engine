@@ -8,6 +8,7 @@
 namespace EL
 {
 	struct Project;
+	struct ProjectTemplate;
 	struct ProjectCreationProps;
 	class ProjectManager;
 
@@ -53,6 +54,9 @@ namespace EL
 		// Change launcher tab
 		void SetActiveTab(LauncherTab tab);
 		LauncherTab GetActiveTab() const;
+
+		// Project Templates
+		std::vector<ProjectTemplate> GetProjectTemplates() const;
 
 		// Project Managment
 		void OpenSelectedProject() {} // todo impl

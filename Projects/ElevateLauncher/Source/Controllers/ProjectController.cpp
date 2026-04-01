@@ -16,6 +16,11 @@ namespace EL
 		return m_activeTab;
 	}
 
+	std::vector<ProjectTemplate> ProjectController::GetProjectTemplates() const
+	{
+		return m_manager.GetProjectTemplates();
+	}
+
 	bool ProjectController::CreateNewProject(const ProjectCreationProps& props)
 	{
 		m_notifications.clear();

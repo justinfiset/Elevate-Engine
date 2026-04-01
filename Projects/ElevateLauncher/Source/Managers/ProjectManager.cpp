@@ -1,12 +1,17 @@
 #include "ProjectManager.h"
-
-#include "../Models/Project.h"
-
+#include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Files/FileUtility.h>
+#include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <filesystem>
+
 namespace fs = std::filesystem;
 
 namespace EL
 {
+	static constexpr std::string_view templatePath = "/Templates/";
+	static constexpr std::string_view templateDescriptionFile = "description.txt";
+	static constexpr std::string_view templateIconFile = "icon.png";
+
 	ProjectManager::ProjectManager()
 	{
 		RefreshProjectList();
@@ -14,18 +19,64 @@ namespace EL
 
 	bool ProjectManager::CreateNewProject(const ProjectCreationProps& props)
 	{
-		// Create the project based on the template
-
-
 		// Create the project object and add it to the list
 		Project project;
 		project.Name = props.Name;
 		project.Path = props.Path;
-		project.Id = m_projectList.size();
+		project.Id = (uint32_t) m_projectList.size();
 		project.UsesWwise = props.bUsesWwise;
+
+		// Check if the project already exists
+		if (IsProjectValid(project))
+		{
+			EE_ERROR("A project is already present in the folder.");
+			return false;
+		}
+
+		// Create the project based on the template
+		fs::copy(props.TemplatePath + "/Assets/", props.Path, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
+		// todo : create the .eeproj config file
 		project.IsValid = IsProjectValid(project);
+		if (!project.IsValid)
+		{
+			EE_ERROR("Failed to create a valid project.");
+			return false;
+		}
+
 		m_projectList.push_back(project);
 		return true;
+	}
+
+	std::vector<ProjectTemplate> ProjectManager::GetProjectTemplates() const
+	{
+		// Todo : prevent from loading each frame
+		std::vector<ProjectTemplate> templates;
+
+		for (const auto& entry : fs::directory_iterator(EE_RESOURCE_DIR + std::string(templatePath))) {
+			if (!entry.is_directory())
+			{
+				continue;
+			}
+
+			ProjectTemplate projTemplate;
+			projTemplate.Path = entry.path().string();
+			projTemplate.Name = entry.path().filename().string();
+
+			std::string descriptionFile = projTemplate.Path + "/" + std::string(templateDescriptionFile);
+			std::string thumbnailFile = projTemplate.Path + "/" + std::string(templateIconFile);
+
+			if (fs::exists(descriptionFile))
+			{
+				projTemplate.Desription = Elevate::File::GetFileContent(descriptionFile);
+			}
+			if (fs::exists(thumbnailFile))
+			{
+				projTemplate.Thumbnail = Elevate::Texture::CreateFromFile(thumbnailFile);
+			}
+			templates.push_back(projTemplate);
+		}
+
+		return templates;
 	}
 
 	void ProjectManager::RefreshProjectList()

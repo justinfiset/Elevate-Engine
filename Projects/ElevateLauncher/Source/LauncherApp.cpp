@@ -235,6 +235,37 @@ public:
 		ImGui::NewLine();
 		ImGui::Text("Project Path");
 		ImGui::InputText("##ProjectPath", &props.Path);
+
+		static int selectedTemplate = 0;
+		auto templates = m_controller.GetProjectTemplates();
+		const char* previewLabel = templates[selectedTemplate].Name.c_str();
+		ImGui::NewLine();
+		ImGui::Text("Template");
+		if (ImGui::BeginCombo("##templateSelection", previewLabel))
+		{
+			for (int i = 0; i < templates.size(); i++)
+			{
+				const bool isSelected = (selectedTemplate == i);
+				if (ImGui::Selectable(templates[i].Name.c_str(), isSelected))
+				{
+					selectedTemplate = i;
+				}
+
+				if (isSelected)
+				{
+					ImGui::SetItemDefaultFocus();
+				}
+			}
+			ImGui::EndCombo();
+		}
+
+		// Todo : put in a new col
+		if (templates[selectedTemplate].Thumbnail)
+		{
+			ImGui::Image((ImTextureID)templates[selectedTemplate].Thumbnail->GetNativeHandle(), ImVec2(100.0f, 100.0f));
+		}
+		ImGui::Text(templates[selectedTemplate].Desription.c_str());
+
 		PopInputStyle();
 
 		// Buttons at the bottom

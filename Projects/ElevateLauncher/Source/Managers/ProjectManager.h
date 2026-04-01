@@ -3,12 +3,13 @@
 #include <string>
 #include <vector>
 
+#include "../Models/Project.h"
+
 namespace EL
 {
-	struct Project;
-
 	struct ProjectCreationProps {
 		std::string Name = "NewProject";
+		std::string TemplatePath = ".";
 		std::string Path = ".";
 		bool bUsesWwise = false;
 	};
@@ -20,6 +21,9 @@ namespace EL
 
 	public:
 		ProjectManager();
+
+		// Project Templates
+		std::vector<ProjectTemplate> GetProjectTemplates() const;
 
 		// Project Managment
 		bool CreateNewProject(const ProjectCreationProps& props);

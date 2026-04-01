@@ -2,6 +2,12 @@
 #include <string>
 #include <ctime>
 #include <cstdint>
+#include <memory>
+
+namespace Elevate
+{
+	class Texture;
+}
 
 namespace EL
 {
@@ -14,5 +20,13 @@ namespace EL
 		std::time_t LastOpened = 0;
 
 		bool UsesWwise = false;
+	};
+
+	struct ProjectTemplate
+	{
+		std::string Name = "";
+		std::string Path = "";
+		std::string Desription = "";
+		std::shared_ptr<Elevate::Texture> Thumbnail = nullptr;
 	};
 }
