@@ -43,6 +43,8 @@ private:
 	std::shared_ptr<Elevate::Texture> m_voidTexture = nullptr;
 
 	ImFont* m_defaultFont = nullptr;
+	ImFont* m_headerFont = nullptr;
+	ImFont* m_subHeaderFont = nullptr;
 	ImFont* m_bigFont = nullptr;
 
 	std::array<LauncherButton, 2> m_projectOptions = {{
@@ -70,6 +72,8 @@ public:
 
 		ImGuiIO& io = ImGui::GetIO();
 		m_defaultFont = io.Fonts->AddFontFromFileTTF(Elevate::PathResolver::Resolve("content://Fonts/OpenSans_SemiCondensed-SemiBold.ttf").c_str(), 18.0f);
+		m_headerFont = io.Fonts->AddFontFromFileTTF(Elevate::PathResolver::Resolve("content://Fonts/OpenSans_SemiCondensed-SemiBold.ttf").c_str(), 28.0f);
+		m_subHeaderFont = io.Fonts->AddFontFromFileTTF(Elevate::PathResolver::Resolve("content://Fonts/OpenSans_SemiCondensed-SemiBold.ttf").c_str(), 23.0f);
 		m_bigFont = io.Fonts->AddFontFromFileTTF(Elevate::PathResolver::Resolve("content://Fonts/OpenSans_SemiCondensed-SemiBold.ttf").c_str(), 40.0f);
 	}
 
@@ -217,59 +221,108 @@ public:
 	// Content panel drawing
 	void DrawProjectCreationMenu()
 	{
+		static float constexpr footerHeight = sidebarButtonHeight + (padding * 2);
 		static ProjectCreationProps props;
+		static int selectedTemplate = 0;
+		auto templates = m_controller.GetProjectTemplates();
+
 		LauncherButton cancelButton = { "Cancel", [this]() { m_controller.SetActiveTab(LauncherTab::ProjectList); } };
-		LauncherButton createButton = { "Create", [this]() { 
+		LauncherButton createButton = { "Create", [this]() {
 			if (m_controller.CreateNewProject(props)) {
 				props = ProjectCreationProps();
 			}
-		}};
+		} };
 
-		ImGui::SeparatorText("Create a New Project");
-		ImGui::NewLine();
+		ImGui::PushFont(m_headerFont);
+		ImGui::Text("Create a New Project");
+		ImGui::Separator();
+		ImGui::PopFont();
 
-		// Project form
 		PushInputStyle();
-		ImGui::Text("Project Name");
-		ImGui::InputText("##ProjectName", &props.Name);
-		ImGui::NewLine();
-		ImGui::Text("Project Path");
-		ImGui::InputText("##ProjectPath", &props.Path);
-
-		static int selectedTemplate = 0;
-		auto templates = m_controller.GetProjectTemplates();
-		const char* previewLabel = templates[selectedTemplate].Name.c_str();
-		ImGui::NewLine();
-		ImGui::Text("Template");
-		if (ImGui::BeginCombo("##templateSelection", previewLabel))
+		ImGuiTableFlags flags = ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_BordersInnerV;
+		if (ImGui::BeginTable("CreationLayout", 2, flags))
 		{
-			for (int i = 0; i < templates.size(); i++)
+			ImGui::TableSetupColumn("Project Informations", ImGuiTableColumnFlags_WidthStretch, 0.6f);
+			ImGui::TableSetupColumn("Template", ImGuiTableColumnFlags_WidthStretch, 0.4f);
+			ImGui::TableNextRow();
+
+			// Project Configuration
+			ImGui::TableSetColumnIndex(0);
+			ImGui::NewLine();
+			// Project form
+			ImGui::Text("Project Name");
+			ImGui::InputText("##ProjectName", &props.Name);
+			ImGui::NewLine();
+			ImGui::Text("Project Path");
+			ImGui::InputText("##ProjectPath", &props.Path);
+
+			const char* templateLabel = templates[selectedTemplate].Name.c_str();
+			ImGui::NewLine();
+			ImGui::Text("Template");
+			if (ImGui::BeginCombo("##templateSelection", templateLabel))
 			{
-				const bool isSelected = (selectedTemplate == i);
-				if (ImGui::Selectable(templates[i].Name.c_str(), isSelected))
+				for (int i = 0; i < templates.size(); i++)
 				{
-					selectedTemplate = i;
-				}
+					const bool isSelected = (selectedTemplate == i);
+					if (ImGui::Selectable(templates[i].Name.c_str(), isSelected))
+					{
+						selectedTemplate = i;
+					}
 
-				if (isSelected)
-				{
-					ImGui::SetItemDefaultFocus();
+					if (isSelected)
+					{
+						ImGui::SetItemDefaultFocus();
+					}
 				}
+				ImGui::EndCombo();
 			}
-			ImGui::EndCombo();
-		}
 
-		// Todo : put in a new col
-		if (templates[selectedTemplate].Thumbnail)
-		{
-			ImGui::Image((ImTextureID)templates[selectedTemplate].Thumbnail->GetNativeHandle(), ImVec2(100.0f, 100.0f));
-		}
-		ImGui::Text(templates[selectedTemplate].Desription.c_str());
+			ImGui::Dummy(ImVec2(ImGui::GetColumnWidth(), ImGui::GetContentRegionAvail().y - footerHeight - padding));
 
-		PopInputStyle();
+			// Template Preview
+			ImGui::TableSetColumnIndex(1);
+			ImGui::PushFont(m_subHeaderFont);
+			ImGui::Text(templates[selectedTemplate].Name.c_str());
+			ImGui::Separator();
+			ImGui::PopFont();
+
+			float availWidth = ImGui::GetContentRegionAvail().x - padding;
+			float textureSize = (availWidth) / 3;
+			ImVec2 pos = ImGui::GetCursorScreenPos();
+			if (templates[selectedTemplate].Thumbnail)
+			{
+				ImVec2 p_min = ImVec2(pos.x + (availWidth - textureSize) / 2.0f, pos.y + padding);
+				ImVec2 p_max = ImVec2(p_min.x + textureSize, p_min.y + textureSize);
+				ImGui::GetWindowDrawList()->AddImageRounded(
+					(ImTextureID)templates[selectedTemplate].Thumbnail->GetNativeHandle(),
+					p_min,
+					p_max,
+					ImVec2(0, 0), ImVec2(1, 1),
+					IM_COL32_WHITE,
+					5.0f
+				);
+				ImGui::GetWindowDrawList()->AddRect(
+					p_min,
+					p_max,
+					ImGui::GetColorU32(ImGuiCol_Border),
+					5.0f,
+					0,
+					1.5f
+				);
+				ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, p_max.y + padding));
+			}
+			ImGui::SeparatorText("Template Description");
+			ImGui::TextWrapped(templates[selectedTemplate].Desription.c_str());
+
+			ImGui::EndTable();
+		}
 
 		// Buttons at the bottom
-		ImGui::NewLine();
+		ImGui::SetCursorPosY(ImGui::GetWindowHeight() - footerHeight - padding);
+		ImGui::Separator();
+		ImGui::SetCursorPosY(ImGui::GetWindowHeight() - footerHeight - padding);
+
+		ImGui::Dummy(ImVec2(sidebarWidth, padding));
 		SetButtonColorOutlined(Color::Red);
 		DrawButtonList(std::span(&cancelButton, 1), sidebarWidth, sidebarButtonHeight);
 		PopButtonColorOutlined();
@@ -281,6 +334,9 @@ public:
 		SetButtonColor(Color::Green);
 		DrawButtonList(std::span(&createButton, 1), sidebarWidth, sidebarButtonHeight);
 		PopButtonColor();
+		ImGui::Dummy(ImVec2(sidebarWidth, padding));
+
+		PopInputStyle();
 	}
 
 	void DrawProject(const Project& project)
@@ -327,7 +383,10 @@ public:
 
 	void DrawProjectList()
 	{
-		ImGui::SeparatorText("Open a Project");
+		ImGui::PushFont(m_headerFont);
+		ImGui::Text("Open a Project");
+		ImGui::Separator();
+		ImGui::PopFont();
 		ImGui::NewLine();
 
 		const auto& projects = m_controller.GetProjectList();
