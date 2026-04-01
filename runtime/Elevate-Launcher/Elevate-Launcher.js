@@ -85,7 +85,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp83bqzvy5.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpqyiq838i.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -260,23 +260,23 @@ Module["expectedDataFileDownloads"]++;
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp83bqzvy5.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpr5mxeupm.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpqyiq838i.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpkkx8viry.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpr5mxeupm.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpcfpogyvh.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpkkx8viry.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp5jwz36zh.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpcfpogyvh.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp5jwz36zh.js
 var arguments_ = [];
 
 var thisProgram = "./this.program";
@@ -5606,6 +5606,10 @@ var _emscripten_resize_heap = requestedSize => {
   return false;
 };
 
+var _emscripten_run_script = ptr => {
+  eval(UTF8ToString(ptr));
+};
+
 var _emscripten_set_main_loop_arg = (func, arg, fps, simulateInfiniteLoop) => {
   var iterFunc = () => (a1 => dynCall_vi(func, a1))(arg);
   setMainLoop(iterFunc, fps, simulateInfiniteLoop, arg);
@@ -9962,7 +9966,7 @@ function checkIncomingModuleAPI() {
 }
 
 var ASM_CONSTS = {
-  5509040: $0 => {
+  5518240: $0 => {
     var url = UTF8ToString($0);
     window.open(url, "_blank");
   }
@@ -10050,6 +10054,8 @@ var dynCall_di = makeInvalidEarlyAccess("dynCall_di");
 
 var dynCall_vif = makeInvalidEarlyAccess("dynCall_vif");
 
+var dynCall_iiiiiii = makeInvalidEarlyAccess("dynCall_iiiiiii");
+
 var dynCall_jiji = makeInvalidEarlyAccess("dynCall_jiji");
 
 var dynCall_iidiiii = makeInvalidEarlyAccess("dynCall_iidiiii");
@@ -10057,8 +10063,6 @@ var dynCall_iidiiii = makeInvalidEarlyAccess("dynCall_iidiiii");
 var dynCall_viijii = makeInvalidEarlyAccess("dynCall_viijii");
 
 var dynCall_iiiiiiiii = makeInvalidEarlyAccess("dynCall_iiiiiiiii");
-
-var dynCall_iiiiiii = makeInvalidEarlyAccess("dynCall_iiiiiii");
 
 var dynCall_iiiiij = makeInvalidEarlyAccess("dynCall_iiiiij");
 
@@ -10113,11 +10117,11 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports["dynCall_vidd"] != "undefined", "missing Wasm export: dynCall_vidd");
   assert(typeof wasmExports["dynCall_di"] != "undefined", "missing Wasm export: dynCall_di");
   assert(typeof wasmExports["dynCall_vif"] != "undefined", "missing Wasm export: dynCall_vif");
+  assert(typeof wasmExports["dynCall_iiiiiii"] != "undefined", "missing Wasm export: dynCall_iiiiiii");
   assert(typeof wasmExports["dynCall_jiji"] != "undefined", "missing Wasm export: dynCall_jiji");
   assert(typeof wasmExports["dynCall_iidiiii"] != "undefined", "missing Wasm export: dynCall_iidiiii");
   assert(typeof wasmExports["dynCall_viijii"] != "undefined", "missing Wasm export: dynCall_viijii");
   assert(typeof wasmExports["dynCall_iiiiiiiii"] != "undefined", "missing Wasm export: dynCall_iiiiiiiii");
-  assert(typeof wasmExports["dynCall_iiiiiii"] != "undefined", "missing Wasm export: dynCall_iiiiiii");
   assert(typeof wasmExports["dynCall_iiiiij"] != "undefined", "missing Wasm export: dynCall_iiiiij");
   assert(typeof wasmExports["dynCall_iiiiid"] != "undefined", "missing Wasm export: dynCall_iiiiid");
   assert(typeof wasmExports["dynCall_iiiiijj"] != "undefined", "missing Wasm export: dynCall_iiiiijj");
@@ -10162,11 +10166,11 @@ function assignWasmExports(wasmExports) {
   dynCall_vidd = createExportWrapper("dynCall_vidd", 4);
   dynCall_di = createExportWrapper("dynCall_di", 2);
   dynCall_vif = createExportWrapper("dynCall_vif", 3);
+  dynCall_iiiiiii = createExportWrapper("dynCall_iiiiiii", 7);
   dynCall_jiji = createExportWrapper("dynCall_jiji", 4);
   dynCall_iidiiii = createExportWrapper("dynCall_iidiiii", 7);
   dynCall_viijii = createExportWrapper("dynCall_viijii", 6);
   dynCall_iiiiiiiii = createExportWrapper("dynCall_iiiiiiiii", 9);
-  dynCall_iiiiiii = createExportWrapper("dynCall_iiiiiii", 7);
   dynCall_iiiiij = createExportWrapper("dynCall_iiiiij", 6);
   dynCall_iiiiid = createExportWrapper("dynCall_iiiiid", 6);
   dynCall_iiiiijj = createExportWrapper("dynCall_iiiiijj", 7);
@@ -10217,6 +10221,7 @@ function assignWasmImports() {
     /** @export */ emscripten_get_element_css_size: _emscripten_get_element_css_size,
     /** @export */ emscripten_get_now: _emscripten_get_now,
     /** @export */ emscripten_resize_heap: _emscripten_resize_heap,
+    /** @export */ emscripten_run_script: _emscripten_run_script,
     /** @export */ emscripten_set_main_loop_arg: _emscripten_set_main_loop_arg,
     /** @export */ emscripten_set_resize_callback_on_thread: _emscripten_set_resize_callback_on_thread,
     /** @export */ emscripten_set_wheel_callback_on_thread: _emscripten_set_wheel_callback_on_thread,

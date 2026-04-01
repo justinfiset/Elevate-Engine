@@ -85,7 +85,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpo1ccompo.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpyedmosvb.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -348,23 +348,23 @@ Module["expectedDataFileDownloads"]++;
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpo1ccompo.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp9zdoa7pw.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpyedmosvb.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpgags06o7.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp9zdoa7pw.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpab2g0h73.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpgags06o7.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp_amv_51_.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpab2g0h73.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp_amv_51_.js
 var arguments_ = [];
 
 var thisProgram = "./this.program";
@@ -10391,7 +10391,7 @@ function checkIncomingModuleAPI() {
 }
 
 var ASM_CONSTS = {
-  5601512: $0 => {
+  5600216: $0 => {
     var url = UTF8ToString($0);
     window.open(url, "_blank");
   }
