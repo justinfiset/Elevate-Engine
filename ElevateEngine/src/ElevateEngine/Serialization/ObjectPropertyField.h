@@ -16,8 +16,8 @@ namespace Elevate
         int64_t,              // Covers all int.
         double,               // Covers float and double
         std::string,
-        std::vector<uint8_t>, // Raw data for custom types
-        std::vector<PropertyField> // For recusrive structs
+        ByteBuffer, // Raw data for custom types
+        PropertySet // For recusrive structs
     >;
 
 	enum PropertyFlag
@@ -37,5 +37,20 @@ namespace Elevate
         EngineDataType Type = EngineDataType::Unknown;
         PropertyValue Value;
         uint16_t Flags = PropertyFlag::None;
+
+        bool IsContainer() const
+        {
+            return std::holds_alternative<PropertySet>(Value);
+        }
+
+        bool IsPrimitive() const
+        {
+            return !IsContainer() && !std::holds_alternative<ByteBuffer>(Value);
+        }
+
+        const PropertySet& GetChildren() const
+        {
+            return std::get<PropertySet>(Value);
+        }
 	};
 }
