@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <vector>
 
+#include <ElevateEngine/Core/Byte.h>
+
 namespace Elevate
 {
 	/**
@@ -12,7 +14,7 @@ namespace Elevate
 	{
 	public:
 		virtual ~ISerializable() = default;
-		virtual std::vector<uint8_t> Serialize() const = 0;
-		virtual void Deserialize(const std::vector<uint8_t>& data) = 0;
+		virtual ByteBuffer Serialize() const = 0;
+		virtual void Deserialize(const ByteBuffer& data) = 0;
 	};
 }

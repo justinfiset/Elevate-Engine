@@ -9,6 +9,7 @@
 namespace Elevate
 {
 	struct PropertyField;
+    using PropertySet = std::vector<PropertyField>;
 
     using PropertyValue = std::variant<
         bool,
