@@ -13,11 +13,11 @@ namespace Elevate
 		BEGIN_STRUCT(SurfaceMaterial)
 
 		float m_staticFriction = 0; // static friction coefficient
-		EXPOSE(m_staticFriction)
+		PROPERTY(m_staticFriction)
 		float m_dynamicFriction = 0; // dynamic friction coefficient
-		EXPOSE(m_dynamicFriction)
+		PROPERTY(m_dynamicFriction)
 		float m_restitution = 1; // 0 = no rebound, 1 = bounce with no energy loss
-		EXPOSE(m_restitution)
+		PROPERTY(m_restitution)
 
 		END_STRUCT()
 	};
@@ -27,19 +27,19 @@ namespace Elevate
 		BEGIN_STRUCT(RigidbodyData)
 
 		glm::vec3 m_gravity = { 0, -9.81, 0 };
-		EXPOSE(m_gravity)
+		PROPERTY(m_gravity)
 
 		glm::vec3 m_force = { 0, 0, 0 };
-		EXPOSE(m_force)
+		PROPERTY(m_force)
 
 		glm::vec3 m_velocity = { 0, 0, 0 };
-		EXPOSE(m_velocity)
+		PROPERTY(m_velocity)
 
 		float m_mass = 100; // Mass in kg
-		EXPOSE(m_mass)
+		PROPERTY(m_mass)
 
 		SurfaceMaterial material;
-		EXPOSE(material)
+		PROPERTY(material)
 
 		END_STRUCT()
 	};
@@ -57,7 +57,7 @@ namespace Elevate
 
 	private:
 		RigidbodyData m_data;
-		EXPOSE(m_data, Flatten)
+		PROPERTY(m_data, Flatten)
 
 		END_COMPONENT()
 	};

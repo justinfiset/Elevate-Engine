@@ -11,10 +11,10 @@ namespace Elevate
 
 	public:
 		//WwiseSoundbankPtr m_soundBank;
-		//EXPOSE(m_soundBank);
+		//PROPERTY(m_soundBank);
 
 		std::string m_soundBankName;
-		EXPOSE(m_soundBankName)
+		PROPERTY(m_soundBankName)
 
 	protected:
 		void Init() override;

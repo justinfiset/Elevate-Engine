@@ -211,7 +211,7 @@ inline static struct T##ClassEntry { \
 		return false; \
 	}
 
-#define EXPOSE(param, ...) \
+#define PROPERTY(param, ...) \
 public: \
 inline static struct param##PropertyEntry { \
 	param##PropertyEntry() { \
