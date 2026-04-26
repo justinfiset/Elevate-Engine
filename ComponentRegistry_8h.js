@@ -30,9 +30,9 @@ var ComponentRegistry_8h =
     [ "EECATEGORY", "ComponentRegistry_8h.html#a01e1a835f0903cc727299a17acbb5d4a", null ],
     [ "END_COMPONENT", "ComponentRegistry_8h.html#af7a5582bb5ea504c14cb5667b6c7ddaa", null ],
     [ "END_STRUCT", "ComponentRegistry_8h.html#a03163f5637fa0350242d625078d3ba09", null ],
-    [ "EXPOSE", "ComponentRegistry_8h.html#a37bde89f5c54579d7d07c39e274dd963", null ],
     [ "Flatten", "ComponentRegistry_8h.html#ac46136ac41f3e9d41e05ea8f7146e50b", null ],
     [ "HideInInspector", "ComponentRegistry_8h.html#a2f61bd896d9a86fd997b08555c99c6ff", null ],
+    [ "PROPERTY", "ComponentRegistry_8h.html#afb9cb89fd1937229bbc7a50e43fa34ca", null ],
     [ "ReadOnly", "ComponentRegistry_8h.html#ab1bae7a52dcf7540ee45d42533dae6b7", null ],
     [ "Tooltip", "ComponentRegistry_8h.html#a5a09748229d080554cb2b29cd6801795", null ],
     [ "FieldOption", "ComponentRegistry_8h.html#a81a61359412cc3ef7f17c2a099bb4763", null ]

@@ -11,7 +11,6 @@ var classElevate_1_1Scene =
     [ "GetType", "classElevate_1_1Scene.html#ab5cb146f1497389300ec4f6e71d253b6", null ],
     [ "Notify", "classElevate_1_1Scene.html#a1505ef35cca807ad19ef521996ce0b08", null ],
     [ "RenderScene", "classElevate_1_1Scene.html#a550483f1b65d799012c6e1d3d5897aee", null ],
-    [ "Serialize", "classElevate_1_1Scene.html#acd209dbb2406fd089f0a3b208fa873c6", null ],
     [ "SetLighting", "classElevate_1_1Scene.html#ace2d8fdce4d4d7f0c7876de7d2246903", null ],
     [ "SetSkybox", "classElevate_1_1Scene.html#a7d5283f04c99226e5717bc8c52496629", null ],
     [ "SubmitDrawCalls", "classElevate_1_1Scene.html#a35c92de3fcaef58f5b19ce4fb726674a", null ],

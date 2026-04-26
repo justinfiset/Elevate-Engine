@@ -114,17 +114,46 @@ Inheritance diagram for Elevate::ISerializable:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a30929d63b19b47508d766a4db7769fd3" id="r_a30929d63b19b47508d766a4db7769fd3"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1ISerializable.html#a30929d63b19b47508d766a4db7769fd3">Serialize</a> () const</td></tr>
-<tr class="separator:a30929d63b19b47508d766a4db7769fd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaa64e560620e745d7cf63f7e2c1c6b6" id="r_abaa64e560620e745d7cf63f7e2c1c6b6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1ISerializable.html#abaa64e560620e745d7cf63f7e2c1c6b6">Deserialize</a> (const std::string &amp;data)</td></tr>
-<tr class="separator:abaa64e560620e745d7cf63f7e2c1c6b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e7850410577b11c7607681622d5d04e" id="r_a9e7850410577b11c7607681622d5d04e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1ISerializable.html#a9e7850410577b11c7607681622d5d04e">~ISerializable</a> ()=default</td></tr>
+<tr class="separator:a9e7850410577b11c7607681622d5d04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad87b1895465b1c9f5ca015d888d8ad35" id="r_ad87b1895465b1c9f5ca015d888d8ad35"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1ISerializable.html#ad87b1895465b1c9f5ca015d888d8ad35">Serialize</a> () const</td></tr>
+<tr class="separator:ad87b1895465b1c9f5ca015d888d8ad35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9ba7ad68dfea010ed457531d70f9fe1" id="r_ab9ba7ad68dfea010ed457531d70f9fe1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1ISerializable.html#ab9ba7ad68dfea010ed457531d70f9fe1">Deserialize</a> (const <a class="el" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a> &amp;data)</td></tr>
+<tr class="separator:ab9ba7ad68dfea010ed457531d70f9fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="ISerializable_8h_source.html#l00006">6</a> of file <a class="el" href="ISerializable_8h_source.html">ISerializable.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="abaa64e560620e745d7cf63f7e2c1c6b6" name="abaa64e560620e745d7cf63f7e2c1c6b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abaa64e560620e745d7cf63f7e2c1c6b6">&#9670;&#160;</a></span>Deserialize()</h2>
+<div class="textblock"><p>Simple interface used to serialize and deserialize using the Engine's common serialization system for custom types. </p>
+
+<p class="definition">Definition at line <a class="el" href="ISerializable_8h_source.html#l00013">13</a> of file <a class="el" href="ISerializable_8h_source.html">ISerializable.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9e7850410577b11c7607681622d5d04e" name="a9e7850410577b11c7607681622d5d04e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e7850410577b11c7607681622d5d04e">&#9670;&#160;</a></span>~ISerializable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Elevate::ISerializable::~ISerializable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab9ba7ad68dfea010ed457531d70f9fe1" name="ab9ba7ad68dfea010ed457531d70f9fe1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9ba7ad68dfea010ed457531d70f9fe1">&#9670;&#160;</a></span>Deserialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -135,7 +164,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void Elevate::ISerializable::Deserialize </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a> &amp;&#160;</td>
           <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>
@@ -147,13 +176,13 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ISerializable_8h_source.html#l00011">11</a> of file <a class="el" href="ISerializable_8h_source.html">ISerializable.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   11</span>{ }</div>
+<p class="definition">Definition at line <a class="el" href="ISerializable_8h_source.html#l00021">21</a> of file <a class="el" href="ISerializable_8h_source.html">ISerializable.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   21</span>{ }</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a30929d63b19b47508d766a4db7769fd3" name="a30929d63b19b47508d766a4db7769fd3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30929d63b19b47508d766a4db7769fd3">&#9670;&#160;</a></span>Serialize()</h2>
+<a id="ad87b1895465b1c9f5ca015d888d8ad35" name="ad87b1895465b1c9f5ca015d888d8ad35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad87b1895465b1c9f5ca015d888d8ad35">&#9670;&#160;</a></span>Serialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -162,7 +191,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::string Elevate::ISerializable::Serialize </td>
+          <td class="memname">virtual <a class="el" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a> Elevate::ISerializable::Serialize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -175,10 +204,11 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classElevate_1_1Scene.html#acd209dbb2406fd089f0a3b208fa873c6">Elevate::Scene</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="ISerializable_8h_source.html#l00009">9</a> of file <a class="el" href="ISerializable_8h_source.html">ISerializable.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    9</span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>; }</div>
+<p class="definition">Definition at line <a class="el" href="ISerializable_8h_source.html#l00017">17</a> of file <a class="el" href="ISerializable_8h_source.html">ISerializable.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   18</span>        {</div>
+<div class="line"><span class="lineno">   19</span>            <span class="keywordflow">return</span> <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>();</div>
+<div class="line"><span class="lineno">   20</span>        }</div>
+<div class="ttc" id="anamespaceElevate_html_a662833bd41c873b3ffeddc33c6f28e19"><div class="ttname"><a href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">Elevate::ByteBuffer</a></div><div class="ttdeci">std::vector&lt; Byte &gt; ByteBuffer</div><div class="ttdef"><b>Definition</b> <a href="Byte_8h_source.html#l00008">Byte.h:8</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

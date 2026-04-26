@@ -2,7 +2,7 @@ var searchData=
 [
   ['deduceenginedatatype_0',['DeduceEngineDataType',['../classElevate_1_1ComponentRegistry.html#a95e8e47d9c291c8185142b7ec6d08eae',1,'Elevate::ComponentRegistry']]],
   ['deletegameobjectcommand_1',['DeleteGameobjectCommand',['../classElevate_1_1DeleteGameobjectCommand.html#a5db2396ef90a0e40f6b53391490fda60',1,'Elevate::DeleteGameobjectCommand']]],
-  ['deserialize_2',['Deserialize',['../classElevate_1_1ISerializable.html#abaa64e560620e745d7cf63f7e2c1c6b6',1,'Elevate::ISerializable']]],
+  ['deserialize_2',['deserialize',['../classElevate_1_1ISerializable.html#ab9ba7ad68dfea010ed457531d70f9fe1',1,'Elevate::ISerializable::Deserialize()'],['../classElevate_1_1Serializer.html#a35dba67f2ce9b9a3b9e6876953d85ec8',1,'Elevate::Serializer::Deserialize()']]],
   ['desktropfiledialog_3',['DesktropFileDialog',['../classElevate_1_1DesktropFileDialog.html#a2056d0a23df208fdf6938abce4c9dcda',1,'Elevate::DesktropFileDialog']]],
   ['destroy_4',['destroy',['../classElevate_1_1AudioDistanceProbe.html#a5083b42ccc1e5ffe388a0141be3a3b5a',1,'Elevate::AudioDistanceProbe::Destroy()'],['../classElevate_1_1Component.html#acf5caf9c2899580ff3d5f8878e5dcc68',1,'Elevate::Component::Destroy()'],['../classElevate_1_1GameObject.html#ac571bb9ded8d383e063a050682570166',1,'Elevate::GameObject::Destroy()'],['../classElevate_1_1Camera.html#a6cf5307d60da0a95b6af4ef477d54a4c',1,'Elevate::Camera::Destroy()']]],
   ['directionallight_5',['directionallight',['../classElevate_1_1DirectionalLight.html#a484da0b96c39fc21c5a50fd3ca3e2a8e',1,'Elevate::DirectionalLight::DirectionalLight()=default'],['../classElevate_1_1DirectionalLight.html#af31dc5186ffd25cc5312221449e1cae7',1,'Elevate::DirectionalLight::DirectionalLight(const glm::vec3 &amp;color)']]],

@@ -17,9 +17,9 @@ var searchData=
   ['ee_5fapi_14',['EE_API',['../Core_8h.html#a705e4ce005f895b4953ab2b8f440e171',1,'Core.h']]],
   ['ee_5fassert_15',['EE_ASSERT',['../Assert_8h.html#aed08c61efc1753380dbea052e15e97f2',1,'Assert.h']]],
   ['ee_5fasserts_5fenabled_16',['EE_ASSERTS_ENABLED',['../Assert_8h.html#a5d3a847e306576e49cf1aef2f35936e9',1,'Assert.h']]],
-  ['ee_5fbind_5fevnt_5ffn_17',['ee_bind_evnt_fn',['../Core_8h.html#a909fa0ce15a7b2fc97a2f4ca7f785c2a',1,'EE_BIND_EVNT_FN:&#160;Core.h'],['../Assert_8h.html#a909fa0ce15a7b2fc97a2f4ca7f785c2a',1,'EE_BIND_EVNT_FN:&#160;Assert.h']]],
+  ['ee_5fbind_5fevnt_5ffn_17',['ee_bind_evnt_fn',['../Assert_8h.html#a909fa0ce15a7b2fc97a2f4ca7f785c2a',1,'EE_BIND_EVNT_FN:&#160;Assert.h'],['../Core_8h.html#a909fa0ce15a7b2fc97a2f4ca7f785c2a',1,'EE_BIND_EVNT_FN:&#160;Core.h']]],
   ['ee_5fcerror_18',['EE_CERROR',['../Log_8h.html#a41293340dcfe908767a58c28122eacdb',1,'Log.h']]],
-  ['ee_5fcfatal_19',['ee_cfatal',['../Assert_8h.html#a7c861940d2d4c5129759edeb332fd42f',1,'EE_CFATAL:&#160;Assert.h'],['../Log_8h.html#a7c861940d2d4c5129759edeb332fd42f',1,'EE_CFATAL:&#160;Log.h']]],
+  ['ee_5fcfatal_19',['ee_cfatal',['../Log_8h.html#a7c861940d2d4c5129759edeb332fd42f',1,'EE_CFATAL:&#160;Log.h'],['../Assert_8h.html#a7c861940d2d4c5129759edeb332fd42f',1,'EE_CFATAL:&#160;Assert.h']]],
   ['ee_5fcheck_5fsoundengine_20',['EE_CHECK_SOUNDENGINE',['../SoundEngine_8cpp.html#a6ea5951a39082f5b810e3ffa6d8e4a5f',1,'SoundEngine.cpp']]],
   ['ee_5fcinfo_21',['EE_CINFO',['../Log_8h.html#a58c985453104ac7bb69cdf8acaeeaa7e',1,'Log.h']]],
   ['ee_5fcontent_5froot_22',['EE_CONTENT_ROOT',['../Core_8h.html#a6bdc844a285ee9758e30f4282dd455fa',1,'Core.h']]],
@@ -286,9 +286,9 @@ var searchData=
   ['ee_5fwaapi_5favailable_283',['EE_WAAPI_AVAILABLE',['../WAAPIClient_8cpp.html#a1ae3ac7321de381480a73da4d0edf670',1,'WAAPIClient.cpp']]],
   ['ee_5fwarn_284',['EE_WARN',['../Log_8h.html#aa14d1e1bf0d021a74e595e03a5bdd719',1,'Log.h']]],
   ['ee_5fwarn_5fprefix_285',['EE_WARN_PREFIX',['../Log_8h.html#ac1e119be4b4dc0263d26aadcc231ff1a',1,'Log.h']]],
-  ['eecategory_286',['eecategory',['../classEECategory.html#a7d2091a6b599bf5fc1e0e2bf8ca76f82',1,'EECategory::EECategory()'],['../classEECategory.html',1,'EECategory'],['../ComponentRegistry_8h.html#a01e1a835f0903cc727299a17acbb5d4a',1,'EECATEGORY:&#160;ComponentRegistry.h'],['../classEECategory.html#a4bdec938aaf7527bb07e29da27338b06',1,'EECategory::EECategory(const std::string &amp;path)'],['../classEECategory.html#a8acb433b6b2170a05b811631df836d2e',1,'EECategory::EECategory()']]],
+  ['eecategory_286',['eecategory',['../ComponentRegistry_8h.html#a01e1a835f0903cc727299a17acbb5d4a',1,'EECATEGORY:&#160;ComponentRegistry.h'],['../classElevate_1_1EECategory.html#ad6de157bcb61bf8b7a1b1d78fa777aa7',1,'Elevate::EECategory::EECategory(const EECategory &amp;other)'],['../classElevate_1_1EECategory.html#a170492bf1bd68e265e7d6711f47972ce',1,'Elevate::EECategory::EECategory(const std::string &amp;path)'],['../classElevate_1_1EECategory.html',1,'Elevate::EECategory'],['../classElevate_1_1EECategory.html#a931bdfcb2ac2a08ec1741dbe7a3fc562',1,'Elevate::EECategory::EECategory()']]],
   ['eecollapsingheader_287',['EECollapsingHeader',['../namespaceElevate_1_1UI.html#a9e91712b63ccdfe7965efb34bdd11672',1,'Elevate::UI']]],
-  ['eeobject_288',['EEObject',['../classEEObject.html',1,'']]],
+  ['eeobject_288',['eeobject',['../classElevate_1_1EEObject.html#a7d6ab8fcdf411ce17179ed4dc6854106',1,'Elevate::EEObject::EEObject()'],['../classElevate_1_1EEObject.html',1,'Elevate::EEObject'],['../classElevate_1_1EEObject.html#a3f859156eab9dbb0e2ccbda5b4dda563',1,'Elevate::EEObject::EEObject()']]],
   ['eeobject_2eh_289',['EEObject.h',['../EEObject_8h.html',1,'']]],
   ['eepch_2ecpp_290',['eepch.cpp',['../eepch_8cpp.html',1,'']]],
   ['eepch_2eh_291',['eepch.h',['../eepch_8h.html',1,'']]],
@@ -338,7 +338,6 @@ var searchData=
   ['execute_335',['execute',['../classElevate_1_1DeleteGameobjectCommand.html#a9e53d81ae1020afe38a0e5429f2036ec',1,'Elevate::DeleteGameobjectCommand::Execute()'],['../classElevate_1_1CommandManager.html#a6cee1f0932b0c222067f19fbc0040c24',1,'Elevate::CommandManager::Execute()'],['../classElevate_1_1MacroCommand.html#a0609e22f2e4dc948820263eb0d415ada',1,'Elevate::MacroCommand::Execute()'],['../classElevate_1_1Command.html#a4b3a18061d8314eb7197d560797e71ec',1,'Elevate::Command::Execute()']]],
   ['executestack_336',['ExecuteStack',['../classElevate_1_1CommandManager.html#a5850973772514545c0a44ca18baef1c9',1,'Elevate::CommandManager']]],
   ['exit_337',['Exit',['../classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3',1,'Elevate::Application']]],
-  ['expose_338',['EXPOSE',['../ComponentRegistry_8h.html#a37bde89f5c54579d7d07c39e274dd963',1,'ComponentRegistry.h']]],
-  ['extension_339',['extension',['../structElevate_1_1Editor_1_1FileItem.html#a346b61dfe4cf488f196258cf23080faa',1,'Elevate::Editor::FileItem']]],
-  ['extractreflectiondata_340',['extractreflectiondata',['../classElevate_1_1OpenGLShader.html#a0e63940250d818dfdd3d62ccbd794381',1,'Elevate::OpenGLShader::ExtractReflectionData()'],['../classElevate_1_1Shader.html#ab715fbd55eae07b5695276730d298d58',1,'Elevate::Shader::ExtractReflectionData()']]]
+  ['extension_338',['extension',['../structElevate_1_1Editor_1_1FileItem.html#a346b61dfe4cf488f196258cf23080faa',1,'Elevate::Editor::FileItem']]],
+  ['extractreflectiondata_339',['extractreflectiondata',['../classElevate_1_1OpenGLShader.html#a0e63940250d818dfdd3d62ccbd794381',1,'Elevate::OpenGLShader::ExtractReflectionData()'],['../classElevate_1_1Shader.html#ab715fbd55eae07b5695276730d298d58',1,'Elevate::Shader::ExtractReflectionData()']]]
 ];

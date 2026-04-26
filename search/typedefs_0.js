@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['cameraptr_0',['CameraPtr',['../namespaceElevate.html#a2d4bce01483fcbda099a49d5991981c4',1,'Elevate']]],
-  ['componentdatatype_1',['ComponentDataType',['../namespaceElevate.html#a1a43e73d351339c0e3ef6694563d603f',1,'Elevate']]]
+  ['byte_0',['Byte',['../namespaceElevate.html#a18b6dd3278db55c09575a0e6d5e50688',1,'Elevate']]],
+  ['bytebuffer_1',['ByteBuffer',['../namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19',1,'Elevate']]],
+  ['bytespan_2',['ByteSpan',['../namespaceElevate.html#a3e5bb326128cbe5e1d6ec2d51230cbdb',1,'Elevate']]]
 ];

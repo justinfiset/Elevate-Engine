@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['readonly_0',['ReadOnly',['../ComponentRegistry_8h.html#ab1bae7a52dcf7540ee45d42533dae6b7',1,'ComponentRegistry.h']]]
+  ['property_0',['PROPERTY',['../ComponentRegistry_8h.html#afb9cb89fd1937229bbc7a50e43fa34ca',1,'ComponentRegistry.h']]]
 ];

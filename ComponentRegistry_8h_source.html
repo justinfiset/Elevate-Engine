@@ -232,7 +232,7 @@ $(document).ready(function(){initNavTree('ComponentRegistry_8h_source.html','');
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        {</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="structElevate_1_1ComponentRegistry_1_1Entry.html#a0e351aed1a473ca6edd3b28d84aedd57">  113</a></span>            std::string <a class="code hl_variable" href="structElevate_1_1ComponentRegistry_1_1Entry.html#a0e351aed1a473ca6edd3b28d84aedd57">name</a>;</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="structElevate_1_1ComponentRegistry_1_1Entry.html#a9777bc3f04cdf0a7ec7ddf151613b834">  114</a></span>            std::type_index <a class="code hl_variable" href="structElevate_1_1ComponentRegistry_1_1Entry.html#a9777bc3f04cdf0a7ec7ddf151613b834">type</a>{ <span class="keyword">typeid</span>(void) };</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="structElevate_1_1ComponentRegistry_1_1Entry.html#a7011d7786a6c23959f499ec091695664">  115</a></span>            <a class="code hl_class" href="classEECategory.html">EECategory</a> <a class="code hl_variable" href="structElevate_1_1ComponentRegistry_1_1Entry.html#a7011d7786a6c23959f499ec091695664">category</a>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="structElevate_1_1ComponentRegistry_1_1Entry.html#a7011d7786a6c23959f499ec091695664">  115</a></span>            <a class="code hl_class" href="classElevate_1_1EECategory.html">EECategory</a> <a class="code hl_variable" href="structElevate_1_1ComponentRegistry_1_1Entry.html#a7011d7786a6c23959f499ec091695664">category</a>;</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="structElevate_1_1ComponentRegistry_1_1Entry.html#a1286e2f4fadcea6e5f22c23ca9a017fc">  116</a></span>            <a class="code hl_typedef" href="namespaceElevate.html#ac7341de5cdfe89199e82cbd2901c386a">GameObjectComponentGetter</a> <a class="code hl_variable" href="structElevate_1_1ComponentRegistry_1_1Entry.html#a1286e2f4fadcea6e5f22c23ca9a017fc">getter</a>; <span class="comment">// method to get the type of component from a gameobject</span></div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="structElevate_1_1ComponentRegistry_1_1Entry.html#aa37dcaa2ea5c946ace5153fad7a14589">  117</a></span>            <a class="code hl_typedef" href="namespaceElevate.html#a8bc1f78ba61a8fd696e68404338d8975">GameObjectComponentFactory</a> <a class="code hl_variable" href="structElevate_1_1ComponentRegistry_1_1Entry.html#aa37dcaa2ea5c946ace5153fad7a14589">factory</a>; <span class="comment">// factory to create / add to a gameObject</span></div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="structElevate_1_1ComponentRegistry_1_1Entry.html#a5f88613da5173be9f106b8ad7ccae106">  118</a></span>            <a class="code hl_typedef" href="namespaceElevate.html#ac79ff05bde903d699c49e878f40b62f4">GameObjectComponentDestructor</a> <a class="code hl_variable" href="structElevate_1_1ComponentRegistry_1_1Entry.html#a5f88613da5173be9f106b8ad7ccae106">destructor</a>; <span class="comment">// component destructor / remove from a gameObject</span></div>
@@ -242,7 +242,7 @@ $(document).ready(function(){initNavTree('ComponentRegistry_8h_source.html','');
 </div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1ComponentRegistry.html#a2fd3d9750e355db2efa34b94d3b45229">Register</a>(<span class="keyword">const</span> std::string&amp; name, <a class="code hl_class" href="classEECategory.html">EECategory</a> category, std::vector&lt;FieldOption&gt;&amp; options);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1ComponentRegistry.html#a2fd3d9750e355db2efa34b94d3b45229">Register</a>(<span class="keyword">const</span> std::string&amp; name, <a class="code hl_class" href="classElevate_1_1EECategory.html">EECategory</a> category, std::vector&lt;FieldOption&gt;&amp; options);</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        </div>
 <div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="classElevate_1_1ComponentRegistry.html#a4dcf810148bf887af184baca828ce845">  126</a></span>        <span class="keyword">static</span> std::unordered_map&lt;std::type_index, Entry&gt;&amp; <a class="code hl_function" href="classElevate_1_1ComponentRegistry.html#a4dcf810148bf887af184baca828ce845">GetEntries</a>() {</div>
@@ -340,173 +340,172 @@ $(document).ready(function(){initNavTree('ComponentRegistry_8h_source.html','');
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="preprocessor">    std::vector&lt;Elevate::ComponentField&gt; ClassFieldStack; \</span></div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="preprocessor">    bool HasBaseClass = false; \</span></div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="preprocessor">} generated_classEntry; \</span></div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="preprocessor">public: \</span></div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="preprocessor">    virtual bool RemoveFromGameObject() override { \</span></div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="preprocessor">        if (gameObject) { \</span></div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="preprocessor">            gameObject-&gt;RemoveComponent&lt;T&gt;(); \</span></div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="preprocessor">            return true; \</span></div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="preprocessor">        } \</span></div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="preprocessor">        return false; \</span></div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="preprocessor">    }</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="preprocessor">    virtual bool RemoveFromGameObject() override { \</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="preprocessor">        if (gameObject) { \</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="preprocessor">            gameObject-&gt;RemoveComponent&lt;T&gt;(); \</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="preprocessor">            return true; \</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="preprocessor">        } \</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="preprocessor">        return false; \</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="preprocessor">    }</span></div>
 </div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="foldopen" id="foldopen00215" data-start="" data-end="">
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno"><a class="line" href="ComponentRegistry_8h.html#a37bde89f5c54579d7d07c39e274dd963">  215</a></span><span class="preprocessor">#define EXPOSE(param, ...) \</span></div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="preprocessor">public: \</span></div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="preprocessor">inline static struct param##PropertyEntry { \</span></div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="preprocessor">    param##PropertyEntry() { \</span></div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="preprocessor">        using MemberT = decltype(ThisType::param); \</span></div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="preprocessor">        ::Elevate::ComponentRegistry::AddProperty&lt;ThisType, MemberT&gt;( \</span></div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="preprocessor">            &amp;ThisType::param, \</span></div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="preprocessor">            #param, \</span></div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="preprocessor">            { __VA_ARGS__ } \</span></div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="preprocessor">        ); \</span></div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="preprocessor">    } \</span></div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="preprocessor">} generated_##param##PropertyEntry;</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="foldopen" id="foldopen00214" data-start="" data-end="">
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="ComponentRegistry_8h.html#afb9cb89fd1937229bbc7a50e43fa34ca">  214</a></span><span class="preprocessor">#define PROPERTY(param, ...) \</span></div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="preprocessor">public: \</span></div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="preprocessor">inline static struct param##PropertyEntry { \</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="preprocessor">    param##PropertyEntry() { \</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="preprocessor">        using MemberT = decltype(ThisType::param); \</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="preprocessor">        ::Elevate::ComponentRegistry::AddProperty&lt;ThisType, MemberT&gt;( \</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="preprocessor">            &amp;ThisType::param, \</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="preprocessor">            #param, \</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="preprocessor">            { __VA_ARGS__ } \</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="preprocessor">        ); \</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="preprocessor">    } \</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="preprocessor">} generated_##param##PropertyEntry;</span></div>
 </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
-<div class="foldopen" id="foldopen00228" data-start="" data-end="">
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="ComponentRegistry_8h.html#af7a5582bb5ea504c14cb5667b6c7ddaa">  228</a></span><span class="preprocessor">#define END_COMPONENT() \</span></div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="preprocessor">private: \</span></div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="preprocessor">    inline static struct ClassEntryEnd { \</span></div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="preprocessor">        ClassEntryEnd() { \</span></div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="preprocessor">            ::Elevate::ComponentRegistry::Register&lt;ThisType&gt;( \</span></div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="preprocessor">                    generated_classEntry.ClassName, \</span></div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="preprocessor">                    generated_classEntry.Category, \</span></div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="preprocessor">                    generated_classEntry.Options \</span></div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="preprocessor">            ); \</span></div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="preprocessor">            ::Elevate::ComponentRegistry::PopClassStack(); \</span></div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="preprocessor">            auto&amp; global = ::Elevate::ComponentRegistry::CompilationClassFieldStack(); \</span></div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="preprocessor">            size_t start = generated_classEntry.FieldStartIndex; \</span></div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="preprocessor">            for (size_t i = start; i &lt; global.size(); ++i) { \</span></div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="preprocessor">                generated_classEntry.ClassFieldStack.push_back(global[i]); \</span></div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="preprocessor">            } \</span></div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="preprocessor">            if (start &lt; global.size()) { \</span></div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="preprocessor">                global.erase(global.begin() + start, global.end()); \</span></div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="preprocessor">            } \</span></div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="preprocessor">        } \</span></div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="preprocessor">    } generated_classEntryEnd; \</span></div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="preprocessor">public: \</span></div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="preprocessor">    inline virtual std::string GetName() const override { return generated_classEntry.ClassName; } \</span></div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="preprocessor">    inline virtual Elevate::ComponentLayout GetLayout() const override { \</span></div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="preprocessor">        std::vector&lt;Elevate::ComponentField&gt; instanceFields; \</span></div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="preprocessor">        if (generated_classEntry.HasBaseClass) { \</span></div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="preprocessor">            auto parentFields = ParentFieldsHelper&lt;ThisType&gt;::Get(); \</span></div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="preprocessor">            for (const Elevate::ComponentField&amp; field : parentFields) { \</span></div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="preprocessor">                const void* fieldPtr = reinterpret_cast&lt;const char*&gt;(this) + field.offset; \</span></div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="preprocessor">                instanceFields.push_back(Elevate::ComponentField( \</span></div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="preprocessor">                    field, fieldPtr \</span></div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="preprocessor">                )); \</span></div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="preprocessor">            } \</span></div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="preprocessor">        } \</span></div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="preprocessor">        for (const Elevate::ComponentField&amp; field : generated_classEntry.ClassFieldStack) { \</span></div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="preprocessor">            const void* fieldPtr = reinterpret_cast&lt;const char*&gt;(this) + field.offset; \</span></div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="preprocessor">            instanceFields.push_back(Elevate::ComponentField(field, fieldPtr)); \</span></div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="preprocessor">        } \</span></div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="preprocessor">        return Elevate::ComponentLayout(generated_classEntry.ClassName, instanceFields); \</span></div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="preprocessor">    } \</span></div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><span class="preprocessor">    virtual Component* Clone() override { \</span></div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="preprocessor">        ThisType* clone = new ThisType(); \</span></div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="preprocessor">        for (auto&amp; field : ComponentRegistry::GetCustomComponentFields()[typeid(ThisType).name()]) { \</span></div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="preprocessor">            field.CopyValue(this, clone); \</span></div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="preprocessor">        } \</span></div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span><span class="preprocessor">        return clone; \</span></div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span><span class="preprocessor">    } \</span></div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span><span class="preprocessor">    virtual void CopyFrom(Component* other) override { \</span></div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="preprocessor">        if (auto o = dynamic_cast&lt;ThisType*&gt;(other)) { \</span></div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="preprocessor">            if (generated_classEntry.HasBaseClass) { \</span></div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="preprocessor">                auto parentFields = ParentFieldsHelper&lt;ThisType&gt;::Get(); \</span></div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><span class="preprocessor">                for (const Elevate::ComponentField&amp; field : parentFields) { \</span></div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span><span class="preprocessor">                    field.CopyValue(o, this); \</span></div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span><span class="preprocessor">                } \</span></div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span><span class="preprocessor">            } \</span></div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span><span class="preprocessor">            for (const Elevate::ComponentField&amp; field : generated_classEntry.ClassFieldStack) { \</span></div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span><span class="preprocessor">                field.CopyValue(o, this); \</span></div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span><span class="preprocessor">            } \</span></div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="preprocessor">        } \</span></div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="preprocessor">        else { \</span></div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span><span class="preprocessor">            EE_ERROR(&quot;Error: Tried setting a %s from a %s component in CopyFrom(Component*)&quot;, \</span></div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span><span class="preprocessor">                this-&gt;GetName(), other ? other-&gt;GetName() : &quot;null&quot;); \</span></div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="preprocessor">        } \</span></div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="preprocessor">    } \</span></div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="preprocessor">    virtual Elevate::GameObjectComponentFactory GetFactory() const override { \</span></div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="preprocessor">        auto&amp; entries = ComponentRegistry::GetEntries(); \</span></div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><span class="preprocessor">        auto it = entries.find(typeid(ThisType)); \</span></div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="preprocessor">        if (it != entries.end()) { \</span></div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="preprocessor">            return it-&gt;second.factory; \</span></div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span><span class="preprocessor">        } \</span></div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="preprocessor">        return nullptr; \</span></div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="preprocessor">    } \</span></div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="preprocessor">    virtual Elevate::GameObjectComponentDestructor GetDestructor() const override { \</span></div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="preprocessor">        auto&amp; entries = ComponentRegistry::GetEntries(); \</span></div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span><span class="preprocessor">        auto it = entries.find(typeid(ThisType)); \</span></div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="preprocessor">        if (it != entries.end()) { \</span></div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="preprocessor">                return it-&gt;second.destructor; \</span></div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="preprocessor">        } \</span></div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="preprocessor">        return nullptr; \</span></div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="preprocessor">    } \</span></div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="preprocessor">    virtual const void* GetEditorIconHandle() const override { \</span></div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="preprocessor">        auto&amp; entries = ComponentRegistry::GetEntries(); \</span></div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="preprocessor">        auto it = entries.find(typeid(ThisType)); \</span></div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="preprocessor">        if (it != entries.end()) { \</span></div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="preprocessor">            if(!it-&gt;second.editorIconPath.empty()) { \</span></div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span><span class="preprocessor">                return Texture::CreateFromFile(it-&gt;second.editorIconPath)-&gt;GetNativeHandle(); \</span></div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><span class="preprocessor">            } \</span></div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span><span class="preprocessor">        } \</span></div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="preprocessor">        return nullptr; \</span></div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span><span class="preprocessor">    } \</span></div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="preprocessor">    virtual std::type_index GetTypeIndex() const override { return typeid(ThisType); }</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="foldopen" id="foldopen00227" data-start="" data-end="">
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="ComponentRegistry_8h.html#af7a5582bb5ea504c14cb5667b6c7ddaa">  227</a></span><span class="preprocessor">#define END_COMPONENT() \</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="preprocessor">private: \</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="preprocessor">    inline static struct ClassEntryEnd { \</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="preprocessor">        ClassEntryEnd() { \</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="preprocessor">            ::Elevate::ComponentRegistry::Register&lt;ThisType&gt;( \</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="preprocessor">                    generated_classEntry.ClassName, \</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="preprocessor">                    generated_classEntry.Category, \</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="preprocessor">                    generated_classEntry.Options \</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="preprocessor">            ); \</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="preprocessor">            ::Elevate::ComponentRegistry::PopClassStack(); \</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="preprocessor">            auto&amp; global = ::Elevate::ComponentRegistry::CompilationClassFieldStack(); \</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="preprocessor">            size_t start = generated_classEntry.FieldStartIndex; \</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="preprocessor">            for (size_t i = start; i &lt; global.size(); ++i) { \</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="preprocessor">                generated_classEntry.ClassFieldStack.push_back(global[i]); \</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="preprocessor">            } \</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="preprocessor">            if (start &lt; global.size()) { \</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="preprocessor">                global.erase(global.begin() + start, global.end()); \</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="preprocessor">            } \</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="preprocessor">        } \</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="preprocessor">    } generated_classEntryEnd; \</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="preprocessor">public: \</span></div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="preprocessor">    inline virtual std::string GetName() const override { return generated_classEntry.ClassName; } \</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="preprocessor">    inline virtual Elevate::ComponentLayout GetLayout() const override { \</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="preprocessor">        std::vector&lt;Elevate::ComponentField&gt; instanceFields; \</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="preprocessor">        if (generated_classEntry.HasBaseClass) { \</span></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="preprocessor">            auto parentFields = ParentFieldsHelper&lt;ThisType&gt;::Get(); \</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="preprocessor">            for (const Elevate::ComponentField&amp; field : parentFields) { \</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="preprocessor">                const void* fieldPtr = reinterpret_cast&lt;const char*&gt;(this) + field.offset; \</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="preprocessor">                instanceFields.push_back(Elevate::ComponentField( \</span></div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="preprocessor">                    field, fieldPtr \</span></div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="preprocessor">                )); \</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="preprocessor">            } \</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="preprocessor">        } \</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="preprocessor">        for (const Elevate::ComponentField&amp; field : generated_classEntry.ClassFieldStack) { \</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="preprocessor">            const void* fieldPtr = reinterpret_cast&lt;const char*&gt;(this) + field.offset; \</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="preprocessor">            instanceFields.push_back(Elevate::ComponentField(field, fieldPtr)); \</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="preprocessor">        } \</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="preprocessor">        return Elevate::ComponentLayout(generated_classEntry.ClassName, instanceFields); \</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="preprocessor">    } \</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="preprocessor">    virtual Component* Clone() override { \</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><span class="preprocessor">        ThisType* clone = new ThisType(); \</span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="preprocessor">        for (auto&amp; field : ComponentRegistry::GetCustomComponentFields()[typeid(ThisType).name()]) { \</span></div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="preprocessor">            field.CopyValue(this, clone); \</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="preprocessor">        } \</span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="preprocessor">        return clone; \</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span><span class="preprocessor">    } \</span></div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span><span class="preprocessor">    virtual void CopyFrom(Component* other) override { \</span></div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span><span class="preprocessor">        if (auto o = dynamic_cast&lt;ThisType*&gt;(other)) { \</span></div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="preprocessor">            if (generated_classEntry.HasBaseClass) { \</span></div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="preprocessor">                auto parentFields = ParentFieldsHelper&lt;ThisType&gt;::Get(); \</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="preprocessor">                for (const Elevate::ComponentField&amp; field : parentFields) { \</span></div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><span class="preprocessor">                    field.CopyValue(o, this); \</span></div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span><span class="preprocessor">                } \</span></div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span><span class="preprocessor">            } \</span></div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span><span class="preprocessor">            for (const Elevate::ComponentField&amp; field : generated_classEntry.ClassFieldStack) { \</span></div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span><span class="preprocessor">                field.CopyValue(o, this); \</span></div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span><span class="preprocessor">            } \</span></div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span><span class="preprocessor">        } \</span></div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="preprocessor">        else { \</span></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="preprocessor">            EE_ERROR(&quot;Error: Tried setting a %s from a %s component in CopyFrom(Component*)&quot;, \</span></div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span><span class="preprocessor">                this-&gt;GetName(), other ? other-&gt;GetName() : &quot;null&quot;); \</span></div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span><span class="preprocessor">        } \</span></div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="preprocessor">    } \</span></div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="preprocessor">    virtual Elevate::GameObjectComponentFactory GetFactory() const override { \</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="preprocessor">        auto&amp; entries = ComponentRegistry::GetEntries(); \</span></div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="preprocessor">        auto it = entries.find(typeid(ThisType)); \</span></div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><span class="preprocessor">        if (it != entries.end()) { \</span></div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="preprocessor">            return it-&gt;second.factory; \</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="preprocessor">        } \</span></div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span><span class="preprocessor">        return nullptr; \</span></div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="preprocessor">    } \</span></div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="preprocessor">    virtual Elevate::GameObjectComponentDestructor GetDestructor() const override { \</span></div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="preprocessor">        auto&amp; entries = ComponentRegistry::GetEntries(); \</span></div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="preprocessor">        auto it = entries.find(typeid(ThisType)); \</span></div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span><span class="preprocessor">        if (it != entries.end()) { \</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="preprocessor">                return it-&gt;second.destructor; \</span></div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="preprocessor">        } \</span></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="preprocessor">        return nullptr; \</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="preprocessor">    } \</span></div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="preprocessor">    virtual const void* GetEditorIconHandle() const override { \</span></div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="preprocessor">        auto&amp; entries = ComponentRegistry::GetEntries(); \</span></div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="preprocessor">        auto it = entries.find(typeid(ThisType)); \</span></div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="preprocessor">        if (it != entries.end()) { \</span></div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="preprocessor">            if(!it-&gt;second.editorIconPath.empty()) { \</span></div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="preprocessor">                return Texture::CreateFromFile(it-&gt;second.editorIconPath)-&gt;GetNativeHandle(); \</span></div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span><span class="preprocessor">            } \</span></div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><span class="preprocessor">        } \</span></div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span><span class="preprocessor">        return nullptr; \</span></div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="preprocessor">    } \</span></div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span><span class="preprocessor">    virtual std::type_index GetTypeIndex() const override { return typeid(ThisType); }</span></div>
 </div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span> </div>
-<div class="foldopen" id="foldopen00319" data-start="" data-end="">
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno"><a class="line" href="ComponentRegistry_8h.html#a4403ada93912e086c815bb1f98f9b585">  319</a></span><span class="preprocessor">#define DECLARE_BASE(BaseType) \</span></div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="preprocessor">using Super = BaseType; \</span></div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="preprocessor">inline static struct BaseType##BaseClassDeclaration { \</span></div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="preprocessor">    BaseType##BaseClassDeclaration() { \</span></div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span><span class="preprocessor">        generated_classEntry.HasBaseClass = true; \</span></div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span><span class="preprocessor">    } \</span></div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span><span class="preprocessor">} generated_baseDeclaration;</span></div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span> </div>
+<div class="foldopen" id="foldopen00318" data-start="" data-end="">
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno"><a class="line" href="ComponentRegistry_8h.html#a4403ada93912e086c815bb1f98f9b585">  318</a></span><span class="preprocessor">#define DECLARE_BASE(BaseType) \</span></div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="preprocessor">using Super = BaseType; \</span></div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="preprocessor">inline static struct BaseType##BaseClassDeclaration { \</span></div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="preprocessor">    BaseType##BaseClassDeclaration() { \</span></div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="preprocessor">        generated_classEntry.HasBaseClass = true; \</span></div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span><span class="preprocessor">    } \</span></div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span><span class="preprocessor">} generated_baseDeclaration;</span></div>
 </div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span> </div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="comment">// =======================================================</span></div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="comment">// BEGIN_STRUCT / END_STRUCT</span></div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="comment">// =======================================================</span></div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span> </div>
-<div class="foldopen" id="foldopen00331" data-start="" data-end="">
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno"><a class="line" href="ComponentRegistry_8h.html#ab767a985f57080afbf2fa83879789f99">  331</a></span><span class="preprocessor">#define BEGIN_STRUCT(T) \</span></div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span><span class="preprocessor">    private: \</span></div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span><span class="preprocessor">    using ThisType = T; \</span></div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span><span class="preprocessor">    inline static struct T##StructEntry { \</span></div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="preprocessor">        T##StructEntry() { \</span></div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><span class="preprocessor">            ::Elevate::ComponentRegistry::AddClassToStack(#T); \</span></div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span><span class="preprocessor">            FieldStartIndex = ::Elevate::ComponentRegistry::CompilationClassFieldStack().size(); \</span></div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="preprocessor">            StructName = ::Elevate::ComponentRegistry::GetCleanedName(#T); \</span></div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="preprocessor">            StructTypeName = typeid(T).name(); \</span></div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="preprocessor">        } \</span></div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="preprocessor">        size_t FieldStartIndex = 0; \</span></div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="preprocessor">        std::string StructName; \</span></div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span><span class="preprocessor">        std::string StructTypeName; \</span></div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span><span class="preprocessor">        std::vector&lt;Elevate::ComponentField&gt; StructFieldStack; \</span></div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span><span class="preprocessor">    } generated_structEntry; \</span></div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span><span class="preprocessor">    public:</span></div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="comment">// =======================================================</span></div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="comment">// BEGIN_STRUCT / END_STRUCT</span></div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="comment">// =======================================================</span></div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
+<div class="foldopen" id="foldopen00330" data-start="" data-end="">
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno"><a class="line" href="ComponentRegistry_8h.html#ab767a985f57080afbf2fa83879789f99">  330</a></span><span class="preprocessor">#define BEGIN_STRUCT(T) \</span></div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span><span class="preprocessor">    private: \</span></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span><span class="preprocessor">    using ThisType = T; \</span></div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span><span class="preprocessor">    inline static struct T##StructEntry { \</span></div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span><span class="preprocessor">        T##StructEntry() { \</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="preprocessor">            ::Elevate::ComponentRegistry::AddClassToStack(#T); \</span></div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><span class="preprocessor">            FieldStartIndex = ::Elevate::ComponentRegistry::CompilationClassFieldStack().size(); \</span></div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span><span class="preprocessor">            StructName = ::Elevate::ComponentRegistry::GetCleanedName(#T); \</span></div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="preprocessor">            StructTypeName = typeid(T).name(); \</span></div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="preprocessor">        } \</span></div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="preprocessor">        size_t FieldStartIndex = 0; \</span></div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="preprocessor">        std::string StructName; \</span></div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="preprocessor">        std::string StructTypeName; \</span></div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span><span class="preprocessor">        std::vector&lt;Elevate::ComponentField&gt; StructFieldStack; \</span></div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span><span class="preprocessor">    } generated_structEntry; \</span></div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span><span class="preprocessor">    public:</span></div>
 </div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span> </div>
-<div class="foldopen" id="foldopen00348" data-start="" data-end="">
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno"><a class="line" href="ComponentRegistry_8h.html#a03163f5637fa0350242d625078d3ba09">  348</a></span><span class="preprocessor">#define END_STRUCT() \</span></div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span><span class="preprocessor">    private: \</span></div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span><span class="preprocessor">    inline static struct StructEntryEnd { \</span></div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span><span class="preprocessor">        StructEntryEnd() { \</span></div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span><span class="preprocessor">            auto&amp; global = ::Elevate::ComponentRegistry::CompilationClassFieldStack(); \</span></div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span><span class="preprocessor">            size_t start = generated_structEntry.FieldStartIndex; \</span></div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span><span class="preprocessor">            for (size_t i = start; i &lt; global.size(); ++i) { \</span></div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span><span class="preprocessor">                generated_structEntry.StructFieldStack.push_back(global[i]); \</span></div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span><span class="preprocessor">            } \</span></div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span><span class="preprocessor">            if (start &lt; global.size()) { \</span></div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span><span class="preprocessor">                global.erase(global.begin() + start, global.end()); \</span></div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span><span class="preprocessor">            } \</span></div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span><span class="preprocessor">            ::Elevate::ComponentRegistry::GetCustomComponentFields()[generated_structEntry.StructTypeName] = generated_structEntry.StructFieldStack; \</span></div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span><span class="preprocessor">        } \</span></div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span><span class="preprocessor">    } generated_structEntryEnd;</span></div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
+<div class="foldopen" id="foldopen00347" data-start="" data-end="">
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno"><a class="line" href="ComponentRegistry_8h.html#a03163f5637fa0350242d625078d3ba09">  347</a></span><span class="preprocessor">#define END_STRUCT() \</span></div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span><span class="preprocessor">    private: \</span></div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span><span class="preprocessor">    inline static struct StructEntryEnd { \</span></div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span><span class="preprocessor">        StructEntryEnd() { \</span></div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span><span class="preprocessor">            auto&amp; global = ::Elevate::ComponentRegistry::CompilationClassFieldStack(); \</span></div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span><span class="preprocessor">            size_t start = generated_structEntry.FieldStartIndex; \</span></div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span><span class="preprocessor">            for (size_t i = start; i &lt; global.size(); ++i) { \</span></div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span><span class="preprocessor">                generated_structEntry.StructFieldStack.push_back(global[i]); \</span></div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span><span class="preprocessor">            } \</span></div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span><span class="preprocessor">            if (start &lt; global.size()) { \</span></div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span><span class="preprocessor">                global.erase(global.begin() + start, global.end()); \</span></div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span><span class="preprocessor">            } \</span></div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span><span class="preprocessor">            ::Elevate::ComponentRegistry::GetCustomComponentFields()[generated_structEntry.StructTypeName] = generated_structEntry.StructFieldStack; \</span></div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span><span class="preprocessor">        } \</span></div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span><span class="preprocessor">    } generated_structEntryEnd;</span></div>
 </div>
 <div class="ttc" id="aComponentLayout_8h_html"><div class="ttname"><a href="ComponentLayout_8h.html">ComponentLayout.h</a></div></div>
 <div class="ttc" id="aComponentRegistry_8inl_html"><div class="ttname"><a href="ComponentRegistry_8inl.html">ComponentRegistry.inl</a></div></div>
@@ -515,7 +514,6 @@ $(document).ready(function(){initNavTree('ComponentRegistry_8h_source.html','');
 <div class="ttc" id="aEEObject_8h_html"><div class="ttname"><a href="EEObject_8h.html">EEObject.h</a></div></div>
 <div class="ttc" id="aGameObject_8h_html"><div class="ttname"><a href="GameObject_8h.html">GameObject.h</a></div></div>
 <div class="ttc" id="aLog_8h_html"><div class="ttname"><a href="Log_8h.html">Log.h</a></div></div>
-<div class="ttc" id="aclassEECategory_html"><div class="ttname"><a href="classEECategory.html">EECategory</a></div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00007">EEObject.h:8</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ComponentRegistry_html"><div class="ttname"><a href="classElevate_1_1ComponentRegistry.html">Elevate::ComponentRegistry</a></div><div class="ttdef"><b>Definition</b> <a href="ComponentRegistry_8h_source.html#l00104">ComponentRegistry.h:104</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ComponentRegistry_html_a0774c50dde4195947aa7546a03e7688a"><div class="ttname"><a href="classElevate_1_1ComponentRegistry.html#a0774c50dde4195947aa7546a03e7688a">Elevate::ComponentRegistry::ClassPaths</a></div><div class="ttdeci">static std::vector&lt; std::string &gt; &amp; ClassPaths()</div><div class="ttdef"><b>Definition</b> <a href="ComponentRegistry_8h_source.html#l00133">ComponentRegistry.h:133</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ComponentRegistry_html_a0f783911916d38debadcc43d7aeb8ea1"><div class="ttname"><a href="classElevate_1_1ComponentRegistry.html#a0f783911916d38debadcc43d7aeb8ea1">Elevate::ComponentRegistry::CompilationClassStack</a></div><div class="ttdeci">static std::vector&lt; std::string &gt; &amp; CompilationClassStack()</div><div class="ttdef"><b>Definition</b> <a href="ComponentRegistry_8h_source.html#l00138">ComponentRegistry.h:138</a></div></div>
@@ -530,6 +528,7 @@ $(document).ready(function(){initNavTree('ComponentRegistry_8h_source.html','');
 <div class="ttc" id="aclassElevate_1_1ComponentRegistry_html_aafd998e0578ab22d22f205dfa7b67e57"><div class="ttname"><a href="classElevate_1_1ComponentRegistry.html#aafd998e0578ab22d22f205dfa7b67e57">Elevate::ComponentRegistry::AddProperty</a></div><div class="ttdeci">static void AddProperty(FieldType Class::*member, const std::string &amp;name, std::initializer_list&lt; FieldOption &gt; options)</div><div class="ttdef"><b>Definition</b> <a href="ComponentRegistry_8inl_source.html#l00075">ComponentRegistry.inl:75</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ComponentRegistry_html_ab31491f4d1c2e23d7ab297726e82dc02"><div class="ttname"><a href="classElevate_1_1ComponentRegistry.html#ab31491f4d1c2e23d7ab297726e82dc02">Elevate::ComponentRegistry::GetName</a></div><div class="ttdeci">static std::string GetName(const std::type_info &amp;type)</div><div class="ttdef"><b>Definition</b> <a href="ComponentRegistry_8cpp_source.html#l00004">ComponentRegistry.cpp:4</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ComponentRegistry_html_aeb79f63afbc59ed7a035f1dda6660450"><div class="ttname"><a href="classElevate_1_1ComponentRegistry.html#aeb79f63afbc59ed7a035f1dda6660450">Elevate::ComponentRegistry::CompilationClassFieldStack</a></div><div class="ttdeci">static std::vector&lt; ComponentField &gt; &amp; CompilationClassFieldStack()</div><div class="ttdef"><b>Definition</b> <a href="ComponentRegistry_8h_source.html#l00143">ComponentRegistry.h:143</a></div></div>
+<div class="ttc" id="aclassElevate_1_1EECategory_html"><div class="ttname"><a href="classElevate_1_1EECategory.html">Elevate::EECategory</a></div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00010">EEObject.h:11</a></div></div>
 <div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00008">AudioDistanceProbe.h:9</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a084798f901873cb9a7cb959b62006324"><div class="ttname"><a href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324">Elevate::EngineDataType</a></div><div class="ttdeci">EngineDataType</div><div class="ttdef"><b>Definition</b> <a href="Data_8h_source.html#l00105">Data.h:106</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a084798f901873cb9a7cb959b62006324a1686a6c336b71b36d77354cea19a8b52"><div class="ttname"><a href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a1686a6c336b71b36d77354cea19a8b52">Elevate::EngineDataType::Int</a></div><div class="ttdeci">@ Int</div></div>

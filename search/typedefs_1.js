@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['eventcallbackfn_0',['EventCallbackFn',['../namespaceElevate.html#a9db4e9c4161565e97e85d34a5dc00c5f',1,'Elevate']]]
+  ['cameraptr_0',['CameraPtr',['../namespaceElevate.html#a2d4bce01483fcbda099a49d5991981c4',1,'Elevate']]],
+  ['componentdatatype_1',['ComponentDataType',['../namespaceElevate.html#a1a43e73d351339c0e3ef6694563d603f',1,'Elevate']]]
 ];

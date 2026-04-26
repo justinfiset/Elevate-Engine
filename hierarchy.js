@@ -33,8 +33,8 @@ var hierarchy =
       [ "Elevate::Editor::SkyboxEditorWidget", "classElevate_1_1Editor_1_1SkyboxEditorWidget.html", null ],
       [ "Elevate::Editor::StatisticsPanel", "classElevate_1_1Editor_1_1StatisticsPanel.html", null ]
     ] ],
-    [ "EECategory", "classEECategory.html", null ],
-    [ "EEObject", "classEEObject.html", [
+    [ "Elevate::EECategory", "classElevate_1_1EECategory.html", null ],
+    [ "Elevate::EEObject", "classElevate_1_1EEObject.html", [
       [ "Elevate::Component", "classElevate_1_1Component.html", [
         [ "Elevate::AkBank", "classElevate_1_1AkBank.html", null ],
         [ "Elevate::AudioDistanceProbe", "classElevate_1_1AudioDistanceProbe.html", null ],
@@ -103,6 +103,7 @@ var hierarchy =
     [ "Elevate::GraphicsContext", "classElevate_1_1GraphicsContext.html", [
       [ "Elevate::OpenGLContext", "classElevate_1_1OpenGLContext.html", null ]
     ] ],
+    [ "Elevate::Guid", "classElevate_1_1Guid.html", null ],
     [ "Elevate::HideInInspectorTag", "structElevate_1_1HideInInspectorTag.html", null ],
     [ "Elevate::IndexBuffer", "classElevate_1_1IndexBuffer.html", [
       [ "Elevate::OpenGLIndexBuffer", "classElevate_1_1OpenGLIndexBuffer.html", null ]
@@ -133,6 +134,7 @@ var hierarchy =
     [ "Elevate::ParentFieldsHelper< T, true >", "structElevate_1_1ParentFieldsHelper_3_01T_00_01true_01_4.html", null ],
     [ "Elevate::PathResolver", "classElevate_1_1PathResolver.html", null ],
     [ "Elevate::Plane", "structElevate_1_1Plane.html", null ],
+    [ "Elevate::PropertyField", "structElevate_1_1PropertyField.html", null ],
     [ "Elevate::ReadOnlyTag", "structElevate_1_1ReadOnlyTag.html", null ],
     [ "Elevate::RenderBucket", "classElevate_1_1RenderBucket.html", null ],
     [ "Elevate::RenderCommand", "structElevate_1_1RenderCommand.html", null ],
@@ -145,6 +147,9 @@ var hierarchy =
     [ "Elevate::RigidbodyData", "structElevate_1_1RigidbodyData.html", null ],
     [ "Elevate::SceneLighting", "classElevate_1_1SceneLighting.html", null ],
     [ "Elevate::SceneManager", "classElevate_1_1SceneManager.html", null ],
+    [ "Elevate::Serializer", "classElevate_1_1Serializer.html", [
+      [ "Elevate::JsonSerializer", "classElevate_1_1JsonSerializer.html", null ]
+    ] ],
     [ "Elevate::Shader", "classElevate_1_1Shader.html", [
       [ "Elevate::OpenGLShader", "classElevate_1_1OpenGLShader.html", null ]
     ] ],

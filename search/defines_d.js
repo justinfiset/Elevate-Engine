@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['stb_5fimage_5fimplementation_0',['STB_IMAGE_IMPLEMENTATION',['../OpenGLTexture_8cpp.html#a18372412ad2fc3ce1e3240b3cf0efe78',1,'OpenGLTexture.cpp']]]
+  ['readonly_0',['ReadOnly',['../ComponentRegistry_8h.html#ab1bae7a52dcf7540ee45d42533dae6b7',1,'ComponentRegistry.h']]]
 ];

@@ -277,6 +277,5 @@ var searchData=
   ['end_5fcomponent_274',['END_COMPONENT',['../ComponentRegistry_8h.html#af7a5582bb5ea504c14cb5667b6c7ddaa',1,'ComponentRegistry.h']]],
   ['end_5fstruct_275',['END_STRUCT',['../ComponentRegistry_8h.html#a03163f5637fa0350242d625078d3ba09',1,'ComponentRegistry.h']]],
   ['event_5fclass_5fcategory_276',['EVENT_CLASS_CATEGORY',['../Event_8h.html#abd52deea587a36ef619e596a0c691839',1,'Event.h']]],
-  ['event_5fclass_5ftype_277',['EVENT_CLASS_TYPE',['../Event_8h.html#a80d534fc4d69a68eefd1573fd0ac2f44',1,'Event.h']]],
-  ['expose_278',['EXPOSE',['../ComponentRegistry_8h.html#a37bde89f5c54579d7d07c39e274dd963',1,'ComponentRegistry.h']]]
+  ['event_5fclass_5ftype_277',['EVENT_CLASS_TYPE',['../Event_8h.html#a80d534fc4d69a68eefd1573fd0ac2f44',1,'Event.h']]]
 ];

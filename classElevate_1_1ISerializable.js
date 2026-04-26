@@ -1,5 +1,6 @@
 var classElevate_1_1ISerializable =
 [
-    [ "Deserialize", "classElevate_1_1ISerializable.html#abaa64e560620e745d7cf63f7e2c1c6b6", null ],
-    [ "Serialize", "classElevate_1_1ISerializable.html#a30929d63b19b47508d766a4db7769fd3", null ]
+    [ "~ISerializable", "classElevate_1_1ISerializable.html#a9e7850410577b11c7607681622d5d04e", null ],
+    [ "Deserialize", "classElevate_1_1ISerializable.html#ab9ba7ad68dfea010ed457531d70f9fe1", null ],
+    [ "Serialize", "classElevate_1_1ISerializable.html#ad87b1895465b1c9f5ca015d888d8ad35", null ]
 ];

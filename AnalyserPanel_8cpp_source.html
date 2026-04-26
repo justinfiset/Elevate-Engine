@@ -131,7 +131,7 @@ $(document).ready(function(){initNavTree('AnalyserPanel_8cpp_source.html',''); i
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <a class="code hl_function" href="namespaceElevate_1_1UI.html#a296c934481c8e97888329ba5ccc7dddc">Elevate::UI::InputField</a>(<span class="stringliteral">&quot;Name: &quot;</span>, obj-&gt;GetName());</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="comment">// Serialisation of the tranform and all other components</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        glm::vec4 color = <a class="code hl_class" href="classEECategory.html">EECategory</a>(<span class="stringliteral">&quot;Transform&quot;</span>).<a class="code hl_function" href="classEECategory.html#a2aaf5d60cf97ce1e3afddab6fb3f3c72">GetCategoryColor</a>() * 0.6f;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        glm::vec4 color = EECategory(<span class="stringliteral">&quot;Transform&quot;</span>).GetCategoryColor() * 0.6f;</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 1);</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(color.r + 0.3f, color.g + 0.3f, color.b + 0.3f, 1.0f));</div>
@@ -153,7 +153,7 @@ $(document).ready(function(){initNavTree('AnalyserPanel_8cpp_source.html',''); i
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            m_alredyAddedComponents.push_back(comp-&gt;GetTypeIndex());</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        }</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">for</span> (std::pair&lt;<a class="code hl_class" href="classEECategory.html">EECategory</a>, std::vector&lt;Component*&gt;&gt; entry : m_sortedComponents)</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">for</span> (std::pair&lt;EECategory, std::vector&lt;Component*&gt;&gt; entry : m_sortedComponents)</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        {</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <span class="keyword">const</span> std::string&amp; categoryName = entry.first.GetName();</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
@@ -216,9 +216,9 @@ $(document).ready(function(){initNavTree('AnalyserPanel_8cpp_source.html',''); i
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>{</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keyword">const</span> ComponentLayout layout = comp-&gt;GetLayout();</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <a class="code hl_class" href="classEECategory.html">EECategory</a> category = comp-&gt;GetCategory();</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    EECategory category = comp-&gt;GetCategory();</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    glm::vec4 color = category.<a class="code hl_function" href="classEECategory.html#a2aaf5d60cf97ce1e3afddab6fb3f3c72">GetCategoryColor</a>() * 0.5f;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    glm::vec4 color = category.GetCategoryColor() * 0.5f;</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(color.r + 0.3f, color.g + 0.3f, color.b + 0.3f, 1.0f));</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(color.r, color.g, color.b, 1.0f));</div>
@@ -383,7 +383,7 @@ $(document).ready(function(){initNavTree('AnalyserPanel_8cpp_source.html',''); i
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        <span class="keywordflow">if</span> (it == current-&gt;childs.end())</div>
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        {</div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>            CategoryMenu child;</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            child.category = <a class="code hl_class" href="classEECategory.html">EECategory</a>(accumulated);</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            child.category = EECategory(accumulated);</div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            current-&gt;childs.push_back(std::move(child));</div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            it = std::prev(current-&gt;childs.end());</div>
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        }</div>
@@ -459,8 +459,6 @@ $(document).ready(function(){initNavTree('AnalyserPanel_8cpp_source.html',''); i
 <div class="ttc" id="aComponent_8h_html"><div class="ttname"><a href="Component_8h.html">Component.h</a></div></div>
 <div class="ttc" id="aCustomImGuiCommand_8h_html"><div class="ttname"><a href="CustomImGuiCommand_8h.html">CustomImGuiCommand.h</a></div></div>
 <div class="ttc" id="aEditorLayer_8h_html"><div class="ttname"><a href="EditorLayer_8h.html">EditorLayer.h</a></div></div>
-<div class="ttc" id="aclassEECategory_html"><div class="ttname"><a href="classEECategory.html">EECategory</a></div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00007">EEObject.h:8</a></div></div>
-<div class="ttc" id="aclassEECategory_html_a2aaf5d60cf97ce1e3afddab6fb3f3c72"><div class="ttname"><a href="classEECategory.html#a2aaf5d60cf97ce1e3afddab6fb3f3c72">EECategory::GetCategoryColor</a></div><div class="ttdeci">glm::vec4 GetCategoryColor()</div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00041">EEObject.h:41</a></div></div>
 <div class="ttc" id="aeepch_8h_html"><div class="ttname"><a href="eepch_8h.html">eepch.h</a></div></div>
 <div class="ttc" id="anamespaceElevate_1_1UI_html_a296c934481c8e97888329ba5ccc7dddc"><div class="ttname"><a href="namespaceElevate_1_1UI.html#a296c934481c8e97888329ba5ccc7dddc">Elevate::UI::InputField</a></div><div class="ttdeci">void InputField(const char *label, std::string &amp;data)</div><div class="ttdef"><b>Definition</b> <a href="CustomImGuiCommand_8cpp_source.html#l00007">CustomImGuiCommand.cpp:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

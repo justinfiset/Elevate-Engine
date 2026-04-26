@@ -299,28 +299,7 @@ $(document).ready(function(){initNavTree('Scene_8cpp_source.html',''); initResiz
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        newRootObject-&gt;m_scene = <span class="keyword">this</span>;</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        m_rootObjects.insert(newRootObject);</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    }</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
-<div class="foldopen" id="foldopen00183" data-start="{" data-end="}">
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="classElevate_1_1Scene.html#acd209dbb2406fd089f0a3b208fa873c6">  183</a></span>    std::string <a class="code hl_function" href="classElevate_1_1Scene.html#acd209dbb2406fd089f0a3b208fa873c6">Scene::Serialize</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="comment">//rapidjson::Document doc;</span></div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        <span class="comment">//doc.SetObject();</span></div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="comment">//auto&amp; allocator = doc.GetAllocator();</span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="comment">//doc.AddMember(&quot;name&quot;, rapidjson::Value(m_name.c_str(), allocator), allocator);</span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <span class="comment">//doc.AddMember(&quot;type&quot;, rapidjson::Value().SetInt(m_type), allocator);</span></div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        <span class="comment">//rapidjson::StringBuffer buffer;</span></div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="comment">//rapidjson::Writer&lt;rapidjson::StringBuffer&gt; writer(buffer);</span></div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        <span class="comment">//doc.Accept(writer);</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        <span class="comment">//EE_CORE_TRACE(&quot;{}&quot;, buffer.GetString());</span></div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        <span class="comment">//return buffer.GetString();</span></div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;scene&quot;</span>;</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    }</div>
-</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>}</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>}</div>
 <div class="ttc" id="aApplication_8h_html"><div class="ttname"><a href="Application_8h.html">Application.h</a></div></div>
 <div class="ttc" id="aCameraManager_8h_html"><div class="ttname"><a href="CameraManager_8h.html">CameraManager.h</a></div></div>
 <div class="ttc" id="aCamera_8h_html"><div class="ttname"><a href="Camera_8h.html">Camera.h</a></div></div>
@@ -347,7 +326,6 @@ $(document).ready(function(){initNavTree('Scene_8cpp_source.html',''); initResiz
 <div class="ttc" id="aclassElevate_1_1Scene_html_a550483f1b65d799012c6e1d3d5897aee"><div class="ttname"><a href="classElevate_1_1Scene.html#a550483f1b65d799012c6e1d3d5897aee">Elevate::Scene::RenderScene</a></div><div class="ttdeci">void RenderScene(Camera *cam=nullptr)</div><div class="ttdef"><b>Definition</b> <a href="Scene_8cpp_source.html#l00063">Scene.cpp:63</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Scene_html_a7d5283f04c99226e5717bc8c52496629"><div class="ttname"><a href="classElevate_1_1Scene.html#a7d5283f04c99226e5717bc8c52496629">Elevate::Scene::SetSkybox</a></div><div class="ttdeci">void SetSkybox(const std::string &amp;skyboxFilePath)</div><div class="ttdef"><b>Definition</b> <a href="Scene_8cpp_source.html#l00161">Scene.cpp:161</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Scene_html_a8e0b0a56cf9fc558cd0245497ef6bcbf"><div class="ttname"><a href="classElevate_1_1Scene.html#a8e0b0a56cf9fc558cd0245497ef6bcbf">Elevate::Scene::GetSkybox</a></div><div class="ttdeci">std::weak_ptr&lt; Cubemap &gt; GetSkybox()</div><div class="ttdef"><b>Definition</b> <a href="Scene_8cpp_source.html#l00166">Scene.cpp:166</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Scene_html_acd209dbb2406fd089f0a3b208fa873c6"><div class="ttname"><a href="classElevate_1_1Scene.html#acd209dbb2406fd089f0a3b208fa873c6">Elevate::Scene::Serialize</a></div><div class="ttdeci">std::string Serialize() const override</div><div class="ttdef"><b>Definition</b> <a href="Scene_8cpp_source.html#l00183">Scene.cpp:183</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Scene_html_ad5e597b32b080c7092b5c23b1c57510a"><div class="ttname"><a href="classElevate_1_1Scene.html#ad5e597b32b080c7092b5c23b1c57510a">Elevate::Scene::Scene</a></div><div class="ttdeci">Scene()</div><div class="ttdef"><b>Definition</b> <a href="Scene_8cpp_source.html#l00029">Scene.cpp:29</a></div></div>
 <div class="ttc" id="aeepch_8h_html"><div class="ttname"><a href="eepch_8h.html">eepch.h</a></div></div>
 <div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00008">AudioDistanceProbe.h:9</a></div></div>

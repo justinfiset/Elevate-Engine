@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['sceneptr_0',['ScenePtr',['../namespaceElevate.html#a616e287e4c8d91552d66e7da0feb650c',1,'Elevate']]],
-  ['shaderdatatype_1',['ShaderDataType',['../namespaceElevate.html#a6146041726c8a1f0fca97298ff0aa8f3',1,'Elevate']]],
-  ['shaderptr_2',['ShaderPtr',['../namespaceElevate.html#adda8bd5e6a5ec46962fbb985f0441b62',1,'Elevate']]]
+  ['materialid_0',['MaterialID',['../namespaceElevate.html#a2694563ec36a64f9cbfdcc020f2d8da9',1,'Elevate']]],
+  ['materialptr_1',['MaterialPtr',['../namespaceElevate.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7',1,'Elevate']]]
 ];
