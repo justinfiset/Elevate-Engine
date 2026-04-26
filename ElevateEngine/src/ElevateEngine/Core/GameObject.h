@@ -9,6 +9,8 @@
 #include <glm/ext/matrix_float4x4.hpp>
 #include <glm/ext/vector_float3.hpp>
 
+#include <ElevateEngine/Core/EEObject.h>
+#include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Core/ITransformable.h>
 
 #define EE_INVALID_ENTITY_ID UINT32_MAX
@@ -25,7 +27,7 @@ namespace Elevate
 		class EditorLayer;
 	}
 
-	class GameObject : public ITransformable, public std::enable_shared_from_this<GameObject>
+	class GameObject : public ITransformable, public EEObject, public std::enable_shared_from_this<GameObject>
 	{
 	public:
 		GameObject(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent = nullptr);
@@ -48,16 +50,16 @@ namespace Elevate
 		inline std::string& GetName() { return m_name; }
 		inline void SetName(std::string newName) { m_name = newName; }
 		
-		void SetParent(std::shared_ptr<GameObject> newParent);
+		void SetParent(const EEObjectPtr<GameObject>& newParent);
 		void Destroy();
 
-		void RemoveChild(std::shared_ptr<GameObject> child);
+		void RemoveChild(const EEObjectPtr<GameObject>& child);
 
 		inline uint32_t GetEntityId() { return m_entityId; }
 		inline uint32_t GetObjectId() { return m_goId; }
 
-		inline const bool HasChild() const { return m_childs.size() > 0; }
-		inline std::set<std::shared_ptr<GameObject>> GetChilds() const { return m_childs; }
+		inline const bool HasChild() const { return m_childs.empty(); }
+		inline std::set<EEObjectPtr<GameObject>> GetChilds() const { return m_childs; }
 
 		static std::shared_ptr<GameObject> Create(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent = nullptr);
 
@@ -82,7 +84,7 @@ namespace Elevate
 		void RenderWhenSelected();
 
 		// This method is protected as the main entry point to modify the parent should be SetParent()
-		void AddChild(std::shared_ptr<GameObject> child);
+		void AddChild(const EEObjectPtr<GameObject>& child);
 
 	private:
 		void Initialize(); // Internal function to use just after constructor
@@ -91,8 +93,8 @@ namespace Elevate
 		std::string m_name;
 
 		// Parent and Child
-		std::shared_ptr<GameObject> m_parent;
-		std::set<std::shared_ptr<GameObject>> m_childs;
+		EEObjectPtr<GameObject> m_parent;
+		std::set<EEObjectPtr<GameObject>> m_childs;
 
 		// The entt id
 		uint32_t m_entityId = EE_INVALID_ENTITY_ID; // Invalid up until the initialization

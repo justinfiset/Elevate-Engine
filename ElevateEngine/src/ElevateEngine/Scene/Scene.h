@@ -3,6 +3,7 @@
 #include <memory>
 #include <entt/entt.hpp>
 
+#include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Core/GameContext.h>
 #include <ElevateEngine/Events/Event.h>
 #include <ElevateEngine/Renderer/Cubemap.h>
@@ -46,8 +47,8 @@ namespace Elevate
 
 		inline const std::string& GetName() const { return m_name; };
 
-		void AddObject(std::shared_ptr<GameObject> newObject, std::shared_ptr<GameObject> parent);
-		const std::set<std::shared_ptr<GameObject>> GetRootObjects() const { return m_rootObjects; }
+		void AddObject(const EEObjectPtr<GameObject>& newObject, const EEObjectPtr<GameObject>& parent);
+		const std::set<EEObjectPtr<GameObject>> GetRootObjects() const { return m_rootObjects; }
 
 		inline SceneType GetType() { return m_type; }
 
@@ -66,8 +67,8 @@ namespace Elevate
 			return m_sceneLighting.get();
 		}
 	private:
-		void RemoveFromRoot(std::shared_ptr<GameObject> object);
-		void AddRootObject(std::shared_ptr<GameObject> newRootObject);
+		void RemoveFromRoot(const EEObjectPtr<GameObject>& object);
+		void AddRootObject(const EEObjectPtr<GameObject>& newRootObject);
 
 	private:
 		static uint32_t s_nextRegistryId;
@@ -79,7 +80,7 @@ namespace Elevate
 		uint32_t m_registryId; // Component registry id for all entt::entity
 
 		// TODO ENLEVER ON VA REMPLACER PAR LE REGISTRY ENTT OU EXTENDRE LA CLASSE GAMEOBJECT
-		std::set<std::shared_ptr<GameObject>> m_rootObjects;
+		std::set<EEObjectPtr<GameObject>> m_rootObjects;
 
 		std::shared_ptr<Cubemap> m_cubemap;
 		std::unique_ptr<SceneLighting> m_sceneLighting = nullptr;

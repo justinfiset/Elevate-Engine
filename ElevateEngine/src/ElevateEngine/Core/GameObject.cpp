@@ -61,7 +61,7 @@ namespace Elevate
 			}
 		}
 
-		for (std::shared_ptr<GameObject> child : m_childs)
+		for (const auto& child : m_childs)
 		{
 			child->Update();
 		}
@@ -78,7 +78,7 @@ namespace Elevate
 			}
 		}
 
-		for (std::shared_ptr<GameObject> child : m_childs)
+		for (const auto& child : m_childs)
 		{
 			child->Render();
 		}
@@ -94,7 +94,7 @@ namespace Elevate
 			}
 		}
 
-		for (std::shared_ptr<GameObject> child : m_childs)
+		for (const auto& child : m_childs)
 		{
 			child->Notify(e);
 		}
@@ -115,7 +115,7 @@ namespace Elevate
 			}
 		}
 
-		for (std::shared_ptr<GameObject> child : m_childs)
+		for (const auto& child : m_childs)
 		{
 			child->OnSetPosition();
 		}
@@ -131,7 +131,7 @@ namespace Elevate
 			}
 		}
 
-		for (std::shared_ptr<GameObject> child : m_childs)
+		for (const auto& child : m_childs)
 		{
 			child->OnSetRotation();
 		}
@@ -147,7 +147,7 @@ namespace Elevate
 			}
 		}
 
-		for (std::shared_ptr<GameObject> child : m_childs)
+		for (const auto& child : m_childs)
 		{
 			child->OnSetScale();
 		}
@@ -242,7 +242,7 @@ Elevate::GameObject::~GameObject()
 			}
 		}
 
-		for (std::shared_ptr<GameObject> child : m_childs)
+		for (const auto& child : m_childs)
 		{
 			child->RenderInEditor();
 		}
@@ -259,13 +259,13 @@ Elevate::GameObject::~GameObject()
 			}
 		}
 
-		for (std::shared_ptr<GameObject> child : m_childs)
+		for (const auto& child : m_childs)
 		{
 			child->RenderWhenSelected();
 		}
 	}
 
-	void GameObject::SetParent(std::shared_ptr<GameObject> newParent)
+	void GameObject::SetParent(const EEObjectPtr<GameObject>& newParent)
 	{
 		if (newParent == m_parent)
 			return;
@@ -311,7 +311,7 @@ Elevate::GameObject::~GameObject()
 		m_parent.reset();
 	}
 
-	void GameObject::AddChild(std::shared_ptr<GameObject> child)
+	void GameObject::AddChild(const EEObjectPtr<GameObject>& child)
 	{
 		if (child)
 		{
@@ -321,7 +321,7 @@ Elevate::GameObject::~GameObject()
 		}
 	}
 
-	void GameObject::RemoveChild(std::shared_ptr<GameObject> child)
+	void GameObject::RemoveChild(const EEObjectPtr<GameObject>& child)
 	{
 		m_childs.erase(child);
 	}

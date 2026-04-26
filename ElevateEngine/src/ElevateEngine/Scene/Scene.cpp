@@ -54,7 +54,7 @@ namespace Elevate
 			return;
 		}
 
-		for (std::shared_ptr<GameObject> obj : m_rootObjects)
+		for (const auto& obj : m_rootObjects)
 		{
 			obj->Update();
 		}
@@ -93,7 +93,7 @@ namespace Elevate
 		//	Renderer::SetupShaders(this);
 		//}
 
-		for (std::shared_ptr<GameObject> obj : m_rootObjects)
+		for (EEObjectPtr<GameObject> obj : m_rootObjects)
 		{
 			switch (m_type)
 			{
@@ -122,13 +122,13 @@ namespace Elevate
 
 	void Scene::Notify(Event& e)
 	{
-		for (std::shared_ptr<GameObject> obj : m_rootObjects)
+		for (EEObjectPtr<GameObject> obj : m_rootObjects)
 		{
 			obj->Notify(e);
 		}
 	}
 
-	void Scene::AddObject(std::shared_ptr<GameObject> newObject, std::shared_ptr<GameObject> parent)
+	void Scene::AddObject(const EEObjectPtr<GameObject>& newObject, const EEObjectPtr<GameObject>& parent)
 	{
 		if (!newObject)
 			return;
@@ -168,14 +168,14 @@ namespace Elevate
 		return m_cubemap;
 	}
 
-	void Scene::RemoveFromRoot(std::shared_ptr<GameObject> object)
+	void Scene::RemoveFromRoot(const EEObjectPtr<GameObject>& object)
 	{
 		m_rootObjects.erase(object);
 	}
 
-	void Scene::AddRootObject(std::shared_ptr<GameObject> newRootObject)
+	void Scene::AddRootObject(const EEObjectPtr<GameObject>& newRootObject)
 	{
-		newRootObject->m_parent = nullptr;
+		newRootObject->m_parent.reset();
 		newRootObject->m_scene = this;
 		m_rootObjects.insert(newRootObject);
 	}
