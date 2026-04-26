@@ -29,6 +29,7 @@ project "ElevateEngine"
 	IncludeDir["tinyfiledialogs"] = "vendor/tinyfiledialogs"
 	IncludeDir["ImGuizmo"] = "vendor/ImGuizmo"
 	IncludeDir["entt"] = "vendor/entt/include"
+	IncludeDir["stduuid"] = "vendor/stduuid/include"
 
 	files
 	{

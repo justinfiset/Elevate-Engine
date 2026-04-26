@@ -65,8 +65,6 @@ namespace Elevate
 		{
 			return m_sceneLighting.get();
 		}
-
-		std::string Serialize() const override;
 	private:
 		void RemoveFromRoot(std::shared_ptr<GameObject> object);
 		void AddRootObject(std::shared_ptr<GameObject> newRootObject);

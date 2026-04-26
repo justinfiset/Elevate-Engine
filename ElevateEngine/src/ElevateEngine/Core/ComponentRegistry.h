@@ -203,7 +203,6 @@ inline static struct T##ClassEntry { \
 	std::vector<Elevate::ComponentField> ClassFieldStack; \
 	bool HasBaseClass = false; \
 } generated_classEntry; \
-public: \
 	virtual bool RemoveFromGameObject() override { \
 		if (gameObject) { \
 			gameObject->RemoveComponent<T>(); \
@@ -212,7 +211,7 @@ public: \
 		return false; \
 	}
 
-#define EXPOSE(param, ...) \
+#define PROPERTY(param, ...) \
 public: \
 inline static struct param##PropertyEntry { \
 	param##PropertyEntry() { \

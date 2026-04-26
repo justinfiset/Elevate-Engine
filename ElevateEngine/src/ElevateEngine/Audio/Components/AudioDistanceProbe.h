@@ -13,6 +13,8 @@ namespace Elevate
 		BEGIN_COMPONENT(AudioDistanceProbe)
 		EECATEGORY("Audio")
 
+		AudioDistanceProbe() = default;
+
 		void Init() override;
 		void Destroy() override;
 

@@ -46,10 +46,10 @@ namespace Elevate
 		glm::vec3 m_specularColor = { 1.0f, 1.0f, 1.0f };
 		float m_intensity = 1.0f;
 
-		EXPOSE(m_ambientColor, ColorPicker)
-		EXPOSE(m_diffuseColor, ColorPicker)
-		EXPOSE(m_specularColor, ColorPicker)
-		EXPOSE(m_intensity)
+		PROPERTY(m_ambientColor, ColorPicker)
+		PROPERTY(m_diffuseColor, ColorPicker)
+		PROPERTY(m_specularColor, ColorPicker)
+		PROPERTY(m_intensity)
 		END_COMPONENT()
 	};
 }

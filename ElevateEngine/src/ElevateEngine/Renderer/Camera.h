@@ -66,7 +66,7 @@ namespace Elevate
 		float m_aspectRatio;
 
 		float m_FOV;
-		EXPOSE(m_FOV)
+		PROPERTY(m_FOV)
 
 		glm::vec3 m_front;
 		glm::vec3 m_right;
@@ -76,10 +76,10 @@ namespace Elevate
 		bool m_canBeMainCamera = true;
 
 		float m_near = 0.1f;
-		EXPOSE(m_near)
+		PROPERTY(m_near)
 
 		float m_far = 100.0f;
-		EXPOSE(m_far)
+		PROPERTY(m_far)
 
 		END_COMPONENT()
 	};
