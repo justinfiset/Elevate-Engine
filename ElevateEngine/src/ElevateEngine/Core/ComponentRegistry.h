@@ -188,6 +188,7 @@ namespace Elevate
 private: \
 using ThisType = T; \
 public: \
+	T() = default;\
 inline static struct T##ClassEntry { \
 	T##ClassEntry() { \
 		FieldStartIndex = ::Elevate::ComponentRegistry::CompilationClassFieldStack().size(); \
@@ -203,7 +204,6 @@ inline static struct T##ClassEntry { \
 	std::vector<Elevate::ComponentField> ClassFieldStack; \
 	bool HasBaseClass = false; \
 } generated_classEntry; \
-public: \
 	virtual bool RemoveFromGameObject() override { \
 		if (gameObject) { \
 			gameObject->RemoveComponent<T>(); \
