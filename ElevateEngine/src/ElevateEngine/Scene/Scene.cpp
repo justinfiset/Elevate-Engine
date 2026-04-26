@@ -179,26 +179,4 @@ namespace Elevate
 		newRootObject->m_scene = this;
 		m_rootObjects.insert(newRootObject);
 	}
-
-	std::string Scene::Serialize() const
-	{
-		//rapidjson::Document doc;
-		//doc.SetObject();
-		//auto& allocator = doc.GetAllocator();
-
-		//doc.AddMember("name", rapidjson::Value(m_name.c_str(), allocator), allocator);
-		//doc.AddMember("type", rapidjson::Value().SetInt(m_type), allocator);
-
-		//// todo for objetcs
-		//// todo for cubemap
-		//// todo for SceneLighting
-
-		//rapidjson::StringBuffer buffer;
-		//rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-		//doc.Accept(writer);
-
-		//EE_CORE_TRACE("{}", buffer.GetString());
-		//return buffer.GetString();
-		return "scene";
-	}
 }
