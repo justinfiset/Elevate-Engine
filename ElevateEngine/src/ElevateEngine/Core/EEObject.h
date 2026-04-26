@@ -119,7 +119,7 @@ namespace Elevate
 		Guid m_guid;
 
 	public:
-		EEObject() = default;
+		EEObject() : m_guid(Guid::New()) { }
 		EEObject(EECategory category)
 			: m_category(category), m_guid(Guid::New()) { }
 		virtual ~EEObject() = default;
