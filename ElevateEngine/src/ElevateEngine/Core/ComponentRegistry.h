@@ -188,7 +188,6 @@ namespace Elevate
 private: \
 using ThisType = T; \
 public: \
-	T() = default;\
 inline static struct T##ClassEntry { \
 	T##ClassEntry() { \
 		FieldStartIndex = ::Elevate::ComponentRegistry::CompilationClassFieldStack().size(); \

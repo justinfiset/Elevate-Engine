@@ -5,6 +5,7 @@
 #include <vector>
 
 #include <ElevateEngine/Core/Data.h>
+#include <ElevateEngine/Core/Byte.h>
 
 namespace Elevate
 {

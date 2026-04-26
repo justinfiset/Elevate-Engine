@@ -20,7 +20,8 @@ namespace Elevate
 
 	std::string Guid::ToString() const
 	{
-		auto id = uuids::uuid(std::begin(m_bytes), std::end(m_bytes));
+		auto beginPtr = reinterpret_cast<const uint8_t*>(m_bytes);
+		auto id = uuids::uuid(beginPtr, beginPtr + 16);
 		return uuids::to_string(id);
 	}
 

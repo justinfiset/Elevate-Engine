@@ -15,6 +15,7 @@ namespace Elevate
 				// recursivly get the json
 			}
 		}
+		return true;
 	}
 
 	bool JsonSerializer::Deserialize(const ByteBuffer& data, PropertySet& outFields)
