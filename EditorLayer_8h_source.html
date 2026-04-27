@@ -163,7 +163,7 @@ $(document).ready(function(){initNavTree('EditorLayer_8h_source.html',''); initR
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        EditorCamera* GetCamera();</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keyword">inline</span> std::weak_ptr&lt;Scene&gt; GetScene() { <span class="keywordflow">return</span> m_EditorScene; }</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keyword">inline</span> std::weak_ptr&lt;GameObject&gt; GetSelectedObject() { <span class="keywordflow">return</span> m_SelectedObject; }</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordtype">void</span> SelectObject(std::shared_ptr&lt;GameObject&gt; newSelection);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordtype">void</span> SelectObject(<span class="keyword">const</span> EEObjectPtr&lt;GameObject&gt;&amp; newSelection);</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">inline</span> <span class="keyword">static</span> EditorLayer&amp; Get() { <span class="keywordflow">return</span> *s_Instance; }</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>

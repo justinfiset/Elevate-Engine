@@ -2,7 +2,7 @@ var searchData=
 [
   ['objectpath_0',['ObjectPath',['../structWwiseSoundbank.html#a457268fe09227a1a941e18043d28d533',1,'WwiseSoundbank']]],
   ['objectpropertyfield_2eh_1',['ObjectPropertyField.h',['../ObjectPropertyField_8h.html',1,'']]],
-  ['offset_2',['offset',['../structElevate_1_1ComponentField.html#a3940a8ceb531dbd24b8244ac06033226',1,'Elevate::ComponentField::offset'],['../structElevate_1_1BufferElement.html#a9968ee2cca24f6b5e04c50e23f53d4cf',1,'Elevate::BufferElement::Offset']]],
+  ['offset_2',['offset',['../structElevate_1_1BufferElement.html#a9968ee2cca24f6b5e04c50e23f53d4cf',1,'Elevate::BufferElement::Offset'],['../structElevate_1_1ComponentField.html#a3940a8ceb531dbd24b8244ac06033226',1,'Elevate::ComponentField::offset']]],
   ['onattach_3',['onattach',['../classElevate_1_1ImGuiLayer.html#adad5bd79f20eb4936f92af5662dbd0ed',1,'Elevate::ImGuiLayer::OnAttach()'],['../classElevate_1_1Layer.html#a48edafdf96bf8c968ec64c87a9471bb6',1,'Elevate::Layer::OnAttach()']]],
   ['ondetach_4',['ondetach',['../classElevate_1_1SceneLayer.html#ac40630dfa417a3a153206a2e10552d81',1,'Elevate::SceneLayer::OnDetach()'],['../classElevate_1_1ImGuiLayer.html#a363edfdbf202bd9bb991b902bf1d8791',1,'Elevate::ImGuiLayer::OnDetach()'],['../classElevate_1_1Layer.html#a33dc7434476949c571adff06f53d11ad',1,'Elevate::Layer::OnDetach()']]],
   ['onevent_5',['onevent',['../classElevate_1_1SceneLayer.html#a4abfa0d47d19149a9edbb2884b278763',1,'Elevate::SceneLayer::OnEvent()'],['../classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88',1,'Elevate::Application::OnEvent()'],['../classElevate_1_1Layer.html#a677cd5adedd632dc5253e052c2dd9d61',1,'Elevate::Layer::OnEvent()']]],
@@ -39,15 +39,18 @@ var searchData=
   ['opengltexture_36',['opengltexture',['../classElevate_1_1OpenGLTexture.html#a0d9f9e744c4623bb410414d3970b8109',1,'Elevate::OpenGLTexture::OpenGLTexture()'],['../classElevate_1_1OpenGLTexture.html',1,'Elevate::OpenGLTexture']]],
   ['opengltexture_2ecpp_37',['OpenGLTexture.cpp',['../OpenGLTexture_8cpp.html',1,'']]],
   ['opengltexture_2eh_38',['OpenGLTexture.h',['../OpenGLTexture_8h.html',1,'']]],
-  ['openglvertexarray_39',['openglvertexarray',['../classElevate_1_1OpenGLVertexArray.html',1,'Elevate::OpenGLVertexArray'],['../classElevate_1_1OpenGLVertexArray.html#a10c31cc3cfe5efbd7e85e6dcce5ef755',1,'Elevate::OpenGLVertexArray::OpenGLVertexArray()']]],
+  ['openglvertexarray_39',['openglvertexarray',['../classElevate_1_1OpenGLVertexArray.html#a10c31cc3cfe5efbd7e85e6dcce5ef755',1,'Elevate::OpenGLVertexArray::OpenGLVertexArray()'],['../classElevate_1_1OpenGLVertexArray.html',1,'Elevate::OpenGLVertexArray']]],
   ['openglvertexarray_2ecpp_40',['OpenGLVertexArray.cpp',['../OpenGLVertexArray_8cpp.html',1,'']]],
   ['openglvertexarray_2eh_41',['OpenGLVertexArray.h',['../OpenGLVertexArray_8h.html',1,'']]],
   ['openglvertexbuffer_42',['openglvertexbuffer',['../classElevate_1_1OpenGLVertexBuffer.html',1,'Elevate::OpenGLVertexBuffer'],['../classElevate_1_1OpenGLVertexBuffer.html#a5f26d95f56f4a3165e43b170a2d6c190',1,'Elevate::OpenGLVertexBuffer::OpenGLVertexBuffer()']]],
   ['openurl_43',['OpenURL',['../namespaceElevate_1_1Platform.html#a978cdb896856704e627198d6a2341e12',1,'Elevate::Platform']]],
   ['openwithdefaultapp_44',['OpenWithDefaultApp',['../namespaceElevate_1_1Files.html#a49bcee940c569f34ea4e0123826642ec',1,'Elevate::Files']]],
-  ['operator_3c_45',['operator&lt;',['../classElevate_1_1EECategory.html#a3b0a31d10dc7b8634f8864d4927c23ef',1,'Elevate::EECategory']]],
-  ['operator_3c_3c_46',['operator&lt;&lt;',['../namespaceElevate.html#a07459f730257a31806ceb39f2b73f301',1,'Elevate']]],
-  ['operator_3d_47',['operator=',['../classElevate_1_1WAAPIClient.html#a152a3297c3cffdf007e0debbd44fcb86',1,'Elevate::WAAPIClient']]],
-  ['operator_3d_3d_48',['operator==',['../classElevate_1_1EECategory.html#ac8be2a2c82024c38484b11964fc3c0b1',1,'Elevate::EECategory::operator==()'],['../classElevate_1_1Guid.html#a6c66a7d7ed2bdfddf592fda65f6a3e9a',1,'Elevate::Guid::operator==()']]],
-  ['overridecurrent_49',['overrideCurrent',['../classElevate_1_1Camera.html#a7e954a6afd0b2803e48b6d41ec404814',1,'Elevate::Camera']]]
+  ['operator_20bool_45',['operator bool',['../classElevate_1_1EEObjectPtr.html#a8ac65a51159936082eafc9257d2db9bf',1,'Elevate::EEObjectPtr']]],
+  ['operator_2a_46',['operator*',['../classElevate_1_1EEObjectPtr.html#a13d14bef48d1dbe5d76c9eca25221aca',1,'Elevate::EEObjectPtr']]],
+  ['operator_2d_3e_47',['operator-&gt;',['../classElevate_1_1EEObjectPtr.html#adef5ab977ea6edfe1714836a89690b42',1,'Elevate::EEObjectPtr']]],
+  ['operator_3c_48',['operator&lt;',['../classElevate_1_1EECategory.html#a3b0a31d10dc7b8634f8864d4927c23ef',1,'Elevate::EECategory::operator&lt;()'],['../classElevate_1_1EEObjectPtr.html#ab0d411b4abcb4074b9a195e6124150c7',1,'Elevate::EEObjectPtr::operator&lt;()']]],
+  ['operator_3c_3c_49',['operator&lt;&lt;',['../namespaceElevate.html#a07459f730257a31806ceb39f2b73f301',1,'Elevate']]],
+  ['operator_3d_50',['operator=',['../classElevate_1_1EEObjectPtr.html#a89181893ee2bd44b9e158460f92e5768',1,'Elevate::EEObjectPtr::operator=(std::nullptr_t) noexcept'],['../classElevate_1_1EEObjectPtr.html#a4d905c41a4188e672711efb3a61ce0e7',1,'Elevate::EEObjectPtr::operator=(std::shared_ptr&lt; T &gt; ptr)'],['../classElevate_1_1EEObjectPtr.html#ac3775a109293130085208026677a7450',1,'Elevate::EEObjectPtr::operator=(const EEObjectPtr&lt; T &gt; &amp;other)'],['../classElevate_1_1WAAPIClient.html#a152a3297c3cffdf007e0debbd44fcb86',1,'Elevate::WAAPIClient::operator=()']]],
+  ['operator_3d_3d_51',['operator==',['../classElevate_1_1EECategory.html#ac8be2a2c82024c38484b11964fc3c0b1',1,'Elevate::EECategory::operator==()'],['../classElevate_1_1EEObjectPtr.html#a636cac6b90dfa41efd4a2457f1e54e0a',1,'Elevate::EEObjectPtr::operator==(const EEObjectPtr&lt; T &gt; &amp;other) const noexcept'],['../classElevate_1_1EEObjectPtr.html#a457db11ff0addcd3c7a6018a10c4923a',1,'Elevate::EEObjectPtr::operator==(const std::shared_ptr&lt; T &gt; &amp;other) const noexcept'],['../classElevate_1_1Guid.html#a6c66a7d7ed2bdfddf592fda65f6a3e9a',1,'Elevate::Guid::operator==()']]],
+  ['overridecurrent_52',['overrideCurrent',['../classElevate_1_1Camera.html#a7e954a6afd0b2803e48b6d41ec404814',1,'Elevate::Camera']]]
 ];

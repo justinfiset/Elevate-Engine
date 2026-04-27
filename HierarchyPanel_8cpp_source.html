@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('HierarchyPanel_8cpp_source.html',''); 
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceElevate_1_1Editor.html">Elevate::Editor</a></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordtype">void</span> HierarchyPanel::DrawTreeHierarchy(std::shared_ptr&lt;GameObject&gt; <span class="keywordtype">object</span>)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordtype">void</span> HierarchyPanel::DrawTreeHierarchy(<span class="keyword">const</span> EEObjectPtr&lt;GameObject&gt;&amp; <span class="keywordtype">object</span>)</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_OpenOnArrow;</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
@@ -193,7 +193,7 @@ $(document).ready(function(){initNavTree('HierarchyPanel_8cpp_source.html',''); 
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">if</span> (open)</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> std::shared_ptr&lt;Elevate::GameObject&gt;&amp; child : object-&gt;GetChilds())</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : object-&gt;GetChilds())</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            {</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                DrawTreeHierarchy(child);</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            }</div>
@@ -201,7 +201,7 @@ $(document).ready(function(){initNavTree('HierarchyPanel_8cpp_source.html',''); 
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        }</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    }</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordtype">void</span> HierarchyPanel::EndRename(std::shared_ptr&lt;GameObject&gt; <span class="keywordtype">object</span>)</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordtype">void</span> HierarchyPanel::EndRename(<span class="keyword">const</span> EEObjectPtr&lt;GameObject&gt;&amp; <span class="keywordtype">object</span>)</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    {</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordtype">object</span>-&gt;SetName(m_renameBuffer);</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        m_renaming = <span class="keyword">false</span>;</div>
@@ -228,7 +228,7 @@ $(document).ready(function(){initNavTree('HierarchyPanel_8cpp_source.html',''); 
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                <span class="keywordflow">if</span> (ImGui::TreeNodeEx(scene-&gt;GetName().c_str(), ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth))</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>                {</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                    <span class="keywordflow">for</span> (std::shared_ptr&lt;Elevate::GameObject&gt; <span class="keywordtype">object</span> : scene-&gt;GetRootObjects())</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <span class="keywordtype">object</span> : scene-&gt;GetRootObjects())</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                    {</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                        DrawTreeHierarchy(<span class="keywordtype">object</span>);</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                    }</div>
@@ -257,7 +257,7 @@ $(document).ready(function(){initNavTree('HierarchyPanel_8cpp_source.html',''); 
 <div class="ttc" id="aclassElevate_1_1Texture_html_aea24f7434fbeb7c32566548a551a1200"><div class="ttname"><a href="classElevate_1_1Texture.html#aea24f7434fbeb7c32566548a551a1200">Elevate::Texture::CreateFromFile</a></div><div class="ttdeci">static TexturePtr CreateFromFile(const std::string &amp;path, TextureType usage=TextureType::Diffuse)</div><div class="ttdef"><b>Definition</b> <a href="Texture_8cpp_source.html#l00022">Texture.cpp:22</a></div></div>
 <div class="ttc" id="aeepch_8h_html"><div class="ttname"><a href="eepch_8h.html">eepch.h</a></div></div>
 <div class="ttc" id="anamespaceElevate_1_1Editor_html"><div class="ttname"><a href="namespaceElevate_1_1Editor.html">Elevate::Editor</a></div><div class="ttdef"><b>Definition</b> <a href="Application_8h_source.html#l00025">Application.h:26</a></div></div>
-<div class="ttc" id="anamespaceElevate_html_a225575101fdde82b46ebe7da4c37bae9a10f4f44d88dec9bb10d99475347bbe5b"><div class="ttname"><a href="namespaceElevate.html#a225575101fdde82b46ebe7da4c37bae9a10f4f44d88dec9bb10d99475347bbe5b">Elevate::RuntimeScene</a></div><div class="ttdeci">@ RuntimeScene</div><div class="ttdef"><b>Definition</b> <a href="Scene_8h_source.html#l00029">Scene.h:29</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a225575101fdde82b46ebe7da4c37bae9a10f4f44d88dec9bb10d99475347bbe5b"><div class="ttname"><a href="namespaceElevate.html#a225575101fdde82b46ebe7da4c37bae9a10f4f44d88dec9bb10d99475347bbe5b">Elevate::RuntimeScene</a></div><div class="ttdeci">@ RuntimeScene</div><div class="ttdef"><b>Definition</b> <a href="Scene_8h_source.html#l00030">Scene.h:30</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a616e287e4c8d91552d66e7da0feb650c"><div class="ttname"><a href="namespaceElevate.html#a616e287e4c8d91552d66e7da0feb650c">Elevate::ScenePtr</a></div><div class="ttdeci">std::shared_ptr&lt; Scene &gt; ScenePtr</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8h_source.html#l00012">Renderer.h:12</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

@@ -15,6 +15,7 @@ var dir_3f7a7c9bc248a50a0cea00f4d85475ff =
     [ "Core.h", "Core_8h.html", "Core_8h" ],
     [ "Data.h", "Data_8h.html", "Data_8h" ],
     [ "EEObject.h", "EEObject_8h.html", "EEObject_8h" ],
+    [ "EEObjectPtr.h", "EEObjectPtr_8h.html", "EEObjectPtr_8h" ],
     [ "EntryPoint.h", "EntryPoint_8h.html", "EntryPoint_8h" ],
     [ "Files.h", "Files_8h.html", "Files_8h" ],
     [ "GameContext.cpp", "GameContext_8cpp.html", "GameContext_8cpp" ],

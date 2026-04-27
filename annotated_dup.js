@@ -44,6 +44,7 @@ var annotated_dup =
       [ "EditorIconTag", "structElevate_1_1EditorIconTag.html", "structElevate_1_1EditorIconTag" ],
       [ "EECategory", "classElevate_1_1EECategory.html", "classElevate_1_1EECategory" ],
       [ "EEObject", "classElevate_1_1EEObject.html", "classElevate_1_1EEObject" ],
+      [ "EEObjectPtr", "classElevate_1_1EEObjectPtr.html", "classElevate_1_1EEObjectPtr" ],
       [ "EngineDataTypeTrait", "structElevate_1_1EngineDataTypeTrait.html", null ],
       [ "EngineDataTypeTrait< bool >", "structElevate_1_1EngineDataTypeTrait_3_01bool_01_4.html", null ],
       [ "EngineDataTypeTrait< float >", "structElevate_1_1EngineDataTypeTrait_3_01float_01_4.html", null ],

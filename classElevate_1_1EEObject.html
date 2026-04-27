@@ -110,6 +110,7 @@ Inheritance diagram for Elevate::EEObject:</div>
   <img src="classElevate_1_1EEObject.png" usemap="#Elevate::EEObject_map" alt=""/>
   <map id="Elevate::EEObject_map" name="Elevate::EEObject_map">
 <area href="classElevate_1_1Component.html" alt="Elevate::Component" shape="rect" coords="511,56,687,80"/>
+<area href="classElevate_1_1GameObject.html" alt="Elevate::GameObject" shape="rect" coords="697,56,873,80"/>
 <area href="classElevate_1_1AkBank.html" alt="Elevate::AkBank" shape="rect" coords="0,112,176,136"/>
 <area href="classElevate_1_1AudioDistanceProbe.html" alt="Elevate::AudioDistanceProbe" shape="rect" coords="186,112,362,136"/>
 <area href="classElevate_1_1Camera.html" alt="Elevate::Camera" shape="rect" coords="372,112,548,136"/>
@@ -124,8 +125,8 @@ Inheritance diagram for Elevate::EEObject:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3f859156eab9dbb0e2ccbda5b4dda563" id="r_a3f859156eab9dbb0e2ccbda5b4dda563"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObject.html#a3f859156eab9dbb0e2ccbda5b4dda563">EEObject</a> ()=default</td></tr>
-<tr class="separator:a3f859156eab9dbb0e2ccbda5b4dda563"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3696e263fc1aec3a9c474f29659cc96e" id="r_a3696e263fc1aec3a9c474f29659cc96e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObject.html#a3696e263fc1aec3a9c474f29659cc96e">EEObject</a> ()</td></tr>
+<tr class="separator:a3696e263fc1aec3a9c474f29659cc96e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d6ab8fcdf411ce17179ed4dc6854106" id="r_a7d6ab8fcdf411ce17179ed4dc6854106"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObject.html#a7d6ab8fcdf411ce17179ed4dc6854106">EEObject</a> (<a class="el" href="classElevate_1_1EECategory.html">EECategory</a> category)</td></tr>
 <tr class="separator:a7d6ab8fcdf411ce17179ed4dc6854106"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28dd34b8b97aedb62fbedb3db90f8ab4" id="r_a28dd34b8b97aedb62fbedb3db90f8ab4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObject.html#a28dd34b8b97aedb62fbedb3db90f8ab4">~EEObject</a> ()=default</td></tr>
@@ -146,8 +147,8 @@ Protected Attributes</h2></td></tr>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="EEObject_8h_source.html#l00115">115</a> of file <a class="el" href="EEObject_8h_source.html">EEObject.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a3f859156eab9dbb0e2ccbda5b4dda563" name="a3f859156eab9dbb0e2ccbda5b4dda563"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f859156eab9dbb0e2ccbda5b4dda563">&#9670;&#160;</a></span>EEObject() <span class="overload">[1/2]</span></h2>
+<a id="a3696e263fc1aec3a9c474f29659cc96e" name="a3696e263fc1aec3a9c474f29659cc96e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3696e263fc1aec3a9c474f29659cc96e">&#9670;&#160;</a></span>EEObject() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -164,11 +165,16 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="EEObject_8h_source.html#l00122">122</a> of file <a class="el" href="EEObject_8h_source.html">EEObject.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  122</span>: <a class="code hl_variable" href="classElevate_1_1EEObject.html#aca5c15fded37fb9d489fda0a5399b4b7">m_guid</a>(<a class="code hl_function" href="classElevate_1_1Guid.html#a4b903221bb2411f152fc1f215db5907b">Guid::New</a>()) { }</div>
+<div class="ttc" id="aclassElevate_1_1EEObject_html_aca5c15fded37fb9d489fda0a5399b4b7"><div class="ttname"><a href="classElevate_1_1EEObject.html#aca5c15fded37fb9d489fda0a5399b4b7">Elevate::EEObject::m_guid</a></div><div class="ttdeci">Guid m_guid</div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00119">EEObject.h:119</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Guid_html_a4b903221bb2411f152fc1f215db5907b"><div class="ttname"><a href="classElevate_1_1Guid.html#a4b903221bb2411f152fc1f215db5907b">Elevate::Guid::New</a></div><div class="ttdeci">static Guid New()</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00007">Guid.cpp:7</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a7d6ab8fcdf411ce17179ed4dc6854106" name="a7d6ab8fcdf411ce17179ed4dc6854106"></a>
@@ -198,8 +204,6 @@ Protected Attributes</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="EEObject_8h_source.html#l00123">123</a> of file <a class="el" href="EEObject_8h_source.html">EEObject.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  124</span>            : <a class="code hl_variable" href="classElevate_1_1EEObject.html#a7f12e2c4fcd41316292d1989d874caa2">m_category</a>(category), <a class="code hl_variable" href="classElevate_1_1EEObject.html#aca5c15fded37fb9d489fda0a5399b4b7">m_guid</a>(<a class="code hl_function" href="classElevate_1_1Guid.html#a4b903221bb2411f152fc1f215db5907b">Guid::New</a>()) { }</div>
 <div class="ttc" id="aclassElevate_1_1EEObject_html_a7f12e2c4fcd41316292d1989d874caa2"><div class="ttname"><a href="classElevate_1_1EEObject.html#a7f12e2c4fcd41316292d1989d874caa2">Elevate::EEObject::m_category</a></div><div class="ttdeci">EECategory m_category</div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00118">EEObject.h:118</a></div></div>
-<div class="ttc" id="aclassElevate_1_1EEObject_html_aca5c15fded37fb9d489fda0a5399b4b7"><div class="ttname"><a href="classElevate_1_1EEObject.html#aca5c15fded37fb9d489fda0a5399b4b7">Elevate::EEObject::m_guid</a></div><div class="ttdeci">Guid m_guid</div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00119">EEObject.h:119</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Guid_html_a4b903221bb2411f152fc1f215db5907b"><div class="ttname"><a href="classElevate_1_1Guid.html#a4b903221bb2411f152fc1f215db5907b">Elevate::Guid::New</a></div><div class="ttdeci">static Guid New()</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00007">Guid.cpp:7</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

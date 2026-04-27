@@ -1,7 +1,7 @@
 var searchData=
 [
   ['active_0',['ACTIVE',['../namespaceElevate.html#ab0aacb35d2e9872b3fcb6a024f584ad6a18ff74f43da410c5529f7d6fca84f115',1,'Elevate']]],
-  ['addchild_1',['AddChild',['../classElevate_1_1GameObject.html#ad68e08844955dc71a2fdaca45210daee',1,'Elevate::GameObject']]],
+  ['addchild_1',['AddChild',['../classElevate_1_1GameObject.html#a0aadc15215dfdfbcbb18e7b6aa02c3cc',1,'Elevate::GameObject']]],
   ['addchildren_2',['AddChildren',['../structWwiseItem.html#a783a95ded7c911da397e30924bcc15d4',1,'WwiseItem']]],
   ['addclasstostack_3',['AddClassToStack',['../classElevate_1_1ComponentRegistry.html#a9b0367c3176f802580e8fc639198c86b',1,'Elevate::ComponentRegistry']]],
   ['addcomponent_4',['AddComponent',['../classElevate_1_1GameObject.html#a15b2f5482239f054c91bf03bd2415678',1,'Elevate::GameObject']]],
@@ -9,7 +9,7 @@ var searchData=
   ['addcomponentcommand_6',['addcomponentcommand',['../classElevate_1_1AddComponentCommand.html',1,'Elevate::AddComponentCommand'],['../classElevate_1_1AddComponentCommand.html#ad0481cb170ef34614175406b126db15d',1,'Elevate::AddComponentCommand::AddComponentCommand()']]],
   ['adddebugline_7',['AddDebugLine',['../classElevate_1_1DebugRenderer.html#ae8ed1160e2e87d4b644eca5e8f1c77c8',1,'Elevate::DebugRenderer']]],
   ['addgameobjectcommand_8',['AddGameobjectCommand',['../classElevate_1_1AddGameobjectCommand.html',1,'Elevate']]],
-  ['addobject_9',['AddObject',['../classElevate_1_1Scene.html#a457b6dfea301be9c4b33ff01ab084d31',1,'Elevate::Scene']]],
+  ['addobject_9',['AddObject',['../classElevate_1_1Scene.html#adde308bca3dd169d28304ce8e4035a04',1,'Elevate::Scene']]],
   ['addproperty_10',['AddProperty',['../classElevate_1_1ComponentRegistry.html#aafd998e0578ab22d22f205dfa7b67e57',1,'Elevate::ComponentRegistry']]],
   ['addvertexbuffer_11',['addvertexbuffer',['../classElevate_1_1VertexArray.html#a51d2fbac4c583012659c915e212aa898',1,'Elevate::VertexArray::AddVertexBuffer()'],['../classElevate_1_1OpenGLVertexArray.html#a1fadce043631ef6290642703e64f852c',1,'Elevate::OpenGLVertexArray::AddVertexBuffer()']]],
   ['ak_12',['AK',['../namespaceAK.html',1,'']]],

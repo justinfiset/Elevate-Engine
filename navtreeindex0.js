@@ -203,6 +203,8 @@ var NAVTREEINDEX0 =
 "DirectionalLight_8cpp_source.html":[4,0,0,0,0,8,3,0],
 "DirectionalLight_8h.html":[4,0,0,0,0,8,3,1],
 "DirectionalLight_8h_source.html":[4,0,0,0,0,8,3,1],
+"EEObjectPtr_8h.html":[4,0,0,0,0,1,15],
+"EEObjectPtr_8h_source.html":[4,0,0,0,0,1,15],
 "EEObject_8h.html":[4,0,0,0,0,1,14],
 "EEObject_8h_source.html":[4,0,0,0,0,1,14],
 "EditorCamera_8cpp.html":[4,0,0,0,0,2,0,0],
@@ -217,9 +219,9 @@ var NAVTREEINDEX0 =
 "EditorWidget_8h_source.html":[4,0,0,0,0,2,8],
 "ElevateEngine_8h.html":[4,0,0,0,4],
 "ElevateEngine_8h_source.html":[4,0,0,0,4],
-"EntryPoint_8h.html":[4,0,0,0,0,1,15],
-"EntryPoint_8h.html#a3c04138a5bfe5d72780bb7e82a18e627":[4,0,0,0,0,1,15,0],
-"EntryPoint_8h_source.html":[4,0,0,0,0,1,15],
+"EntryPoint_8h.html":[4,0,0,0,0,1,16],
+"EntryPoint_8h.html#a3c04138a5bfe5d72780bb7e82a18e627":[4,0,0,0,0,1,16,0],
+"EntryPoint_8h_source.html":[4,0,0,0,0,1,16],
 "Event_8h.html":[4,0,0,0,0,3,1],
 "Event_8h.html#a062abdc15cb1ce3f4e7eb153bf386a91":[4,0,0,0,0,3,1,5],
 "Event_8h.html#a062abdc15cb1ce3f4e7eb153bf386a91a1c68d5453b28d52622bf5486a5fd95ca":[4,0,0,0,0,3,1,5,4],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "Event_8h.html#a8ceb7a59701da978c93cf30fbb8b71e9a53e70b717d2739659e4aedf7e27384a9":[4,0,0,0,0,3,1,4,2],
 "Event_8h.html#a8ceb7a59701da978c93cf30fbb8b71e9a642327fb9ded35ea7f2cf110b7c2b8a7":[4,0,0,0,0,3,1,4,3],
 "Event_8h.html#a8ceb7a59701da978c93cf30fbb8b71e9a9ed701d7c851d41089176d5551cc812b":[4,0,0,0,0,3,1,4,5],
-"Event_8h.html#abd52deea587a36ef619e596a0c691839":[4,0,0,0,0,3,1,2],
-"Event_8h_source.html":[4,0,0,0,0,3,1],
-"FileDialog_8cpp.html":[4,0,0,0,0,4,0]
+"Event_8h.html#abd52deea587a36ef619e596a0c691839":[4,0,0,0,0,3,1,2]
 };

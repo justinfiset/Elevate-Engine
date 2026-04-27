@@ -47,7 +47,8 @@ var hierarchy =
         ] ],
         [ "Elevate::Model", "classElevate_1_1Model.html", null ],
         [ "Elevate::Rigidbody", "classElevate_1_1Rigidbody.html", null ]
-      ] ]
+      ] ],
+      [ "Elevate::GameObject", "classElevate_1_1GameObject.html", null ]
     ] ],
     [ "std::enable_shared_from_this", null, [
       [ "Elevate::GameObject", "classElevate_1_1GameObject.html", null ]
@@ -113,6 +114,8 @@ var hierarchy =
     ] ],
     [ "Elevate::InputBuffer", "classElevate_1_1InputBuffer.html", null ],
     [ "Elevate::ISerializable", "classElevate_1_1ISerializable.html", [
+      [ "Elevate::EEObjectPtr< Elevate::GameObject >", "classElevate_1_1EEObjectPtr.html", null ],
+      [ "Elevate::EEObjectPtr< T >", "classElevate_1_1EEObjectPtr.html", null ],
       [ "Elevate::Scene", "classElevate_1_1Scene.html", null ]
     ] ],
     [ "Elevate::ITransformable", "classElevate_1_1ITransformable.html", [
