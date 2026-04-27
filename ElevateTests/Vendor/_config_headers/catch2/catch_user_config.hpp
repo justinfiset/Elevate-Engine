@@ -12,25 +12,31 @@
 // Overridable compilation flags
 // ------
 
-// On laisse Catch2 détecter automatiquement la plupart des réglages pour Windows
-// Mais on force l'utilisation des fonctionnalités C++17/20 disponibles dans VS
+// Activation des fonctionnalités C++17/20 pour les compilateurs modernes (VS, GCC, Clang)
 #define CATCH_CONFIG_CPP17_BYTE
 #define CATCH_CONFIG_CPP17_OPTIONAL
 #define CATCH_CONFIG_CPP17_STRING_VIEW
 #define CATCH_CONFIG_CPP17_UNCAUGHT_EXCEPTIONS
 #define CATCH_CONFIG_CPP17_VARIANT
 
-// Couleur dans la console Windows
-#define CATCH_CONFIG_COLOUR_WIN32
+// --- GESTION MULTIPLATEFORME DES COULEURS ---
+#if defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
+    // On est sur Windows : on utilise l'API console Win32
+    #define CATCH_CONFIG_COLOUR_WIN32
+#else
+    // On est sur Linux, macOS ou Emscripten : 
+    // On utilise les codes ANSI standard pour les couleurs dans le terminal
+    #define CATCH_CONFIG_COLOUR_ANSI
+#endif
 
-// Support du compteur (pour les macros d'assertions)
+// Support du compteur (nécessaire pour certaines macros d'assertions)
 #define CATCH_CONFIG_COUNTER
 
 // ------
 // Simple toggle defines
 // ------
 
-// Tu peux décommenter ces lignes si tu as besoin de fonctionnalités spécifiques
+// Ces options restent désactivées par défaut pour une compatibilité maximale
 // #define CATCH_CONFIG_FAST_COMPILE
 // #define CATCH_CONFIG_DISABLE_EXCEPTIONS
 
