@@ -42,3 +42,6 @@
 [submodule "ElevateEngine/vendor/stduuid"]
 	path = ElevateEngine/vendor/stduuid
 	url = https://github.com/mariusbancila/stduuid/
+[submodule "ElevateTests/Vendor/Catch2"]
+	path = ElevateTests/Vendor/Catch2
+	url = https://github.com/catchorg/Catch2/
