@@ -7,6 +7,7 @@ namespace Elevate
 	{
 	public:
 		BEGIN_COMPONENT(DirectionalLight)
+		DECLARE_BASE(Light)
 
 		DirectionalLight() = default;
 		DirectionalLight(const glm::vec3& color) : Light(color) { }
