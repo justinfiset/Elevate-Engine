@@ -24,6 +24,7 @@ namespace Elevate
 	{
 		m_goId = s_goIdCount;
 		s_goIdCount++;
+		EE_CORE_TRACE("Created object '{}', id='{}', GUID='{}'", m_name, m_goId, m_guid.ToString());
 	}
 
 	void GameObject::SetFromGlobalMatrix(const glm::mat4& newWorld)

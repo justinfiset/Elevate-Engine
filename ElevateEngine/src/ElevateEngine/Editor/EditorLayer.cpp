@@ -272,10 +272,10 @@ namespace Elevate::Editor
 		return m_CameraObject->GetComponent<EditorCamera>();
 	}
 
-	void EditorLayer::SelectObject(std::shared_ptr<GameObject> newSelection)
+	void EditorLayer::SelectObject(const EEObjectPtr<GameObject>& newSelection)
 	{
 		if (newSelection) {
-			m_SelectedObject = newSelection;
+			m_SelectedObject = newSelection.ToWeak();
 		}
 		else {
 			m_SelectedObject.reset();
