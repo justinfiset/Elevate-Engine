@@ -9,7 +9,7 @@
 
 namespace Elevate::Editor
 {
-	void HierarchyPanel::DrawTreeHierarchy(std::shared_ptr<GameObject> object)
+	void HierarchyPanel::DrawTreeHierarchy(const EEObjectPtr<GameObject>& object)
 	{
 		ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_OpenOnArrow;
 
@@ -89,7 +89,7 @@ namespace Elevate::Editor
 
 		if (open)
 		{
-			for (const std::shared_ptr<Elevate::GameObject>& child : object->GetChilds())
+			for (const auto& child : object->GetChilds())
 			{
 				DrawTreeHierarchy(child);
 			}
@@ -97,7 +97,7 @@ namespace Elevate::Editor
 		}
 	}
 
-	void HierarchyPanel::EndRename(std::shared_ptr<GameObject> object)
+	void HierarchyPanel::EndRename(const EEObjectPtr<GameObject>& object)
 	{
 		object->SetName(m_renameBuffer);
 		m_renaming = false;
@@ -124,7 +124,7 @@ namespace Elevate::Editor
 
 				if (ImGui::TreeNodeEx(scene->GetName().c_str(), ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth))
 				{
-					for (std::shared_ptr<Elevate::GameObject> object : scene->GetRootObjects())
+					for (const auto& object : scene->GetRootObjects())
 					{
 						DrawTreeHierarchy(object);
 					}
