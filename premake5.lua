@@ -25,12 +25,14 @@ workspace "ElevateEngine"
 		include "ElevateEngine/vendor/imgui.lua"
 		include "ElevateEngine/vendor/assimp.lua"
 
-	group "Tests"
-		CommonProject.SetupProject("ElevateTests", function(d, i)
-			directory = d or "ElevateTests"
-			infos = i or CommonProject.GetProjectInfos(directory)
-			include "ElevateTests/tests.lua"
-		end)
+	filter "not system:emscripten"
+		group "Tests"
+			CommonProject.SetupProject("ElevateTests", function(d, i)
+				directory = d or "ElevateTests"
+				infos = i or CommonProject.GetProjectInfos(directory)
+				include "ElevateTests/tests.lua"
+			end)
+	filter ""
 
 	-- Setup the Wwise SoundEngine if the SDK is found
 	Wwise.Initialize()
