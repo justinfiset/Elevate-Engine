@@ -200,5 +200,8 @@ var hierarchy =
       [ "WwiseSwitch", "structWwiseSwitch.html", null ],
       [ "WwiseSwitchGroup", "structWwiseSwitchGroup.html", null ]
     ] ],
-    [ "flxml::xml_node< Ch >", "classflxml_1_1xml__node.html", null ]
+    [ "flxml::xml_node< Ch >", "classflxml_1_1xml__node.html", null ],
+    [ "Elevate::Ts", null, [
+      [ "Elevate::overload< Ts >", "structElevate_1_1overload.html", null ]
+    ] ]
 ];

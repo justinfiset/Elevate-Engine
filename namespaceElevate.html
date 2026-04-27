@@ -320,6 +320,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1OpenGLVertexBuffer.html">OpenGLVertexBuffer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structElevate_1_1overload.html">overload</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structElevate_1_1ParentFieldsHelper.html">ParentFieldsHelper</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structElevate_1_1ParentFieldsHelper_3_01T_00_01true_01_4.html">ParentFieldsHelper&lt; T, true &gt;</a></td></tr>
@@ -660,6 +662,11 @@ Functions</h2></td></tr>
 <tr class="separator:a70409c58a076fe8b8028054f8472e8a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06c21c65d4610d777c1af377f433e602" id="r_a06c21c65d4610d777c1af377f433e602"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; uint32_t, std::unique_ptr&lt; entt::registry &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a06c21c65d4610d777c1af377f433e602">GetRegistryMap</a> ()</td></tr>
 <tr class="separator:a06c21c65d4610d777c1af377f433e602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad16fe7bc8849d427bf60ac890e6e3e26" id="r_ad16fe7bc8849d427bf60ac890e6e3e26"><td class="memTemplParams" colspan="2">template&lt;class... Ts&gt; </td></tr>
+<tr class="memitem:ad16fe7bc8849d427bf60ac890e6e3e26"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#ad16fe7bc8849d427bf60ac890e6e3e26">overload</a> (Ts...) -&gt; <a class="el" href="structElevate_1_1overload.html">overload</a>&lt; Ts... &gt;</td></tr>
+<tr class="separator:ad16fe7bc8849d427bf60ac890e6e3e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a762f69a24f135c3f4747be2d48880b54" id="r_a762f69a24f135c3f4747be2d48880b54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">SerializeRecursive</a> (const <a class="el" href="namespaceElevate.html#a30d612d5c6fd56213ff2d8117cf2538e">PropertySet</a> &amp;fields, rapidjson::Value &amp;parentObj, rapidjson::Document::AllocatorType &amp;allocator)</td></tr>
+<tr class="separator:a762f69a24f135c3f4747be2d48880b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -1982,6 +1989,95 @@ Variables</h2></td></tr>
 <div class="line"><span class="lineno">   82</span>        <span class="keywordflow">return</span> os &lt;&lt; e.<a class="code hl_function" href="classElevate_1_1Event.html#a271e0d48255da254f94b0d8968538580">ToString</a>();</div>
 <div class="line"><span class="lineno">   83</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1Event_html_a271e0d48255da254f94b0d8968538580"><div class="ttname"><a href="classElevate_1_1Event.html#a271e0d48255da254f94b0d8968538580">Elevate::Event::ToString</a></div><div class="ttdeci">virtual std::string ToString() const</div><div class="ttdef"><b>Definition</b> <a href="Event_8h_source.html#l00046">Event.h:46</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad16fe7bc8849d427bf60ac890e6e3e26" name="ad16fe7bc8849d427bf60ac890e6e3e26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad16fe7bc8849d427bf60ac890e6e3e26">&#9670;&#160;</a></span>overload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class... Ts&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structElevate_1_1overload.html">Elevate::overload</a> </td>
+          <td>(</td>
+          <td class="paramtype">Ts...&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> -&gt;  <a class="el" href="structElevate_1_1overload.html">overload</a>&lt; Ts... &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a762f69a24f135c3f4747be2d48880b54" name="a762f69a24f135c3f4747be2d48880b54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a762f69a24f135c3f4747be2d48880b54">&#9670;&#160;</a></span>SerializeRecursive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Elevate::SerializeRecursive </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceElevate.html#a30d612d5c6fd56213ff2d8117cf2538e">PropertySet</a> &amp;&#160;</td>
+          <td class="paramname"><em>fields</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">rapidjson::Value &amp;&#160;</td>
+          <td class="paramname"><em>parentObj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">rapidjson::Document::AllocatorType &amp;&#160;</td>
+          <td class="paramname"><em>allocator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="JsonSerializer_8cpp_source.html#l00013">13</a> of file <a class="el" href="JsonSerializer_8cpp_source.html">JsonSerializer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   14</span>    {</div>
+<div class="line"><span class="lineno">   15</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; property : fields)</div>
+<div class="line"><span class="lineno">   16</span>        {</div>
+<div class="line"><span class="lineno">   17</span>            rapidjson::Value key(property.Name.c_str(), allocator);</div>
+<div class="line"><span class="lineno">   18</span> </div>
+<div class="line"><span class="lineno">   19</span>            rapidjson::Value val = std::visit(<a class="code hl_struct" href="structElevate_1_1overload.html">overload</a>{</div>
+<div class="line"><span class="lineno">   20</span>                [&amp;](<span class="keywordtype">bool</span> v) { <span class="keywordflow">return</span> rapidjson::Value(v); },</div>
+<div class="line"><span class="lineno">   21</span>                [&amp;](int64_t v) { <span class="keywordflow">return</span> rapidjson::Value(v); },</div>
+<div class="line"><span class="lineno">   22</span>                [&amp;](<span class="keywordtype">double</span> v) { <span class="keywordflow">return</span> rapidjson::Value(v); },</div>
+<div class="line"><span class="lineno">   23</span>                [&amp;](<span class="keyword">const</span> std::string&amp; v) {</div>
+<div class="line"><span class="lineno">   24</span>                    <span class="keywordflow">return</span> rapidjson::Value(v.c_str(), allocator);</div>
+<div class="line"><span class="lineno">   25</span>                },</div>
+<div class="line"><span class="lineno">   26</span>                [&amp;](<span class="keyword">const</span> <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>&amp; v) {</div>
+<div class="line"><span class="lineno">   27</span>                    <span class="keywordflow">return</span> rapidjson::Value(</div>
+<div class="line"><span class="lineno">   28</span>                        <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(v.data()),</div>
+<div class="line"><span class="lineno">   29</span>                        <span class="keyword">static_cast&lt;</span>rapidjson::SizeType<span class="keyword">&gt;</span>(v.size()),</div>
+<div class="line"><span class="lineno">   30</span>                        allocator</div>
+<div class="line"><span class="lineno">   31</span>                    );</div>
+<div class="line"><span class="lineno">   32</span>                },</div>
+<div class="line"><span class="lineno">   33</span>                [&amp;](<span class="keyword">const</span> <a class="code hl_typedef" href="namespaceElevate.html#a30d612d5c6fd56213ff2d8117cf2538e">PropertySet</a>&amp; v) {</div>
+<div class="line"><span class="lineno">   34</span>                    rapidjson::Value childObj(rapidjson::kObjectType);</div>
+<div class="line"><span class="lineno">   35</span>                    <a class="code hl_function" href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">SerializeRecursive</a>(v, childObj, allocator);</div>
+<div class="line"><span class="lineno">   36</span>                    <span class="keywordflow">return</span> childObj;</div>
+<div class="line"><span class="lineno">   37</span>                }</div>
+<div class="line"><span class="lineno">   38</span>            }, <span class="keyword">property</span>.Value);</div>
+<div class="line"><span class="lineno">   39</span> </div>
+<div class="line"><span class="lineno">   40</span>            parentObj.AddMember(key, val, allocator);</div>
+<div class="line"><span class="lineno">   41</span>        }</div>
+<div class="line"><span class="lineno">   42</span>    }</div>
+<div class="ttc" id="anamespaceElevate_html_a30d612d5c6fd56213ff2d8117cf2538e"><div class="ttname"><a href="namespaceElevate.html#a30d612d5c6fd56213ff2d8117cf2538e">Elevate::PropertySet</a></div><div class="ttdeci">std::vector&lt; PropertyField &gt; PropertySet</div><div class="ttdef"><b>Definition</b> <a href="ObjectPropertyField_8h_source.html#l00013">ObjectPropertyField.h:13</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a662833bd41c873b3ffeddc33c6f28e19"><div class="ttname"><a href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">Elevate::ByteBuffer</a></div><div class="ttdeci">std::vector&lt; Byte &gt; ByteBuffer</div><div class="ttdef"><b>Definition</b> <a href="Byte_8h_source.html#l00008">Byte.h:8</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a762f69a24f135c3f4747be2d48880b54"><div class="ttname"><a href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">Elevate::SerializeRecursive</a></div><div class="ttdeci">void SerializeRecursive(const PropertySet &amp;fields, rapidjson::Value &amp;parentObj, rapidjson::Document::AllocatorType &amp;allocator)</div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00013">JsonSerializer.cpp:13</a></div></div>
+<div class="ttc" id="astructElevate_1_1overload_html"><div class="ttname"><a href="structElevate_1_1overload.html">Elevate::overload</a></div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00010">JsonSerializer.cpp:10</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

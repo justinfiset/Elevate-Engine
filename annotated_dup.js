@@ -109,6 +109,7 @@ var annotated_dup =
       [ "OpenGLTexture", "classElevate_1_1OpenGLTexture.html", "classElevate_1_1OpenGLTexture" ],
       [ "OpenGLVertexArray", "classElevate_1_1OpenGLVertexArray.html", "classElevate_1_1OpenGLVertexArray" ],
       [ "OpenGLVertexBuffer", "classElevate_1_1OpenGLVertexBuffer.html", "classElevate_1_1OpenGLVertexBuffer" ],
+      [ "overload", "structElevate_1_1overload.html", null ],
       [ "ParentFieldsHelper", "structElevate_1_1ParentFieldsHelper.html", null ],
       [ "ParentFieldsHelper< T, true >", "structElevate_1_1ParentFieldsHelper_3_01T_00_01true_01_4.html", null ],
       [ "PathResolver", "classElevate_1_1PathResolver.html", null ],

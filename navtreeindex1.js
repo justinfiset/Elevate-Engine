@@ -187,6 +187,8 @@ var NAVTREEINDEX1 =
 "Joystick_8h.html#ae7343b3b0ba800870d2443529321f56e":[4,0,0,0,0,6,5,12],
 "Joystick_8h_source.html":[4,0,0,0,0,6,5],
 "JsonSerializer_8cpp.html":[4,0,0,0,0,10,1],
+"JsonSerializer_8cpp.html#a762f69a24f135c3f4747be2d48880b54":[4,0,0,0,0,10,1,2],
+"JsonSerializer_8cpp.html#ad16fe7bc8849d427bf60ac890e6e3e26":[4,0,0,0,0,10,1,1],
 "JsonSerializer_8cpp_source.html":[4,0,0,0,0,10,1],
 "JsonSerializer_8h.html":[4,0,0,0,0,10,2],
 "JsonSerializer_8h_source.html":[4,0,0,0,0,10,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "KeyCodes_8h.html#a725a4af0b65830c49fa4e69ffd1cd669":[4,0,0,0,0,6,6,91],
 "KeyCodes_8h.html#a7563144aedb6575c626c1136ca02cbdb":[4,0,0,0,0,6,6,104],
 "KeyCodes_8h.html#a75b7c1d9fc2266c5f1779fa41540e623":[4,0,0,0,0,6,6,37],
-"KeyCodes_8h.html#a79e798116acf17d84324bbfff111cc05":[4,0,0,0,0,6,6,94],
-"KeyCodes_8h.html#a7e69fe5f2e646f34c05339a05381a09d":[4,0,0,0,0,6,6,114],
-"KeyCodes_8h.html#a7f7f0f39eaa5ea3c11bb80b665525eca":[4,0,0,0,0,6,6,59]
+"KeyCodes_8h.html#a79e798116acf17d84324bbfff111cc05":[4,0,0,0,0,6,6,94]
 };

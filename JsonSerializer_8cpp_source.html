@@ -103,34 +103,77 @@ $(document).ready(function(){initNavTree('JsonSerializer_8cpp_source.html',''); 
 </div><!--header-->
 <div class="contents">
 <a href="JsonSerializer_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="JsonSerializer_8h.html">JsonSerializer.h</a>&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceElevate.html">Elevate</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    <span class="keywordtype">bool</span> JsonSerializer::Serialize(<span class="keyword">const</span> <a class="code hl_typedef" href="namespaceElevate.html#a30d612d5c6fd56213ff2d8117cf2538e">PropertySet</a>&amp; fields, <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>&amp; outBuffer)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; property : fields)</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>        {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>            <span class="keywordflow">if</span> (property.IsPrimitive())</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>            {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>                <span class="comment">// directly set the value</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>            }</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (property.IsContainer())</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>            {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>                <span class="comment">// recursivly get the json</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            }</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        }</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordtype">bool</span> JsonSerializer::Deserialize(<span class="keyword">const</span> <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>&amp; data, <a class="code hl_typedef" href="namespaceElevate.html#a30d612d5c6fd56213ff2d8117cf2538e">PropertySet</a>&amp; outFields)</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    }</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;variant&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;rapidjson/document.h&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;rapidjson/stringbuffer.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;rapidjson/writer.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceElevate.html">Elevate</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="structElevate_1_1overload.html">   10</a></span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span>... Ts&gt; <span class="keyword">struct </span><a class="code hl_struct" href="structElevate_1_1overload.html">overload</a> : Ts... { <span class="keyword">using </span>Ts::operator()...; };</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="namespaceElevate.html#ad16fe7bc8849d427bf60ac890e6e3e26">   11</a></span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span>... Ts&gt; <a class="code hl_struct" href="structElevate_1_1overload.html">overload</a>(Ts...) -&gt; <a class="code hl_struct" href="structElevate_1_1overload.html">overload</a>&lt;Ts...&gt;;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">   13</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">SerializeRecursive</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespaceElevate.html#a30d612d5c6fd56213ff2d8117cf2538e">PropertySet</a>&amp; fields, rapidjson::Value&amp; parentObj, rapidjson::Document::AllocatorType&amp; allocator)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; property : fields)</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            rapidjson::Value key(property.Name.c_str(), allocator);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            rapidjson::Value val = std::visit(<a class="code hl_struct" href="structElevate_1_1overload.html">overload</a>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                [&amp;](<span class="keywordtype">bool</span> v) { <span class="keywordflow">return</span> rapidjson::Value(v); },</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                [&amp;](int64_t v) { <span class="keywordflow">return</span> rapidjson::Value(v); },</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                [&amp;](<span class="keywordtype">double</span> v) { <span class="keywordflow">return</span> rapidjson::Value(v); },</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                [&amp;](<span class="keyword">const</span> std::string&amp; v) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                    <span class="keywordflow">return</span> rapidjson::Value(v.c_str(), allocator);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                },</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                [&amp;](<span class="keyword">const</span> <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>&amp; v) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                    <span class="keywordflow">return</span> rapidjson::Value(</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                        <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(v.data()),</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                        <span class="keyword">static_cast&lt;</span>rapidjson::SizeType<span class="keyword">&gt;</span>(v.size()),</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                        allocator</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                    );</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                },</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                [&amp;](<span class="keyword">const</span> <a class="code hl_typedef" href="namespaceElevate.html#a30d612d5c6fd56213ff2d8117cf2538e">PropertySet</a>&amp; v) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                    rapidjson::Value childObj(rapidjson::kObjectType);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                    <a class="code hl_function" href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">SerializeRecursive</a>(v, childObj, allocator);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                    <span class="keywordflow">return</span> childObj;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            }, <span class="keyword">property</span>.Value);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            parentObj.AddMember(key, val, allocator);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
+</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">bool</span> JsonSerializer::Serialize(<span class="keyword">const</span> <a class="code hl_typedef" href="namespaceElevate.html#a30d612d5c6fd56213ff2d8117cf2538e">PropertySet</a>&amp; fields, <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>&amp; outBuffer)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        rapidjson::Document doc;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        doc.SetObject();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <a class="code hl_function" href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">SerializeRecursive</a>(fields, doc, doc.GetAllocator());</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        rapidjson::StringBuffer buffer;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        rapidjson::Writer&lt;rapidjson::StringBuffer&gt; writer(buffer);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        doc.Accept(writer);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keyword">const</span> std::byte* dataPtr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>std::byte*<span class="keyword">&gt;</span>(buffer.GetString());</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        outBuffer.assign(dataPtr, dataPtr + buffer.GetSize());</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordtype">bool</span> JsonSerializer::Deserialize(<span class="keyword">const</span> <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>&amp; data, <a class="code hl_typedef" href="namespaceElevate.html#a30d612d5c6fd56213ff2d8117cf2538e">PropertySet</a>&amp; outFields)</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
 <div class="ttc" id="aJsonSerializer_8h_html"><div class="ttname"><a href="JsonSerializer_8h.html">JsonSerializer.h</a></div></div>
 <div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00008">AudioDistanceProbe.h:9</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a30d612d5c6fd56213ff2d8117cf2538e"><div class="ttname"><a href="namespaceElevate.html#a30d612d5c6fd56213ff2d8117cf2538e">Elevate::PropertySet</a></div><div class="ttdeci">std::vector&lt; PropertyField &gt; PropertySet</div><div class="ttdef"><b>Definition</b> <a href="ObjectPropertyField_8h_source.html#l00013">ObjectPropertyField.h:13</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a662833bd41c873b3ffeddc33c6f28e19"><div class="ttname"><a href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">Elevate::ByteBuffer</a></div><div class="ttdeci">std::vector&lt; Byte &gt; ByteBuffer</div><div class="ttdef"><b>Definition</b> <a href="Byte_8h_source.html#l00008">Byte.h:8</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a762f69a24f135c3f4747be2d48880b54"><div class="ttname"><a href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">Elevate::SerializeRecursive</a></div><div class="ttdeci">void SerializeRecursive(const PropertySet &amp;fields, rapidjson::Value &amp;parentObj, rapidjson::Document::AllocatorType &amp;allocator)</div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00013">JsonSerializer.cpp:13</a></div></div>
+<div class="ttc" id="astructElevate_1_1overload_html"><div class="ttname"><a href="structElevate_1_1overload.html">Elevate::overload</a></div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00010">JsonSerializer.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
