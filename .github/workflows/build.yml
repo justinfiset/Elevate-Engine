@@ -59,7 +59,7 @@ jobs:
         run: msbuild ElevateEngine.sln /p:Configuration="Editor_Debug"
 
       - name: Run tests
-        run: .\Build\bin\Editor_Debug-windows-x86_64\ElevateEngine-Tests>ElevateEngine-Tests -r junit -o junit-results.xml
+        run: .\Build\bin\Editor_Debug-windows-x86_64\ElevateEngine-Tests\ElevateEngine-Tests -r junit -o junit-results.xml
 
       - name: Upload Test Results
         if: always()
