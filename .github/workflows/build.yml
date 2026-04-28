@@ -30,6 +30,18 @@ jobs:
         run: |
            grep '^[^#[:space:]].*:' Makefile
            make config=editor_debug -j$(nproc)
+
+      - name: Run tests
+        run: ./Build/bin/Editor_Debug/ElevateEngine-Tests -r junit -o junit-results.xml
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-${{ runner.os }}-${{ github.run_id }}
+          path: junit-results.xml
+          retention-days: 5
+
   build-windows:
     runs-on: windows-latest
     steps:
@@ -45,6 +57,17 @@ jobs:
 
       - name: Compile
         run: msbuild ElevateEngine.sln /p:Configuration="Editor_Debug"
+
+      - name: Run tests
+        run: .\Build\bin\Editor_Debug-windows-x86_64\ElevateEngine-Tests>ElevateEngine-Tests -r junit -o junit-results.xml
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-${{ runner.os }}-${{ github.run_id }}
+          path: junit-results.xml
+          retention-days: 5
 
   build-web-windows-ninja:  
     runs-on: windows-latest
