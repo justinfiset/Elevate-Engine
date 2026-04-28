@@ -32,7 +32,7 @@ jobs:
            make config=editor_debug -j$(nproc)
 
       - name: Run tests
-        run: ./Build/bin/Editor_Debug-linux-x86_64/ElevateEngine-Tests -r junit -o junit-results.xml
+        run: ./Build/bin/Editor_Debug-linux-x86_64/ElevateEngine-Tests/ElevateEngine-Tests -r junit -o junit-results.xml
 
       - name: Upload Test Results
         if: always()
