@@ -25,7 +25,7 @@ workspace "ElevateEngine"
 		include "ElevateEngine/vendor/imgui.lua"
 		include "ElevateEngine/vendor/assimp.lua"
 
-	if _OPTIONS["system"] ~= "emscripten" then
+	if os.target() ~= "emscripten" then
 		group "Tests"
 			CommonProject.SetupProject("ElevateTests", function(d, i)
 				directory = d or "ElevateTests"
