@@ -5,7 +5,7 @@ var Event_8h =
     [ "EVENT_CLASS_CATEGORY", "Event_8h.html#abd52deea587a36ef619e596a0c691839", null ],
     [ "EVENT_CLASS_TYPE", "Event_8h.html#a80d534fc4d69a68eefd1573fd0ac2f44", null ],
     [ "EventCategory", "Event_8h.html#a8ceb7a59701da978c93cf30fbb8b71e9", [
-      [ "None", "Event_8h.html#a6eca3277644e3989c1cde78d599b4d8ca6ef1f89e095be7e0d20965874f5ebf21", null ],
+      [ "NoneCategory", "Event_8h.html#a8ceb7a59701da978c93cf30fbb8b71e9a565039a0fe04c76306afad10eeae9a61", null ],
       [ "EventCategoryApplication", "Event_8h.html#a8ceb7a59701da978c93cf30fbb8b71e9a0273e04a20471241b0933b9cf2efba55", null ],
       [ "EventCategoryInput", "Event_8h.html#a8ceb7a59701da978c93cf30fbb8b71e9a53e70b717d2739659e4aedf7e27384a9", null ],
       [ "EventCategoryKeyboard", "Event_8h.html#a8ceb7a59701da978c93cf30fbb8b71e9a642327fb9ded35ea7f2cf110b7c2b8a7", null ],

@@ -85,7 +85,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpm68aa749.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp5rr3fme1.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -751,29 +751,29 @@ Module["expectedDataFileDownloads"]++;
     }, {
       "filename": "/imgui.ini",
       "start": 79989562,
-      "end": 79993214
+      "end": 79993232
     } ],
-    "remote_package_size": 79993214
+    "remote_package_size": 79993232
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpm68aa749.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpk26ghb1b.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp5rr3fme1.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpy7k19sbt.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpk26ghb1b.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpz7erv7j_.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpy7k19sbt.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpb0fz2k9k.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpz7erv7j_.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpb0fz2k9k.js
 var arguments_ = [];
 
 var thisProgram = "./this.program";

@@ -215,7 +215,7 @@ var namespaceElevate =
       [ "Unknown", "namespaceElevate.html#a084798f901873cb9a7cb959b62006324a88183b946cc5f0e8c96b2e66e1c74a7e", null ]
     ] ],
     [ "EventCategory", "namespaceElevate.html#a8ceb7a59701da978c93cf30fbb8b71e9", [
-      [ "None", "namespaceElevate.html#a6eca3277644e3989c1cde78d599b4d8ca6ef1f89e095be7e0d20965874f5ebf21", null ],
+      [ "NoneCategory", "namespaceElevate.html#a8ceb7a59701da978c93cf30fbb8b71e9a565039a0fe04c76306afad10eeae9a61", null ],
       [ "EventCategoryApplication", "namespaceElevate.html#a8ceb7a59701da978c93cf30fbb8b71e9a0273e04a20471241b0933b9cf2efba55", null ],
       [ "EventCategoryInput", "namespaceElevate.html#a8ceb7a59701da978c93cf30fbb8b71e9a53e70b717d2739659e4aedf7e27384a9", null ],
       [ "EventCategoryKeyboard", "namespaceElevate.html#a8ceb7a59701da978c93cf30fbb8b71e9a642327fb9ded35ea7f2cf110b7c2b8a7", null ],
@@ -272,7 +272,7 @@ var namespaceElevate =
       [ "Torus", "namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1a5c22b826138634df6ddf1e22fdb7e66e", null ]
     ] ],
     [ "PropertyFlag", "namespaceElevate.html#a6eca3277644e3989c1cde78d599b4d8c", [
-      [ "None", "namespaceElevate.html#a6eca3277644e3989c1cde78d599b4d8ca6ef1f89e095be7e0d20965874f5ebf21", null ],
+      [ "None", "namespaceElevate.html#a6eca3277644e3989c1cde78d599b4d8caa02f4b48819af4c56ed36f25a199e9d9", null ],
       [ "ReadOnly", "namespaceElevate.html#a6eca3277644e3989c1cde78d599b4d8ca22138e60429cc517d8fb3500ac41da68", null ],
       [ "Hidden", "namespaceElevate.html#a6eca3277644e3989c1cde78d599b4d8cab21f4c99a9a46ccb01923ee8baa80fcf", null ],
       [ "NoSave", "namespaceElevate.html#a6eca3277644e3989c1cde78d599b4d8ca4a9a4ca6f2a3624d239dde1051f780f2", null ]

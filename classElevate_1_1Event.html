@@ -258,7 +258,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Event_8h_source.html#l00048">48</a> of file <a class="el" href="Event_8h_source.html">Event.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   49</span>        {</div>
-<div class="line"><span class="lineno">   50</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1Event.html#aefde13a73253156ade546a5ea0df2b71">GetCategoryFlags</a>() &amp; category;</div>
+<div class="line"><span class="lineno">   50</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1Event.html#aefde13a73253156ade546a5ea0df2b71">GetCategoryFlags</a>() &amp; <span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(category);;</div>
 <div class="line"><span class="lineno">   51</span>        }</div>
 <div class="ttc" id="aclassElevate_1_1Event_html_aefde13a73253156ade546a5ea0df2b71"><div class="ttname"><a href="classElevate_1_1Event.html#aefde13a73253156ade546a5ea0df2b71">Elevate::Event::GetCategoryFlags</a></div><div class="ttdeci">virtual int GetCategoryFlags() const =0</div></div>
 </div><!-- fragment -->
