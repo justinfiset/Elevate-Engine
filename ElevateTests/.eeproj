@@ -1,0 +1,5 @@
+{
+    "name":"ElevateEngine Tests",
+    "usesSoundEngine":false,
+    "usesWaapi":false
+}

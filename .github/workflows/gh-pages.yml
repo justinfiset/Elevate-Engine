@@ -70,7 +70,7 @@ jobs:
           path: Build/bin/Release-emscripten-wasm32/
   
   finalize-deployment:
-    needs: [deploy-docs, deploy-web-builds]
+    needs: [deploy-docs, deploy-web-builds, build-linux, build-windows]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -95,6 +95,22 @@ jobs:
         with:
           name: web-build
           path: public/runtime
+
+      - name: Download Allure Results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: allure-results-*
+          path: allure-results
+          merge-multiple: true
+
+      - name: Generate Allure Test Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: allure-results
+          allure_report: public/tests
+          allure_history: allure-history
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4

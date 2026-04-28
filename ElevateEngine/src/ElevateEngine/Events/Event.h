@@ -19,7 +19,7 @@ namespace Elevate {
 
 	enum EventCategory : uint8_t
 	{
-		None = 0,
+		NoneCategory = 0,
 		EventCategoryApplication    = BIT(0),
 		EventCategoryInput          = BIT(1),
 		EventCategoryKeyboard       = BIT(2),
@@ -47,7 +47,7 @@ namespace Elevate {
 
 		inline bool IsInCategory(EventCategory category)
 		{
-			return GetCategoryFlags() & category;
+			return GetCategoryFlags() & static_cast<uint8_t>(category);;
 		}
 	protected:
 		bool m_Handled = false;

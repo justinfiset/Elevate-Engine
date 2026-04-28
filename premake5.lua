@@ -18,25 +18,34 @@ workspace "ElevateEngine"
 	Wwise.SetupWorkspace()
     BuildPlatform.ConfigureWorkspaceAction()
 
-include "ElevateEngine/engine.lua"
+	include "ElevateEngine/engine.lua"
 
-group "Dependencies"
-	include "ElevateEngine/vendor/glfw.lua"
-	include "ElevateEngine/vendor/imgui.lua"
-	include "ElevateEngine/vendor/assimp.lua"
+	group "Dependencies"
+		include "ElevateEngine/vendor/glfw.lua"
+		include "ElevateEngine/vendor/imgui.lua"
+		include "ElevateEngine/vendor/assimp.lua"
 
--- Setup the Wwise SoundEngine if the SDK is found
-Wwise.Initialize()
+	if os.target() ~= "emscripten" then
+		group "Tests"
+			CommonProject.SetupProject("ElevateTests", function(d, i)
+				directory = d or "ElevateTests"
+				infos = i or CommonProject.GetProjectInfos(directory)
+				include "ElevateTests/tests.lua"
+			end)
+	end
 
-group "User Projects"
-	local userProjects = os.matchdirs("Projects/*")
+	-- Setup the Wwise SoundEngine if the SDK is found
+	Wwise.Initialize()
 
-	for _, projectPath in ipairs(userProjects) do
-		includePath = projectPath .. "/project.lua"
-		Logger.Info("Loading User Project: " .. projectPath)
-        if os.isfile(includePath) then
-            include(includePath)
-		else -- If there is no custom config, try to set up a default project
-			CommonProject.SetupProject(projectPath)
-        end
-    end
+	group "User Projects"
+		local userProjects = os.matchdirs("Projects/*")
+
+		for _, projectPath in ipairs(userProjects) do
+			includePath = projectPath .. "/project.lua"
+			Logger.Info("Loading User Project: " .. projectPath)
+			if os.isfile(includePath) then
+				include(includePath)
+			else -- If there is no custom config, try to set up a default project
+				CommonProject.SetupProject(projectPath)
+			end
+		end

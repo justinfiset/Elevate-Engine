@@ -47,7 +47,7 @@ function CommonProject.GetSafeProjectName(name)
 	return name:gsub(" ", "-")
 end
 
-function CommonProject.SetupProject(directory)
+function CommonProject.SetupProject(directory, customCallback)
 	-- Make sure the directory exists before trying to set up the project
 	if not os.isdir(directory) then
 		error("Cannot create project. Directory does not exist: " .. directory)
@@ -80,13 +80,15 @@ function CommonProject.SetupProject(directory)
 		directory.."/Source/**.frag",
 	}
 
+	local enginePath = path.getabsolute(_MAIN_SCRIPT_DIR.."/ElevateEngine")
+	local vendorPath = path.getabsolute(_MAIN_SCRIPT_DIR).."/ElevateEngine/vendor"
 	includedirs
 	{
-		directory.."/../../ElevateEngine/vendor/entt/include",
-		directory.."/../../ElevateEngine/vendor/ImGui/",
-		directory.."/../../ElevateEngine/vendor/glm/",
-		directory.."/../../ElevateEngine/vendor/spdlog/include",
-		directory.."/../../ElevateEngine/src",
+		vendorPath.."/entt/include",
+		vendorPath.."/ImGui/",
+		vendorPath.."/glm/",
+		vendorPath.."/spdlog/include",
+		enginePath.."/src",
 	}
 
 	links { "ElevateEngine" }
@@ -170,6 +172,12 @@ function CommonProject.SetupProject(directory)
         optimize "on"
 
 	BuildPlatform.ConfigureProject(directory, infos)
+
+	filter {}
+	if type(customCallback) == "function" then
+		Logger.Info("Executing custom project logic...")
+		customCallback(directory, infos)
+	end
 
 print("Finished Generating " .. infos.name .. " Solution.\n")
 end
