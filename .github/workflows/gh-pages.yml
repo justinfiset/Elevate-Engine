@@ -1,12 +1,14 @@
 name: Doxygen and Web Build Deploy
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+      workflows: ["Build Elevate Engine"]
+      types:
+        - completed
 
 jobs:
   deploy-docs:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -31,6 +33,7 @@ jobs:
           path: Docs/html/
 
   deploy-web-builds:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
     runs-on: windows-latest
     steps:
       - name : Checkout code
@@ -70,7 +73,8 @@ jobs:
           path: Build/bin/Release-emscripten-wasm32/
   
   finalize-deployment:
-    needs: [deploy-docs, deploy-web-builds, build-linux, build-windows]
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
+    needs: [deploy-docs, deploy-web-builds]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -102,6 +106,7 @@ jobs:
           pattern: allure-results-*
           path: allure-results
           merge-multiple: true
+          run-id: ${{ github.event.workflow_run.id }}
 
       - name: Generate Allure Test Report
         uses: simple-elf/allure-report-action@master
