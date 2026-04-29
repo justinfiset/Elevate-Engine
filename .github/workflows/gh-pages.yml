@@ -109,7 +109,9 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
 
       - name: Debug Allure Results
-        run: ls -R allure-results
+        run: |
+          mkdir -p allure-results
+          ls -R allure-results
 
       - name: Generate Allure Test Report
         uses: simple-elf/allure-report-action@master

@@ -38,9 +38,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-${{ runner.os }}-${{ github.run_id }}
+          name: allure-results-linux
           path: junit-results.xml
-          retention-days: 5
 
   build-windows:
     runs-on: windows-latest
@@ -65,9 +64,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-${{ runner.os }}-${{ github.run_id }}
+          name: allure-results-windows
           path: junit-results.xml
-          retention-days: 5
 
   build-web-windows-ninja:  
     runs-on: windows-latest
