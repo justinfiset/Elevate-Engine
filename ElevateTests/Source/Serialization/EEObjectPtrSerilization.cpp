@@ -28,3 +28,13 @@ TEST_CASE("EEObjectPtr serialization ensures uniqueness", "[Serialization]") {
 
     REQUIRE(buffer1 != buffer2);
 }
+
+TEST_CASE("EEObjectPtr serialization gives the same as the EEObject's guid.") {
+    Elevate::EEObjectPtr objPtr(std::make_shared<MockEEObject>());
+    Elevate::ByteBuffer guid = objPtr.Serialize();
+    REQUIRE(!guid.empty());
+
+    std::string objGuid = objPtr->GetGuid().ToString();
+    std::erase(objGuid, '-');
+    REQUIRE(Elevate::ByteUitls::ToHexString(guid) == objGuid);
+}
