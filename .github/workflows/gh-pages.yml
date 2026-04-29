@@ -33,11 +33,11 @@ jobs:
           name: docs-site
           path: Docs/html/
 
-  deploy-web-builds:
+  deploy-web-editor:
     if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
     runs-on: windows-latest
     steps:
-      - name : Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           submodules: recursive
@@ -52,22 +52,42 @@ jobs:
         with:
           version: 'latest'
 
-      - name: Generate Projects (Premake) 
-        run: ./vendor/premake/premake5.exe --os=emscripten ninja
+      - name: Generate and Compile Editor
+        run: |
+          ./vendor/premake/premake5.exe --os=emscripten ninja
+          ninja Editor_Release
 
-      - name: Compile Editor_Release Config
-        run: ninja Editor_Release
-
-      - name: Upload Editor Release Web Artifact
+      - name: Upload Editor Artifact
         uses: actions/upload-artifact@v4
         with:
           name: web-build-editor
           path: Build/bin/Editor_Release-emscripten-wasm32/
 
-      - name: Compile Release Config
-        run: ninja Release
+  deploy-web-runtime:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
-      - name: Upload Release Web Artifact
+      - name: Setup Ninja
+        uses: ashutoshvarma/setup-ninja@master
+        with:
+          version: 1.12.1
+
+      - name: Setup Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 'latest'
+
+      - name: Generate and Compile Runtime
+        run: |
+          ./vendor/premake/premake5.exe --os=emscripten ninja
+          ninja Release
+
+      - name: Upload Runtime Artifact
         uses: actions/upload-artifact@v4
         with:
           name: web-build
@@ -75,7 +95,7 @@ jobs:
   
   finalize-deployment:
     if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
-    needs: [deploy-docs, deploy-web-builds]
+    needs: [deploy-docs, deploy-web-editor, deploy-web-runtime]
     runs-on: ubuntu-latest
     permissions:
       contents: write
