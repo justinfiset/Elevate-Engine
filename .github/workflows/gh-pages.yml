@@ -137,6 +137,13 @@ jobs:
           mkdir -p allure-results
           ls -R allure-results
 
+      - name: Clean JUnit XML
+        run: |
+          # Delete everything after </testsuites> in the JUnit XML to prevent parsing errors
+          sed -i 's/<\/testsuites>.*/<\/testsuites>/' allure-results/junit-results.xml
+          # Output the cleaned JUnit XML for debugging
+          cat allure-results/junit-results.xml
+
       - name: Generate Allure Test Report
         uses: simple-elf/allure-report-action@master
         if: always()
