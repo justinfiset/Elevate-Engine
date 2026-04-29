@@ -1,1 +1,1 @@
-[]
+[{"uid":"8d778650f04109c6","name":"EEObjectPtr serlization is not empty","time":{"start":1777469521000,"stop":1777469521000,"duration":0},"status":"passed","severity":"normal"},{"uid":"ee7f1f2f8845237c","name":"EEObjectPtr serialization ensures uniqueness","time":{"start":1777469521000,"stop":1777469521000,"duration":0},"status":"passed","severity":"normal"}]
