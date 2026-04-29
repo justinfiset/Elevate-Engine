@@ -108,6 +108,9 @@ jobs:
           merge-multiple: true
           run-id: ${{ github.event.workflow_run.id }}
 
+      - name: Debug Allure Results
+        run: ls -R allure-results
+
       - name: Generate Allure Test Report
         uses: simple-elf/allure-report-action@master
         if: always()
