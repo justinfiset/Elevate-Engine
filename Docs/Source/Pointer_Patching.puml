@@ -1,0 +1,61 @@
+@startuml Elevate_EEObjectPtr_Patching
+title EEObjectPtr Deserialization Patching
+
+class ObjectRegistry {
+    {static} s_registry : std::unordered_map<Elevate::Guid, std::shared_ptr<EEObjject>>
+    +RegisterObject(obj : EEObjectPtr*)
+    +GetObject(guid : Elevate::Guid) : std::shared_ptr<EEObject>
+}
+note right of ObjectRegistry::RegisterObject
+  Make sure the object is not null and get the guid from the object to add the entry.
+  This should be called in the constructor of any EEObject inherited object.
+end note
+
+note right of ObjectRegistry::GetObject
+    This just returns null if the object is not in the registry yet.
+    If the object is found, simply return that object.
+    This function should not be called before every other constructor was called.
+end note
+
+class EEObject
+{
+    EEObject()
+}
+
+class EEObjectPtr
+{
+    -m_guid : Elevate::Guid
+    -mutable bool m_isResolved
+    -mutable std::shared_ptr<T> m_ptr
+    +Deserialize(...data containing Guid)
+    -Resolve() : void
+}
+
+note right of EEObjectPtr::Deserialize
+    **2.** Simmply sets the m_guid attributes to be used later by the Resolve() method.
+end note
+
+note right of EEObjectPtr::m_guid
+    This is only used if the object is not resolved. Used for lazy loading to keep the guid in memory.
+end note
+
+note right of EEObjectPtr::m_isResolved
+    **True** if the pointer is valid and ready to be used (even if the value is null). This means that the
+    value of the pointer is what it is actually meant to be.
+    **False** if the pointer was not created by code and still need to be retreived from the ObjectRegistry.
+end note
+
+note right of EEObject::EEObject
+    **1.** This should call the ObjectRegistry to register itself.
+end note
+
+note right of EEObjectPtr::Resolve
+    **3.** Called by the -> operator if still marked as resolved. 
+    This should use the GetObject to get the instance based on the guid.
+    If the object does not exists, we should simply set the object as resolved and pointing to nullptr.
+end note
+
+EEObject::EEObject --> ObjectRegistry::RegisterObject : Registers itself with
+EEObjectPtr::Resolve --> ObjectRegistry::GetObject : Get the object pointer with
+
+@enduml

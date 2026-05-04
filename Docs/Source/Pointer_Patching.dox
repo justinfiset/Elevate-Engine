@@ -1,0 +1,6 @@
+\section pointer_patching Pointer Patching
+
+Here is a diagram pointer patching usre for pointer patching using EEObjectPtr :
+
+\startuml Pointer_Patching.puml
+\enduml
