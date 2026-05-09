@@ -12,9 +12,6 @@
 
 #include <glm/glm.hpp>
 
-#define KEYBOARD_SIZE   512;
-#define MOUSE_SIZE      16;
-
 // In order of execution when a key / button is pressed
 #define EE_STATE_RELEASED 0
 #define EE_STATE_DOWN     1 // The instant moment when a key is pressed
