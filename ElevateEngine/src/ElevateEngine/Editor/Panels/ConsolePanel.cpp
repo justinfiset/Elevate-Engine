@@ -17,9 +17,16 @@ void Elevate::Editor::ConsolePanel::OnImGuiRender()
 {
 	ImGui::Begin("Console");
 
+	ImGui::BeginGroup();
+	if (ImGui::Button("Clear"))
+	{
+		m_logs.clear();
+	}
+	ImGui::EndGroup();
+
 	if (ImGui::BeginTable("elevate_console", 2, ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_ScrollY, ImVec2(0.0f, 0.0f)))
 	{
-		ImGui::TableSetupColumn("Time Stamp", ImGuiTableColumnFlags_WidthFixed);
+		ImGui::TableSetupColumn("Time", ImGuiTableColumnFlags_WidthFixed);
 		ImGui::TableSetupColumn("Message", ImGuiTableColumnFlags_WidthStretch);
 
 		ImGui::TableSetupScrollFreeze(0, 1);
