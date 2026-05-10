@@ -13,6 +13,7 @@
 #include <ElevateEngine/Editor/Panels/AnalyserPanel.h>
 #include <ElevateEngine/Editor/Panels/AssetBrowserPanel.h>
 #include <ElevateEngine/Editor/Panels/StatisticsPanel.h>
+#include <ElevateEngine/Editor/Panels/ConsolePanel.h>
 
 #include <memory>
 
@@ -38,6 +39,7 @@ namespace Elevate::Editor
 
 		void InitUI()
 		{
+			CreateWidget<ConsolePanel>();
 			CreateWidget<HierarchyPanel>();
 			CreateWidget<ScenePanel>();
 			CreateWidget<AnalyserPanel>();

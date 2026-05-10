@@ -3,6 +3,7 @@
 #include <format>
 #include <string>
 #include <memory>
+#include <vector>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
@@ -24,15 +25,44 @@
 #endif
 
 namespace Elevate {
+    enum class LogLevel { Trace, Info, Warning, Error, Fatal };
+
+    using LogCallback = std::function<void(LogLevel, std::string_view)>;
+
     class LogImpl {
     public:
         LogImpl(std::shared_ptr<spdlog::logger> logger) : m_logger(logger) { }
-        inline void Trace(const std::string& text) { m_logger->trace(EE_TRACE_PREFIX "{}", text);    }
-        inline void Info(const std::string& text)  { m_logger->info(EE_INFO_PREFIX "{}", text);     }
-        inline void Warn(const std::string& text)  { m_logger->warn(EE_WARN_PREFIX "{}", text);     }
-        inline void Error(const std::string& text) { m_logger->error(EE_ERROR_PREFIX "{}", text);    }
-        inline void Fatal(const std::string& text) { m_logger->critical(EE_FATAL_PREFIX "{}", text); }
+        inline void Trace(const std::string& text) { 
+            m_logger->trace(EE_TRACE_PREFIX "{}", text);
+            NotifyCallbacks(LogLevel::Trace, text);
+        }
+        inline void Info(const std::string& text)  {
+            m_logger->info(EE_INFO_PREFIX "{}", text);
+            NotifyCallbacks(LogLevel::Info, text);
+        }
+        inline void Warn(const std::string& text)  {
+            m_logger->warn(EE_WARN_PREFIX "{}", text);
+            NotifyCallbacks(LogLevel::Warning, text);
+        }
+        inline void Error(const std::string& text) {
+            m_logger->error(EE_ERROR_PREFIX "{}", text);
+            NotifyCallbacks(LogLevel::Error, text);
+        }
+        inline void Fatal(const std::string& text) {
+            m_logger->critical(EE_FATAL_PREFIX "{}", text);
+            NotifyCallbacks(LogLevel::Fatal, text);
+        }
+        inline void AddCallback(LogCallback callback) { m_callbacks.push_back(callback); }
     private:
+        inline void NotifyCallbacks(LogLevel level, const std::string& msg)
+        {
+            for (auto& callback : m_callbacks)
+            {
+                callback(level, msg);
+            }
+        }
+    private:
+        std::vector<LogCallback> m_callbacks;
         std::shared_ptr<spdlog::logger> m_logger;
     };
 
