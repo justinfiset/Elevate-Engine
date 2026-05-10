@@ -1,6 +1,6 @@
 #pragma once
 #include "ElevateEngine/Renderer/Camera.h"
-#include "ElevateEngine/Core/ComponentRegistry.h"
+#include "ElevateEngine/Core/TypeRegistry.h"
 
 namespace Elevate {
 	class Event;

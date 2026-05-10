@@ -2,7 +2,7 @@
 
 #include <memory>
 #include <ElevateEngine/Core/Component.h>
-#include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 
 namespace Elevate

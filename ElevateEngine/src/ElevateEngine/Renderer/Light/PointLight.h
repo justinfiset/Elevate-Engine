@@ -7,6 +7,7 @@ namespace Elevate
 	{
 		BEGIN_COMPONENT(PointLight)
 		DECLARE_BASE(Light)
+		EECATEGORY("Lighting")
 	public:
 		PointLight() = default;
 		PointLight(const glm::vec3& color) : Light(color) { }

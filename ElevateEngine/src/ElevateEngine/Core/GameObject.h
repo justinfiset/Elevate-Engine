@@ -20,7 +20,7 @@ namespace Elevate
 	class Event;
 	class Scene;
 	class Component;
-	class ComponentRegistry;
+	class TypeRegistry;
 
 	namespace Editor
 	{
@@ -106,7 +106,7 @@ namespace Elevate
 		Scene* m_scene;
 
 		friend class Scene;
-		friend class ComponentRegistry;
+		friend class TypeRegistry;
 		friend class Editor::EditorLayer;
 	};
 }

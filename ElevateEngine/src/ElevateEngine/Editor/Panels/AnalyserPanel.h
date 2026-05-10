@@ -5,7 +5,7 @@
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 #include <ElevateEngine/Core/EEObject.h>
-#include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Core/TypeRegistry.h>
 
 namespace Elevate
 {
@@ -28,11 +28,11 @@ namespace Elevate::Editor
 		struct CategoryMenu
 		{
 			EECategory category;
-			std::vector<ComponentRegistry::Entry> items;
+			std::vector<TypeRegistry::Entry> items;
 
 			std::vector<CategoryMenu> childs;
 		};
-		void InsertCategory(CategoryMenu& root, const ComponentRegistry::Entry& entry);
+		void InsertCategory(CategoryMenu& root, const TypeRegistry::Entry& entry);
 		void DrawCategoryChildren(const CategoryMenu& category, std::weak_ptr<GameObject> obj);
 		void DrawCategoryMenu(const CategoryMenu& menu, std::weak_ptr<GameObject> obj);
 

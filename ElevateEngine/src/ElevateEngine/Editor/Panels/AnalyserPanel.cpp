@@ -13,7 +13,7 @@
 #include <ElevateEngine/ImGui/CustomImGuiCommand.h>
 
 #include <ElevateEngine/Editor/Commands/ComponentCommand.h>
-#include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Core/Component.h>
 
 void Elevate::Editor::AnalyserPanel::OnImGuiRender()
@@ -90,7 +90,7 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 			ImGui::Separator();
 
 			CategoryMenu root;
-			for (auto& pair : ComponentRegistry::GetEntries())
+			for (auto& pair : TypeRegistry::GetEntries())
 			{
 				InsertCategory(root, pair.second);
 			}
@@ -245,7 +245,7 @@ void Elevate::Editor::AnalyserPanel::RenderField(const ComponentField& field) co
 	}
 }
 
-void Elevate::Editor::AnalyserPanel::InsertCategory(CategoryMenu& root, const ComponentRegistry::Entry& entry)
+void Elevate::Editor::AnalyserPanel::InsertCategory(CategoryMenu& root, const TypeRegistry::Entry& entry)
 {
 	if (!entry.visible)
 	{

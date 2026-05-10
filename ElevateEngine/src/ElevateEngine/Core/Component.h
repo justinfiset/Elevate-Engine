@@ -51,7 +51,7 @@ namespace Elevate
 
 		inline virtual std::string GetName() const {
 			return "Unknown Component Name";
-			//return ComponentRegistry::GetName(typeid(*this));
+			//return TypeRegistry::GetName(typeid(*this));
 		}
 	protected:
 		virtual void Init() {}
