@@ -21,12 +21,13 @@ var searchData=
   ['bufferelement_18',['bufferelement',['../structElevate_1_1BufferElement.html#afb2ef71b3f98e58a83733c141ab6fb04',1,'Elevate::BufferElement::BufferElement()'],['../structElevate_1_1BufferElement.html',1,'Elevate::BufferElement'],['../structElevate_1_1BufferElement.html#a879d0dac730067d6108f819bb6de92df',1,'Elevate::BufferElement::BufferElement()']]],
   ['bufferingbar_19',['BufferingBar',['../namespaceImGui.html#a961e96c8c88a3b4c874a1c11a37608ee',1,'ImGui']]],
   ['bufferlayout_20',['bufferlayout',['../classElevate_1_1BufferLayout.html#aca24addf14a5fe14f1d300b52cc4dd36',1,'Elevate::BufferLayout::BufferLayout()'],['../classElevate_1_1BufferLayout.html',1,'Elevate::BufferLayout'],['../classElevate_1_1BufferLayout.html#a9cca4f7bf5eb2e196503ad5657631ad3',1,'Elevate::BufferLayout::BufferLayout(const std::vector&lt; BufferElement &gt; &amp;elements)'],['../classElevate_1_1BufferLayout.html#a89a28e5e65e100447725da247787ce20',1,'Elevate::BufferLayout::BufferLayout(const std::initializer_list&lt; BufferElement &gt; &amp;elements)']]],
-  ['build_21',['build',['../structElevate_1_1TextureMetadataBuilder.html#a16286b4837bf1ca8ab16daebac3d6ad8',1,'Elevate::TextureMetadataBuilder::Build()'],['../index.html#autotoc_md7',1,'Run the Build']]],
-  ['build_20demo_22',['Web Build Demo',['../index.html#autotoc_md0',1,'']]],
-  ['build_20status_23',['Build Status',['../index.html#autotoc_md8',1,'']]],
-  ['bus_24',['Bus',['../WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa6e4b38bfd57741ac1597c440a1c98074',1,'WwiseItem.h']]],
-  ['byte_25',['Byte',['../namespaceElevate.html#a18b6dd3278db55c09575a0e6d5e50688',1,'Elevate']]],
-  ['byte_2eh_26',['Byte.h',['../Byte_8h.html',1,'']]],
-  ['bytebuffer_27',['ByteBuffer',['../namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19',1,'Elevate']]],
-  ['bytespan_28',['ByteSpan',['../namespaceElevate.html#a3e5bb326128cbe5e1d6ec2d51230cbdb',1,'Elevate']]]
+  ['build_21',['build',['../structElevate_1_1TextureMetadataBuilder.html#a16286b4837bf1ca8ab16daebac3d6ad8',1,'Elevate::TextureMetadataBuilder::Build()'],['../md_README.html#autotoc_md7',1,'Run the Build']]],
+  ['build_20demo_22',['Web Build Demo',['../md_README.html#autotoc_md0',1,'']]],
+  ['build_20status_23',['Build Status',['../md_README.html#autotoc_md8',1,'']]],
+  ['building_20with_20emscripten_24',['Building with Emscripten',['../md_Docs_2Source_2WebAssembly.html',1,'']]],
+  ['bus_25',['Bus',['../WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa6e4b38bfd57741ac1597c440a1c98074',1,'WwiseItem.h']]],
+  ['byte_26',['Byte',['../namespaceElevate.html#a18b6dd3278db55c09575a0e6d5e50688',1,'Elevate']]],
+  ['byte_2eh_27',['Byte.h',['../Byte_8h.html',1,'']]],
+  ['bytebuffer_28',['ByteBuffer',['../namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19',1,'Elevate']]],
+  ['bytespan_29',['ByteSpan',['../namespaceElevate.html#a3e5bb326128cbe5e1d6ec2d51230cbdb',1,'Elevate']]]
 ];

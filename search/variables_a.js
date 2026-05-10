@@ -42,9 +42,10 @@ var searchData=
   ['max_39',['Max',['../structWwiseGameParameter.html#a5fb2d0780cbd867bbb5f1945c8929e7b',1,'WwiseGameParameter']]],
   ['maxattenuation_40',['MaxAttenuation',['../structWwiseEvent.html#aa54f5c6ffe6be4b0be803647e18a069c',1,'WwiseEvent']]],
   ['maxduration_41',['MaxDuration',['../structWwiseEvent.html#a675e7e81ec78d4a547bc82e87a92eab9',1,'WwiseEvent']]],
-  ['meta_42',['meta',['../structElevate_1_1TextureLoadResult.html#a8284b006ebe4c7c8d383e19ae7ef31ca',1,'Elevate::TextureLoadResult']]],
-  ['min_43',['Min',['../structWwiseGameParameter.html#ad11d23070bda6090acc7ff60ad60417e',1,'WwiseGameParameter']]],
-  ['minduration_44',['MinDuration',['../structWwiseEvent.html#a0a3324c6516095d00b6e209819e0978a',1,'WwiseEvent']]],
-  ['minfilter_45',['MinFilter',['../structElevate_1_1TextureMetadata.html#acc2f4cb562a6975282e062e1224d51a4',1,'Elevate::TextureMetadata']]],
-  ['mipmaps_46',['Mipmaps',['../structElevate_1_1TextureMetadata.html#add11504d609e5e1093eff60ca1c4c624',1,'Elevate::TextureMetadata']]]
+  ['message_42',['message',['../structElevate_1_1Editor_1_1EditorMessage.html#a57632d530d0e0f514793dcac5732468b',1,'Elevate::Editor::EditorMessage']]],
+  ['meta_43',['meta',['../structElevate_1_1TextureLoadResult.html#a8284b006ebe4c7c8d383e19ae7ef31ca',1,'Elevate::TextureLoadResult']]],
+  ['min_44',['Min',['../structWwiseGameParameter.html#ad11d23070bda6090acc7ff60ad60417e',1,'WwiseGameParameter']]],
+  ['minduration_45',['MinDuration',['../structWwiseEvent.html#a0a3324c6516095d00b6e209819e0978a',1,'WwiseEvent']]],
+  ['minfilter_46',['MinFilter',['../structElevate_1_1TextureMetadata.html#acc2f4cb562a6975282e062e1224d51a4',1,'Elevate::TextureMetadata']]],
+  ['mipmaps_47',['Mipmaps',['../structElevate_1_1TextureMetadata.html#add11504d609e5e1093eff60ca1c4c624',1,'Elevate::TextureMetadata']]]
 ];

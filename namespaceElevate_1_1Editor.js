@@ -1,11 +1,14 @@
 var namespaceElevate_1_1Editor =
 [
+    [ "Colors", "namespaceElevate_1_1Editor_1_1Colors.html", null ],
     [ "Icons", "namespaceElevate_1_1Editor_1_1Icons.html", [
       [ "COMPONENT_ICON_CAMERA", "namespaceElevate_1_1Editor_1_1Icons.html#affb108d3e992c12bbff0bab176a33a35", null ],
       [ "COMPONENT_ICON_RIGIDBODY", "namespaceElevate_1_1Editor_1_1Icons.html#aacf17b4134035d9726a507ddffd020a5", null ]
     ] ],
     [ "AssetBrowserPanel", "classElevate_1_1Editor_1_1AssetBrowserPanel.html", "classElevate_1_1Editor_1_1AssetBrowserPanel" ],
     [ "BrowserPath", "structElevate_1_1Editor_1_1BrowserPath.html", "structElevate_1_1Editor_1_1BrowserPath" ],
+    [ "ConsolePanel", "classElevate_1_1Editor_1_1ConsolePanel.html", "classElevate_1_1Editor_1_1ConsolePanel" ],
+    [ "EditorMessage", "structElevate_1_1Editor_1_1EditorMessage.html", "structElevate_1_1Editor_1_1EditorMessage" ],
     [ "EditorWidget", "classElevate_1_1Editor_1_1EditorWidget.html", "classElevate_1_1Editor_1_1EditorWidget" ],
     [ "FileItem", "structElevate_1_1Editor_1_1FileItem.html", "structElevate_1_1Editor_1_1FileItem" ],
     [ "FileMetadata", "structElevate_1_1Editor_1_1FileMetadata.html", "structElevate_1_1Editor_1_1FileMetadata" ],

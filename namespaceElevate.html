@@ -107,6 +107,8 @@ $(document).ready(function(){initNavTree('namespaceElevate.html',''); initResiza
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
+<tr class="memitem:namespaceElevate_1_1ByteUitls" id="r_namespaceElevate_1_1ByteUitls"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate_1_1ByteUitls.html">ByteUitls</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceElevate_1_1Editor" id="r_namespaceElevate_1_1Editor"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate_1_1Editor.html">Editor</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceElevate_1_1File" id="r_namespaceElevate_1_1File"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate_1_1File.html">File</a></td></tr>
@@ -432,6 +434,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:ac79ff05bde903d699c49e878f40b62f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81a61359412cc3ef7f17c2a099bb4763" id="r_a81a61359412cc3ef7f17c2a099bb4763"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a81a61359412cc3ef7f17c2a099bb4763">FieldOption</a> = std::variant&lt; <a class="el" href="structElevate_1_1HideInInspectorTag.html">HideInInspectorTag</a>, <a class="el" href="structElevate_1_1EditorIconTag.html">EditorIconTag</a>, <a class="el" href="structElevate_1_1FlattenTag.html">FlattenTag</a>, <a class="el" href="structElevate_1_1DisplayNameTag.html">DisplayNameTag</a>, <a class="el" href="structElevate_1_1TooltipTag.html">TooltipTag</a>, <a class="el" href="structElevate_1_1ReadOnlyTag.html">ReadOnlyTag</a>, <a class="el" href="structElevate_1_1ColorTag.html">ColorTag</a> &gt;</td></tr>
 <tr class="separator:a81a61359412cc3ef7f17c2a099bb4763"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb9c3cce82373dec977b453bb112b48c" id="r_abb9c3cce82373dec977b453bb112b48c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#abb9c3cce82373dec977b453bb112b48c">LogCallback</a> = std::function&lt; void(<a class="el" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95">LogLevel</a>, std::string_view)&gt;</td></tr>
+<tr class="separator:abb9c3cce82373dec977b453bb112b48c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9db4e9c4161565e97e85d34a5dc00c5f" id="r_a9db4e9c4161565e97e85d34a5dc00c5f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a9db4e9c4161565e97e85d34a5dc00c5f">EventCallbackFn</a> = std::function&lt; void(<a class="el" href="classElevate_1_1Event.html">Event</a> &amp;)&gt;</td></tr>
 <tr class="separator:a9db4e9c4161565e97e85d34a5dc00c5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a43e73d351339c0e3ef6694563d603f" id="r_a1a43e73d351339c0e3ef6694563d603f"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324">EngineDataType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a1a43e73d351339c0e3ef6694563d603f">ComponentDataType</a></td></tr>
@@ -492,6 +496,16 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:aaca313f9381f3f38cd912f89f63b6b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad05b2477c07b4e611c5126dcbb332d95" id="r_ad05b2477c07b4e611c5126dcbb332d95"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95">LogLevel</a> { <br />
+&#160;&#160;<a class="el" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95add4ec0ac4e58f7c32a01244ae91150b1">Trace</a>
+, <a class="el" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a4059b0251f66a18cb56f544728796875">Info</a>
+, <a class="el" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a0eaadb4fcb48a0a0ed7bc9868be9fbaa">Warning</a>
+, <a class="el" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a902b0d55fddef6f8d651fe1035b7d4bd">Error</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a882384ec38ce8d9582b57e70861730e4">Fatal</a>
+<br />
+ }</td></tr>
+<tr class="separator:ad05b2477c07b4e611c5126dcbb332d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a062abdc15cb1ce3f4e7eb153bf386a91" id="r_a062abdc15cb1ce3f4e7eb153bf386a91"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a062abdc15cb1ce3f4e7eb153bf386a91">EventType</a> { <br />
 &#160;&#160;<a class="el" href="namespaceElevate.html#a062abdc15cb1ce3f4e7eb153bf386a91a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
 , <a class="el" href="namespaceElevate.html#a062abdc15cb1ce3f4e7eb153bf386a91a76f5f539456b95e61ffbf3c75a88b278">GameContextChanged</a>
@@ -690,7 +704,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Byte_8h_source.html#l00007">7</a> of file <a class="el" href="Byte_8h_source.html">Byte.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Byte_8h_source.html#l00012">12</a> of file <a class="el" href="Byte_8h_source.html">Byte.h</a>.</p>
 
 </div>
 </div>
@@ -706,7 +720,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Byte_8h_source.html#l00008">8</a> of file <a class="el" href="Byte_8h_source.html">Byte.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Byte_8h_source.html#l00013">13</a> of file <a class="el" href="Byte_8h_source.html">Byte.h</a>.</p>
 
 </div>
 </div>
@@ -722,7 +736,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Byte_8h_source.html#l00009">9</a> of file <a class="el" href="Byte_8h_source.html">Byte.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Byte_8h_source.html#l00014">14</a> of file <a class="el" href="Byte_8h_source.html">Byte.h</a>.</p>
 
 </div>
 </div>
@@ -851,6 +865,22 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="OpenGLRendererAPI_8h_source.html#l00007">7</a> of file <a class="el" href="OpenGLRendererAPI_8h_source.html">OpenGLRendererAPI.h</a>.</p>
+
+</div>
+</div>
+<a id="abb9c3cce82373dec977b453bb112b48c" name="abb9c3cce82373dec977b453bb112b48c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb9c3cce82373dec977b453bb112b48c">&#9670;&#160;</a></span>LogCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceElevate.html#abb9c3cce82373dec977b453bb112b48c">Elevate::LogCallback</a> = typedef std::function&lt;void(<a class="el" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95">LogLevel</a>, std::string_view)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00030">30</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
 
 </div>
 </div>
@@ -1315,6 +1345,43 @@ Variables</h2></td></tr>
 <div class="ttc" id="anamespaceElevate_html_ab0aacb35d2e9872b3fcb6a024f584ad6a18ff74f43da410c5529f7d6fca84f115"><div class="ttname"><a href="namespaceElevate.html#ab0aacb35d2e9872b3fcb6a024f584ad6a18ff74f43da410c5529f7d6fca84f115">Elevate::GraphicsContextState::ACTIVE</a></div><div class="ttdeci">@ ACTIVE</div></div>
 <div class="ttc" id="anamespaceElevate_html_ab0aacb35d2e9872b3fcb6a024f584ad6a9d725163e44a2e9cf094059c0abfdef1"><div class="ttname"><a href="namespaceElevate.html#ab0aacb35d2e9872b3fcb6a024f584ad6a9d725163e44a2e9cf094059c0abfdef1">Elevate::GraphicsContextState::TERMINATED</a></div><div class="ttdeci">@ TERMINATED</div></div>
 <div class="ttc" id="anamespaceElevate_html_ab0aacb35d2e9872b3fcb6a024f584ad6add652546039b18970b8dcf2cff824268"><div class="ttname"><a href="namespaceElevate.html#ab0aacb35d2e9872b3fcb6a024f584ad6add652546039b18970b8dcf2cff824268">Elevate::GraphicsContextState::UNINITIALIZED</a></div><div class="ttdeci">@ UNINITIALIZED</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad05b2477c07b4e611c5126dcbb332d95" name="ad05b2477c07b4e611c5126dcbb332d95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad05b2477c07b4e611c5126dcbb332d95">&#9670;&#160;</a></span>LogLevel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95">Elevate::LogLevel</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad05b2477c07b4e611c5126dcbb332d95add4ec0ac4e58f7c32a01244ae91150b1" name="ad05b2477c07b4e611c5126dcbb332d95add4ec0ac4e58f7c32a01244ae91150b1"></a>Trace&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad05b2477c07b4e611c5126dcbb332d95a4059b0251f66a18cb56f544728796875" name="ad05b2477c07b4e611c5126dcbb332d95a4059b0251f66a18cb56f544728796875"></a>Info&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad05b2477c07b4e611c5126dcbb332d95a0eaadb4fcb48a0a0ed7bc9868be9fbaa" name="ad05b2477c07b4e611c5126dcbb332d95a0eaadb4fcb48a0a0ed7bc9868be9fbaa"></a>Warning&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad05b2477c07b4e611c5126dcbb332d95a902b0d55fddef6f8d651fe1035b7d4bd" name="ad05b2477c07b4e611c5126dcbb332d95a902b0d55fddef6f8d651fe1035b7d4bd"></a>Error&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad05b2477c07b4e611c5126dcbb332d95a882384ec38ce8d9582b57e70861730e4" name="ad05b2477c07b4e611c5126dcbb332d95a882384ec38ce8d9582b57e70861730e4"></a>Fatal&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00028">28</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   28</span>{ <a class="code hl_enumvalue" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95add4ec0ac4e58f7c32a01244ae91150b1">Trace</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a4059b0251f66a18cb56f544728796875">Info</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a0eaadb4fcb48a0a0ed7bc9868be9fbaa">Warning</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a902b0d55fddef6f8d651fe1035b7d4bd">Error</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a882384ec38ce8d9582b57e70861730e4">Fatal</a> };</div>
+<div class="ttc" id="anamespaceElevate_html_ad05b2477c07b4e611c5126dcbb332d95a0eaadb4fcb48a0a0ed7bc9868be9fbaa"><div class="ttname"><a href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a0eaadb4fcb48a0a0ed7bc9868be9fbaa">Elevate::LogLevel::Warning</a></div><div class="ttdeci">@ Warning</div></div>
+<div class="ttc" id="anamespaceElevate_html_ad05b2477c07b4e611c5126dcbb332d95a4059b0251f66a18cb56f544728796875"><div class="ttname"><a href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a4059b0251f66a18cb56f544728796875">Elevate::LogLevel::Info</a></div><div class="ttdeci">@ Info</div></div>
+<div class="ttc" id="anamespaceElevate_html_ad05b2477c07b4e611c5126dcbb332d95a882384ec38ce8d9582b57e70861730e4"><div class="ttname"><a href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a882384ec38ce8d9582b57e70861730e4">Elevate::LogLevel::Fatal</a></div><div class="ttdeci">@ Fatal</div></div>
+<div class="ttc" id="anamespaceElevate_html_ad05b2477c07b4e611c5126dcbb332d95a902b0d55fddef6f8d651fe1035b7d4bd"><div class="ttname"><a href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a902b0d55fddef6f8d651fe1035b7d4bd">Elevate::LogLevel::Error</a></div><div class="ttdeci">@ Error</div></div>
+<div class="ttc" id="anamespaceElevate_html_ad05b2477c07b4e611c5126dcbb332d95add4ec0ac4e58f7c32a01244ae91150b1"><div class="ttname"><a href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95add4ec0ac4e58f7c32a01244ae91150b1">Elevate::LogLevel::Trace</a></div><div class="ttdeci">@ Trace</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2076,7 +2143,7 @@ template&lt;class... Ts&gt; </div>
 <div class="line"><span class="lineno">   41</span>        }</div>
 <div class="line"><span class="lineno">   42</span>    }</div>
 <div class="ttc" id="anamespaceElevate_html_a30d612d5c6fd56213ff2d8117cf2538e"><div class="ttname"><a href="namespaceElevate.html#a30d612d5c6fd56213ff2d8117cf2538e">Elevate::PropertySet</a></div><div class="ttdeci">std::vector&lt; PropertyField &gt; PropertySet</div><div class="ttdef"><b>Definition</b> <a href="ObjectPropertyField_8h_source.html#l00013">ObjectPropertyField.h:13</a></div></div>
-<div class="ttc" id="anamespaceElevate_html_a662833bd41c873b3ffeddc33c6f28e19"><div class="ttname"><a href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">Elevate::ByteBuffer</a></div><div class="ttdeci">std::vector&lt; Byte &gt; ByteBuffer</div><div class="ttdef"><b>Definition</b> <a href="Byte_8h_source.html#l00008">Byte.h:8</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a662833bd41c873b3ffeddc33c6f28e19"><div class="ttname"><a href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">Elevate::ByteBuffer</a></div><div class="ttdeci">std::vector&lt; Byte &gt; ByteBuffer</div><div class="ttdef"><b>Definition</b> <a href="Byte_8h_source.html#l00013">Byte.h:13</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a762f69a24f135c3f4747be2d48880b54"><div class="ttname"><a href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">Elevate::SerializeRecursive</a></div><div class="ttdeci">void SerializeRecursive(const PropertySet &amp;fields, rapidjson::Value &amp;parentObj, rapidjson::Document::AllocatorType &amp;allocator)</div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00013">JsonSerializer.cpp:13</a></div></div>
 <div class="ttc" id="astructElevate_1_1overload_html"><div class="ttname"><a href="structElevate_1_1overload.html">Elevate::overload</a></div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00010">JsonSerializer.cpp:10</a></div></div>
 </div><!-- fragment -->

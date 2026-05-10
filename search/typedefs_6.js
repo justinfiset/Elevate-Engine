@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['propertyset_0',['PropertySet',['../namespaceElevate.html#a30d612d5c6fd56213ff2d8117cf2538e',1,'Elevate']]],
-  ['propertyvalue_1',['PropertyValue',['../namespaceElevate.html#ab547a120a6d313dc016331d66a7e0443',1,'Elevate']]]
+  ['materialid_0',['MaterialID',['../namespaceElevate.html#a2694563ec36a64f9cbfdcc020f2d8da9',1,'Elevate']]],
+  ['materialptr_1',['MaterialPtr',['../namespaceElevate.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7',1,'Elevate']]]
 ];

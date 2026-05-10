@@ -1,5 +1,9 @@
 var namespaceElevate =
 [
+    [ "ByteUitls", "namespaceElevate_1_1ByteUitls.html", [
+      [ "ToHexString", "namespaceElevate_1_1ByteUitls.html#a7988d79a5f35a2fc88c10a4485a77a6d", null ],
+      [ "ToString", "namespaceElevate_1_1ByteUitls.html#ab2cd5d9da7e91518bfe41bdd88304f64", null ]
+    ] ],
     [ "Editor", "namespaceElevate_1_1Editor.html", "namespaceElevate_1_1Editor" ],
     [ "File", "namespaceElevate_1_1File.html", [
       [ "GetFileContent", "namespaceElevate_1_1File.html#ad58bc09dfb6d4f3b37b25a41799c213a", null ]
@@ -178,6 +182,7 @@ var namespaceElevate =
     [ "GameObjectComponentFactory", "namespaceElevate.html#a8bc1f78ba61a8fd696e68404338d8975", null ],
     [ "GameObjectComponentGetter", "namespaceElevate.html#ac7341de5cdfe89199e82cbd2901c386a", null ],
     [ "GLenum", "namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4", null ],
+    [ "LogCallback", "namespaceElevate.html#abb9c3cce82373dec977b453bb112b48c", null ],
     [ "MaterialID", "namespaceElevate.html#a2694563ec36a64f9cbfdcc020f2d8da9", null ],
     [ "MaterialPtr", "namespaceElevate.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7", null ],
     [ "PropertySet", "namespaceElevate.html#a30d612d5c6fd56213ff2d8117cf2538e", null ],
@@ -259,6 +264,13 @@ var namespaceElevate =
       [ "UNINITIALIZED", "namespaceElevate.html#ab0aacb35d2e9872b3fcb6a024f584ad6add652546039b18970b8dcf2cff824268", null ],
       [ "ACTIVE", "namespaceElevate.html#ab0aacb35d2e9872b3fcb6a024f584ad6a18ff74f43da410c5529f7d6fca84f115", null ],
       [ "TERMINATED", "namespaceElevate.html#ab0aacb35d2e9872b3fcb6a024f584ad6a9d725163e44a2e9cf094059c0abfdef1", null ]
+    ] ],
+    [ "LogLevel", "namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95", [
+      [ "Trace", "namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95add4ec0ac4e58f7c32a01244ae91150b1", null ],
+      [ "Info", "namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a4059b0251f66a18cb56f544728796875", null ],
+      [ "Warning", "namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a0eaadb4fcb48a0a0ed7bc9868be9fbaa", null ],
+      [ "Error", "namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a902b0d55fddef6f8d651fe1035b7d4bd", null ],
+      [ "Fatal", "namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a882384ec38ce8d9582b57e70861730e4", null ]
     ] ],
     [ "PrimitiveType", "namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1", [
       [ "Cube", "namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1aa296104f0c61a9cf39f4824d05315e12", null ],

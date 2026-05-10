@@ -28,8 +28,10 @@ var hierarchy =
     [ "Elevate::DefaultShader", "classElevate_1_1DefaultShader.html", null ],
     [ "Elevate::DisplayNameTag", "structElevate_1_1DisplayNameTag.html", null ],
     [ "Elevate::EditorIconTag", "structElevate_1_1EditorIconTag.html", null ],
+    [ "Elevate::Editor::EditorMessage", "structElevate_1_1Editor_1_1EditorMessage.html", null ],
     [ "Elevate::Editor::EditorWidget", "classElevate_1_1Editor_1_1EditorWidget.html", [
       [ "Elevate::Editor::AssetBrowserPanel", "classElevate_1_1Editor_1_1AssetBrowserPanel.html", null ],
+      [ "Elevate::Editor::ConsolePanel", "classElevate_1_1Editor_1_1ConsolePanel.html", null ],
       [ "Elevate::Editor::SkyboxEditorWidget", "classElevate_1_1Editor_1_1SkyboxEditorWidget.html", null ],
       [ "Elevate::Editor::StatisticsPanel", "classElevate_1_1Editor_1_1StatisticsPanel.html", null ]
     ] ],

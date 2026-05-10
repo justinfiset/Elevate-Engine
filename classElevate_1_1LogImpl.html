@@ -117,10 +117,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a91e0c08e9fd2331a2418a33d09c7815e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26a7f6bfb8542137f697c120ea4eea51" id="r_a26a7f6bfb8542137f697c120ea4eea51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1LogImpl.html#a26a7f6bfb8542137f697c120ea4eea51">Fatal</a> (const std::string &amp;text)</td></tr>
 <tr class="separator:a26a7f6bfb8542137f697c120ea4eea51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72465020ca508307e14f4b056a08af0b" id="r_a72465020ca508307e14f4b056a08af0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1LogImpl.html#a72465020ca508307e14f4b056a08af0b">AddCallback</a> (<a class="el" href="namespaceElevate.html#abb9c3cce82373dec977b453bb112b48c">LogCallback</a> callback)</td></tr>
+<tr class="separator:a72465020ca508307e14f4b056a08af0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00027">27</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00032">32</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8bcd7622316d43807f8d13ca7ad6cc28" name="a8bcd7622316d43807f8d13ca7ad6cc28"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8bcd7622316d43807f8d13ca7ad6cc28">&#9670;&#160;</a></span>LogImpl()</h2>
@@ -146,12 +148,41 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00029">29</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   29</span>: m_logger(logger) { }</div>
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00034">34</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   34</span>: m_logger(logger) { }</div>
 </div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a72465020ca508307e14f4b056a08af0b" name="a72465020ca508307e14f4b056a08af0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72465020ca508307e14f4b056a08af0b">&#9670;&#160;</a></span>AddCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Elevate::LogImpl::AddCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceElevate.html#abb9c3cce82373dec977b453bb112b48c">LogCallback</a>&#160;</td>
+          <td class="paramname"><em>callback</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00055">55</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   55</span>{ m_callbacks.push_back(callback); }</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a91e0c08e9fd2331a2418a33d09c7815e" name="a91e0c08e9fd2331a2418a33d09c7815e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a91e0c08e9fd2331a2418a33d09c7815e">&#9670;&#160;</a></span>Error()</h2>
 
@@ -176,9 +207,13 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00033">33</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   33</span>{ m_logger-&gt;error(<a class="code hl_define" href="Log_8h.html#ad91a8a7deb2ca9be5e64017e2a441fac">EE_ERROR_PREFIX</a> <span class="stringliteral">&quot;{}&quot;</span>, text);    }</div>
-<div class="ttc" id="aLog_8h_html_ad91a8a7deb2ca9be5e64017e2a441fac"><div class="ttname"><a href="Log_8h.html#ad91a8a7deb2ca9be5e64017e2a441fac">EE_ERROR_PREFIX</a></div><div class="ttdeci">#define EE_ERROR_PREFIX</div><div class="ttdef"><b>Definition</b> <a href="Log_8h_source.html#l00022">Log.h:22</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00047">47</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   47</span>                                                 {</div>
+<div class="line"><span class="lineno">   48</span>            m_logger-&gt;error(<a class="code hl_define" href="Log_8h.html#ad91a8a7deb2ca9be5e64017e2a441fac">EE_ERROR_PREFIX</a> <span class="stringliteral">&quot;{}&quot;</span>, text);</div>
+<div class="line"><span class="lineno">   49</span>            NotifyCallbacks(<a class="code hl_enumvalue" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a902b0d55fddef6f8d651fe1035b7d4bd">LogLevel::Error</a>, text);</div>
+<div class="line"><span class="lineno">   50</span>        }</div>
+<div class="ttc" id="aLog_8h_html_ad91a8a7deb2ca9be5e64017e2a441fac"><div class="ttname"><a href="Log_8h.html#ad91a8a7deb2ca9be5e64017e2a441fac">EE_ERROR_PREFIX</a></div><div class="ttdeci">#define EE_ERROR_PREFIX</div><div class="ttdef"><b>Definition</b> <a href="Log_8h_source.html#l00023">Log.h:23</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_ad05b2477c07b4e611c5126dcbb332d95a902b0d55fddef6f8d651fe1035b7d4bd"><div class="ttname"><a href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a902b0d55fddef6f8d651fe1035b7d4bd">Elevate::LogLevel::Error</a></div><div class="ttdeci">@ Error</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -206,9 +241,13 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00034">34</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   34</span>{ m_logger-&gt;critical(<a class="code hl_define" href="Log_8h.html#a23a6b0e594195ebe6cdd5f7a4b311a7f">EE_FATAL_PREFIX</a> <span class="stringliteral">&quot;{}&quot;</span>, text); }</div>
-<div class="ttc" id="aLog_8h_html_a23a6b0e594195ebe6cdd5f7a4b311a7f"><div class="ttname"><a href="Log_8h.html#a23a6b0e594195ebe6cdd5f7a4b311a7f">EE_FATAL_PREFIX</a></div><div class="ttdeci">#define EE_FATAL_PREFIX</div><div class="ttdef"><b>Definition</b> <a href="Log_8h_source.html#l00023">Log.h:23</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00051">51</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   51</span>                                                 {</div>
+<div class="line"><span class="lineno">   52</span>            m_logger-&gt;critical(<a class="code hl_define" href="Log_8h.html#a23a6b0e594195ebe6cdd5f7a4b311a7f">EE_FATAL_PREFIX</a> <span class="stringliteral">&quot;{}&quot;</span>, text);</div>
+<div class="line"><span class="lineno">   53</span>            NotifyCallbacks(<a class="code hl_enumvalue" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a882384ec38ce8d9582b57e70861730e4">LogLevel::Fatal</a>, text);</div>
+<div class="line"><span class="lineno">   54</span>        }</div>
+<div class="ttc" id="aLog_8h_html_a23a6b0e594195ebe6cdd5f7a4b311a7f"><div class="ttname"><a href="Log_8h.html#a23a6b0e594195ebe6cdd5f7a4b311a7f">EE_FATAL_PREFIX</a></div><div class="ttdeci">#define EE_FATAL_PREFIX</div><div class="ttdef"><b>Definition</b> <a href="Log_8h_source.html#l00024">Log.h:24</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_ad05b2477c07b4e611c5126dcbb332d95a882384ec38ce8d9582b57e70861730e4"><div class="ttname"><a href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a882384ec38ce8d9582b57e70861730e4">Elevate::LogLevel::Fatal</a></div><div class="ttdeci">@ Fatal</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -236,9 +275,13 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00031">31</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   31</span>{ m_logger-&gt;info(<a class="code hl_define" href="Log_8h.html#a8a1797eaa3759e1abbb0eb515b0b360d">EE_INFO_PREFIX</a> <span class="stringliteral">&quot;{}&quot;</span>, text);     }</div>
-<div class="ttc" id="aLog_8h_html_a8a1797eaa3759e1abbb0eb515b0b360d"><div class="ttname"><a href="Log_8h.html#a8a1797eaa3759e1abbb0eb515b0b360d">EE_INFO_PREFIX</a></div><div class="ttdeci">#define EE_INFO_PREFIX</div><div class="ttdef"><b>Definition</b> <a href="Log_8h_source.html#l00020">Log.h:20</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00039">39</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>                                                 {</div>
+<div class="line"><span class="lineno">   40</span>            m_logger-&gt;info(<a class="code hl_define" href="Log_8h.html#a8a1797eaa3759e1abbb0eb515b0b360d">EE_INFO_PREFIX</a> <span class="stringliteral">&quot;{}&quot;</span>, text);</div>
+<div class="line"><span class="lineno">   41</span>            NotifyCallbacks(<a class="code hl_enumvalue" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a4059b0251f66a18cb56f544728796875">LogLevel::Info</a>, text);</div>
+<div class="line"><span class="lineno">   42</span>        }</div>
+<div class="ttc" id="aLog_8h_html_a8a1797eaa3759e1abbb0eb515b0b360d"><div class="ttname"><a href="Log_8h.html#a8a1797eaa3759e1abbb0eb515b0b360d">EE_INFO_PREFIX</a></div><div class="ttdeci">#define EE_INFO_PREFIX</div><div class="ttdef"><b>Definition</b> <a href="Log_8h_source.html#l00021">Log.h:21</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_ad05b2477c07b4e611c5126dcbb332d95a4059b0251f66a18cb56f544728796875"><div class="ttname"><a href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a4059b0251f66a18cb56f544728796875">Elevate::LogLevel::Info</a></div><div class="ttdeci">@ Info</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -266,9 +309,13 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00030">30</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   30</span>{ m_logger-&gt;trace(<a class="code hl_define" href="Log_8h.html#a401f92096ff2b1e5c3e173f5d1753345">EE_TRACE_PREFIX</a> <span class="stringliteral">&quot;{}&quot;</span>, text);    }</div>
-<div class="ttc" id="aLog_8h_html_a401f92096ff2b1e5c3e173f5d1753345"><div class="ttname"><a href="Log_8h.html#a401f92096ff2b1e5c3e173f5d1753345">EE_TRACE_PREFIX</a></div><div class="ttdeci">#define EE_TRACE_PREFIX</div><div class="ttdef"><b>Definition</b> <a href="Log_8h_source.html#l00019">Log.h:19</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00035">35</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   35</span>                                                 { </div>
+<div class="line"><span class="lineno">   36</span>            m_logger-&gt;trace(<a class="code hl_define" href="Log_8h.html#a401f92096ff2b1e5c3e173f5d1753345">EE_TRACE_PREFIX</a> <span class="stringliteral">&quot;{}&quot;</span>, text);</div>
+<div class="line"><span class="lineno">   37</span>            NotifyCallbacks(<a class="code hl_enumvalue" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95add4ec0ac4e58f7c32a01244ae91150b1">LogLevel::Trace</a>, text);</div>
+<div class="line"><span class="lineno">   38</span>        }</div>
+<div class="ttc" id="aLog_8h_html_a401f92096ff2b1e5c3e173f5d1753345"><div class="ttname"><a href="Log_8h.html#a401f92096ff2b1e5c3e173f5d1753345">EE_TRACE_PREFIX</a></div><div class="ttdeci">#define EE_TRACE_PREFIX</div><div class="ttdef"><b>Definition</b> <a href="Log_8h_source.html#l00020">Log.h:20</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_ad05b2477c07b4e611c5126dcbb332d95add4ec0ac4e58f7c32a01244ae91150b1"><div class="ttname"><a href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95add4ec0ac4e58f7c32a01244ae91150b1">Elevate::LogLevel::Trace</a></div><div class="ttdeci">@ Trace</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -296,9 +343,13 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00032">32</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   32</span>{ m_logger-&gt;warn(<a class="code hl_define" href="Log_8h.html#ac1e119be4b4dc0263d26aadcc231ff1a">EE_WARN_PREFIX</a> <span class="stringliteral">&quot;{}&quot;</span>, text);     }</div>
-<div class="ttc" id="aLog_8h_html_ac1e119be4b4dc0263d26aadcc231ff1a"><div class="ttname"><a href="Log_8h.html#ac1e119be4b4dc0263d26aadcc231ff1a">EE_WARN_PREFIX</a></div><div class="ttdeci">#define EE_WARN_PREFIX</div><div class="ttdef"><b>Definition</b> <a href="Log_8h_source.html#l00021">Log.h:21</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Log_8h_source.html#l00043">43</a> of file <a class="el" href="Log_8h_source.html">Log.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   43</span>                                                 {</div>
+<div class="line"><span class="lineno">   44</span>            m_logger-&gt;warn(<a class="code hl_define" href="Log_8h.html#ac1e119be4b4dc0263d26aadcc231ff1a">EE_WARN_PREFIX</a> <span class="stringliteral">&quot;{}&quot;</span>, text);</div>
+<div class="line"><span class="lineno">   45</span>            NotifyCallbacks(<a class="code hl_enumvalue" href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a0eaadb4fcb48a0a0ed7bc9868be9fbaa">LogLevel::Warning</a>, text);</div>
+<div class="line"><span class="lineno">   46</span>        }</div>
+<div class="ttc" id="aLog_8h_html_ac1e119be4b4dc0263d26aadcc231ff1a"><div class="ttname"><a href="Log_8h.html#ac1e119be4b4dc0263d26aadcc231ff1a">EE_WARN_PREFIX</a></div><div class="ttdeci">#define EE_WARN_PREFIX</div><div class="ttdef"><b>Definition</b> <a href="Log_8h_source.html#l00022">Log.h:22</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_ad05b2477c07b4e611c5126dcbb332d95a0eaadb4fcb48a0a0ed7bc9868be9fbaa"><div class="ttname"><a href="namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95a0eaadb4fcb48a0a0ed7bc9868be9fbaa">Elevate::LogLevel::Warning</a></div><div class="ttdeci">@ Warning</div></div>
 </div><!-- fragment -->
 </div>
 </div>

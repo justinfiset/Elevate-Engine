@@ -4,6 +4,8 @@ var dir_5ec1423fd988cc0621e543d346473a93 =
     [ "AnalyserPanel.h", "AnalyserPanel_8h.html", null ],
     [ "AssetBrowserPanel.cpp", "AssetBrowserPanel_8cpp.html", null ],
     [ "AssetBrowserPanel.h", "AssetBrowserPanel_8h.html", "AssetBrowserPanel_8h" ],
+    [ "ConsolePanel.cpp", "ConsolePanel_8cpp.html", null ],
+    [ "ConsolePanel.h", "ConsolePanel_8h.html", "ConsolePanel_8h" ],
     [ "HierarchyPanel.cpp", "HierarchyPanel_8cpp.html", null ],
     [ "HierarchyPanel.h", "HierarchyPanel_8h.html", null ],
     [ "ScenePanel.cpp", "ScenePanel_8cpp.html", null ],

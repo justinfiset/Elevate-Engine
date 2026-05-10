@@ -8,7 +8,7 @@ var searchData=
   ['layerstack_2ecpp_5',['LayerStack.cpp',['../LayerStack_8cpp.html',1,'']]],
   ['layerstack_2eh_6',['LayerStack.h',['../LayerStack_8h.html',1,'']]],
   ['left_5fplane_7',['LEFT_PLANE',['../namespaceElevate.html#a622c3d7de5705ecabab238d92cd07435af0c0d4fdba65a665a2c3239df9555cdb',1,'Elevate']]],
-  ['light_8',['light',['../namespaceElevate_1_1UI.html#a45f09e5fb8d80c73eda6fdb623be39cba9914a0ce04a7b7b6a8e39bec55064b82',1,'Elevate::UI::Light'],['../classElevate_1_1Light.html#a10f436e9d78b79750f4c66df6140c7e8',1,'Elevate::Light::Light(const glm::vec3 &amp;amb, const glm::vec3 &amp;dif, const glm::vec3 &amp;spec, float intensity=1.0f)'],['../classElevate_1_1Light.html#a8b0d649f400841130661b09523944be5',1,'Elevate::Light::Light(const glm::vec3 &amp;color)'],['../classElevate_1_1Light.html',1,'Elevate::Light'],['../classElevate_1_1Light.html#a18ff3714d694d068a66f49b29a24b692',1,'Elevate::Light::Light()']]],
+  ['light_8',['light',['../classElevate_1_1Light.html#a18ff3714d694d068a66f49b29a24b692',1,'Elevate::Light::Light()'],['../namespaceElevate_1_1UI.html#a45f09e5fb8d80c73eda6fdb623be39cba9914a0ce04a7b7b6a8e39bec55064b82',1,'Elevate::UI::Light'],['../classElevate_1_1Light.html#a10f436e9d78b79750f4c66df6140c7e8',1,'Elevate::Light::Light(const glm::vec3 &amp;amb, const glm::vec3 &amp;dif, const glm::vec3 &amp;spec, float intensity=1.0f)'],['../classElevate_1_1Light.html#a8b0d649f400841130661b09523944be5',1,'Elevate::Light::Light(const glm::vec3 &amp;color)'],['../classElevate_1_1Light.html',1,'Elevate::Light']]],
   ['light_2ecpp_9',['Light.cpp',['../Light_8cpp.html',1,'']]],
   ['light_2eh_10',['Light.h',['../Light_8h.html',1,'']]],
   ['linear_11',['Linear',['../namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b',1,'Elevate']]],
@@ -28,5 +28,7 @@ var searchData=
   ['log_25',['Log',['../classElevate_1_1Log.html',1,'Elevate']]],
   ['log_2ecpp_26',['Log.cpp',['../Log_8cpp.html',1,'']]],
   ['log_2eh_27',['Log.h',['../Log_8h.html',1,'']]],
-  ['logimpl_28',['logimpl',['../classElevate_1_1LogImpl.html#a8bcd7622316d43807f8d13ca7ad6cc28',1,'Elevate::LogImpl::LogImpl()'],['../classElevate_1_1LogImpl.html',1,'Elevate::LogImpl']]]
+  ['logcallback_28',['logcallback',['../classElevate_1_1Editor_1_1ConsolePanel.html#aed35470a7f5b0760bfc2811945b48c93',1,'Elevate::Editor::ConsolePanel::LogCallback()'],['../namespaceElevate.html#abb9c3cce82373dec977b453bb112b48c',1,'Elevate::LogCallback']]],
+  ['logimpl_29',['logimpl',['../classElevate_1_1LogImpl.html#a8bcd7622316d43807f8d13ca7ad6cc28',1,'Elevate::LogImpl::LogImpl()'],['../classElevate_1_1LogImpl.html',1,'Elevate::LogImpl']]],
+  ['loglevel_30',['LogLevel',['../namespaceElevate.html#ad05b2477c07b4e611c5126dcbb332d95',1,'Elevate']]]
 ];

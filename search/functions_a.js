@@ -8,5 +8,6 @@ var searchData=
   ['loadscene_5',['LoadScene',['../classElevate_1_1SceneManager.html#a02a1d1d2e5c952eb7942e54ad7675a3d',1,'Elevate::SceneManager']]],
   ['loadshader_6',['loadshader',['../classElevate_1_1ShaderManager.html#a5072c12a616182c1558bfbc6e2037979',1,'Elevate::ShaderManager::LoadShader(const std::string &amp;name, ShaderPtr shader)'],['../classElevate_1_1ShaderManager.html#ad37649feecdd1a531d982b54ead3e5ba',1,'Elevate::ShaderManager::LoadShader(const std::string &amp;name, const std::string &amp;vertexSrcPath, const std::string &amp;fragSrcPath)'],['../classElevate_1_1ShaderManager.html#a0ad9c890c16f793b9cceffec759b1c8e',1,'Elevate::ShaderManager::LoadShader(const std::string &amp;name, const std::string &amp;vertexSrcPath, const std::string &amp;, const std::string &amp;customVertCode, const std::string &amp;customFragCode)']]],
   ['loadtextureasync_7',['LoadTextureAsync',['../classElevate_1_1TextureManager.html#af474cf47e4912e322380634b2819d0e8',1,'Elevate::TextureManager']]],
-  ['logimpl_8',['LogImpl',['../classElevate_1_1LogImpl.html#a8bcd7622316d43807f8d13ca7ad6cc28',1,'Elevate::LogImpl']]]
+  ['logcallback_8',['LogCallback',['../classElevate_1_1Editor_1_1ConsolePanel.html#aed35470a7f5b0760bfc2811945b48c93',1,'Elevate::Editor::ConsolePanel']]],
+  ['logimpl_9',['LogImpl',['../classElevate_1_1LogImpl.html#a8bcd7622316d43807f8d13ca7ad6cc28',1,'Elevate::LogImpl']]]
 ];

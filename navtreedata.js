@@ -25,18 +25,21 @@
 var NAVTREE =
 [
   [ "Elevate Engine", "index.html", [
-    [ "Web Build Demo", "index.html#autotoc_md0", null ],
-    [ "Project Setup and Usage Guide", "index.html#autotoc_md1", [
-      [ "Directory Structure", "index.html#autotoc_md2", null ],
-      [ "Usage", "index.html#autotoc_md3", [
-        [ "Download the Project", "index.html#autotoc_md4", null ],
-        [ "First Time Setup", "index.html#autotoc_md5", null ],
-        [ "Edit Configuration", "index.html#autotoc_md6", null ],
-        [ "Run the Build", "index.html#autotoc_md7", null ],
-        [ "Build Status", "index.html#autotoc_md8", null ],
-        [ "Tests Report", "index.html#autotoc_md9", null ]
+    [ "README", "md_README.html", [
+      [ "Web Build Demo", "md_README.html#autotoc_md0", null ],
+      [ "Project Setup and Usage Guide", "md_README.html#autotoc_md1", [
+        [ "Directory Structure", "md_README.html#autotoc_md2", null ],
+        [ "Usage", "md_README.html#autotoc_md3", [
+          [ "Download the Project", "md_README.html#autotoc_md4", null ],
+          [ "First Time Setup", "md_README.html#autotoc_md5", null ],
+          [ "Edit Configuration", "md_README.html#autotoc_md6", null ],
+          [ "Run the Build", "md_README.html#autotoc_md7", null ],
+          [ "Build Status", "md_README.html#autotoc_md8", null ],
+          [ "Tests Report", "md_README.html#autotoc_md9", null ]
+        ] ]
       ] ]
     ] ],
+    [ "Building with Emscripten", "md_Docs_2Source_2WebAssembly.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -76,19 +79,19 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AddComponent_8h.html",
-"Event_8h_source.html",
-"KeyCodes_8h.html#a7e69fe5f2e646f34c05339a05381a09d",
-"SceneLighting_8h.html#a32543abf4788bcd8c6307632fc0ae308",
-"classElevate_1_1AudioDistanceProbe.html#a709c88b5668175405f4b57bef9b9df71",
-"classElevate_1_1EEObject.html#a64b3abed985d21aa5388b10fd8da25aa",
-"classElevate_1_1GlfwWindow.html#a49503a8a825b9a90e7fa0b728941589b",
-"classElevate_1_1LogImpl.html#a8bcd7622316d43807f8d13ca7ad6cc28",
-"classElevate_1_1OpenGLVertexBuffer.html#a98e33925c9e458f09d16f66805448d91",
-"classElevate_1_1Shader.html#ae5410c0fee46ed6e93aed0a38b1b78d9",
-"classElevate_1_1WwiseFileDataSource.html",
-"namespaceElevate.html#a3e5bb326128cbe5e1d6ec2d51230cbdb",
-"structElevate_1_1Editor_1_1FileItem.html#a10a7eaed240802d77e65cba6c346ab2d",
-"structElevate_1_1TextureMetadataBuilder.html#a9b4cd61add19888747815e8d80b7bbc6"
+"Event_8h.html#a80d534fc4d69a68eefd1573fd0ac2f44",
+"KeyCodes_8h.html#a6b2cfaf65bc2151d2d790a1602e12a7a",
+"Renderer_8cpp_source.html",
+"classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2",
+"classElevate_1_1EECategory.html#ac9468e51c257879460ec2a1480947164",
+"classElevate_1_1GameObject.html#ae68b7f5b0ae9a1fdb21d0f3b58f2cbb4",
+"classElevate_1_1Light.html#a918b3004c1f47928c102dd4f301b29a3",
+"classElevate_1_1OpenGLVertexArray.html#a10c31cc3cfe5efbd7e85e6dcce5ef755",
+"classElevate_1_1Shader.html#aa3a3fde412675a16d2f1a956fc768858",
+"classElevate_1_1Window.html#aa76d05dc5223bc6949f16d497307eb4d",
+"namespaceElevate.html#a084798f901873cb9a7cb959b62006324a6f0987d6f82566fca538d8c3b8f07ee1",
+"structElevate_1_1ComponentRegistry_1_1Entry.html",
+"structElevate_1_1TextureLoadResult.html#a8284b006ebe4c7c8d383e19ae7ef31ca"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
