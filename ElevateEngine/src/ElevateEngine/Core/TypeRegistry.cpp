@@ -1,7 +1,7 @@
 #include "eepch.h"
-#include "ComponentRegistry.h"
+#include "TypeRegistry.h"
 
-std::string Elevate::ComponentRegistry::GetName(const std::type_info& type)
+std::string Elevate::TypeRegistry::GetName(const std::type_info& type)
 {
 	auto& entries = GetEntries();
 	auto it = entries.find(std::type_index(type));
@@ -13,7 +13,7 @@ std::string Elevate::ComponentRegistry::GetName(const std::type_info& type)
 	}
 }
 
-std::string Elevate::ComponentRegistry::GetCleanedName(std::string rawName)
+std::string Elevate::TypeRegistry::GetCleanedName(std::string rawName)
 {
 	std::string cleanedName = "";
 
@@ -54,7 +54,7 @@ std::string Elevate::ComponentRegistry::GetCleanedName(std::string rawName)
 	return cleanedName;
 }
 
-void Elevate::ComponentRegistry::AddClassToStack(std::string newClass)
+void Elevate::TypeRegistry::AddClassToStack(std::string newClass)
 {
 #ifdef EE_REGISTRY_LOG
 	EE_CORE_INFO("{}", GetCleanedName(newClass));
@@ -62,7 +62,7 @@ void Elevate::ComponentRegistry::AddClassToStack(std::string newClass)
 	CompilationClassStack().push_back(newClass);
 }
 
-void Elevate::ComponentRegistry::PopClassStack()
+void Elevate::TypeRegistry::PopClassStack()
 {
 	if (CompilationClassStack().empty())
 	{

@@ -1,7 +1,7 @@
 #pragma once
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/GameObject.h>
-#include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Editor/Components/ComponentsIcon.h>
 
 #include "glm/glm.hpp"

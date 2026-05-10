@@ -1,5 +1,5 @@
 #pragma once
-#include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Core/TypeRegistry.h>
 
 #include <entt/entt.hpp>
 #include <initializer_list>
@@ -30,7 +30,7 @@ namespace Elevate
 namespace Elevate
 {
     template<typename T>
-    void ComponentRegistry::Register(const std::string& name, EECategory category, std::vector<FieldOption>& options) {
+    void TypeRegistry::Register(const std::string& name, EECategory category, std::vector<FieldOption>& options) {
         std::type_index ti(typeid(T));
 
         bool visible = true;
@@ -72,7 +72,7 @@ namespace Elevate
     }
 
     template<typename Class, typename FieldType>
-    void ComponentRegistry::AddProperty(FieldType Class::* member, const std::string& name, std::initializer_list<FieldOption> options)
+    void TypeRegistry::AddProperty(FieldType Class::* member, const std::string& name, std::initializer_list<FieldOption> options)
     {
         constexpr EngineDataType type = DeduceEngineDataType<FieldType>();
         FieldMeta meta;

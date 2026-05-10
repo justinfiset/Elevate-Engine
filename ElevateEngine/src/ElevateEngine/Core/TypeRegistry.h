@@ -101,7 +101,7 @@ namespace Elevate
 	template<> struct EngineDataTypeTrait<glm::vec3> { static constexpr EngineDataType value = EngineDataType::Float3; };
 	template<> struct EngineDataTypeTrait<glm::vec4> { static constexpr EngineDataType value = EngineDataType::Float4; };
 
-	class ComponentRegistry {
+	class TypeRegistry {
 	public:
 		template<typename T>
 		static auto GetParentFieldsIfPossible(const T* obj) -> std::vector<ComponentField> {
@@ -182,7 +182,7 @@ namespace Elevate
 // =======================================================
 // BEGIN_COMPONENT / EXPOSE / END_COMPONENT
 // =======================================================
-#include "ComponentRegistry.inl"
+#include "TypeRegistry.inl"
 
 #define BEGIN_COMPONENT(T, ...) \
 private: \
@@ -190,9 +190,9 @@ using ThisType = T; \
 public: \
 inline static struct T##ClassEntry { \
 	T##ClassEntry() { \
-		FieldStartIndex = ::Elevate::ComponentRegistry::CompilationClassFieldStack().size(); \
-		::Elevate::ComponentRegistry::AddClassToStack(#T); \
-		ClassName = ::Elevate::ComponentRegistry::GetCleanedName(#T); \
+		FieldStartIndex = ::Elevate::TypeRegistry::CompilationClassFieldStack().size(); \
+		::Elevate::TypeRegistry::AddClassToStack(#T); \
+		ClassName = ::Elevate::TypeRegistry::GetCleanedName(#T); \
 		HasBaseClass = false; \
 		Options = { __VA_ARGS__ }; \
 	} \
@@ -216,7 +216,7 @@ public: \
 inline static struct param##PropertyEntry { \
 	param##PropertyEntry() { \
 		using MemberT = decltype(ThisType::param); \
-		::Elevate::ComponentRegistry::AddProperty<ThisType, MemberT>( \
+		::Elevate::TypeRegistry::AddProperty<ThisType, MemberT>( \
 			&ThisType::param, \
 			#param, \
 			{ __VA_ARGS__ } \
@@ -228,13 +228,13 @@ inline static struct param##PropertyEntry { \
 private: \
 	inline static struct ClassEntryEnd { \
 		ClassEntryEnd() { \
-			::Elevate::ComponentRegistry::Register<ThisType>( \
+			::Elevate::TypeRegistry::Register<ThisType>( \
 					generated_classEntry.ClassName, \
 					generated_classEntry.Category, \
 					generated_classEntry.Options \
 			); \
-			::Elevate::ComponentRegistry::PopClassStack(); \
-			auto& global = ::Elevate::ComponentRegistry::CompilationClassFieldStack(); \
+			::Elevate::TypeRegistry::PopClassStack(); \
+			auto& global = ::Elevate::TypeRegistry::CompilationClassFieldStack(); \
 			size_t start = generated_classEntry.FieldStartIndex; \
 			for (size_t i = start; i < global.size(); ++i) { \
 				generated_classEntry.ClassFieldStack.push_back(global[i]); \
@@ -265,7 +265,7 @@ public: \
 	} \
 	virtual Component* Clone() override { \
 		ThisType* clone = new ThisType(); \
-		for (auto& field : ComponentRegistry::GetCustomComponentFields()[typeid(ThisType).name()]) { \
+		for (auto& field : TypeRegistry::GetCustomComponentFields()[typeid(ThisType).name()]) { \
 			field.CopyValue(this, clone); \
 		} \
 		return clone; \
@@ -288,7 +288,7 @@ public: \
 		} \
 	} \
 	virtual Elevate::GameObjectComponentFactory GetFactory() const override { \
-		auto& entries = ComponentRegistry::GetEntries(); \
+		auto& entries = TypeRegistry::GetEntries(); \
 		auto it = entries.find(typeid(ThisType)); \
 		if (it != entries.end()) { \
 			return it->second.factory; \
@@ -296,7 +296,7 @@ public: \
 		return nullptr; \
 	} \
 	virtual Elevate::GameObjectComponentDestructor GetDestructor() const override { \
-		auto& entries = ComponentRegistry::GetEntries(); \
+		auto& entries = TypeRegistry::GetEntries(); \
 		auto it = entries.find(typeid(ThisType)); \
 		if (it != entries.end()) { \
 				return it->second.destructor; \
@@ -304,7 +304,7 @@ public: \
 		return nullptr; \
 	} \
 	virtual const void* GetEditorIconHandle() const override { \
-		auto& entries = ComponentRegistry::GetEntries(); \
+		auto& entries = TypeRegistry::GetEntries(); \
 		auto it = entries.find(typeid(ThisType)); \
 		if (it != entries.end()) { \
 			if(!it->second.editorIconPath.empty()) { \
@@ -332,9 +332,9 @@ inline static struct BaseType##BaseClassDeclaration { \
 	using ThisType = T; \
 	inline static struct T##StructEntry { \
 		T##StructEntry() { \
-			::Elevate::ComponentRegistry::AddClassToStack(#T); \
-			FieldStartIndex = ::Elevate::ComponentRegistry::CompilationClassFieldStack().size(); \
-			StructName = ::Elevate::ComponentRegistry::GetCleanedName(#T); \
+			::Elevate::TypeRegistry::AddClassToStack(#T); \
+			FieldStartIndex = ::Elevate::TypeRegistry::CompilationClassFieldStack().size(); \
+			StructName = ::Elevate::TypeRegistry::GetCleanedName(#T); \
 			StructTypeName = typeid(T).name(); \
 		} \
 		size_t FieldStartIndex = 0; \
@@ -348,7 +348,7 @@ inline static struct BaseType##BaseClassDeclaration { \
 	private: \
 	inline static struct StructEntryEnd { \
 		StructEntryEnd() { \
-			auto& global = ::Elevate::ComponentRegistry::CompilationClassFieldStack(); \
+			auto& global = ::Elevate::TypeRegistry::CompilationClassFieldStack(); \
 			size_t start = generated_structEntry.FieldStartIndex; \
 			for (size_t i = start; i < global.size(); ++i) { \
 				generated_structEntry.StructFieldStack.push_back(global[i]); \
@@ -356,6 +356,6 @@ inline static struct BaseType##BaseClassDeclaration { \
 			if (start < global.size()) { \
 				global.erase(global.begin() + start, global.end()); \
 			} \
-			::Elevate::ComponentRegistry::GetCustomComponentFields()[generated_structEntry.StructTypeName] = generated_structEntry.StructFieldStack; \
+			::Elevate::TypeRegistry::GetCustomComponentFields()[generated_structEntry.StructTypeName] = generated_structEntry.StructFieldStack; \
 		} \
 	} generated_structEntryEnd;

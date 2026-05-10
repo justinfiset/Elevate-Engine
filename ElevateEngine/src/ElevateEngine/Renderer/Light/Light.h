@@ -2,7 +2,7 @@
 
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/GameObject.h>
-#include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Core/TypeRegistry.h>
 
 #include <glm/vec3.hpp>
 

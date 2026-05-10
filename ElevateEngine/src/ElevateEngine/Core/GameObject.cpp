@@ -9,7 +9,7 @@
 
 #include <ElevateEngine/Audio/SoundEngine.h>
 #include <ElevateEngine/Core/Component.h>
-#include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Scene/Scene.h>
 #include <ElevateEngine/Scene/ScenePrivate.h>
@@ -223,7 +223,7 @@ Elevate::GameObject::~GameObject()
 		std::vector<Component*> components;
 		if (!m_scene) return components;
 
-		for (auto& [type, entry] : ComponentRegistry::GetEntries()) {
+		for (auto& [type, entry] : TypeRegistry::GetEntries()) {
 			if (Component* component = entry.getter(weak_from_this())) {
 				components.push_back(component);
 			}
