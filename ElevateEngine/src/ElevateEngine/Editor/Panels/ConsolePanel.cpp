@@ -17,10 +17,30 @@ void Elevate::Editor::ConsolePanel::OnImGuiRender()
 {
 	ImGui::Begin("Console");
 
-	for (const auto& msg : m_logs)
+	if (ImGui::BeginTable("elevate_console", 2, ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_ScrollY, ImVec2(0.0f, 0.0f)))
 	{
-		glm::vec4 color = msg.GetColor();
-		ImGui::TextColored(ImVec4(color.r, color.g, color.b, color.a), msg.message.c_str());
+		ImGui::TableSetupColumn("Time Stamp", ImGuiTableColumnFlags_WidthFixed);
+		ImGui::TableSetupColumn("Message", ImGuiTableColumnFlags_WidthStretch);
+
+		ImGui::TableSetupScrollFreeze(0, 1);
+		ImGui::TableHeadersRow();
+
+		for (const auto& msg : m_logs)
+		{
+			ImGui::TableNextRow();
+
+			ImGui::TableNextColumn();
+			std::string time = std::format("{:%H:%M:%S}", msg.timestamp);
+			ImGui::Text("[%s]", time.c_str());
+
+			ImGui::TableNextColumn();
+			glm::vec4 color = msg.GetColor();
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(color.r, color.g, color.b, color.a));
+			ImGui::TextWrapped("%s", msg.message.c_str());
+			ImGui::PopStyleColor();
+		}
+
+		ImGui::EndTable();
 	}
 
 	ImGui::End();
