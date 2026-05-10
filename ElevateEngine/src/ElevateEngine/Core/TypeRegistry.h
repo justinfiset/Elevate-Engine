@@ -179,52 +179,55 @@ namespace Elevate
 		virtual EECategory GetCategory() const override { return generated_classEntry.Category; } \
 	public:
 
-// =======================================================
-// BEGIN_COMPONENT / EXPOSE / END_COMPONENT
-// =======================================================
 #include "TypeRegistry.inl"
 
-#define BEGIN_COMPONENT(T, ...) \
+// =======================================================
+// BEGIN_OBJECT / DECLARE_BASE / PROPERTY / END_OBJECT
+// =======================================================
+#define BEGIN_OBJECT(T, ...) \
 private: \
-using ThisType = T; \
+	using ThisType = T; \
 public: \
-inline static struct T##ClassEntry { \
-	T##ClassEntry() { \
-		FieldStartIndex = ::Elevate::TypeRegistry::CompilationClassFieldStack().size(); \
-		::Elevate::TypeRegistry::AddClassToStack(#T); \
-		ClassName = ::Elevate::TypeRegistry::GetCleanedName(#T); \
-		HasBaseClass = false; \
-		Options = { __VA_ARGS__ }; \
-	} \
-	std::vector<FieldOption> Options; \
-	EECategory Category; \
-	size_t FieldStartIndex = 0; \
-	std::string ClassName; \
-	std::vector<Elevate::ComponentField> ClassFieldStack; \
-	bool HasBaseClass = false; \
-} generated_classEntry; \
-	virtual bool RemoveFromGameObject() override { \
-		if (gameObject) { \
-			gameObject->RemoveComponent<T>(); \
-			return true; \
+	inline static struct T##ClassEntry { \
+		T##ClassEntry() { \
+			FieldStartIndex = ::Elevate::TypeRegistry::CompilationClassFieldStack().size(); \
+			::Elevate::TypeRegistry::AddClassToStack(#T); \
+			ClassName = ::Elevate::TypeRegistry::GetCleanedName(#T); \
+			HasBaseClass = false; \
+			Options = { __VA_ARGS__ }; \
 		} \
-		return false; \
-	}
+		std::vector<FieldOption> Options; \
+		EECategory Category; \
+		size_t FieldStartIndex = 0; \
+		std::string ClassName; \
+		std::vector<Elevate::ComponentField> ClassFieldStack; \
+		bool HasBaseClass = false; \
+	} generated_classEntry;
+
+#define DECLARE_BASE(BaseType) \
+private: \
+	using Super = BaseType; \
+	inline static struct BaseType##BaseClassDeclaration { \
+		BaseType##BaseClassDeclaration() { \
+			generated_classEntry.HasBaseClass = true; \
+		} \
+	} generated_baseDeclaration; \
+public:
 
 #define PROPERTY(param, ...) \
 public: \
-inline static struct param##PropertyEntry { \
-	param##PropertyEntry() { \
-		using MemberT = decltype(ThisType::param); \
-		::Elevate::TypeRegistry::AddProperty<ThisType, MemberT>( \
-			&ThisType::param, \
-			#param, \
-			{ __VA_ARGS__ } \
-		); \
-	} \
-} generated_##param##PropertyEntry;
+	inline static struct param##PropertyEntry { \
+		param##PropertyEntry() { \
+			using MemberT = decltype(ThisType::param); \
+			::Elevate::TypeRegistry::AddProperty<ThisType, MemberT>( \
+				&ThisType::param, \
+				#param, \
+				{ __VA_ARGS__ } \
+			); \
+		} \
+	} generated_##param##PropertyEntry;
 
-#define END_COMPONENT() \
+#define END_OBJECT() \
 private: \
 	inline static struct ClassEntryEnd { \
 		ClassEntryEnd() { \
@@ -263,6 +266,25 @@ public: \
 		} \
 		return Elevate::ComponentLayout(generated_classEntry.ClassName, instanceFields); \
 	} \
+	virtual std::type_index GetTypeIndex() const override { return typeid(ThisType); }
+
+// =======================================================
+// BEGIN_COMPONENT / END_COMPONENT
+// =======================================================
+#define BEGIN_COMPONENT(T, ...) \
+BEGIN_OBJECT(T, __VA_ARGS__) \
+public: \
+	virtual bool RemoveFromGameObject() override { \
+		if (gameObject) { \
+			gameObject->RemoveComponent<T>(); \
+			return true; \
+		} \
+		return false; \
+	}
+
+#define END_COMPONENT() \
+END_OBJECT() \
+public: \
 	virtual Component* Clone() override { \
 		ThisType* clone = new ThisType(); \
 		for (auto& field : TypeRegistry::GetCustomComponentFields()[typeid(ThisType).name()]) { \
@@ -312,23 +334,14 @@ public: \
 			} \
 		} \
 		return nullptr; \
-	} \
-	virtual std::type_index GetTypeIndex() const override { return typeid(ThisType); }
-
-#define DECLARE_BASE(BaseType) \
-using Super = BaseType; \
-inline static struct BaseType##BaseClassDeclaration { \
-	BaseType##BaseClassDeclaration() { \
-		generated_classEntry.HasBaseClass = true; \
-	} \
-} generated_baseDeclaration;
+	}
 
 // =======================================================
 // BEGIN_STRUCT / END_STRUCT
 // =======================================================
 
 #define BEGIN_STRUCT(T) \
-	private: \
+private: \
 	using ThisType = T; \
 	inline static struct T##StructEntry { \
 		T##StructEntry() { \
