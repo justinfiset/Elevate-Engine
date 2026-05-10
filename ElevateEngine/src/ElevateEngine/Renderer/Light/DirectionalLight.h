@@ -8,6 +8,7 @@ namespace Elevate
 	public:
 		BEGIN_COMPONENT(DirectionalLight)
 		DECLARE_BASE(Light)
+		EECATEGORY("Lighting")
 
 		DirectionalLight() = default;
 		DirectionalLight(const glm::vec3& color) : Light(color) { }
