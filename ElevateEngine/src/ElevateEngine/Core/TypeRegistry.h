@@ -101,44 +101,46 @@ namespace Elevate
 	template<> struct EngineDataTypeTrait<glm::vec3> { static constexpr EngineDataType value = EngineDataType::Float3; };
 	template<> struct EngineDataTypeTrait<glm::vec4> { static constexpr EngineDataType value = EngineDataType::Float4; };
 
+	struct ITypeTrait
+	{
+		virtual ~ITypeTrait() = default;
+	};
+
+	struct EditorTypeTrait : public ITypeTrait
+	{
+		bool visible = true;
+		std::string editorIconPath = "";
+
+		EditorTypeTrait() = default;
+
+		EditorTypeTrait(const std::vector<FieldOption>& options)
+		{
+			for (auto& option : options)
+			{
+				if (std::holds_alternative<HideInInspectorTag>(option)) {
+					visible = false;
+				}
+				else if (std::holds_alternative<EditorIconTag>(option)) {
+					editorIconPath = std::get<EditorIconTag>(option).Path;
+				}
+			}
+		}
+	};
+
+	struct ComponentTypeTrait : public ITypeTrait
+	{
+		EECategory category;
+		GameObjectComponentGetter getter; // method to get the type of component from a gameobject
+		GameObjectComponentFactory factory; // factory to create / add to a gameObject
+		GameObjectComponentDestructor destructor; // component destructor / remove from a gameObject
+	};
+
 	class TypeRegistry {
 	public:
 		template<typename T>
 		static auto GetParentFieldsIfPossible(const T* obj) -> std::vector<ComponentField> {
 			return ParentFieldsHelper<T>::Get(obj);
 		}
-
-		struct ITypeTrait
-		{
-			virtual ~ITypeTrait() = default;
-		};
-
-		struct EditorTrait : public ITypeTrait
-		{
-			bool visible;
-			std::string editorIconPath;
-
-			EditorTrait(const std::vector<FieldOption>& options)
-			{
-				for (auto& option : options)
-				{
-					if (std::holds_alternative<HideInInspectorTag>(option)) {
-						visible = false;
-					}
-					else if (std::holds_alternative<EditorIconTag>(option)) {
-						editorIconPath = std::get<EditorIconTag>(option).Path;
-					}
-				}
-			}
-		};
-
-		struct ComponentTrait : public ITypeTrait
-		{
-			EECategory category;
-			GameObjectComponentGetter getter; // method to get the type of component from a gameobject
-			GameObjectComponentFactory factory; // factory to create / add to a gameObject
-			GameObjectComponentDestructor destructor; // component destructor / remove from a gameObject
-		};
 
 		struct Entry
 		{
@@ -343,8 +345,8 @@ END_OBJECT() \
 public: \
 	inline static struct ComponentEntryEnd { \
 		ComponentEntryEnd() { \
-			::Elevate::TypeRegistry::AddTrait<ThisType, ::Elevate::TypeRegistry::ComponentTrait>(); \
-			auto* trait = ::Elevate::TypeRegistry::GetEntry<ThisType>().GetTrait<::Elevate::TypeRegistry::ComponentTrait>(); \
+			::Elevate::TypeRegistry::AddTrait<ThisType, ::Elevate::ComponentTypeTrait>(); \
+			auto* trait = ::Elevate::TypeRegistry::GetEntry<ThisType>().GetTrait<::Elevate::ComponentTypeTrait>(); \
 			if (trait) { \
 				trait->category = generated_classEntry.Category; \
 				trait->getter = [](std::weak_ptr<GameObject> go) -> Component* { \
@@ -393,21 +395,21 @@ public: \
 	} \
 	virtual Elevate::GameObjectComponentFactory GetFactory() const override { \
 		auto& entry = TypeRegistry::GetEntry<ThisType>(); \
-		if (auto* trait = entry.GetTrait<::Elevate::TypeRegistry::ComponentTrait>()) { \
+		if (auto* trait = entry.GetTrait<::Elevate::ComponentTypeTrait>()) { \
 			return trait->factory; \
 		} \
 		return nullptr; \
 	} \
 	virtual Elevate::GameObjectComponentDestructor GetDestructor() const override { \
 		auto& entry = TypeRegistry::GetEntry<ThisType>(); \
-		if (auto* trait = entry.GetTrait<::Elevate::TypeRegistry::ComponentTrait>()) { \
+		if (auto* trait = entry.GetTrait<::Elevate::ComponentTypeTrait>()) { \
 			return trait->destructor; \
 		} \
 		return nullptr; \
 	} \
 	virtual const void* GetEditorIconHandle() const override { \
 		auto& entry = TypeRegistry::GetEntry<ThisType>(); \
-		if (auto* trait = entry.GetTrait<::Elevate::TypeRegistry::EditorTrait>()) { \
+		if (auto* trait = entry.GetTrait<::Elevate::EditorTypeTrait>()) { \
 			if(!trait->editorIconPath.empty()) { \
 				return Texture::CreateFromFile(trait->editorIconPath)->GetNativeHandle(); \
 			} \

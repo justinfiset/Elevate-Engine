@@ -247,8 +247,8 @@ void Elevate::Editor::AnalyserPanel::RenderField(const ComponentField& field) co
 
 void Elevate::Editor::AnalyserPanel::InsertCategory(CategoryMenu& root, const TypeRegistry::Entry& entry)
 {
-	auto* compTrait = entry.GetTrait<TypeRegistry::ComponentTrait>();
-	auto* editorTrait = entry.GetTrait<TypeRegistry::EditorTrait>();
+	auto* compTrait = entry.GetTrait<ComponentTypeTrait>();
+	auto* editorTrait = entry.GetTrait<EditorTypeTrait>();
 
 	if (!editorTrait->visible)
 	{
@@ -304,7 +304,7 @@ void Elevate::Editor::AnalyserPanel::DrawCategoryChildren(const CategoryMenu& ca
 	// Grey out the item if it is already added to the current GameObject
 	for (auto& entry : category.items)
 	{
-		auto* compTrait = entry.GetTrait<TypeRegistry::ComponentTrait>();
+		auto* compTrait = entry.GetTrait<ComponentTypeTrait>();
 		bool alreadyAdded = false;
 		for (auto& type : m_alredyAddedComponents)
 		{

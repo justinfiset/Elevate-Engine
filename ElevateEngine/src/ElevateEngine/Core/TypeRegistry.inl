@@ -36,7 +36,7 @@ namespace Elevate
         GetEntries().emplace(ti, Entry(name, ti));
 
 #ifdef EE_EDITOR_BUILD
-        AddTrait<T, EditorTrait>(options);
+        AddTrait<T, EditorTypeTrait>(options);
 #endif
     }
 
