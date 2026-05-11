@@ -247,12 +247,15 @@ void Elevate::Editor::AnalyserPanel::RenderField(const ComponentField& field) co
 
 void Elevate::Editor::AnalyserPanel::InsertCategory(CategoryMenu& root, const TypeRegistry::Entry& entry)
 {
-	if (!entry.visible)
+	auto* compTrait = entry.GetTrait<TypeRegistry::ComponentTrait>();
+	auto* editorTrait = entry.GetTrait<TypeRegistry::EditorTrait>();
+
+	if (!editorTrait->visible)
 	{
 		return;
 	}
 
-	std::string path = entry.category.GetPath();
+	std::string path = compTrait->category.GetPath();
 
 	if (path.empty()) {
 		root.items.push_back(entry);
@@ -301,6 +304,7 @@ void Elevate::Editor::AnalyserPanel::DrawCategoryChildren(const CategoryMenu& ca
 	// Grey out the item if it is already added to the current GameObject
 	for (auto& entry : category.items)
 	{
+		auto* compTrait = entry.GetTrait<TypeRegistry::ComponentTrait>();
 		bool alreadyAdded = false;
 		for (auto& type : m_alredyAddedComponents)
 		{
@@ -316,7 +320,7 @@ void Elevate::Editor::AnalyserPanel::DrawCategoryChildren(const CategoryMenu& ca
 		{
 			if (auto go = obj.lock())
 			{
-				EditorLayer::Get().PushCommand(std::make_unique<AddComponentCommand>(go, entry.factory, entry.destructor));
+				EditorLayer::Get().PushCommand(std::make_unique<AddComponentCommand>(go, compTrait->factory, compTrait->destructor));
 			}
 		}
 		ImGui::EndDisabled();

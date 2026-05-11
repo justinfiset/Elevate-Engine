@@ -156,7 +156,7 @@ namespace Elevate
 			 * @return the Trait typed asked. 
 			 */
 			template<typename T>
-			T* GetTrait()
+			T* GetTrait() const
 			{
 				auto it = traits.find(typeid(T));
 				return (it != traits.end()) ? static_cast<T*>(it->second.get()) : nullptr;
