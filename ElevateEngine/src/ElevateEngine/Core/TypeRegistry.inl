@@ -32,10 +32,11 @@ namespace Elevate
     template<typename T>
     void TypeRegistry::Register(const std::string& name, const std::vector<FieldOption>& options)
     {
-        GetEntries().emplace(ti, Entry(name, typeid(T)));
+        std::type_index ti(typeid(T));
+        GetEntries().emplace(ti, Entry(name, ti));
 
 #ifdef EE_EDITOR_BUILD
-        AddTrait<EditorTrait>(options);
+        AddTrait<T, EditorTrait>(options);
 #endif
     }
 
@@ -69,13 +70,13 @@ namespace Elevate
 #endif
 
         auto& customFields = GetCustomComponentFields();
-        std::string typeName = typeid(FieldType).name();
+        std::type_index ti = typeid(FieldType);
         size_t offset = reinterpret_cast<size_t>(&(reinterpret_cast<Class const volatile*>(0)->*member));
 
         ComponentField field;
-        if (customFields.find(typeName) != customFields.end())
+        if (customFields.find(ti) != customFields.end())
         {
-            field = ComponentField(cleanedName, EngineDataType::Custom, offset, meta.displayName, customFields[typeName]);
+            field = ComponentField(cleanedName, EngineDataType::Custom, offset, meta.displayName, customFields[ti]);
             field.flatten = meta.flatten;
         }
         else

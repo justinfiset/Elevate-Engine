@@ -146,6 +146,7 @@ namespace Elevate
 			std::type_index type{ typeid(void) };
 			std::map<std::type_index, std::shared_ptr<ITypeTrait>> traits;
 
+			Entry() = default;
 			Entry(const std::string& name, std::type_index& type)
 				: name(name), type(type) { }
 
@@ -335,27 +336,27 @@ END_OBJECT() \
 public: \
 	inline static struct ComponentEntryEnd { \
 		ComponentEntryEnd() { \
-			::Elevate::TypeRegistry::AddTrait<ThisType, ComponentTrait>(); \
+			::Elevate::TypeRegistry::AddTrait<ThisType, ::Elevate::TypeRegistry::ComponentTrait>(); \
 			auto* trait = ::Elevate::TypeRegistry::GetEntries()[typeid(ThisType)].GetTrait<::Elevate::TypeRegistry::ComponentTrait>(); \
 			if (trait) { \
 				trait->category = generated_classEntry.Category; \
 				trait->getter = [](std::weak_ptr<GameObject> go) -> Component* { \
 					if (std::shared_ptr<GameObject> obj = go.lock()) { \
-						return obj->GetComponent<T>(); \
+						return obj->GetComponent<ThisType>(); \
 					} \
 					return nullptr; \
-				} \
+				}; \
 				trait->factory = [](std::weak_ptr<GameObject> go) -> Component* { \
 					if (std::shared_ptr<GameObject> obj = go.lock()) { \
-						return &obj->AddComponent<T>(); \
+						return &obj->AddComponent<ThisType>(); \
 					} \
 					return nullptr; \
-				} \
+				}; \
 				trait->destructor = [](std::weak_ptr<GameObject> go) -> void { \
 					if (std::shared_ptr<GameObject> obj = go.lock()) { \
-						obj->RemoveComponent<T>(); \
+						obj->RemoveComponent<ThisType>(); \
 					} \
-				} \
+				}; \
 			} \
 		} \
 	} generated_componentEntryEnd; \
@@ -384,27 +385,24 @@ public: \
 		} \
 	} \
 	virtual Elevate::GameObjectComponentFactory GetFactory() const override { \
-		auto& entries = TypeRegistry::GetEntries(); \
-		auto it = entries.find(typeid(ThisType)); \
-		if (it != entries.end()) { \
-			return it->second.factory; \
+		auto& entry = TypeRegistry::GetEntries()[typeid(ThisType)]; \
+		if (auto* trait = entry.GetTrait<::Elevate::TypeRegistry::ComponentTrait>()) { \
+			return trait->factory; \
 		} \
 		return nullptr; \
 	} \
 	virtual Elevate::GameObjectComponentDestructor GetDestructor() const override { \
-		auto& entries = TypeRegistry::GetEntries(); \
-		auto it = entries.find(typeid(ThisType)); \
-		if (it != entries.end()) { \
-				return it->second.destructor; \
+		auto& entry = TypeRegistry::GetEntries()[typeid(ThisType)]; \
+		if (auto* trait = entry.GetTrait<::Elevate::TypeRegistry::ComponentTrait>()) { \
+			return trait->destructor; \
 		} \
 		return nullptr; \
 	} \
 	virtual const void* GetEditorIconHandle() const override { \
-		auto& entries = TypeRegistry::GetEntries(); \
-		auto it = entries.find(typeid(ThisType)); \
-		if (it != entries.end()) { \
-			if(!it->second.editorIconPath.empty()) { \
-				return Texture::CreateFromFile(it->second.editorIconPath)->GetNativeHandle(); \
+		auto& entry = TypeRegistry::GetEntries()[typeid(ThisType)]; \
+		if (auto* trait = entry.GetTrait<::Elevate::TypeRegistry::EditorTrait>()) { \
+			if(!trait->editorIconPath.empty()) { \
+				return Texture::CreateFromFile(trait->editorIconPath)->GetNativeHandle(); \
 			} \
 		} \
 		return nullptr; \
