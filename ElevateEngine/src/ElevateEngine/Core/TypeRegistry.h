@@ -50,29 +50,34 @@ namespace Elevate
 	};
 
 	// Field / Component Property Tag ------------------------------------------------------
+	struct EmptyTag {};
+
+#ifdef EE_EDITOR_BUILD
+	#define EditorTag(x) x
+#else
+	#define EditorTag(x) ::Elevate::EmptyTag{}
+#endif
+
 	struct HideInInspectorTag {};
-	#define HideInInspector HideInInspectorTag{}
+	#define HideInInspector EditorTag(HideInInspectorTag {})
 
 	struct FlattenTag {};
-	#define Flatten FlattenTag{}
+	#define Flatten EditorTag(FlattenTag {})
 
 	struct DisplayNameTag { const char* value; };
-	#define DisplayName(x) DisplayNameTag{x}
+	#define DisplayName EditorTag(DisplayNameTag {})
 
 	struct TooltipTag { const char* text; };
-	#define Tooltip(x) TooltipTag{x}
+	#define Tooltip EditorTag(TooltipTag {})
 
 	struct ReadOnlyTag {};
-	#define ReadOnly ReadOnlyTag{}
+	#define ReadOnly EditorTag(ReadOnlyTag {})
 
 	struct ColorTag {};
-	#define ColorPicker ColorTag{}
+	#define ColorPicker EditorTag(ColorTag {})
 
-	struct EditorIconTag 
-	{
-		std::string Path;
-	};
-	#define EditorIcon(path) EditorIconTag{path}
+	struct EditorIconTag { std::string Path; };
+	#define EditorIcon(path) EditorTag(EditorIconTag{path})
 
 	using FieldOption = std::variant<
 		HideInInspectorTag, EditorIconTag,
