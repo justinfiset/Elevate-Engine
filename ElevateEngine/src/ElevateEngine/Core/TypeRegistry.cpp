@@ -22,28 +22,32 @@ std::string Elevate::TypeRegistry::GetCleanedName(std::string rawName)
 		char c = rawName.at(i); // Current char
 		if (i == 0)
 		{
-			if ((c == 'm' || c == 's' || c == 'g') && rawName.at(i + 1) == '_') // If we have a notation of Hungarian style : m_myVariable
+			if (rawName.length() > 1 && (c == 'm' || c == 's' || c == 'g') && rawName.at(i + 1) == '_')
 			{
 				i = 1;
 				continue;
 			}
-			else
+			cleanedName += std::toupper(c);
+			continue;
+		}
+
+		bool lowerToUpper = std::islower(rawName.at(i - 1)) && std::isupper(c);
+		bool acronymToEnd = std::isupper(c) && (i + 1 < rawName.length()) && std::islower(rawName.at(i + 1));
+		if (lowerToUpper || acronymToEnd)
+		{
+			if (!cleanedName.empty() && cleanedName.back() != ' ')
 			{
-				cleanedName += std::toupper(c);
+				cleanedName += ' ';
 			}
 		}
-		else if (rawName.length() > i + 1 && std::isupper(c) && std::islower(rawName.at(i + 1)))
+
+		if (c == '_')
 		{
 			cleanedName += ' ';
-			cleanedName += c;
 		}
-		else if (std::isalpha(c) && rawName.at(i - 1) == '_')
+		else if (rawName.at(i - 1) == '_')
 		{
 			cleanedName += std::toupper(c);
-		}
-		else if (c == '_')
-		{
-			cleanedName += ' ';
 		}
 		else
 		{
