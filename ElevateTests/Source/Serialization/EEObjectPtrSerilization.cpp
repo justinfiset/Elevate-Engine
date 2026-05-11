@@ -1,13 +1,18 @@
 #include <catch2/catch_test_macros.hpp>
 
+#include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/EEObjectPtr.h>
+#include <ElevateEngine/Core/TypeRegistry.h>
 
 using namespace Elevate;
 
 class MockEEObject : public EEObject
 {
 public:
+    BEGIN_OBJECT(MockEEObject)
 	int testInt = 123456;
+    PROPERTY(testInt)
+    END_OBJECT()
 };
 
 TEST_CASE("EEObjectPtr serlization is not empty", "[Serialization]") {

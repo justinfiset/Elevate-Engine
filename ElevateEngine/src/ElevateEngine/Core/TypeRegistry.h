@@ -108,21 +108,70 @@ namespace Elevate
 			return ParentFieldsHelper<T>::Get(obj);
 		}
 
-		struct Entry
+		struct ITypeTrait
 		{
-			std::string name;
-			std::type_index type{ typeid(void) };
+			virtual ~ITypeTrait() = default;
+		};
+
+		struct EditorTrait : public ITypeTrait
+		{
+			bool visible;
+			std::string editorIconPath;
+
+			EditorTrait(const std::vector<FieldOption>& options)
+			{
+				for (auto& option : options)
+				{
+					if (std::holds_alternative<HideInInspectorTag>(option)) {
+						visible = false;
+					}
+					else if (std::holds_alternative<EditorIconTag>(option)) {
+						editorIconPath = std::get<EditorIconTag>(option).Path;
+					}
+				}
+			}
+		};
+
+		struct ComponentTrait : public ITypeTrait
+		{
 			EECategory category;
 			GameObjectComponentGetter getter; // method to get the type of component from a gameobject
 			GameObjectComponentFactory factory; // factory to create / add to a gameObject
 			GameObjectComponentDestructor destructor; // component destructor / remove from a gameObject
-			bool visible;
-			std::string editorIconPath; // TODO RESTRAIN TO INSIDE THE EDITOR
+		};
+
+		struct Entry
+		{
+			std::string name;
+			std::type_index type{ typeid(void) };
+			std::map<std::type_index, std::shared_ptr<ITypeTrait>> traits;
+
+			Entry(const std::string& name, std::type_index& type)
+				: name(name), type(type) { }
+
+			/**
+			 * Function to get a specific variation of ITypeTraits added to the current object type.
+			 * 
+			 * @return the Trait typed asked. 
+			 */
+			template<typename T>
+			T* GetTrait()
+			{
+				auto it = traits.find(typeid(T));
+				return (it != traits.end()) ? static_cast<T*>(it->second.get()) : nullptr;
+			}
 		};
 
 		template<typename T>
-		static void Register(const std::string& name, EECategory category, std::vector<FieldOption>& options);
+		static void Register(const std::string& name, const std::vector<FieldOption>& options);
 		
+		template<typename T, typename Trait, typename... Args>
+		static void AddTrait(Args&&... args)
+		{
+			auto& entry = GetEntries()[typeid(T)];
+			entry.traits[typeid(Trait)] = std::make_shared<Trait>(std::forward<Args>(args)...);
+		}
+
 		static std::unordered_map<std::type_index, Entry>& GetEntries() {
 			static std::unordered_map<std::type_index, Entry> entries;
 			return entries;
@@ -158,9 +207,9 @@ namespace Elevate
 		static void AddClassToStack(std::string newClass);
 		static void PopClassStack();
 
-		static std::map<std::string, std::vector<ComponentField>>& GetCustomComponentFields()
+		static std::map<std::type_index, std::vector<ComponentField>>& GetCustomComponentFields()
 		{
-			static std::map<std::string, std::vector<ComponentField>> m_customComponentFields;
+			static std::map<std::type_index, std::vector<ComponentField>> m_customComponentFields;
 			return m_customComponentFields;
 		}
 
@@ -233,7 +282,6 @@ private: \
 		ClassEntryEnd() { \
 			::Elevate::TypeRegistry::Register<ThisType>( \
 					generated_classEntry.ClassName, \
-					generated_classEntry.Category, \
 					generated_classEntry.Options \
 			); \
 			::Elevate::TypeRegistry::PopClassStack(); \
@@ -285,9 +333,35 @@ public: \
 #define END_COMPONENT() \
 END_OBJECT() \
 public: \
+	inline static struct ComponentEntryEnd { \
+		ComponentEntryEnd() { \
+			::Elevate::TypeRegistry::AddTrait<ThisType, ComponentTrait>(); \
+			auto* trait = ::Elevate::TypeRegistry::GetEntries()[typeid(ThisType)].GetTrait<::Elevate::TypeRegistry::ComponentTrait>(); \
+			if (trait) { \
+				trait->category = generated_classEntry.Category; \
+				trait->getter = [](std::weak_ptr<GameObject> go) -> Component* { \
+					if (std::shared_ptr<GameObject> obj = go.lock()) { \
+						return obj->GetComponent<T>(); \
+					} \
+					return nullptr; \
+				} \
+				trait->factory = [](std::weak_ptr<GameObject> go) -> Component* { \
+					if (std::shared_ptr<GameObject> obj = go.lock()) { \
+						return &obj->AddComponent<T>(); \
+					} \
+					return nullptr; \
+				} \
+				trait->destructor = [](std::weak_ptr<GameObject> go) -> void { \
+					if (std::shared_ptr<GameObject> obj = go.lock()) { \
+						obj->RemoveComponent<T>(); \
+					} \
+				} \
+			} \
+		} \
+	} generated_componentEntryEnd; \
 	virtual Component* Clone() override { \
 		ThisType* clone = new ThisType(); \
-		for (auto& field : TypeRegistry::GetCustomComponentFields()[typeid(ThisType).name()]) { \
+		for (auto& field : TypeRegistry::GetCustomComponentFields()[typeid(ThisType)]) { \
 			field.CopyValue(this, clone); \
 		} \
 		return clone; \
@@ -369,6 +443,6 @@ private: \
 			if (start < global.size()) { \
 				global.erase(global.begin() + start, global.end()); \
 			} \
-			::Elevate::TypeRegistry::GetCustomComponentFields()[generated_structEntry.StructTypeName] = generated_structEntry.StructFieldStack; \
+			::Elevate::TypeRegistry::GetCustomComponentFields()[typeid(ThisType)] = generated_structEntry.StructFieldStack; \
 		} \
 	} generated_structEntryEnd;

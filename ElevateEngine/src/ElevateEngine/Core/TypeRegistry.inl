@@ -30,45 +30,13 @@ namespace Elevate
 namespace Elevate
 {
     template<typename T>
-    void TypeRegistry::Register(const std::string& name, EECategory category, std::vector<FieldOption>& options) {
-        std::type_index ti(typeid(T));
+    void TypeRegistry::Register(const std::string& name, const std::vector<FieldOption>& options)
+    {
+        GetEntries().emplace(ti, Entry(name, typeid(T)));
 
-        bool visible = true;
-        std::string iconPath;
-        for (FieldOption& option : options)
-        {
-            if (std::holds_alternative<HideInInspectorTag>(option)) {
-                visible = false;
-            }
-            else if (std::holds_alternative<EditorIconTag>(option)) {
-                iconPath = std::get<EditorIconTag>(option).Path;
-            }
-        }
-
-        GetEntries().emplace(ti, Entry{
-            name,
-            ti,
-            category,
-            [](std::weak_ptr<GameObject> go) -> Component* {
-                if (std::shared_ptr<GameObject> obj = go.lock()) {
-                    return obj->GetComponent<T>();
-                }
-                return nullptr;
-            },
-            [](std::weak_ptr<GameObject> go) -> Component* {
-                if (std::shared_ptr<GameObject> obj = go.lock()) {
-                    return &obj->AddComponent<T>();
-                }
-                return nullptr;
-            },
-            [](std::weak_ptr<GameObject> go) -> void {
-                if (std::shared_ptr<GameObject> obj = go.lock()) {
-                    obj->RemoveComponent<T>();
-                }
-            },
-            visible,
-            iconPath
-        });
+#ifdef EE_EDITOR_BUILD
+        AddTrait<EditorTrait>(options);
+#endif
     }
 
     template<typename Class, typename FieldType>
