@@ -2,6 +2,7 @@
 
 #include <ElevateEngine/Events/Event.h>
 #include <ElevateEngine/Core/EEObject.h>
+#include <ElevateEngine/Core/Reflection.h>
 
 #ifdef EE_ENGINE_BUILD
 	#include <ElevateEngine/Renderer/Texture/Texture.h>
@@ -14,10 +15,6 @@ namespace Elevate
 {
 	class GameObject;
 	class Scene;
-
-	using GameObjectComponentGetter = std::function<Component* (std::weak_ptr<GameObject>)>;
-	using GameObjectComponentFactory = std::function<Component* (std::weak_ptr<GameObject>)>;
-	using GameObjectComponentDestructor = std::function<void(std::weak_ptr<GameObject>)>;
 
 	class Component : public EEObject
 	{
