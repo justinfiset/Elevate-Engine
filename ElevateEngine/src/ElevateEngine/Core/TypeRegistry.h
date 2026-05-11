@@ -106,27 +106,6 @@ namespace Elevate
 		virtual ~ITypeTrait() = default;
 	};
 
-	struct EditorTypeTrait : public ITypeTrait
-	{
-		bool visible = true;
-		std::string editorIconPath = "";
-
-		EditorTypeTrait() = default;
-
-		EditorTypeTrait(const std::vector<FieldOption>& options)
-		{
-			for (auto& option : options)
-			{
-				if (std::holds_alternative<HideInInspectorTag>(option)) {
-					visible = false;
-				}
-				else if (std::holds_alternative<EditorIconTag>(option)) {
-					editorIconPath = std::get<EditorIconTag>(option).Path;
-				}
-			}
-		}
-	};
-
 	struct ComponentTypeTrait : public ITypeTrait
 	{
 		EECategory category;
@@ -228,6 +207,13 @@ namespace Elevate
 	};
 }
 
+#ifdef EE_EDITOR_BUILD
+	#include <ElevateEngine/Editor/EditorTypeTrait.h>
+#endif
+
+#include "TypeRegistry.inl"
+
+// Todo remove and add as a tag
 #define EECATEGORY(name) \
 	private: \
 		inline static struct categoryRegistrar { \
@@ -237,8 +223,6 @@ namespace Elevate
 		} generated_categoryRegistrar; \
 		virtual EECategory GetCategory() const override { return generated_classEntry.Category; } \
 	public:
-
-#include "TypeRegistry.inl"
 
 // =======================================================
 // BEGIN_OBJECT / DECLARE_BASE / PROPERTY / END_OBJECT
@@ -340,6 +324,21 @@ public: \
 		return false; \
 	}
 
+#ifdef EE_EDITOR_BUILD
+	#define EDITOR_ONLY_COMPONENT_END_CODE(T) \
+		virtual const void* GetEditorIconHandle() const override { \
+			auto& entry = TypeRegistry::GetEntry<ThisType>(); \
+			if (auto* trait = entry.GetTrait<::Elevate::EditorTypeTrait>()) { \
+				if(!trait->editorIconPath.empty()) { \
+					return Texture::CreateFromFile(trait->editorIconPath)->GetNativeHandle(); \
+				} \
+			} \
+			return nullptr; \
+		}
+#else
+	#define EDITOR_ONLY_COMPONENT_END_CODE(T)
+#endif
+
 #define END_COMPONENT() \
 END_OBJECT() \
 public: \
@@ -407,15 +406,7 @@ public: \
 		} \
 		return nullptr; \
 	} \
-	virtual const void* GetEditorIconHandle() const override { \
-		auto& entry = TypeRegistry::GetEntry<ThisType>(); \
-		if (auto* trait = entry.GetTrait<::Elevate::EditorTypeTrait>()) { \
-			if(!trait->editorIconPath.empty()) { \
-				return Texture::CreateFromFile(trait->editorIconPath)->GetNativeHandle(); \
-			} \
-		} \
-		return nullptr; \
-	}
+	EDITOR_ONLY_COMPONENT_END_CODE(ThisType)
 
 // =======================================================
 // BEGIN_STRUCT / END_STRUCT

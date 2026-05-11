@@ -11,7 +11,13 @@
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/GameObject.inl>
+
+// todo make editor only
 #include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
+
+#ifdef EE_EDITOR_BUILD
+    #include <ElevateEngine/Editor/EditorTypeTrait.h>
+#endif
 
 namespace Elevate
 {
@@ -26,6 +32,7 @@ namespace Elevate
     struct ReadOnlyTag;
     struct TooltipTag;
 }
+
 
 namespace Elevate
 {
