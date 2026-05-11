@@ -6,14 +6,15 @@
 #include <type_traits>
 #include <typeindex>
 #include <typeinfo>
-#include <variant>
 
 #include <entt/entt.hpp>
 #include <glm/fwd.hpp>
 
-#include <ElevateEngine/Core/GameObject.h>
+#include <ElevateEngine/Core/ReflectionTags.h>
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/Log.h>
+
+#include <ElevateEngine/Core/GameObject.h>
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
@@ -48,41 +49,6 @@ namespace Elevate
 			}
 		}
 	};
-
-	// Field / Component Property Tag ------------------------------------------------------
-	struct EmptyTag {};
-
-#ifdef EE_EDITOR_BUILD
-	#define EditorTag(x) x
-#else
-	#define EditorTag(x) ::Elevate::EmptyTag{}
-#endif
-
-	struct HideInInspectorTag {};
-	#define HideInInspector EditorTag(HideInInspectorTag {})
-
-	struct FlattenTag {};
-	#define Flatten EditorTag(FlattenTag {})
-
-	struct DisplayNameTag { const char* value; };
-	#define DisplayName EditorTag(DisplayNameTag {})
-
-	struct TooltipTag { const char* text; };
-	#define Tooltip EditorTag(TooltipTag {})
-
-	struct ReadOnlyTag {};
-	#define ReadOnly EditorTag(ReadOnlyTag {})
-
-	struct ColorTag {};
-	#define ColorPicker EditorTag(ColorTag {})
-
-	struct EditorIconTag { std::string Path; };
-	#define EditorIcon(path) EditorTag(EditorIconTag{path})
-
-	using FieldOption = std::variant<
-		HideInInspectorTag, EditorIconTag,
-		FlattenTag, DisplayNameTag, TooltipTag, ReadOnlyTag, ColorTag
-	>;
 
 	struct FieldMeta {
 		bool flatten = false;
