@@ -169,13 +169,20 @@ namespace Elevate
 		template<typename T, typename Trait, typename... Args>
 		static void AddTrait(Args&&... args)
 		{
-			auto& entry = GetEntries()[typeid(T)];
+			auto& entry = GetEntry<T>();
 			entry.traits[typeid(Trait)] = std::make_shared<Trait>(std::forward<Args>(args)...);
 		}
 
-		static std::unordered_map<std::type_index, Entry>& GetEntries() {
+		static std::unordered_map<std::type_index, Entry>& GetEntries()
+		{
 			static std::unordered_map<std::type_index, Entry> entries;
 			return entries;
+		}
+
+		template<typename T>
+		static Entry& GetEntry()
+		{
+			return GetEntries()[typeid(T)];
 		}
 
 		static std::string GetName(const std::type_info& type);
@@ -337,7 +344,7 @@ public: \
 	inline static struct ComponentEntryEnd { \
 		ComponentEntryEnd() { \
 			::Elevate::TypeRegistry::AddTrait<ThisType, ::Elevate::TypeRegistry::ComponentTrait>(); \
-			auto* trait = ::Elevate::TypeRegistry::GetEntries()[typeid(ThisType)].GetTrait<::Elevate::TypeRegistry::ComponentTrait>(); \
+			auto* trait = ::Elevate::TypeRegistry::GetEntry<ThisType>().GetTrait<::Elevate::TypeRegistry::ComponentTrait>(); \
 			if (trait) { \
 				trait->category = generated_classEntry.Category; \
 				trait->getter = [](std::weak_ptr<GameObject> go) -> Component* { \
@@ -385,21 +392,21 @@ public: \
 		} \
 	} \
 	virtual Elevate::GameObjectComponentFactory GetFactory() const override { \
-		auto& entry = TypeRegistry::GetEntries()[typeid(ThisType)]; \
+		auto& entry = TypeRegistry::GetEntry<ThisType>(); \
 		if (auto* trait = entry.GetTrait<::Elevate::TypeRegistry::ComponentTrait>()) { \
 			return trait->factory; \
 		} \
 		return nullptr; \
 	} \
 	virtual Elevate::GameObjectComponentDestructor GetDestructor() const override { \
-		auto& entry = TypeRegistry::GetEntries()[typeid(ThisType)]; \
+		auto& entry = TypeRegistry::GetEntry<ThisType>(); \
 		if (auto* trait = entry.GetTrait<::Elevate::TypeRegistry::ComponentTrait>()) { \
 			return trait->destructor; \
 		} \
 		return nullptr; \
 	} \
 	virtual const void* GetEditorIconHandle() const override { \
-		auto& entry = TypeRegistry::GetEntries()[typeid(ThisType)]; \
+		auto& entry = TypeRegistry::GetEntry<ThisType>(); \
 		if (auto* trait = entry.GetTrait<::Elevate::TypeRegistry::EditorTrait>()) { \
 			if(!trait->editorIconPath.empty()) { \
 				return Texture::CreateFromFile(trait->editorIconPath)->GetNativeHandle(); \
