@@ -2,6 +2,7 @@
 
 #include <initializer_list>
 #include <map>
+#include <vector>
 #include <string>
 #include <type_traits>
 #include <typeindex>
@@ -13,8 +14,8 @@
 #include <ElevateEngine/Core/ReflectionTags.h>
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/Log.h>
-
-#include <ElevateEngine/Core/GameObject.h>
+#include <ElevateEngine/Core/EECategory.h>
+// todo remove in the near futur
 #include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 
 #ifdef EE_RELEASE
