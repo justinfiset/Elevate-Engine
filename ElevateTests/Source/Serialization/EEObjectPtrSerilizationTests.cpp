@@ -2,7 +2,7 @@
 
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/EEObjectPtr.h>
-#include <ElevateEngine/Core/TypeRegistry.h>
+#include <ElevateEngine/Core/Reflection.h>
 
 using namespace Elevate;
 
