@@ -30,9 +30,9 @@ namespace Elevate
 						allocator
 					);
 				},
-				[&](const PropertySet& v) {
+				[&](const PropertyContainer& v) {
 					rapidjson::Value childObj(rapidjson::kObjectType);
-					SerializeRecursive(v, childObj, allocator);
+					SerializeRecursive(v.Children, childObj, allocator);
 					return childObj;
 				}
 			}, property.Value);

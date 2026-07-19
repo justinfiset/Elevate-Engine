@@ -1,4 +1,5 @@
 #pragma once
+
 #include <ElevateEngine/Core/TypeRegistry.h>
 
 // Todo remove and add as a tag

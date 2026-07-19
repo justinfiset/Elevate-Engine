@@ -7,6 +7,10 @@
 
 namespace Elevate
 {
+	struct PropertyField;
+	using PropertySet = std::vector<PropertyField>;
+	struct PropertyContainer;
+
 	struct TypeField
 	{
 		std::string name;
@@ -100,8 +104,10 @@ namespace Elevate
 		size_t GetFieldCount() const { return m_fields.size(); }
 		const std::vector<TypeField>& GetFields() const { return m_fields; }
 
-
 		const std::string& GetName() const { return m_name; }
+
+		PropertySet CaptureState();
+
 	private:
 		std::vector<TypeField> m_fields;
 		std::string m_name;

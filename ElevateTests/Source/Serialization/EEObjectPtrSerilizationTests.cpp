@@ -1,8 +1,14 @@
 #include <catch2/catch_test_macros.hpp>
 
+#include <ElevateEngine/Core/Data.h>
+#include <ElevateEngine/Core/Byte.h>
+
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Core/Reflection.h>
+
+#include <ElevateEngine/Core/TypeLayout.h>
+#include <ElevateEngine/Serialization/ObjectPropertyField.h>
 
 using namespace Elevate;
 
@@ -14,6 +20,23 @@ public:
     PROPERTY(testInt)
     END_OBJECT()
 };
+
+//struct MockEEStruct
+//{
+//    BEGIN_STRUCT(MockEEStruct)
+//    int testStructInt = 123;
+//    PROPERTY(testStructInt)
+//    END_STRUCT()
+//};
+
+TEST_CASE("TypeLayout::CaptureState with mock object", "[Serialization][TypeLayout]") {
+    auto objPtr (std::make_shared<MockEEObject>());
+    TypeLayout layout = objPtr->GetLayout();
+    PropertySet res = layout.CaptureState(); // Build the propertyset from the layout
+    
+    // The propertyset should contain multiple properties
+    REQUIRE(!res.empty());
+}
 
 TEST_CASE("EEObjectPtr serlization is not empty", "[Serialization]") {
     Elevate::EEObjectPtr objPtr(std::make_shared<MockEEObject>());

@@ -3,7 +3,7 @@
 #ifdef EE_EDITOR_BUILD
 
 #include <ElevateEngine/Editor/EditorWidget.h>
-#include <ElevateEngine/Editor/Serialization/TypeLayout.h>
+#include <ElevateEngine/Core/TypeLayout.h>
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
 

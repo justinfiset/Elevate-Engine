@@ -3,7 +3,6 @@
 #include <memory>
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
-#include <ElevateEngine/Editor/Serialization/TypeLayout.h>
 
 namespace Elevate
 {

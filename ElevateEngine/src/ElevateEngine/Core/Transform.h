@@ -6,7 +6,7 @@
 #include <glm/vec3.hpp>
 
 #include <ElevateEngine/Core/Data.h>
-#include <ElevateEngine/Editor/Serialization/TypeLayout.h>
+#include <ElevateEngine/Core/TypeLayout.h>
 
 namespace Elevate
 {

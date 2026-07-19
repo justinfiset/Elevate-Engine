@@ -4,8 +4,7 @@
 #include <ElevateEngine/Core/EECategory.h>
 #include <ElevateEngine/Serialization/ISerializable.h>
 
-// todo remove and use new property system
-#include <ElevateEngine/Editor/Serialization/TypeLayout.h>
+#include <ElevateEngine/Core/TypeLayout.h>
 
 #include <typeindex>
 

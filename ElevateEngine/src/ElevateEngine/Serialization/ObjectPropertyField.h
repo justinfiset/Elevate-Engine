@@ -12,13 +12,18 @@ namespace Elevate
 	struct PropertyField;
     using PropertySet = std::vector<PropertyField>;
 
+    struct PropertyContainer
+    {
+        PropertySet Children;
+    };
+
     using PropertyValue = std::variant<
         bool,
         int64_t,        // Covers all int.
         double,         // Covers float and double
         std::string,
         ByteBuffer,     // Raw data for custom types
-        PropertySet     // For recusrive structs
+        PropertyContainer     // For recusrive structs
     >;
 
 	enum PropertyFlag
@@ -41,7 +46,7 @@ namespace Elevate
 
         bool IsContainer() const
         {
-            return std::holds_alternative<PropertySet>(Value);
+            return std::holds_alternative<PropertyContainer>(Value);
         }
 
         bool IsPrimitive() const
@@ -51,7 +56,7 @@ namespace Elevate
 
         const PropertySet& GetChildren() const
         {
-            return std::get<PropertySet>(Value);
+            return std::get<PropertyContainer>(Value).Children;
         }
 	};
 }

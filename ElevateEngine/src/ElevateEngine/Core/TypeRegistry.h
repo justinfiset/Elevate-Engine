@@ -16,7 +16,7 @@
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/EECategory.h>
 // todo remove in the near futur
-#include <ElevateEngine/Editor/Serialization/TypeLayout.h>
+#include <ElevateEngine/Core/TypeLayout.h>
 
 #ifdef EE_RELEASE
 	#undef EE_REGISTRY_LOG
@@ -66,11 +66,13 @@ namespace Elevate
 	};
 
 	template<> struct EngineDataTypeTrait<float> { static constexpr EngineDataType value = EngineDataType::Float; };
+	template<> struct EngineDataTypeTrait<double> { static constexpr EngineDataType value = EngineDataType::Double; };
 	template<> struct EngineDataTypeTrait<int> { static constexpr EngineDataType value = EngineDataType::Int; };
 	template<> struct EngineDataTypeTrait<bool> { static constexpr EngineDataType value = EngineDataType::Bool; };
 	template<> struct EngineDataTypeTrait<glm::vec2> { static constexpr EngineDataType value = EngineDataType::Float2; };
 	template<> struct EngineDataTypeTrait<glm::vec3> { static constexpr EngineDataType value = EngineDataType::Float3; };
 	template<> struct EngineDataTypeTrait<glm::vec4> { static constexpr EngineDataType value = EngineDataType::Float4; };
+	template<> struct EngineDataTypeTrait<std::string> { static constexpr EngineDataType value = EngineDataType::String; };
 
 	struct ITypeTrait
 	{
