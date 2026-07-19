@@ -35,6 +35,7 @@ namespace Elevate
 	#define EditorIcon(path) EditorTag(EditorIconTag{path})
 
 	using FieldOption = std::variant<
+		EmptyTag, // To allow empty types depending on compilation settings
 		HideInInspectorTag, EditorIconTag,
 		FlattenTag, DisplayNameTag, TooltipTag, ReadOnlyTag, ColorTag
 	>;
