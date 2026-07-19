@@ -5,7 +5,7 @@
 #include <ElevateEngine/Serialization/ISerializable.h>
 
 // todo remove and use new property system
-#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
+#include <ElevateEngine/Editor/Serialization/TypeLayout.h>
 
 #include <typeindex>
 
@@ -28,7 +28,7 @@ namespace Elevate
 
 		// If no overrode, an empty layout is generated and nothing is shown in the inspector
 		inline virtual std::string GetName() const { return "EEObject"; }
-		inline virtual ComponentLayout GetLayout() const { return ComponentLayout(GetName(), {}); }
+		inline virtual TypeLayout GetLayout() const { return TypeLayout(GetName(), {}); }
 		inline virtual std::type_index GetTypeIndex() const { return typeid(EEObject); }
 
 		// ISerializable Implementation

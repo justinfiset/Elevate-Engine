@@ -79,7 +79,7 @@ private: \
 	} generated_classEntryEnd; \
 public: \
 	inline virtual std::string GetName() const override { return generated_classEntry.ClassName; } \
-	inline virtual Elevate::ComponentLayout GetLayout() const override { \
+	inline virtual Elevate::TypeLayout GetLayout() const override { \
 		std::vector<Elevate::TypeField> instanceFields; \
 		if (generated_classEntry.HasBaseClass) { \
 			auto parentFields = ParentFieldsHelper<ThisType>::Get(); \
@@ -94,7 +94,7 @@ public: \
 			const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
 			instanceFields.push_back(Elevate::TypeField(field, fieldPtr)); \
 		} \
-		return Elevate::ComponentLayout(generated_classEntry.ClassName, instanceFields); \
+		return Elevate::TypeLayout(generated_classEntry.ClassName, instanceFields); \
 	} \
 	virtual std::type_index GetTypeIndex() const override { return typeid(ThisType); }
 
@@ -157,22 +157,23 @@ public: \
 		} \
 	} generated_componentEntryEnd; \
 	virtual Component* Clone() override { \
-		ThisType* clone = new ThisType(); \
+		/* ThisType* clone = new ThisType(); \
 		for (auto& field : TypeRegistry::GetCustomComponentFields()[typeid(ThisType)]) { \
-			field.CopyValue(this, clone); \
+			field.CopyValue(this, clone); todo : update this method with new props \
 		} \
-		return clone; \
+		return clone; */ \
+		return nullptr; \
 	} \
 	virtual void CopyFrom(Component* other) override { \
 		if (auto o = dynamic_cast<ThisType*>(other)) { \
 			if (generated_classEntry.HasBaseClass) { \
 				auto parentFields = ParentFieldsHelper<ThisType>::Get(); \
 				for (const Elevate::TypeField& field : parentFields) { \
-					field.CopyValue(o, this); \
+					/*field.CopyValue(o, this);*/ \
 				} \
 			} \
 			for (const Elevate::TypeField& field : generated_classEntry.ClassFieldStack) { \
-				field.CopyValue(o, this); \
+				/*field.CopyValue(o, this);*/ \
 			} \
 		} \
 		else { \

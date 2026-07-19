@@ -110,7 +110,7 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 
 void Elevate::Editor::AnalyserPanel::RenderComponent(Component* comp)
 {
-	const ComponentLayout layout = comp->GetLayout();
+	const TypeLayout layout = comp->GetLayout();
 
 	EECategory category = comp->GetCategory();
 
@@ -124,7 +124,7 @@ void Elevate::Editor::AnalyserPanel::RenderComponent(Component* comp)
 	RenderComponentLayout(layout, comp);
 }
 
-void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const ComponentLayout& layout, Component* component)
+void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const TypeLayout& layout, Component* component)
 {
 	const void* texHandle = nullptr;
 	if (component)

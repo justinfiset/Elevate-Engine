@@ -16,7 +16,7 @@
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/EECategory.h>
 // todo remove in the near futur
-#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
+#include <ElevateEngine/Editor/Serialization/TypeLayout.h>
 
 #ifdef EE_RELEASE
 	#undef EE_REGISTRY_LOG
@@ -24,6 +24,7 @@
 
 namespace Elevate
 {
+	class Component;
 	class GameObject;
 
 	template<typename T, typename = void>

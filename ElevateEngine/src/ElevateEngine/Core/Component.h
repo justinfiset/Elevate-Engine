@@ -9,7 +9,7 @@
 #endif
 
 #define COMPONENT_LAYOUT(...) \
-	ComponentLayout GetLayout() const override { return ComponentLayout(GetName(), __VA_ARGS__);}
+	TypeLayout GetLayout() const override { return TypeLayout(GetName(), __VA_ARGS__);}
 
 namespace Elevate
 {

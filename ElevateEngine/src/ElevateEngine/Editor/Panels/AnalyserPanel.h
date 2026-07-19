@@ -3,7 +3,7 @@
 #ifdef EE_EDITOR_BUILD
 
 #include <ElevateEngine/Editor/EditorWidget.h>
-#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
+#include <ElevateEngine/Editor/Serialization/TypeLayout.h>
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
 
@@ -21,7 +21,7 @@ namespace Elevate::Editor
 		void OnImGuiRender() override;
 	private:
 		void RenderComponent(Component* component);
-		void RenderComponentLayout(const ComponentLayout& layout, Component* component = nullptr);
+		void RenderComponentLayout(const TypeLayout& layout, Component* component = nullptr);
 		void RenderField(const TypeField& field) const;
 
 		// TODO MOVE SOMEWHERE ELSE !!!! (ALL THE FOLLOWING UNDERNEATH)

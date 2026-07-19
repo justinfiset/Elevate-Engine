@@ -7,8 +7,6 @@
 
 namespace Elevate
 {
-	class Component;
-
 	struct TypeField
 	{
 		std::string name;
@@ -77,24 +75,6 @@ namespace Elevate
 			}
 		}
 
-		void CopyValue(Component* src, Component* clone) const
-		{
-			const void* srcData = reinterpret_cast<const char*>(src) + offset;
-			void* destData = reinterpret_cast<char*>(clone) + offset;
-			
-			if (size > 0)
-			{
-				std::memcpy(destData, srcData, size);
-			}
-			else if (!children.empty())
-			{
-				for (auto& child : children)
-				{
-					child.CopyValue(src, clone);
-				}
-			}
-		}
-
 		inline const std::string& GetDisplayName() const
 		{
 			if (displayName.empty())
@@ -105,12 +85,12 @@ namespace Elevate
 		inline bool HasChildrens() { return !children.empty(); }
 	};
 
-	class ComponentLayout
+	class TypeLayout
 	{
 	public:
-		ComponentLayout() = default;
-		ComponentLayout(const std::string& name, std::initializer_list<TypeField> fields) : m_name(name), m_fields(fields) { }
-		ComponentLayout(const std::string& name, std::vector<TypeField>& fields) : m_name(name), m_fields(fields) { }
+		TypeLayout() = default;
+		TypeLayout(const std::string& name, std::initializer_list<TypeField> fields) : m_name(name), m_fields(fields) { }
+		TypeLayout(const std::string& name, std::vector<TypeField>& fields) : m_name(name), m_fields(fields) { }
 
 		// Regular and const operators to iterate easely trought fields
 		std::vector<TypeField>::iterator begin() { return m_fields.begin(); }

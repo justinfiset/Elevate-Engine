@@ -1,7 +1,7 @@
 #include <string>
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
-#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
+#include <ElevateEngine/Editor/Serialization/TypeLayout.h>
 
 namespace Elevate
 {

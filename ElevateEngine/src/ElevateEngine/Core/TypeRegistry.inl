@@ -13,7 +13,7 @@
 #include <ElevateEngine/Core/GameObject.inl>
 
 // todo make editor only
-#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
+#include <ElevateEngine/Editor/Serialization/TypeLayout.h>
 
 #ifdef EE_EDITOR_BUILD
     #include <ElevateEngine/Editor/EditorTypeTrait.h>
