@@ -43,9 +43,9 @@ namespace Elevate
 			return ComponentLayout(
 				"Transform",
 				{
-					{"Positon", ComponentDataType::Float3, &position},
-					{"Rotation", ComponentDataType::Float3, &rotation},
-					{"Scale", ComponentDataType::Float3, &scale}
+					{"Positon", EngineDataType::Float3, &position},
+					{"Rotation", EngineDataType::Float3, &rotation},
+					{"Scale", EngineDataType::Float3, &scale}
 				}
 			);
 		}

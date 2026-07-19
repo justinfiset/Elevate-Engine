@@ -31,7 +31,7 @@ public: \
 		EECategory Category; \
 		size_t FieldStartIndex = 0; \
 		std::string ClassName; \
-		std::vector<Elevate::ComponentField> ClassFieldStack; \
+		std::vector<Elevate::TypeField> ClassFieldStack; \
 		bool HasBaseClass = false; \
 	} generated_classEntry;
 
@@ -80,19 +80,19 @@ private: \
 public: \
 	inline virtual std::string GetName() const override { return generated_classEntry.ClassName; } \
 	inline virtual Elevate::ComponentLayout GetLayout() const override { \
-		std::vector<Elevate::ComponentField> instanceFields; \
+		std::vector<Elevate::TypeField> instanceFields; \
 		if (generated_classEntry.HasBaseClass) { \
 			auto parentFields = ParentFieldsHelper<ThisType>::Get(); \
-			for (const Elevate::ComponentField& field : parentFields) { \
+			for (const Elevate::TypeField& field : parentFields) { \
 				const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
-				instanceFields.push_back(Elevate::ComponentField( \
+				instanceFields.push_back(Elevate::TypeField( \
 					field, fieldPtr \
 				)); \
 			} \
 		} \
-		for (const Elevate::ComponentField& field : generated_classEntry.ClassFieldStack) { \
+		for (const Elevate::TypeField& field : generated_classEntry.ClassFieldStack) { \
 			const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
-			instanceFields.push_back(Elevate::ComponentField(field, fieldPtr)); \
+			instanceFields.push_back(Elevate::TypeField(field, fieldPtr)); \
 		} \
 		return Elevate::ComponentLayout(generated_classEntry.ClassName, instanceFields); \
 	} \
@@ -167,11 +167,11 @@ public: \
 		if (auto o = dynamic_cast<ThisType*>(other)) { \
 			if (generated_classEntry.HasBaseClass) { \
 				auto parentFields = ParentFieldsHelper<ThisType>::Get(); \
-				for (const Elevate::ComponentField& field : parentFields) { \
+				for (const Elevate::TypeField& field : parentFields) { \
 					field.CopyValue(o, this); \
 				} \
 			} \
-			for (const Elevate::ComponentField& field : generated_classEntry.ClassFieldStack) { \
+			for (const Elevate::TypeField& field : generated_classEntry.ClassFieldStack) { \
 				field.CopyValue(o, this); \
 			} \
 		} \
@@ -213,7 +213,7 @@ private: \
 		size_t FieldStartIndex = 0; \
 		std::string StructName; \
 		std::string StructTypeName; \
-		std::vector<Elevate::ComponentField> StructFieldStack; \
+		std::vector<Elevate::TypeField> StructFieldStack; \
 	} generated_structEntry; \
 	public:
 

@@ -80,15 +80,15 @@ namespace Elevate
         std::type_index ti = typeid(FieldType);
         size_t offset = reinterpret_cast<size_t>(&(reinterpret_cast<Class const volatile*>(0)->*member));
 
-        ComponentField field;
+        TypeField field;
         if (customFields.find(ti) != customFields.end())
         {
-            field = ComponentField(cleanedName, EngineDataType::Custom, offset, meta.displayName, customFields[ti]);
+            field = TypeField(cleanedName, EngineDataType::Custom, offset, meta.displayName, customFields[ti]);
             field.flatten = meta.flatten;
         }
         else
         {
-            field = ComponentField(cleanedName, type, offset, meta.displayName);
+            field = TypeField(cleanedName, type, offset, meta.displayName);
         }
         field.isColor = meta.isColor;
         field.tooltip = meta.tooltip;

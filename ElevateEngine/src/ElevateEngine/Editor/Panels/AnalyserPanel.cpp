@@ -172,7 +172,7 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const ComponentLayout
 	{
 		ImGui::PopStyleColor(4);
 
-		for (const ComponentField& field : layout)
+		for (const TypeField& field : layout)
 		{
 			RenderField(field);
 		}
@@ -183,39 +183,39 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const ComponentLayout
 	}
 }
 
-void Elevate::Editor::AnalyserPanel::RenderField(const ComponentField& field) const
+void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field) const
 {
 	ImGui::BeginDisabled(field.readOnly);
 
 	switch (field.type)
 	{
-	case ComponentDataType::Float:
+	case EngineDataType::Float:
 		ImGui::InputFloat(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
 
-	case ComponentDataType::Float2:
+	case EngineDataType::Float2:
 		ImGui::InputFloat2(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
 
-	case ComponentDataType::Float3:
+	case EngineDataType::Float3:
 		if (field.isColor)
 			ImGui::ColorEdit3(field.GetDisplayName().c_str(), (float*)(field.data));
 		else
 			ImGui::InputFloat3(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
 
-	case ComponentDataType::Float4:
+	case EngineDataType::Float4:
 		if (field.isColor)
 			ImGui::ColorEdit4(field.GetDisplayName().c_str(), (float*)(field.data));
 		else
 			ImGui::InputFloat4(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
 
-	case ComponentDataType::Bool:
+	case EngineDataType::Bool:
 		ImGui::Checkbox(field.GetDisplayName().c_str(), (bool*)(field.data));
 		break;
 
-	case ComponentDataType::Custom:
+	case EngineDataType::Custom:
 		if (!field.flatten)
 		{
 			if (ImGui::TreeNodeEx(field.GetDisplayName().c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_FramePadding))

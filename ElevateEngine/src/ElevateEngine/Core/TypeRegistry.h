@@ -33,12 +33,12 @@ namespace Elevate
 
 	template<typename T, bool = has_super<T>::value>
 	struct ParentFieldsHelper {
-		static std::vector<ComponentField> Get() { return {}; }
+		static std::vector<TypeField> Get() { return {}; }
 	};
 
 	template<typename T>
 	struct ParentFieldsHelper<T, true> {
-		static std::vector<ComponentField> Get() {
+		static std::vector<TypeField> Get() {
 			using Super = typename T::Super;
 			if constexpr (!std::is_same_v<Super, void> && std::is_base_of_v<Component, Super>) {
 				return Super::generated_classEntry.ClassFieldStack;
@@ -91,7 +91,7 @@ namespace Elevate
 	class TypeRegistry {
 	public:
 		template<typename T>
-		static auto GetParentFieldsIfPossible(const T* obj) -> std::vector<ComponentField> {
+		static auto GetParentFieldsIfPossible(const T* obj) -> std::vector<TypeField> {
 			return ParentFieldsHelper<T>::Get(obj);
 		}
 
@@ -152,9 +152,9 @@ namespace Elevate
 			return stack;
 		}
 
-		static inline std::vector<ComponentField>& CompilationClassFieldStack()
+		static inline std::vector<TypeField>& CompilationClassFieldStack()
 		{
-			static std::vector<ComponentField> stack;
+			static std::vector<TypeField> stack;
 			return stack;
 		}
 
@@ -170,9 +170,9 @@ namespace Elevate
 		static void AddClassToStack(std::string newClass);
 		static void PopClassStack();
 
-		static std::map<std::type_index, std::vector<ComponentField>>& GetCustomComponentFields()
+		static std::map<std::type_index, std::vector<TypeField>>& GetCustomComponentFields()
 		{
-			static std::map<std::type_index, std::vector<ComponentField>> m_customComponentFields;
+			static std::map<std::type_index, std::vector<TypeField>> m_customComponentFields;
 			return m_customComponentFields;
 		}
 
