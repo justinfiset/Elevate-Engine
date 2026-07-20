@@ -48,35 +48,25 @@ namespace Elevate
     }
 
     template<typename Class, typename FieldType>
-    void TypeRegistry::AddProperty(FieldType Class::* member, const std::string& name, std::initializer_list<FieldOption> options)
-    {
+    void TypeRegistry::AddPropertyDirect(
+        FieldType Class::* member,
+        const std::string& name,
+        std::initializer_list<FieldOption> options,
+        std::vector<TypeField>& targetStack
+    ) {
         using CleanedFieldT = std::decay_t<FieldType>;
         constexpr EngineDataType type = DeduceEngineDataType<CleanedFieldT>();
 
         FieldMeta meta;
         for (auto&& opt : options) {
-            if (std::holds_alternative<FlattenTag>(opt)) {
-                meta.flatten = true;
-            }
-            else if (std::holds_alternative<DisplayNameTag>(opt)) {
-                meta.displayName = std::get<DisplayNameTag>(opt).value;
-            }
-            else if (std::holds_alternative<TooltipTag>(opt)) {
-                meta.tooltip = std::get<TooltipTag>(opt).text;
-            }
-            else if (std::holds_alternative<ReadOnlyTag>(opt)) {
-                meta.readOnly = true;
-            }
-            else if (std::holds_alternative<ColorTag>(opt)) {
-                meta.isColor = true;
-            }
+            if (std::holds_alternative<FlattenTag>(opt)) { meta.flatten = true; }
+            else if (std::holds_alternative<DisplayNameTag>(opt)) { meta.displayName = std::get<DisplayNameTag>(opt).value; }
+            else if (std::holds_alternative<TooltipTag>(opt)) { meta.tooltip = std::get<TooltipTag>(opt).text; }
+            else if (std::holds_alternative<ReadOnlyTag>(opt)) { meta.readOnly = true; }
+            else if (std::holds_alternative<ColorTag>(opt)) { meta.isColor = true; }
         }
 
         std::string cleanedName = GetCleanedName(name);
-
-#ifdef EE_REGISTRY_LOG
-        EE_TRACE(" --> Exposed field : %s flatten=%d  displayName=%s", cleanedName.c_str(), meta.flatten, meta.displayName.c_str());
-#endif
 
         size_t offset = reinterpret_cast<size_t>(&(reinterpret_cast<Class const volatile*>(0)->*member));
         TypeField field;
@@ -88,22 +78,21 @@ namespace Elevate
 
             std::vector<TypeField> subFields;
             auto it = customFields.find(ti);
-            if (it != customFields.end())
-            {
+            if (it != customFields.end()) {
                 subFields = it->second;
             }
-
             field = TypeField(cleanedName, EngineDataType::Custom, offset, meta.displayName, subFields);
         }
         else
         {
             field = TypeField(cleanedName, type, offset, meta.displayName);
         }
+
         field.flatten = meta.flatten;
         field.isColor = meta.isColor;
         field.tooltip = meta.tooltip;
         field.readOnly = meta.readOnly;
 
-        CompilationClassFieldStack().push_back(field);
+        targetStack.push_back(field);
     }
 }

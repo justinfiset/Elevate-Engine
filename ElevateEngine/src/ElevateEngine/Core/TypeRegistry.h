@@ -180,7 +180,12 @@ namespace Elevate
 		}
 
 		template<typename Class, typename FieldType>
-		static void AddProperty(FieldType Class::* member, const std::string& name, std::initializer_list<FieldOption> options);
+		static void AddPropertyDirect(
+			FieldType Class::* member,
+			const std::string& name,
+			std::initializer_list<FieldOption> options,
+			std::vector<TypeField>& targetStack
+		);
 	};
 }
 
