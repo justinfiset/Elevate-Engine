@@ -28,7 +28,7 @@ namespace Elevate::Editor
 		struct CategoryMenu
 		{
 			EECategory category;
-			std::vector<TypeRegistry::Entry> items;
+			std::vector<const TypeRegistry::Entry*> items;
 
 			std::vector<CategoryMenu> childs;
 		};

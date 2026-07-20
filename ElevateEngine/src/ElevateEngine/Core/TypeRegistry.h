@@ -41,12 +41,28 @@ namespace Elevate
 	struct ParentFieldsHelper<T, true> {
 		static std::vector<TypeField> Get() {
 			using Super = typename T::Super;
-			if constexpr (!std::is_same_v<Super, void> && std::is_base_of_v<Component, Super>) {
+			if constexpr (!std::is_same_v<Super, void> &&
+				std::is_base_of_v<Component, Super> &&
+				!std::is_same_v<Super, Elevate::Component>) {
 				return Super::generated_classEntry.ClassFieldStack;
 			}
 			else {
 				return {};
 			}
+		}
+	};
+
+	// Prevent recursion when facing the Component class
+	template<>
+	struct ParentFieldsHelper<Elevate::Component, true> {
+		static std::vector<Elevate::TypeField> Get() {
+			return {};
+		}
+	};
+	template<>
+	struct ParentFieldsHelper<Elevate::Component, false> {
+		static std::vector<Elevate::TypeField> Get() {
+			return {};
 		}
 	};
 

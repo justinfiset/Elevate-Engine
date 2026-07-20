@@ -22,6 +22,8 @@ namespace Elevate
 		friend class Scene;
 
 	public:
+		using Super = Component;
+
 		std::function<bool()> RemoveFromGOFunc;
 
 		Component() = default;

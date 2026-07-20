@@ -250,52 +250,70 @@ void Elevate::Editor::AnalyserPanel::InsertCategory(CategoryMenu& root, const Ty
 	auto* compTrait = entry.GetTrait<ComponentTypeTrait>();
 	auto* editorTrait = entry.GetTrait<EditorTypeTrait>();
 
-	if (!editorTrait->visible)
+	if (!editorTrait || !editorTrait->visible || !compTrait)
 	{
 		return;
 	}
 
 	std::string path = compTrait->category.GetPath();
 
-	if (path.empty()) {
-		root.items.push_back(entry);
+	if (path.empty())
+	{
+		root.items.push_back(&entry);
 		return;
 	}
 
 	CategoryMenu* current = &root;
 	size_t start = 0;
 
-	while (true)
+	while (start < path.size())
 	{
 		size_t pos = path.find('/', start);
-		std::string part = (pos == std::string::npos)
-			? path.substr(start)
-			: path.substr(start, pos - start);
-
-		std::string accumulated = path.substr(0, (pos == std::string::npos ? path.size() : pos));
-
-		auto it = std::find_if(current->childs.begin(), current->childs.end(),
-			[&](const CategoryMenu& child) {
-				return child.category.GetPath() == accumulated;
-			});
-
-		if (it == current->childs.end())
-		{
-			CategoryMenu child;
-			child.category = EECategory(accumulated);
-			current->childs.push_back(std::move(child));
-			it = std::prev(current->childs.end());
-		}
-
-		current = &(*it);
+		std::string part;
 
 		if (pos == std::string::npos)
 		{
-			current->items.push_back(entry);
-			break;
+			part = path.substr(start);
+			start = path.size();
+		}
+		else
+		{
+			part = path.substr(start, pos - start);
+			start = pos + 1;
 		}
 
-		start = pos + 1;
+		if (part.empty())
+		{
+			continue;
+		}
+
+		bool found = false;
+		size_t index = 0;
+		for (size_t i = 0; i < current->childs.size(); ++i)
+		{
+			if (current->childs[i].category.GetName() == part)
+			{
+				index = i;
+				found = true;
+				break;
+			}
+		}
+
+		if (!found)
+		{
+			CategoryMenu child;
+			child.category = EECategory(part);
+			current->childs.push_back(std::move(child));
+			index = current->childs.size() - 1;
+		}
+
+		current = &current->childs[index];
+
+		if (start >= path.size() || pos == std::string::npos)
+		{
+			current->items.push_back(&entry);
+			break;
+		}
 	}
 }
 
@@ -304,11 +322,11 @@ void Elevate::Editor::AnalyserPanel::DrawCategoryChildren(const CategoryMenu& ca
 	// Grey out the item if it is already added to the current GameObject
 	for (auto& entry : category.items)
 	{
-		auto* compTrait = entry.GetTrait<ComponentTypeTrait>();
+		auto* compTrait = entry->GetTrait<ComponentTypeTrait>();
 		bool alreadyAdded = false;
 		for (auto& type : m_alredyAddedComponents)
 		{
-			if (type == entry.type)
+			if (type == entry->type)
 			{
 				alreadyAdded = true;
 				break;
@@ -316,7 +334,7 @@ void Elevate::Editor::AnalyserPanel::DrawCategoryChildren(const CategoryMenu& ca
 		}
 
 		ImGui::BeginDisabled(alreadyAdded);
-		if (ImGui::Selectable(entry.name.c_str()))
+		if (ImGui::Selectable(entry->name.c_str()))
 		{
 			if (auto go = obj.lock())
 			{

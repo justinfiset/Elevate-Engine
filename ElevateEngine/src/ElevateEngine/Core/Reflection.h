@@ -84,20 +84,30 @@ private: \
                     generated_classEntry.Options \
             ); \
             ::Elevate::TypeRegistry::PopClassStack(); \
+            ::Elevate::TypeRegistry::GetReflectedTypes()[typeid(ThisType)] = generated_classEntry.ClassFieldStack; \
         } \
     } generated_classEntryEnd; \
 public: \
     inline virtual std::string GetName() const override { return generated_classEntry.ClassName; } \
     inline virtual ::Elevate::TypeLayout GetLayout() const override { \
-        std::vector<::Elevate::TypeField> instanceFields; \
-        if (generated_classEntry.HasBaseClass) { \
-            auto parentFields = ParentFieldsHelper<ThisType>::Get(); \
-            for (const ::Elevate::TypeField& field : parentFields) { \
-                const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
-                instanceFields.push_back(::Elevate::TypeField(field, fieldPtr)); \
+        std::vector<::Elevate::TypeField> allFields; \
+        \
+        if constexpr (requires { typename ThisType::Super; }) { \
+            auto& registryMap = ::Elevate::TypeRegistry::GetReflectedTypes(); \
+            auto it = registryMap.find(typeid(typename ThisType::Super)); \
+            if (it != registryMap.end()) { \
+                for (const auto& field : it->second) { \
+                    allFields.push_back(field); \
+                } \
             } \
         } \
+        \
         for (const ::Elevate::TypeField& field : generated_classEntry.ClassFieldStack) { \
+            allFields.push_back(field); \
+        } \
+        \
+        std::vector<::Elevate::TypeField> instanceFields; \
+        for (const ::Elevate::TypeField& field : allFields) { \
             const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
             instanceFields.push_back(::Elevate::TypeField(field, fieldPtr)); \
         } \

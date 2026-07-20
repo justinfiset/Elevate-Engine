@@ -28,6 +28,9 @@ public:
     int testInt = 123456;
     PROPERTY(testInt)
 
+    float testFloat = 321.123f;
+    PROPERTY(testFloat)
+
     MockEEStruct testStruct;
     PROPERTY(testStruct);
 
@@ -52,13 +55,13 @@ TEST_CASE("TypeLayout::CaptureState with mock object", "[Serialization][TypeLayo
 
     SECTION("Validation of the generated class layout") {
         REQUIRE(!layout.GetFields().empty());
-        REQUIRE(layout.GetFieldCount() == 2);
+        REQUIRE(layout.GetFieldCount() == 3);
     }
 
     SECTION("Validation of the generated PropertySet") {
         // The propertyset should contain multiple properties
         REQUIRE(!res.empty());
-        REQUIRE(res.size() == 2);
+        REQUIRE(res.size() == 3);
     }
 }
 
