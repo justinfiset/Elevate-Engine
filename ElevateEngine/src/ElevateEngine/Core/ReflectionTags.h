@@ -8,35 +8,39 @@ namespace Elevate
     struct EmptyTag {};
 
 #ifdef EE_EDITOR_BUILD
-	#define EditorTag(x) x
+	#define EE_EditorTag(x) x
 #else
-	#define EditorTag(x) ::Elevate::EmptyTag{}
+	#define EE_EditorTag(x) ::Elevate::EmptyTag{}
 #endif
 
 	struct HideInInspectorTag {};
-	#define HideInInspector EditorTag(HideInInspectorTag {})
+	#define EE_HideInInspector EditorTag(HideInInspectorTag {})
 
 	struct FlattenTag {};
-	#define Flatten EditorTag(FlattenTag {})
+	#define EE_Flatten EditorTag(FlattenTag {})
 
 	struct DisplayNameTag { const char* value; };
-	#define DisplayName EditorTag(DisplayNameTag {})
+	#define EE_DisplayName EditorTag(DisplayNameTag {})
 
 	struct TooltipTag { const char* text; };
-	#define Tooltip EditorTag(TooltipTag {})
+	#define EE_Tooltip EditorTag(TooltipTag {})
 
 	struct ReadOnlyTag {};
-	#define ReadOnly EditorTag(ReadOnlyTag {})
+	#define EE_ReadOnly EditorTag(ReadOnlyTag {})
 
 	struct ColorTag {};
-	#define ColorPicker EditorTag(ColorTag {})
+	#define EE_ColorPicker EditorTag(ColorTag {})
 
 	struct EditorIconTag { std::string Path; };
-	#define EditorIcon(path) EditorTag(EditorIconTag{path})
+	#define EE_EditorIcon(path) EditorTag(EditorIconTag{path})
+
+	struct NoSerializeTag {};
+	#define EE_NoSerialize EditorTag(NoSerializeTag {})
 
 	using FieldOption = std::variant<
 		EmptyTag, // To allow empty types depending on compilation settings
 		HideInInspectorTag, EditorIconTag,
-		FlattenTag, DisplayNameTag, TooltipTag, ReadOnlyTag, ColorTag
+		FlattenTag, DisplayNameTag, TooltipTag, ReadOnlyTag, ColorTag,
+		NoSerializeTag
 	>;
 }
