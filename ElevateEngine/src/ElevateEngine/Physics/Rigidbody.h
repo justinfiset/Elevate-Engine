@@ -1,7 +1,7 @@
 #pragma once
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/GameObject.h>
-#include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Editor/Components/ComponentsIcon.h>
 
 #include "glm/glm.hpp"
@@ -47,7 +47,7 @@ namespace Elevate
 	class Rigidbody : public Component
 	{
 	public:
-		BEGIN_COMPONENT(Rigidbody, EditorIcon(std::string(Editor::Icons::COMPONENT_ICON_RIGIDBODY)))
+		BEGIN_COMPONENT(Rigidbody, EE_EditorIcon(std::string(Editor::Icons::COMPONENT_ICON_RIGIDBODY)))
 		EECATEGORY("Physics")
 
 		Rigidbody();
@@ -57,7 +57,7 @@ namespace Elevate
 
 	private:
 		RigidbodyData m_data;
-		PROPERTY(m_data, Flatten)
+		PROPERTY(m_data, EE_Flatten)
 
 		END_COMPONENT()
 	};

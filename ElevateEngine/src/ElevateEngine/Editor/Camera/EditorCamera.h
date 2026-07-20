@@ -1,6 +1,6 @@
 #pragma once
 #include "ElevateEngine/Renderer/Camera.h"
-#include "ElevateEngine/Core/ComponentRegistry.h"
+#include "ElevateEngine/Core/TypeRegistry.h"
 
 namespace Elevate {
 	class Event;
@@ -8,7 +8,7 @@ namespace Elevate {
 	class EditorCamera : public Camera
 	{
 	public:
-		BEGIN_COMPONENT(EditorCamera, HideInInspector)
+		BEGIN_COMPONENT(EditorCamera, EE_HideInInspector)
 		DECLARE_BASE(Camera)
 
 		EditorCamera(float fov = 60.0f); // TODO CHANGER, ON VEUT QUELQUE CHOSE DE CUSTUM

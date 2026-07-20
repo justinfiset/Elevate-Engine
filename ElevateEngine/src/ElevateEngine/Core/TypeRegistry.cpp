@@ -1,7 +1,7 @@
 #include "eepch.h"
-#include "ComponentRegistry.h"
+#include "TypeRegistry.h"
 
-std::string Elevate::ComponentRegistry::GetName(const std::type_info& type)
+std::string Elevate::TypeRegistry::GetName(const std::type_info& type)
 {
 	auto& entries = GetEntries();
 	auto it = entries.find(std::type_index(type));
@@ -13,7 +13,7 @@ std::string Elevate::ComponentRegistry::GetName(const std::type_info& type)
 	}
 }
 
-std::string Elevate::ComponentRegistry::GetCleanedName(std::string rawName)
+std::string Elevate::TypeRegistry::GetCleanedName(std::string rawName)
 {
 	std::string cleanedName = "";
 
@@ -22,28 +22,32 @@ std::string Elevate::ComponentRegistry::GetCleanedName(std::string rawName)
 		char c = rawName.at(i); // Current char
 		if (i == 0)
 		{
-			if ((c == 'm' || c == 's' || c == 'g') && rawName.at(i + 1) == '_') // If we have a notation of Hungarian style : m_myVariable
+			if (rawName.length() > 1 && (c == 'm' || c == 's' || c == 'g') && rawName.at(i + 1) == '_')
 			{
 				i = 1;
 				continue;
 			}
-			else
+			cleanedName += std::toupper(c);
+			continue;
+		}
+
+		bool lowerToUpper = std::islower(rawName.at(i - 1)) && std::isupper(c);
+		bool acronymToEnd = std::isupper(c) && (i + 1 < rawName.length()) && std::islower(rawName.at(i + 1));
+		if (lowerToUpper || acronymToEnd)
+		{
+			if (!cleanedName.empty() && cleanedName.back() != ' ')
 			{
-				cleanedName += std::toupper(c);
+				cleanedName += ' ';
 			}
 		}
-		else if (rawName.length() > i + 1 && std::isupper(c) && std::islower(rawName.at(i + 1)))
+
+		if (c == '_')
 		{
 			cleanedName += ' ';
-			cleanedName += c;
 		}
-		else if (std::isalpha(c) && rawName.at(i - 1) == '_')
+		else if (rawName.at(i - 1) == '_')
 		{
 			cleanedName += std::toupper(c);
-		}
-		else if (c == '_')
-		{
-			cleanedName += ' ';
 		}
 		else
 		{
@@ -54,7 +58,7 @@ std::string Elevate::ComponentRegistry::GetCleanedName(std::string rawName)
 	return cleanedName;
 }
 
-void Elevate::ComponentRegistry::AddClassToStack(std::string newClass)
+void Elevate::TypeRegistry::AddClassToStack(std::string newClass)
 {
 #ifdef EE_REGISTRY_LOG
 	EE_CORE_INFO("{}", GetCleanedName(newClass));
@@ -62,7 +66,7 @@ void Elevate::ComponentRegistry::AddClassToStack(std::string newClass)
 	CompilationClassStack().push_back(newClass);
 }
 
-void Elevate::ComponentRegistry::PopClassStack()
+void Elevate::TypeRegistry::PopClassStack()
 {
 	if (CompilationClassStack().empty())
 	{

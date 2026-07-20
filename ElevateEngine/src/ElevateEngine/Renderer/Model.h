@@ -7,7 +7,7 @@
 #include <assimp/Importer.hpp>
 
 #include <ElevateEngine/Core/Component.h>
-#include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Renderer/Material.h>
 #include <ElevateEngine/Renderer/Mesh.h>

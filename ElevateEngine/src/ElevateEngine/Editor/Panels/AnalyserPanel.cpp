@@ -13,7 +13,7 @@
 #include <ElevateEngine/ImGui/CustomImGuiCommand.h>
 
 #include <ElevateEngine/Editor/Commands/ComponentCommand.h>
-#include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Core/Component.h>
 
 void Elevate::Editor::AnalyserPanel::OnImGuiRender()
@@ -90,7 +90,7 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 			ImGui::Separator();
 
 			CategoryMenu root;
-			for (auto& pair : ComponentRegistry::GetEntries())
+			for (auto& pair : TypeRegistry::GetEntries())
 			{
 				InsertCategory(root, pair.second);
 			}
@@ -110,7 +110,7 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 
 void Elevate::Editor::AnalyserPanel::RenderComponent(Component* comp)
 {
-	const ComponentLayout layout = comp->GetLayout();
+	const TypeLayout layout = comp->GetLayout();
 
 	EECategory category = comp->GetCategory();
 
@@ -124,7 +124,7 @@ void Elevate::Editor::AnalyserPanel::RenderComponent(Component* comp)
 	RenderComponentLayout(layout, comp);
 }
 
-void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const ComponentLayout& layout, Component* component)
+void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const TypeLayout& layout, Component* component)
 {
 	const void* texHandle = nullptr;
 	if (component)
@@ -172,10 +172,12 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const ComponentLayout
 	{
 		ImGui::PopStyleColor(4);
 
-		for (const ComponentField& field : layout)
+		ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 0.0f);
+		for (const TypeField& field : layout)
 		{
 			RenderField(field);
 		}
+		ImGui::PopStyleVar();
 	}
 	else
 	{
@@ -183,39 +185,39 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const ComponentLayout
 	}
 }
 
-void Elevate::Editor::AnalyserPanel::RenderField(const ComponentField& field) const
+void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field) const
 {
 	ImGui::BeginDisabled(field.readOnly);
 
 	switch (field.type)
 	{
-	case ComponentDataType::Float:
+	case EngineDataType::Float:
 		ImGui::InputFloat(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
 
-	case ComponentDataType::Float2:
+	case EngineDataType::Float2:
 		ImGui::InputFloat2(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
 
-	case ComponentDataType::Float3:
+	case EngineDataType::Float3:
 		if (field.isColor)
 			ImGui::ColorEdit3(field.GetDisplayName().c_str(), (float*)(field.data));
 		else
 			ImGui::InputFloat3(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
 
-	case ComponentDataType::Float4:
+	case EngineDataType::Float4:
 		if (field.isColor)
 			ImGui::ColorEdit4(field.GetDisplayName().c_str(), (float*)(field.data));
 		else
 			ImGui::InputFloat4(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
 
-	case ComponentDataType::Bool:
+	case EngineDataType::Bool:
 		ImGui::Checkbox(field.GetDisplayName().c_str(), (bool*)(field.data));
 		break;
 
-	case ComponentDataType::Custom:
+	case EngineDataType::Custom:
 		if (!field.flatten)
 		{
 			if (ImGui::TreeNodeEx(field.GetDisplayName().c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_FramePadding))
@@ -245,54 +247,75 @@ void Elevate::Editor::AnalyserPanel::RenderField(const ComponentField& field) co
 	}
 }
 
-void Elevate::Editor::AnalyserPanel::InsertCategory(CategoryMenu& root, const ComponentRegistry::Entry& entry)
+void Elevate::Editor::AnalyserPanel::InsertCategory(CategoryMenu& root, const TypeRegistry::Entry& entry)
 {
-	if (!entry.visible)
+	auto* compTrait = entry.GetTrait<ComponentTypeTrait>();
+	auto* editorTrait = entry.GetTrait<EditorTypeTrait>();
+
+	if (!editorTrait || !editorTrait->visible || !compTrait)
 	{
 		return;
 	}
 
-	std::string path = entry.category.GetPath();
+	std::string path = compTrait->category.GetPath();
 
-	if (path.empty()) {
-		root.items.push_back(entry);
+	if (path.empty())
+	{
+		root.items.push_back(&entry);
 		return;
 	}
 
 	CategoryMenu* current = &root;
 	size_t start = 0;
 
-	while (true)
+	while (start < path.size())
 	{
 		size_t pos = path.find('/', start);
-		std::string part = (pos == std::string::npos)
-			? path.substr(start)
-			: path.substr(start, pos - start);
-
-		std::string accumulated = path.substr(0, (pos == std::string::npos ? path.size() : pos));
-
-		auto it = std::find_if(current->childs.begin(), current->childs.end(),
-			[&](const CategoryMenu& child) {
-				return child.category.GetPath() == accumulated;
-			});
-
-		if (it == current->childs.end())
-		{
-			CategoryMenu child;
-			child.category = EECategory(accumulated);
-			current->childs.push_back(std::move(child));
-			it = std::prev(current->childs.end());
-		}
-
-		current = &(*it);
+		std::string part;
 
 		if (pos == std::string::npos)
 		{
-			current->items.push_back(entry);
-			break;
+			part = path.substr(start);
+			start = path.size();
+		}
+		else
+		{
+			part = path.substr(start, pos - start);
+			start = pos + 1;
 		}
 
-		start = pos + 1;
+		if (part.empty())
+		{
+			continue;
+		}
+
+		bool found = false;
+		size_t index = 0;
+		for (size_t i = 0; i < current->childs.size(); ++i)
+		{
+			if (current->childs[i].category.GetName() == part)
+			{
+				index = i;
+				found = true;
+				break;
+			}
+		}
+
+		if (!found)
+		{
+			CategoryMenu child;
+			child.category = EECategory(part);
+			current->childs.push_back(std::move(child));
+			index = current->childs.size() - 1;
+		}
+
+		current = &current->childs[index];
+
+		if (start >= path.size() || pos == std::string::npos)
+		{
+			current->items.push_back(&entry);
+			break;
+		}
 	}
 }
 
@@ -301,10 +324,11 @@ void Elevate::Editor::AnalyserPanel::DrawCategoryChildren(const CategoryMenu& ca
 	// Grey out the item if it is already added to the current GameObject
 	for (auto& entry : category.items)
 	{
+		auto* compTrait = entry->GetTrait<ComponentTypeTrait>();
 		bool alreadyAdded = false;
 		for (auto& type : m_alredyAddedComponents)
 		{
-			if (type == entry.type)
+			if (type == entry->type)
 			{
 				alreadyAdded = true;
 				break;
@@ -312,11 +336,11 @@ void Elevate::Editor::AnalyserPanel::DrawCategoryChildren(const CategoryMenu& ca
 		}
 
 		ImGui::BeginDisabled(alreadyAdded);
-		if (ImGui::Selectable(entry.name.c_str()))
+		if (ImGui::Selectable(entry->name.c_str()))
 		{
 			if (auto go = obj.lock())
 			{
-				EditorLayer::Get().PushCommand(std::make_unique<AddComponentCommand>(go, entry.factory, entry.destructor));
+				EditorLayer::Get().PushCommand(std::make_unique<AddComponentCommand>(go, compTrait->factory, compTrait->destructor));
 			}
 		}
 		ImGui::EndDisabled();

@@ -6,7 +6,11 @@ namespace Elevate
 {
 	class JsonSerializer : public Serializer
 	{
-		virtual bool Serialize(const PropertySet& fields, ByteBuffer& outBuffer) const = 0;
-		virtual bool Deserialize(const ByteBuffer& data, PropertySet& outFields) = 0;
+	public:
+		JsonSerializer() = default;
+		virtual ~JsonSerializer() = default;
+
+		virtual bool Serialize(const PropertySet& fields, ByteBuffer& outBuffer) const override;
+		virtual bool Deserialize(const ByteBuffer& data, PropertySet& outFields) override;
 	};
 }

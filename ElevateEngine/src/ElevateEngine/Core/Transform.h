@@ -6,7 +6,7 @@
 #include <glm/vec3.hpp>
 
 #include <ElevateEngine/Core/Data.h>
-#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
+#include <ElevateEngine/Core/TypeLayout.h>
 
 namespace Elevate
 {
@@ -38,14 +38,14 @@ namespace Elevate
 		const glm::mat4& GetModelMatrix() const;
 		void UpdateModelMatrix();
 	
-		ComponentLayout GetLayout() const
+		TypeLayout GetLayout() const
 		{
-			return ComponentLayout(
+			return TypeLayout(
 				"Transform",
 				{
-					{"Positon", ComponentDataType::Float3, &position},
-					{"Rotation", ComponentDataType::Float3, &rotation},
-					{"Scale", ComponentDataType::Float3, &scale}
+					{"Positon", EngineDataType::Float3, &position},
+					{"Rotation", EngineDataType::Float3, &rotation},
+					{"Scale", EngineDataType::Float3, &scale}
 				}
 			);
 		}

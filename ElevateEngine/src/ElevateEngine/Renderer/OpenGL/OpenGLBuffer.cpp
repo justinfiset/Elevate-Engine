@@ -1,11 +1,10 @@
 #include "eepch.h"
 #include "OpenGLBuffer.h"
-#include "ElevateEngine/Renderer/Vertex.h"
 
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include "ElevateEngine/Renderer/Vertex.h"
 #include <GLFW/glfw3.h>
 #include <ElevateEngine/Core/Log.h>
-
 #include <ElevateEngine/Renderer/GLDebug.h>
 #include <ElevateEngine/Renderer/GraphicsContext.h>
 

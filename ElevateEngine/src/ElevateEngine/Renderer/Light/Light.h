@@ -2,7 +2,7 @@
 
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/GameObject.h>
-#include <ElevateEngine/Core/ComponentRegistry.h>
+#include <ElevateEngine/Core/TypeRegistry.h>
 
 #include <glm/vec3.hpp>
 
@@ -11,7 +11,7 @@ namespace Elevate
 	class Light : public Component
 	{
 	public:
-		BEGIN_COMPONENT(Light, HideInInspector)
+		BEGIN_COMPONENT(Light, EE_HideInInspector)
 		EECATEGORY("Rendering")
 
 		Light() = default;
@@ -46,9 +46,9 @@ namespace Elevate
 		glm::vec3 m_specularColor = { 1.0f, 1.0f, 1.0f };
 		float m_intensity = 1.0f;
 
-		PROPERTY(m_ambientColor, ColorPicker)
-		PROPERTY(m_diffuseColor, ColorPicker)
-		PROPERTY(m_specularColor, ColorPicker)
+		PROPERTY(m_ambientColor, EE_ColorPicker)
+		PROPERTY(m_diffuseColor, EE_ColorPicker)
+		PROPERTY(m_specularColor, EE_ColorPicker)
 		PROPERTY(m_intensity)
 		END_COMPONENT()
 	};

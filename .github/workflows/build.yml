@@ -1,6 +1,6 @@
 name: Build Elevate Engine
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build-linux:
@@ -28,8 +28,8 @@ jobs:
 
       - name: Compile
         run: |
-           grep '^[^#[:space:]].*:' Makefile
-           make config=editor_debug -j$(nproc)
+            grep '^[^#[:space:]].*:' Makefile
+            make config=editor_debug -j$(nproc)
 
       - name: Run tests
         run: ./Build/bin/Editor_Debug-linux-x86_64/ElevateEngine-Tests/ElevateEngine-Tests -r junit -o junit-results.xml
@@ -80,13 +80,34 @@ jobs:
         with:
           version: 1.12.1
 
-      - name: Setup Emscripten
-        uses: mymindstorm/setup-emsdk@v14
+      - name: Setup emsdk
+        uses: emscripten-core/setup-emsdk@v15
         with:
           version: 'latest'
+          actions-cache-folder: 'emsdk-cache'
+
+      - name: Verify
+        run: emcc -v
 
       - name: Generate Projects (Premake)
         run: ./vendor/premake/premake5.exe --os=emscripten ninja
+        
+      - name: Create Wrappers and Compile
+        shell: pwsh
+        run: |
+          if (Test-Path "$env:EMSDK\emsdk_env.ps1") {
+              & "$env:EMSDK\emsdk_env.ps1"
+          }
 
-      - name: Compile
-        run: ninja Editor_Debug
+          Add-Content -Path $env:GITHUB_PATH -Value "$env:EMSDK"
+          Add-Content -Path $env:GITHUB_PATH -Value "$env:EMSDK\upstream\emscripten"
+
+          $emscriptenDir = "$env:EMSDK\upstream\emscripten"
+          Set-Content -Path "$emscriptenDir\em++.bat"     -Value "@echo off`npython `"$emscriptenDir\em++.py`" %*"
+          Set-Content -Path "$emscriptenDir\emcc.bat"     -Value "@echo off`npython `"$emscriptenDir\emcc.py`" %*"
+          Set-Content -Path "$emscriptenDir\emar.bat"     -Value "@echo off`npython `"$emscriptenDir\emar.py`" %*"
+          Set-Content -Path "$emscriptenDir\emranlib.bat" -Value "@echo off`npython `"$emscriptenDir\emranlib.py`" %*"
+
+          $env:PATH = "$emscriptenDir;" + $env:PATH
+
+          ninja Editor_Debug
