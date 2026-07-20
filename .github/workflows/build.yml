@@ -84,9 +84,11 @@ jobs:
         uses: mymindstorm/setup-emsdk@v14
         with:
           version: 'latest'
+          actions-cache: true
 
       - name: Generate Projects (Premake)
         run: ./vendor/premake/premake5.exe --os=emscripten ninja
 
       - name: Compile
+        shell: pwsh
         run: ninja Editor_Debug
