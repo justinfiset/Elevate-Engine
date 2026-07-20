@@ -19,11 +19,11 @@ namespace Elevate
 
     using PropertyValue = std::variant<
         bool,
-        int64_t,        // Covers all int.
-        double,         // Covers float and double
+        int64_t,            // Covers all int.
+        double,             // Covers float and double
         std::string,
-        ByteBuffer,     // Raw data for custom types
-        PropertyContainer     // For recusrive structs
+        ByteBuffer,         // Raw data for custom types
+        PropertyContainer   // For recusrive structs
     >;
 
 	enum PropertyFlag
