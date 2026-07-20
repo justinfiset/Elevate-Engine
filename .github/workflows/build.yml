@@ -95,9 +95,8 @@ jobs:
       - name: Compile
         shell: pwsh
         run: |
-          # La nouvelle action ajoute emsdk au PATH, mais on force le chargement du script d'environnement 
-          # pour s'assurer que cmd /c (utilisé par Ninja) retrouve les .bat d'Emscripten sans erreur.
           if (Test-Path "$env:EMSDK\emsdk_env.ps1") {
               & "$env:EMSDK\emsdk_env.ps1"
           }
+          $env:PATH = "$env:EMSDK;$env:EMSDK\upstream\emscripten;" + $env:PATH
           ninja Editor_Debug
