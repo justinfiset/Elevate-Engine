@@ -231,6 +231,6 @@ private: \
 			if (start < global.size()) { \
 				global.erase(global.begin() + start, global.end()); \
 			} \
-			::Elevate::TypeRegistry::GetReflectedTypes()[typeid(ThisType)] = generated_structEntry.StructFieldStack; \
+			::Elevate::TypeRegistry::GetCustomComponentFields()[typeid(ThisType)] = generated_structEntry.StructFieldStack; \
 		} \
 	} generated_structEntryEnd;

@@ -15,7 +15,6 @@
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/EECategory.h>
-#include <ElevateEngine/Serialization/ObjectPropertyField.h>
 // todo remove in the near futur
 #include <ElevateEngine/Core/TypeLayout.h>
 
@@ -42,12 +41,22 @@ namespace Elevate
 	struct ParentFieldsHelper<T, true> {
 		static std::vector<TypeField> Get() {
 			using Super = typename T::Super;
-			if constexpr (!std::is_same_v<Super, void> &&
-				(std::is_base_of_v<Component, Super> || std::is_same_v<EEObject, Super>)) {
+			if constexpr (!std::is_same_v<Super, void> && std::is_base_of_v<Component, Super>) {
 				return Super::generated_classEntry.ClassFieldStack;
 			}
-			return {};
+			else {
+				return {};
+			}
 		}
+	};
+
+	struct FieldMeta {
+		bool flatten = false;
+		std::string displayName = "";
+		std::string tooltip;
+		bool readOnly = false;
+		bool isColor = false;
+		std::string IconPath;
 	};
 
 	template<typename T>
@@ -155,14 +164,7 @@ namespace Elevate
 		template<typename T>
 		static constexpr EngineDataType DeduceEngineDataType() 
 		{
-			if constexpr (IsReflectedType<T>())
-			{
-				return EngineDataType::Custom;
-			}
-			else
-			{
-				return EngineDataTypeTrait<std::decay_t<T>>::value;
-			}
+			return EngineDataTypeTrait<std::decay_t<T>>::value;
 		}
 
 		// Simple method to convert a variable or class name to a display name, ex: m_myProperty -> My Property
@@ -175,17 +177,6 @@ namespace Elevate
 		{
 			static std::map<std::type_index, std::vector<TypeField>> m_customComponentFields;
 			return m_customComponentFields;
-		}
-
-		static bool IsReflectedType(std::type_index type)
-		{
-			return GetReflectedTypes().contains(type);
-		}
-
-		template<typename T>
-		static bool IsReflectedType()
-		{
-			return IsReflectedType(typeid(T));
 		}
 
 		template<typename Class, typename FieldType>
