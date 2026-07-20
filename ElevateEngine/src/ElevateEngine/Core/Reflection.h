@@ -159,7 +159,7 @@ public: \
 	} generated_componentEntryEnd; \
 	virtual Component* Clone() override { \
 		/* ThisType* clone = new ThisType(); \
-		for (auto& field : TypeRegistry::GetCustomComponentFields()[typeid(ThisType)]) { \
+		for (auto& field : TypeRegistry::GetReflectedTypes()[typeid(ThisType)]) { \
 			field.CopyValue(this, clone); todo : update this method with new props \
 		} \
 		return clone; */ \
@@ -231,6 +231,6 @@ private: \
 			if (start < global.size()) { \
 				global.erase(global.begin() + start, global.end()); \
 			} \
-			::Elevate::TypeRegistry::GetCustomComponentFields()[typeid(ThisType)] = generated_structEntry.StructFieldStack; \
+			::Elevate::TypeRegistry::GetReflectedTypes()[typeid(ThisType)] = generated_structEntry.StructFieldStack; \
 		} \
 	} generated_structEntryEnd;

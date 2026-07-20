@@ -173,7 +173,7 @@ namespace Elevate
 		static void AddClassToStack(std::string newClass);
 		static void PopClassStack();
 
-		static std::map<std::type_index, std::vector<TypeField>>& GetCustomComponentFields()
+		static std::map<std::type_index, std::vector<TypeField>>& GetReflectedTypes()
 		{
 			static std::map<std::type_index, std::vector<TypeField>> m_customComponentFields;
 			return m_customComponentFields;

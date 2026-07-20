@@ -76,7 +76,7 @@ namespace Elevate
         EE_TRACE(" --> Exposed field : %s flatten=%d  displayName=%s", cleanedName.c_str(), meta.flatten, meta.displayName.c_str());
 #endif
 
-        auto& customFields = GetCustomComponentFields();
+        auto& customFields = GetReflectedTypes();
         std::type_index ti = typeid(FieldType);
         size_t offset = reinterpret_cast<size_t>(&(reinterpret_cast<Class const volatile*>(0)->*member));
 
