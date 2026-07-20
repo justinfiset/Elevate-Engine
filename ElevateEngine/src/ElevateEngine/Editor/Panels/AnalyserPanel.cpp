@@ -172,10 +172,12 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const TypeLayout& lay
 	{
 		ImGui::PopStyleColor(4);
 
+		ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 0.0f);
 		for (const TypeField& field : layout)
 		{
 			RenderField(field);
 		}
+		ImGui::PopStyleVar();
 	}
 	else
 	{
