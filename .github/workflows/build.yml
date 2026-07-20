@@ -98,11 +98,16 @@ jobs:
           if (Test-Path "$env:EMSDK\emsdk_env.ps1") {
               & "$env:EMSDK\emsdk_env.ps1"
           }
+
           Add-Content -Path $env:GITHUB_PATH -Value "$env:EMSDK"
           Add-Content -Path $env:GITHUB_PATH -Value "$env:EMSDK\upstream\emscripten"
-          $emscriptenDir = "$env:EMSDK\upstream\emscripten"            Set-Content -Path "$emscriptenDir\em++.bat"     -Value "@echo off`npython `"$emscriptenDir\em++.py`" %*"
+
+          $emscriptenDir = "$env:EMSDK\upstream\emscripten"
+          Set-Content -Path "$emscriptenDir\em++.bat"     -Value "@echo off`npython `"$emscriptenDir\em++.py`" %*"
           Set-Content -Path "$emscriptenDir\emcc.bat"     -Value "@echo off`npython `"$emscriptenDir\emcc.py`" %*"
           Set-Content -Path "$emscriptenDir\emar.bat"     -Value "@echo off`npython `"$emscriptenDir\emar.py`" %*"
           Set-Content -Path "$emscriptenDir\emranlib.bat" -Value "@echo off`npython `"$emscriptenDir\emranlib.py`" %*"
+
           $env:PATH = "$emscriptenDir;" + $env:PATH
+
           ninja Editor_Debug
