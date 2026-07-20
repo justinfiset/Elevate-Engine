@@ -1,6 +1,6 @@
 name: Build Elevate Engine
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build-linux:
@@ -28,8 +28,8 @@ jobs:
 
       - name: Compile
         run: |
-           grep '^[^#[:space:]].*:' Makefile
-           make config=editor_debug -j$(nproc)
+            grep '^[^#[:space:]].*:' Makefile
+            make config=editor_debug -j$(nproc)
 
       - name: Run tests
         run: ./Build/bin/Editor_Debug-linux-x86_64/ElevateEngine-Tests/ElevateEngine-Tests -r junit -o junit-results.xml
@@ -80,15 +80,24 @@ jobs:
         with:
           version: 1.12.1
 
-      - name: Setup Emscripten
-        uses: mymindstorm/setup-emsdk@v14
+      - name: Setup emsdk
+        uses: emscripten-core/setup-emsdk@v15
         with:
           version: 'latest'
-          actions-cache: true
+          actions-cache-folder: 'emsdk-cache'
+
+      - name: Verify
+        run: emcc -v
 
       - name: Generate Projects (Premake)
         run: ./vendor/premake/premake5.exe --os=emscripten ninja
 
       - name: Compile
         shell: pwsh
-        run: ninja Editor_Debug
+        run: |
+          # La nouvelle action ajoute emsdk au PATH, mais on force le chargement du script d'environnement 
+          # pour s'assurer que cmd /c (utilisé par Ninja) retrouve les .bat d'Emscripten sans erreur.
+          if (Test-Path "$env:EMSDK\emsdk_env.ps1") {
+              & "$env:EMSDK\emsdk_env.ps1"
+          }
+          ninja Editor_Debug
