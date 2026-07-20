@@ -204,33 +204,40 @@ public: \
 
 #define BEGIN_STRUCT(T) \
 private: \
-	using ThisType = T; \
-	inline static struct T##StructEntry { \
-		T##StructEntry() { \
-			::Elevate::TypeRegistry::AddClassToStack(#T); \
-			FieldStartIndex = ::Elevate::TypeRegistry::CompilationClassFieldStack().size(); \
-			StructName = ::Elevate::TypeRegistry::GetCleanedName(#T); \
-			StructTypeName = typeid(T).name(); \
-		} \
-		size_t FieldStartIndex = 0; \
-		std::string StructName; \
-		std::string StructTypeName; \
-		std::vector<Elevate::TypeField> StructFieldStack; \
-	} generated_structEntry; \
-	public:
+    using ThisType = T; \
+    inline static struct T##StructEntry { \
+        T##StructEntry() { \
+            FieldStartIndex = ::Elevate::TypeRegistry::CompilationClassFieldStack().size(); \
+            ::Elevate::TypeRegistry::AddClassToStack(#T); \
+            StructName = ::Elevate::TypeRegistry::GetCleanedName(#T); \
+            StructTypeName = typeid(T).name(); \
+        } \
+        size_t FieldStartIndex = 0; \
+        std::string StructName; \
+        std::string StructTypeName; \
+        std::vector<Elevate::TypeField> StructFieldStack; \
+    } generated_structEntry; \
+public:
 
 #define END_STRUCT() \
-	private: \
-	inline static struct StructEntryEnd { \
-		StructEntryEnd() { \
-			auto& global = ::Elevate::TypeRegistry::CompilationClassFieldStack(); \
-			size_t start = generated_structEntry.FieldStartIndex; \
-			for (size_t i = start; i < global.size(); ++i) { \
-				generated_structEntry.StructFieldStack.push_back(global[i]); \
-			} \
-			if (start < global.size()) { \
-				global.erase(global.begin() + start, global.end()); \
-			} \
-			::Elevate::TypeRegistry::GetReflectedTypes()[typeid(ThisType)] = generated_structEntry.StructFieldStack; \
-		} \
-	} generated_structEntryEnd;
+private: \
+    inline static struct StructEntryEnd { \
+        StructEntryEnd() { \
+            auto& global = ::Elevate::TypeRegistry::CompilationClassFieldStack(); \
+            size_t start = generated_structEntry.FieldStartIndex; \
+            for (size_t i = start; i < global.size(); ++i) { \
+                generated_structEntry.StructFieldStack.push_back(global[i]); \
+            } \
+            if (start < global.size()) { \
+                global.erase(global.begin() + start, global.end()); \
+            } \
+            ::Elevate::TypeRegistry::PopClassStack(); \
+            \
+            ::Elevate::TypeRegistry::Register<ThisType>( \
+                generated_structEntry.StructName, \
+                std::vector<FieldOption>{} \
+            ); \
+            \
+            ::Elevate::TypeRegistry::GetReflectedTypes()[typeid(ThisType)] = generated_structEntry.StructFieldStack; \
+        } \
+    } generated_structEntryEnd;

@@ -1,5 +1,3 @@
-#include "eepch.h"
-
 #include "Cubemap.h"
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <ElevateEngine/Core/PathResolver.h>

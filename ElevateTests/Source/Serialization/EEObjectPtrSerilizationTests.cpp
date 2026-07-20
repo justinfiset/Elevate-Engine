@@ -12,30 +12,54 @@
 
 using namespace Elevate;
 
+struct MockEEStruct
+{
+    BEGIN_STRUCT(MockEEStruct)
+    int testStructInt = 123;
+    PROPERTY(testStructInt)
+    END_STRUCT()
+};
+
 class MockEEObject : public EEObject
 {
 public:
     BEGIN_OBJECT(MockEEObject)
-	int testInt = 123456;
-    PROPERTY(testInt)
-    END_OBJECT()
-};
 
-//struct MockEEStruct
-//{
-//    BEGIN_STRUCT(MockEEStruct)
-//    int testStructInt = 123;
-//    PROPERTY(testStructInt)
-//    END_STRUCT()
-//};
+    int testInt = 123456;
+    PROPERTY(testInt)
+
+    MockEEStruct testStruct;
+    PROPERTY(testStruct);
+
+    END_OBJECT()
+
+    MockEEObject() = default;
+    virtual ~MockEEObject() = default;
+};
 
 TEST_CASE("TypeLayout::CaptureState with mock object", "[Serialization][TypeLayout]") {
     auto objPtr (std::make_shared<MockEEObject>());
     TypeLayout layout = objPtr->GetLayout();
     PropertySet res = layout.CaptureState(); // Build the propertyset from the layout
     
-    // The propertyset should contain multiple properties
-    REQUIRE(!res.empty());
+    SECTION("Validate that all the types are correctly reflected") {
+        auto& objectType = Elevate::TypeRegistry::GetEntry<MockEEObject>().type;
+        CHECK(objectType == std::type_index(typeid(MockEEObject)));
+
+        auto& structType = Elevate::TypeRegistry::GetEntry<MockEEStruct>().type;
+        CHECK(structType == std::type_index(typeid(MockEEStruct)));
+    }
+
+    SECTION("Validation of the generated class layout") {
+        REQUIRE(!layout.GetFields().empty());
+        REQUIRE(layout.GetFieldCount() == 2);
+    }
+
+    SECTION("Validation of the generated PropertySet") {
+        // The propertyset should contain multiple properties
+        REQUIRE(!res.empty());
+        REQUIRE(res.size() == 2);
+    }
 }
 
 TEST_CASE("EEObjectPtr serlization is not empty", "[Serialization]") {

@@ -50,7 +50,9 @@ namespace Elevate
     template<typename Class, typename FieldType>
     void TypeRegistry::AddProperty(FieldType Class::* member, const std::string& name, std::initializer_list<FieldOption> options)
     {
-        constexpr EngineDataType type = DeduceEngineDataType<FieldType>();
+        using CleanedFieldT = std::decay_t<FieldType>;
+        constexpr EngineDataType type = DeduceEngineDataType<CleanedFieldT>();
+
         FieldMeta meta;
         for (auto&& opt : options) {
             if (std::holds_alternative<FlattenTag>(opt)) {
@@ -67,7 +69,7 @@ namespace Elevate
             }
             else if (std::holds_alternative<ColorTag>(opt)) {
                 meta.isColor = true;
-            }   
+            }
         }
 
         std::string cleanedName = GetCleanedName(name);
@@ -76,23 +78,32 @@ namespace Elevate
         EE_TRACE(" --> Exposed field : %s flatten=%d  displayName=%s", cleanedName.c_str(), meta.flatten, meta.displayName.c_str());
 #endif
 
-        auto& customFields = GetReflectedTypes();
-        std::type_index ti = typeid(FieldType);
         size_t offset = reinterpret_cast<size_t>(&(reinterpret_cast<Class const volatile*>(0)->*member));
-
         TypeField field;
-        if (customFields.find(ti) != customFields.end())
+
+        if (type == EngineDataType::Custom)
         {
-            field = TypeField(cleanedName, EngineDataType::Custom, offset, meta.displayName, customFields[ti]);
-            field.flatten = meta.flatten;
+            auto& customFields = GetReflectedTypes();
+            std::type_index ti = typeid(CleanedFieldT);
+
+            std::vector<TypeField> subFields;
+            auto it = customFields.find(ti);
+            if (it != customFields.end())
+            {
+                subFields = it->second;
+            }
+
+            field = TypeField(cleanedName, EngineDataType::Custom, offset, meta.displayName, subFields);
         }
         else
         {
             field = TypeField(cleanedName, type, offset, meta.displayName);
         }
+        field.flatten = meta.flatten;
         field.isColor = meta.isColor;
         field.tooltip = meta.tooltip;
         field.readOnly = meta.readOnly;
+
         CompilationClassFieldStack().push_back(field);
     }
 }
