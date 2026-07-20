@@ -9,6 +9,7 @@
 
 #include <ElevateEngine/Core/TypeLayout.h>
 #include <ElevateEngine/Serialization/ObjectPropertyField.h>
+#include <ElevateEngine/Serialization/JsonSerializer.h>
 
 using namespace Elevate;
 
@@ -23,6 +24,8 @@ struct MockEEStruct
 class MockEEObject : public EEObject
 {
 public:
+    using Super = EEObject;
+
     BEGIN_OBJECT(MockEEObject)
 
     int testInt = 123456;
@@ -40,7 +43,7 @@ public:
     virtual ~MockEEObject() = default;
 };
 
-TEST_CASE("TypeLayout::CaptureState with mock object", "[Serialization][TypeLayout]") {
+TEST_CASE("TypeLayout::CaptureState with mock object", "[Serialization][TypeLayout][PropertySet]") {
     auto objPtr (std::make_shared<MockEEObject>());
     TypeLayout layout = objPtr->GetLayout();
     PropertySet res = layout.CaptureState(); // Build the propertyset from the layout
@@ -63,6 +66,21 @@ TEST_CASE("TypeLayout::CaptureState with mock object", "[Serialization][TypeLayo
         REQUIRE(!res.empty());
         REQUIRE(res.size() == 3);
     }
+}
+
+TEST_CASE("EEObject JSON Serilization", "[Serialization][PropertySet][JSONSerializer]") {
+    auto objPtr(std::make_shared<MockEEObject>());
+    Elevate::TypeLayout layout = objPtr->GetLayout();
+    Elevate::PropertySet res = layout.CaptureState();
+
+    Elevate::ByteBuffer outBuffer;
+    Elevate::JsonSerializer serializer;
+    bool success = serializer.Serialize(res, outBuffer);
+    REQUIRE(success);
+
+    std::string json = Elevate::ByteUitls::ToString(outBuffer);
+    CHECK(json.find("\"Test Int\":123456") != std::string::npos);
+    CHECK(json.find("\"Test Struct\":{\"Test Struct Int\":123}") != std::string::npos);
 }
 
 TEST_CASE("EEObjectPtr serlization is not empty", "[Serialization]") {

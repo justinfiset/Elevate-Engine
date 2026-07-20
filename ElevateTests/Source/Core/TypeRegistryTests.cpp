@@ -7,6 +7,7 @@ using namespace Elevate;
 class MockEEObject : public EEObject
 {
 public:
+    using Super = EEObject;
     BEGIN_OBJECT(MockEEObject)
     int testInt = 123456;
     PROPERTY(testInt)
