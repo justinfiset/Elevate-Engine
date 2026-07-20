@@ -98,5 +98,6 @@ jobs:
           if (Test-Path "$env:EMSDK\emsdk_env.ps1") {
               & "$env:EMSDK\emsdk_env.ps1"
           }
-          $env:PATH = "$env:EMSDK;$env:EMSDK\upstream\emscripten;" + $env:PATH
+          Add-Content -Path $env:GITHUB_PATH -Value "$env:EMSDK"
+          Add-Content -Path $env:GITHUB_PATH -Value "$env:EMSDK\upstream\emscripten"
           ninja Editor_Debug
