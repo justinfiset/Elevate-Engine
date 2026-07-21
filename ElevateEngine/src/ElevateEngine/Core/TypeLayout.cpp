@@ -66,6 +66,11 @@ namespace Elevate
         return set;
     }
 
+    PropertySet CreateArrayPropertySet(const TypeField& parent, const std::string parentPath, uint16_t currentDepth)
+    {
+
+    }
+
     PropertySet TypeLayout::CaptureState()
     {
         PropertySet set;

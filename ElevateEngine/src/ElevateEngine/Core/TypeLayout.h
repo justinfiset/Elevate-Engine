@@ -25,6 +25,9 @@ namespace Elevate
 		bool isColor = false;
 		std::vector<TypeField> children;
 
+		std::function<size_t(const void*)> GetArraySize;
+		std::function<const void* (const void*)> GetArrayData;
+
 		TypeField() = default;
 
 		TypeField(
