@@ -4,6 +4,10 @@
 #include <ElevateEngine/Core/EECategory.h>
 #include <ElevateEngine/Serialization/ISerializable.h>
 
+#include <ElevateEngine/Core/TypeLayout.h>
+
+#include <typeindex>
+
 namespace Elevate
 {
 	class EEObject : public ISerializable
@@ -21,6 +25,12 @@ namespace Elevate
 		virtual EECategory GetCategory() const { return m_category; }
 		const Guid& GetGuid() const { return m_guid; }
 
+		// If no overrode, an empty layout is generated and nothing is shown in the inspector
+		inline virtual std::string GetName() const { return "EEObject"; }
+		inline virtual TypeLayout GetLayout() const { return TypeLayout(GetName(), {}); }
+		inline virtual std::type_index GetTypeIndex() const { return typeid(EEObject); }
+
+		// ISerializable Implementation
 		virtual ByteBuffer Serialize() const override;
 		virtual void Deserialize(const ByteBuffer& data) override;
 	};

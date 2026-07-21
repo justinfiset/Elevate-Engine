@@ -11,7 +11,13 @@
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/GameObject.inl>
-#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
+
+// todo make editor only
+#include <ElevateEngine/Core/TypeLayout.h>
+
+#ifdef EE_EDITOR_BUILD
+    #include <ElevateEngine/Editor/EditorTypeTrait.h>
+#endif
 
 namespace Elevate
 {
@@ -27,96 +33,66 @@ namespace Elevate
     struct TooltipTag;
 }
 
+
 namespace Elevate
 {
     template<typename T>
-    void TypeRegistry::Register(const std::string& name, EECategory category, std::vector<FieldOption>& options) {
+    void TypeRegistry::Register(const std::string& name, const std::vector<FieldOption>& options)
+    {
         std::type_index ti(typeid(T));
+        GetEntries().emplace(ti, Entry(name, ti));
 
-        bool visible = true;
-        std::string iconPath;
-        for (FieldOption& option : options)
-        {
-            if (std::holds_alternative<HideInInspectorTag>(option)) {
-                visible = false;
-            }
-            else if (std::holds_alternative<EditorIconTag>(option)) {
-                iconPath = std::get<EditorIconTag>(option).Path;
-            }
-        }
-
-        GetEntries().emplace(ti, Entry{
-            name,
-            ti,
-            category,
-            [](std::weak_ptr<GameObject> go) -> Component* {
-                if (std::shared_ptr<GameObject> obj = go.lock()) {
-                    return obj->GetComponent<T>();
-                }
-                return nullptr;
-            },
-            [](std::weak_ptr<GameObject> go) -> Component* {
-                if (std::shared_ptr<GameObject> obj = go.lock()) {
-                    return &obj->AddComponent<T>();
-                }
-                return nullptr;
-            },
-            [](std::weak_ptr<GameObject> go) -> void {
-                if (std::shared_ptr<GameObject> obj = go.lock()) {
-                    obj->RemoveComponent<T>();
-                }
-            },
-            visible,
-            iconPath
-        });
+#ifdef EE_EDITOR_BUILD
+        AddTrait<T, EditorTypeTrait>(options);
+#endif
     }
 
     template<typename Class, typename FieldType>
-    void TypeRegistry::AddProperty(FieldType Class::* member, const std::string& name, std::initializer_list<FieldOption> options)
-    {
-        constexpr EngineDataType type = DeduceEngineDataType<FieldType>();
+    void TypeRegistry::AddPropertyDirect(
+        FieldType Class::* member,
+        const std::string& name,
+        std::initializer_list<FieldOption> options,
+        std::vector<TypeField>& targetStack
+    ) {
+        using CleanedFieldT = std::decay_t<FieldType>;
+        constexpr EngineDataType type = DeduceEngineDataType<CleanedFieldT>();
+
         FieldMeta meta;
         for (auto&& opt : options) {
-            if (std::holds_alternative<FlattenTag>(opt)) {
-                meta.flatten = true;
-            }
-            else if (std::holds_alternative<DisplayNameTag>(opt)) {
-                meta.displayName = std::get<DisplayNameTag>(opt).value;
-            }
-            else if (std::holds_alternative<TooltipTag>(opt)) {
-                meta.tooltip = std::get<TooltipTag>(opt).text;
-            }
-            else if (std::holds_alternative<ReadOnlyTag>(opt)) {
-                meta.readOnly = true;
-            }
-            else if (std::holds_alternative<ColorTag>(opt)) {
-                meta.isColor = true;
-            }   
+            if (std::holds_alternative<FlattenTag>(opt)) { meta.flatten = true; }
+            else if (std::holds_alternative<DisplayNameTag>(opt)) { meta.displayName = std::get<DisplayNameTag>(opt).value; }
+            else if (std::holds_alternative<TooltipTag>(opt)) { meta.tooltip = std::get<TooltipTag>(opt).text; }
+            else if (std::holds_alternative<ReadOnlyTag>(opt)) { meta.readOnly = true; }
+            else if (std::holds_alternative<ColorTag>(opt)) { meta.isColor = true; }
         }
 
         std::string cleanedName = GetCleanedName(name);
 
-#ifdef EE_REGISTRY_LOG
-        EE_TRACE(" --> Exposed field : %s flatten=%d  displayName=%s", cleanedName.c_str(), meta.flatten, meta.displayName.c_str());
-#endif
-
-        auto& customFields = GetCustomComponentFields();
-        std::string typeName = typeid(FieldType).name();
         size_t offset = reinterpret_cast<size_t>(&(reinterpret_cast<Class const volatile*>(0)->*member));
+        TypeField field;
 
-        ComponentField field;
-        if (customFields.find(typeName) != customFields.end())
+        if (type == EngineDataType::Custom)
         {
-            field = ComponentField(cleanedName, EngineDataType::Custom, offset, meta.displayName, customFields[typeName]);
-            field.flatten = meta.flatten;
+            auto& customFields = GetReflectedTypes();
+            std::type_index ti = typeid(CleanedFieldT);
+
+            std::vector<TypeField> subFields;
+            auto it = customFields.find(ti);
+            if (it != customFields.end()) {
+                subFields = it->second;
+            }
+            field = TypeField(cleanedName, EngineDataType::Custom, offset, meta.displayName, subFields);
         }
         else
         {
-            field = ComponentField(cleanedName, type, offset, meta.displayName);
+            field = TypeField(cleanedName, type, offset, meta.displayName);
         }
+
+        field.flatten = meta.flatten;
         field.isColor = meta.isColor;
         field.tooltip = meta.tooltip;
         field.readOnly = meta.readOnly;
-        CompilationClassFieldStack().push_back(field);
+
+        targetStack.push_back(field);
     }
 }

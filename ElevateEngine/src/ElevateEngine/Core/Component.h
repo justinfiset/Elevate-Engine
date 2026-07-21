@@ -1,25 +1,20 @@
 #pragma once
 
 #include <ElevateEngine/Events/Event.h>
-#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
 #include <ElevateEngine/Core/EEObject.h>
-#include <typeindex>
+#include <ElevateEngine/Core/Reflection.h>
 
 #ifdef EE_ENGINE_BUILD
-#include <ElevateEngine/Renderer/Texture/Texture.h>
+	#include <ElevateEngine/Renderer/Texture/Texture.h>
 #endif
 
 #define COMPONENT_LAYOUT(...) \
-	ComponentLayout GetLayout() const override { return ComponentLayout(GetName(), __VA_ARGS__);}
+	TypeLayout GetLayout() const override { return TypeLayout(GetName(), __VA_ARGS__);}
 
 namespace Elevate
 {
 	class GameObject;
 	class Scene;
-
-	using GameObjectComponentGetter = std::function<Component* (std::weak_ptr<GameObject>)>;
-	using GameObjectComponentFactory = std::function<Component* (std::weak_ptr<GameObject>)>;
-	using GameObjectComponentDestructor = std::function<void(std::weak_ptr<GameObject>)>;
 
 	class Component : public EEObject
 	{
@@ -27,6 +22,8 @@ namespace Elevate
 		friend class Scene;
 
 	public:
+		using Super = Component;
+
 		std::function<bool()> RemoveFromGOFunc;
 
 		Component() = default;
@@ -38,21 +35,17 @@ namespace Elevate
 		virtual GameObjectComponentFactory GetFactory() const = 0;
 		virtual GameObjectComponentDestructor GetDestructor() const = 0;
 		virtual const void* GetEditorIconHandle() const { return nullptr; }
-		virtual std::type_index GetTypeIndex() const = 0;
 
 		inline void SetActive(bool newState) { m_IsActive = newState; }
 		inline bool IsActive() { return m_IsActive; }
 
-		// Method to override to define a layout in the editor, not mandatory but higly recommanded
+		// EEObject Implementation
 		// If no overrode, an empty layout is generated and nothing is shown in the inspector
-		virtual ComponentLayout GetLayout() const { return ComponentLayout(GetName(), {}); }
+		inline virtual std::string GetName() const { return "Unknown Component"; }
+		inline virtual std::type_index GetTypeIndex() const { return typeid(Component); }
 
 		virtual bool RemoveFromGameObject() { return false; }
 
-		inline virtual std::string GetName() const {
-			return "Unknown Component Name";
-			//return TypeRegistry::GetName(typeid(*this));
-		}
 	protected:
 		virtual void Init() {}
 		virtual void Destroy() {}

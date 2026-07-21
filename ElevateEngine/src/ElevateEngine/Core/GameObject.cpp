@@ -224,8 +224,12 @@ Elevate::GameObject::~GameObject()
 		if (!m_scene) return components;
 
 		for (auto& [type, entry] : TypeRegistry::GetEntries()) {
-			if (Component* component = entry.getter(weak_from_this())) {
-				components.push_back(component);
+			if (auto* trait = entry.GetTrait<ComponentTypeTrait>()) {
+				if (trait->getter) {
+					if (Component* component = trait->getter(weak_from_this())) {
+						components.push_back(component);
+					}
+				}
 			}
 		}
 

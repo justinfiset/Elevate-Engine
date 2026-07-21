@@ -13,7 +13,7 @@ namespace Elevate
 	class Camera : public Component
 	{
 	public:
-		BEGIN_COMPONENT(Camera, EditorIcon(std::string(Editor::Icons::COMPONENT_ICON_CAMERA)))
+		BEGIN_COMPONENT(Camera, EE_EditorIcon(std::string(Editor::Icons::COMPONENT_ICON_CAMERA)))
 		EECATEGORY("Rendering")
 
 		// All possible constructors

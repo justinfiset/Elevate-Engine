@@ -3,7 +3,7 @@
 #ifdef EE_EDITOR_BUILD
 
 #include <ElevateEngine/Editor/EditorWidget.h>
-#include <ElevateEngine/Editor/Serialization/ComponentLayout.h>
+#include <ElevateEngine/Core/TypeLayout.h>
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
 
@@ -21,14 +21,14 @@ namespace Elevate::Editor
 		void OnImGuiRender() override;
 	private:
 		void RenderComponent(Component* component);
-		void RenderComponentLayout(const ComponentLayout& layout, Component* component = nullptr);
-		void RenderField(const ComponentField& field) const;
+		void RenderComponentLayout(const TypeLayout& layout, Component* component = nullptr);
+		void RenderField(const TypeField& field) const;
 
 		// TODO MOVE SOMEWHERE ELSE !!!! (ALL THE FOLLOWING UNDERNEATH)
 		struct CategoryMenu
 		{
 			EECategory category;
-			std::vector<TypeRegistry::Entry> items;
+			std::vector<const TypeRegistry::Entry*> items;
 
 			std::vector<CategoryMenu> childs;
 		};
