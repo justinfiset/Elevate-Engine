@@ -1,4 +1,6 @@
 #include "ProjectManager.h"
+#include <fstream>
+
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Files/FileUtility.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
@@ -24,7 +26,7 @@ namespace EL
 		Project project;
 		project.Name = props.Name;
 		project.Path = props.Path;
-		project.Id = (uint32_t) m_projectList.size();
+		project.Id = (uint32_t) m_projectList.Projects.size();
 		project.UsesWwise = props.bUsesWwise;
 		std::string projectDir = project.Path + "/" + project.Name;
 
@@ -56,7 +58,27 @@ namespace EL
 		{
 			fs::create_directory(projectDir);
 			fs::copy(props.TemplatePath + "/Assets/", projectDir, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
-			// todo : create the .eeproj config file
+
+			// todo : create the .eeproj config fil¸e
+			// Save the project config as a .eeproj
+			Elevate::JsonSerializer serializer;
+			Elevate::ByteBuffer bytes;
+			serializer.Serialize(project.GetProperties(), bytes);
+
+			std::string projectConfigPath = projectDir + "/" + project.Name + ".eeproj";
+			std::ofstream outFile(projectConfigPath);
+
+			if (outFile.is_open())
+			{
+				outFile << Elevate::ByteUtils::ToString(bytes);
+				outFile.close();
+			}
+			else
+			{
+				EE_ERROR("Failed to write project config file at: {}", projectConfigPath);
+				m_lastMessage = "Failed to create project configuration file.";
+				return false;
+			}
 		}
 		catch (fs::filesystem_error e)
 		{
@@ -73,7 +95,8 @@ namespace EL
 			return false;
 		}
 
-		m_projectList.push_back(project);
+		m_projectList.Projects.push_back(project);
+		UpdateLocalProjectList();
 		return true;
 	}
 
@@ -123,12 +146,10 @@ namespace EL
 		Elevate::JsonSerializer serializer;
 		Elevate::ByteBuffer bytes;
 
+		serializer.Serialize(m_projectList.GetProperties(), bytes);
+		
 		EE_INFO("Saving all of the following projects : ");
-		for (size_t i = 0; i < m_projectList.size(); i++) {
-			bytes.clear();
-			serializer.Serialize(m_projectList[i].GetProperties(), bytes);
-			EE_TRACE("    - {}", Elevate::ByteUitls::ToString(bytes));
-		}
+		EE_TRACE("{}", Elevate::ByteUtils::ToString(bytes));
 	}
 
 	bool ProjectManager::IsProjectValid(const Project& project) const
@@ -140,7 +161,7 @@ namespace EL
 		}
 
 		for (const auto& entry : fs::directory_iterator(project.Path + "/" + project.Name)) {
-			if (entry.is_regular_file() && entry.path().extension() == ".eproj") {
+			if (entry.is_regular_file() && entry.path().extension() == ".eeproj") {
 				return true;
 			}
 		}
@@ -149,23 +170,23 @@ namespace EL
 
 	const std::vector<Project>& ProjectManager::GetProjectList()
 	{
-		for (auto& project : m_projectList)
+		for (auto& project : m_projectList.Projects)
 		{
 			project.IsValid = IsProjectValid(project);
 		}
 
-		return m_projectList;
+		return m_projectList.Projects;
 	}
 
 	void ProjectManager::RemoveProjectFromList(uint32_t projectId)
 	{
-		auto it = std::find_if(m_projectList.begin(), m_projectList.end(), [projectId](const Project& project) {
+		auto it = std::find_if(m_projectList.Projects.begin(), m_projectList.Projects.end(), [projectId](const Project& project) {
 			return project.Id == projectId;
 		});
 
-		if (it != m_projectList.end())
+		if (it != m_projectList.Projects.end())
 		{
-			m_projectList.erase(it);
+			m_projectList.Projects.erase(it);
 			UpdateLocalProjectList();
 		}
 	}

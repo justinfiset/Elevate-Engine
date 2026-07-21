@@ -78,7 +78,7 @@ TEST_CASE("EEObject JSON Serilization", "[Serialization][PropertySet][JSONSerial
     bool success = serializer.Serialize(res, outBuffer);
     REQUIRE(success);
 
-    std::string json = Elevate::ByteUitls::ToString(outBuffer);
+    std::string json = Elevate::ByteUtils::ToString(outBuffer);
     CHECK(json.find("\"Test Int\":123456") != std::string::npos);
     CHECK(json.find("\"Test Struct\":{\"Test Struct Int\":123}") != std::string::npos);
 }
@@ -109,5 +109,5 @@ TEST_CASE("EEObjectPtr serialization gives the same as the EEObject's guid.") {
 
     std::string objGuid = objPtr->GetGuid().ToString();
     std::erase(objGuid, '-');
-    REQUIRE(Elevate::ByteUitls::ToHexString(guid) == objGuid);
+    REQUIRE(Elevate::ByteUtils::ToHexString(guid) == objGuid);
 }

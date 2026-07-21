@@ -31,6 +31,14 @@ namespace EL
 		END_STRUCT()
 	};
 
+	struct ProjectList
+	{
+		BEGIN_STRUCT(ProjectList)
+		std::vector<Project> Projects;
+		PROPERTY(Projects);
+		END_STRUCT()
+	};
+
 	struct ProjectTemplate
 	{
 		std::string Name = "";
