@@ -55,6 +55,8 @@ var Data_8h =
       [ "Mat4", "Data_8h.html#a084798f901873cb9a7cb959b62006324a80f7408b0a5b5d78c26adae9f6f420f9", null ],
       [ "Mat5", "Data_8h.html#a084798f901873cb9a7cb959b62006324a88277f52291e216510bbf736a9cd6803", null ],
       [ "Sampler2D", "Data_8h.html#a084798f901873cb9a7cb959b62006324a6f0987d6f82566fca538d8c3b8f07ee1", null ],
+      [ "Double", "Data_8h.html#a084798f901873cb9a7cb959b62006324ad909d38d705ce75386dd86e611a82f5b", null ],
+      [ "String", "Data_8h.html#a084798f901873cb9a7cb959b62006324a27118326006d3829667a400ad23d5d98", null ],
       [ "Custom", "Data_8h.html#a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af", null ],
       [ "Unknown", "Data_8h.html#a084798f901873cb9a7cb959b62006324a88183b946cc5f0e8c96b2e66e1c74a7e", null ]
     ] ],

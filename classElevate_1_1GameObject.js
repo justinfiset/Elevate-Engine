@@ -29,7 +29,7 @@ var classElevate_1_1GameObject =
     [ "SetName", "classElevate_1_1GameObject.html#a8e3103af0c0631ef200245a2dfe31ecf", null ],
     [ "SetParent", "classElevate_1_1GameObject.html#af39bd597e5a7caf69350dd52ecb56ded", null ],
     [ "Update", "classElevate_1_1GameObject.html#a07300d61d613363f5d63a504fd7d21f1", null ],
-    [ "ComponentRegistry", "classElevate_1_1GameObject.html#a1da30f92d011625cd9eed0403ad64dbf", null ],
     [ "Editor::EditorLayer", "classElevate_1_1GameObject.html#aca89c6dcefcc3cf686d8bfa2999e8343", null ],
-    [ "Scene", "classElevate_1_1GameObject.html#a032858ae1fe02d2d1170981c2af2d67c", null ]
+    [ "Scene", "classElevate_1_1GameObject.html#a032858ae1fe02d2d1170981c2af2d67c", null ],
+    [ "TypeRegistry", "classElevate_1_1GameObject.html#aa40fb7396d6a5c413a454ebe1b95d7b4", null ]
 ];

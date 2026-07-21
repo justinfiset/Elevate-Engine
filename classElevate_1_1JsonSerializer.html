@@ -95,8 +95,9 @@ $(document).ready(function(){initNavTree('classElevate_1_1JsonSerializer.html','
 
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classElevate_1_1JsonSerializer-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">Elevate::JsonSerializer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+  <div class="headertitle"><div class="title">Elevate::JsonSerializer Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -111,8 +112,18 @@ Inheritance diagram for Elevate::JsonSerializer:</div>
   </map>
 </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac7128a6a1f38497c0cc4d2ce70f4cf1b" id="r_ac7128a6a1f38497c0cc4d2ce70f4cf1b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1JsonSerializer.html#ac7128a6a1f38497c0cc4d2ce70f4cf1b">JsonSerializer</a> ()=default</td></tr>
+<tr class="separator:ac7128a6a1f38497c0cc4d2ce70f4cf1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac70822f0489dcfc2cdf2ad4d3ac036d4" id="r_ac70822f0489dcfc2cdf2ad4d3ac036d4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1JsonSerializer.html#ac70822f0489dcfc2cdf2ad4d3ac036d4">~JsonSerializer</a> ()=default</td></tr>
+<tr class="separator:ac70822f0489dcfc2cdf2ad4d3ac036d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3c509281ab71000c25f8e46b2211dd1" id="r_af3c509281ab71000c25f8e46b2211dd1"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1JsonSerializer.html#af3c509281ab71000c25f8e46b2211dd1">Serialize</a> (const <a class="el" href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">PropertySet</a> &amp;fields, <a class="el" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a> &amp;outBuffer) const override</td></tr>
+<tr class="memdesc:af3c509281ab71000c25f8e46b2211dd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes properties into a binary buffer.  <br /></td></tr>
+<tr class="separator:af3c509281ab71000c25f8e46b2211dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14ef08cca8e39c70f4f696347c97ec0b" id="r_a14ef08cca8e39c70f4f696347c97ec0b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1JsonSerializer.html#a14ef08cca8e39c70f4f696347c97ec0b">Deserialize</a> (const <a class="el" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a> &amp;data, <a class="el" href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">PropertySet</a> &amp;outFields) override</td></tr>
+<tr class="memdesc:a14ef08cca8e39c70f4f696347c97ec0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes a binary buffer back into properties.  <br /></td></tr>
+<tr class="separator:a14ef08cca8e39c70f4f696347c97ec0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classElevate_1_1Serializer"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classElevate_1_1Serializer')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classElevate_1_1Serializer.html">Elevate::Serializer</a></td></tr>
 <tr class="memitem:a6b073174c3bc494cc5ea3c5e86bacf34 inherit pub_methods_classElevate_1_1Serializer" id="r_a6b073174c3bc494cc5ea3c5e86bacf34"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Serializer.html#a6b073174c3bc494cc5ea3c5e86bacf34">~Serializer</a> ()=default</td></tr>
 <tr class="separator:a6b073174c3bc494cc5ea3c5e86bacf34 inherit pub_methods_classElevate_1_1Serializer"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,7 +131,177 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="JsonSerializer_8h_source.html#l00007">7</a> of file <a class="el" href="JsonSerializer_8h_source.html">JsonSerializer.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac7128a6a1f38497c0cc4d2ce70f4cf1b" name="ac7128a6a1f38497c0cc4d2ce70f4cf1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7128a6a1f38497c0cc4d2ce70f4cf1b">&#9670;&#160;</a></span>JsonSerializer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Elevate::JsonSerializer::JsonSerializer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac70822f0489dcfc2cdf2ad4d3ac036d4" name="ac70822f0489dcfc2cdf2ad4d3ac036d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac70822f0489dcfc2cdf2ad4d3ac036d4">&#9670;&#160;</a></span>~JsonSerializer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Elevate::JsonSerializer::~JsonSerializer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a14ef08cca8e39c70f4f696347c97ec0b" name="a14ef08cca8e39c70f4f696347c97ec0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14ef08cca8e39c70f4f696347c97ec0b">&#9670;&#160;</a></span>Deserialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Elevate::JsonSerializer::Deserialize </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a> &amp;&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">PropertySet</a> &amp;&#160;</td>
+          <td class="paramname"><em>outFields</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deserializes a binary buffer back into properties. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>The source buffer containing raw data. </td></tr>
+    <tr><td class="paramname">outFields</td><td>The property set to be populated. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if data was valid and successfully mapped, false if corrupted or incompatible. </dd></dl>
+
+<p>Implements <a class="el" href="classElevate_1_1Serializer.html#a35dba67f2ce9b9a3b9e6876953d85ec8">Elevate::Serializer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="JsonSerializer_8cpp_source.html#l00060">60</a> of file <a class="el" href="JsonSerializer_8cpp_source.html">JsonSerializer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   61</span>    {</div>
+<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   63</span>    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af3c509281ab71000c25f8e46b2211dd1" name="af3c509281ab71000c25f8e46b2211dd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3c509281ab71000c25f8e46b2211dd1">&#9670;&#160;</a></span>Serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Elevate::JsonSerializer::Serialize </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">PropertySet</a> &amp;&#160;</td>
+          <td class="paramname"><em>fields</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a> &amp;&#160;</td>
+          <td class="paramname"><em>outBuffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Serializes properties into a binary buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fields</td><td>The properties to convert. </td></tr>
+    <tr><td class="paramname">outBuffer</td><td>The destination buffer for serialized data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if serialization succeeded, false otherwise. </dd></dl>
+
+<p>Implements <a class="el" href="classElevate_1_1Serializer.html#a268e4eb7c1066519391016eb8e9022d7">Elevate::Serializer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="JsonSerializer_8cpp_source.html#l00044">44</a> of file <a class="el" href="JsonSerializer_8cpp_source.html">JsonSerializer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   45</span>    {</div>
+<div class="line"><span class="lineno">   46</span>        rapidjson::Document doc;</div>
+<div class="line"><span class="lineno">   47</span>        doc.SetObject();</div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>        <a class="code hl_function" href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">SerializeRecursive</a>(fields, doc, doc.GetAllocator());</div>
+<div class="line"><span class="lineno">   50</span> </div>
+<div class="line"><span class="lineno">   51</span>        rapidjson::StringBuffer buffer;</div>
+<div class="line"><span class="lineno">   52</span>        rapidjson::Writer&lt;rapidjson::StringBuffer&gt; writer(buffer);</div>
+<div class="line"><span class="lineno">   53</span>        doc.Accept(writer);</div>
+<div class="line"><span class="lineno">   54</span> </div>
+<div class="line"><span class="lineno">   55</span>        <span class="keyword">const</span> std::byte* dataPtr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>std::byte*<span class="keyword">&gt;</span>(buffer.GetString());</div>
+<div class="line"><span class="lineno">   56</span>        outBuffer.assign(dataPtr, dataPtr + buffer.GetSize());</div>
+<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   58</span>    }</div>
+<div class="ttc" id="anamespaceElevate_html_a762f69a24f135c3f4747be2d48880b54"><div class="ttname"><a href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">Elevate::SerializeRecursive</a></div><div class="ttdeci">void SerializeRecursive(const PropertySet &amp;fields, rapidjson::Value &amp;parentObj, rapidjson::Document::AllocatorType &amp;allocator)</div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00013">JsonSerializer.cpp:13</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>ElevateEngine/src/ElevateEngine/Serialization/<a class="el" href="JsonSerializer_8h_source.html">JsonSerializer.h</a></li>
 <li>ElevateEngine/src/ElevateEngine/Serialization/<a class="el" href="JsonSerializer_8cpp_source.html">JsonSerializer.cpp</a></li>
 </ul>

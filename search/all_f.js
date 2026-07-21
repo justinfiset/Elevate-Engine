@@ -2,7 +2,7 @@ var searchData=
 [
   ['objectpath_0',['ObjectPath',['../structWwiseSoundbank.html#a457268fe09227a1a941e18043d28d533',1,'WwiseSoundbank']]],
   ['objectpropertyfield_2eh_1',['ObjectPropertyField.h',['../ObjectPropertyField_8h.html',1,'']]],
-  ['offset_2',['offset',['../structElevate_1_1BufferElement.html#a9968ee2cca24f6b5e04c50e23f53d4cf',1,'Elevate::BufferElement::Offset'],['../structElevate_1_1ComponentField.html#a3940a8ceb531dbd24b8244ac06033226',1,'Elevate::ComponentField::offset']]],
+  ['offset_2',['offset',['../structElevate_1_1TypeField.html#ab028df64b84115a9226ba442470a16e7',1,'Elevate::TypeField::offset'],['../structElevate_1_1BufferElement.html#a9968ee2cca24f6b5e04c50e23f53d4cf',1,'Elevate::BufferElement::Offset']]],
   ['onattach_3',['onattach',['../classElevate_1_1ImGuiLayer.html#adad5bd79f20eb4936f92af5662dbd0ed',1,'Elevate::ImGuiLayer::OnAttach()'],['../classElevate_1_1Layer.html#a48edafdf96bf8c968ec64c87a9471bb6',1,'Elevate::Layer::OnAttach()']]],
   ['ondetach_4',['ondetach',['../classElevate_1_1SceneLayer.html#ac40630dfa417a3a153206a2e10552d81',1,'Elevate::SceneLayer::OnDetach()'],['../classElevate_1_1ImGuiLayer.html#a363edfdbf202bd9bb991b902bf1d8791',1,'Elevate::ImGuiLayer::OnDetach()'],['../classElevate_1_1Layer.html#a33dc7434476949c571adff06f53d11ad',1,'Elevate::Layer::OnDetach()']]],
   ['onevent_5',['onevent',['../classElevate_1_1Layer.html#a677cd5adedd632dc5253e052c2dd9d61',1,'Elevate::Layer::OnEvent()'],['../classElevate_1_1SceneLayer.html#a4abfa0d47d19149a9edbb2884b278763',1,'Elevate::SceneLayer::OnEvent()'],['../classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88',1,'Elevate::Application::OnEvent()']]],

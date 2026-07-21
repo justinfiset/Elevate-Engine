@@ -139,8 +139,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4c0064a635ca58561d456a94dabdcb78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a197875da8f326cb6361bd22fd858ff7f" id="r_a197875da8f326cb6361bd22fd858ff7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Transform.html#a197875da8f326cb6361bd22fd858ff7f">UpdateModelMatrix</a> ()</td></tr>
 <tr class="separator:a197875da8f326cb6361bd22fd858ff7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affde1cb0a64f19e16a6594e9139b7e92" id="r_affde1cb0a64f19e16a6594e9139b7e92"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classElevate_1_1ComponentLayout.html">ComponentLayout</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Transform.html#affde1cb0a64f19e16a6594e9139b7e92">GetLayout</a> () const</td></tr>
-<tr class="separator:affde1cb0a64f19e16a6594e9139b7e92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a176d87658e3f5bf32e394ad3388b788f" id="r_a176d87658e3f5bf32e394ad3388b788f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classElevate_1_1TypeLayout.html">TypeLayout</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Transform.html#a176d87658e3f5bf32e394ad3388b788f">GetLayout</a> () const</td></tr>
+<tr class="separator:a176d87658e3f5bf32e394ad3388b788f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -243,8 +243,8 @@ Public Member Functions</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="affde1cb0a64f19e16a6594e9139b7e92" name="affde1cb0a64f19e16a6594e9139b7e92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affde1cb0a64f19e16a6594e9139b7e92">&#9670;&#160;</a></span>GetLayout()</h2>
+<a id="a176d87658e3f5bf32e394ad3388b788f" name="a176d87658e3f5bf32e394ad3388b788f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a176d87658e3f5bf32e394ad3388b788f">&#9670;&#160;</a></span>GetLayout()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -253,7 +253,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classElevate_1_1ComponentLayout.html">ComponentLayout</a> Elevate::Transform::GetLayout </td>
+          <td class="memname"><a class="el" href="classElevate_1_1TypeLayout.html">TypeLayout</a> Elevate::Transform::GetLayout </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -268,12 +268,12 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Transform_8h_source.html#l00041">41</a> of file <a class="el" href="Transform_8h_source.html">Transform.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   42</span>        {</div>
-<div class="line"><span class="lineno">   43</span>            <span class="keywordflow">return</span> ComponentLayout(</div>
+<div class="line"><span class="lineno">   43</span>            <span class="keywordflow">return</span> TypeLayout(</div>
 <div class="line"><span class="lineno">   44</span>                <span class="stringliteral">&quot;Transform&quot;</span>,</div>
 <div class="line"><span class="lineno">   45</span>                {</div>
-<div class="line"><span class="lineno">   46</span>                    {<span class="stringliteral">&quot;Positon&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">ComponentDataType::Float3</a>, &amp;position},</div>
-<div class="line"><span class="lineno">   47</span>                    {<span class="stringliteral">&quot;Rotation&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">ComponentDataType::Float3</a>, &amp;rotation},</div>
-<div class="line"><span class="lineno">   48</span>                    {<span class="stringliteral">&quot;Scale&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">ComponentDataType::Float3</a>, &amp;scale}</div>
+<div class="line"><span class="lineno">   46</span>                    {<span class="stringliteral">&quot;Positon&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">EngineDataType::Float3</a>, &amp;position},</div>
+<div class="line"><span class="lineno">   47</span>                    {<span class="stringliteral">&quot;Rotation&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">EngineDataType::Float3</a>, &amp;rotation},</div>
+<div class="line"><span class="lineno">   48</span>                    {<span class="stringliteral">&quot;Scale&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">EngineDataType::Float3</a>, &amp;scale}</div>
 <div class="line"><span class="lineno">   49</span>                }</div>
 <div class="line"><span class="lineno">   50</span>            );</div>
 <div class="line"><span class="lineno">   51</span>        }</div>

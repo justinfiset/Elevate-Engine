@@ -1,5 +1,6 @@
 var classElevate_1_1Component =
 [
+    [ "Super", "classElevate_1_1Component.html#a34a7cfc0ee6812e247df9fa9d3188540", null ],
     [ "Component", "classElevate_1_1Component.html#a69c471ca780bcea09bff9ee159a09de9", null ],
     [ "~Component", "classElevate_1_1Component.html#aeb807968e09e1488dd73e59cae9ad9d2", null ],
     [ "Clone", "classElevate_1_1Component.html#a247a1435d53c17dc2797c87cf16c8db7", null ],
@@ -8,9 +9,8 @@ var classElevate_1_1Component =
     [ "GetDestructor", "classElevate_1_1Component.html#a31a5b7af743335acba40fd11367d636e", null ],
     [ "GetEditorIconHandle", "classElevate_1_1Component.html#ab031158149a71788a145f19d29de5969", null ],
     [ "GetFactory", "classElevate_1_1Component.html#ab334737bb8f3f797d2ed5456a2543ad2", null ],
-    [ "GetLayout", "classElevate_1_1Component.html#a83f6f98c5a0e4299256fb51f7d8f3bc2", null ],
     [ "GetName", "classElevate_1_1Component.html#a68d7a3fe01a022071b96c8d21a12370f", null ],
-    [ "GetTypeIndex", "classElevate_1_1Component.html#aadd2fb936cc2236fd976f3258dd24abe", null ],
+    [ "GetTypeIndex", "classElevate_1_1Component.html#ac3fe830818bce0142c472afa4e493e98", null ],
     [ "Init", "classElevate_1_1Component.html#aa91532199f7291a8645326dca5009632", null ],
     [ "IsActive", "classElevate_1_1Component.html#a667d97b28d03221bd664548f9a3f34f8", null ],
     [ "OnNotify", "classElevate_1_1Component.html#a296221e4d5ae1642a2a9ab1fabb09139", null ],

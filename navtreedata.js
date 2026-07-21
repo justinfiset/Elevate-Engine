@@ -59,6 +59,7 @@ var NAVTREE =
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", null ],
+        [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Enumerator", "functions_eval.html", null ],
         [ "Related Symbols", "functions_rela.html", null ]
@@ -79,19 +80,19 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AddComponent_8h.html",
-"Event_8h.html#a80d534fc4d69a68eefd1573fd0ac2f44",
-"KeyCodes_8h.html#a6b2cfaf65bc2151d2d790a1602e12a7a",
-"Renderer_8cpp_source.html",
-"classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2",
-"classElevate_1_1EECategory.html#ac9468e51c257879460ec2a1480947164",
-"classElevate_1_1GameObject.html#ae68b7f5b0ae9a1fdb21d0f3b58f2cbb4",
-"classElevate_1_1Light.html#a918b3004c1f47928c102dd4f301b29a3",
-"classElevate_1_1OpenGLVertexArray.html#a10c31cc3cfe5efbd7e85e6dcce5ef755",
-"classElevate_1_1Shader.html#aa3a3fde412675a16d2f1a956fc768858",
-"classElevate_1_1Window.html#aa76d05dc5223bc6949f16d497307eb4d",
-"namespaceElevate.html#a084798f901873cb9a7cb959b62006324a6f0987d6f82566fca538d8c3b8f07ee1",
-"structElevate_1_1ComponentRegistry_1_1Entry.html",
-"structElevate_1_1TextureLoadResult.html#a8284b006ebe4c7c8d383e19ae7ef31ca"
+"Files_8h.html#a49bcee940c569f34ea4e0123826642ec",
+"KeyCodes_8h.html#a9219a91e31104da5a45b069fc37d193d",
+"RendererAPI_8h_source.html",
+"classElevate_1_1AppUpdateEvent.html#a3aabbb5faece8e5f0bdf4f8f7264fcb3",
+"classElevate_1_1EECategory.html#adb12a8c9354abbdf3f4c97359a12b004",
+"classElevate_1_1GameObject.html#aca89c6dcefcc3cf686d8bfa2999e8343",
+"classElevate_1_1Light.html#a282696ed11f31b3c92ef0436ae920883",
+"classElevate_1_1OpenGLShader.html#af6f0a6652140405c5cb89a6a24cb4fdf",
+"classElevate_1_1Shader.html#a8209be69f4be85ae47d8eb54d2dbb575",
+"classElevate_1_1WAAPIClient.html#a586afcc97947d406c3767b3dc9fbfb11",
+"md_README.html#autotoc_md8",
+"structElevate_1_1ComponentTypeTrait.html#a43e48c70a0f7ee8182ef37736d95afc3",
+"structElevate_1_1RenderState.html#aa9e367e4b57b2d3149c937384aab192a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

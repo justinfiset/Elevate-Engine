@@ -7,7 +7,8 @@ var searchData=
   ['state_4',['State',['../WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa46a2a41cc6e552044816a2d04634545d',1,'WwiseItem.h']]],
   ['stategroup_5',['StateGroup',['../WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa39ccfd9ccbfc3a526d1ce3126cf49c39',1,'WwiseItem.h']]],
   ['stopped_6',['Stopped',['../namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3aa5fb85fbf53bbe8f255d5ef8ce7df85bf',1,'Elevate']]],
-  ['success_7',['Success',['../structElevate_1_1Editor_1_1EditorMessage.html#aeb4e7d7e799c3516db86880222aa81e5a70944c5efac7dc0fea90c088d873445e',1,'Elevate::Editor::EditorMessage']]],
-  ['switch_8',['Switch',['../WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aabbc155fb2b111bf61c4f5ff892915e6b',1,'WwiseItem.h']]],
-  ['switchgroup_9',['SwitchGroup',['../WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa91f8fcbb63f18a6b1d71ca485b97c899',1,'WwiseItem.h']]]
+  ['string_7',['String',['../namespaceElevate.html#a084798f901873cb9a7cb959b62006324a27118326006d3829667a400ad23d5d98',1,'Elevate']]],
+  ['success_8',['Success',['../structElevate_1_1Editor_1_1EditorMessage.html#aeb4e7d7e799c3516db86880222aa81e5a70944c5efac7dc0fea90c088d873445e',1,'Elevate::Editor::EditorMessage']]],
+  ['switch_9',['Switch',['../WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aabbc155fb2b111bf61c4f5ff892915e6b',1,'WwiseItem.h']]],
+  ['switchgroup_10',['SwitchGroup',['../WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aa91f8fcbb63f18a6b1d71ca485b97c899',1,'WwiseItem.h']]]
 ];

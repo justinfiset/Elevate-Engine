@@ -6,12 +6,15 @@ var searchData=
   ['editorlayer_2ecpp_3',['EditorLayer.cpp',['../EditorLayer_8cpp.html',1,'']]],
   ['editorlayer_2eh_4',['EditorLayer.h',['../EditorLayer_8h.html',1,'']]],
   ['editormessage_2eh_5',['EditorMessage.h',['../EditorMessage_8h.html',1,'']]],
-  ['editorwidget_2eh_6',['EditorWidget.h',['../EditorWidget_8h.html',1,'']]],
-  ['eeobject_2eh_7',['EEObject.h',['../EEObject_8h.html',1,'']]],
-  ['eeobjectptr_2eh_8',['EEObjectPtr.h',['../EEObjectPtr_8h.html',1,'']]],
-  ['eepch_2ecpp_9',['eepch.cpp',['../eepch_8cpp.html',1,'']]],
-  ['eepch_2eh_10',['eepch.h',['../eepch_8h.html',1,'']]],
-  ['elevateengine_2eh_11',['ElevateEngine.h',['../ElevateEngine_8h.html',1,'']]],
-  ['entrypoint_2eh_12',['EntryPoint.h',['../EntryPoint_8h.html',1,'']]],
-  ['event_2eh_13',['Event.h',['../Event_8h.html',1,'']]]
+  ['editortypetrait_2eh_6',['EditorTypeTrait.h',['../EditorTypeTrait_8h.html',1,'']]],
+  ['editorwidget_2eh_7',['EditorWidget.h',['../EditorWidget_8h.html',1,'']]],
+  ['eecategory_2eh_8',['EECategory.h',['../EECategory_8h.html',1,'']]],
+  ['eeobject_2ecpp_9',['EEObject.cpp',['../EEObject_8cpp.html',1,'']]],
+  ['eeobject_2eh_10',['EEObject.h',['../EEObject_8h.html',1,'']]],
+  ['eeobjectptr_2eh_11',['EEObjectPtr.h',['../EEObjectPtr_8h.html',1,'']]],
+  ['eepch_2ecpp_12',['eepch.cpp',['../eepch_8cpp.html',1,'']]],
+  ['eepch_2eh_13',['eepch.h',['../eepch_8h.html',1,'']]],
+  ['elevateengine_2eh_14',['ElevateEngine.h',['../ElevateEngine_8h.html',1,'']]],
+  ['entrypoint_2eh_15',['EntryPoint.h',['../EntryPoint_8h.html',1,'']]],
+  ['event_2eh_16',['Event.h',['../Event_8h.html',1,'']]]
 ];

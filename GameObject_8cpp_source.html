@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('GameObject_8cpp_source.html',''); init
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="SoundEngine_8h.html">ElevateEngine/Audio/SoundEngine.h</a>&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="Component_8h.html">ElevateEngine/Core/Component.h</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="ComponentRegistry_8h.html">ElevateEngine/Core/ComponentRegistry.h</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="TypeRegistry_8h.html">ElevateEngine/Core/TypeRegistry.h</a>&gt;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="Log_8h.html">ElevateEngine/Core/Log.h</a>&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="Scene_8h.html">ElevateEngine/Scene/Scene.h</a>&gt;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="ScenePrivate_8h.html">ElevateEngine/Scene/ScenePrivate.h</a>&gt;</span></div>
@@ -348,149 +348,152 @@ $(document).ready(function(){initNavTree('GameObject_8cpp_source.html',''); init
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        std::vector&lt;Component*&gt; components;</div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        <span class="keywordflow">if</span> (!m_scene) <span class="keywordflow">return</span> components;</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [type, entry] : <a class="code hl_function" href="classElevate_1_1ComponentRegistry.html#a4dcf810148bf887af184baca828ce845">ComponentRegistry::GetEntries</a>()) {</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            <span class="keywordflow">if</span> (<a class="code hl_class" href="classElevate_1_1Component.html">Component</a>* component = entry.getter(weak_from_this())) {</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>                components.push_back(component);</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            }</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        }</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        <span class="keywordflow">return</span> components;</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    }</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [type, entry] : <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#abccf9f12a75af178d95be723633e606a">TypeRegistry::GetEntries</a>()) {</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span>* trait = entry.GetTrait&lt;<a class="code hl_struct" href="structElevate_1_1ComponentTypeTrait.html">ComponentTypeTrait</a>&gt;()) {</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>                <span class="keywordflow">if</span> (trait-&gt;getter) {</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>                    <span class="keywordflow">if</span> (<a class="code hl_class" href="classElevate_1_1Component.html">Component</a>* component = trait-&gt;getter(weak_from_this())) {</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                        components.push_back(component);</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                    }</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>                }</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>            }</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        }</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        <span class="keywordflow">return</span> components;</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    }</div>
 </div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
-<div class="foldopen" id="foldopen00235" data-start="{" data-end="}">
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#a605f1eb5f38d1030f67a5f881d020765">  235</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1GameObject.html#a605f1eb5f38d1030f67a5f881d020765">GameObject::RenderInEditor</a>()</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    {</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="comment">// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK</span></div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Component.html">Component</a>* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        {</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            {</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>                comp-&gt;RenderInEditor();</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            }</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        }</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        {</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            child-&gt;RenderInEditor();</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        }</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    }</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="foldopen" id="foldopen00239" data-start="{" data-end="}">
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#a605f1eb5f38d1030f67a5f881d020765">  239</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1GameObject.html#a605f1eb5f38d1030f67a5f881d020765">GameObject::RenderInEditor</a>()</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    {</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <span class="comment">// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Component.html">Component</a>* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        {</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            {</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>                comp-&gt;RenderInEditor();</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>            }</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        }</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        {</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>            child-&gt;RenderInEditor();</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        }</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    }</div>
 </div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="foldopen" id="foldopen00252" data-start="{" data-end="}">
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#a9a201939fd5776a5e77712ce5a4338fc">  252</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1GameObject.html#a9a201939fd5776a5e77712ce5a4338fc">GameObject::RenderWhenSelected</a>()</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    {</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        <span class="comment">// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK</span></div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Component.html">Component</a>* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>        {</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>            {</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>                comp-&gt;RenderWhenSelected();</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            }</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        }</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        {</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>            child-&gt;RenderWhenSelected();</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        }</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    }</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="foldopen" id="foldopen00256" data-start="{" data-end="}">
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#a9a201939fd5776a5e77712ce5a4338fc">  256</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1GameObject.html#a9a201939fd5776a5e77712ce5a4338fc">GameObject::RenderWhenSelected</a>()</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    {</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="comment">// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Component.html">Component</a>* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        {</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>            {</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>                comp-&gt;RenderWhenSelected();</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>            }</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        }</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        {</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>            child-&gt;RenderWhenSelected();</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        }</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    }</div>
 </div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
-<div class="foldopen" id="foldopen00269" data-start="{" data-end="}">
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#af39bd597e5a7caf69350dd52ecb56ded">  269</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1GameObject.html#af39bd597e5a7caf69350dd52ecb56ded">GameObject::SetParent</a>(<span class="keyword">const</span> <a class="code hl_class" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr&lt;GameObject&gt;</a>&amp; newParent)</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    {</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <span class="keywordflow">if</span> (newParent == m_parent)</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        <span class="keywordflow">if</span> (m_parent)</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        {</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>            m_parent-&gt;RemoveChild(shared_from_this());</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        }</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        this-&gt;m_parent = newParent;</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <span class="keywordflow">if</span> (newParent)</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        {</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            newParent-&gt;AddChild(shared_from_this());</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            <span class="keywordflow">if</span> (m_scene)</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>            {</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>                m_scene-&gt;RemoveFromRoot(shared_from_this());</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>            }</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        }</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>            m_scene-&gt;AddRootObject(shared_from_this());</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        }</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    }</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
+<div class="foldopen" id="foldopen00273" data-start="{" data-end="}">
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#af39bd597e5a7caf69350dd52ecb56ded">  273</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1GameObject.html#af39bd597e5a7caf69350dd52ecb56ded">GameObject::SetParent</a>(<span class="keyword">const</span> <a class="code hl_class" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr&lt;GameObject&gt;</a>&amp; newParent)</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    {</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        <span class="keywordflow">if</span> (newParent == m_parent)</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        <span class="keywordflow">if</span> (m_parent)</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        {</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>            m_parent-&gt;RemoveChild(shared_from_this());</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        }</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        this-&gt;m_parent = newParent;</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        <span class="keywordflow">if</span> (newParent)</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        {</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>            newParent-&gt;AddChild(shared_from_this());</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>            <span class="keywordflow">if</span> (m_scene)</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>            {</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>                m_scene-&gt;RemoveFromRoot(shared_from_this());</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>            }</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        }</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>            m_scene-&gt;AddRootObject(shared_from_this());</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        }</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    }</div>
 </div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
-<div class="foldopen" id="foldopen00294" data-start="{" data-end="}">
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#ac571bb9ded8d383e063a050682570166">  294</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1GameObject.html#ac571bb9ded8d383e063a050682570166">GameObject::Destroy</a>()</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    {</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        <span class="keywordflow">if</span> (m_parent) {</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>            m_parent-&gt;RemoveChild(shared_from_this());</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        }</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>            m_scene-&gt;RemoveFromRoot(shared_from_this());</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        }</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        <span class="keyword">auto</span> childsCopy = m_childs;</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : childsCopy)</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        {</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>            <span class="keywordflow">if</span> (child)</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>            {</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>                child-&gt;Destroy();</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>            }</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        }</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        m_childs.clear();</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        m_parent.reset();</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    }</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="foldopen" id="foldopen00298" data-start="{" data-end="}">
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#ac571bb9ded8d383e063a050682570166">  298</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1GameObject.html#ac571bb9ded8d383e063a050682570166">GameObject::Destroy</a>()</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    {</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>        <span class="keywordflow">if</span> (m_parent) {</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>            m_parent-&gt;RemoveChild(shared_from_this());</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        }</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>            m_scene-&gt;RemoveFromRoot(shared_from_this());</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        }</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        <span class="keyword">auto</span> childsCopy = m_childs;</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : childsCopy)</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        {</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>            <span class="keywordflow">if</span> (child)</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>            {</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>                child-&gt;Destroy();</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>            }</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        }</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        m_childs.clear();</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>        m_parent.reset();</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    }</div>
 </div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
-<div class="foldopen" id="foldopen00315" data-start="{" data-end="}">
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#a0aadc15215dfdfbcbb18e7b6aa02c3cc">  315</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1GameObject.html#a0aadc15215dfdfbcbb18e7b6aa02c3cc">GameObject::AddChild</a>(<span class="keyword">const</span> <a class="code hl_class" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr&lt;GameObject&gt;</a>&amp; child)</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    {</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        <span class="keywordflow">if</span> (child)</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        {</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>            child-&gt;m_parent = shared_from_this();</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>            m_childs.emplace(child);</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>            m_scene-&gt;RemoveFromRoot(child);</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        }</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    }</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span> </div>
+<div class="foldopen" id="foldopen00319" data-start="{" data-end="}">
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#a0aadc15215dfdfbcbb18e7b6aa02c3cc">  319</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1GameObject.html#a0aadc15215dfdfbcbb18e7b6aa02c3cc">GameObject::AddChild</a>(<span class="keyword">const</span> <a class="code hl_class" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr&lt;GameObject&gt;</a>&amp; child)</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    {</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        <span class="keywordflow">if</span> (child)</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        {</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>            child-&gt;m_parent = shared_from_this();</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>            m_childs.emplace(child);</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>            m_scene-&gt;RemoveFromRoot(child);</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        }</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    }</div>
 </div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> </div>
-<div class="foldopen" id="foldopen00325" data-start="{" data-end="}">
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#a6c928a57446d73a4b42f40bfd1726667">  325</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1GameObject.html#a6c928a57446d73a4b42f40bfd1726667">GameObject::RemoveChild</a>(<span class="keyword">const</span> <a class="code hl_class" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr&lt;GameObject&gt;</a>&amp; child)</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    {</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        m_childs.erase(child);</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    }</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
+<div class="foldopen" id="foldopen00329" data-start="{" data-end="}">
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#a6c928a57446d73a4b42f40bfd1726667">  329</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1GameObject.html#a6c928a57446d73a4b42f40bfd1726667">GameObject::RemoveChild</a>(<span class="keyword">const</span> <a class="code hl_class" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr&lt;GameObject&gt;</a>&amp; child)</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    {</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>        m_childs.erase(child);</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    }</div>
 </div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
-<div class="foldopen" id="foldopen00330" data-start="{" data-end="}">
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#a06dd3c0df646f7fba0bacdeada59c1aa">  330</a></span>    std::shared_ptr&lt;GameObject&gt; <a class="code hl_function" href="classElevate_1_1GameObject.html#a06dd3c0df646f7fba0bacdeada59c1aa">GameObject::Create</a>(std::string name, std::shared_ptr&lt;Scene&gt; scene, std::shared_ptr&lt;GameObject&gt; parent)</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    {</div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>        std::shared_ptr&lt;GameObject&gt; obj = std::make_shared&lt;GameObject&gt;(name, scene, parent);</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        obj-&gt;Initialize();</div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        obj-&gt;SetPosition({ 0.0f, 0.0f, 0.0f });</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        <span class="keywordflow">return</span> obj;</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    }</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span> </div>
+<div class="foldopen" id="foldopen00334" data-start="{" data-end="}">
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#a06dd3c0df646f7fba0bacdeada59c1aa">  334</a></span>    std::shared_ptr&lt;GameObject&gt; <a class="code hl_function" href="classElevate_1_1GameObject.html#a06dd3c0df646f7fba0bacdeada59c1aa">GameObject::Create</a>(std::string name, std::shared_ptr&lt;Scene&gt; scene, std::shared_ptr&lt;GameObject&gt; parent)</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    {</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        std::shared_ptr&lt;GameObject&gt; obj = std::make_shared&lt;GameObject&gt;(name, scene, parent);</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        obj-&gt;Initialize();</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>        obj-&gt;SetPosition({ 0.0f, 0.0f, 0.0f });</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>        <span class="keywordflow">return</span> obj;</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    }</div>
 </div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="comment">// TODO MOVE SOMEWHERE ELSE</span></div>
-<div class="foldopen" id="foldopen00339" data-start="{" data-end="}">
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#a91640cf9c6201af6148c8ff71d82c674">  339</a></span>    glm::mat4 <a class="code hl_function" href="classElevate_1_1GameObject.html#a91640cf9c6201af6148c8ff71d82c674">GameObject::GenGlobalMatrix</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>        <span class="keywordflow">if</span> (m_parent)</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>        {</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>            <span class="keywordflow">return</span> m_parent-&gt;GenGlobalMatrix() * <a class="code hl_function" href="classElevate_1_1ITransformable.html#a1551eeba7a86b703dab6ca94baaf5af6">GetModelMatrix</a>();</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        }</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span> </div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    <span class="comment">// TODO MOVE SOMEWHERE ELSE</span></div>
+<div class="foldopen" id="foldopen00343" data-start="{" data-end="}">
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno"><a class="line" href="classElevate_1_1GameObject.html#a91640cf9c6201af6148c8ff71d82c674">  343</a></span>    glm::mat4 <a class="code hl_function" href="classElevate_1_1GameObject.html#a91640cf9c6201af6148c8ff71d82c674">GameObject::GenGlobalMatrix</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>        <span class="keywordflow">if</span> (m_parent)</div>
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        {</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1ITransformable.html#a1551eeba7a86b703dab6ca94baaf5af6">GetModelMatrix</a>();</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>            <span class="keywordflow">return</span> m_parent-&gt;GenGlobalMatrix() * <a class="code hl_function" href="classElevate_1_1ITransformable.html#a1551eeba7a86b703dab6ca94baaf5af6">GetModelMatrix</a>();</div>
 <div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        }</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    }</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        {</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1ITransformable.html#a1551eeba7a86b703dab6ca94baaf5af6">GetModelMatrix</a>();</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        }</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    }</div>
 </div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>}</div>
-<div class="ttc" id="aComponentRegistry_8h_html"><div class="ttname"><a href="ComponentRegistry_8h.html">ComponentRegistry.h</a></div></div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>}</div>
 <div class="ttc" id="aComponent_8h_html"><div class="ttname"><a href="Component_8h.html">Component.h</a></div></div>
 <div class="ttc" id="aGameObject_8h_html"><div class="ttname"><a href="GameObject_8h.html">GameObject.h</a></div></div>
 <div class="ttc" id="aGameObject_8h_html_a24ce27a99e52e3f99af50034f64225f4"><div class="ttname"><a href="GameObject_8h.html#a24ce27a99e52e3f99af50034f64225f4">EE_INVALID_ENTITY_ID</a></div><div class="ttdeci">#define EE_INVALID_ENTITY_ID</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8h_source.html#l00016">GameObject.h:16</a></div></div>
@@ -498,30 +501,30 @@ $(document).ready(function(){initNavTree('GameObject_8cpp_source.html',''); init
 <div class="ttc" id="aScenePrivate_8h_html"><div class="ttname"><a href="ScenePrivate_8h.html">ScenePrivate.h</a></div></div>
 <div class="ttc" id="aScene_8h_html"><div class="ttname"><a href="Scene_8h.html">Scene.h</a></div></div>
 <div class="ttc" id="aSoundEngine_8h_html"><div class="ttname"><a href="SoundEngine_8h.html">SoundEngine.h</a></div></div>
-<div class="ttc" id="aclassElevate_1_1ComponentRegistry_html_a4dcf810148bf887af184baca828ce845"><div class="ttname"><a href="classElevate_1_1ComponentRegistry.html#a4dcf810148bf887af184baca828ce845">Elevate::ComponentRegistry::GetEntries</a></div><div class="ttdeci">static std::unordered_map&lt; std::type_index, Entry &gt; &amp; GetEntries()</div><div class="ttdef"><b>Definition</b> <a href="ComponentRegistry_8h_source.html#l00126">ComponentRegistry.h:126</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Component_html"><div class="ttname"><a href="classElevate_1_1Component.html">Elevate::Component</a></div><div class="ttdef"><b>Definition</b> <a href="Component_8h_source.html#l00024">Component.h:25</a></div></div>
+<div class="ttc" id="aTypeRegistry_8h_html"><div class="ttname"><a href="TypeRegistry_8h.html">TypeRegistry.h</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Component_html"><div class="ttname"><a href="classElevate_1_1Component.html">Elevate::Component</a></div><div class="ttdef"><b>Definition</b> <a href="Component_8h_source.html#l00019">Component.h:20</a></div></div>
 <div class="ttc" id="aclassElevate_1_1EEObjectPtr_html"><div class="ttname"><a href="classElevate_1_1EEObjectPtr.html">Elevate::EEObjectPtr</a></div><div class="ttdef"><b>Definition</b> <a href="EEObjectPtr_8h_source.html#l00010">EEObjectPtr.h:11</a></div></div>
-<div class="ttc" id="aclassElevate_1_1EEObject_html_aca5c15fded37fb9d489fda0a5399b4b7"><div class="ttname"><a href="classElevate_1_1EEObject.html#aca5c15fded37fb9d489fda0a5399b4b7">Elevate::EEObject::m_guid</a></div><div class="ttdeci">Guid m_guid</div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00119">EEObject.h:119</a></div></div>
+<div class="ttc" id="aclassElevate_1_1EEObject_html_aca5c15fded37fb9d489fda0a5399b4b7"><div class="ttname"><a href="classElevate_1_1EEObject.html#aca5c15fded37fb9d489fda0a5399b4b7">Elevate::EEObject::m_guid</a></div><div class="ttdeci">Guid m_guid</div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00017">EEObject.h:17</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Event_html"><div class="ttname"><a href="classElevate_1_1Event.html">Elevate::Event</a></div><div class="ttdef"><b>Definition</b> <a href="Event_8h_source.html#l00037">Event.h:38</a></div></div>
-<div class="ttc" id="aclassElevate_1_1GameObject_html_a06dd3c0df646f7fba0bacdeada59c1aa"><div class="ttname"><a href="classElevate_1_1GameObject.html#a06dd3c0df646f7fba0bacdeada59c1aa">Elevate::GameObject::Create</a></div><div class="ttdeci">static std::shared_ptr&lt; GameObject &gt; Create(std::string name, std::shared_ptr&lt; Scene &gt; scene, std::shared_ptr&lt; GameObject &gt; parent=nullptr)</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00330">GameObject.cpp:330</a></div></div>
+<div class="ttc" id="aclassElevate_1_1GameObject_html_a06dd3c0df646f7fba0bacdeada59c1aa"><div class="ttname"><a href="classElevate_1_1GameObject.html#a06dd3c0df646f7fba0bacdeada59c1aa">Elevate::GameObject::Create</a></div><div class="ttdeci">static std::shared_ptr&lt; GameObject &gt; Create(std::string name, std::shared_ptr&lt; Scene &gt; scene, std::shared_ptr&lt; GameObject &gt; parent=nullptr)</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00334">GameObject.cpp:334</a></div></div>
 <div class="ttc" id="aclassElevate_1_1GameObject_html_a07300d61d613363f5d63a504fd7d21f1"><div class="ttname"><a href="classElevate_1_1GameObject.html#a07300d61d613363f5d63a504fd7d21f1">Elevate::GameObject::Update</a></div><div class="ttdeci">void Update()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00054">GameObject.cpp:54</a></div></div>
-<div class="ttc" id="aclassElevate_1_1GameObject_html_a0aadc15215dfdfbcbb18e7b6aa02c3cc"><div class="ttname"><a href="classElevate_1_1GameObject.html#a0aadc15215dfdfbcbb18e7b6aa02c3cc">Elevate::GameObject::AddChild</a></div><div class="ttdeci">void AddChild(const EEObjectPtr&lt; GameObject &gt; &amp;child)</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00315">GameObject.cpp:315</a></div></div>
+<div class="ttc" id="aclassElevate_1_1GameObject_html_a0aadc15215dfdfbcbb18e7b6aa02c3cc"><div class="ttname"><a href="classElevate_1_1GameObject.html#a0aadc15215dfdfbcbb18e7b6aa02c3cc">Elevate::GameObject::AddChild</a></div><div class="ttdeci">void AddChild(const EEObjectPtr&lt; GameObject &gt; &amp;child)</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00319">GameObject.cpp:319</a></div></div>
 <div class="ttc" id="aclassElevate_1_1GameObject_html_a14ebadae0dfe7d205279a96fc3d9f1a2"><div class="ttname"><a href="classElevate_1_1GameObject.html#a14ebadae0dfe7d205279a96fc3d9f1a2">Elevate::GameObject::OnSetRotation</a></div><div class="ttdeci">void OnSetRotation() override</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00125">GameObject.cpp:125</a></div></div>
 <div class="ttc" id="aclassElevate_1_1GameObject_html_a3041eda863456c066993a004c9b2d8fc"><div class="ttname"><a href="classElevate_1_1GameObject.html#a3041eda863456c066993a004c9b2d8fc">Elevate::GameObject::Notify</a></div><div class="ttdeci">void Notify(Event &amp;event)</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00088">GameObject.cpp:88</a></div></div>
 <div class="ttc" id="aclassElevate_1_1GameObject_html_a5232eb2636ad41cbe5b29215d2167e16"><div class="ttname"><a href="classElevate_1_1GameObject.html#a5232eb2636ad41cbe5b29215d2167e16">Elevate::GameObject::~GameObject</a></div><div class="ttdeci">~GameObject()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00211">GameObject.cpp:211</a></div></div>
-<div class="ttc" id="aclassElevate_1_1GameObject_html_a605f1eb5f38d1030f67a5f881d020765"><div class="ttname"><a href="classElevate_1_1GameObject.html#a605f1eb5f38d1030f67a5f881d020765">Elevate::GameObject::RenderInEditor</a></div><div class="ttdeci">void RenderInEditor()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00235">GameObject.cpp:235</a></div></div>
-<div class="ttc" id="aclassElevate_1_1GameObject_html_a6c928a57446d73a4b42f40bfd1726667"><div class="ttname"><a href="classElevate_1_1GameObject.html#a6c928a57446d73a4b42f40bfd1726667">Elevate::GameObject::RemoveChild</a></div><div class="ttdeci">void RemoveChild(const EEObjectPtr&lt; GameObject &gt; &amp;child)</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00325">GameObject.cpp:325</a></div></div>
-<div class="ttc" id="aclassElevate_1_1GameObject_html_a91640cf9c6201af6148c8ff71d82c674"><div class="ttname"><a href="classElevate_1_1GameObject.html#a91640cf9c6201af6148c8ff71d82c674">Elevate::GameObject::GenGlobalMatrix</a></div><div class="ttdeci">glm::mat4 GenGlobalMatrix() const</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00339">GameObject.cpp:339</a></div></div>
-<div class="ttc" id="aclassElevate_1_1GameObject_html_a9a201939fd5776a5e77712ce5a4338fc"><div class="ttname"><a href="classElevate_1_1GameObject.html#a9a201939fd5776a5e77712ce5a4338fc">Elevate::GameObject::RenderWhenSelected</a></div><div class="ttdeci">void RenderWhenSelected()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00252">GameObject.cpp:252</a></div></div>
+<div class="ttc" id="aclassElevate_1_1GameObject_html_a605f1eb5f38d1030f67a5f881d020765"><div class="ttname"><a href="classElevate_1_1GameObject.html#a605f1eb5f38d1030f67a5f881d020765">Elevate::GameObject::RenderInEditor</a></div><div class="ttdeci">void RenderInEditor()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00239">GameObject.cpp:239</a></div></div>
+<div class="ttc" id="aclassElevate_1_1GameObject_html_a6c928a57446d73a4b42f40bfd1726667"><div class="ttname"><a href="classElevate_1_1GameObject.html#a6c928a57446d73a4b42f40bfd1726667">Elevate::GameObject::RemoveChild</a></div><div class="ttdeci">void RemoveChild(const EEObjectPtr&lt; GameObject &gt; &amp;child)</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00329">GameObject.cpp:329</a></div></div>
+<div class="ttc" id="aclassElevate_1_1GameObject_html_a91640cf9c6201af6148c8ff71d82c674"><div class="ttname"><a href="classElevate_1_1GameObject.html#a91640cf9c6201af6148c8ff71d82c674">Elevate::GameObject::GenGlobalMatrix</a></div><div class="ttdeci">glm::mat4 GenGlobalMatrix() const</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00343">GameObject.cpp:343</a></div></div>
+<div class="ttc" id="aclassElevate_1_1GameObject_html_a9a201939fd5776a5e77712ce5a4338fc"><div class="ttname"><a href="classElevate_1_1GameObject.html#a9a201939fd5776a5e77712ce5a4338fc">Elevate::GameObject::RenderWhenSelected</a></div><div class="ttdeci">void RenderWhenSelected()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00256">GameObject.cpp:256</a></div></div>
 <div class="ttc" id="aclassElevate_1_1GameObject_html_a9db6a4c53b05500a2e9bd97959130986"><div class="ttname"><a href="classElevate_1_1GameObject.html#a9db6a4c53b05500a2e9bd97959130986">Elevate::GameObject::OnSetPosition</a></div><div class="ttdeci">void OnSetPosition() override</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00104">GameObject.cpp:104</a></div></div>
 <div class="ttc" id="aclassElevate_1_1GameObject_html_a9df2b494b005355108e56ef86b7d3646"><div class="ttname"><a href="classElevate_1_1GameObject.html#a9df2b494b005355108e56ef86b7d3646">Elevate::GameObject::GetGlobalPosition</a></div><div class="ttdeci">glm::vec3 GetGlobalPosition()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00048">GameObject.cpp:48</a></div></div>
 <div class="ttc" id="aclassElevate_1_1GameObject_html_aa277dbdea52d967d3ab21201cd1f609b"><div class="ttname"><a href="classElevate_1_1GameObject.html#aa277dbdea52d967d3ab21201cd1f609b">Elevate::GameObject::OnSetScale</a></div><div class="ttdeci">void OnSetScale() override</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00141">GameObject.cpp:141</a></div></div>
 <div class="ttc" id="aclassElevate_1_1GameObject_html_ab0705a90fd3931ce32dca1f5218b5b1f"><div class="ttname"><a href="classElevate_1_1GameObject.html#ab0705a90fd3931ce32dca1f5218b5b1f">Elevate::GameObject::SetFromGlobalMatrix</a></div><div class="ttdeci">void SetFromGlobalMatrix(const glm::mat4 &amp;newWorld)</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00030">GameObject.cpp:30</a></div></div>
-<div class="ttc" id="aclassElevate_1_1GameObject_html_ac571bb9ded8d383e063a050682570166"><div class="ttname"><a href="classElevate_1_1GameObject.html#ac571bb9ded8d383e063a050682570166">Elevate::GameObject::Destroy</a></div><div class="ttdeci">void Destroy()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00294">GameObject.cpp:294</a></div></div>
+<div class="ttc" id="aclassElevate_1_1GameObject_html_ac571bb9ded8d383e063a050682570166"><div class="ttname"><a href="classElevate_1_1GameObject.html#ac571bb9ded8d383e063a050682570166">Elevate::GameObject::Destroy</a></div><div class="ttdeci">void Destroy()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00298">GameObject.cpp:298</a></div></div>
 <div class="ttc" id="aclassElevate_1_1GameObject_html_ade38ddcdc7968d32b787327669d9bd6c"><div class="ttname"><a href="classElevate_1_1GameObject.html#ade38ddcdc7968d32b787327669d9bd6c">Elevate::GameObject::GameObject</a></div><div class="ttdeci">GameObject(std::string name, std::shared_ptr&lt; Scene &gt; scene, std::shared_ptr&lt; GameObject &gt; parent=nullptr)</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00022">GameObject.cpp:22</a></div></div>
 <div class="ttc" id="aclassElevate_1_1GameObject_html_ae68b2497d4ec9e08f7078a45e8c66203"><div class="ttname"><a href="classElevate_1_1GameObject.html#ae68b2497d4ec9e08f7078a45e8c66203">Elevate::GameObject::Render</a></div><div class="ttdeci">void Render()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00071">GameObject.cpp:71</a></div></div>
 <div class="ttc" id="aclassElevate_1_1GameObject_html_aeb6a47910df1c6ea840021b7a5031435"><div class="ttname"><a href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">Elevate::GameObject::GetComponents</a></div><div class="ttdeci">std::vector&lt; Component * &gt; GetComponents()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00221">GameObject.cpp:221</a></div></div>
-<div class="ttc" id="aclassElevate_1_1GameObject_html_af39bd597e5a7caf69350dd52ecb56ded"><div class="ttname"><a href="classElevate_1_1GameObject.html#af39bd597e5a7caf69350dd52ecb56ded">Elevate::GameObject::SetParent</a></div><div class="ttdeci">void SetParent(const EEObjectPtr&lt; GameObject &gt; &amp;newParent)</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00269">GameObject.cpp:269</a></div></div>
+<div class="ttc" id="aclassElevate_1_1GameObject_html_af39bd597e5a7caf69350dd52ecb56ded"><div class="ttname"><a href="classElevate_1_1GameObject.html#af39bd597e5a7caf69350dd52ecb56ded">Elevate::GameObject::SetParent</a></div><div class="ttdeci">void SetParent(const EEObjectPtr&lt; GameObject &gt; &amp;newParent)</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00273">GameObject.cpp:273</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Guid_html_a0b035c82f69e6a5a625c0b1ffced78f0"><div class="ttname"><a href="classElevate_1_1Guid.html#a0b035c82f69e6a5a625c0b1ffced78f0">Elevate::Guid::ToString</a></div><div class="ttdeci">std::string ToString() const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00021">Guid.cpp:21</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ITransformable_html_a1551eeba7a86b703dab6ca94baaf5af6"><div class="ttname"><a href="classElevate_1_1ITransformable.html#a1551eeba7a86b703dab6ca94baaf5af6">Elevate::ITransformable::GetModelMatrix</a></div><div class="ttdeci">const glm::mat4 &amp; GetModelMatrix() const</div><div class="ttdef"><b>Definition</b> <a href="ITransformable_8h_source.html#l00039">ITransformable.h:39</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ITransformable_html_a8654f01e95026f1b1ec9d5edfcfd8353"><div class="ttname"><a href="classElevate_1_1ITransformable.html#a8654f01e95026f1b1ec9d5edfcfd8353">Elevate::ITransformable::SetRotation</a></div><div class="ttdeci">void SetRotation(glm::vec3 rotation)</div><div class="ttdef"><b>Definition</b> <a href="ITransformable_8h_source.html#l00024">ITransformable.h:24</a></div></div>
@@ -531,8 +534,10 @@ $(document).ready(function(){initNavTree('GameObject_8cpp_source.html',''); init
 <div class="ttc" id="aclassElevate_1_1SoundEngine_html_a0cf5e946f1e3a7c0a39c8d0737c16fee"><div class="ttname"><a href="classElevate_1_1SoundEngine.html#a0cf5e946f1e3a7c0a39c8d0737c16fee">Elevate::SoundEngine::UpdatePosition</a></div><div class="ttdeci">static void UpdatePosition(GameObject *obj)</div><div class="ttdef"><b>Definition</b> <a href="SoundEngine_8cpp_source.html#l00064">SoundEngine.cpp:64</a></div></div>
 <div class="ttc" id="aclassElevate_1_1SoundEngine_html_a6fad9b224064a1c9861625d58a3ad9a1"><div class="ttname"><a href="classElevate_1_1SoundEngine.html#a6fad9b224064a1c9861625d58a3ad9a1">Elevate::SoundEngine::UnregisterGameObject</a></div><div class="ttdeci">static void UnregisterGameObject(GameObject *obj)</div><div class="ttdef"><b>Definition</b> <a href="SoundEngine_8cpp_source.html#l00058">SoundEngine.cpp:58</a></div></div>
 <div class="ttc" id="aclassElevate_1_1SoundEngine_html_a9e285d32eca37e2f91e6db4379f5c8fe"><div class="ttname"><a href="classElevate_1_1SoundEngine.html#a9e285d32eca37e2f91e6db4379f5c8fe">Elevate::SoundEngine::RegisterGameObject</a></div><div class="ttdeci">static void RegisterGameObject(GameObject *obj)</div><div class="ttdef"><b>Definition</b> <a href="SoundEngine_8cpp_source.html#l00052">SoundEngine.cpp:52</a></div></div>
-<div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00008">AudioDistanceProbe.h:9</a></div></div>
+<div class="ttc" id="aclassElevate_1_1TypeRegistry_html_abccf9f12a75af178d95be723633e606a"><div class="ttname"><a href="classElevate_1_1TypeRegistry.html#abccf9f12a75af178d95be723633e606a">Elevate::TypeRegistry::GetEntries</a></div><div class="ttdeci">static std::unordered_map&lt; std::type_index, Entry &gt; &amp; GetEntries()</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00150">TypeRegistry.h:150</a></div></div>
+<div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00007">AudioDistanceProbe.h:8</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a06c21c65d4610d777c1af377f433e602"><div class="ttname"><a href="namespaceElevate.html#a06c21c65d4610d777c1af377f433e602">Elevate::GetRegistryMap</a></div><div class="ttdeci">std::unordered_map&lt; uint32_t, std::unique_ptr&lt; entt::registry &gt; &gt; &amp; GetRegistryMap()</div><div class="ttdef"><b>Definition</b> <a href="ScenePrivate_8cpp_source.html#l00006">ScenePrivate.cpp:6</a></div></div>
+<div class="ttc" id="astructElevate_1_1ComponentTypeTrait_html"><div class="ttname"><a href="structElevate_1_1ComponentTypeTrait.html">Elevate::ComponentTypeTrait</a></div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00102">TypeRegistry.h:103</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

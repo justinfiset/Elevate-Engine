@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['hideininspector_0',['HideInInspector',['../ComponentRegistry_8h.html#a2f61bd896d9a86fd997b08555c99c6ff',1,'ComponentRegistry.h']]]
+  ['max_5fdirectional_5flight_0',['MAX_DIRECTIONAL_LIGHT',['../SceneLighting_8h.html#a3cb164d83f37333c26a183c9eec13603',1,'SceneLighting.h']]],
+  ['max_5fpointlight_1',['MAX_POINTLIGHT',['../SceneLighting_8h.html#ad91fd7d0f96a1dd01b923c51b59226a2',1,'SceneLighting.h']]],
+  ['max_5fspotlight_2',['MAX_SPOTLIGHT',['../SceneLighting_8h.html#a32543abf4788bcd8c6307632fc0ae308',1,'SceneLighting.h']]]
 ];

@@ -97,15 +97,13 @@ $(document).ready(function(){initNavTree('Component_8h.html',''); initResizable(
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle"><div class="title">Component.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="Event_8h_source.html">ElevateEngine/Events/Event.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ComponentLayout_8h_source.html">ElevateEngine/Editor/Serialization/ComponentLayout.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="EEObject_8h_source.html">ElevateEngine/Core/EEObject.h</a>&gt;</code><br />
-<code>#include &lt;typeindex&gt;</code><br />
+<code>#include &lt;<a class="el" href="Reflection_8h_source.html">ElevateEngine/Core/Reflection.h</a>&gt;</code><br />
 </div>
 <p><a href="Component_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -121,17 +119,8 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a8553adddd132dce7e28379ece459ac52" id="r_a8553adddd132dce7e28379ece459ac52"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Component_8h.html#a8553adddd132dce7e28379ece459ac52">COMPONENT_LAYOUT</a>(...)&#160;&#160;&#160;	ComponentLayout GetLayout() const override { return ComponentLayout(GetName(), __VA_ARGS__);}</td></tr>
+<tr class="memitem:a8553adddd132dce7e28379ece459ac52" id="r_a8553adddd132dce7e28379ece459ac52"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Component_8h.html#a8553adddd132dce7e28379ece459ac52">COMPONENT_LAYOUT</a>(...)&#160;&#160;&#160;	TypeLayout GetLayout() const override { return TypeLayout(GetName(), __VA_ARGS__);}</td></tr>
 <tr class="separator:a8553adddd132dce7e28379ece459ac52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ac7341de5cdfe89199e82cbd2901c386a" id="r_ac7341de5cdfe89199e82cbd2901c386a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#ac7341de5cdfe89199e82cbd2901c386a">Elevate::GameObjectComponentGetter</a> = std::function&lt; <a class="el" href="classElevate_1_1Component.html">Component</a> *(std::weak_ptr&lt; <a class="el" href="classElevate_1_1GameObject.html">GameObject</a> &gt;)&gt;</td></tr>
-<tr class="separator:ac7341de5cdfe89199e82cbd2901c386a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bc1f78ba61a8fd696e68404338d8975" id="r_a8bc1f78ba61a8fd696e68404338d8975"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a8bc1f78ba61a8fd696e68404338d8975">Elevate::GameObjectComponentFactory</a> = std::function&lt; <a class="el" href="classElevate_1_1Component.html">Component</a> *(std::weak_ptr&lt; <a class="el" href="classElevate_1_1GameObject.html">GameObject</a> &gt;)&gt;</td></tr>
-<tr class="separator:a8bc1f78ba61a8fd696e68404338d8975"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac79ff05bde903d699c49e878f40b62f4" id="r_ac79ff05bde903d699c49e878f40b62f4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#ac79ff05bde903d699c49e878f40b62f4">Elevate::GameObjectComponentDestructor</a> = std::function&lt; void(std::weak_ptr&lt; <a class="el" href="classElevate_1_1GameObject.html">GameObject</a> &gt;)&gt;</td></tr>
-<tr class="separator:ac79ff05bde903d699c49e878f40b62f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a8553adddd132dce7e28379ece459ac52" name="a8553adddd132dce7e28379ece459ac52"></a>
@@ -145,13 +134,13 @@ Typedefs</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>...</em></td><td>)</td>
-          <td>&#160;&#160;&#160;	ComponentLayout GetLayout() const override { return ComponentLayout(GetName(), __VA_ARGS__);}</td>
+          <td>&#160;&#160;&#160;	TypeLayout GetLayout() const override { return TypeLayout(GetName(), __VA_ARGS__);}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Component_8h_source.html#l00012">12</a> of file <a class="el" href="Component_8h_source.html">Component.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   13</span>                                               { <span class="keywordflow">return</span> ComponentLayout(GetName(), __VA_ARGS__);}</div>
+<p class="definition">Definition at line <a class="el" href="Component_8h_source.html#l00011">11</a> of file <a class="el" href="Component_8h_source.html">Component.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   12</span>                                          { <span class="keywordflow">return</span> TypeLayout(GetName(), __VA_ARGS__);}</div>
 </div><!-- fragment -->
 </div>
 </div>

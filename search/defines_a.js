@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ndebug_0',['NDEBUG',['../Assert_8h.html#a8de3ed741dadc9c979a4ff17c0a9116e',1,'Assert.h']]]
+  ['stb_5fimage_5fimplementation_0',['STB_IMAGE_IMPLEMENTATION',['../OpenGLTexture_8cpp.html#a18372412ad2fc3ce1e3240b3cf0efe78',1,'OpenGLTexture.cpp']]]
 ];

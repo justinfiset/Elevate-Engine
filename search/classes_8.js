@@ -5,5 +5,6 @@ var searchData=
   ['input_2',['Input',['../classElevate_1_1Input.html',1,'Elevate']]],
   ['inputbuffer_3',['InputBuffer',['../classElevate_1_1InputBuffer.html',1,'Elevate']]],
   ['iserializable_4',['ISerializable',['../classElevate_1_1ISerializable.html',1,'Elevate']]],
-  ['itransformable_5',['ITransformable',['../classElevate_1_1ITransformable.html',1,'Elevate']]]
+  ['itransformable_5',['ITransformable',['../classElevate_1_1ITransformable.html',1,'Elevate']]],
+  ['itypetrait_6',['ITypeTrait',['../structElevate_1_1ITypeTrait.html',1,'Elevate']]]
 ];

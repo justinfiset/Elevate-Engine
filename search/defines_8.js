@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['imgui_5fimpl_5fopengl_5floader_5fglad_0',['IMGUI_IMPL_OPENGL_LOADER_GLAD',['../ImGuiiBuild_8cpp.html#a764d466a9da0dbe5fc6c81aaa567f984',1,'ImGuiiBuild.cpp']]]
+  ['ndebug_0',['NDEBUG',['../Assert_8h.html#a8de3ed741dadc9c979a4ff17c0a9116e',1,'Assert.h']]]
 ];

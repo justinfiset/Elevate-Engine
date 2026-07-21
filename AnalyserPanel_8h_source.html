@@ -107,9 +107,9 @@ $(document).ready(function(){initNavTree('AnalyserPanel_8h_source.html',''); ini
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#ifdef EE_EDITOR_BUILD</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="EditorWidget_8h.html">ElevateEngine/Editor/EditorWidget.h</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="ComponentLayout_8h.html">ElevateEngine/Editor/Serialization/ComponentLayout.h</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="TypeLayout_8h.html">ElevateEngine/Core/TypeLayout.h</a>&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="EEObject_8h.html">ElevateEngine/Core/EEObject.h</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="ComponentRegistry_8h.html">ElevateEngine/Core/ComponentRegistry.h</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="TypeRegistry_8h.html">ElevateEngine/Core/TypeRegistry.h</a>&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceElevate.html">Elevate</a></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
@@ -125,18 +125,18 @@ $(document).ready(function(){initNavTree('AnalyserPanel_8h_source.html',''); ini
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">void</span> OnImGuiRender() <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordtype">void</span> RenderComponent(Component* component);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordtype">void</span> RenderComponentLayout(<span class="keyword">const</span> ComponentLayout&amp; layout, Component* component = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">void</span> RenderField(<span class="keyword">const</span> ComponentField&amp; field) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordtype">void</span> RenderComponentLayout(<span class="keyword">const</span> TypeLayout&amp; layout, Component* component = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">void</span> RenderField(<span class="keyword">const</span> TypeField&amp; field) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="comment">// TODO MOVE SOMEWHERE ELSE !!!! (ALL THE FOLLOWING UNDERNEATH)</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">struct </span>CategoryMenu</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        {</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            EECategory category;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            std::vector&lt;ComponentRegistry::Entry&gt; items;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            std::vector&lt;const TypeRegistry::Entry*&gt; items;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            std::vector&lt;CategoryMenu&gt; childs;</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        };</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">void</span> InsertCategory(CategoryMenu&amp; root, <span class="keyword">const</span> ComponentRegistry::Entry&amp; entry);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">void</span> InsertCategory(CategoryMenu&amp; root, <span class="keyword">const</span> TypeRegistry::Entry&amp; entry);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordtype">void</span> DrawCategoryChildren(<span class="keyword">const</span> CategoryMenu&amp; category, std::weak_ptr&lt;GameObject&gt; obj);</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordtype">void</span> DrawCategoryMenu(<span class="keyword">const</span> CategoryMenu&amp; menu, std::weak_ptr&lt;GameObject&gt; obj);</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
@@ -147,12 +147,12 @@ $(document).ready(function(){initNavTree('AnalyserPanel_8h_source.html',''); ini
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#endif </span><span class="comment">// EE_EDITOR_BUILD</span></div>
-<div class="ttc" id="aComponentLayout_8h_html"><div class="ttname"><a href="ComponentLayout_8h.html">ComponentLayout.h</a></div></div>
-<div class="ttc" id="aComponentRegistry_8h_html"><div class="ttname"><a href="ComponentRegistry_8h.html">ComponentRegistry.h</a></div></div>
 <div class="ttc" id="aEEObject_8h_html"><div class="ttname"><a href="EEObject_8h.html">EEObject.h</a></div></div>
 <div class="ttc" id="aEditorWidget_8h_html"><div class="ttname"><a href="EditorWidget_8h.html">EditorWidget.h</a></div></div>
+<div class="ttc" id="aTypeLayout_8h_html"><div class="ttname"><a href="TypeLayout_8h.html">TypeLayout.h</a></div></div>
+<div class="ttc" id="aTypeRegistry_8h_html"><div class="ttname"><a href="TypeRegistry_8h.html">TypeRegistry.h</a></div></div>
 <div class="ttc" id="anamespaceElevate_1_1Editor_html"><div class="ttname"><a href="namespaceElevate_1_1Editor.html">Elevate::Editor</a></div><div class="ttdef"><b>Definition</b> <a href="Application_8h_source.html#l00025">Application.h:26</a></div></div>
-<div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00008">AudioDistanceProbe.h:9</a></div></div>
+<div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00007">AudioDistanceProbe.h:8</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
