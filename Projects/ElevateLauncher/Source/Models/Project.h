@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <memory>
 
+#include <ElevateEngine/Core/Reflection.h>
+
 namespace Elevate
 {
 	class Texture;
@@ -13,13 +15,20 @@ namespace EL
 {
 	struct Project
 	{
+		BEGIN_STRUCT(Project)
 		bool IsValid = false;
+		PROPERTY(IsValid)
 		uint32_t Id = 0;
+		PROPERTY(Id)
 		std::string Name = "";
+		PROPERTY(Name)
 		std::string Path = "";
+		PROPERTY(Path)
 		std::time_t LastOpened = 0;
-
+		PROPERTY(LastOpened)
 		bool UsesWwise = false;
+		PROPERTY(UsesWwise)
+		END_STRUCT()
 	};
 
 	struct ProjectTemplate

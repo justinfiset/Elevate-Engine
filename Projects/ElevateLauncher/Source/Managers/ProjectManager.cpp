@@ -2,6 +2,7 @@
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Files/FileUtility.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
+#include <ElevateEngine/Serialization/JsonSerializer.h>
 #include <filesystem>
 
 namespace fs = std::filesystem;
@@ -119,6 +120,15 @@ namespace EL
 	void ProjectManager::UpdateLocalProjectList()
 	{
 		// todo save info to local files
+		Elevate::JsonSerializer serializer;
+		Elevate::ByteBuffer bytes;
+
+		EE_INFO("Saving all of the following projects : ");
+		for (size_t i = 0; i < m_projectList.size(); i++) {
+			bytes.clear();
+			serializer.Serialize(m_projectList[i].GetProperties(), bytes);
+			EE_TRACE("    - {}", Elevate::ByteUitls::ToString(bytes));
+		}
 	}
 
 	bool ProjectManager::IsProjectValid(const Project& project) const
