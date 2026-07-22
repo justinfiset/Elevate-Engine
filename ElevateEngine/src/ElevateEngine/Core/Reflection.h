@@ -240,7 +240,7 @@ private: \
         } \
     } generated_structEntryEnd; \
 public: \
-    inline ::Elevate::TypeLayout GetLayout() const { \
+    inline virtual ::Elevate::TypeLayout GetLayout() const { \
         std::vector<::Elevate::TypeField> instanceFields; \
         for (const ::Elevate::TypeField& field : generated_structEntry.StructFieldStack) { \
             const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \

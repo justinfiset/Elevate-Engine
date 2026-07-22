@@ -1,8 +1,11 @@
 #pragma once
 
+// Interfaces
+#include <ElevateEngine/Serialization/ISerializable.h>
+#include <ElevateEngine/Core/ITypeLayoutProvider.h>
+
 #include <ElevateEngine/Core/Guid.h>
 #include <ElevateEngine/Core/EECategory.h>
-#include <ElevateEngine/Serialization/ISerializable.h>
 
 #include <ElevateEngine/Core/TypeLayout.h>
 #include <ElevateEngine/Serialization/PropertyField.h>
@@ -11,7 +14,7 @@
 
 namespace Elevate
 {
-	class EEObject : public ISerializable
+	class EEObject : public ISerializable, public ITypeLayoutProvider
 	{
 	protected:
 		EECategory m_category;
