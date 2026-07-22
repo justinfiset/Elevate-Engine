@@ -79,8 +79,8 @@ TEST_CASE("EEObject JSON Serilization", "[Serialization][PropertySet][JSONSerial
     REQUIRE(success);
 
     std::string json = Elevate::ByteUtils::ToString(outBuffer);
-    CHECK(json.find("\"Test Int\":123456") != std::string::npos);
-    CHECK(json.find("\"Test Struct\":{\"Test Struct Int\":123}") != std::string::npos);
+    CHECK(json.find("\"testInt\":123456") != std::string::npos);
+    CHECK(json.find("\"testStruct\":{\"testStructInt\":123}") != std::string::npos);
 }
 
 TEST_CASE("EEObjectPtr serlization is not empty", "[Serialization]") {
