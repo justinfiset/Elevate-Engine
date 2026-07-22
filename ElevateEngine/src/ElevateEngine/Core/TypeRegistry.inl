@@ -16,7 +16,7 @@
 #include <ElevateEngine/Core/TypeLayout.h>
 
 #ifdef EE_EDITOR_BUILD
-    #include <ElevateEngine/Editor/EditorTypeTrait.h>
+#include <ElevateEngine/Editor/EditorTypeTrait.h>
 #endif
 
 namespace Elevate
@@ -32,7 +32,6 @@ namespace Elevate
     struct ReadOnlyTag;
     struct TooltipTag;
 }
-
 
 namespace Elevate
 {
@@ -70,8 +69,39 @@ namespace Elevate
 
         size_t offset = reinterpret_cast<size_t>(&(reinterpret_cast<Class const volatile*>(0)->*member));
         TypeField field;
-         
-        if (type == EngineDataType::Custom)
+
+        if constexpr (is_engine_array_v<CleanedFieldT>) // manage std::vectors
+        {
+            field = TypeField(name, EngineDataType::Array, offset, meta.displayName);
+
+            using ElementType = typename CleanedFieldT::value_type;
+            field.elementType = DeduceEngineDataType<ElementType>();
+
+            if constexpr (std::is_class_v<ElementType> && !std::is_same_v<ElementType, std::string>)
+            {
+                auto& customFields = GetReflectedTypes();
+                std::type_index ti = typeid(ElementType);
+                auto it = customFields.find(ti);
+                if (it != customFields.end()) {
+                    field.elementChildren = it->second;
+                }
+            }
+
+            field.GetArraySize = [member](const void* instance) -> size_t {
+                if (!instance) return 0;
+                const auto* obj = static_cast<const Class*>(instance);
+                return (obj->*member).size();
+                };
+
+            field.GetElementAddress = [member](const void* instance, size_t index) -> const void* {
+                if (!instance) return nullptr;
+                const auto* obj = static_cast<const Class*>(instance);
+                const auto& vec = obj->*member;
+                if (index >= vec.size()) return nullptr;
+                return static_cast<const void*>(&(vec[index]));
+                };
+        }
+        else if (type == EngineDataType::Custom) // Manage custom struct or classes
         {
             auto& customFields = GetReflectedTypes();
             std::type_index ti = typeid(CleanedFieldT);
@@ -83,8 +113,8 @@ namespace Elevate
             }
             field = TypeField(name, EngineDataType::Custom, offset, meta.displayName, subFields);
         }
-        else
-        {
+        else // Manage primitive types
+        {   
             field = TypeField(name, type, offset, meta.displayName);
         }
 
