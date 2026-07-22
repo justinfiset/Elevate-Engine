@@ -1,6 +1,6 @@
 #include "TypeLayout.h"
 
-#include <ElevateEngine/Serialization/ObjectPropertyField.h>
+#include <ElevateEngine/Serialization/PropertyField.h>
 
 namespace Elevate
 {
@@ -10,31 +10,33 @@ namespace Elevate
         return PropertyFlag::None;
     }
 
-    void SetPropertyRawValue(const TypeField& field, PropertyField& prop)
+    void SetPropertyRawValue(const TypeField& field, PropertyField& prop, uint16_t currentDepth)
     {
-        if (field.data != nullptr)
+        if (field.data == nullptr) return;
+
+        switch (field.type)
         {
-            switch (field.type)
-            {
-            case EngineDataType::Bool:
-                prop.Value = *reinterpret_cast<const bool*>(field.data);
-                break;
-            case EngineDataType::Int:
-                prop.Value = static_cast<int64_t>(*reinterpret_cast<const int32_t*>(field.data));
-                break;
-            case EngineDataType::Float:
-                prop.Value = static_cast<double>(*reinterpret_cast<const float*>(field.data));
-                break;
-            case EngineDataType::Double:
-                prop.Value = *reinterpret_cast<const double*>(field.data);
-                break;
-            case EngineDataType::String:
-                prop.Value = *reinterpret_cast<const std::string*>(field.data);
-                break;
-            default:
-                // todo : save as bytebuffer if the type is unknown
-                break;
-            }
+        case EngineDataType::Bool:
+            prop.Value = *reinterpret_cast<const bool*>(field.data);
+            break;
+        case EngineDataType::Int:
+            prop.Value = static_cast<int64_t>(*reinterpret_cast<const int32_t*>(field.data));
+            break;
+        case EngineDataType::Float:
+            prop.Value = static_cast<double>(*reinterpret_cast<const float*>(field.data));
+            break;
+        case EngineDataType::Double:
+            prop.Value = *reinterpret_cast<const double*>(field.data);
+            break;
+        case EngineDataType::String:
+            prop.Value = *reinterpret_cast<const std::string*>(field.data);
+            break;
+        case EngineDataType::Array:
+            //prop.Value = PropertyContainer{ CreateArrayPropertySet(field, prop.Path, currentDepth + 1) };
+            break;
+        default:
+            // todo : save as bytebuffer if the type is unknown
+            break;
         }
     }
 
@@ -57,7 +59,7 @@ namespace Elevate
             }
             else
             {
-                SetPropertyRawValue(field, prop);
+                SetPropertyRawValue(field, prop, currentDepth);
             }
 
             set.push_back(prop);
@@ -79,14 +81,13 @@ namespace Elevate
             prop.Depth = 0;
             prop.Flags = GetFieldFlags(field);
             
-            // If the current field has childrens (eg. a struct)
             if (!field.children.empty())
             {
                 prop.Value = PropertyContainer{ CreateContainer(field, prop.Path, 1) };
             }
             else
             {
-                SetPropertyRawValue(field, prop);
+                SetPropertyRawValue(field, prop, 0);
             }
 
             set.push_back(prop);

@@ -27,7 +27,7 @@ namespace Elevate
 		std::vector<TypeField> children;
 
 		std::function<size_t(const void*)> GetArraySize;
-		std::function<const void* (const void*)> GetArrayData;
+		std::function<const void* (const void* instance, size_t index)> GetElementAddress;
 
 		TypeField() = default;
 

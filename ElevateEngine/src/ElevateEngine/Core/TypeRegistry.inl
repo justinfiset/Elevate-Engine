@@ -70,7 +70,7 @@ namespace Elevate
 
         size_t offset = reinterpret_cast<size_t>(&(reinterpret_cast<Class const volatile*>(0)->*member));
         TypeField field;
-
+         
         if (type == EngineDataType::Custom)
         {
             auto& customFields = GetReflectedTypes();

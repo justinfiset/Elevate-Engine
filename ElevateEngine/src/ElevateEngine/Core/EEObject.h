@@ -5,7 +5,7 @@
 #include <ElevateEngine/Serialization/ISerializable.h>
 
 #include <ElevateEngine/Core/TypeLayout.h>
-#include <ElevateEngine/Serialization/ObjectPropertyField.h>
+#include <ElevateEngine/Serialization/PropertyField.h>
 
 #include <typeindex>
 

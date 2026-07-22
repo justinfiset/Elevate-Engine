@@ -8,7 +8,7 @@
 #include <ElevateEngine/Core/Reflection.h>
 
 #include <ElevateEngine/Core/TypeLayout.h>
-#include <ElevateEngine/Serialization/ObjectPropertyField.h>
+#include <ElevateEngine/Serialization/PropertyField.h>
 #include <ElevateEngine/Serialization/JsonSerializer.h>
 
 using namespace Elevate;
