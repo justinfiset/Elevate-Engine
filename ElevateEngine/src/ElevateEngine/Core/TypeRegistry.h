@@ -79,7 +79,7 @@ namespace Elevate
 	template<typename T>
 	struct is_engine_array : std::false_type {};
 	template<typename T, typename Alloc>
-	struct is_engine_array : std::true_type {};
+	struct is_engine_array<std::vector<T, Alloc>> : std::true_type {};
 	template<typename T>
 	inline constexpr bool is_engine_array_v = is_engine_array<T>::value;
 

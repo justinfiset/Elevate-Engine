@@ -2,6 +2,7 @@
 #include <string>
 #include <cstring>
 #include <vector>
+#include <functional>
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/Assert.h>
 

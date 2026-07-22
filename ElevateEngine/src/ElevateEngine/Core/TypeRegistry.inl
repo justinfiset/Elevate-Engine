@@ -58,6 +58,8 @@ namespace Elevate
         constexpr EngineDataType type = DeduceEngineDataType<CleanedFieldT>();
 
         FieldMeta meta;
+        std::string cleanedName = GetCleanedName(name);
+        meta.displayName = cleanedName;
         for (auto&& opt : options) {
             if (std::holds_alternative<FlattenTag>(opt)) { meta.flatten = true; }
             else if (std::holds_alternative<DisplayNameTag>(opt)) { meta.displayName = std::get<DisplayNameTag>(opt).value; }
@@ -65,8 +67,6 @@ namespace Elevate
             else if (std::holds_alternative<ReadOnlyTag>(opt)) { meta.readOnly = true; }
             else if (std::holds_alternative<ColorTag>(opt)) { meta.isColor = true; }
         }
-
-        std::string cleanedName = GetCleanedName(name);
 
         size_t offset = reinterpret_cast<size_t>(&(reinterpret_cast<Class const volatile*>(0)->*member));
         TypeField field;
@@ -81,11 +81,11 @@ namespace Elevate
             if (it != customFields.end()) {
                 subFields = it->second;
             }
-            field = TypeField(cleanedName, EngineDataType::Custom, offset, meta.displayName, subFields);
+            field = TypeField(name, EngineDataType::Custom, offset, meta.displayName, subFields);
         }
         else
         {
-            field = TypeField(cleanedName, type, offset, meta.displayName);
+            field = TypeField(name, type, offset, meta.displayName);
         }
 
         field.flatten = meta.flatten;
