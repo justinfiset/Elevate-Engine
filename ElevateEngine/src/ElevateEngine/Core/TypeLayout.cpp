@@ -1,5 +1,6 @@
 #include "TypeLayout.h"
 
+#include <ElevateEngine/Core/TypeField.h>
 #include <ElevateEngine/Serialization/PropertyField.h>
 
 namespace Elevate
