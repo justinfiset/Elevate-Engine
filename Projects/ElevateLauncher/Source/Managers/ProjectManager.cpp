@@ -145,6 +145,8 @@ namespace EL
 
 	void ProjectManager::RefreshProjectList()
 	{
+		EE_INFO("Fetching local projects...");
+
 		// todo get info from local files
 		m_projectList.Projects.clear();
 
@@ -160,16 +162,24 @@ namespace EL
 			return;
 		}
 
+		EE_TRACE("Found the following projects : {}", fileContent);
+
 		Elevate::JsonSerializer serializer;
 		Elevate::ByteBuffer bytes = Elevate::ByteUtils::FromString(fileContent);
 
 		Elevate::PropertySet props;
-		serializer.Deserialize(bytes, props);
-		m_projectList.SetFromProperties(props);
-
-		for (auto& project : m_projectList.Projects)
+		if (serializer.Deserialize(bytes, props))
 		{
-			project.IsValid = IsProjectValid(project);
+			m_projectList.SetFromProperties(props);
+
+			for (auto& project : m_projectList.Projects)
+			{
+				project.IsValid = IsProjectValid(project);
+			}
+		}
+		else
+		{
+			EE_ERROR("Could not deserialize the projects json content.");
 		}
 	}
 

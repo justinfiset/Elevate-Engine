@@ -8,6 +8,7 @@ namespace Elevate
     PropertyFlag GetFieldFlags(const TypeField& field)
     {
         // todo correctly set the flags
+        return PropertyFlag::None;
     }
 
     PropertySet CreateContainer(const TypeField& parent, const std::string& parentPath, uint16_t currentDepth);
@@ -217,7 +218,28 @@ namespace Elevate
             }
             else if (!field.children.empty())
             {
-                ApplyPropertyValues(field.children, props, currentPath);
+                auto it = std::find_if(props.begin(), props.end(), [&currentPath](const PropertyField& p) {
+                    return p.Path == currentPath;
+                    });
+
+                if (it != props.end() && std::holds_alternative<PropertyContainer>(it->Value))
+                {
+                    const auto& container = std::get<PropertyContainer>(it->Value);
+
+                    const void* subStructDataPtr = field.data;
+
+                    std::vector<TypeField> instantiatedChildren;
+                    for (const auto& childField : field.children)
+                    {
+                        TypeField instChild = childField;
+                        instChild.data = (subStructDataPtr != nullptr)
+                            ? reinterpret_cast<const char*>(subStructDataPtr) + childField.offset
+                            : nullptr;
+                        instantiatedChildren.push_back(instChild);
+                    }
+
+                    ApplyPropertyValues(instantiatedChildren, container.Children, currentPath);
+                }
             }
             else
             {
