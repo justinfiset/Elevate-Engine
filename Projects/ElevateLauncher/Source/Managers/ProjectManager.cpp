@@ -150,14 +150,27 @@ namespace EL
 
 	void ProjectManager::UpdateLocalProjectList()
 	{
-		// todo save info to local files
 		Elevate::JsonSerializer serializer;
 		Elevate::ByteBuffer bytes;
 
 		serializer.Serialize(m_projectList.GetProperties(), bytes);
 		
 		EE_INFO("Saving all of the following projects : ");
-		EE_TRACE("{}", Elevate::ByteUtils::ToString(bytes));
+		std::string fileContent = Elevate::ByteUtils::ToString(bytes);
+		EE_TRACE("{}", fileContent);
+
+		std::string filePath = std::string(EE_CONTENT_ROOT) + "/projects.json";
+		std::ofstream outFile(filePath);
+
+		if (outFile.is_open())
+		{
+			outFile << fileContent;
+			outFile.close();
+		}
+		else
+		{
+			EE_ERROR("Failed to write projects config list file at: {}", filePath);
+		}
 	}
 
 	bool ProjectManager::IsProjectValid(const Project& project) const
