@@ -61,7 +61,7 @@ private: \
 public:
 
 #define PROPERTY(param, ...) \
-public: \
+private: \
     inline static struct param##PropertyEntry { \
         param##PropertyEntry() { \
             using MemberT = decltype(ThisType::param); \
@@ -73,7 +73,8 @@ public: \
                 targetStack \
             ); \
         } \
-    } generated_##param##PropertyEntry;
+    } generated_##param##PropertyEntry; \
+public:
 
 #define END_OBJECT() \
 private: \
@@ -213,9 +214,8 @@ public: \
 // BEGIN_STRUCT / END_STRUCT
 // =======================================================
 #define BEGIN_STRUCT(T) \
-private: \
-    using ThisType = T; \
 public: \
+    using ThisType = T; \
     inline static struct T##StructEntry { \
         T##StructEntry() { \
             ::Elevate::TypeRegistry::AddClassToStack(#T); \
@@ -226,7 +226,6 @@ public: \
         std::string StructTypeName; \
         std::vector<::Elevate::TypeField> StructFieldStack; \
     } generated_structEntry; \
-public:
 
 #define END_STRUCT() \
 private: \
@@ -235,8 +234,21 @@ private: \
             ::Elevate::TypeRegistry::PopClassStack(); \
             ::Elevate::TypeRegistry::Register<ThisType>( \
                 generated_structEntry.StructName, \
-                std::vector<FieldOption>{} \
+                std::vector<::Elevate::FieldOption>{} \
             ); \
             ::Elevate::TypeRegistry::GetReflectedTypes()[typeid(ThisType)] = generated_structEntry.StructFieldStack; \
         } \
-    } generated_structEntryEnd;
+    } generated_structEntryEnd; \
+public: \
+    inline virtual ::Elevate::TypeLayout GetLayout() const { \
+        std::vector<::Elevate::TypeField> instanceFields; \
+        for (const ::Elevate::TypeField& field : generated_structEntry.StructFieldStack) { \
+            const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
+            instanceFields.push_back(::Elevate::TypeField(field, fieldPtr)); \
+        } \
+        return ::Elevate::TypeLayout(generated_structEntry.StructName, instanceFields); \
+    } \
+    std::type_index GetTypeIndex() const { return typeid(ThisType); } \
+    inline ::Elevate::PropertySet GetProperties() const { \
+        return GetLayout().CaptureState(); \
+    }

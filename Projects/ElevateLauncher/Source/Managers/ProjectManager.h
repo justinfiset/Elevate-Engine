@@ -16,8 +16,9 @@ namespace EL
 
 	class ProjectManager
 	{
+		std::string m_configPath = "launcher_config.json";
 		std::string m_lastMessage = "";
-		std::vector<Project> m_projectList;
+		ProjectList m_projectList;
 
 		std::vector<ProjectTemplate> m_projectTemplates;
 		bool m_templatesLoaded = false;

@@ -189,6 +189,8 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field) const
 {
 	ImGui::BeginDisabled(field.readOnly);
 
+	ImGui::PushID(field.data);
+
 	switch (field.type)
 	{
 	case EngineDataType::Float:
@@ -238,6 +240,8 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field) const
 		ImGui::TextColored(ImVec4(1, 0, 0, 1), "Unsupported data type: %s", field.name.c_str());
 		break;
 	}
+
+	ImGui::PopID();
 
 	ImGui::EndDisabled();
 

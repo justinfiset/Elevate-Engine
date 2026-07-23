@@ -6,11 +6,13 @@
 #include <glm/vec3.hpp>
 
 #include <ElevateEngine/Core/Data.h>
+
+#include <ElevateEngine/Core/ITypeLayoutProvider.h>
 #include <ElevateEngine/Core/TypeLayout.h>
 
 namespace Elevate
 {
-	class Transform
+	class Transform : public ITypeLayoutProvider
 	{
 	public:
 		Transform();
@@ -38,7 +40,7 @@ namespace Elevate
 		const glm::mat4& GetModelMatrix() const;
 		void UpdateModelMatrix();
 	
-		TypeLayout GetLayout() const
+		virtual TypeLayout GetLayout() const override
 		{
 			return TypeLayout(
 				"Transform",

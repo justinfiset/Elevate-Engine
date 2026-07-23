@@ -75,7 +75,15 @@ namespace Elevate
 		std::string IconPath;
 	};
 
+
 	template<typename T>
+	struct is_engine_array : std::false_type {};
+	template<typename T, typename Alloc>
+	struct is_engine_array<std::vector<T, Alloc>> : std::true_type {};
+	template<typename T>
+	inline constexpr bool is_engine_array_v = is_engine_array<T>::value;
+
+	template<typename T, typename = void>
 	struct EngineDataTypeTrait
 	{
 		static constexpr EngineDataType value = EngineDataType::Custom;
@@ -89,6 +97,10 @@ namespace Elevate
 	template<> struct EngineDataTypeTrait<glm::vec3> { static constexpr EngineDataType value = EngineDataType::Float3; };
 	template<> struct EngineDataTypeTrait<glm::vec4> { static constexpr EngineDataType value = EngineDataType::Float4; };
 	template<> struct EngineDataTypeTrait<std::string> { static constexpr EngineDataType value = EngineDataType::String; };
+	template<typename T> struct EngineDataTypeTrait<T, std::enable_if_t<is_engine_array_v<T>>>
+	{
+		static constexpr EngineDataType value = EngineDataType::Array;
+	};
 
 	struct ITypeTrait
 	{

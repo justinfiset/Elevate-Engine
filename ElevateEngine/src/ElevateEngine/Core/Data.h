@@ -112,6 +112,7 @@ namespace Elevate
 		Sampler2D,
 		Double,
 		String,
+		Array,
 		Custom,
 		Unknown
 	};
