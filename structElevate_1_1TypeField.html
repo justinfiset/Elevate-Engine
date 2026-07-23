@@ -102,7 +102,7 @@ $(document).ready(function(){initNavTree('structElevate_1_1TypeField.html',''); 
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="TypeField_8h_source.html">TypeField.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -145,10 +145,18 @@ Public Attributes</h2></td></tr>
 <tr class="separator:acb36330b6489a8c98d7541d3bbee73ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a232d18d32d6ea8bdbecfb3b4914748a8" id="r_a232d18d32d6ea8bdbecfb3b4914748a8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structElevate_1_1TypeField.html">TypeField</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8">children</a></td></tr>
 <tr class="separator:a232d18d32d6ea8bdbecfb3b4914748a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4d359da245a147fc5843fba37a850d4" id="r_ae4d359da245a147fc5843fba37a850d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324">EngineDataType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structElevate_1_1TypeField.html#ae4d359da245a147fc5843fba37a850d4">elementType</a> = <a class="el" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af">EngineDataType::Custom</a></td></tr>
+<tr class="separator:ae4d359da245a147fc5843fba37a850d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45685a398e973cbfe9bc51337d385012" id="r_a45685a398e973cbfe9bc51337d385012"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structElevate_1_1TypeField.html">TypeField</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structElevate_1_1TypeField.html#a45685a398e973cbfe9bc51337d385012">elementChildren</a></td></tr>
+<tr class="separator:a45685a398e973cbfe9bc51337d385012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51ee16aaf746b1c8830d3fa849b2fd3d" id="r_a51ee16aaf746b1c8830d3fa849b2fd3d"><td class="memItemLeft" align="right" valign="top">std::function&lt; size_t(const void *)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structElevate_1_1TypeField.html#a51ee16aaf746b1c8830d3fa849b2fd3d">GetArraySize</a></td></tr>
+<tr class="separator:a51ee16aaf746b1c8830d3fa849b2fd3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf844aa6b5bc2e1a1446a027b88cadc2" id="r_aaf844aa6b5bc2e1a1446a027b88cadc2"><td class="memItemLeft" align="right" valign="top">std::function&lt; const void *(const void *instance, size_t index)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structElevate_1_1TypeField.html#aaf844aa6b5bc2e1a1446a027b88cadc2">GetElementAddress</a></td></tr>
+<tr class="separator:aaf844aa6b5bc2e1a1446a027b88cadc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00014">14</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00011">11</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a07c15c19176cf84c801043cbc54e4c93" name="a07c15c19176cf84c801043cbc54e4c93"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a07c15c19176cf84c801043cbc54e4c93">&#9670;&#160;</a></span>TypeField() <span class="overload">[1/5]</span></h2>
@@ -221,25 +229,26 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00030">30</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   36</span>            : <a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#ab028df64b84115a9226ba442470a16e7">offset</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#ab028df64b84115a9226ba442470a16e7">offset</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">displayName</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">displayName</a>) </div>
-<div class="line"><span class="lineno">   37</span>        {</div>
-<div class="line"><span class="lineno">   38</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a> == <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af">EngineDataType::Custom</a>)</div>
-<div class="line"><span class="lineno">   39</span>            {</div>
-<div class="line"><span class="lineno">   40</span>                <a class="code hl_variable" href="structElevate_1_1TypeField.html#a23f52f00f0c034a31e7f5e525d2f2cf2">size</a> = 0;</div>
-<div class="line"><span class="lineno">   41</span>            }</div>
-<div class="line"><span class="lineno">   42</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   43</span>            {</div>
-<div class="line"><span class="lineno">   44</span>                <a class="code hl_variable" href="structElevate_1_1TypeField.html#a23f52f00f0c034a31e7f5e525d2f2cf2">size</a> = <a class="code hl_function" href="namespaceElevate.html#a4794a41df6a80b4dd8e42de14692b9d8">GetDataTypeSize</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>);</div>
-<div class="line"><span class="lineno">   45</span>            }</div>
-<div class="line"><span class="lineno">   46</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00033">33</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>            : <a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#ab028df64b84115a9226ba442470a16e7">offset</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#ab028df64b84115a9226ba442470a16e7">offset</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">displayName</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">displayName</a>)</div>
+<div class="line"><span class="lineno">   40</span>        {</div>
+<div class="line"><span class="lineno">   41</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a> == <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af">EngineDataType::Custom</a> || <a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a> == <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a4410ec34d9e6c1a68100ca0ce033fb17">EngineDataType::Array</a>)</div>
+<div class="line"><span class="lineno">   42</span>            {</div>
+<div class="line"><span class="lineno">   43</span>                <a class="code hl_variable" href="structElevate_1_1TypeField.html#a23f52f00f0c034a31e7f5e525d2f2cf2">size</a> = 0;</div>
+<div class="line"><span class="lineno">   44</span>            }</div>
+<div class="line"><span class="lineno">   45</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   46</span>            {</div>
+<div class="line"><span class="lineno">   47</span>                <a class="code hl_variable" href="structElevate_1_1TypeField.html#a23f52f00f0c034a31e7f5e525d2f2cf2">size</a> = <a class="code hl_function" href="namespaceElevate.html#a4794a41df6a80b4dd8e42de14692b9d8">GetDataTypeSize</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>);</div>
+<div class="line"><span class="lineno">   48</span>            }</div>
+<div class="line"><span class="lineno">   49</span>        }</div>
+<div class="ttc" id="anamespaceElevate_html_a084798f901873cb9a7cb959b62006324a4410ec34d9e6c1a68100ca0ce033fb17"><div class="ttname"><a href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a4410ec34d9e6c1a68100ca0ce033fb17">Elevate::EngineDataType::Array</a></div><div class="ttdeci">@ Array</div></div>
 <div class="ttc" id="anamespaceElevate_html_a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af"><div class="ttname"><a href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af">Elevate::EngineDataType::Custom</a></div><div class="ttdeci">@ Custom</div></div>
-<div class="ttc" id="anamespaceElevate_html_a4794a41df6a80b4dd8e42de14692b9d8"><div class="ttname"><a href="namespaceElevate.html#a4794a41df6a80b4dd8e42de14692b9d8">Elevate::GetDataTypeSize</a></div><div class="ttdeci">uint32_t GetDataTypeSize(EngineDataType type)</div><div class="ttdef"><b>Definition</b> <a href="Data_8h_source.html#l00123">Data.h:123</a></div></div>
-<div class="ttc" id="astructElevate_1_1TypeField_html_a23f52f00f0c034a31e7f5e525d2f2cf2"><div class="ttname"><a href="structElevate_1_1TypeField.html#a23f52f00f0c034a31e7f5e525d2f2cf2">Elevate::TypeField::size</a></div><div class="ttdeci">uint32_t size</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8h_source.html#l00022">TypeLayout.h:22</a></div></div>
-<div class="ttc" id="astructElevate_1_1TypeField_html_a31c767ad4d5761819a0f7e375cc6266d"><div class="ttname"><a href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">Elevate::TypeField::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8h_source.html#l00016">TypeLayout.h:16</a></div></div>
-<div class="ttc" id="astructElevate_1_1TypeField_html_a789660c8f21d1d3eb0d0dc9e53cd93b6"><div class="ttname"><a href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">Elevate::TypeField::type</a></div><div class="ttdeci">EngineDataType type</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8h_source.html#l00019">TypeLayout.h:19</a></div></div>
-<div class="ttc" id="astructElevate_1_1TypeField_html_a7ee7b54b9d508918e730cd4cfb5f376f"><div class="ttname"><a href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">Elevate::TypeField::displayName</a></div><div class="ttdeci">std::string displayName</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8h_source.html#l00017">TypeLayout.h:17</a></div></div>
-<div class="ttc" id="astructElevate_1_1TypeField_html_ab028df64b84115a9226ba442470a16e7"><div class="ttname"><a href="structElevate_1_1TypeField.html#ab028df64b84115a9226ba442470a16e7">Elevate::TypeField::offset</a></div><div class="ttdeci">size_t offset</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8h_source.html#l00021">TypeLayout.h:21</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a4794a41df6a80b4dd8e42de14692b9d8"><div class="ttname"><a href="namespaceElevate.html#a4794a41df6a80b4dd8e42de14692b9d8">Elevate::GetDataTypeSize</a></div><div class="ttdeci">uint32_t GetDataTypeSize(EngineDataType type)</div><div class="ttdef"><b>Definition</b> <a href="Data_8h_source.html#l00124">Data.h:124</a></div></div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_a23f52f00f0c034a31e7f5e525d2f2cf2"><div class="ttname"><a href="structElevate_1_1TypeField.html#a23f52f00f0c034a31e7f5e525d2f2cf2">Elevate::TypeField::size</a></div><div class="ttdeci">uint32_t size</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00019">TypeField.h:19</a></div></div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_a31c767ad4d5761819a0f7e375cc6266d"><div class="ttname"><a href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">Elevate::TypeField::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00013">TypeField.h:13</a></div></div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_a789660c8f21d1d3eb0d0dc9e53cd93b6"><div class="ttname"><a href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">Elevate::TypeField::type</a></div><div class="ttdeci">EngineDataType type</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00016">TypeField.h:16</a></div></div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_a7ee7b54b9d508918e730cd4cfb5f376f"><div class="ttname"><a href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">Elevate::TypeField::displayName</a></div><div class="ttdeci">std::string displayName</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00014">TypeField.h:14</a></div></div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_ab028df64b84115a9226ba442470a16e7"><div class="ttname"><a href="structElevate_1_1TypeField.html#ab028df64b84115a9226ba442470a16e7">Elevate::TypeField::offset</a></div><div class="ttdeci">size_t offset</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00018">TypeField.h:18</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -295,19 +304,19 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00048">48</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   55</span>            : <a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#ab028df64b84115a9226ba442470a16e7">offset</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#ab028df64b84115a9226ba442470a16e7">offset</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">displayName</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">displayName</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8">children</a>(childrenFields)</div>
-<div class="line"><span class="lineno">   56</span>        {</div>
-<div class="line"><span class="lineno">   57</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a> == <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af">EngineDataType::Custom</a>)</div>
-<div class="line"><span class="lineno">   58</span>            {</div>
-<div class="line"><span class="lineno">   59</span>                <a class="code hl_variable" href="structElevate_1_1TypeField.html#a23f52f00f0c034a31e7f5e525d2f2cf2">size</a> = 0;</div>
-<div class="line"><span class="lineno">   60</span>            }</div>
-<div class="line"><span class="lineno">   61</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   62</span>            {</div>
-<div class="line"><span class="lineno">   63</span>                <a class="code hl_variable" href="structElevate_1_1TypeField.html#a23f52f00f0c034a31e7f5e525d2f2cf2">size</a> = <a class="code hl_function" href="namespaceElevate.html#a4794a41df6a80b4dd8e42de14692b9d8">GetDataTypeSize</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>);</div>
-<div class="line"><span class="lineno">   64</span>            }</div>
-<div class="line"><span class="lineno">   65</span>        }</div>
-<div class="ttc" id="astructElevate_1_1TypeField_html_a232d18d32d6ea8bdbecfb3b4914748a8"><div class="ttname"><a href="structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8">Elevate::TypeField::children</a></div><div class="ttdeci">std::vector&lt; TypeField &gt; children</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8h_source.html#l00026">TypeLayout.h:26</a></div></div>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00051">51</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   58</span>            : <a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#ab028df64b84115a9226ba442470a16e7">offset</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#ab028df64b84115a9226ba442470a16e7">offset</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">displayName</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">displayName</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8">children</a>(childrenFields)</div>
+<div class="line"><span class="lineno">   59</span>        {</div>
+<div class="line"><span class="lineno">   60</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a> == <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af">EngineDataType::Custom</a> || <a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a> == <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a4410ec34d9e6c1a68100ca0ce033fb17">EngineDataType::Array</a>)</div>
+<div class="line"><span class="lineno">   61</span>            {</div>
+<div class="line"><span class="lineno">   62</span>                <a class="code hl_variable" href="structElevate_1_1TypeField.html#a23f52f00f0c034a31e7f5e525d2f2cf2">size</a> = 0;</div>
+<div class="line"><span class="lineno">   63</span>            }</div>
+<div class="line"><span class="lineno">   64</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   65</span>            {</div>
+<div class="line"><span class="lineno">   66</span>                <a class="code hl_variable" href="structElevate_1_1TypeField.html#a23f52f00f0c034a31e7f5e525d2f2cf2">size</a> = <a class="code hl_function" href="namespaceElevate.html#a4794a41df6a80b4dd8e42de14692b9d8">GetDataTypeSize</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>);</div>
+<div class="line"><span class="lineno">   67</span>            }</div>
+<div class="line"><span class="lineno">   68</span>        }</div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_a232d18d32d6ea8bdbecfb3b4914748a8"><div class="ttname"><a href="structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8">Elevate::TypeField::children</a></div><div class="ttdeci">std::vector&lt; TypeField &gt; children</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00023">TypeField.h:23</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -351,9 +360,10 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00067">67</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   68</span>            : <a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>(dataPtr) { }</div>
-<div class="ttc" id="astructElevate_1_1TypeField_html_aaf3866edae7c6f2e93625741f0371bff"><div class="ttname"><a href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">Elevate::TypeField::data</a></div><div class="ttdeci">const void * data</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8h_source.html#l00020">TypeLayout.h:20</a></div></div>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00070">70</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   71</span>            : <a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>(<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>), <a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>(dataPtr) {</div>
+<div class="line"><span class="lineno">   72</span>        }</div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_aaf3866edae7c6f2e93625741f0371bff"><div class="ttname"><a href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">Elevate::TypeField::data</a></div><div class="ttdeci">const void * data</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00017">TypeField.h:17</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -391,20 +401,26 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00070">70</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   71</span>            : <a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>(original.name), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>(original.type), <a class="code hl_variable" href="structElevate_1_1TypeField.html#ab028df64b84115a9226ba442470a16e7">offset</a>(original.offset), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a23f52f00f0c034a31e7f5e525d2f2cf2">size</a>(original.size), </div>
-<div class="line"><span class="lineno">   72</span>            <a class="code hl_variable" href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">displayName</a>(original.displayName), <a class="code hl_variable" href="structElevate_1_1TypeField.html#acc22ce0058544c1f8b767bd8ab27fa48">flatten</a>(original.flatten), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a412ac2eb3b6c6da877bc84810893ce28">readOnly</a>(original.readOnly),</div>
-<div class="line"><span class="lineno">   73</span>            <a class="code hl_variable" href="structElevate_1_1TypeField.html#acb36330b6489a8c98d7541d3bbee73ef">isColor</a>(original.isColor), <a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>(dataPtr) </div>
-<div class="line"><span class="lineno">   74</span>        {</div>
-<div class="line"><span class="lineno">   75</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : original.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8">children</a>)</div>
-<div class="line"><span class="lineno">   76</span>            {</div>
-<div class="line"><span class="lineno">   77</span>                <span class="keyword">const</span> <span class="keywordtype">void</span>* childDataPtr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(dataPtr) + child.offset;</div>
-<div class="line"><span class="lineno">   78</span>                <a class="code hl_variable" href="structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8">children</a>.emplace_back(child, childDataPtr);</div>
-<div class="line"><span class="lineno">   79</span>            }</div>
-<div class="line"><span class="lineno">   80</span>        }</div>
-<div class="ttc" id="astructElevate_1_1TypeField_html_a412ac2eb3b6c6da877bc84810893ce28"><div class="ttname"><a href="structElevate_1_1TypeField.html#a412ac2eb3b6c6da877bc84810893ce28">Elevate::TypeField::readOnly</a></div><div class="ttdeci">bool readOnly</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8h_source.html#l00024">TypeLayout.h:24</a></div></div>
-<div class="ttc" id="astructElevate_1_1TypeField_html_acb36330b6489a8c98d7541d3bbee73ef"><div class="ttname"><a href="structElevate_1_1TypeField.html#acb36330b6489a8c98d7541d3bbee73ef">Elevate::TypeField::isColor</a></div><div class="ttdeci">bool isColor</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8h_source.html#l00025">TypeLayout.h:25</a></div></div>
-<div class="ttc" id="astructElevate_1_1TypeField_html_acc22ce0058544c1f8b767bd8ab27fa48"><div class="ttname"><a href="structElevate_1_1TypeField.html#acc22ce0058544c1f8b767bd8ab27fa48">Elevate::TypeField::flatten</a></div><div class="ttdeci">bool flatten</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8h_source.html#l00023">TypeLayout.h:23</a></div></div>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00074">74</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   75</span>            : <a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>(original.name), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>(original.type), <a class="code hl_variable" href="structElevate_1_1TypeField.html#ab028df64b84115a9226ba442470a16e7">offset</a>(original.offset), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a23f52f00f0c034a31e7f5e525d2f2cf2">size</a>(original.size),</div>
+<div class="line"><span class="lineno">   76</span>            <a class="code hl_variable" href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">displayName</a>(original.displayName), <a class="code hl_variable" href="structElevate_1_1TypeField.html#acc22ce0058544c1f8b767bd8ab27fa48">flatten</a>(original.flatten), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a412ac2eb3b6c6da877bc84810893ce28">readOnly</a>(original.readOnly),</div>
+<div class="line"><span class="lineno">   77</span>            <a class="code hl_variable" href="structElevate_1_1TypeField.html#acb36330b6489a8c98d7541d3bbee73ef">isColor</a>(original.isColor), <a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>(dataPtr),</div>
+<div class="line"><span class="lineno">   78</span>            <a class="code hl_variable" href="structElevate_1_1TypeField.html#ae4d359da245a147fc5843fba37a850d4">elementType</a>(original.elementType), <a class="code hl_variable" href="structElevate_1_1TypeField.html#a45685a398e973cbfe9bc51337d385012">elementChildren</a>(original.elementChildren),</div>
+<div class="line"><span class="lineno">   79</span>            <a class="code hl_variable" href="structElevate_1_1TypeField.html#a51ee16aaf746b1c8830d3fa849b2fd3d">GetArraySize</a>(original.GetArraySize), <a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf844aa6b5bc2e1a1446a027b88cadc2">GetElementAddress</a>(original.GetElementAddress)</div>
+<div class="line"><span class="lineno">   80</span>        {</div>
+<div class="line"><span class="lineno">   81</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : original.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8">children</a>)</div>
+<div class="line"><span class="lineno">   82</span>            {</div>
+<div class="line"><span class="lineno">   83</span>                <span class="keyword">const</span> <span class="keywordtype">void</span>* childDataPtr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(dataPtr) + child.offset;</div>
+<div class="line"><span class="lineno">   84</span>                <a class="code hl_variable" href="structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8">children</a>.emplace_back(child, childDataPtr);</div>
+<div class="line"><span class="lineno">   85</span>            }</div>
+<div class="line"><span class="lineno">   86</span>        }</div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_a412ac2eb3b6c6da877bc84810893ce28"><div class="ttname"><a href="structElevate_1_1TypeField.html#a412ac2eb3b6c6da877bc84810893ce28">Elevate::TypeField::readOnly</a></div><div class="ttdeci">bool readOnly</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00021">TypeField.h:21</a></div></div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_a45685a398e973cbfe9bc51337d385012"><div class="ttname"><a href="structElevate_1_1TypeField.html#a45685a398e973cbfe9bc51337d385012">Elevate::TypeField::elementChildren</a></div><div class="ttdeci">std::vector&lt; TypeField &gt; elementChildren</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00026">TypeField.h:26</a></div></div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_a51ee16aaf746b1c8830d3fa849b2fd3d"><div class="ttname"><a href="structElevate_1_1TypeField.html#a51ee16aaf746b1c8830d3fa849b2fd3d">Elevate::TypeField::GetArraySize</a></div><div class="ttdeci">std::function&lt; size_t(const void *)&gt; GetArraySize</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00028">TypeField.h:28</a></div></div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_aaf844aa6b5bc2e1a1446a027b88cadc2"><div class="ttname"><a href="structElevate_1_1TypeField.html#aaf844aa6b5bc2e1a1446a027b88cadc2">Elevate::TypeField::GetElementAddress</a></div><div class="ttdeci">std::function&lt; const void *(const void *instance, size_t index)&gt; GetElementAddress</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00029">TypeField.h:29</a></div></div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_acb36330b6489a8c98d7541d3bbee73ef"><div class="ttname"><a href="structElevate_1_1TypeField.html#acb36330b6489a8c98d7541d3bbee73ef">Elevate::TypeField::isColor</a></div><div class="ttdeci">bool isColor</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00022">TypeField.h:22</a></div></div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_acc22ce0058544c1f8b767bd8ab27fa48"><div class="ttname"><a href="structElevate_1_1TypeField.html#acc22ce0058544c1f8b767bd8ab27fa48">Elevate::TypeField::flatten</a></div><div class="ttdeci">bool flatten</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00020">TypeField.h:20</a></div></div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_ae4d359da245a147fc5843fba37a850d4"><div class="ttname"><a href="structElevate_1_1TypeField.html#ae4d359da245a147fc5843fba37a850d4">Elevate::TypeField::elementType</a></div><div class="ttdeci">EngineDataType elementType</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00025">TypeField.h:25</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -432,12 +448,12 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00082">82</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   83</span>        {</div>
-<div class="line"><span class="lineno">   84</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">displayName</a>.empty())</div>
-<div class="line"><span class="lineno">   85</span>                <span class="keywordflow">return</span> <a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>;</div>
-<div class="line"><span class="lineno">   86</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">displayName</a>;</div>
-<div class="line"><span class="lineno">   87</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00088">88</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   89</span>        {</div>
+<div class="line"><span class="lineno">   90</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">displayName</a>.empty())</div>
+<div class="line"><span class="lineno">   91</span>                <span class="keywordflow">return</span> <a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a>;</div>
+<div class="line"><span class="lineno">   92</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f">displayName</a>;</div>
+<div class="line"><span class="lineno">   93</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -464,8 +480,8 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00089">89</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   89</span>{ <span class="keywordflow">return</span> !<a class="code hl_variable" href="structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8">children</a>.empty(); }</div>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00095">95</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   95</span>{ <span class="keywordflow">return</span> !<a class="code hl_variable" href="structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8">children</a>.empty() || <a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a> == <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a4410ec34d9e6c1a68100ca0ce033fb17">EngineDataType::Array</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -482,7 +498,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00026">26</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00023">23</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
 
 </div>
 </div>
@@ -498,7 +514,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00020">20</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00017">17</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
 
 </div>
 </div>
@@ -514,7 +530,39 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00017">17</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00014">14</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
+
+</div>
+</div>
+<a id="a45685a398e973cbfe9bc51337d385012" name="a45685a398e973cbfe9bc51337d385012"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45685a398e973cbfe9bc51337d385012">&#9670;&#160;</a></span>elementChildren</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structElevate_1_1TypeField.html">TypeField</a>&gt; Elevate::TypeField::elementChildren</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00026">26</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
+
+</div>
+</div>
+<a id="ae4d359da245a147fc5843fba37a850d4" name="ae4d359da245a147fc5843fba37a850d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4d359da245a147fc5843fba37a850d4">&#9670;&#160;</a></span>elementType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324">EngineDataType</a> Elevate::TypeField::elementType = <a class="el" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af">EngineDataType::Custom</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00025">25</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
 
 </div>
 </div>
@@ -530,7 +578,39 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00023">23</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00020">20</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
+
+</div>
+</div>
+<a id="a51ee16aaf746b1c8830d3fa849b2fd3d" name="a51ee16aaf746b1c8830d3fa849b2fd3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51ee16aaf746b1c8830d3fa849b2fd3d">&#9670;&#160;</a></span>GetArraySize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::function&lt;size_t(const void*)&gt; Elevate::TypeField::GetArraySize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00028">28</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
+
+</div>
+</div>
+<a id="aaf844aa6b5bc2e1a1446a027b88cadc2" name="aaf844aa6b5bc2e1a1446a027b88cadc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf844aa6b5bc2e1a1446a027b88cadc2">&#9670;&#160;</a></span>GetElementAddress</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::function&lt;const void* (const void* instance, size_t index)&gt; Elevate::TypeField::GetElementAddress</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00029">29</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
 
 </div>
 </div>
@@ -546,7 +626,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00025">25</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00022">22</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
 
 </div>
 </div>
@@ -562,7 +642,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00016">16</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00013">13</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
 
 </div>
 </div>
@@ -578,7 +658,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00021">21</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00018">18</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
 
 </div>
 </div>
@@ -594,7 +674,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00024">24</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00021">21</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
 
 </div>
 </div>
@@ -610,7 +690,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00022">22</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00019">19</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
 
 </div>
 </div>
@@ -626,7 +706,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00018">18</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00015">15</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
 
 </div>
 </div>
@@ -642,12 +722,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8h_source.html#l00019">19</a> of file <a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeField_8h_source.html#l00016">16</a> of file <a class="el" href="TypeField_8h_source.html">TypeField.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>ElevateEngine/src/ElevateEngine/Core/<a class="el" href="TypeLayout_8h_source.html">TypeLayout.h</a></li>
+<li>ElevateEngine/src/ElevateEngine/Core/<a class="el" href="TypeField_8h_source.html">TypeField.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

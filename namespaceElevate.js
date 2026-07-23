@@ -1,8 +1,8 @@
 var namespaceElevate =
 [
-    [ "ByteUitls", "namespaceElevate_1_1ByteUitls.html", [
-      [ "ToHexString", "namespaceElevate_1_1ByteUitls.html#a7988d79a5f35a2fc88c10a4485a77a6d", null ],
-      [ "ToString", "namespaceElevate_1_1ByteUitls.html#ab2cd5d9da7e91518bfe41bdd88304f64", null ]
+    [ "ByteUtils", "namespaceElevate_1_1ByteUtils.html", [
+      [ "ToHexString", "namespaceElevate_1_1ByteUtils.html#a6bf8d876ae4d7e6666fb390b302bba84", null ],
+      [ "ToString", "namespaceElevate_1_1ByteUtils.html#a3f9222dbb13cb9da3ac0ab9a0921913c", null ]
     ] ],
     [ "Editor", "namespaceElevate_1_1Editor.html", "namespaceElevate_1_1Editor" ],
     [ "File", "namespaceElevate_1_1File.html", [
@@ -70,6 +70,7 @@ var namespaceElevate =
     [ "EngineDataTypeTrait< glm::vec4 >", "structElevate_1_1EngineDataTypeTrait_3_01glm_1_1vec4_01_4.html", null ],
     [ "EngineDataTypeTrait< int >", "structElevate_1_1EngineDataTypeTrait_3_01int_01_4.html", null ],
     [ "EngineDataTypeTrait< std::string >", "structElevate_1_1EngineDataTypeTrait_3_01std_1_1string_01_4.html", null ],
+    [ "EngineDataTypeTrait< T, std::enable_if_t< is_engine_array_v< T > > >", "structElevate_1_1EngineDataTypeTrait_3_01T_00_01std_1_1enable__if__t_3_01is__engine__array__v_3_01T_01_4_01_4_01_4.html", null ],
     [ "Event", "classElevate_1_1Event.html", "classElevate_1_1Event" ],
     [ "EventDispatcher", "classElevate_1_1EventDispatcher.html", "classElevate_1_1EventDispatcher" ],
     [ "FieldMeta", "structElevate_1_1FieldMeta.html", "structElevate_1_1FieldMeta" ],
@@ -95,8 +96,11 @@ var namespaceElevate =
     [ "IndexBuffer", "classElevate_1_1IndexBuffer.html", "classElevate_1_1IndexBuffer" ],
     [ "Input", "classElevate_1_1Input.html", "classElevate_1_1Input" ],
     [ "InputBuffer", "classElevate_1_1InputBuffer.html", "classElevate_1_1InputBuffer" ],
+    [ "is_engine_array", "structElevate_1_1is__engine__array.html", null ],
+    [ "is_engine_array< std::vector< T, Alloc > >", "structElevate_1_1is__engine__array_3_01std_1_1vector_3_01T_00_01Alloc_01_4_01_4.html", null ],
     [ "ISerializable", "classElevate_1_1ISerializable.html", "classElevate_1_1ISerializable" ],
     [ "ITransformable", "classElevate_1_1ITransformable.html", "classElevate_1_1ITransformable" ],
+    [ "ITypeLayoutProvider", "classElevate_1_1ITypeLayoutProvider.html", "classElevate_1_1ITypeLayoutProvider" ],
     [ "ITypeTrait", "structElevate_1_1ITypeTrait.html", "structElevate_1_1ITypeTrait" ],
     [ "JsonSerializer", "classElevate_1_1JsonSerializer.html", "classElevate_1_1JsonSerializer" ],
     [ "KeyEvent", "classElevate_1_1KeyEvent.html", "classElevate_1_1KeyEvent" ],
@@ -228,6 +232,7 @@ var namespaceElevate =
       [ "Sampler2D", "namespaceElevate.html#a084798f901873cb9a7cb959b62006324a6f0987d6f82566fca538d8c3b8f07ee1", null ],
       [ "Double", "namespaceElevate.html#a084798f901873cb9a7cb959b62006324ad909d38d705ce75386dd86e611a82f5b", null ],
       [ "String", "namespaceElevate.html#a084798f901873cb9a7cb959b62006324a27118326006d3829667a400ad23d5d98", null ],
+      [ "Array", "namespaceElevate.html#a084798f901873cb9a7cb959b62006324a4410ec34d9e6c1a68100ca0ce033fb17", null ],
       [ "Custom", "namespaceElevate.html#a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af", null ],
       [ "Unknown", "namespaceElevate.html#a084798f901873cb9a7cb959b62006324a88183b946cc5f0e8c96b2e66e1c74a7e", null ]
     ] ],
@@ -346,6 +351,7 @@ var namespaceElevate =
       [ "ClampToBorder", "namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147", null ]
     ] ],
     [ "CreateApplication", "namespaceElevate.html#af81b10f7c72d9514fbbbd926e9556a79", null ],
+    [ "CreateArrayPropertySet", "namespaceElevate.html#a47c345f6ce272c8a1f681edd9ab87cc5", null ],
     [ "CreateBuffers", "namespaceElevate.html#a39a4828ecbc5697c5bb04abfe62b1124", null ],
     [ "CreateContainer", "namespaceElevate.html#a818ac53a839cea75385fd0cb34787462", null ],
     [ "GetDataAPIType", "namespaceElevate.html#af5a38a4b356e2b30f17e2cf472956263", null ],
@@ -358,13 +364,14 @@ var namespaceElevate =
     [ "operator<<", "namespaceElevate.html#a07459f730257a31806ceb39f2b73f301", null ],
     [ "overload", "namespaceElevate.html#ad16fe7bc8849d427bf60ac890e6e3e26", null ],
     [ "SerializeRecursive", "namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54", null ],
-    [ "SetPropertyRawValue", "namespaceElevate.html#a8b6392d37f2fcc15b69c6c32adf15f68", null ],
+    [ "SetPropertyRawValue", "namespaceElevate.html#a6c4c36281536826a01995c10e60f34f1", null ],
     [ "ToInternalFormat", "namespaceElevate.html#acd8bee0db614983fad5c89b2e63b18a5", null ],
     [ "ToOpenGL", "namespaceElevate.html#a3db2cbae1c5876f9ed5cabd83f172ab6", null ],
     [ "ToOpenGL", "namespaceElevate.html#a420cae547c6e9aa278ebe58140f5b0e2", null ],
     [ "ToOpenGL", "namespaceElevate.html#a70409c58a076fe8b8028054f8472e8a0", null ],
     [ "ToOpenGL", "namespaceElevate.html#a212e9e17da8e7c62d5c9b26136fafdab", null ],
     [ "ToOpenGLType", "namespaceElevate.html#af563fefd8f3d7b3dae0ffbec43eab8d2", null ],
+    [ "is_engine_array_v", "namespaceElevate.html#a0488c120b5e8ebccc8f47b6a751bd01f", null ],
     [ "ShaderDataAPIType", "namespaceElevate.html#a1ffd393309377f47aecaea9fe63677a6", null ],
     [ "ShaderDataTypeCount", "namespaceElevate.html#abfc192380db4c63510441d95baf0d8c5", null ],
     [ "ShaderDataTypeSize", "namespaceElevate.html#ad16db1ad7a175529e106a833f224acc2", null ]

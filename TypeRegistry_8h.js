@@ -7,7 +7,9 @@ var TypeRegistry_8h =
     [ "Elevate::ParentFieldsHelper< Elevate::Component, true >", "structElevate_1_1ParentFieldsHelper_3_01Elevate_1_1Component_00_01true_01_4.html", null ],
     [ "Elevate::ParentFieldsHelper< Elevate::Component, false >", "structElevate_1_1ParentFieldsHelper_3_01Elevate_1_1Component_00_01false_01_4.html", null ],
     [ "Elevate::FieldMeta", "structElevate_1_1FieldMeta.html", "structElevate_1_1FieldMeta" ],
-    [ "Elevate::EngineDataTypeTrait< T >", "structElevate_1_1EngineDataTypeTrait.html", null ],
+    [ "Elevate::is_engine_array< T >", "structElevate_1_1is__engine__array.html", null ],
+    [ "Elevate::is_engine_array< std::vector< T, Alloc > >", "structElevate_1_1is__engine__array_3_01std_1_1vector_3_01T_00_01Alloc_01_4_01_4.html", null ],
+    [ "Elevate::EngineDataTypeTrait< T, typename >", "structElevate_1_1EngineDataTypeTrait.html", null ],
     [ "Elevate::EngineDataTypeTrait< float >", "structElevate_1_1EngineDataTypeTrait_3_01float_01_4.html", null ],
     [ "Elevate::EngineDataTypeTrait< double >", "structElevate_1_1EngineDataTypeTrait_3_01double_01_4.html", null ],
     [ "Elevate::EngineDataTypeTrait< int >", "structElevate_1_1EngineDataTypeTrait_3_01int_01_4.html", null ],
@@ -16,11 +18,13 @@ var TypeRegistry_8h =
     [ "Elevate::EngineDataTypeTrait< glm::vec3 >", "structElevate_1_1EngineDataTypeTrait_3_01glm_1_1vec3_01_4.html", null ],
     [ "Elevate::EngineDataTypeTrait< glm::vec4 >", "structElevate_1_1EngineDataTypeTrait_3_01glm_1_1vec4_01_4.html", null ],
     [ "Elevate::EngineDataTypeTrait< std::string >", "structElevate_1_1EngineDataTypeTrait_3_01std_1_1string_01_4.html", null ],
+    [ "Elevate::EngineDataTypeTrait< T, std::enable_if_t< is_engine_array_v< T > > >", "structElevate_1_1EngineDataTypeTrait_3_01T_00_01std_1_1enable__if__t_3_01is__engine__array__v_3_01T_01_4_01_4_01_4.html", null ],
     [ "Elevate::ITypeTrait", "structElevate_1_1ITypeTrait.html", "structElevate_1_1ITypeTrait" ],
     [ "Elevate::ComponentTypeTrait", "structElevate_1_1ComponentTypeTrait.html", "structElevate_1_1ComponentTypeTrait" ],
     [ "Elevate::TypeRegistry", "classElevate_1_1TypeRegistry.html", "classElevate_1_1TypeRegistry" ],
     [ "Elevate::TypeRegistry::Entry", "structElevate_1_1TypeRegistry_1_1Entry.html", "structElevate_1_1TypeRegistry_1_1Entry" ],
     [ "GameObjectComponentDestructor", "TypeRegistry_8h.html#ac79ff05bde903d699c49e878f40b62f4", null ],
     [ "GameObjectComponentFactory", "TypeRegistry_8h.html#a8bc1f78ba61a8fd696e68404338d8975", null ],
-    [ "GameObjectComponentGetter", "TypeRegistry_8h.html#ac7341de5cdfe89199e82cbd2901c386a", null ]
+    [ "GameObjectComponentGetter", "TypeRegistry_8h.html#ac7341de5cdfe89199e82cbd2901c386a", null ],
+    [ "is_engine_array_v", "TypeRegistry_8h.html#a0488c120b5e8ebccc8f47b6a751bd01f", null ]
 ];

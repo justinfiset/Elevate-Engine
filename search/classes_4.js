@@ -19,7 +19,8 @@ var searchData=
   ['enginedatatypetrait_3c_20glm_3a_3avec4_20_3e_16',['EngineDataTypeTrait&lt; glm::vec4 &gt;',['../structElevate_1_1EngineDataTypeTrait_3_01glm_1_1vec4_01_4.html',1,'Elevate']]],
   ['enginedatatypetrait_3c_20int_20_3e_17',['EngineDataTypeTrait&lt; int &gt;',['../structElevate_1_1EngineDataTypeTrait_3_01int_01_4.html',1,'Elevate']]],
   ['enginedatatypetrait_3c_20std_3a_3astring_20_3e_18',['EngineDataTypeTrait&lt; std::string &gt;',['../structElevate_1_1EngineDataTypeTrait_3_01std_1_1string_01_4.html',1,'Elevate']]],
-  ['entry_19',['Entry',['../structElevate_1_1TypeRegistry_1_1Entry.html',1,'Elevate::TypeRegistry']]],
-  ['event_20',['Event',['../classElevate_1_1Event.html',1,'Elevate']]],
-  ['eventdispatcher_21',['EventDispatcher',['../classElevate_1_1EventDispatcher.html',1,'Elevate']]]
+  ['enginedatatypetrait_3c_20t_2c_20std_3a_3aenable_5fif_5ft_3c_20is_5fengine_5farray_5fv_3c_20t_20_3e_20_3e_20_3e_19',['EngineDataTypeTrait&lt; T, std::enable_if_t&lt; is_engine_array_v&lt; T &gt; &gt; &gt;',['../structElevate_1_1EngineDataTypeTrait_3_01T_00_01std_1_1enable__if__t_3_01is__engine__array__v_3_01T_01_4_01_4_01_4.html',1,'Elevate']]],
+  ['entry_20',['Entry',['../structElevate_1_1TypeRegistry_1_1Entry.html',1,'Elevate::TypeRegistry']]],
+  ['event_21',['Event',['../classElevate_1_1Event.html',1,'Elevate']]],
+  ['eventdispatcher_22',['EventDispatcher',['../classElevate_1_1EventDispatcher.html',1,'Elevate']]]
 ];

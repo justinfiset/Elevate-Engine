@@ -37,7 +37,7 @@ var hierarchy =
     [ "std::enable_shared_from_this", null, [
       [ "Elevate::GameObject", "classElevate_1_1GameObject.html", null ]
     ] ],
-    [ "Elevate::EngineDataTypeTrait< T >", "structElevate_1_1EngineDataTypeTrait.html", null ],
+    [ "Elevate::EngineDataTypeTrait< T, typename >", "structElevate_1_1EngineDataTypeTrait.html", null ],
     [ "Elevate::EngineDataTypeTrait< bool >", "structElevate_1_1EngineDataTypeTrait_3_01bool_01_4.html", null ],
     [ "Elevate::EngineDataTypeTrait< double >", "structElevate_1_1EngineDataTypeTrait_3_01double_01_4.html", null ],
     [ "Elevate::EngineDataTypeTrait< float >", "structElevate_1_1EngineDataTypeTrait_3_01float_01_4.html", null ],
@@ -46,6 +46,7 @@ var hierarchy =
     [ "Elevate::EngineDataTypeTrait< glm::vec4 >", "structElevate_1_1EngineDataTypeTrait_3_01glm_1_1vec4_01_4.html", null ],
     [ "Elevate::EngineDataTypeTrait< int >", "structElevate_1_1EngineDataTypeTrait_3_01int_01_4.html", null ],
     [ "Elevate::EngineDataTypeTrait< std::string >", "structElevate_1_1EngineDataTypeTrait_3_01std_1_1string_01_4.html", null ],
+    [ "Elevate::EngineDataTypeTrait< T, std::enable_if_t< is_engine_array_v< T > > >", "structElevate_1_1EngineDataTypeTrait_3_01T_00_01std_1_1enable__if__t_3_01is__engine__array__v_3_01T_01_4_01_4_01_4.html", null ],
     [ "Elevate::TypeRegistry::Entry", "structElevate_1_1TypeRegistry_1_1Entry.html", null ],
     [ "Elevate::Event", "classElevate_1_1Event.html", [
       [ "Elevate::AppRenderEvent", "classElevate_1_1AppRenderEvent.html", null ],
@@ -69,7 +70,8 @@ var hierarchy =
     ] ],
     [ "Elevate::EventDispatcher", "classElevate_1_1EventDispatcher.html", null ],
     [ "std::false_type", null, [
-      [ "Elevate::has_super< T, typename >", "structElevate_1_1has__super.html", null ]
+      [ "Elevate::has_super< T, typename >", "structElevate_1_1has__super.html", null ],
+      [ "Elevate::is_engine_array< T >", "structElevate_1_1is__engine__array.html", null ]
     ] ],
     [ "Elevate::FieldMeta", "structElevate_1_1FieldMeta.html", null ],
     [ "Elevate::FileDialog", "classElevate_1_1FileDialog.html", null ],
@@ -122,6 +124,10 @@ var hierarchy =
     ] ],
     [ "Elevate::ITransformable", "classElevate_1_1ITransformable.html", [
       [ "Elevate::GameObject", "classElevate_1_1GameObject.html", null ]
+    ] ],
+    [ "Elevate::ITypeLayoutProvider", "classElevate_1_1ITypeLayoutProvider.html", [
+      [ "Elevate::EEObject", "classElevate_1_1EEObject.html", null ],
+      [ "Elevate::Transform", "classElevate_1_1Transform.html", null ]
     ] ],
     [ "Elevate::ITypeTrait", "structElevate_1_1ITypeTrait.html", [
       [ "Elevate::ComponentTypeTrait", "structElevate_1_1ComponentTypeTrait.html", null ],
@@ -180,9 +186,9 @@ var hierarchy =
     [ "Elevate::TextureMetadataBuilder", "structElevate_1_1TextureMetadataBuilder.html", null ],
     [ "Elevate::Time", "classElevate_1_1Time.html", null ],
     [ "Elevate::TooltipTag", "structElevate_1_1TooltipTag.html", null ],
-    [ "Elevate::Transform", "classElevate_1_1Transform.html", null ],
     [ "std::true_type", null, [
-      [ "Elevate::has_super< T, std::void_t< typename T::Super > >", "structElevate_1_1has__super_3_01T_00_01std_1_1void__t_3_01typename_01T_1_1Super_01_4_01_4.html", null ]
+      [ "Elevate::has_super< T, std::void_t< typename T::Super > >", "structElevate_1_1has__super_3_01T_00_01std_1_1void__t_3_01typename_01T_1_1Super_01_4_01_4.html", null ],
+      [ "Elevate::is_engine_array< std::vector< T, Alloc > >", "structElevate_1_1is__engine__array_3_01std_1_1vector_3_01T_00_01Alloc_01_4_01_4.html", null ]
     ] ],
     [ "Elevate::TypeField", "structElevate_1_1TypeField.html", null ],
     [ "Elevate::TypeLayout", "classElevate_1_1TypeLayout.html", null ],

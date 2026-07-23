@@ -8,6 +8,7 @@ var classElevate_1_1EEObject =
     [ "GetGuid", "classElevate_1_1EEObject.html#a64b3abed985d21aa5388b10fd8da25aa", null ],
     [ "GetLayout", "classElevate_1_1EEObject.html#a0bde30963e44be13481cd2aa1146a501", null ],
     [ "GetName", "classElevate_1_1EEObject.html#a489398ed969b22f1b46bb3b8411f73b5", null ],
+    [ "GetProperties", "classElevate_1_1EEObject.html#acec0c8de8fa3cdab99285ffaf0f3d678", null ],
     [ "GetTypeIndex", "classElevate_1_1EEObject.html#ad7832477c8574c1662f70e6764a824d8", null ],
     [ "Serialize", "classElevate_1_1EEObject.html#a3cdf98137291aff6e87833f098aa87a8", null ],
     [ "m_category", "classElevate_1_1EEObject.html#a7f12e2c4fcd41316292d1989d874caa2", null ],

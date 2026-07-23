@@ -1,7 +1,7 @@
 var searchData=
 [
   ['elevate_0',['Elevate',['../namespaceElevate.html',1,'']]],
-  ['elevate_3a_3abyteuitls_1',['ByteUitls',['../namespaceElevate_1_1ByteUitls.html',1,'Elevate']]],
+  ['elevate_3a_3abyteutils_1',['ByteUtils',['../namespaceElevate_1_1ByteUtils.html',1,'Elevate']]],
   ['elevate_3a_3aeditor_2',['Editor',['../namespaceElevate_1_1Editor.html',1,'Elevate']]],
   ['elevate_3a_3aeditor_3a_3acolors_3',['Colors',['../namespaceElevate_1_1Editor_1_1Colors.html',1,'Elevate::Editor']]],
   ['elevate_3a_3aeditor_3a_3aicons_4',['Icons',['../namespaceElevate_1_1Editor_1_1Icons.html',1,'Elevate::Editor']]],

@@ -102,7 +102,7 @@ $(document).ready(function(){initNavTree('structElevate_1_1PropertyField.html','
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="ObjectPropertyField_8h_source.html">ObjectPropertyField.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="PropertyField_8h_source.html">PropertyField.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -130,7 +130,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="ObjectPropertyField_8h_source.html#l00037">37</a> of file <a class="el" href="ObjectPropertyField_8h_source.html">ObjectPropertyField.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PropertyField_8h_source.html#l00037">37</a> of file <a class="el" href="PropertyField_8h_source.html">PropertyField.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="acc21a0a7e35ebc4765f4d529f19dc2ba" name="acc21a0a7e35ebc4765f4d529f19dc2ba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acc21a0a7e35ebc4765f4d529f19dc2ba">&#9670;&#160;</a></span>GetChildren()</h2>
@@ -155,11 +155,11 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ObjectPropertyField_8h_source.html#l00057">57</a> of file <a class="el" href="ObjectPropertyField_8h_source.html">ObjectPropertyField.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PropertyField_8h_source.html#l00057">57</a> of file <a class="el" href="PropertyField_8h_source.html">PropertyField.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   58</span>        {</div>
 <div class="line"><span class="lineno">   59</span>            <span class="keywordflow">return</span> std::get&lt;PropertyContainer&gt;(<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a>).Children;</div>
 <div class="line"><span class="lineno">   60</span>        }</div>
-<div class="ttc" id="astructElevate_1_1PropertyField_html_a472cf9b64e2c81377c965a0bef89d04e"><div class="ttname"><a href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Elevate::PropertyField::Value</a></div><div class="ttdeci">PropertyValue Value</div><div class="ttdef"><b>Definition</b> <a href="ObjectPropertyField_8h_source.html#l00044">ObjectPropertyField.h:44</a></div></div>
+<div class="ttc" id="astructElevate_1_1PropertyField_html_a472cf9b64e2c81377c965a0bef89d04e"><div class="ttname"><a href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Elevate::PropertyField::Value</a></div><div class="ttdeci">PropertyValue Value</div><div class="ttdef"><b>Definition</b> <a href="PropertyField_8h_source.html#l00044">PropertyField.h:44</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -186,7 +186,7 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ObjectPropertyField_8h_source.html#l00047">47</a> of file <a class="el" href="ObjectPropertyField_8h_source.html">ObjectPropertyField.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PropertyField_8h_source.html#l00047">47</a> of file <a class="el" href="PropertyField_8h_source.html">PropertyField.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   48</span>        {</div>
 <div class="line"><span class="lineno">   49</span>            <span class="keywordflow">return</span> std::holds_alternative&lt;PropertyContainer&gt;(<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a>);</div>
 <div class="line"><span class="lineno">   50</span>        }</div>
@@ -216,11 +216,11 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ObjectPropertyField_8h_source.html#l00052">52</a> of file <a class="el" href="ObjectPropertyField_8h_source.html">ObjectPropertyField.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PropertyField_8h_source.html#l00052">52</a> of file <a class="el" href="PropertyField_8h_source.html">PropertyField.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   53</span>        {</div>
 <div class="line"><span class="lineno">   54</span>            <span class="keywordflow">return</span> !<a class="code hl_function" href="structElevate_1_1PropertyField.html#ad6dfd7268c433aea4a4382eabdbed17b">IsContainer</a>() &amp;&amp; !std::holds_alternative&lt;ByteBuffer&gt;(<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a>);</div>
 <div class="line"><span class="lineno">   55</span>        }</div>
-<div class="ttc" id="astructElevate_1_1PropertyField_html_ad6dfd7268c433aea4a4382eabdbed17b"><div class="ttname"><a href="structElevate_1_1PropertyField.html#ad6dfd7268c433aea4a4382eabdbed17b">Elevate::PropertyField::IsContainer</a></div><div class="ttdeci">bool IsContainer() const</div><div class="ttdef"><b>Definition</b> <a href="ObjectPropertyField_8h_source.html#l00047">ObjectPropertyField.h:47</a></div></div>
+<div class="ttc" id="astructElevate_1_1PropertyField_html_ad6dfd7268c433aea4a4382eabdbed17b"><div class="ttname"><a href="structElevate_1_1PropertyField.html#ad6dfd7268c433aea4a4382eabdbed17b">Elevate::PropertyField::IsContainer</a></div><div class="ttdeci">bool IsContainer() const</div><div class="ttdef"><b>Definition</b> <a href="PropertyField_8h_source.html#l00047">PropertyField.h:47</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -237,7 +237,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ObjectPropertyField_8h_source.html#l00042">42</a> of file <a class="el" href="ObjectPropertyField_8h_source.html">ObjectPropertyField.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PropertyField_8h_source.html#l00042">42</a> of file <a class="el" href="PropertyField_8h_source.html">PropertyField.h</a>.</p>
 
 </div>
 </div>
@@ -253,7 +253,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ObjectPropertyField_8h_source.html#l00045">45</a> of file <a class="el" href="ObjectPropertyField_8h_source.html">ObjectPropertyField.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PropertyField_8h_source.html#l00045">45</a> of file <a class="el" href="PropertyField_8h_source.html">PropertyField.h</a>.</p>
 
 </div>
 </div>
@@ -269,7 +269,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ObjectPropertyField_8h_source.html#l00040">40</a> of file <a class="el" href="ObjectPropertyField_8h_source.html">ObjectPropertyField.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PropertyField_8h_source.html#l00040">40</a> of file <a class="el" href="PropertyField_8h_source.html">PropertyField.h</a>.</p>
 
 </div>
 </div>
@@ -285,7 +285,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ObjectPropertyField_8h_source.html#l00041">41</a> of file <a class="el" href="ObjectPropertyField_8h_source.html">ObjectPropertyField.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PropertyField_8h_source.html#l00041">41</a> of file <a class="el" href="PropertyField_8h_source.html">PropertyField.h</a>.</p>
 
 </div>
 </div>
@@ -301,7 +301,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ObjectPropertyField_8h_source.html#l00043">43</a> of file <a class="el" href="ObjectPropertyField_8h_source.html">ObjectPropertyField.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PropertyField_8h_source.html#l00043">43</a> of file <a class="el" href="PropertyField_8h_source.html">PropertyField.h</a>.</p>
 
 </div>
 </div>
@@ -317,12 +317,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ObjectPropertyField_8h_source.html#l00044">44</a> of file <a class="el" href="ObjectPropertyField_8h_source.html">ObjectPropertyField.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PropertyField_8h_source.html#l00044">44</a> of file <a class="el" href="PropertyField_8h_source.html">PropertyField.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>ElevateEngine/src/ElevateEngine/Serialization/<a class="el" href="ObjectPropertyField_8h_source.html">ObjectPropertyField.h</a></li>
+<li>ElevateEngine/src/ElevateEngine/Serialization/<a class="el" href="PropertyField_8h_source.html">PropertyField.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

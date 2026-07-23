@@ -150,7 +150,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00110">110</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00122">122</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a6013caef8f3f991cfd43ec75a5e89318" name="a6013caef8f3f991cfd43ec75a5e89318"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6013caef8f3f991cfd43ec75a5e89318">&#9670;&#160;</a></span>AddClassToStack()</h2>
@@ -183,7 +183,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="line"><span class="lineno">   65</span><span class="preprocessor">#endif</span></div>
 <div class="line"><span class="lineno">   66</span>    <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#a436956a309c9fd9ed4dc0ff0efc89e97">CompilationClassStack</a>().push_back(newClass);</div>
 <div class="line"><span class="lineno">   67</span>}</div>
-<div class="ttc" id="aclassElevate_1_1TypeRegistry_html_a436956a309c9fd9ed4dc0ff0efc89e97"><div class="ttname"><a href="classElevate_1_1TypeRegistry.html#a436956a309c9fd9ed4dc0ff0efc89e97">Elevate::TypeRegistry::CompilationClassStack</a></div><div class="ttdeci">static std::vector&lt; std::string &gt; &amp; CompilationClassStack()</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00169">TypeRegistry.h:169</a></div></div>
+<div class="ttc" id="aclassElevate_1_1TypeRegistry_html_a436956a309c9fd9ed4dc0ff0efc89e97"><div class="ttname"><a href="classElevate_1_1TypeRegistry.html#a436956a309c9fd9ed4dc0ff0efc89e97">Elevate::TypeRegistry::CompilationClassStack</a></div><div class="ttdeci">static std::vector&lt; std::string &gt; &amp; CompilationClassStack()</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00181">TypeRegistry.h:181</a></div></div>
 <div class="ttc" id="aclassElevate_1_1TypeRegistry_html_aa6c6581fd3e98227c28bbddbd726e722"><div class="ttname"><a href="classElevate_1_1TypeRegistry.html#aa6c6581fd3e98227c28bbddbd726e722">Elevate::TypeRegistry::GetCleanedName</a></div><div class="ttdeci">static std::string GetCleanedName(std::string rawName)</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8cpp_source.html#l00016">TypeRegistry.cpp:16</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -236,51 +236,83 @@ template&lt;typename Class , typename FieldType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8inl_source.html#l00051">51</a> of file <a class="el" href="TypeRegistry_8inl_source.html">TypeRegistry.inl</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   56</span>      {</div>
-<div class="line"><span class="lineno">   57</span>        <span class="keyword">using </span>CleanedFieldT = std::decay_t&lt;FieldType&gt;;</div>
-<div class="line"><span class="lineno">   58</span>        <span class="keyword">constexpr</span> <a class="code hl_enumeration" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324">EngineDataType</a> type = DeduceEngineDataType&lt;CleanedFieldT&gt;();</div>
-<div class="line"><span class="lineno">   59</span> </div>
-<div class="line"><span class="lineno">   60</span>        FieldMeta meta;</div>
-<div class="line"><span class="lineno">   61</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp;&amp; opt : options) {</div>
-<div class="line"><span class="lineno">   62</span>            <span class="keywordflow">if</span> (std::holds_alternative&lt;FlattenTag&gt;(opt)) { meta.flatten = <span class="keyword">true</span>; }</div>
-<div class="line"><span class="lineno">   63</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;DisplayNameTag&gt;(opt)) { meta.displayName = std::get&lt;DisplayNameTag&gt;(opt).value; }</div>
-<div class="line"><span class="lineno">   64</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;TooltipTag&gt;(opt)) { meta.tooltip = std::get&lt;TooltipTag&gt;(opt).text; }</div>
-<div class="line"><span class="lineno">   65</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;ReadOnlyTag&gt;(opt)) { meta.readOnly = <span class="keyword">true</span>; }</div>
-<div class="line"><span class="lineno">   66</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;ColorTag&gt;(opt)) { meta.isColor = <span class="keyword">true</span>; }</div>
-<div class="line"><span class="lineno">   67</span>        }</div>
-<div class="line"><span class="lineno">   68</span> </div>
-<div class="line"><span class="lineno">   69</span>        std::string cleanedName = <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#aa6c6581fd3e98227c28bbddbd726e722">GetCleanedName</a>(name);</div>
-<div class="line"><span class="lineno">   70</span> </div>
-<div class="line"><span class="lineno">   71</span>        <span class="keywordtype">size_t</span> offset = <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(&amp;(<span class="keyword">reinterpret_cast&lt;</span>Class <span class="keyword">const </span>volatile*<span class="keyword">&gt;</span>(0)-&gt;*member));</div>
-<div class="line"><span class="lineno">   72</span>        TypeField field;</div>
-<div class="line"><span class="lineno">   73</span> </div>
-<div class="line"><span class="lineno">   74</span>        <span class="keywordflow">if</span> (type == <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af">EngineDataType::Custom</a>)</div>
-<div class="line"><span class="lineno">   75</span>        {</div>
-<div class="line"><span class="lineno">   76</span>            <span class="keyword">auto</span>&amp; customFields = <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#a907a2b4293780fb2fa945b77fea24192">GetReflectedTypes</a>();</div>
-<div class="line"><span class="lineno">   77</span>            std::type_index ti = <span class="keyword">typeid</span>(CleanedFieldT);</div>
-<div class="line"><span class="lineno">   78</span> </div>
-<div class="line"><span class="lineno">   79</span>            std::vector&lt;TypeField&gt; subFields;</div>
-<div class="line"><span class="lineno">   80</span>            <span class="keyword">auto</span> it = customFields.find(ti);</div>
-<div class="line"><span class="lineno">   81</span>            <span class="keywordflow">if</span> (it != customFields.end()) {</div>
-<div class="line"><span class="lineno">   82</span>                subFields = it-&gt;second;</div>
-<div class="line"><span class="lineno">   83</span>            }</div>
-<div class="line"><span class="lineno">   84</span>            field = TypeField(cleanedName, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af">EngineDataType::Custom</a>, offset, meta.displayName, subFields);</div>
-<div class="line"><span class="lineno">   85</span>        }</div>
-<div class="line"><span class="lineno">   86</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   87</span>        {</div>
-<div class="line"><span class="lineno">   88</span>            field = TypeField(cleanedName, type, offset, meta.displayName);</div>
-<div class="line"><span class="lineno">   89</span>        }</div>
-<div class="line"><span class="lineno">   90</span> </div>
-<div class="line"><span class="lineno">   91</span>        field.flatten = meta.flatten;</div>
-<div class="line"><span class="lineno">   92</span>        field.isColor = meta.isColor;</div>
-<div class="line"><span class="lineno">   93</span>        field.tooltip = meta.tooltip;</div>
-<div class="line"><span class="lineno">   94</span>        field.readOnly = meta.readOnly;</div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8inl_source.html#l00050">50</a> of file <a class="el" href="TypeRegistry_8inl_source.html">TypeRegistry.inl</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   55</span>      {</div>
+<div class="line"><span class="lineno">   56</span>        <span class="keyword">using </span>CleanedFieldT = std::decay_t&lt;FieldType&gt;;</div>
+<div class="line"><span class="lineno">   57</span>        <span class="keyword">constexpr</span> <a class="code hl_enumeration" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324">EngineDataType</a> type = DeduceEngineDataType&lt;CleanedFieldT&gt;();</div>
+<div class="line"><span class="lineno">   58</span> </div>
+<div class="line"><span class="lineno">   59</span>        FieldMeta meta;</div>
+<div class="line"><span class="lineno">   60</span>        std::string cleanedName = <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#aa6c6581fd3e98227c28bbddbd726e722">GetCleanedName</a>(name);</div>
+<div class="line"><span class="lineno">   61</span>        meta.displayName = cleanedName;</div>
+<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp;&amp; opt : options) {</div>
+<div class="line"><span class="lineno">   63</span>            <span class="keywordflow">if</span> (std::holds_alternative&lt;FlattenTag&gt;(opt)) { meta.flatten = <span class="keyword">true</span>; }</div>
+<div class="line"><span class="lineno">   64</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;DisplayNameTag&gt;(opt)) { meta.displayName = std::get&lt;DisplayNameTag&gt;(opt).value; }</div>
+<div class="line"><span class="lineno">   65</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;TooltipTag&gt;(opt)) { meta.tooltip = std::get&lt;TooltipTag&gt;(opt).text; }</div>
+<div class="line"><span class="lineno">   66</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;ReadOnlyTag&gt;(opt)) { meta.readOnly = <span class="keyword">true</span>; }</div>
+<div class="line"><span class="lineno">   67</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;ColorTag&gt;(opt)) { meta.isColor = <span class="keyword">true</span>; }</div>
+<div class="line"><span class="lineno">   68</span>        }</div>
+<div class="line"><span class="lineno">   69</span> </div>
+<div class="line"><span class="lineno">   70</span>        <span class="keywordtype">size_t</span> offset = <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(&amp;(<span class="keyword">reinterpret_cast&lt;</span>Class <span class="keyword">const </span>volatile*<span class="keyword">&gt;</span>(0)-&gt;*member));</div>
+<div class="line"><span class="lineno">   71</span>        TypeField field;</div>
+<div class="line"><span class="lineno">   72</span> </div>
+<div class="line"><span class="lineno">   73</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (is_engine_array_v&lt;CleanedFieldT&gt;) <span class="comment">// manage std::vectors</span></div>
+<div class="line"><span class="lineno">   74</span>        {</div>
+<div class="line"><span class="lineno">   75</span>            field = TypeField(name, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a4410ec34d9e6c1a68100ca0ce033fb17">EngineDataType::Array</a>, offset, meta.displayName);</div>
+<div class="line"><span class="lineno">   76</span> </div>
+<div class="line"><span class="lineno">   77</span>            <span class="keyword">using </span>ElementType = <span class="keyword">typename</span> CleanedFieldT::value_type;</div>
+<div class="line"><span class="lineno">   78</span>            field.elementType = DeduceEngineDataType&lt;ElementType&gt;();</div>
+<div class="line"><span class="lineno">   79</span> </div>
+<div class="line"><span class="lineno">   80</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::is_class_v&lt;ElementType&gt; &amp;&amp; !std::is_same_v&lt;ElementType, std::string&gt;)</div>
+<div class="line"><span class="lineno">   81</span>            {</div>
+<div class="line"><span class="lineno">   82</span>                <span class="keyword">auto</span>&amp; customFields = <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#a907a2b4293780fb2fa945b77fea24192">GetReflectedTypes</a>();</div>
+<div class="line"><span class="lineno">   83</span>                std::type_index ti = <span class="keyword">typeid</span>(ElementType);</div>
+<div class="line"><span class="lineno">   84</span>                <span class="keyword">auto</span> it = customFields.find(ti);</div>
+<div class="line"><span class="lineno">   85</span>                <span class="keywordflow">if</span> (it != customFields.end()) {</div>
+<div class="line"><span class="lineno">   86</span>                    field.elementChildren = it-&gt;second;</div>
+<div class="line"><span class="lineno">   87</span>                }</div>
+<div class="line"><span class="lineno">   88</span>            }</div>
+<div class="line"><span class="lineno">   89</span> </div>
+<div class="line"><span class="lineno">   90</span>            field.GetArraySize = [member](<span class="keyword">const</span> <span class="keywordtype">void</span>* instance) -&gt; <span class="keywordtype">size_t</span> {</div>
+<div class="line"><span class="lineno">   91</span>                <span class="keywordflow">if</span> (!instance) <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">   92</span>                <span class="keyword">const</span> <span class="keyword">auto</span>* obj = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>Class*<span class="keyword">&gt;</span>(instance);</div>
+<div class="line"><span class="lineno">   93</span>                <span class="keywordflow">return</span> (obj-&gt;*member).size();</div>
+<div class="line"><span class="lineno">   94</span>                };</div>
 <div class="line"><span class="lineno">   95</span> </div>
-<div class="line"><span class="lineno">   96</span>        targetStack.push_back(field);</div>
-<div class="line"><span class="lineno">   97</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1TypeRegistry_html_a907a2b4293780fb2fa945b77fea24192"><div class="ttname"><a href="classElevate_1_1TypeRegistry.html#a907a2b4293780fb2fa945b77fea24192">Elevate::TypeRegistry::GetReflectedTypes</a></div><div class="ttdeci">static std::map&lt; std::type_index, std::vector&lt; TypeField &gt; &gt; &amp; GetReflectedTypes()</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00192">TypeRegistry.h:192</a></div></div>
+<div class="line"><span class="lineno">   96</span>            field.GetElementAddress = [member](<span class="keyword">const</span> <span class="keywordtype">void</span>* instance, <span class="keywordtype">size_t</span> index) -&gt; <span class="keyword">const</span> <span class="keywordtype">void</span>* {</div>
+<div class="line"><span class="lineno">   97</span>                <span class="keywordflow">if</span> (!instance) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   98</span>                <span class="keyword">const</span> <span class="keyword">auto</span>* obj = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>Class*<span class="keyword">&gt;</span>(instance);</div>
+<div class="line"><span class="lineno">   99</span>                <span class="keyword">const</span> <span class="keyword">auto</span>&amp; vec = obj-&gt;*member;</div>
+<div class="line"><span class="lineno">  100</span>                <span class="keywordflow">if</span> (index &gt;= vec.size()) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  101</span>                <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(&amp;(vec[index]));</div>
+<div class="line"><span class="lineno">  102</span>                };</div>
+<div class="line"><span class="lineno">  103</span>        }</div>
+<div class="line"><span class="lineno">  104</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (type == <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af">EngineDataType::Custom</a>) <span class="comment">// Manage custom struct or classes</span></div>
+<div class="line"><span class="lineno">  105</span>        {</div>
+<div class="line"><span class="lineno">  106</span>            <span class="keyword">auto</span>&amp; customFields = <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#a907a2b4293780fb2fa945b77fea24192">GetReflectedTypes</a>();</div>
+<div class="line"><span class="lineno">  107</span>            std::type_index ti = <span class="keyword">typeid</span>(CleanedFieldT);</div>
+<div class="line"><span class="lineno">  108</span> </div>
+<div class="line"><span class="lineno">  109</span>            std::vector&lt;TypeField&gt; subFields;</div>
+<div class="line"><span class="lineno">  110</span>            <span class="keyword">auto</span> it = customFields.find(ti);</div>
+<div class="line"><span class="lineno">  111</span>            <span class="keywordflow">if</span> (it != customFields.end()) {</div>
+<div class="line"><span class="lineno">  112</span>                subFields = it-&gt;second;</div>
+<div class="line"><span class="lineno">  113</span>            }</div>
+<div class="line"><span class="lineno">  114</span>            field = TypeField(name, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af">EngineDataType::Custom</a>, offset, meta.displayName, subFields);</div>
+<div class="line"><span class="lineno">  115</span>        }</div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">else</span> <span class="comment">// Manage primitive types</span></div>
+<div class="line"><span class="lineno">  117</span>        {   </div>
+<div class="line"><span class="lineno">  118</span>            field = TypeField(name, type, offset, meta.displayName);</div>
+<div class="line"><span class="lineno">  119</span>        }</div>
+<div class="line"><span class="lineno">  120</span> </div>
+<div class="line"><span class="lineno">  121</span>        field.flatten = meta.flatten;</div>
+<div class="line"><span class="lineno">  122</span>        field.isColor = meta.isColor;</div>
+<div class="line"><span class="lineno">  123</span>        field.tooltip = meta.tooltip;</div>
+<div class="line"><span class="lineno">  124</span>        field.readOnly = meta.readOnly;</div>
+<div class="line"><span class="lineno">  125</span> </div>
+<div class="line"><span class="lineno">  126</span>        targetStack.push_back(field);</div>
+<div class="line"><span class="lineno">  127</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1TypeRegistry_html_a907a2b4293780fb2fa945b77fea24192"><div class="ttname"><a href="classElevate_1_1TypeRegistry.html#a907a2b4293780fb2fa945b77fea24192">Elevate::TypeRegistry::GetReflectedTypes</a></div><div class="ttdeci">static std::map&lt; std::type_index, std::vector&lt; TypeField &gt; &gt; &amp; GetReflectedTypes()</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00204">TypeRegistry.h:204</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a084798f901873cb9a7cb959b62006324"><div class="ttname"><a href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324">Elevate::EngineDataType</a></div><div class="ttdeci">EngineDataType</div><div class="ttdef"><b>Definition</b> <a href="Data_8h_source.html#l00105">Data.h:106</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a084798f901873cb9a7cb959b62006324a4410ec34d9e6c1a68100ca0ce033fb17"><div class="ttname"><a href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a4410ec34d9e6c1a68100ca0ce033fb17">Elevate::EngineDataType::Array</a></div><div class="ttdeci">@ Array</div></div>
 <div class="ttc" id="anamespaceElevate_html_a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af"><div class="ttname"><a href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a90589c47f06eb971d548591f23c285af">Elevate::EngineDataType::Custom</a></div><div class="ttdeci">@ Custom</div></div>
 </div><!-- fragment -->
 </div>
@@ -311,11 +343,11 @@ template&lt;typename T , typename Trait , typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00144">144</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  145</span>        {</div>
-<div class="line"><span class="lineno">  146</span>            <span class="keyword">auto</span>&amp; entry = GetEntry&lt;T&gt;();</div>
-<div class="line"><span class="lineno">  147</span>            entry.traits[<span class="keyword">typeid</span>(Trait)] = std::make_shared&lt;Trait&gt;(std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><span class="lineno">  148</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00156">156</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  157</span>        {</div>
+<div class="line"><span class="lineno">  158</span>            <span class="keyword">auto</span>&amp; entry = GetEntry&lt;T&gt;();</div>
+<div class="line"><span class="lineno">  159</span>            entry.traits[<span class="keyword">typeid</span>(Trait)] = std::make_shared&lt;Trait&gt;(std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><span class="lineno">  160</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -342,11 +374,11 @@ template&lt;typename T , typename Trait , typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00164">164</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  164</span>                                                  {</div>
-<div class="line"><span class="lineno">  165</span>            <span class="keyword">static</span> std::vector&lt;std::string&gt; paths;</div>
-<div class="line"><span class="lineno">  166</span>            <span class="keywordflow">return</span> paths;</div>
-<div class="line"><span class="lineno">  167</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00176">176</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  176</span>                                                  {</div>
+<div class="line"><span class="lineno">  177</span>            <span class="keyword">static</span> std::vector&lt;std::string&gt; paths;</div>
+<div class="line"><span class="lineno">  178</span>            <span class="keywordflow">return</span> paths;</div>
+<div class="line"><span class="lineno">  179</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -373,11 +405,11 @@ template&lt;typename T , typename Trait , typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00174">174</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  175</span>        {</div>
-<div class="line"><span class="lineno">  176</span>            <span class="keyword">static</span> std::vector&lt;TypeField&gt; stack;</div>
-<div class="line"><span class="lineno">  177</span>            <span class="keywordflow">return</span> stack;</div>
-<div class="line"><span class="lineno">  178</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00186">186</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  187</span>        {</div>
+<div class="line"><span class="lineno">  188</span>            <span class="keyword">static</span> std::vector&lt;TypeField&gt; stack;</div>
+<div class="line"><span class="lineno">  189</span>            <span class="keywordflow">return</span> stack;</div>
+<div class="line"><span class="lineno">  190</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -404,11 +436,11 @@ template&lt;typename T , typename Trait , typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00169">169</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  169</span>                                                             {</div>
-<div class="line"><span class="lineno">  170</span>            <span class="keyword">static</span> std::vector&lt;std::string&gt; stack;</div>
-<div class="line"><span class="lineno">  171</span>            <span class="keywordflow">return</span> stack;</div>
-<div class="line"><span class="lineno">  172</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00181">181</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  181</span>                                                             {</div>
+<div class="line"><span class="lineno">  182</span>            <span class="keyword">static</span> std::vector&lt;std::string&gt; stack;</div>
+<div class="line"><span class="lineno">  183</span>            <span class="keywordflow">return</span> stack;</div>
+<div class="line"><span class="lineno">  184</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -437,10 +469,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00181">181</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  182</span>        {</div>
-<div class="line"><span class="lineno">  183</span>            <span class="keywordflow">return</span> EngineDataTypeTrait&lt;std::decay_t&lt;T&gt;&gt;::value;</div>
-<div class="line"><span class="lineno">  184</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00193">193</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  194</span>        {</div>
+<div class="line"><span class="lineno">  195</span>            <span class="keywordflow">return</span> EngineDataTypeTrait&lt;std::decay_t&lt;T&gt;&gt;::value;</div>
+<div class="line"><span class="lineno">  196</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -538,11 +570,11 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00150">150</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  151</span>        {</div>
-<div class="line"><span class="lineno">  152</span>            <span class="keyword">static</span> std::unordered_map&lt;std::type_index, Entry&gt; entries;</div>
-<div class="line"><span class="lineno">  153</span>            <span class="keywordflow">return</span> entries;</div>
-<div class="line"><span class="lineno">  154</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00162">162</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  163</span>        {</div>
+<div class="line"><span class="lineno">  164</span>            <span class="keyword">static</span> std::unordered_map&lt;std::type_index, Entry&gt; entries;</div>
+<div class="line"><span class="lineno">  165</span>            <span class="keywordflow">return</span> entries;</div>
+<div class="line"><span class="lineno">  166</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -571,11 +603,11 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00157">157</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  158</span>        {</div>
-<div class="line"><span class="lineno">  159</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#abccf9f12a75af178d95be723633e606a">GetEntries</a>()[<span class="keyword">typeid</span>(T)];</div>
-<div class="line"><span class="lineno">  160</span>        }</div>
-<div class="ttc" id="aclassElevate_1_1TypeRegistry_html_abccf9f12a75af178d95be723633e606a"><div class="ttname"><a href="classElevate_1_1TypeRegistry.html#abccf9f12a75af178d95be723633e606a">Elevate::TypeRegistry::GetEntries</a></div><div class="ttdeci">static std::unordered_map&lt; std::type_index, Entry &gt; &amp; GetEntries()</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00150">TypeRegistry.h:150</a></div></div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00169">169</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  170</span>        {</div>
+<div class="line"><span class="lineno">  171</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#abccf9f12a75af178d95be723633e606a">GetEntries</a>()[<span class="keyword">typeid</span>(T)];</div>
+<div class="line"><span class="lineno">  172</span>        }</div>
+<div class="ttc" id="aclassElevate_1_1TypeRegistry_html_abccf9f12a75af178d95be723633e606a"><div class="ttname"><a href="classElevate_1_1TypeRegistry.html#abccf9f12a75af178d95be723633e606a">Elevate::TypeRegistry::GetEntries</a></div><div class="ttdeci">static std::unordered_map&lt; std::type_index, Entry &gt; &amp; GetEntries()</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00162">TypeRegistry.h:162</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -643,10 +675,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00113">113</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  113</span>                                                                                    {</div>
-<div class="line"><span class="lineno">  114</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="structElevate_1_1ParentFieldsHelper.html#a8c06d6d0b740702ff02def2c4e423fc1">ParentFieldsHelper&lt;T&gt;::Get</a>(obj);</div>
-<div class="line"><span class="lineno">  115</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00125">125</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  125</span>                                                                                    {</div>
+<div class="line"><span class="lineno">  126</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="structElevate_1_1ParentFieldsHelper.html#a8c06d6d0b740702ff02def2c4e423fc1">ParentFieldsHelper&lt;T&gt;::Get</a>(obj);</div>
+<div class="line"><span class="lineno">  127</span>        }</div>
 <div class="ttc" id="astructElevate_1_1ParentFieldsHelper_html_a8c06d6d0b740702ff02def2c4e423fc1"><div class="ttname"><a href="structElevate_1_1ParentFieldsHelper.html#a8c06d6d0b740702ff02def2c4e423fc1">Elevate::ParentFieldsHelper::Get</a></div><div class="ttdeci">static std::vector&lt; TypeField &gt; Get()</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00037">TypeRegistry.h:37</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -674,11 +706,11 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00192">192</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  193</span>        {</div>
-<div class="line"><span class="lineno">  194</span>            <span class="keyword">static</span> std::map&lt;std::type_index, std::vector&lt;TypeField&gt;&gt; m_customComponentFields;</div>
-<div class="line"><span class="lineno">  195</span>            <span class="keywordflow">return</span> m_customComponentFields;</div>
-<div class="line"><span class="lineno">  196</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00204">204</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  205</span>        {</div>
+<div class="line"><span class="lineno">  206</span>            <span class="keyword">static</span> std::map&lt;std::type_index, std::vector&lt;TypeField&gt;&gt; m_customComponentFields;</div>
+<div class="line"><span class="lineno">  207</span>            <span class="keywordflow">return</span> m_customComponentFields;</div>
+<div class="line"><span class="lineno">  208</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -725,7 +757,7 @@ template&lt;typename T &gt; </div>
 <div class="line"><span class="lineno">   86</span>    <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#a436956a309c9fd9ed4dc0ff0efc89e97">CompilationClassStack</a>().pop_back();</div>
 <div class="line"><span class="lineno">   87</span>    <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#a3c4a21033e06d11c840541816a15369e">ClassPaths</a>().push_back(fullName);</div>
 <div class="line"><span class="lineno">   88</span>}</div>
-<div class="ttc" id="aclassElevate_1_1TypeRegistry_html_a3c4a21033e06d11c840541816a15369e"><div class="ttname"><a href="classElevate_1_1TypeRegistry.html#a3c4a21033e06d11c840541816a15369e">Elevate::TypeRegistry::ClassPaths</a></div><div class="ttdeci">static std::vector&lt; std::string &gt; &amp; ClassPaths()</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00164">TypeRegistry.h:164</a></div></div>
+<div class="ttc" id="aclassElevate_1_1TypeRegistry_html_a3c4a21033e06d11c840541816a15369e"><div class="ttname"><a href="classElevate_1_1TypeRegistry.html#a3c4a21033e06d11c840541816a15369e">Elevate::TypeRegistry::ClassPaths</a></div><div class="ttdeci">static std::vector&lt; std::string &gt; &amp; ClassPaths()</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00176">TypeRegistry.h:176</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -765,15 +797,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8inl_source.html#l00040">40</a> of file <a class="el" href="TypeRegistry_8inl_source.html">TypeRegistry.inl</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   41</span>    {</div>
-<div class="line"><span class="lineno">   42</span>        std::type_index ti(<span class="keyword">typeid</span>(T));</div>
-<div class="line"><span class="lineno">   43</span>        <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#abccf9f12a75af178d95be723633e606a">GetEntries</a>().emplace(ti, Entry(name, ti));</div>
-<div class="line"><span class="lineno">   44</span> </div>
-<div class="line"><span class="lineno">   45</span><span class="preprocessor">#ifdef EE_EDITOR_BUILD</span></div>
-<div class="line"><span class="lineno">   46</span>        AddTrait&lt;T, EditorTypeTrait&gt;(options);</div>
-<div class="line"><span class="lineno">   47</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">   48</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8inl_source.html#l00039">39</a> of file <a class="el" href="TypeRegistry_8inl_source.html">TypeRegistry.inl</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   40</span>    {</div>
+<div class="line"><span class="lineno">   41</span>        std::type_index ti(<span class="keyword">typeid</span>(T));</div>
+<div class="line"><span class="lineno">   42</span>        <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#abccf9f12a75af178d95be723633e606a">GetEntries</a>().emplace(ti, Entry(name, ti));</div>
+<div class="line"><span class="lineno">   43</span> </div>
+<div class="line"><span class="lineno">   44</span><span class="preprocessor">#ifdef EE_EDITOR_BUILD</span></div>
+<div class="line"><span class="lineno">   45</span>        AddTrait&lt;T, EditorTypeTrait&gt;(options);</div>
+<div class="line"><span class="lineno">   46</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   47</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
