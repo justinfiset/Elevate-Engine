@@ -59,7 +59,6 @@ namespace EL
 			fs::create_directory(projectDir);
 			fs::copy(props.TemplatePath + "/Assets/", projectDir, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
 
-			// todo : create the .eeproj config fil¸e
 			// Save the project config as a .eeproj
 			Elevate::JsonSerializer serializer;
 			Elevate::ByteBuffer bytes;
@@ -107,7 +106,16 @@ namespace EL
 			return m_projectTemplates;
 		}
 
-		for (const auto& entry : fs::directory_iterator(EE_RESOURCE_DIR + std::string(templatePath))) {
+		std::string fullTemplateDir = EE_RESOURCE_DIR + std::string(templatePath);
+
+		if (!fs::exists(fullTemplateDir) || !fs::is_directory(fullTemplateDir))
+		{
+			EE_WARN("Templates directory does not exist: {}", fullTemplateDir);
+			m_templatesLoaded = true;
+			return m_projectTemplates;
+		}
+
+		for (const auto& entry : fs::directory_iterator(fullTemplateDir)) {
 			if (!entry.is_directory())
 			{
 				continue;

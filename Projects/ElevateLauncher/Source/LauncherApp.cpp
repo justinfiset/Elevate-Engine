@@ -262,9 +262,72 @@ public:
 		static float constexpr footerHeight = sidebarButtonHeight + (padding * 2);
 		static ProjectCreationProps props;
 		static int selectedTemplate = 0;
-		auto templates = m_controller.GetProjectTemplates();
+		static bool areTemplatesLoaded = false;
+		static std::vector<ProjectTemplate> templates;
+
+		if (!areTemplatesLoaded) {
+			templates = m_controller.GetProjectTemplates();
+			areTemplatesLoaded = true;
+		}
+
+		if (templates.empty()) {
+			ImGui::PushFont(m_headerFont);
+			ImGui::Text("Create a New Project");
+			ImGui::Separator();
+			ImGui::PopFont();
+			ImGui::NewLine();
+
+			ImGui::GetWindowDrawList()->ChannelsSplit(2);
+			ImGui::GetWindowDrawList()->ChannelsSetCurrent(1);
+
+			ImVec2 startPos = ImGui::GetCursorScreenPos();
+			startPos = ImVec2(startPos.x + padding * 2, startPos.y);
+
+			float availWidth = ImGui::GetContentRegionAvail().x - padding;
+
+			ImGui::Dummy(ImVec2(0, padding * 6));
+
+			const char* emptyText = "No project templates found.";
+			ImGui::PushFont(m_bigFont);
+			ImVec2 textSize = ImGui::CalcTextSize(emptyText);
+			ImVec2 pos = ImGui::GetCursorPos();
+			ImGui::SetCursorPos(ImVec2(pos.x + (availWidth - textSize.x) / 2.0f, pos.y + padding));
+
+			ImGui::TextColored(Color::Orange, "%s", emptyText);
+			ImGui::PopFont();
+
+			const char* emptyInstruction = "Please add a template to your engine path...";
+			pos = ImGui::GetCursorPos();
+			textSize = ImGui::CalcTextSize(emptyInstruction);
+			ImGui::SetCursorPos(ImVec2(pos.x + (availWidth - textSize.x) / 2.0f, pos.y + padding));
+			ImGui::TextDisabled("%s", emptyInstruction);
+
+			ImGui::Dummy(ImVec2(0, padding));
+
+			pos = ImGui::GetCursorPos();
+			ImGui::SetCursorPos(ImVec2(pos.x + (availWidth - sidebarWidth) / 2.0f, pos.y + padding));
+			SetButtonColor(Color::Accent);
+			LauncherButton backButton = { "Go Back", [this]() { m_controller.SetActiveTab(LauncherTab::ProjectList); } };
+			DrawButtonList(std::span(&backButton, 1), sidebarWidth, sidebarButtonHeight);
+			PopButtonColor();
+
+			ImGui::Dummy(ImVec2(0, padding * 6));
+
+			ImVec4 warningBg = Color::Orange;
+			warningBg.w = 0.15f;
+
+			ImGui::GetWindowDrawList()->ChannelsSetCurrent(0);
+			ImVec2 endPos = ImVec2(startPos.x + availWidth - padding * 4, ImGui::GetCursorScreenPos().y + padding * 2);
+			ImGui::GetWindowDrawList()->AddRectFilled(startPos, endPos, ImGui::GetColorU32(warningBg), 5.0f);
+			ImGui::GetWindowDrawList()->AddRect(startPos, endPos, ImGui::GetColorU32(Color::Orange), 5.0f);
+			ImGui::GetWindowDrawList()->ChannelsMerge();
+
+			return;
+		}
+		
 
 		LauncherButton cancelButton = { "Cancel", [this]() { m_controller.SetActiveTab(LauncherTab::ProjectList); } };
+
 		LauncherButton createButton = { "Create", [this]() {
 			if (m_controller.CreateNewProject(props)) {
 				props = ProjectCreationProps();

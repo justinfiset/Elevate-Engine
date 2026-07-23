@@ -63,7 +63,7 @@ namespace EL
 		LauncherTab GetActiveTab() const;
 
 		// Project Templates
-		std::vector<ProjectTemplate> GetProjectTemplates() const;
+		std::vector<ProjectTemplate> GetProjectTemplates();
 
 		// Project Managment
 		void OpenSelectedProject() {} // todo impl
