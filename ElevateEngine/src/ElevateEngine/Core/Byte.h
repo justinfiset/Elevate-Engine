@@ -46,5 +46,17 @@ namespace Elevate
             }
             return ss.str();
         }
+
+        /**
+         * Converts a string into a ByteBuffer.
+         *
+         * \param str The string to convert into bytes.
+         * \return A ByteBuffer containing the raw bytes of the string.
+         */
+        inline ByteBuffer FromString(const std::string& str)
+        {
+            const auto* dataPtr = reinterpret_cast<const std::byte*>(str.data());
+            return ByteBuffer(dataPtr, dataPtr + str.size());
+        }
     }
 }
