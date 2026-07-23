@@ -165,7 +165,7 @@ namespace EL
 
 		Elevate::PropertySet props;
 		serializer.Deserialize(bytes, props);
-		m_projectList.SetFromProperties();
+		m_projectList.SetFromProperties(props);
 
 		for (auto& project : m_projectList.Projects)
 		{

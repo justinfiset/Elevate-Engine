@@ -1,0 +1,12 @@
+{
+    "Projects": {
+        "[0]": {
+            "IsValid": true,
+            "Id": false,
+            "Name": "",
+            "Path": "",
+            "LastOpened": false,
+            "UsesWwise": false
+        }
+    }
+}

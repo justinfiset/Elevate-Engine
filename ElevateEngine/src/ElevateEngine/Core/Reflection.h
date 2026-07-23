@@ -208,6 +208,9 @@ public: \
         } \
         return nullptr; \
     } \
+    inline void SetFromProperties(const ::Elevate::PropertySet& props) { \
+        GetLayout().ApplyState(props); \
+    } \
     EDITOR_ONLY_COMPONENT_END_CODE(ThisType)
 
 // =======================================================
@@ -251,4 +254,7 @@ public: \
     std::type_index GetTypeIndex() const { return typeid(ThisType); } \
     inline ::Elevate::PropertySet GetProperties() const { \
         return GetLayout().CaptureState(); \
+    } \
+    inline void SetFromProperties(const ::Elevate::PropertySet& props) { \
+        GetLayout().ApplyState(props); \
     }

@@ -30,6 +30,7 @@ namespace Elevate
         const std::string& GetName() const { return m_name; }
 
         PropertySet CaptureState();
+        void ApplyState(const PropertySet& props);
 
     private:
         std::vector<TypeField> m_fields;
