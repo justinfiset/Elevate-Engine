@@ -146,6 +146,31 @@ namespace EL
 	void ProjectManager::RefreshProjectList()
 	{
 		// todo get info from local files
+		m_projectList.Projects.clear();
+
+		std::string filePath = std::string(EE_CONTENT_ROOT) + "/projects.json";
+		if (!fs::exists(filePath))
+		{
+			return;
+		}
+
+		std::string fileContent = Elevate::File::GetFileContent(filePath);
+		if (fileContent.empty())
+		{
+			return;
+		}
+
+		Elevate::JsonSerializer serializer;
+		Elevate::ByteBuffer bytes = Elevate::ByteUtils::FromString(fileContent);
+
+		Elevate::PropertySet props;
+		serializer.Deserialize(bytes, props);
+		m_projectList.SetFromProperties();
+
+		for (auto& project : m_projectList.Projects)
+		{
+			project.IsValid = IsProjectValid(project);
+		}
 	}
 
 	void ProjectManager::UpdateLocalProjectList()
