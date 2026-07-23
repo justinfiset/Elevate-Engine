@@ -8,7 +8,7 @@
 #include <ElevateEngine/Core/Reflection.h>
 
 #include <ElevateEngine/Core/TypeLayout.h>
-#include <ElevateEngine/Serialization/ObjectPropertyField.h>
+#include <ElevateEngine/Serialization/PropertyField.h>
 #include <ElevateEngine/Serialization/JsonSerializer.h>
 
 using namespace Elevate;
@@ -78,9 +78,9 @@ TEST_CASE("EEObject JSON Serilization", "[Serialization][PropertySet][JSONSerial
     bool success = serializer.Serialize(res, outBuffer);
     REQUIRE(success);
 
-    std::string json = Elevate::ByteUitls::ToString(outBuffer);
-    CHECK(json.find("\"Test Int\":123456") != std::string::npos);
-    CHECK(json.find("\"Test Struct\":{\"Test Struct Int\":123}") != std::string::npos);
+    std::string json = Elevate::ByteUtils::ToString(outBuffer);
+    CHECK(json.find("\"testInt\":123456") != std::string::npos);
+    CHECK(json.find("\"testStruct\":{\"testStructInt\":123}") != std::string::npos);
 }
 
 TEST_CASE("EEObjectPtr serlization is not empty", "[Serialization]") {
@@ -109,5 +109,5 @@ TEST_CASE("EEObjectPtr serialization gives the same as the EEObject's guid.") {
 
     std::string objGuid = objPtr->GetGuid().ToString();
     std::erase(objGuid, '-');
-    REQUIRE(Elevate::ByteUitls::ToHexString(guid) == objGuid);
+    REQUIRE(Elevate::ByteUtils::ToHexString(guid) == objGuid);
 }

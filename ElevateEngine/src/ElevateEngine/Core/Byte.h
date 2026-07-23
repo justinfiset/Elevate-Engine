@@ -16,7 +16,7 @@ namespace Elevate
     /**
      * Namespace that contians function to ease the use of ByteBuffers and ByteSpans.
      */
-    namespace ByteUitls
+    namespace ByteUtils
     {
         /**
          * Converts any combination of bytes to a string.

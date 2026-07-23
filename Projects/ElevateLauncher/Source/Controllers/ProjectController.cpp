@@ -43,9 +43,13 @@ namespace EL
 		return m_activeTab;
 	}
 
-	std::vector<ProjectTemplate> ProjectController::GetProjectTemplates() const
+	std::vector<ProjectTemplate> ProjectController::GetProjectTemplates()
 	{
-		return m_manager.GetProjectTemplates();
+		auto templates = m_manager.GetProjectTemplates();
+		if (templates.empty()) {
+			PushNotification("No project template found.", Notification::MsgType::Warning);
+		}
+		return templates;
 	}
 
 	bool ProjectController::CreateNewProject(const ProjectCreationProps& props)

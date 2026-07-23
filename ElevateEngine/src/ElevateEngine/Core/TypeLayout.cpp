@@ -1,6 +1,7 @@
 #include "TypeLayout.h"
 
-#include <ElevateEngine/Serialization/ObjectPropertyField.h>
+#include <ElevateEngine/Core/TypeField.h>
+#include <ElevateEngine/Serialization/PropertyField.h>
 
 namespace Elevate
 {
@@ -10,32 +11,82 @@ namespace Elevate
         return PropertyFlag::None;
     }
 
-    void SetPropertyRawValue(const TypeField& field, PropertyField& prop)
+    PropertySet CreateContainer(const TypeField& parent, const std::string& parentPath, uint16_t currentDepth);
+    PropertySet CreateArrayPropertySet(const TypeField& parent, const std::string& parentPath, uint16_t currentDepth);
+
+    void SetPropertyRawValue(const TypeField& field, PropertyField& prop, uint16_t currentDepth)
     {
-        if (field.data != nullptr)
+        if (field.type == EngineDataType::Array)
         {
-            switch (field.type)
-            {
-            case EngineDataType::Bool:
-                prop.Value = *reinterpret_cast<const bool*>(field.data);
-                break;
-            case EngineDataType::Int:
-                prop.Value = static_cast<int64_t>(*reinterpret_cast<const int32_t*>(field.data));
-                break;
-            case EngineDataType::Float:
-                prop.Value = static_cast<double>(*reinterpret_cast<const float*>(field.data));
-                break;
-            case EngineDataType::Double:
-                prop.Value = *reinterpret_cast<const double*>(field.data);
-                break;
-            case EngineDataType::String:
-                prop.Value = *reinterpret_cast<const std::string*>(field.data);
-                break;
-            default:
-                // todo : save as bytebuffer if the type is unknown
-                break;
-            }
+            prop.Value = PropertyContainer{ CreateArrayPropertySet(field, prop.Path, currentDepth + 1) };
+            return;
         }
+
+        if (field.data == nullptr) return;
+
+        switch (field.type)
+        {
+        case EngineDataType::Bool:
+            prop.Value = *reinterpret_cast<const bool*>(field.data);
+            break;
+        case EngineDataType::Int:
+            prop.Value = static_cast<int64_t>(*reinterpret_cast<const int32_t*>(field.data));
+            break;
+        case EngineDataType::Float:
+            prop.Value = static_cast<double>(*reinterpret_cast<const float*>(field.data));
+            break;
+        case EngineDataType::Double:
+            prop.Value = *reinterpret_cast<const double*>(field.data);
+            break;
+        case EngineDataType::String:
+            prop.Value = *reinterpret_cast<const std::string*>(field.data);
+            break;
+        default:
+            // todo : save as bytebuffer if the type is unknown
+            break;
+        }
+    }
+
+    PropertySet CreateArrayPropertySet(const TypeField& parent, const std::string& parentPath, uint16_t currentDepth)
+    {
+        PropertySet arraySet;
+
+        size_t count = parent.GetArraySize ? parent.GetArraySize(parent.data) : 0;
+        if (count == 0 || !parent.GetElementAddress) return arraySet;
+
+        for (size_t i = 0; i < count; ++i)
+        {
+            PropertyField elemProp;
+            std::string indexStr = "[" + std::to_string(i) + "]";
+
+            elemProp.Name = indexStr;
+            elemProp.Path = parentPath + indexStr;
+            elemProp.Depth = currentDepth;
+            elemProp.Type = parent.elementType;
+
+            const void* elementDataPtr = parent.GetElementAddress(parent.data, i);
+
+            if (!parent.elementChildren.empty())
+            {
+                TypeField virtualChildField = parent;
+                virtualChildField.children = parent.elementChildren;
+                virtualChildField.data = elementDataPtr;
+
+                elemProp.Value = PropertyContainer{ CreateContainer(virtualChildField, elemProp.Path, currentDepth + 1) };
+            }
+            else
+            {
+                TypeField virtualPrimitiveField = parent;
+                virtualPrimitiveField.type = parent.elementType;
+                virtualPrimitiveField.data = elementDataPtr;
+
+                SetPropertyRawValue(virtualPrimitiveField, elemProp, currentDepth);
+            }
+
+            arraySet.push_back(elemProp);
+        }
+
+        return arraySet;
     }
 
     PropertySet CreateContainer(const TypeField& parent, const std::string& parentPath, uint16_t currentDepth)
@@ -51,13 +102,24 @@ namespace Elevate
             prop.Depth = currentDepth;
             prop.Flags = GetFieldFlags(field);
 
-            if (!field.children.empty())
+            const void* fieldDataPtr = (parent.data != nullptr)
+                ? reinterpret_cast<const char*>(parent.data) + field.offset
+                : nullptr;
+
+            TypeField instantiatedField = field;
+            instantiatedField.data = fieldDataPtr;
+
+            if (field.type == EngineDataType::Array)
             {
-                prop.Value = PropertyContainer{ CreateContainer(field, prop.Path, currentDepth + 1) };
+                prop.Value = PropertyContainer{ CreateArrayPropertySet(instantiatedField, prop.Path, currentDepth + 1) };
+            }
+            else if (!field.children.empty())
+            {
+                prop.Value = PropertyContainer{ CreateContainer(instantiatedField, prop.Path, currentDepth + 1) };
             }
             else
             {
-                SetPropertyRawValue(field, prop);
+                SetPropertyRawValue(instantiatedField, prop, currentDepth);
             }
 
             set.push_back(prop);
@@ -78,15 +140,18 @@ namespace Elevate
             prop.Type = field.type;
             prop.Depth = 0;
             prop.Flags = GetFieldFlags(field);
-            
-            // If the current field has childrens (eg. a struct)
-            if (!field.children.empty())
+
+            if (field.type == EngineDataType::Array)
+            {
+                prop.Value = PropertyContainer{ CreateArrayPropertySet(field, prop.Path, 1) };
+            }
+            else if (!field.children.empty())
             {
                 prop.Value = PropertyContainer{ CreateContainer(field, prop.Path, 1) };
             }
             else
             {
-                SetPropertyRawValue(field, prop);
+                SetPropertyRawValue(field, prop, 0);
             }
 
             set.push_back(prop);

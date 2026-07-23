@@ -1,16 +1,20 @@
 #pragma once
 
+// Interfaces
+#include <ElevateEngine/Serialization/ISerializable.h>
+#include <ElevateEngine/Core/ITypeLayoutProvider.h>
+
 #include <ElevateEngine/Core/Guid.h>
 #include <ElevateEngine/Core/EECategory.h>
-#include <ElevateEngine/Serialization/ISerializable.h>
 
 #include <ElevateEngine/Core/TypeLayout.h>
+#include <ElevateEngine/Serialization/PropertyField.h>
 
 #include <typeindex>
 
 namespace Elevate
 {
-	class EEObject : public ISerializable
+	class EEObject : public ISerializable, public ITypeLayoutProvider
 	{
 	protected:
 		EECategory m_category;
@@ -28,6 +32,7 @@ namespace Elevate
 		// If no overrode, an empty layout is generated and nothing is shown in the inspector
 		inline virtual std::string GetName() const { return "EEObject"; }
 		inline virtual TypeLayout GetLayout() const { return TypeLayout(GetName(), {}); }
+		PropertySet GetProperties() const { return GetLayout().CaptureState(); }
 		inline virtual std::type_index GetTypeIndex() const { return typeid(EEObject); }
 
 		// ISerializable Implementation
