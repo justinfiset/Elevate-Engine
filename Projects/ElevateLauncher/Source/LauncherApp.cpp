@@ -616,14 +616,16 @@ public:
 			ImGui::GetWindowDrawList()->AddRect(pos, ImVec2(pos.x + maxWidth, pos.y + rectHeight), ImGui::GetColorU32(color), 5.0f);
 			
 			// Draw the close button
-			ImGui::SetCursorScreenPos(ImVec2(pos.x + maxWidth - closeButtonSize - padding, pos.y + (rectHeight - closeButtonSize) / 2.0f));
+			float closeButtonY = pos.y + (rectHeight - closeButtonSize) / 2.0f;
+			ImGui::SetCursorScreenPos(ImVec2(pos.x + maxWidth - closeButtonSize - padding, closeButtonY));
 			ImVec2 closeButtonPos = ImGui::GetCursorScreenPos();
 			ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 5.0f);
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.0f, 0.0f));
 			if (ImGui::Button("x", ImVec2(closeButtonSize, closeButtonSize)))
 			{
 				m_controller.RemoveNotification(notification.Id);
 			}
-			ImGui::PopStyleVar();
+			ImGui::PopStyleVar(2);
 			ImGui::GetWindowDrawList()->AddRect(closeButtonPos, ImVec2(closeButtonPos.x + closeButtonSize, closeButtonPos.y + closeButtonSize), ImGui::GetColorU32(ImGuiCol_Border), 5.0f);
 
 			ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, pos.y + padding));
