@@ -39,7 +39,9 @@ namespace Elevate
 		virtual void SetViewport(int x, int y, int width, int height) const = 0;
 		virtual void Clear() const = 0;
 		virtual void FlushBuffers() const = 0;
+
 		virtual void ClearTextureBindings() const = 0;
+		virtual void UnbindTexture(uint8_t slot = 0) const = 0;
 
 		virtual void DrawArray(const VertexArray* vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles) const = 0;
 		virtual void SetCullingState(bool enabled) const = 0;

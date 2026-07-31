@@ -6,6 +6,7 @@
 
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
+#include <set>
 
 namespace Elevate::Editor {
 	
@@ -19,6 +20,7 @@ namespace Elevate::Editor {
 	struct FileMetadata {
 		FileType type;
 		std::string iconPath;
+		glm::vec4 color{ 1.0f, 1.0f, 1.0f, 0.0f };
 
 		FileMetadata() = default;
 		FileMetadata(FileType type, std::string iconPath)
@@ -44,10 +46,12 @@ namespace Elevate::Editor {
 	};
 
 	struct FileItem {
+		uint32_t id = 0;
 		std::string name;
 		std::string path;
 		std::string extension;
 		std::string iconPath;
+		glm::vec4 color;
 		FileType type = File;
 
 		FileItem() = default;
@@ -88,5 +92,9 @@ namespace Elevate::Editor {
 		std::unordered_map<std::string, FileMetadata> m_FileMetadata;
 
 		bool m_shouldUpdate = true;
+
+		std::set<uint32_t> m_selected;
+		uint32_t m_lastSelected = 0;
+		uint32_t m_nextId = 0;
 	};
 }

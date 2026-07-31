@@ -1,7 +1,6 @@
 #include "eepch.h"
 #include "Renderer.h"
 
-// todo remove or fix these includes
 #include "ElevateEngine/Renderer/OpenGL/OpenGLRendererAPI.h"
 #include <ElevateEngine/Scene/Scene.h>
 
@@ -11,171 +10,177 @@
 
 namespace Elevate
 {
-	Renderer::RendererStorage Renderer::s_data = RendererStorage();
-	RenderState Renderer::s_currentState = RenderState();
-	RendererAPI* Renderer::s_API = new OpenGLRendererAPI();
-	RenderCommandQueue Renderer::s_commands = RenderCommandQueue();
-	uint32_t Renderer::s_currentShaderID = 0;
-	uintptr_t Renderer::s_textures[16];
+    Renderer::RendererStorage Renderer::s_data = RendererStorage();
+    RenderState Renderer::s_currentState = RenderState();
+    RendererAPI* Renderer::s_API = new OpenGLRendererAPI();
+    RenderCommandQueue Renderer::s_commands = RenderCommandQueue();
+    uint32_t Renderer::s_currentShaderID = 0;
+    uintptr_t Renderer::s_textures[16];
 
-	void Renderer::BeginFrame(const ScenePtr scene, const Camera& cam)
-	{
-		s_API->ClearTextureBindings();
-		s_currentShaderID = 0;
-		s_data.CameraPosition = cam.gameObject->GetPosition();
-		s_data.ViewProj = cam.GenViewProjectionMatrix();
-		s_data.ActiveLighting = scene->GetSceneLighting();
-	}
+    void Renderer::BeginFrame(const ScenePtr scene, const Camera& cam)
+    {
+        InvalidateStateCache();
 
-	bool Renderer::BindShader(const std::shared_ptr<Shader>& shader)
-	{
-		uint32_t id = shader->GetID();
-		if (s_currentShaderID != id)
-		{
-			shader->Bind();
-			s_currentShaderID = id;
-			return true;
-		}
-		return false;
-	}
+        s_API->ClearTextureBindings();
+        s_currentShaderID = 0;
+        s_data.CameraPosition = cam.gameObject->GetPosition();
+        s_data.ViewProj = cam.GenViewProjectionMatrix();
+        s_data.ActiveLighting = scene->GetSceneLighting();
+    }
 
-	void Renderer::ApplySystemUniforms(const std::shared_ptr<Shader>& shader)
-	{
-		// If the binded shader changed
-		if (BindShader(shader))
-		{
-			shader->SetProjectionViewMatrix(s_data.ViewProj);
-			shader->SetCameraPosition(s_data.CameraPosition);
-		}
-	}
+    bool Renderer::BindShader(const std::shared_ptr<Shader>& shader)
+    {
+        uint32_t id = shader->GetID();
+        if (s_currentShaderID != id)
+        {
+            shader->Bind();
+            s_currentShaderID = id;
+            return true;
+        }
+        return false;
+    }
 
-	// RENDER API STATIC WRAPPER
-	void Renderer::SetClearColor(const glm::vec4& color)
-	{
-		s_API->SetClearColor(color);
-	}
+    void Renderer::ApplySystemUniforms(const std::shared_ptr<Shader>& shader)
+    {
+        // If the binded shader changed
+        if (BindShader(shader))
+        {
+            shader->SetProjectionViewMatrix(s_data.ViewProj);
+            shader->SetCameraPosition(s_data.CameraPosition);
+        }
+    }
 
-	void Renderer::Clear()
-	{
-		s_API->Clear();
-	}
+    // RENDER API STATIC WRAPPER
+    void Renderer::SetClearColor(const glm::vec4& color)
+    {
+        s_API->SetClearColor(color);
+    }
 
-	void Renderer::FlushBuffers()
-	{
-		s_API->FlushBuffers();
-	}
+    void Renderer::Clear()
+    {
+        s_API->Clear();
+    }
 
-	void Renderer::SetViewport(int x, int y, int width, int height)
-	{
-		s_API->SetViewport(x, y, width, height);
-	}
+    void Renderer::FlushBuffers()
+    {
+        s_API->FlushBuffers();
+    }
 
-	void Renderer::DrawArray(const VertexArray* vao, DrawPrimitiveType primitive)
-	{
-		if (vao)
-		{
-			s_API->DrawArray(vao, primitive);
-		}
-	}
+    void Renderer::SetViewport(int x, int y, int width, int height)
+    {
+        s_API->SetViewport(x, y, width, height);
+    }
 
-	void Renderer::DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive)
-	{
-		DrawArray(vao.get(), primitive);
-	}
+    void Renderer::DrawArray(const VertexArray* vao, DrawPrimitiveType primitive)
+    {
+        if (vao)
+        {
+            s_API->DrawArray(vao, primitive);
+        }
+    }
 
-	void Renderer::DrawStack()
-	{
-		s_commands.FlushAll();
-	}
+    void Renderer::DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive)
+    {
+        DrawArray(vao.get(), primitive);
+    }
 
-	void Renderer::PushRenderState(const RenderState& newState)
-	{
-		// todo make a first invalid call to make sure the GPU is synced with this cache before the user does anything
-		if (newState.Cullface != s_currentState.Cullface)
-		{
-			s_API->SetCullingState(newState.Cullface);
-		}
+    void Renderer::DrawStack()
+    {
+        s_commands.FlushAll();
+    }
 
-		if (newState.DepthWrite != s_currentState.DepthWrite)
-		{
-			s_API->SetDepthWrittingState(newState.DepthWrite);
-		}
+    void Renderer::PushRenderState(const RenderState& newState)
+    {
+        // todo make a first invalid call to make sure the GPU is synced with this cache before the user does anything
+        if (newState.Cullface != s_currentState.Cullface)
+        {
+            s_API->SetCullingState(newState.Cullface);
+        }
 
-		if (newState.DepthTest != s_currentState.DepthTest)
-		{
-			s_API->SetDepthTestingState(newState.DepthTest);
-		}
+        if (newState.DepthWrite != s_currentState.DepthWrite)
+        {
+            s_API->SetDepthWrittingState(newState.DepthWrite);
+        }
 
-		s_currentState = newState;
-	}
+        if (newState.DepthTest != s_currentState.DepthTest)
+        {
+            s_API->SetDepthTestingState(newState.DepthTest);
+        }
 
-	void Renderer::Dispatch(const RenderCommand& command)
-	{
-		// Update the renderer state if necessary
-		PushRenderState(command.m_State);
+        s_currentState = newState;
+    }
 
-		// Setup the Material and Shader
-		uint32_t prevshader = s_currentShaderID;
-		if (command.m_MaterialInstance)
-		{
-			auto shader = command.m_MaterialInstance->GetShader();
-			if (shader)
-			{
-				ApplySystemUniforms(shader);
-				shader->SetModelMatrix(command.Transform);
-				s_data.ActiveLighting->UploadToShader(shader);
-				command.m_MaterialInstance->Apply();
-			}
-		}
-		// Actually render the vertex array
-		Renderer::DrawArray(command.m_VertexArray);
-	}
+    void Renderer::Dispatch(const RenderCommand& command)
+    {
+        // Update the renderer state if necessary
+        PushRenderState(command.m_State);
 
-	void Renderer::Submit(RenderBucket::Type type, const RenderCommand& command)
-	{
-		s_commands.Submit(type, command);
-	}
+        // Setup the Material and Shader
+        uint32_t prevshader = s_currentShaderID;
+        if (command.m_MaterialInstance)
+        {
+            auto shader = command.m_MaterialInstance->GetShader();
+            if (shader)
+            {
+                ApplySystemUniforms(shader);
+                shader->SetModelMatrix(command.Transform);
+                s_data.ActiveLighting->UploadToShader(shader);
+                command.m_MaterialInstance->Apply();
+            }
+        }
+        // Actually render the vertex array
+        Renderer::DrawArray(command.m_VertexArray);
+    }
 
-	void Renderer::SubmitMesh(const std::shared_ptr<VertexArray>& vao, const std::shared_ptr<Material>& material, const glm::mat4& transform, RenderBucket::Type bucketType)
-	{
-		RenderCommand command;
-		command.m_VertexArray = vao.get();
-		command.m_MaterialInstance = material.get();
-		command.Transform = transform;
+    void Renderer::Submit(RenderBucket::Type type, const RenderCommand& command)
+    {
+        s_commands.Submit(type, command);
+    }
 
-		if (bucketType == RenderBucket::Transparent)
-		{
-			command.m_State.BlendEnable = true;
-			command.m_State.DepthWrite = false; // Transparents usually don't write to depth
-		}
-		else
-		{
-			command.m_State.BlendEnable = false;
-			command.m_State.DepthWrite = true;
-		}
+    void Renderer::SubmitMesh(const std::shared_ptr<VertexArray>& vao, const std::shared_ptr<Material>& material, const glm::mat4& transform, RenderBucket::Type bucketType)
+    {
+        RenderCommand command;
+        command.m_VertexArray = vao.get();
+        command.m_MaterialInstance = material.get();
+        command.Transform = transform;
 
-		Submit(bucketType, command);
-	}
+        if (bucketType == RenderBucket::Transparent)
+        {
+            command.m_State.BlendEnable = true;
+            command.m_State.DepthWrite = false; // Transparents usually don't write to depth
+        }
+        else
+        {
+            command.m_State.BlendEnable = false;
+            command.m_State.DepthWrite = true;
+        }
 
-	void Renderer::BindTexture(const std::shared_ptr<Texture>& texture, uint8_t slot)
-	{
-		// todo optimize and make sure EVERY texture uses this
-		uintptr_t textureID = texture ? reinterpret_cast<uintptr_t>(texture->GetNativeHandle()) : 0;
-		if (s_textures[slot] != textureID)
-		{
-			if (texture)
-			{
-				texture->Bind(slot);
-			}
-			s_textures[slot] = textureID;
-		}
-	}
+        Submit(bucketType, command);
+    }
 
-	void Renderer::InvalidateStateCache()
-	{
-		// Make each texture ptr to an impossible value to make sure we bind each frame.
-		for (int i = 0; i < std::size(s_textures); i++) {
-			s_textures[i] = (uintptr_t)-1;
-		}
-	}
+    void Renderer::BindTexture(const std::shared_ptr<Texture>& texture, uint8_t slot)
+    {
+        uintptr_t textureID = texture ? reinterpret_cast<uintptr_t>(texture->GetNativeHandle()) : 0;
+
+        if (s_textures[slot] != textureID)
+        {
+            if (texture)
+            {
+                texture->Bind(slot);
+            }
+            else
+            {
+                s_API->UnbindTexture(slot);
+            }
+            s_textures[slot] = textureID;
+        }
+    }
+
+    void Renderer::InvalidateStateCache()
+    {
+        // Make each texture ptr to an impossible value to make sure we bind each frame.
+        for (size_t i = 0; i < std::size(s_textures); i++) {
+            s_textures[i] = static_cast<uintptr_t>(-1);
+        }
+    }
 }

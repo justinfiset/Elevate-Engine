@@ -6,21 +6,6 @@
     ],
     "assets": [
         {
-            "extension": "jpg",
-            "iconPath": "editor://debug.png",
-            "type": "IMAGE"
-        },
-        {
-            "extension": "png",
-            "iconPath": "editor://debug.png",
-            "type": "IMAGE"
-        },
-        {
-            "extension": "ANY",
-            "iconPath": "editor://Icons/Assets/file.png",
-            "type": "FILE"
-        },
-        {
             "extension": "DIRECTORY",
             "iconPath": "editor://Icons/Assets/folder.png", 
             "type": "DIRECTORY"
@@ -29,6 +14,168 @@
             "extension": "EMPTY_DIRECTORY",
             "iconPath": "editor://Icons/Assets/empty_folder.png",
             "type": "DIRECTORY"
+        },
+        {
+            "extension": "jpg",
+            "iconPath": "editor://debug.png",
+            "type": "IMAGE",
+            "r": 192,
+            "g": 57,
+            "b": 43,
+            "a": 255
+        },
+        {
+            "extension": "png",
+            "iconPath": "editor://debug.png",
+            "type": "IMAGE",
+            "r": 192,
+            "g": 57,
+            "b": 43,
+            "a": 255
+        },
+        {
+            "extension": "tga",
+            "iconPath": "editor://debug.png",
+            "type": "IMAGE",
+            "r": 192,
+            "g": 57,
+            "b": 43,
+            "a": 255
+        },
+        {
+            "extension": "obj",
+            "iconPath": "editor://Icons/Assets/file.png",
+            "type": "MODEL",
+            "r": 26,
+            "g": 188,
+            "b": 156,
+            "a": 255
+        },
+        {
+            "extension": "fbx",
+            "iconPath": "editor://Icons/Assets/file.png",
+            "type": "MODEL",
+            "r": 26,
+            "g": 188,
+            "b": 156,
+            "a": 255
+        },
+        {
+            "extension": "gltf",
+            "iconPath": "editor://Icons/Assets/file.png",
+            "type": "MODEL",
+            "r": 26,
+            "g": 188,
+            "b": 156,
+            "a": 255
+        },
+        {
+            "extension": "glsl",
+            "iconPath": "editor://Icons/Assets/file.png",
+            "type": "SHADER",
+            "r": 46,
+            "g": 204,
+            "b": 113,
+            "a": 255
+        },
+        {
+            "extension": "hlsl",
+            "iconPath": "editor://Icons/Assets/file.png",
+            "type": "SHADER",
+            "r": 46,
+            "g": 204,
+            "b": 113,
+            "a": 255
+        },
+        {
+            "extension": "vert",
+            "iconPath": "editor://Icons/Assets/file.png",
+            "type": "SHADER",
+            "r": 46,
+            "g": 204,
+            "b": 113,
+            "a": 255
+        },
+        {
+            "extension": "frag",
+            "iconPath": "editor://Icons/Assets/file.png",
+            "type": "SHADER",
+            "r": 46,
+            "g": 204,
+            "b": 113,
+            "a": 255
+        },
+        {
+            "extension": "wav",
+            "iconPath": "editor://Icons/Assets/file.png",
+            "type": "AUDIO",
+            "r": 232,
+            "g": 67,
+            "b": 147,
+            "a": 255
+        },
+        {
+            "extension": "mp3",
+            "iconPath": "editor://Icons/Assets/file.png",
+            "type": "AUDIO",
+            "r": 232,
+            "g": 67,
+            "b": 147,
+            "a": 255
+        },
+        {
+            "extension": "eeproj",
+            "iconPath": "editor://Icons/Assets/file.png",
+            "type": "PROJECT",
+            "r": 0,
+            "g": 122,
+            "b": 204,
+            "a": 255
+        },
+        {
+            "extension": "config",
+            "iconPath": "editor://Icons/Assets/file.png",
+            "type": "CONFIG",
+            "r": 52,
+            "g": 152,
+            "b": 219,
+            "a": 255
+        },
+        {
+            "extension": "ini",
+            "iconPath": "editor://Icons/Assets/file.png",
+            "type": "CONFIG",
+            "r": 52,
+            "g": 152,
+            "b": 219,
+            "a": 255
+        },
+        {
+            "extension": "ANY",
+            "iconPath": "editor://Icons/Assets/file.png",
+            "type": "FILE",
+            "r": 120,
+            "g": 120,
+            "b": 120,
+            "a": 255
+        },
+        {
+            "extension": "cpp",
+            "iconPath": "editor://Icons/Assets/code.png",
+            "type": "FILE",
+            "r": 82,
+            "g": 102,
+            "b": 239,
+            "a": 255
+        },
+        {
+            "extension": "h",
+            "iconPath": "editor://Icons/Assets/code.png",
+            "type": "FILE",
+            "r": 82,
+            "g": 102,
+            "b": 239,
+            "a": 255
         }
     ]
 }

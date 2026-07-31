@@ -11,6 +11,7 @@
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/PathResolver.h>
 #include <ElevateEngine/Core/Files.h>
+#include <ElevateEngine/Inputs/Input.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
 
@@ -28,6 +29,8 @@ void Elevate::Editor::AssetBrowserPanel::OnUpdate()
 	if (m_shouldUpdate) {
 		UpdateRelatedPaths();
 		LoadFileItemsList();
+		m_selected.clear();
+		m_lastSelected = 0;
 		m_shouldUpdate = false;
 	}
 }
@@ -80,13 +83,39 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 		index++;
 	}
 
-	int id = 0;
+	ImDrawList* drawList = ImGui::GetWindowDrawList();
+
+	float barThickness = 3.0f;
+	uint32_t itemIndex = 0;
 	for (FileItem item : m_FileItems)
 	{
+		itemIndex++;
+
+		bool isSelected = std::find(m_selected.begin(), m_selected.end(), itemIndex) != m_selected.end();
+
+		drawList->ChannelsSplit(2);
+		drawList->ChannelsSetCurrent(1); // Draw the foreground
+
 		ImGui::PushID(index);
 		ImGui::BeginGroup();
 
+		if (isSelected)
+		{
+			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+		}
+		
 		if (ImGui::ImageButton("file_item", (ImTextureID) m_currentTextures[item.iconPath]->GetNativeHandle(), buttonSize)) {}
+
+		if (isSelected)
+		{
+			ImGui::PopStyleColor(3);
+		}
+
+		ImVec2 barMin = ImGui::GetItemRectMin();
+		ImVec2 barMax = ImGui::GetItemRectMax();
+		barMin.y = barMax.y - barThickness;
 
 		if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
 			if (item.type == Directory) {
@@ -98,11 +127,72 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 			}
 		}
 
+		ImGui::GetWindowDrawList()->AddRectFilled(
+			barMin,
+			barMax,
+			IM_COL32(item.color.r, item.color.g, item.color.b, item.color.a),
+			5.0f,
+			ImDrawFlags_RoundCornersBottom
+		);
+
 		ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + buttonSize.x);
 		ImGui::TextWrapped("%s", item.name.c_str());
 		ImGui::PopTextWrapPos();
 
 		ImGui::EndGroup();
+
+		if (ImGui::IsItemClicked()) {
+			if (!ImGui::GetIO().KeyCtrl)
+			{
+				m_selected.clear();
+			}
+
+			if (ImGui::GetIO().KeyShift)
+			{
+				m_selected.clear();
+				int start = std::min(itemIndex, m_lastSelected);
+				int end = std::max(itemIndex, m_lastSelected);
+				for (int i = start; i <= end; i++) {
+					m_selected.insert(i);
+				}
+			}
+			else
+			{
+				m_lastSelected = itemIndex;
+			}
+			
+			m_selected.insert(itemIndex);
+		}
+
+		drawList->ChannelsSetCurrent(0);
+
+		if (isSelected)
+		{
+			ImVec2 groupPadding = ImVec2(2.0f, 2.0f);
+			ImVec2 groupMin = ImGui::GetItemRectMin();
+			groupMin -= groupPadding;
+			ImVec2 groupMax = ImGui::GetItemRectMax();
+			groupMax += groupPadding;
+
+			ImGui::GetWindowDrawList()->AddRect(
+				groupMin,
+				groupMax,
+				IM_COL32(66, 150, 250, 255),
+				4.0f,
+				0,
+				2.0f
+			);
+
+			ImGui::GetWindowDrawList()->AddRectFilled(
+				groupMin,
+				groupMax,
+				IM_COL32(66, 150, 250, 128),
+				4.0f,
+				0
+			);
+		}
+
+		drawList->ChannelsMerge();
 		ImGui::PopID();
 
 		if ((index + 1) % colNb != 0)
@@ -111,6 +201,12 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 		}
 		index++;
 	}
+
+	if (ImGui::IsWindowHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left) && !ImGui::IsAnyItemHovered())
+	{
+		m_selected.clear();
+	}
+
 	ImGui::End();
 }
 
@@ -138,6 +234,8 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
 {
 	m_FileItems.clear();
 	m_currentTextures.clear();
+
+	m_nextId = 0;
 
 	for (const auto& entry : fs::directory_iterator(m_CurrentPath)) {
 		FileMetadata meta;
@@ -179,7 +277,9 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
 		else {
 			fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, meta.iconPath, meta.type);
 		}
-		
+		fileItem.color = meta.color;
+		fileItem.id = m_nextId++;
+
 		m_currentTextures[fileItem.iconPath] = Texture::CreateFromFile(fileItem.iconPath);
 		m_FileItems.push_back(fileItem);
 	}
@@ -241,7 +341,7 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
 		if (!asset.HasMember("extension") || !asset["extension"].IsString() ||
 			!asset.HasMember("iconPath") || !asset["iconPath"].IsString() ||
 			!asset.HasMember("type") || !asset["type"].IsString()) {
-			EE_CORE_ERROR("The asset %s is invalid (missing data or incorrect type)", i + 1);
+			EE_CORE_ERROR("The asset {} is invalid (missing data or incorrect type)", i + 1);
 			continue;
 		}
 
@@ -251,6 +351,15 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
 
 		FileType type = FileMetadata::ParseFileType(typeStr);
 		FileMetadata meta(type, iconPath);
+
+		if (asset.HasMember("r") && asset.HasMember("g") && asset.HasMember("b") && asset.HasMember("a")) {
+			int r = asset["r"].GetInt();
+			int g = asset["g"].GetInt();
+			int b = asset["g"].GetInt();
+			int a = asset["g"].GetInt();
+			meta.color = glm::vec4(r, g, b, a);
+		}
+
 		m_FileMetadata[extension] = meta;   
 	}
 }

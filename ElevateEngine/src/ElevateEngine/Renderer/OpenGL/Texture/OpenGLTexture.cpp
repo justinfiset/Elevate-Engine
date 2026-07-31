@@ -18,22 +18,23 @@ namespace Elevate
 		case TextureFormat::RGB:         return GL_RGB8;     // 8-bit RGB
 		case TextureFormat::RGBA:        return GL_RGBA8;    // 8-bit RGBA
 		case TextureFormat::DEPTH:       return GL_DEPTH_COMPONENT24;
+		case TextureFormat::EMPTY:
 		default:                         return GL_RGBA8;
 		}
 	}
 
 	constexpr GLenum ToOpenGL(TextureFormat format) {
 		switch (format) {
-		case TextureFormat::EMPTY:              return GL_NONE;
-		case TextureFormat::GRAYSCALE:			return GL_RED;
-		case TextureFormat::RGB:                return GL_RGB;
-		case TextureFormat::RGBA:               return GL_RGBA;
-		case TextureFormat::DEPTH:				return GL_DEPTH_COMPONENT;
+		case TextureFormat::GRAYSCALE: return GL_RED;
+		case TextureFormat::RGB:       return GL_RGB;
+		case TextureFormat::RGBA:      return GL_RGBA;
+		case TextureFormat::DEPTH:     return GL_DEPTH_COMPONENT;
+		case TextureFormat::EMPTY:
 			//case TextureFormat::DEPTH16:            return GL_DEPTH_COMPONENT16;
 			//case TextureFormat::DEPTH24:            return GL_DEPTH_COMPONENT24;
 			//case TextureFormat::DEPTH32F:           return GL_DEPTH_COMPONENT32F;
 			//case TextureFormat::DEPTH24_STENCIL8:   return GL_DEPTH24_STENCIL8;
-		default:                                return GL_NONE;
+		default:                       return GL_RGBA;
 		}
 	}
 
@@ -69,6 +70,13 @@ namespace Elevate
 		}
 	}
 
+	constexpr GLenum GetMinFilter(TextureFilter filter, bool useMipmaps) {
+		if (!useMipmaps) {
+			return (filter == TextureFilter::Nearest) ? GL_NEAREST : GL_LINEAR;
+		}
+		return (filter == TextureFilter::Nearest) ? GL_NEAREST_MIPMAP_NEAREST : GL_LINEAR_MIPMAP_LINEAR;
+	}
+
 	OpenGLTexture::OpenGLTexture(unsigned char* data, TextureMetadata& meta)
 		: Texture(meta)
 	{
@@ -93,30 +101,49 @@ namespace Elevate
 	void OpenGLTexture::SetDataImpl(unsigned char* data)
 	{
 		Bind();
-		
+
+		GLCheck(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
+
 		// set the texture wrapping parameters	
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, ToOpenGL(m_meta.WrapS));
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, ToOpenGL(m_meta.WrapT));
+		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, ToOpenGL(m_meta.WrapS)));
+		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, ToOpenGL(m_meta.WrapT)));
 		// set texture filtering parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, ToOpenGL(m_meta.MinFilter));
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, ToOpenGL(m_meta.MagFilter));
+		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GetMinFilter(m_meta.MinFilter, m_meta.Mipmaps)));
+		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, ToOpenGL(m_meta.MagFilter)));
 
 		// Swizzle if there is only a single channnel
 #ifdef EE_SUPPORTS_DSA
 		if (m_meta.Format == TextureFormat::GRAYSCALE) {
 			GLint swizzleMask[] = { GL_RED, GL_RED, GL_RED, GL_ONE };
-			glTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_RGBA, swizzleMask);
+			GLCheck(glTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_RGBA, swizzleMask));
 		}
 #endif
 
 		EE_CORE_INFO("Creating Texture: ID={}, Size={}x{}, Format={}", m_textureID, m_meta.Width, m_meta.Height, (int)m_meta.Format);
 
-		if (data || m_meta.Source == TextureSource::RenderTarget) 
-		{
-			GLCheck(glTexImage2D(GL_TEXTURE_2D, 0, ToInternalFormat(m_meta.Format), m_meta.Width, m_meta.Height, 0, ToOpenGL(m_meta.Format), ToOpenGLType(m_meta.Format), data));
+		uint32_t width = m_meta.Width > 0 ? m_meta.Width : 1;
+		uint32_t height = m_meta.Height > 0 ? m_meta.Height : 1;
 
-			if (m_meta.Mipmaps)
-				GLCheck(glGenerateMipmap(GL_TEXTURE_2D));
+		static const unsigned char fallbackPixel[4] = { 255, 0, 255, 255 };
+		const void* pixelsToUpload = data;
+		if (!pixelsToUpload) {
+			pixelsToUpload = fallbackPixel;
+		}
+
+		GLCheck(glTexImage2D(
+			GL_TEXTURE_2D,
+			0,
+			ToInternalFormat(m_meta.Format),
+			width,
+			height,
+			0,
+			ToOpenGL(m_meta.Format),
+			ToOpenGLType(m_meta.Format),
+			pixelsToUpload
+		));
+
+		if (m_meta.Mipmaps && m_meta.Width > 0 && m_meta.Height > 0) {
+			GLCheck(glGenerateMipmap(GL_TEXTURE_2D));
 		}
 	}
 
