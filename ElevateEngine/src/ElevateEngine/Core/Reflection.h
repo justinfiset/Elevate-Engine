@@ -109,8 +109,9 @@ public: \
         \
         std::vector<::Elevate::TypeField> instanceFields; \
         for (const ::Elevate::TypeField& field : allFields) { \
-            const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
-            instanceFields.push_back(::Elevate::TypeField(field, fieldPtr)); \
+            ::Elevate::TypeField instField = field; \
+            instField.data = reinterpret_cast<const char*>(this) + field.offset; \
+            instanceFields.push_back(instField); \
         } \
         return ::Elevate::TypeLayout(this, generated_classEntry.ClassName, instanceFields); \
     } \
@@ -228,7 +229,7 @@ public: \
         std::string StructName; \
         std::string StructTypeName; \
         std::vector<::Elevate::TypeField> StructFieldStack; \
-    } generated_structEntry; \
+    } generated_structEntry;
 
 #define END_STRUCT() \
 private: \
@@ -243,11 +244,12 @@ private: \
         } \
     } generated_structEntryEnd; \
 public: \
-    inline virtual ::Elevate::TypeLayout GetLayout() const { \
+    inline ::Elevate::TypeLayout GetLayout() const { \
         std::vector<::Elevate::TypeField> instanceFields; \
         for (const ::Elevate::TypeField& field : generated_structEntry.StructFieldStack) { \
-            const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
-            instanceFields.push_back(::Elevate::TypeField(field, fieldPtr)); \
+            ::Elevate::TypeField instField = field; \
+            instField.data = reinterpret_cast<const char*>(this) + field.offset; \
+            instanceFields.push_back(instField); \
         } \
         return ::Elevate::TypeLayout(this, generated_structEntry.StructName, instanceFields); \
     } \

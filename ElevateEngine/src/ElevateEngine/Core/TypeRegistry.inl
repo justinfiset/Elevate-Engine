@@ -67,10 +67,15 @@ namespace Elevate
             else if (std::holds_alternative<ColorTag>(opt)) { meta.isColor = true; }
         }
 
-        size_t offset = reinterpret_cast<size_t>(&(reinterpret_cast<Class const volatile*>(0)->*member));
+        alignas(Class) char dummyBuffer[sizeof(Class)];
+        Class* dummyObj = reinterpret_cast<Class*>(dummyBuffer);
+        size_t offset = static_cast<size_t>(
+            reinterpret_cast<const char*>(&(dummyObj->*member)) - dummyBuffer
+            );
+
         TypeField field;
 
-        if constexpr (is_engine_array_v<CleanedFieldT>) // manage std::vectors
+        if constexpr (is_engine_array_v<CleanedFieldT>)
         {
             field = TypeField(name, EngineDataType::Array, offset, meta.displayName);
 
@@ -87,28 +92,26 @@ namespace Elevate
                 }
             }
 
-            field.GetArraySize = [member](const void* instance) -> size_t {
-                if (!instance) return 0;
-                const auto* obj = static_cast<const Class*>(instance);
-                return (obj->*member).size();
+            field.GetArraySize = [](const void* vecPtr) -> size_t {
+                if (!vecPtr) return 0;
+                const auto* vec = static_cast<const CleanedFieldT*>(vecPtr);
+                return vec->size();
                 };
 
-            field.GetElementAddress = [member](const void* instance, size_t index) -> const void* {
-                if (!instance) return nullptr;
-                const auto* obj = static_cast<const Class*>(instance);
-                const auto& vec = obj->*member;
-                if (index >= vec.size()) return nullptr;
-                const void* elemAddr = static_cast<const void*>(&(vec[index]));
-                return elemAddr;
+            field.GetElementAddress = [](const void* vecPtr, size_t index) -> const void* {
+                if (!vecPtr) return nullptr;
+                const auto* vec = static_cast<const CleanedFieldT*>(vecPtr);
+                if (index >= vec->size()) return nullptr;
+                return static_cast<const void*>(&(*vec)[index]);
                 };
 
-            field.ResizeArray = [member](void* instance, size_t newSize) {
-                if (!instance) return;
-                auto* obj = static_cast<Class*>(instance);
-                (obj->*member).resize(newSize);
+            field.ResizeArray = [](void* vecPtr, size_t newSize) {
+                if (!vecPtr) return;
+                auto* vec = static_cast<CleanedFieldT*>(vecPtr);
+                vec->resize(newSize);
                 };
         }
-        else if (type == EngineDataType::Custom) // Manage custom struct or classes
+        else if (type == EngineDataType::Custom)
         {
             auto& customFields = GetReflectedTypes();
             std::type_index ti = typeid(CleanedFieldT);
@@ -120,8 +123,8 @@ namespace Elevate
             }
             field = TypeField(name, EngineDataType::Custom, offset, meta.displayName, subFields);
         }
-        else // Manage primitive types
-        {   
+        else
+        {
             field = TypeField(name, type, offset, meta.displayName);
         }
 

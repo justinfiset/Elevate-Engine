@@ -28,7 +28,6 @@ namespace Elevate
         std::function<size_t(const void*)> GetArraySize;
         std::function<const void* (const void* instance, size_t index)> GetElementAddress;
 
-        // --- AJOUT : Callback pour redimensionner le tableau dynamique ---
         std::function<void(void* instance, size_t newSize)> ResizeArray;
 
         TypeField() = default;

@@ -17,8 +17,24 @@ namespace Elevate
         for (const auto& property : fields)
         {
             rapidjson::Value key(property.Name.c_str(), allocator);
-            rapidjson::Value val = SerializeValue(property.Value, allocator);
-            parentObj.AddMember(key, val, allocator);
+
+            if (property.Type == EngineDataType::Array && std::holds_alternative<PropertyContainer>(property.Value))
+            {
+                const auto& container = std::get<PropertyContainer>(property.Value);
+                rapidjson::Value jsonArray(rapidjson::kArrayType);
+
+                for (const auto& elem : container.Children)
+                {
+                    jsonArray.PushBack(SerializeValue(elem.Value, allocator), allocator);
+                }
+
+                parentObj.AddMember(key, jsonArray, allocator);
+            }
+            else
+            {
+                rapidjson::Value val = SerializeValue(property.Value, allocator);
+                parentObj.AddMember(key, val, allocator);
+            }
         }
     }
 

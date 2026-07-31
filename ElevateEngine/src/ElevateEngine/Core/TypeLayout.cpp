@@ -272,12 +272,22 @@ namespace Elevate
             {
                 auto it = std::find_if(props.begin(), props.end(), [&currentPath](const PropertyField& p) {
                     return p.Path == currentPath;
-                    });
+                });
 
                 if (it != props.end() && std::holds_alternative<PropertyContainer>(it->Value))
                 {
                     const auto& container = std::get<PropertyContainer>(it->Value);
                     const void* subStructDataPtr = field.data;
+
+                    if (!IsValidPointer(field.data))
+                    {
+                        return;
+                    }
+
+                    if (field.ResizeArray)
+                    {
+                        field.ResizeArray(const_cast<void*>(field.data), container.Children.size());
+                    }
 
                     std::vector<TypeField> instantiatedChildren;
                     for (const auto& childField : field.children)
@@ -334,7 +344,11 @@ namespace Elevate
         std::vector<TypeField> instantiatedFields;
         for (const auto& field : m_fields)
         {
-            const void* resolvedData = field.data != nullptr ? field.data : (m_objectInstance != nullptr ? (reinterpret_cast<const char*>(m_objectInstance) + field.offset) : nullptr);
+            const void* resolvedData = field.data;
+            if (resolvedData == nullptr && IsValidPointer(m_objectInstance))
+            {
+                resolvedData = reinterpret_cast<const char*>(m_objectInstance) + field.offset;
+            }
             TypeField instField = field;
             instField.data = resolvedData;
             instantiatedFields.push_back(instField);
