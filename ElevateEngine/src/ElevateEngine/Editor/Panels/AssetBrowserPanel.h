@@ -45,6 +45,7 @@ namespace Elevate::Editor {
 	};
 
 	struct FileItem {
+		uint32_t id = 0;
 		std::string name;
 		std::string path;
 		std::string extension;
@@ -90,5 +91,8 @@ namespace Elevate::Editor {
 		std::unordered_map<std::string, FileMetadata> m_FileMetadata;
 
 		bool m_shouldUpdate = true;
+
+		std::vector<uint32_t> m_selected;
+		uint32_t m_nextId = 0;
 	};
 }

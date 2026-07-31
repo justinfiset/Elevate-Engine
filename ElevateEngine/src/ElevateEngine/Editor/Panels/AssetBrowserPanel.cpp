@@ -28,6 +28,7 @@ void Elevate::Editor::AssetBrowserPanel::OnUpdate()
 	if (m_shouldUpdate) {
 		UpdateRelatedPaths();
 		LoadFileItemsList();
+		m_selected.clear();
 		m_shouldUpdate = false;
 	}
 }
@@ -80,14 +81,33 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 		index++;
 	}
 
+	ImDrawList* drawList = ImGui::GetWindowDrawList();
+
 	int id = 0;
 	float barThickness = 3.0f;
 	for (FileItem item : m_FileItems)
 	{
+		bool isSelected = std::find(m_selected.begin(), m_selected.end(), item.id) != m_selected.end();
+
+		drawList->ChannelsSplit(2);
+		drawList->ChannelsSetCurrent(1); // Draw the foreground
+
 		ImGui::PushID(index);
 		ImGui::BeginGroup();
 
+		if (isSelected)
+		{
+			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+		}
+		
 		if (ImGui::ImageButton("file_item", (ImTextureID) m_currentTextures[item.iconPath]->GetNativeHandle(), buttonSize)) {}
+
+		if (isSelected)
+		{
+			ImGui::PopStyleColor(3);
+		}
 
 		ImVec2 barMin = ImGui::GetItemRectMin();
 		ImVec2 barMax = ImGui::GetItemRectMax();
@@ -116,6 +136,41 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 		ImGui::PopTextWrapPos();
 
 		ImGui::EndGroup();
+
+		if (ImGui::IsItemClicked()) {
+			m_selected.clear();
+			m_selected.push_back(item.id);
+		}
+
+		drawList->ChannelsSetCurrent(0);
+
+		if (isSelected)
+		{
+			ImVec2 groupPadding = ImVec2(2.0f, 2.0f);
+			ImVec2 groupMin = ImGui::GetItemRectMin();
+			groupMin -= groupPadding;
+			ImVec2 groupMax = ImGui::GetItemRectMax();
+			groupMax += groupPadding;
+
+			ImGui::GetWindowDrawList()->AddRect(
+				groupMin,
+				groupMax,
+				IM_COL32(66, 150, 250, 255),
+				4.0f,
+				0,
+				2.0f
+			);
+
+			ImGui::GetWindowDrawList()->AddRectFilled(
+				groupMin,
+				groupMax,
+				IM_COL32(66, 150, 250, 128),
+				4.0f,
+				0
+			);
+		}
+
+		drawList->ChannelsMerge();
 		ImGui::PopID();
 
 		if ((index + 1) % colNb != 0)
@@ -151,6 +206,8 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
 {
 	m_FileItems.clear();
 	m_currentTextures.clear();
+
+	m_nextId = 0;
 
 	for (const auto& entry : fs::directory_iterator(m_CurrentPath)) {
 		FileMetadata meta;
@@ -193,6 +250,7 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
 			fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, meta.iconPath, meta.type);
 		}
 		fileItem.color = meta.color;
+		fileItem.id = m_nextId++;
 
 		m_currentTextures[fileItem.iconPath] = Texture::CreateFromFile(fileItem.iconPath);
 		m_FileItems.push_back(fileItem);
