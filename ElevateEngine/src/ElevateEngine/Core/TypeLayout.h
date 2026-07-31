@@ -16,8 +16,10 @@ namespace Elevate
     {
     public:
         TypeLayout() = default;
-        TypeLayout(const std::string& name, std::initializer_list<TypeField> fields) : m_name(name), m_fields(fields) {}
-        TypeLayout(const std::string& name, std::vector<TypeField>& fields) : m_name(name), m_fields(fields) {}
+        TypeLayout(const void* target, const std::string& name, std::initializer_list<TypeField> fields)
+            : m_objectInstance(target), m_name(name), m_fields(fields) {}
+        TypeLayout(const void* target, const std::string& name, std::vector<TypeField>& fields)
+            : m_objectInstance(target), m_name(name), m_fields(fields) {}
 
         // Regular and const operators to iterate easely trought fields
         std::vector<TypeField>::iterator begin() { return m_fields.begin(); }
@@ -29,10 +31,11 @@ namespace Elevate
 
         const std::string& GetName() const { return m_name; }
 
-        PropertySet CaptureState();
+        PropertySet CaptureState() const;
         void ApplyState(const PropertySet& props);
 
     private:
+        const void* m_objectInstance = nullptr;
         std::vector<TypeField> m_fields;
         std::string m_name;
     };

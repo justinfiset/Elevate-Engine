@@ -112,7 +112,7 @@ public: \
             const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
             instanceFields.push_back(::Elevate::TypeField(field, fieldPtr)); \
         } \
-        return ::Elevate::TypeLayout(generated_classEntry.ClassName, instanceFields); \
+        return ::Elevate::TypeLayout(this, generated_classEntry.ClassName, instanceFields); \
     } \
     virtual std::type_index GetTypeIndex() const override { return typeid(ThisType); }
 
@@ -249,7 +249,7 @@ public: \
             const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
             instanceFields.push_back(::Elevate::TypeField(field, fieldPtr)); \
         } \
-        return ::Elevate::TypeLayout(generated_structEntry.StructName, instanceFields); \
+        return ::Elevate::TypeLayout(this, generated_structEntry.StructName, instanceFields); \
     } \
     std::type_index GetTypeIndex() const { return typeid(ThisType); } \
     inline ::Elevate::PropertySet GetProperties() const { \

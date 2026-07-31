@@ -43,6 +43,7 @@ namespace Elevate
 		virtual TypeLayout GetLayout() const override
 		{
 			return TypeLayout(
+				this,
 				"Transform",
 				{
 					{"Positon", EngineDataType::Float3, &position},

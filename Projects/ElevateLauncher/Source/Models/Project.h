@@ -17,9 +17,7 @@ namespace EL
 	{
 		BEGIN_STRUCT(Project)
 		bool IsValid = false;
-		PROPERTY(IsValid)
 		uint32_t Id = 0;
-		PROPERTY(Id)
 		std::string Name = "";
 		PROPERTY(Name)
 		std::string Path = "";

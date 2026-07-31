@@ -52,6 +52,27 @@ namespace Elevate
                 }
                 else
                 {
+                    // Check if the container itself represents an array element or flat items collection
+                    bool allIndices = true;
+                    for (const auto& elem : v.Children)
+                    {
+                        if (elem.Name.rfind("[", 0) != 0)
+                        {
+                            allIndices = false;
+                            break;
+                        }
+                    }
+
+                    if (!v.Children.empty() && allIndices)
+                    {
+                        rapidjson::Value jsonArray(rapidjson::kArrayType);
+                        for (const auto& elem : v.Children)
+                        {
+                            jsonArray.PushBack(SerializeValue(elem.Value, allocator), allocator);
+                        }
+                        return jsonArray;
+                    }
+
                     rapidjson::Value childObj(rapidjson::kObjectType);
                     SerializeRecursive(v.Children, childObj, allocator);
                     return childObj;
@@ -76,7 +97,6 @@ namespace Elevate
         return true;
     }
 
-    // Déclaration anticipée
     void ParseJsonValue(const rapidjson::Value& val, PropertyField& prop, const std::string& currentPath, uint16_t currentDepth);
 
     void DeserializeRecursive(const rapidjson::Value& jsonObj, PropertySet& outFields, const std::string& parentPath, uint16_t currentDepth)
@@ -124,7 +144,7 @@ namespace Elevate
         {
             PropertyContainer container;
             DeserializeRecursive(val, container.Children, currentPath, currentDepth + 1);
-            prop.Type = EngineDataType::Custom; // Important pour que le système identifie le conteneur d'objet
+            prop.Type = EngineDataType::Custom;
             prop.Value = container;
         }
         else if (val.IsArray())
@@ -168,7 +188,6 @@ namespace Elevate
 
         outFields.clear();
 
-        // Utilise la même logique récursive pour la racine afin d'éviter le code en double
         DeserializeRecursive(doc, outFields, "", 0);
 
         return true;

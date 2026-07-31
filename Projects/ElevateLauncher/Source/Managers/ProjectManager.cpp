@@ -171,9 +171,11 @@ namespace EL
 		if (serializer.Deserialize(bytes, props))
 		{
 			m_projectList.SetFromProperties(props);
-
+			uint32_t nextId = 0;
+			EE_TRACE("Found {} projects.", m_projectList.Projects.size());
 			for (auto& project : m_projectList.Projects)
 			{
+				project.Id = nextId++;
 				project.IsValid = IsProjectValid(project);
 			}
 		}

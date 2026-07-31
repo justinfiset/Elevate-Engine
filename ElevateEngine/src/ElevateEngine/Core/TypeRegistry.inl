@@ -98,7 +98,14 @@ namespace Elevate
                 const auto* obj = static_cast<const Class*>(instance);
                 const auto& vec = obj->*member;
                 if (index >= vec.size()) return nullptr;
-                return static_cast<const void*>(&(vec[index]));
+                const void* elemAddr = static_cast<const void*>(&(vec[index]));
+                return elemAddr;
+                };
+
+            field.ResizeArray = [member](void* instance, size_t newSize) {
+                if (!instance) return;
+                auto* obj = static_cast<Class*>(instance);
+                (obj->*member).resize(newSize);
                 };
         }
         else if (type == EngineDataType::Custom) // Manage custom struct or classes

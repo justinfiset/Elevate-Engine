@@ -19,6 +19,8 @@ struct MockEEStruct
     BEGIN_STRUCT(MockEEStruct)
     int testStructInt = 123;
     PROPERTY(testStructInt)
+    std::string testStructString = "qwerty";
+    PROPERTY(testStructString)
     END_STRUCT()
 };
 
@@ -43,6 +45,35 @@ public:
     MockEEObject() = default;
     virtual ~MockEEObject() = default;
 };
+
+TEST_CASE("EEObject String Serialization and Roundtrip", "[Serialization][PropertySet][JSONSerializer][String]") {
+    auto originalObj = std::make_shared<MockEEObject>();
+
+    originalObj->testStruct.testStructString = "ElevateEngineRocks";
+
+    TypeLayout originalLayout = originalObj->GetLayout();
+    PropertySet originalProps = originalLayout.CaptureState();
+
+    JsonSerializer serializer;
+    ByteBuffer buffer;
+    REQUIRE(serializer.Serialize(originalProps, buffer));
+
+    std::string jsonStr = ByteUtils::ToString(buffer);
+    CAPTURE(jsonStr);
+
+    CHECK(jsonStr.find("\"testStructString\":\"ElevateEngineRocks\"") != std::string::npos);
+
+    PropertySet deserializedProps;
+    REQUIRE(serializer.Deserialize(buffer, deserializedProps));
+
+    auto newObj = std::make_shared<MockEEObject>();
+    REQUIRE(newObj->testStruct.testStructString == "qwerty");
+
+    TypeLayout newLayout = newObj->GetLayout();
+    newLayout.ApplyState(deserializedProps);
+
+    CHECK(newObj->testStruct.testStructString == "ElevateEngineRocks");
+}
 
 TEST_CASE("EEObject JSON Roundtrip and SetFromProperties", "[Serialization][PropertySet][JSONSerializer][TypeLayout]") {
     auto originalObj = std::make_shared<MockEEObject>();
@@ -113,7 +144,8 @@ TEST_CASE("EEObject JSON Serilization", "[Serialization][PropertySet][JSONSerial
 
     std::string json = Elevate::ByteUtils::ToString(outBuffer);
     CHECK(json.find("\"testInt\":123456") != std::string::npos);
-    CHECK(json.find("\"testStruct\":{\"testStructInt\":123}") != std::string::npos);
+    CHECK(json.find("\"testStructInt\":123") != std::string::npos);
+    CHECK(json.find("\"testStructString\":\"qwerty\"") != std::string::npos);
 }
 
 TEST_CASE("EEObjectPtr serlization is not empty", "[Serialization]") {
