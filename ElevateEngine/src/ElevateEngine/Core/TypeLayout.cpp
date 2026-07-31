@@ -3,6 +3,8 @@
 #include <ElevateEngine/Core/TypeField.h>
 #include <ElevateEngine/Serialization/PropertyField.h>
 
+#include <algorithm>
+
 namespace Elevate
 {
     PropertyFlag GetFieldFlags(const TypeField& field)
@@ -13,14 +15,6 @@ namespace Elevate
     PropertySet CreateContainer(const TypeField& parent, const std::string& parentPath, uint16_t currentDepth);
     PropertySet CreateArrayPropertySet(const TypeField& parent, const std::string& parentPath, uint16_t currentDepth);
 
-    bool IsValidPointer(const void* ptr)
-    {
-        if (ptr == nullptr) return false;
-        uintptr_t p = reinterpret_cast<uintptr_t>(ptr);
-        if (p < 0x10000 || p == 0xFFFFFFFFFFFFFFE7 || p > 0x7FFFFFFFFFFF) return false;
-        return true;
-    }
-
     void SetPropertyRawValue(const TypeField& field, PropertyField& prop, uint16_t currentDepth)
     {
         if (field.type == EngineDataType::Array)
@@ -29,7 +23,7 @@ namespace Elevate
             return;
         }
 
-        if (!IsValidPointer(field.data)) return;
+        if (!field.data) return;
 
         switch (field.type)
         {
@@ -43,21 +37,11 @@ namespace Elevate
             prop.Value = static_cast<double>(*reinterpret_cast<const float*>(field.data));
             break;
         case EngineDataType::Double:
-            prop.Value = *reinterpret_cast<double*>(const_cast<void*>(field.data));
+            prop.Value = *reinterpret_cast<const double*>(field.data);
             break;
         case EngineDataType::String:
-        {
-            if (IsValidPointer(field.data))
-            {
-                const auto* strPtr = reinterpret_cast<const std::string*>(field.data);
-                const char* cstr = strPtr->c_str();
-                if (IsValidPointer(cstr))
-                {
-                    prop.Value = *strPtr;
-                }
-            }
+            prop.Value = *reinterpret_cast<const std::string*>(field.data);
             break;
-        }
         default:
             break;
         }
@@ -67,8 +51,10 @@ namespace Elevate
     {
         PropertySet arraySet;
 
-        size_t count = parent.GetArraySize ? parent.GetArraySize(parent.data) : 0;
-        if (count == 0 || !parent.GetElementAddress) return arraySet;
+        if (!parent.data || !parent.GetArraySize || !parent.GetElementAddress)
+            return arraySet;
+
+        size_t count = parent.GetArraySize(parent.data);
 
         for (size_t i = 0; i < count; ++i)
         {
@@ -81,7 +67,7 @@ namespace Elevate
             elemProp.Type = parent.elementType;
 
             const void* elementDataPtr = parent.GetElementAddress(parent.data, i);
-            if (!IsValidPointer(elementDataPtr)) continue;
+            if (!elementDataPtr) continue;
 
             if (!parent.elementChildren.empty())
             {
@@ -123,12 +109,12 @@ namespace Elevate
             prop.Flags = GetFieldFlags(field);
 
             const void* fieldDataPtr = field.data;
-            if (fieldDataPtr == nullptr && IsValidPointer(parent.data))
+            if (fieldDataPtr == nullptr && parent.data != nullptr)
             {
                 fieldDataPtr = reinterpret_cast<const char*>(parent.data) + field.offset;
             }
 
-            if (!IsValidPointer(fieldDataPtr) && field.type != EngineDataType::Array && field.children.empty())
+            if (fieldDataPtr == nullptr && field.type != EngineDataType::Array && field.children.empty())
             {
                 continue;
             }
@@ -170,7 +156,7 @@ namespace Elevate
 
             const void* resolvedData = field.data != nullptr ? field.data : (m_objectInstance != nullptr ? (reinterpret_cast<const char*>(m_objectInstance) + field.offset) : nullptr);
 
-            if (!IsValidPointer(resolvedData) && field.type != EngineDataType::Array && field.children.empty())
+            if (resolvedData == nullptr && field.type != EngineDataType::Array && field.children.empty())
             {
                 continue;
             }
@@ -224,14 +210,14 @@ namespace Elevate
                     {
                         const auto& elemProp = arraySet[i];
                         const void* elementDataPtr = field.GetElementAddress ? field.GetElementAddress(field.data, i) : nullptr;
-                        if (!IsValidPointer(elementDataPtr)) continue;
+                        if (!elementDataPtr) continue;
 
                         if (!field.elementChildren.empty())
                         {
                             std::vector<TypeField> instantiatedChildren;
                             for (const auto& childField : field.elementChildren)
                             {
-                                const void* childDataPtr = IsValidPointer(elementDataPtr) ? reinterpret_cast<const char*>(elementDataPtr) + childField.offset : nullptr;
+                                const void* childDataPtr = reinterpret_cast<const char*>(elementDataPtr) + childField.offset;
                                 TypeField instChild = childField;
                                 instChild.data = childDataPtr;
                                 instantiatedChildren.push_back(instChild);
@@ -241,28 +227,27 @@ namespace Elevate
                         }
                         else
                         {
-                            if (!IsValidPointer(elementDataPtr)) continue;
+                            void* mutableElementPtr = const_cast<void*>(elementDataPtr);
 
                             if (field.elementType == EngineDataType::Bool && std::holds_alternative<bool>(elemProp.Value))
                             {
-                                *reinterpret_cast<bool*>(const_cast<void*>(elementDataPtr)) = std::get<bool>(elemProp.Value);
+                                *reinterpret_cast<bool*>(mutableElementPtr) = std::get<bool>(elemProp.Value);
                             }
-                            else if (field.elementType == EngineDataType::Int)
+                            else if (field.elementType == EngineDataType::Int && std::holds_alternative<int64_t>(elemProp.Value))
                             {
-                                if (std::holds_alternative<int64_t>(elemProp.Value))
-                                    *reinterpret_cast<int32_t*>(const_cast<void*>(elementDataPtr)) = static_cast<int32_t>(std::get<int64_t>(elemProp.Value));
+                                *reinterpret_cast<int32_t*>(mutableElementPtr) = static_cast<int32_t>(std::get<int64_t>(elemProp.Value));
                             }
                             else if (field.elementType == EngineDataType::Float && std::holds_alternative<double>(elemProp.Value))
                             {
-                                *reinterpret_cast<float*>(const_cast<void*>(elementDataPtr)) = static_cast<float>(std::get<double>(elemProp.Value));
+                                *reinterpret_cast<float*>(mutableElementPtr) = static_cast<float>(std::get<double>(elemProp.Value));
                             }
                             else if (field.elementType == EngineDataType::Double && std::holds_alternative<double>(elemProp.Value))
                             {
-                                *reinterpret_cast<double*>(const_cast<void*>(elementDataPtr)) = std::get<double>(elemProp.Value);
+                                *reinterpret_cast<double*>(mutableElementPtr) = std::get<double>(elemProp.Value);
                             }
                             else if (field.elementType == EngineDataType::String && std::holds_alternative<std::string>(elemProp.Value))
                             {
-                                *reinterpret_cast<std::string*>(const_cast<void*>(elementDataPtr)) = std::get<std::string>(elemProp.Value);
+                                *reinterpret_cast<std::string*>(mutableElementPtr) = std::get<std::string>(elemProp.Value);
                             }
                         }
                     }
@@ -272,27 +257,17 @@ namespace Elevate
             {
                 auto it = std::find_if(props.begin(), props.end(), [&currentPath](const PropertyField& p) {
                     return p.Path == currentPath;
-                });
+                    });
 
                 if (it != props.end() && std::holds_alternative<PropertyContainer>(it->Value))
                 {
                     const auto& container = std::get<PropertyContainer>(it->Value);
                     const void* subStructDataPtr = field.data;
 
-                    if (!IsValidPointer(field.data))
-                    {
-                        return;
-                    }
-
-                    if (field.ResizeArray)
-                    {
-                        field.ResizeArray(const_cast<void*>(field.data), container.Children.size());
-                    }
-
                     std::vector<TypeField> instantiatedChildren;
                     for (const auto& childField : field.children)
                     {
-                        const void* childDataPtr = IsValidPointer(subStructDataPtr) ? reinterpret_cast<const char*>(subStructDataPtr) + childField.offset : nullptr;
+                        const void* childDataPtr = subStructDataPtr ? reinterpret_cast<const char*>(subStructDataPtr) + childField.offset : nullptr;
                         TypeField instChild = childField;
                         instChild.data = childDataPtr;
                         instantiatedChildren.push_back(instChild);
@@ -307,29 +282,31 @@ namespace Elevate
                     return p.Path == currentPath;
                     });
 
-                if (it != props.end() && IsValidPointer(field.data))
+                if (it != props.end() && field.data != nullptr)
                 {
+                    void* mutableData = const_cast<void*>(field.data);
+
                     switch (field.type)
                     {
                     case EngineDataType::Bool:
                         if (std::holds_alternative<bool>(it->Value))
-                            *reinterpret_cast<bool*>(const_cast<void*>(field.data)) = std::get<bool>(it->Value);
+                            *reinterpret_cast<bool*>(mutableData) = std::get<bool>(it->Value);
                         break;
                     case EngineDataType::Int:
                         if (std::holds_alternative<int64_t>(it->Value))
-                            *reinterpret_cast<int32_t*>(const_cast<void*>(field.data)) = static_cast<int32_t>(std::get<int64_t>(it->Value));
+                            *reinterpret_cast<int32_t*>(mutableData) = static_cast<int32_t>(std::get<int64_t>(it->Value));
                         break;
                     case EngineDataType::Float:
                         if (std::holds_alternative<double>(it->Value))
-                            *reinterpret_cast<float*>(const_cast<void*>(field.data)) = static_cast<float>(std::get<double>(it->Value));
+                            *reinterpret_cast<float*>(mutableData) = static_cast<float>(std::get<double>(it->Value));
                         break;
                     case EngineDataType::Double:
                         if (std::holds_alternative<double>(it->Value))
-                            *reinterpret_cast<double*>(const_cast<void*>(field.data)) = std::get<double>(it->Value);
+                            *reinterpret_cast<double*>(mutableData) = std::get<double>(it->Value);
                         break;
                     case EngineDataType::String:
                         if (std::holds_alternative<std::string>(it->Value))
-                            *reinterpret_cast<std::string*>(const_cast<void*>(field.data)) = std::get<std::string>(it->Value);
+                            *reinterpret_cast<std::string*>(mutableData) = std::get<std::string>(it->Value);
                         break;
                     default:
                         break;
@@ -344,11 +321,7 @@ namespace Elevate
         std::vector<TypeField> instantiatedFields;
         for (const auto& field : m_fields)
         {
-            const void* resolvedData = field.data;
-            if (resolvedData == nullptr && IsValidPointer(m_objectInstance))
-            {
-                resolvedData = reinterpret_cast<const char*>(m_objectInstance) + field.offset;
-            }
+            const void* resolvedData = field.data != nullptr ? field.data : (m_objectInstance != nullptr ? (reinterpret_cast<const char*>(m_objectInstance) + field.offset) : nullptr);
             TypeField instField = field;
             instField.data = resolvedData;
             instantiatedFields.push_back(instField);
