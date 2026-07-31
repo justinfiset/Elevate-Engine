@@ -19,6 +19,7 @@ var structElevate_1_1TypeField =
     [ "name", "structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d", null ],
     [ "offset", "structElevate_1_1TypeField.html#ab028df64b84115a9226ba442470a16e7", null ],
     [ "readOnly", "structElevate_1_1TypeField.html#a412ac2eb3b6c6da877bc84810893ce28", null ],
+    [ "ResizeArray", "structElevate_1_1TypeField.html#ac76a84881e9213fec2f929f399aae9b2", null ],
     [ "size", "structElevate_1_1TypeField.html#a23f52f00f0c034a31e7f5e525d2f2cf2", null ],
     [ "tooltip", "structElevate_1_1TypeField.html#acf36ac0c59158fe4f7040ab8e111dd75", null ],
     [ "type", "structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6", null ]

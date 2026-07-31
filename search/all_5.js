@@ -326,7 +326,7 @@ var searchData=
   ['elevate_3a_3aplatform_323',['Platform',['../namespaceElevate_1_1Platform.html',1,'Elevate']]],
   ['elevate_3a_3aui_324',['UI',['../namespaceElevate_1_1UI.html',1,'Elevate']]],
   ['elevateengine_2eh_325',['ElevateEngine.h',['../ElevateEngine_8h.html',1,'']]],
-  ['empty_326',['empty',['../namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaba2b45bdc11e2a4a6e86aab2ac693cbb',1,'Elevate::EMPTY'],['../namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ace2c8aed9c2fa0cfbed56cbda4d8bf07',1,'Elevate::Empty']]],
+  ['empty_326',['empty',['../namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ace2c8aed9c2fa0cfbed56cbda4d8bf07',1,'Elevate::Empty'],['../namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaba2b45bdc11e2a4a6e86aab2ac693cbb',1,'Elevate::EMPTY']]],
   ['emptytag_327',['EmptyTag',['../structElevate_1_1EmptyTag.html',1,'Elevate']]],
   ['emscripten_328',['Building with Emscripten',['../md_Docs_2Source_2WebAssembly.html',1,'']]],
   ['end_329',['end',['../classElevate_1_1TypeLayout.html#ac4543957de007801dac809b3c2aa16b4',1,'Elevate::TypeLayout::end()'],['../classElevate_1_1SceneManager.html#a9fa7d8731fe189e807c5578fc4eba626',1,'Elevate::SceneManager::end()'],['../classElevate_1_1BufferLayout.html#a93c7b4ca129fd017a5bfc6c1240d4652',1,'Elevate::BufferLayout::end() const'],['../classElevate_1_1BufferLayout.html#a4a7e8b8c621c1077639838f8f00f5604',1,'Elevate::BufferLayout::end()'],['../classElevate_1_1TypeLayout.html#aa0d000c3a74c901edcd5bcb00d04b8ce',1,'Elevate::TypeLayout::end()'],['../classElevate_1_1LayerStack.html#a3ba8e7bd30d744e0d33c91037cd6f7fb',1,'Elevate::LayerStack::end()'],['../classElevate_1_1ImGuiLayer.html#ae074757b5a04dbb5c82787630cabd9c1',1,'Elevate::ImGuiLayer::End()']]],

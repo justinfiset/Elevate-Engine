@@ -11,5 +11,6 @@ var searchData=
   ['format_8',['Format',['../structElevate_1_1TextureMetadataBuilder.html#a10284b2604330b1b8f69461df57c4649',1,'Elevate::TextureMetadataBuilder']]],
   ['framebuffer_9',['Framebuffer',['../classElevate_1_1Framebuffer.html#a713a36ba2817fd94e39944f6728bee0a',1,'Elevate::Framebuffer']]],
   ['framebuffercolorattachment_10',['FramebufferColorAttachment',['../structElevate_1_1FramebufferColorAttachment.html#af5d924bc2f239283c4bf743e7002deb6',1,'Elevate::FramebufferColorAttachment']]],
-  ['frustum_11',['frustum',['../structElevate_1_1Frustum.html#a6b0cc0f4fa8d471bace7bc615379683d',1,'Elevate::Frustum::Frustum()=default'],['../structElevate_1_1Frustum.html#a7d8c054aafdee08acc802e33ca0aced7',1,'Elevate::Frustum::Frustum(Camera &amp;camera)']]]
+  ['fromstring_11',['FromString',['../namespaceElevate_1_1ByteUtils.html#a87bea5acf96075208e5defe66b72eab2',1,'Elevate::ByteUtils']]],
+  ['frustum_12',['frustum',['../structElevate_1_1Frustum.html#a6b0cc0f4fa8d471bace7bc615379683d',1,'Elevate::Frustum::Frustum()=default'],['../structElevate_1_1Frustum.html#a7d8c054aafdee08acc802e33ca0aced7',1,'Elevate::Frustum::Frustum(Camera &amp;camera)']]]
 ];

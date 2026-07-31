@@ -39,10 +39,11 @@ var searchData=
   ['framebufferdepthattachment_36',['FramebufferDepthAttachment',['../structElevate_1_1FramebufferDepthAttachment.html',1,'Elevate']]],
   ['framebuffermetadata_37',['FramebufferMetadata',['../structElevate_1_1FramebufferMetadata.html',1,'Elevate']]],
   ['framebufferstencilattachment_38',['FramebufferStencilAttachment',['../structElevate_1_1FramebufferStencilAttachment.html',1,'Elevate']]],
-  ['frustum_39',['frustum',['../structElevate_1_1Frustum.html#a6b0cc0f4fa8d471bace7bc615379683d',1,'Elevate::Frustum::Frustum()=default'],['../structElevate_1_1Frustum.html#a7d8c054aafdee08acc802e33ca0aced7',1,'Elevate::Frustum::Frustum(Camera &amp;camera)'],['../structElevate_1_1Frustum.html',1,'Elevate::Frustum']]],
-  ['frustum_2ecpp_40',['Frustum.cpp',['../Frustum_8cpp.html',1,'']]],
-  ['frustum_2eh_41',['Frustum.h',['../Frustum_8h.html',1,'']]],
-  ['frustumplane_42',['FrustumPlane',['../namespaceElevate.html#a622c3d7de5705ecabab238d92cd07435',1,'Elevate']]],
-  ['frustumvolume_2ecpp_43',['FrustumVolume.cpp',['../FrustumVolume_8cpp.html',1,'']]],
-  ['frustumvolume_2eh_44',['FrustumVolume.h',['../FrustumVolume_8h.html',1,'']]]
+  ['fromstring_39',['FromString',['../namespaceElevate_1_1ByteUtils.html#a87bea5acf96075208e5defe66b72eab2',1,'Elevate::ByteUtils']]],
+  ['frustum_40',['frustum',['../structElevate_1_1Frustum.html',1,'Elevate::Frustum'],['../structElevate_1_1Frustum.html#a7d8c054aafdee08acc802e33ca0aced7',1,'Elevate::Frustum::Frustum(Camera &amp;camera)'],['../structElevate_1_1Frustum.html#a6b0cc0f4fa8d471bace7bc615379683d',1,'Elevate::Frustum::Frustum()=default']]],
+  ['frustum_2ecpp_41',['Frustum.cpp',['../Frustum_8cpp.html',1,'']]],
+  ['frustum_2eh_42',['Frustum.h',['../Frustum_8h.html',1,'']]],
+  ['frustumplane_43',['FrustumPlane',['../namespaceElevate.html#a622c3d7de5705ecabab238d92cd07435',1,'Elevate']]],
+  ['frustumvolume_2ecpp_44',['FrustumVolume.cpp',['../FrustumVolume_8cpp.html',1,'']]],
+  ['frustumvolume_2eh_45',['FrustumVolume.h',['../FrustumVolume_8h.html',1,'']]]
 ];

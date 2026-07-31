@@ -149,26 +149,27 @@ $(document).ready(function(){initNavTree('Transform_8h_source.html',''); initRes
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classElevate_1_1Transform.html#a711483703ea50803d01d3521db348a5b">   43</a></span>        <span class="keyword">virtual</span> <a class="code hl_class" href="classElevate_1_1TypeLayout.html">TypeLayout</a> <a class="code hl_function" href="classElevate_1_1Transform.html#a711483703ea50803d01d3521db348a5b">GetLayout</a>()<span class="keyword"> const override</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">        </span>{</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="classElevate_1_1TypeLayout.html">TypeLayout</a>(</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                <span class="stringliteral">&quot;Transform&quot;</span>,</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                    {<span class="stringliteral">&quot;Positon&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">EngineDataType::Float3</a>, &amp;position},</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                    {<span class="stringliteral">&quot;Rotation&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">EngineDataType::Float3</a>, &amp;rotation},</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                    {<span class="stringliteral">&quot;Scale&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">EngineDataType::Float3</a>, &amp;scale}</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            );</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                <span class="keyword">this</span>,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                <span class="stringliteral">&quot;Transform&quot;</span>,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                    {<span class="stringliteral">&quot;Positon&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">EngineDataType::Float3</a>, &amp;position},</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                    {<span class="stringliteral">&quot;Rotation&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">EngineDataType::Float3</a>, &amp;rotation},</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                    {<span class="stringliteral">&quot;Scale&quot;</span>, <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">EngineDataType::Float3</a>, &amp;scale}</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            );</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        }</div>
 </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordtype">bool</span> m_isDirty = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        glm::vec3 position;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        glm::vec3 rotation;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        glm::vec3 scale;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        glm::mat4 m_ModelMatrix;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    };</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordtype">bool</span> m_isDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        glm::vec3 position;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        glm::vec3 rotation;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        glm::vec3 scale;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        glm::mat4 m_ModelMatrix;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    };</div>
 </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
 <div class="ttc" id="aData_8h_html"><div class="ttname"><a href="Data_8h.html">Data.h</a></div></div>
 <div class="ttc" id="aITypeLayoutProvider_8h_html"><div class="ttname"><a href="ITypeLayoutProvider_8h.html">ITypeLayoutProvider.h</a></div></div>
 <div class="ttc" id="aTypeLayout_8h_html"><div class="ttname"><a href="TypeLayout_8h.html">TypeLayout.h</a></div></div>

@@ -696,6 +696,8 @@ Functions</h2></td></tr>
 <tr class="separator:a47c345f6ce272c8a1f681edd9ab87cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c4c36281536826a01995c10e60f34f1" id="r_a6c4c36281536826a01995c10e60f34f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a6c4c36281536826a01995c10e60f34f1">SetPropertyRawValue</a> (const <a class="el" href="structElevate_1_1TypeField.html">TypeField</a> &amp;field, <a class="el" href="structElevate_1_1PropertyField.html">PropertyField</a> &amp;prop, uint16_t currentDepth)</td></tr>
 <tr class="separator:a6c4c36281536826a01995c10e60f34f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefa313bcd96b9bc0c129c10ca022f1dd" id="r_aefa313bcd96b9bc0c129c10ca022f1dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#aefa313bcd96b9bc0c129c10ca022f1dd">ApplyPropertyValues</a> (const std::vector&lt; <a class="el" href="structElevate_1_1TypeField.html">TypeField</a> &gt; &amp;fields, const <a class="el" href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">PropertySet</a> &amp;props, const std::string &amp;parentPath)</td></tr>
+<tr class="separator:aefa313bcd96b9bc0c129c10ca022f1dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07459f730257a31806ceb39f2b73f301" id="r_a07459f730257a31806ceb39f2b73f301"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a07459f730257a31806ceb39f2b73f301">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="classElevate_1_1Event.html">Event</a> &amp;e)</td></tr>
 <tr class="separator:a07459f730257a31806ceb39f2b73f301"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39a4828ecbc5697c5bb04abfe62b1124" id="r_a39a4828ecbc5697c5bb04abfe62b1124"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a39a4828ecbc5697c5bb04abfe62b1124">CreateBuffers</a> (int32_t n, uint32_t *ids)</td></tr>
@@ -719,8 +721,14 @@ Functions</h2></td></tr>
 <tr class="memitem:ad16fe7bc8849d427bf60ac890e6e3e26" id="r_ad16fe7bc8849d427bf60ac890e6e3e26"><td class="memTemplParams" colspan="2">template&lt;class... Ts&gt; </td></tr>
 <tr class="memitem:ad16fe7bc8849d427bf60ac890e6e3e26"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#ad16fe7bc8849d427bf60ac890e6e3e26">overload</a> (Ts...) -&gt; <a class="el" href="structElevate_1_1overload.html">overload</a>&lt; Ts... &gt;</td></tr>
 <tr class="separator:ad16fe7bc8849d427bf60ac890e6e3e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69c879e7e30aebc98a9c26b3b81ec3f0" id="r_a69c879e7e30aebc98a9c26b3b81ec3f0"><td class="memItemLeft" align="right" valign="top">rapidjson::Value&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a69c879e7e30aebc98a9c26b3b81ec3f0">SerializeValue</a> (const <a class="el" href="namespaceElevate.html#aace8d290e19160cac7d1b9696d8766df">PropertyValue</a> &amp;value, rapidjson::Document::AllocatorType &amp;allocator)</td></tr>
+<tr class="separator:a69c879e7e30aebc98a9c26b3b81ec3f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a762f69a24f135c3f4747be2d48880b54" id="r_a762f69a24f135c3f4747be2d48880b54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">SerializeRecursive</a> (const <a class="el" href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">PropertySet</a> &amp;fields, rapidjson::Value &amp;parentObj, rapidjson::Document::AllocatorType &amp;allocator)</td></tr>
 <tr class="separator:a762f69a24f135c3f4747be2d48880b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0b7b90b9849b7ecbd7e34a984fb85f5" id="r_ab0b7b90b9849b7ecbd7e34a984fb85f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#ab0b7b90b9849b7ecbd7e34a984fb85f5">ParseJsonValue</a> (const rapidjson::Value &amp;val, <a class="el" href="structElevate_1_1PropertyField.html">PropertyField</a> &amp;prop, const std::string &amp;currentPath, uint16_t currentDepth)</td></tr>
+<tr class="separator:ab0b7b90b9849b7ecbd7e34a984fb85f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38d7bbe023550ab3ce4c896c06441eed" id="r_a38d7bbe023550ab3ce4c896c06441eed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a38d7bbe023550ab3ce4c896c06441eed">DeserializeRecursive</a> (const rapidjson::Value &amp;jsonObj, <a class="el" href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">PropertySet</a> &amp;outFields, const std::string &amp;parentPath, uint16_t currentDepth)</td></tr>
+<tr class="separator:a38d7bbe023550ab3ce4c896c06441eed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -1778,6 +1786,175 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="aefa313bcd96b9bc0c129c10ca022f1dd" name="aefa313bcd96b9bc0c129c10ca022f1dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefa313bcd96b9bc0c129c10ca022f1dd">&#9670;&#160;</a></span>ApplyPropertyValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Elevate::ApplyPropertyValues </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structElevate_1_1TypeField.html">TypeField</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>fields</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">PropertySet</a> &amp;&#160;</td>
+          <td class="paramname"><em>props</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>parentPath</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TypeLayout_8cpp_source.html#l00186">186</a> of file <a class="el" href="TypeLayout_8cpp_source.html">TypeLayout.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  187</span>    {</div>
+<div class="line"><span class="lineno">  188</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; field : fields)</div>
+<div class="line"><span class="lineno">  189</span>        {</div>
+<div class="line"><span class="lineno">  190</span>            std::string currentPath = parentPath.empty() ? field.name : parentPath + <span class="stringliteral">&quot;/&quot;</span> + field.name;</div>
+<div class="line"><span class="lineno">  191</span> </div>
+<div class="line"><span class="lineno">  192</span>            <span class="keywordflow">if</span> (field.type == EngineDataType::Array)</div>
+<div class="line"><span class="lineno">  193</span>            {</div>
+<div class="line"><span class="lineno">  194</span>                <span class="keyword">auto</span> it = std::find_if(props.begin(), props.end(), [&amp;currentPath](<span class="keyword">const</span> <a class="code hl_struct" href="structElevate_1_1PropertyField.html">PropertyField</a>&amp; p) {</div>
+<div class="line"><span class="lineno">  195</span>                    return p.Path == currentPath;</div>
+<div class="line"><span class="lineno">  196</span>                    });</div>
+<div class="line"><span class="lineno">  197</span> </div>
+<div class="line"><span class="lineno">  198</span>                <span class="keywordflow">if</span> (it != props.end() &amp;&amp; std::holds_alternative&lt;PropertyContainer&gt;(it-&gt;Value))</div>
+<div class="line"><span class="lineno">  199</span>                {</div>
+<div class="line"><span class="lineno">  200</span>                    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; arraySet = std::get&lt;PropertyContainer&gt;(it-&gt;Value).Children;</div>
+<div class="line"><span class="lineno">  201</span> </div>
+<div class="line"><span class="lineno">  202</span>                    <span class="keywordflow">if</span> (field.ResizeArray)</div>
+<div class="line"><span class="lineno">  203</span>                    {</div>
+<div class="line"><span class="lineno">  204</span>                        field.ResizeArray(<span class="keyword">const_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(field.data), arraySet.size());</div>
+<div class="line"><span class="lineno">  205</span>                    }</div>
+<div class="line"><span class="lineno">  206</span> </div>
+<div class="line"><span class="lineno">  207</span>                    <span class="keywordtype">size_t</span> count = field.GetArraySize ? field.GetArraySize(field.data) : 0;</div>
+<div class="line"><span class="lineno">  208</span> </div>
+<div class="line"><span class="lineno">  209</span>                    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; arraySet.size() &amp;&amp; i &lt; count; ++i)</div>
+<div class="line"><span class="lineno">  210</span>                    {</div>
+<div class="line"><span class="lineno">  211</span>                        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; elemProp = arraySet[i];</div>
+<div class="line"><span class="lineno">  212</span>                        <span class="keyword">const</span> <span class="keywordtype">void</span>* elementDataPtr = field.GetElementAddress ? field.GetElementAddress(field.data, i) : <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  213</span>                        <span class="keywordflow">if</span> (!elementDataPtr) <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  214</span> </div>
+<div class="line"><span class="lineno">  215</span>                        <span class="keywordflow">if</span> (!field.elementChildren.empty())</div>
+<div class="line"><span class="lineno">  216</span>                        {</div>
+<div class="line"><span class="lineno">  217</span>                            std::vector&lt;TypeField&gt; instantiatedChildren;</div>
+<div class="line"><span class="lineno">  218</span>                            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; childField : field.elementChildren)</div>
+<div class="line"><span class="lineno">  219</span>                            {</div>
+<div class="line"><span class="lineno">  220</span>                                <span class="keyword">const</span> <span class="keywordtype">void</span>* childDataPtr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(elementDataPtr) + childField.offset;</div>
+<div class="line"><span class="lineno">  221</span>                                TypeField instChild = childField;</div>
+<div class="line"><span class="lineno">  222</span>                                instChild.data = childDataPtr;</div>
+<div class="line"><span class="lineno">  223</span>                                instantiatedChildren.push_back(instChild);</div>
+<div class="line"><span class="lineno">  224</span>                            }</div>
+<div class="line"><span class="lineno">  225</span> </div>
+<div class="line"><span class="lineno">  226</span>                            <a class="code hl_function" href="namespaceElevate.html#aefa313bcd96b9bc0c129c10ca022f1dd">ApplyPropertyValues</a>(instantiatedChildren, std::get&lt;PropertyContainer&gt;(elemProp.Value).Children, elemProp.Path);</div>
+<div class="line"><span class="lineno">  227</span>                        }</div>
+<div class="line"><span class="lineno">  228</span>                        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  229</span>                        {</div>
+<div class="line"><span class="lineno">  230</span>                            <span class="keywordtype">void</span>* mutableElementPtr = <span class="keyword">const_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(elementDataPtr);</div>
+<div class="line"><span class="lineno">  231</span> </div>
+<div class="line"><span class="lineno">  232</span>                            <span class="keywordflow">if</span> (field.elementType == EngineDataType::Bool &amp;&amp; std::holds_alternative&lt;bool&gt;(elemProp.Value))</div>
+<div class="line"><span class="lineno">  233</span>                            {</div>
+<div class="line"><span class="lineno">  234</span>                                *<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">bool</span>*<span class="keyword">&gt;</span>(mutableElementPtr) = std::get&lt;bool&gt;(elemProp.Value);</div>
+<div class="line"><span class="lineno">  235</span>                            }</div>
+<div class="line"><span class="lineno">  236</span>                            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (field.elementType == EngineDataType::Int &amp;&amp; std::holds_alternative&lt;int64_t&gt;(elemProp.Value))</div>
+<div class="line"><span class="lineno">  237</span>                            {</div>
+<div class="line"><span class="lineno">  238</span>                                *<span class="keyword">reinterpret_cast&lt;</span>int32_t*<span class="keyword">&gt;</span>(mutableElementPtr) = <span class="keyword">static_cast&lt;</span>int32_t<span class="keyword">&gt;</span>(std::get&lt;int64_t&gt;(elemProp.Value));</div>
+<div class="line"><span class="lineno">  239</span>                            }</div>
+<div class="line"><span class="lineno">  240</span>                            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (field.elementType == EngineDataType::Float &amp;&amp; std::holds_alternative&lt;double&gt;(elemProp.Value))</div>
+<div class="line"><span class="lineno">  241</span>                            {</div>
+<div class="line"><span class="lineno">  242</span>                                *<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(mutableElementPtr) = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(std::get&lt;double&gt;(elemProp.Value));</div>
+<div class="line"><span class="lineno">  243</span>                            }</div>
+<div class="line"><span class="lineno">  244</span>                            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (field.elementType == EngineDataType::Double &amp;&amp; std::holds_alternative&lt;double&gt;(elemProp.Value))</div>
+<div class="line"><span class="lineno">  245</span>                            {</div>
+<div class="line"><span class="lineno">  246</span>                                *<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">double</span>*<span class="keyword">&gt;</span>(mutableElementPtr) = std::get&lt;double&gt;(elemProp.Value);</div>
+<div class="line"><span class="lineno">  247</span>                            }</div>
+<div class="line"><span class="lineno">  248</span>                            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (field.elementType == EngineDataType::String &amp;&amp; std::holds_alternative&lt;std::string&gt;(elemProp.Value))</div>
+<div class="line"><span class="lineno">  249</span>                            {</div>
+<div class="line"><span class="lineno">  250</span>                                *<span class="keyword">reinterpret_cast&lt;</span>std::string*<span class="keyword">&gt;</span>(mutableElementPtr) = std::get&lt;std::string&gt;(elemProp.Value);</div>
+<div class="line"><span class="lineno">  251</span>                            }</div>
+<div class="line"><span class="lineno">  252</span>                        }</div>
+<div class="line"><span class="lineno">  253</span>                    }</div>
+<div class="line"><span class="lineno">  254</span>                }</div>
+<div class="line"><span class="lineno">  255</span>            }</div>
+<div class="line"><span class="lineno">  256</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!field.children.empty())</div>
+<div class="line"><span class="lineno">  257</span>            {</div>
+<div class="line"><span class="lineno">  258</span>                <span class="keyword">auto</span> it = std::find_if(props.begin(), props.end(), [&amp;currentPath](<span class="keyword">const</span> PropertyField&amp; p) {</div>
+<div class="line"><span class="lineno">  259</span>                    return p.Path == currentPath;</div>
+<div class="line"><span class="lineno">  260</span>                    });</div>
+<div class="line"><span class="lineno">  261</span> </div>
+<div class="line"><span class="lineno">  262</span>                <span class="keywordflow">if</span> (it != props.end() &amp;&amp; std::holds_alternative&lt;PropertyContainer&gt;(it-&gt;Value))</div>
+<div class="line"><span class="lineno">  263</span>                {</div>
+<div class="line"><span class="lineno">  264</span>                    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; container = std::get&lt;PropertyContainer&gt;(it-&gt;Value);</div>
+<div class="line"><span class="lineno">  265</span>                    <span class="keyword">const</span> <span class="keywordtype">void</span>* subStructDataPtr = field.data;</div>
+<div class="line"><span class="lineno">  266</span> </div>
+<div class="line"><span class="lineno">  267</span>                    std::vector&lt;TypeField&gt; instantiatedChildren;</div>
+<div class="line"><span class="lineno">  268</span>                    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; childField : field.children)</div>
+<div class="line"><span class="lineno">  269</span>                    {</div>
+<div class="line"><span class="lineno">  270</span>                        <span class="keyword">const</span> <span class="keywordtype">void</span>* childDataPtr = subStructDataPtr ? <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(subStructDataPtr) + childField.offset : nullptr;</div>
+<div class="line"><span class="lineno">  271</span>                        TypeField instChild = childField;</div>
+<div class="line"><span class="lineno">  272</span>                        instChild.data = childDataPtr;</div>
+<div class="line"><span class="lineno">  273</span>                        instantiatedChildren.push_back(instChild);</div>
+<div class="line"><span class="lineno">  274</span>                    }</div>
+<div class="line"><span class="lineno">  275</span> </div>
+<div class="line"><span class="lineno">  276</span>                    <a class="code hl_function" href="namespaceElevate.html#aefa313bcd96b9bc0c129c10ca022f1dd">ApplyPropertyValues</a>(instantiatedChildren, container.Children, currentPath);</div>
+<div class="line"><span class="lineno">  277</span>                }</div>
+<div class="line"><span class="lineno">  278</span>            }</div>
+<div class="line"><span class="lineno">  279</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  280</span>            {</div>
+<div class="line"><span class="lineno">  281</span>                <span class="keyword">auto</span> it = std::find_if(props.begin(), props.end(), [&amp;currentPath](<span class="keyword">const</span> PropertyField&amp; p) {</div>
+<div class="line"><span class="lineno">  282</span>                    return p.Path == currentPath;</div>
+<div class="line"><span class="lineno">  283</span>                    });</div>
+<div class="line"><span class="lineno">  284</span> </div>
+<div class="line"><span class="lineno">  285</span>                <span class="keywordflow">if</span> (it != props.end() &amp;&amp; field.data != <span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">  286</span>                {</div>
+<div class="line"><span class="lineno">  287</span>                    <span class="keywordtype">void</span>* mutableData = <span class="keyword">const_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(field.data);</div>
+<div class="line"><span class="lineno">  288</span> </div>
+<div class="line"><span class="lineno">  289</span>                    <span class="keywordflow">switch</span> (field.type)</div>
+<div class="line"><span class="lineno">  290</span>                    {</div>
+<div class="line"><span class="lineno">  291</span>                    <span class="keywordflow">case</span> EngineDataType::Bool:</div>
+<div class="line"><span class="lineno">  292</span>                        <span class="keywordflow">if</span> (std::holds_alternative&lt;bool&gt;(it-&gt;Value))</div>
+<div class="line"><span class="lineno">  293</span>                            *<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">bool</span>*<span class="keyword">&gt;</span>(mutableData) = std::get&lt;bool&gt;(it-&gt;Value);</div>
+<div class="line"><span class="lineno">  294</span>                        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  295</span>                    <span class="keywordflow">case</span> EngineDataType::Int:</div>
+<div class="line"><span class="lineno">  296</span>                        <span class="keywordflow">if</span> (std::holds_alternative&lt;int64_t&gt;(it-&gt;Value))</div>
+<div class="line"><span class="lineno">  297</span>                            *<span class="keyword">reinterpret_cast&lt;</span>int32_t*<span class="keyword">&gt;</span>(mutableData) = <span class="keyword">static_cast&lt;</span>int32_t<span class="keyword">&gt;</span>(std::get&lt;int64_t&gt;(it-&gt;Value));</div>
+<div class="line"><span class="lineno">  298</span>                        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  299</span>                    <span class="keywordflow">case</span> EngineDataType::Float:</div>
+<div class="line"><span class="lineno">  300</span>                        <span class="keywordflow">if</span> (std::holds_alternative&lt;double&gt;(it-&gt;Value))</div>
+<div class="line"><span class="lineno">  301</span>                            *<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(mutableData) = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(std::get&lt;double&gt;(it-&gt;Value));</div>
+<div class="line"><span class="lineno">  302</span>                        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  303</span>                    <span class="keywordflow">case</span> EngineDataType::Double:</div>
+<div class="line"><span class="lineno">  304</span>                        <span class="keywordflow">if</span> (std::holds_alternative&lt;double&gt;(it-&gt;Value))</div>
+<div class="line"><span class="lineno">  305</span>                            *<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">double</span>*<span class="keyword">&gt;</span>(mutableData) = std::get&lt;double&gt;(it-&gt;Value);</div>
+<div class="line"><span class="lineno">  306</span>                        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  307</span>                    <span class="keywordflow">case</span> EngineDataType::String:</div>
+<div class="line"><span class="lineno">  308</span>                        <span class="keywordflow">if</span> (std::holds_alternative&lt;std::string&gt;(it-&gt;Value))</div>
+<div class="line"><span class="lineno">  309</span>                            *<span class="keyword">reinterpret_cast&lt;</span>std::string*<span class="keyword">&gt;</span>(mutableData) = std::get&lt;std::string&gt;(it-&gt;Value);</div>
+<div class="line"><span class="lineno">  310</span>                        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  311</span>                    <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">  312</span>                        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  313</span>                    }</div>
+<div class="line"><span class="lineno">  314</span>                }</div>
+<div class="line"><span class="lineno">  315</span>            }</div>
+<div class="line"><span class="lineno">  316</span>        }</div>
+<div class="line"><span class="lineno">  317</span>    }</div>
+<div class="ttc" id="anamespaceElevate_html_aefa313bcd96b9bc0c129c10ca022f1dd"><div class="ttname"><a href="namespaceElevate.html#aefa313bcd96b9bc0c129c10ca022f1dd">Elevate::ApplyPropertyValues</a></div><div class="ttdeci">void ApplyPropertyValues(const std::vector&lt; TypeField &gt; &amp;fields, const PropertySet &amp;props, const std::string &amp;parentPath)</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8cpp_source.html#l00186">TypeLayout.cpp:186</a></div></div>
+<div class="ttc" id="astructElevate_1_1PropertyField_html"><div class="ttname"><a href="structElevate_1_1PropertyField.html">Elevate::PropertyField</a></div><div class="ttdef"><b>Definition</b> <a href="PropertyField_8h_source.html#l00037">PropertyField.h:38</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="af81b10f7c72d9514fbbbd926e9556a79" name="af81b10f7c72d9514fbbbd926e9556a79"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af81b10f7c72d9514fbbbd926e9556a79">&#9670;&#160;</a></span>CreateApplication()</h2>
 
@@ -1831,48 +2008,53 @@ Variables</h2></td></tr>
 <div class="fragment"><div class="line"><span class="lineno">   51</span>    {</div>
 <div class="line"><span class="lineno">   52</span>        <a class="code hl_typedef" href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">PropertySet</a> arraySet;</div>
 <div class="line"><span class="lineno">   53</span> </div>
-<div class="line"><span class="lineno">   54</span>        <span class="keywordtype">size_t</span> count = parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a51ee16aaf746b1c8830d3fa849b2fd3d">GetArraySize</a> ? parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a51ee16aaf746b1c8830d3fa849b2fd3d">GetArraySize</a>(parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>) : 0;</div>
-<div class="line"><span class="lineno">   55</span>        <span class="keywordflow">if</span> (count == 0 || !parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf844aa6b5bc2e1a1446a027b88cadc2">GetElementAddress</a>) <span class="keywordflow">return</span> arraySet;</div>
+<div class="line"><span class="lineno">   54</span>        <span class="keywordflow">if</span> (!parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a> || !parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a51ee16aaf746b1c8830d3fa849b2fd3d">GetArraySize</a> || !parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf844aa6b5bc2e1a1446a027b88cadc2">GetElementAddress</a>)</div>
+<div class="line"><span class="lineno">   55</span>            <span class="keywordflow">return</span> arraySet;</div>
 <div class="line"><span class="lineno">   56</span> </div>
-<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; count; ++i)</div>
-<div class="line"><span class="lineno">   58</span>        {</div>
-<div class="line"><span class="lineno">   59</span>            <a class="code hl_struct" href="structElevate_1_1PropertyField.html">PropertyField</a> elemProp;</div>
-<div class="line"><span class="lineno">   60</span>            std::string indexStr = <span class="stringliteral">&quot;[&quot;</span> + std::to_string(i) + <span class="stringliteral">&quot;]&quot;</span>;</div>
-<div class="line"><span class="lineno">   61</span> </div>
-<div class="line"><span class="lineno">   62</span>            elemProp.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a1d5920d78693e93d23be9b102c316d2d">Name</a> = indexStr;</div>
-<div class="line"><span class="lineno">   63</span>            elemProp.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Path</a> = parentPath + indexStr;</div>
-<div class="line"><span class="lineno">   64</span>            elemProp.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#abfdb0833b822b69eff5d39f86b44caf6">Depth</a> = currentDepth;</div>
-<div class="line"><span class="lineno">   65</span>            elemProp.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a83df7e74408d8f32e8ee90fd1147ebcc">Type</a> = parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#ae4d359da245a147fc5843fba37a850d4">elementType</a>;</div>
-<div class="line"><span class="lineno">   66</span> </div>
-<div class="line"><span class="lineno">   67</span>            <span class="keyword">const</span> <span class="keywordtype">void</span>* elementDataPtr = parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf844aa6b5bc2e1a1446a027b88cadc2">GetElementAddress</a>(parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>, i);</div>
+<div class="line"><span class="lineno">   57</span>        <span class="keywordtype">size_t</span> count = parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a51ee16aaf746b1c8830d3fa849b2fd3d">GetArraySize</a>(parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>);</div>
+<div class="line"><span class="lineno">   58</span> </div>
+<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; count; ++i)</div>
+<div class="line"><span class="lineno">   60</span>        {</div>
+<div class="line"><span class="lineno">   61</span>            <a class="code hl_struct" href="structElevate_1_1PropertyField.html">PropertyField</a> elemProp;</div>
+<div class="line"><span class="lineno">   62</span>            std::string indexStr = <span class="stringliteral">&quot;[&quot;</span> + std::to_string(i) + <span class="stringliteral">&quot;]&quot;</span>;</div>
+<div class="line"><span class="lineno">   63</span> </div>
+<div class="line"><span class="lineno">   64</span>            elemProp.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a1d5920d78693e93d23be9b102c316d2d">Name</a> = indexStr;</div>
+<div class="line"><span class="lineno">   65</span>            elemProp.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Path</a> = parentPath + indexStr;</div>
+<div class="line"><span class="lineno">   66</span>            elemProp.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#abfdb0833b822b69eff5d39f86b44caf6">Depth</a> = currentDepth;</div>
+<div class="line"><span class="lineno">   67</span>            elemProp.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a83df7e74408d8f32e8ee90fd1147ebcc">Type</a> = parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#ae4d359da245a147fc5843fba37a850d4">elementType</a>;</div>
 <div class="line"><span class="lineno">   68</span> </div>
-<div class="line"><span class="lineno">   69</span>            <span class="keywordflow">if</span> (!parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a45685a398e973cbfe9bc51337d385012">elementChildren</a>.empty())</div>
-<div class="line"><span class="lineno">   70</span>            {</div>
-<div class="line"><span class="lineno">   71</span>                <a class="code hl_struct" href="structElevate_1_1TypeField.html">TypeField</a> virtualChildField = parent;</div>
-<div class="line"><span class="lineno">   72</span>                virtualChildField.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8">children</a> = parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a45685a398e973cbfe9bc51337d385012">elementChildren</a>;</div>
-<div class="line"><span class="lineno">   73</span>                virtualChildField.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a> = elementDataPtr;</div>
-<div class="line"><span class="lineno">   74</span> </div>
-<div class="line"><span class="lineno">   75</span>                elemProp.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = <a class="code hl_struct" href="structElevate_1_1PropertyContainer.html">PropertyContainer</a>{ <a class="code hl_function" href="namespaceElevate.html#a818ac53a839cea75385fd0cb34787462">CreateContainer</a>(virtualChildField, elemProp.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Path</a>, currentDepth + 1) };</div>
-<div class="line"><span class="lineno">   76</span>            }</div>
-<div class="line"><span class="lineno">   77</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   78</span>            {</div>
-<div class="line"><span class="lineno">   79</span>                TypeField virtualPrimitiveField = parent;</div>
-<div class="line"><span class="lineno">   80</span>                virtualPrimitiveField.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a> = parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#ae4d359da245a147fc5843fba37a850d4">elementType</a>;</div>
-<div class="line"><span class="lineno">   81</span>                virtualPrimitiveField.data = elementDataPtr;</div>
-<div class="line"><span class="lineno">   82</span> </div>
-<div class="line"><span class="lineno">   83</span>                <a class="code hl_function" href="namespaceElevate.html#a6c4c36281536826a01995c10e60f34f1">SetPropertyRawValue</a>(virtualPrimitiveField, elemProp, currentDepth);</div>
-<div class="line"><span class="lineno">   84</span>            }</div>
-<div class="line"><span class="lineno">   85</span> </div>
-<div class="line"><span class="lineno">   86</span>            arraySet.push_back(elemProp);</div>
-<div class="line"><span class="lineno">   87</span>        }</div>
+<div class="line"><span class="lineno">   69</span>            <span class="keyword">const</span> <span class="keywordtype">void</span>* elementDataPtr = parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf844aa6b5bc2e1a1446a027b88cadc2">GetElementAddress</a>(parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>, i);</div>
+<div class="line"><span class="lineno">   70</span>            <span class="keywordflow">if</span> (!elementDataPtr) <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">   71</span> </div>
+<div class="line"><span class="lineno">   72</span>            <span class="keywordflow">if</span> (!parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a45685a398e973cbfe9bc51337d385012">elementChildren</a>.empty())</div>
+<div class="line"><span class="lineno">   73</span>            {</div>
+<div class="line"><span class="lineno">   74</span>                <a class="code hl_struct" href="structElevate_1_1TypeField.html">TypeField</a> virtualChildField;</div>
+<div class="line"><span class="lineno">   75</span>                virtualChildField.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">name</a> = indexStr;</div>
+<div class="line"><span class="lineno">   76</span>                virtualChildField.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a> = EngineDataType::Custom;</div>
+<div class="line"><span class="lineno">   77</span>                virtualChildField.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a> = elementDataPtr;</div>
+<div class="line"><span class="lineno">   78</span>                virtualChildField.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8">children</a> = parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a45685a398e973cbfe9bc51337d385012">elementChildren</a>;</div>
+<div class="line"><span class="lineno">   79</span> </div>
+<div class="line"><span class="lineno">   80</span>                elemProp.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = <a class="code hl_struct" href="structElevate_1_1PropertyContainer.html">PropertyContainer</a>{ <a class="code hl_function" href="namespaceElevate.html#a818ac53a839cea75385fd0cb34787462">CreateContainer</a>(virtualChildField, elemProp.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Path</a>, currentDepth + 1) };</div>
+<div class="line"><span class="lineno">   81</span>            }</div>
+<div class="line"><span class="lineno">   82</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   83</span>            {</div>
+<div class="line"><span class="lineno">   84</span>                TypeField virtualPrimitiveField;</div>
+<div class="line"><span class="lineno">   85</span>                virtualPrimitiveField.name = indexStr;</div>
+<div class="line"><span class="lineno">   86</span>                virtualPrimitiveField.type = parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#ae4d359da245a147fc5843fba37a850d4">elementType</a>;</div>
+<div class="line"><span class="lineno">   87</span>                virtualPrimitiveField.data = elementDataPtr;</div>
 <div class="line"><span class="lineno">   88</span> </div>
-<div class="line"><span class="lineno">   89</span>        <span class="keywordflow">return</span> arraySet;</div>
-<div class="line"><span class="lineno">   90</span>    }</div>
-<div class="ttc" id="anamespaceElevate_html_a6c4c36281536826a01995c10e60f34f1"><div class="ttname"><a href="namespaceElevate.html#a6c4c36281536826a01995c10e60f34f1">Elevate::SetPropertyRawValue</a></div><div class="ttdeci">void SetPropertyRawValue(const TypeField &amp;field, PropertyField &amp;prop, uint16_t currentDepth)</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8cpp_source.html#l00017">TypeLayout.cpp:17</a></div></div>
-<div class="ttc" id="anamespaceElevate_html_a818ac53a839cea75385fd0cb34787462"><div class="ttname"><a href="namespaceElevate.html#a818ac53a839cea75385fd0cb34787462">Elevate::CreateContainer</a></div><div class="ttdeci">PropertySet CreateContainer(const TypeField &amp;parent, const std::string &amp;parentPath, uint16_t currentDepth)</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8cpp_source.html#l00092">TypeLayout.cpp:92</a></div></div>
+<div class="line"><span class="lineno">   89</span>                <a class="code hl_function" href="namespaceElevate.html#a6c4c36281536826a01995c10e60f34f1">SetPropertyRawValue</a>(virtualPrimitiveField, elemProp, currentDepth);</div>
+<div class="line"><span class="lineno">   90</span>            }</div>
+<div class="line"><span class="lineno">   91</span> </div>
+<div class="line"><span class="lineno">   92</span>            arraySet.push_back(elemProp);</div>
+<div class="line"><span class="lineno">   93</span>        }</div>
+<div class="line"><span class="lineno">   94</span> </div>
+<div class="line"><span class="lineno">   95</span>        <span class="keywordflow">return</span> arraySet;</div>
+<div class="line"><span class="lineno">   96</span>    }</div>
+<div class="ttc" id="anamespaceElevate_html_a6c4c36281536826a01995c10e60f34f1"><div class="ttname"><a href="namespaceElevate.html#a6c4c36281536826a01995c10e60f34f1">Elevate::SetPropertyRawValue</a></div><div class="ttdeci">void SetPropertyRawValue(const TypeField &amp;field, PropertyField &amp;prop, uint16_t currentDepth)</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8cpp_source.html#l00018">TypeLayout.cpp:18</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a818ac53a839cea75385fd0cb34787462"><div class="ttname"><a href="namespaceElevate.html#a818ac53a839cea75385fd0cb34787462">Elevate::CreateContainer</a></div><div class="ttdeci">PropertySet CreateContainer(const TypeField &amp;parent, const std::string &amp;parentPath, uint16_t currentDepth)</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8cpp_source.html#l00098">TypeLayout.cpp:98</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_ad8eb70886b5e306739cefd321c8dd6e8"><div class="ttname"><a href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">Elevate::PropertySet</a></div><div class="ttdeci">std::vector&lt; PropertyField &gt; PropertySet</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8h_source.html#l00012">TypeLayout.h:12</a></div></div>
 <div class="ttc" id="astructElevate_1_1PropertyContainer_html"><div class="ttname"><a href="structElevate_1_1PropertyContainer.html">Elevate::PropertyContainer</a></div><div class="ttdef"><b>Definition</b> <a href="PropertyField_8h_source.html#l00015">PropertyField.h:16</a></div></div>
-<div class="ttc" id="astructElevate_1_1PropertyField_html"><div class="ttname"><a href="structElevate_1_1PropertyField.html">Elevate::PropertyField</a></div><div class="ttdef"><b>Definition</b> <a href="PropertyField_8h_source.html#l00037">PropertyField.h:38</a></div></div>
 <div class="ttc" id="astructElevate_1_1PropertyField_html_a19330afe30b5418de9b082bf8702c0ed"><div class="ttname"><a href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Elevate::PropertyField::Path</a></div><div class="ttdeci">std::string Path</div><div class="ttdef"><b>Definition</b> <a href="PropertyField_8h_source.html#l00041">PropertyField.h:41</a></div></div>
 <div class="ttc" id="astructElevate_1_1PropertyField_html_a1d5920d78693e93d23be9b102c316d2d"><div class="ttname"><a href="structElevate_1_1PropertyField.html#a1d5920d78693e93d23be9b102c316d2d">Elevate::PropertyField::Name</a></div><div class="ttdeci">std::string Name</div><div class="ttdef"><b>Definition</b> <a href="PropertyField_8h_source.html#l00040">PropertyField.h:40</a></div></div>
 <div class="ttc" id="astructElevate_1_1PropertyField_html_a472cf9b64e2c81377c965a0bef89d04e"><div class="ttname"><a href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Elevate::PropertyField::Value</a></div><div class="ttdeci">PropertyValue Value</div><div class="ttdef"><b>Definition</b> <a href="PropertyField_8h_source.html#l00044">PropertyField.h:44</a></div></div>
@@ -1880,6 +2062,7 @@ Variables</h2></td></tr>
 <div class="ttc" id="astructElevate_1_1PropertyField_html_abfdb0833b822b69eff5d39f86b44caf6"><div class="ttname"><a href="structElevate_1_1PropertyField.html#abfdb0833b822b69eff5d39f86b44caf6">Elevate::PropertyField::Depth</a></div><div class="ttdeci">uint16_t Depth</div><div class="ttdef"><b>Definition</b> <a href="PropertyField_8h_source.html#l00042">PropertyField.h:42</a></div></div>
 <div class="ttc" id="astructElevate_1_1TypeField_html"><div class="ttname"><a href="structElevate_1_1TypeField.html">Elevate::TypeField</a></div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00011">TypeField.h:12</a></div></div>
 <div class="ttc" id="astructElevate_1_1TypeField_html_a232d18d32d6ea8bdbecfb3b4914748a8"><div class="ttname"><a href="structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8">Elevate::TypeField::children</a></div><div class="ttdeci">std::vector&lt; TypeField &gt; children</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00023">TypeField.h:23</a></div></div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_a31c767ad4d5761819a0f7e375cc6266d"><div class="ttname"><a href="structElevate_1_1TypeField.html#a31c767ad4d5761819a0f7e375cc6266d">Elevate::TypeField::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00013">TypeField.h:13</a></div></div>
 <div class="ttc" id="astructElevate_1_1TypeField_html_a45685a398e973cbfe9bc51337d385012"><div class="ttname"><a href="structElevate_1_1TypeField.html#a45685a398e973cbfe9bc51337d385012">Elevate::TypeField::elementChildren</a></div><div class="ttdeci">std::vector&lt; TypeField &gt; elementChildren</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00026">TypeField.h:26</a></div></div>
 <div class="ttc" id="astructElevate_1_1TypeField_html_a51ee16aaf746b1c8830d3fa849b2fd3d"><div class="ttname"><a href="structElevate_1_1TypeField.html#a51ee16aaf746b1c8830d3fa849b2fd3d">Elevate::TypeField::GetArraySize</a></div><div class="ttdeci">std::function&lt; size_t(const void *)&gt; GetArraySize</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00028">TypeField.h:28</a></div></div>
 <div class="ttc" id="astructElevate_1_1TypeField_html_a789660c8f21d1d3eb0d0dc9e53cd93b6"><div class="ttname"><a href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">Elevate::TypeField::type</a></div><div class="ttdeci">EngineDataType type</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00016">TypeField.h:16</a></div></div>
@@ -1966,47 +2149,114 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8cpp_source.html#l00092">92</a> of file <a class="el" href="TypeLayout_8cpp_source.html">TypeLayout.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   93</span>    {</div>
-<div class="line"><span class="lineno">   94</span>        <a class="code hl_typedef" href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">PropertySet</a> set;</div>
-<div class="line"><span class="lineno">   95</span> </div>
-<div class="line"><span class="lineno">   96</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_struct" href="structElevate_1_1TypeField.html">TypeField</a>&amp; field : parent.children)</div>
-<div class="line"><span class="lineno">   97</span>        {</div>
-<div class="line"><span class="lineno">   98</span>            <a class="code hl_struct" href="structElevate_1_1PropertyField.html">PropertyField</a> prop;</div>
-<div class="line"><span class="lineno">   99</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a1d5920d78693e93d23be9b102c316d2d">Name</a> = field.name;</div>
-<div class="line"><span class="lineno">  100</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a83df7e74408d8f32e8ee90fd1147ebcc">Type</a> = field.type;</div>
-<div class="line"><span class="lineno">  101</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Path</a> = parentPath.empty() ? field.name : parentPath + <span class="stringliteral">&quot;/&quot;</span> + field.name;</div>
-<div class="line"><span class="lineno">  102</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#abfdb0833b822b69eff5d39f86b44caf6">Depth</a> = currentDepth;</div>
-<div class="line"><span class="lineno">  103</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a85b03b8d28a10a91aa13d1e727885995">Flags</a> = <a class="code hl_function" href="namespaceElevate.html#afc3748b1be8357b6ca5edee07f86dd10">GetFieldFlags</a>(field);</div>
-<div class="line"><span class="lineno">  104</span> </div>
-<div class="line"><span class="lineno">  105</span>            <span class="keyword">const</span> <span class="keywordtype">void</span>* fieldDataPtr = (parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a> != <span class="keyword">nullptr</span>)</div>
-<div class="line"><span class="lineno">  106</span>                ? <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>) + field.offset</div>
-<div class="line"><span class="lineno">  107</span>                : <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">  108</span> </div>
-<div class="line"><span class="lineno">  109</span>            <a class="code hl_struct" href="structElevate_1_1TypeField.html">TypeField</a> instantiatedField = field;</div>
-<div class="line"><span class="lineno">  110</span>            instantiatedField.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a> = fieldDataPtr;</div>
-<div class="line"><span class="lineno">  111</span> </div>
-<div class="line"><span class="lineno">  112</span>            <span class="keywordflow">if</span> (field.type == EngineDataType::Array)</div>
+<p class="definition">Definition at line <a class="el" href="TypeLayout_8cpp_source.html#l00098">98</a> of file <a class="el" href="TypeLayout_8cpp_source.html">TypeLayout.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   99</span>    {</div>
+<div class="line"><span class="lineno">  100</span>        <a class="code hl_typedef" href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">PropertySet</a> set;</div>
+<div class="line"><span class="lineno">  101</span> </div>
+<div class="line"><span class="lineno">  102</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_struct" href="structElevate_1_1TypeField.html">TypeField</a>&amp; field : parent.children)</div>
+<div class="line"><span class="lineno">  103</span>        {</div>
+<div class="line"><span class="lineno">  104</span>            <a class="code hl_struct" href="structElevate_1_1PropertyField.html">PropertyField</a> prop;</div>
+<div class="line"><span class="lineno">  105</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a1d5920d78693e93d23be9b102c316d2d">Name</a> = field.name;</div>
+<div class="line"><span class="lineno">  106</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a83df7e74408d8f32e8ee90fd1147ebcc">Type</a> = field.type;</div>
+<div class="line"><span class="lineno">  107</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Path</a> = parentPath.empty() ? field.name : parentPath + <span class="stringliteral">&quot;/&quot;</span> + field.name;</div>
+<div class="line"><span class="lineno">  108</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#abfdb0833b822b69eff5d39f86b44caf6">Depth</a> = currentDepth;</div>
+<div class="line"><span class="lineno">  109</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a85b03b8d28a10a91aa13d1e727885995">Flags</a> = <a class="code hl_function" href="namespaceElevate.html#afc3748b1be8357b6ca5edee07f86dd10">GetFieldFlags</a>(field);</div>
+<div class="line"><span class="lineno">  110</span> </div>
+<div class="line"><span class="lineno">  111</span>            <span class="keyword">const</span> <span class="keywordtype">void</span>* fieldDataPtr = field.data;</div>
+<div class="line"><span class="lineno">  112</span>            <span class="keywordflow">if</span> (fieldDataPtr == <span class="keyword">nullptr</span> &amp;&amp; parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a> != <span class="keyword">nullptr</span>)</div>
 <div class="line"><span class="lineno">  113</span>            {</div>
-<div class="line"><span class="lineno">  114</span>                prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = <a class="code hl_struct" href="structElevate_1_1PropertyContainer.html">PropertyContainer</a>{ <a class="code hl_function" href="namespaceElevate.html#a47c345f6ce272c8a1f681edd9ab87cc5">CreateArrayPropertySet</a>(instantiatedField, prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Path</a>, currentDepth + 1) };</div>
+<div class="line"><span class="lineno">  114</span>                fieldDataPtr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(parent.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>) + field.offset;</div>
 <div class="line"><span class="lineno">  115</span>            }</div>
-<div class="line"><span class="lineno">  116</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!field.children.empty())</div>
-<div class="line"><span class="lineno">  117</span>            {</div>
-<div class="line"><span class="lineno">  118</span>                prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = PropertyContainer{ <a class="code hl_function" href="namespaceElevate.html#a818ac53a839cea75385fd0cb34787462">CreateContainer</a>(instantiatedField, prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Path</a>, currentDepth + 1) };</div>
-<div class="line"><span class="lineno">  119</span>            }</div>
-<div class="line"><span class="lineno">  120</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  121</span>            {</div>
-<div class="line"><span class="lineno">  122</span>                <a class="code hl_function" href="namespaceElevate.html#a6c4c36281536826a01995c10e60f34f1">SetPropertyRawValue</a>(instantiatedField, prop, currentDepth);</div>
-<div class="line"><span class="lineno">  123</span>            }</div>
+<div class="line"><span class="lineno">  116</span> </div>
+<div class="line"><span class="lineno">  117</span>            <span class="keywordflow">if</span> (fieldDataPtr == <span class="keyword">nullptr</span> &amp;&amp; field.type != EngineDataType::Array &amp;&amp; field.children.empty())</div>
+<div class="line"><span class="lineno">  118</span>            {</div>
+<div class="line"><span class="lineno">  119</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  120</span>            }</div>
+<div class="line"><span class="lineno">  121</span> </div>
+<div class="line"><span class="lineno">  122</span>            TypeField instantiatedField = field;</div>
+<div class="line"><span class="lineno">  123</span>            instantiatedField.data = fieldDataPtr;</div>
 <div class="line"><span class="lineno">  124</span> </div>
-<div class="line"><span class="lineno">  125</span>            set.push_back(prop);</div>
-<div class="line"><span class="lineno">  126</span>        }</div>
-<div class="line"><span class="lineno">  127</span> </div>
-<div class="line"><span class="lineno">  128</span>        <span class="keywordflow">return</span> set;</div>
-<div class="line"><span class="lineno">  129</span>    }</div>
+<div class="line"><span class="lineno">  125</span>            <span class="keywordflow">if</span> (field.type == EngineDataType::Array)</div>
+<div class="line"><span class="lineno">  126</span>            {</div>
+<div class="line"><span class="lineno">  127</span>                prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = PropertyContainer{ <a class="code hl_function" href="namespaceElevate.html#a47c345f6ce272c8a1f681edd9ab87cc5">CreateArrayPropertySet</a>(instantiatedField, prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Path</a>, currentDepth + 1) };</div>
+<div class="line"><span class="lineno">  128</span>            }</div>
+<div class="line"><span class="lineno">  129</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!field.children.empty())</div>
+<div class="line"><span class="lineno">  130</span>            {</div>
+<div class="line"><span class="lineno">  131</span>                prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = PropertyContainer{ <a class="code hl_function" href="namespaceElevate.html#a818ac53a839cea75385fd0cb34787462">CreateContainer</a>(instantiatedField, prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Path</a>, currentDepth + 1) };</div>
+<div class="line"><span class="lineno">  132</span>            }</div>
+<div class="line"><span class="lineno">  133</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  134</span>            {</div>
+<div class="line"><span class="lineno">  135</span>                <a class="code hl_function" href="namespaceElevate.html#a6c4c36281536826a01995c10e60f34f1">SetPropertyRawValue</a>(instantiatedField, prop, currentDepth);</div>
+<div class="line"><span class="lineno">  136</span>            }</div>
+<div class="line"><span class="lineno">  137</span> </div>
+<div class="line"><span class="lineno">  138</span>            set.push_back(prop);</div>
+<div class="line"><span class="lineno">  139</span>        }</div>
+<div class="line"><span class="lineno">  140</span> </div>
+<div class="line"><span class="lineno">  141</span>        <span class="keywordflow">return</span> set;</div>
+<div class="line"><span class="lineno">  142</span>    }</div>
 <div class="ttc" id="anamespaceElevate_html_a47c345f6ce272c8a1f681edd9ab87cc5"><div class="ttname"><a href="namespaceElevate.html#a47c345f6ce272c8a1f681edd9ab87cc5">Elevate::CreateArrayPropertySet</a></div><div class="ttdeci">PropertySet CreateArrayPropertySet(const TypeField &amp;parent, const std::string &amp;parentPath, uint16_t currentDepth)</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8cpp_source.html#l00050">TypeLayout.cpp:50</a></div></div>
-<div class="ttc" id="anamespaceElevate_html_afc3748b1be8357b6ca5edee07f86dd10"><div class="ttname"><a href="namespaceElevate.html#afc3748b1be8357b6ca5edee07f86dd10">Elevate::GetFieldFlags</a></div><div class="ttdeci">PropertyFlag GetFieldFlags(const TypeField &amp;field)</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8cpp_source.html#l00008">TypeLayout.cpp:8</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_afc3748b1be8357b6ca5edee07f86dd10"><div class="ttname"><a href="namespaceElevate.html#afc3748b1be8357b6ca5edee07f86dd10">Elevate::GetFieldFlags</a></div><div class="ttdeci">PropertyFlag GetFieldFlags(const TypeField &amp;field)</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8cpp_source.html#l00010">TypeLayout.cpp:10</a></div></div>
 <div class="ttc" id="astructElevate_1_1PropertyField_html_a85b03b8d28a10a91aa13d1e727885995"><div class="ttname"><a href="structElevate_1_1PropertyField.html#a85b03b8d28a10a91aa13d1e727885995">Elevate::PropertyField::Flags</a></div><div class="ttdeci">uint16_t Flags</div><div class="ttdef"><b>Definition</b> <a href="PropertyField_8h_source.html#l00045">PropertyField.h:45</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a38d7bbe023550ab3ce4c896c06441eed" name="a38d7bbe023550ab3ce4c896c06441eed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38d7bbe023550ab3ce4c896c06441eed">&#9670;&#160;</a></span>DeserializeRecursive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Elevate::DeserializeRecursive </td>
+          <td>(</td>
+          <td class="paramtype">const rapidjson::Value &amp;&#160;</td>
+          <td class="paramname"><em>jsonObj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">PropertySet</a> &amp;&#160;</td>
+          <td class="paramname"><em>outFields</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>parentPath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>currentDepth</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="JsonSerializer_8cpp_source.html#l00118">118</a> of file <a class="el" href="JsonSerializer_8cpp_source.html">JsonSerializer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  119</span>    {</div>
+<div class="line"><span class="lineno">  120</span>        <span class="keywordflow">if</span> (!jsonObj.IsObject()) <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  121</span> </div>
+<div class="line"><span class="lineno">  122</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = jsonObj.MemberBegin(); it != jsonObj.MemberEnd(); ++it)</div>
+<div class="line"><span class="lineno">  123</span>        {</div>
+<div class="line"><span class="lineno">  124</span>            std::string name = it-&gt;name.GetString();</div>
+<div class="line"><span class="lineno">  125</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; val = it-&gt;value;</div>
+<div class="line"><span class="lineno">  126</span> </div>
+<div class="line"><span class="lineno">  127</span>            <a class="code hl_struct" href="structElevate_1_1PropertyField.html">PropertyField</a> prop;</div>
+<div class="line"><span class="lineno">  128</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a1d5920d78693e93d23be9b102c316d2d">Name</a> = name;</div>
+<div class="line"><span class="lineno">  129</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Path</a> = parentPath.empty() ? name : parentPath + <span class="stringliteral">&quot;/&quot;</span> + name;</div>
+<div class="line"><span class="lineno">  130</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#abfdb0833b822b69eff5d39f86b44caf6">Depth</a> = currentDepth;</div>
+<div class="line"><span class="lineno">  131</span> </div>
+<div class="line"><span class="lineno">  132</span>            <a class="code hl_function" href="namespaceElevate.html#ab0b7b90b9849b7ecbd7e34a984fb85f5">ParseJsonValue</a>(val, prop, prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Path</a>, currentDepth);</div>
+<div class="line"><span class="lineno">  133</span>            outFields.push_back(prop);</div>
+<div class="line"><span class="lineno">  134</span>        }</div>
+<div class="line"><span class="lineno">  135</span>    }</div>
+<div class="ttc" id="anamespaceElevate_html_ab0b7b90b9849b7ecbd7e34a984fb85f5"><div class="ttname"><a href="namespaceElevate.html#ab0b7b90b9849b7ecbd7e34a984fb85f5">Elevate::ParseJsonValue</a></div><div class="ttdeci">void ParseJsonValue(const rapidjson::Value &amp;val, PropertyField &amp;prop, const std::string &amp;currentPath, uint16_t currentDepth)</div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00137">JsonSerializer.cpp:137</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2122,11 +2372,10 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8cpp_source.html#l00008">8</a> of file <a class="el" href="TypeLayout_8cpp_source.html">TypeLayout.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    9</span>    {</div>
-<div class="line"><span class="lineno">   10</span>        <span class="comment">// Todo : complete this function to retrieve the flags using the traits</span></div>
-<div class="line"><span class="lineno">   11</span>        <span class="keywordflow">return</span> PropertyFlag::None;</div>
-<div class="line"><span class="lineno">   12</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="TypeLayout_8cpp_source.html#l00010">10</a> of file <a class="el" href="TypeLayout_8cpp_source.html">TypeLayout.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   11</span>    {</div>
+<div class="line"><span class="lineno">   12</span>        <span class="keywordflow">return</span> PropertyFlag::None;</div>
+<div class="line"><span class="lineno">   13</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2310,6 +2559,101 @@ template&lt;class... Ts&gt; </div>
 
 </div>
 </div>
+<a id="ab0b7b90b9849b7ecbd7e34a984fb85f5" name="ab0b7b90b9849b7ecbd7e34a984fb85f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0b7b90b9849b7ecbd7e34a984fb85f5">&#9670;&#160;</a></span>ParseJsonValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Elevate::ParseJsonValue </td>
+          <td>(</td>
+          <td class="paramtype">const rapidjson::Value &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structElevate_1_1PropertyField.html">PropertyField</a> &amp;&#160;</td>
+          <td class="paramname"><em>prop</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>currentPath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>currentDepth</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="JsonSerializer_8cpp_source.html#l00137">137</a> of file <a class="el" href="JsonSerializer_8cpp_source.html">JsonSerializer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  138</span>    {</div>
+<div class="line"><span class="lineno">  139</span>        <span class="keywordflow">if</span> (val.IsBool())</div>
+<div class="line"><span class="lineno">  140</span>        {</div>
+<div class="line"><span class="lineno">  141</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a83df7e74408d8f32e8ee90fd1147ebcc">Type</a> = EngineDataType::Bool;</div>
+<div class="line"><span class="lineno">  142</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = val.GetBool();</div>
+<div class="line"><span class="lineno">  143</span>        }</div>
+<div class="line"><span class="lineno">  144</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (val.IsInt64() || val.IsInt() || val.IsUint() || val.IsUint64())</div>
+<div class="line"><span class="lineno">  145</span>        {</div>
+<div class="line"><span class="lineno">  146</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a83df7e74408d8f32e8ee90fd1147ebcc">Type</a> = EngineDataType::Int;</div>
+<div class="line"><span class="lineno">  147</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = <span class="keyword">static_cast&lt;</span>int64_t<span class="keyword">&gt;</span>(val.GetInt64());</div>
+<div class="line"><span class="lineno">  148</span>        }</div>
+<div class="line"><span class="lineno">  149</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (val.IsDouble())</div>
+<div class="line"><span class="lineno">  150</span>        {</div>
+<div class="line"><span class="lineno">  151</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a83df7e74408d8f32e8ee90fd1147ebcc">Type</a> = EngineDataType::Double;</div>
+<div class="line"><span class="lineno">  152</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = val.GetDouble();</div>
+<div class="line"><span class="lineno">  153</span>        }</div>
+<div class="line"><span class="lineno">  154</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (val.IsString())</div>
+<div class="line"><span class="lineno">  155</span>        {</div>
+<div class="line"><span class="lineno">  156</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a83df7e74408d8f32e8ee90fd1147ebcc">Type</a> = EngineDataType::String;</div>
+<div class="line"><span class="lineno">  157</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = std::string(val.GetString());</div>
+<div class="line"><span class="lineno">  158</span>        }</div>
+<div class="line"><span class="lineno">  159</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (val.IsObject())</div>
+<div class="line"><span class="lineno">  160</span>        {</div>
+<div class="line"><span class="lineno">  161</span>            PropertyContainer container;</div>
+<div class="line"><span class="lineno">  162</span>            <a class="code hl_function" href="namespaceElevate.html#a38d7bbe023550ab3ce4c896c06441eed">DeserializeRecursive</a>(val, container.Children, currentPath, currentDepth + 1);</div>
+<div class="line"><span class="lineno">  163</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a83df7e74408d8f32e8ee90fd1147ebcc">Type</a> = EngineDataType::Custom;</div>
+<div class="line"><span class="lineno">  164</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = container;</div>
+<div class="line"><span class="lineno">  165</span>        }</div>
+<div class="line"><span class="lineno">  166</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (val.IsArray())</div>
+<div class="line"><span class="lineno">  167</span>        {</div>
+<div class="line"><span class="lineno">  168</span>            PropertyContainer container;</div>
+<div class="line"><span class="lineno">  169</span>            <a class="code hl_typedef" href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">PropertySet</a> arraySet;</div>
+<div class="line"><span class="lineno">  170</span> </div>
+<div class="line"><span class="lineno">  171</span>            <span class="keywordflow">for</span> (rapidjson::SizeType i = 0; i &lt; val.Size(); ++i)</div>
+<div class="line"><span class="lineno">  172</span>            {</div>
+<div class="line"><span class="lineno">  173</span>                <span class="keyword">const</span> <span class="keyword">auto</span>&amp; elemVal = val[i];</div>
+<div class="line"><span class="lineno">  174</span>                PropertyField elemProp;</div>
+<div class="line"><span class="lineno">  175</span>                std::string indexStr = <span class="stringliteral">&quot;[&quot;</span> + std::to_string(i) + <span class="stringliteral">&quot;]&quot;</span>;</div>
+<div class="line"><span class="lineno">  176</span> </div>
+<div class="line"><span class="lineno">  177</span>                elemProp.Name = indexStr;</div>
+<div class="line"><span class="lineno">  178</span>                elemProp.Path = currentPath + indexStr;</div>
+<div class="line"><span class="lineno">  179</span>                elemProp.Depth = currentDepth + 1;</div>
+<div class="line"><span class="lineno">  180</span> </div>
+<div class="line"><span class="lineno">  181</span>                <a class="code hl_function" href="namespaceElevate.html#ab0b7b90b9849b7ecbd7e34a984fb85f5">ParseJsonValue</a>(elemVal, elemProp, elemProp.Path, currentDepth + 1);</div>
+<div class="line"><span class="lineno">  182</span>                arraySet.push_back(elemProp);</div>
+<div class="line"><span class="lineno">  183</span>            }</div>
+<div class="line"><span class="lineno">  184</span> </div>
+<div class="line"><span class="lineno">  185</span>            container.Children = arraySet;</div>
+<div class="line"><span class="lineno">  186</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a83df7e74408d8f32e8ee90fd1147ebcc">Type</a> = EngineDataType::Array;</div>
+<div class="line"><span class="lineno">  187</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = container;</div>
+<div class="line"><span class="lineno">  188</span>        }</div>
+<div class="line"><span class="lineno">  189</span>    }</div>
+<div class="ttc" id="anamespaceElevate_html_a38d7bbe023550ab3ce4c896c06441eed"><div class="ttname"><a href="namespaceElevate.html#a38d7bbe023550ab3ce4c896c06441eed">Elevate::DeserializeRecursive</a></div><div class="ttdeci">void DeserializeRecursive(const rapidjson::Value &amp;jsonObj, PropertySet &amp;outFields, const std::string &amp;parentPath, uint16_t currentDepth)</div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00118">JsonSerializer.cpp:118</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a762f69a24f135c3f4747be2d48880b54" name="a762f69a24f135c3f4747be2d48880b54"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a762f69a24f135c3f4747be2d48880b54">&#9670;&#160;</a></span>SerializeRecursive()</h2>
 
@@ -2342,38 +2686,121 @@ template&lt;class... Ts&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="JsonSerializer_8cpp_source.html#l00013">13</a> of file <a class="el" href="JsonSerializer_8cpp_source.html">JsonSerializer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   14</span>    {</div>
-<div class="line"><span class="lineno">   15</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; property : fields)</div>
-<div class="line"><span class="lineno">   16</span>        {</div>
-<div class="line"><span class="lineno">   17</span>            rapidjson::Value key(property.Name.c_str(), allocator);</div>
-<div class="line"><span class="lineno">   18</span> </div>
-<div class="line"><span class="lineno">   19</span>            rapidjson::Value val = std::visit(<a class="code hl_struct" href="structElevate_1_1overload.html">overload</a>{</div>
-<div class="line"><span class="lineno">   20</span>                [&amp;](<span class="keywordtype">bool</span> v) { <span class="keywordflow">return</span> rapidjson::Value(v); },</div>
-<div class="line"><span class="lineno">   21</span>                [&amp;](int64_t v) { <span class="keywordflow">return</span> rapidjson::Value(v); },</div>
-<div class="line"><span class="lineno">   22</span>                [&amp;](<span class="keywordtype">double</span> v) { <span class="keywordflow">return</span> rapidjson::Value(v); },</div>
-<div class="line"><span class="lineno">   23</span>                [&amp;](<span class="keyword">const</span> std::string&amp; v) {</div>
-<div class="line"><span class="lineno">   24</span>                    <span class="keywordflow">return</span> rapidjson::Value(v.c_str(), allocator);</div>
-<div class="line"><span class="lineno">   25</span>                },</div>
-<div class="line"><span class="lineno">   26</span>                [&amp;](<span class="keyword">const</span> <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>&amp; v) {</div>
-<div class="line"><span class="lineno">   27</span>                    <span class="keywordflow">return</span> rapidjson::Value(</div>
-<div class="line"><span class="lineno">   28</span>                        <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(v.data()),</div>
-<div class="line"><span class="lineno">   29</span>                        <span class="keyword">static_cast&lt;</span>rapidjson::SizeType<span class="keyword">&gt;</span>(v.size()),</div>
-<div class="line"><span class="lineno">   30</span>                        allocator</div>
-<div class="line"><span class="lineno">   31</span>                    );</div>
-<div class="line"><span class="lineno">   32</span>                },</div>
-<div class="line"><span class="lineno">   33</span>                [&amp;](<span class="keyword">const</span> PropertyContainer&amp; v) {</div>
-<div class="line"><span class="lineno">   34</span>                    rapidjson::Value childObj(rapidjson::kObjectType);</div>
-<div class="line"><span class="lineno">   35</span>                    <a class="code hl_function" href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">SerializeRecursive</a>(v.Children, childObj, allocator);</div>
-<div class="line"><span class="lineno">   36</span>                    <span class="keywordflow">return</span> childObj;</div>
-<div class="line"><span class="lineno">   37</span>                }</div>
-<div class="line"><span class="lineno">   38</span>            }, <span class="keyword">property</span>.Value);</div>
-<div class="line"><span class="lineno">   39</span> </div>
-<div class="line"><span class="lineno">   40</span>            parentObj.AddMember(key, val, allocator);</div>
-<div class="line"><span class="lineno">   41</span>        }</div>
-<div class="line"><span class="lineno">   42</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="JsonSerializer_8cpp_source.html#l00015">15</a> of file <a class="el" href="JsonSerializer_8cpp_source.html">JsonSerializer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   16</span>    {</div>
+<div class="line"><span class="lineno">   17</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; property : fields)</div>
+<div class="line"><span class="lineno">   18</span>        {</div>
+<div class="line"><span class="lineno">   19</span>            rapidjson::Value key(property.Name.c_str(), allocator);</div>
+<div class="line"><span class="lineno">   20</span> </div>
+<div class="line"><span class="lineno">   21</span>            <span class="keywordflow">if</span> (property.Type == EngineDataType::Array &amp;&amp; std::holds_alternative&lt;PropertyContainer&gt;(property.Value))</div>
+<div class="line"><span class="lineno">   22</span>            {</div>
+<div class="line"><span class="lineno">   23</span>                <span class="keyword">const</span> <span class="keyword">auto</span>&amp; container = std::get&lt;PropertyContainer&gt;(property.Value);</div>
+<div class="line"><span class="lineno">   24</span>                rapidjson::Value jsonArray(rapidjson::kArrayType);</div>
+<div class="line"><span class="lineno">   25</span> </div>
+<div class="line"><span class="lineno">   26</span>                <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; elem : container.Children)</div>
+<div class="line"><span class="lineno">   27</span>                {</div>
+<div class="line"><span class="lineno">   28</span>                    jsonArray.PushBack(<a class="code hl_function" href="namespaceElevate.html#a69c879e7e30aebc98a9c26b3b81ec3f0">SerializeValue</a>(elem.Value, allocator), allocator);</div>
+<div class="line"><span class="lineno">   29</span>                }</div>
+<div class="line"><span class="lineno">   30</span> </div>
+<div class="line"><span class="lineno">   31</span>                parentObj.AddMember(key, jsonArray, allocator);</div>
+<div class="line"><span class="lineno">   32</span>            }</div>
+<div class="line"><span class="lineno">   33</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   34</span>            {</div>
+<div class="line"><span class="lineno">   35</span>                rapidjson::Value val = <a class="code hl_function" href="namespaceElevate.html#a69c879e7e30aebc98a9c26b3b81ec3f0">SerializeValue</a>(property.Value, allocator);</div>
+<div class="line"><span class="lineno">   36</span>                parentObj.AddMember(key, val, allocator);</div>
+<div class="line"><span class="lineno">   37</span>            }</div>
+<div class="line"><span class="lineno">   38</span>        }</div>
+<div class="line"><span class="lineno">   39</span>    }</div>
+<div class="ttc" id="anamespaceElevate_html_a69c879e7e30aebc98a9c26b3b81ec3f0"><div class="ttname"><a href="namespaceElevate.html#a69c879e7e30aebc98a9c26b3b81ec3f0">Elevate::SerializeValue</a></div><div class="ttdeci">rapidjson::Value SerializeValue(const PropertyValue &amp;value, rapidjson::Document::AllocatorType &amp;allocator)</div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00041">JsonSerializer.cpp:41</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a69c879e7e30aebc98a9c26b3b81ec3f0" name="a69c879e7e30aebc98a9c26b3b81ec3f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69c879e7e30aebc98a9c26b3b81ec3f0">&#9670;&#160;</a></span>SerializeValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rapidjson::Value Elevate::SerializeValue </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceElevate.html#aace8d290e19160cac7d1b9696d8766df">PropertyValue</a> &amp;&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">rapidjson::Document::AllocatorType &amp;&#160;</td>
+          <td class="paramname"><em>allocator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="JsonSerializer_8cpp_source.html#l00041">41</a> of file <a class="el" href="JsonSerializer_8cpp_source.html">JsonSerializer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   42</span>    {</div>
+<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">return</span> std::visit(<a class="code hl_struct" href="structElevate_1_1overload.html">overload</a>{</div>
+<div class="line"><span class="lineno">   44</span>            [&amp;](<span class="keywordtype">bool</span> v) { <span class="keywordflow">return</span> rapidjson::Value(v); },</div>
+<div class="line"><span class="lineno">   45</span>            [&amp;](int64_t v) { <span class="keywordflow">return</span> rapidjson::Value(v); },</div>
+<div class="line"><span class="lineno">   46</span>            [&amp;](<span class="keywordtype">double</span> v) { <span class="keywordflow">return</span> rapidjson::Value(v); },</div>
+<div class="line"><span class="lineno">   47</span>            [&amp;](<span class="keyword">const</span> std::string&amp; v) {</div>
+<div class="line"><span class="lineno">   48</span>                <span class="keywordflow">return</span> rapidjson::Value(v.c_str(), allocator);</div>
+<div class="line"><span class="lineno">   49</span>            },</div>
+<div class="line"><span class="lineno">   50</span>            [&amp;](<span class="keyword">const</span> <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>&amp; v) {</div>
+<div class="line"><span class="lineno">   51</span>                <span class="keywordflow">return</span> rapidjson::Value(</div>
+<div class="line"><span class="lineno">   52</span>                    <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(v.data()),</div>
+<div class="line"><span class="lineno">   53</span>                    <span class="keyword">static_cast&lt;</span>rapidjson::SizeType<span class="keyword">&gt;</span>(v.size()),</div>
+<div class="line"><span class="lineno">   54</span>                    allocator</div>
+<div class="line"><span class="lineno">   55</span>                );</div>
+<div class="line"><span class="lineno">   56</span>            },</div>
+<div class="line"><span class="lineno">   57</span>            [&amp;](<span class="keyword">const</span> PropertyContainer&amp; v) {</div>
+<div class="line"><span class="lineno">   58</span>                <span class="keywordtype">bool</span> isArrayContainer = !v.Children.empty() &amp;&amp; v.Children[0].Name.rfind(<span class="stringliteral">&quot;[&quot;</span>, 0) == 0;</div>
+<div class="line"><span class="lineno">   59</span> </div>
+<div class="line"><span class="lineno">   60</span>                <span class="keywordflow">if</span> (isArrayContainer)</div>
+<div class="line"><span class="lineno">   61</span>                {</div>
+<div class="line"><span class="lineno">   62</span>                    rapidjson::Value jsonArray(rapidjson::kArrayType);</div>
+<div class="line"><span class="lineno">   63</span>                    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; elem : v.Children)</div>
+<div class="line"><span class="lineno">   64</span>                    {</div>
+<div class="line"><span class="lineno">   65</span>                        jsonArray.PushBack(<a class="code hl_function" href="namespaceElevate.html#a69c879e7e30aebc98a9c26b3b81ec3f0">SerializeValue</a>(elem.Value, allocator), allocator);</div>
+<div class="line"><span class="lineno">   66</span>                    }</div>
+<div class="line"><span class="lineno">   67</span>                    <span class="keywordflow">return</span> jsonArray;</div>
+<div class="line"><span class="lineno">   68</span>                }</div>
+<div class="line"><span class="lineno">   69</span>                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   70</span>                {</div>
+<div class="line"><span class="lineno">   71</span>                    <span class="comment">// Check if the container itself represents an array element or flat items collection</span></div>
+<div class="line"><span class="lineno">   72</span>                    <span class="keywordtype">bool</span> allIndices = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   73</span>                    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; elem : v.Children)</div>
+<div class="line"><span class="lineno">   74</span>                    {</div>
+<div class="line"><span class="lineno">   75</span>                        <span class="keywordflow">if</span> (elem.Name.rfind(<span class="stringliteral">&quot;[&quot;</span>, 0) != 0)</div>
+<div class="line"><span class="lineno">   76</span>                        {</div>
+<div class="line"><span class="lineno">   77</span>                            allIndices = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   78</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   79</span>                        }</div>
+<div class="line"><span class="lineno">   80</span>                    }</div>
+<div class="line"><span class="lineno">   81</span> </div>
+<div class="line"><span class="lineno">   82</span>                    <span class="keywordflow">if</span> (!v.Children.empty() &amp;&amp; allIndices)</div>
+<div class="line"><span class="lineno">   83</span>                    {</div>
+<div class="line"><span class="lineno">   84</span>                        rapidjson::Value jsonArray(rapidjson::kArrayType);</div>
+<div class="line"><span class="lineno">   85</span>                        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; elem : v.Children)</div>
+<div class="line"><span class="lineno">   86</span>                        {</div>
+<div class="line"><span class="lineno">   87</span>                            jsonArray.PushBack(<a class="code hl_function" href="namespaceElevate.html#a69c879e7e30aebc98a9c26b3b81ec3f0">SerializeValue</a>(elem.Value, allocator), allocator);</div>
+<div class="line"><span class="lineno">   88</span>                        }</div>
+<div class="line"><span class="lineno">   89</span>                        <span class="keywordflow">return</span> jsonArray;</div>
+<div class="line"><span class="lineno">   90</span>                    }</div>
+<div class="line"><span class="lineno">   91</span> </div>
+<div class="line"><span class="lineno">   92</span>                    rapidjson::Value childObj(rapidjson::kObjectType);</div>
+<div class="line"><span class="lineno">   93</span>                    <a class="code hl_function" href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">SerializeRecursive</a>(v.Children, childObj, allocator);</div>
+<div class="line"><span class="lineno">   94</span>                    <span class="keywordflow">return</span> childObj;</div>
+<div class="line"><span class="lineno">   95</span>                }</div>
+<div class="line"><span class="lineno">   96</span>            }</div>
+<div class="line"><span class="lineno">   97</span>            }, value);</div>
+<div class="line"><span class="lineno">   98</span>    }</div>
 <div class="ttc" id="anamespaceElevate_html_a662833bd41c873b3ffeddc33c6f28e19"><div class="ttname"><a href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">Elevate::ByteBuffer</a></div><div class="ttdeci">std::vector&lt; Byte &gt; ByteBuffer</div><div class="ttdef"><b>Definition</b> <a href="Byte_8h_source.html#l00013">Byte.h:13</a></div></div>
-<div class="ttc" id="anamespaceElevate_html_a762f69a24f135c3f4747be2d48880b54"><div class="ttname"><a href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">Elevate::SerializeRecursive</a></div><div class="ttdeci">void SerializeRecursive(const PropertySet &amp;fields, rapidjson::Value &amp;parentObj, rapidjson::Document::AllocatorType &amp;allocator)</div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00013">JsonSerializer.cpp:13</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a762f69a24f135c3f4747be2d48880b54"><div class="ttname"><a href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">Elevate::SerializeRecursive</a></div><div class="ttdeci">void SerializeRecursive(const PropertySet &amp;fields, rapidjson::Value &amp;parentObj, rapidjson::Document::AllocatorType &amp;allocator)</div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00015">JsonSerializer.cpp:15</a></div></div>
 <div class="ttc" id="astructElevate_1_1overload_html"><div class="ttname"><a href="structElevate_1_1overload.html">Elevate::overload</a></div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00010">JsonSerializer.cpp:10</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -2410,35 +2837,34 @@ template&lt;class... Ts&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeLayout_8cpp_source.html#l00017">17</a> of file <a class="el" href="TypeLayout_8cpp_source.html">TypeLayout.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   18</span>    {</div>
-<div class="line"><span class="lineno">   19</span>        <span class="keywordflow">if</span> (field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a> == EngineDataType::Array)</div>
-<div class="line"><span class="lineno">   20</span>        {</div>
-<div class="line"><span class="lineno">   21</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = <a class="code hl_struct" href="structElevate_1_1PropertyContainer.html">PropertyContainer</a>{ <a class="code hl_function" href="namespaceElevate.html#a47c345f6ce272c8a1f681edd9ab87cc5">CreateArrayPropertySet</a>(field, prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Path</a>, currentDepth + 1) };</div>
-<div class="line"><span class="lineno">   22</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   23</span>        }</div>
-<div class="line"><span class="lineno">   24</span> </div>
-<div class="line"><span class="lineno">   25</span>        <span class="keywordflow">if</span> (field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a> == <span class="keyword">nullptr</span>) <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   26</span> </div>
-<div class="line"><span class="lineno">   27</span>        <span class="keywordflow">switch</span> (field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>)</div>
-<div class="line"><span class="lineno">   28</span>        {</div>
-<div class="line"><span class="lineno">   29</span>        <span class="keywordflow">case</span> EngineDataType::Bool:</div>
-<div class="line"><span class="lineno">   30</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">bool</span>*<span class="keyword">&gt;</span>(field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>);</div>
-<div class="line"><span class="lineno">   31</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">case</span> EngineDataType::Int:</div>
-<div class="line"><span class="lineno">   33</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = <span class="keyword">static_cast&lt;</span>int64_t<span class="keyword">&gt;</span>(*<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>int32_t*<span class="keyword">&gt;</span>(field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>));</div>
-<div class="line"><span class="lineno">   34</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   35</span>        <span class="keywordflow">case</span> EngineDataType::Float:</div>
-<div class="line"><span class="lineno">   36</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(*<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>));</div>
-<div class="line"><span class="lineno">   37</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   38</span>        <span class="keywordflow">case</span> EngineDataType::Double:</div>
-<div class="line"><span class="lineno">   39</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">double</span>*<span class="keyword">&gt;</span>(field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>);</div>
-<div class="line"><span class="lineno">   40</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   41</span>        <span class="keywordflow">case</span> EngineDataType::String:</div>
-<div class="line"><span class="lineno">   42</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>std::string*<span class="keyword">&gt;</span>(field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>);</div>
-<div class="line"><span class="lineno">   43</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   44</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><span class="lineno">   45</span>            <span class="comment">// todo : save as bytebuffer if the type is unknown</span></div>
+<p class="definition">Definition at line <a class="el" href="TypeLayout_8cpp_source.html#l00018">18</a> of file <a class="el" href="TypeLayout_8cpp_source.html">TypeLayout.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   19</span>    {</div>
+<div class="line"><span class="lineno">   20</span>        <span class="keywordflow">if</span> (field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a> == EngineDataType::Array)</div>
+<div class="line"><span class="lineno">   21</span>        {</div>
+<div class="line"><span class="lineno">   22</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = <a class="code hl_struct" href="structElevate_1_1PropertyContainer.html">PropertyContainer</a>{ <a class="code hl_function" href="namespaceElevate.html#a47c345f6ce272c8a1f681edd9ab87cc5">CreateArrayPropertySet</a>(field, prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a19330afe30b5418de9b082bf8702c0ed">Path</a>, currentDepth + 1) };</div>
+<div class="line"><span class="lineno">   23</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   24</span>        }</div>
+<div class="line"><span class="lineno">   25</span> </div>
+<div class="line"><span class="lineno">   26</span>        <span class="keywordflow">if</span> (!field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>) <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   27</span> </div>
+<div class="line"><span class="lineno">   28</span>        <span class="keywordflow">switch</span> (field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#a789660c8f21d1d3eb0d0dc9e53cd93b6">type</a>)</div>
+<div class="line"><span class="lineno">   29</span>        {</div>
+<div class="line"><span class="lineno">   30</span>        <span class="keywordflow">case</span> EngineDataType::Bool:</div>
+<div class="line"><span class="lineno">   31</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">bool</span>*<span class="keyword">&gt;</span>(field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>);</div>
+<div class="line"><span class="lineno">   32</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   33</span>        <span class="keywordflow">case</span> EngineDataType::Int:</div>
+<div class="line"><span class="lineno">   34</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = <span class="keyword">static_cast&lt;</span>int64_t<span class="keyword">&gt;</span>(*<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>int32_t*<span class="keyword">&gt;</span>(field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>));</div>
+<div class="line"><span class="lineno">   35</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   36</span>        <span class="keywordflow">case</span> EngineDataType::Float:</div>
+<div class="line"><span class="lineno">   37</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(*<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>));</div>
+<div class="line"><span class="lineno">   38</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   39</span>        <span class="keywordflow">case</span> EngineDataType::Double:</div>
+<div class="line"><span class="lineno">   40</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">double</span>*<span class="keyword">&gt;</span>(field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>);</div>
+<div class="line"><span class="lineno">   41</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   42</span>        <span class="keywordflow">case</span> EngineDataType::String:</div>
+<div class="line"><span class="lineno">   43</span>            prop.<a class="code hl_variable" href="structElevate_1_1PropertyField.html#a472cf9b64e2c81377c965a0bef89d04e">Value</a> = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>std::string*<span class="keyword">&gt;</span>(field.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a>);</div>
+<div class="line"><span class="lineno">   44</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   45</span>        <span class="keywordflow">default</span>:</div>
 <div class="line"><span class="lineno">   46</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">   47</span>        }</div>
 <div class="line"><span class="lineno">   48</span>    }</div>

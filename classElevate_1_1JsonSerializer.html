@@ -229,10 +229,27 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1Serializer.html#a35dba67f2ce9b9a3b9e6876953d85ec8">Elevate::Serializer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="JsonSerializer_8cpp_source.html#l00060">60</a> of file <a class="el" href="JsonSerializer_8cpp_source.html">JsonSerializer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   61</span>    {</div>
-<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   63</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="JsonSerializer_8cpp_source.html#l00191">191</a> of file <a class="el" href="JsonSerializer_8cpp_source.html">JsonSerializer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  192</span>    {</div>
+<div class="line"><span class="lineno">  193</span>        <span class="keywordflow">if</span> (data.empty()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  194</span> </div>
+<div class="line"><span class="lineno">  195</span>        std::string jsonStr(<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(data.data()), data.size());</div>
+<div class="line"><span class="lineno">  196</span> </div>
+<div class="line"><span class="lineno">  197</span>        rapidjson::Document doc;</div>
+<div class="line"><span class="lineno">  198</span>        doc.Parse(jsonStr.c_str());</div>
+<div class="line"><span class="lineno">  199</span> </div>
+<div class="line"><span class="lineno">  200</span>        <span class="keywordflow">if</span> (doc.HasParseError() || !doc.IsObject())</div>
+<div class="line"><span class="lineno">  201</span>        {</div>
+<div class="line"><span class="lineno">  202</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  203</span>        }</div>
+<div class="line"><span class="lineno">  204</span> </div>
+<div class="line"><span class="lineno">  205</span>        outFields.clear();</div>
+<div class="line"><span class="lineno">  206</span> </div>
+<div class="line"><span class="lineno">  207</span>        <a class="code hl_function" href="namespaceElevate.html#a38d7bbe023550ab3ce4c896c06441eed">DeserializeRecursive</a>(doc, outFields, <span class="stringliteral">&quot;&quot;</span>, 0);</div>
+<div class="line"><span class="lineno">  208</span> </div>
+<div class="line"><span class="lineno">  209</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  210</span>    }</div>
+<div class="ttc" id="anamespaceElevate_html_a38d7bbe023550ab3ce4c896c06441eed"><div class="ttname"><a href="namespaceElevate.html#a38d7bbe023550ab3ce4c896c06441eed">Elevate::DeserializeRecursive</a></div><div class="ttdeci">void DeserializeRecursive(const rapidjson::Value &amp;jsonObj, PropertySet &amp;outFields, const std::string &amp;parentPath, uint16_t currentDepth)</div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00118">JsonSerializer.cpp:118</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -282,22 +299,22 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1Serializer.html#a268e4eb7c1066519391016eb8e9022d7">Elevate::Serializer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="JsonSerializer_8cpp_source.html#l00044">44</a> of file <a class="el" href="JsonSerializer_8cpp_source.html">JsonSerializer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   45</span>    {</div>
-<div class="line"><span class="lineno">   46</span>        rapidjson::Document doc;</div>
-<div class="line"><span class="lineno">   47</span>        doc.SetObject();</div>
-<div class="line"><span class="lineno">   48</span> </div>
-<div class="line"><span class="lineno">   49</span>        <a class="code hl_function" href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">SerializeRecursive</a>(fields, doc, doc.GetAllocator());</div>
-<div class="line"><span class="lineno">   50</span> </div>
-<div class="line"><span class="lineno">   51</span>        rapidjson::StringBuffer buffer;</div>
-<div class="line"><span class="lineno">   52</span>        rapidjson::Writer&lt;rapidjson::StringBuffer&gt; writer(buffer);</div>
-<div class="line"><span class="lineno">   53</span>        doc.Accept(writer);</div>
-<div class="line"><span class="lineno">   54</span> </div>
-<div class="line"><span class="lineno">   55</span>        <span class="keyword">const</span> std::byte* dataPtr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>std::byte*<span class="keyword">&gt;</span>(buffer.GetString());</div>
-<div class="line"><span class="lineno">   56</span>        outBuffer.assign(dataPtr, dataPtr + buffer.GetSize());</div>
-<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">   58</span>    }</div>
-<div class="ttc" id="anamespaceElevate_html_a762f69a24f135c3f4747be2d48880b54"><div class="ttname"><a href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">Elevate::SerializeRecursive</a></div><div class="ttdeci">void SerializeRecursive(const PropertySet &amp;fields, rapidjson::Value &amp;parentObj, rapidjson::Document::AllocatorType &amp;allocator)</div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00013">JsonSerializer.cpp:13</a></div></div>
+<p class="definition">Definition at line <a class="el" href="JsonSerializer_8cpp_source.html#l00100">100</a> of file <a class="el" href="JsonSerializer_8cpp_source.html">JsonSerializer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  101</span>    {</div>
+<div class="line"><span class="lineno">  102</span>        rapidjson::Document doc;</div>
+<div class="line"><span class="lineno">  103</span>        doc.SetObject();</div>
+<div class="line"><span class="lineno">  104</span> </div>
+<div class="line"><span class="lineno">  105</span>        <a class="code hl_function" href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">SerializeRecursive</a>(fields, doc, doc.GetAllocator());</div>
+<div class="line"><span class="lineno">  106</span> </div>
+<div class="line"><span class="lineno">  107</span>        rapidjson::StringBuffer buffer;</div>
+<div class="line"><span class="lineno">  108</span>        rapidjson::Writer&lt;rapidjson::StringBuffer&gt; writer(buffer);</div>
+<div class="line"><span class="lineno">  109</span>        doc.Accept(writer);</div>
+<div class="line"><span class="lineno">  110</span> </div>
+<div class="line"><span class="lineno">  111</span>        <span class="keyword">const</span> std::byte* dataPtr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>std::byte*<span class="keyword">&gt;</span>(buffer.GetString());</div>
+<div class="line"><span class="lineno">  112</span>        outBuffer.assign(dataPtr, dataPtr + buffer.GetSize());</div>
+<div class="line"><span class="lineno">  113</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  114</span>    }</div>
+<div class="ttc" id="anamespaceElevate_html_a762f69a24f135c3f4747be2d48880b54"><div class="ttname"><a href="namespaceElevate.html#a762f69a24f135c3f4747be2d48880b54">Elevate::SerializeRecursive</a></div><div class="ttdeci">void SerializeRecursive(const PropertySet &amp;fields, rapidjson::Value &amp;parentObj, rapidjson::Document::AllocatorType &amp;allocator)</div><div class="ttdef"><b>Definition</b> <a href="JsonSerializer_8cpp_source.html#l00015">JsonSerializer.cpp:15</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

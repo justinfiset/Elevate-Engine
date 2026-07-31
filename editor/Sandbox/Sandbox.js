@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpkqy3rxk1.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmptrjeie3z.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -845,23 +845,23 @@ Module["expectedDataFileDownloads"]++;
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpkqy3rxk1.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpl4yrxkjx.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmptrjeie3z.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp6d1ywljm.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpl4yrxkjx.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpg9aufzcm.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp6d1ywljm.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmps6970_gu.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpg9aufzcm.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmps6970_gu.js
 var programArgs = [];
 
 var thisProgram = "./this.program";
@@ -1732,25 +1732,11 @@ class ExitStatus {
   }
 }
 
-/** @type {!Int16Array} */ var HEAP16;
-
 /** @type {!Int32Array} */ var HEAP32;
-
-/** not-@type {!BigInt64Array} */ var HEAP64;
 
 /** @type {!Int8Array} */ var HEAP8;
 
-/** @type {!Float32Array} */ var HEAPF32;
-
-/** @type {!Float64Array} */ var HEAPF64;
-
-/** @type {!Uint16Array} */ var HEAPU16;
-
 /** @type {!Uint32Array} */ var HEAPU32;
-
-/** not-@type {!BigUint64Array} */ var HEAPU64;
-
-/** @type {!Uint8Array} */ var HEAPU8;
 
 var terminateWorker = worker => {
   worker.terminate();
@@ -1878,6 +1864,10 @@ var stackSave = () => _emscripten_stack_get_current();
 var stackRestore = val => __emscripten_stack_restore(val);
 
 var stackAlloc = sz => __emscripten_stack_alloc(sz);
+
+/** @type {!Float64Array} */ var HEAPF64;
+
+/** not-@type {!BigInt64Array} */ var HEAP64;
 
 /** @type{function(number, (number|boolean), ...number)} */ var proxyToMainThread = (funcIndex, emAsmAddr, proxyMode, ...callArgs) => {
   // EM_ASM proxying is done by passing a pointer to the address of the EM_ASM
@@ -2051,9 +2041,7 @@ var PThread = {
       // If this message is intended to a recipient that is not the main
       // thread, forward it to the target thread. This is currently only
       // used by `CMD_CHECK_MAILBOX`.
-      if (d.targetThread) {
-        // pthreads should not be relaying messages to themselves.
-        assert(d.targetThread != _pthread_self());
+      if (d.targetThread && d.targetThread != _pthread_self()) {
         var targetWorker = PThread.pthreads[d.targetThread];
         if (!targetWorker) err(`worker sent message (${cmd}) to pthread (${d.targetThread}) that no longer exists`);
         targetWorker?.postMessage(d);
@@ -2202,41 +2190,6 @@ function establishStackSpace(pthread_ptr) {
   writeStackCookie();
 }
 
-/**
-   * @param {number} ptr
-   * @param {string} type
-   */ function getValue(ptr, type = "i8") {
-  if (type.endsWith("*")) type = "*";
-  switch (type) {
-   case "i1":
-    return (growMemViews(), HEAP8)[ptr];
-
-   case "i8":
-    return (growMemViews(), HEAP8)[ptr];
-
-   case "i16":
-    return (growMemViews(), HEAP16)[((ptr) >> 1)];
-
-   case "i32":
-    return (growMemViews(), HEAP32)[((ptr) >> 2)];
-
-   case "i64":
-    return (growMemViews(), HEAP64)[((ptr) >> 3)];
-
-   case "float":
-    return (growMemViews(), HEAPF32)[((ptr) >> 2)];
-
-   case "double":
-    return (growMemViews(), HEAPF64)[((ptr) >> 3)];
-
-   case "*":
-    return (growMemViews(), HEAPU32)[((ptr) >> 2)];
-
-   default:
-    abort(`invalid type for getValue: ${type}`);
-  }
-}
-
 var invokeEntryPoint = (ptr, arg) => {
   // An old thread on this worker may have been canceled without returning the
   // `runtimeKeepaliveCounter` to zero. Reset it now so the new thread won't
@@ -2276,50 +2229,6 @@ var invokeEntryPoint = (ptr, arg) => {
 var noExitRuntime = true;
 
 var registerTLSInit = tlsInitFunc => PThread.tlsInitFunctions.push(tlsInitFunc);
-
-/**
-   * @param {number} ptr
-   * @param {number} value
-   * @param {string} type
-   */ function setValue(ptr, value, type = "i8") {
-  if (type.endsWith("*")) type = "*";
-  switch (type) {
-   case "i1":
-    (growMemViews(), HEAP8)[ptr] = value;
-    break;
-
-   case "i8":
-    (growMemViews(), HEAP8)[ptr] = value;
-    break;
-
-   case "i16":
-    (growMemViews(), HEAP16)[((ptr) >> 1)] = value;
-    break;
-
-   case "i32":
-    (growMemViews(), HEAP32)[((ptr) >> 2)] = value;
-    break;
-
-   case "i64":
-    (growMemViews(), HEAP64)[((ptr) >> 3)] = BigInt(value);
-    break;
-
-   case "float":
-    (growMemViews(), HEAPF32)[((ptr) >> 2)] = value;
-    break;
-
-   case "double":
-    (growMemViews(), HEAPF64)[((ptr) >> 3)] = value;
-    break;
-
-   case "*":
-    (growMemViews(), HEAPU32)[((ptr) >> 2)] = value;
-    break;
-
-   default:
-    abort(`invalid type for setValue: ${type}`);
-  }
-}
 
 var warnOnce = text => {
   warnOnce.shown ||= {};
@@ -2398,6 +2307,8 @@ var UTF8Decoder = globalThis.TextDecoder && new TextDecoder;
   }
   return str;
 };
+
+/** @type {!Uint8Array} */ var HEAPU8;
 
 /**
    * Given a pointer 'ptr' to a null-terminated UTF8-encoded string in the
@@ -4977,7 +4888,7 @@ var FS = {
         var xhr = new XMLHttpRequest;
         xhr.open("HEAD", url, false);
         xhr.send(null);
-        if (!(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304)) abort("Couldn't load " + url + ". Status: " + xhr.status);
+        if (!(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304)) abort(`Couldn't load ${url}. Status: ${xhr.status}`);
         var datalength = Number(xhr.getResponseHeader("Content-length"));
         var header;
         var hasByteServing = (header = xhr.getResponseHeader("Accept-Ranges")) && header === "bytes";
@@ -4992,14 +4903,14 @@ var FS = {
           // TODO: Use mozResponseArrayBuffer, responseStream, etc. if available.
           var xhr = new XMLHttpRequest;
           xhr.open("GET", url, false);
-          if (datalength !== chunkSize) xhr.setRequestHeader("Range", "bytes=" + from + "-" + to);
+          if (datalength !== chunkSize) xhr.setRequestHeader("Range", `bytes=${from}-${to}`);
           // Some hints to the browser that we want binary data.
           xhr.responseType = "arraybuffer";
           if (xhr.overrideMimeType) {
             xhr.overrideMimeType("text/plain; charset=x-user-defined");
           }
           xhr.send(null);
-          if (!(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304)) abort("Couldn't load " + url + ". Status: " + xhr.status);
+          if (!(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304)) abort(`Couldn't load ${url}. Status: ${xhr.status}`);
           if (xhr.response !== undefined) {
             return new Uint8Array(/** @type{Array<number>} */ (xhr.response || []));
           }
@@ -5223,6 +5134,8 @@ var syscallGetVarargI = () => {
 };
 
 var syscallGetVarargP = syscallGetVarargI;
+
+/** @type {!Int16Array} */ var HEAP16;
 
 function ___syscall_fcntl64(fd, cmd, varargs) {
   if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(4, 0, 1, fd, cmd, varargs);
@@ -6190,7 +6103,7 @@ var _emscripten_exit_with_live_runtime = () => {
 
 var findEventTarget = target => {
   warnOnce("Rules for selecting event targets in HTML5 API are changing: instead of using document.getElementById() that only can refer to elements by their DOM ID, new event target selection mechanism uses the more flexible function document.querySelector() that can look up element names, classes, and complex CSS selectors. Build with -sDISABLE_DEPRECATED_FIND_EVENT_TARGET_BEHAVIOR to change to the new lookup rules. See https://github.com/emscripten-core/emscripten/pull/7977 for more details.");
-  // The sensible "default" target varies between events, but use window as the default
+  // The sensible 'default' target varies between events, but use window as the default
   // since DOM events mostly can default to that. Specific callback registrations
   // override their own defaults.
   if (!target) return window;
@@ -6288,6 +6201,12 @@ var _emscripten_resize_heap = requestedSize => {
   err(`Failed to grow the heap from ${oldSize} bytes to ${newSize} bytes, not enough memory!`);
   return false;
 };
+
+/** @type {!Uint16Array} */ var HEAPU16;
+
+/** @type {!Float32Array} */ var HEAPF32;
+
+/** not-@type {!BigUint64Array} */ var HEAPU64;
 
 var _emscripten_run_script = ptr => {
   eval(UTF8ToString(ptr));
@@ -6439,7 +6358,7 @@ var JSEvents = {
     return target?.nodeName ?? "";
   },
   fullscreenEnabled() {
-    return document.fullscreenEnabled || document.webkitFullscreenEnabled;
+    return document.fullscreenEnabled ?? document.webkitFullscreenEnabled;
   }
 };
 
@@ -6511,8 +6430,8 @@ var fillMouseEventData = (eventStruct, e, target) => {
   (growMemViews(), HEAP8)[eventStruct + 27] = e.metaKey;
   (growMemViews(), HEAP16)[idx * 2 + 14] = e.button;
   (growMemViews(), HEAP16)[idx * 2 + 15] = e.buttons;
-  (growMemViews(), HEAP32)[idx + 8] = e["movementX"];
-  (growMemViews(), HEAP32)[idx + 9] = e["movementY"];
+  (growMemViews(), HEAP32)[idx + 8] = e.movementX;
+  (growMemViews(), HEAP32)[idx + 9] = e.movementY;
   if (Module["canvas"]) {
     var rect = getBoundingClientRect(Module["canvas"]);
     (growMemViews(), HEAP32)[idx + 12] = e.clientX - (rect.left | 0);
@@ -8510,7 +8429,7 @@ var _emscripten_glViewport = (x0, x1, x2, x3) => GLctx.viewport(x0, x1, x2, x3);
 var _glViewport = _emscripten_glViewport;
 
 function getFullscreenElement() {
-  return document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.webkitCurrentFullScreenElement || document.msFullscreenElement;
+  return document.fullscreenElement ?? document.webkitFullscreenElement;
 }
 
 /** @param {number=} timeout */ var safeSetTimeout = (func, timeout) => {
@@ -8727,29 +8646,26 @@ var Browser = {
     if (!Browser.fullscreenHandlersInstalled) {
       Browser.fullscreenHandlersInstalled = true;
       document.addEventListener("fullscreenchange", fullscreenChange);
-      document.addEventListener("mozfullscreenchange", fullscreenChange);
       document.addEventListener("webkitfullscreenchange", fullscreenChange);
-      document.addEventListener("MSFullscreenChange", fullscreenChange);
     }
     // create a new parent to ensure the canvas has no siblings. this allows browsers to optimize full screen performance when its parent is the full screen root
     var canvasContainer = document.createElement("div");
     canvas.parentNode.insertBefore(canvasContainer, canvas);
     canvasContainer.appendChild(canvas);
     // use parent of canvas as full screen root to allow aspect ratio correction (Firefox stretches the root to screen size)
-    canvasContainer.requestFullscreen = canvasContainer["requestFullscreen"] || canvasContainer["mozRequestFullScreen"] || canvasContainer["msRequestFullscreen"] || (canvasContainer["webkitRequestFullscreen"] ? () => canvasContainer["webkitRequestFullscreen"](Element["ALLOW_KEYBOARD_INPUT"]) : null) || (canvasContainer["webkitRequestFullScreen"] ? () => canvasContainer["webkitRequestFullScreen"](Element["ALLOW_KEYBOARD_INPUT"]) : null);
+    // Safari didn't support Element.requestFullscreen until 16.4
+    // See: https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen
+    /** @suppress {checkTypes} */ canvasContainer.requestFullscreen ??= (canvasContainer["webkitRequestFullscreen"] ? () => canvasContainer["webkitRequestFullscreen"](Element.ALLOW_KEYBOARD_INPUT) : null) ?? (canvasContainer["webkitRequestFullScreen"] ? () => canvasContainer["webkitRequestFullScreen"](Element.ALLOW_KEYBOARD_INPUT) : null);
     canvasContainer.requestFullscreen();
-  },
-  requestFullScreen() {
-    abort("Module.requestFullScreen has been replaced by Module.requestFullscreen (without a capital S)");
   },
   exitFullscreen() {
     // This is workaround for chrome. Trying to exit from fullscreen
-    // not in fullscreen state will cause "TypeError: Document not active"
+    // not in fullscreen state will cause 'TypeError: Document not active'
     // in chrome. See https://github.com/emscripten-core/emscripten/pull/8236
     if (!Browser.isFullscreen) {
       return false;
     }
-    var CFS = document["exitFullscreen"] || document["cancelFullScreen"] || document["mozCancelFullScreen"] || document["msExitFullscreen"] || document["webkitCancelFullScreen"] || (() => {});
+    var CFS = document.exitFullscreen ?? document["webkitCancelFullScreen"];
     CFS.apply(document, []);
     return true;
   },
@@ -8771,14 +8687,7 @@ var Browser = {
     }[name.slice(name.lastIndexOf(".") + 1)];
   },
   getUserMedia(func) {
-    window.getUserMedia ||= navigator["getUserMedia"] || navigator["mozGetUserMedia"];
-    window.getUserMedia(func);
-  },
-  getMovementX(event) {
-    return event["movementX"] || event["mozMovementX"] || event["webkitMovementX"] || 0;
-  },
-  getMovementY(event) {
-    return event["movementY"] || event["mozMovementY"] || event["webkitMovementY"] || 0;
+    return navigator.mediaDevices.getUserMedia(func);
   },
   getMouseWheelDelta(event) {
     var delta = 0;
@@ -8856,13 +8765,8 @@ var Browser = {
     if (Browser.pointerLock) {
       // When the pointer is locked, calculate the coordinates
       // based on the movement of the mouse.
-      // Workaround for Firefox bug 764498
-      if (event.type != "mousemove" && ("mozMovementX" in event)) {
-        Browser.mouseMovementX = Browser.mouseMovementY = 0;
-      } else {
-        Browser.mouseMovementX = Browser.getMovementX(event);
-        Browser.mouseMovementY = Browser.getMovementY(event);
-      }
+      Browser.mouseMovementX = event.movementX;
+      Browser.mouseMovementY = event.movementY;
       // add the mouse delta to the current absolute mouse position
       Browser.mouseX += Browser.mouseMovementX;
       Browser.mouseY += Browser.mouseMovementY;
@@ -9832,7 +9736,7 @@ var GLFW = {
   refreshJoysticks: () => {
     // Produce a new Gamepad API sample if we are ticking a new game frame, or if not using emscripten_set_main_loop() at all to drive animation.
     if (MainLoop.currentFrameNumber !== GLFW.lastGamepadStateFrame || !MainLoop.currentFrameNumber) {
-      GLFW.lastGamepadState = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads || []);
+      GLFW.lastGamepadState = navigator.getGamepads?.() ?? [];
       GLFW.lastGamepadStateFrame = MainLoop.currentFrameNumber;
       for (var joy = 0; joy < GLFW.lastGamepadState.length; ++joy) {
         var gamepad = GLFW.lastGamepadState[joy];
@@ -10295,16 +10199,16 @@ var GLFW = {
     if (!Browser.fullscreenHandlersInstalled) {
       Browser.fullscreenHandlersInstalled = true;
       document.addEventListener("fullscreenchange", fullscreenChange);
-      document.addEventListener("mozfullscreenchange", fullscreenChange);
       document.addEventListener("webkitfullscreenchange", fullscreenChange);
-      document.addEventListener("MSFullscreenChange", fullscreenChange);
     }
     // create a new parent to ensure the canvas has no siblings. this allows browsers to optimize full screen performance when its parent is the full screen root
     var canvasContainer = document.createElement("div");
     canvas.parentNode.insertBefore(canvasContainer, canvas);
     canvasContainer.appendChild(canvas);
     // use parent of canvas as full screen root to allow aspect ratio correction (Firefox stretches the root to screen size)
-    canvasContainer.requestFullscreen = canvasContainer["requestFullscreen"] || canvasContainer["mozRequestFullScreen"] || canvasContainer["msRequestFullscreen"] || (canvasContainer["webkitRequestFullscreen"] ? () => canvasContainer["webkitRequestFullscreen"](Element["ALLOW_KEYBOARD_INPUT"]) : null) || (canvasContainer["webkitRequestFullScreen"] ? () => canvasContainer["webkitRequestFullScreen"](Element["ALLOW_KEYBOARD_INPUT"]) : null);
+    // Safari didn't Element.requestFullscreen support until 16.4
+    // See: https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen
+    /** @suppress {checkTypes} */ canvasContainer.requestFullscreen ??= (canvasContainer.webkitRequestFullscreen ? () => canvasContainer.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT) : null) ?? (canvasContainer.webkitRequestFullScreen ? () => canvasContainer.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : null);
     canvasContainer.requestFullscreen();
   },
   updateCanvasDimensions(canvas, wNative, hNative) {
@@ -10899,11 +10803,11 @@ Module["FS_createDataFile"] = FS_createDataFile;
 
 Module["FS_createLazyFile"] = FS_createLazyFile;
 
-var missingLibrarySymbols = [ "writeI53ToI64Clamped", "writeI53ToI64Signaling", "writeI53ToU64Clamped", "writeI53ToU64Signaling", "convertI32PairToI53", "convertI32PairToI53Checked", "convertU32PairToI53", "getTempRet0", "setTempRet0", "createNamedFunction", "zeroMemory", "withStackSave", "inetPton4", "inetNtop4", "inetPton6", "inetNtop6", "readSockaddr", "writeSockaddr", "readEmAsmArgs", "autoResumeAudioContext", "dynCallLegacy", "getDynCaller", "dynCall", "asmjsMangle", "HandleAllocator", "addOnInit", "addOnPostCtor", "addOnPreMain", "STACK_SIZE", "STACK_ALIGN", "POINTER_SIZE", "ASSERTIONS", "convertJsFunctionToWasm", "getEmptyTableSlot", "updateTableMap", "getFunctionAddress", "addFunction", "removeFunction", "intArrayToString", "AsciiToString", "stringToAscii", "UTF16ToString", "stringToUTF16", "lengthBytesUTF16", "UTF32ToString", "stringToUTF32", "lengthBytesUTF32", "registerKeyEventCallback", "findCanvasEventTarget", "registerMouseEventCallback", "registerFocusEventCallback", "fillDeviceOrientationEventData", "registerDeviceOrientationEventCallback", "fillDeviceMotionEventData", "registerDeviceMotionEventCallback", "screenOrientation", "fillOrientationChangeEventData", "registerOrientationChangeEventCallback", "fillFullscreenChangeEventData", "registerFullscreenChangeEventCallback", "callCanvasResizedCallback", "JSEvents_requestFullscreen", "JSEvents_resizeCanvasForFullscreen", "registerRestoreOldStyle", "hideEverythingExceptGivenElement", "restoreHiddenElements", "setLetterbox", "currentFullscreenStrategy", "softFullscreenResizeWebGLRenderTarget", "doRequestFullscreen", "fillPointerlockChangeEventData", "registerPointerlockChangeEventCallback", "registerPointerlockErrorEventCallback", "requestPointerLock", "fillVisibilityChangeEventData", "registerVisibilityChangeEventCallback", "registerTouchEventCallback", "fillGamepadEventData", "registerGamepadEventCallback", "registerBeforeUnloadEventCallback", "fillBatteryEventData", "registerBatteryEventCallback", "setCanvasElementSizeCallingThread", "setCanvasElementSizeMainThread", "setCanvasElementSize", "getCanvasSizeCallingThread", "getCanvasSizeMainThread", "getCanvasElementSize", "jsStackTrace", "getCallstack", "convertPCtoSourceLocation", "wasiRightsToMuslOFlags", "wasiOFlagsToMuslOFlags", "setImmediateWrapped", "safeRequestAnimationFrame", "clearImmediateWrapped", "registerPostMainLoop", "getPromise", "makePromise", "addPromise", "idsToPromises", "makePromiseCallback", "findMatchingCatch", "incrementUncaughtExceptionCount", "decrementUncaughtExceptionCount", "Browser_asyncPrepareDataCounter", "arraySum", "addDays", "getSocketFromFD", "getSocketAddress", "FS_mkdirTree", "_setNetworkCallback", "emscriptenWebGLGetUniform", "emscriptenWebGLGetVertexAttrib", "emscriptenWebGLGetBufferBinding", "emscriptenWebGLValidateMapBufferTarget", "writeGLArray", "emscripten_webgl_destroy_context_before_on_calling_thread", "registerWebGlEventCallback", "runAndAbortIfError", "emscriptenWebGLGetIndexed", "ALLOC_NORMAL", "ALLOC_STACK", "allocate", "writeStringToMemory", "writeAsciiToMemory", "allocateUTF8", "allocateUTF8OnStack", "demangle", "stackTrace", "getNativeTypeSize" ];
+var missingLibrarySymbols = [ "writeI53ToI64Clamped", "writeI53ToI64Signaling", "writeI53ToU64Clamped", "writeI53ToU64Signaling", "convertI32PairToI53", "convertI32PairToI53Checked", "convertU32PairToI53", "getTempRet0", "setTempRet0", "createNamedFunction", "zeroMemory", "withStackSave", "inetPton4", "inetNtop4", "inetPton6", "inetNtop6", "readSockaddr", "writeSockaddr", "readEmAsmArgs", "autoResumeAudioContext", "dynCallLegacy", "getDynCaller", "dynCall", "asmjsMangle", "HandleAllocator", "addOnInit", "addOnPostCtor", "addOnPreMain", "STACK_SIZE", "STACK_ALIGN", "POINTER_SIZE", "ASSERTIONS", "convertJsFunctionToWasm", "getEmptyTableSlot", "updateTableMap", "getFunctionAddress", "addFunction", "removeFunction", "setValue", "getValue", "intArrayToString", "AsciiToString", "stringToAscii", "UTF16ToString", "stringToUTF16", "lengthBytesUTF16", "UTF32ToString", "stringToUTF32", "lengthBytesUTF32", "registerKeyEventCallback", "findCanvasEventTarget", "registerMouseEventCallback", "registerFocusEventCallback", "fillDeviceOrientationEventData", "registerDeviceOrientationEventCallback", "fillDeviceMotionEventData", "registerDeviceMotionEventCallback", "screenOrientation", "fillOrientationChangeEventData", "registerOrientationChangeEventCallback", "fillFullscreenChangeEventData", "registerFullscreenChangeEventCallback", "callCanvasResizedCallback", "JSEvents_requestFullscreen", "JSEvents_resizeCanvasForFullscreen", "registerRestoreOldStyle", "hideEverythingExceptGivenElement", "restoreHiddenElements", "setLetterbox", "currentFullscreenStrategy", "softFullscreenResizeWebGLRenderTarget", "doRequestFullscreen", "fillPointerlockChangeEventData", "registerPointerlockChangeEventCallback", "registerPointerlockErrorEventCallback", "requestPointerLock", "fillVisibilityChangeEventData", "registerVisibilityChangeEventCallback", "registerTouchEventCallback", "fillGamepadEventData", "registerGamepadEventCallback", "registerBeforeUnloadEventCallback", "fillBatteryEventData", "registerBatteryEventCallback", "setCanvasElementSizeCallingThread", "setCanvasElementSizeMainThread", "setCanvasElementSize", "getCanvasSizeCallingThread", "getCanvasSizeMainThread", "getCanvasElementSize", "jsStackTrace", "getCallstack", "convertPCtoSourceLocation", "wasiRightsToMuslOFlags", "wasiOFlagsToMuslOFlags", "setImmediateWrapped", "safeRequestAnimationFrame", "clearImmediateWrapped", "registerPostMainLoop", "getPromise", "makePromise", "addPromise", "idsToPromises", "makePromiseCallback", "findMatchingCatch", "incrementUncaughtExceptionCount", "decrementUncaughtExceptionCount", "Browser_asyncPrepareDataCounter", "arraySum", "addDays", "getSocketFromFD", "getSocketAddress", "FS_mkdirTree", "_setNetworkCallback", "emscriptenWebGLGetUniform", "emscriptenWebGLGetVertexAttrib", "emscriptenWebGLGetBufferBinding", "emscriptenWebGLValidateMapBufferTarget", "writeGLArray", "emscripten_webgl_destroy_context_before_on_calling_thread", "registerWebGlEventCallback", "runAndAbortIfError", "emscriptenWebGLGetIndexed", "writeStringToMemory", "writeAsciiToMemory", "allocateUTF8", "allocateUTF8OnStack", "demangle", "stackTrace", "getNativeTypeSize" ];
 
 missingLibrarySymbols.forEach(missingLibrarySymbol);
 
-var unexportedSymbols = [ "run", "out", "err", "callMain", "abort", "wasmExports", "writeStackCookie", "checkStackCookie", "writeI53ToI64", "readI53FromI64", "readI53FromU64", "INT53_MAX", "INT53_MIN", "bigintToI53Checked", "HEAP8", "HEAPU8", "HEAP16", "HEAPU16", "HEAP32", "HEAPU32", "HEAPF32", "HEAPF64", "HEAP64", "HEAPU64", "stackSave", "stackRestore", "stackAlloc", "ptrToString", "exitJS", "getHeapMax", "growMemory", "ENV", "ERRNO_CODES", "strError", "DNS", "Protocols", "Sockets", "timers", "warnOnce", "readEmAsmArgsArray", "jstoi_q", "getExecutableName", "handleException", "keepRuntimeAlive", "runtimeKeepalivePush", "runtimeKeepalivePop", "callUserCallback", "maybeExit", "asyncLoad", "alignMemory", "mmapAlloc", "wasmMemory", "getUniqueRunDependency", "noExitRuntime", "addOnPreRun", "addOnExit", "addOnPostRun", "freeTableIndexes", "functionsInTableMap", "setValue", "getValue", "PATH", "PATH_FS", "UTF8Decoder", "UTF8ArrayToString", "UTF8ToString", "stringToUTF8Array", "stringToUTF8", "lengthBytesUTF8", "intArrayFromString", "UTF16Decoder", "stringToNewUTF8", "stringToUTF8OnStack", "writeArrayToMemory", "JSEvents", "specialHTMLTargets", "findEventTarget", "getBoundingClientRect", "fillMouseEventData", "registerWheelEventCallback", "registerUiEventCallback", "restoreOldWindowedStyle", "UNWIND_CACHE", "ExitStatus", "getEnvStrings", "checkWasiClock", "doReadv", "doWritev", "initRandomFill", "randomFill", "safeSetTimeout", "emSetImmediate", "emClearImmediate_deps", "emClearImmediate", "registerPreMainLoop", "promiseMap", "uncaughtExceptionCount", "exceptionCaught", "ExceptionInfo", "Browser", "requestFullscreen", "requestFullScreen", "setCanvasSize", "getUserMedia", "createContext", "getPreloadedImageData__data", "wget", "MONTH_DAYS_REGULAR", "MONTH_DAYS_LEAP", "MONTH_DAYS_REGULAR_CUMULATIVE", "MONTH_DAYS_LEAP_CUMULATIVE", "isLeapYear", "ydayFromDate", "SYSCALLS", "preloadPlugins", "FS_createPreloadedFile", "FS_modeStringToFlags", "FS_getMode", "FS_fileDataToTypedArray", "FS_stdin_getChar_buffer", "FS_stdin_getChar", "FS_readFile", "FS_root", "FS_mounts", "FS_devices", "FS_streams", "FS_nextInode", "FS_nameTable", "FS_currentPath", "FS_initialized", "FS_ignorePermissions", "FS_filesystems", "FS_syncFSRequests", "FS_lookupPath", "FS_getPath", "FS_hashName", "FS_hashAddNode", "FS_hashRemoveNode", "FS_lookupNode", "FS_createNode", "FS_destroyNode", "FS_isRoot", "FS_isMountpoint", "FS_isFile", "FS_isDir", "FS_isLink", "FS_isChrdev", "FS_isBlkdev", "FS_isFIFO", "FS_isSocket", "FS_flagsToPermissionString", "FS_nodePermissions", "FS_mayLookup", "FS_mayCreate", "FS_mayDelete", "FS_mayOpen", "FS_checkOpExists", "FS_nextfd", "FS_getStreamChecked", "FS_getStream", "FS_createStream", "FS_closeStream", "FS_dupStream", "FS_doSetAttr", "FS_chrdev_stream_ops", "FS_major", "FS_minor", "FS_makedev", "FS_registerDevice", "FS_getDevice", "FS_getMounts", "FS_syncfs", "FS_mount", "FS_unmount", "FS_lookup", "FS_mknod", "FS_statfs", "FS_statfsStream", "FS_statfsNode", "FS_create", "FS_mkdir", "FS_mkdev", "FS_symlink", "FS_link", "FS_rename", "FS_rmdir", "FS_readdir", "FS_readlink", "FS_stat", "FS_fstat", "FS_lstat", "FS_doChmod", "FS_chmod", "FS_lchmod", "FS_fchmod", "FS_doChown", "FS_chown", "FS_lchown", "FS_fchown", "FS_doTruncate", "FS_truncate", "FS_ftruncate", "FS_utime", "FS_open", "FS_close", "FS_isClosed", "FS_llseek", "FS_read", "FS_write", "FS_mmap", "FS_msync", "FS_ioctl", "FS_writeFile", "FS_cwd", "FS_chdir", "FS_createDefaultDirectories", "FS_createDefaultDevices", "FS_createSpecialDirectories", "FS_createStandardStreams", "FS_staticInit", "FS_init", "FS_quit", "FS_findObject", "FS_analyzePath", "FS_createFile", "FS_forceLoadFile", "MEMFS", "TTY", "PIPEFS", "SOCKFS", "tempFixedLengthArray", "miniTempWebGLFloatBuffers", "miniTempWebGLIntBuffers", "heapObjectForWebGLType", "toTypedArrayIndex", "webgl_enable_ANGLE_instanced_arrays", "webgl_enable_OES_vertex_array_object", "webgl_enable_WEBGL_draw_buffers", "webgl_enable_WEBGL_multi_draw", "webgl_enable_EXT_polygon_offset_clamp", "webgl_enable_EXT_clip_control", "webgl_enable_WEBGL_polygon_mode", "GL", "emscriptenWebGLGet", "computeUnpackAlignedImageSize", "colorChannelsInGlTextureFormat", "emscriptenWebGLGetTexPixelData", "webglGetProgramUniformLocation", "webglGetUniformLocation", "webglPrepareUniformLocationsBeforeFirstUse", "webglGetLeftBracePos", "__glGetActiveAttribOrUniform", "AL", "GLUT", "EGL", "GLEW", "IDBStore", "SDL", "SDL_gfx", "GLFW_Window", "GLFW", "waitAsyncPolyfilled", "webgl_enable_WEBGL_draw_instanced_base_vertex_base_instance", "webgl_enable_WEBGL_multi_draw_instanced_base_vertex_base_instance", "print", "printErr", "jstoi_s", "PThread", "terminateWorker", "cleanupThread", "registerTLSInit", "spawnThread", "exitOnMainThread", "proxyToMainThread", "proxiedJSCallArgs", "invokeEntryPoint", "checkMailbox" ];
+var unexportedSymbols = [ "run", "out", "err", "callMain", "abort", "wasmExports", "writeStackCookie", "checkStackCookie", "writeI53ToI64", "readI53FromI64", "readI53FromU64", "INT53_MAX", "INT53_MIN", "bigintToI53Checked", "HEAP8", "HEAPU8", "HEAP16", "HEAPU16", "HEAP32", "HEAPU32", "HEAPF32", "HEAPF64", "HEAP64", "HEAPU64", "stackSave", "stackRestore", "stackAlloc", "ptrToString", "exitJS", "getHeapMax", "growMemory", "ENV", "ERRNO_CODES", "strError", "DNS", "Protocols", "Sockets", "timers", "warnOnce", "readEmAsmArgsArray", "jstoi_q", "getExecutableName", "handleException", "keepRuntimeAlive", "runtimeKeepalivePush", "runtimeKeepalivePop", "callUserCallback", "maybeExit", "asyncLoad", "alignMemory", "mmapAlloc", "wasmMemory", "getUniqueRunDependency", "noExitRuntime", "addOnPreRun", "addOnExit", "addOnPostRun", "freeTableIndexes", "functionsInTableMap", "PATH", "PATH_FS", "UTF8Decoder", "UTF8ArrayToString", "UTF8ToString", "stringToUTF8Array", "stringToUTF8", "lengthBytesUTF8", "intArrayFromString", "UTF16Decoder", "stringToNewUTF8", "stringToUTF8OnStack", "writeArrayToMemory", "JSEvents", "specialHTMLTargets", "findEventTarget", "getBoundingClientRect", "fillMouseEventData", "registerWheelEventCallback", "registerUiEventCallback", "restoreOldWindowedStyle", "UNWIND_CACHE", "ExitStatus", "getEnvStrings", "checkWasiClock", "doReadv", "doWritev", "initRandomFill", "randomFill", "safeSetTimeout", "emSetImmediate", "emClearImmediate_deps", "emClearImmediate", "registerPreMainLoop", "promiseMap", "uncaughtExceptionCount", "exceptionCaught", "ExceptionInfo", "Browser", "requestFullscreen", "setCanvasSize", "getUserMedia", "createContext", "getPreloadedImageData__data", "wget", "MONTH_DAYS_REGULAR", "MONTH_DAYS_LEAP", "MONTH_DAYS_REGULAR_CUMULATIVE", "MONTH_DAYS_LEAP_CUMULATIVE", "isLeapYear", "ydayFromDate", "SYSCALLS", "preloadPlugins", "FS_createPreloadedFile", "FS_modeStringToFlags", "FS_getMode", "FS_fileDataToTypedArray", "FS_stdin_getChar_buffer", "FS_stdin_getChar", "FS_readFile", "FS_root", "FS_mounts", "FS_devices", "FS_streams", "FS_nextInode", "FS_nameTable", "FS_currentPath", "FS_initialized", "FS_ignorePermissions", "FS_filesystems", "FS_syncFSRequests", "FS_lookupPath", "FS_getPath", "FS_hashName", "FS_hashAddNode", "FS_hashRemoveNode", "FS_lookupNode", "FS_createNode", "FS_destroyNode", "FS_isRoot", "FS_isMountpoint", "FS_isFile", "FS_isDir", "FS_isLink", "FS_isChrdev", "FS_isBlkdev", "FS_isFIFO", "FS_isSocket", "FS_flagsToPermissionString", "FS_nodePermissions", "FS_mayLookup", "FS_mayCreate", "FS_mayDelete", "FS_mayOpen", "FS_checkOpExists", "FS_nextfd", "FS_getStreamChecked", "FS_getStream", "FS_createStream", "FS_closeStream", "FS_dupStream", "FS_doSetAttr", "FS_chrdev_stream_ops", "FS_major", "FS_minor", "FS_makedev", "FS_registerDevice", "FS_getDevice", "FS_getMounts", "FS_syncfs", "FS_mount", "FS_unmount", "FS_lookup", "FS_mknod", "FS_statfs", "FS_statfsStream", "FS_statfsNode", "FS_create", "FS_mkdir", "FS_mkdev", "FS_symlink", "FS_link", "FS_rename", "FS_rmdir", "FS_readdir", "FS_readlink", "FS_stat", "FS_fstat", "FS_lstat", "FS_doChmod", "FS_chmod", "FS_lchmod", "FS_fchmod", "FS_doChown", "FS_chown", "FS_lchown", "FS_fchown", "FS_doTruncate", "FS_truncate", "FS_ftruncate", "FS_utime", "FS_open", "FS_close", "FS_isClosed", "FS_llseek", "FS_read", "FS_write", "FS_mmap", "FS_msync", "FS_ioctl", "FS_writeFile", "FS_cwd", "FS_chdir", "FS_createDefaultDirectories", "FS_createDefaultDevices", "FS_createSpecialDirectories", "FS_createStandardStreams", "FS_staticInit", "FS_init", "FS_quit", "FS_findObject", "FS_analyzePath", "FS_createFile", "FS_forceLoadFile", "MEMFS", "TTY", "PIPEFS", "SOCKFS", "tempFixedLengthArray", "miniTempWebGLFloatBuffers", "miniTempWebGLIntBuffers", "heapObjectForWebGLType", "toTypedArrayIndex", "webgl_enable_ANGLE_instanced_arrays", "webgl_enable_OES_vertex_array_object", "webgl_enable_WEBGL_draw_buffers", "webgl_enable_WEBGL_multi_draw", "webgl_enable_EXT_polygon_offset_clamp", "webgl_enable_EXT_clip_control", "webgl_enable_WEBGL_polygon_mode", "GL", "emscriptenWebGLGet", "computeUnpackAlignedImageSize", "colorChannelsInGlTextureFormat", "emscriptenWebGLGetTexPixelData", "webglGetProgramUniformLocation", "webglGetUniformLocation", "webglPrepareUniformLocationsBeforeFirstUse", "webglGetLeftBracePos", "__glGetActiveAttribOrUniform", "AL", "GLUT", "EGL", "GLEW", "IDBStore", "SDL", "SDL_gfx", "GLFW_Window", "GLFW", "waitAsyncPolyfilled", "webgl_enable_WEBGL_draw_instanced_base_vertex_base_instance", "webgl_enable_WEBGL_multi_draw_instanced_base_vertex_base_instance", "print", "printErr", "jstoi_s", "PThread", "terminateWorker", "cleanupThread", "registerTLSInit", "spawnThread", "exitOnMainThread", "proxyToMainThread", "proxiedJSCallArgs", "invokeEntryPoint", "checkMailbox" ];
 
 unexportedSymbols.forEach(unexportedRuntimeSymbol);
 

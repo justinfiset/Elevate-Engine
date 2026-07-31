@@ -106,10 +106,53 @@ Functions</h2></td></tr>
 <tr class="separator:a3f9222dbb13cb9da3ac0ab9a0921913c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bf8d876ae4d7e6666fb390b302bba84" id="r_a6bf8d876ae4d7e6666fb390b302bba84"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate_1_1ByteUtils.html#a6bf8d876ae4d7e6666fb390b302bba84">ToHexString</a> (const <a class="el" href="namespaceElevate.html#a3e5bb326128cbe5e1d6ec2d51230cbdb">ByteSpan</a> &amp;bytes)</td></tr>
 <tr class="separator:a6bf8d876ae4d7e6666fb390b302bba84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87bea5acf96075208e5defe66b72eab2" id="r_a87bea5acf96075208e5defe66b72eab2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate_1_1ByteUtils.html#a87bea5acf96075208e5defe66b72eab2">FromString</a> (const std::string &amp;str)</td></tr>
+<tr class="separator:a87bea5acf96075208e5defe66b72eab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Namespace that contians function to ease the use of ByteBuffers and ByteSpans. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a87bea5acf96075208e5defe66b72eab2" name="a87bea5acf96075208e5defe66b72eab2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87bea5acf96075208e5defe66b72eab2">&#9670;&#160;</a></span>FromString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a> Elevate::ByteUtils::FromString </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Converts a string into a ByteBuffer.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to convert into bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A ByteBuffer containing the raw bytes of the string. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Byte_8h_source.html#l00056">56</a> of file <a class="el" href="Byte_8h_source.html">Byte.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   57</span>        {</div>
+<div class="line"><span class="lineno">   58</span>            <span class="keyword">const</span> <span class="keyword">auto</span>* dataPtr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>std::byte*<span class="keyword">&gt;</span>(str.data());</div>
+<div class="line"><span class="lineno">   59</span>            <span class="keywordflow">return</span> <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>(dataPtr, dataPtr + str.size());</div>
+<div class="line"><span class="lineno">   60</span>        }</div>
+<div class="ttc" id="anamespaceElevate_html_a662833bd41c873b3ffeddc33c6f28e19"><div class="ttname"><a href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">Elevate::ByteBuffer</a></div><div class="ttdeci">std::vector&lt; Byte &gt; ByteBuffer</div><div class="ttdef"><b>Definition</b> <a href="Byte_8h_source.html#l00013">Byte.h:13</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a6bf8d876ae4d7e6666fb390b302bba84" name="a6bf8d876ae4d7e6666fb390b302bba84"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6bf8d876ae4d7e6666fb390b302bba84">&#9670;&#160;</a></span>ToHexString()</h2>
 
