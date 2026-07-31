@@ -244,8 +244,21 @@ namespace EL
 
 		if (it != m_projectList.Projects.end())
 		{
+			EE_INFO("Removing project '{}' (ID: {})", it->Name, projectId);
+
 			m_projectList.Projects.erase(it);
+
+			uint32_t nextId = 0;
+			for (auto& project : m_projectList.Projects)
+			{
+				project.Id = nextId++;
+			}
+
 			UpdateLocalProjectList();
+		}
+		else
+		{
+			EE_WARN("RemoveProjectFromList: Project with ID {} was not found! File on disk was NOT updated.", projectId);
 		}
 	}
 
