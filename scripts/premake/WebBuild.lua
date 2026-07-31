@@ -23,7 +23,6 @@ function WebBuild.GenerateHTML(project, outputDir)
             outFile:close()
             Logger.Info("Generated index.html at " .. outPath)
         end
-
     end
 end
 
