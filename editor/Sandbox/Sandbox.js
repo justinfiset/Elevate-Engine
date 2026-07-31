@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpfxcty7q8.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmppkim5i40.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -815,61 +815,61 @@ Module["expectedDataFileDownloads"]++;
     }, {
       "filename": "/Editor/Shaders/grid.frag",
       "start": 87011051,
-      "end": 87012079
+      "end": 87012075
     }, {
       "filename": "/Editor/Shaders/grid.vert",
-      "start": 87012079,
-      "end": 87012424
+      "start": 87012075,
+      "end": 87012420
     }, {
       "filename": "/Engine/Cubemap/default.sky",
-      "start": 87012424,
-      "end": 87012776
+      "start": 87012420,
+      "end": 87012772
     }, {
       "filename": "/Engine/Textures/Skybox/Default/bottom.jpg",
-      "start": 87012776,
-      "end": 87080419
+      "start": 87012772,
+      "end": 87080415
     }, {
       "filename": "/Engine/Textures/Skybox/Default/side.jpg",
-      "start": 87080419,
-      "end": 87161722
+      "start": 87080415,
+      "end": 87161718
     }, {
       "filename": "/Engine/Textures/Skybox/Default/top.jpg",
-      "start": 87161722,
-      "end": 87229375
+      "start": 87161718,
+      "end": 87229371
     }, {
       "filename": "/Engine/Textures/debug.png",
-      "start": 87229375,
-      "end": 87233730
+      "start": 87229371,
+      "end": 87233726
     }, {
       "filename": "/app.config",
-      "start": 87233730,
-      "end": 87233830
+      "start": 87233726,
+      "end": 87233826
     }, {
       "filename": "/imgui.ini",
-      "start": 87233830,
-      "end": 87237581
+      "start": 87233826,
+      "end": 87237577
     } ],
-    "remote_package_size": 87237581
+    "remote_package_size": 87237577
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpfxcty7q8.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmprz2hok7u.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmppkim5i40.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpei2tktlq.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmprz2hok7u.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpu3y0bzy_.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpei2tktlq.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmppnz2brwm.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpu3y0bzy_.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmppnz2brwm.js
 var programArgs = [];
 
 var thisProgram = "./this.program";
