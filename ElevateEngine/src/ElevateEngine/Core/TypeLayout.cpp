@@ -3,11 +3,12 @@
 #include <ElevateEngine/Core/TypeField.h>
 #include <ElevateEngine/Serialization/PropertyField.h>
 
+#include <algorithm>
+
 namespace Elevate
 {
     PropertyFlag GetFieldFlags(const TypeField& field)
     {
-        // Todo : complete this function to retrieve the flags using the traits
         return PropertyFlag::None;
     }
 
@@ -22,7 +23,7 @@ namespace Elevate
             return;
         }
 
-        if (field.data == nullptr) return;
+        if (!field.data) return;
 
         switch (field.type)
         {
@@ -42,7 +43,6 @@ namespace Elevate
             prop.Value = *reinterpret_cast<const std::string*>(field.data);
             break;
         default:
-            // todo : save as bytebuffer if the type is unknown
             break;
         }
     }
@@ -51,8 +51,10 @@ namespace Elevate
     {
         PropertySet arraySet;
 
-        size_t count = parent.GetArraySize ? parent.GetArraySize(parent.data) : 0;
-        if (count == 0 || !parent.GetElementAddress) return arraySet;
+        if (!parent.data || !parent.GetArraySize || !parent.GetElementAddress)
+            return arraySet;
+
+        size_t count = parent.GetArraySize(parent.data);
 
         for (size_t i = 0; i < count; ++i)
         {
@@ -65,18 +67,22 @@ namespace Elevate
             elemProp.Type = parent.elementType;
 
             const void* elementDataPtr = parent.GetElementAddress(parent.data, i);
+            if (!elementDataPtr) continue;
 
             if (!parent.elementChildren.empty())
             {
-                TypeField virtualChildField = parent;
-                virtualChildField.children = parent.elementChildren;
+                TypeField virtualChildField;
+                virtualChildField.name = indexStr;
+                virtualChildField.type = EngineDataType::Custom;
                 virtualChildField.data = elementDataPtr;
+                virtualChildField.children = parent.elementChildren;
 
                 elemProp.Value = PropertyContainer{ CreateContainer(virtualChildField, elemProp.Path, currentDepth + 1) };
             }
             else
             {
-                TypeField virtualPrimitiveField = parent;
+                TypeField virtualPrimitiveField;
+                virtualPrimitiveField.name = indexStr;
                 virtualPrimitiveField.type = parent.elementType;
                 virtualPrimitiveField.data = elementDataPtr;
 
@@ -102,9 +108,16 @@ namespace Elevate
             prop.Depth = currentDepth;
             prop.Flags = GetFieldFlags(field);
 
-            const void* fieldDataPtr = (parent.data != nullptr)
-                ? reinterpret_cast<const char*>(parent.data) + field.offset
-                : nullptr;
+            const void* fieldDataPtr = field.data;
+            if (fieldDataPtr == nullptr && parent.data != nullptr)
+            {
+                fieldDataPtr = reinterpret_cast<const char*>(parent.data) + field.offset;
+            }
+
+            if (fieldDataPtr == nullptr && field.type != EngineDataType::Array && field.children.empty())
+            {
+                continue;
+            }
 
             TypeField instantiatedField = field;
             instantiatedField.data = fieldDataPtr;
@@ -128,7 +141,7 @@ namespace Elevate
         return set;
     }
 
-    PropertySet TypeLayout::CaptureState()
+    PropertySet TypeLayout::CaptureState() const
     {
         PropertySet set;
 
@@ -141,22 +154,178 @@ namespace Elevate
             prop.Depth = 0;
             prop.Flags = GetFieldFlags(field);
 
+            const void* resolvedData = field.data != nullptr ? field.data : (m_objectInstance != nullptr ? (reinterpret_cast<const char*>(m_objectInstance) + field.offset) : nullptr);
+
+            if (resolvedData == nullptr && field.type != EngineDataType::Array && field.children.empty())
+            {
+                continue;
+            }
+
+            TypeField instantiatedField = field;
+            instantiatedField.data = resolvedData;
+
             if (field.type == EngineDataType::Array)
             {
-                prop.Value = PropertyContainer{ CreateArrayPropertySet(field, prop.Path, 1) };
+                prop.Value = PropertyContainer{ CreateArrayPropertySet(instantiatedField, prop.Path, 1) };
             }
             else if (!field.children.empty())
             {
-                prop.Value = PropertyContainer{ CreateContainer(field, prop.Path, 1) };
+                prop.Value = PropertyContainer{ CreateContainer(instantiatedField, prop.Path, 1) };
             }
             else
             {
-                SetPropertyRawValue(field, prop, 0);
+                SetPropertyRawValue(instantiatedField, prop, 0);
             }
 
             set.push_back(prop);
         }
 
         return set;
+    }
+
+    void ApplyPropertyValues(const std::vector<TypeField>& fields, const PropertySet& props, const std::string& parentPath)
+    {
+        for (const auto& field : fields)
+        {
+            std::string currentPath = parentPath.empty() ? field.name : parentPath + "/" + field.name;
+
+            if (field.type == EngineDataType::Array)
+            {
+                auto it = std::find_if(props.begin(), props.end(), [&currentPath](const PropertyField& p) {
+                    return p.Path == currentPath;
+                    });
+
+                if (it != props.end() && std::holds_alternative<PropertyContainer>(it->Value))
+                {
+                    const auto& arraySet = std::get<PropertyContainer>(it->Value).Children;
+
+                    if (field.ResizeArray)
+                    {
+                        field.ResizeArray(const_cast<void*>(field.data), arraySet.size());
+                    }
+
+                    size_t count = field.GetArraySize ? field.GetArraySize(field.data) : 0;
+
+                    for (size_t i = 0; i < arraySet.size() && i < count; ++i)
+                    {
+                        const auto& elemProp = arraySet[i];
+                        const void* elementDataPtr = field.GetElementAddress ? field.GetElementAddress(field.data, i) : nullptr;
+                        if (!elementDataPtr) continue;
+
+                        if (!field.elementChildren.empty())
+                        {
+                            std::vector<TypeField> instantiatedChildren;
+                            for (const auto& childField : field.elementChildren)
+                            {
+                                const void* childDataPtr = reinterpret_cast<const char*>(elementDataPtr) + childField.offset;
+                                TypeField instChild = childField;
+                                instChild.data = childDataPtr;
+                                instantiatedChildren.push_back(instChild);
+                            }
+
+                            ApplyPropertyValues(instantiatedChildren, std::get<PropertyContainer>(elemProp.Value).Children, elemProp.Path);
+                        }
+                        else
+                        {
+                            void* mutableElementPtr = const_cast<void*>(elementDataPtr);
+
+                            if (field.elementType == EngineDataType::Bool && std::holds_alternative<bool>(elemProp.Value))
+                            {
+                                *reinterpret_cast<bool*>(mutableElementPtr) = std::get<bool>(elemProp.Value);
+                            }
+                            else if (field.elementType == EngineDataType::Int && std::holds_alternative<int64_t>(elemProp.Value))
+                            {
+                                *reinterpret_cast<int32_t*>(mutableElementPtr) = static_cast<int32_t>(std::get<int64_t>(elemProp.Value));
+                            }
+                            else if (field.elementType == EngineDataType::Float && std::holds_alternative<double>(elemProp.Value))
+                            {
+                                *reinterpret_cast<float*>(mutableElementPtr) = static_cast<float>(std::get<double>(elemProp.Value));
+                            }
+                            else if (field.elementType == EngineDataType::Double && std::holds_alternative<double>(elemProp.Value))
+                            {
+                                *reinterpret_cast<double*>(mutableElementPtr) = std::get<double>(elemProp.Value);
+                            }
+                            else if (field.elementType == EngineDataType::String && std::holds_alternative<std::string>(elemProp.Value))
+                            {
+                                *reinterpret_cast<std::string*>(mutableElementPtr) = std::get<std::string>(elemProp.Value);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (!field.children.empty())
+            {
+                auto it = std::find_if(props.begin(), props.end(), [&currentPath](const PropertyField& p) {
+                    return p.Path == currentPath;
+                    });
+
+                if (it != props.end() && std::holds_alternative<PropertyContainer>(it->Value))
+                {
+                    const auto& container = std::get<PropertyContainer>(it->Value);
+                    const void* subStructDataPtr = field.data;
+
+                    std::vector<TypeField> instantiatedChildren;
+                    for (const auto& childField : field.children)
+                    {
+                        const void* childDataPtr = subStructDataPtr ? reinterpret_cast<const char*>(subStructDataPtr) + childField.offset : nullptr;
+                        TypeField instChild = childField;
+                        instChild.data = childDataPtr;
+                        instantiatedChildren.push_back(instChild);
+                    }
+
+                    ApplyPropertyValues(instantiatedChildren, container.Children, currentPath);
+                }
+            }
+            else
+            {
+                auto it = std::find_if(props.begin(), props.end(), [&currentPath](const PropertyField& p) {
+                    return p.Path == currentPath;
+                    });
+
+                if (it != props.end() && field.data != nullptr)
+                {
+                    void* mutableData = const_cast<void*>(field.data);
+
+                    switch (field.type)
+                    {
+                    case EngineDataType::Bool:
+                        if (std::holds_alternative<bool>(it->Value))
+                            *reinterpret_cast<bool*>(mutableData) = std::get<bool>(it->Value);
+                        break;
+                    case EngineDataType::Int:
+                        if (std::holds_alternative<int64_t>(it->Value))
+                            *reinterpret_cast<int32_t*>(mutableData) = static_cast<int32_t>(std::get<int64_t>(it->Value));
+                        break;
+                    case EngineDataType::Float:
+                        if (std::holds_alternative<double>(it->Value))
+                            *reinterpret_cast<float*>(mutableData) = static_cast<float>(std::get<double>(it->Value));
+                        break;
+                    case EngineDataType::Double:
+                        if (std::holds_alternative<double>(it->Value))
+                            *reinterpret_cast<double*>(mutableData) = std::get<double>(it->Value);
+                        break;
+                    case EngineDataType::String:
+                        if (std::holds_alternative<std::string>(it->Value))
+                            *reinterpret_cast<std::string*>(mutableData) = std::get<std::string>(it->Value);
+                        break;
+                    default:
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    void TypeLayout::ApplyState(const PropertySet& props)
+    {
+        std::vector<TypeField> instantiatedFields;
+        for (const auto& field : m_fields)
+        {
+            const void* resolvedData = field.data != nullptr ? field.data : (m_objectInstance != nullptr ? (reinterpret_cast<const char*>(m_objectInstance) + field.offset) : nullptr);
+            TypeField instField = field;
+            instField.data = resolvedData;
+            instantiatedFields.push_back(instField);
+        }
+        ApplyPropertyValues(instantiatedFields, props, "");
     }
 }

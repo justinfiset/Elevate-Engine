@@ -31,7 +31,7 @@ namespace Elevate
 
 		// If no overrode, an empty layout is generated and nothing is shown in the inspector
 		inline virtual std::string GetName() const { return "EEObject"; }
-		inline virtual TypeLayout GetLayout() const { return TypeLayout(GetName(), {}); }
+		inline virtual TypeLayout GetLayout() const { return TypeLayout(nullptr, GetName(), {}); }
 		PropertySet GetProperties() const { return GetLayout().CaptureState(); }
 		inline virtual std::type_index GetTypeIndex() const { return typeid(EEObject); }
 

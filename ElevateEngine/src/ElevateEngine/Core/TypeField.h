@@ -28,6 +28,8 @@ namespace Elevate
         std::function<size_t(const void*)> GetArraySize;
         std::function<const void* (const void* instance, size_t index)> GetElementAddress;
 
+        std::function<void(void* instance, size_t newSize)> ResizeArray;
+
         TypeField() = default;
 
         TypeField(
@@ -76,7 +78,8 @@ namespace Elevate
             displayName(original.displayName), flatten(original.flatten), readOnly(original.readOnly),
             isColor(original.isColor), data(dataPtr),
             elementType(original.elementType), elementChildren(original.elementChildren),
-            GetArraySize(original.GetArraySize), GetElementAddress(original.GetElementAddress)
+            GetArraySize(original.GetArraySize), GetElementAddress(original.GetElementAddress),
+            ResizeArray(original.ResizeArray)
         {
             for (const auto& child : original.children)
             {

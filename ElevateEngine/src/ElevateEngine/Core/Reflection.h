@@ -109,10 +109,11 @@ public: \
         \
         std::vector<::Elevate::TypeField> instanceFields; \
         for (const ::Elevate::TypeField& field : allFields) { \
-            const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
-            instanceFields.push_back(::Elevate::TypeField(field, fieldPtr)); \
+            ::Elevate::TypeField instField = field; \
+            instField.data = reinterpret_cast<const char*>(this) + field.offset; \
+            instanceFields.push_back(instField); \
         } \
-        return ::Elevate::TypeLayout(generated_classEntry.ClassName, instanceFields); \
+        return ::Elevate::TypeLayout(this, generated_classEntry.ClassName, instanceFields); \
     } \
     virtual std::type_index GetTypeIndex() const override { return typeid(ThisType); }
 
@@ -208,6 +209,9 @@ public: \
         } \
         return nullptr; \
     } \
+    inline void SetFromProperties(const ::Elevate::PropertySet& props) { \
+        GetLayout().ApplyState(props); \
+    } \
     EDITOR_ONLY_COMPONENT_END_CODE(ThisType)
 
 // =======================================================
@@ -225,7 +229,7 @@ public: \
         std::string StructName; \
         std::string StructTypeName; \
         std::vector<::Elevate::TypeField> StructFieldStack; \
-    } generated_structEntry; \
+    } generated_structEntry;
 
 #define END_STRUCT() \
 private: \
@@ -240,15 +244,19 @@ private: \
         } \
     } generated_structEntryEnd; \
 public: \
-    inline virtual ::Elevate::TypeLayout GetLayout() const { \
+    inline ::Elevate::TypeLayout GetLayout() const { \
         std::vector<::Elevate::TypeField> instanceFields; \
         for (const ::Elevate::TypeField& field : generated_structEntry.StructFieldStack) { \
-            const void* fieldPtr = reinterpret_cast<const char*>(this) + field.offset; \
-            instanceFields.push_back(::Elevate::TypeField(field, fieldPtr)); \
+            ::Elevate::TypeField instField = field; \
+            instField.data = reinterpret_cast<const char*>(this) + field.offset; \
+            instanceFields.push_back(instField); \
         } \
-        return ::Elevate::TypeLayout(generated_structEntry.StructName, instanceFields); \
+        return ::Elevate::TypeLayout(this, generated_structEntry.StructName, instanceFields); \
     } \
     std::type_index GetTypeIndex() const { return typeid(ThisType); } \
     inline ::Elevate::PropertySet GetProperties() const { \
         return GetLayout().CaptureState(); \
+    } \
+    inline void SetFromProperties(const ::Elevate::PropertySet& props) { \
+        GetLayout().ApplyState(props); \
     }

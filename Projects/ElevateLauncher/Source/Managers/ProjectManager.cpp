@@ -145,19 +145,69 @@ namespace EL
 
 	void ProjectManager::RefreshProjectList()
 	{
+		EE_INFO("Fetching local projects...");
+
 		// todo get info from local files
+		m_projectList.Projects.clear();
+
+		std::string filePath = std::string(EE_CONTENT_ROOT) + "/projects.json";
+		if (!fs::exists(filePath))
+		{
+			return;
+		}
+
+		std::string fileContent = Elevate::File::GetFileContent(filePath);
+		if (fileContent.empty())
+		{
+			return;
+		}
+
+		EE_TRACE("Found the following projects : {}", fileContent);
+
+		Elevate::JsonSerializer serializer;
+		Elevate::ByteBuffer bytes = Elevate::ByteUtils::FromString(fileContent);
+
+		Elevate::PropertySet props;
+		if (serializer.Deserialize(bytes, props))
+		{
+			m_projectList.SetFromProperties(props);
+			uint32_t nextId = 0;
+			EE_TRACE("Found {} projects.", m_projectList.Projects.size());
+			for (auto& project : m_projectList.Projects)
+			{
+				project.Id = nextId++;
+				project.IsValid = IsProjectValid(project);
+			}
+		}
+		else
+		{
+			EE_ERROR("Could not deserialize the projects json content.");
+		}
 	}
 
 	void ProjectManager::UpdateLocalProjectList()
 	{
-		// todo save info to local files
 		Elevate::JsonSerializer serializer;
 		Elevate::ByteBuffer bytes;
 
 		serializer.Serialize(m_projectList.GetProperties(), bytes);
 		
 		EE_INFO("Saving all of the following projects : ");
-		EE_TRACE("{}", Elevate::ByteUtils::ToString(bytes));
+		std::string fileContent = Elevate::ByteUtils::ToString(bytes);
+		EE_TRACE("{}", fileContent);
+
+		std::string filePath = std::string(EE_CONTENT_ROOT) + "/projects.json";
+		std::ofstream outFile(filePath);
+
+		if (outFile.is_open())
+		{
+			outFile << fileContent;
+			outFile.close();
+		}
+		else
+		{
+			EE_ERROR("Failed to write projects config list file at: {}", filePath);
+		}
 	}
 
 	bool ProjectManager::IsProjectValid(const Project& project) const
