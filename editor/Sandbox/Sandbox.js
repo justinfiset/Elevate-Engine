@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpmlak2sm4.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpfxcty7q8.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -269,603 +269,607 @@ Module["expectedDataFileDownloads"]++;
       "start": 1895558,
       "end": 1895852
     }, {
-      "filename": "/Content/Models/diffuse.jpg",
+      "filename": "/Content/Models/backpack.obj",
       "start": 1895852,
-      "end": 8004707
+      "end": 9093373
+    }, {
+      "filename": "/Content/Models/diffuse.jpg",
+      "start": 9093373,
+      "end": 15202228
     }, {
       "filename": "/Content/Models/normal.png",
-      "start": 8004707,
-      "end": 23219578
+      "start": 15202228,
+      "end": 30417099
     }, {
       "filename": "/Content/Models/roughness.jpg",
-      "start": 23219578,
-      "end": 27607828
+      "start": 30417099,
+      "end": 34805349
     }, {
       "filename": "/Content/Models/specular.jpg",
-      "start": 27607828,
-      "end": 34330124
+      "start": 34805349,
+      "end": 41527645
     }, {
       "filename": "/Content/Shaders/main.frag",
-      "start": 34330124,
-      "end": 34334395
+      "start": 41527645,
+      "end": 41531916
     }, {
       "filename": "/Content/Shaders/main.vert",
-      "start": 34334395,
-      "end": 34334911
+      "start": 41531916,
+      "end": 41532432
     }, {
       "filename": "/Content/Skybox/bluecloud_bk.jpg",
-      "start": 34334911,
-      "end": 34958600
+      "start": 41532432,
+      "end": 42156121
     }, {
       "filename": "/Content/Skybox/bluecloud_dn.jpg",
-      "start": 34958600,
-      "end": 35622522
+      "start": 42156121,
+      "end": 42820043
     }, {
       "filename": "/Content/Skybox/bluecloud_ft.jpg",
-      "start": 35622522,
-      "end": 36311868
+      "start": 42820043,
+      "end": 43509389
     }, {
       "filename": "/Content/Skybox/bluecloud_lf.jpg",
-      "start": 36311868,
-      "end": 36999246
+      "start": 43509389,
+      "end": 44196767
     }, {
       "filename": "/Content/Skybox/bluecloud_rt.jpg",
-      "start": 36999246,
-      "end": 37648939
+      "start": 44196767,
+      "end": 44846460
     }, {
       "filename": "/Content/Skybox/bluecloud_up.jpg",
-      "start": 37648939,
-      "end": 38306586
+      "start": 44846460,
+      "end": 45504107
     }, {
       "filename": "/Content/Skybox/browncloud_bk.jpg",
-      "start": 38306586,
-      "end": 39203096
+      "start": 45504107,
+      "end": 46400617
     }, {
       "filename": "/Content/Skybox/browncloud_dn.jpg",
-      "start": 39203096,
-      "end": 40102435
+      "start": 46400617,
+      "end": 47299956
     }, {
       "filename": "/Content/Skybox/browncloud_ft.jpg",
-      "start": 40102435,
-      "end": 40995117
+      "start": 47299956,
+      "end": 48192638
     }, {
       "filename": "/Content/Skybox/browncloud_lf.jpg",
-      "start": 40995117,
-      "end": 41897814
+      "start": 48192638,
+      "end": 49095335
     }, {
       "filename": "/Content/Skybox/browncloud_rt.jpg",
-      "start": 41897814,
-      "end": 42790894
+      "start": 49095335,
+      "end": 49988415
     }, {
       "filename": "/Content/Skybox/browncloud_up.jpg",
-      "start": 42790894,
-      "end": 43690222
+      "start": 49988415,
+      "end": 50887743
     }, {
       "filename": "/Content/Skybox/graycloud_bk.jpg",
-      "start": 43690222,
-      "end": 44340963
+      "start": 50887743,
+      "end": 51538484
     }, {
       "filename": "/Content/Skybox/graycloud_dn.jpg",
-      "start": 44340963,
-      "end": 45016003
+      "start": 51538484,
+      "end": 52213524
     }, {
       "filename": "/Content/Skybox/graycloud_ft.jpg",
-      "start": 45016003,
-      "end": 45689064
+      "start": 52213524,
+      "end": 52886585
     }, {
       "filename": "/Content/Skybox/graycloud_lf.jpg",
-      "start": 45689064,
-      "end": 46366954
+      "start": 52886585,
+      "end": 53564475
     }, {
       "filename": "/Content/Skybox/graycloud_rt.jpg",
-      "start": 46366954,
-      "end": 47019789
+      "start": 53564475,
+      "end": 54217310
     }, {
       "filename": "/Content/Skybox/graycloud_up.jpg",
-      "start": 47019789,
-      "end": 47694841
+      "start": 54217310,
+      "end": 54892362
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive/back.jpg",
-      "start": 47694841,
-      "end": 48432175
+      "start": 54892362,
+      "end": 55629696
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive/bottom.jpg",
-      "start": 48432175,
-      "end": 49354081
+      "start": 55629696,
+      "end": 56551602
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive/front.jpg",
-      "start": 49354081,
-      "end": 50138604
+      "start": 56551602,
+      "end": 57336125
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive/left.jpg",
-      "start": 50138604,
-      "end": 50826621
+      "start": 57336125,
+      "end": 58024142
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive/readme.txt",
-      "start": 50826621,
-      "end": 50826861
+      "start": 58024142,
+      "end": 58024382
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive/right.jpg",
-      "start": 50826861,
-      "end": 51700435
+      "start": 58024382,
+      "end": 58897956
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive/top.jpg",
-      "start": 51700435,
-      "end": 52074488
+      "start": 58897956,
+      "end": 59272009
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive2/negx.jpg",
-      "start": 52074488,
-      "end": 53059258
+      "start": 59272009,
+      "end": 60256779
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive2/negy.jpg",
-      "start": 53059258,
-      "end": 53979953
+      "start": 60256779,
+      "end": 61177474
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive2/negz.jpg",
-      "start": 53979953,
-      "end": 54949819
+      "start": 61177474,
+      "end": 62147340
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive2/posx.jpg",
-      "start": 54949819,
-      "end": 55778070
+      "start": 62147340,
+      "end": 62975591
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive2/posy.jpg",
-      "start": 55778070,
-      "end": 56219242
+      "start": 62975591,
+      "end": 63416763
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive2/posz.jpg",
-      "start": 56219242,
-      "end": 57093473
+      "start": 63416763,
+      "end": 64290994
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive2/readme.txt",
-      "start": 57093473,
-      "end": 57093713
+      "start": 64290994,
+      "end": 64291234
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive3/negx.jpg",
-      "start": 57093713,
-      "end": 57793212
+      "start": 64291234,
+      "end": 64990733
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive3/negy.jpg",
-      "start": 57793212,
-      "end": 58444371
+      "start": 64990733,
+      "end": 65641892
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive3/negz.jpg",
-      "start": 58444371,
-      "end": 59136733
+      "start": 65641892,
+      "end": 66334254
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive3/posx.jpg",
-      "start": 59136733,
-      "end": 59897265
+      "start": 66334254,
+      "end": 67094786
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive3/posy.jpg",
-      "start": 59897265,
-      "end": 60185883
+      "start": 67094786,
+      "end": 67383404
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive3/posz.jpg",
-      "start": 60185883,
-      "end": 60910070
+      "start": 67383404,
+      "end": 68107591
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive3/readme.txt",
-      "start": 60910070,
-      "end": 60910310
+      "start": 68107591,
+      "end": 68107831
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Nalovardo/negx.jpg",
-      "start": 60910310,
-      "end": 61112138
+      "start": 68107831,
+      "end": 68309659
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Nalovardo/negy.jpg",
-      "start": 61112138,
-      "end": 61319950
+      "start": 68309659,
+      "end": 68517471
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Nalovardo/negz.jpg",
-      "start": 61319950,
-      "end": 61510123
+      "start": 68517471,
+      "end": 68707644
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Nalovardo/posx.jpg",
-      "start": 61510123,
-      "end": 61699529
+      "start": 68707644,
+      "end": 68897050
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Nalovardo/posy.jpg",
-      "start": 61699529,
-      "end": 61855542
+      "start": 68897050,
+      "end": 69053063
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Nalovardo/posz.jpg",
-      "start": 61855542,
-      "end": 62053803
+      "start": 69053063,
+      "end": 69251324
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Nalovardo/readme.txt",
-      "start": 62053803,
-      "end": 62054043
+      "start": 69251324,
+      "end": 69251564
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Ryfjallet/negx.jpg",
-      "start": 62054043,
-      "end": 63347248
+      "start": 69251564,
+      "end": 70544769
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Ryfjallet/negy.jpg",
-      "start": 63347248,
-      "end": 65409071
+      "start": 70544769,
+      "end": 72606592
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Ryfjallet/negz.jpg",
-      "start": 65409071,
-      "end": 66414009
+      "start": 72606592,
+      "end": 73611530
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Ryfjallet/posx.jpg",
-      "start": 66414009,
-      "end": 67734019
+      "start": 73611530,
+      "end": 74931540
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Ryfjallet/posy.jpg",
-      "start": 67734019,
-      "end": 68313372
+      "start": 74931540,
+      "end": 75510893
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Ryfjallet/posz.jpg",
-      "start": 68313372,
-      "end": 69769629
+      "start": 75510893,
+      "end": 76967150
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Ryfjallet/readme.txt",
-      "start": 69769629,
-      "end": 69769869
+      "start": 76967150,
+      "end": 76967390
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Teide/negx.jpg",
-      "start": 69769869,
-      "end": 70333882
+      "start": 76967390,
+      "end": 77531403
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Teide/negy.jpg",
-      "start": 70333882,
-      "end": 71230299
+      "start": 77531403,
+      "end": 78427820
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Teide/negz.jpg",
-      "start": 71230299,
-      "end": 71802509
+      "start": 78427820,
+      "end": 79000030
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Teide/posx.jpg",
-      "start": 71802509,
-      "end": 72495095
+      "start": 79000030,
+      "end": 79692616
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Teide/posy.jpg",
-      "start": 72495095,
-      "end": 72709022
+      "start": 79692616,
+      "end": 79906543
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Teide/posz.jpg",
-      "start": 72709022,
-      "end": 73389786
+      "start": 79906543,
+      "end": 80587307
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Teide/readme.txt",
-      "start": 73389786,
-      "end": 73390026
+      "start": 80587307,
+      "end": 80587547
     }, {
       "filename": "/Content/Skybox/readme.txt",
-      "start": 73390026,
-      "end": 73392680
+      "start": 80587547,
+      "end": 80590201
     }, {
       "filename": "/Content/Skybox/yellowcloud_bk.jpg",
-      "start": 73392680,
-      "end": 74176238
+      "start": 80590201,
+      "end": 81373759
     }, {
       "filename": "/Content/Skybox/yellowcloud_dn.jpg",
-      "start": 74176238,
-      "end": 75053381
+      "start": 81373759,
+      "end": 82250902
     }, {
       "filename": "/Content/Skybox/yellowcloud_ft.jpg",
-      "start": 75053381,
-      "end": 75963273
+      "start": 82250902,
+      "end": 83160794
     }, {
       "filename": "/Content/Skybox/yellowcloud_lf.jpg",
-      "start": 75963273,
-      "end": 76863524
+      "start": 83160794,
+      "end": 84061045
     }, {
       "filename": "/Content/Skybox/yellowcloud_rt.jpg",
-      "start": 76863524,
-      "end": 77738795
+      "start": 84061045,
+      "end": 84936316
     }, {
       "filename": "/Content/Skybox/yellowcloud_up.jpg",
-      "start": 77738795,
-      "end": 78616028
+      "start": 84936316,
+      "end": 85813549
     }, {
       "filename": "/Content/Textures/awesomeface.png",
-      "start": 78616028,
-      "end": 78675305
+      "start": 85813549,
+      "end": 85872826
     }, {
       "filename": "/Content/Textures/container.jpg",
-      "start": 78675305,
-      "end": 78860244
+      "start": 85872826,
+      "end": 86057765
     }, {
       "filename": "/Content/Textures/default.png",
-      "start": 78860244,
-      "end": 78860452
+      "start": 86057765,
+      "end": 86057973
     }, {
       "filename": "/Content/WwiseProject/.gitignore",
-      "start": 78860452,
-      "end": 78860616
+      "start": 86057973,
+      "end": 86058137
     }, {
       "filename": "/Content/WwiseProject/.p4ignore",
-      "start": 78860616,
-      "end": 78861418
+      "start": 86058137,
+      "end": 86058939
     }, {
       "filename": "/Content/WwiseProject/Attenuations/Default Work Unit.wwu",
-      "start": 78861418,
-      "end": 78861717
+      "start": 86058939,
+      "end": 86059238
     }, {
       "filename": "/Content/WwiseProject/Attenuations/Factory Attenuations.wwu",
-      "start": 78861717,
-      "end": 78871167
+      "start": 86059238,
+      "end": 86068688
     }, {
       "filename": "/Content/WwiseProject/Busses/Default Work Unit.wwu",
-      "start": 78871167,
-      "end": 78872018
+      "start": 86068688,
+      "end": 86069539
     }, {
       "filename": "/Content/WwiseProject/Containers/Default Work Unit.wwu",
-      "start": 78872018,
-      "end": 78873485
+      "start": 86069539,
+      "end": 86071006
     }, {
       "filename": "/Content/WwiseProject/Control Surface Sessions/Default Work Unit.wwu",
-      "start": 78873485,
-      "end": 78874995
+      "start": 86071006,
+      "end": 86072516
     }, {
       "filename": "/Content/WwiseProject/Conversion Settings/Default Work Unit.wwu",
-      "start": 78874995,
-      "end": 78876549
+      "start": 86072516,
+      "end": 86074070
     }, {
       "filename": "/Content/WwiseProject/Conversion Settings/Factory Conversion Settings.wwu",
-      "start": 78876549,
-      "end": 78895983
+      "start": 86074070,
+      "end": 86093504
     }, {
       "filename": "/Content/WwiseProject/Devices/Default Work Unit.wwu",
-      "start": 78895983,
-      "end": 78896615
+      "start": 86093504,
+      "end": 86094136
     }, {
       "filename": "/Content/WwiseProject/Dynamic Dialogue/Default Work Unit.wwu",
-      "start": 78896615,
-      "end": 78896920
+      "start": 86094136,
+      "end": 86094441
     }, {
       "filename": "/Content/WwiseProject/Effects/Default Work Unit.wwu",
-      "start": 78896920,
-      "end": 78897209
+      "start": 86094441,
+      "end": 86094730
     }, {
       "filename": "/Content/WwiseProject/Effects/Factory Effects.wwu",
-      "start": 78897209,
-      "end": 79019170
+      "start": 86094730,
+      "end": 86216691
     }, {
       "filename": "/Content/WwiseProject/Events/Default Work Unit.wwu",
-      "start": 79019170,
-      "end": 79020180
+      "start": 86216691,
+      "end": 86217701
     }, {
       "filename": "/Content/WwiseProject/Game Parameters/Default Work Unit.wwu",
-      "start": 79020180,
-      "end": 79020483
+      "start": 86217701,
+      "end": 86218004
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/ProjectInfo.json",
-      "start": 79020483,
-      "end": 79021164
+      "start": 86218004,
+      "end": 86218685
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/Global.bnk",
-      "start": 79021164,
-      "end": 79114987
+      "start": 86218685,
+      "end": 86312508
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/Global.json",
-      "start": 79114987,
-      "end": 79116205
+      "start": 86312508,
+      "end": 86313726
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/Global.txt",
-      "start": 79116205,
-      "end": 79116562
+      "start": 86313726,
+      "end": 86314083
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/Init.bnk",
-      "start": 79116562,
-      "end": 79117197
+      "start": 86314083,
+      "end": 86314718
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/Init.json",
-      "start": 79117197,
-      "end": 79118480
+      "start": 86314718,
+      "end": 86316001
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/Init.txt",
-      "start": 79118480,
-      "end": 79118697
+      "start": 86316001,
+      "end": 86316218
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/PlatformInfo.json",
-      "start": 79118697,
-      "end": 79119803
+      "start": 86316218,
+      "end": 86317324
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/PluginInfo.json",
-      "start": 79119803,
-      "end": 79120152
+      "start": 86317324,
+      "end": 86317673
     }, {
       "filename": "/Content/WwiseProject/Metadata/Default Work Unit.wwu",
-      "start": 79120152,
-      "end": 79120445
+      "start": 86317673,
+      "end": 86317966
     }, {
       "filename": "/Content/WwiseProject/Mixing Sessions/Default Work Unit.wwu",
-      "start": 79120445,
-      "end": 79120748
+      "start": 86317966,
+      "end": 86318269
     }, {
       "filename": "/Content/WwiseProject/Modulators/Default Work Unit.wwu",
-      "start": 79120748,
-      "end": 79121043
+      "start": 86318269,
+      "end": 86318564
     }, {
       "filename": "/Content/WwiseProject/Originals/SFX/470281__erokia__menu-ui-click-229.wav",
-      "start": 79121043,
-      "end": 79308431
+      "start": 86318564,
+      "end": 86505952
     }, {
       "filename": "/Content/WwiseProject/Presets/Default Work Unit.wwu",
-      "start": 79308431,
-      "end": 79308720
+      "start": 86505952,
+      "end": 86506241
     }, {
       "filename": "/Content/WwiseProject/Presets/Factory Spatial Audio.wwu",
-      "start": 79308720,
-      "end": 79309997
+      "start": 86506241,
+      "end": 86507518
     }, {
       "filename": "/Content/WwiseProject/Queries/Default Work Unit.wwu",
-      "start": 79309997,
-      "end": 79310286
+      "start": 86507518,
+      "end": 86507807
     }, {
       "filename": "/Content/WwiseProject/Queries/Factory Queries.wwu",
-      "start": 79310286,
-      "end": 79396365
+      "start": 86507807,
+      "end": 86593886
     }, {
       "filename": "/Content/WwiseProject/Sidechain Mixes/Default Work Unit.wwu",
-      "start": 79396365,
-      "end": 79396668
+      "start": 86593886,
+      "end": 86594189
     }, {
       "filename": "/Content/WwiseProject/SoundBanks/Default Work Unit.wwu",
-      "start": 79396668,
-      "end": 79397390
+      "start": 86594189,
+      "end": 86594911
     }, {
       "filename": "/Content/WwiseProject/Soundcaster Sessions/Default Work Unit.wwu",
-      "start": 79397390,
-      "end": 79397703
+      "start": 86594911,
+      "end": 86595224
     }, {
       "filename": "/Content/WwiseProject/States/Default Work Unit.wwu",
-      "start": 79397703,
-      "end": 79398333
+      "start": 86595224,
+      "end": 86595854
     }, {
       "filename": "/Content/WwiseProject/Switches/Default Work Unit.wwu",
-      "start": 79398333,
-      "end": 79398905
+      "start": 86595854,
+      "end": 86596426
     }, {
       "filename": "/Content/WwiseProject/Triggers/Default Work Unit.wwu",
-      "start": 79398905,
-      "end": 79399196
+      "start": 86596426,
+      "end": 86596717
     }, {
       "filename": "/Content/WwiseProject/Virtual Acoustics/Default Work Unit.wwu",
-      "start": 79399196,
-      "end": 79399503
+      "start": 86596717,
+      "end": 86597024
     }, {
       "filename": "/Content/WwiseProject/WwiseProject.wproj",
-      "start": 79399503,
-      "end": 79768030
+      "start": 86597024,
+      "end": 86965551
     }, {
       "filename": "/Editor/Config/file_browser.json",
-      "start": 79768030,
-      "end": 79772696
+      "start": 86965551,
+      "end": 86970217
     }, {
       "filename": "/Editor/Icons/Assets/code.png",
-      "start": 79772696,
-      "end": 79777635
+      "start": 86970217,
+      "end": 86975156
     }, {
       "filename": "/Editor/Icons/Assets/empty_folder.png",
-      "start": 79777635,
-      "end": 79788607
+      "start": 86975156,
+      "end": 86986128
     }, {
       "filename": "/Editor/Icons/Assets/file.png",
-      "start": 79788607,
-      "end": 79793731
+      "start": 86986128,
+      "end": 86991252
     }, {
       "filename": "/Editor/Icons/Assets/folder.png",
-      "start": 79793731,
-      "end": 79804490
+      "start": 86991252,
+      "end": 87002011
     }, {
       "filename": "/Editor/Icons/Light/Colored/play.png",
-      "start": 79804490,
-      "end": 79804975
+      "start": 87002011,
+      "end": 87002496
     }, {
       "filename": "/Editor/Icons/Light/Colored/stop.png",
-      "start": 79804975,
-      "end": 79805136
+      "start": 87002496,
+      "end": 87002657
     }, {
       "filename": "/Editor/Icons/Light/Components/camera.png",
-      "start": 79805136,
-      "end": 79805479
+      "start": 87002657,
+      "end": 87003e3
     }, {
       "filename": "/Editor/Icons/Light/Components/rigidbody.png",
-      "start": 79805479,
-      "end": 79806486
+      "start": 87003e3,
+      "end": 87004007
     }, {
       "filename": "/Editor/Icons/Light/flare.png",
-      "start": 79806486,
-      "end": 79807777
+      "start": 87004007,
+      "end": 87005298
     }, {
       "filename": "/Editor/Icons/Light/lightbulb.png",
-      "start": 79807777,
-      "end": 79809206
+      "start": 87005298,
+      "end": 87006727
     }, {
       "filename": "/Editor/Icons/Light/object.png",
-      "start": 79809206,
-      "end": 79810057
+      "start": 87006727,
+      "end": 87007578
     }, {
       "filename": "/Editor/Icons/Light/pause.png",
-      "start": 79810057,
-      "end": 79810335
+      "start": 87007578,
+      "end": 87007856
     }, {
       "filename": "/Editor/Icons/Light/play.png",
-      "start": 79810335,
-      "end": 79810786
+      "start": 87007856,
+      "end": 87008307
     }, {
       "filename": "/Editor/Icons/Light/scene.png",
-      "start": 79810786,
-      "end": 79811332
+      "start": 87008307,
+      "end": 87008853
     }, {
       "filename": "/Editor/Icons/Light/stop.png",
-      "start": 79811332,
-      "end": 79811489
+      "start": 87008853,
+      "end": 87009010
     }, {
       "filename": "/Editor/Icons/Light/sun.png",
-      "start": 79811489,
-      "end": 79813222
+      "start": 87009010,
+      "end": 87010743
     }, {
       "filename": "/Editor/Shaders/debug.frag",
-      "start": 79813222,
-      "end": 79813306
+      "start": 87010743,
+      "end": 87010827
     }, {
       "filename": "/Editor/Shaders/debug.vert",
-      "start": 79813306,
-      "end": 79813530
+      "start": 87010827,
+      "end": 87011051
     }, {
       "filename": "/Editor/Shaders/grid.frag",
-      "start": 79813530,
-      "end": 79814558
+      "start": 87011051,
+      "end": 87012079
     }, {
       "filename": "/Editor/Shaders/grid.vert",
-      "start": 79814558,
-      "end": 79814903
+      "start": 87012079,
+      "end": 87012424
     }, {
       "filename": "/Engine/Cubemap/default.sky",
-      "start": 79814903,
-      "end": 79815255
+      "start": 87012424,
+      "end": 87012776
     }, {
       "filename": "/Engine/Textures/Skybox/Default/bottom.jpg",
-      "start": 79815255,
-      "end": 79882898
+      "start": 87012776,
+      "end": 87080419
     }, {
       "filename": "/Engine/Textures/Skybox/Default/side.jpg",
-      "start": 79882898,
-      "end": 79964201
+      "start": 87080419,
+      "end": 87161722
     }, {
       "filename": "/Engine/Textures/Skybox/Default/top.jpg",
-      "start": 79964201,
-      "end": 80031854
+      "start": 87161722,
+      "end": 87229375
     }, {
       "filename": "/Engine/Textures/debug.png",
-      "start": 80031854,
-      "end": 80036209
+      "start": 87229375,
+      "end": 87233730
     }, {
       "filename": "/app.config",
-      "start": 80036209,
-      "end": 80036309
+      "start": 87233730,
+      "end": 87233830
     }, {
       "filename": "/imgui.ini",
-      "start": 80036309,
-      "end": 80040060
+      "start": 87233830,
+      "end": 87237581
     } ],
-    "remote_package_size": 80040060
+    "remote_package_size": 87237581
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpmlak2sm4.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpao7k4nzm.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpfxcty7q8.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmprz2hok7u.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpao7k4nzm.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpqkzbh60_.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmprz2hok7u.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpu3y0bzy_.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpqkzbh60_.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpu3y0bzy_.js
 var programArgs = [];
 
 var thisProgram = "./this.program";
