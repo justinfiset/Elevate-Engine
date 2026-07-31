@@ -12,5 +12,6 @@ var classElevate_1_1RendererAPI =
     [ "SetCullingState", "classElevate_1_1RendererAPI.html#a2373a92caab02ac087dd3739f41fbb0b", null ],
     [ "SetDepthTestingState", "classElevate_1_1RendererAPI.html#aa4c5d8cb7aa6eee9808cb9faedf664af", null ],
     [ "SetDepthWrittingState", "classElevate_1_1RendererAPI.html#a6ddc6e2f8dc24fc7abc369696e1062d9", null ],
-    [ "SetViewport", "classElevate_1_1RendererAPI.html#a24b4e678ac741bb125f04fad133d1222", null ]
+    [ "SetViewport", "classElevate_1_1RendererAPI.html#a24b4e678ac741bb125f04fad133d1222", null ],
+    [ "UnbindTexture", "classElevate_1_1RendererAPI.html#a64269c87fd90853c4255b80bad1ac831", null ]
 ];

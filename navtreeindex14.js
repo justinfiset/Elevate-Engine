@@ -1,5 +1,17 @@
 var NAVTREEINDEX14 =
 {
+"structElevate_1_1has__super_3_01T_00_01std_1_1void__t_3_01typename_01T_1_1Super_01_4_01_4.html":[2,0,1,71],
+"structElevate_1_1has__super_3_01T_00_01std_1_1void__t_3_01typename_01T_1_1Super_01_4_01_4.html":[3,0,0,66],
+"structElevate_1_1is__engine__array.html":[2,0,1,77],
+"structElevate_1_1is__engine__array.html":[3,0,0,72],
+"structElevate_1_1is__engine__array_3_01std_1_1vector_3_01T_00_01Alloc_01_4_01_4.html":[2,0,1,78],
+"structElevate_1_1is__engine__array_3_01std_1_1vector_3_01T_00_01Alloc_01_4_01_4.html":[3,0,0,73],
+"structElevate_1_1overload.html":[3,0,0,109],
+"structElevate_1_1overload.html":[2,0,1,114],
+"structWwiseAuxBus.html":[3,0,2],
+"structWwiseBus.html":[3,0,3],
+"structWwiseEvent.html":[3,0,5],
+"structWwiseEvent.html#a0a3324c6516095d00b6e209819e0978a":[3,0,5,2],
 "structWwiseEvent.html#a675e7e81ec78d4a547bc82e87a92eab9":[3,0,5,1],
 "structWwiseEvent.html#aa54f5c6ffe6be4b0be803647e18a069c":[3,0,5,0],
 "structWwiseEvent.html#aeadbbba1d8c8a68db48ed15803d35f2c":[3,0,5,3],

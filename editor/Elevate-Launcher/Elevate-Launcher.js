@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpounq6cu4.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmps4a2lndo.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -238,137 +238,141 @@ Module["expectedDataFileDownloads"]++;
     }, {
       "filename": "/Content/projects.json",
       "start": 419222,
-      "end": 419295
+      "end": 419312
     }, {
       "filename": "/Editor/Config/file_browser.json",
-      "start": 419295,
-      "end": 420163
+      "start": 419312,
+      "end": 423978
+    }, {
+      "filename": "/Editor/Icons/Assets/code.png",
+      "start": 423978,
+      "end": 428917
     }, {
       "filename": "/Editor/Icons/Assets/empty_folder.png",
-      "start": 420163,
-      "end": 431135
+      "start": 428917,
+      "end": 439889
     }, {
       "filename": "/Editor/Icons/Assets/file.png",
-      "start": 431135,
-      "end": 436259
+      "start": 439889,
+      "end": 445013
     }, {
       "filename": "/Editor/Icons/Assets/folder.png",
-      "start": 436259,
-      "end": 447018
+      "start": 445013,
+      "end": 455772
     }, {
       "filename": "/Editor/Icons/Light/Colored/play.png",
-      "start": 447018,
-      "end": 447503
+      "start": 455772,
+      "end": 456257
     }, {
       "filename": "/Editor/Icons/Light/Colored/stop.png",
-      "start": 447503,
-      "end": 447664
+      "start": 456257,
+      "end": 456418
     }, {
       "filename": "/Editor/Icons/Light/Components/camera.png",
-      "start": 447664,
-      "end": 448007
+      "start": 456418,
+      "end": 456761
     }, {
       "filename": "/Editor/Icons/Light/Components/rigidbody.png",
-      "start": 448007,
-      "end": 449014
+      "start": 456761,
+      "end": 457768
     }, {
       "filename": "/Editor/Icons/Light/flare.png",
-      "start": 449014,
-      "end": 450305
+      "start": 457768,
+      "end": 459059
     }, {
       "filename": "/Editor/Icons/Light/lightbulb.png",
-      "start": 450305,
-      "end": 451734
+      "start": 459059,
+      "end": 460488
     }, {
       "filename": "/Editor/Icons/Light/object.png",
-      "start": 451734,
-      "end": 452585
+      "start": 460488,
+      "end": 461339
     }, {
       "filename": "/Editor/Icons/Light/pause.png",
-      "start": 452585,
-      "end": 452863
+      "start": 461339,
+      "end": 461617
     }, {
       "filename": "/Editor/Icons/Light/play.png",
-      "start": 452863,
-      "end": 453314
+      "start": 461617,
+      "end": 462068
     }, {
       "filename": "/Editor/Icons/Light/scene.png",
-      "start": 453314,
-      "end": 453860
+      "start": 462068,
+      "end": 462614
     }, {
       "filename": "/Editor/Icons/Light/stop.png",
-      "start": 453860,
-      "end": 454017
+      "start": 462614,
+      "end": 462771
     }, {
       "filename": "/Editor/Icons/Light/sun.png",
-      "start": 454017,
-      "end": 455750
+      "start": 462771,
+      "end": 464504
     }, {
       "filename": "/Editor/Shaders/debug.frag",
-      "start": 455750,
-      "end": 455834
+      "start": 464504,
+      "end": 464588
     }, {
       "filename": "/Editor/Shaders/debug.vert",
-      "start": 455834,
-      "end": 456058
+      "start": 464588,
+      "end": 464812
     }, {
       "filename": "/Editor/Shaders/grid.frag",
-      "start": 456058,
-      "end": 456582
+      "start": 464812,
+      "end": 465840
     }, {
       "filename": "/Editor/Shaders/grid.vert",
-      "start": 456582,
-      "end": 456927
+      "start": 465840,
+      "end": 466185
     }, {
       "filename": "/Engine/Cubemap/default.sky",
-      "start": 456927,
-      "end": 457279
+      "start": 466185,
+      "end": 466537
     }, {
       "filename": "/Engine/Textures/Skybox/Default/bottom.jpg",
-      "start": 457279,
-      "end": 524922
+      "start": 466537,
+      "end": 534180
     }, {
       "filename": "/Engine/Textures/Skybox/Default/side.jpg",
-      "start": 524922,
-      "end": 606225
+      "start": 534180,
+      "end": 615483
     }, {
       "filename": "/Engine/Textures/Skybox/Default/top.jpg",
-      "start": 606225,
-      "end": 673878
+      "start": 615483,
+      "end": 683136
     }, {
       "filename": "/Engine/Textures/debug.png",
-      "start": 673878,
-      "end": 678233
+      "start": 683136,
+      "end": 687491
     }, {
       "filename": "/app.config",
-      "start": 678233,
-      "end": 678336
+      "start": 687491,
+      "end": 687594
     }, {
       "filename": "/imgui.ini",
-      "start": 678336,
-      "end": 678566
+      "start": 687594,
+      "end": 687824
     } ],
-    "remote_package_size": 678566
+    "remote_package_size": 687824
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpounq6cu4.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpe9r4n8o7.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmps4a2lndo.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp4xifs4oi.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpe9r4n8o7.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpdqeqefid.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp4xifs4oi.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp5n4qa2yb.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpdqeqefid.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp5n4qa2yb.js
 var programArgs = [];
 
 var thisProgram = "./this.program";
@@ -7570,6 +7574,17 @@ var _emscripten_glLinkProgram = program => {
 
 var _glLinkProgram = _emscripten_glLinkProgram;
 
+var _emscripten_glPixelStorei = (pname, param) => {
+  if (pname == 3317) {
+    GL.unpackAlignment = param;
+  } else if (pname == 3314) {
+    GL.unpackRowLength = param;
+  }
+  GLctx.pixelStorei(pname, param);
+};
+
+var _glPixelStorei = _emscripten_glPixelStorei;
+
 var _emscripten_glRenderbufferStorage = (x0, x1, x2, x3) => GLctx.renderbufferStorage(x0, x1, x2, x3);
 
 var _glRenderbufferStorage = _emscripten_glRenderbufferStorage;
@@ -10462,7 +10477,7 @@ function checkIncomingModuleAPI() {
 }
 
 var ASM_CONSTS = {
-  5601280: $0 => {
+  5601392: $0 => {
     var url = UTF8ToString($0);
     window.open(url, "_blank");
   }
@@ -10819,6 +10834,7 @@ function assignWasmImports() {
     /** @export */ glIsEnabled: _glIsEnabled,
     /** @export */ glIsProgram: _glIsProgram,
     /** @export */ glLinkProgram: _glLinkProgram,
+    /** @export */ glPixelStorei: _glPixelStorei,
     /** @export */ glRenderbufferStorage: _glRenderbufferStorage,
     /** @export */ glScissor: _glScissor,
     /** @export */ glShaderSource: _glShaderSource,

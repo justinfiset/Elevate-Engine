@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpbtn700yb.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpmqtvla28.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -230,57 +230,57 @@ Module["expectedDataFileDownloads"]++;
     }, {
       "filename": "/Content/projects.json",
       "start": 419222,
-      "end": 419295
+      "end": 419312
     }, {
       "filename": "/Engine/Cubemap/default.sky",
-      "start": 419295,
-      "end": 419647
+      "start": 419312,
+      "end": 419664
     }, {
       "filename": "/Engine/Textures/Skybox/Default/bottom.jpg",
-      "start": 419647,
-      "end": 487290
+      "start": 419664,
+      "end": 487307
     }, {
       "filename": "/Engine/Textures/Skybox/Default/side.jpg",
-      "start": 487290,
-      "end": 568593
+      "start": 487307,
+      "end": 568610
     }, {
       "filename": "/Engine/Textures/Skybox/Default/top.jpg",
-      "start": 568593,
-      "end": 636246
+      "start": 568610,
+      "end": 636263
     }, {
       "filename": "/Engine/Textures/debug.png",
-      "start": 636246,
-      "end": 640601
+      "start": 636263,
+      "end": 640618
     }, {
       "filename": "/app.config",
-      "start": 640601,
-      "end": 640704
+      "start": 640618,
+      "end": 640721
     }, {
       "filename": "/imgui.ini",
-      "start": 640704,
-      "end": 640934
+      "start": 640721,
+      "end": 640951
     } ],
-    "remote_package_size": 640934
+    "remote_package_size": 640951
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpbtn700yb.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpa6nvqllc.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpmqtvla28.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmplduj1njr.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpa6nvqllc.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp843yq4x0.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmplduj1njr.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpe0_jd42t.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp843yq4x0.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpe0_jd42t.js
 var programArgs = [];
 
 var thisProgram = "./this.program";
@@ -7423,6 +7423,17 @@ var _emscripten_glLinkProgram = program => {
 
 var _glLinkProgram = _emscripten_glLinkProgram;
 
+var _emscripten_glPixelStorei = (pname, param) => {
+  if (pname == 3317) {
+    GL.unpackAlignment = param;
+  } else if (pname == 3314) {
+    GL.unpackRowLength = param;
+  }
+  GLctx.pixelStorei(pname, param);
+};
+
+var _glPixelStorei = _emscripten_glPixelStorei;
+
 var _emscripten_glRenderbufferStorage = (x0, x1, x2, x3) => GLctx.renderbufferStorage(x0, x1, x2, x3);
 
 var _glRenderbufferStorage = _emscripten_glRenderbufferStorage;
@@ -10037,7 +10048,7 @@ function checkIncomingModuleAPI() {
 }
 
 var ASM_CONSTS = {
-  5518616: $0 => {
+  5518728: $0 => {
     var url = UTF8ToString($0);
     window.open(url, "_blank");
   }
@@ -10363,6 +10374,7 @@ function assignWasmImports() {
     /** @export */ glIsEnabled: _glIsEnabled,
     /** @export */ glIsProgram: _glIsProgram,
     /** @export */ glLinkProgram: _glLinkProgram,
+    /** @export */ glPixelStorei: _glPixelStorei,
     /** @export */ glRenderbufferStorage: _glRenderbufferStorage,
     /** @export */ glScissor: _glScissor,
     /** @export */ glShaderSource: _glShaderSource,

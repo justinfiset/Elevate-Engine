@@ -9,5 +9,6 @@ var classElevate_1_1OpenGLRendererAPI =
     [ "SetCullingState", "classElevate_1_1OpenGLRendererAPI.html#ada08477c9684b94e0507793fccc8e130", null ],
     [ "SetDepthTestingState", "classElevate_1_1OpenGLRendererAPI.html#a05fbbfc9dcd287385aa9b16409a2461e", null ],
     [ "SetDepthWrittingState", "classElevate_1_1OpenGLRendererAPI.html#a01071d28c1f3020a7fd5968cc73fdefe", null ],
-    [ "SetViewport", "classElevate_1_1OpenGLRendererAPI.html#a8988d1d6182e450e7ce55fcd6c882da3", null ]
+    [ "SetViewport", "classElevate_1_1OpenGLRendererAPI.html#a8988d1d6182e450e7ce55fcd6c882da3", null ],
+    [ "UnbindTexture", "classElevate_1_1OpenGLRendererAPI.html#a29dd997a56411a323f9a9a0c3cc0d795", null ]
 ];

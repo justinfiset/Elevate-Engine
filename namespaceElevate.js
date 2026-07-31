@@ -362,6 +362,7 @@ var namespaceElevate =
     [ "GetDataTypeSize", "namespaceElevate.html#a4794a41df6a80b4dd8e42de14692b9d8", null ],
     [ "GetFieldFlags", "namespaceElevate.html#afc3748b1be8357b6ca5edee07f86dd10", null ],
     [ "GetGameContextStateName", "namespaceElevate.html#a3334896a162702230b934d59cb3bbe83", null ],
+    [ "GetMinFilter", "namespaceElevate.html#a39c3163dd264c6bfa27c08b2892cc532", null ],
     [ "GetRegistryMap", "namespaceElevate.html#a06c21c65d4610d777c1af377f433e602", null ],
     [ "NamedBufferData", "namespaceElevate.html#ae1cdc9a887a2c2803a4bb303b1660ae9", null ],
     [ "operator<<", "namespaceElevate.html#a07459f730257a31806ceb39f2b73f301", null ],

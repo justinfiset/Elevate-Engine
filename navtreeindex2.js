@@ -173,12 +173,13 @@ var NAVTREEINDEX2 =
 "OpenGLShader_8h_source.html":[4,0,1,0,0,8,4,0,1],
 "OpenGLTexture_8cpp.html":[4,0,1,0,0,8,4,1,0],
 "OpenGLTexture_8cpp.html#a18372412ad2fc3ce1e3240b3cf0efe78":[4,0,1,0,0,8,4,1,0,0],
-"OpenGLTexture_8cpp.html#a212e9e17da8e7c62d5c9b26136fafdab":[4,0,1,0,0,8,4,1,0,5],
-"OpenGLTexture_8cpp.html#a3db2cbae1c5876f9ed5cabd83f172ab6":[4,0,1,0,0,8,4,1,0,2],
-"OpenGLTexture_8cpp.html#a420cae547c6e9aa278ebe58140f5b0e2":[4,0,1,0,0,8,4,1,0,3],
-"OpenGLTexture_8cpp.html#a70409c58a076fe8b8028054f8472e8a0":[4,0,1,0,0,8,4,1,0,4],
-"OpenGLTexture_8cpp.html#acd8bee0db614983fad5c89b2e63b18a5":[4,0,1,0,0,8,4,1,0,1],
-"OpenGLTexture_8cpp.html#af563fefd8f3d7b3dae0ffbec43eab8d2":[4,0,1,0,0,8,4,1,0,6],
+"OpenGLTexture_8cpp.html#a212e9e17da8e7c62d5c9b26136fafdab":[4,0,1,0,0,8,4,1,0,6],
+"OpenGLTexture_8cpp.html#a39c3163dd264c6bfa27c08b2892cc532":[4,0,1,0,0,8,4,1,0,1],
+"OpenGLTexture_8cpp.html#a3db2cbae1c5876f9ed5cabd83f172ab6":[4,0,1,0,0,8,4,1,0,3],
+"OpenGLTexture_8cpp.html#a420cae547c6e9aa278ebe58140f5b0e2":[4,0,1,0,0,8,4,1,0,4],
+"OpenGLTexture_8cpp.html#a70409c58a076fe8b8028054f8472e8a0":[4,0,1,0,0,8,4,1,0,5],
+"OpenGLTexture_8cpp.html#acd8bee0db614983fad5c89b2e63b18a5":[4,0,1,0,0,8,4,1,0,2],
+"OpenGLTexture_8cpp.html#af563fefd8f3d7b3dae0ffbec43eab8d2":[4,0,1,0,0,8,4,1,0,7],
 "OpenGLTexture_8cpp_source.html":[4,0,1,0,0,8,4,1,0],
 "OpenGLTexture_8h.html":[4,0,1,0,0,8,4,1,1],
 "OpenGLTexture_8h_source.html":[4,0,1,0,0,8,4,1,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "RendererAPI_8cpp.html":[4,0,1,0,0,8,27],
 "RendererAPI_8cpp_source.html":[4,0,1,0,0,8,27],
 "RendererAPI_8h.html":[4,0,1,0,0,8,28],
-"RendererAPI_8h.html#a7f8942dfad890eaf465cb12b3bfb050d":[4,0,1,0,0,8,28,1],
-"RendererAPI_8h.html#a7f8942dfad890eaf465cb12b3bfb050da18d58fde618e4a30e2dfdc122e693047":[4,0,1,0,0,8,28,1,6]
+"RendererAPI_8h.html#a7f8942dfad890eaf465cb12b3bfb050d":[4,0,1,0,0,8,28,1]
 };

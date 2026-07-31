@@ -126,6 +126,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aad93608c5e07e7d5dd5daa19570ba050"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad960e76a2da387b14d80d5854e563b04" id="r_ad960e76a2da387b14d80d5854e563b04"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1OpenGLRendererAPI.html#ad960e76a2da387b14d80d5854e563b04">ClearTextureBindings</a> () const override</td></tr>
 <tr class="separator:ad960e76a2da387b14d80d5854e563b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29dd997a56411a323f9a9a0c3cc0d795" id="r_a29dd997a56411a323f9a9a0c3cc0d795"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1OpenGLRendererAPI.html#a29dd997a56411a323f9a9a0c3cc0d795">UnbindTexture</a> (uint8_t slot=0) const override</td></tr>
+<tr class="separator:a29dd997a56411a323f9a9a0c3cc0d795"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59ada8d31e530e8c366b4a9a3f8b6ec0" id="r_a59ada8d31e530e8c366b4a9a3f8b6ec0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1OpenGLRendererAPI.html#a59ada8d31e530e8c366b4a9a3f8b6ec0">DrawArray</a> (const <a class="el" href="classElevate_1_1VertexArray.html">VertexArray</a> *vao, <a class="el" href="namespaceElevate.html#a7f8942dfad890eaf465cb12b3bfb050d">DrawPrimitiveType</a> primitive=<a class="el" href="namespaceElevate.html#a7f8942dfad890eaf465cb12b3bfb050da7ca66fdfaad3eb33fc65d7490178f856">DrawPrimitiveType::Triangles</a>) const override</td></tr>
 <tr class="separator:a59ada8d31e530e8c366b4a9a3f8b6ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada08477c9684b94e0507793fccc8e130" id="r_ada08477c9684b94e0507793fccc8e130"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1OpenGLRendererAPI.html#ada08477c9684b94e0507793fccc8e130">SetCullingState</a> (bool enabled) const override</td></tr>
@@ -209,9 +211,13 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="OpenGLRendererAPI_8cpp_source.html#l00048">48</a> of file <a class="el" href="OpenGLRendererAPI_8cpp_source.html">OpenGLRendererAPI.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   49</span>    {</div>
-<div class="line"><span class="lineno">   50</span>        glActiveTexture(GL_TEXTURE0);</div>
-<div class="line"><span class="lineno">   51</span>        glBindTexture(GL_TEXTURE_2D, 0);</div>
-<div class="line"><span class="lineno">   52</span>    }</div>
+<div class="line"><span class="lineno">   50</span>        <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; 16; ++i)</div>
+<div class="line"><span class="lineno">   51</span>        {</div>
+<div class="line"><span class="lineno">   52</span>            <a class="code hl_function" href="classElevate_1_1OpenGLRendererAPI.html#a29dd997a56411a323f9a9a0c3cc0d795">UnbindTexture</a>(i);</div>
+<div class="line"><span class="lineno">   53</span>        }</div>
+<div class="line"><span class="lineno">   54</span>        glActiveTexture(GL_TEXTURE0);</div>
+<div class="line"><span class="lineno">   55</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1OpenGLRendererAPI_html_a29dd997a56411a323f9a9a0c3cc0d795"><div class="ttname"><a href="classElevate_1_1OpenGLRendererAPI.html#a29dd997a56411a323f9a9a0c3cc0d795">Elevate::OpenGLRendererAPI::UnbindTexture</a></div><div class="ttdeci">virtual void UnbindTexture(uint8_t slot=0) const override</div><div class="ttdef"><b>Definition</b> <a href="OpenGLRendererAPI_8cpp_source.html#l00057">OpenGLRendererAPI.cpp:57</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -251,40 +257,40 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1RendererAPI.html#a3880f081005ef41481cdf767d85a19ae">Elevate::RendererAPI</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLRendererAPI_8cpp_source.html#l00054">54</a> of file <a class="el" href="OpenGLRendererAPI_8cpp_source.html">OpenGLRendererAPI.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   55</span>    {</div>
-<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">if</span> (!glfwGetCurrentContext()) {</div>
-<div class="line"><span class="lineno">   57</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;No OpenGL context active!&quot;</span>);</div>
-<div class="line"><span class="lineno">   58</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   59</span>        }</div>
-<div class="line"><span class="lineno">   60</span> </div>
-<div class="line"><span class="lineno">   61</span>        <span class="keywordflow">if</span> (!vao)</div>
-<div class="line"><span class="lineno">   62</span>        {</div>
-<div class="line"><span class="lineno">   63</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;VAO or IndexBuffer is null!&quot;</span>);</div>
-<div class="line"><span class="lineno">   64</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   65</span>        }</div>
-<div class="line"><span class="lineno">   66</span> </div>
-<div class="line"><span class="lineno">   67</span>        vao-&gt;Bind();</div>
-<div class="line"><span class="lineno">   68</span> </div>
-<div class="line"><span class="lineno">   69</span>        <span class="keywordflow">if</span> (vao-&gt;GetIndexBuffer())</div>
-<div class="line"><span class="lineno">   70</span>        {</div>
-<div class="line"><span class="lineno">   71</span>            <span class="keywordflow">if</span> (vao-&gt;GetIndexBuffer()-&gt;GetCount() == 0) </div>
-<div class="line"><span class="lineno">   72</span>            {</div>
-<div class="line"><span class="lineno">   73</span>                EE_CORE_ERROR(<span class="stringliteral">&quot;IndexBuffer has 0 indices!&quot;</span>);</div>
-<div class="line"><span class="lineno">   74</span>                <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   75</span>            }</div>
-<div class="line"><span class="lineno">   76</span> </div>
-<div class="line"><span class="lineno">   77</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDrawElements(<a class="code hl_function" href="classElevate_1_1OpenGLRendererAPI.html#aebbcc44c6e574b9419ddc6f69bce786c">DrawPrimitiveTypeToOpenGL</a>(primitive), vao-&gt;GetIndexBuffer()-&gt;GetCount(), GL_UNSIGNED_INT, <span class="keyword">nullptr</span>));</div>
-<div class="line"><span class="lineno">   78</span>        }</div>
-<div class="line"><span class="lineno">   79</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   80</span>        {</div>
-<div class="line"><span class="lineno">   81</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; vbo : vao-&gt;GetVertexBuffers())</div>
-<div class="line"><span class="lineno">   82</span>            {</div>
-<div class="line"><span class="lineno">   83</span>                uint32_t vertexCount = vbo-&gt;GetSize() / vbo-&gt;GetLayout().GetStride();</div>
-<div class="line"><span class="lineno">   84</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDrawArrays(<a class="code hl_function" href="classElevate_1_1OpenGLRendererAPI.html#aebbcc44c6e574b9419ddc6f69bce786c">DrawPrimitiveTypeToOpenGL</a>(primitive), 0, vertexCount));</div>
-<div class="line"><span class="lineno">   85</span>            }</div>
-<div class="line"><span class="lineno">   86</span>        }</div>
-<div class="line"><span class="lineno">   87</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLRendererAPI_8cpp_source.html#l00063">63</a> of file <a class="el" href="OpenGLRendererAPI_8cpp_source.html">OpenGLRendererAPI.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   64</span>    {</div>
+<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">if</span> (!glfwGetCurrentContext()) {</div>
+<div class="line"><span class="lineno">   66</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;No OpenGL context active!&quot;</span>);</div>
+<div class="line"><span class="lineno">   67</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   68</span>        }</div>
+<div class="line"><span class="lineno">   69</span> </div>
+<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">if</span> (!vao)</div>
+<div class="line"><span class="lineno">   71</span>        {</div>
+<div class="line"><span class="lineno">   72</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;VAO or IndexBuffer is null!&quot;</span>);</div>
+<div class="line"><span class="lineno">   73</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   74</span>        }</div>
+<div class="line"><span class="lineno">   75</span> </div>
+<div class="line"><span class="lineno">   76</span>        vao-&gt;Bind();</div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span>        <span class="keywordflow">if</span> (vao-&gt;GetIndexBuffer())</div>
+<div class="line"><span class="lineno">   79</span>        {</div>
+<div class="line"><span class="lineno">   80</span>            <span class="keywordflow">if</span> (vao-&gt;GetIndexBuffer()-&gt;GetCount() == 0) </div>
+<div class="line"><span class="lineno">   81</span>            {</div>
+<div class="line"><span class="lineno">   82</span>                EE_CORE_ERROR(<span class="stringliteral">&quot;IndexBuffer has 0 indices!&quot;</span>);</div>
+<div class="line"><span class="lineno">   83</span>                <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   84</span>            }</div>
+<div class="line"><span class="lineno">   85</span> </div>
+<div class="line"><span class="lineno">   86</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDrawElements(<a class="code hl_function" href="classElevate_1_1OpenGLRendererAPI.html#aebbcc44c6e574b9419ddc6f69bce786c">DrawPrimitiveTypeToOpenGL</a>(primitive), vao-&gt;GetIndexBuffer()-&gt;GetCount(), GL_UNSIGNED_INT, <span class="keyword">nullptr</span>));</div>
+<div class="line"><span class="lineno">   87</span>        }</div>
+<div class="line"><span class="lineno">   88</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   89</span>        {</div>
+<div class="line"><span class="lineno">   90</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; vbo : vao-&gt;GetVertexBuffers())</div>
+<div class="line"><span class="lineno">   91</span>            {</div>
+<div class="line"><span class="lineno">   92</span>                uint32_t vertexCount = vbo-&gt;GetSize() / vbo-&gt;GetLayout().GetStride();</div>
+<div class="line"><span class="lineno">   93</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDrawArrays(<a class="code hl_function" href="classElevate_1_1OpenGLRendererAPI.html#aebbcc44c6e574b9419ddc6f69bce786c">DrawPrimitiveTypeToOpenGL</a>(primitive), 0, vertexCount));</div>
+<div class="line"><span class="lineno">   94</span>            }</div>
+<div class="line"><span class="lineno">   95</span>        }</div>
+<div class="line"><span class="lineno">   96</span>    }</div>
 <div class="ttc" id="aGLDebug_8h_html_adf70631301afb22944d6d461e8e9b5a7"><div class="ttname"><a href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a></div><div class="ttdeci">#define GLCheck(x)</div><div class="ttdef"><b>Definition</b> <a href="GLDebug_8h_source.html#l00011">GLDebug.h:11</a></div></div>
 <div class="ttc" id="aclassElevate_1_1OpenGLRendererAPI_html_aebbcc44c6e574b9419ddc6f69bce786c"><div class="ttname"><a href="classElevate_1_1OpenGLRendererAPI.html#aebbcc44c6e574b9419ddc6f69bce786c">Elevate::OpenGLRendererAPI::DrawPrimitiveTypeToOpenGL</a></div><div class="ttdeci">GLenum DrawPrimitiveTypeToOpenGL(DrawPrimitiveType type) const</div><div class="ttdef"><b>Definition</b> <a href="OpenGLRendererAPI_8cpp_source.html#l00012">OpenGLRendererAPI.cpp:12</a></div></div>
 </div><!-- fragment -->
@@ -430,11 +436,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1RendererAPI.html#a2373a92caab02ac087dd3739f41fbb0b">Elevate::RendererAPI</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLRendererAPI_8cpp_source.html#l00089">89</a> of file <a class="el" href="OpenGLRendererAPI_8cpp_source.html">OpenGLRendererAPI.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   90</span>    {</div>
-<div class="line"><span class="lineno">   91</span>        <span class="keywordflow">if</span>(enabled) glEnable(GL_CULL_FACE);</div>
-<div class="line"><span class="lineno">   92</span>        <span class="keywordflow">else</span>        glDisable(GL_CULL_FACE);</div>
-<div class="line"><span class="lineno">   93</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLRendererAPI_8cpp_source.html#l00098">98</a> of file <a class="el" href="OpenGLRendererAPI_8cpp_source.html">OpenGLRendererAPI.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   99</span>    {</div>
+<div class="line"><span class="lineno">  100</span>        <span class="keywordflow">if</span>(enabled) glEnable(GL_CULL_FACE);</div>
+<div class="line"><span class="lineno">  101</span>        <span class="keywordflow">else</span>        glDisable(GL_CULL_FACE);</div>
+<div class="line"><span class="lineno">  102</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -464,11 +470,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1RendererAPI.html#aa4c5d8cb7aa6eee9808cb9faedf664af">Elevate::RendererAPI</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLRendererAPI_8cpp_source.html#l00098">98</a> of file <a class="el" href="OpenGLRendererAPI_8cpp_source.html">OpenGLRendererAPI.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   99</span>    {</div>
-<div class="line"><span class="lineno">  100</span>        <span class="keywordflow">if</span> (enabled) glEnable(GL_DEPTH_TEST);</div>
-<div class="line"><span class="lineno">  101</span>        <span class="keywordflow">else</span>        glDisable(GL_DEPTH_TEST);</div>
-<div class="line"><span class="lineno">  102</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLRendererAPI_8cpp_source.html#l00107">107</a> of file <a class="el" href="OpenGLRendererAPI_8cpp_source.html">OpenGLRendererAPI.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  108</span>    {</div>
+<div class="line"><span class="lineno">  109</span>        <span class="keywordflow">if</span> (enabled) glEnable(GL_DEPTH_TEST);</div>
+<div class="line"><span class="lineno">  110</span>        <span class="keywordflow">else</span>        glDisable(GL_DEPTH_TEST);</div>
+<div class="line"><span class="lineno">  111</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -498,10 +504,10 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1RendererAPI.html#a6ddc6e2f8dc24fc7abc369696e1062d9">Elevate::RendererAPI</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLRendererAPI_8cpp_source.html#l00094">94</a> of file <a class="el" href="OpenGLRendererAPI_8cpp_source.html">OpenGLRendererAPI.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   95</span>    {</div>
-<div class="line"><span class="lineno">   96</span>        glDepthMask(enabled ? GL_TRUE : GL_FALSE);</div>
-<div class="line"><span class="lineno">   97</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLRendererAPI_8cpp_source.html#l00103">103</a> of file <a class="el" href="OpenGLRendererAPI_8cpp_source.html">OpenGLRendererAPI.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  104</span>    {</div>
+<div class="line"><span class="lineno">  105</span>        glDepthMask(enabled ? GL_TRUE : GL_FALSE);</div>
+<div class="line"><span class="lineno">  106</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -557,6 +563,40 @@ Additional Inherited Members</h2></td></tr>
 <div class="fragment"><div class="line"><span class="lineno">   34</span>    {</div>
 <div class="line"><span class="lineno">   35</span>        glViewport(x, y, width, height);</div>
 <div class="line"><span class="lineno">   36</span>    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a29dd997a56411a323f9a9a0c3cc0d795" name="a29dd997a56411a323f9a9a0c3cc0d795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29dd997a56411a323f9a9a0c3cc0d795">&#9670;&#160;</a></span>UnbindTexture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Elevate::OpenGLRendererAPI::UnbindTexture </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>slot</em> = <code>0</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classElevate_1_1RendererAPI.html#a64269c87fd90853c4255b80bad1ac831">Elevate::RendererAPI</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="OpenGLRendererAPI_8cpp_source.html#l00057">57</a> of file <a class="el" href="OpenGLRendererAPI_8cpp_source.html">OpenGLRendererAPI.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   58</span>    {</div>
+<div class="line"><span class="lineno">   59</span>        glActiveTexture(GL_TEXTURE0 + slot);</div>
+<div class="line"><span class="lineno">   60</span>        glBindTexture(GL_TEXTURE_2D, 0);</div>
+<div class="line"><span class="lineno">   61</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
