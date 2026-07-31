@@ -476,7 +476,7 @@ public:
 	void DrawProject(const Project& project)
 	{
 		ImVec2 pos = ImGui::GetCursorScreenPos();
-		float height = 50.0f;
+		float height = 60.0f;
 		float maxWidth = ImGui::GetContentRegionAvail().x - padding;
 		float maxTextWidth = maxWidth - closeButtonSize - padding;
 		ImVec4 textColor = project.IsValid ? Color::White : Color::Orange;
