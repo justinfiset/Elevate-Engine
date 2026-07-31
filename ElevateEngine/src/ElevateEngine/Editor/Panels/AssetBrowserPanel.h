@@ -6,6 +6,7 @@
 
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
+#include <set>
 
 namespace Elevate::Editor {
 	
@@ -92,7 +93,8 @@ namespace Elevate::Editor {
 
 		bool m_shouldUpdate = true;
 
-		std::vector<uint32_t> m_selected;
+		std::set<uint32_t> m_selected;
+		uint32_t m_lastSelected = 0;
 		uint32_t m_nextId = 0;
 	};
 }

@@ -11,6 +11,7 @@
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/PathResolver.h>
 #include <ElevateEngine/Core/Files.h>
+#include <ElevateEngine/Inputs/Input.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
 
@@ -29,6 +30,7 @@ void Elevate::Editor::AssetBrowserPanel::OnUpdate()
 		UpdateRelatedPaths();
 		LoadFileItemsList();
 		m_selected.clear();
+		m_lastSelected = 0;
 		m_shouldUpdate = false;
 	}
 }
@@ -83,11 +85,13 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 
 	ImDrawList* drawList = ImGui::GetWindowDrawList();
 
-	int id = 0;
 	float barThickness = 3.0f;
+	uint32_t itemIndex = 0;
 	for (FileItem item : m_FileItems)
 	{
-		bool isSelected = std::find(m_selected.begin(), m_selected.end(), item.id) != m_selected.end();
+		itemIndex++;
+
+		bool isSelected = std::find(m_selected.begin(), m_selected.end(), itemIndex) != m_selected.end();
 
 		drawList->ChannelsSplit(2);
 		drawList->ChannelsSetCurrent(1); // Draw the foreground
@@ -138,8 +142,26 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 		ImGui::EndGroup();
 
 		if (ImGui::IsItemClicked()) {
-			m_selected.clear();
-			m_selected.push_back(item.id);
+			if (!ImGui::GetIO().KeyCtrl)
+			{
+				m_selected.clear();
+			}
+
+			if (ImGui::GetIO().KeyShift)
+			{
+				m_selected.clear();
+				int start = std::min(itemIndex, m_lastSelected);
+				int end = std::max(itemIndex, m_lastSelected);
+				for (int i = start; i <= end; i++) {
+					m_selected.insert(i);
+				}
+			}
+			else
+			{
+				m_lastSelected = itemIndex;
+			}
+			
+			m_selected.insert(itemIndex);
 		}
 
 		drawList->ChannelsSetCurrent(0);
@@ -179,6 +201,12 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 		}
 		index++;
 	}
+
+	if (ImGui::IsWindowHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left) && !ImGui::IsAnyItemHovered())
+	{
+		m_selected.clear();
+	}
+
 	ImGui::End();
 }
 
