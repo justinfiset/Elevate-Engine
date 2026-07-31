@@ -255,7 +255,7 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
 		if (!asset.HasMember("extension") || !asset["extension"].IsString() ||
 			!asset.HasMember("iconPath") || !asset["iconPath"].IsString() ||
 			!asset.HasMember("type") || !asset["type"].IsString()) {
-			EE_CORE_ERROR("The asset %s is invalid (missing data or incorrect type)", i + 1);
+			EE_CORE_ERROR("The asset {} is invalid (missing data or incorrect type)", i + 1);
 			continue;
 		}
 

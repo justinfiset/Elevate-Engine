@@ -158,6 +158,24 @@
             "g": 120,
             "b": 120,
             "a": 255
+        },
+        {
+            "extension": "cpp",
+            "iconPath": "editor://Icons/Assets/code.png",
+            "type": "FILE",
+            "r": 82,
+            "g": 102,
+            "b": 239,
+            "a": 255
+        },
+        {
+            "extension": "h",
+            "iconPath": "editor://Icons/Assets/code.png",
+            "type": "FILE",
+            "r": 82,
+            "g": 102,
+            "b": 239,
+            "a": 255
         }
     ]
 }
