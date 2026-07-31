@@ -19,6 +19,7 @@ namespace Elevate::Editor {
 	struct FileMetadata {
 		FileType type;
 		std::string iconPath;
+		glm::vec4 color{ 1.0f, 1.0f, 1.0f, 0.0f };
 
 		FileMetadata() = default;
 		FileMetadata(FileType type, std::string iconPath)
@@ -48,6 +49,7 @@ namespace Elevate::Editor {
 		std::string path;
 		std::string extension;
 		std::string iconPath;
+		glm::vec4 color;
 		FileType type = File;
 
 		FileItem() = default;

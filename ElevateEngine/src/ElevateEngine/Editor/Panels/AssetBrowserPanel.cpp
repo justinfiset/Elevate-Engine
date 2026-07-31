@@ -81,12 +81,17 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 	}
 
 	int id = 0;
+	float barThickness = 3.0f;
 	for (FileItem item : m_FileItems)
 	{
 		ImGui::PushID(index);
 		ImGui::BeginGroup();
 
 		if (ImGui::ImageButton("file_item", (ImTextureID) m_currentTextures[item.iconPath]->GetNativeHandle(), buttonSize)) {}
+
+		ImVec2 barMin = ImGui::GetItemRectMin();
+		ImVec2 barMax = ImGui::GetItemRectMax();
+		barMin.y = barMax.y - barThickness;
 
 		if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
 			if (item.type == Directory) {
@@ -97,6 +102,14 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 				Files::OpenWithDefaultApp(item.path);
 			}
 		}
+
+		ImGui::GetWindowDrawList()->AddRectFilled(
+			barMin,
+			barMax,
+			IM_COL32(item.color.r, item.color.g, item.color.b, item.color.a),
+			5.0f,
+			ImDrawFlags_RoundCornersBottom
+		);
 
 		ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + buttonSize.x);
 		ImGui::TextWrapped("%s", item.name.c_str());
@@ -179,7 +192,8 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
 		else {
 			fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, meta.iconPath, meta.type);
 		}
-		
+		fileItem.color = meta.color;
+
 		m_currentTextures[fileItem.iconPath] = Texture::CreateFromFile(fileItem.iconPath);
 		m_FileItems.push_back(fileItem);
 	}
@@ -251,6 +265,15 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
 
 		FileType type = FileMetadata::ParseFileType(typeStr);
 		FileMetadata meta(type, iconPath);
+
+		if (asset.HasMember("r") && asset.HasMember("g") && asset.HasMember("b") && asset.HasMember("a")) {
+			int r = asset["r"].GetInt();
+			int g = asset["g"].GetInt();
+			int b = asset["g"].GetInt();
+			int a = asset["g"].GetInt();
+			meta.color = glm::vec4(r, g, b, a);
+		}
+
 		m_FileMetadata[extension] = meta;   
 	}
 }
