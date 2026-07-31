@@ -132,6 +132,5 @@ void main()
     // result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
     
 	// OUTPUT
-    // o_Color = vec4(result, 1.0);
-    o_Color = texture(diffuseTex, textCord) + texture(ambientTex, textCord) + texture(specularTex, textCord);
+    o_Color = vec4(result, 1.0);
 }
