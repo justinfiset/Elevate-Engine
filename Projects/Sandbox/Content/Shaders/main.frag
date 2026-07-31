@@ -131,6 +131,5 @@ void main()
     // phase 3: Spot light
     // result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
     
-	// OUTPUT
     o_Color = vec4(result, 1.0);
 }

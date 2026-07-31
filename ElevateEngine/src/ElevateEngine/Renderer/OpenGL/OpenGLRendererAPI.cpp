@@ -47,7 +47,16 @@ namespace Elevate
 
 	void OpenGLRendererAPI::ClearTextureBindings() const
 	{
+		for (uint8_t i = 0; i < 16; ++i)
+		{
+			UnbindTexture(i);
+		}
 		glActiveTexture(GL_TEXTURE0);
+	}
+
+	void OpenGLRendererAPI::UnbindTexture(uint8_t slot) const
+	{
+		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 

@@ -5,6 +5,7 @@
 #include <ElevateEngine/Renderer/Buffer.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
+#include <ElevateEngine/Renderer/Texture/TextureManager.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Shader/ShaderManager.h>
 #include <algorithm>
@@ -44,50 +45,53 @@ namespace Elevate
 
 	void Material::Apply()
 	{
-		if (m_shader)
-		{
-			Renderer::BindShader(m_shader);
-
-			for (const auto& uniform : m_shader->GetLayout())
-			{
-				// ignore system managed uniforms
-				if (uniform.Type == ShaderDataType::Sampler2D) continue;
-
-				if (uniform.Name == EE_SHADER_VIEWPROJ ||
-					uniform.Name == EE_SHADER_CAMPOS ||
-					uniform.Name == EE_SHADER_MODEL)
-				{
-					continue;
-				}
-
-				void* data = m_buffer.data() + uniform.Offset;
-				// Only apply the uniform if it has been defined
-				if (m_definedUniforms[uniform.Index])
-				{
-					m_shader->SetUniform(uniform.Name, uniform.Type, data);
-				}
-			}
-
-			// Reset all texture bindings
-			m_shader->SetUniform1i("has_diffuseTex", 0);
-			m_shader->SetUniform1i("has_specularTex", 0);
-			m_shader->SetUniform1i("has_ambientTex", 0);
-
-			uint32_t slot = 0;
-			for (auto& tex : m_textures)
-			{
-				if (tex.second && tex.second->IsTextureLoaded())
-				{
-					Renderer::BindTexture(tex.second, slot);
-					m_shader->SetUniform1i(tex.first, slot);
-					m_shader->SetUniform1i("has_" + tex.first, 1);
-					slot++;
-				}
-			}
-		}
-		else
+		if (!m_shader)
 		{
 			EE_CORE_ERROR("Material::Apply() : Cannot apply uniforms to a shader that is nullptr.");
+			return;
+		}
+
+		Renderer::BindShader(m_shader);
+
+		for (const auto& uniform : m_shader->GetLayout())
+		{
+			if (uniform.Type == ShaderDataType::Sampler2D) continue;
+
+			if (uniform.Name == EE_SHADER_VIEWPROJ ||
+				uniform.Name == EE_SHADER_CAMPOS ||
+				uniform.Name == EE_SHADER_MODEL)
+			{
+				continue;
+			}
+
+			if (m_definedUniforms[uniform.Index])
+			{
+				void* data = m_buffer.data() + uniform.Offset;
+				m_shader->SetUniform(uniform.Name, uniform.Type, data);
+			}
+		}
+
+		for (const auto& [texName, texture] : m_textures)
+		{
+			m_shader->SetUniform1i("has_" + texName, 0);
+		}
+
+		uint32_t slot = 0;
+		for (const auto& [texName, texture] : m_textures)
+		{
+			if (texture && texture->IsTextureLoaded() && texture->GetWidth() > 0 && texture->GetHeight() > 0)
+			{
+				Renderer::BindTexture(texture, slot);
+				m_shader->SetUniform1i(texName, slot);
+				m_shader->SetUniform1i("has_" + texName, 1);
+			}
+			else
+			{
+				Renderer::BindTexture(TextureManager::GetDefaultTexture(), slot);
+				m_shader->SetUniform1i(texName, slot);
+				m_shader->SetUniform1i("has_" + texName, 0);
+			}
+			slot++;
 		}
 	}
 
