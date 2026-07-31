@@ -6,8 +6,8 @@ in vec2 fragPos2D;
 uniform vec4 lineColor;
 uniform vec4 backgroundColor;
 
-uniform vec4 xAxisColor = vec4(1.0, 0.2, 0.2, 1.0); // Red
-uniform vec4 zAxisColor = vec4(0.2, 0.4, 1.0, 1.0); // Blue
+const vec4 xAxisColor = vec4(1.0, 0.2, 0.2, 1.0); // Red
+const vec4 zAxisColor = vec4(0.2, 0.4, 1.0, 1.0); // Blue
 
 float lineWidth = 0.005;
 float axisWidth = 0.015;
