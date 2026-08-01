@@ -7,18 +7,36 @@
     <script src="coi-serviceworker.js"></script>
     <style>
         body, html { 
-            margin: 0; padding: 0; background: #000; overflow: hidden; height: 100%; width: 100%;
+            margin: 0; 
+            padding: 0; 
+            background: #000; 
+            overflow: hidden; 
+            height: 100%; 
+            width: 100%;
             user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            touch-action: none;
         }
-        canvas { display: block; width: 100vw; height: 100vh; border: none; outline: none; }
+        canvas { 
+            display: block; 
+            width: 100vw; 
+            height: 100vh; 
+            border: none; 
+            outline: none; 
+            touch-action: none;
+            cursor: pointer; /* Indique qu'on peut cliquer pour verrouiller */
+        }
     </style>
 </head>
 <body>
     <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1"></canvas>
     
     <script type='text/javascript'>
+        const canvas = document.getElementById('canvas');
+
         var Module = {
-            canvas: document.getElementById('canvas'),
+            canvas: canvas,
             print: (text) => {
                 if (!text) return;
                 if (text.includes("[ERROR]") || text.includes("[FATAL]")) {
@@ -34,16 +52,44 @@
             printErr: (text) => console.error(text)
         };
 
-        const suppressContextMenu = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            return false;
+        const suppressRightClick = (e) => {
+            if (e.button === 2 || e.which === 3 || e.type === 'contextmenu') {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
         };
 
-        globalThis.addEventListener('contextmenu', suppressContextMenu, true);
-        document.addEventListener('contextmenu', suppressContextMenu, true);
-        Module.canvas.addEventListener('contextmenu', suppressContextMenu, true);
-        globalThis.addEventListener('selectstart', e => e.preventDefault(), true);
+        ['contextmenu', 'mousedown', 'mouseup', 'auxclick'].forEach(eventType => {
+            window.addEventListener(eventType, suppressRightClick, true);
+            document.addEventListener(eventType, suppressRightClick, true);
+            canvas.addEventListener(eventType, suppressRightClick, true);
+        });
+
+        window.addEventListener('selectstart', e => e.preventDefault(), true);
+
+        canvas.addEventListener('mousedown', (e) => {
+            canvas.focus();
+
+            if (document.pointerLockElement !== canvas) {
+                const promise = canvas.requestPointerLock();
+                if (promise && promise.catch) {
+                    promise.catch(err => {
+                        if (err.name !== 'NotSupportedError') {
+                            console.warn("Pointer lock refusé ou interrompu :", err);
+                        }
+                    });
+                }
+            }
+        });
+
+        document.addEventListener('pointerlockchange', () => {
+            if (document.pointerLockElement === canvas) {
+                console.log("Pointer lock activé");
+            } else {
+                console.log("Pointer lock désactivé");
+            }
+        });
     </script>
     <script async src="Elevate-Launcher.js"></script>
 </body>
