@@ -25,16 +25,10 @@ namespace Elevate
 		Model(PrimitiveType type);
 		Model(std::string path, MaterialPtr material = nullptr);
 
-		void SetMaterial(MaterialPtr material) { m_material = material; }
+		void SetMaterial(MaterialPtr material);
 
 		void Render() override;
 
-		// todo change this to material and also make a setter	
-		//const inline std::shared_ptr<Shader>& GetShader() const { return m_shader; }
-
-		RenderState& GetRenderState() { return m_attributes; }
-
-		//virtual Component* Clone() override;
 	private:
 		void LoadModel(std::string path);
 		void ProcessNode(std::string basePath, aiNode* node, const aiScene* scene, MeshData& data);
@@ -43,10 +37,8 @@ namespace Elevate
 		void LoadMaterialTextures(std::string basePath, aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data);
 	private:
 		MaterialPtr m_material;
-		// model data
 		Mesh m_batchedMesh;
 		std::string m_Directory;
-		RenderState m_attributes;
 
 		END_COMPONENT()
 	};

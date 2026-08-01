@@ -15,7 +15,6 @@ namespace Elevate
 	public:
 		void Submit(RenderBucket::Type type, const RenderCommand& command);
 		void Clear();
-		void Sort();
 		void FlushAll();
 		const RenderBucket& GetBucket(RenderBucket::Type bucketType) const;
 

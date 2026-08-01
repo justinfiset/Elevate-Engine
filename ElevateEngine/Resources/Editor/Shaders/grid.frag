@@ -10,7 +10,7 @@ const vec4 xAxisColor = vec4(1.0, 0.2, 0.2, 1.0); // Red
 const vec4 zAxisColor = vec4(0.2, 0.4, 1.0, 1.0); // Blue
 
 float lineWidth = 0.005;
-float axisWidth = 0.015;
+float axisWidth = 0.010;
 vec2 cellSize = vec2(1.0);
 
 vec4 displayColor;  

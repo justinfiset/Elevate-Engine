@@ -16,13 +16,14 @@ namespace Elevate
     RenderCommandQueue Renderer::s_commands = RenderCommandQueue();
     uint32_t Renderer::s_currentShaderID = 0;
     uintptr_t Renderer::s_textures[16];
+    static bool s_isStateCacheValid = false;
 
     void Renderer::BeginFrame(const ScenePtr scene, const Camera& cam)
     {
         InvalidateStateCache();
 
         s_API->ClearTextureBindings();
-        s_currentShaderID = 0;
+
         s_data.CameraPosition = cam.gameObject->GetPosition();
         s_data.ViewProj = cam.GenViewProjectionMatrix();
         s_data.ActiveLighting = scene->GetSceneLighting();
@@ -30,6 +31,8 @@ namespace Elevate
 
     bool Renderer::BindShader(const std::shared_ptr<Shader>& shader)
     {
+        if (!shader) return false;
+
         uint32_t id = shader->GetID();
         if (s_currentShaderID != id)
         {
@@ -91,32 +94,34 @@ namespace Elevate
 
     void Renderer::PushRenderState(const RenderState& newState)
     {
-        // todo make a first invalid call to make sure the GPU is synced with this cache before the user does anything
-        if (newState.Cullface != s_currentState.Cullface)
+        if (!s_isStateCacheValid || newState.Cullface != s_currentState.Cullface)
         {
             s_API->SetCullingState(newState.Cullface);
         }
 
-        if (newState.DepthWrite != s_currentState.DepthWrite)
+        if (!s_isStateCacheValid || newState.DepthWrite != s_currentState.DepthWrite)
         {
             s_API->SetDepthWrittingState(newState.DepthWrite);
         }
 
-        if (newState.DepthTest != s_currentState.DepthTest)
+        if (!s_isStateCacheValid || newState.DepthTest != s_currentState.DepthTest)
         {
             s_API->SetDepthTestingState(newState.DepthTest);
         }
 
+        if (!s_isStateCacheValid || newState.BlendEnable != s_currentState.BlendEnable)
+        {
+            s_API->SetBlendingState(newState.BlendEnable);
+        }
+
         s_currentState = newState;
+        s_isStateCacheValid = true;
     }
 
     void Renderer::Dispatch(const RenderCommand& command)
     {
-        // Update the renderer state if necessary
         PushRenderState(command.m_State);
 
-        // Setup the Material and Shader
-        uint32_t prevshader = s_currentShaderID;
         if (command.m_MaterialInstance)
         {
             auto shader = command.m_MaterialInstance->GetShader();
@@ -124,11 +129,14 @@ namespace Elevate
             {
                 ApplySystemUniforms(shader);
                 shader->SetModelMatrix(command.Transform);
-                s_data.ActiveLighting->UploadToShader(shader);
+                if (s_data.ActiveLighting)
+                {
+                    s_data.ActiveLighting->UploadToShader(shader);
+                }
                 command.m_MaterialInstance->Apply();
             }
         }
-        // Actually render the vertex array
+
         Renderer::DrawArray(command.m_VertexArray);
     }
 
@@ -137,34 +145,30 @@ namespace Elevate
         s_commands.Submit(type, command);
     }
 
-    void Renderer::SubmitMesh(const std::shared_ptr<VertexArray>& vao, const std::shared_ptr<Material>& material, const glm::mat4& transform, RenderBucket::Type bucketType)
+    void Renderer::SubmitMesh(const std::shared_ptr<VertexArray>& vao, const std::shared_ptr<Material>& material, const glm::mat4& transform)
     {
         RenderCommand command;
+        RenderState state = material ? material->GetRenderState() : RenderState();
+        RenderBucket::Type bucket = material ? material->GetBucket() : RenderBucket::Opaque;
+
         command.m_VertexArray = vao.get();
         command.m_MaterialInstance = material.get();
         command.Transform = transform;
+        command.m_State = state;
 
-        if (bucketType == RenderBucket::Transparent)
-        {
-            command.m_State.BlendEnable = true;
-            command.m_State.DepthWrite = false; // Transparents usually don't write to depth
-        }
-        else
-        {
-            command.m_State.BlendEnable = false;
-            command.m_State.DepthWrite = true;
-        }
-
-        Submit(bucketType, command);
+        Submit(bucket, command);
     }
 
     void Renderer::BindTexture(const std::shared_ptr<Texture>& texture, uint8_t slot)
     {
-        uintptr_t textureID = texture ? reinterpret_cast<uintptr_t>(texture->GetNativeHandle()) : 0;
+        if (slot >= 16) return;
+
+        bool isLoaded = texture && texture->IsTextureLoaded() && texture->GetWidth() > 0;
+        uintptr_t textureID = isLoaded ? reinterpret_cast<uintptr_t>(texture->GetNativeHandle()) : 0;
 
         if (s_textures[slot] != textureID)
         {
-            if (texture)
+            if (isLoaded)
             {
                 texture->Bind(slot);
             }
@@ -178,9 +182,10 @@ namespace Elevate
 
     void Renderer::InvalidateStateCache()
     {
-        // Make each texture ptr to an impossible value to make sure we bind each frame.
         for (size_t i = 0; i < std::size(s_textures); i++) {
             s_textures[i] = static_cast<uintptr_t>(-1);
         }
+        s_currentShaderID = 0;
+        s_isStateCacheValid = false;
     }
 }

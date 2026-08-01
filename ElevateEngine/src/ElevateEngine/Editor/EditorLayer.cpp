@@ -68,10 +68,14 @@ namespace Elevate::Editor
 		// Grid
 		m_GridObject = GameObject::Create("Editor Grid", m_EditorScene);
 		Model& gridModel = m_GridObject->AddComponent<Model>(PrimitiveType::Quad);
-		RenderState& state = gridModel.GetRenderState();
-		state.Cullface = false;
-		state.DepthWrite = true;
-		state.DepthTest = true;
+		
+		RenderState gridState;
+		gridState.BlendEnable = true;
+		gridState.Cullface = false;
+		gridState.DepthTest = true;
+		gridState.DepthWrite = false;
+		gridMaterial->SetRenderState(gridState);
+		gridMaterial->SetBucket(RenderBucket::Type::Transparent);
 		gridModel.SetMaterial(gridMaterial);
 		m_GridObject->SetScale({ 50, 50, 50 });
 
