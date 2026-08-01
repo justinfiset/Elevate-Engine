@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp8mn0pw2f.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpbhm91386.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -264,23 +264,23 @@ Module["expectedDataFileDownloads"]++;
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp8mn0pw2f.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpdq61gaxn.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpbhm91386.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmphaab64wl.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpdq61gaxn.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpnvvk0u33.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmphaab64wl.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpw5sh31pg.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpnvvk0u33.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpw5sh31pg.js
 var programArgs = [];
 
 var thisProgram = "./this.program";
@@ -6675,6 +6675,12 @@ var _emscripten_glClearColor = (x0, x1, x2, x3) => GLctx.clearColor(x0, x1, x2, 
 
 var _glClearColor = _emscripten_glClearColor;
 
+var _emscripten_glColorMask = (red, green, blue, alpha) => {
+  GLctx.colorMask(!!red, !!green, !!blue, !!alpha);
+};
+
+var _glColorMask = _emscripten_glColorMask;
+
 var _emscripten_glCompileShader = shader => {
   GLctx.compileShader(GL.shaders[shader]);
 };
@@ -10337,6 +10343,7 @@ function assignWasmImports() {
     /** @export */ glCheckFramebufferStatus: _glCheckFramebufferStatus,
     /** @export */ glClear: _glClear,
     /** @export */ glClearColor: _glClearColor,
+    /** @export */ glColorMask: _glColorMask,
     /** @export */ glCompileShader: _glCompileShader,
     /** @export */ glCreateProgram: _glCreateProgram,
     /** @export */ glCreateShader: _glCreateShader,

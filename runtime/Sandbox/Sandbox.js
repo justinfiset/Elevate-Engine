@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp3vbd6ki2.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpaio0_plr.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -755,29 +755,29 @@ Module["expectedDataFileDownloads"]++;
     }, {
       "filename": "/imgui.ini",
       "start": 87186957,
-      "end": 87190708
+      "end": 87190712
     } ],
-    "remote_package_size": 87190708
+    "remote_package_size": 87190712
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp3vbd6ki2.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpricpzmef.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpaio0_plr.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp0nt8g7ik.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpricpzmef.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp9yr94i8y.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp0nt8g7ik.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpfoq2sclb.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp9yr94i8y.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpfoq2sclb.js
 var programArgs = [];
 
 var thisProgram = "./this.program";
@@ -7044,6 +7044,12 @@ var _emscripten_glClearColor = (x0, x1, x2, x3) => GLctx.clearColor(x0, x1, x2, 
 
 var _glClearColor = _emscripten_glClearColor;
 
+var _emscripten_glColorMask = (red, green, blue, alpha) => {
+  GLctx.colorMask(!!red, !!green, !!blue, !!alpha);
+};
+
+var _glColorMask = _emscripten_glColorMask;
+
 var _emscripten_glCompileShader = shader => {
   GLctx.compileShader(GL.shaders[shader]);
 };
@@ -11013,6 +11019,7 @@ function assignWasmImports() {
     /** @export */ glCheckFramebufferStatus: _glCheckFramebufferStatus,
     /** @export */ glClear: _glClear,
     /** @export */ glClearColor: _glClearColor,
+    /** @export */ glColorMask: _glColorMask,
     /** @export */ glCompileShader: _glCompileShader,
     /** @export */ glCreateProgram: _glCreateProgram,
     /** @export */ glCreateShader: _glCreateShader,

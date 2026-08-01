@@ -102,18 +102,20 @@ $(document).ready(function(){initNavTree('Material_8h.html',''); initResizable()
   <div class="headertitle"><div class="title">Material.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;cstring&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;glm/glm.hpp&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;<a class="el" href="Assert_8h_source.html">ElevateEngine/Core/Assert.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Log_8h_source.html">ElevateEngine/Core/Log.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Buffer_8h_source.html">ElevateEngine/Renderer/Buffer.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Shader_8h_source.html">ElevateEngine/Renderer/Shader/Shader.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ShaderManager_8h_source.html">ElevateEngine/Renderer/Shader/ShaderManager.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Texture_8h_source.html">ElevateEngine/Renderer/Texture/Texture.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="RenderBucket_8h_source.html">ElevateEngine/Renderer/Commands/RenderBucket.h</a>&gt;</code><br />
 </div>
 <p><a href="Material_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -140,8 +142,8 @@ Macros</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:a5d6b19f0e8ea5bcb7a115eeb8ee69aa7" id="r_a5d6b19f0e8ea5bcb7a115eeb8ee69aa7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7">Elevate::MaterialPtr</a> = std::shared_ptr&lt; <a class="el" href="classElevate_1_1Material.html">Material</a> &gt;</td></tr>
 <tr class="separator:a5d6b19f0e8ea5bcb7a115eeb8ee69aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2694563ec36a64f9cbfdcc020f2d8da9" id="r_a2694563ec36a64f9cbfdcc020f2d8da9"><td class="memItemLeft" align="right" valign="top">typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a2694563ec36a64f9cbfdcc020f2d8da9">Elevate::MaterialID</a></td></tr>
-<tr class="separator:a2694563ec36a64f9cbfdcc020f2d8da9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc52d9cf77afc259a245351f60aa3128" id="r_abc52d9cf77afc259a245351f60aa3128"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#abc52d9cf77afc259a245351f60aa3128">Elevate::MaterialID</a> = uint32_t</td></tr>
+<tr class="separator:abc52d9cf77afc259a245351f60aa3128"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="af1a2739c35a006bf87c56bccab1ec327" name="af1a2739c35a006bf87c56bccab1ec327"></a>
@@ -156,7 +158,7 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Material_8h_source.html#l00017">17</a> of file <a class="el" href="Material_8h_source.html">Material.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8h_source.html#l00020">20</a> of file <a class="el" href="Material_8h_source.html">Material.h</a>.</p>
 
 </div>
 </div>

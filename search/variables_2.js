@@ -2,7 +2,7 @@ var searchData=
 [
   ['category_0',['category',['../structElevate_1_1ComponentTypeTrait.html#abf162cd2700d6e610567a1798e63ea6b',1,'Elevate::ComponentTypeTrait']]],
   ['channels_1',['Channels',['../structElevate_1_1TextureMetadata.html#a48fa8c69f8a97ac634aee1800dd4b292',1,'Elevate::TextureMetadata']]],
-  ['children_2',['children',['../structWwiseItem.html#a48bdf1a4c765c3bc387cc064d5d0e904',1,'WwiseItem::Children'],['../structElevate_1_1PropertyContainer.html#a2bb296fbff34a07dfb24583be38c53da',1,'Elevate::PropertyContainer::Children'],['../structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8',1,'Elevate::TypeField::children']]],
+  ['children_2',['children',['../structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8',1,'Elevate::TypeField::children'],['../structWwiseItem.html#a48bdf1a4c765c3bc387cc064d5d0e904',1,'WwiseItem::Children'],['../structElevate_1_1PropertyContainer.html#a2bb296fbff34a07dfb24583be38c53da',1,'Elevate::PropertyContainer::Children']]],
   ['clearcolor_3',['ClearColor',['../structElevate_1_1FramebufferMetadata.html#a1142ff6f9eb5174b6c76700c5942e03b',1,'Elevate::FramebufferMetadata']]],
   ['color_4',['color',['../structElevate_1_1Editor_1_1FileMetadata.html#a4a9dc8366609703225cbb65cabc79a43',1,'Elevate::Editor::FileMetadata::color'],['../structElevate_1_1Editor_1_1FileItem.html#ab3cce8df00e103dbb3e5e366d534d992',1,'Elevate::Editor::FileItem::color']]],
   ['colorattachments_5',['ColorAttachments',['../structElevate_1_1FramebufferMetadata.html#ad09381115409d2c0d74c8128a04a4d81',1,'Elevate::FramebufferMetadata']]],

@@ -198,7 +198,7 @@ var namespaceElevate =
     [ "GameObjectComponentGetter", "namespaceElevate.html#ac7341de5cdfe89199e82cbd2901c386a", null ],
     [ "GLenum", "namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4", null ],
     [ "LogCallback", "namespaceElevate.html#abb9c3cce82373dec977b453bb112b48c", null ],
-    [ "MaterialID", "namespaceElevate.html#a2694563ec36a64f9cbfdcc020f2d8da9", null ],
+    [ "MaterialID", "namespaceElevate.html#abc52d9cf77afc259a245351f60aa3128", null ],
     [ "MaterialPtr", "namespaceElevate.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7", null ],
     [ "PropertySet", "namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8", null ],
     [ "PropertyValue", "namespaceElevate.html#aace8d290e19160cac7d1b9696d8766df", null ],

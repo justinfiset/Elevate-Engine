@@ -5,6 +5,7 @@ var classElevate_1_1OpenGLRendererAPI =
     [ "DrawArray", "classElevate_1_1OpenGLRendererAPI.html#a59ada8d31e530e8c366b4a9a3f8b6ec0", null ],
     [ "DrawPrimitiveTypeToOpenGL", "classElevate_1_1OpenGLRendererAPI.html#aebbcc44c6e574b9419ddc6f69bce786c", null ],
     [ "FlushBuffers", "classElevate_1_1OpenGLRendererAPI.html#aad93608c5e07e7d5dd5daa19570ba050", null ],
+    [ "SetBlendingState", "classElevate_1_1OpenGLRendererAPI.html#a3af24963b6592ed41764ec09377449f9", null ],
     [ "SetClearColor", "classElevate_1_1OpenGLRendererAPI.html#adc0352ed7c05287652c21cbec7d901eb", null ],
     [ "SetCullingState", "classElevate_1_1OpenGLRendererAPI.html#ada08477c9684b94e0507793fccc8e130", null ],
     [ "SetDepthTestingState", "classElevate_1_1OpenGLRendererAPI.html#a05fbbfc9dcd287385aa9b16409a2461e", null ],

@@ -13,7 +13,7 @@ var searchData=
   ['capturestate_10',['CaptureState',['../classElevate_1_1TypeLayout.html#ae2f5e7bd5cf35681584f83653b37b338',1,'Elevate::TypeLayout']]],
   ['category_11',['category',['../structElevate_1_1ComponentTypeTrait.html#abf162cd2700d6e610567a1798e63ea6b',1,'Elevate::ComponentTypeTrait']]],
   ['channels_12',['Channels',['../structElevate_1_1TextureMetadata.html#a48fa8c69f8a97ac634aee1800dd4b292',1,'Elevate::TextureMetadata']]],
-  ['children_13',['children',['../structWwiseItem.html#a48bdf1a4c765c3bc387cc064d5d0e904',1,'WwiseItem::Children'],['../structElevate_1_1PropertyContainer.html#a2bb296fbff34a07dfb24583be38c53da',1,'Elevate::PropertyContainer::Children'],['../structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8',1,'Elevate::TypeField::children']]],
+  ['children_13',['children',['../structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8',1,'Elevate::TypeField::children'],['../structWwiseItem.html#a48bdf1a4c765c3bc387cc064d5d0e904',1,'WwiseItem::Children'],['../structElevate_1_1PropertyContainer.html#a2bb296fbff34a07dfb24583be38c53da',1,'Elevate::PropertyContainer::Children']]],
   ['clamprotation_14',['ClampRotation',['../classElevate_1_1EditorCamera.html#a68abb759ba9a56dae6339b4d941166fd',1,'Elevate::EditorCamera']]],
   ['clamptoborder_15',['ClampToBorder',['../namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147',1,'Elevate']]],
   ['clamptoedge_16',['ClampToEdge',['../namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa74556551231333c36debc3d373261134',1,'Elevate']]],
