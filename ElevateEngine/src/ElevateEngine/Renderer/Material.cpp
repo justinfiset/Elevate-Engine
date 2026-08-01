@@ -1,144 +1,151 @@
 #include "Material.h"
 
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Data.h>
-#include <ElevateEngine/Renderer/Buffer.h>
 #include <ElevateEngine/Renderer/Renderer.h>
-#include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
-#include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Shader/ShaderManager.h>
 #include <algorithm>
-#include <format>
-#include <utility>
-
+#include <string_view>
 
 namespace Elevate
 {
-	MaterialID Material::s_nextId = EE_DEFAULT_MATERIAL + 1; // Keep 0 for a default material
+    MaterialID Material::s_nextId = EE_DEFAULT_MATERIAL + 1;
 
-	Material::Material()
-	{
-		m_id = s_nextId++;
-	}
+    Material::Material()
+        : m_id(s_nextId++)
+    {
+    }
 
-	Material::Material(const std::shared_ptr<Shader>& shader)
-		: Material()
-	{
-		m_shader = shader;
+    Material::Material(const std::shared_ptr<Shader>& shader)
+        : Material()
+    {
+        m_shader = shader;
+        if (m_shader)
+        {
+            m_buffer.resize(m_shader->GetLayout().GetStride());
+            m_definedUniforms.resize(m_shader->GetLayout().GetElements().size());
+        }
+    }
 
-		if (shader)
-		{
-			m_buffer.resize(m_shader->GetLayout().GetStride());
-			m_definedUniforms.resize(m_shader->GetLayout().GetElements().size());
-		}
-		else
-		{
-			EE_CORE_ERROR("A Material can only be created from a valid Shader instance.");
-		}
-	}
+    void Material::SetTexture(const std::string& name, TexturePtr texture)
+    {
+        m_textures[name] = std::move(texture);
+    }
 
-	void Material::SetTexture(const std::string& name, TexturePtr texture)
-	{
-		m_textures[name] = texture;
-	}
+    TexturePtr Material::GetTextureForUniform(const std::string& uniformName) const
+    {
+        if (m_textures.empty()) return nullptr;
 
-	void Material::Apply()
-	{
-		if (!m_shader)
-		{
-			EE_CORE_ERROR("Material::Apply() : Cannot apply uniforms to a shader that is nullptr.");
-			return;
-		}
+        auto it = m_textures.find(uniformName);
+        if (it != m_textures.end()) return it->second;
 
-		Renderer::BindShader(m_shader);
+        static auto containsCaseless = [](std::string_view str, std::string_view sub) {
+            return std::search(str.begin(), str.end(), sub.begin(), sub.end(),
+                [](char a, char b) { return ::tolower(a) == ::tolower(b); }) != str.end();
+            };
 
-		for (const auto& uniform : m_shader->GetLayout())
-		{
-			if (uniform.Type == ShaderDataType::Sampler2D) continue;
+        static constexpr std::string_view keywords[] = { "diffuse", "specular", "ambient", "normal" };
 
-			if (uniform.Name == EE_SHADER_VIEWPROJ ||
-				uniform.Name == EE_SHADER_CAMPOS ||
-				uniform.Name == EE_SHADER_MODEL)
-			{
-				continue;
-			}
+        for (const auto& [key, tex] : m_textures)
+        {
+            for (auto kw : keywords)
+            {
+                if (containsCaseless(uniformName, kw) && containsCaseless(key, kw))
+                    return tex;
+            }
+        }
 
-			if (m_definedUniforms[uniform.Index])
-			{
-				void* data = m_buffer.data() + uniform.Offset;
-				m_shader->SetUniform(uniform.Name, uniform.Type, data);
-			}
-		}
+        return nullptr;
+    }
 
-		for (const auto& [texName, texture] : m_textures)
-		{
-			m_shader->SetUniform1i("has_" + texName, 0);
-		}
+    void Material::Apply()
+    {
+        if (!m_shader) return;
 
-		uint32_t slot = 0;
-		for (const auto& [texName, texture] : m_textures)
-		{
-			if (texture && texture->IsTextureLoaded() && texture->GetWidth() > 0 && texture->GetHeight() > 0)
-			{
-				Renderer::BindTexture(texture, slot);
-				m_shader->SetUniform1i(texName, slot);
-				m_shader->SetUniform1i("has_" + texName, 1);
-			}
-			else
-			{
-				Renderer::BindTexture(TextureManager::GetDefaultTexture(), slot);
-				m_shader->SetUniform1i(texName, slot);
-				m_shader->SetUniform1i("has_" + texName, 0);
-			}
-			slot++;
-		}
-	}
+        Renderer::BindShader(m_shader);
 
-	std::shared_ptr<Shader> Material::GetShader()
-	{
-		return m_shader;
-	}
+        const auto& layout = m_shader->GetLayout();
 
-	MaterialPtr MaterialFactory::Create(const std::shared_ptr<Shader>& shader)
-	{
-		if (!shader)
-		{
-			EE_CORE_ERROR("(MaterialFactory) : Cannot create a material from a null shader.");
-			return nullptr;
-		}
-		return std::shared_ptr<Material>(new Material(shader));
-	}
+        for (const auto& uniform : layout)
+        {
+            if (uniform.Type == ShaderDataType::Sampler2D) continue;
 
-	MaterialPtr MaterialRegistry::LoadMaterial(const std::shared_ptr<Shader>& shader)
-	{
-		EE_TRACE("(MaterialRegistry) : Creating shader for shader : {}", shader->GetRendererID());
-		MaterialPtr material = MaterialFactory::Create(shader);
-		instance().m_materials[material->GetID()] = material;
-		return material;
-	}
+            if (uniform.Name == EE_SHADER_VIEWPROJ ||
+                uniform.Name == EE_SHADER_CAMPOS ||
+                uniform.Name == EE_SHADER_MODEL)
+            {
+                continue;
+            }
 
-	MaterialPtr MaterialRegistry::GetMaterial(MaterialID id)
-	{
-		if (instance().m_materials.contains(id))
-		{
-			return instance().m_materials.at(id);
-		}
-		return nullptr;
-	}
+            if (m_definedUniforms[uniform.Index])
+            {
+                m_shader->SetUniform(uniform.Name, uniform.Type, m_buffer.data() + uniform.Offset);
+            }
+        }
 
-	MaterialRegistry::MaterialRegistry()
-	{
-		EE_CORE_INFO("Initializing MaterialRegistry.");
-		// Create a default material for the default shader
-		EE_CORE_TRACE("(MaterialRegistry) : Creating default material from default shader.");
-		m_materials[EE_DEFAULT_MATERIAL] = MaterialFactory::Create(ShaderManager::GetShader(EE_DEFAULT_SHADER));
-		EE_CORE_INFO("Initialized MaterialRegistry.");
-	}
+        uint32_t slot = 0;
+        std::string hasFlagName;
+        hasFlagName.reserve(64);
 
-	MaterialRegistry& MaterialRegistry::instance()
-	{
-		static MaterialRegistry instance;
-		return instance;
-	}
+        for (const auto& uniform : layout)
+        {
+            if (uniform.Type != ShaderDataType::Sampler2D) continue;
+
+            const std::string& texName = uniform.Name;
+            TexturePtr texture = GetTextureForUniform(texName);
+
+            hasFlagName.assign("has_").append(texName);
+
+            if (texture && texture->IsTextureLoaded() && texture->GetWidth() > 0 && texture->GetHeight() > 0)
+            {
+                Renderer::BindTexture(texture, slot);
+                m_shader->SetUniform1i(texName, slot);
+                m_shader->SetUniform1i(hasFlagName, 1);
+            }
+            else
+            {
+                Renderer::BindTexture(TextureManager::GetDefaultTexture(), slot);
+                m_shader->SetUniform1i(texName, slot);
+                m_shader->SetUniform1i(hasFlagName, 0);
+            }
+
+            slot++;
+        }
+    }
+
+    std::shared_ptr<Shader> Material::GetShader() const
+    {
+        return m_shader;
+    }
+
+    MaterialPtr MaterialFactory::Create(const std::shared_ptr<Shader>& shader)
+    {
+        if (!shader) return nullptr;
+        return std::shared_ptr<Material>(new Material(shader));
+    }
+
+    MaterialPtr MaterialRegistry::LoadMaterial(const std::shared_ptr<Shader>& shader)
+    {
+        if (!shader) return nullptr;
+        MaterialPtr material = MaterialFactory::Create(shader);
+        instance().m_materials[material->GetID()] = material;
+        return material;
+    }
+
+    MaterialPtr MaterialRegistry::GetMaterial(MaterialID id)
+    {
+        auto& materials = instance().m_materials;
+        auto it = materials.find(id);
+        return (it != materials.end()) ? it->second : nullptr;
+    }
+
+    MaterialRegistry::MaterialRegistry()
+    {
+        m_materials[EE_DEFAULT_MATERIAL] = MaterialFactory::Create(ShaderManager::GetShader(EE_DEFAULT_SHADER));
+    }
+
+    MaterialRegistry& MaterialRegistry::instance()
+    {
+        static MaterialRegistry inst;
+        return inst;
+    }
 }

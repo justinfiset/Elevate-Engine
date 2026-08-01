@@ -37,6 +37,9 @@ namespace Elevate
 
 	void OpenGLRendererAPI::Clear() const
 	{
+		glDepthMask(GL_TRUE);
+		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
@@ -94,19 +97,34 @@ namespace Elevate
 			}
 		}
 	}
-
+	
 	void OpenGLRendererAPI::SetCullingState(bool enabled) const
 	{
 		if(enabled) glEnable(GL_CULL_FACE);
 		else        glDisable(GL_CULL_FACE);
 	}
+
 	void OpenGLRendererAPI::SetDepthWrittingState(bool enabled) const
 	{
 		glDepthMask(enabled ? GL_TRUE : GL_FALSE);
 	}
+
 	void OpenGLRendererAPI::SetDepthTestingState(bool enabled) const
 	{
 		if (enabled) glEnable(GL_DEPTH_TEST);
 		else        glDisable(GL_DEPTH_TEST);
+	}
+
+	void OpenGLRendererAPI::SetBlendingState(bool enabled) const
+	{
+		if (enabled)
+		{
+			glEnable(GL_BLEND);
+			glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ZERO, GL_ONE);
+		}
+		else
+		{
+			glDisable(GL_BLEND);
+		}
 	}
 }

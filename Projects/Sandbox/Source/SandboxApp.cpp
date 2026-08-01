@@ -53,8 +53,7 @@ public:
 
 		// Backpack
 		m_DemoObject = Elevate::GameObject::Create("Backpack", m_scene);
-		Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("Content/Models/backpack.obj");
-		demoModel.SetMaterial(material);
+		Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("Content/Models/backpack.obj", material);
 		//Elevate::Rigidbody& rb = m_DemoObject->AddComponent<Elevate::Rigidbody>();
 		m_DemoObject->SetPosition({ 0.0f, 0.0f, -4.0f });
 

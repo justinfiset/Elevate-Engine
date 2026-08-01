@@ -44,7 +44,7 @@ namespace Elevate
 		static void Dispatch(const RenderCommand& command);
 		// todo doc here
 		static void Submit(RenderBucket::Type type, const RenderCommand& command);
-		static void SubmitMesh(const std::shared_ptr<VertexArray>& vao, const std::shared_ptr<Material>& material, const glm::mat4& transform, RenderBucket::Type bucketType = RenderBucket::Opaque);
+		static void SubmitMesh(const std::shared_ptr<VertexArray>& vao, const std::shared_ptr<Material>& material, const glm::mat4& transform);
 
 		// Textures
 		static void BindTexture(const std::shared_ptr<Texture>& texture, uint8_t slot = 0);

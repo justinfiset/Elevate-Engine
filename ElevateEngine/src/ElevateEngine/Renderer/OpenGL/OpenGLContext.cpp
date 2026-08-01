@@ -1,9 +1,8 @@
 #include "eepch.h"
-#include "OpenGLContext.h"
-
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
-#include <GLFW/glfw3.h>
 
+#include "OpenGLContext.h"
+#include <GLFW/glfw3.h>
 #include "ElevateEngine/Core/Assert.h"
 #include <ElevateEngine/Renderer/Renderer.h>
 

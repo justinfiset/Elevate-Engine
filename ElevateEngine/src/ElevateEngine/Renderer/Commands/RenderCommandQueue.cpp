@@ -15,20 +15,11 @@ namespace Elevate
 		}
 	}
 
-	void RenderCommandQueue::Sort()
+	void RenderCommandQueue::FlushAll()
 	{
 		for (size_t i = 0; i < m_buckets.size(); i++)
 		{
 			m_buckets.at(i).Sort();
-		}
-	}
-
-	void RenderCommandQueue::FlushAll()
-	{
-		Sort();
-
-		for (size_t i = 0; i < m_buckets.size(); i++)
-		{
 			m_buckets.at(i).Flush();
 		}
 		Clear();

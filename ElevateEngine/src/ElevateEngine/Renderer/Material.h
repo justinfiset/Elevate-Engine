@@ -1,85 +1,105 @@
 #pragma once
 
-#include <stdint.h>
+#include <cstdint>
+#include <cstring>
 #include <memory>
-#include <map>
 #include <string>
-#include <vector>
-#include <glm/glm.hpp>
 #include <unordered_map>
+#include <vector>
+
+#include <glm/glm.hpp>
 
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Renderer/Buffer.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Shader/ShaderManager.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
+#include <ElevateEngine/Renderer/Commands/RenderBucket.h>
 
 #define EE_DEFAULT_MATERIAL 0
 
 namespace Elevate
 {
-	class Material;
-	class MaterialFactory;
-	class MaterialRegistry;
-	using MaterialPtr = std::shared_ptr<Material>;
+    class Material;
+    class MaterialFactory;
+    class MaterialRegistry;
 
-	typedef uint32_t MaterialID;
+    using MaterialPtr = std::shared_ptr<Material>;
+    using MaterialID = uint32_t;
 
-	class Material
-	{
-	public:
-		template<typename T>
-		void Set(const std::string& name, const T& value)
-		{
-			for (const auto& uniform : m_shader->GetLayout())
-			{
-				if (uniform.Name == name)
-				{
-					memcpy(m_buffer.data() + uniform.Offset, &value, sizeof(T));
-					m_definedUniforms[uniform.Index] = true;
-				}
-			}
-		}
+    class Material
+    {
+    public:
+        template<typename T>
+        void Set(const std::string& name, const T& value)
+        {
+            for (const auto& uniform : m_shader->GetLayout())
+            {
+                if (uniform.Name == name)
+                {
+                    EE_ASSERT(uniform.Offset + sizeof(T) <= m_buffer.size(),
+                        "Set Uniform: data size greater then buffer size!");
 
-		void SetTexture(const std::string& name, TexturePtr texture);
-		void Apply();
-		std::shared_ptr<Shader> GetShader();
-		inline MaterialID GetID() { return m_id; }
+                    std::memcpy(m_buffer.data() + uniform.Offset, &value, sizeof(T));
+                    m_definedUniforms[uniform.Index] = true;
+                    return;
+                }
+            }
+            EE_WARN("Uniform '{0}' not found in the shader : {1}", name, m_shader->GetID());
+        }
 
-	private:
-		Material();
-		Material(const std::shared_ptr<Shader>& shader);
+        void SetTexture(const std::string& name, TexturePtr texture);
+        void Apply();
 
-		std::shared_ptr<Shader> m_shader;
-		// Uniforms
-		std::vector<uint8_t> m_buffer;
-		std::vector<bool> m_definedUniforms;
+        std::shared_ptr<Shader> GetShader() const;
+        MaterialID GetID() const { return m_id; }
 
-		std::unordered_map<std::string, TexturePtr> m_textures;
+        RenderState& GetRenderState() { return m_state; }
+        const RenderState& GetRenderState() const { return m_state; }
+        void SetRenderState(const RenderState& state) { m_state = state; }
 
-		MaterialID m_id;
-		static MaterialID s_nextId;
+        RenderBucket::Type GetBucket() const { return m_bucket; }
+        void SetBucket(RenderBucket::Type bucket) { m_bucket = bucket; }
 
-		friend class MaterialFactory;
-	};
+    private:
+        Material();
+        Material(const std::shared_ptr<Shader>& shader);
 
-	class MaterialFactory
-	{
-	protected:
-		static MaterialPtr Create(const std::shared_ptr<Shader>& shader);
-		friend class MaterialRegistry;
-	};
+        TexturePtr GetTextureForUniform(const std::string& uniformName) const;
 
-	class MaterialRegistry
-	{
-	public:
-		static MaterialPtr LoadMaterial(const std::shared_ptr<Shader>& shader);
-		static MaterialPtr GetMaterial(MaterialID id);
+        std::shared_ptr<Shader> m_shader{ nullptr };
 
-	private:
-		MaterialRegistry();
-		static MaterialRegistry& instance();
+        std::vector<uint8_t> m_buffer;
+        std::vector<bool> m_definedUniforms;
 
-		std::unordered_map<MaterialID, MaterialPtr> m_materials;
-	};
+        std::unordered_map<std::string, TexturePtr> m_textures;
+
+        MaterialID m_id{ 0 };
+        static MaterialID s_nextId;
+
+        RenderState m_state;
+        RenderBucket::Type m_bucket = RenderBucket::GBuffer;
+
+        friend class MaterialFactory;
+    };
+
+    class MaterialFactory
+    {
+    protected:
+        static MaterialPtr Create(const std::shared_ptr<Shader>& shader);
+        friend class MaterialRegistry;
+    };
+
+    class MaterialRegistry
+    {
+    public:
+        static MaterialPtr LoadMaterial(const std::shared_ptr<Shader>& shader);
+        static MaterialPtr GetMaterial(MaterialID id);
+
+    private:
+        MaterialRegistry();
+        static MaterialRegistry& instance();
+
+        std::unordered_map<MaterialID, MaterialPtr> m_materials;
+    };
 }

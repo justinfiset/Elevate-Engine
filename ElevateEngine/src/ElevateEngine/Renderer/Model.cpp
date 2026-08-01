@@ -61,6 +61,18 @@ Elevate::Model::Model(std::string path, MaterialPtr material)
 	}
 }
 
+void Elevate::Model::SetMaterial(MaterialPtr material)
+{
+	m_material = material ? material : MaterialRegistry::GetMaterial(EE_DEFAULT_MATERIAL);
+	if (m_material)
+	{
+		for (auto& tex : m_batchedMesh.GetTextures())
+		{
+			m_material->SetTexture(GetUniformNameByType(tex), tex);
+		}
+	}
+}
+
 void Elevate::Model::LoadModel(std::string path)
 {
 	std::string resolvedPath = PathResolver::Resolve(path);
@@ -210,5 +222,5 @@ void Elevate::Model::LoadMaterialTextures(std::string basePath, aiMaterial* mat,
 
 void Elevate::Model::Render()
 {
-	Renderer::SubmitMesh(m_batchedMesh.GetVertexArray(), m_material, gameObject->GetModelMatrix(), RenderBucket::GBuffer);
+	Renderer::SubmitMesh(m_batchedMesh.GetVertexArray(), m_material, gameObject->GetModelMatrix());
 }

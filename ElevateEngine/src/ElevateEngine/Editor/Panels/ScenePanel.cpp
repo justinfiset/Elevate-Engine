@@ -53,9 +53,17 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 		ImGui::EndMenuBar();
 	}
 
+	ImVec2 contentRegion = ImGui::GetContentRegionAvail();
+
+	if (contentRegion.x <= 0.0f || contentRegion.y <= 0.0f)
+	{
+		ImGui::End();
+		return;
+	}
+
 	// we access the ImGui window size
-	uint32_t window_width = (uint32_t) ImGui::GetContentRegionAvail().x;
-	uint32_t window_height = (uint32_t) ImGui::GetContentRegionAvail().y;
+	uint32_t window_width = static_cast<uint32_t>(contentRegion.x);
+	uint32_t window_height = static_cast<uint32_t>(contentRegion.y);
 
 	// Keeping the aspect ratio for the scene view
 	const glm::ivec2 aspect = s_AspectRatioSettings[m_AspectRatioValue];

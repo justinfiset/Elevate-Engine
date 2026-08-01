@@ -47,6 +47,7 @@ namespace Elevate
 		virtual void SetCullingState(bool enabled) const = 0;
 		virtual void SetDepthWrittingState(bool enabled) const = 0;
 		virtual void SetDepthTestingState(bool enabled) const = 0;
+		virtual void SetBlendingState(bool enabled) const = 0;
 
 		inline static GraphicAPI GetAPI() { return s_ActiveAPI; }
 		
