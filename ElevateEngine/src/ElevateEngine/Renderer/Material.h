@@ -9,6 +9,7 @@
 
 #include <glm/glm.hpp>
 
+#include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Renderer/Buffer.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
