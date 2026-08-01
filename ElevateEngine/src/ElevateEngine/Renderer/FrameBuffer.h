@@ -10,27 +10,17 @@
 namespace Elevate
 {
 	struct FramebufferColorAttachment {
-		TexturePtr Texture;
+		TexturePtr Texture = nullptr;
 		uint8_t Index = 0;
 
-		FramebufferColorAttachment(TexturePtr tex) : Texture(tex) { }
+		FramebufferColorAttachment() = default;
+		FramebufferColorAttachment(TexturePtr tex, uint32_t index = 0)
+			: Texture(tex), Index(index) { }
 	};
 
 	struct FramebufferDepthAttachment {
-		void* NativeHandle = nullptr; // TODO CHANGER POUR METTRE UNE INTERFACE DE BINDABLE OU AUTRE
+		TexturePtr Texture = nullptr;
 		bool IsRenderbuffer = false;
-	};
-
-	struct FramebufferStencilAttachment {
-
-	};
-
-	struct FramebufferMetadata {
-		std::vector<FramebufferColorAttachment> ColorAttachments;
-		std::optional<FramebufferDepthAttachment> DepthAttachment;
-		std::optional<FramebufferDepthAttachment> Attachment;
-
-		glm::vec4 ClearColor = { 1.0f, 1.0f, 1.0f, 1.0f };
 	};
 
 	class Framebuffer
@@ -42,26 +32,28 @@ namespace Elevate
 		virtual void Unbind() const = 0;
 		virtual void BlitFramebufferToScreen(uint32_t screenWidth, uint32_t screenHeight) const = 0;
 		virtual void Rescale(uint32_t width, uint32_t height) = 0;
-
-		inline void* GetNativeTextureHandle() const {
-			return m_texture->GetNativeHandle();
-		}
-
-		// TODO REMOVE
-		virtual uint32_t GetFrameBufferId() const = 0;
-
-		inline void SetClearColor(glm::vec4 color) { m_clearColor = color; }
-
 		virtual void Clear() const;
 
-		static Framebuffer* Create(uint32_t width = 1280, uint32_t height = 720);
+		virtual void* GetColorAttachmentHandle(uint32_t index = 0) const;
+		virtual void* GetDepthAttachmentHandle() const;
 
+		virtual uint32_t GetFrameBufferId() const = 0;
+		inline void SetClearColor(glm::vec4 color) { m_clearColor = color; }
+
+		// Color + Depth + Stencil (most used case)
+		static Framebuffer* Create(uint32_t width = 1280, uint32_t height = 720);
+		// 0 Color and only 1 Depth texture
+		static Framebuffer* CreateDepthOnly(uint32_t width = 2048, uint32_t height = 2048);
+		// Pass custom config for the FrameBuffer
+		static Framebuffer* Create(
+			const std::vector<TexturePtr>& colorTextures,
+			TexturePtr depthTexture = nullptr,
+			bool depthAsRenderbuffer = true
+		);
 	protected:
-		Framebuffer(TexturePtr tex) : m_texture(tex) { }
-			
-	protected:
-		TexturePtr m_texture; // TODO REMOVE
-		glm::vec4 m_clearColor = { 1.0f, 1.0f, 1.0f, 1.0f }; // TODO REMOVE
+		std::vector<FramebufferColorAttachment> m_colorAttachments;
+		std::optional<FramebufferDepthAttachment> m_depthAttachment;
+		glm::vec4 m_clearColor = { 1.0f, 1.0f, 1.0f, 1.0f };
 	};
 }
 

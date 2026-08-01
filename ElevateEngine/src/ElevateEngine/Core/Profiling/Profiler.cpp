@@ -38,7 +38,7 @@ namespace Elevate
     {
         ProfilerSample sample;
         sample.Name = name;
-        sample.ThreadID = std::hash<std::thread::id>{}(std::this_thread::get_id());
+        sample.ThreadID = static_cast<uint32_t>(std::hash<std::thread::id>{}(std::this_thread::get_id()));
         sample.StartTime = std::chrono::high_resolution_clock::now();
         m_SampleStack.push(sample);
     }

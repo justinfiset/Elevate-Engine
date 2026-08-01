@@ -80,7 +80,6 @@ namespace Elevate
 	OpenGLTexture::OpenGLTexture(unsigned char* data, TextureMetadata& meta)
 		: Texture(meta)
 	{
-		// todo get parameters for the textures
 		GLCheck(glGenTextures(1, &m_textureID));
 
 		Bind();
@@ -104,14 +103,11 @@ namespace Elevate
 
 		GLCheck(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
 
-		// set the texture wrapping parameters	
 		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, ToOpenGL(m_meta.WrapS)));
 		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, ToOpenGL(m_meta.WrapT)));
-		// set texture filtering parameters
 		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GetMinFilter(m_meta.MinFilter, m_meta.Mipmaps)));
 		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, ToOpenGL(m_meta.MagFilter)));
 
-		// Swizzle if there is only a single channnel
 #ifdef EE_SUPPORTS_DSA
 		if (m_meta.Format == TextureFormat::GRAYSCALE) {
 			GLint swizzleMask[] = { GL_RED, GL_RED, GL_RED, GL_ONE };
@@ -124,11 +120,7 @@ namespace Elevate
 		uint32_t width = m_meta.Width > 0 ? m_meta.Width : 1;
 		uint32_t height = m_meta.Height > 0 ? m_meta.Height : 1;
 
-		static const unsigned char fallbackPixel[4] = { 255, 0, 255, 255 };
 		const void* pixelsToUpload = data;
-		if (!pixelsToUpload) {
-			pixelsToUpload = fallbackPixel;
-		}
 
 		GLCheck(glTexImage2D(
 			GL_TEXTURE_2D,
@@ -142,7 +134,7 @@ namespace Elevate
 			pixelsToUpload
 		));
 
-		if (m_meta.Mipmaps && m_meta.Width > 0 && m_meta.Height > 0) {
+		if (m_meta.Mipmaps && width > 1 && height > 1 && pixelsToUpload != nullptr) {
 			GLCheck(glGenerateMipmap(GL_TEXTURE_2D));
 		}
 	}
