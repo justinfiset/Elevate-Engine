@@ -20,11 +20,25 @@ namespace Elevate
 
 	enum class TextureFormat : uint8_t {
 		EMPTY = 0,
-		GRAYSCALE = 1,
-		RGB = 3,
-		RGBA = 4,
-		DEPTH
+		GRAYSCALE,
+		RGB,
+		RGBA,
+		DEPTH,
+		DEPTHSTENCIL // To use depth and stencil at the same time
 	};
+
+	inline uint8_t GetTextureFormatChannels(TextureFormat format)
+	{
+		switch (format)
+		{
+		case TextureFormat::GRAYSCALE:		return 1;
+		case TextureFormat::RGB:			return 3;
+		case TextureFormat::RGBA:			return 4;
+		case TextureFormat::DEPTH:			return 1;
+		case TextureFormat::DEPTHSTENCIL:	return 2;
+		default:							return 0;
+		}
+	}
 
 	enum class TextureType : uint8_t {
 		Diffuse,
@@ -33,7 +47,8 @@ namespace Elevate
 		Height,
 		Cubemap,
 		Ambient,
-
+		Depth,
+		ShadowMap,
 		Count
 	};
 
@@ -79,7 +94,7 @@ namespace Elevate
 		TextureMetadataBuilder& Name(const std::string name) { data.Name = name; return *this; }
 		TextureMetadataBuilder& Path(const std::string& path) { data.Path = path; return *this; }
 		TextureMetadataBuilder& size(const uint32_t w, const uint32_t h) { data.Width = w; data.Height = h; return *this; }
-		TextureMetadataBuilder& Format(const TextureFormat fmt) { data.Format = fmt; data.Channels = (uint8_t)fmt; return *this; }
+		TextureMetadataBuilder& Format(const TextureFormat fmt) { data.Format = fmt; data.Channels = GetTextureFormatChannels(fmt); return *this; }
 		TextureMetadataBuilder& Usage(const TextureType type) { data.Usage = type; return *this; }
 		TextureMetadataBuilder& Source(const TextureSource src) { data.Source = src; return *this; }
 		TextureMetadataBuilder& State(const TextureState state) { data.State = state; return *this; }
