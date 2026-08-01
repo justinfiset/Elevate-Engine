@@ -26,7 +26,12 @@ void Elevate::DebugRenderer::InternalInit()
 
 void Elevate::DebugRenderer::InternalRender()
 {
-	Renderer::PushRenderState({ false, true, false });
+	RenderState state;
+	state.BlendEnable = false;
+	state.Cullface = false;
+	state.DepthTest = true;
+	state.DepthWrite = true;
+	Renderer::PushRenderState(state);
 	// Render the lines
 	Renderer::ApplySystemUniforms(m_lineShader);
 	Renderer::DrawArray(m_lineArray, DrawPrimitiveType::Lines);
