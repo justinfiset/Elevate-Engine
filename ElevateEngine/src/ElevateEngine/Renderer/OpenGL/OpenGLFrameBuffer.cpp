@@ -41,16 +41,20 @@ namespace Elevate
 
 			GLCheck(glDrawBuffers(static_cast<GLsizei>(drawBuffers.size()), drawBuffers.data()));
 		}
-		else // If there is no color buffer :
+		else
 		{
+#if defined(EE_PLATFORM_WEB)
+			GLenum drawBuffers[1] = { GL_NONE };
+			GLCheck(glDrawBuffers(1, drawBuffers));
+#else
 			GLCheck(glDrawBuffer(GL_NONE));
+#endif
 			GLCheck(glReadBuffer(GL_NONE));
 		}
 
 		if (depthTexture)
 		{
 			GLuint depthId = static_cast<GLuint>(reinterpret_cast<intptr_t>(depthTexture->GetNativeHandle()));
-			// Use the texture format to check if we only use depth and/or stencil
 			GLenum attachmentType = (depthTexture->GetMetadata().Format == TextureFormat::DEPTHSTENCIL)
 				? GL_DEPTH_STENCIL_ATTACHMENT
 				: GL_DEPTH_ATTACHMENT;
@@ -59,8 +63,13 @@ namespace Elevate
 			if (depthTexture->GetMetadata().WrapS == TextureWrap::ClampToBorder)
 			{
 				GLCheck(glBindTexture(GL_TEXTURE_2D, depthId));
+#if defined(EE_PLATFORM_WEB)
+				GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+				GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+#else
 				float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 				GLCheck(glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor));
+#endif
 				GLCheck(glBindTexture(GL_TEXTURE_2D, 0));
 			}
 
@@ -112,13 +121,12 @@ namespace Elevate
 			return;
 		}
 
-		GLCheck(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBufferId)); // Read from this framebuffer
-		GLCheck(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0)); // Draw to the main framebuffer
+		GLCheck(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBufferId));
+		GLCheck(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0));
 
 		uint32_t srcW = !m_colorAttachments.empty() ? m_colorAttachments[0].Texture->GetWidth() : 1280;
 		uint32_t srcH = !m_colorAttachments.empty() ? m_colorAttachments[0].Texture->GetHeight() : 720;
 
-		// Use the correct filter
 		bool isMagnifying = (screenWidth >= srcW) && (screenHeight >= srcH);
 		auto filterType = isMagnifying
 			? m_colorAttachments[0].Texture->GetMetadata().MagFilter
@@ -126,7 +134,7 @@ namespace Elevate
 		GLenum filter = ToOpenGL(filterType);
 		if (filter != GL_NEAREST && filter != GL_LINEAR)
 		{
-			filter = GL_LINEAR; // Fallback
+			filter = GL_LINEAR;
 		}
 
 		GLCheck(glBlitFramebuffer(
