@@ -187,6 +187,12 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const TypeLayout& lay
 
 void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field) const
 {
+	if (!field.data && field.type != EngineDataType::Custom)
+	{
+		ImGui::TextColored(ImVec4(1, 0, 0, 1), "[Null Data Pointer] %s", field.GetDisplayName().c_str());
+		return;
+	}
+
 	ImGui::BeginDisabled(field.readOnly);
 
 	ImGui::PushID(field.data);
