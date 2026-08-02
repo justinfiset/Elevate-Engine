@@ -45,11 +45,13 @@ namespace Elevate
 		glm::vec3 m_diffuseColor = { 1.0f, 1.0f, 1.0f };
 		glm::vec3 m_specularColor = { 1.0f, 1.0f, 1.0f };
 		float m_intensity = 1.0f;
+		bool m_castShadows = true;
 
 		PROPERTY(m_ambientColor, EE_ColorPicker)
 		PROPERTY(m_diffuseColor, EE_ColorPicker)
 		PROPERTY(m_specularColor, EE_ColorPicker)
 		PROPERTY(m_intensity)
+		PROPERTY(m_castShadows)
 		END_COMPONENT()
 	};
 }
