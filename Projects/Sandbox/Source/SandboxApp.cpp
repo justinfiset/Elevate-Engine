@@ -25,13 +25,15 @@ public:
 	void OnAttach() override
 	{
 		uint32_t glslPointLightCount = 1;
-		std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(glslPointLightCount);
+		std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(glslPointLightCount) + "\n";
+		uint32_t glslSpotLightCount = 1;
+		std::string glslSpotLightCountDefine = "#define NR_SPOT_LIGHTS " + std::to_string(glslPointLightCount) + "\n";
 		m_shader = Elevate::ShaderManager::LoadShader(
 			"main",
 			"content://Shaders/main.vert",
 			"content://Shaders/main.frag",
 			EE_SHADER_HEADER,
-			EE_SHADER_HEADER + glslPointLightCountDefine
+			EE_SHADER_HEADER + glslPointLightCountDefine + glslSpotLightCountDefine
 		);
 
 		Elevate::MaterialPtr material = Elevate::MaterialRegistry::LoadMaterial(m_shader);
@@ -61,6 +63,7 @@ public:
 		Elevate::Model& demoModel1 = m_demoCube->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Cube);
 		//Elevate::Rigidbody& rb1 = m_demoCube->AddComponent<Elevate::Rigidbody>();
 		Elevate::Camera& cam = m_demoCube->AddComponent<Elevate::Camera>();
+		Elevate::SpotLight& spot = m_demoCube->AddComponent<Elevate::SpotLight>(15.0f, 30.0f);
 		m_demoCube->SetPosition({ 0.0f, 0.0f, 0.0f });
 		m_demoCube->SetRotation({ 0.0, -90.0f, 0.0f });
 
@@ -81,7 +84,8 @@ public:
 		// TODO CONSTRUIRE AUTOMATIQUEMENT VIA LA SCÈNE!!!!
 		m_scene->SetLighting(std::make_unique<Elevate::SceneLighting>(
 			&dirLight,
-			std::vector<Elevate::PointLight*>{ &pointLight }
+			std::vector<Elevate::PointLight*>{ &pointLight },
+			std::vector<Elevate::SpotLight*> { &spot }
 		));
 	}
 

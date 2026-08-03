@@ -5,7 +5,7 @@
 
 namespace Elevate
 {
-	void PointLight::UploadToShader(Shader* shader, uint32_t index)
+	void PointLight::UploadToShader(Shader* shader, uint32_t index) const
 	{
 		const std::string name = "pointLights[" + std::to_string(index) + "]";
 		shader->UseLight(this, name);

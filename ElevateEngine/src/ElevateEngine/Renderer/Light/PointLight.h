@@ -11,7 +11,7 @@ namespace Elevate
 	public:
 		PointLight() = default;
 		PointLight(const glm::vec3& color) : Light(color) { }
-		void UploadToShader(Shader* shader, uint32_t index);
+		void UploadToShader(Shader* shader, uint32_t index) const;
 		
 		END_COMPONENT()
 	};

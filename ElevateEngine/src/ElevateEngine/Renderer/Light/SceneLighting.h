@@ -14,21 +14,23 @@ namespace Elevate
 {
 	class DirectionalLight;
 	class PointLight;
+	class SpotLight;
 	class Shader;
 
 	class SceneLighting
 	{
 	public:
 		SceneLighting() = default;
-		SceneLighting(DirectionalLight* dirLight, std::initializer_list<PointLight*> pointLights)
-			: m_dirLight(dirLight), m_pointLights(pointLights) { }
-		SceneLighting(DirectionalLight* dirLight, const std::vector<PointLight*>& pointLights)
-			: m_dirLight(dirLight), m_pointLights(pointLights) {}
+		SceneLighting(DirectionalLight* dirLight, std::initializer_list<PointLight*> pointLights, std::initializer_list<SpotLight*> spotLights)
+			: m_dirLight(dirLight), m_pointLights(pointLights), m_spotLights(spotLights) { }
+		SceneLighting(DirectionalLight* dirLight, const std::vector<PointLight*>& pointLights, const std::vector<SpotLight*>& spotLights)
+			: m_dirLight(dirLight), m_pointLights(pointLights), m_spotLights(spotLights) { }
 
 		void UploadToShader(const std::shared_ptr<Shader>& shader) const;
 		glm::mat4 GetDirectionalLightSpaceMatrix() const;
 	private:
 		DirectionalLight* m_dirLight;
 		std::vector<PointLight*> m_pointLights;
+		std::vector<SpotLight*> m_spotLights;
 	};
 }

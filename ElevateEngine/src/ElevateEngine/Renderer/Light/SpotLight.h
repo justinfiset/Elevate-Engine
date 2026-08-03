@@ -8,13 +8,15 @@ namespace Elevate
 		BEGIN_COMPONENT(SpotLight)
 		DECLARE_BASE(Light)
 		EECATEGORY("Lighting")
+
 	public:
 		SpotLight() = default;
-		SpotLight(const glm::vec3& color) : Light(color) { }
-		void UploadToShader(Shader* shader, uint32_t index);
-		
-		float m_range = 10.0f;
-		PROPERTY(m_range)
+		SpotLight(float innerCone, float outerCone)
+			: m_innerCone(innerCone), m_outerCone(outerCone) { }
+
+		void UploadToShader(Shader* shader, uint32_t index) const;
+		const glm::vec3 CalculateDirection() const;
+
 		float m_innerCone = 15.0f;
 		PROPERTY(m_innerCone)
 		float m_outerCone = 30.0f;

@@ -37,7 +37,7 @@ namespace Elevate
 		static std::shared_ptr<Shader> CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode);
 
 		// Lights
-		void UseLight(Light* newLightSetting, const std::string& lightName);
+		void UseLight(const Light* newLightSetting, const std::string& lightName) const;
 		void UseDirLight(DirectionalLight* newDirLight);
 
 		// Camera

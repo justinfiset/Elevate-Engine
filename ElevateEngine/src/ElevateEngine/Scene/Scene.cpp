@@ -81,18 +81,6 @@ namespace Elevate
 			}
 		}
 
-		// todo remove
-		//for (std::shared_ptr<GameObject> obj : m_rootObjects)
-		//{
-		//	obj->PreRender();
-		//}
-
-		// todo remove
-		//if (m_sceneLighting)
-		//{
-		//	Renderer::SetupShaders(this);
-		//}
-
 		for (EEObjectPtr<GameObject> obj : m_rootObjects)
 		{
 			switch (m_type)

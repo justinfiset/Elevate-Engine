@@ -101,7 +101,7 @@ namespace Elevate
 		}
 	}
 
-	void Shader::UseLight(Light* newLightSetting, const std::string& lightName)
+	void Shader::UseLight(const Light* newLightSetting, const std::string& lightName) const
 	{
 		SetUniform3f(lightName + ".ambient", newLightSetting->GetAmbientColor());
 		SetUniform3f(lightName + ".diffuse", newLightSetting->GetDiffuseColor());

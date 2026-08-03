@@ -8,6 +8,7 @@
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Light/DirectionalLight.h>
 #include <ElevateEngine/Renderer/Light/PointLight.h>
+#include <ElevateEngine/Renderer/Light/SpotLight.h>
 
 namespace Elevate
 {
@@ -27,6 +28,13 @@ namespace Elevate
 			for (size_t i = 0; i < pointLightsCount; i++)
 			{
 				m_pointLights[i]->UploadToShader(shader.get(), (uint32_t)i);
+			}
+
+			size_t spotLightsCount = m_spotLights.size();
+			shader->SetUniform1i("u_NumPointLights", (int)pointLightsCount);
+			for (size_t i = 0; i < pointLightsCount; i++)
+			{
+				m_spotLights[i]->UploadToShader(shader.get(), (uint32_t)i);
 			}
 		}
 	}
