@@ -13,6 +13,9 @@ namespace Elevate
 		PointLight(const glm::vec3& color) : Light(color) { }
 		void UploadToShader(Shader* shader, uint32_t index) const;
 		
+		LightAttenuation m_attenuation;
+		PROPERTY(m_attenuation);
+
 		END_COMPONENT()
 	};
 }

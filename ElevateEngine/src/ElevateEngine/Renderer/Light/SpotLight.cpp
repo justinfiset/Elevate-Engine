@@ -22,12 +22,11 @@ namespace Elevate
 	{
 		 const std::string name = "spotLights[" + std::to_string(index) + "]";
 		 shader->UseLight(this, name);
-		 // Todo utiliser les paramettres
 		 shader->SetUniform3f(name + ".position", gameObject->GetGlobalPosition());
 		 shader->SetUniform3f(name + ".direction", CalculateDirection());
-		 shader->SetUniform1f(name + ".constant", 1.0f);
-		 shader->SetUniform1f(name + ".linear", 0.09f);
-		 shader->SetUniform1f(name + ".quadratic", 0.032f);
+		 shader->SetUniform1f(name + ".constant", m_attenuation.Constant);
+		 shader->SetUniform1f(name + ".linear", m_attenuation.Linear);
+		 shader->SetUniform1f(name + ".quadratic", m_attenuation.Quadratic);
 		 shader->SetUniform1f(name + ".innerCutoff", glm::cos(glm::radians(m_innerCone)));
 		 shader->SetUniform1f(name + ".outerCutoff", glm::cos(glm::radians(m_outerCone)));
 	}

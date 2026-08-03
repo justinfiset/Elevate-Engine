@@ -22,6 +22,9 @@ namespace Elevate
 		float m_outerCone = 30.0f;
 		PROPERTY(m_outerCone)
 
+		LightAttenuation m_attenuation;
+		PROPERTY(m_attenuation);
+
 		END_COMPONENT()
 	};
 }

@@ -8,6 +8,18 @@
 
 namespace Elevate
 {
+	struct LightAttenuation
+	{
+		BEGIN_STRUCT(LightAttenuation)
+		float Constant = 1.0f;
+		PROPERTY(Constant)
+		float Linear = 0.09f;
+		PROPERTY(Linear)
+		float Quadratic = 0.032f;
+		PROPERTY(Quadratic)
+		END_STRUCT()
+	};
+
 	class Light : public Component
 	{
 	public:
