@@ -3,6 +3,8 @@
 #include <memory>
 #include <vector>
 
+#include <glm/mat4x4.hpp>
+
 // The maximum number of each lights to have in the game, these numbers are passed to the shader at compile time
 #define MAX_DIRECTIONAL_LIGHT  1
 #define MAX_POINTLIGHT        32
@@ -24,6 +26,7 @@ namespace Elevate
 			: m_dirLight(dirLight), m_pointLights(pointLights) {}
 
 		void UploadToShader(const std::shared_ptr<Shader>& shader) const;
+		glm::mat4 GetDirectionalLightSpaceMatrix() const;
 	private:
 		DirectionalLight* m_dirLight;
 		std::vector<PointLight*> m_pointLights;

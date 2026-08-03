@@ -1,5 +1,8 @@
 #pragma once
 #include "RendererAPI.h"
+
+#include <memory>
+
 #include <ElevateEngine/Renderer/RenderState.h>
 #include <ElevateEngine/Renderer/Commands/RenderBucket.h>
 
@@ -7,16 +10,13 @@ namespace Elevate
 {
 	class Camera;
 	class Shader;
+	class Texture;
 
 	class Scene;
 	using ScenePtr = std::shared_ptr<Scene>;
 	class SceneLighting;
 
-	class LayerStack;
-	class Layer;
-
-	class Shader;
-	class Texture;
+	class Framebuffer;
 
 	class Renderer
 	{
@@ -25,6 +25,7 @@ namespace Elevate
 
 		// RENDER API STATIC WRAPPER
 		static void BeginFrame(const ScenePtr scene, const Camera& cam);
+
 		// Performant function to bind a shader and to minimize API calls
 		static bool BindShader(const std::shared_ptr<Shader>& shader); // Return true if the shader just changed
 		static void ApplySystemUniforms(const std::shared_ptr<Shader>& shader);
@@ -50,6 +51,10 @@ namespace Elevate
 		static void BindTexture(const std::shared_ptr<Texture>& texture, uint8_t slot = 0);
 
 		static void InvalidateStateCache();
+
+	private:
+		static void RenderShaowMaps(const ScenePtr& scene);
+
 	private:
 		struct RendererStorage {
 			glm::mat4 ViewProj;
@@ -65,5 +70,8 @@ namespace Elevate
 		static RenderState s_currentState;
 		static uint32_t s_currentShaderID;
 		static uintptr_t s_textures[];
+
+		// Shadow Mapping
+		static std::unique_ptr<Elevate::Framebuffer> s_directionalShadowMap;
 	};
 }

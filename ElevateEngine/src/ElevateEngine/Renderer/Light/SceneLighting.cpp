@@ -1,5 +1,8 @@
 #include "eepch.h"
-#include <ElevateEngine/Renderer/Light/SceneLighting.h>
+
+#include "SceneLighting.h"
+
+#include <glm/gtc/matrix_transform.hpp>
 
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
@@ -26,5 +29,26 @@ namespace Elevate
 				m_pointLights[i]->UploadToShader(shader.get(), (uint32_t)i);
 			}
 		}
+	}
+
+	glm::mat4 SceneLighting::GetDirectionalLightSpaceMatrix() const
+	{
+		if (!m_dirLight) return glm::mat4(1.0f);
+		glm::mat4 modelMatrix = m_dirLight->gameObject->GetModelMatrix();
+		glm::vec3 lightPos = glm::vec3(modelMatrix[3]);
+		glm::vec3 lightDir = glm::normalize(-glm::vec3(modelMatrix[2]));
+		glm::vec3 upDir = glm::normalize(glm::vec3(modelMatrix[1]));
+		glm::mat4 lightView = glm::lookAt(lightPos, lightPos + lightDir, upDir);
+
+		// todo set un the light settings
+		float shadowBoxSize = 20.0f;
+		float nearPlane = 0.1f;
+		float farPlane = 50.0f;
+
+		return lightView * glm::ortho(
+			-shadowBoxSize, shadowBoxSize,
+			-shadowBoxSize, shadowBoxSize,
+			nearPlane, farPlane
+		);
 	}
 }

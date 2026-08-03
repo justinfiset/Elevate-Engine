@@ -7,6 +7,7 @@
 #include <ElevateEngine/Renderer/Camera.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Renderer/Material.h>
+#include <ElevateEngine/Renderer/FrameBuffer.h>
 
 namespace Elevate
 {
@@ -16,6 +17,8 @@ namespace Elevate
     RenderCommandQueue Renderer::s_commands = RenderCommandQueue();
     uint32_t Renderer::s_currentShaderID = 0;
     uintptr_t Renderer::s_textures[16];
+    std::unique_ptr<Framebuffer> s_directionalShadowMap;
+
     static bool s_isStateCacheValid = false;
 
     void Renderer::BeginFrame(const ScenePtr scene, const Camera& cam)
@@ -187,5 +190,13 @@ namespace Elevate
         }
         s_currentShaderID = 0;
         s_isStateCacheValid = false;
+    }
+
+    void Renderer::RenderShaowMaps(const ScenePtr& scene)
+    {
+        glm::mat4 lightSpaceMatrix = s_data.ActiveLighting->GetDirectionalLightSpaceMatrix();
+        uint32_t shadowRes = 2048; // todo get from light settings
+        // todo continue
+        //s_directionalShadowMap->Bind();
     }
 }
