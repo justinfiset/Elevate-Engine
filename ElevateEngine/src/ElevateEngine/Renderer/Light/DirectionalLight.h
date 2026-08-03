@@ -15,6 +15,9 @@ namespace Elevate
 
 		const glm::vec3 CalculateDirection() const;
 
+		DirectionalShadowSettings m_shadowSettings;
+		PROPERTY(m_shadowSettings)
+
 		END_COMPONENT()
 	};
 }

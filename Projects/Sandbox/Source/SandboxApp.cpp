@@ -24,9 +24,9 @@ public:
 
 	void OnAttach() override
 	{
-		uint32_t glslPointLightCount = 1;
+		uint32_t glslPointLightCount = MAX_POINTLIGHT;
 		std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(glslPointLightCount) + "\n";
-		uint32_t glslSpotLightCount = 1;
+		uint32_t glslSpotLightCount = MAX_SPOTLIGHT;
 		std::string glslSpotLightCountDefine = "#define NR_SPOT_LIGHTS " + std::to_string(glslPointLightCount) + "\n";
 		m_shader = Elevate::ShaderManager::LoadShader(
 			"main",

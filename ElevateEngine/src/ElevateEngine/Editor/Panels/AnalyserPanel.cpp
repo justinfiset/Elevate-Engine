@@ -199,21 +199,31 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field) const
 
 	switch (field.type)
 	{
+	case EngineDataType::Int:
+		ImGui::InputInt(field.GetDisplayName().c_str(), (int*)(field.data));
+		break;
+	case EngineDataType::Int2:
+		ImGui::InputInt2(field.GetDisplayName().c_str(), (int*)(field.data));
+		break;
+	case EngineDataType::Int3:
+		ImGui::InputInt3(field.GetDisplayName().c_str(), (int*)(field.data));
+		break;
+	case EngineDataType::Int4:
+		ImGui::InputInt4(field.GetDisplayName().c_str(), (int*)(field.data));
+		break;
+
 	case EngineDataType::Float:
 		ImGui::InputFloat(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
-
 	case EngineDataType::Float2:
 		ImGui::InputFloat2(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
-
 	case EngineDataType::Float3:
 		if (field.isColor)
 			ImGui::ColorEdit3(field.GetDisplayName().c_str(), (float*)(field.data));
 		else
 			ImGui::InputFloat3(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
-
 	case EngineDataType::Float4:
 		if (field.isColor)
 			ImGui::ColorEdit4(field.GetDisplayName().c_str(), (float*)(field.data));

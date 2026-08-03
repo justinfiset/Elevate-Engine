@@ -8,14 +8,54 @@
 
 namespace Elevate
 {
+	struct ShadowSettings
+	{
+		BEGIN_STRUCT(ShadowSettings)
+
+		bool CastShadows = true;
+		int Resolution = 2048;
+		float NearPlane = 0.1f;
+		float FarPlane = 100.0f;
+		float Bias = 0.005f;
+
+		PROPERTY(CastShadows)
+		PROPERTY(Resolution)
+		PROPERTY(NearPlane)
+		PROPERTY(FarPlane)
+		PROPERTY(Bias)
+		END_STRUCT()
+	};
+
+	struct DirectionalShadowSettings
+	{
+		BEGIN_STRUCT(DirectionalShadowSettings)
+
+		bool CastShadows = true;
+		float OrthographicSize = 50.0f;
+		int Resolution = 2048;
+		float NearPlane = 0.1f;
+		float FarPlane = 100.0f;
+		float Bias = 0.005f;
+
+		PROPERTY(CastShadows)
+		PROPERTY(OrthographicSize)
+		PROPERTY(Resolution)
+		PROPERTY(NearPlane)
+		PROPERTY(FarPlane)
+		PROPERTY(Bias)
+		END_STRUCT()
+	};
+
 	struct LightAttenuation
 	{
 		BEGIN_STRUCT(LightAttenuation)
+
 		float Constant = 1.0f;
-		PROPERTY(Constant)
 		float Linear = 0.09f;
-		PROPERTY(Linear)
 		float Quadratic = 0.032f;
+
+		PROPERTY(Constant)
+		PROPERTY(Linear)
 		PROPERTY(Quadratic)
 		END_STRUCT()
 	};
@@ -57,13 +97,11 @@ namespace Elevate
 		glm::vec3 m_diffuseColor = { 1.0f, 1.0f, 1.0f };
 		glm::vec3 m_specularColor = { 1.0f, 1.0f, 1.0f };
 		float m_intensity = 1.0f;
-		bool m_castShadows = true;
 
 		PROPERTY(m_ambientColor, EE_ColorPicker)
 		PROPERTY(m_diffuseColor, EE_ColorPicker)
 		PROPERTY(m_specularColor, EE_ColorPicker)
 		PROPERTY(m_intensity)
-		PROPERTY(m_castShadows)
 		END_COMPONENT()
 	};
 }

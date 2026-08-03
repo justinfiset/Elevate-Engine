@@ -80,7 +80,7 @@ struct PointLight {
     vec3 diffuse;
     vec3 specular;
 };
-uniform PointLight pointLights[NR_SPOT_LIGHTS];
+uniform PointLight pointLights[NR_POINT_LIGHTS];
 
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 {
@@ -129,7 +129,7 @@ struct SpotLight {
     float innerCutoff;
     float outerCutoff;
 };
-uniform SpotLight spotLights[NR_POINT_LIGHTS];
+uniform SpotLight spotLights[NR_SPOT_LIGHTS];
 
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 {

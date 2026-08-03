@@ -16,6 +16,9 @@ namespace Elevate
 		LightAttenuation m_attenuation;
 		PROPERTY(m_attenuation);
 
+		ShadowSettings m_shadowSettings;
+		PROPERTY(m_shadowSettings)
+
 		END_COMPONENT()
 	};
 }

@@ -28,6 +28,7 @@ namespace Elevate
 
 		void UploadToShader(const std::shared_ptr<Shader>& shader) const;
 		glm::mat4 GetDirectionalLightSpaceMatrix() const;
+
 	private:
 		DirectionalLight* m_dirLight;
 		std::vector<PointLight*> m_pointLights;
