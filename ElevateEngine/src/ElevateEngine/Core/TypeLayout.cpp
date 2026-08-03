@@ -7,6 +7,43 @@
 
 namespace Elevate
 {
+    TypeLayout::TypeLayout(const void* target, const std::string& name, const std::initializer_list<TypeField> fields)
+        : m_objectInstance(target), m_name(name), m_fields(fields)
+    {
+        BindInstance(m_objectInstance);
+    }
+
+    TypeLayout::TypeLayout(const void* target, const std::string& name, const std::vector<TypeField>& fields)
+        : m_objectInstance(target), m_name(name), m_fields(fields)
+    {
+        BindInstance(m_objectInstance);
+    }
+
+    void TypeLayout::BindFieldRecursively(TypeField& field, const void* parentAddress)
+    {
+        if (field.data == nullptr && parentAddress != nullptr)
+        {
+            field.data = static_cast<const char*>(parentAddress) + field.offset;
+        }
+
+        for (TypeField& child : field.children)
+        {
+            BindFieldRecursively(child, field.data);
+        }
+    }
+
+    void TypeLayout::BindInstance(const void* instancePtr)
+    {
+        if (!m_objectInstance) return;
+
+        m_objectInstance = instancePtr;
+
+        for (TypeField& field : m_fields)
+        {
+            BindFieldRecursively(field, m_objectInstance);
+        }
+    }
+
     PropertyFlag GetFieldFlags(const TypeField& field)
     {
         return PropertyFlag::None;
@@ -147,6 +184,11 @@ namespace Elevate
 
         for (const TypeField& field : m_fields)
         {
+            if (field.data == nullptr && field.type != EngineDataType::Array && field.children.empty())
+            {
+                continue;
+            }
+
             PropertyField prop;
             prop.Name = field.name;
             prop.Path = field.name;
@@ -154,27 +196,17 @@ namespace Elevate
             prop.Depth = 0;
             prop.Flags = GetFieldFlags(field);
 
-            const void* resolvedData = field.data != nullptr ? field.data : (m_objectInstance != nullptr ? (reinterpret_cast<const char*>(m_objectInstance) + field.offset) : nullptr);
-
-            if (resolvedData == nullptr && field.type != EngineDataType::Array && field.children.empty())
-            {
-                continue;
-            }
-
-            TypeField instantiatedField = field;
-            instantiatedField.data = resolvedData;
-
             if (field.type == EngineDataType::Array)
             {
-                prop.Value = PropertyContainer{ CreateArrayPropertySet(instantiatedField, prop.Path, 1) };
+                prop.Value = PropertyContainer{ CreateArrayPropertySet(field, prop.Path, 1) };
             }
             else if (!field.children.empty())
             {
-                prop.Value = PropertyContainer{ CreateContainer(instantiatedField, prop.Path, 1) };
+                prop.Value = PropertyContainer{ CreateContainer(field, prop.Path, 1) };
             }
             else
             {
-                SetPropertyRawValue(instantiatedField, prop, 0);
+                SetPropertyRawValue(field, prop, 0);
             }
 
             set.push_back(prop);
