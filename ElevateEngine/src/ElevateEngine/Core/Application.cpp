@@ -41,9 +41,6 @@ namespace Elevate {
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
-		FrameBuffer.reset(Framebuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
-		FrameBuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
-
 		#ifdef EE_EDITOR_BUILD
 			PushOverlay(new Elevate::Editor::EditorLayer());
 			SetGameState(GameContextState::EditorMode);
@@ -101,7 +98,6 @@ namespace Elevate {
 
 	void Application::Start(int argc, char** argv)
 	{
-		//Log::Init(); // todo remove or uncomment depending on if the workarround worked
 		EE_CORE_INFO("Initializing ElevateEngine...");
 		auto app = CreateApplication();
 		app->m_args = ApplicationArguments(argc, argv);
@@ -115,7 +111,7 @@ namespace Elevate {
 
 	void Application::Init()
 	{
-		Renderer::Init();
+		Renderer::Init(m_Window->GetWidth(), m_Window->GetHeight());
 		SoundEngine::Init();
 	}
 
@@ -136,9 +132,6 @@ namespace Elevate {
 			SoundEngine::RenderAudio();
 			TextureManager::UpdateLoadingTextures();
 
-			FrameBuffer->Bind(); // Rendering the screen in a single texture
-			FrameBuffer->Clear();
-
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
@@ -148,10 +141,9 @@ namespace Elevate {
 
 			Renderer::RenderFrame();
 
-			FrameBuffer->Unbind(); // Back to normal
-
+			// If not in the editor, dump the content of the main color buffer to the main buffer
 			#ifndef EE_EDITOR_BUILD
-			FrameBuffer->BlitFramebufferToScreen(m_Window->GetWidth(), m_Window->GetHeight());
+			Renderer::Present(m_Window->GetWidth(), m_Window->GetHeight());
 			#endif
 
 			//imgui

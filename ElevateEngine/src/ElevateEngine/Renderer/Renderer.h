@@ -11,7 +11,7 @@ namespace Elevate
 	class Camera;
 	class Shader;
 	class Texture;
-
+	class Cubemap;
 	class Scene;
 	using ScenePtr = std::shared_ptr<Scene>;
 	class SceneLighting;
@@ -23,7 +23,7 @@ namespace Elevate
 	public:
 		inline static RendererAPI::GraphicAPI GetAPI() { return RendererAPI::GetAPI(); }
 
-		static void Init();
+		static void Init(uint32_t width, uint32_t height);
 	private:
 		static void InitShadowRenderer();
 
@@ -32,6 +32,7 @@ namespace Elevate
 		// RENDER API STATIC WRAPPER
 		static void BeginFrame(const ScenePtr scene, const Camera& cam);
 		static void RenderFrame();
+		static void Present(uint32_t width, uint32_t height);
 
 		// Performant function to bind a shader and to minimize API calls
 		static bool BindShader(const std::shared_ptr<Shader>& shader); // Return true if the shader just changed
@@ -45,7 +46,7 @@ namespace Elevate
 		static void DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles);
 		static void PushRenderState(const RenderState& newState);
 
-		
+		static Framebuffer& GetMainFramebuffer();
 
 		/// <summary>
 		/// Immediatly process a RenderCommand. Do not use directly unless you know what you are donig.
@@ -63,6 +64,7 @@ namespace Elevate
 
 	private:
 		static void RenderShaowMaps();
+		static void RenderSkybox();
 		static void RenderGeometry();
 
 		static void DrawStack();
@@ -70,9 +72,13 @@ namespace Elevate
 
 	private:
 		struct RendererStorage {
+			glm::mat4 View;
+			glm::mat4 Projection;
 			glm::mat4 ViewProj;
+
 			glm::vec3 CameraPosition;
 			const SceneLighting* ActiveLighting = nullptr;
+			const Cubemap* ActiveCubemap = nullptr;
 		};
 
 		static RendererAPI* s_API;
@@ -83,6 +89,9 @@ namespace Elevate
 		static RenderState s_currentState;
 		static uint32_t s_currentShaderID;
 		static uintptr_t s_textures[];
+
+		// Framebuffer
+		static std::unique_ptr<Framebuffer> s_mainFramebuffer;
 
 		// Shadow Mapping
 		static std::shared_ptr<Shader> s_shadowShader;

@@ -12,7 +12,6 @@ namespace Elevate
 		{
 			ShadowMap,
 			GBuffer,
-			Opaque,
 			Transparent,
 			UI,
 			Debug,

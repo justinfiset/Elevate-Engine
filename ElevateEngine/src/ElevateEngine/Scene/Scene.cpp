@@ -67,20 +67,6 @@ namespace Elevate
 			cam = Elevate::CameraManager::GetCurrent();
 		}
 
-		// Render the cubemap / skybox
-		if (cam)
-		{
-			// Either do not calculate here or stop calculating it in the layer
-			glm::mat4 view = glm::mat4(glm::mat3(cam->GenViewMatrix()));
-
-			if (m_cubemap)
-			{
-				m_cubemap->SetProjectionMatrix(cam->GetProjectionMatrix());
-				m_cubemap->SetViewMatrix(view);
-				m_cubemap->Draw();
-			}
-		}
-
 		for (EEObjectPtr<GameObject> obj : m_rootObjects)
 		{
 			switch (m_type)

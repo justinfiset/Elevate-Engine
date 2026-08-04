@@ -4,6 +4,7 @@
 #include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
 #include <ElevateEngine/Renderer/OpenGL/OpenGLRendererAPI.h>
 #include <ElevateEngine/Scene/Scene.h>
+#include <ElevateEngine/Renderer/Cubemap.h>
 
 #include <ElevateEngine/Renderer/Camera.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
@@ -22,14 +23,21 @@ namespace Elevate
     uint32_t Renderer::s_currentShaderID = 0;
     uintptr_t Renderer::s_textures[16];
 
+    // Framebuffer
+    std::unique_ptr<Framebuffer> Renderer::s_mainFramebuffer;
+
     // Shadows
     std::shared_ptr<Shader> Renderer::s_shadowShader;
     std::unique_ptr<Framebuffer> Renderer::s_directionalShadowMap;
 
     static bool s_isStateCacheValid = false;
 
-    void Renderer::Init()
+    void Renderer::Init(uint32_t width, uint32_t height)
     {
+        // Create the main color framebuffer
+        s_mainFramebuffer.reset(Framebuffer::Create());
+        s_mainFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
+
         DebugRenderer::Init();
         InitShadowRenderer();
     }
@@ -55,8 +63,14 @@ namespace Elevate
         s_API->ClearTextureBindings();
 
         s_data.CameraPosition = cam.gameObject->GetPosition();
-        s_data.ViewProj = cam.GenViewProjectionMatrix();
+
+        s_data.View = cam.GenViewMatrix();
+        s_data.Projection = cam.GetProjectionMatrix();
+        s_data.ViewProj = s_data.Projection * s_data.View;
+
         s_data.ActiveLighting = scene->GetSceneLighting();
+        auto skybox = scene->GetSkybox().lock();
+        s_data.ActiveCubemap = skybox.get();
     }
 
     void Renderer::RenderFrame()
@@ -65,6 +79,11 @@ namespace Elevate
         RenderGeometry();
         DebugRenderer::Render();
         ClearStack();
+    }
+
+    void Renderer::Present(uint32_t width, uint32_t height)
+    {
+        s_mainFramebuffer->BlitFramebufferToScreen(width, height);
     }
 
     bool Renderer::BindShader(const std::shared_ptr<Shader>& shader)
@@ -166,6 +185,11 @@ namespace Elevate
         s_isStateCacheValid = true;
     }
 
+    Framebuffer& Renderer::GetMainFramebuffer()
+    {
+        return *s_mainFramebuffer.get();
+    }
+
     void Renderer::Dispatch(const RenderCommand& command)
     {
         PushRenderState(command.m_State);
@@ -197,7 +221,7 @@ namespace Elevate
     {
         RenderCommand command;
         RenderState state = material ? material->GetRenderState() : RenderState();
-        RenderBucket::Type bucket = material ? material->GetBucket() : RenderBucket::Opaque;
+        RenderBucket::Type bucket = material ? material->GetBucket() : RenderBucket::GBuffer;
 
         command.m_VertexArray = vao.get();
         command.m_MaterialInstance = material.get();
@@ -255,8 +279,25 @@ namespace Elevate
         }
     }
 
+    void Renderer::RenderSkybox()
+    {
+        if (s_data.ActiveCubemap)
+        {
+            glm::mat4 view = glm::mat4(glm::mat3(s_data.View));
+            s_data.ActiveCubemap->SetProjectionMatrix(s_data.Projection);
+            s_data.ActiveCubemap->SetViewMatrix(view);
+            s_data.ActiveCubemap->Draw();
+        }
+    }
+
     void Renderer::RenderGeometry()
     {
+        s_mainFramebuffer->Bind();
+        s_mainFramebuffer->Clear();
+
+        RenderSkybox();
         DrawStack();
+
+        s_mainFramebuffer->Unbind();
     }
 }
