@@ -22,7 +22,6 @@ namespace Elevate
 			m_buckets.at(i).Sort();
 			m_buckets.at(i).Flush();
 		}
-		Clear();
 	}
 
 	const RenderBucket& RenderCommandQueue::GetBucket(RenderBucket::Type bucketType) const

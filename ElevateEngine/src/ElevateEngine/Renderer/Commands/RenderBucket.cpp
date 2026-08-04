@@ -18,8 +18,6 @@ namespace Elevate
 		{
 			Renderer::Dispatch(command);
 		}
-
-		Clear();
 	}
 
 	void RenderBucket::Clear()

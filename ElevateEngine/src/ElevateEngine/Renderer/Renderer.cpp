@@ -1,13 +1,17 @@
 #include "eepch.h"
 #include "Renderer.h"
 
-#include "ElevateEngine/Renderer/OpenGL/OpenGLRendererAPI.h"
+#include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
+#include <ElevateEngine/Renderer/OpenGL/OpenGLRendererAPI.h>
 #include <ElevateEngine/Scene/Scene.h>
 
 #include <ElevateEngine/Renderer/Camera.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Renderer/Material.h>
 #include <ElevateEngine/Renderer/FrameBuffer.h>
+
+#include <ElevateEngine/Renderer/Light/Light.h>
+#include <ElevateEngine/Renderer/Light/DirectionalLight.h>
 
 namespace Elevate
 {
@@ -17,9 +21,32 @@ namespace Elevate
     RenderCommandQueue Renderer::s_commands = RenderCommandQueue();
     uint32_t Renderer::s_currentShaderID = 0;
     uintptr_t Renderer::s_textures[16];
-    std::unique_ptr<Framebuffer> s_directionalShadowMap;
+
+    // Shadows
+    std::shared_ptr<Shader> Renderer::s_shadowShader;
+    std::unique_ptr<Framebuffer> Renderer::s_directionalShadowMap;
 
     static bool s_isStateCacheValid = false;
+
+    void Renderer::Init()
+    {
+        DebugRenderer::Init();
+        InitShadowRenderer();
+    }
+
+    void Renderer::InitShadowRenderer()
+    {
+        // Create the shadow shader from files
+        s_shadowShader = ShaderManager::LoadShader(
+            "engine://Shaders/Shadow.vert",
+            "engine://Shaders/Shadow.frag"
+            EE_SHADER_HEADER,
+            EE_SHADER_HEADER
+        );
+
+        // Create the Framebuffer
+        s_directionalShadowMap.reset(Framebuffer::CreateDepthOnly());
+    }
 
     void Renderer::BeginFrame(const ScenePtr scene, const Camera& cam)
     {
@@ -30,6 +57,14 @@ namespace Elevate
         s_data.CameraPosition = cam.gameObject->GetPosition();
         s_data.ViewProj = cam.GenViewProjectionMatrix();
         s_data.ActiveLighting = scene->GetSceneLighting();
+    }
+
+    void Renderer::RenderFrame()
+    {
+        RenderShaowMaps();
+        RenderGeometry();
+        DebugRenderer::Render();
+        ClearStack();
     }
 
     bool Renderer::BindShader(const std::shared_ptr<Shader>& shader)
@@ -67,6 +102,11 @@ namespace Elevate
         s_API->Clear();
     }
 
+    void Renderer::ClearDepth()
+    {
+        s_API->ClearDepth();
+    }
+
     void Renderer::FlushBuffers()
     {
         s_API->FlushBuffers();
@@ -93,6 +133,11 @@ namespace Elevate
     void Renderer::DrawStack()
     {
         s_commands.FlushAll();
+    }
+
+    void Renderer::ClearStack()
+    {
+        s_commands.Clear();
     }
 
     void Renderer::PushRenderState(const RenderState& newState)
@@ -192,11 +237,26 @@ namespace Elevate
         s_isStateCacheValid = false;
     }
 
-    void Renderer::RenderShaowMaps(const ScenePtr& scene)
+    void Renderer::RenderShaowMaps()
     {
-        glm::mat4 lightSpaceMatrix = s_data.ActiveLighting->GetDirectionalLightSpaceMatrix();
-        uint32_t shadowRes = 2048; // todo get from light settings
-        // todo continue
-        //s_directionalShadowMap->Bind();
+        auto* dirLight = s_data.ActiveLighting->GetDirLight();
+        if (dirLight)
+        {
+            glm::mat4 lightSpaceMatrix = s_data.ActiveLighting->GetDirectionalLightSpaceMatrix();
+            DirectionalShadowSettings settings = dirLight->m_shadowSettings;
+            
+            BindShader(s_shadowShader);
+            //s_directionalShadowMap->Bind();
+            //SetViewport(0, 0, settings.Resolution, settings.Resolution);
+            //ClearDepth();
+
+            //// todo continue
+            //s_directionalShadowMap->Unbind();
+        }
+    }
+
+    void Renderer::RenderGeometry()
+    {
+        DrawStack();
     }
 }

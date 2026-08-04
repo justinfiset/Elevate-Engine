@@ -12,7 +12,6 @@
 
 #include "ElevateEngine/Renderer/Renderer.h"
 #include "ElevateEngine/Renderer/Texture/TextureManager.h"
-#include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
 
 #include "ElevateEngine/Inputs/Input.h"
 #include "ElevateEngine/Files/FileUtility.h"
@@ -41,8 +40,6 @@ namespace Elevate {
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
-
-		DebugRenderer::Init();
 
 		FrameBuffer.reset(Framebuffer::Create(m_Window->GetWidth(), m_Window->GetHeight())); 
 		FrameBuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
@@ -118,6 +115,7 @@ namespace Elevate {
 
 	void Application::Init()
 	{
+		Renderer::Init();
 		SoundEngine::Init();
 	}
 
@@ -148,8 +146,7 @@ namespace Elevate {
 			for (Layer* layer : m_LayerStack)
 				layer->OnRender();
 
-			DebugRenderer::Render();
-			Renderer::DrawStack();
+			Renderer::RenderFrame();
 
 			FrameBuffer->Unbind(); // Back to normal
 

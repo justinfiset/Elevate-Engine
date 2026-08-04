@@ -27,6 +27,8 @@ namespace Elevate
 			: m_dirLight(dirLight), m_pointLights(pointLights), m_spotLights(spotLights) { }
 
 		void UploadToShader(const std::shared_ptr<Shader>& shader) const;
+
+		const DirectionalLight* GetDirLight() const;
 		glm::mat4 GetDirectionalLightSpaceMatrix() const;
 
 	private:

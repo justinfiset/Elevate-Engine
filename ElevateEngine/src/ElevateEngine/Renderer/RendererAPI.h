@@ -37,7 +37,9 @@ namespace Elevate
 	public:
 		virtual void SetClearColor(const glm::vec4& color) const = 0;
 		virtual void SetViewport(int x, int y, int width, int height) const = 0;
+
 		virtual void Clear() const = 0;
+		virtual void ClearDepth() const = 0;
 		virtual void FlushBuffers() const = 0;
 
 		virtual void ClearTextureBindings() const = 0;

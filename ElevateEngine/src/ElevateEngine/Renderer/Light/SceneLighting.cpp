@@ -39,6 +39,11 @@ namespace Elevate
 		}
 	}
 
+	const DirectionalLight* SceneLighting::GetDirLight() const
+	{
+		return m_dirLight;
+	}
+
 	glm::mat4 SceneLighting::GetDirectionalLightSpaceMatrix() const
 	{
 		if (!m_dirLight) return glm::mat4(1.0f);
@@ -48,10 +53,10 @@ namespace Elevate
 		glm::vec3 upDir = glm::normalize(glm::vec3(modelMatrix[1]));
 		glm::mat4 lightView = glm::lookAt(lightPos, lightPos + lightDir, upDir);
 
-		// todo set un the light settings
-		float shadowBoxSize = 20.0f;
-		float nearPlane = 0.1f;
-		float farPlane = 50.0f;
+		DirectionalShadowSettings& settings = m_dirLight->m_shadowSettings;
+		float shadowBoxSize = settings.OrthographicSize;
+		float nearPlane = settings.NearPlane;
+		float farPlane = settings.FarPlane;
 
 		return lightView * glm::ortho(
 			-shadowBoxSize, shadowBoxSize,
