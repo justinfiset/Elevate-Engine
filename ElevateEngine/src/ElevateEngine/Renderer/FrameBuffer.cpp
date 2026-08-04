@@ -10,11 +10,21 @@
 
 namespace Elevate
 {
+    uint32_t Framebuffer::GetWidth() const
+    {
+        return m_width;
+    }
+
+    uint32_t Framebuffer::GetHeight() const
+    {
+        return m_height;
+    }
+
     Framebuffer* Framebuffer::Create(uint32_t width, uint32_t height)
     {
         switch (Renderer::GetAPI())
         {
-        case RendererAPI::GraphicAPI::None:
+           case RendererAPI::GraphicAPI::None:
                 EE_CORE_ASSERT(false, "GraphicsAPI::None is not supported!");
                 return nullptr;
 
@@ -33,7 +43,10 @@ namespace Elevate
                     .Build();
 
                 TexturePtr colorTex = Texture::CreateFromData(nullptr, colorMeta);
-                return new OpenGLFrameBuffer({ colorTex }, nullptr, true);
+                Framebuffer* buffer = new OpenGLFrameBuffer({ colorTex }, nullptr, true);
+                buffer->m_width = width;
+                buffer->m_height = height;
+                return buffer;
             }
         }
 
@@ -45,27 +58,30 @@ namespace Elevate
     {
         switch (Renderer::GetAPI())
         {
-        case RendererAPI::GraphicAPI::None:
-            EE_CORE_ASSERT(false, "GraphicsAPI::None is not supported!");
-            return nullptr;
+            case RendererAPI::GraphicAPI::None:
+                EE_CORE_ASSERT(false, "GraphicsAPI::None is not supported!");
+                return nullptr;
 
-        case RendererAPI::GraphicAPI::OpenGL:
-        {
-            TextureMetadata depthMeta = TextureMetadataBuilder()
-                .Name("ShadowMapDepthAttachment")
-                .size(width, height)
-                .Format(TextureFormat::DEPTH)
-                .Usage(TextureType::ShadowMap)
-                .Source(TextureSource::RenderTarget)
-                .State(TextureState::Ready)
-                .Filter(TextureFilter::Nearest, TextureFilter::Nearest)
-                .Wrap(TextureWrap::ClampToBorder, TextureWrap::ClampToBorder)
-                .Mipmaps(false)
-                .Build();
+            case RendererAPI::GraphicAPI::OpenGL:
+            {
+                TextureMetadata depthMeta = TextureMetadataBuilder()
+                    .Name("ShadowMapDepthAttachment")
+                    .size(width, height)
+                    .Format(TextureFormat::DEPTH)
+                    .Usage(TextureType::ShadowMap)
+                    .Source(TextureSource::RenderTarget)
+                    .State(TextureState::Ready)
+                    .Filter(TextureFilter::Nearest, TextureFilter::Nearest)
+                    .Wrap(TextureWrap::ClampToBorder, TextureWrap::ClampToBorder)
+                    .Mipmaps(false)
+                    .Build();
 
-            TexturePtr depthTex = Texture::CreateFromData(nullptr, depthMeta);
-            return new OpenGLFrameBuffer({}, depthTex, false);
-        }
+                TexturePtr depthTex = Texture::CreateFromData(nullptr, depthMeta);
+                Framebuffer* buffer = new OpenGLFrameBuffer({}, depthTex, false);
+                buffer->m_width = width;
+                buffer->m_height = height;
+                return buffer;
+            }
         }
 
         EE_CORE_ASSERT(false, "Unknown GraphicsAPI!");

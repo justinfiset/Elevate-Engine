@@ -35,7 +35,7 @@ namespace Elevate
     void Renderer::Init(uint32_t width, uint32_t height)
     {
         // Create the main color framebuffer
-        s_mainFramebuffer.reset(Framebuffer::Create());
+        s_mainFramebuffer.reset(Framebuffer::Create(width, height));
         s_mainFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
 
         DebugRenderer::Init();
@@ -270,12 +270,12 @@ namespace Elevate
             DirectionalShadowSettings settings = dirLight->m_shadowSettings;
             
             BindShader(s_shadowShader);
-            //s_directionalShadowMap->Bind();
-            //SetViewport(0, 0, settings.Resolution, settings.Resolution);
-            //ClearDepth();
+            s_directionalShadowMap->Bind();
+            SetViewport(0, 0, settings.Resolution, settings.Resolution);
+            ClearDepth();
 
-            //// todo continue
-            //s_directionalShadowMap->Unbind();
+            // todo continue
+            s_directionalShadowMap->Unbind();
         }
     }
 
@@ -294,7 +294,7 @@ namespace Elevate
     {
         s_mainFramebuffer->Bind();
         s_mainFramebuffer->Clear();
-
+        SetViewport(0, 0, s_mainFramebuffer->GetWidth(), s_mainFramebuffer->GetHeight());
         RenderSkybox();
         DrawStack();
 

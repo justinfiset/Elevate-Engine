@@ -28,6 +28,9 @@ namespace Elevate
 	public:
 		virtual ~Framebuffer() = default;
 
+		uint32_t GetWidth() const;
+		uint32_t GetHeight() const;
+
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 		virtual void BlitFramebufferToScreen(uint32_t screenWidth, uint32_t screenHeight) const = 0;
@@ -54,6 +57,8 @@ namespace Elevate
 		std::vector<FramebufferColorAttachment> m_colorAttachments;
 		std::optional<FramebufferDepthAttachment> m_depthAttachment;
 		glm::vec4 m_clearColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+		uint32_t m_width = 0;
+		uint32_t m_height = 0;
 	};
 }
 
