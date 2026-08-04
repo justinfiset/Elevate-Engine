@@ -46,8 +46,9 @@ namespace Elevate
     {
         // Create the shadow shader from files
         s_shadowShader = ShaderManager::LoadShader(
+            "shadow",
             "engine://Shaders/Shadow.vert",
-            "engine://Shaders/Shadow.frag"
+            "engine://Shaders/Shadow.frag",
             EE_SHADER_HEADER,
             EE_SHADER_HEADER
         );
@@ -270,11 +271,21 @@ namespace Elevate
             DirectionalShadowSettings settings = dirLight->m_shadowSettings;
             
             BindShader(s_shadowShader);
+            s_shadowShader->SetUniformMatrix4fv(
+                "lightSpaceMatrix",
+                lightSpaceMatrix
+            );
+
             s_directionalShadowMap->Bind();
             SetViewport(0, 0, settings.Resolution, settings.Resolution);
             ClearDepth();
+            
+            for (const auto& command : s_commands.GetBucket(RenderBucket::GBuffer))
+            {
+                s_shadowShader->SetModelMatrix(command.Transform);
+                DrawArray(command.m_VertexArray);
+            }
 
-            // todo continue
             s_directionalShadowMap->Unbind();
         }
     }

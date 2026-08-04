@@ -9,7 +9,7 @@ namespace Elevate
 		m_isSorted = false;
 	}
 
-	void RenderBucket::Flush()
+	void RenderBucket::Flush() const
 	{
 		if (m_commands.empty()) return;
 
