@@ -17,6 +17,10 @@ namespace Elevate
 		void UploadToShader(Shader* shader, uint32_t index) const;
 		const glm::vec3 CalculateDirection() const;
 
+#ifdef EE_EDITOR_BUILD
+		virtual void RenderWhenSelected() override;
+#endif
+
 		float m_innerCone = 15.0f;
 		PROPERTY(m_innerCone)
 		float m_outerCone = 30.0f;

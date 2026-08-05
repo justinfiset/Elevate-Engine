@@ -4,6 +4,9 @@
 
 #include "DebugRenderer.h"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/constants.hpp>
+
 #include <ElevateEngine/Core/Core.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Renderer.h>
@@ -17,6 +20,29 @@ void Elevate::DebugRenderer::Init()
 void Elevate::DebugRenderer::Render()
 {
 	Get().InternalRender();
+}
+
+void Elevate::DebugRenderer::AddDebugCone(const glm::vec3& origin, const glm::vec3& direction, float radius, float range, uint16_t segmentCount, const glm::vec4& color)
+{
+	constexpr float TWO_PI = glm::two_pi<float>();
+
+	glm::vec3 forward = glm::normalize(direction);
+	glm::vec3 reference = (std::abs(forward.y) < 0.999f) ? glm::vec3(0.0f, 1.0f, 0.0f) : glm::vec3(1.0f, 0.0f, 0.0f);
+	glm::vec3 center = origin + direction * range;
+	glm::vec3 right = glm::normalize(glm::cross(forward, reference));
+	glm::vec3 up = glm::normalize(glm::cross(right, forward));
+
+	for (int i = 0; i < segmentCount; i++)
+	{
+		float angle0 = TWO_PI * static_cast<float>(i) / segmentCount;
+		float angle1 = TWO_PI * static_cast<float>(i + 1) / segmentCount;
+
+		glm::vec3 p0 = center + (right * std::cos(angle0) + up * std::sin(angle0)) * radius;
+		glm::vec3 p1 = center + (right * std::cos(angle1) + up * std::sin(angle1)) * radius;
+
+		AddDebugLine({ p0, p1, color });
+		AddDebugLine({ p0, origin, color });
+	}
 }
 
 void Elevate::DebugRenderer::InternalInit()

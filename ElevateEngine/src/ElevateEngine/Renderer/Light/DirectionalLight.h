@@ -16,7 +16,7 @@ namespace Elevate
 		const glm::vec3 CalculateDirection() const;
 		
 #ifdef EE_EDITOR_BUILD
-		void RenderWhenSelected();
+		virtual void RenderWhenSelected() override;
 		void DrawDebugDirection();
 #endif
 

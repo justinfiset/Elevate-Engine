@@ -54,6 +54,8 @@ namespace Elevate
 		float Linear = 0.09f;
 		float Quadratic = 0.032f;
 
+		float CalculateLightRange(float cutOff = 0.01f);
+
 		PROPERTY(Constant)
 		PROPERTY(Linear)
 		PROPERTY(Quadratic)
