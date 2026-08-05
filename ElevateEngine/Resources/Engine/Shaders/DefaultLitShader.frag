@@ -207,12 +207,8 @@ float CalcShadow()
 
     vec3 lightDir = normalize(-dirLight.direction);
 
-    float lightDot = max(dot(normal, lightDir), 0.0);
-
-    float bias = max(
-        0.02 * (1.0 - lightDot),
-        0.002
-    );
+    float cosTheta = max(dot(normalize(normal), lightDir), 0.0);
+    float bias = max(0.0005, 0.005 * (1.0 - cosTheta));
 
     float currentDepth = projCoords.z;
 
