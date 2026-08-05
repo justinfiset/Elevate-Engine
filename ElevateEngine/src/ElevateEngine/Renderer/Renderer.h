@@ -49,6 +49,7 @@ namespace Elevate
 		static void PushRenderState(const RenderState& newState);
 
 		static Framebuffer& GetMainFramebuffer();
+		static Framebuffer& GetDirectionalFrameBuffer();
 
 		/// <summary>
 		/// Immediatly process a RenderCommand. Do not use directly unless you know what you are donig.

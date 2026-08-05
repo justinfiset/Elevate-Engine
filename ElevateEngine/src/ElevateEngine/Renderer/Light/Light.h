@@ -31,7 +31,7 @@ namespace Elevate
 		BEGIN_STRUCT(DirectionalShadowSettings)
 
 		bool CastShadows = true;
-		float OrthographicSize = 50.0f;
+		float OrthographicSize = 20.0f;
 		int Resolution = 2048;
 		float NearPlane = 0.1f;
 		float FarPlane = 100.0f;

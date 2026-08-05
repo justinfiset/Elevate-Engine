@@ -24,6 +24,7 @@
 #include <ElevateEngine/Scene/Scene.h>
 
 #include <ElevateEngine/Renderer/Camera/CameraManager.h>
+#include <ElevateEngine/Renderer/FrameBuffer.h>
 
 // TODO : CHECK ESSENTIAL INCLUDES KNOW ESSENTIAL BELLOW
 // Core
@@ -241,6 +242,16 @@ namespace Elevate::Editor
 
 		for (auto& widgetPtr : m_widgets)
 			widgetPtr->OnImGuiRender();
+
+		ImGui::Begin("Directional Shadow Map");
+
+		Framebuffer& directionalFBO = Renderer::GetDirectionalFrameBuffer();
+		ImGui::Image(
+			(ImTextureID)directionalFBO.GetDepthAttachmentHandle(),
+			ImVec2(512.0f, 512.0f)
+		);
+
+		ImGui::End();
 	}
 
 	void EditorLayer::OnEvent(Event& event)

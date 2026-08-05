@@ -207,7 +207,10 @@ float CalcShadow()
 
     float closestDepth = texture(shadowMap, projCoords.xy).r;
     float currentDepth = projCoords.z;
-    float bias = 0.005;
+    float bias = max(
+        0.05 * (1.0 - dot(normal, normalize(-dirLight.direction))),
+        0.005
+    );
     return currentDepth - bias > closestDepth
         ? 1.0
         : 0.0;
@@ -222,17 +225,17 @@ void main()
     vec3 directionalLighting = CalcDirLight(dirLight, unitNormal, viewDir);
     vec3 result = directionalLighting * (1 - CalcShadow());
 
-    // // phase 2: Point lights
-    // for(int i = 0; i < u_NumPointLights && i < NR_POINT_LIGHTS; i++)
-    // {
-    //     result += CalcPointLight(pointLights[i], unitNormal, fragPos, viewDir);    
-    // }
+    // phase 2: Point lights
+    for(int i = 0; i < u_NumPointLights && i < NR_POINT_LIGHTS; i++)
+    {
+        result += CalcPointLight(pointLights[i], unitNormal, fragPos, viewDir);    
+    }
 
-    // // phase 3: Spot light
-    // for(int i = 0; i < u_NumSpotLights && i < NR_SPOT_LIGHTS; i++)
-    // {
-    //     result += CalcSpotLight(spotLights[i], unitNormal, fragPos, viewDir);    
-    // }
+    // phase 3: Spot light
+    for(int i = 0; i < u_NumSpotLights && i < NR_SPOT_LIGHTS; i++)
+    {
+        result += CalcSpotLight(spotLights[i], unitNormal, fragPos, viewDir);    
+    }
 
     o_Color = vec4(result, 1.0);
 }

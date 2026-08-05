@@ -64,10 +64,6 @@ public:
 		//Elevate::Rigidbody& rb1 = m_demoCube->AddComponent<Elevate::Rigidbody>();
 		Elevate::Camera& cam = m_demoCube->AddComponent<Elevate::Camera>();
 		Elevate::SpotLight& spot = m_demoCube->AddComponent<Elevate::SpotLight>(15.0f, 30.0f);
-		Elevate::DirectionalLight& dirLight = m_demoCube->AddComponent<Elevate::DirectionalLight>(
-			glm::vec3(1.0f, 1.0f, 1.0f)
-		);
-		dirLight.SetIntensity(0.1f);
 		m_demoCube->SetPosition({ 0.0f, 0.0f, 0.0f });
 		m_demoCube->SetRotation({ 0.0, -90.0f, 0.0f });
 
@@ -79,6 +75,10 @@ public:
 		pointLight.SetIntensity(0.5);
 
 		auto m_dirLightObj = Elevate::GameObject::Create("Directional Light", m_scene);
+		Elevate::DirectionalLight& dirLight = m_dirLightObj->AddComponent<Elevate::DirectionalLight>(
+			glm::vec3(1.0f, 1.0f, 1.0f)
+		);
+		dirLight.SetIntensity(0.2f);
 		m_dirLightObj->SetRotation({ 0.0f, 45.0f, 20.0f });
 		
 		// TODO CONSTRUIRE AUTOMATIQUEMENT VIA LA SCÈNE!!!!

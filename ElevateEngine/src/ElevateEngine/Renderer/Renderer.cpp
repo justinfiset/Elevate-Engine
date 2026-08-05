@@ -196,7 +196,12 @@ namespace Elevate
 
     Framebuffer& Renderer::GetMainFramebuffer()
     {
-        return *s_mainFramebuffer.get();
+        return *s_mainFramebuffer;
+    }
+
+    Framebuffer& Renderer::GetDirectionalFrameBuffer()
+    {
+        return *s_directionalShadowMap;
     }
 
     void Renderer::Dispatch(const RenderCommand& command)
@@ -215,13 +220,13 @@ namespace Elevate
                     s_data.ActiveLighting->UploadToShader(shader);
                 }
 
+                command.m_MaterialInstance->Apply();
+
                 if (s_directionalShadowMap)
                 {
                     BindTexture(s_directionalShadowMap->GetDepthTexture(), SHADOW_MAP_SLOT);
                     shader->SetUniform1i("shadowMap", SHADOW_MAP_SLOT);
                 }
-
-                command.m_MaterialInstance->Apply();
             }
         }
 
