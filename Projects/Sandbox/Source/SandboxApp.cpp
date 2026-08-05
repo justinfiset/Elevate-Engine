@@ -79,6 +79,7 @@ public:
 			glm::vec3(1.0f, 1.0f, 1.0f)
 		);
 		dirLight.SetIntensity(0.2f);
+		m_dirLightObj->SetPosition({ 7.0f, 4.0f, 6.0f });
 		m_dirLightObj->SetRotation({ 0.0f, 45.0f, 20.0f });
 		
 		// TODO CONSTRUIRE AUTOMATIQUEMENT VIA LA SCÈNE!!!!

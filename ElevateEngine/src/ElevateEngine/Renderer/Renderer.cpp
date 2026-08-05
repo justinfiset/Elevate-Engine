@@ -14,7 +14,7 @@
 #include <ElevateEngine/Renderer/Light/Light.h>
 #include <ElevateEngine/Renderer/Light/DirectionalLight.h>
 
-constexpr uint32_t SHADOW_RESOLUTION = 2048;
+constexpr uint32_t DEFAULT_SHADOW_RESOLUTION = 2048;
 
 namespace Elevate
 {
@@ -56,7 +56,7 @@ namespace Elevate
         );
 
         // Create the Framebuffer
-        s_directionalShadowMap.reset(Framebuffer::CreateDepthOnly(SHADOW_RESOLUTION, SHADOW_RESOLUTION));
+        s_directionalShadowMap.reset(Framebuffer::CreateDepthOnly(DEFAULT_SHADOW_RESOLUTION, DEFAULT_SHADOW_RESOLUTION));
     }
 
     void Renderer::BeginFrame(const ScenePtr scene, const Camera& cam)

@@ -205,15 +205,57 @@ float CalcShadow()
         return 0.0;
     }
 
-    float closestDepth = texture(shadowMap, projCoords.xy).r;
-    float currentDepth = projCoords.z;
+    vec3 lightDir = normalize(-dirLight.direction);
+
+    float lightDot = max(dot(normal, lightDir), 0.0);
+
     float bias = max(
-        0.05 * (1.0 - dot(normal, normalize(-dirLight.direction))),
-        0.005
+        0.02 * (1.0 - lightDot),
+        0.002
     );
-    return currentDepth - bias > closestDepth
-        ? 1.0
-        : 0.0;
+
+    float currentDepth = projCoords.z;
+
+    vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+
+    float shadow = 0.0;
+    float totalWeight = 0.0;
+
+    // Rayon du filtre
+    const int radius = 3;
+
+    for (int x = -radius; x <= radius; ++x)
+    {
+        for (int y = -radius; y <= radius; ++y)
+        {
+            vec2 offset = vec2(x, y) * texelSize;
+
+            float closestDepth =
+                texture(shadowMap, projCoords.xy + offset).r;
+
+            float difference =
+                currentDepth - bias - closestDepth;
+
+            // Transition douce autour de la frontière
+            float sampleShadow = smoothstep(
+                -0.001,
+                 0.001,
+                difference
+            );
+
+            // Poids gaussien approximatif
+            float dist = length(vec2(x, y));
+
+            float weight = exp(
+                -(dist * dist) / 4.0
+            );
+
+            shadow += sampleShadow * weight;
+            totalWeight += weight;
+        }
+    }
+
+    return shadow / totalWeight;
 }
 
 void main()
