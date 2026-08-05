@@ -11,7 +11,7 @@
 
 #include <ElevateEngine/Core/Application.h>
 #include <ElevateEngine/Renderer/Renderer.h>
-#include <ElevateEngine/Renderer/FrameBuffer.h>
+#include <ElevateEngine/Renderer/Framebuffer.h>
 
 #include <ElevateEngine/Editor/EditorLayer.h>
 #include <ElevateEngine/Editor/GizmoUtility.h>

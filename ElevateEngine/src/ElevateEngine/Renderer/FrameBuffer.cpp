@@ -1,12 +1,12 @@
 #include "eepch.h"
-#include "FrameBuffer.h"
+#include "Framebuffer.h"
 
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 
-#include <ElevateEngine/Renderer/OpenGL/OpenGLFrameBuffer.h>
+#include <ElevateEngine/Renderer/OpenGL/OpenGLFramebuffer.h>
 
 namespace Elevate
 {

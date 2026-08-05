@@ -24,7 +24,7 @@
 #include <ElevateEngine/Scene/Scene.h>
 
 #include <ElevateEngine/Renderer/Camera/CameraManager.h>
-#include <ElevateEngine/Renderer/FrameBuffer.h>
+#include <ElevateEngine/Renderer/Framebuffer.h>
 
 // TODO : CHECK ESSENTIAL INCLUDES KNOW ESSENTIAL BELLOW
 // Core

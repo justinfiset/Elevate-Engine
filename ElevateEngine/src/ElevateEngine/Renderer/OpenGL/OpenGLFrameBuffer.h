@@ -1,5 +1,5 @@
 #pragma once
-#include "ElevateEngine/Renderer/FrameBuffer.h"
+#include "ElevateEngine/Renderer/Framebuffer.h"
 
 namespace Elevate
 {

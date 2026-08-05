@@ -9,7 +9,7 @@
 #include <ElevateEngine/Renderer/Camera.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Renderer/Material.h>
-#include <ElevateEngine/Renderer/FrameBuffer.h>
+#include <ElevateEngine/Renderer/Framebuffer.h>
 
 #include <ElevateEngine/Renderer/Light/Light.h>
 #include <ElevateEngine/Renderer/Light/DirectionalLight.h>

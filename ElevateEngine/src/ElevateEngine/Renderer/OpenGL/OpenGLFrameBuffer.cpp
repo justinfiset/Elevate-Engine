@@ -1,5 +1,5 @@
 #include "eepch.h"
-#include "OpenGLFrameBuffer.h"
+#include "OpenGLFramebuffer.h"
 
 #include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Renderer/Renderer.h>
