@@ -24,17 +24,7 @@ public:
 
 	void OnAttach() override
 	{
-		uint32_t glslPointLightCount = MAX_POINTLIGHT;
-		std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(glslPointLightCount) + "\n";
-		uint32_t glslSpotLightCount = MAX_SPOTLIGHT;
-		std::string glslSpotLightCountDefine = "#define NR_SPOT_LIGHTS " + std::to_string(glslPointLightCount) + "\n";
-		m_shader = Elevate::ShaderManager::LoadShader(
-			"main",
-			"content://Shaders/main.vert",
-			"content://Shaders/main.frag",
-			EE_SHADER_HEADER,
-			EE_SHADER_HEADER + glslPointLightCountDefine + glslSpotLightCountDefine
-		);
+		m_shader = Elevate::ShaderManager::GetShader(EE_DEFAULT_SHADER);
 
 		Elevate::MaterialPtr material = Elevate::MaterialRegistry::LoadMaterial(m_shader);
 		material->Set("material.ambient", glm::vec3(1.0f, 1.0f, 1.0f));

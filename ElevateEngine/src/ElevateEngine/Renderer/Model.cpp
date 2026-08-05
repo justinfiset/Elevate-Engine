@@ -23,8 +23,10 @@ std::string GetUniformNameByType(Elevate::TexturePtr texture)
 	}
 }
 
-Elevate::Model::Model(PrimitiveType type) : Model("", nullptr)
+Elevate::Model::Model(PrimitiveType type, MaterialPtr material) : Model("", nullptr)
 {
+	SetMaterial(material ? material : MaterialRegistry::GetMaterial(EE_DEFAULT_MATERIAL));
+	
 	switch (type)
 	{
 	case PrimitiveType::Cube:

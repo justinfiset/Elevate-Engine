@@ -22,7 +22,7 @@ namespace Elevate
 		EECATEGORY("Rendering")
 
 		Model() = default;
-		Model(PrimitiveType type);
+		Model(PrimitiveType type, MaterialPtr material = nullptr);
 		Model(std::string path, MaterialPtr material = nullptr);
 
 		void SetMaterial(MaterialPtr material);
