@@ -14,6 +14,11 @@ namespace Elevate
 		DirectionalLight(const glm::vec3& color) : Light(color) { }
 
 		const glm::vec3 CalculateDirection() const;
+		
+#ifdef EE_EDITOR_BUILD
+		void RenderWhenSelected();
+		void DrawDebugDirection();
+#endif
 
 		DirectionalShadowSettings m_shadowSettings;
 		PROPERTY(m_shadowSettings)

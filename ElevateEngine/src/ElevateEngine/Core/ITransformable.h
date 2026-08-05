@@ -4,7 +4,6 @@
 
 namespace Elevate
 {
-	// TODO UPDATE TO MATCH NEW TRANSFORM FEATURES;
 	/// <summary>
 	/// An interface to add all of the methods needed to have a working 
 	/// transform wrapped by getter and setters
@@ -33,7 +32,7 @@ namespace Elevate
 		}
 
 		inline glm::vec3& GetPosition() { return m_Transform.GetPosition(); }
-		inline glm::vec3& GetRotation() { return m_Transform.GetRotation(); }
+		inline glm::vec3 GetRotation() { return m_Transform.GetRotation(); }
 		inline glm::vec3& GetScale() { return m_Transform.GetScale(); }
 
 		inline const glm::mat4& GetModelMatrix() const { return m_Transform.GetModelMatrix(); }

@@ -3,11 +3,15 @@ layout(location = 0) out vec4 o_Color;
 in vec3 normal;
 in vec2 textCord;
 in vec3 fragPos;
+in vec4 fragPosLightSpace;
  
 vec3 defaultColor = vec3(0.8, 0.8, 0.8);
 vec3 defaultAmbientColor = vec3(0.2, 0.2, 0.2);
 
 uniform int u_NumPointLights;
+uniform int u_NumSpotLights;
+
+uniform sampler2D shadowMap;
 
 // MATERIAL IMPL.
 // TODO implement multiple diffuse texture functionallity
@@ -189,19 +193,46 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     return ambient + diffuse + specular;
 }
 
+float CalcShadow()
+{
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    projCoords = projCoords * 0.5 + 0.5;
+
+    if (projCoords.x < 0.0 || projCoords.x > 1.0 ||
+        projCoords.y < 0.0 || projCoords.y > 1.0 ||
+        projCoords.z > 1.0)
+    {
+        return 0.0;
+    }
+
+    float closestDepth = texture(shadowMap, projCoords.xy).r;
+    float currentDepth = projCoords.z;
+    float bias = 0.005;
+    return currentDepth - bias > closestDepth
+        ? 1.0
+        : 0.0;
+}
+
 void main()
 {
 	vec3 unitNormal = normalize(normal);
 	vec3 viewDir = normalize(camPos - fragPos);
 
     // phase 1: Directional lighting    
-    vec3 result = CalcDirLight(dirLight, unitNormal, viewDir);
-    // phase 2: Point lights
-    for(int i = 0; i < u_NumPointLights && i < NR_POINT_LIGHTS; i++)
-        result += CalcPointLight(pointLights[i], unitNormal, fragPos, viewDir);    
-    // phase 3: Spot light
-    for(int i = 0; i < u_NumPointLights && i < NR_SPOT_LIGHTS; i++)
-        result += CalcSpotLight(spotLights[i], unitNormal, fragPos, viewDir);    
-    
+    vec3 directionalLighting = CalcDirLight(dirLight, unitNormal, viewDir);
+    vec3 result = directionalLighting * (1 - CalcShadow());
+
+    // // phase 2: Point lights
+    // for(int i = 0; i < u_NumPointLights && i < NR_POINT_LIGHTS; i++)
+    // {
+    //     result += CalcPointLight(pointLights[i], unitNormal, fragPos, viewDir);    
+    // }
+
+    // // phase 3: Spot light
+    // for(int i = 0; i < u_NumSpotLights && i < NR_SPOT_LIGHTS; i++)
+    // {
+    //     result += CalcSpotLight(spotLights[i], unitNormal, fragPos, viewDir);    
+    // }
+
     o_Color = vec4(result, 1.0);
 }

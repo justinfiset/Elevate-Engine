@@ -249,7 +249,7 @@ namespace Elevate
 		// todo remove this debug code 
 		int loc = glGetUniformLocation(m_RendererID, location.c_str());
 		if (loc == -1) {
-			EE_CORE_ERROR("Uniform '{0}' introuvable dans le shader ID {1}!", location, m_RendererID);
+			EE_CORE_ERROR("Uniform '{0}' not found in shader ID {1}!", location, m_RendererID);
 		}
 		glUniformMatrix4fv(loc, 1, GL_FALSE, data);
 	}

@@ -71,6 +71,7 @@ namespace Elevate
 
         s_data.ActiveLighting = scene->GetSceneLighting();
         auto skybox = scene->GetSkybox().lock();
+        s_data.LightSpaceMatrix = scene->GetSceneLighting()->GetDirectionalLightSpaceMatrix();
         s_data.ActiveCubemap = skybox.get();
     }
 
@@ -78,7 +79,11 @@ namespace Elevate
     {
         RenderShaowMaps();
         RenderGeometry();
+
+        s_mainFramebuffer->Bind();
         DebugRenderer::Render();
+        s_mainFramebuffer->Unbind();
+
         ClearStack();
     }
 
@@ -108,6 +113,7 @@ namespace Elevate
         {
             shader->SetProjectionViewMatrix(s_data.ViewProj);
             shader->SetCameraPosition(s_data.CameraPosition);
+            shader->SetUniformMatrix4fv("lightSpaceMatrix", s_data.LightSpaceMatrix);
         }
     }
 
@@ -206,6 +212,13 @@ namespace Elevate
                 {
                     s_data.ActiveLighting->UploadToShader(shader);
                 }
+
+                if (s_directionalShadowMap)
+                {
+                    BindTexture(s_directionalShadowMap->GetDepthTexture(), SHADOW_MAP_SLOT);
+                    shader->SetUniform1i("shadowMap", SHADOW_MAP_SLOT);
+                }
+
                 command.m_MaterialInstance->Apply();
             }
         }
@@ -271,10 +284,7 @@ namespace Elevate
             DirectionalShadowSettings settings = dirLight->m_shadowSettings;
             
             BindShader(s_shadowShader);
-            s_shadowShader->SetUniformMatrix4fv(
-                "lightSpaceMatrix",
-                lightSpaceMatrix
-            );
+            s_shadowShader->SetUniformMatrix4fv("lightSpaceMatrix", lightSpaceMatrix);
 
             s_directionalShadowMap->Bind();
             SetViewport(0, 0, settings.Resolution, settings.Resolution);

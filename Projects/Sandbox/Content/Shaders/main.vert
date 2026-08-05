@@ -6,15 +6,18 @@ layout(location = 4) in vec3 a_Bitangent;
 
 uniform mat4 model;
 uniform mat4 viewProj;
+uniform mat4 lightSpaceMatrix;
 
 out vec3 normal;
 out vec2 textCord;
 
 out vec3 fragPos;
+out vec4 fragPosLightSpace;
 
 void main()
 {
 	fragPos = vec3(model * vec4(a_Position, 1.0f));
+	fragPosLightSpace = lightSpaceMatrix * vec4(fragPos, 1.0f);
 	normal = mat3(transpose(inverse(model))) * a_Normal; 
 	textCord = a_TexCord;
 

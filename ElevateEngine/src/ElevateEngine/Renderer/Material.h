@@ -62,6 +62,8 @@ namespace Elevate
         RenderBucket::Type GetBucket() const { return m_bucket; }
         void SetBucket(RenderBucket::Type bucket) { m_bucket = bucket; }
 
+        size_t GetTextureCount() const { return m_textures.size(); }
+
     private:
         Material();
         Material(const std::shared_ptr<Shader>& shader);

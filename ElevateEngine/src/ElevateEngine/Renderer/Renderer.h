@@ -6,6 +6,8 @@
 #include <ElevateEngine/Renderer/RenderState.h>
 #include <ElevateEngine/Renderer/Commands/RenderBucket.h>
 
+#define SHADOW_MAP_SLOT 15
+
 namespace Elevate
 {
 	class Camera;
@@ -75,6 +77,7 @@ namespace Elevate
 			glm::mat4 View;
 			glm::mat4 Projection;
 			glm::mat4 ViewProj;
+			glm::mat4 LightSpaceMatrix;
 
 			glm::vec3 CameraPosition;
 			const SceneLighting* ActiveLighting = nullptr;

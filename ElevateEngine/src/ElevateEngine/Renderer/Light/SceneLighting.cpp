@@ -23,7 +23,7 @@ namespace Elevate
 				shader->UseDirLight(m_dirLight);
 			}
 
-			size_t pointLightsCount = m_pointLights.size();
+			size_t pointLightsCount = m_pointLights.size();		
 			shader->SetUniform1i("u_NumPointLights", (int)pointLightsCount);
 			for (size_t i = 0; i < pointLightsCount; i++)
 			{
@@ -31,8 +31,8 @@ namespace Elevate
 			}
 
 			size_t spotLightsCount = m_spotLights.size();
-			shader->SetUniform1i("u_NumPointLights", (int)pointLightsCount);
-			for (size_t i = 0; i < pointLightsCount; i++)
+			shader->SetUniform1i("u_NumSpotLights", (int)spotLightsCount);
+			for (size_t i = 0; i < spotLightsCount; i++)
 			{
 				m_spotLights[i]->UploadToShader(shader.get(), (uint32_t)i);
 			}
@@ -46,22 +46,32 @@ namespace Elevate
 
 	glm::mat4 SceneLighting::GetDirectionalLightSpaceMatrix() const
 	{
-		if (!m_dirLight) return glm::mat4(1.0f);
-		glm::mat4 modelMatrix = m_dirLight->gameObject->GetModelMatrix();
-		glm::vec3 lightPos = glm::vec3(modelMatrix[3]);
-		glm::vec3 lightDir = glm::normalize(-glm::vec3(modelMatrix[2]));
-		glm::vec3 upDir = glm::normalize(glm::vec3(modelMatrix[1]));
+		if (!m_dirLight)
+			return glm::mat4(1.0f);
+
+		glm::mat4 lightWorld = m_dirLight->gameObject->GenGlobalMatrix();
+
+		glm::vec3 lightPos = glm::vec3(lightWorld[3]);
+		glm::vec3 lightDir = -glm::normalize(glm::vec3(lightWorld[2]));
+		glm::vec3 upDir = glm::normalize(glm::vec3(lightWorld[1]));
+
+		if (std::abs(glm::dot(lightDir, upDir)) > 0.99f)
+		{
+			upDir = glm::normalize(glm::vec3(lightWorld[0]));
+		}
+
 		glm::mat4 lightView = glm::lookAt(lightPos, lightPos + lightDir, upDir);
 
-		DirectionalShadowSettings& settings = m_dirLight->m_shadowSettings;
-		float shadowBoxSize = settings.OrthographicSize;
-		float nearPlane = settings.NearPlane;
-		float farPlane = settings.FarPlane;
+		const DirectionalShadowSettings& settings = m_dirLight->m_shadowSettings;
+		float size = settings.OrthographicSize;
 
-		return lightView * glm::ortho(
-			-shadowBoxSize, shadowBoxSize,
-			-shadowBoxSize, shadowBoxSize,
-			nearPlane, farPlane
+		glm::mat4 lightProjection = glm::ortho(
+			-size, size,
+			-size, size,
+			settings.NearPlane,
+			settings.FarPlane
 		);
+
+		return lightProjection * lightView;
 	}
 }

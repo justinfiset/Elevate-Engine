@@ -133,4 +133,13 @@ namespace Elevate
 		}
 		return nullptr;
 	}
+
+    TexturePtr Framebuffer::GetDepthTexture() const
+    {
+        if (m_depthAttachment.has_value())
+        {
+            return m_depthAttachment->Texture;
+        }
+        return nullptr;
+    }
 }

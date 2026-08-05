@@ -29,7 +29,10 @@ namespace Elevate
 
 	void GameObject::SetFromGlobalMatrix(const glm::mat4& newWorld)
 	{
-		glm::mat4 newLocal = m_parent ? glm::inverse(m_parent->GenGlobalMatrix()) * newWorld : newWorld;
+		glm::mat4 newLocal =
+			m_parent
+			? glm::inverse(m_parent->GenGlobalMatrix()) * newWorld
+			: newWorld;
 
 		glm::vec3 scale;
 		glm::quat rotationQuat;
@@ -37,12 +40,15 @@ namespace Elevate
 		glm::vec3 skew;
 		glm::vec4 perspective;
 
-		glm::decompose(newLocal, scale, rotationQuat, position, skew, perspective);
-		glm::vec3 rotationEuler = glm::degrees(glm::eulerAngles(rotationQuat));
+		if (!glm::decompose(newLocal, scale, rotationQuat, position, skew, perspective))
+		{
+			return;
+		}
+		rotationQuat = glm::normalize(rotationQuat);
 
-		SetScale(scale);
-		SetRotation(rotationEuler);
 		SetPosition(position);
+		m_Transform.SetRotationQuaternion(rotationQuat);
+		SetScale(scale);
 	}
 
 	glm::vec3 GameObject::GetGlobalPosition()

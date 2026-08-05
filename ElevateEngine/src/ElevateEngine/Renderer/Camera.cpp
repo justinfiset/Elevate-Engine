@@ -31,7 +31,6 @@ Elevate::Camera::Camera(float fov, float aspectRatio, bool overrideCurrent)
 void Elevate::Camera::Init()
 {
 	UpdateProjectionMatrix();
-	UpdateCameraVectors();
 
 	if (m_canBeMainCamera)
 	{
@@ -47,12 +46,7 @@ void Elevate::Camera::Destroy()
 	CameraManager::NotifyDestruction(this);
 }
 
-void Elevate::Camera::OnSetRotation()
-{
-	UpdateCameraVectors();
-}
-
-const void Elevate::Camera::UpdateAspectRatio(float aspectRatio)
+void Elevate::Camera::UpdateAspectRatio(float aspectRatio)
 {
 	if (m_aspectRatio != aspectRatio)
 	{
@@ -68,7 +62,22 @@ glm::mat4 Elevate::Camera::GenViewProjectionMatrix() const
 
 glm::mat4 Elevate::Camera::GenViewMatrix() const
 {
-	return glm::lookAt(gameObject->GetPosition(), gameObject->GetPosition() + m_front, m_up);
+	return glm::lookAt(gameObject->GetPosition(), gameObject->GetPosition() + GetFrontVec(), GetUpVec());
+}
+
+glm::vec3 Elevate::Camera::GetFrontVec() const
+{
+	return gameObject->GetTransform().GetForward();
+}
+
+glm::vec3 Elevate::Camera::GetRightVec() const
+{
+	return gameObject->GetTransform().GetRight();
+}
+
+glm::vec3 Elevate::Camera::GetUpVec() const
+{
+	return gameObject->GetTransform().GetUp();
 }
 
 inline void Elevate::Camera::SetFOV(float fov)
@@ -108,29 +117,12 @@ void Elevate::Camera::UpdateProjectionMatrix()
 	m_projectionMatrix = GenProjectionMatrix();
 }
 
-void Elevate::Camera::UpdateCameraVectors()
-{
-	float pitch = glm::radians(gameObject->GetRotation().x);
-	float yaw = glm::radians(gameObject->GetRotation().y);
-
-	glm::vec3 front;
-	front.x = cos(yaw) * cos(pitch);
-	front.y = sin(pitch);
-	front.z = sin(yaw) * cos(pitch);
-	m_front = glm::normalize(front);
-
-	m_right = glm::normalize(glm::cross(glm::vec3(0.0f, 1.0f, 0.0f), m_front));
-
-	m_up = glm::normalize(glm::cross(m_front, m_right));
-}
-
 // ONLY IN THE EDITOR
 #ifdef EE_EDITOR_BUILD
 #include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
 
 void Elevate::Camera::RenderWhenSelected()
 {
-	UpdateCameraVectors();
 	DrawDebugFrustum();
 }
 

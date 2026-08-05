@@ -20,35 +20,31 @@ namespace Elevate
 		Camera(float fov = 60.0f, bool overrideCurrent = true);
 		Camera(float fov, float aspectRatio, bool overrideCurrent = true);
 
-		const void UpdateAspectRatio(float aspectRatio);
+		void UpdateAspectRatio(float aspectRatio);
 
 		inline const glm::mat4& GetProjectionMatrix() const { return m_projectionMatrix;  }
 		glm::mat4 GenViewMatrix() const;
 
-		inline const glm::vec3& GetFrontVec() const { return m_front; }
-		inline const glm::vec3& GetRightVec() const { return m_right; }
-		inline const glm::vec3& GetUpVec() const { return m_up; }
+		glm::vec3 GetFrontVec() const;
+		glm::vec3 GetRightVec() const;
+		glm::vec3 GetUpVec() const;
 
-		inline const float GetFOV() const { return m_FOV; }
+		inline float GetFOV() const { return m_FOV; }
 		inline void SetFOV(float fov);
 
 		// Near and Far planes
-		inline const float GetNear() const { return m_near; }
+		inline float GetNear() const { return m_near; }
 		inline void SetNear(float nearPlane);
 
-		inline const float GetFar() const { return m_far; }
+		inline float GetFar() const { return m_far; }
 		inline void SetFar(float farPlane);
 
-		inline const float GetAspectRatio() const { return m_aspectRatio; }
-
-		void UpdateCameraVectors();
-
+		inline float GetAspectRatio() const { return m_aspectRatio; }
+		
 		glm::mat4 GenViewProjectionMatrix() const;
 
 		void Init() override;
 		void Destroy() override;
-
-		void OnSetRotation() override;
 
 #ifdef EE_EDITOR_BUILD
 		void RenderWhenSelected() override;
@@ -68,9 +64,6 @@ namespace Elevate
 		float m_FOV;
 		PROPERTY(m_FOV)
 
-		glm::vec3 m_front;
-		glm::vec3 m_right;
-		glm::vec3 m_up;
 		glm::mat4 m_projectionMatrix;
 
 		bool m_canBeMainCamera = true;
