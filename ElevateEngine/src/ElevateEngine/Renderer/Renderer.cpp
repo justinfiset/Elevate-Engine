@@ -14,6 +14,8 @@
 #include <ElevateEngine/Renderer/Light/Light.h>
 #include <ElevateEngine/Renderer/Light/DirectionalLight.h>
 
+constexpr uint32_t SHADOW_RESOLUTION = 2048;
+
 namespace Elevate
 {
     Renderer::RendererStorage Renderer::s_data = RendererStorage();
@@ -54,7 +56,7 @@ namespace Elevate
         );
 
         // Create the Framebuffer
-        s_directionalShadowMap.reset(Framebuffer::CreateDepthOnly());
+        s_directionalShadowMap.reset(Framebuffer::CreateDepthOnly(SHADOW_RESOLUTION, SHADOW_RESOLUTION));
     }
 
     void Renderer::BeginFrame(const ScenePtr scene, const Camera& cam)
@@ -286,11 +288,25 @@ namespace Elevate
             BindShader(s_shadowShader);
             s_shadowShader->SetUniformMatrix4fv("lightSpaceMatrix", lightSpaceMatrix);
 
-            s_directionalShadowMap->Bind();
+            // Rescale the framebuffer if the resolution was edited
+            if (s_directionalShadowMap->GetWidth() != settings.Resolution || s_directionalShadowMap->GetHeight() != settings.Resolution)
+            {
+                s_directionalShadowMap->Rescale(settings.Resolution, settings.Resolution);
+            }
             SetViewport(0, 0, settings.Resolution, settings.Resolution);
+
+            s_directionalShadowMap->Bind();
             ClearDepth();
             
-            for (const auto& command : s_commands.GetBucket(RenderBucket::GBuffer))
+            RenderState shadowState;
+            shadowState.Cullface = false; // todo : set to true
+            shadowState.DepthTest = true;
+            shadowState.DepthWrite = true;
+            shadowState.BlendEnable = false;
+            PushRenderState(shadowState);
+
+            const auto& bucket = s_commands.GetBucket(RenderBucket::GBuffer);
+            for (const auto& command : bucket)
             {
                 s_shadowShader->SetModelMatrix(command.Transform);
                 DrawArray(command.m_VertexArray);
