@@ -117,41 +117,7 @@ void Elevate::Camera::UpdateProjectionMatrix()
 	m_projectionMatrix = GenProjectionMatrix();
 }
 
-// ONLY IN THE EDITOR
-#ifdef EE_EDITOR_BUILD
-#include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
-
-void Elevate::Camera::RenderWhenSelected()
-{
-	DrawDebugFrustum();
-}
-
-void Elevate::Camera::DrawDebugFrustum()
-{
-	auto corners = CalculateFrustumCorners();
-
-	glm::vec4 color = glm::vec4(0.96f, 0.47f, 0.12f, 1.0f);
-
-	// Draw the lines from the near corners to the far corners
-	for (int i = 0; i < 4; i++) 
-	{
-		DebugRenderer::AddDebugLine({ corners[i], corners[i + 4], color });
-	}
-
-	// Draw near plane
-	DebugRenderer::AddDebugLine({ corners[0], corners[1], color });
-	DebugRenderer::AddDebugLine({ corners[1], corners[2], color });
-	DebugRenderer::AddDebugLine({ corners[2], corners[3], color });
-	DebugRenderer::AddDebugLine({ corners[3], corners[0], color });
-
-	// Draw far plane
-	DebugRenderer::AddDebugLine({ corners[4], corners[5], color });
-	DebugRenderer::AddDebugLine({ corners[5], corners[6], color });
-	DebugRenderer::AddDebugLine({ corners[6], corners[7], color });
-	DebugRenderer::AddDebugLine({ corners[7], corners[4], color });
-}
-
-std::array<glm::vec3, 8> Elevate::Camera::CalculateFrustumCorners(float visualFarScale)
+std::array<glm::vec3, 8> Elevate::Camera::CalculateFrustumCorners(float visualFarScale) const
 {
 	std::array<glm::vec3, 8> corners;
 
@@ -185,5 +151,39 @@ std::array<glm::vec3, 8> Elevate::Camera::CalculateFrustumCorners(float visualFa
 	corners[7] = farCenter + (up * (farHeight * 0.5f)) - (right * (farWidth * 0.5f)); // far-top-left
 
 	return corners;
+}
+
+// ONLY IN THE EDITOR
+#ifdef EE_EDITOR_BUILD
+#include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
+
+void Elevate::Camera::RenderWhenSelected()
+{
+	DrawDebugFrustum();
+}
+
+void Elevate::Camera::DrawDebugFrustum()
+{
+	auto corners = CalculateFrustumCorners();
+
+	glm::vec4 color = glm::vec4(0.96f, 0.47f, 0.12f, 1.0f);
+
+	// Draw the lines from the near corners to the far corners
+	for (int i = 0; i < 4; i++) 
+	{
+		DebugRenderer::AddDebugLine({ corners[i], corners[i + 4], color });
+	}
+
+	// Draw near plane
+	DebugRenderer::AddDebugLine({ corners[0], corners[1], color });
+	DebugRenderer::AddDebugLine({ corners[1], corners[2], color });
+	DebugRenderer::AddDebugLine({ corners[2], corners[3], color });
+	DebugRenderer::AddDebugLine({ corners[3], corners[0], color });
+
+	// Draw far plane
+	DebugRenderer::AddDebugLine({ corners[4], corners[5], color });
+	DebugRenderer::AddDebugLine({ corners[5], corners[6], color });
+	DebugRenderer::AddDebugLine({ corners[6], corners[7], color });
+	DebugRenderer::AddDebugLine({ corners[7], corners[4], color });
 }
 #endif

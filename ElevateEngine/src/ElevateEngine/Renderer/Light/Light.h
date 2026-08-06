@@ -14,14 +14,12 @@ namespace Elevate
 
 		bool CastShadows = true;
 		int Resolution = 2048;
-		float NearPlane = 0.1f;
-		float FarPlane = 100.0f;
+		float ZPadding = 10.0f;
 		float Bias = 0.005f;
 
 		PROPERTY(CastShadows)
 		PROPERTY(Resolution)
-		PROPERTY(NearPlane)
-		PROPERTY(FarPlane)
+		PROPERTY(ZPadding)
 		PROPERTY(Bias)
 		END_STRUCT()
 	};
@@ -31,17 +29,14 @@ namespace Elevate
 		BEGIN_STRUCT(DirectionalShadowSettings)
 
 		bool CastShadows = true;
-		float OrthographicSize = 20.0f;
 		int Resolution = 2048;
-		float NearPlane = 0.1f;
+		float ZPadding = 10.0f;
 		float FarPlane = 100.0f;
 		float Bias = 0.005f;
 
 		PROPERTY(CastShadows)
-		PROPERTY(OrthographicSize)
 		PROPERTY(Resolution)
-		PROPERTY(NearPlane)
-		PROPERTY(FarPlane)
+		PROPERTY(ZPadding)
 		PROPERTY(Bias)
 		END_STRUCT()
 	};

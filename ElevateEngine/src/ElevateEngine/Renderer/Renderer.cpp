@@ -71,10 +71,10 @@ namespace Elevate
         s_data.View = cam.GenViewMatrix();
         s_data.Projection = cam.GetProjectionMatrix();
         s_data.ViewProj = s_data.Projection * s_data.View;
-
         s_data.ActiveLighting = scene->GetSceneLighting();
         auto skybox = scene->GetSkybox().lock();
-        s_data.LightSpaceMatrix = scene->GetSceneLighting()->GetDirectionalLightSpaceMatrix();
+        auto corners = cam.CalculateFrustumCorners(0.5f);
+        s_data.LightSpaceMatrix = scene->GetSceneLighting()->GetDirectionalLightSpaceMatrix(corners);
         s_data.ActiveCubemap = skybox.get();
     }
 
@@ -288,11 +288,10 @@ namespace Elevate
         auto* dirLight = s_data.ActiveLighting->GetDirLight();
         if (dirLight)
         {
-            glm::mat4 lightSpaceMatrix = s_data.ActiveLighting->GetDirectionalLightSpaceMatrix();
             DirectionalShadowSettings settings = dirLight->m_shadowSettings;
             
             BindShader(s_shadowShader);
-            s_shadowShader->SetUniformMatrix4fv("lightSpaceMatrix", lightSpaceMatrix);
+            s_shadowShader->SetUniformMatrix4fv("lightSpaceMatrix", s_data.LightSpaceMatrix);
 
             // Rescale the framebuffer if the resolution was edited
             if (s_directionalShadowMap->GetWidth() != settings.Resolution || s_directionalShadowMap->GetHeight() != settings.Resolution)
