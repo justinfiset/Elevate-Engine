@@ -108,6 +108,15 @@ namespace Elevate
 		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GetMinFilter(m_meta.MinFilter, m_meta.Mipmaps)));
 		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, ToOpenGL(m_meta.MagFilter)));
 
+		if (m_meta.Usage == TextureType::ShadowMap)
+		{
+			GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE));
+			GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL));
+
+			constexpr float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+			GLCheck(glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor));
+		}
+
 #ifdef EE_SUPPORTS_DSA
 		if (m_meta.Format == TextureFormat::GRAYSCALE) {
 			GLint swizzleMask[] = { GL_RED, GL_RED, GL_RED, GL_ONE };

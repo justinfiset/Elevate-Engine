@@ -11,7 +11,7 @@ vec3 defaultAmbientColor = vec3(0.2, 0.2, 0.2);
 uniform int u_NumPointLights;
 uniform int u_NumSpotLights;
 
-uniform sampler2D shadowMap;
+uniform sampler2DShadow shadowMap;
 
 // MATERIAL IMPL.
 // TODO implement multiple diffuse texture functionallity
@@ -200,58 +200,37 @@ float CalcShadow()
 
     if (projCoords.x < 0.0 || projCoords.x > 1.0 ||
         projCoords.y < 0.0 || projCoords.y > 1.0 ||
-        projCoords.z > 1.0)
+        projCoords.z < 0.0 || projCoords.z > 1.0)
     {
-        return 0.0;
+        return 1.0; 
     }
 
     vec3 lightDir = normalize(-dirLight.direction);
-
     float cosTheta = max(dot(normalize(normal), lightDir), 0.0);
-    float bias = max(0.0005, 0.005 * (1.0 - cosTheta));
-
-    float currentDepth = projCoords.z;
+    float bias = max(0.00005, 0.0005 * (1.0 - cosTheta));
+    float compareDepth = projCoords.z - bias;
 
     vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
 
-    float shadow = 0.0;
+    float shadowVisibility = 0.0;
     float totalWeight = 0.0;
-
-    // Rayon du filtre
-    const int radius = 3;
+    const int radius = 2;
 
     for (int x = -radius; x <= radius; ++x)
     {
         for (int y = -radius; y <= radius; ++y)
         {
             vec2 offset = vec2(x, y) * texelSize;
-
-            float closestDepth =
-                texture(shadowMap, projCoords.xy + offset).r;
-
-            float difference =
-                currentDepth - bias - closestDepth;
-
-            // Transition douce autour de la frontière
-            float sampleShadow = smoothstep(
-                -0.001,
-                 0.001,
-                difference
-            );
-
-            // Poids gaussien approximatif
+            float sampleVis = texture(shadowMap, vec3(projCoords.xy + offset, compareDepth));     
             float dist = length(vec2(x, y));
+            float weight = exp(-(dist * dist) / 4.0);
 
-            float weight = exp(
-                -(dist * dist) / 4.0
-            );
-
-            shadow += sampleShadow * weight;
+            shadowVisibility += sampleVis * weight;
             totalWeight += weight;
         }
     }
 
-    return shadow / totalWeight;
+    return shadowVisibility / totalWeight;
 }
 
 void main()
@@ -261,7 +240,7 @@ void main()
 
     // phase 1: Directional lighting    
     vec3 directionalLighting = CalcDirLight(dirLight, unitNormal, viewDir);
-    vec3 result = directionalLighting * (1 - CalcShadow());
+    vec3 result = directionalLighting * CalcShadow();
 
     // phase 2: Point lights
     for(int i = 0; i < u_NumPointLights && i < NR_POINT_LIGHTS; i++)

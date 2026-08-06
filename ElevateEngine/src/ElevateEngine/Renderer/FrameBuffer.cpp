@@ -71,7 +71,7 @@ namespace Elevate
                     .Usage(TextureType::ShadowMap)
                     .Source(TextureSource::RenderTarget)
                     .State(TextureState::Ready)
-                    .Filter(TextureFilter::Nearest, TextureFilter::Nearest)
+                    .Filter(TextureFilter::Linear, TextureFilter::Linear)
                     .Wrap(TextureWrap::ClampToBorder, TextureWrap::ClampToBorder)
                     .Mipmaps(false)
                     .Build();

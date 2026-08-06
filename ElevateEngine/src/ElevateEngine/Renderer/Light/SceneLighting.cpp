@@ -75,61 +75,37 @@ namespace Elevate
 		return lightProjection * lightView;
 	}
 
-	glm::mat4 SceneLighting::GetDirectionalLightProjection(
-		const std::span<const glm::vec3> corners,
-		const glm::mat4& lightView
-	) const
+	glm::mat4 SceneLighting::GetDirectionalLightProjection(const std::span<const glm::vec3> corners, const glm::mat4& lightView) const
 	{
-		const DirectionalShadowSettings& settings =
-			m_dirLight->m_shadowSettings;
+		const DirectionalShadowSettings& settings = m_dirLight->m_shadowSettings;
 
 		glm::vec3 center(0.0f);
-
 		for (const glm::vec3& corner : corners)
 		{
 			center += corner;
 		}
-
 		center /= static_cast<float>(corners.size());
 
 		float radius = 0.0f;
-
 		for (const glm::vec3& corner : corners)
 		{
-			radius = std::max(
-				radius,
-				glm::distance(center, corner)
-			);
+			radius = std::max(radius, glm::distance(center, corner));
 		}
 
-		glm::vec3 centerLightSpace =
-			glm::vec3(
-				lightView * glm::vec4(center, 1.0f)
-			);
+		glm::vec3 centerLightSpace = glm::vec3(lightView * glm::vec4(center, 1.0f));
 
 		float shadowSize = radius * 2.0f;
+		float texelSize = shadowSize / static_cast<float>(settings.Resolution);
 
-		float texelSize =
-			shadowSize /
-			static_cast<float>(settings.Resolution);
-
-		centerLightSpace.x =
-			std::floor(centerLightSpace.x / texelSize)
-			* texelSize;
-
-		centerLightSpace.y =
-			std::floor(centerLightSpace.y / texelSize)
-			* texelSize;
+		centerLightSpace.x = std::round(centerLightSpace.x / texelSize) * texelSize;
+		centerLightSpace.y = std::round(centerLightSpace.y / texelSize) * texelSize;
 
 		float minZ = std::numeric_limits<float>::max();
 		float maxZ = std::numeric_limits<float>::lowest();
 
 		for (const glm::vec3& corner : corners)
 		{
-			glm::vec3 lightSpaceCorner =
-				glm::vec3(
-					lightView * glm::vec4(corner, 1.0f)
-				);
+			glm::vec3 lightSpaceCorner = glm::vec3(lightView * glm::vec4(corner, 1.0f));
 
 			minZ = std::min(minZ, lightSpaceCorner.z);
 			maxZ = std::max(maxZ, lightSpaceCorner.z);

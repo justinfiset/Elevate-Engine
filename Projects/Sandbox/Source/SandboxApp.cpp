@@ -69,7 +69,7 @@ public:
 		);
 		dirLight.SetIntensity(0.2f);
 		m_dirLightObj->SetPosition({ 7.0f, 4.0f, 6.0f });
-		m_dirLightObj->SetRotation({ 0.0f, 45.0f, 20.0f });
+		m_dirLightObj->SetRotation({ 0.0f, 45.0f, 45.0f });
 
 		auto plane = Elevate::GameObject::Create("Terrain", m_scene);
 		plane->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Plane);
