@@ -13,6 +13,9 @@ namespace Elevate
 		DirectionalLight() = default;
 		DirectionalLight(const glm::vec3& color) : Light(color) { }
 
+		virtual void Init() override;
+		virtual void Destroy() override;
+
 		const glm::vec3 CalculateDirection() const;
 		
 #ifdef EE_EDITOR_BUILD

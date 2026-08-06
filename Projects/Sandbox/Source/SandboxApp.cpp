@@ -71,13 +71,6 @@ public:
 		dirLight.SetIntensity(0.2f);
 		m_dirLightObj->SetPosition({ 7.0f, 4.0f, 6.0f });
 		m_dirLightObj->SetRotation({ 0.0f, 45.0f, 20.0f });
-		
-		// TODO CONSTRUIRE AUTOMATIQUEMENT VIA LA SCÈNE!!!!
-		m_scene->SetLighting(std::make_unique<Elevate::SceneLighting>(
-			&dirLight,
-			std::vector<Elevate::PointLight*>{ &pointLight },
-			std::vector<Elevate::SpotLight*> { &spot }
-		));
 	}
 
 	// TODO ajouter un icon de point light qui suit avec imgui la point light

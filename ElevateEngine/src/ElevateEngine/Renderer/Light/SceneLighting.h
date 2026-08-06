@@ -31,6 +31,14 @@ namespace Elevate
 		const DirectionalLight* GetDirLight() const;
 		glm::mat4 GetDirectionalLightSpaceMatrix() const;
 
+		void AddDirectionalLight(DirectionalLight* light);
+		void AddPointLight(PointLight* light);
+		void AddSpotLight(SpotLight* light);
+
+		void RemoveDirectionalLight(DirectionalLight* light);
+		void RemovePointLight(PointLight* light);
+		void RemoveSpotLight(SpotLight* light);
+
 	private:
 		DirectionalLight* m_dirLight;
 		std::vector<PointLight*> m_pointLights;

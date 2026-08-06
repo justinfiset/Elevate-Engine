@@ -1,7 +1,9 @@
 #include "eepch.h"
 #include "SpotLight.h"
 #include <ElevateEngine/Renderer/Shader/Shader.h>
+#include <ElevateEngine/Renderer/Light/SceneLighting.h>
 #include <ElevateEngine/Core/GameObject.h>
+
 
 #ifdef EE_EDITOR_BUILD
 #include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
@@ -9,6 +11,16 @@
 
 namespace Elevate
 {
+	void SpotLight::Init()
+	{
+		gameObject->GetScene()->GetSceneLighting()->AddSpotLight(this);
+	}
+
+	void SpotLight::Destroy()
+	{
+		gameObject->GetScene()->GetSceneLighting()->RemoveSpotLight(this);
+	}
+
 	void SpotLight::UploadToShader(Shader* shader, uint32_t index) const
 	{
 		 const std::string name = "spotLights[" + std::to_string(index) + "]";

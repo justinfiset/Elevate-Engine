@@ -74,4 +74,77 @@ namespace Elevate
 
 		return lightProjection * lightView;
 	}
+
+	void SceneLighting::AddDirectionalLight(DirectionalLight* light)
+	{
+		if (!light)
+		{
+			return;
+		}
+		m_dirLight = light;
+	}
+
+	void SceneLighting::AddPointLight(PointLight* light)
+	{
+		if (!light)
+		{
+			return;
+		}
+		
+		if (std::find(m_pointLights.begin(), m_pointLights.end(), light) == m_pointLights.end())
+		{
+			m_pointLights.push_back(light);
+		}
+	}
+
+	void SceneLighting::AddSpotLight(SpotLight* light)
+	{
+		if (!light)
+		{
+			return;
+		}
+
+		if (std::find(m_spotLights.begin(), m_spotLights.end(), light) == m_spotLights.end())
+		{
+			m_spotLights.push_back(light);
+		}
+	}
+
+	void SceneLighting::RemoveDirectionalLight(DirectionalLight* light)
+	{
+		if (!light || m_dirLight != light)
+		{
+			return;
+		}
+
+		m_dirLight = nullptr;
+	}
+
+	void SceneLighting::RemovePointLight(PointLight* light)
+	{
+		if (!light)
+		{
+			return;
+		}
+
+		auto it = std::find(m_pointLights.begin(), m_pointLights.end(), light);
+		if (it != m_pointLights.end())
+		{
+			m_pointLights.erase(it);
+		}
+	}
+
+	void SceneLighting::RemoveSpotLight(SpotLight* light)
+	{
+		if (!light)
+		{
+			return;
+		}
+
+		auto it = std::find(m_spotLights.begin(), m_spotLights.end(), light);
+		if (it != m_spotLights.end())
+		{
+			m_spotLights.erase(it);
+		}
+	}
 }

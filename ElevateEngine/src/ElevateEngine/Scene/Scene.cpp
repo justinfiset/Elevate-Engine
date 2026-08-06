@@ -11,6 +11,7 @@
 
 #include <ElevateEngine/Renderer/Camera.h>
 #include <ElevateEngine/Renderer/Camera/CameraManager.h>
+#include <ElevateEngine/Renderer/Light/SceneLighting.h>
 
 #include "ScenePrivate.h"
 
@@ -33,6 +34,8 @@ namespace Elevate
 		m_registryId = s_nextRegistryId;
 		s_nextRegistryId++;
 		GetRegistryMap()[m_registryId] = std::make_unique<entt::registry>();
+
+		m_sceneLighting = std::make_unique<SceneLighting>();
 
 		EE_TRACE("Created scene '{}' with registry id: {}", m_name.c_str(), m_registryId);
 	}
@@ -140,6 +143,11 @@ namespace Elevate
 	std::weak_ptr<Cubemap> Scene::GetSkybox()
 	{
 		return m_cubemap;
+	}
+
+	SceneLighting* Scene::GetSceneLighting()
+	{
+		return m_sceneLighting.get();
 	}
 
 	void Scene::RemoveFromRoot(const EEObjectPtr<GameObject>& object)

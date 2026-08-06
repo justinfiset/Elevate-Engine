@@ -13,6 +13,7 @@
 
 #include <ElevateEngine/Renderer/Light/Light.h>
 #include <ElevateEngine/Renderer/Light/DirectionalLight.h>
+#include <ElevateEngine/Renderer/Light/SceneLighting.h>
 
 constexpr uint32_t DEFAULT_SHADOW_RESOLUTION = 2048;
 

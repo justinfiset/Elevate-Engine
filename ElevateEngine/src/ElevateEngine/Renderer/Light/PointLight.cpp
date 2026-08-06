@@ -1,10 +1,21 @@
 #include "eepch.h"
 #include "PointLight.h"
 #include "ElevateEngine/Renderer/Shader/Shader.h"
+#include <ElevateEngine/Renderer/Light/SceneLighting.h>
 #include <ElevateEngine/Core/GameObject.h>
 
 namespace Elevate
 {
+	void PointLight::Init()
+	{
+		gameObject->GetScene()->GetSceneLighting()->AddPointLight(this);
+	}
+
+	void PointLight::Destroy()
+	{
+		gameObject->GetScene()->GetSceneLighting()->RemovePointLight(this);
+	}
+
 	void PointLight::UploadToShader(Shader* shader, uint32_t index) const
 	{
 		const std::string name = "pointLights[" + std::to_string(index) + "]";

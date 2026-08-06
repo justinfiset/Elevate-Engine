@@ -3,6 +3,7 @@
 #include <glm/geometric.hpp>
 
 #include <ElevateEngine/Core/GameContext.h>
+#include <ElevateEngine/Renderer/Light/SceneLighting.h>
 
 #ifdef EE_EDITOR_BUILD
 #include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
@@ -12,7 +13,17 @@
 
 namespace Elevate
 {
-	const glm::vec3 DirectionalLight::CalculateDirection() const
+    void DirectionalLight::Init()
+    {
+        gameObject->GetScene()->GetSceneLighting()->AddDirectionalLight(this);
+    }
+
+    void DirectionalLight::Destroy()
+    {
+        gameObject->GetScene()->GetSceneLighting()->RemoveDirectionalLight(this);
+    }
+
+    const glm::vec3 DirectionalLight::CalculateDirection() const
 	{
         return gameObject->GetTransform().GetForward();
 	}

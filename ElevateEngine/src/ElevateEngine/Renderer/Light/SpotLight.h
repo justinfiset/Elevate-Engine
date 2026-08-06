@@ -14,6 +14,9 @@ namespace Elevate
 		SpotLight(float innerCone, float outerCone)
 			: m_innerCone(innerCone), m_outerCone(outerCone) { }
 
+		virtual void Init() override;
+		virtual void Destroy() override;
+
 		void UploadToShader(Shader* shader, uint32_t index) const;
 		const glm::vec3 CalculateDirection() const;
 
