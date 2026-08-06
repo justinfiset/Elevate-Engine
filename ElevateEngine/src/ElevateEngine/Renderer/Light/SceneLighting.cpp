@@ -4,6 +4,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <ElevateEngine/Renderer/Camera.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Light/DirectionalLight.h>
@@ -44,15 +45,24 @@ namespace Elevate
 		return m_dirLight;
 	}
 
-	glm::mat4 SceneLighting::GetDirectionalLightSpaceMatrix() const
+	glm::mat4 SceneLighting::GetDirectionalLightSpaceMatrix(const std::span<const glm::vec3> cameraCorners) const
 	{
 		if (!m_dirLight)
 			return glm::mat4(1.0f);
 
 		glm::mat4 lightWorld = m_dirLight->gameObject->GenGlobalMatrix();
 
-		glm::vec3 lightPos = glm::vec3(lightWorld[3]);
+		glm::vec3 center(0.0f);
+		for (const auto& corner : cameraCorners)
+		{
+			center += corner;
+		}
+		center /= static_cast<float>(cameraCorners.size());
+
 		glm::vec3 lightDir = -glm::normalize(glm::vec3(lightWorld[2]));
+		constexpr float lightDistance = 100.0f;
+		glm::vec3 lightPos =
+			center - lightDir * lightDistance;
 		glm::vec3 upDir = glm::normalize(glm::vec3(lightWorld[1]));
 
 		if (std::abs(glm::dot(lightDir, upDir)) > 0.99f)
@@ -60,19 +70,85 @@ namespace Elevate
 			upDir = glm::normalize(glm::vec3(lightWorld[0]));
 		}
 
-		glm::mat4 lightView = glm::lookAt(lightPos, lightPos + lightDir, upDir);
-
-		const DirectionalShadowSettings& settings = m_dirLight->m_shadowSettings;
-		float size = settings.OrthographicSize;
-
-		glm::mat4 lightProjection = glm::ortho(
-			-size, size,
-			-size, size,
-			settings.NearPlane,
-			settings.FarPlane
-		);
-
+		glm::mat4 lightView = glm::lookAt(lightPos, center, upDir);
+		glm::mat4 lightProjection = GetDirectionalLightProjection(cameraCorners, lightView);
 		return lightProjection * lightView;
+	}
+
+	glm::mat4 SceneLighting::GetDirectionalLightProjection(
+		const std::span<const glm::vec3> corners,
+		const glm::mat4& lightView
+	) const
+	{
+		const DirectionalShadowSettings& settings =
+			m_dirLight->m_shadowSettings;
+
+		glm::vec3 center(0.0f);
+
+		for (const glm::vec3& corner : corners)
+		{
+			center += corner;
+		}
+
+		center /= static_cast<float>(corners.size());
+
+		float radius = 0.0f;
+
+		for (const glm::vec3& corner : corners)
+		{
+			radius = std::max(
+				radius,
+				glm::distance(center, corner)
+			);
+		}
+
+		glm::vec3 centerLightSpace =
+			glm::vec3(
+				lightView * glm::vec4(center, 1.0f)
+			);
+
+		float shadowSize = radius * 2.0f;
+
+		float texelSize =
+			shadowSize /
+			static_cast<float>(settings.Resolution);
+
+		centerLightSpace.x =
+			std::floor(centerLightSpace.x / texelSize)
+			* texelSize;
+
+		centerLightSpace.y =
+			std::floor(centerLightSpace.y / texelSize)
+			* texelSize;
+
+		float minZ = std::numeric_limits<float>::max();
+		float maxZ = std::numeric_limits<float>::lowest();
+
+		for (const glm::vec3& corner : corners)
+		{
+			glm::vec3 lightSpaceCorner =
+				glm::vec3(
+					lightView * glm::vec4(corner, 1.0f)
+				);
+
+			minZ = std::min(minZ, lightSpaceCorner.z);
+			maxZ = std::max(maxZ, lightSpaceCorner.z);
+		}
+
+		minZ -= settings.ZPadding;
+		maxZ += settings.ZPadding;
+
+		float nearPlane = -maxZ;
+		float farPlane = -minZ;
+
+		return glm::ortho(
+			centerLightSpace.x - radius,
+			centerLightSpace.x + radius,
+			centerLightSpace.y - radius,
+			centerLightSpace.y + radius,
+			nearPlane,
+			farPlane
+		);
 	}
 
 	void SceneLighting::AddDirectionalLight(DirectionalLight* light)

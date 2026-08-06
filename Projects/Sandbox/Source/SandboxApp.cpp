@@ -53,7 +53,6 @@ public:
 		Elevate::Model& demoModel1 = m_demoCube->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Cube);
 		//Elevate::Rigidbody& rb1 = m_demoCube->AddComponent<Elevate::Rigidbody>();
 		Elevate::Camera& cam = m_demoCube->AddComponent<Elevate::Camera>();
-		Elevate::SpotLight& spot = m_demoCube->AddComponent<Elevate::SpotLight>(15.0f, 30.0f);
 		m_demoCube->SetPosition({ 0.0f, 0.0f, 0.0f });
 		m_demoCube->SetRotation({ 0.0, -90.0f, 0.0f });
 
@@ -71,6 +70,11 @@ public:
 		dirLight.SetIntensity(0.2f);
 		m_dirLightObj->SetPosition({ 7.0f, 4.0f, 6.0f });
 		m_dirLightObj->SetRotation({ 0.0f, 45.0f, 20.0f });
+
+		auto plane = Elevate::GameObject::Create("Terrain", m_scene);
+		plane->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Plane);
+		plane->SetScale({ 30.0f, 1.0f, 30.0f });
+		plane->SetPosition({ 0.0f, 0.1f, 0.0f });
 	}
 
 	// TODO ajouter un icon de point light qui suit avec imgui la point light

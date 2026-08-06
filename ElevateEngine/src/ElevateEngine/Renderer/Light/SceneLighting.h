@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <vector>
+#include <span>
 
 #include <glm/mat4x4.hpp>
 
@@ -29,7 +30,6 @@ namespace Elevate
 		void UploadToShader(const std::shared_ptr<Shader>& shader) const;
 
 		const DirectionalLight* GetDirLight() const;
-		glm::mat4 GetDirectionalLightSpaceMatrix() const;
 
 		void AddDirectionalLight(DirectionalLight* light);
 		void AddPointLight(PointLight* light);
@@ -38,6 +38,10 @@ namespace Elevate
 		void RemoveDirectionalLight(DirectionalLight* light);
 		void RemovePointLight(PointLight* light);
 		void RemoveSpotLight(SpotLight* light);
+		
+		glm::mat4 GetDirectionalLightSpaceMatrix(const std::span<const glm::vec3> cameraCorners) const;
+	private:
+		glm::mat4 GetDirectionalLightProjection(const std::span<const glm::vec3> corners, const glm::mat4& lightView) const;
 
 	private:
 		DirectionalLight* m_dirLight;
