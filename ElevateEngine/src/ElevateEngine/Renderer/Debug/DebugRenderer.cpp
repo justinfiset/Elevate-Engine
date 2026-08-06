@@ -54,7 +54,7 @@ void Elevate::DebugRenderer::InternalRender()
 {
 	RenderState state;
 	state.BlendEnable = false;
-	state.Cullface = false;
+	state.CullMode = CullFace::None;
 	state.DepthTest = true;
 	state.DepthWrite = true;
 	Renderer::PushRenderState(state);

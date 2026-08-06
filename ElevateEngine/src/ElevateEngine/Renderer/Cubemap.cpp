@@ -11,7 +11,7 @@
 
 Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 {
-	m_renderState.Cullface = false;
+	m_renderState.CullMode = CullFace::None;
 	m_renderState.DepthWrite = false;
 	m_renderState.DepthTest = false;
 

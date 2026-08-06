@@ -46,7 +46,7 @@ namespace Elevate
 		virtual void UnbindTexture(uint8_t slot = 0) const = 0;
 
 		virtual void DrawArray(const VertexArray* vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles) const = 0;
-		virtual void SetCullingState(bool enabled) const = 0;
+		virtual void SetCullingState(CullFace cullSetting) const = 0;
 		virtual void SetDepthWrittingState(bool enabled) const = 0;
 		virtual void SetDepthTestingState(bool enabled) const = 0;
 		virtual void SetBlendingState(bool enabled) const = 0;

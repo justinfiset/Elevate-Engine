@@ -171,9 +171,9 @@ namespace Elevate
 
     void Renderer::PushRenderState(const RenderState& newState)
     {
-        if (!s_isStateCacheValid || newState.Cullface != s_currentState.Cullface)
+        if (!s_isStateCacheValid || newState.CullMode != s_currentState.CullMode)
         {
-            s_API->SetCullingState(newState.Cullface);
+            s_API->SetCullingState(newState.CullMode);
         }
 
         if (!s_isStateCacheValid || newState.DepthWrite != s_currentState.DepthWrite)
@@ -301,15 +301,15 @@ namespace Elevate
             }
             SetViewport(0, 0, settings.Resolution, settings.Resolution);
 
-            s_directionalShadowMap->Bind();
-            ClearDepth();
-            
             RenderState shadowState;
-            shadowState.Cullface = false; // todo : set to true
+            shadowState.CullMode = CullFace::Front;
             shadowState.DepthTest = true;
             shadowState.DepthWrite = true;
             shadowState.BlendEnable = false;
             PushRenderState(shadowState);
+
+            s_directionalShadowMap->Bind();
+            ClearDepth();
 
             const auto& bucket = s_commands.GetBucket(RenderBucket::GBuffer);
             for (const auto& command : bucket)

@@ -72,7 +72,7 @@ namespace Elevate::Editor
 		
 		RenderState gridState;
 		gridState.BlendEnable = true;
-		gridState.Cullface = false;
+		gridState.CullMode = CullFace::None;
 		gridState.DepthTest = true;
 		gridState.DepthWrite = false;
 		gridMaterial->SetRenderState(gridState);
