@@ -84,7 +84,7 @@ namespace Elevate
 		return CreateFromData(pixels.data(), meta);
 	}
 
-	TexturePtr Texture::CreateFromData(unsigned char* data, TextureMetadata& meta)
+	TexturePtr Texture::CreateFromData(const void* data, TextureMetadata& metadata)
 	{
 		TexturePtr texture;
 		switch (Renderer::GetAPI())
@@ -93,7 +93,7 @@ namespace Elevate
 			texture = nullptr; 
 			break;
 		case RendererAPI::GraphicAPI::OpenGL: 
-			texture = std::make_shared<OpenGLTexture>(data, meta); 
+			texture = std::make_shared<OpenGLTexture>(data, metadata);
 			break;
 		default:
 			EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");

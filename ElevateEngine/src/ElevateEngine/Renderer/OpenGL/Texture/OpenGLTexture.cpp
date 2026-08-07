@@ -14,32 +14,44 @@ namespace Elevate
 {
 	constexpr GLenum ToInternalFormat(TextureFormat format) {
 		switch (format) {
-		case TextureFormat::GRAYSCALE:   return GL_R8;       // 8-bit single channel
-		case TextureFormat::RGB:         return GL_RGB8;     // 8-bit RGB
-		case TextureFormat::RGBA:        return GL_RGBA8;    // 8-bit RGBA
-		case TextureFormat::DEPTH:       return GL_DEPTH_COMPONENT24;
-		case TextureFormat::EMPTY:
-		default:                         return GL_RGBA8;
+			case TextureFormat::GRAYSCALE:		return GL_R8;       // 8-bit single channel
+			case TextureFormat::RGB:			return GL_RGB8;     // 8-bit RGB
+			case TextureFormat::RGBA:			return GL_RGBA8;    // 8-bit RGBA
+			case TextureFormat::RGB16F:			return GL_RGB16F;
+			case TextureFormat::RGB32F:			return GL_RGB32F;
+			case TextureFormat::RGBA16F:		return GL_RGBA16F;
+			case TextureFormat::RGBA32F:		return GL_RGBA32F;
+			case TextureFormat::DEPTH:			return GL_DEPTH_COMPONENT24;
+			case TextureFormat::EMPTY:
+			default:							return GL_RGBA8;
 		}
 	}
 
 	constexpr GLenum ToOpenGL(TextureFormat format) {
 		switch (format) {
-		case TextureFormat::GRAYSCALE: return GL_RED;
-		case TextureFormat::RGB:       return GL_RGB;
-		case TextureFormat::RGBA:      return GL_RGBA;
-		case TextureFormat::DEPTH:     return GL_DEPTH_COMPONENT;
-		case TextureFormat::EMPTY:
+			case TextureFormat::GRAYSCALE:			return GL_RED;
+			case TextureFormat::RGB:				return GL_RGB;
+			case TextureFormat::RGB16F:				return GL_RGB;
+			case TextureFormat::RGB32F:				return GL_RGB;
+			case TextureFormat::RGBA:				return GL_RGBA;
+			case TextureFormat::RGBA16F:			return GL_RGBA;
+			case TextureFormat::RGBA32F:			return GL_RGBA;
+			case TextureFormat::DEPTH:				return GL_DEPTH_COMPONENT;
+			case TextureFormat::EMPTY:
 			//case TextureFormat::DEPTH16:            return GL_DEPTH_COMPONENT16;
 			//case TextureFormat::DEPTH24:            return GL_DEPTH_COMPONENT24;
 			//case TextureFormat::DEPTH32F:           return GL_DEPTH_COMPONENT32F;
 			//case TextureFormat::DEPTH24_STENCIL8:   return GL_DEPTH24_STENCIL8;
-		default:                       return GL_RGBA;
+			default:								return GL_RGBA;
 		}
 	}
 
 	constexpr GLenum ToOpenGLType(TextureFormat format) {
 		switch (format) {
+		case TextureFormat::RGB16F:				return GL_FLOAT;
+		case TextureFormat::RGB32F:				return GL_FLOAT;
+		case TextureFormat::RGBA16F:			return GL_FLOAT;
+		case TextureFormat::RGBA32F:			return GL_FLOAT;
 		case TextureFormat::DEPTH:				return GL_FLOAT;
 		default:                                return GL_UNSIGNED_BYTE;
 		}
@@ -47,19 +59,19 @@ namespace Elevate
 
 	constexpr GLenum ToOpenGL(TextureFilter filter) {
 		switch (filter) {
-		case TextureFilter::Nearest: return GL_NEAREST;
-		case TextureFilter::Linear:  return GL_LINEAR;
-		default:                     return GL_NEAREST;
+			case TextureFilter::Nearest: return GL_NEAREST;
+			case TextureFilter::Linear:  return GL_LINEAR;
+			default:                     return GL_NEAREST;
 		}
 	}
 
 	constexpr GLenum ToOpenGL(TextureWrap wrap) {
 		switch (wrap) {
-		case TextureWrap::Repeat:       return GL_REPEAT;
-		case TextureWrap::MirrorRepeat: return GL_MIRRORED_REPEAT;
-		case TextureWrap::ClampToEdge:  return GL_CLAMP_TO_EDGE;
-		case TextureWrap::ClampToBorder:return GL_CLAMP_TO_BORDER;
-		default:                        return GL_REPEAT;
+			case TextureWrap::Repeat:       return GL_REPEAT;
+			case TextureWrap::MirrorRepeat: return GL_MIRRORED_REPEAT;
+			case TextureWrap::ClampToEdge:  return GL_CLAMP_TO_EDGE;
+			case TextureWrap::ClampToBorder:return GL_CLAMP_TO_BORDER;
+			default:                        return GL_REPEAT;
 		}
 	}
 
@@ -77,11 +89,15 @@ namespace Elevate
 		return (filter == TextureFilter::Nearest) ? GL_NEAREST_MIPMAP_NEAREST : GL_LINEAR_MIPMAP_LINEAR;
 	}
 
-	OpenGLTexture::OpenGLTexture(unsigned char* data, TextureMetadata& meta)
+	OpenGLTexture::OpenGLTexture(const TextureMetadata& meta)
 		: Texture(meta)
 	{
 		GLCheck(glGenTextures(1, &m_textureID));
+	}
 
+	OpenGLTexture::OpenGLTexture(const void* data, const TextureMetadata& meta)
+		: OpenGLTexture(meta)
+	{
 		Bind();
 		SetDataImpl(data);
 	}
@@ -97,7 +113,7 @@ namespace Elevate
 		GLCheck(glBindTexture(ToOpenGL(m_meta.Usage), 0));
 	}
 
-	void OpenGLTexture::SetDataImpl(unsigned char* data)
+	void OpenGLTexture::SetDataImpl(const void* data)
 	{
 		Bind();
 

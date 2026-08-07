@@ -13,8 +13,10 @@ namespace Elevate
 	class Camera;
 	class Shader;
 	class Texture;
+	using TexturePtr = std::shared_ptr<Texture>;
 	class Cubemap;
 	class Scene;
+	class Mesh;
 	using ScenePtr = std::shared_ptr<Scene>;
 	class SceneLighting;
 
@@ -28,7 +30,7 @@ namespace Elevate
 		static void Init(uint32_t width, uint32_t height);
 	private:
 		static void InitShadowRenderer();
-
+		static void InitSSAORenderer(uint32_t width, uint32_t height);
 	public:
 
 		// RENDER API STATIC WRAPPER
@@ -70,6 +72,7 @@ namespace Elevate
 		static void RenderSkybox();
 		static void RenderGeometry();
 		static void RenderSSAO();
+		static void RenderComposition();
 
 		static void DrawStack();
 		static void ClearStack();
@@ -89,6 +92,8 @@ namespace Elevate
 		static RendererAPI* s_API;
 		static RenderCommandQueue s_commands;
 
+		static Mesh s_fullscreenQuad;
+
 		// Current States
 		static RendererStorage s_data;
 		static RenderState s_currentState;
@@ -96,11 +101,22 @@ namespace Elevate
 		static uintptr_t s_textures[];
 
 		// Framebuffer
+		static std::unique_ptr<Framebuffer> s_geometryFramebuffer;
 		static std::unique_ptr<Framebuffer> s_mainFramebuffer;
-		static std::unique_ptr<Framebuffer> s_ssaoFrameBuffer;
 
 		// Shadow Mapping
 		static std::shared_ptr<Shader> s_shadowShader;
 		static std::unique_ptr<Elevate::Framebuffer> s_directionalShadowMap;
+
+		// SSAO
+		static std::vector<glm::vec3> s_ssaoKernel;
+		static std::shared_ptr<Shader> s_ssaoShader;
+		static std::unique_ptr<Elevate::Framebuffer> s_ssaoFramebuffer;
+		static std::shared_ptr<Shader> s_ssaoBlurShader;
+		static std::unique_ptr<Framebuffer> s_ssaoBlurFramebuffer;
+		static TexturePtr s_ssaoNoiseTexture;
+
+		// Composition
+		static std::shared_ptr<Shader> s_compositionShader;
 	};
 }

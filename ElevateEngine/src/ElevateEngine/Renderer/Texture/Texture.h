@@ -23,6 +23,10 @@ namespace Elevate
 		GRAYSCALE,
 		RGB,
 		RGBA,
+		RGB16F,
+		RGB32F,
+		RGBA16F,
+		RGBA32F,
 		DEPTH,
 		DEPTHSTENCIL // To use depth and stencil at the same time
 	};
@@ -31,12 +35,16 @@ namespace Elevate
 	{
 		switch (format)
 		{
-		case TextureFormat::GRAYSCALE:		return 1;
-		case TextureFormat::RGB:			return 3;
-		case TextureFormat::RGBA:			return 4;
-		case TextureFormat::DEPTH:			return 1;
-		case TextureFormat::DEPTHSTENCIL:	return 2;
-		default:							return 0;
+			case TextureFormat::GRAYSCALE:		return 1;
+			case TextureFormat::RGB:			return 3;
+			case TextureFormat::RGB16F:			return 3;
+			case TextureFormat::RGB32F:			return 3;
+			case TextureFormat::RGBA:			return 4;
+			case TextureFormat::RGBA16F:		return 4;
+			case TextureFormat::RGBA32F:		return 4;
+			case TextureFormat::DEPTH:			return 1;
+			case TextureFormat::DEPTHSTENCIL:	return 2;
+			default:								return 0;
 		}
 	}
 
@@ -123,7 +131,7 @@ namespace Elevate
 		static TexturePtr CreateFromFile(const std::string& path, TextureType usage = TextureType::Diffuse);
 		static TexturePtr CreateFromColor(const glm::vec3& color, const std::string& name, uint32_t width = 1, uint32_t height = 1);
 		static TexturePtr CreateFromColor(const glm::vec4& color, const std::string& name, uint32_t width = 1, uint32_t height = 1);
-		static TexturePtr CreateFromData(unsigned char* data, TextureMetadata& meta);
+		static TexturePtr CreateFromData(const void* data, TextureMetadata& metadata);
 
 		// NOT ALL GETTERS BUT THE MOST USED
 		inline const std::string& GetName() const { return m_meta.Name; }
@@ -138,7 +146,7 @@ namespace Elevate
 		Texture() = default;
 		Texture(TextureMetadata meta) : m_meta(meta) {}
 
-		virtual void SetDataImpl(unsigned char* data) = 0;
+		virtual void SetDataImpl(const void* data) = 0;
 
 	private:
 		virtual void Bind(uint32_t index = 0) = 0;

@@ -7,9 +7,10 @@ namespace Elevate
 	class OpenGLTexture : public Texture
 	{
 	public:
-		OpenGLTexture(unsigned char* data, TextureMetadata& meta);
+		OpenGLTexture(const TextureMetadata& meta);
+		OpenGLTexture(const void*, const TextureMetadata& meta);
 
-		virtual void SetDataImpl(unsigned char* data) override;
+		virtual void SetDataImpl(const void*) override;
 		virtual void* GetNativeHandle() const override;
 
 	private:

@@ -185,7 +185,24 @@ namespace Elevate
 
 	Mesh Mesh::GenerateQuad(float size)
 	{
-		return GeneratePlane(size, 1);
+		float halfSize = size * 0.5f;
+
+		std::vector<Vertex> vertices =
+		{
+			// Position						Normal				UV
+			{{-halfSize, -halfSize, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},
+			{{ halfSize, -halfSize, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},
+			{{ halfSize,  halfSize, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},
+			{{-halfSize,  halfSize, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}}
+		};
+
+		std::vector<uint32_t> indices =
+		{
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		return Mesh(vertices, indices, {});
 	}
 
 	Mesh Mesh::GeneratePlane(float size, int resolution) {

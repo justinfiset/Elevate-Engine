@@ -1,7 +1,10 @@
 #include "eepch.h"
 #include "Renderer.h"
 
+#include <random>
+
 #include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
+#include <ElevateEngine/Renderer/Mesh.h>
 #include <ElevateEngine/Renderer/OpenGL/OpenGLRendererAPI.h>
 #include <ElevateEngine/Scene/Scene.h>
 #include <ElevateEngine/Renderer/Cubemap.h>
@@ -16,6 +19,7 @@
 #include <ElevateEngine/Renderer/Light/SceneLighting.h>
 
 constexpr uint32_t DEFAULT_SHADOW_RESOLUTION = 2048;
+constexpr uint16_t AO_KERNER_SAMPLE_COUNT = 64;
 
 namespace Elevate
 {
@@ -25,27 +29,133 @@ namespace Elevate
     RenderCommandQueue Renderer::s_commands = RenderCommandQueue();
     uint32_t Renderer::s_currentShaderID = 0;
     uintptr_t Renderer::s_textures[16];
+    Mesh Renderer::s_fullscreenQuad;
 
     // Framebuffer
-    std::unique_ptr<Framebuffer> Renderer::s_mainFramebuffer;
-    std::unique_ptr<Framebuffer> Renderer::s_ssaoFrameBuffer;
+    std::unique_ptr<Framebuffer> Renderer::s_geometryFramebuffer;
 
     // Shadows
     std::shared_ptr<Shader> Renderer::s_shadowShader;
     std::unique_ptr<Framebuffer> Renderer::s_directionalShadowMap;
 
+    // SSAO
+    std::vector<glm::vec3> Renderer::s_ssaoKernel;
+    std::shared_ptr<Shader> Renderer::s_ssaoShader;
+    std::unique_ptr<Elevate::Framebuffer> Renderer::s_ssaoFramebuffer;
+    std::shared_ptr<Shader> Renderer::s_ssaoBlurShader;
+    std::unique_ptr<Framebuffer> Renderer::s_ssaoBlurFramebuffer;
+    TexturePtr Renderer::s_ssaoNoiseTexture;
+
+    // Composition
+    std::unique_ptr<Framebuffer> Renderer::s_mainFramebuffer;
+    std::shared_ptr<Shader> Renderer::s_compositionShader;
+
     static bool s_isStateCacheValid = false;
 
     void Renderer::Init(uint32_t width, uint32_t height)
     {
+        // Create the quad to render to the screen
+        s_fullscreenQuad = Mesh::GenerateQuad(2.0f);
+
         // Create the main color framebuffer
-        s_mainFramebuffer.reset(Framebuffer::Create(width, height, 2, false));
+        s_geometryFramebuffer.reset(Framebuffer::Create(width, height, 2, false));
+        s_geometryFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
+        s_mainFramebuffer.reset(Framebuffer::Create(width, height));
         s_mainFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
 
-        s_ssaoFrameBuffer.reset(Framebuffer::Create(width, height));
+        s_compositionShader = ShaderManager::LoadShader(
+            "composition",
+            "engine://Shaders/Composition.vert",
+            "engine://Shaders/Composition.frag",
+            EE_SHADER_HEADER,
+            EE_SHADER_HEADER
+        );
 
         DebugRenderer::Init();
         InitShadowRenderer();
+        InitSSAORenderer(width, height);
+    }
+
+    static float RandomFloat(float min, float max)
+    {
+        static std::random_device rd;
+        static std::mt19937 generator(12345);
+        std::uniform_real_distribution<float> distribution(min, max);
+
+        return distribution(generator);
+    }
+
+    void Renderer::InitSSAORenderer(uint32_t width, uint32_t height)
+    {
+        s_ssaoShader = ShaderManager::LoadShader(
+            "ssao",
+            "engine://Shaders/SSAO.vert",
+            "engine://Shaders/SSAO.frag",
+            EE_SHADER_HEADER,
+            EE_SHADER_HEADER
+        );
+
+        s_ssaoBlurShader = ShaderManager::LoadShader(
+            "ssaoBlur",
+            "engine://Shaders/SSAOBlur.vert",
+            "engine://Shaders/SSAOBlur.frag",
+            EE_SHADER_HEADER,
+            EE_SHADER_HEADER
+        );
+
+        std::vector<glm::vec3> ssaoNoise;
+        std::uniform_real_distribution<float> randomFloats(0.0f, 1.0f);
+        std::default_random_engine generator;
+
+        for (uint32_t i = 0; i < 16; ++i)
+        {
+            glm::vec3 noise(
+                randomFloats(generator) * 2.0f - 1.0f,
+                randomFloats(generator) * 2.0f - 1.0f,
+                0.0f
+            );
+            ssaoNoise.push_back(glm::normalize(noise));
+        }
+
+        TextureMetadata noiseMeta = TextureMetadataBuilder()
+            .Name("AONoiseTexture")
+            .size(4, 4)
+            .Format(TextureFormat::RGB32F)
+            .Usage(TextureType::Diffuse)
+            .Source(TextureSource::Generated)
+            .State(TextureState::Ready)
+            .Filter(TextureFilter::Nearest, TextureFilter::Nearest)
+            .Wrap(TextureWrap::Repeat, TextureWrap::Repeat)
+            .Mipmaps(false)
+            .Build();
+
+        s_ssaoNoiseTexture = Texture::CreateFromData(ssaoNoise.data(), noiseMeta);
+
+        s_ssaoKernel.reserve(AO_KERNER_SAMPLE_COUNT);
+        for (int i = 0; i < AO_KERNER_SAMPLE_COUNT; i++)
+        {
+            glm::vec3 sample(
+                RandomFloat(-1.0f, 1.0f),
+                RandomFloat(-1.0f, 1.0f),
+                RandomFloat(0.0f, 1.0f)
+            );
+
+            float scale = static_cast<float>(i) / static_cast<float>(AO_KERNER_SAMPLE_COUNT);
+
+            scale = glm::mix(
+                0.1f,
+                1.0f,
+                scale * scale
+            );
+
+            sample *= scale;
+
+            s_ssaoKernel.push_back(sample);
+        }
+
+        // Create the Framebuffer
+        s_ssaoFramebuffer.reset(Framebuffer::Create(width, height));
+        s_ssaoBlurFramebuffer.reset(Framebuffer::Create(width, height));
     }
 
     void Renderer::InitShadowRenderer()
@@ -85,10 +195,12 @@ namespace Elevate
     {
         RenderShaowMaps();
         RenderGeometry();
+        RenderSSAO();
+        RenderComposition();
 
-        s_mainFramebuffer->Bind();
+        s_geometryFramebuffer->Bind();
         DebugRenderer::Render();
-        s_mainFramebuffer->Unbind();
+        s_geometryFramebuffer->Unbind();
 
         ClearStack();
     }
@@ -337,16 +449,85 @@ namespace Elevate
 
     void Renderer::RenderGeometry()
     {
-        s_mainFramebuffer->Bind();
-        s_mainFramebuffer->Clear();
-        SetViewport(0, 0, s_mainFramebuffer->GetWidth(), s_mainFramebuffer->GetHeight());
+        s_geometryFramebuffer->Bind();
+        s_geometryFramebuffer->Clear();
+        SetViewport(0, 0, s_geometryFramebuffer->GetWidth(), s_geometryFramebuffer->GetHeight());
         RenderSkybox();
         DrawStack();
 
-        s_mainFramebuffer->Unbind();
+        s_geometryFramebuffer->Unbind();
     }
 
     void Renderer::RenderSSAO()
     {
+        s_ssaoFramebuffer->Bind();
+        s_ssaoFramebuffer->Clear();
+        SetViewport(0, 0, s_ssaoFramebuffer->GetWidth(), s_ssaoFramebuffer->GetHeight());
+
+        BindShader(s_ssaoShader);
+
+        // Bind the gDepth
+        BindTexture(s_geometryFramebuffer->GetDepthTexture(), 0);
+        s_ssaoShader->SetUniform1i("gDepth", 0);
+        // Bind the gNormal
+        BindTexture(s_geometryFramebuffer->GetColorTexture(1), 1);
+        s_ssaoShader->SetUniform1i("gNormal", 1);
+        // Bind the noise texture
+        BindTexture(s_ssaoNoiseTexture, 2);
+        s_ssaoShader->SetUniform1i("noiseTexture", 2);
+
+        glm::vec2 noiseScale(
+            static_cast<float>(s_ssaoFramebuffer->GetWidth()) / 4.0f,
+            static_cast<float>(s_ssaoFramebuffer->GetHeight()) / 4.0f
+        );
+        s_ssaoShader->SetUniform2f("noiseScale", noiseScale);
+
+
+        s_ssaoShader->SetUniformMatrix4fv("inverseProjection", glm::inverse(s_data.Projection));
+        s_ssaoShader->SetUniformMatrix4fv("projection", s_data.Projection);
+        s_ssaoShader->SetUniformMatrix4fv("view", s_data.View);
+
+        for (int i = 0; i < s_ssaoKernel.size(); i++)
+        {
+            s_ssaoShader->SetUniform3f("samples[" + std::to_string(i) + "]", s_ssaoKernel[i]);
+        }
+
+        DrawArray(s_fullscreenQuad.GetVertexArray());
+        s_ssaoFramebuffer->Unbind();
+
+
+        // Second pass to blur
+        s_ssaoBlurFramebuffer->Bind();
+        s_ssaoBlurFramebuffer->Clear();
+        SetViewport(0, 0, s_ssaoBlurFramebuffer->GetWidth(), s_ssaoBlurFramebuffer->GetHeight());
+
+        BindShader(s_ssaoBlurShader);
+        BindTexture(s_ssaoFramebuffer->GetColorTexture(), 0);
+        s_ssaoBlurShader->SetUniform1i("aoTexture", 0);
+        BindShader(s_ssaoBlurShader);
+        BindTexture(s_geometryFramebuffer->GetDepthTexture(), 1);
+        s_ssaoBlurShader->SetUniform1i("gDepth", 1);
+
+
+        DrawArray(s_fullscreenQuad.GetVertexArray());
+        s_ssaoBlurFramebuffer->Unbind();
+    }
+
+    void Renderer::RenderComposition()
+    {
+        s_mainFramebuffer->Bind();
+        s_mainFramebuffer->Clear();
+        SetViewport(0, 0, s_mainFramebuffer->GetWidth(), s_mainFramebuffer->GetHeight());
+
+        BindShader(s_compositionShader);
+
+        BindTexture(s_geometryFramebuffer->GetColorTexture(), 0);
+        s_compositionShader->SetUniform1i("sceneTexture", 0);
+        BindTexture(s_ssaoBlurFramebuffer->GetColorTexture(), 1);
+        s_compositionShader->SetUniform1i("aoTexture", 1);
+
+        DrawArray(s_fullscreenQuad.GetVertexArray());
+
+        s_mainFramebuffer->Unbind();
     }
 }

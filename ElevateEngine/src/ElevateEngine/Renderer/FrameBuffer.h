@@ -40,6 +40,7 @@ namespace Elevate
 		virtual void* GetColorAttachmentHandle(uint32_t index = 0) const;
 		virtual void* GetDepthAttachmentHandle() const;
 
+		virtual TexturePtr GetColorTexture(uint32_t index = 0) const;
 		virtual TexturePtr GetDepthTexture() const;
 
 		virtual uint32_t GetFrameBufferId() const = 0;

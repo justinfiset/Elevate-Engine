@@ -130,6 +130,21 @@ namespace Elevate
 		return nullptr;
 	}
 
+    TexturePtr Framebuffer::GetColorTexture(uint32_t index) const
+    {
+        if (index >= m_colorAttachments.size())
+        {
+            EE_CORE_WARN("Framebuffer::GetColorTexture - Index out of bounds: {0}", index);
+            return nullptr;
+        }
+
+        if (TexturePtr tex = m_colorAttachments.at(index).Texture)
+        {
+            return tex;
+        }
+        return nullptr;
+    }
+
     TexturePtr Framebuffer::GetDepthTexture() const
     {
         if (m_depthAttachment.has_value())
