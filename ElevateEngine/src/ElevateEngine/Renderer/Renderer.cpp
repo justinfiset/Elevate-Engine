@@ -28,6 +28,7 @@ namespace Elevate
 
     // Framebuffer
     std::unique_ptr<Framebuffer> Renderer::s_mainFramebuffer;
+    std::unique_ptr<Framebuffer> Renderer::s_ssaoFrameBuffer;
 
     // Shadows
     std::shared_ptr<Shader> Renderer::s_shadowShader;
@@ -38,8 +39,10 @@ namespace Elevate
     void Renderer::Init(uint32_t width, uint32_t height)
     {
         // Create the main color framebuffer
-        s_mainFramebuffer.reset(Framebuffer::Create(width, height));
+        s_mainFramebuffer.reset(Framebuffer::Create(width, height, 2, false));
         s_mainFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
+
+        s_ssaoFrameBuffer.reset(Framebuffer::Create(width, height));
 
         DebugRenderer::Init();
         InitShadowRenderer();
@@ -341,5 +344,9 @@ namespace Elevate
         DrawStack();
 
         s_mainFramebuffer->Unbind();
+    }
+
+    void Renderer::RenderSSAO()
+    {
     }
 }

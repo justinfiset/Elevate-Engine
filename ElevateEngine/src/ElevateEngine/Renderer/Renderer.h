@@ -69,6 +69,7 @@ namespace Elevate
 		static void RenderShaowMaps();
 		static void RenderSkybox();
 		static void RenderGeometry();
+		static void RenderSSAO();
 
 		static void DrawStack();
 		static void ClearStack();
@@ -96,6 +97,7 @@ namespace Elevate
 
 		// Framebuffer
 		static std::unique_ptr<Framebuffer> s_mainFramebuffer;
+		static std::unique_ptr<Framebuffer> s_ssaoFrameBuffer;
 
 		// Shadow Mapping
 		static std::shared_ptr<Shader> s_shadowShader;

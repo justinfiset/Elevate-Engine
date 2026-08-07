@@ -46,7 +46,7 @@ namespace Elevate
 		inline void SetClearColor(glm::vec4 color) { m_clearColor = color; }
 
 		// Color + Depth + Stencil (most used case)
-		static Framebuffer* Create(uint32_t width = 1280, uint32_t height = 720);
+		static Framebuffer* Create(uint32_t width = 1280, uint32_t height = 720, uint32_t colorAttachmentCount = 1, bool depthAsRenderbuffer = true);
 		// 0 Color and only 1 Depth texture
 		static Framebuffer* CreateDepthOnly(uint32_t width = 2048, uint32_t height = 2048);
 		// Pass custom config for the FrameBuffer
@@ -55,6 +55,11 @@ namespace Elevate
 			TexturePtr depthTexture = nullptr,
 			bool depthAsRenderbuffer = true
 		);
+
+	private:
+		static TexturePtr CreateColorTexture(uint32_t width, uint32_t height);
+		static TexturePtr CreateDepthTexture(uint32_t width, uint32_t height);
+
 	protected:
 		std::vector<FramebufferColorAttachment> m_colorAttachments;
 		std::optional<FramebufferDepthAttachment> m_depthAttachment;

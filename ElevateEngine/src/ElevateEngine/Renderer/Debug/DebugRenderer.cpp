@@ -8,6 +8,7 @@
 #include <glm/gtc/constants.hpp>
 
 #include <ElevateEngine/Core/Core.h>
+#include <ElevateEngine/Core/Application.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/Buffer.h>
@@ -19,7 +20,10 @@ void Elevate::DebugRenderer::Init()
 
 void Elevate::DebugRenderer::Render()
 {
-	Get().InternalRender();
+	if (Application::GetGameState() == GameContextState::EditorMode)
+	{
+		Get().InternalRender();
+	}
 }
 
 void Elevate::DebugRenderer::AddDebugCone(const glm::vec3& origin, const glm::vec3& direction, float radius, float range, uint16_t segmentCount, const glm::vec4& color)

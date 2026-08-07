@@ -46,12 +46,10 @@ public:
 		// Backpack
 		m_DemoObject = Elevate::GameObject::Create("Backpack", m_scene);
 		Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("Content/Models/backpack.obj", material);
-		//Elevate::Rigidbody& rb = m_DemoObject->AddComponent<Elevate::Rigidbody>();
 		m_DemoObject->SetPosition({ 0.0f, 0.0f, -4.0f });
 
 		m_demoCube = Elevate::GameObject::Create("Cube", m_scene);
 		Elevate::Model& demoModel1 = m_demoCube->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Cube);
-		//Elevate::Rigidbody& rb1 = m_demoCube->AddComponent<Elevate::Rigidbody>();
 		Elevate::Camera& cam = m_demoCube->AddComponent<Elevate::Camera>();
 		m_demoCube->SetPosition({ 0.0f, 0.0f, 0.0f });
 		m_demoCube->SetRotation({ 0.0, -90.0f, 0.0f });
@@ -67,7 +65,7 @@ public:
 		Elevate::DirectionalLight& dirLight = m_dirLightObj->AddComponent<Elevate::DirectionalLight>(
 			glm::vec3(1.0f, 1.0f, 1.0f)
 		);
-		dirLight.SetIntensity(0.2f);
+		dirLight.SetIntensity(0.8f);
 		m_dirLightObj->SetPosition({ 7.0f, 4.0f, 6.0f });
 		m_dirLightObj->SetRotation({ 0.0f, 45.0f, 45.0f });
 

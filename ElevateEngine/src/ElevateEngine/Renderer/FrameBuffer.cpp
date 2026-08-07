@@ -20,72 +20,34 @@ namespace Elevate
         return m_height;
     }
 
-    Framebuffer* Framebuffer::Create(uint32_t width, uint32_t height)
+    Framebuffer* Framebuffer::Create(uint32_t width, uint32_t height, uint32_t colorAttachmentCount, bool depthAsRenderbuffer)
     {
-        switch (Renderer::GetAPI())
+        std::vector<TexturePtr> colorTextures;
+        colorTextures.reserve(colorAttachmentCount);
+        for (uint32_t i = 0; i < colorAttachmentCount; i++)
         {
-           case RendererAPI::GraphicAPI::None:
-                EE_CORE_ASSERT(false, "GraphicsAPI::None is not supported!");
-                return nullptr;
-
-            case RendererAPI::GraphicAPI::OpenGL:
-            {
-                TextureMetadata colorMeta = TextureMetadataBuilder()
-                    .Name("FramebufferColorAttachment0")
-                    .size(width, height)
-                    .Format(TextureFormat::RGBA)
-                    .Usage(TextureType::Diffuse)
-                    .Source(TextureSource::RenderTarget)
-                    .State(TextureState::Ready)
-                    .Filter(TextureFilter::Linear, TextureFilter::Linear)
-                    .Wrap(TextureWrap::ClampToEdge, TextureWrap::ClampToEdge)
-                    .Mipmaps(false)
-                    .Build();
-
-                TexturePtr colorTex = Texture::CreateFromData(nullptr, colorMeta);
-                Framebuffer* buffer = new OpenGLFrameBuffer({ colorTex }, nullptr, true);
-                buffer->m_width = width;
-                buffer->m_height = height;
-                return buffer;
-            }
+            colorTextures.push_back(CreateColorTexture(width, height));
         }
 
-        EE_CORE_ASSERT(false, "Unknown GraphicsAPI!");
-        return nullptr;
+        TexturePtr colorTex = CreateColorTexture(width, height);
+        TexturePtr depthTex = nullptr;
+        if (!depthAsRenderbuffer)
+        {
+            depthTex = CreateDepthTexture(width, height);
+        }
+        Framebuffer* buffer = Framebuffer::Create(colorTextures, depthTex, depthAsRenderbuffer);
+        buffer->m_width = width;
+        buffer->m_height = height;
+        return buffer;
     }
 
     Framebuffer* Framebuffer::CreateDepthOnly(uint32_t width, uint32_t height)
     {
-        switch (Renderer::GetAPI())
-        {
-            case RendererAPI::GraphicAPI::None:
-                EE_CORE_ASSERT(false, "GraphicsAPI::None is not supported!");
-                return nullptr;
-
-            case RendererAPI::GraphicAPI::OpenGL:
-            {
-                TextureMetadata depthMeta = TextureMetadataBuilder()
-                    .Name("ShadowMapDepthAttachment")
-                    .size(width, height)
-                    .Format(TextureFormat::DEPTH)
-                    .Usage(TextureType::ShadowMap)
-                    .Source(TextureSource::RenderTarget)
-                    .State(TextureState::Ready)
-                    .Filter(TextureFilter::Linear, TextureFilter::Linear)
-                    .Wrap(TextureWrap::ClampToBorder, TextureWrap::ClampToBorder)
-                    .Mipmaps(false)
-                    .Build();
-
-                TexturePtr depthTex = Texture::CreateFromData(nullptr, depthMeta);
-                Framebuffer* buffer = new OpenGLFrameBuffer({}, depthTex, false);
-                buffer->m_width = width;
-                buffer->m_height = height;
-                return buffer;
-            }
-        }
-
-        EE_CORE_ASSERT(false, "Unknown GraphicsAPI!");
-        return nullptr;
+        TexturePtr depthTex = CreateDepthTexture(width, height);
+        Framebuffer* buffer = Framebuffer::Create({ }, depthTex, false);
+        buffer->m_width = width;
+        buffer->m_height = height;
+        return buffer;
     }
 
     Framebuffer* Framebuffer::Create(const std::vector<TexturePtr>& colorTextures, TexturePtr depthTexture, bool depthAsRenderbuffer)
@@ -102,6 +64,40 @@ namespace Elevate
 
         EE_CORE_ASSERT(false, "Unknown GraphicsAPI!");
         return nullptr;
+    }
+
+    TexturePtr Framebuffer::CreateColorTexture(uint32_t width, uint32_t height)
+    {
+        TextureMetadata colorMeta = TextureMetadataBuilder()
+            .Name("FramebufferColorAttachment0")
+            .size(width, height)
+            .Format(TextureFormat::RGBA)
+            .Usage(TextureType::Diffuse)
+            .Source(TextureSource::RenderTarget)
+            .State(TextureState::Ready)
+            .Filter(TextureFilter::Linear, TextureFilter::Linear)
+            .Wrap(TextureWrap::ClampToEdge, TextureWrap::ClampToEdge)
+            .Mipmaps(false)
+            .Build();
+
+        return Texture::CreateFromData(nullptr, colorMeta);
+    }
+
+    TexturePtr Framebuffer::CreateDepthTexture(uint32_t width, uint32_t height)
+    {
+        TextureMetadata depthMeta = TextureMetadataBuilder()
+            .Name("ShadowMapDepthAttachment")
+            .size(width, height)
+            .Format(TextureFormat::DEPTH)
+            .Usage(TextureType::ShadowMap)
+            .Source(TextureSource::RenderTarget)
+            .State(TextureState::Ready)
+            .Filter(TextureFilter::Linear, TextureFilter::Linear)
+            .Wrap(TextureWrap::ClampToBorder, TextureWrap::ClampToBorder)
+            .Mipmaps(false)
+            .Build();
+
+        return Texture::CreateFromData(nullptr, depthMeta);
     }
 
 	void Framebuffer::Clear() const

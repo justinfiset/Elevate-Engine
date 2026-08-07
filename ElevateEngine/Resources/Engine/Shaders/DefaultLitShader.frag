@@ -1,10 +1,11 @@
 layout(location = 0) out vec4 o_Color;
+layout(location = 1) out vec4 o_Normal;
 
 in vec3 normal;
 in vec2 textCord;
 in vec3 fragPos;
 in vec4 fragPosLightSpace;
- 
+    
 vec3 defaultColor = vec3(0.8, 0.8, 0.8);
 vec3 defaultAmbientColor = vec3(0.2, 0.2, 0.2);
 
@@ -255,4 +256,5 @@ void main()
     }
 
     o_Color = vec4(result, 1.0);
+    o_Normal = vec4(unitNormal * 0.5 + 0.5, 1.0); // Convert normal from [-1, 1] to [0, 1] range for output
 }
