@@ -15,11 +15,11 @@ std::string GetUniformNameByType(Elevate::TexturePtr texture)
 {
 	switch (texture->GetUsage())
 	{
-	case Elevate::TextureType::Diffuse:  return "diffuseTex";
-	case Elevate::TextureType::Specular: return "specularTex";
-	case Elevate::TextureType::Ambient:  return "ambientTex";
+	case Elevate::TextureType::Diffuse:			return "diffuseTex";
+	case Elevate::TextureType::Specular:		return "specularTex";
+	case Elevate::TextureType::Ambient:			return "ambientTex";
 	case Elevate::TextureType::AmbientOcclusion: return "aoTex";
-	case Elevate::TextureType::Normal:   return "normalTex";
+	case Elevate::TextureType::Normal:			return "normalTex";
 	default: return "";
 	}
 }

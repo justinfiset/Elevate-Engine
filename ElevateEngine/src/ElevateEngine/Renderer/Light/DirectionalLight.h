@@ -1,12 +1,14 @@
 #pragma once
 #include "Light.h"
 
+#include <ElevateEngine/Editor/Components/ComponentsIcon.h>
+
 namespace Elevate
 {	
 	class DirectionalLight : public Light
 	{
 	public:
-		BEGIN_COMPONENT(DirectionalLight)
+		BEGIN_COMPONENT(DirectionalLight, EE_EditorIcon(std::string(Editor::Icons::COMPONENT_ICON_DIRECTIONALLIGHT)))
 		DECLARE_BASE(Light)
 		EECATEGORY("Lighting")
 
