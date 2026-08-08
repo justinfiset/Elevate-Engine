@@ -19,10 +19,18 @@ uniform sampler2DShadow shadowMap;
 // TODO implement multiple diffuse texture functionallity
 uniform sampler2D ambientTex;
 uniform int has_ambientTex;
+
 uniform sampler2D diffuseTex;
+uniform int has_diffuseTex;
+
 uniform sampler2D specularTex;
+uniform int has_specularTex;
+
 uniform sampler2D normalTex;
 uniform int has_normalTex;
+
+uniform sampler2D aoTex;
+uniform int has_aoTex;
 
 bool blinn = true; // use blinn-phong shading or not
 
@@ -45,6 +53,13 @@ struct DirLight {
     float intensity;
 };
 uniform DirLight dirLight;
+
+float GetMaterialAO() {
+    if (has_aoTex == 1) {
+        return texture(aoTex, textCord).r;
+    }
+    return 1.0;
+}
 
 vec3 GetTextureColor(sampler2D tex, vec2 uv, vec3 defaultColor, int hasTexture) {
     if (hasTexture == 1) {
@@ -83,9 +98,9 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
     }
 
     // combine results
-    vec3 ambient  = light.ambient  * GetTextureColor(ambientTex, textCord, defaultAmbientColor, has_ambientTex);
-    vec3 diffuse  = light.diffuse  * diff * GetTextureColor(diffuseTex, textCord, material.diffuse, 1);
-    vec3 specular = light.specular * spec * GetTextureColor(specularTex, textCord, material.specular, 1);
+    vec3 ambient  = light.ambient  * GetTextureColor(ambientTex, textCord, defaultAmbientColor, has_ambientTex) * GetMaterialAO();
+    vec3 diffuse  = light.diffuse  * diff * GetTextureColor(diffuseTex, textCord, material.diffuse, has_diffuseTex);
+    vec3 specular = light.specular * spec * GetTextureColor(specularTex, textCord, material.specular, has_specularTex);
 
     return (ambient + diffuse + specular) * light.intensity;
 }
@@ -126,9 +141,9 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     float attenuation = 1.0 / (light.constant + light.linear * distance + 
   			     light.quadratic * (distance * distance));
     // combine results
-    vec3 ambient  = light.ambient  * light.intensity * GetTextureColor(ambientTex, textCord, defaultAmbientColor, has_ambientTex);
-    vec3 diffuse  = light.diffuse  * light.intensity * diff * GetTextureColor(diffuseTex, textCord, material.diffuse, 1);
-    vec3 specular = light.specular * light.intensity * spec * GetTextureColor(specularTex, textCord, material.specular, 1);
+    vec3 ambient  = light.ambient  * light.intensity * GetTextureColor(ambientTex, textCord, defaultAmbientColor, has_ambientTex) * GetMaterialAO();
+    vec3 diffuse  = light.diffuse  * light.intensity * diff * GetTextureColor(diffuseTex, textCord, material.diffuse, has_diffuseTex);
+    vec3 specular = light.specular * light.intensity * spec * GetTextureColor(specularTex, textCord, material.specular, has_specularTex);
 
     ambient  *= attenuation;
     diffuse  *= attenuation;
@@ -197,12 +212,12 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
         1.0
     );
 
-    vec3 ambient = light.ambient * light.intensity 
+    vec3 ambient = light.ambient * light.intensity * GetMaterialAO()
         * GetTextureColor(ambientTex, textCord, defaultAmbientColor, has_ambientTex);
     vec3 diffuse = light.diffuse * light.intensity * diff
-        * GetTextureColor(diffuseTex, textCord, material.diffuse, 1);
+        * GetTextureColor(diffuseTex, textCord, material.diffuse, has_diffuseTex);
     vec3 specular = light.specular * light.intensity * spec
-        * GetTextureColor(specularTex, textCord, material.specular, 1);
+        * GetTextureColor(specularTex, textCord, material.specular, has_specularTex);
 
     ambient *= attenuation * spotIntensity;
     diffuse *= attenuation * spotIntensity;
@@ -211,7 +226,7 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     return ambient + diffuse + specular;
 }
 
-float CalcShadow()
+float CalcShadow(vec3 localNormal)
 {
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     projCoords = projCoords * 0.5 + 0.5;
@@ -224,7 +239,7 @@ float CalcShadow()
     }
 
     vec3 lightDir = normalize(-dirLight.direction);
-    float cosTheta = max(dot(normalize(normal), lightDir), 0.0);
+    float cosTheta = max(dot(normalize(localNormal), lightDir), 0.0);
     float bias = max(0.00005, 0.0005 * (1.0 - cosTheta));
     float compareDepth = projCoords.z - bias;
 
@@ -258,7 +273,7 @@ void main()
 
     // phase 1: Directional lighting    
     vec3 directionalLighting = CalcDirLight(dirLight, unitNormal, viewDir);
-    vec3 result = directionalLighting * CalcShadow();
+    vec3 result = directionalLighting * CalcShadow(unitNormal);
 
     // phase 2: Point lights
     for(int i = 0; i < u_NumPointLights && i < NR_POINT_LIGHTS; i++)

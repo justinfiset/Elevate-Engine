@@ -151,13 +151,17 @@ void Elevate::Model::ProcessMesh(std::string basePath, aiMesh* mesh, const aiSce
 	{
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
-		//LoadMaterialTextures(basePath, material, aiTextureType_NORMALS, TextureType::Normal, data);
-		LoadMaterialTextures(basePath, material, aiTextureType_HEIGHT, TextureType::Normal, data);
-
 		LoadMaterialTextures(basePath, material, aiTextureType_DIFFUSE, TextureType::Diffuse, data);
 		LoadMaterialTextures(basePath, material, aiTextureType_SPECULAR, TextureType::Specular, data);
-		LoadMaterialTextures(basePath, material, aiTextureType_AMBIENT, TextureType::Ambient, data);
+
+		// Load ambiant occlusion
 		LoadMaterialTextures(basePath, material, aiTextureType_AMBIENT_OCCLUSION, TextureType::AmbientOcclusion, data);
+		LoadMaterialTextures(basePath, material, aiTextureType_LIGHTMAP, TextureType::AmbientOcclusion, data);
+		LoadMaterialTextures(basePath, material, aiTextureType_AMBIENT, TextureType::AmbientOcclusion, data);
+
+		// Normal map
+		LoadMaterialTextures(basePath, material, aiTextureType_NORMALS, TextureType::Normal, data);
+		LoadMaterialTextures(basePath, material, aiTextureType_HEIGHT, TextureType::Normal, data);
 	}
 }
 
@@ -226,6 +230,7 @@ void Elevate::Model::LoadMaterialTextures(std::string basePath, aiMaterial* mat,
 			
 		if (!skip)
 		{
+			EE_CORE_ERROR("{}", path);
 			data.Textures.emplace_back(Texture::CreateFromFile(path, texType));
 		}
 	}
