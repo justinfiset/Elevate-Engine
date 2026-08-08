@@ -12,7 +12,7 @@ out vec3 normal;
 out vec2 textCord;
 out vec3 fragPos;
 out vec4 fragPosLightSpace;
-out mat3 v_TBN;
+out mat3 TBN;
 
 void main()
 {
@@ -26,7 +26,7 @@ void main()
 	vec3 T = normalize(normalMatrix * a_Tangent);
     vec3 B = normalize(normalMatrix * a_Bitangent);
     vec3 N = normalize(normalMatrix * a_Normal);
-	v_TBN = mat3(T, B, N);
+	TBN = mat3(T, B, N);
 
     gl_Position = viewProj * vec4(fragPos, 1.0);
 }

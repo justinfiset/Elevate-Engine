@@ -59,7 +59,7 @@ vec3 GetNormal()
     {
         vec3 localNormal = texture(normalTex, textCord).rgb;
         localNormal = localNormal * 2.0 - 1.0; // Convert from [0, 1] to [-1, 1]
-        return normalize(localNormal * TBN);
+        return normalize(TBN * localNormal);
     }
     else
     {

@@ -55,6 +55,7 @@ namespace Elevate
 		Height,
 		Cubemap,
 		Ambient,
+		AmbientOcclusion,
 		Depth,
 		ShadowMap,
 		Count

@@ -18,6 +18,7 @@ std::string GetUniformNameByType(Elevate::TexturePtr texture)
 	case Elevate::TextureType::Diffuse:  return "diffuseTex";
 	case Elevate::TextureType::Specular: return "specularTex";
 	case Elevate::TextureType::Ambient:  return "ambientTex";
+	case Elevate::TextureType::AmbientOcclusion: return "aoTex";
 	case Elevate::TextureType::Normal:   return "normalTex";
 	default: return "";
 	}
@@ -149,12 +150,14 @@ void Elevate::Model::ProcessMesh(std::string basePath, aiMesh* mesh, const aiSce
 	if (mesh->mMaterialIndex >= 0)
 	{
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+
+		//LoadMaterialTextures(basePath, material, aiTextureType_NORMALS, TextureType::Normal, data);
+		LoadMaterialTextures(basePath, material, aiTextureType_HEIGHT, TextureType::Normal, data);
+
 		LoadMaterialTextures(basePath, material, aiTextureType_DIFFUSE, TextureType::Diffuse, data);
 		LoadMaterialTextures(basePath, material, aiTextureType_SPECULAR, TextureType::Specular, data);
 		LoadMaterialTextures(basePath, material, aiTextureType_AMBIENT, TextureType::Ambient, data);
-		LoadMaterialTextures(basePath, material, aiTextureType_AMBIENT_OCCLUSION, TextureType::Ambient, data); // todo create new texturetype
-		LoadMaterialTextures(basePath, material, aiTextureType_NORMALS, TextureType::Normal, data);
-		LoadMaterialTextures(basePath, material, aiTextureType_HEIGHT, TextureType::Normal, data);
+		LoadMaterialTextures(basePath, material, aiTextureType_AMBIENT_OCCLUSION, TextureType::AmbientOcclusion, data);
 	}
 }
 
