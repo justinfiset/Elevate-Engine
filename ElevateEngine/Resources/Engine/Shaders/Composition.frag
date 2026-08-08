@@ -9,5 +9,11 @@ void main()
 {
     vec3 color = texture(sceneTexture, v_TexCoord).rgb;
     float ao = texture(aoTexture, v_TexCoord).r;
-    o_Color = vec4(color * ao, 1.0);
+    vec3 linearColor = color * ao;
+
+    // gama correction
+    float gamma = 2.2;
+    vec3 correctedColor = pow(linearColor, vec3(1.0 / gamma));
+
+    o_Color = vec4(correctedColor, 1.0);
 }
