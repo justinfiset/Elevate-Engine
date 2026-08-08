@@ -80,7 +80,12 @@ void Elevate::Model::LoadModel(std::string path)
 	std::string resolvedPath = PathResolver::Resolve(path);
 	// Importing the scene
 	Assimp::Importer import;
-	const aiScene* scene = import.ReadFile(resolvedPath, aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_OptimizeMeshes | aiProcess_ImproveCacheLocality);
+	const aiScene* scene = import.ReadFile(resolvedPath, 
+		aiProcess_Triangulate |
+		aiProcess_GenNormals |
+		aiProcess_OptimizeMeshes |
+		aiProcess_ImproveCacheLocality |
+		aiProcess_CalcTangentSpace);
 
 	// checking and exception catcher
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -148,7 +153,8 @@ void Elevate::Model::ProcessMesh(std::string basePath, aiMesh* mesh, const aiSce
 		LoadMaterialTextures(basePath, material, aiTextureType_SPECULAR, TextureType::Specular, data);
 		LoadMaterialTextures(basePath, material, aiTextureType_AMBIENT, TextureType::Ambient, data);
 		LoadMaterialTextures(basePath, material, aiTextureType_AMBIENT_OCCLUSION, TextureType::Ambient, data); // todo create new texturetype
-		// todo : load all of the other texture types
+		LoadMaterialTextures(basePath, material, aiTextureType_NORMALS, TextureType::Normal, data);
+		LoadMaterialTextures(basePath, material, aiTextureType_HEIGHT, TextureType::Normal, data);
 	}
 }
 

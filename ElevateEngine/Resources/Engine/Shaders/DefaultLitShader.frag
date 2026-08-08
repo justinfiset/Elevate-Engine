@@ -5,7 +5,8 @@ in vec3 normal;
 in vec2 textCord;
 in vec3 fragPos;
 in vec4 fragPosLightSpace;
-    
+in mat3 TBN;
+
 vec3 defaultColor = vec3(0.8, 0.8, 0.8);
 vec3 defaultAmbientColor = vec3(0.2, 0.2, 0.2);
 
@@ -17,9 +18,11 @@ uniform sampler2DShadow shadowMap;
 // MATERIAL IMPL.
 // TODO implement multiple diffuse texture functionallity
 uniform sampler2D ambientTex;
+uniform int has_ambientTex;
 uniform sampler2D diffuseTex;
 uniform sampler2D specularTex;
-uniform int has_ambientTex;
+uniform sampler2D normalTex;
+uniform int has_normalTex;
 
 bool blinn = true; // use blinn-phong shading or not
 
@@ -48,6 +51,20 @@ vec3 GetTextureColor(sampler2D tex, vec2 uv, vec3 defaultColor, int hasTexture) 
         return texture(tex, uv).rgb;
     }
     return defaultColor;
+}
+
+vec3 GetNormal()
+{
+    if (has_normalTex == 1)
+    {
+        vec3 localNormal = texture(normalTex, textCord).rgb;
+        localNormal = localNormal * 2.0 - 1.0; // Convert from [0, 1] to [-1, 1]
+        return normalize(localNormal * TBN);
+    }
+    else
+    {
+        return normalize(normal);
+    }
 }
 
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
@@ -236,7 +253,7 @@ float CalcShadow()
 
 void main()
 {
-	vec3 unitNormal = normalize(normal);
+	vec3 unitNormal = GetNormal();
 	vec3 viewDir = normalize(camPos - fragPos);
 
     // phase 1: Directional lighting    
