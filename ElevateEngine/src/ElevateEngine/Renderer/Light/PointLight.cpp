@@ -31,7 +31,7 @@ namespace Elevate
 	}
 
 #ifdef EE_EDITOR_BUILD
-	void PointLight::RenderWhenSelected()
+	void PointLight::Render()
 	{
 		EditorRenderer::DrawBillboard(gameObject->GetGlobalPosition(), GetEditorIcon(), 0.5f);
 	}

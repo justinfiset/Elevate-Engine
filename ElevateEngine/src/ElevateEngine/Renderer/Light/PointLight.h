@@ -20,7 +20,7 @@ namespace Elevate
 		void UploadToShader(Shader* shader, uint32_t index) const;
 
 #ifdef EE_EDITOR_BUILD
-		virtual void RenderWhenSelected() override;
+		virtual void Render() override;
 #endif
 
 		LightAttenuation m_attenuation;

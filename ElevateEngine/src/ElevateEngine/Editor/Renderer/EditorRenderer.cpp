@@ -12,33 +12,29 @@ namespace Elevate
         if (!icon) return;
 
         static Mesh billboardQuad = Mesh::GenerateQuad();
-        static MaterialPtr billboardMaterial = nullptr;
+        static ShaderPtr billboardShader = ShaderManager::GetShader("editor/billboard");
 
-        if (!billboardMaterial)
+        if (!billboardShader)
         {
-            ShaderPtr shader = ShaderManager::GetShader("editor/billboard");
-            if (!shader)
-            {
-                EE_CORE_ERROR("Could not find billboard shader 'editor/billboard'.");
-                return;
-            }
-
-            billboardMaterial = MaterialRegistry::LoadMaterial(shader);
-
-            RenderState state;
-            state.BlendEnable = true;
-            state.CullMode = CullFace::None;
-            state.DepthTest = false;
-            state.DepthWrite = false;
-            
-            billboardMaterial->SetRenderState(state);
-            billboardMaterial->SetBucket(RenderBucket::Type::Transparent);
+            EE_CORE_ERROR("Could not find billboard shader 'editor/billboard'.");
+            return;
         }
 
-        billboardMaterial->SetTexture("billboardTexture", icon);
-        billboardMaterial->Set("worldPos", position);
-        billboardMaterial->Set("scale", scale);
+        MaterialPtr instanceMaterial = MaterialRegistry::LoadMaterial(billboardShader);
 
-        Renderer::SubmitMesh(billboardQuad.GetVertexArray(), billboardMaterial, glm::mat4(1.0f));
+        RenderState state;
+        state.BlendEnable = true;
+        state.CullMode = CullFace::None;
+        state.DepthTest = false;
+        state.DepthWrite = false;
+
+        instanceMaterial->SetRenderState(state);
+        instanceMaterial->SetBucket(RenderBucket::Type::Transparent);
+
+        instanceMaterial->SetTexture("billboardTexture", icon);
+        instanceMaterial->Set("worldPos", position);
+        instanceMaterial->Set("scale", scale);
+
+        Renderer::SubmitMesh(billboardQuad.GetVertexArray(), instanceMaterial, glm::mat4(1.0f));
     }
 }

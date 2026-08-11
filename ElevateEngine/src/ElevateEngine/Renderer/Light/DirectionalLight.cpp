@@ -31,10 +31,14 @@ namespace Elevate
 	}
 
 #ifdef EE_EDITOR_BUILD
+    void DirectionalLight::Render()
+    {
+        EditorRenderer::DrawBillboard(gameObject->GetGlobalPosition(), GetEditorIcon(), 0.7f);
+    }
+
     void DirectionalLight::RenderWhenSelected()
     {
         DrawDebugDirection();
-        EditorRenderer::DrawBillboard(gameObject->GetGlobalPosition(), GetEditorIcon(), 0.7f);
     }
 
     void DirectionalLight::DrawDebugDirection()
