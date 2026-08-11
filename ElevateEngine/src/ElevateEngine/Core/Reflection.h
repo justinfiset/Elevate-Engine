@@ -133,6 +133,15 @@ public: \
 
 #ifdef EE_EDITOR_BUILD
 #define EDITOR_ONLY_COMPONENT_END_CODE(T) \
+        virtual ::std::shared_ptr<::Elevate::Texture> GetEditorIcon() const override { \
+            auto& entry = TypeRegistry::GetEntry<ThisType>(); \
+            if (auto* trait = entry.GetTrait<::Elevate::EditorTypeTrait>()) { \
+                if(!trait->editorIconPath.empty()) { \
+                    return Texture::CreateFromFile(trait->editorIconPath); \
+                } \
+            } \
+            return nullptr; \
+        } \
         virtual const void* GetEditorIconHandle() const override { \
             auto& entry = TypeRegistry::GetEntry<ThisType>(); \
             if (auto* trait = entry.GetTrait<::Elevate::EditorTypeTrait>()) { \

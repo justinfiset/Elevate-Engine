@@ -7,6 +7,10 @@
 
 #ifdef EE_EDITOR_BUILD
 #include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
+
+#include <ElevateEngine/Renderer/Mesh.h>
+#include <ElevateEngine/Renderer/Shader/ShaderManager.h>
+#include <ElevateEngine/Renderer/Renderer.h>
 #endif
 
 namespace Elevate
@@ -42,6 +46,25 @@ namespace Elevate
 		float radius = std::tan(glm::radians(m_outerCone)) * range;
 		Transform& transform = gameObject->GetTransform();
         DebugRenderer::AddDebugCone(transform.GetPosition(), transform.GetForward(), radius, range, 16, rayColor);
+		
+		const RendererStorage& frameData = Renderer::GetFrameData();
+		static Mesh billboardQuad = Mesh::GenerateQuad();
+		ShaderPtr billboardShader = ShaderManager::GetShader("editor/billboard");
+		if (billboardShader)
+		{
+			Renderer::BindShader(billboardShader);
+			Renderer::BindTexture(GetEditorIcon(), 0);
+			billboardShader->SetUniform1i("billboardTexture", 0);
+			billboardShader->SetUniformMatrix4fv("viewProj", frameData.ViewProj);
+			billboardShader->SetUniformMatrix4fv("view", frameData.View);
+			billboardShader->SetUniform3f("worldPos", gameObject->GetPosition());
+			billboardShader->SetUniform1f("scale", 1.0f);
+			Renderer::DrawArray(billboardQuad.GetVertexArray());
+		}
+		else
+		{
+			EE_CORE_ERROR("Could not find billboard shader.");
+		}
     }
 #endif
 }

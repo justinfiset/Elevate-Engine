@@ -22,6 +22,17 @@ namespace Elevate
 
 	class Framebuffer;
 
+	struct RendererStorage {
+		glm::mat4 View;
+		glm::mat4 Projection;
+		glm::mat4 ViewProj;
+		glm::mat4 LightSpaceMatrix;
+
+		glm::vec3 CameraPosition;
+		const SceneLighting* ActiveLighting = nullptr;
+		const Cubemap* ActiveCubemap = nullptr;
+	};
+
 	class Renderer
 	{
 	public:
@@ -49,6 +60,8 @@ namespace Elevate
 		static void DrawArray(const VertexArray* vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles);
 		static void DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles);
 		static void PushRenderState(const RenderState& newState);
+
+		static const RendererStorage& GetFrameData();
 
 		static Framebuffer& GetMainFramebuffer();
 		static Framebuffer& GetDirectionalFrameBuffer();
@@ -78,17 +91,6 @@ namespace Elevate
 		static void ClearStack();
 
 	private:
-		struct RendererStorage {
-			glm::mat4 View;
-			glm::mat4 Projection;
-			glm::mat4 ViewProj;
-			glm::mat4 LightSpaceMatrix;
-
-			glm::vec3 CameraPosition;
-			const SceneLighting* ActiveLighting = nullptr;
-			const Cubemap* ActiveCubemap = nullptr;
-		};
-
 		static RendererAPI* s_API;
 		static RenderCommandQueue s_commands;
 

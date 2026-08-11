@@ -238,5 +238,6 @@ void Elevate::Model::LoadMaterialTextures(std::string basePath, aiMaterial* mat,
 
 void Elevate::Model::Render()
 {
+	EE_CORE_INFO("Sending command for : {}", gameObject->GetName());
 	Renderer::SubmitMesh(m_batchedMesh.GetVertexArray(), m_material, gameObject->GetModelMatrix());
 }

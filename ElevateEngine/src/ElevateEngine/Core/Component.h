@@ -34,6 +34,8 @@ namespace Elevate
 		virtual void CopyFrom(Component* other) = 0;
 		virtual GameObjectComponentFactory GetFactory() const = 0;
 		virtual GameObjectComponentDestructor GetDestructor() const = 0;
+
+		virtual std::shared_ptr<Texture> GetEditorIcon() const { return nullptr; }
 		virtual const void* GetEditorIconHandle() const { return nullptr; }
 
 		inline void SetActive(bool newState) { m_IsActive = newState; }

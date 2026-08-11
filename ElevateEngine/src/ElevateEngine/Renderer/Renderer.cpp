@@ -23,7 +23,7 @@ constexpr uint16_t AO_KERNER_SAMPLE_COUNT = 64;
 
 namespace Elevate
 {
-    Renderer::RendererStorage Renderer::s_data = RendererStorage();
+    RendererStorage Renderer::s_data = RendererStorage();
     RenderState Renderer::s_currentState = RenderState();
     RendererAPI* Renderer::s_API = new OpenGLRendererAPI();
     RenderCommandQueue Renderer::s_commands = RenderCommandQueue();
@@ -194,14 +194,17 @@ namespace Elevate
     void Renderer::RenderFrame()
     {
         RenderShaowMaps();
+
+        EE_CORE_TRACE("Number of commands {}", s_commands.GetCount());
+
         RenderGeometry();
-        RenderSSAO();
-        RenderComposition();
 
         s_geometryFramebuffer->Bind();
         DebugRenderer::Render();
         s_geometryFramebuffer->Unbind();
 
+        RenderSSAO();
+        RenderComposition();
         ClearStack();
     }
 
@@ -231,6 +234,7 @@ namespace Elevate
         {
             shader->SetProjectionViewMatrix(s_data.ViewProj);
             shader->SetCameraPosition(s_data.CameraPosition);
+            shader->SetUniformMatrix4fv("view", s_data.View);
             shader->SetUniformMatrix4fv("lightSpaceMatrix", s_data.LightSpaceMatrix);
         }
     }
@@ -310,9 +314,14 @@ namespace Elevate
         s_isStateCacheValid = true;
     }
 
+    const RendererStorage& Renderer::GetFrameData()
+    {
+        return s_data;
+    }
+
     Framebuffer& Renderer::GetMainFramebuffer()
     {
-        return *s_mainFramebuffer;
+        return *s_geometryFramebuffer;
     }
 
     Framebuffer& Renderer::GetDirectionalFrameBuffer()

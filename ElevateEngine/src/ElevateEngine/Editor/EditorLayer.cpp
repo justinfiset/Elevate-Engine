@@ -43,6 +43,15 @@ namespace Elevate::Editor
 		m_pauseTexture = Texture::CreateFromFile("editor://Icons/Light/pause.png");
 		m_stopTexture = Texture::CreateFromFile("editor://Icons/Light/stop.png");
 		m_coloredStopTexture = Texture::CreateFromFile("editor://Icons/Light/Colored/stop.png");
+
+		ShaderManager::LoadShader(
+			"editor/billboard",
+			"editor://Shaders/Billboard.vert",
+			"editor://Shaders/Billboard.frag",
+			EE_SHADER_HEADER,
+			EE_SHADER_HEADER
+		);
+
 		InitUI();
 	}
 
