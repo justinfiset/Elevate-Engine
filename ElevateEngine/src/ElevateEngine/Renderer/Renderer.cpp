@@ -194,9 +194,6 @@ namespace Elevate
     void Renderer::RenderFrame()
     {
         RenderShaowMaps();
-
-        EE_CORE_TRACE("Number of commands {}", s_commands.GetCount());
-
         RenderGeometry();
 
         s_geometryFramebuffer->Bind();

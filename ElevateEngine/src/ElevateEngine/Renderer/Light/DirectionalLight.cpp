@@ -34,7 +34,7 @@ namespace Elevate
     void DirectionalLight::RenderWhenSelected()
     {
         DrawDebugDirection();
-        EditorRenderer::DrawBillboard(gameObject->GetPosition(), GetEditorIcon(), 0.7f);
+        EditorRenderer::DrawBillboard(gameObject->GetGlobalPosition(), GetEditorIcon(), 0.7f);
     }
 
     void DirectionalLight::DrawDebugDirection()

@@ -41,9 +41,10 @@ namespace Elevate
         const glm::vec4 rayColor = glm::vec4(1.0f, 0.85f, 0.1f, 1.0f);
 		float range = m_attenuation.CalculateLightRange();
 		float radius = std::tan(glm::radians(m_outerCone)) * range;
+		const glm::vec3 pos = gameObject->GetGlobalPosition();
 		Transform& transform = gameObject->GetTransform();
-        DebugRenderer::AddDebugCone(transform.GetPosition(), transform.GetForward(), radius, range, 16, rayColor);
-		EditorRenderer::DrawBillboard(transform.GetPosition(), GetEditorIcon(), 0.5f);
+        DebugRenderer::AddDebugCone(pos, transform.GetForward(), radius, range, 16, rayColor);
+		EditorRenderer::DrawBillboard(pos, GetEditorIcon(), 0.5f);
     }
 #endif
 }

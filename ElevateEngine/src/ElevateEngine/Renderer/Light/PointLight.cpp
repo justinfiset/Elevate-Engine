@@ -4,6 +4,10 @@
 #include <ElevateEngine/Renderer/Light/SceneLighting.h>
 #include <ElevateEngine/Core/GameObject.h>
 
+#ifdef EE_EDITOR_BUILD
+#include <ElevateEngine/Editor/Renderer/EditorRenderer.h>
+#endif
+
 namespace Elevate
 {
 	void PointLight::Init()
@@ -25,4 +29,11 @@ namespace Elevate
 		shader->SetUniform1f(name + ".linear", m_attenuation.Linear);
 		shader->SetUniform1f(name + ".quadratic", m_attenuation.Quadratic);
 	}
+
+#ifdef EE_EDITOR_BUILD
+	void PointLight::RenderWhenSelected()
+	{
+		EditorRenderer::DrawBillboard(gameObject->GetGlobalPosition(), GetEditorIcon(), 0.5f);
+	}
+#endif
 }
