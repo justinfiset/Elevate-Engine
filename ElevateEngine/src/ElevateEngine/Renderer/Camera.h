@@ -49,6 +49,7 @@ namespace Elevate
 		std::array<glm::vec3, 8> CalculateFrustumCorners(float visualFarScale = 0.5f) const;
 
 #ifdef EE_EDITOR_BUILD
+		void Render() override;
 		void RenderWhenSelected() override;
 		void DrawDebugFrustum();
 #else

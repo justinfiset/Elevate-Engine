@@ -10,6 +10,10 @@
 #include "ElevateEngine/Renderer/Camera/CameraManager.h"
 #include <ElevateEngine/Audio/SoundEngine.h>
 
+#if EE_EDITOR_BUILD
+#include <ElevateEngine/Editor/Renderer/EditorRenderer.h>
+#endif
+
 Elevate::Camera::Camera(float fov, bool overrideCurrent)
 {
 	m_FOV = fov;
@@ -160,6 +164,11 @@ std::array<glm::vec3, 8> Elevate::Camera::CalculateFrustumCorners(float visualFa
 void Elevate::Camera::RenderWhenSelected()
 {
 	DrawDebugFrustum();
+}
+
+void Elevate::Camera::Render()
+{
+	EditorRenderer::DrawBillboard(gameObject->GetGlobalPosition(), GetEditorIcon(), 0.5f);
 }
 
 void Elevate::Camera::DrawDebugFrustum()
