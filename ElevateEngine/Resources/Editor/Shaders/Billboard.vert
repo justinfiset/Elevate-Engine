@@ -10,7 +10,7 @@ out vec2 textCord;
 
 void main()
 {
-    textCord = a_TexCord;
+    textCord = vec2(a_TexCord.x, 1.0 - a_TexCord.y);
 
     vec3 CameraRight = vec3(view[0][0], view[1][0], view[2][0]);
     vec3 CameraUp    = vec3(view[0][1], view[1][1], view[2][1]);
