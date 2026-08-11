@@ -20,13 +20,15 @@ namespace Elevate
         return m_height;
     }
 
-    Framebuffer* Framebuffer::Create(uint32_t width, uint32_t height, uint32_t colorAttachmentCount, bool depthAsRenderbuffer)
+    Framebuffer* Framebuffer::Create(uint32_t width, uint32_t height, std::vector<TextureFormat> colorFormats, bool depthAsRenderbuffer)
     {
+        size_t colorAttachmentCount = colorFormats.size();
+
         std::vector<TexturePtr> colorTextures;
         colorTextures.reserve(colorAttachmentCount);
         for (uint32_t i = 0; i < colorAttachmentCount; i++)
         {
-            colorTextures.push_back(CreateColorTexture(width, height));
+            colorTextures.push_back(CreateColorTexture(width, height, colorFormats[i]));
         }
 
         TexturePtr colorTex = CreateColorTexture(width, height);
@@ -41,9 +43,9 @@ namespace Elevate
         return buffer;
     }
 
-    Framebuffer* Framebuffer::CreateDepthOnly(uint32_t width, uint32_t height)
+    Framebuffer* Framebuffer::CreateDepthOnly(uint32_t width, uint32_t height, TextureFormat depthFormat)
     {
-        TexturePtr depthTex = CreateDepthTexture(width, height);
+        TexturePtr depthTex = CreateDepthTexture(width, height, depthFormat);
         Framebuffer* buffer = Framebuffer::Create({ }, depthTex, false);
         buffer->m_width = width;
         buffer->m_height = height;
@@ -66,12 +68,12 @@ namespace Elevate
         return nullptr;
     }
 
-    TexturePtr Framebuffer::CreateColorTexture(uint32_t width, uint32_t height)
+    TexturePtr Framebuffer::CreateColorTexture(uint32_t width, uint32_t height, TextureFormat colorFormat)
     {
         TextureMetadata colorMeta = TextureMetadataBuilder()
             .Name("FramebufferColorAttachment0")
             .size(width, height)
-            .Format(TextureFormat::RGBA)
+            .Format(colorFormat)
             .Usage(TextureType::Diffuse)
             .Source(TextureSource::RenderTarget)
             .State(TextureState::Ready)
@@ -83,12 +85,12 @@ namespace Elevate
         return Texture::CreateFromData(nullptr, colorMeta);
     }
 
-    TexturePtr Framebuffer::CreateDepthTexture(uint32_t width, uint32_t height)
+    TexturePtr Framebuffer::CreateDepthTexture(uint32_t width, uint32_t height, TextureFormat depthFormat)
     {
         TextureMetadata depthMeta = TextureMetadataBuilder()
             .Name("ShadowMapDepthAttachment")
             .size(width, height)
-            .Format(TextureFormat::DEPTH)
+            .Format(depthFormat)
             .Usage(TextureType::ShadowMap)
             .Source(TextureSource::RenderTarget)
             .State(TextureState::Ready)

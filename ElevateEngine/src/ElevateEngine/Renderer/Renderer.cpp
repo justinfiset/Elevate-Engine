@@ -58,9 +58,9 @@ namespace Elevate
         s_fullscreenQuad = Mesh::GenerateQuad(2.0f);
 
         // Create the main color framebuffer
-        s_geometryFramebuffer.reset(Framebuffer::Create(width, height, 2, false));
+        s_geometryFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGBA16F, TextureFormat::RGBA16F }, false));
         s_geometryFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
-        s_mainFramebuffer.reset(Framebuffer::Create(width, height));
+        s_mainFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGB }));
         s_mainFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
 
         s_compositionShader = ShaderManager::LoadShader(
@@ -153,9 +153,9 @@ namespace Elevate
             s_ssaoKernel.push_back(sample);
         }
 
-        // Create the Framebuffer
-        s_ssaoFramebuffer.reset(Framebuffer::Create(width, height));
-        s_ssaoBlurFramebuffer.reset(Framebuffer::Create(width, height));
+        // Create the Framebuffer   
+        s_ssaoFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGBA })); // todo R8 (red)
+        s_ssaoBlurFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGBA })); // todo R8 (red)
     }
 
     void Renderer::InitShadowRenderer()
@@ -166,7 +166,7 @@ namespace Elevate
             "engine://Shaders/Shadow.vert",
             "engine://Shaders/Shadow.frag",
             EE_SHADER_HEADER,
-            EE_SHADER_HEADER
+            EE_SHADER_HEADER    
         );
 
         // Create the Framebuffer
@@ -318,7 +318,7 @@ namespace Elevate
 
     Framebuffer& Renderer::GetMainFramebuffer()
     {
-        return *s_geometryFramebuffer;
+        return *s_mainFramebuffer;
     }
 
     Framebuffer& Renderer::GetDirectionalFrameBuffer()
