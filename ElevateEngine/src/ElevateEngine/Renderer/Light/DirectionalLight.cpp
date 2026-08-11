@@ -1,5 +1,8 @@
 #include "eepch.h"
 #include "DirectionalLight.h"
+
+#include <glm/gtc/constants.hpp>
+#include "SpotLight.h"
 #include <glm/geometric.hpp>
 
 #include <ElevateEngine/Core/GameContext.h>
@@ -7,9 +10,8 @@
 
 #ifdef EE_EDITOR_BUILD
 #include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
+#include <ElevateEngine/Editor/Renderer/EditorRenderer.h>
 #endif
-#include <glm/gtc/constants.hpp>
-#include "SpotLight.h"
 
 namespace Elevate
 {
@@ -32,6 +34,7 @@ namespace Elevate
     void DirectionalLight::RenderWhenSelected()
     {
         DrawDebugDirection();
+        EditorRenderer::DrawBillboard(gameObject->GetPosition(), GetEditorIcon(), 0.7f);
     }
 
     void DirectionalLight::DrawDebugDirection()
