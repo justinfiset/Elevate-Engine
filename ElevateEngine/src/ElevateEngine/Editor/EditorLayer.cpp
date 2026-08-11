@@ -77,7 +77,7 @@ namespace Elevate::Editor
 
 		// Grid
 		m_GridObject = GameObject::Create("Editor Grid", m_EditorScene);
-		Model& gridModel = m_GridObject->AddComponent<Model>(PrimitiveType::Quad);
+		Model& gridModel = m_GridObject->AddComponent<Model>(PrimitiveType::Plane);
 		
 		RenderState gridState;
 		gridState.BlendEnable = true;
