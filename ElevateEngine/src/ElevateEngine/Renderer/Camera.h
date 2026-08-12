@@ -46,7 +46,8 @@ namespace Elevate
 		void Init() override;
 		void Destroy() override;
 
-		std::array<glm::vec3, 8> CalculateFrustumCorners(float visualFarScale = 0.5f) const;
+		std::array<glm::vec3, 8> CalculateFrustumCorners(float nearScale, float farScale) const;
+		std::array<glm::vec3, 8> CalculateFrustumCorners() const;
 
 #ifdef EE_EDITOR_BUILD
 		void Render() override;

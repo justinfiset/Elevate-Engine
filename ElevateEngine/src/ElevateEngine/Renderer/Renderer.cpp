@@ -36,7 +36,7 @@ namespace Elevate
 
     // Shadows
     std::shared_ptr<Shader> Renderer::s_shadowShader;
-    std::unique_ptr<Framebuffer> Renderer::s_directionalShadowMap;
+    std::array<std::unique_ptr<Framebuffer>, SHADOW_CASCADE_COUNT> Renderer::s_directionalShadowMaps;
 
     // SSAO
     std::vector<glm::vec3> Renderer::s_ssaoKernel;
@@ -213,8 +213,11 @@ namespace Elevate
             EE_SHADER_HEADER    
         );
 
-        // Create the Framebuffer
-        s_directionalShadowMap.reset(Framebuffer::CreateDepthOnly(DEFAULT_SHADOW_RESOLUTION, DEFAULT_SHADOW_RESOLUTION));
+        // Create the Framebuffers
+        for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
+        {
+            s_directionalShadowMaps[i].reset(Framebuffer::CreateDepthOnly(DEFAULT_SHADOW_RESOLUTION, DEFAULT_SHADOW_RESOLUTION));
+        }
     }
 
     void Renderer::BeginFrame(const ScenePtr scene, const Camera& cam)
@@ -230,8 +233,20 @@ namespace Elevate
         s_data.ViewProj = s_data.Projection * s_data.View;
         s_data.ActiveLighting = scene->GetSceneLighting();
         auto skybox = scene->GetSkybox().lock();
-        auto corners = cam.CalculateFrustumCorners(0.5f);
-        s_data.LightSpaceMatrix = scene->GetSceneLighting()->GetDirectionalLightSpaceMatrix(corners);
+
+        constexpr std::array<float, SHADOW_CASCADE_COUNT + 1> cascadeSplits = { 0.0f, 0.05f, 0.15f, 0.40f, 1.0f };
+        float clipRange = cam.GetFar() - cam.GetNear();
+
+        for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
+        {
+            float currentNear = cascadeSplits[i];
+            float currentFar = cascadeSplits[i + 1];
+
+            auto corners = cam.CalculateFrustumCorners(currentNear, currentFar);
+            s_data.LightSpaceMatrices[i] = scene->GetSceneLighting()->GetDirectionalLightSpaceMatrix(corners);
+            s_data.CascadeSplitDepths[i] = cam.GetNear() + (currentFar * clipRange);
+        }
+
         s_data.ActiveCubemap = skybox.get();
     }
 
@@ -277,7 +292,18 @@ namespace Elevate
             shader->SetProjectionViewMatrix(s_data.ViewProj);
             shader->SetCameraPosition(s_data.CameraPosition);
             shader->SetUniformMatrix4fv("view", s_data.View);
-            shader->SetUniformMatrix4fv("lightSpaceMatrix", s_data.LightSpaceMatrix);
+
+            shader->SetUniformMatrix4fv(
+                "lightSpaceMatrices[0]",
+                reinterpret_cast<float*>(s_data.LightSpaceMatrices.data()),
+                SHADOW_CASCADE_COUNT
+            );
+
+            shader->SetUniform1fv(
+                "cascadeSplitDepths[0]",
+                SHADOW_CASCADE_COUNT,
+                s_data.CascadeSplitDepths.data()
+            );
         }
     }
 
@@ -366,9 +392,9 @@ namespace Elevate
         return *s_mainFramebuffer;
     }
 
-    Framebuffer& Renderer::GetDirectionalFrameBuffer()
+    Framebuffer& Renderer::GetDirectionalFrameBuffer(uint32_t index)
     {
-        return *s_directionalShadowMap;
+        return *s_directionalShadowMaps[index]; // todo correct this
     }
 
     void Renderer::Dispatch(const RenderCommand& command)
@@ -389,10 +415,17 @@ namespace Elevate
 
                 command.m_MaterialInstance->Apply();
 
-                if (s_directionalShadowMap)
+                if (s_directionalShadowMaps[0])
                 {
-                    BindTexture(s_directionalShadowMap->GetDepthTexture(), SHADOW_MAP_SLOT);
-                    shader->SetUniform1i("shadowMap", SHADOW_MAP_SLOT);
+                    int shadowSlots[SHADOW_CASCADE_COUNT];
+                    for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
+                    {
+                        uint8_t slot = SHADOW_MAP_SLOT + i;
+                        BindTexture(s_directionalShadowMaps[i]->GetDepthTexture(), slot);
+                        shadowSlots[i] = slot;
+                    }
+
+                    shader->SetUniform1iv("shadowMapArray", SHADOW_CASCADE_COUNT, shadowSlots);
                 }
             }
         }
@@ -457,14 +490,15 @@ namespace Elevate
             DirectionalShadowSettings settings = dirLight->m_shadowSettings;
             
             BindShader(s_shadowShader);
-            s_shadowShader->SetUniformMatrix4fv("lightSpaceMatrix", s_data.LightSpaceMatrix);
 
             // Rescale the framebuffer if the resolution was edited
-            if (s_directionalShadowMap->GetWidth() != settings.Resolution || s_directionalShadowMap->GetHeight() != settings.Resolution)
+            if (s_directionalShadowMaps[0]->GetWidth() != settings.Resolution || s_directionalShadowMaps[0]->GetHeight() != settings.Resolution)
             {
-                s_directionalShadowMap->Rescale(settings.Resolution, settings.Resolution);
+                for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
+                {
+                    s_directionalShadowMaps[i]->Rescale(settings.Resolution, settings.Resolution);
+                }
             }
-            SetViewport(0, 0, settings.Resolution, settings.Resolution);
 
             RenderState shadowState;
             shadowState.CullMode = CullFace::Front;
@@ -473,17 +507,23 @@ namespace Elevate
             shadowState.BlendMode = BlendMode::None;
             PushRenderState(shadowState);
 
-            s_directionalShadowMap->Bind();
-            ClearDepth();
-
             const auto& bucket = s_commands.GetBucket(RenderBucket::GBuffer);
-            for (const auto& command : bucket)
-            {
-                s_shadowShader->SetModelMatrix(command.Transform);
-                DrawArray(command.m_VertexArray);
-            }
 
-            s_directionalShadowMap->Unbind();
+            for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
+            {
+                s_directionalShadowMaps[i]->Use();
+                ClearDepth();
+
+                s_shadowShader->SetUniformMatrix4fv("lightSpaceMatrix", s_data.LightSpaceMatrices[i]);
+
+                for (const auto& command : bucket)
+                {
+                    s_shadowShader->SetModelMatrix(command.Transform);
+                    DrawArray(command.m_VertexArray);
+                }
+
+                s_directionalShadowMaps[i]->Unbind();
+            }
         }
     }
 
@@ -550,7 +590,6 @@ namespace Elevate
         BindShader(s_ssaoBlurShader);
         BindTexture(s_ssaoFramebuffer->GetColorTexture(), 0);
         s_ssaoBlurShader->SetUniform1i("aoTexture", 0);
-        BindShader(s_ssaoBlurShader);
         BindTexture(s_geometryFramebuffer->GetDepthTexture(), 1);
         s_ssaoBlurShader->SetUniform1i("gDepth", 1);
 

@@ -6,7 +6,8 @@
 #include <ElevateEngine/Renderer/RenderState.h>
 #include <ElevateEngine/Renderer/Commands/RenderBucket.h>
 
-#define SHADOW_MAP_SLOT 15
+constexpr uint8_t SHADOW_CASCADE_COUNT = 4;
+constexpr uint8_t SHADOW_MAP_SLOT = 15 - SHADOW_CASCADE_COUNT;
 
 namespace Elevate
 {
@@ -26,7 +27,9 @@ namespace Elevate
 		glm::mat4 View;
 		glm::mat4 Projection;
 		glm::mat4 ViewProj;
-		glm::mat4 LightSpaceMatrix;
+		
+		std::array<glm::mat4, SHADOW_CASCADE_COUNT> LightSpaceMatrices;
+		std::array<float, SHADOW_CASCADE_COUNT> CascadeSplitDepths;
 
 		glm::vec3 CameraPosition;
 		const SceneLighting* ActiveLighting = nullptr;
@@ -65,7 +68,7 @@ namespace Elevate
 		static const RendererStorage& GetFrameData();
 
 		static Framebuffer& GetMainFramebuffer();
-		static Framebuffer& GetDirectionalFrameBuffer();
+		static Framebuffer& GetDirectionalFrameBuffer(uint32_t index);
 
 		/// <summary>
 		/// Immediatly process a RenderCommand. Do not use directly unless you know what you are donig.
@@ -110,7 +113,7 @@ namespace Elevate
 
 		// Shadow Mapping
 		static std::shared_ptr<Shader> s_shadowShader;
-		static std::unique_ptr<Elevate::Framebuffer> s_directionalShadowMap;
+		static std::array<std::unique_ptr<Framebuffer>, SHADOW_CASCADE_COUNT> s_directionalShadowMaps;
 
 		// SSAO
 		static std::vector<glm::vec3> s_ssaoKernel;

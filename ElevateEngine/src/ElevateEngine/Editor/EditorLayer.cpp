@@ -254,7 +254,7 @@ namespace Elevate::Editor
 
 		ImGui::Begin("Directional Shadow Map");
 
-		Framebuffer& directionalFBO = Renderer::GetDirectionalFrameBuffer();
+		Framebuffer& directionalFBO = Renderer::GetDirectionalFrameBuffer(0);
 		ImGui::Image(
 			(ImTextureID)directionalFBO.GetDepthAttachmentHandle(),
 			ImVec2(512.0f, 512.0f)

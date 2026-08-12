@@ -48,7 +48,9 @@ namespace Elevate
 	glm::mat4 SceneLighting::GetDirectionalLightSpaceMatrix(const std::span<const glm::vec3> cameraCorners) const
 	{
 		if (!m_dirLight)
+		{
 			return glm::mat4(1.0f);
+		}
 
 		glm::mat4 lightWorld = m_dirLight->gameObject->GenGlobalMatrix();
 
@@ -59,10 +61,7 @@ namespace Elevate
 		}
 		center /= static_cast<float>(cameraCorners.size());
 
-		glm::vec3 lightDir = -glm::normalize(glm::vec3(lightWorld[2]));
-		constexpr float lightDistance = 100.0f;
-		glm::vec3 lightPos =
-			center - lightDir * lightDistance;
+		glm::vec3 lightDir = glm::normalize(glm::vec3(lightWorld[2]));
 		glm::vec3 upDir = glm::normalize(glm::vec3(lightWorld[1]));
 
 		if (std::abs(glm::dot(lightDir, upDir)) > 0.99f)
@@ -70,8 +69,9 @@ namespace Elevate
 			upDir = glm::normalize(glm::vec3(lightWorld[0]));
 		}
 
-		glm::mat4 lightView = glm::lookAt(lightPos, center, upDir);
+		glm::mat4 lightView = glm::lookAt(center + lightDir, center, upDir);
 		glm::mat4 lightProjection = GetDirectionalLightProjection(cameraCorners, lightView);
+
 		return lightProjection * lightView;
 	}
 
@@ -97,8 +97,16 @@ namespace Elevate
 		float shadowSize = radius * 2.0f;
 		float texelSize = shadowSize / static_cast<float>(settings.Resolution);
 
-		centerLightSpace.x = std::round(centerLightSpace.x / texelSize) * texelSize;
-		centerLightSpace.y = std::round(centerLightSpace.y / texelSize) * texelSize;
+		float minX = centerLightSpace.x - radius;
+		float maxX = centerLightSpace.x + radius;
+		float minY = centerLightSpace.y - radius;
+		float maxY = centerLightSpace.y + radius;
+
+		minX = std::floor(minX / texelSize) * texelSize;
+		maxX = minX + shadowSize;
+
+		minY = std::floor(minY / texelSize) * texelSize;
+		maxY = minY + shadowSize;
 
 		float minZ = std::numeric_limits<float>::max();
 		float maxZ = std::numeric_limits<float>::lowest();
@@ -106,7 +114,6 @@ namespace Elevate
 		for (const glm::vec3& corner : corners)
 		{
 			glm::vec3 lightSpaceCorner = glm::vec3(lightView * glm::vec4(corner, 1.0f));
-
 			minZ = std::min(minZ, lightSpaceCorner.z);
 			maxZ = std::max(maxZ, lightSpaceCorner.z);
 		}
@@ -117,14 +124,7 @@ namespace Elevate
 		float nearPlane = -maxZ;
 		float farPlane = -minZ;
 
-		return glm::ortho(
-			centerLightSpace.x - radius,
-			centerLightSpace.x + radius,
-			centerLightSpace.y - radius,
-			centerLightSpace.y + radius,
-			nearPlane,
-			farPlane
-		);
+		return glm::ortho(minX, maxX, minY, maxY, nearPlane, farPlane);
 	}
 
 	void SceneLighting::AddDirectionalLight(DirectionalLight* light)

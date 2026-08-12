@@ -4,16 +4,19 @@ layout(location = 1) out vec4 o_Normal;
 in vec3 normal;
 in vec2 textCord;
 in vec3 fragPos;
-in vec4 fragPosLightSpace;
+in vec3 fragPosViewSpace;
 in mat3 TBN;
 
-vec3 defaultColor = vec3(0.8, 0.8, 0.8);
+vec3 defaultColor = vec3(1.0, 1.0, 1.0);
 vec3 defaultAmbientColor = vec3(0.2, 0.2, 0.2);
 
 uniform int u_NumPointLights;
 uniform int u_NumSpotLights;
 
-uniform sampler2DShadow shadowMap;
+#define NUM_CASCADES 4
+uniform sampler2DShadow shadowMapArray[NUM_CASCADES];
+uniform mat4 lightSpaceMatrices[NUM_CASCADES];
+uniform float cascadeSplitDepths[NUM_CASCADES];
 
 // MATERIAL IMPL.
 // TODO implement multiple diffuse texture functionallity
@@ -82,7 +85,7 @@ vec3 GetNormal()
     }
 }
 
-vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
+vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir, float shadowFactor)
 {
     vec3 lightDir = normalize(-light.direction);
     // diffuse shading
@@ -102,7 +105,7 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
     vec3 diffuse  = light.diffuse  * diff * GetTextureColor(diffuseTex, textCord, material.diffuse, has_diffuseTex);
     vec3 specular = light.specular * spec * GetTextureColor(specularTex, textCord, material.specular, has_specularTex);
 
-    return (ambient + diffuse + specular) * light.intensity;
+    return (ambient + (diffuse + specular) * shadowFactor) * light.intensity;
 }
 
 struct PointLight {    
@@ -228,22 +231,41 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 
 float CalcShadow(vec3 localNormal)
 {
+    float depthValue = abs(fragPosViewSpace.z);
+    int layer = NUM_CASCADES - 1;
+    for (int i = 0; i < NUM_CASCADES; ++i)
+    {
+        if (depthValue < cascadeSplitDepths[i])
+        {
+            layer = i;
+            break;
+        }
+    }
+
+    vec4 fragPosLightSpace = lightSpaceMatrices[layer] * vec4(fragPos, 1.0);
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     projCoords = projCoords * 0.5 + 0.5;
 
-    if (projCoords.x < 0.0 || projCoords.x > 1.0 ||
-        projCoords.y < 0.0 || projCoords.y > 1.0 ||
-        projCoords.z < 0.0 || projCoords.z > 1.0)
+    if (projCoords.z > 1.0 || projCoords.x < 0.0 || projCoords.x > 1.0 || projCoords.y < 0.0 || projCoords.y > 1.0)
     {
         return 1.0; 
     }
 
     vec3 lightDir = normalize(-dirLight.direction);
     float cosTheta = max(dot(normalize(localNormal), lightDir), 0.0);
-    float bias = max(0.00005, 0.0005 * (1.0 - cosTheta));
+    float bias = max(0.0005 * (1.0 - cosTheta), 0.00005);
+
+    if (layer == NUM_CASCADES - 1)
+    {
+        bias *= 1.0 / (cascadeSplitDepths[layer] * 0.5);
+    }
+    else
+    {
+        bias *= 1.0 / (cascadeSplitDepths[layer] * 0.5);
+    }
     float compareDepth = projCoords.z - bias;
 
-    vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+    vec2 texelSize = 1.0 / vec2(textureSize(shadowMapArray[layer], 0));
 
     float shadowVisibility = 0.0;
     float totalWeight = 0.0;
@@ -254,7 +276,8 @@ float CalcShadow(vec3 localNormal)
         for (int y = -radius; y <= radius; ++y)
         {
             vec2 offset = vec2(x, y) * texelSize;
-            float sampleVis = texture(shadowMap, vec3(projCoords.xy + offset, compareDepth));     
+            float sampleVis = texture(shadowMapArray[layer], vec3(projCoords.xy + offset, compareDepth));
+
             float dist = length(vec2(x, y));
             float weight = exp(-(dist * dist) / 4.0);
 
@@ -271,9 +294,9 @@ void main()
 	vec3 unitNormal = GetNormal();
 	vec3 viewDir = normalize(camPos - fragPos);
 
-    // phase 1: Directional lighting    
-    vec3 directionalLighting = CalcDirLight(dirLight, unitNormal, viewDir);
-    vec3 result = directionalLighting * CalcShadow(unitNormal);
+    // phase 1: Directional lighting
+    float shadowFactor = CalcShadow(unitNormal);
+    vec3 result = CalcDirLight(dirLight, unitNormal, viewDir, shadowFactor);
 
     // phase 2: Point lights
     for(int i = 0; i < u_NumPointLights && i < NR_POINT_LIGHTS; i++)

@@ -232,19 +232,19 @@ namespace Elevate
 		GLCheck(glUniform4iv(glGetUniformLocation(m_RendererID, location.c_str()), count, value));
 	}
 
-	void OpenGLShader::SetUniformMatrix2fv(const std::string& location, float* data) const
+	void OpenGLShader::SetUniformMatrix2fv(const std::string& location, float* data, uint32_t count) const
 	{
-		GLCheck(glUniformMatrix2fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, data));
+		GLCheck(glUniformMatrix2fv(glGetUniformLocation(m_RendererID, location.c_str()), count, GL_FALSE, data));
 	}
 
-	void OpenGLShader::SetUniformMatrix3fv(const std::string& location, float* data) const
+	void OpenGLShader::SetUniformMatrix3fv(const std::string& location, float* data, uint32_t count) const
 	{
-		GLCheck(glUniformMatrix3fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, data));
+		GLCheck(glUniformMatrix3fv(glGetUniformLocation(m_RendererID, location.c_str()), count, GL_FALSE, data));
 	}
 
-	void OpenGLShader::SetUniformMatrix4fv(const std::string& location, float* data) const
+	void OpenGLShader::SetUniformMatrix4fv(const std::string& location, float* data, uint32_t count) const
 	{
-		GLCheck(glUniformMatrix4fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, data));;
+		GLCheck(glUniformMatrix4fv(glGetUniformLocation(m_RendererID, location.c_str()), count, GL_FALSE, data));;
 	}
 
 	static EngineDataType GLTypeToEngineDataType(GLenum type)

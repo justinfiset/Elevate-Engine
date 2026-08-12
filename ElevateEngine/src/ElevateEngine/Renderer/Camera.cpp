@@ -121,7 +121,7 @@ void Elevate::Camera::UpdateProjectionMatrix()
 	m_projectionMatrix = GenProjectionMatrix();
 }
 
-std::array<glm::vec3, 8> Elevate::Camera::CalculateFrustumCorners(float visualFarScale) const
+std::array<glm::vec3, 8> Elevate::Camera::CalculateFrustumCorners(float nearScale, float farScale) const
 {
 	std::array<glm::vec3, 8> corners;
 
@@ -132,15 +132,18 @@ std::array<glm::vec3, 8> Elevate::Camera::CalculateFrustumCorners(float visualFa
 
 	float tanHalfFOV = tan(glm::radians(m_FOV * 0.5f));
 
-	float visualFar = m_far * visualFarScale;
-	float nearHeight = 2.0f * tanHalfFOV * m_near;
+	float dir = m_far - m_near;
+	float calcNear = m_near + dir * nearScale;
+	float calcFar = m_near + dir * farScale;
+
+	float nearHeight = 2.0f * tanHalfFOV * calcNear;
 	float nearWidth = nearHeight * m_aspectRatio;
 
-	float farHeight = 2.0f * tanHalfFOV * visualFar;
+	float farHeight = 2.0f * tanHalfFOV * calcFar;
 	float farWidth = farHeight * m_aspectRatio;
 
-	glm::vec3 nearCenter = position + front * m_near;
-	glm::vec3 farCenter = position + front * visualFar;
+	glm::vec3 nearCenter = position + front * calcNear;
+	glm::vec3 farCenter = position + front * calcFar;
 
 	// Near Plane Corners
 	corners[0] = nearCenter - (up * (nearHeight * 0.5f)) - (right * (nearWidth * 0.5f)); // near-bottom-left
@@ -155,6 +158,11 @@ std::array<glm::vec3, 8> Elevate::Camera::CalculateFrustumCorners(float visualFa
 	corners[7] = farCenter + (up * (farHeight * 0.5f)) - (right * (farWidth * 0.5f)); // far-top-left
 
 	return corners;
+}
+
+std::array<glm::vec3, 8> Elevate::Camera::CalculateFrustumCorners() const
+{
+	return CalculateFrustumCorners(0.0f, 1.0f);
 }
 
 // ONLY IN THE EDITOR
