@@ -68,6 +68,23 @@ namespace Elevate
         return nullptr;
     }
 
+    void Framebuffer::ClearAndUse()
+    {
+        Use();
+        Clear();
+    }
+
+    void Framebuffer::Use()
+    {
+        Bind();
+        UseViewport();
+    }
+
+    void Framebuffer::UseViewport()
+    {
+        Renderer::SetViewport(0, 0, GetWidth(), GetHeight());
+    }
+
     TexturePtr Framebuffer::CreateColorTexture(uint32_t width, uint32_t height, TextureFormat colorFormat)
     {
         TextureMetadata colorMeta = TextureMetadataBuilder()

@@ -46,6 +46,11 @@ namespace Elevate
     std::unique_ptr<Framebuffer> Renderer::s_ssaoBlurFramebuffer;
     TexturePtr Renderer::s_ssaoNoiseTexture;
 
+    // Bloom
+    std::vector<std::unique_ptr<Framebuffer>> Renderer::s_bloomMipChain;
+    std::shared_ptr<Shader> Renderer::s_bloomDownsampleShader;
+    std::shared_ptr<Shader> Renderer::s_bloomUpsampleShader;
+
     // Composition
     std::unique_ptr<Framebuffer> Renderer::s_mainFramebuffer;
     std::shared_ptr<Shader> Renderer::s_compositionShader;
@@ -74,6 +79,7 @@ namespace Elevate
         DebugRenderer::Init();
         InitShadowRenderer();
         InitSSAORenderer(width, height);
+        InitBloomRenderer(width, height);
     }
 
     static float RandomFloat(float min, float max)
@@ -158,6 +164,44 @@ namespace Elevate
         s_ssaoBlurFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGBA })); // todo R8 (red)
     }
 
+    void Renderer::InitBloomRenderer(uint32_t width, uint32_t height)
+    {
+        s_bloomMipChain.clear();
+
+        s_bloomDownsampleShader = ShaderManager::LoadShader(
+            "BloomDownscale",
+            "engine://Shaders/BloomDownscale.vert",
+            "engine://Shaders/BloomDownscale.frag",
+            EE_SHADER_HEADER,
+            EE_SHADER_HEADER
+        );
+        s_bloomUpsampleShader = ShaderManager::LoadShader(
+            "BloomUpscale",
+            "engine://Shaders/BloomUpscale.vert",
+            "engine://Shaders/BloomUpscale.frag",
+            EE_SHADER_HEADER,
+            EE_SHADER_HEADER
+        );
+
+        uint32_t currentWidth = width / 2;
+        uint32_t currentHeight = height / 2;
+        
+        const uint8_t maxMips = 6;
+        for (uint8_t i = 0; i < maxMips; i++)
+        {
+            if (currentWidth < 1 || currentHeight < 1)
+            {
+                break;
+            }
+
+            auto fb = Framebuffer::Create(currentWidth, currentHeight, { TextureFormat::RGBA16F });
+            s_bloomMipChain.push_back(std::unique_ptr<Framebuffer>(fb));
+
+            currentWidth /= 2;
+            currentHeight /= 2;
+        }
+    }
+
     void Renderer::InitShadowRenderer()
     {
         // Create the shadow shader from files
@@ -201,6 +245,7 @@ namespace Elevate
         s_geometryFramebuffer->Unbind();
 
         RenderSSAO();
+        RenderBloom();
         RenderComposition();
         ClearStack();
     }
@@ -302,9 +347,9 @@ namespace Elevate
             s_API->SetDepthTestingState(newState.DepthTest);
         }
 
-        if (!s_isStateCacheValid || newState.BlendEnable != s_currentState.BlendEnable)
+        if (!s_isStateCacheValid || newState.BlendMode != s_currentState.BlendMode)
         {
-            s_API->SetBlendingState(newState.BlendEnable);
+            s_API->SetBlendingState(newState.BlendMode);
         }
 
         s_currentState = newState;
@@ -425,7 +470,7 @@ namespace Elevate
             shadowState.CullMode = CullFace::Front;
             shadowState.DepthTest = true;
             shadowState.DepthWrite = true;
-            shadowState.BlendEnable = false;
+            shadowState.BlendMode = BlendMode::None;
             PushRenderState(shadowState);
 
             s_directionalShadowMap->Bind();
@@ -455,9 +500,8 @@ namespace Elevate
 
     void Renderer::RenderGeometry()
     {
-        s_geometryFramebuffer->Bind();
-        s_geometryFramebuffer->Clear();
-        SetViewport(0, 0, s_geometryFramebuffer->GetWidth(), s_geometryFramebuffer->GetHeight());
+        s_geometryFramebuffer->ClearAndUse();
+
         RenderSkybox();
         DrawStack();
 
@@ -466,9 +510,7 @@ namespace Elevate
 
     void Renderer::RenderSSAO()
     {
-        s_ssaoFramebuffer->Bind();
-        s_ssaoFramebuffer->Clear();
-        SetViewport(0, 0, s_ssaoFramebuffer->GetWidth(), s_ssaoFramebuffer->GetHeight());
+        s_ssaoFramebuffer->ClearAndUse();
 
         BindShader(s_ssaoShader);
 
@@ -503,9 +545,7 @@ namespace Elevate
 
 
         // Second pass to blur
-        s_ssaoBlurFramebuffer->Bind();
-        s_ssaoBlurFramebuffer->Clear();
-        SetViewport(0, 0, s_ssaoBlurFramebuffer->GetWidth(), s_ssaoBlurFramebuffer->GetHeight());
+        s_ssaoBlurFramebuffer->ClearAndUse();
 
         BindShader(s_ssaoBlurShader);
         BindTexture(s_ssaoFramebuffer->GetColorTexture(), 0);
@@ -519,18 +559,85 @@ namespace Elevate
         s_ssaoBlurFramebuffer->Unbind();
     }
 
+    void Renderer::RenderBloom()
+    {
+        RenderState state;
+
+        state.BlendMode = BlendMode::None;
+        state.CullMode = CullFace::None;
+        state.DepthTest = false;
+        state.DepthWrite = false;
+        PushRenderState(state);
+
+        BindShader(s_bloomDownsampleShader);
+
+        TexturePtr currentSource = s_geometryFramebuffer->GetColorTexture();
+
+        // Downsample trought the bloom mip chain
+        for (size_t i = 0; i < s_bloomMipChain.size(); i++)
+        {
+            auto& targetFramebuffer = s_bloomMipChain[i];
+            targetFramebuffer->ClearAndUse();
+
+            s_bloomDownsampleShader->SetUniform2f("u_ScreenRes", glm::vec2(currentSource->GetWidth(), currentSource->GetHeight()));
+            BindTexture(currentSource, 0);
+            s_bloomDownsampleShader->SetUniform1i("u_ScreenTex", 0);
+
+            DrawArray(s_fullscreenQuad.GetVertexArray());
+            targetFramebuffer->Unbind();
+            currentSource = s_bloomMipChain[i]->GetColorTexture();
+        }
+
+        state.BlendMode = BlendMode::Additive;
+        PushRenderState(state);
+
+        BindShader(s_bloomUpsampleShader);
+        s_bloomUpsampleShader->SetUniform1f("u_FilterRadius", 0.005f);
+
+        // Upsample the other way around
+        for (size_t i = s_bloomMipChain.size() - 1; i > 0; i--)
+        {
+            currentSource = s_bloomMipChain[i]->GetColorTexture();
+            auto& targetFramebuffer = s_bloomMipChain[i - 1];
+
+            targetFramebuffer->Use();
+
+            BindTexture(currentSource, 0);
+            s_bloomUpsampleShader->SetUniform1i("u_ScreenTex", 0);
+
+            DrawArray(s_fullscreenQuad.GetVertexArray());
+            targetFramebuffer->Unbind();
+        }
+    }
+
     void Renderer::RenderComposition()
     {
-        s_mainFramebuffer->Bind();
-        s_mainFramebuffer->Clear();
-        SetViewport(0, 0, s_mainFramebuffer->GetWidth(), s_mainFramebuffer->GetHeight());
+        RenderState state;
+        state.BlendMode = BlendMode::None;
+        state.CullMode = CullFace::None;
+        state.DepthTest = false;
+        state.DepthWrite = false;
+        PushRenderState(state);
+
+        s_mainFramebuffer->ClearAndUse();
 
         BindShader(s_compositionShader);
 
+        // Color
         BindTexture(s_geometryFramebuffer->GetColorTexture(), 0);
         s_compositionShader->SetUniform1i("sceneTexture", 0);
+
+        // SSAO
         BindTexture(s_ssaoBlurFramebuffer->GetColorTexture(), 1);
         s_compositionShader->SetUniform1i("aoTexture", 1);
+
+        // Bloom
+        if (!s_bloomMipChain.empty())
+        {
+            BindTexture(s_bloomMipChain[0]->GetColorTexture(), 2);
+            s_compositionShader->SetUniform1i("bloomTexture", 2);
+        }
+        s_compositionShader->SetUniform1f("bloomStrength", 0.04f);
 
         DrawArray(s_fullscreenQuad.GetVertexArray());
 

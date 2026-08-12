@@ -23,7 +23,7 @@ namespace Elevate
         MaterialPtr instanceMaterial = MaterialRegistry::LoadMaterial(billboardShader);
 
         RenderState state;
-        state.BlendEnable = true;
+        state.BlendMode = BlendMode::Alpha;
         state.CullMode = CullFace::None;
         state.DepthTest = false;
         state.DepthWrite = false;

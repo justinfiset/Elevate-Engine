@@ -42,6 +42,7 @@ namespace Elevate
 	private:
 		static void InitShadowRenderer();
 		static void InitSSAORenderer(uint32_t width, uint32_t height);
+		static void InitBloomRenderer(uint32_t width, uint32_t height);
 	public:
 
 		// RENDER API STATIC WRAPPER
@@ -85,6 +86,7 @@ namespace Elevate
 		static void RenderSkybox();
 		static void RenderGeometry();
 		static void RenderSSAO();
+		static void RenderBloom();
 		static void RenderComposition();
 
 		static void DrawStack();
@@ -117,6 +119,11 @@ namespace Elevate
 		static std::shared_ptr<Shader> s_ssaoBlurShader;
 		static std::unique_ptr<Framebuffer> s_ssaoBlurFramebuffer;
 		static TexturePtr s_ssaoNoiseTexture;
+
+		// Bloom
+		static std::vector<std::unique_ptr<Framebuffer>> s_bloomMipChain;
+		static std::shared_ptr<Shader> s_bloomDownsampleShader;
+		static std::shared_ptr<Shader> s_bloomUpsampleShader;
 
 		// Composition
 		static std::shared_ptr<Shader> s_compositionShader;

@@ -25,6 +25,6 @@ namespace Elevate
 		virtual void SetCullingState(CullFace cullSetting) const override;
 		virtual void SetDepthWrittingState(bool enabled) const override;
 		virtual void SetDepthTestingState(bool enabled) const override;
-		virtual void SetBlendingState(bool enabled) const override;
+		virtual void SetBlendingState(BlendMode mode) const override;
 	};
 }

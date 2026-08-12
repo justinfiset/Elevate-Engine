@@ -37,6 +37,9 @@ namespace Elevate
 		virtual void Rescale(uint32_t width, uint32_t height) = 0;
 		virtual void Clear() const;
 
+		void Use();
+		void ClearAndUse();
+
 		virtual void* GetColorAttachmentHandle(uint32_t index = 0) const;
 		virtual void* GetDepthAttachmentHandle() const;
 
@@ -57,7 +60,9 @@ namespace Elevate
 			bool depthAsRenderbuffer = true
 		);
 
-	private:
+	protected:
+		void UseViewport();
+
 		static TexturePtr CreateColorTexture(uint32_t width, uint32_t height, TextureFormat colorFormat = TextureFormat::RGBA);
 		static TexturePtr CreateDepthTexture(uint32_t width, uint32_t height, TextureFormat depthFormat = TextureFormat::DEPTH);
 

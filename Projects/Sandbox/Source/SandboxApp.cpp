@@ -43,6 +43,19 @@ public:
 		//    1
 		//);
 
+		Elevate::ShaderPtr emissiveShader = Elevate::Shader::CreateFromFiles(
+			"engine://Shaders/DefaultLitShader.vert",
+			"content://Shaders/EmissiveTest.frag",
+			EE_SHADER_HEADER,
+			EE_SHADER_HEADER
+		);
+		Elevate::MaterialPtr emissiveMat = Elevate::MaterialRegistry::LoadMaterial(emissiveShader);
+
+		auto emissiveCube = Elevate::GameObject::Create("Emissive Cube", m_scene);
+		emissiveCube->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Cube, emissiveMat);
+		emissiveCube->SetPosition({ 3.0f, 1.0f, -4.0f });
+		emissiveCube->SetScale({ 0.8f, 0.8f, 0.8f });
+
 		// Backpack
 		m_DemoObject = Elevate::GameObject::Create("Backpack", m_scene);
 		Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("Content/Models/backpack.obj", material);
