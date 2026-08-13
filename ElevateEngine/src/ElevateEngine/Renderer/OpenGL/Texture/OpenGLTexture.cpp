@@ -15,8 +15,10 @@ namespace Elevate
 	constexpr GLenum ToInternalFormat(TextureFormat format) {
 		switch (format) {
 			case TextureFormat::GRAYSCALE:		return GL_R8;       // 8-bit single channel
-			case TextureFormat::RGB:			return GL_RGB8;     // 8-bit RGB
+			case TextureFormat::RGB:			return GL_RGB;		// 8-bit RGB
+			case TextureFormat::SRGB:			return GL_SRGB8;
 			case TextureFormat::RGBA:			return GL_RGBA8;    // 8-bit RGBA
+			case TextureFormat::SRGBA:			return GL_SRGB8_ALPHA8;
 			case TextureFormat::RGB16F:			return GL_RGB16F;
 			case TextureFormat::RGB32F:			return GL_RGB32F;
 			case TextureFormat::RGBA16F:		return GL_RGBA16F;
@@ -30,12 +32,17 @@ namespace Elevate
 	constexpr GLenum ToOpenGL(TextureFormat format) {
 		switch (format) {
 			case TextureFormat::GRAYSCALE:			return GL_RED;
+
 			case TextureFormat::RGB:				return GL_RGB;
+			case TextureFormat::SRGB:				return GL_RGB;
 			case TextureFormat::RGB16F:				return GL_RGB;
 			case TextureFormat::RGB32F:				return GL_RGB;
+
 			case TextureFormat::RGBA:				return GL_RGBA;
+			case TextureFormat::SRGBA:				return GL_RGBA;
 			case TextureFormat::RGBA16F:			return GL_RGBA;
 			case TextureFormat::RGBA32F:			return GL_RGBA;
+
 			case TextureFormat::DEPTH:				return GL_DEPTH_COMPONENT;
 			case TextureFormat::EMPTY:
 			//case TextureFormat::DEPTH16:            return GL_DEPTH_COMPONENT16;

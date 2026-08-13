@@ -28,6 +28,8 @@ namespace Elevate
 		RGBA16F,
 		RGBA32F,
 		DEPTH,
+		SRGB,
+		SRGBA,
 		DEPTHSTENCIL // To use depth and stencil at the same time
 	};
 

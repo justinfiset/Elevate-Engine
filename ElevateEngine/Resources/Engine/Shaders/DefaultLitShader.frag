@@ -253,7 +253,7 @@ float CalcShadow(vec3 localNormal)
 
     vec3 lightDir = normalize(-dirLight.direction);
     float cosTheta = max(dot(normalize(localNormal), lightDir), 0.0);
-    float bias = max(0.0005 * (1.0 - cosTheta), 0.00005);
+    float bias = max(0.00005 * (1.0 - cosTheta), 0.000005);
 
     if (layer == NUM_CASCADES - 1)
     {
