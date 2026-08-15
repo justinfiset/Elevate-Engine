@@ -62,8 +62,19 @@ namespace Elevate
         // Create the quad to render to the screen
         s_fullscreenQuad = Mesh::GenerateQuad(2.0f);
 
-        // Create the main color framebuffer
-        s_geometryFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGBA16F, TextureFormat::RGBA16F }, false));
+        // Create the gbuffer
+        s_geometryFramebuffer.reset(Framebuffer::Create
+        (
+            width,
+            height,
+            {
+                TextureFormat::RGBA,    // Color : Albedo (RGB) + AO (A)
+                TextureFormat::RGB16F,  // Normals (RGB)
+                TextureFormat::RGBA     // Material : Roughness (R) + Metallic (G) + AO (B) + Extra (A)
+            },
+            false
+        ));
+
         s_geometryFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
         s_mainFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGB }));
         s_mainFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
