@@ -689,7 +689,7 @@ namespace Elevate
             BindTexture(currentSource, 0);
             s_bloomDownsampleShader->SetUniform1i("u_ScreenTex", 0);
             
-            s_bloomDownsampleShader->SetUniform1i("u_MipLevel", i);
+            s_bloomDownsampleShader->SetUniform1i("u_MipLevel", static_cast<int>(i));
             s_bloomDownsampleShader->SetUniform1f("u_Threshold", 1.0f);
             s_bloomDownsampleShader->SetUniform1f("u_SoftThreshold", 0.5f);
 

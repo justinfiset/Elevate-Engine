@@ -19,9 +19,7 @@
 
     struct DirLight {
         vec3 direction;
-        vec3 ambient;
-        vec3 diffuse;
-        vec3 specular;
+        vec3 color;
         float intensity;
     };
     uniform DirLight dirLight;
@@ -33,9 +31,7 @@
         float constant;
         float linear;
         float quadratic;  
-        vec3 ambient;
-        vec3 diffuse;
-        vec3 specular;
+        vec3 color;
     };
     uniform PointLight pointLights[NR_POINT_LIGHTS];
     uniform int u_NumPointLights;
@@ -44,9 +40,7 @@
     struct SpotLight {
         vec3 position;
         vec3 direction;
-        vec3 ambient;
-        vec3 diffuse;
-        vec3 specular;
+        vec3 color;
         float intensity;
         float constant;
         float linear;
@@ -75,9 +69,9 @@
         vec3 halfDir = normalize(lightDir + viewDir);
         float spec = pow(max(dot(normal, halfDir), 0.0), shininess);
 
-        vec3 ambient  = light.ambient * albedo * ao;
-        vec3 diffuse  = light.diffuse * diff * albedo;
-        vec3 specular = light.specular * spec * (1.0 - roughness);
+        vec3 ambient  = light.color * albedo * ao;
+        vec3 diffuse  = light.color * diff * albedo;
+        vec3 specular = light.color * spec * (1.0 - roughness);
 
         return (ambient + (diffuse + specular) * shadowFactor) * light.intensity;
     }
@@ -95,9 +89,9 @@
 
         float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
 
-        vec3 ambient  = light.ambient * light.intensity * albedo * ao;
-        vec3 diffuse  = light.diffuse * light.intensity * diff * albedo;
-        vec3 specular = light.specular * light.intensity * spec * (1.0 - roughness);
+        vec3 ambient  = light.color * light.intensity * albedo * ao;
+        vec3 diffuse  = light.color * light.intensity * diff * albedo;
+        vec3 specular = light.color * light.intensity * spec * (1.0 - roughness);
 
         return (ambient + diffuse + specular) * attenuation;
     }
@@ -119,9 +113,9 @@
         float epsilon = light.innerCutoff - light.outerCutoff;
         float spotIntensity = clamp((theta - light.outerCutoff) / epsilon, 0.0, 1.0);
 
-        vec3 ambient  = light.ambient * light.intensity * albedo * ao;
-        vec3 diffuse  = light.diffuse * light.intensity * diff * albedo;
-        vec3 specular = light.specular * light.intensity * spec * (1.0 - roughness);
+        vec3 ambient  = light.color * light.intensity * albedo * ao;
+        vec3 diffuse  = light.color * light.intensity * diff * albedo;
+        vec3 specular = light.color * light.intensity * spec * (1.0 - roughness);
 
         return (ambient + diffuse + specular) * attenuation * spotIntensity;
     }

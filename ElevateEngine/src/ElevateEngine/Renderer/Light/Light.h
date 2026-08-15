@@ -65,40 +65,23 @@ namespace Elevate
 
 		Light() = default;
 
-		Light(const glm::vec3& color)
-			: m_ambientColor(color), m_diffuseColor(color), m_specularColor(color) { }
-
-		Light(const glm::vec3& amb, const glm::vec3& dif, const glm::vec3& spec, float intensity = 1.0f)
-			: m_ambientColor(amb), m_diffuseColor(dif), m_specularColor(spec), m_intensity(intensity) { }
+		Light(const glm::vec3& color, float intensity = 1.0f)
+			: m_color(color), m_intensity(intensity) { }
 
 		// Getter and setters
-		inline void SetColor(const glm::vec3& color)
-		{
-			m_ambientColor = color;
-			m_diffuseColor = color;
-			m_specularColor = color;
-		}
-		inline void SetAmbientColor(const glm::vec3& color) { m_ambientColor = color; }
-		inline void SetDiffuseColor(const glm::vec3& color) { m_diffuseColor = color; }
-		inline void SetSpecularColor(const glm::vec3& color) { m_specularColor = color; }
-		inline void SetIntensity(const float& intensity) { m_intensity = intensity; }
-
-		inline const glm::vec3& GetAmbientColor() const { return m_ambientColor; }
-		inline const glm::vec3& GetDiffuseColor() const { return m_diffuseColor; }
-		inline const glm::vec3& GetSpecularColor() const { return m_specularColor; }
+		inline void SetColor(const glm::vec3& color) { m_color = color; }
+		inline void SetIntensity(float intensity) { m_intensity = intensity; }
+		inline const glm::vec3& GetColor() const { return m_color; }
 		inline const float& GetIntensity() const { return m_intensity; }
 
 		//virtual Component* Clone() override;
 	protected:
-		glm::vec3 m_ambientColor = { 1.0f, 1.0f, 1.0f };
-		glm::vec3 m_diffuseColor = { 1.0f, 1.0f, 1.0f };
-		glm::vec3 m_specularColor = { 1.0f, 1.0f, 1.0f };
-		float m_intensity = 1.0f;
+		glm::vec3 m_color = { 1.0f, 1.0f, 1.0f };
+		PROPERTY(m_color, EE_ColorPicker)
 
-		PROPERTY(m_ambientColor, EE_ColorPicker)
-		PROPERTY(m_diffuseColor, EE_ColorPicker)
-		PROPERTY(m_specularColor, EE_ColorPicker)
+		float m_intensity = 1.0f;
 		PROPERTY(m_intensity)
+				
 		END_COMPONENT()
 	};
 }
