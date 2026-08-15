@@ -44,6 +44,7 @@ namespace Elevate
 		static void Init(uint32_t width, uint32_t height);
 	private:
 		static void InitShadowRenderer();
+		static void InitLightingRenderer(uint32_t width, uint32_t height);
 		static void InitSSAORenderer(uint32_t width, uint32_t height);
 		static void InitBloomRenderer(uint32_t width, uint32_t height);
 	public:
@@ -88,6 +89,7 @@ namespace Elevate
 		static void RenderShaowMaps();
 		static void RenderSkybox();
 		static void RenderGeometry();
+		static void RenderLighting();
 		static void RenderSSAO();
 		static void RenderBloom();
 		static void RenderComposition();
@@ -96,7 +98,7 @@ namespace Elevate
 		static void ClearStack();
 
 	private:
-		static RendererAPI* s_API;
+		static std::unique_ptr<RendererAPI> s_API;
 		static RenderCommandQueue s_commands;
 
 		static Mesh s_fullscreenQuad;
@@ -114,6 +116,10 @@ namespace Elevate
 		// Shadow Mapping
 		static std::shared_ptr<Shader> s_shadowShader;
 		static std::array<std::unique_ptr<Framebuffer>, SHADOW_CASCADE_COUNT> s_directionalShadowMaps;
+
+		// Liighting
+		static std::unique_ptr<Framebuffer> s_lightPassFramebuffer;
+		static std::shared_ptr<Shader> s_lightPassShader;
 
 		// SSAO
 		static std::vector<glm::vec3> s_ssaoKernel;

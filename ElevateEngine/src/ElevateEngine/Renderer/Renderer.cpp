@@ -25,7 +25,7 @@ namespace Elevate
 {
     RendererStorage Renderer::s_data = RendererStorage();
     RenderState Renderer::s_currentState = RenderState();
-    RendererAPI* Renderer::s_API = new OpenGLRendererAPI();
+    std::unique_ptr<RendererAPI> Renderer::s_API;
     RenderCommandQueue Renderer::s_commands = RenderCommandQueue();
     uint32_t Renderer::s_currentShaderID = 0;
     uintptr_t Renderer::s_textures[16];
@@ -37,6 +37,10 @@ namespace Elevate
     // Shadows
     std::shared_ptr<Shader> Renderer::s_shadowShader;
     std::array<std::unique_ptr<Framebuffer>, SHADOW_CASCADE_COUNT> Renderer::s_directionalShadowMaps;
+
+    // Lighting
+    std::shared_ptr<Shader> Renderer::s_lightPassShader;
+    std::unique_ptr<Framebuffer> Renderer::s_lightPassFramebuffer;
 
     // SSAO
     std::vector<glm::vec3> Renderer::s_ssaoKernel;
@@ -59,6 +63,8 @@ namespace Elevate
 
     void Renderer::Init(uint32_t width, uint32_t height)
     {
+        s_API = std::make_unique<OpenGLRendererAPI>();
+
         // Create the quad to render to the screen
         s_fullscreenQuad = Mesh::GenerateQuad(2.0f);
 
@@ -68,7 +74,7 @@ namespace Elevate
             width,
             height,
             {
-                TextureFormat::RGBA,    // Color : Albedo (RGB) + AO (A)
+                TextureFormat::RGBA16F,    // Color : Albedo (RGBA)
                 TextureFormat::RGB16F,  // Normals (RGB)
                 TextureFormat::RGBA     // Material : Roughness (R) + Metallic (G) + AO (B) + Extra (A)
             },
@@ -89,6 +95,7 @@ namespace Elevate
 
         DebugRenderer::Init();
         InitShadowRenderer();
+        InitLightingRenderer(width, height);
         InitSSAORenderer(width, height);
         InitBloomRenderer(width, height);
     }
@@ -231,6 +238,18 @@ namespace Elevate
         }
     }
 
+    void Renderer::InitLightingRenderer(uint32_t width, uint32_t height)
+    {
+        s_lightPassFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGBA16F }));
+        s_lightPassShader = ShaderManager::LoadShader(
+            "lighting",
+            "engine://Shaders/Lighting.vert",
+            "engine://Shaders/Lighting.frag",
+            EE_SHADER_HEADER,
+            EE_SHADER_HEADER
+        );
+    }
+
     void Renderer::BeginFrame(const ScenePtr scene, const Camera& cam)
     {
         InvalidateStateCache();
@@ -265,14 +284,15 @@ namespace Elevate
     {
         RenderShaowMaps();
         RenderGeometry();
-
-        s_geometryFramebuffer->Bind();
-        DebugRenderer::Render();
-        s_geometryFramebuffer->Unbind();
-
         RenderSSAO();
+        RenderLighting();
         RenderBloom();
         RenderComposition();
+
+        s_mainFramebuffer->Bind();
+        DebugRenderer::Render();
+        s_mainFramebuffer->Unbind();
+
         ClearStack();
     }
 
@@ -297,25 +317,26 @@ namespace Elevate
 
     void Renderer::ApplySystemUniforms(const std::shared_ptr<Shader>& shader)
     {
-        // If the binded shader changed
-        if (BindShader(shader))
-        {
-            shader->SetProjectionViewMatrix(s_data.ViewProj);
-            shader->SetCameraPosition(s_data.CameraPosition);
-            shader->SetUniformMatrix4fv("view", s_data.View);
+        BindShader(shader);
 
-            shader->SetUniformMatrix4fv(
-                "lightSpaceMatrices[0]",
-                reinterpret_cast<float*>(s_data.LightSpaceMatrices.data()),
-                SHADOW_CASCADE_COUNT
-            );
+        shader->SetProjectionViewMatrix(s_data.ViewProj);
+        shader->SetCameraPosition(s_data.CameraPosition);
+        shader->SetUniformMatrix4fv("view", s_data.View);
 
-            shader->SetUniform1fv(
-                "cascadeSplitDepths[0]",
-                SHADOW_CASCADE_COUNT,
-                s_data.CascadeSplitDepths.data()
-            );
-        }
+        shader->SetUniformMatrix4fv("inverseProjection", glm::inverse(s_data.Projection));
+        shader->SetUniformMatrix4fv("inverseView", glm::inverse(s_data.View));
+
+        shader->SetUniformMatrix4fv(
+            "lightSpaceMatrices[0]",
+            reinterpret_cast<float*>(s_data.LightSpaceMatrices.data()),
+            SHADOW_CASCADE_COUNT
+        );
+
+        shader->SetUniform1fv(
+            "cascadeSplitDepths[0]",
+            SHADOW_CASCADE_COUNT,
+            s_data.CascadeSplitDepths.data()
+        );
     }
 
     // RENDER API STATIC WRAPPER
@@ -401,7 +422,7 @@ namespace Elevate
     Framebuffer& Renderer::GetMainFramebuffer()
     {
         return *s_mainFramebuffer;
-    }
+    }   
 
     Framebuffer& Renderer::GetDirectionalFrameBuffer(uint32_t index)
     {
@@ -419,25 +440,8 @@ namespace Elevate
             {
                 ApplySystemUniforms(shader);
                 shader->SetModelMatrix(command.Transform);
-                if (s_data.ActiveLighting)
-                {
-                    s_data.ActiveLighting->UploadToShader(shader);
-                }
-
+                
                 command.m_MaterialInstance->Apply();
-
-                if (s_directionalShadowMaps[0])
-                {
-                    int shadowSlots[SHADOW_CASCADE_COUNT];
-                    for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
-                    {
-                        uint8_t slot = SHADOW_MAP_SLOT + i;
-                        BindTexture(s_directionalShadowMaps[i]->GetDepthTexture(), slot);
-                        shadowSlots[i] = slot;
-                    }
-
-                    shader->SetUniform1iv("shadowMapArray", SHADOW_CASCADE_COUNT, shadowSlots);
-                }
             }
         }
 
@@ -559,6 +563,58 @@ namespace Elevate
         s_geometryFramebuffer->Unbind();
     }
 
+    void Renderer::RenderLighting()
+    {
+        RenderState lightingState;
+        lightingState.BlendMode = BlendMode::None;
+        lightingState.CullMode = CullFace::None;
+        lightingState.DepthTest = false;
+        lightingState.DepthWrite = false;
+        PushRenderState(lightingState);
+
+        s_lightPassFramebuffer->ClearAndUse();
+
+        BindShader(s_lightPassShader);
+        
+        ApplySystemUniforms(s_lightPassShader);
+
+        // Lighting configuration
+        if (s_data.ActiveLighting)
+        {
+            s_data.ActiveLighting->UploadToShader(s_lightPassShader);
+        }
+
+        // Shadows
+        if (s_directionalShadowMaps[0])
+        {
+            int shadowSlots[SHADOW_CASCADE_COUNT];
+            for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
+            {
+                uint8_t slot = SHADOW_MAP_SLOT + i;
+                BindTexture(s_directionalShadowMaps[i]->GetDepthTexture(), slot);
+                shadowSlots[i] = slot;
+            }
+
+            s_lightPassShader->SetUniform1iv("shadowMapArray", SHADOW_CASCADE_COUNT, shadowSlots);
+        }
+
+        // GBuffer
+        BindTexture(s_geometryFramebuffer->GetColorTexture(0), 0);
+        s_lightPassShader->SetUniform1i("g_Color", 0);
+        BindTexture(s_geometryFramebuffer->GetColorTexture(1), 1);
+        s_lightPassShader->SetUniform1i("g_Normal", 1);
+        BindTexture(s_geometryFramebuffer->GetColorTexture(2), 2);
+        s_lightPassShader->SetUniform1i("g_Material", 2);
+        BindTexture(s_geometryFramebuffer->GetDepthTexture(), 3);
+        s_lightPassShader->SetUniform1i("g_Depth", 3);
+        // SSAO
+        BindTexture(s_ssaoBlurFramebuffer->GetColorTexture(), 4);
+        s_lightPassShader->SetUniform1i("g_SSAO", 4);
+
+        DrawArray(s_fullscreenQuad.GetVertexArray());
+        s_lightPassFramebuffer->Unbind();
+    }
+
     void Renderer::RenderSSAO()
     {
         s_ssaoFramebuffer->ClearAndUse();
@@ -621,7 +677,7 @@ namespace Elevate
 
         BindShader(s_bloomDownsampleShader);
 
-        TexturePtr currentSource = s_geometryFramebuffer->GetColorTexture();
+        TexturePtr currentSource = s_lightPassFramebuffer->GetColorTexture();
 
         // Downsample trought the bloom mip chain
         for (size_t i = 0; i < s_bloomMipChain.size(); i++)
@@ -632,6 +688,10 @@ namespace Elevate
             s_bloomDownsampleShader->SetUniform2f("u_ScreenRes", glm::vec2(currentSource->GetWidth(), currentSource->GetHeight()));
             BindTexture(currentSource, 0);
             s_bloomDownsampleShader->SetUniform1i("u_ScreenTex", 0);
+            
+            s_bloomDownsampleShader->SetUniform1i("u_MipLevel", i);
+            s_bloomDownsampleShader->SetUniform1f("u_Threshold", 1.0f);
+            s_bloomDownsampleShader->SetUniform1f("u_SoftThreshold", 0.5f);
 
             DrawArray(s_fullscreenQuad.GetVertexArray());
             targetFramebuffer->Unbind();
@@ -674,12 +734,8 @@ namespace Elevate
         BindShader(s_compositionShader);
 
         // Color
-        BindTexture(s_geometryFramebuffer->GetColorTexture(), 0);
+        BindTexture(s_lightPassFramebuffer->GetColorTexture(), 0);
         s_compositionShader->SetUniform1i("sceneTexture", 0);
-
-        // SSAO
-        BindTexture(s_ssaoBlurFramebuffer->GetColorTexture(), 1);
-        s_compositionShader->SetUniform1i("aoTexture", 1);
 
         // Bloom
         if (!s_bloomMipChain.empty())

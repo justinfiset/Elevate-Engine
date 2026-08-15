@@ -230,7 +230,6 @@ void Elevate::Model::LoadMaterialTextures(std::string basePath, aiMaterial* mat,
 			
 		if (!skip)
 		{
-			EE_CORE_ERROR("{}", path);
 			data.Textures.emplace_back(Texture::CreateFromFile(path, texType));
 		}
 	}

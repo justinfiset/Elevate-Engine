@@ -1,7 +1,6 @@
 layout(location = 0) out vec4 o_Color;
 
 uniform sampler2D sceneTexture;
-uniform sampler2D aoTexture;
 
 uniform sampler2D bloomTexture;
 uniform float bloomStrength;
@@ -22,10 +21,8 @@ vec3 ACESFilm(vec3 x)
 void main()
 {
     vec3 hdrColor = texture(sceneTexture, v_TexCoord).rgb;
-    float ao = texture(aoTexture, v_TexCoord).r;
     vec3 bloomColor = texture(bloomTexture, v_TexCoord).rgb;
 
-    hdrColor *= ao;
     hdrColor += bloomColor * bloomStrength;
     
     vec3 mappedColor = ACESFilm(hdrColor);

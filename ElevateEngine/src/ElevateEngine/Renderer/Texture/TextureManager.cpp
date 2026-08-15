@@ -67,8 +67,6 @@ namespace Elevate {
 		std::filesystem::path fsPath = std::filesystem::absolute(resolvedPath);
 		std::string absPath = fsPath.string();
 
-		EE_CORE_TRACE("{}", absPath);
-
 		// If the texture is already loading, or already loaded, return and cancel
 		TexturePtr tex = GetTexture(absPath);
 		if (!tex)
