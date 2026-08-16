@@ -43,16 +43,17 @@ public:
 		//    1
 		//);
 
-		Elevate::ShaderPtr emissiveShader = Elevate::Shader::CreateFromFiles(
+		Elevate::ShaderPtr colorShader = Elevate::Shader::CreateFromFiles(
 			"engine://Shaders/DefaultLitShader.vert",
-			"content://Shaders/EmissiveTest.frag",
+			"content://Shaders/ColorTest.frag",
 			EE_SHADER_HEADER,
 			EE_SHADER_HEADER
 		);
-		Elevate::MaterialPtr emissiveMat = Elevate::MaterialRegistry::LoadMaterial(emissiveShader);
+		Elevate::MaterialPtr orangeEmissiveMat = Elevate::MaterialRegistry::LoadMaterial(colorShader);
+		orangeEmissiveMat->Set("u_Color", glm::vec3(5.0f, 1.0f, 0.1f));
 
 		auto emissiveCube = Elevate::GameObject::Create("Emissive Cube", m_scene);
-		emissiveCube->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Cube, emissiveMat);
+		emissiveCube->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Cube, orangeEmissiveMat);
 		emissiveCube->SetPosition({ 3.0f, 1.0f, -4.0f });
 		emissiveCube->SetScale({ 0.8f, 0.8f, 0.8f });
 
@@ -72,13 +73,13 @@ public:
 		m_PointLightObject->SetParent(m_DemoObject);
 		m_PointLightObject->SetPosition({ -2.0f, 0.0f, 2.0f });
 		Elevate::PointLight& pointLight = m_PointLightObject->AddComponent<Elevate::PointLight>(glm::vec3(1.0f, 1.0f, 1.0f));
-		pointLight.SetIntensity(0.5);
+		pointLight.SetIntensity(0.1f);
 
 		auto m_dirLightObj = Elevate::GameObject::Create("Directional Light", m_scene);
 		Elevate::DirectionalLight& dirLight = m_dirLightObj->AddComponent<Elevate::DirectionalLight>(
 			glm::vec3(1.0f, 1.0f, 1.0f)
 		);
-		dirLight.SetIntensity(0.8f);
+		dirLight.SetIntensity(0.5f);
 		m_dirLightObj->SetPosition({ 7.0f, 4.0f, 6.0f });
 		m_dirLightObj->SetRotation({ 0.0f, 45.0f, 45.0f });
 
