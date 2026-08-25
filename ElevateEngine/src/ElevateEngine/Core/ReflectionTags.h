@@ -3,6 +3,8 @@
 #include <string>
 #include <variant>
 
+#include <ElevateEngine/Core/AssetRegistry.h>
+
 namespace Elevate
 {
 	struct EmptyTag {};
@@ -13,8 +15,56 @@ namespace Elevate
 	#define EE_EditorTag(x) ::Elevate::EmptyTag{}
 #endif
 
+	// Assets tags
+
+	struct AssetTag
+	{
+		AssetMetaData Meta;
+
+		AssetTag(const AssetMetaData& meta)
+		{
+			Meta = meta;
+#ifdef EE_EDITOR_BUILD
+			AssetRegistry::RegisterAssetType(meta);
+#endif
+		}
+	};
 	struct CreateAssetMenuTag { const char* Path; const char* Ext; };
-#define EE_CreateAssetMenu(path, ext) EE_EditorTag((CreateAssetMenuTag{path, ext}))
+#define EE_CreateAssetMenu EE_EditorTag(CreateAssetMenuTag{})
+	struct AssetColorTag { float r, g, b; };
+#define EE_AssetColor(r, g, b) EE_EditorTag((AssetColorTag{r, g, b}))
+
+	using AssetOption = std::variant<
+		CreateAssetMenuTag, AssetColorTag	
+	>;
+
+	template<typename... Args>
+	inline AssetMetaData BuildAssetMetaData(const std::string& name, const std::string& ext, Args&&... args)
+	{
+		AssetMetaData meta;
+		meta.TypeName = name;
+		meta.Extension = ext;
+
+		auto processTag = [&meta](const auto& tag)
+		{
+			using T = std::decay_t<decltype(tag)>;
+			if constexpr (std::is_same_v<T, CreateAssetMenuTag>)
+			{
+				meta.Flags |= AssetFlags::CreateAssetMenu;
+			}
+			else if constexpr (std::is_same_v<T, AssetColorTag>)
+			{
+				meta.AssetColor = glm::vec4(tag.r, tag.g, tag.b, 1.0f);
+			}
+		};
+		(..., processTag(args));
+
+		return meta;
+	}
+
+#define EE_Asset(name, extension, ...) EE_EditorTag(AssetTag{BuildAssetMetaData(name, extension, ##__VA_ARGS__)})
+
+	// Editor Analyser Tags
 
 	struct HideInInspectorTag {};
 #define EE_HideInInspector EE_EditorTag(HideInInspectorTag {})
@@ -42,9 +92,11 @@ namespace Elevate
 
 	using FieldOption = std::variant<
 		EmptyTag, // To allow empty types depending on compilation settings
-		CreateAssetMenuTag,
+		AssetTag, // Allow specification for assets
+		// Analyser Panel
 		HideInInspectorTag, EditorIconTag,
 		FlattenTag, DisplayNameTag, TooltipTag, ReadOnlyTag, ColorTag,
+		// Serialization
 		NoSerializeTag
 	>;
 }

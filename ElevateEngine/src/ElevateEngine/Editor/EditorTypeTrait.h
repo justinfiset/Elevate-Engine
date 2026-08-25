@@ -14,10 +14,10 @@ namespace Elevate
     {
         bool visible = true;
         std::string editorIconPath = "";
-
-        bool isCreatableAsset = false;
-        std::string menuPath = "";
-        std::string extension = "";
+        
+        // Assets
+        bool isAsset = false;
+        AssetMetaData assetMeta;
         std::function<std::shared_ptr<EEObject>()> factory = nullptr;
 
         EditorTypeTrait() = default;
@@ -35,28 +35,22 @@ namespace Elevate
                 {
                     editorIconPath = std::get<EditorIconTag>(option).Path;
                 }
-                else if (std::holds_alternative<CreateAssetMenuTag>(option))
+                else if (auto* assetTag = std::get_if<AssetTag>(&option))
                 {
-                    const auto& tag = std::get<CreateAssetMenuTag>(option);
-                    menuPath = tag.Path;
-                    extension = tag.Ext;
-                    isCreatableAsset = true;
+                    isAsset = true;
+                    assetMeta = assetTag->Meta;
 
-                    bool error = false;
                     if constexpr (!std::is_base_of_v<EEObject, T>)
                     {
                         EE_ERROR("Editor : Type is not derived from EEObject : {}", typeid(T).name());
-                        error = true;
                     }
                     if constexpr (std::is_abstract_v<T>)
                     {
                         EE_ERROR("Editor : Type is abstract : {}", typeid(T).name());
-                        error = true;
                     }
                     if constexpr (!std::is_default_constructible_v<T>)
                     {
                         EE_ERROR("Editor : Type has no default constructor : {}", typeid(T).name());
-                        error = true;
                     }
 
                     factory = []() -> std::shared_ptr<EEObject> {

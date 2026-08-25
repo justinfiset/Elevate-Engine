@@ -237,11 +237,11 @@ void Elevate::Editor::AssetBrowserPanel::BuildAssetNodeCache()
 	for (auto& entry : TypeRegistry::GetEntries())
 	{
 		auto trait = entry.second.GetTrait<EditorTypeTrait>();
-		if (trait->isCreatableAsset)
+		if (trait->assetMeta.Flags & AssetFlags::CreateAssetMenu)
 		{
 			AssetCreationNode node;
-			node.Extension = trait->extension.c_str();
-			node.Name = trait->menuPath.c_str();
+			node.Extension = trait->assetMeta.Extension.c_str();
+			node.Name = trait->assetMeta.TypeName.c_str();
 			node.Factory = trait->factory;
 			m_assetCreationList.push_back(node);
 		}
@@ -281,6 +281,9 @@ void Elevate::Editor::AssetBrowserPanel::DrawContextMenu()
 				{
 					EE_ERROR("Failed to create new asset on disk at {}", filePath);
 				}
+
+				// Set the current state to dirty to reload.
+				m_shouldUpdate = true;
 			}
 		}
 		ImGui::EndMenu();
@@ -354,7 +357,17 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
 		else {
 			fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, meta.iconPath, meta.type);
 		}
-		fileItem.color = meta.color;
+
+		if (auto* assetMeta = AssetRegistry::GetMetaFromExtension("." + ext))
+		{
+			fileItem.color = assetMeta->AssetColor * 255.0f;
+		}
+		else
+		{
+			// Fallback if no asset has declared a color
+			fileItem.color = meta.color;
+		}
+		
 		fileItem.id = m_nextId++;
 
 		m_currentTextures[fileItem.iconPath] = Texture::CreateFromFile(fileItem.iconPath);

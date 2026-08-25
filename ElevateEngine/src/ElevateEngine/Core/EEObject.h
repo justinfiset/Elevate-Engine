@@ -1,5 +1,7 @@
 #pragma once
 
+#include <typeindex>
+
 // Interfaces
 #include <ElevateEngine/Core/ITypeLayoutProvider.h>
 
@@ -8,8 +10,6 @@
 
 #include <ElevateEngine/Core/TypeLayout.h>
 #include <ElevateEngine/Serialization/PropertyField.h>
-
-#include <typeindex>
 
 namespace Elevate
 {
