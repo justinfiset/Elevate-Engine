@@ -8,6 +8,8 @@
 #include <ElevateEngine/Renderer/OpenGL/OpenGLContext.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 
+#include <GLFW/glfw3.h>
+
 static void Elevate_MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
 	auto* dataPtr = static_cast<Elevate::WindowData*>(glfwGetWindowUserPointer(window));

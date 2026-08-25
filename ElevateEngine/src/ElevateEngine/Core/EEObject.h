@@ -1,7 +1,6 @@
 #pragma once
 
 // Interfaces
-#include <ElevateEngine/Serialization/ISerializable.h>
 #include <ElevateEngine/Core/ITypeLayoutProvider.h>
 
 #include <ElevateEngine/Core/Guid.h>
@@ -14,7 +13,7 @@
 
 namespace Elevate
 {
-	class EEObject : public ISerializable, public ITypeLayoutProvider
+	class EEObject : public ITypeLayoutProvider
 	{
 	protected:
 		EECategory m_category;
@@ -34,9 +33,5 @@ namespace Elevate
 		virtual TypeLayout GetLayout() const { return TypeLayout(nullptr, GetName(), {}); }
 		PropertySet GetProperties() const { return GetLayout().CaptureState(); }
 		virtual std::type_index GetTypeIndex() const { return typeid(EEObject); }
-
-		// ISerializable Implementation
-		virtual ByteBuffer Serialize() const override;
-		virtual void Deserialize(const ByteBuffer& data) override;
 	};
 }
