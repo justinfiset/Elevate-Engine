@@ -30,10 +30,10 @@ namespace Elevate
 		const Guid& GetGuid() const { return m_guid; }
 
 		// If no overrode, an empty layout is generated and nothing is shown in the inspector
-		inline virtual std::string GetName() const { return "EEObject"; }
-		inline virtual TypeLayout GetLayout() const { return TypeLayout(nullptr, GetName(), {}); }
+		virtual std::string GetName() const { return "EEObject"; }
+		virtual TypeLayout GetLayout() const { return TypeLayout(nullptr, GetName(), {}); }
 		PropertySet GetProperties() const { return GetLayout().CaptureState(); }
-		inline virtual std::type_index GetTypeIndex() const { return typeid(EEObject); }
+		virtual std::type_index GetTypeIndex() const { return typeid(EEObject); }
 
 		// ISerializable Implementation
 		virtual ByteBuffer Serialize() const override;

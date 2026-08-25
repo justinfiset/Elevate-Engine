@@ -8,7 +8,7 @@ namespace Elevate
 	class DirectionalLight : public Light
 	{
 	public:
-		BEGIN_COMPONENT(DirectionalLight, EE_EditorIcon(std::string(Editor::Icons::COMPONENT_ICON_DIRECTIONALLIGHT)))
+		BEGIN_COMPONENT(DirectionalLight, EE_EditorIcon(Editor::Icons::COMPONENT_ICON_DIRECTIONALLIGHT))
 		DECLARE_BASE(Light)
 		EECATEGORY("Lighting")
 

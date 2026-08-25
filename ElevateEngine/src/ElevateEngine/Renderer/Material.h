@@ -11,6 +11,8 @@
 
 #include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/Asset.h>
+#include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Renderer/Buffer.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Shader/ShaderManager.h>
@@ -25,12 +27,38 @@ namespace Elevate
     class MaterialFactory;
     class MaterialRegistry;
 
-    using MaterialPtr = std::shared_ptr<Material>;
+    using MaterialPtr = EEObjectPtr<Material>;
     using MaterialID = uint32_t;
 
-    class Material
+    class Material : public Asset
     {
     public:
+        virtual TypeLayout GetLayout() const override {
+            std::vector<::Elevate::TypeField> allFields;
+
+            const auto& layout = m_shader->GetLayout();
+
+            for (const auto& uniform : layout)
+            {
+                if (uniform.Type == ShaderDataType::Sampler2D) continue;
+
+                if (uniform.Name == EE_SHADER_VIEWPROJ ||
+                    uniform.Name == EE_SHADER_CAMPOS ||
+                    uniform.Name == EE_SHADER_MODEL)
+                {
+                    continue;
+                }
+
+                if (m_definedUniforms[uniform.Index])
+                {
+                    TypeField field(uniform.Name, uniform.Type, m_buffer.data() + uniform.Offset);
+                    allFields.push_back(field);
+                }
+            }
+
+            return TypeLayout(this, GetName(), allFields);
+        }
+
         template<typename T>
         void Set(const std::string& name, const T& value)
         {

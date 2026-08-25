@@ -35,8 +35,11 @@ namespace Elevate
 		void ProcessMesh(std::string basePath, aiMesh* mesh, const aiScene* scene, MeshData& data);
 		void ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int index);
 		void LoadMaterialTextures(std::string basePath, aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data);
+
 	private:
 		MaterialPtr m_material;
+		PROPERTY(m_material);
+
 		Mesh m_batchedMesh;
 		std::string m_Directory;
 

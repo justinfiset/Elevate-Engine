@@ -90,7 +90,7 @@ private: \
     } generated_classEntryEnd; \
 public: \
     inline virtual std::string GetName() const override { return generated_classEntry.ClassName; } \
-    inline virtual ::Elevate::TypeLayout GetLayout() const override { \
+    virtual ::Elevate::TypeLayout GetLayout() const override { \
         std::vector<::Elevate::TypeField> allFields; \
         \
         if constexpr (requires { typename ThisType::Super; }) { \

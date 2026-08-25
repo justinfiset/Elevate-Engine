@@ -6,7 +6,7 @@ namespace Elevate
 {
 	class SpotLight : public Light
 	{
-		BEGIN_COMPONENT(SpotLight, EE_EditorIcon(std::string(Editor::Icons::COMPONENT_ICON_SPOTLIGHT)))
+		BEGIN_COMPONENT(SpotLight, EE_EditorIcon(Editor::Icons::COMPONENT_ICON_SPOTLIGHT))
 		DECLARE_BASE(Light)
 		EECATEGORY("Lighting")
 

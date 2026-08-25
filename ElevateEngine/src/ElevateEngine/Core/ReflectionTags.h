@@ -13,6 +13,9 @@ namespace Elevate
 	#define EE_EditorTag(x) ::Elevate::EmptyTag{}
 #endif
 
+	struct CreateAssetMenuTag { const char* Path; const char* Ext; };
+#define EE_CreateAssetMenu(path, ext) EE_EditorTag(CreateAssetMenuTag{path, ext})
+
 	struct HideInInspectorTag {};
 #define EE_HideInInspector EE_EditorTag(HideInInspectorTag {})
 
@@ -31,7 +34,7 @@ namespace Elevate
 	struct ColorTag {};
 #define EE_ColorPicker EE_EditorTag(ColorTag {})
 
-	struct EditorIconTag { std::string Path; };
+	struct EditorIconTag { const char* Path; };
 #define EE_EditorIcon(path) EE_EditorTag(EditorIconTag{path})
 
 	struct NoSerializeTag {};
@@ -39,6 +42,7 @@ namespace Elevate
 
 	using FieldOption = std::variant<
 		EmptyTag, // To allow empty types depending on compilation settings
+		CreateAssetMenuTag,
 		HideInInspectorTag, EditorIconTag,
 		FlattenTag, DisplayNameTag, TooltipTag, ReadOnlyTag, ColorTag,
 		NoSerializeTag

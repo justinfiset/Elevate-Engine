@@ -453,7 +453,7 @@ namespace Elevate
         s_commands.Submit(type, command);
     }
 
-    void Renderer::SubmitMesh(const std::shared_ptr<VertexArray>& vao, const std::shared_ptr<Material>& material, const glm::mat4& transform)
+    void Renderer::SubmitMesh(const std::shared_ptr<VertexArray>& vao, const MaterialPtr& material, const glm::mat4& transform)
     {
         RenderCommand command;
         RenderState state = material ? material->GetRenderState() : RenderState();

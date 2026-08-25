@@ -42,7 +42,8 @@ namespace Elevate
         GetEntries().emplace(ti, Entry(name, ti));
 
 #ifdef EE_EDITOR_BUILD
-        AddTrait<T, EditorTypeTrait>(options);
+        // Passing T using a type_identity simple placeholder.
+        AddTrait<T, EditorTypeTrait>(std::type_identity<T>{}, options);
 #endif
     }
 

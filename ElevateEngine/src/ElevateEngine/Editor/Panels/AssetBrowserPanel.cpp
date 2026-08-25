@@ -35,9 +35,22 @@ void Elevate::Editor::AssetBrowserPanel::OnUpdate()
 	}
 }
 
+void DrawContextMenu()
+{
+	if (ImGui::BeginMenu("Create"))
+	{
+		ImGui::EndMenu();
+	}
+}
+
 void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 {
 	ImGui::Begin("Asset Browser");
+
+	if (ImGui::IsWindowHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Right))
+	{
+		ImGui::OpenPopup("AssetContextMenu");
+	}
 
 	ImGui::BeginGroup();
 	for (auto it = m_relatedPaths.rbegin(); it != m_relatedPaths.rend(); ++it)
@@ -205,6 +218,12 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 	if (ImGui::IsWindowHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left) && !ImGui::IsAnyItemHovered())
 	{
 		m_selected.clear();
+	}
+
+	if (ImGui::BeginPopup("AssetContextMenu"))
+	{
+		DrawContextMenu();
+		ImGui::EndPopup();
 	}
 
 	ImGui::End();

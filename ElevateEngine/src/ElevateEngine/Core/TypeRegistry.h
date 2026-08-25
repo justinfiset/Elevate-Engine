@@ -11,6 +11,7 @@
 #include <entt/entt.hpp>
 #include <glm/fwd.hpp>
 
+#include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/ReflectionTags.h>
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/Log.h>

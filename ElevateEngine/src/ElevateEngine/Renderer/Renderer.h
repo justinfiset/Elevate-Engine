@@ -4,6 +4,7 @@
 #include <memory>
 
 #include <ElevateEngine/Renderer/RenderState.h>
+#include <ElevateEngine/Renderer/Material.h>
 #include <ElevateEngine/Renderer/Commands/RenderBucket.h>
 
 constexpr uint8_t SHADOW_CASCADE_COUNT = 4;
@@ -78,7 +79,7 @@ namespace Elevate
 		static void Dispatch(const RenderCommand& command);
 		// todo doc here
 		static void Submit(RenderBucket::Type type, const RenderCommand& command);
-		static void SubmitMesh(const std::shared_ptr<VertexArray>& vao, const std::shared_ptr<Material>& material, const glm::mat4& transform);
+		static void SubmitMesh(const std::shared_ptr<VertexArray>& vao, const MaterialPtr& material, const glm::mat4& transform);
 
 		// Textures
 		static void BindTexture(const std::shared_ptr<Texture>& texture, uint8_t slot = 0);
