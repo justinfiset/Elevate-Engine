@@ -38,6 +38,10 @@ namespace Elevate
         virtual TypeLayout GetLayout() const override {
             std::vector<::Elevate::TypeField> allFields;
 
+            if (!m_shader)
+            {
+                return TypeLayout();
+            }
             const auto& layout = m_shader->GetLayout();
 
             for (const auto& uniform : layout)
@@ -94,8 +98,8 @@ namespace Elevate
 
         size_t GetTextureCount() const { return m_textures.size(); }
 
-    private:
         Material();
+    private:
         Material(const std::shared_ptr<Shader>& shader);
 
         TexturePtr GetTextureForUniform(const std::string& uniformName) const;

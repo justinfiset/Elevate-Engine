@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <fstream>
 
 #include <imgui.h>
 #include <rapidjson/filereadstream.h>
@@ -12,9 +13,13 @@
 #include <ElevateEngine/Core/PathResolver.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Core/Files.h>
+
 #include <ElevateEngine/Inputs/Input.h>
+
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
+
+#include <ElevateEngine/Serialization/JsonSerializer.h>
 
 namespace fs = std::filesystem;
 
@@ -247,12 +252,35 @@ void Elevate::Editor::AssetBrowserPanel::DrawContextMenu()
 {
 	if (ImGui::BeginMenu("Create"))
 	{
-		ImGui::MenuItem("Test Item");
 		for (auto& type : m_assetCreationList)
 		{
 			if (ImGui::MenuItem(type.Name))
 			{
-				// todo create asset here
+				auto asset = type.Factory();
+
+				if (!asset)
+				{
+					EE_ERROR("Failed to create new asset. Factory function returned null object.");
+					return;
+				}
+
+				JsonSerializer serializer;
+				ByteBuffer bytes;
+				serializer.Serialize(asset->GetProperties(), bytes);
+				ByteUtils::ToString(bytes);
+
+				std::string filePath = m_CurrentPath.string() + "/New_" + std::string(type.Name) + std::string(type.Extension);
+				std::ofstream outFile(filePath);
+
+				if (outFile.is_open())
+				{
+					outFile << Elevate::ByteUtils::ToString(bytes);
+					outFile.close();
+				}
+				else
+				{
+					EE_ERROR("Failed to create new asset on disk at {}", filePath);
+				}
 			}
 		}
 		ImGui::EndMenu();
@@ -404,8 +432,8 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
 		if (asset.HasMember("r") && asset.HasMember("g") && asset.HasMember("b") && asset.HasMember("a")) {
 			int r = asset["r"].GetInt();
 			int g = asset["g"].GetInt();
-			int b = asset["g"].GetInt();
-			int a = asset["g"].GetInt();
+			int b = asset["b"].GetInt();
+			int a = asset["a"].GetInt();
 			meta.color = glm::vec4(r, g, b, a);
 		}
 

@@ -4,6 +4,7 @@
 #include <string>
 #include <type_traits>
 
+#include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
 
@@ -41,15 +42,34 @@ namespace Elevate
                     extension = tag.Ext;
                     isCreatableAsset = true;
 
+                    bool error = false;
+                    if constexpr (!std::is_base_of_v<EEObject, T>)
+                    {
+                        EE_ERROR("Editor : Type is not derived from EEObject : {}", typeid(T).name());
+                        error = true;
+                    }
+                    if constexpr (std::is_abstract_v<T>)
+                    {
+                        EE_ERROR("Editor : Type is abstract : {}", typeid(T).name());
+                        error = true;
+                    }
+                    if constexpr (!std::is_default_constructible_v<T>)
+                    {
+                        EE_ERROR("Editor : Type has no default constructor : {}", typeid(T).name());
+                        error = true;
+                    }
+
                     factory = []() -> std::shared_ptr<EEObject> {
-                        // Only create a factory if the object is derived from EEObject and complete
                         if constexpr (std::is_base_of_v<EEObject, T> &&
-                                    !std::is_abstract_v<T> &&
-                                    std::is_default_constructible_v<T>)
+                            !std::is_abstract_v<T> &&
+                            std::is_default_constructible_v<T>)
                         {
                             return std::make_shared<T>();
                         }
-                        return nullptr;
+                        else
+                        {
+                            return nullptr;
+                        }
                     };
                 }
             }
