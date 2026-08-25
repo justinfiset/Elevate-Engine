@@ -32,6 +32,8 @@ namespace Elevate
 
     class Material : public Asset
     {
+        BEGIN_OBJECT(Material, EE_CreateAssetMenu("Material", ".mat"))
+
     public:
         virtual TypeLayout GetLayout() const override {
             std::vector<::Elevate::TypeField> allFields;
@@ -112,6 +114,8 @@ namespace Elevate
         RenderBucket::Type m_bucket = RenderBucket::GBuffer;
 
         friend class MaterialFactory;
+
+        END_OBJECT_CUSTOM()
     };
 
     class MaterialFactory

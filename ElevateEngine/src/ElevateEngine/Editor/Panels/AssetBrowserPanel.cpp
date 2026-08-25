@@ -10,6 +10,7 @@
 
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/PathResolver.h>
+#include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Core/Files.h>
 #include <ElevateEngine/Inputs/Input.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
@@ -35,16 +36,13 @@ void Elevate::Editor::AssetBrowserPanel::OnUpdate()
 	}
 }
 
-void DrawContextMenu()
-{
-	if (ImGui::BeginMenu("Create"))
-	{
-		ImGui::EndMenu();
-	}
-}
-
 void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 {
+	if (m_assetCreationList.empty())
+	{
+		BuildAssetNodeCache();
+	}
+
 	ImGui::Begin("Asset Browser");
 
 	if (ImGui::IsWindowHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Right))
@@ -227,6 +225,38 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 	}
 
 	ImGui::End();
+}
+
+void Elevate::Editor::AssetBrowserPanel::BuildAssetNodeCache()
+{
+	for (auto& entry : TypeRegistry::GetEntries())
+	{
+		auto trait = entry.second.GetTrait<EditorTypeTrait>();
+		if (trait->isCreatableAsset)
+		{
+			AssetCreationNode node;
+			node.Extension = trait->extension.c_str();
+			node.Name = trait->menuPath.c_str();
+			node.Factory = trait->factory;
+			m_assetCreationList.push_back(node);
+		}
+	}
+}
+
+void Elevate::Editor::AssetBrowserPanel::DrawContextMenu()
+{
+	if (ImGui::BeginMenu("Create"))
+	{
+		ImGui::MenuItem("Test Item");
+		for (auto& type : m_assetCreationList)
+		{
+			if (ImGui::MenuItem(type.Name))
+			{
+				// todo create asset here
+			}
+		}
+		ImGui::EndMenu();
+	}
 }
 
 void Elevate::Editor::AssetBrowserPanel::UpdateRelatedPaths()

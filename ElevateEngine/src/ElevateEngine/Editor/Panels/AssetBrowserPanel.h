@@ -7,6 +7,7 @@
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <set>
+#include <ElevateEngine/Core/EEObject.h>
 
 namespace Elevate::Editor {
 	
@@ -73,6 +74,17 @@ namespace Elevate::Editor {
 		void OnImGuiRender() override;
 
 	private:
+		struct AssetCreationNode
+		{
+			const char* Name;
+			const char* Extension;
+			std::function<std::shared_ptr<EEObject>()> Factory = nullptr;
+		};
+		void BuildAssetNodeCache();
+		std::vector<AssetCreationNode> m_assetCreationList;
+
+		void DrawContextMenu();
+
 		// Update the paths at the top of the browser
 		void UpdateRelatedPaths();
 		void AddParentPaths(std::filesystem::path path);

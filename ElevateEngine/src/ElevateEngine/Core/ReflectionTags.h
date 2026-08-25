@@ -14,7 +14,7 @@ namespace Elevate
 #endif
 
 	struct CreateAssetMenuTag { const char* Path; const char* Ext; };
-#define EE_CreateAssetMenu(path, ext) EE_EditorTag(CreateAssetMenuTag{path, ext})
+#define EE_CreateAssetMenu(path, ext) EE_EditorTag((CreateAssetMenuTag{path, ext}))
 
 	struct HideInInspectorTag {};
 #define EE_HideInInspector EE_EditorTag(HideInInspectorTag {})

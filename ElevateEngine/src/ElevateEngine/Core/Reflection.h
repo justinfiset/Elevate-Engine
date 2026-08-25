@@ -76,7 +76,7 @@ private: \
     } generated_##param##PropertyEntry; \
 public:
 
-#define END_OBJECT() \
+#define END_OBJECT_CUSTOM() \
 private: \
     inline static struct ClassEntryEnd { \
         ClassEntryEnd() { \
@@ -90,32 +90,36 @@ private: \
     } generated_classEntryEnd; \
 public: \
     inline virtual std::string GetName() const override { return generated_classEntry.ClassName; } \
+    virtual std::type_index GetTypeIndex() const override { return typeid(ThisType); }
+
+#define END_OBJECT() \
+    END_OBJECT_CUSTOM() \
+public: \
     virtual ::Elevate::TypeLayout GetLayout() const override { \
-        std::vector<::Elevate::TypeField> allFields; \
-        \
-        if constexpr (requires { typename ThisType::Super; }) { \
-            auto& registryMap = ::Elevate::TypeRegistry::GetReflectedTypes(); \
-            auto it = registryMap.find(typeid(typename ThisType::Super)); \
-            if (it != registryMap.end()) { \
-                for (const auto& field : it->second) { \
-                    allFields.push_back(field); \
+            std::vector<::Elevate::TypeField> allFields; \
+            \
+            if constexpr (requires { typename ThisType::Super; }) { \
+                auto& registryMap = ::Elevate::TypeRegistry::GetReflectedTypes(); \
+                auto it = registryMap.find(typeid(typename ThisType::Super)); \
+                if (it != registryMap.end()) { \
+                    for (const auto& field : it->second) { \
+                        allFields.push_back(field); \
+                    } \
                 } \
             } \
-        } \
-        \
-        for (const ::Elevate::TypeField& field : generated_classEntry.ClassFieldStack) { \
-            allFields.push_back(field); \
-        } \
-        \
-        std::vector<::Elevate::TypeField> instanceFields; \
-        for (const ::Elevate::TypeField& field : allFields) { \
-            ::Elevate::TypeField instField = field; \
-            instField.data = reinterpret_cast<const char*>(this) + field.offset; \
-            instanceFields.push_back(instField); \
-        } \
-        return ::Elevate::TypeLayout(this, generated_classEntry.ClassName, instanceFields); \
-    } \
-    virtual std::type_index GetTypeIndex() const override { return typeid(ThisType); }
+            \
+            for (const ::Elevate::TypeField& field : generated_classEntry.ClassFieldStack) { \
+                allFields.push_back(field); \
+            } \
+            \
+            std::vector<::Elevate::TypeField> instanceFields; \
+            for (const ::Elevate::TypeField& field : allFields) { \
+                ::Elevate::TypeField instField = field; \
+                instField.data = reinterpret_cast<const char*>(this) + field.offset; \
+                instanceFields.push_back(instField); \
+            } \
+            return ::Elevate::TypeLayout(this, generated_classEntry.ClassName, instanceFields); \
+        }
 
 // =======================================================
 // BEGIN_COMPONENT / END_COMPONENT

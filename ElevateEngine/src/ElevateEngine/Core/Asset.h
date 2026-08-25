@@ -2,12 +2,16 @@
 
 #include <string>
 
+#include <ElevateEngine/Core/Reflection.h>
 #include <ElevateEngine/Core/EEObject.h>
 
 namespace Elevate
 {
 	class Asset : public EEObject
 	{
+		BEGIN_OBJECT(Asset)
+		using Super = Asset;
+
 	public:
 		Asset() = default;
 		virtual ~Asset() = default;
@@ -47,5 +51,7 @@ namespace Elevate
 		bool m_isOnDisk = false;
 		bool m_isLoaded = false;
 		std::string m_path;
+
+		END_OBJECT()
 	};
 }
