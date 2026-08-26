@@ -2,6 +2,7 @@
 
 #include <string>
 #include <variant>
+#include <typeindex>
 
 #include <ElevateEngine/Core/AssetRegistry.h>
 
@@ -38,21 +39,22 @@ namespace Elevate
 		CreateAssetMenuTag, AssetColorTag	
 	>;
 
-	template<typename... Args>
+	template<typename T, typename... Args>
 	inline AssetMetaData BuildAssetMetaData(const std::string& name, const std::string& ext, Args&&... args)
 	{
 		AssetMetaData meta;
 		meta.TypeName = name;
 		meta.Extension = ext;
+		meta.TypeIndex = typeid(T);
 
 		auto processTag = [&meta](const auto& tag)
 		{
-			using T = std::decay_t<decltype(tag)>;
-			if constexpr (std::is_same_v<T, CreateAssetMenuTag>)
+			using Tag = std::decay_t<decltype(tag)>;
+			if constexpr (std::is_same_v<Tag, CreateAssetMenuTag>)
 			{
 				meta.Flags |= AssetFlags::CreateAssetMenu;
 			}
-			else if constexpr (std::is_same_v<T, AssetColorTag>)
+			else if constexpr (std::is_same_v<Tag, AssetColorTag>)
 			{
 				meta.AssetColor = glm::vec4(tag.r, tag.g, tag.b, 1.0f);
 			}
@@ -62,7 +64,7 @@ namespace Elevate
 		return meta;
 	}
 
-#define EE_Asset(name, extension, ...) EE_EditorTag(AssetTag{BuildAssetMetaData(name, extension, ##__VA_ARGS__)})
+#define EE_Asset(name, extension, ...) EE_EditorTag(AssetTag{BuildAssetMetaData<ThisType>(name, extension, ##__VA_ARGS__)})
 
 	// Editor Analyser Tags
 

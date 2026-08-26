@@ -52,4 +52,19 @@ namespace Elevate
 	{
 		return std::equal(std::begin(m_bytes), std::end(m_bytes), std::begin(other.m_bytes));
 	}
+
+	std::size_t Guid::GetHash() const noexcept
+	{
+		uint64_t high, low;
+		std::memcpy(&high, m_bytes, sizeof(uint64_t));
+		std::memcpy(&low, m_bytes + 8, sizeof(uint64_t));
+		std::size_t h1 = std::hash<uint64_t>{}(high);
+		std::size_t h2 = std::hash<uint64_t>{}(low);
+		return h1 ^ (h2 + 0x9e3779b9 + (h1 << 6) + (h1 >> 2));
+	}
+
+	bool Guid::operator!=(const Guid& other) const
+	{
+		return !(*this == other);
+	}
 }

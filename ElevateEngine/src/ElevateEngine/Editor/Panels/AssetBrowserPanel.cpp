@@ -23,10 +23,16 @@
 
 namespace fs = std::filesystem;
 
+const auto rootPath = fs::path(EE_CONTENT_ROOT).lexically_normal();
+
 Elevate::Editor::AssetBrowserPanel::AssetBrowserPanel()
 {
 	LoadExtensionsMeta();
 	m_folderTexture = Texture::CreateFromFile(m_FileMetadata["DIRECTORY"].iconPath);
+
+	m_CurrentPath = rootPath;
+	m_shouldUpdate = true;
+
 	EE_CORE_INFO("Editor Assets Browser Initiated.");
 }
 
@@ -56,10 +62,13 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 	}
 
 	ImGui::BeginGroup();
+
+	int id = 0;
 	for (auto it = m_relatedPaths.rbegin(); it != m_relatedPaths.rend(); ++it)
 	{
 		ImGui::BeginDisabled(it->Path == m_CurrentPath);
-		if (ImGui::Button(it->DisplayName.c_str()))
+		std::string buttonLabel = it->DisplayName + "##btn_" + std::to_string(id++);
+		if (ImGui::Button(buttonLabel.c_str()))
 		{
 			m_CurrentPath = it->Path;
 			m_shouldUpdate = true;
@@ -81,7 +90,8 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 
 	int index = 0;
 
-	if (m_CurrentPath != ".") {
+	if (m_CurrentPath != rootPath && m_CurrentPath.has_parent_path())
+	{
 		ImGui::PushID(index);
 		ImGui::BeginGroup();
 		ImGui::ImageButton("back", (ImTextureID) m_folderTexture->GetNativeHandle(), buttonSize);
@@ -135,8 +145,12 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 
 		if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
 			if (item.type == Directory) {
-				m_CurrentPath += "/" + item.name;
+				m_CurrentPath /= item.name;
 				m_shouldUpdate = true;
+
+				ImGui::EndGroup();
+				ImGui::PopID();
+				break;
 			}
 			else {
 				Files::OpenWithDefaultApp(item.path);
@@ -294,18 +308,37 @@ void Elevate::Editor::AssetBrowserPanel::UpdateRelatedPaths()
 {
 	m_relatedPaths.clear();
 
-	std::string displayName = m_CurrentPath == "." ? "Game Content" : m_CurrentPath.filename().string();
+	const auto currentNorm = fs::weakly_canonical(m_CurrentPath);
+	const auto rootNorm = fs::weakly_canonical(rootPath);
+
+	std::string displayName = (currentNorm == rootNorm) ? "Game Content" : currentNorm.filename().string();
 	m_relatedPaths.push_back({ m_CurrentPath, displayName });
-	AddParentPaths(m_CurrentPath);
+
+	if (currentNorm != rootNorm)
+	{
+		AddParentPaths(m_CurrentPath);
+	}
 }
 
 void Elevate::Editor::AssetBrowserPanel::AddParentPaths(std::filesystem::path path)
 {
-	if (path.has_parent_path())
+	if (!path.has_parent_path())
+		return;
+
+	std::filesystem::path parent = path.parent_path();
+	const auto parentNorm = fs::weakly_canonical(parent);
+	const auto rootNorm = fs::weakly_canonical(rootPath);
+
+	if (parentNorm == rootNorm)
 	{
-		std::filesystem::path parent = path.parent_path();
-		std::string displayName = parent == "." ? "Game Content" : parent.filename().string();
-		m_relatedPaths.push_back({ parent, displayName });
+		m_relatedPaths.push_back({ parent, "Game Content" });
+		return;
+	}
+
+	m_relatedPaths.push_back({ parent, parentNorm.filename().string() });
+
+	if (parentNorm != rootNorm && parentNorm.string().find(rootNorm.string()) == 0)
+	{
 		AddParentPaths(parent);
 	}
 }
@@ -390,7 +423,8 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
 {
 	std::string resolvedPath = PathResolver::Resolve(filepath);
 	FILE* fp = fopen(resolvedPath.c_str(), "r");
-	if (!fp) {
+	if (!fp)
+	{
 		EE_CORE_ERROR("Cannot open JSON file : {}", resolvedPath);
 		return;
 	}

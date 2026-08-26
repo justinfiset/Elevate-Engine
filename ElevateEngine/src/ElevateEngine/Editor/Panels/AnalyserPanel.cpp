@@ -252,6 +252,9 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field) const
 		}
 		break;
 
+	case EngineDataType::GUID: // We do not display the guid
+		break;
+
 	default:
 		ImGui::TextColored(ImVec4(1, 0, 0, 1), "Unsupported data type: %s", field.name.c_str());
 		break;

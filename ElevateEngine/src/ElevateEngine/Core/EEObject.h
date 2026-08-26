@@ -20,6 +20,8 @@ namespace Elevate
 		Guid m_guid;
 
 	public:
+		static constexpr const char* GuidFieldName = "m_guid";
+
 		EEObject() : m_guid(Guid::New()) { }
 		EEObject(EECategory category)
 			: m_category(category), m_guid(Guid::New()) { }

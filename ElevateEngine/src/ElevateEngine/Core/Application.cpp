@@ -9,6 +9,7 @@
 #include "ElevateEngine/Core/Log.h"
 #include "ElevateEngine/Core/Assert.h"
 #include "ElevateEngine/Core/Layers/LayerStack.h"
+#include <ElevateEngine/Core/AssetRegistry.h>
 
 #include "ElevateEngine/Renderer/Renderer.h"
 #include "ElevateEngine/Renderer/Texture/TextureManager.h"
@@ -111,6 +112,7 @@ namespace Elevate {
 
 	void Application::Init()
 	{
+		AssetRegistry::Init();
 		Renderer::Init(m_Window->GetWidth(), m_Window->GetHeight());
 		SoundEngine::Init();
 	}
