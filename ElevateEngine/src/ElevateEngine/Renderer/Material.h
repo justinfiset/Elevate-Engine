@@ -36,29 +36,36 @@ namespace Elevate
 
     public:
         virtual TypeLayout GetLayout() const override {
-            std::vector<::Elevate::TypeField> allFields;
+            std::vector<TypeField> allFields;
 
-            if (!m_shader)
+            TypeField guidField(
+                "m_guid",
+                EngineDataType::GUID,
+                GetGuidOffset()
+            );
+            guidField.data = reinterpret_cast<const char*>(this) + GetGuidOffset();
+            allFields.push_back(guidField);
+
+            if (m_shader)
             {
-                return TypeLayout();
-            }
-            const auto& layout = m_shader->GetLayout();
+                const auto& layout = m_shader->GetLayout();
 
-            for (const auto& uniform : layout)
-            {
-                if (uniform.Type == ShaderDataType::Sampler2D) continue;
-
-                if (uniform.Name == EE_SHADER_VIEWPROJ ||
-                    uniform.Name == EE_SHADER_CAMPOS ||
-                    uniform.Name == EE_SHADER_MODEL)
+                for (const auto& uniform : layout)
                 {
-                    continue;
-                }
+                    if (uniform.Type == ShaderDataType::Sampler2D) continue;
 
-                if (m_definedUniforms[uniform.Index])
-                {
-                    TypeField field(uniform.Name, uniform.Type, m_buffer.data() + uniform.Offset);
-                    allFields.push_back(field);
+                    if (uniform.Name == EE_SHADER_VIEWPROJ ||
+                        uniform.Name == EE_SHADER_CAMPOS ||
+                        uniform.Name == EE_SHADER_MODEL)
+                    {
+                        continue;
+                    }
+
+                    if (m_definedUniforms[uniform.Index])
+                    {
+                        TypeField field(uniform.Name, uniform.Type, m_buffer.data() + uniform.Offset);
+                        allFields.push_back(field);
+                    }
                 }
             }
 

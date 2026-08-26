@@ -1,5 +1,6 @@
 #include "TypeLayout.h"
 
+#include <ElevateEngine/Core/Guid.h>
 #include <ElevateEngine/Core/TypeField.h>
 #include <ElevateEngine/Serialization/PropertyField.h>
 
@@ -78,6 +79,12 @@ namespace Elevate
             break;
         case EngineDataType::String:
             prop.Value = *reinterpret_cast<const std::string*>(field.data);
+            break;
+        case EngineDataType::GUID:
+            if (auto* guidPtr = reinterpret_cast<const Guid*>(field.data))
+            {
+                prop.Value = guidPtr->ToString();
+            }
             break;
         default:
             break;
@@ -339,6 +346,10 @@ namespace Elevate
                     case EngineDataType::String:
                         if (std::holds_alternative<std::string>(it->Value))
                             *reinterpret_cast<std::string*>(mutableData) = std::get<std::string>(it->Value);
+                        break;
+                    case EngineDataType::GUID:
+                        if (std::holds_alternative<std::string>(it->Value))
+                            *reinterpret_cast<Guid*>(mutableData) = Guid::FromString(std::get<std::string>(it->Value));
                         break;
                     default:
                         break;

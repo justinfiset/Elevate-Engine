@@ -9,6 +9,7 @@ namespace Elevate
     {
     public:
         static Guid New();
+        static Guid FromString(const std::string& str);
 
         std::string ToString() const;
         ByteBuffer ToBytes() const;

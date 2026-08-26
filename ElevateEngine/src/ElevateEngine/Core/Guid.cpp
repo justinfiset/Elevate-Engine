@@ -1,6 +1,9 @@
 #include "Guid.h"
 
+#include <string>
 #include <uuid.h>
+
+#include <ElevateEngine/Core/Log.h>
 
 namespace Elevate
 {
@@ -14,6 +17,21 @@ namespace Elevate
 
 		Guid result;
 		std::span<std::byte const, 16> bytes = id.as_bytes();
+		std::copy(bytes.begin(), bytes.end(), result.m_bytes);
+		return result;
+	}
+
+	Guid Guid::FromString(const std::string& str)
+	{
+		auto idOpt = uuids::uuid::from_string(str);
+		if (!idOpt.has_value())
+		{
+			EE_CORE_ERROR("Failed to parse guid from string : {}", str);
+			return Guid{}; // Return an ampty guid
+		}
+
+		Guid result;
+		std::span<std::byte const, 16> bytes = idOpt->as_bytes();
 		std::copy(bytes.begin(), bytes.end(), result.m_bytes);
 		return result;
 	}

@@ -24,6 +24,7 @@ namespace Elevate
         std::vector<TypeField>::iterator end() { return m_fields.end(); }
         std::vector<TypeField>::const_iterator begin() const { return m_fields.begin(); }
         std::vector<TypeField>::const_iterator end() const { return m_fields.end(); }
+
         size_t GetFieldCount() const { return m_fields.size(); }
         const std::vector<TypeField>& GetFields() const { return m_fields; }
 

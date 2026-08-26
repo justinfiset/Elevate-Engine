@@ -97,7 +97,11 @@ public: \
 public: \
     virtual ::Elevate::TypeLayout GetLayout() const override { \
             std::vector<::Elevate::TypeField> allFields; \
-            \
+            allFields.push_back(::Elevate::TypeField( \
+                "m_guid", \
+                ::Elevate::EngineDataType::GUID, \
+                ::Elevate::EEObject::GetGuidOffset() \
+            )); \
             if constexpr (requires { typename ThisType::Super; }) { \
                 auto& registryMap = ::Elevate::TypeRegistry::GetReflectedTypes(); \
                 auto it = registryMap.find(typeid(typename ThisType::Super)); \

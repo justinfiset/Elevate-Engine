@@ -28,6 +28,9 @@ namespace Elevate
 		virtual EECategory GetCategory() const { return m_category; }
 		const Guid& GetGuid() const { return m_guid; }
 
+		static constexpr size_t GetGuidOffset() { return offsetof(EEObject, m_guid); }
+		const void* GetGuidAddress() const { return &m_guid; }
+
 		// If no overrode, an empty layout is generated and nothing is shown in the inspector
 		virtual std::string GetName() const { return "EEObject"; }
 		virtual TypeLayout GetLayout() const { return TypeLayout(nullptr, GetName(), {}); }
