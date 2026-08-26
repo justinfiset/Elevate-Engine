@@ -12,6 +12,7 @@
 #include <glm/fwd.hpp>
 
 #include <ElevateEngine/Core/EEObject.h>
+#include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Core/ReflectionTags.h>
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/Log.h>
@@ -84,6 +85,20 @@ namespace Elevate
 	template<typename T>
 	inline constexpr bool is_engine_array_v = is_engine_array<T>::value;
 
+	template<typename T>
+	struct ee_ptr_target { using type = void; };
+	template<typename T>
+	struct ee_ptr_target<EEObjectPtr<T>> { using type = T; };
+	template<typename T>
+	using ee_ptr_target_t = typename ee_ptr_target<T>::type;
+
+	template<typename T>
+	struct is_ee_object_ptr : std::false_type {};
+	template<typename T>
+	struct is_ee_object_ptr<EEObjectPtr<T>> : std::true_type {};
+	template<typename T>
+	inline constexpr bool is_ee_object_ptr_v = is_ee_object_ptr<T>::value;
+
 	template<typename T, typename = void>
 	struct EngineDataTypeTrait
 	{
@@ -101,6 +116,11 @@ namespace Elevate
 	template<typename T> struct EngineDataTypeTrait<T, std::enable_if_t<is_engine_array_v<T>>>
 	{
 		static constexpr EngineDataType value = EngineDataType::Array;
+	};
+	template<typename T>
+	struct EngineDataTypeTrait<T, std::enable_if_t<is_ee_object_ptr_v<T>>>
+	{
+		static constexpr EngineDataType value = EngineDataType::ObjectPtr;
 	};
 
 	struct ITypeTrait

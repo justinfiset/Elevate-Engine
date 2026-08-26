@@ -13,6 +13,38 @@ namespace fs = std::filesystem;
 namespace Elevate
 {
     std::unordered_map<Guid, AssetEntry> AssetRegistry::s_indexedAssets;
+    
+    std::string FormatAssetNameForUI(const std::filesystem::path& filePath)
+    {
+        std::string rawName = filePath.stem().string();
+
+        std::string result;
+        result.reserve(rawName.size());
+
+        bool capitalizeNext = true;
+        for (char c : rawName)
+        {
+            if (c == '_' || c == '-')
+            {
+                result += ' ';
+                capitalizeNext = true;
+            }
+            else
+            {
+                if (capitalizeNext && std::isalpha(static_cast<unsigned char>(c)))
+                {
+                    result += static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
+                    capitalizeNext = false;
+                }
+                else
+                {
+                    result += c;
+                }
+            }
+        }
+
+        return result;
+    }
 
     void AssetRegistry::Init()
     {
@@ -47,6 +79,7 @@ namespace Elevate
                 Guid guid = ExtractGuidFromFile(entry.path());
                 s_indexedAssets[guid] = AssetEntry{
                     .Guid = guid,
+                    .AssetName = FormatAssetNameForUI(entry),
                     .FilePath = entry.path(),
                     .TypeIndex = typeMeta.TypeIndex,
                     .isOnDisk = true,
@@ -68,6 +101,16 @@ namespace Elevate
             }
         }
         return guids;
+    }
+
+    const AssetEntry* AssetRegistry::GetEntry(const Guid& guid)
+    {
+        auto it = s_indexedAssets.find(guid);
+        if (it != s_indexedAssets.end())
+        {
+            return &it->second;
+        }
+        return nullptr;
     }
 
     void AssetRegistry::_Init()
@@ -148,6 +191,7 @@ namespace Elevate
             AssetEntry& entry = s_indexedAssets.at(assetGuid);
             entry.Instance.reset(asset);
             entry.isLoaded = true;
+            entry.AssetName = asset->GetName();
         }
         else
         {
@@ -158,6 +202,7 @@ namespace Elevate
                 .isOnDisk = false,
                 .isLoaded = true,
             };
+            entry.AssetName = asset->GetName();
             entry.Instance.reset(asset);
             s_indexedAssets[assetGuid] = entry;
         }

@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <typeindex>
 #include <functional>
 
 #include <ElevateEngine/Core/Data.h>
@@ -20,6 +21,7 @@ namespace Elevate
         bool flatten = false;
         bool readOnly = false;
         bool isColor = false;
+        std::type_index targetType{ typeid(void) };
         std::vector<TypeField> children;
 
         EngineDataType elementType = EngineDataType::Custom;
@@ -70,13 +72,13 @@ namespace Elevate
         }
 
         TypeField(const std::string& name, EngineDataType type, const void* dataPtr)
-            : name(name), type(type), data(dataPtr) {
+            : name(name), type(type), data(const_cast<void*>(dataPtr)) {
         }
 
         TypeField(const TypeField& original, const void* dataPtr)
             : name(original.name), type(original.type), offset(original.offset), size(original.size),
             displayName(original.displayName), flatten(original.flatten), readOnly(original.readOnly),
-            isColor(original.isColor), data(dataPtr),
+            isColor(original.isColor), data(const_cast<void*>(dataPtr)),
             elementType(original.elementType), elementChildren(original.elementChildren),
             GetArraySize(original.GetArraySize), GetElementAddress(original.GetElementAddress),
             ResizeArray(original.ResizeArray)

@@ -4,14 +4,14 @@
 
 // Todo remove and add as a tag
 #define EECATEGORY(name) \
-    private: \
-        inline static struct categoryRegistrar { \
-            categoryRegistrar() { \
-                generated_classEntry.Category = EECategory(name); \
-            } \
-        } generated_categoryRegistrar; \
-        virtual EECategory GetCategory() const override { return generated_classEntry.Category; } \
-    public:
+private: \
+    inline static struct categoryRegistrar { \
+        categoryRegistrar() { \
+            ThisType::generated_classEntry.Category = ::Elevate::EECategory(name); \
+        } \
+    } generated_categoryRegistrar; \
+public: \
+    virtual ::Elevate::EECategory GetCategory() const override { return ThisType::generated_classEntry.Category; }
 
 namespace Elevate::Internal {
     template<typename T, typename = void>

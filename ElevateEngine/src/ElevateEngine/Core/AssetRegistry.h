@@ -17,6 +17,7 @@ namespace Elevate
 	struct AssetEntry
 	{
 		Guid Guid;
+		std::string AssetName;
 		std::filesystem::path FilePath;
 		std::type_index TypeIndex{ typeid(void) };
 
@@ -41,6 +42,7 @@ namespace Elevate
 		static void Init();
 
 		static std::vector<Guid> GetAssetsOfType(std::type_index typeIndex);
+		static const AssetEntry* GetEntry(const Guid& guid);
 
 		static const AssetMetaData* GetMetaFromExtension(const std::string& extension);
 		static const AssetMetaData* GetMetaFromTypeName(const std::string& typeName);

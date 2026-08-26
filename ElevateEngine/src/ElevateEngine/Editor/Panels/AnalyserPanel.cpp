@@ -9,12 +9,21 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <ElevateEngine/Editor/EditorLayer.h>
 #include <ElevateEngine/ImGui/CustomImGuiCommand.h>
+#include <ElevateEngine/Renderer/Texture/TextureManager.h>
 
 #include <ElevateEngine/Editor/Commands/ComponentCommand.h>
+#include <ElevateEngine/Editor/EditorLayer.h>
+
+#include <ElevateEngine/Core/AssetRegistry.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Core/Component.h>
+
+Elevate::Editor::AnalyserPanel::AnalyserPanel()
+{
+	pickerIcon = Texture::CreateFromFile("editor://Icons/Light/adjust.png");
+	noneIcon = Texture::CreateFromFile("editor://Icons/Light/block.png");
+}
 
 void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 {
@@ -185,7 +194,7 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const TypeLayout& lay
 	}
 }
 
-void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field) const
+void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 {
 	if (!field.data && field.type != EngineDataType::Custom)
 	{
@@ -254,6 +263,81 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field) const
 
 	case EngineDataType::GUID: // We do not display the guid
 		break;
+
+	case EngineDataType::ObjectPtr:
+	{
+		// Convert to a non const EEObjectPtr of EEObject
+		auto* eePtr = const_cast<EEObjectPtr<EEObject>*>(reinterpret_cast<const EEObjectPtr<EEObject>*>(field.data));
+
+		if (eePtr)
+		{
+			std::string displayName = (*eePtr) ? (*eePtr)->GetName() : "None (EEObject)";
+
+			char buf[128];
+			strncpy_s(buf, displayName.c_str(), sizeof(buf));
+
+			float buttonSize = ImGui::GetFrameHeight() - ImGui::GetStyle().ItemInnerSpacing.y;
+			float spacing = ImGui::GetStyle().ItemInnerSpacing.x;
+			float totalWidth = ImGui::CalcItemWidth();
+
+			ImGui::SetNextItemWidth(totalWidth - buttonSize - spacing);
+			ImGuiStyle& style = ImGui::GetStyle();
+
+			ImVec4 textDisabled = style.Colors[ImGuiCol_TextDisabled];
+			ImVec4 frameBgDisabled = style.Colors[ImGuiCol_FrameBg];
+			frameBgDisabled.w *= style.DisabledAlpha;
+
+			ImGui::PushStyleColor(ImGuiCol_FrameBg, frameBgDisabled);
+			ImGui::PushStyleColor(ImGuiCol_Text, textDisabled);
+
+			std::string inputID = "##" + field.name;
+			ImGui::InputText(inputID.c_str(), buf, sizeof(buf), ImGuiInputTextFlags_ReadOnly | ImGuiInputTextFlags_AutoSelectAll);
+
+			ImGui::PopStyleColor(2);
+
+			ImGui::SameLine(0, spacing);
+			if (ImGui::ImageButton("##picker", (ImTextureID)pickerIcon->GetNativeHandle(), ImVec2(buttonSize, buttonSize)))
+			{
+				ImGui::OpenPopup("AssetPickerPopup");
+			}
+
+			ImGui::SameLine(0, ImGui::GetStyle().ItemSpacing.x);
+			ImGui::TextUnformatted(field.GetDisplayName().c_str());
+
+			if (ImGui::BeginPopup("AssetPickerPopup"))
+			{
+				ImGui::TextDisabled("Select %s", field.GetDisplayName().c_str());
+				ImGui::Separator();
+
+				if (ImGui::Selectable("##"))
+				{
+					eePtr->reset();
+				}
+				ImGui::SameLine(ImGui::GetStyle().ItemSpacing.x);
+				ImGui::Image((ImTextureID)noneIcon->GetNativeHandle(), ImVec2(buttonSize, buttonSize));
+				ImGui::SameLine();
+				ImGui::Text("None");
+				
+				for (auto& guid : AssetRegistry::GetAssetsOfType(field.targetType))
+				{
+					auto* entry = AssetRegistry::GetEntry(guid);
+					if (entry)
+					{
+						if (ImGui::Selectable(entry->AssetName.c_str()))
+						{
+							eePtr->reset(entry->Instance.get());
+						}
+					}
+				}
+				ImGui::EndPopup();
+			}
+		}
+		else
+		{
+			ImGui::TextColored(ImVec4(1, 0, 0, 1), "[Null Data EEObjectPtr] %s", field.GetDisplayName().c_str());
+		}
+		break;
+	}
 
 	default:
 		ImGui::TextColored(ImVec4(1, 0, 0, 1), "Unsupported data type: %s", field.name.c_str());

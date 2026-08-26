@@ -83,7 +83,12 @@ namespace Elevate
             using ElementType = typename CleanedFieldT::value_type;
             field.elementType = DeduceEngineDataType<ElementType>();
 
-            if constexpr (std::is_class_v<ElementType> && !std::is_same_v<ElementType, std::string>)
+            if constexpr (is_ee_object_ptr_v<ElementType>)
+            {
+                using TargetT = ee_ptr_target_t<ElementType>;
+                field.targetType = typeid(TargetT);
+            }
+            else if constexpr (std::is_class_v<ElementType> && !std::is_same_v<ElementType, std::string>)
             {
                 auto& customFields = GetReflectedTypes();
                 std::type_index ti = typeid(ElementType);
@@ -111,6 +116,12 @@ namespace Elevate
                 auto* vec = static_cast<CleanedFieldT*>(vecPtr);
                 vec->resize(newSize);
                 };
+        }
+        else if constexpr (is_ee_object_ptr_v<CleanedFieldT>)
+        {
+            field = TypeField(name, EngineDataType::ObjectPtr, offset, meta.displayName);
+            using TargetT = ee_ptr_target_t<CleanedFieldT>;
+            field.targetType = typeid(TargetT);
         }
         else if (type == EngineDataType::Custom)
         {
