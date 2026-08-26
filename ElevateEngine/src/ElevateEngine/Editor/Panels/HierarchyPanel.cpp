@@ -13,7 +13,7 @@ namespace Elevate::Editor
 	{
 		ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_OpenOnArrow;
 
-		if (!object->HasChild())
+		if (object->HasChild())
 		{
 			nodeFlags |= ImGuiTreeNodeFlags_Leaf;
 		}
