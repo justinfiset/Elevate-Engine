@@ -13,7 +13,7 @@
 
 namespace Elevate
 {
-	class EEObject : public ITypeLayoutProvider
+	class EEObject : public ITypeLayoutProvider, public std::enable_shared_from_this<EEObject>
 	{
 	protected:
 		EECategory m_category;

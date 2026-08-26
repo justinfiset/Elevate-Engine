@@ -12,6 +12,7 @@
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/PathResolver.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
+#include <ElevateEngine/Core/AssetRegistry.h>
 #include <ElevateEngine/Core/Files.h>
 
 #include <ElevateEngine/Inputs/Input.h>

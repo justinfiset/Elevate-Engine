@@ -4,7 +4,7 @@
 #include <variant>
 #include <typeindex>
 
-#include <ElevateEngine/Core/AssetRegistry.h>
+#include <ElevateEngine/Core/AssetMetaData.h>
 
 namespace Elevate
 {
@@ -21,14 +21,7 @@ namespace Elevate
 	struct AssetTag
 	{
 		AssetMetaData Meta;
-
-		AssetTag(const AssetMetaData& meta)
-		{
-			Meta = meta;
-#ifdef EE_EDITOR_BUILD
-			AssetRegistry::RegisterAssetType(meta);
-#endif
-		}
+		AssetTag(const AssetMetaData& meta);
 	};
 	struct CreateAssetMenuTag { const char* Path; const char* Ext; };
 #define EE_CreateAssetMenu EE_EditorTag(CreateAssetMenuTag{})

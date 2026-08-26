@@ -15,7 +15,7 @@ namespace Elevate
 			if (m_component)
 			{
 				try {
-					m_obj = comp->gameObject->shared_from_this();
+					m_obj = comp->gameObject->GetShared();
 				}
 				catch (...) {}
 

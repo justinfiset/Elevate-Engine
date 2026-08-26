@@ -76,6 +76,33 @@ namespace Elevate
 			m_ptr = std::move(ptr);
 		}
 
+		void reset(T* rawPtr)
+		{
+			static_assert(std::is_base_of_v<EEObject, T>, "T must derive from EEObject");
+			if (rawPtr)
+			{
+				m_ptr = std::static_pointer_cast<T>(rawPtr->shared_from_this());
+			}
+			else
+			{
+				m_ptr.reset();
+			}
+		}
+
+		void reset(const T* rawPtr)
+		{
+			static_assert(std::is_base_of_v<EEObject, T>, "T must derive from EEObject");
+			if (rawPtr)
+			{
+				auto nonConst = const_cast<T*>(rawPtr);
+				m_ptr = std::static_pointer_cast<T>(nonConst->shared_from_this());
+			}
+			else
+			{
+				m_ptr.reset();
+			}
+		}
+			
 		void reset() noexcept
 		{
 			m_ptr.reset();

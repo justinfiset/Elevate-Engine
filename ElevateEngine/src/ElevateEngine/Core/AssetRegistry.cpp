@@ -19,10 +19,8 @@ namespace Elevate
         Get()._Init();
     }
 
-    void AssetRegistry::_Init()
+    void AssetRegistry::RefreshFromDisk()
     {
-        EE_CORE_INFO("Initializing Asset Registry...");
-
         fs::path rootPath = EE_CONTENT_ROOT;
         if (!fs::exists(rootPath) || !fs::is_directory(rootPath))
         {
@@ -30,7 +28,7 @@ namespace Elevate
         }
 
         auto options = fs::directory_options::skip_permission_denied;
-        
+
         std::error_code ec;
         for (const auto& entry : fs::recursive_directory_iterator(rootPath, options, ec))
         {
@@ -50,10 +48,32 @@ namespace Elevate
                 s_indexedAssets[guid] = AssetEntry{
                     .Guid = guid,
                     .FilePath = entry.path(),
-                    .TypeIndex = typeMeta.TypeIndex
+                    .TypeIndex = typeMeta.TypeIndex,
+                    .isOnDisk = true,
+                    .isLoaded = false,
+                    .Instance = nullptr
                 };
             }
         }
+    }
+
+    std::vector<Guid> AssetRegistry::GetAssetsOfType(std::type_index typeIndex)
+    {
+        std::vector<Guid> guids;
+        for (const auto& [guid, entry] : s_indexedAssets)
+        {
+            if (entry.TypeIndex == typeIndex)
+            {
+                guids.push_back(guid);
+            }
+        }
+        return guids;
+    }
+
+    void AssetRegistry::_Init()
+    {
+        EE_CORE_INFO("Initializing Asset Registry...");
+        RefreshFromDisk();
     }
 
     Guid AssetRegistry::ExtractGuidFromFile(std::filesystem::path path)
@@ -113,5 +133,33 @@ namespace Elevate
         std::string ext = trait.Extension;
         std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
         instance.m_extensionMeta[ext] = trait;
+    }
+
+    void AssetRegistry::RegisterAsset(const Asset* asset)
+    {
+        if (!asset)
+        {
+            EE_CORE_ERROR("(AssetRegistry::RegisterAsset) : Tried to register a nullptr Asset in the Asset Registry.");
+        }
+
+        Guid assetGuid = asset->GetGuid();
+        if (s_indexedAssets.contains(assetGuid))
+        {
+            AssetEntry& entry = s_indexedAssets.at(assetGuid);
+            entry.Instance.reset(asset);
+            entry.isLoaded = true;
+        }
+        else
+        {
+            AssetEntry entry{
+                .Guid = assetGuid,
+                .FilePath = "[Runtime Asset]",
+                .TypeIndex = asset->GetTypeIndex(),
+                .isOnDisk = false,
+                .isLoaded = true,
+            };
+            entry.Instance.reset(asset);
+            s_indexedAssets[assetGuid] = entry;
+        }
     }
 }

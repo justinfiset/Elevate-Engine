@@ -166,11 +166,11 @@ namespace Elevate
 		{
 			if (m_parent)
 			{
-				m_parent->AddChild(shared_from_this());
+				m_parent->AddChild(GetShared());
 			}
 			else
 			{
-				m_scene->AddRootObject(shared_from_this());
+				m_scene->AddRootObject(GetShared());
 			}
 
 			auto& registryMap = GetRegistryMap();
@@ -224,6 +224,16 @@ Elevate::GameObject::~GameObject()
 	//} else EE_CORE_ERROR("Object '{0}' must be destroyed from an existing scene!", m_name);
 }
 
+std::shared_ptr<GameObject> GameObject::GetShared()
+{
+	return std::static_pointer_cast<GameObject>(shared_from_this());
+}
+
+std::weak_ptr<GameObject> GameObject::GetWeak()
+{
+	return std::static_pointer_cast<GameObject>(shared_from_this());
+}
+
 	std::vector<Component*> GameObject::GetComponents()
 	{
 		std::vector<Component*> components;
@@ -232,7 +242,7 @@ Elevate::GameObject::~GameObject()
 		for (auto& [type, entry] : TypeRegistry::GetEntries()) {
 			if (auto* trait = entry.GetTrait<ComponentTypeTrait>()) {
 				if (trait->getter) {
-					if (Component* component = trait->getter(weak_from_this())) {
+					if (Component* component = trait->getter(GetWeak())) {
 						components.push_back(component);
 					}
 				}
@@ -283,31 +293,31 @@ Elevate::GameObject::~GameObject()
 
 		if (m_parent)
 		{
-			m_parent->RemoveChild(shared_from_this());
+			m_parent->RemoveChild(GetShared());
 		}
 
 		this->m_parent = newParent;
 
 		if (newParent)
 		{
-			newParent->AddChild(shared_from_this());
+			newParent->AddChild(GetShared());
 			if (m_scene)
 			{
-				m_scene->RemoveFromRoot(shared_from_this());
+				m_scene->RemoveFromRoot(GetShared());
 			}
 		}
 		else {
-			m_scene->AddRootObject(shared_from_this());
+			m_scene->AddRootObject(GetShared());
 		}
 	}
 
 	void GameObject::Destroy()
 	{
 		if (m_parent) {
-			m_parent->RemoveChild(shared_from_this());
+			m_parent->RemoveChild(GetShared());
 		}
 		else {
-			m_scene->RemoveFromRoot(shared_from_this());
+			m_scene->RemoveFromRoot(GetShared());
 		}
 
 		auto childsCopy = m_childs;
@@ -326,7 +336,7 @@ Elevate::GameObject::~GameObject()
 	{
 		if (child)
 		{
-			child->m_parent = shared_from_this();
+			child->m_parent = GetShared();
 			m_childs.emplace(child);
 			m_scene->RemoveFromRoot(child);
 		}
