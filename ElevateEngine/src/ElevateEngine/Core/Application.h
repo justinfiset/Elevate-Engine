@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include <ElevateEngine/Core/Layers/LayerStack.h>
 #include <ElevateEngine/Core/Window.h>
 #include <ElevateEngine/Core/GameContext.h>
