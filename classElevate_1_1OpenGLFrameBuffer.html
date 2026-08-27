@@ -217,88 +217,90 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OpenGLFramebuffer_8cpp_source.html#l00019">19</a> of file <a class="el" href="OpenGLFramebuffer_8cpp_source.html">OpenGLFramebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   20</span>    {</div>
-<div class="line"><span class="lineno">   21</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glGenFramebuffers(1, &amp;m_frameBufferId));</div>
-<div class="line"><span class="lineno">   22</span>        <a class="code hl_function" href="classElevate_1_1OpenGLFrameBuffer.html#a507b5e313ddf94a10c03837691ded292">Bind</a>();</div>
-<div class="line"><span class="lineno">   23</span> </div>
-<div class="line"><span class="lineno">   24</span>        <span class="keywordflow">if</span> (!colorTextures.empty())</div>
-<div class="line"><span class="lineno">   25</span>        {</div>
-<div class="line"><span class="lineno">   26</span>            std::vector&lt;GLenum&gt; drawBuffers;</div>
-<div class="line"><span class="lineno">   27</span> </div>
-<div class="line"><span class="lineno">   28</span>            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; colorTextures.size(); ++i)</div>
-<div class="line"><span class="lineno">   29</span>            {</div>
-<div class="line"><span class="lineno">   30</span>                <span class="keyword">auto</span>&amp; tex = colorTextures[i];</div>
-<div class="line"><span class="lineno">   31</span>                EE_CORE_ASSERT(tex-&gt;GetWidth() &gt; 0 &amp;&amp; tex-&gt;GetHeight() &gt; 0, <span class="stringliteral">&quot;Framebuffer texture dimensions must be positive&quot;</span>);</div>
-<div class="line"><span class="lineno">   32</span> </div>
-<div class="line"><span class="lineno">   33</span>                GLuint texId = <span class="keyword">static_cast&lt;</span>GLuint<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span>intptr_t<span class="keyword">&gt;</span>(tex-&gt;GetNativeHandle()));</div>
-<div class="line"><span class="lineno">   34</span>                <a class="code hl_typedef" href="namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4">GLenum</a> attachmentPoint = GL_COLOR_ATTACHMENT0 + <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4">GLenum</a><span class="keyword">&gt;</span>(i);</div>
-<div class="line"><span class="lineno">   35</span> </div>
-<div class="line"><span class="lineno">   36</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentPoint, GL_TEXTURE_2D, texId, 0));</div>
-<div class="line"><span class="lineno">   37</span> </div>
-<div class="line"><span class="lineno">   38</span>                <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.emplace_back(tex, <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(i));</div>
-<div class="line"><span class="lineno">   39</span>                drawBuffers.push_back(attachmentPoint);</div>
-<div class="line"><span class="lineno">   40</span>            }</div>
-<div class="line"><span class="lineno">   41</span> </div>
-<div class="line"><span class="lineno">   42</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDrawBuffers(<span class="keyword">static_cast&lt;</span>GLsizei<span class="keyword">&gt;</span>(drawBuffers.size()), drawBuffers.data()));</div>
-<div class="line"><span class="lineno">   43</span>        }</div>
-<div class="line"><span class="lineno">   44</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   45</span>        {</div>
-<div class="line"><span class="lineno">   46</span><span class="preprocessor">#if defined(EE_PLATFORM_WEB)</span></div>
-<div class="line"><span class="lineno">   47</span>            <a class="code hl_typedef" href="namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4">GLenum</a> drawBuffers[1] = { GL_NONE };</div>
-<div class="line"><span class="lineno">   48</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDrawBuffers(1, drawBuffers));</div>
-<div class="line"><span class="lineno">   49</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">   50</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDrawBuffer(GL_NONE));</div>
-<div class="line"><span class="lineno">   51</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">   52</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glReadBuffer(GL_NONE));</div>
-<div class="line"><span class="lineno">   53</span>        }</div>
-<div class="line"><span class="lineno">   54</span> </div>
-<div class="line"><span class="lineno">   55</span>        <span class="keywordflow">if</span> (depthTexture)</div>
-<div class="line"><span class="lineno">   56</span>        {</div>
-<div class="line"><span class="lineno">   57</span>            GLuint depthId = <span class="keyword">static_cast&lt;</span>GLuint<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span>intptr_t<span class="keyword">&gt;</span>(depthTexture-&gt;GetNativeHandle()));</div>
-<div class="line"><span class="lineno">   58</span>            <a class="code hl_typedef" href="namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4">GLenum</a> attachmentType = (depthTexture-&gt;GetMetadata().Format == <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa085fd28dd1b882ea7d4129fdda3cb86">TextureFormat::DEPTHSTENCIL</a>)</div>
-<div class="line"><span class="lineno">   59</span>                ? GL_DEPTH_STENCIL_ATTACHMENT</div>
-<div class="line"><span class="lineno">   60</span>                : GL_DEPTH_ATTACHMENT;</div>
-<div class="line"><span class="lineno">   61</span> </div>
-<div class="line"><span class="lineno">   62</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, GL_TEXTURE_2D, depthId, 0));</div>
-<div class="line"><span class="lineno">   63</span>            <span class="keywordflow">if</span> (depthTexture-&gt;GetMetadata().WrapS == <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147">TextureWrap::ClampToBorder</a>)</div>
-<div class="line"><span class="lineno">   64</span>            {</div>
-<div class="line"><span class="lineno">   65</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindTexture(GL_TEXTURE_2D, depthId));</div>
-<div class="line"><span class="lineno">   66</span><span class="preprocessor">#if defined(EE_PLATFORM_WEB)</span></div>
-<div class="line"><span class="lineno">   67</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));</div>
-<div class="line"><span class="lineno">   68</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));</div>
-<div class="line"><span class="lineno">   69</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">   70</span>                <span class="keywordtype">float</span> borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };</div>
-<div class="line"><span class="lineno">   71</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor));</div>
-<div class="line"><span class="lineno">   72</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">   73</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindTexture(GL_TEXTURE_2D, 0));</div>
-<div class="line"><span class="lineno">   74</span>            }</div>
-<div class="line"><span class="lineno">   75</span> </div>
-<div class="line"><span class="lineno">   76</span>            <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a> = FramebufferDepthAttachment{ depthTexture, <span class="keyword">false</span> };</div>
-<div class="line"><span class="lineno">   77</span>        }</div>
-<div class="line"><span class="lineno">   78</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (depthAsRenderbuffer)</div>
-<div class="line"><span class="lineno">   79</span>        {</div>
-<div class="line"><span class="lineno">   80</span>            uint32_t w = colorTextures.empty() ? 1280 : colorTextures[0]-&gt;GetWidth();</div>
-<div class="line"><span class="lineno">   81</span>            uint32_t h = colorTextures.empty() ? 720 : colorTextures[0]-&gt;GetHeight();</div>
-<div class="line"><span class="lineno">   82</span> </div>
-<div class="line"><span class="lineno">   83</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glGenRenderbuffers(1, &amp;m_renderBufferId));</div>
-<div class="line"><span class="lineno">   84</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId));</div>
-<div class="line"><span class="lineno">   85</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, w, h));</div>
-<div class="line"><span class="lineno">   86</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_renderBufferId));</div>
-<div class="line"><span class="lineno">   87</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindRenderbuffer(GL_RENDERBUFFER, 0));</div>
-<div class="line"><span class="lineno">   88</span> </div>
-<div class="line"><span class="lineno">   89</span>            <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a> = FramebufferDepthAttachment{ <span class="keyword">nullptr</span>, <span class="keyword">true</span> };</div>
-<div class="line"><span class="lineno">   90</span>        }</div>
-<div class="line"><span class="lineno">   91</span> </div>
-<div class="line"><span class="lineno">   92</span>        CheckCompleteness();</div>
-<div class="line"><span class="lineno">   93</span>        <a class="code hl_function" href="classElevate_1_1OpenGLFrameBuffer.html#a9d9c4560ead60339a9d7f6b384074a3e">Unbind</a>();</div>
-<div class="line"><span class="lineno">   94</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLFramebuffer_8cpp_source.html#l00020">20</a> of file <a class="el" href="OpenGLFramebuffer_8cpp_source.html">OpenGLFramebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   21</span>    {</div>
+<div class="line"><span class="lineno">   22</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glGenFramebuffers(1, &amp;m_frameBufferId));</div>
+<div class="line"><span class="lineno">   23</span>        <a class="code hl_function" href="classElevate_1_1OpenGLFrameBuffer.html#a507b5e313ddf94a10c03837691ded292">Bind</a>();</div>
+<div class="line"><span class="lineno">   24</span> </div>
+<div class="line"><span class="lineno">   25</span>        <span class="keywordflow">if</span> (!colorTextures.empty())</div>
+<div class="line"><span class="lineno">   26</span>        {</div>
+<div class="line"><span class="lineno">   27</span>            std::vector&lt;GLenum&gt; drawBuffers;</div>
+<div class="line"><span class="lineno">   28</span> </div>
+<div class="line"><span class="lineno">   29</span>            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; colorTextures.size(); ++i)</div>
+<div class="line"><span class="lineno">   30</span>            {</div>
+<div class="line"><span class="lineno">   31</span>                <span class="keyword">auto</span>&amp; tex = colorTextures[i];</div>
+<div class="line"><span class="lineno">   32</span>                EE_CORE_ASSERT(tex-&gt;GetWidth() &gt; 0 &amp;&amp; tex-&gt;GetHeight() &gt; 0, <span class="stringliteral">&quot;Framebuffer texture dimensions must be positive&quot;</span>);</div>
+<div class="line"><span class="lineno">   33</span> </div>
+<div class="line"><span class="lineno">   34</span>                GLuint texId = <span class="keyword">static_cast&lt;</span>GLuint<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span>intptr_t<span class="keyword">&gt;</span>(tex-&gt;GetNativeHandle()));</div>
+<div class="line"><span class="lineno">   35</span>                <a class="code hl_typedef" href="namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4">GLenum</a> attachmentPoint = GL_COLOR_ATTACHMENT0 + <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4">GLenum</a><span class="keyword">&gt;</span>(i);</div>
+<div class="line"><span class="lineno">   36</span> </div>
+<div class="line"><span class="lineno">   37</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentPoint, GL_TEXTURE_2D, texId, 0));</div>
+<div class="line"><span class="lineno">   38</span> </div>
+<div class="line"><span class="lineno">   39</span>                <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.emplace_back(tex, <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(i));</div>
+<div class="line"><span class="lineno">   40</span>                drawBuffers.push_back(attachmentPoint);</div>
+<div class="line"><span class="lineno">   41</span>            }</div>
+<div class="line"><span class="lineno">   42</span> </div>
+<div class="line"><span class="lineno">   43</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDrawBuffers(<span class="keyword">static_cast&lt;</span>GLsizei<span class="keyword">&gt;</span>(drawBuffers.size()), drawBuffers.data()));</div>
+<div class="line"><span class="lineno">   44</span>        }</div>
+<div class="line"><span class="lineno">   45</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   46</span>        {</div>
+<div class="line"><span class="lineno">   47</span><span class="preprocessor">#if defined(EE_PLATFORM_WEB)</span></div>
+<div class="line"><span class="lineno">   48</span>            <a class="code hl_typedef" href="namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4">GLenum</a> drawBuffers[1] = { GL_NONE };</div>
+<div class="line"><span class="lineno">   49</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDrawBuffers(1, drawBuffers));</div>
+<div class="line"><span class="lineno">   50</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">   51</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDrawBuffer(GL_NONE));</div>
+<div class="line"><span class="lineno">   52</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   53</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glReadBuffer(GL_NONE));</div>
+<div class="line"><span class="lineno">   54</span>        }</div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">if</span> (depthTexture)</div>
+<div class="line"><span class="lineno">   57</span>        {</div>
+<div class="line"><span class="lineno">   58</span>            GLuint depthId = <span class="keyword">static_cast&lt;</span>GLuint<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span>intptr_t<span class="keyword">&gt;</span>(depthTexture-&gt;GetNativeHandle()));</div>
+<div class="line"><span class="lineno">   59</span>            <a class="code hl_typedef" href="namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4">GLenum</a> attachmentType = (depthTexture-&gt;GetMetadata().Format == <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaecaa8fe8cb0e85372f4cc76728c7cf3c">TextureFormat::DEPTH_STENCIL</a> ||</div>
+<div class="line"><span class="lineno">   60</span>                depthTexture-&gt;GetMetadata().Format == <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea0768a7b4ae12f44fd7d2b5320256b4b8">TextureFormat::DEPTH24_STENCIL8</a>)</div>
+<div class="line"><span class="lineno">   61</span>                ? GL_DEPTH_STENCIL_ATTACHMENT</div>
+<div class="line"><span class="lineno">   62</span>                : GL_DEPTH_ATTACHMENT;</div>
+<div class="line"><span class="lineno">   63</span> </div>
+<div class="line"><span class="lineno">   64</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, GL_TEXTURE_2D, depthId, 0));</div>
+<div class="line"><span class="lineno">   65</span>            <span class="keywordflow">if</span> (depthTexture-&gt;GetMetadata().WrapS == <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147">TextureWrap::ClampToBorder</a>)</div>
+<div class="line"><span class="lineno">   66</span>            {</div>
+<div class="line"><span class="lineno">   67</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindTexture(GL_TEXTURE_2D, depthId));</div>
+<div class="line"><span class="lineno">   68</span><span class="preprocessor">#if defined(EE_PLATFORM_WEB)</span></div>
+<div class="line"><span class="lineno">   69</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));</div>
+<div class="line"><span class="lineno">   70</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));</div>
+<div class="line"><span class="lineno">   71</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">   72</span>                <span class="keywordtype">float</span> borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };</div>
+<div class="line"><span class="lineno">   73</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor));</div>
+<div class="line"><span class="lineno">   74</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   75</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindTexture(GL_TEXTURE_2D, 0));</div>
+<div class="line"><span class="lineno">   76</span>            }</div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span>            <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a> = FramebufferDepthAttachment{ depthTexture, <span class="keyword">false</span> };</div>
+<div class="line"><span class="lineno">   79</span>        }</div>
+<div class="line"><span class="lineno">   80</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (depthAsRenderbuffer)</div>
+<div class="line"><span class="lineno">   81</span>        {</div>
+<div class="line"><span class="lineno">   82</span>            uint32_t w = colorTextures.empty() ? 1280 : colorTextures[0]-&gt;GetWidth();</div>
+<div class="line"><span class="lineno">   83</span>            uint32_t h = colorTextures.empty() ? 720 : colorTextures[0]-&gt;GetHeight();</div>
+<div class="line"><span class="lineno">   84</span> </div>
+<div class="line"><span class="lineno">   85</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glGenRenderbuffers(1, &amp;m_renderBufferId));</div>
+<div class="line"><span class="lineno">   86</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId));</div>
+<div class="line"><span class="lineno">   87</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, w, h));</div>
+<div class="line"><span class="lineno">   88</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_renderBufferId));</div>
+<div class="line"><span class="lineno">   89</span>            <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindRenderbuffer(GL_RENDERBUFFER, 0));</div>
+<div class="line"><span class="lineno">   90</span> </div>
+<div class="line"><span class="lineno">   91</span>            <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a> = FramebufferDepthAttachment{ <span class="keyword">nullptr</span>, <span class="keyword">true</span> };</div>
+<div class="line"><span class="lineno">   92</span>        }</div>
+<div class="line"><span class="lineno">   93</span> </div>
+<div class="line"><span class="lineno">   94</span>        CheckCompleteness();</div>
+<div class="line"><span class="lineno">   95</span>        <a class="code hl_function" href="classElevate_1_1OpenGLFrameBuffer.html#a9d9c4560ead60339a9d7f6b384074a3e">Unbind</a>();</div>
+<div class="line"><span class="lineno">   96</span>    }</div>
 <div class="ttc" id="aGLDebug_8h_html_adf70631301afb22944d6d461e8e9b5a7"><div class="ttname"><a href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a></div><div class="ttdeci">#define GLCheck(x)</div><div class="ttdef"><b>Definition</b> <a href="GLDebug_8h_source.html#l00011">GLDebug.h:11</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Framebuffer_html_a520d8458065192c5840bbf46d1510ef8"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">Elevate::Framebuffer::m_colorAttachments</a></div><div class="ttdeci">std::vector&lt; FramebufferColorAttachment &gt; m_colorAttachments</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8h_source.html#l00070">Framebuffer.h:70</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Framebuffer_html_a94f5fdbaeec8a35cec1eb3e816b6851f"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">Elevate::Framebuffer::m_depthAttachment</a></div><div class="ttdeci">std::optional&lt; FramebufferDepthAttachment &gt; m_depthAttachment</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8h_source.html#l00071">Framebuffer.h:71</a></div></div>
-<div class="ttc" id="aclassElevate_1_1OpenGLFrameBuffer_html_a507b5e313ddf94a10c03837691ded292"><div class="ttname"><a href="classElevate_1_1OpenGLFrameBuffer.html#a507b5e313ddf94a10c03837691ded292">Elevate::OpenGLFrameBuffer::Bind</a></div><div class="ttdeci">void Bind() const override</div><div class="ttdef"><b>Definition</b> <a href="OpenGLFramebuffer_8cpp_source.html#l00106">OpenGLFramebuffer.cpp:106</a></div></div>
-<div class="ttc" id="aclassElevate_1_1OpenGLFrameBuffer_html_a9d9c4560ead60339a9d7f6b384074a3e"><div class="ttname"><a href="classElevate_1_1OpenGLFrameBuffer.html#a9d9c4560ead60339a9d7f6b384074a3e">Elevate::OpenGLFrameBuffer::Unbind</a></div><div class="ttdeci">void Unbind() const override</div><div class="ttdef"><b>Definition</b> <a href="OpenGLFramebuffer_8cpp_source.html#l00111">OpenGLFramebuffer.cpp:111</a></div></div>
-<div class="ttc" id="anamespaceElevate_html_a6b8200f8cf0f799bee6e6b7d1301d00eaa085fd28dd1b882ea7d4129fdda3cb86"><div class="ttname"><a href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa085fd28dd1b882ea7d4129fdda3cb86">Elevate::TextureFormat::DEPTHSTENCIL</a></div><div class="ttdeci">@ DEPTHSTENCIL</div></div>
+<div class="ttc" id="aclassElevate_1_1OpenGLFrameBuffer_html_a507b5e313ddf94a10c03837691ded292"><div class="ttname"><a href="classElevate_1_1OpenGLFrameBuffer.html#a507b5e313ddf94a10c03837691ded292">Elevate::OpenGLFrameBuffer::Bind</a></div><div class="ttdeci">void Bind() const override</div><div class="ttdef"><b>Definition</b> <a href="OpenGLFramebuffer_8cpp_source.html#l00108">OpenGLFramebuffer.cpp:108</a></div></div>
+<div class="ttc" id="aclassElevate_1_1OpenGLFrameBuffer_html_a9d9c4560ead60339a9d7f6b384074a3e"><div class="ttname"><a href="classElevate_1_1OpenGLFrameBuffer.html#a9d9c4560ead60339a9d7f6b384074a3e">Elevate::OpenGLFrameBuffer::Unbind</a></div><div class="ttdeci">void Unbind() const override</div><div class="ttdef"><b>Definition</b> <a href="OpenGLFramebuffer_8cpp_source.html#l00113">OpenGLFramebuffer.cpp:113</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a6b8200f8cf0f799bee6e6b7d1301d00ea0768a7b4ae12f44fd7d2b5320256b4b8"><div class="ttname"><a href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea0768a7b4ae12f44fd7d2b5320256b4b8">Elevate::TextureFormat::DEPTH24_STENCIL8</a></div><div class="ttdeci">@ DEPTH24_STENCIL8</div></div>
+<div class="ttc" id="anamespaceElevate_html_a6b8200f8cf0f799bee6e6b7d1301d00eaecaa8fe8cb0e85372f4cc76728c7cf3c"><div class="ttname"><a href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaecaa8fe8cb0e85372f4cc76728c7cf3c">Elevate::TextureFormat::DEPTH_STENCIL</a></div><div class="ttdeci">@ DEPTH_STENCIL</div></div>
 <div class="ttc" id="anamespaceElevate_html_a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147"><div class="ttname"><a href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147">Elevate::TextureWrap::ClampToBorder</a></div><div class="ttdeci">@ ClampToBorder</div></div>
 <div class="ttc" id="anamespaceElevate_html_aa4f67add612dfd25af81e84cc8811fd4"><div class="ttname"><a href="namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4">Elevate::GLenum</a></div><div class="ttdeci">unsigned int GLenum</div><div class="ttdef"><b>Definition</b> <a href="OpenGLRendererAPI_8h_source.html#l00007">OpenGLRendererAPI.h:7</a></div></div>
 </div><!-- fragment -->
@@ -319,15 +321,15 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OpenGLFramebuffer_8cpp_source.html#l00096">96</a> of file <a class="el" href="OpenGLFramebuffer_8cpp_source.html">OpenGLFramebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   97</span>    {</div>
-<div class="line"><span class="lineno">   98</span>        <span class="comment">// todo use this</span></div>
-<div class="line"><span class="lineno">   99</span>        <span class="comment">//GLCheck(glDeleteFramebuffers(1, &amp;m_frameBufferId));</span></div>
-<div class="line"><span class="lineno">  100</span>        <span class="comment">//if (m_renderBufferId != 0)</span></div>
-<div class="line"><span class="lineno">  101</span>        <span class="comment">//{</span></div>
-<div class="line"><span class="lineno">  102</span>        <span class="comment">//  GLCheck(glDeleteRenderbuffers(1, &amp;m_renderBufferId));</span></div>
-<div class="line"><span class="lineno">  103</span>        <span class="comment">//}</span></div>
-<div class="line"><span class="lineno">  104</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLFramebuffer_8cpp_source.html#l00098">98</a> of file <a class="el" href="OpenGLFramebuffer_8cpp_source.html">OpenGLFramebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   99</span>    {</div>
+<div class="line"><span class="lineno">  100</span>        <span class="comment">// todo use this</span></div>
+<div class="line"><span class="lineno">  101</span>        <span class="comment">//GLCheck(glDeleteFramebuffers(1, &amp;m_frameBufferId));</span></div>
+<div class="line"><span class="lineno">  102</span>        <span class="comment">//if (m_renderBufferId != 0)</span></div>
+<div class="line"><span class="lineno">  103</span>        <span class="comment">//{</span></div>
+<div class="line"><span class="lineno">  104</span>        <span class="comment">//  GLCheck(glDeleteRenderbuffers(1, &amp;m_renderBufferId));</span></div>
+<div class="line"><span class="lineno">  105</span>        <span class="comment">//}</span></div>
+<div class="line"><span class="lineno">  106</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -357,10 +359,10 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1Framebuffer.html#a85d1a1f861c135e0442b579a0b2e669e">Elevate::Framebuffer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLFramebuffer_8cpp_source.html#l00106">106</a> of file <a class="el" href="OpenGLFramebuffer_8cpp_source.html">OpenGLFramebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  107</span>    {</div>
-<div class="line"><span class="lineno">  108</span>        glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferId);</div>
-<div class="line"><span class="lineno">  109</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLFramebuffer_8cpp_source.html#l00108">108</a> of file <a class="el" href="OpenGLFramebuffer_8cpp_source.html">OpenGLFramebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  109</span>    {</div>
+<div class="line"><span class="lineno">  110</span>        glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferId);</div>
+<div class="line"><span class="lineno">  111</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -400,39 +402,39 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1Framebuffer.html#a6757b24d53a5454f1ebb57044deb181f">Elevate::Framebuffer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLFramebuffer_8cpp_source.html#l00116">116</a> of file <a class="el" href="OpenGLFramebuffer_8cpp_source.html">OpenGLFramebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  117</span>    {</div>
-<div class="line"><span class="lineno">  118</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.empty())</div>
-<div class="line"><span class="lineno">  119</span>        {</div>
-<div class="line"><span class="lineno">  120</span>            EE_CORE_WARN(<span class="stringliteral">&quot;Cannot blit a framebuffer without color attachments to screen!&quot;</span>);</div>
-<div class="line"><span class="lineno">  121</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  122</span>        }</div>
-<div class="line"><span class="lineno">  123</span> </div>
-<div class="line"><span class="lineno">  124</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBufferId));</div>
-<div class="line"><span class="lineno">  125</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0));</div>
-<div class="line"><span class="lineno">  126</span> </div>
-<div class="line"><span class="lineno">  127</span>        uint32_t srcW = !<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.empty() ? <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>[0].Texture-&gt;GetWidth() : 1280;</div>
-<div class="line"><span class="lineno">  128</span>        uint32_t srcH = !<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.empty() ? <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>[0].Texture-&gt;GetHeight() : 720;</div>
-<div class="line"><span class="lineno">  129</span> </div>
-<div class="line"><span class="lineno">  130</span>        <span class="keywordtype">bool</span> isMagnifying = (screenWidth &gt;= srcW) &amp;&amp; (screenHeight &gt;= srcH);</div>
-<div class="line"><span class="lineno">  131</span>        <span class="keyword">auto</span> filterType = isMagnifying</div>
-<div class="line"><span class="lineno">  132</span>            ? <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>[0].Texture-&gt;GetMetadata().MagFilter</div>
-<div class="line"><span class="lineno">  133</span>            : <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>[0].Texture-&gt;GetMetadata().MinFilter;</div>
-<div class="line"><span class="lineno">  134</span>        <a class="code hl_typedef" href="namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4">GLenum</a> filter = <a class="code hl_function" href="namespaceElevate.html#a3db2cbae1c5876f9ed5cabd83f172ab6">ToOpenGL</a>(filterType);</div>
-<div class="line"><span class="lineno">  135</span>        <span class="keywordflow">if</span> (filter != GL_NEAREST &amp;&amp; filter != GL_LINEAR)</div>
-<div class="line"><span class="lineno">  136</span>        {</div>
-<div class="line"><span class="lineno">  137</span>            filter = GL_LINEAR;</div>
-<div class="line"><span class="lineno">  138</span>        }</div>
-<div class="line"><span class="lineno">  139</span> </div>
-<div class="line"><span class="lineno">  140</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBlitFramebuffer(</div>
-<div class="line"><span class="lineno">  141</span>            0, 0, srcW, srcH,</div>
-<div class="line"><span class="lineno">  142</span>            0, 0, screenWidth, screenHeight,</div>
-<div class="line"><span class="lineno">  143</span>            GL_COLOR_BUFFER_BIT, </div>
-<div class="line"><span class="lineno">  144</span>            filter</div>
-<div class="line"><span class="lineno">  145</span>        ));</div>
-<div class="line"><span class="lineno">  146</span> </div>
-<div class="line"><span class="lineno">  147</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindFramebuffer(GL_FRAMEBUFFER, 0));</div>
-<div class="line"><span class="lineno">  148</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLFramebuffer_8cpp_source.html#l00118">118</a> of file <a class="el" href="OpenGLFramebuffer_8cpp_source.html">OpenGLFramebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  119</span>    {</div>
+<div class="line"><span class="lineno">  120</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.empty())</div>
+<div class="line"><span class="lineno">  121</span>        {</div>
+<div class="line"><span class="lineno">  122</span>            EE_CORE_WARN(<span class="stringliteral">&quot;Cannot blit a framebuffer without color attachments to screen!&quot;</span>);</div>
+<div class="line"><span class="lineno">  123</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  124</span>        }</div>
+<div class="line"><span class="lineno">  125</span> </div>
+<div class="line"><span class="lineno">  126</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBufferId));</div>
+<div class="line"><span class="lineno">  127</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0));</div>
+<div class="line"><span class="lineno">  128</span> </div>
+<div class="line"><span class="lineno">  129</span>        uint32_t srcW = !<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.empty() ? <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>[0].Texture-&gt;GetWidth() : 1280;</div>
+<div class="line"><span class="lineno">  130</span>        uint32_t srcH = !<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.empty() ? <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>[0].Texture-&gt;GetHeight() : 720;</div>
+<div class="line"><span class="lineno">  131</span> </div>
+<div class="line"><span class="lineno">  132</span>        <span class="keywordtype">bool</span> isMagnifying = (screenWidth &gt;= srcW) &amp;&amp; (screenHeight &gt;= srcH);</div>
+<div class="line"><span class="lineno">  133</span>        <span class="keyword">auto</span> filterType = isMagnifying</div>
+<div class="line"><span class="lineno">  134</span>            ? <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>[0].Texture-&gt;GetMetadata().MagFilter</div>
+<div class="line"><span class="lineno">  135</span>            : <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>[0].Texture-&gt;GetMetadata().MinFilter;</div>
+<div class="line"><span class="lineno">  136</span>        <a class="code hl_typedef" href="namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4">GLenum</a> filter = <a class="code hl_function" href="namespaceElevate.html#a3db2cbae1c5876f9ed5cabd83f172ab6">ToOpenGL</a>(filterType);</div>
+<div class="line"><span class="lineno">  137</span>        <span class="keywordflow">if</span> (filter != GL_NEAREST &amp;&amp; filter != GL_LINEAR)</div>
+<div class="line"><span class="lineno">  138</span>        {</div>
+<div class="line"><span class="lineno">  139</span>            filter = GL_LINEAR;</div>
+<div class="line"><span class="lineno">  140</span>        }</div>
+<div class="line"><span class="lineno">  141</span> </div>
+<div class="line"><span class="lineno">  142</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBlitFramebuffer(</div>
+<div class="line"><span class="lineno">  143</span>            0, 0, srcW, srcH,</div>
+<div class="line"><span class="lineno">  144</span>            0, 0, screenWidth, screenHeight,</div>
+<div class="line"><span class="lineno">  145</span>            GL_COLOR_BUFFER_BIT, </div>
+<div class="line"><span class="lineno">  146</span>            filter</div>
+<div class="line"><span class="lineno">  147</span>        ));</div>
+<div class="line"><span class="lineno">  148</span> </div>
+<div class="line"><span class="lineno">  149</span>        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindFramebuffer(GL_FRAMEBUFFER, 0));</div>
+<div class="line"><span class="lineno">  150</span>    }</div>
 <div class="ttc" id="anamespaceElevate_html_a3db2cbae1c5876f9ed5cabd83f172ab6"><div class="ttname"><a href="namespaceElevate.html#a3db2cbae1c5876f9ed5cabd83f172ab6">Elevate::ToOpenGL</a></div><div class="ttdeci">constexpr GLenum ToOpenGL(TextureFilter filter)</div><div class="ttdef"><b>Definition</b> <a href="OpenGLFramebuffer_8cpp_source.html#l00011">OpenGLFramebuffer.cpp:11</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -503,59 +505,60 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1Framebuffer.html#a85ecc2bb2226709df11f43763a8e8308">Elevate::Framebuffer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLFramebuffer_8cpp_source.html#l00150">150</a> of file <a class="el" href="OpenGLFramebuffer_8cpp_source.html">OpenGLFramebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  151</span>    {</div>
-<div class="line"><span class="lineno">  152</span>        <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#ac929d74e06e3e1bdebdb9c6c6caa161d">m_width</a> = width;</div>
-<div class="line"><span class="lineno">  153</span>        <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#af8f89a6139fa32740de1a5164adae20c">m_height</a> = height;</div>
-<div class="line"><span class="lineno">  154</span> </div>
-<div class="line"><span class="lineno">  155</span>        <span class="keywordflow">if</span> (width == 0 || height == 0) <span class="keywordflow">return</span>;</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLFramebuffer_8cpp_source.html#l00152">152</a> of file <a class="el" href="OpenGLFramebuffer_8cpp_source.html">OpenGLFramebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  153</span>    {</div>
+<div class="line"><span class="lineno">  154</span>        <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#ac929d74e06e3e1bdebdb9c6c6caa161d">m_width</a> = width;</div>
+<div class="line"><span class="lineno">  155</span>        <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#af8f89a6139fa32740de1a5164adae20c">m_height</a> = height;</div>
 <div class="line"><span class="lineno">  156</span> </div>
-<div class="line"><span class="lineno">  157</span>        <a class="code hl_function" href="classElevate_1_1OpenGLFrameBuffer.html#a507b5e313ddf94a10c03837691ded292">Bind</a>();</div>
+<div class="line"><span class="lineno">  157</span>        <span class="keywordflow">if</span> (width == 0 || height == 0) <span class="keywordflow">return</span>;</div>
 <div class="line"><span class="lineno">  158</span> </div>
-<div class="line"><span class="lineno">  159</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; attachment : <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>)</div>
-<div class="line"><span class="lineno">  160</span>        {</div>
-<div class="line"><span class="lineno">  161</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span>&amp; tex = attachment.Texture)</div>
-<div class="line"><span class="lineno">  162</span>            {</div>
-<div class="line"><span class="lineno">  163</span>                <span class="keywordflow">if</span> (tex-&gt;GetWidth() == width &amp;&amp; tex-&gt;GetHeight() == height) <span class="keywordflow">continue</span>;</div>
-<div class="line"><span class="lineno">  164</span> </div>
-<div class="line"><span class="lineno">  165</span>                TextureMetadata meta = tex-&gt;GetMetadata();</div>
-<div class="line"><span class="lineno">  166</span>                meta.Width = width;</div>
-<div class="line"><span class="lineno">  167</span>                meta.Height = height;</div>
-<div class="line"><span class="lineno">  168</span>                tex-&gt;SetData(<span class="keyword">nullptr</span>, meta);</div>
-<div class="line"><span class="lineno">  169</span> </div>
-<div class="line"><span class="lineno">  170</span>                GLuint texId = <span class="keyword">static_cast&lt;</span>GLuint<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span>intptr_t<span class="keyword">&gt;</span>(tex-&gt;GetNativeHandle()));</div>
-<div class="line"><span class="lineno">  171</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + attachment.Index, GL_TEXTURE_2D, texId, 0));</div>
-<div class="line"><span class="lineno">  172</span>            }</div>
-<div class="line"><span class="lineno">  173</span>        }</div>
-<div class="line"><span class="lineno">  174</span> </div>
-<div class="line"><span class="lineno">  175</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>.has_value())</div>
-<div class="line"><span class="lineno">  176</span>        {</div>
-<div class="line"><span class="lineno">  177</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>-&gt;Texture)</div>
-<div class="line"><span class="lineno">  178</span>            {</div>
-<div class="line"><span class="lineno">  179</span>                <span class="keyword">auto</span>&amp; depthTex = <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>-&gt;Texture;</div>
-<div class="line"><span class="lineno">  180</span>                TextureMetadata meta = depthTex-&gt;GetMetadata();</div>
-<div class="line"><span class="lineno">  181</span>                meta.Width = width;</div>
-<div class="line"><span class="lineno">  182</span>                meta.Height = height;</div>
-<div class="line"><span class="lineno">  183</span>                depthTex-&gt;SetData(<span class="keyword">nullptr</span>, meta);</div>
-<div class="line"><span class="lineno">  184</span> </div>
-<div class="line"><span class="lineno">  185</span>                GLuint depthId = <span class="keyword">static_cast&lt;</span>GLuint<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span>intptr_t<span class="keyword">&gt;</span>(depthTex-&gt;GetNativeHandle()));</div>
-<div class="line"><span class="lineno">  186</span>                <a class="code hl_typedef" href="namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4">GLenum</a> attachmentType = (meta.Format == <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa085fd28dd1b882ea7d4129fdda3cb86">TextureFormat::DEPTHSTENCIL</a>)</div>
-<div class="line"><span class="lineno">  187</span>                    ? GL_DEPTH_STENCIL_ATTACHMENT</div>
-<div class="line"><span class="lineno">  188</span>                    : GL_DEPTH_ATTACHMENT;</div>
-<div class="line"><span class="lineno">  189</span> </div>
-<div class="line"><span class="lineno">  190</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, GL_TEXTURE_2D, depthId, 0));</div>
-<div class="line"><span class="lineno">  191</span>            }</div>
-<div class="line"><span class="lineno">  192</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>-&gt;IsRenderbuffer &amp;&amp; m_renderBufferId != 0)</div>
-<div class="line"><span class="lineno">  193</span>            {</div>
-<div class="line"><span class="lineno">  194</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId));</div>
-<div class="line"><span class="lineno">  195</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height));</div>
-<div class="line"><span class="lineno">  196</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindRenderbuffer(GL_RENDERBUFFER, 0));</div>
-<div class="line"><span class="lineno">  197</span>            }</div>
-<div class="line"><span class="lineno">  198</span>        }</div>
-<div class="line"><span class="lineno">  199</span> </div>
-<div class="line"><span class="lineno">  200</span>        CheckCompleteness();</div>
-<div class="line"><span class="lineno">  201</span>        <a class="code hl_function" href="classElevate_1_1OpenGLFrameBuffer.html#a9d9c4560ead60339a9d7f6b384074a3e">Unbind</a>();</div>
-<div class="line"><span class="lineno">  202</span>    }</div>
+<div class="line"><span class="lineno">  159</span>        <a class="code hl_function" href="classElevate_1_1OpenGLFrameBuffer.html#a507b5e313ddf94a10c03837691ded292">Bind</a>();</div>
+<div class="line"><span class="lineno">  160</span> </div>
+<div class="line"><span class="lineno">  161</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; attachment : <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>)</div>
+<div class="line"><span class="lineno">  162</span>        {</div>
+<div class="line"><span class="lineno">  163</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span>&amp; tex = attachment.Texture)</div>
+<div class="line"><span class="lineno">  164</span>            {</div>
+<div class="line"><span class="lineno">  165</span>                <span class="keywordflow">if</span> (tex-&gt;GetWidth() == width &amp;&amp; tex-&gt;GetHeight() == height) <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  166</span> </div>
+<div class="line"><span class="lineno">  167</span>                TextureMetadata meta = tex-&gt;GetMetadata();</div>
+<div class="line"><span class="lineno">  168</span>                meta.Width = width;</div>
+<div class="line"><span class="lineno">  169</span>                meta.Height = height;</div>
+<div class="line"><span class="lineno">  170</span>                tex-&gt;SetData(<span class="keyword">nullptr</span>, meta);</div>
+<div class="line"><span class="lineno">  171</span> </div>
+<div class="line"><span class="lineno">  172</span>                GLuint texId = <span class="keyword">static_cast&lt;</span>GLuint<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span>intptr_t<span class="keyword">&gt;</span>(tex-&gt;GetNativeHandle()));</div>
+<div class="line"><span class="lineno">  173</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + attachment.Index, GL_TEXTURE_2D, texId, 0));</div>
+<div class="line"><span class="lineno">  174</span>            }</div>
+<div class="line"><span class="lineno">  175</span>        }</div>
+<div class="line"><span class="lineno">  176</span> </div>
+<div class="line"><span class="lineno">  177</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>.has_value())</div>
+<div class="line"><span class="lineno">  178</span>        {</div>
+<div class="line"><span class="lineno">  179</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>-&gt;Texture)</div>
+<div class="line"><span class="lineno">  180</span>            {</div>
+<div class="line"><span class="lineno">  181</span>                <span class="keyword">auto</span>&amp; depthTex = <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>-&gt;Texture;</div>
+<div class="line"><span class="lineno">  182</span>                TextureMetadata meta = depthTex-&gt;GetMetadata();</div>
+<div class="line"><span class="lineno">  183</span>                meta.Width = width;</div>
+<div class="line"><span class="lineno">  184</span>                meta.Height = height;</div>
+<div class="line"><span class="lineno">  185</span>                depthTex-&gt;SetData(<span class="keyword">nullptr</span>, meta);</div>
+<div class="line"><span class="lineno">  186</span> </div>
+<div class="line"><span class="lineno">  187</span>                GLuint depthId = <span class="keyword">static_cast&lt;</span>GLuint<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span>intptr_t<span class="keyword">&gt;</span>(depthTex-&gt;GetNativeHandle()));</div>
+<div class="line"><span class="lineno">  188</span>                <a class="code hl_typedef" href="namespaceElevate.html#aa4f67add612dfd25af81e84cc8811fd4">GLenum</a> attachmentType = (meta.Format == <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaecaa8fe8cb0e85372f4cc76728c7cf3c">TextureFormat::DEPTH_STENCIL</a> ||</div>
+<div class="line"><span class="lineno">  189</span>                    meta.Format == <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea0768a7b4ae12f44fd7d2b5320256b4b8">TextureFormat::DEPTH24_STENCIL8</a>)</div>
+<div class="line"><span class="lineno">  190</span>                    ? GL_DEPTH_STENCIL_ATTACHMENT</div>
+<div class="line"><span class="lineno">  191</span>                    : GL_DEPTH_ATTACHMENT;</div>
+<div class="line"><span class="lineno">  192</span> </div>
+<div class="line"><span class="lineno">  193</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, GL_TEXTURE_2D, depthId, 0));</div>
+<div class="line"><span class="lineno">  194</span>            }</div>
+<div class="line"><span class="lineno">  195</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>-&gt;IsRenderbuffer &amp;&amp; m_renderBufferId != 0)</div>
+<div class="line"><span class="lineno">  196</span>            {</div>
+<div class="line"><span class="lineno">  197</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId));</div>
+<div class="line"><span class="lineno">  198</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height));</div>
+<div class="line"><span class="lineno">  199</span>                <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindRenderbuffer(GL_RENDERBUFFER, 0));</div>
+<div class="line"><span class="lineno">  200</span>            }</div>
+<div class="line"><span class="lineno">  201</span>        }</div>
+<div class="line"><span class="lineno">  202</span> </div>
+<div class="line"><span class="lineno">  203</span>        CheckCompleteness();</div>
+<div class="line"><span class="lineno">  204</span>        <a class="code hl_function" href="classElevate_1_1OpenGLFrameBuffer.html#a9d9c4560ead60339a9d7f6b384074a3e">Unbind</a>();</div>
+<div class="line"><span class="lineno">  205</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1Framebuffer_html_ac929d74e06e3e1bdebdb9c6c6caa161d"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#ac929d74e06e3e1bdebdb9c6c6caa161d">Elevate::Framebuffer::m_width</a></div><div class="ttdeci">uint32_t m_width</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8h_source.html#l00073">Framebuffer.h:73</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Framebuffer_html_af8f89a6139fa32740de1a5164adae20c"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#af8f89a6139fa32740de1a5164adae20c">Elevate::Framebuffer::m_height</a></div><div class="ttdeci">uint32_t m_height</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8h_source.html#l00074">Framebuffer.h:74</a></div></div>
 </div><!-- fragment -->
@@ -586,10 +589,10 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1Framebuffer.html#a49b8765310f450a72f7604405a9f0e5e">Elevate::Framebuffer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="OpenGLFramebuffer_8cpp_source.html#l00111">111</a> of file <a class="el" href="OpenGLFramebuffer_8cpp_source.html">OpenGLFramebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  112</span>    {</div>
-<div class="line"><span class="lineno">  113</span>        glBindFramebuffer(GL_FRAMEBUFFER, 0);</div>
-<div class="line"><span class="lineno">  114</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLFramebuffer_8cpp_source.html#l00113">113</a> of file <a class="el" href="OpenGLFramebuffer_8cpp_source.html">OpenGLFramebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  114</span>    {</div>
+<div class="line"><span class="lineno">  115</span>        glBindFramebuffer(GL_FRAMEBUFFER, 0);</div>
+<div class="line"><span class="lineno">  116</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

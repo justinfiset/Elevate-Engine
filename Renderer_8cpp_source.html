@@ -825,79 +825,83 @@ $(document).ready(function(){initNavTree('Renderer_8cpp_source.html',''); initRe
 <div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span> </div>
 <div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">BindShader</a>(s_bloomDownsampleShader);</div>
 <div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span> </div>
-<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>        <a class="code hl_typedef" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> currentSource = s_lightPassFramebuffer-&gt;GetColorTexture();</div>
-<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span> </div>
-<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>        <span class="comment">// Downsample trought the bloom mip chain</span></div>
-<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; s_bloomMipChain.size(); i++)</div>
-<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>        {</div>
-<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>            <span class="keyword">auto</span>&amp; targetFramebuffer = s_bloomMipChain[i];</div>
-<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>            targetFramebuffer-&gt;ClearAndUse();</div>
-<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span> </div>
-<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>            s_bloomDownsampleShader-&gt;SetUniform2f(<span class="stringliteral">&quot;u_ScreenRes&quot;</span>, glm::vec2(currentSource-&gt;GetWidth(), currentSource-&gt;GetHeight()));</div>
-<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#a40c4ae753051b335221fcca86f005df7">BindTexture</a>(currentSource, 0);</div>
-<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>            s_bloomDownsampleShader-&gt;SetUniform1i(<span class="stringliteral">&quot;u_ScreenTex&quot;</span>, 0);</div>
-<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>            </div>
-<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>            s_bloomDownsampleShader-&gt;SetUniform1i(<span class="stringliteral">&quot;u_MipLevel&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(i));</div>
-<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>            s_bloomDownsampleShader-&gt;SetUniform1f(<span class="stringliteral">&quot;u_Threshold&quot;</span>, 1.0f);</div>
-<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>            s_bloomDownsampleShader-&gt;SetUniform1f(<span class="stringliteral">&quot;u_SoftThreshold&quot;</span>, 0.5f);</div>
-<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span> </div>
-<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">DrawArray</a>(s_fullscreenQuad.<a class="code hl_function" href="classElevate_1_1Mesh.html#a0a4c5a5d17c1271239d83503eda48ab3">GetVertexArray</a>());</div>
-<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>            targetFramebuffer-&gt;Unbind();</div>
-<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>            currentSource = s_bloomMipChain[i]-&gt;GetColorTexture();</div>
-<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>        }</div>
-<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span> </div>
-<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>        state.BlendMode = <a class="code hl_enumvalue" href="namespaceElevate.html#ad002ce49518d7df611eb03b292c66071a3f7b3d8ee7bf0d542bd50821c083888f">BlendModeType::Additive</a>;</div>
-<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">PushRenderState</a>(state);</div>
-<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span> </div>
-<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">BindShader</a>(s_bloomUpsampleShader);</div>
-<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>        s_bloomUpsampleShader-&gt;SetUniform1f(<span class="stringliteral">&quot;u_FilterRadius&quot;</span>, 0.005f);</div>
-<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span> </div>
-<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>        <span class="comment">// Upsample the other way around</span></div>
-<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = s_bloomMipChain.size() - 1; i &gt; 0; i--)</div>
-<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>        {</div>
-<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>            currentSource = s_bloomMipChain[i]-&gt;GetColorTexture();</div>
-<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>            <span class="keyword">auto</span>&amp; targetFramebuffer = s_bloomMipChain[i - 1];</div>
-<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span> </div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>            targetFramebuffer-&gt;Use();</div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span> </div>
-<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#a40c4ae753051b335221fcca86f005df7">BindTexture</a>(currentSource, 0);</div>
-<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>            s_bloomUpsampleShader-&gt;SetUniform1i(<span class="stringliteral">&quot;u_ScreenTex&quot;</span>, 0);</div>
-<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span> </div>
-<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">DrawArray</a>(s_fullscreenQuad.<a class="code hl_function" href="classElevate_1_1Mesh.html#a0a4c5a5d17c1271239d83503eda48ab3">GetVertexArray</a>());</div>
-<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>            targetFramebuffer-&gt;Unbind();</div>
-<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>        }</div>
-<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>    }</div>
-<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span> </div>
-<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>    <span class="keywordtype">void</span> Renderer::RenderComposition()</div>
-<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>    {</div>
-<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>        RenderState state;</div>
-<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>        state.BlendMode = <a class="code hl_enumvalue" href="namespaceElevate.html#ad002ce49518d7df611eb03b292c66071a6adf97f83acf6453d4a6a4b1070f3754">BlendModeType::None</a>;</div>
-<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>        state.CullMode = <a class="code hl_enumvalue" href="namespaceElevate.html#ab40741268ba207b0245f5193766bc867a6adf97f83acf6453d4a6a4b1070f3754">CullFace::None</a>;</div>
-<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>        state.DepthTest = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>        state.DepthWrite = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">PushRenderState</a>(state);</div>
-<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span> </div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>        s_mainFramebuffer-&gt;ClearAndUse();</div>
-<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span> </div>
-<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">BindShader</a>(s_compositionShader);</div>
+<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>        s_bloomDownsampleShader-&gt;SetUniform1i(<span class="stringliteral">&quot;u_MipLevel&quot;</span>, 0);</div>
+<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>        s_bloomDownsampleShader-&gt;SetUniform1f(<span class="stringliteral">&quot;u_ScreenTex&quot;</span>, 0);</div>
+<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>        s_bloomDownsampleShader-&gt;SetUniform1f(<span class="stringliteral">&quot;u_ScreenTex&quot;</span>, 0);</div>
+<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span> </div>
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>        <a class="code hl_typedef" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> currentSource = s_lightPassFramebuffer-&gt;GetColorTexture();</div>
+<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span> </div>
+<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>        <span class="comment">// Downsample trought the bloom mip chain</span></div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; s_bloomMipChain.size(); i++)</div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>        {</div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>            <span class="keyword">auto</span>&amp; targetFramebuffer = s_bloomMipChain[i];</div>
+<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>            targetFramebuffer-&gt;ClearAndUse();</div>
+<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span> </div>
+<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>            s_bloomDownsampleShader-&gt;SetUniform2f(<span class="stringliteral">&quot;u_ScreenRes&quot;</span>, glm::vec2(currentSource-&gt;GetWidth(), currentSource-&gt;GetHeight()));</div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#a40c4ae753051b335221fcca86f005df7">BindTexture</a>(currentSource, 0);</div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>            s_bloomDownsampleShader-&gt;SetUniform1i(<span class="stringliteral">&quot;u_ScreenTex&quot;</span>, 0);</div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>            </div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>            s_bloomDownsampleShader-&gt;SetUniform1i(<span class="stringliteral">&quot;u_MipLevel&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(i));</div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>            s_bloomDownsampleShader-&gt;SetUniform1f(<span class="stringliteral">&quot;u_Threshold&quot;</span>, 1.0f);</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>            s_bloomDownsampleShader-&gt;SetUniform1f(<span class="stringliteral">&quot;u_SoftThreshold&quot;</span>, 0.5f);</div>
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span> </div>
+<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">DrawArray</a>(s_fullscreenQuad.<a class="code hl_function" href="classElevate_1_1Mesh.html#a0a4c5a5d17c1271239d83503eda48ab3">GetVertexArray</a>());</div>
+<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>            targetFramebuffer-&gt;Unbind();</div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>            currentSource = s_bloomMipChain[i]-&gt;GetColorTexture();</div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>        }</div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span> </div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>        state.BlendMode = <a class="code hl_enumvalue" href="namespaceElevate.html#ad002ce49518d7df611eb03b292c66071a3f7b3d8ee7bf0d542bd50821c083888f">BlendModeType::Additive</a>;</div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">PushRenderState</a>(state);</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span> </div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">BindShader</a>(s_bloomUpsampleShader);</div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>        s_bloomUpsampleShader-&gt;SetUniform1f(<span class="stringliteral">&quot;u_FilterRadius&quot;</span>, 0.005f);</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span> </div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>        <span class="comment">// Upsample the other way around</span></div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = s_bloomMipChain.size() - 1; i &gt; 0; i--)</div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>        {</div>
+<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>            currentSource = s_bloomMipChain[i]-&gt;GetColorTexture();</div>
+<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>            <span class="keyword">auto</span>&amp; targetFramebuffer = s_bloomMipChain[i - 1];</div>
+<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span> </div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>            targetFramebuffer-&gt;Use();</div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span> </div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#a40c4ae753051b335221fcca86f005df7">BindTexture</a>(currentSource, 0);</div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>            s_bloomUpsampleShader-&gt;SetUniform1i(<span class="stringliteral">&quot;u_ScreenTex&quot;</span>, 0);</div>
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span> </div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">DrawArray</a>(s_fullscreenQuad.<a class="code hl_function" href="classElevate_1_1Mesh.html#a0a4c5a5d17c1271239d83503eda48ab3">GetVertexArray</a>());</div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>            targetFramebuffer-&gt;Unbind();</div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>        }</div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>    }</div>
+<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span> </div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>    <span class="keywordtype">void</span> Renderer::RenderComposition()</div>
+<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>    {</div>
+<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>        RenderState state;</div>
+<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>        state.BlendMode = <a class="code hl_enumvalue" href="namespaceElevate.html#ad002ce49518d7df611eb03b292c66071a6adf97f83acf6453d4a6a4b1070f3754">BlendModeType::None</a>;</div>
+<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>        state.CullMode = <a class="code hl_enumvalue" href="namespaceElevate.html#ab40741268ba207b0245f5193766bc867a6adf97f83acf6453d4a6a4b1070f3754">CullFace::None</a>;</div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>        state.DepthTest = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>        state.DepthWrite = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">PushRenderState</a>(state);</div>
 <div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span> </div>
-<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>        <span class="comment">// Color</span></div>
-<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a40c4ae753051b335221fcca86f005df7">BindTexture</a>(s_lightPassFramebuffer-&gt;GetColorTexture(), 0);</div>
-<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>        s_compositionShader-&gt;SetUniform1i(<span class="stringliteral">&quot;sceneTexture&quot;</span>, 0);</div>
+<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>        s_mainFramebuffer-&gt;ClearAndUse();</div>
+<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span> </div>
+<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">BindShader</a>(s_compositionShader);</div>
 <div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span> </div>
-<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>        <span class="comment">// Bloom</span></div>
-<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>        <span class="keywordflow">if</span> (!s_bloomMipChain.empty())</div>
-<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>        {</div>
-<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#a40c4ae753051b335221fcca86f005df7">BindTexture</a>(s_bloomMipChain[0]-&gt;GetColorTexture(), 2);</div>
-<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>            s_compositionShader-&gt;SetUniform1i(<span class="stringliteral">&quot;bloomTexture&quot;</span>, 2);</div>
-<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>        }</div>
-<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>        s_compositionShader-&gt;SetUniform1f(<span class="stringliteral">&quot;bloomStrength&quot;</span>, 0.04f);</div>
-<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span> </div>
-<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">DrawArray</a>(s_fullscreenQuad.<a class="code hl_function" href="classElevate_1_1Mesh.html#a0a4c5a5d17c1271239d83503eda48ab3">GetVertexArray</a>());</div>
-<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span> </div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>        s_mainFramebuffer-&gt;Unbind();</div>
-<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>    }</div>
-<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>}</div>
+<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>        <span class="comment">// Color</span></div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a40c4ae753051b335221fcca86f005df7">BindTexture</a>(s_lightPassFramebuffer-&gt;GetColorTexture(), 0);</div>
+<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>        s_compositionShader-&gt;SetUniform1i(<span class="stringliteral">&quot;sceneTexture&quot;</span>, 0);</div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span> </div>
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>        <span class="comment">// Bloom</span></div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>        <span class="keywordflow">if</span> (!s_bloomMipChain.empty())</div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>        {</div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#a40c4ae753051b335221fcca86f005df7">BindTexture</a>(s_bloomMipChain[0]-&gt;GetColorTexture(), 2);</div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>            s_compositionShader-&gt;SetUniform1i(<span class="stringliteral">&quot;bloomTexture&quot;</span>, 2);</div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>        }</div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>        s_compositionShader-&gt;SetUniform1f(<span class="stringliteral">&quot;bloomStrength&quot;</span>, 0.04f);</div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span> </div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">DrawArray</a>(s_fullscreenQuad.<a class="code hl_function" href="classElevate_1_1Mesh.html#a0a4c5a5d17c1271239d83503eda48ab3">GetVertexArray</a>());</div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span> </div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>        s_mainFramebuffer-&gt;Unbind();</div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>    }</div>
+<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>}</div>
 <div class="ttc" id="aCamera_8h_html"><div class="ttname"><a href="Camera_8h.html">Camera.h</a></div></div>
 <div class="ttc" id="aCore_8h_html_a2ab88033038deb2307b90ef9b351135c"><div class="ttname"><a href="Core_8h.html#a2ab88033038deb2307b90ef9b351135c">EE_SHADER_HEADER</a></div><div class="ttdeci">#define EE_SHADER_HEADER</div><div class="ttdef"><b>Definition</b> <a href="Core_8h_source.html#l00032">Core.h:32</a></div></div>
 <div class="ttc" id="aCubemap_8h_html"><div class="ttname"><a href="Cubemap_8h.html">Cubemap.h</a></div></div>

@@ -371,9 +371,13 @@ var namespaceElevate =
       [ "RGBA16F", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa29d843695056f9c171a9eb702d6910a", null ],
       [ "RGBA32F", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea703a7a81e586669c930e3dcaf3e8c428", null ],
       [ "DEPTH", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111", null ],
+      [ "DEPTH16", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea552b95de83e557ad11a9330164831ffb", null ],
+      [ "DEPTH24", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea25fda16aa10a025ab21b9019b094ef27", null ],
+      [ "DEPTH32F", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea19f22a1cbc2e2733484acbf9fc1bb4cd", null ],
       [ "SRGB", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea1f3f09bca5728eb7af4ea263ae84b9f1", null ],
       [ "SRGBA", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa6b63903808be00ae4fcdb3850f811a4", null ],
-      [ "DEPTHSTENCIL", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa085fd28dd1b882ea7d4129fdda3cb86", null ]
+      [ "DEPTH_STENCIL", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaecaa8fe8cb0e85372f4cc76728c7cf3c", null ],
+      [ "DEPTH24_STENCIL8", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea0768a7b4ae12f44fd7d2b5320256b4b8", null ]
     ] ],
     [ "TextureSource", "namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7", [
       [ "File", "namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7a0b27918290ff5323bea1e3b78a9cf04e", null ],
