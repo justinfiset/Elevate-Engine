@@ -5,8 +5,11 @@
 
 #include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Core/GameContext.h>
+
 #include <ElevateEngine/Events/Event.h>
+
 #include <ElevateEngine/Renderer/Cubemap.h>
+#include <ElevateEngine/Renderer/Light/SceneLighting.h>
 
 #include <ElevateEngine/Serialization/ISerializable.h>
 
@@ -18,7 +21,6 @@ namespace Elevate {
 	class Camera;
 	class ComponentRegistry;
 	class RendererAPI;
-	class SceneLighting;
 }
 
 namespace Elevate
