@@ -507,9 +507,9 @@ public:
 
 		ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, pos.y + padding));
 		ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + maxWidth - padding * 4 - optionButtonSize);
-		ImGui::TextColored(textColor, project.Name.c_str());
+		ImGui::TextColored(textColor, "%s", project.Name.c_str());
 		ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, ImGui::GetCursorScreenPos().y));
-		ImGui::TextDisabled(project.Path.c_str());
+		ImGui::TextDisabled("%s", project.Path.c_str());
 		ImGui::PopTextWrapPos();
 		ImGui::SetCursorScreenPos(ImVec2(pos.x, pos.y + height + padding));
 		ImGui::PopID();
