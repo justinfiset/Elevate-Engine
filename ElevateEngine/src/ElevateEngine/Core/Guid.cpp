@@ -76,6 +76,6 @@ namespace Elevate
 
 	bool Guid::operator<(const Guid& other) const
 	{
-		return m_bytes < other.m_bytes;
+		return std::memcmp(m_bytes, other.m_bytes, sizeof(m_bytes)) < 0;
 	}
 }
