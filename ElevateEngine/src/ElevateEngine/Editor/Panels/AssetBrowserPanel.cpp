@@ -255,11 +255,26 @@ void Elevate::Editor::AssetBrowserPanel::SelectAsset(const Asset* asset)
 	auto* entry = AssetRegistry::GetEntry(asset->GetGuid());
 	if (entry && s_instance)
 	{
-		s_instance->m_CurrentPath = entry->FilePath.root_directory();
+		s_instance->m_CurrentPath = entry->FilePath.parent_path();
 		s_instance->UpdateRelatedPaths();
-		s_instance->m_shouldUpdate = true;
+
+		s_instance->UpdateRelatedPaths();
+		s_instance->LoadFileItemsList();
 		s_instance->m_selected.clear();
-		// todo select the asset
+		s_instance->m_lastSelected = 0;
+		s_instance->m_shouldUpdate = false;
+
+		uint32_t currentIdx = 0;
+		for (const auto& item : s_instance->m_FileItems)
+		{
+			currentIdx++;
+			if (fs::absolute(item.path) == fs::absolute(entry->FilePath))
+			{
+				s_instance->m_selected.insert(currentIdx);
+				s_instance->m_lastSelected = currentIdx;
+				break;
+			}
+		}
 	}
 	else
 	{
