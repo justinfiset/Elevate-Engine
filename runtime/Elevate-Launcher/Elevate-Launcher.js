@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp6sli78sh.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpzxyg3e7q.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -239,113 +239,113 @@ Module["expectedDataFileDownloads"]++;
     }, {
       "filename": "/Engine/Shaders/BloomDownscale.frag",
       "start": 419664,
-      "end": 421919
+      "end": 421903
     }, {
       "filename": "/Engine/Shaders/BloomDownscale.vert",
-      "start": 421919,
-      "end": 422127
+      "start": 421903,
+      "end": 422111
     }, {
       "filename": "/Engine/Shaders/BloomUpscale.frag",
-      "start": 422127,
-      "end": 423182
+      "start": 422111,
+      "end": 423166
     }, {
       "filename": "/Engine/Shaders/BloomUpscale.vert",
-      "start": 423182,
-      "end": 423390
+      "start": 423166,
+      "end": 423374
     }, {
       "filename": "/Engine/Shaders/Composition.frag",
-      "start": 423390,
-      "end": 424196
+      "start": 423374,
+      "end": 424180
     }, {
       "filename": "/Engine/Shaders/Composition.vert",
-      "start": 424196,
-      "end": 424404
+      "start": 424180,
+      "end": 424388
     }, {
       "filename": "/Engine/Shaders/DefaultLitShader.frag",
-      "start": 424404,
-      "end": 426370
+      "start": 424388,
+      "end": 426354
     }, {
       "filename": "/Engine/Shaders/DefaultLitShader.vert",
-      "start": 426370,
-      "end": 427112
+      "start": 426354,
+      "end": 427096
     }, {
       "filename": "/Engine/Shaders/Lighting.frag",
-      "start": 427112,
-      "end": 434962
+      "start": 427096,
+      "end": 434946
     }, {
       "filename": "/Engine/Shaders/Lighting.vert",
-      "start": 434962,
-      "end": 435170
+      "start": 434946,
+      "end": 435154
     }, {
       "filename": "/Engine/Shaders/SSAO.frag",
-      "start": 435170,
-      "end": 437401
+      "start": 435154,
+      "end": 437385
     }, {
       "filename": "/Engine/Shaders/SSAO.vert",
-      "start": 437401,
-      "end": 437609
+      "start": 437385,
+      "end": 437593
     }, {
       "filename": "/Engine/Shaders/SSAOBlur.frag",
-      "start": 437609,
-      "end": 438714
+      "start": 437593,
+      "end": 438698
     }, {
       "filename": "/Engine/Shaders/SSAOBlur.vert",
-      "start": 438714,
-      "end": 438922
+      "start": 438698,
+      "end": 438906
     }, {
       "filename": "/Engine/Shaders/Shadow.frag",
-      "start": 438922,
-      "end": 438945
+      "start": 438906,
+      "end": 438929
     }, {
       "filename": "/Engine/Shaders/Shadow.vert",
-      "start": 438945,
-      "end": 439131
+      "start": 438929,
+      "end": 439115
     }, {
       "filename": "/Engine/Textures/Skybox/Default/bottom.jpg",
-      "start": 439131,
-      "end": 506774
+      "start": 439115,
+      "end": 506758
     }, {
       "filename": "/Engine/Textures/Skybox/Default/side.jpg",
-      "start": 506774,
-      "end": 588077
+      "start": 506758,
+      "end": 588061
     }, {
       "filename": "/Engine/Textures/Skybox/Default/top.jpg",
-      "start": 588077,
-      "end": 655730
+      "start": 588061,
+      "end": 655714
     }, {
       "filename": "/Engine/Textures/debug.png",
-      "start": 655730,
-      "end": 660085
+      "start": 655714,
+      "end": 660069
     }, {
       "filename": "/app.config",
-      "start": 660085,
-      "end": 660188
+      "start": 660069,
+      "end": 660172
     }, {
       "filename": "/imgui.ini",
-      "start": 660188,
-      "end": 660418
+      "start": 660172,
+      "end": 660402
     } ],
-    "remote_package_size": 660418
+    "remote_package_size": 660402
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp6sli78sh.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpb9tr0asc.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpzxyg3e7q.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpqzjcd97x.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpb9tr0asc.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpoebgyk09.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpqzjcd97x.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpuglkkv7e.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpoebgyk09.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpuglkkv7e.js
 var programArgs = [];
 
 var thisProgram = "./this.program";
