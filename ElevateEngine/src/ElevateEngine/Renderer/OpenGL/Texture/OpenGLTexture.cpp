@@ -136,8 +136,13 @@ namespace Elevate
 			GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE));
 			GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL));
 
+#if defined(EE_PLATFORM_WEB)
+			GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+			GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+#else		// Not supported on WebGL
 			constexpr float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 			GLCheck(glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor));
+#endif
 		}
 
 #ifdef EE_SUPPORTS_DSA
