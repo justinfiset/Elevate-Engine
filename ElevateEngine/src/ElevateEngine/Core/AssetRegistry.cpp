@@ -269,4 +269,29 @@ namespace Elevate
             s_indexedAssets[assetGuid] = entry;
         }
     }
+
+    void AssetRegistry::RegisterAssetOnDisk(const std::shared_ptr<Asset>& asset, const std::filesystem::path& filePath)
+    {
+        if (!asset)
+        {
+            EE_CORE_ERROR("(AssetRegistry::RegisterAssetOnDisk) : Tried to register a nullptr Asset.");
+            return;
+        }
+
+        const AssetMetaData* metaData = GetMetaFromTypeIndex(asset->GetTypeIndex());
+        Guid assetGuid = asset->GetGuid();
+
+        AssetEntry entry{
+            .Guid = assetGuid,
+            .AssetName = FormatAssetNameForUI(filePath),
+            .FilePath = filePath,
+            .TypeIndex = asset->GetTypeIndex(),
+            .isOnDisk = true,
+            .isLoaded = true,
+            .MetaData = metaData,
+            .Instance = asset
+        };
+
+        s_indexedAssets[assetGuid] = entry;
+    }
 }

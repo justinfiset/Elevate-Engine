@@ -92,7 +92,9 @@ namespace Elevate
 		static const std::unordered_map<std::string, AssetMetaData>& GetNameMetas();
 
 		static void RegisterAssetType(AssetMetaData trait);
+
 		static void RegisterAsset(const std::shared_ptr<Asset>& asset);
+		static void RegisterAssetOnDisk(const std::shared_ptr<Asset>& asset, const std::filesystem::path& filePath);
 
 	protected:
 		void _Init();

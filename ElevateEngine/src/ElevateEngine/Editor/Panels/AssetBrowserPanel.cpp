@@ -331,8 +331,9 @@ void Elevate::Editor::AssetBrowserPanel::DrawContextMenu()
 					EE_ERROR("Failed to create new asset on disk at {}", filePath);
 				}
 
-				// Set the current state to dirty to reload.
-				m_shouldUpdate = true;
+				auto assetPtr = std::static_pointer_cast<Asset>(asset);
+				AssetRegistry::RegisterAssetOnDisk(assetPtr, filePath);
+				SelectAsset(assetPtr.get());
 			}
 		}
 		ImGui::EndMenu();
@@ -384,6 +385,12 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
 	m_currentTextures.clear();
 
 	m_nextId = 0;
+
+	if (!fs::exists(m_CurrentPath) || !fs::is_directory(m_CurrentPath))
+	{
+		EE_CORE_ERROR("AssetBrowser: m_CurrentPath is invalid. : {}", m_CurrentPath.string());
+		return;
+	}
 
 	for (const auto& entry : fs::directory_iterator(m_CurrentPath)) {
 		FileMetadata meta;
