@@ -1,9 +1,9 @@
 uniform sampler2D u_ScreenTex;
 uniform vec2 u_ScreenRes;
 
-uniform int u_MipLevel = 0;
-uniform float u_Threshold = 1.0;
-uniform float u_SoftThreshold = 0.5;
+uniform int u_MipLevel;
+uniform float u_Threshold;
+uniform float u_SoftThreshold;
 
 in vec2 v_TexCoord;
 layout (location = 0) out vec3 downsample;
