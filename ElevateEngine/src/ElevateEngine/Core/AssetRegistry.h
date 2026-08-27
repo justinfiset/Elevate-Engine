@@ -17,7 +17,7 @@ namespace Elevate
 
 	struct AssetEntry
 	{
-		Guid Guid;
+		Guid AssetGuid;
 		std::string AssetName;
 		std::filesystem::path FilePath;
 		std::type_index TypeIndex{ typeid(void) };

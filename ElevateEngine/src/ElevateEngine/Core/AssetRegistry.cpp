@@ -81,7 +81,7 @@ namespace Elevate
                 const AssetMetaData& typeMeta = it->second;
                 Guid guid = ExtractGuidFromFile(entry.path());
                 s_indexedAssets[guid] = AssetEntry{
-                    .Guid = guid,
+                    .AssetGuid = guid,
                     .AssetName = FormatAssetNameForUI(entry),
                     .FilePath = entry.path(),
                     .TypeIndex = typeMeta.TypeIndex,
@@ -190,7 +190,7 @@ namespace Elevate
         serializer.Deserialize(ByteUtils::FromString(diskContent), props);
         asset->SetFromProperties(props);
 
-        asset->SetGuid(entry.Guid);
+        asset->SetGuid(entry.AssetGuid);
         asset->OnLoad();
 
         return asset;
@@ -257,7 +257,7 @@ namespace Elevate
         else
         {
             AssetEntry entry{
-                .Guid = assetGuid,
+                .AssetGuid = assetGuid,
                 .FilePath = "[Runtime Asset]",
                 .TypeIndex = asset->GetTypeIndex(),
                 .isOnDisk = false,
@@ -282,7 +282,7 @@ namespace Elevate
         Guid assetGuid = asset->GetGuid();
 
         AssetEntry entry{
-            .Guid = assetGuid,
+            .AssetGuid = assetGuid,
             .AssetName = FormatAssetNameForUI(filePath),
             .FilePath = filePath,
             .TypeIndex = asset->GetTypeIndex(),
