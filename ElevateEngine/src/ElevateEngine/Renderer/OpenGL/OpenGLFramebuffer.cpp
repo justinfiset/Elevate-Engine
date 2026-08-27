@@ -9,10 +9,11 @@
 namespace Elevate
 {
 	constexpr GLenum ToOpenGL(TextureFilter filter) {
-		switch (filter) {
-		case TextureFilter::Nearest: return GL_NEAREST;
-		case TextureFilter::Linear:  return GL_LINEAR;
-		default:                     return GL_NEAREST;
+		switch (filter)
+		{
+			case TextureFilter::Nearest: return GL_NEAREST;
+			case TextureFilter::Linear:  return GL_LINEAR;
+			default:                     return GL_NEAREST;
 		}
 	}
 
@@ -55,7 +56,8 @@ namespace Elevate
 		if (depthTexture)
 		{
 			GLuint depthId = static_cast<GLuint>(reinterpret_cast<intptr_t>(depthTexture->GetNativeHandle()));
-			GLenum attachmentType = (depthTexture->GetMetadata().Format == TextureFormat::DEPTHSTENCIL)
+			GLenum attachmentType = (depthTexture->GetMetadata().Format == TextureFormat::DEPTH_STENCIL ||
+				depthTexture->GetMetadata().Format == TextureFormat::DEPTH24_STENCIL8)
 				? GL_DEPTH_STENCIL_ATTACHMENT
 				: GL_DEPTH_ATTACHMENT;
 
@@ -183,7 +185,8 @@ namespace Elevate
 				depthTex->SetData(nullptr, meta);
 
 				GLuint depthId = static_cast<GLuint>(reinterpret_cast<intptr_t>(depthTex->GetNativeHandle()));
-				GLenum attachmentType = (meta.Format == TextureFormat::DEPTHSTENCIL)
+				GLenum attachmentType = (meta.Format == TextureFormat::DEPTH_STENCIL ||
+					meta.Format == TextureFormat::DEPTH24_STENCIL8)
 					? GL_DEPTH_STENCIL_ATTACHMENT
 					: GL_DEPTH_ATTACHMENT;
 
