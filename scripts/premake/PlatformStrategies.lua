@@ -10,7 +10,8 @@ WindowsStrategy = {
 			"/Zc:wchar_t",
 			"/Zc:preprocessor",
 			"/Zc:__cplusplus",
-			"/utf-8"
+			"/utf-8",
+            "/MP" -- Enable multi-processor compilation
 		}
     end,
 
