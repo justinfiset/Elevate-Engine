@@ -10,7 +10,7 @@ namespace Elevate
 		FrontAndBack
 	};
 
-	enum class BlendMode
+	enum class BlendModeType
 	{
 		Alpha,
 		Additive,
@@ -22,6 +22,6 @@ namespace Elevate
 		CullFace CullMode = CullFace::Back;
 		bool DepthWrite = true; // Should we write in the depth buffer?
 		bool DepthTest = true; // Should we test the depth?
-		BlendMode BlendMode = BlendMode::None;
+		BlendModeType BlendMode = BlendModeType::None;
 	};
 }

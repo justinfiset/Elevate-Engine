@@ -80,7 +80,7 @@ namespace Elevate::Editor
 		Model& gridModel = m_GridObject->AddComponent<Model>(PrimitiveType::Plane);
 		
 		RenderState gridState;
-		gridState.BlendMode = BlendMode::Alpha;
+		gridState.BlendMode = BlendModeType::Alpha;
 		gridState.CullMode = CullFace::None;
 		gridState.DepthTest = true;
 		gridState.DepthWrite = false;

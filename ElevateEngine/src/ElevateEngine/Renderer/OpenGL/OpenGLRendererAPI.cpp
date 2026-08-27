@@ -137,19 +137,19 @@ namespace Elevate
 		else        glDisable(GL_DEPTH_TEST);
 	}
 
-	void OpenGLRendererAPI::SetBlendingState(BlendMode mode) const
+	void OpenGLRendererAPI::SetBlendingState(BlendModeType mode) const
 	{
 		switch (mode)
 		{
-		case BlendMode::Alpha:
+		case BlendModeType::Alpha:
 			glEnable(GL_BLEND);
 			glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ZERO, GL_ONE);
 			break;
-		case BlendMode::Additive:
+		case BlendModeType::Additive:
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_ONE, GL_ONE); // Addition pure des couleurs HDR
 			break;
-		case BlendMode::None:
+		case BlendModeType::None:
 			glDisable(GL_BLEND);
 			break;
 		}

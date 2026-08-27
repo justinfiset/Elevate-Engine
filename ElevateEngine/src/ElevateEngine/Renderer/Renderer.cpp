@@ -519,7 +519,7 @@ namespace Elevate
             shadowState.CullMode = CullFace::Front;
             shadowState.DepthTest = true;
             shadowState.DepthWrite = true;
-            shadowState.BlendMode = BlendMode::None;
+            shadowState.BlendMode = BlendModeType::None;
             PushRenderState(shadowState);
 
             const auto& bucket = s_commands.GetBucket(RenderBucket::GBuffer);
@@ -566,7 +566,7 @@ namespace Elevate
     void Renderer::RenderLighting()
     {
         RenderState lightingState;
-        lightingState.BlendMode = BlendMode::None;
+        lightingState.BlendMode = BlendModeType::None;
         lightingState.CullMode = CullFace::None;
         lightingState.DepthTest = false;
         lightingState.DepthWrite = false;
@@ -669,7 +669,7 @@ namespace Elevate
     {
         RenderState state;
 
-        state.BlendMode = BlendMode::None;
+        state.BlendMode = BlendModeType::None;
         state.CullMode = CullFace::None;
         state.DepthTest = false;
         state.DepthWrite = false;
@@ -698,7 +698,7 @@ namespace Elevate
             currentSource = s_bloomMipChain[i]->GetColorTexture();
         }
 
-        state.BlendMode = BlendMode::Additive;
+        state.BlendMode = BlendModeType::Additive;
         PushRenderState(state);
 
         BindShader(s_bloomUpsampleShader);
@@ -723,7 +723,7 @@ namespace Elevate
     void Renderer::RenderComposition()
     {
         RenderState state;
-        state.BlendMode = BlendMode::None;
+        state.BlendMode = BlendModeType::None;
         state.CullMode = CullFace::None;
         state.DepthTest = false;
         state.DepthWrite = false;
