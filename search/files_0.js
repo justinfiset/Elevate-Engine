@@ -9,8 +9,12 @@ var searchData=
   ['application_2eh_6',['Application.h',['../Application_8h.html',1,'']]],
   ['applicationevent_2eh_7',['ApplicationEvent.h',['../ApplicationEvent_8h.html',1,'']]],
   ['assert_2eh_8',['Assert.h',['../Assert_8h.html',1,'']]],
-  ['assetbrowserpanel_2ecpp_9',['AssetBrowserPanel.cpp',['../AssetBrowserPanel_8cpp.html',1,'']]],
-  ['assetbrowserpanel_2eh_10',['AssetBrowserPanel.h',['../AssetBrowserPanel_8h.html',1,'']]],
-  ['audiodistanceprobe_2ecpp_11',['AudioDistanceProbe.cpp',['../AudioDistanceProbe_8cpp.html',1,'']]],
-  ['audiodistanceprobe_2eh_12',['AudioDistanceProbe.h',['../AudioDistanceProbe_8h.html',1,'']]]
+  ['asset_2eh_9',['Asset.h',['../Asset_8h.html',1,'']]],
+  ['assetbrowserpanel_2ecpp_10',['AssetBrowserPanel.cpp',['../AssetBrowserPanel_8cpp.html',1,'']]],
+  ['assetbrowserpanel_2eh_11',['AssetBrowserPanel.h',['../AssetBrowserPanel_8h.html',1,'']]],
+  ['assetmetadata_2eh_12',['AssetMetaData.h',['../AssetMetaData_8h.html',1,'']]],
+  ['assetregistry_2ecpp_13',['AssetRegistry.cpp',['../AssetRegistry_8cpp.html',1,'']]],
+  ['assetregistry_2eh_14',['AssetRegistry.h',['../AssetRegistry_8h.html',1,'']]],
+  ['audiodistanceprobe_2ecpp_15',['AudioDistanceProbe.cpp',['../AudioDistanceProbe_8cpp.html',1,'']]],
+  ['audiodistanceprobe_2eh_16',['AudioDistanceProbe.h',['../AudioDistanceProbe_8h.html',1,'']]]
 ];

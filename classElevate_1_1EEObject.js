@@ -3,14 +3,15 @@ var classElevate_1_1EEObject =
     [ "EEObject", "classElevate_1_1EEObject.html#a3696e263fc1aec3a9c474f29659cc96e", null ],
     [ "EEObject", "classElevate_1_1EEObject.html#a7d6ab8fcdf411ce17179ed4dc6854106", null ],
     [ "~EEObject", "classElevate_1_1EEObject.html#a28dd34b8b97aedb62fbedb3db90f8ab4", null ],
-    [ "Deserialize", "classElevate_1_1EEObject.html#a348da5bf42e16ac2ed1268128763b522", null ],
     [ "GetCategory", "classElevate_1_1EEObject.html#ac478f79ae6913e703bfd8fa3498af295", null ],
     [ "GetGuid", "classElevate_1_1EEObject.html#a64b3abed985d21aa5388b10fd8da25aa", null ],
+    [ "GetGuidAddress", "classElevate_1_1EEObject.html#a6f0793d8d8feaa789b1383f6fba68096", null ],
     [ "GetLayout", "classElevate_1_1EEObject.html#a0bde30963e44be13481cd2aa1146a501", null ],
     [ "GetName", "classElevate_1_1EEObject.html#a489398ed969b22f1b46bb3b8411f73b5", null ],
     [ "GetProperties", "classElevate_1_1EEObject.html#acec0c8de8fa3cdab99285ffaf0f3d678", null ],
     [ "GetTypeIndex", "classElevate_1_1EEObject.html#ad7832477c8574c1662f70e6764a824d8", null ],
-    [ "Serialize", "classElevate_1_1EEObject.html#a3cdf98137291aff6e87833f098aa87a8", null ],
+    [ "SetFromProperties", "classElevate_1_1EEObject.html#a6f632fad4ed1f186b74a55222122d30c", null ],
+    [ "AssetRegistry", "classElevate_1_1EEObject.html#a78622a4072c97072cc9c8136cfc23760", null ],
     [ "m_category", "classElevate_1_1EEObject.html#a7f12e2c4fcd41316292d1989d874caa2", null ],
     [ "m_guid", "classElevate_1_1EEObject.html#aca5c15fded37fb9d489fda0a5399b4b7", null ]
 ];

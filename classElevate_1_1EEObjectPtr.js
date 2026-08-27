@@ -4,7 +4,9 @@ var classElevate_1_1EEObjectPtr =
     [ "EEObjectPtr", "classElevate_1_1EEObjectPtr.html#a5972e4409b8de203ca05e0c2a1500bdf", null ],
     [ "EEObjectPtr", "classElevate_1_1EEObjectPtr.html#a6f0213c3705ade388ad462c07805e372", null ],
     [ "EEObjectPtr", "classElevate_1_1EEObjectPtr.html#abdbc814d7117bb9abd84ff682d78df1a", null ],
-    [ "get", "classElevate_1_1EEObjectPtr.html#a5fe04d8951b1913bd5eddcaadd99354a", null ],
+    [ "EEObjectPtr", "classElevate_1_1EEObjectPtr.html#aaecf62352ce090b1f6e9c0de7469da36", null ],
+    [ "get", "classElevate_1_1EEObjectPtr.html#a9a169a47f2f1a8a8b9c24d1c15eb69f6", null ],
+    [ "GetGuid", "classElevate_1_1EEObjectPtr.html#a75c7f52a5d862fceb660e894f4bddb8c", null ],
     [ "operator bool", "classElevate_1_1EEObjectPtr.html#a8ac65a51159936082eafc9257d2db9bf", null ],
     [ "operator*", "classElevate_1_1EEObjectPtr.html#a13d14bef48d1dbe5d76c9eca25221aca", null ],
     [ "operator->", "classElevate_1_1EEObjectPtr.html#adef5ab977ea6edfe1714836a89690b42", null ],
@@ -15,7 +17,10 @@ var classElevate_1_1EEObjectPtr =
     [ "operator==", "classElevate_1_1EEObjectPtr.html#a636cac6b90dfa41efd4a2457f1e54e0a", null ],
     [ "operator==", "classElevate_1_1EEObjectPtr.html#a457db11ff0addcd3c7a6018a10c4923a", null ],
     [ "reset", "classElevate_1_1EEObjectPtr.html#a9d972cc0120e5c5cbfd3c9f0a10613f9", null ],
+    [ "reset", "classElevate_1_1EEObjectPtr.html#a24eb4d4ce71737422ea88113d67e0881", null ],
     [ "reset", "classElevate_1_1EEObjectPtr.html#ac9a7c76c0d904e6cd79456dd1d32d58a", null ],
+    [ "reset", "classElevate_1_1EEObjectPtr.html#ae9e144d97de02529bff1e8af7195c21e", null ],
     [ "Serialize", "classElevate_1_1EEObjectPtr.html#aa1047491f9081d3a0f303aa237ec1c4b", null ],
+    [ "SetGuid", "classElevate_1_1EEObjectPtr.html#abdb60a0870f3403b8d73f97f0a908457", null ],
     [ "ToWeak", "classElevate_1_1EEObjectPtr.html#a7fe9d0fc78f9e3ed4e034ed8b39231b8", null ]
 ];

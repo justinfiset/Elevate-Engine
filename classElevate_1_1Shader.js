@@ -33,13 +33,13 @@ var classElevate_1_1Shader =
     [ "SetUniform4fv", "classElevate_1_1Shader.html#ac727cdaa3dab393f67f60099ba7a09fa", null ],
     [ "SetUniform4i", "classElevate_1_1Shader.html#a7b80c10c0c24099f601a45262163a0f6", null ],
     [ "SetUniform4iv", "classElevate_1_1Shader.html#ad82056d7a4f7f847f2f4a5fde7a9c2eb", null ],
-    [ "SetUniformMatrix2fv", "classElevate_1_1Shader.html#a72e268ac1384b10c0076d22a68270226", null ],
+    [ "SetUniformMatrix2fv", "classElevate_1_1Shader.html#a2b27020a288d75694748eb51b20b2bb5", null ],
     [ "SetUniformMatrix2fv", "classElevate_1_1Shader.html#afa4dc8ef1374adec72b05a1614ee6822", null ],
-    [ "SetUniformMatrix3fv", "classElevate_1_1Shader.html#a82e696ea371a880a3c204cfb85557282", null ],
+    [ "SetUniformMatrix3fv", "classElevate_1_1Shader.html#a5f901987847c9c15d25e5faf3f6255b2", null ],
     [ "SetUniformMatrix3fv", "classElevate_1_1Shader.html#a8209be69f4be85ae47d8eb54d2dbb575", null ],
-    [ "SetUniformMatrix4fv", "classElevate_1_1Shader.html#a20dda2bb34ea57704f5d85430fc23555", null ],
+    [ "SetUniformMatrix4fv", "classElevate_1_1Shader.html#ab13465366a965507062c14d534ce0461", null ],
     [ "SetUniformMatrix4fv", "classElevate_1_1Shader.html#a91397339fff7a1b63c1e36a01c1e611e", null ],
     [ "UseDirLight", "classElevate_1_1Shader.html#ae5410c0fee46ed6e93aed0a38b1b78d9", null ],
-    [ "UseLight", "classElevate_1_1Shader.html#aed27c84f17dc2517dbfb782c8d807480", null ],
+    [ "UseLight", "classElevate_1_1Shader.html#a7d404020e9a04b188037194854575c46", null ],
     [ "Renderer", "classElevate_1_1Shader.html#a70538530bc36e033e360880ef311df61", null ]
 ];

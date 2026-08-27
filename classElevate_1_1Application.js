@@ -11,6 +11,5 @@ var classElevate_1_1Application =
     [ "PushLayer", "classElevate_1_1Application.html#a0f7e349113d0750b61c7a776b991f4cf", null ],
     [ "PushOverlay", "classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2", null ],
     [ "Run", "classElevate_1_1Application.html#abc88552c66339d2aee991eee71681bed", null ],
-    [ "Elevate::Editor::EditorLayer", "classElevate_1_1Application.html#afd264a6e84103e5b17f5b5f6324d5dbd", null ],
-    [ "FrameBuffer", "classElevate_1_1Application.html#a02a1a7ebe8506044892c3def4d809ca7", null ]
+    [ "Elevate::Editor::EditorLayer", "classElevate_1_1Application.html#afd264a6e84103e5b17f5b5f6324d5dbd", null ]
 ];

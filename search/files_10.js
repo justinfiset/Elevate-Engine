@@ -20,6 +20,8 @@ var searchData=
   ['skyboxeditorwidget_2eh_17',['SkyboxEditorWidget.h',['../SkyboxEditorWidget_8h.html',1,'']]],
   ['soundengine_2ecpp_18',['SoundEngine.cpp',['../SoundEngine_8cpp.html',1,'']]],
   ['soundengine_2eh_19',['SoundEngine.h',['../SoundEngine_8h.html',1,'']]],
-  ['statisticspanel_2ecpp_20',['StatisticsPanel.cpp',['../StatisticsPanel_8cpp.html',1,'']]],
-  ['statisticspanel_2eh_21',['StatisticsPanel.h',['../StatisticsPanel_8h.html',1,'']]]
+  ['spotlight_2ecpp_20',['SpotLight.cpp',['../SpotLight_8cpp.html',1,'']]],
+  ['spotlight_2eh_21',['SpotLight.h',['../SpotLight_8h.html',1,'']]],
+  ['statisticspanel_2ecpp_22',['StatisticsPanel.cpp',['../StatisticsPanel_8cpp.html',1,'']]],
+  ['statisticspanel_2eh_23',['StatisticsPanel.h',['../StatisticsPanel_8h.html',1,'']]]
 ];

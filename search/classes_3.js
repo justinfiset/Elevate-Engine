@@ -7,5 +7,6 @@ var searchData=
   ['deletegameobjectcommand_4',['DeleteGameobjectCommand',['../classElevate_1_1DeleteGameobjectCommand.html',1,'Elevate']]],
   ['desktropfiledialog_5',['DesktropFileDialog',['../classElevate_1_1DesktropFileDialog.html',1,'Elevate']]],
   ['directionallight_6',['DirectionalLight',['../classElevate_1_1DirectionalLight.html',1,'Elevate']]],
-  ['displaynametag_7',['DisplayNameTag',['../structElevate_1_1DisplayNameTag.html',1,'Elevate']]]
+  ['directionalshadowsettings_7',['DirectionalShadowSettings',['../structElevate_1_1DirectionalShadowSettings.html',1,'Elevate']]],
+  ['displaynametag_8',['DisplayNameTag',['../structElevate_1_1DisplayNameTag.html',1,'Elevate']]]
 ];

@@ -112,6 +112,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aef11bd3074b3764d0f90a19bc717cfed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad652aa40a068595fa267ca500e5bfcff" id="r_ad652aa40a068595fa267ca500e5bfcff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1RenderCommandQueue.html#ad652aa40a068595fa267ca500e5bfcff">FlushAll</a> ()</td></tr>
 <tr class="separator:ad652aa40a068595fa267ca500e5bfcff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6c29f836079730bbf866eaea830c2a4" id="r_ac6c29f836079730bbf866eaea830c2a4"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1RenderCommandQueue.html#ac6c29f836079730bbf866eaea830c2a4">GetCount</a> ()</td></tr>
+<tr class="separator:ac6c29f836079730bbf866eaea830c2a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fd7a84e66d30a23de58ff88df2d012d" id="r_a6fd7a84e66d30a23de58ff88df2d012d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classElevate_1_1RenderBucket.html">RenderBucket</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1RenderCommandQueue.html#a6fd7a84e66d30a23de58ff88df2d012d">GetBucket</a> (<a class="el" href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2">RenderBucket::Type</a> bucketType) const</td></tr>
 <tr class="separator:a6fd7a84e66d30a23de58ff88df2d012d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -119,6 +121,8 @@ Public Member Functions</h2></td></tr>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a35da338d1aa7b55f5d003bf19bb05c0e" id="r_a35da338d1aa7b55f5d003bf19bb05c0e"><td class="memItemLeft" align="right" valign="top">std::array&lt; <a class="el" href="classElevate_1_1RenderBucket.html">RenderBucket</a>, static_cast&lt; size_t &gt;(<a class="el" href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a388c97ea1fd5a54eb5c1d283d29cb460">RenderBucket::Type::Count</a>)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">m_buckets</a></td></tr>
 <tr class="separator:a35da338d1aa7b55f5d003bf19bb05c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a643b63af808f3f293402b7f14666e6d7" id="r_a643b63af808f3f293402b7f14666e6d7"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1RenderCommandQueue.html#a643b63af808f3f293402b7f14666e6d7">m_count</a> = 0</td></tr>
+<tr class="separator:a643b63af808f3f293402b7f14666e6d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -139,14 +143,16 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RenderCommandQueue_8cpp_source.html#l00010">10</a> of file <a class="el" href="RenderCommandQueue_8cpp_source.html">RenderCommandQueue.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   11</span>    {</div>
-<div class="line"><span class="lineno">   12</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">m_buckets</a>.size(); i++)</div>
-<div class="line"><span class="lineno">   13</span>        {</div>
-<div class="line"><span class="lineno">   14</span>            <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">m_buckets</a>.at(i).Clear();</div>
-<div class="line"><span class="lineno">   15</span>        }</div>
-<div class="line"><span class="lineno">   16</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1RenderCommandQueue_html_a35da338d1aa7b55f5d003bf19bb05c0e"><div class="ttname"><a href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">Elevate::RenderCommandQueue::m_buckets</a></div><div class="ttdeci">std::array&lt; RenderBucket, static_cast&lt; size_t &gt;(RenderBucket::Type::Count)&gt; m_buckets</div><div class="ttdef"><b>Definition</b> <a href="RenderCommandQueue_8h_source.html#l00022">RenderCommandQueue.h:22</a></div></div>
+<p class="definition">Definition at line <a class="el" href="RenderCommandQueue_8cpp_source.html#l00011">11</a> of file <a class="el" href="RenderCommandQueue_8cpp_source.html">RenderCommandQueue.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   12</span>    {</div>
+<div class="line"><span class="lineno">   13</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">m_buckets</a>.size(); i++)</div>
+<div class="line"><span class="lineno">   14</span>        {</div>
+<div class="line"><span class="lineno">   15</span>            <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">m_buckets</a>.at(i).Clear();</div>
+<div class="line"><span class="lineno">   16</span>        }</div>
+<div class="line"><span class="lineno">   17</span>        <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a643b63af808f3f293402b7f14666e6d7">m_count</a> = 0;</div>
+<div class="line"><span class="lineno">   18</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1RenderCommandQueue_html_a35da338d1aa7b55f5d003bf19bb05c0e"><div class="ttname"><a href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">Elevate::RenderCommandQueue::m_buckets</a></div><div class="ttdeci">std::array&lt; RenderBucket, static_cast&lt; size_t &gt;(RenderBucket::Type::Count)&gt; m_buckets</div><div class="ttdef"><b>Definition</b> <a href="RenderCommandQueue_8h_source.html#l00023">RenderCommandQueue.h:23</a></div></div>
+<div class="ttc" id="aclassElevate_1_1RenderCommandQueue_html_a643b63af808f3f293402b7f14666e6d7"><div class="ttname"><a href="classElevate_1_1RenderCommandQueue.html#a643b63af808f3f293402b7f14666e6d7">Elevate::RenderCommandQueue::m_count</a></div><div class="ttdeci">uint64_t m_count</div><div class="ttdef"><b>Definition</b> <a href="RenderCommandQueue_8h_source.html#l00024">RenderCommandQueue.h:24</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -165,16 +171,14 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RenderCommandQueue_8cpp_source.html#l00018">18</a> of file <a class="el" href="RenderCommandQueue_8cpp_source.html">RenderCommandQueue.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   19</span>    {</div>
-<div class="line"><span class="lineno">   20</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">m_buckets</a>.size(); i++)</div>
-<div class="line"><span class="lineno">   21</span>        {</div>
-<div class="line"><span class="lineno">   22</span>            <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">m_buckets</a>.at(i).Sort();</div>
-<div class="line"><span class="lineno">   23</span>            <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">m_buckets</a>.at(i).Flush();</div>
-<div class="line"><span class="lineno">   24</span>        }</div>
-<div class="line"><span class="lineno">   25</span>        <a class="code hl_function" href="classElevate_1_1RenderCommandQueue.html#aef11bd3074b3764d0f90a19bc717cfed">Clear</a>();</div>
-<div class="line"><span class="lineno">   26</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1RenderCommandQueue_html_aef11bd3074b3764d0f90a19bc717cfed"><div class="ttname"><a href="classElevate_1_1RenderCommandQueue.html#aef11bd3074b3764d0f90a19bc717cfed">Elevate::RenderCommandQueue::Clear</a></div><div class="ttdeci">void Clear()</div><div class="ttdef"><b>Definition</b> <a href="RenderCommandQueue_8cpp_source.html#l00010">RenderCommandQueue.cpp:10</a></div></div>
+<p class="definition">Definition at line <a class="el" href="RenderCommandQueue_8cpp_source.html#l00020">20</a> of file <a class="el" href="RenderCommandQueue_8cpp_source.html">RenderCommandQueue.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   21</span>    {</div>
+<div class="line"><span class="lineno">   22</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">m_buckets</a>.size(); i++)</div>
+<div class="line"><span class="lineno">   23</span>        {</div>
+<div class="line"><span class="lineno">   24</span>            <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">m_buckets</a>.at(i).Sort();</div>
+<div class="line"><span class="lineno">   25</span>            <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">m_buckets</a>.at(i).Flush();</div>
+<div class="line"><span class="lineno">   26</span>        }</div>
+<div class="line"><span class="lineno">   27</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -194,10 +198,32 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RenderCommandQueue_8cpp_source.html#l00028">28</a> of file <a class="el" href="RenderCommandQueue_8cpp_source.html">RenderCommandQueue.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   29</span>    {</div>
-<div class="line"><span class="lineno">   30</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">m_buckets</a>.at((<span class="keywordtype">size_t</span>)bucketType);</div>
-<div class="line"><span class="lineno">   31</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="RenderCommandQueue_8cpp_source.html#l00034">34</a> of file <a class="el" href="RenderCommandQueue_8cpp_source.html">RenderCommandQueue.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   35</span>    {</div>
+<div class="line"><span class="lineno">   36</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">m_buckets</a>.at((<span class="keywordtype">size_t</span>)bucketType);</div>
+<div class="line"><span class="lineno">   37</span>    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac6c29f836079730bbf866eaea830c2a4" name="ac6c29f836079730bbf866eaea830c2a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6c29f836079730bbf866eaea830c2a4">&#9670;&#160;</a></span>GetCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t Elevate::RenderCommandQueue::GetCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RenderCommandQueue_8cpp_source.html#l00029">29</a> of file <a class="el" href="RenderCommandQueue_8cpp_source.html">RenderCommandQueue.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   30</span>    {</div>
+<div class="line"><span class="lineno">   31</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a643b63af808f3f293402b7f14666e6d7">m_count</a>;</div>
+<div class="line"><span class="lineno">   32</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -230,7 +256,8 @@ Protected Attributes</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="RenderCommandQueue_8cpp_source.html#l00005">5</a> of file <a class="el" href="RenderCommandQueue_8cpp_source.html">RenderCommandQueue.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">    6</span>    {</div>
 <div class="line"><span class="lineno">    7</span>        <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a35da338d1aa7b55f5d003bf19bb05c0e">m_buckets</a>.at((<span class="keywordtype">size_t</span>)type).Submit(command);</div>
-<div class="line"><span class="lineno">    8</span>    }</div>
+<div class="line"><span class="lineno">    8</span>        <a class="code hl_variable" href="classElevate_1_1RenderCommandQueue.html#a643b63af808f3f293402b7f14666e6d7">m_count</a>++;</div>
+<div class="line"><span class="lineno">    9</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -255,7 +282,31 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RenderCommandQueue_8h_source.html#l00022">22</a> of file <a class="el" href="RenderCommandQueue_8h_source.html">RenderCommandQueue.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderCommandQueue_8h_source.html#l00023">23</a> of file <a class="el" href="RenderCommandQueue_8h_source.html">RenderCommandQueue.h</a>.</p>
+
+</div>
+</div>
+<a id="a643b63af808f3f293402b7f14666e6d7" name="a643b63af808f3f293402b7f14666e6d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a643b63af808f3f293402b7f14666e6d7">&#9670;&#160;</a></span>m_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t Elevate::RenderCommandQueue::m_count = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RenderCommandQueue_8h_source.html#l00024">24</a> of file <a class="el" href="RenderCommandQueue_8h_source.html">RenderCommandQueue.h</a>.</p>
 
 </div>
 </div>

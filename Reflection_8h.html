@@ -129,6 +129,8 @@ Macros</h2></td></tr>
 <tr class="separator:a4403ada93912e086c815bb1f98f9b585"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb9cb89fd1937229bbc7a50e43fa34ca" id="r_afb9cb89fd1937229bbc7a50e43fa34ca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Reflection_8h.html#afb9cb89fd1937229bbc7a50e43fa34ca">PROPERTY</a>(param, ...)</td></tr>
 <tr class="separator:afb9cb89fd1937229bbc7a50e43fa34ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bbb783058382ed84b2f508fabf54c2d" id="r_a6bbb783058382ed84b2f508fabf54c2d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Reflection_8h.html#a6bbb783058382ed84b2f508fabf54c2d">END_OBJECT_CUSTOM</a>()</td></tr>
+<tr class="separator:a6bbb783058382ed84b2f508fabf54c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a474da1f4a109d75cbbbde38976e5f988" id="r_a474da1f4a109d75cbbbde38976e5f988"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Reflection_8h.html#a474da1f4a109d75cbbbde38976e5f988">END_OBJECT</a>()</td></tr>
 <tr class="separator:a474da1f4a109d75cbbbde38976e5f988"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abef824e4e17eb3b5c93fb628c8399faf" id="r_abef824e4e17eb3b5c93fb628c8399faf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Reflection_8h.html#abef824e4e17eb3b5c93fb628c8399faf">BEGIN_COMPONENT</a>(T, ...)</td></tr>
@@ -179,15 +181,15 @@ Macros</h2></td></tr>
 <div class="line">    }</div>
 <div class="ttc" id="aReflection_8h_html_ad2bb496c7f0b331e05cd728b248159a0"><div class="ttname"><a href="Reflection_8h.html#ad2bb496c7f0b331e05cd728b248159a0">BEGIN_OBJECT</a></div><div class="ttdeci">#define BEGIN_OBJECT(T,...)</div><div class="ttdef"><b>Definition</b> <a href="Reflection_8h_source.html#l00035">Reflection.h:35</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="Reflection_8h_source.html#l00123">123</a> of file <a class="el" href="Reflection_8h_source.html">Reflection.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  125</span>      : \</div>
-<div class="line"><span class="lineno">  126</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> RemoveFromGameObject()<span class="keyword"> override </span>{ \</div>
-<div class="line"><span class="lineno">  127</span>        if (gameObject) { \</div>
-<div class="line"><span class="lineno">  128</span>            gameObject-&gt;RemoveComponent&lt;T&gt;(); \</div>
-<div class="line"><span class="lineno">  129</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>; \</div>
-<div class="line"><span class="lineno">  130</span>        } \</div>
-<div class="line"><span class="lineno">  131</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>; \</div>
-<div class="line"><span class="lineno">  132</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Reflection_8h_source.html#l00131">131</a> of file <a class="el" href="Reflection_8h_source.html">Reflection.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  133</span>      : \</div>
+<div class="line"><span class="lineno">  134</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> RemoveFromGameObject()<span class="keyword"> override </span>{ \</div>
+<div class="line"><span class="lineno">  135</span>        if (gameObject) { \</div>
+<div class="line"><span class="lineno">  136</span>            gameObject-&gt;RemoveComponent&lt;T&gt;(); \</div>
+<div class="line"><span class="lineno">  137</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>; \</div>
+<div class="line"><span class="lineno">  138</span>        } \</div>
+<div class="line"><span class="lineno">  139</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>; \</div>
+<div class="line"><span class="lineno">  140</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -282,19 +284,19 @@ Macros</h2></td></tr>
 <div class="line">        std::vector&lt;::Elevate::TypeField&gt; StructFieldStack; \</div>
 <div class="line">    } generated_structEntry;</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="Reflection_8h_source.html#l00220">220</a> of file <a class="el" href="Reflection_8h_source.html">Reflection.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  221</span>      : \</div>
-<div class="line"><span class="lineno">  222</span>    <span class="keyword">using </span>ThisType = T; \</div>
-<div class="line"><span class="lineno">  223</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">struct </span>T##StructEntry { \</div>
-<div class="line"><span class="lineno">  224</span>        T##StructEntry() { \</div>
-<div class="line"><span class="lineno">  225</span>            ::Elevate::TypeRegistry::AddClassToStack(#T); \</div>
-<div class="line"><span class="lineno">  226</span>            StructName = <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#aa6c6581fd3e98227c28bbddbd726e722">::Elevate::TypeRegistry::GetCleanedName</a>(#T); \</div>
-<div class="line"><span class="lineno">  227</span>            StructTypeName = <span class="keyword">typeid</span>(T).name(); \</div>
-<div class="line"><span class="lineno">  228</span>        } \</div>
-<div class="line"><span class="lineno">  229</span>        std::string StructName; \</div>
-<div class="line"><span class="lineno">  230</span>        std::string StructTypeName; \</div>
-<div class="line"><span class="lineno">  231</span>        std::vector&lt;::Elevate::TypeField&gt; StructFieldStack; \</div>
-<div class="line"><span class="lineno">  232</span>    } generated_structEntry;</div>
+<p class="definition">Definition at line <a class="el" href="Reflection_8h_source.html#l00237">237</a> of file <a class="el" href="Reflection_8h_source.html">Reflection.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  238</span>      : \</div>
+<div class="line"><span class="lineno">  239</span>    <span class="keyword">using </span>ThisType = T; \</div>
+<div class="line"><span class="lineno">  240</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">struct </span>T##StructEntry { \</div>
+<div class="line"><span class="lineno">  241</span>        T##StructEntry() { \</div>
+<div class="line"><span class="lineno">  242</span>            ::Elevate::TypeRegistry::AddClassToStack(#T); \</div>
+<div class="line"><span class="lineno">  243</span>            StructName = <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#aa6c6581fd3e98227c28bbddbd726e722">::Elevate::TypeRegistry::GetCleanedName</a>(#T); \</div>
+<div class="line"><span class="lineno">  244</span>            StructTypeName = <span class="keyword">typeid</span>(T).name(); \</div>
+<div class="line"><span class="lineno">  245</span>        } \</div>
+<div class="line"><span class="lineno">  246</span>        std::string StructName; \</div>
+<div class="line"><span class="lineno">  247</span>        std::string StructTypeName; \</div>
+<div class="line"><span class="lineno">  248</span>        std::vector&lt;::Elevate::TypeField&gt; StructFieldStack; \</div>
+<div class="line"><span class="lineno">  249</span>    } generated_structEntry;</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -350,7 +352,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Reflection_8h_source.html#l00146">146</a> of file <a class="el" href="Reflection_8h_source.html">Reflection.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Reflection_8h_source.html#l00163">163</a> of file <a class="el" href="Reflection_8h_source.html">Reflection.h</a>.</p>
 
 </div>
 </div>
@@ -369,24 +371,25 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">private</span>: \</div>
-<div class="line">        <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">struct </span>categoryRegistrar { \</div>
-<div class="line">            categoryRegistrar() { \</div>
-<div class="line">                generated_classEntry.Category = EECategory(name); \</div>
-<div class="line">            } \</div>
-<div class="line">        } generated_categoryRegistrar; \</div>
-<div class="line">        <span class="keyword">virtual</span> EECategory GetCategory()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> generated_classEntry.Category; } \</div>
-<div class="line">    <span class="keyword">public</span>:</div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">private</span>: \</div>
+<div class="line">    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">struct </span>categoryRegistrar { \</div>
+<div class="line">        categoryRegistrar() { \</div>
+<div class="line">            ThisType::generated_classEntry.Category = <a class="code hl_class" href="classElevate_1_1EECategory.html">::Elevate::EECategory</a>(name); \</div>
+<div class="line">        } \</div>
+<div class="line">    } generated_categoryRegistrar; \</div>
+<div class="line"><span class="keyword">public</span>: \</div>
+<div class="line">    virtual ::Elevate::EECategory GetCategory()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> ThisType::generated_classEntry.Category; }</div>
+<div class="ttc" id="aclassElevate_1_1EECategory_html"><div class="ttname"><a href="classElevate_1_1EECategory.html">Elevate::EECategory</a></div><div class="ttdef"><b>Definition</b> <a href="EECategory_8h_source.html#l00007">EECategory.h:8</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="Reflection_8h_source.html#l00006">6</a> of file <a class="el" href="Reflection_8h_source.html">Reflection.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    7</span>           : \</div>
-<div class="line"><span class="lineno">    8</span>        <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">struct </span>categoryRegistrar { \</div>
-<div class="line"><span class="lineno">    9</span>            categoryRegistrar() { \</div>
-<div class="line"><span class="lineno">   10</span>                generated_classEntry.Category = EECategory(name); \</div>
-<div class="line"><span class="lineno">   11</span>            } \</div>
-<div class="line"><span class="lineno">   12</span>        } generated_categoryRegistrar; \</div>
-<div class="line"><span class="lineno">   13</span>        <span class="keyword">virtual</span> EECategory GetCategory()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> generated_classEntry.Category; } \</div>
-<div class="line"><span class="lineno">   14</span>    <span class="keyword">public</span>:</div>
+<div class="fragment"><div class="line"><span class="lineno">    7</span>       : \</div>
+<div class="line"><span class="lineno">    8</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">struct </span>categoryRegistrar { \</div>
+<div class="line"><span class="lineno">    9</span>        categoryRegistrar() { \</div>
+<div class="line"><span class="lineno">   10</span>            ThisType::generated_classEntry.Category = <a class="code hl_class" href="classElevate_1_1EECategory.html">::Elevate::EECategory</a>(name); \</div>
+<div class="line"><span class="lineno">   11</span>        } \</div>
+<div class="line"><span class="lineno">   12</span>    } generated_categoryRegistrar; \</div>
+<div class="line"><span class="lineno">   13</span><span class="keyword">public</span>: \</div>
+<div class="line"><span class="lineno">   14</span>    virtual ::Elevate::EECategory GetCategory()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> ThisType::generated_classEntry.Category; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -405,74 +408,74 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Reflection_8h_source.html#l00149">149</a> of file <a class="el" href="Reflection_8h_source.html">Reflection.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  151</span>      : \</div>
-<div class="line"><span class="lineno">  152</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">struct </span>ComponentEntryEnd { \</div>
-<div class="line"><span class="lineno">  153</span>        ComponentEntryEnd() { \</div>
-<div class="line"><span class="lineno">  154</span>            ::Elevate::TypeRegistry::AddTrait&lt;ThisType, ::Elevate::ComponentTypeTrait&gt;(); \</div>
-<div class="line"><span class="lineno">  155</span>            <span class="keyword">auto</span>* trait = ::Elevate::TypeRegistry::GetEntry&lt;ThisType&gt;().GetTrait&lt;<a class="code hl_struct" href="structElevate_1_1ComponentTypeTrait.html">::Elevate::ComponentTypeTrait</a>&gt;(); \</div>
-<div class="line"><span class="lineno">  156</span>            if (trait) { \</div>
-<div class="line"><span class="lineno">  157</span>                trait-&gt;<a class="code hl_variable" href="structElevate_1_1ComponentTypeTrait.html#abf162cd2700d6e610567a1798e63ea6b">category</a> = generated_classEntry.Category; \</div>
-<div class="line"><span class="lineno">  158</span>                trait-&gt;getter = [](std::weak_ptr&lt;GameObject&gt; go) -&gt; Component* { \</div>
-<div class="line"><span class="lineno">  159</span>                    if (std::shared_ptr&lt;GameObject&gt; obj = go.lock()) { \</div>
-<div class="line"><span class="lineno">  160</span>                        <span class="keywordflow">return</span> obj-&gt;GetComponent&lt;ThisType&gt;(); \</div>
-<div class="line"><span class="lineno">  161</span>                    } \</div>
-<div class="line"><span class="lineno">  162</span>                    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; \</div>
-<div class="line"><span class="lineno">  163</span>                }; \</div>
-<div class="line"><span class="lineno">  164</span>                trait-&gt;factory = [](std::weak_ptr&lt;GameObject&gt; go) -&gt; Component* { \</div>
-<div class="line"><span class="lineno">  165</span>                    if (std::shared_ptr&lt;GameObject&gt; obj = go.lock()) { \</div>
-<div class="line"><span class="lineno">  166</span>                        <span class="keywordflow">return</span> &amp;obj-&gt;AddComponent&lt;ThisType&gt;(); \</div>
-<div class="line"><span class="lineno">  167</span>                    } \</div>
-<div class="line"><span class="lineno">  168</span>                    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; \</div>
-<div class="line"><span class="lineno">  169</span>                }; \</div>
-<div class="line"><span class="lineno">  170</span>                trait-&gt;destructor = [](std::weak_ptr&lt;GameObject&gt; go) -&gt; <span class="keywordtype">void</span> { \</div>
-<div class="line"><span class="lineno">  171</span>                    if (std::shared_ptr&lt;GameObject&gt; obj = go.lock()) { \</div>
-<div class="line"><span class="lineno">  172</span>                        obj-&gt;RemoveComponent&lt;ThisType&gt;(); \</div>
-<div class="line"><span class="lineno">  173</span>                    } \</div>
-<div class="line"><span class="lineno">  174</span>                }; \</div>
-<div class="line"><span class="lineno">  175</span>            } \</div>
-<div class="line"><span class="lineno">  176</span>        } \</div>
-<div class="line"><span class="lineno">  177</span>    } generated_componentEntryEnd; \</div>
-<div class="line"><span class="lineno">  178</span>    <span class="keyword">virtual</span> Component* Clone()<span class="keyword"> override </span>{ \</div>
-<div class="line"><span class="lineno">  179</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; \</div>
-<div class="line"><span class="lineno">  180</span>    } \</div>
-<div class="line"><span class="lineno">  181</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> CopyFrom(Component* other)<span class="keyword"> override </span>{ \</div>
-<div class="line"><span class="lineno">  182</span>        if (<span class="keyword">auto</span> o = <span class="keyword">dynamic_cast&lt;</span>ThisType*<span class="keyword">&gt;</span>(other)) { \</div>
-<div class="line"><span class="lineno">  183</span>            if (generated_classEntry.HasBaseClass) { \</div>
-<div class="line"><span class="lineno">  184</span>                <span class="keyword">auto</span> parentFields = ParentFieldsHelper&lt;ThisType&gt;::Get(); \</div>
-<div class="line"><span class="lineno">  185</span>                for (const ::Elevate::TypeField&amp; field : parentFields) { \</div>
-<div class="line"><span class="lineno">  186</span>                     <span class="comment">/* field.CopyValue(o, this); */</span> \</div>
-<div class="line"><span class="lineno">  187</span>                } \</div>
-<div class="line"><span class="lineno">  188</span>            } \</div>
-<div class="line"><span class="lineno">  189</span>            for (const ::Elevate::TypeField&amp; field : generated_classEntry.ClassFieldStack) { \</div>
-<div class="line"><span class="lineno">  190</span>                 <span class="comment">/* field.CopyValue(o, this); */</span> \</div>
-<div class="line"><span class="lineno">  191</span>            } \</div>
-<div class="line"><span class="lineno">  192</span>        } \</div>
-<div class="line"><span class="lineno">  193</span>        <span class="keywordflow">else</span> { \</div>
-<div class="line"><span class="lineno">  194</span>            EE_ERROR(<span class="stringliteral">&quot;Error: Tried setting a %s from a %s component in CopyFrom(Component*)&quot;</span>, \</div>
-<div class="line"><span class="lineno">  195</span>                this-&gt;GetName(), other ? other-&gt;GetName() : <span class="stringliteral">&quot;null&quot;</span>); \</div>
-<div class="line"><span class="lineno">  196</span>        } \</div>
+<p class="definition">Definition at line <a class="el" href="Reflection_8h_source.html#l00166">166</a> of file <a class="el" href="Reflection_8h_source.html">Reflection.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  168</span>      : \</div>
+<div class="line"><span class="lineno">  169</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">struct </span>ComponentEntryEnd { \</div>
+<div class="line"><span class="lineno">  170</span>        ComponentEntryEnd() { \</div>
+<div class="line"><span class="lineno">  171</span>            ::Elevate::TypeRegistry::AddTrait&lt;ThisType, ::Elevate::ComponentTypeTrait&gt;(); \</div>
+<div class="line"><span class="lineno">  172</span>            <span class="keyword">auto</span>* trait = ::Elevate::TypeRegistry::GetEntry&lt;ThisType&gt;().GetTrait&lt;<a class="code hl_struct" href="structElevate_1_1ComponentTypeTrait.html">::Elevate::ComponentTypeTrait</a>&gt;(); \</div>
+<div class="line"><span class="lineno">  173</span>            if (trait) { \</div>
+<div class="line"><span class="lineno">  174</span>                trait-&gt;<a class="code hl_variable" href="structElevate_1_1ComponentTypeTrait.html#abf162cd2700d6e610567a1798e63ea6b">category</a> = generated_classEntry.Category; \</div>
+<div class="line"><span class="lineno">  175</span>                trait-&gt;getter = [](std::weak_ptr&lt;GameObject&gt; go) -&gt; Component* { \</div>
+<div class="line"><span class="lineno">  176</span>                    if (std::shared_ptr&lt;GameObject&gt; obj = go.lock()) { \</div>
+<div class="line"><span class="lineno">  177</span>                        <span class="keywordflow">return</span> obj-&gt;GetComponent&lt;ThisType&gt;(); \</div>
+<div class="line"><span class="lineno">  178</span>                    } \</div>
+<div class="line"><span class="lineno">  179</span>                    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; \</div>
+<div class="line"><span class="lineno">  180</span>                }; \</div>
+<div class="line"><span class="lineno">  181</span>                trait-&gt;factory = [](std::weak_ptr&lt;GameObject&gt; go) -&gt; Component* { \</div>
+<div class="line"><span class="lineno">  182</span>                    if (std::shared_ptr&lt;GameObject&gt; obj = go.lock()) { \</div>
+<div class="line"><span class="lineno">  183</span>                        <span class="keywordflow">return</span> &amp;obj-&gt;AddComponent&lt;ThisType&gt;(); \</div>
+<div class="line"><span class="lineno">  184</span>                    } \</div>
+<div class="line"><span class="lineno">  185</span>                    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; \</div>
+<div class="line"><span class="lineno">  186</span>                }; \</div>
+<div class="line"><span class="lineno">  187</span>                trait-&gt;destructor = [](std::weak_ptr&lt;GameObject&gt; go) -&gt; <span class="keywordtype">void</span> { \</div>
+<div class="line"><span class="lineno">  188</span>                    if (std::shared_ptr&lt;GameObject&gt; obj = go.lock()) { \</div>
+<div class="line"><span class="lineno">  189</span>                        obj-&gt;RemoveComponent&lt;ThisType&gt;(); \</div>
+<div class="line"><span class="lineno">  190</span>                    } \</div>
+<div class="line"><span class="lineno">  191</span>                }; \</div>
+<div class="line"><span class="lineno">  192</span>            } \</div>
+<div class="line"><span class="lineno">  193</span>        } \</div>
+<div class="line"><span class="lineno">  194</span>    } generated_componentEntryEnd; \</div>
+<div class="line"><span class="lineno">  195</span>    <span class="keyword">virtual</span> Component* Clone()<span class="keyword"> override </span>{ \</div>
+<div class="line"><span class="lineno">  196</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; \</div>
 <div class="line"><span class="lineno">  197</span>    } \</div>
-<div class="line"><span class="lineno">  198</span>    virtual ::Elevate::GameObjectComponentFactory GetFactory()<span class="keyword"> const override </span>{ \</div>
-<div class="line"><span class="lineno">  199</span>        <span class="keyword">auto</span>&amp; entry = TypeRegistry::GetEntry&lt;ThisType&gt;(); \</div>
-<div class="line"><span class="lineno">  200</span>        if (<span class="keyword">auto</span>* trait = entry.GetTrait&lt;<a class="code hl_struct" href="structElevate_1_1ComponentTypeTrait.html">::Elevate::ComponentTypeTrait</a>&gt;()) { \</div>
-<div class="line"><span class="lineno">  201</span>            <span class="keywordflow">return</span> trait-&gt;factory; \</div>
-<div class="line"><span class="lineno">  202</span>        } \</div>
-<div class="line"><span class="lineno">  203</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; \</div>
-<div class="line"><span class="lineno">  204</span>    } \</div>
-<div class="line"><span class="lineno">  205</span>    virtual ::Elevate::GameObjectComponentDestructor GetDestructor()<span class="keyword"> const override </span>{ \</div>
-<div class="line"><span class="lineno">  206</span>        <span class="keyword">auto</span>&amp; entry = TypeRegistry::GetEntry&lt;ThisType&gt;(); \</div>
-<div class="line"><span class="lineno">  207</span>        if (<span class="keyword">auto</span>* trait = entry.GetTrait&lt;<a class="code hl_struct" href="structElevate_1_1ComponentTypeTrait.html">::Elevate::ComponentTypeTrait</a>&gt;()) { \</div>
-<div class="line"><span class="lineno">  208</span>            <span class="keywordflow">return</span> trait-&gt;destructor; \</div>
+<div class="line"><span class="lineno">  198</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> CopyFrom(Component* other)<span class="keyword"> override </span>{ \</div>
+<div class="line"><span class="lineno">  199</span>        if (<span class="keyword">auto</span> o = <span class="keyword">dynamic_cast&lt;</span>ThisType*<span class="keyword">&gt;</span>(other)) { \</div>
+<div class="line"><span class="lineno">  200</span>            if (generated_classEntry.HasBaseClass) { \</div>
+<div class="line"><span class="lineno">  201</span>                <span class="keyword">auto</span> parentFields = ParentFieldsHelper&lt;ThisType&gt;::Get(); \</div>
+<div class="line"><span class="lineno">  202</span>                for (const ::Elevate::TypeField&amp; field : parentFields) { \</div>
+<div class="line"><span class="lineno">  203</span>                     <span class="comment">/* field.CopyValue(o, this); */</span> \</div>
+<div class="line"><span class="lineno">  204</span>                } \</div>
+<div class="line"><span class="lineno">  205</span>            } \</div>
+<div class="line"><span class="lineno">  206</span>            for (const ::Elevate::TypeField&amp; field : generated_classEntry.ClassFieldStack) { \</div>
+<div class="line"><span class="lineno">  207</span>                 <span class="comment">/* field.CopyValue(o, this); */</span> \</div>
+<div class="line"><span class="lineno">  208</span>            } \</div>
 <div class="line"><span class="lineno">  209</span>        } \</div>
-<div class="line"><span class="lineno">  210</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; \</div>
-<div class="line"><span class="lineno">  211</span>    } \</div>
-<div class="line"><span class="lineno">  212</span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> SetFromProperties(const ::Elevate::PropertySet&amp; props) { \</div>
-<div class="line"><span class="lineno">  213</span>        GetLayout().ApplyState(props); \</div>
+<div class="line"><span class="lineno">  210</span>        <span class="keywordflow">else</span> { \</div>
+<div class="line"><span class="lineno">  211</span>            EE_ERROR(<span class="stringliteral">&quot;Error: Tried setting a %s from a %s component in CopyFrom(Component*)&quot;</span>, \</div>
+<div class="line"><span class="lineno">  212</span>                this-&gt;GetName(), other ? other-&gt;GetName() : <span class="stringliteral">&quot;null&quot;</span>); \</div>
+<div class="line"><span class="lineno">  213</span>        } \</div>
 <div class="line"><span class="lineno">  214</span>    } \</div>
-<div class="line"><span class="lineno">  215</span>    EDITOR_ONLY_COMPONENT_END_CODE(ThisType)</div>
-<div class="ttc" id="astructElevate_1_1ComponentTypeTrait_html"><div class="ttname"><a href="structElevate_1_1ComponentTypeTrait.html">Elevate::ComponentTypeTrait</a></div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00114">TypeRegistry.h:115</a></div></div>
-<div class="ttc" id="astructElevate_1_1ComponentTypeTrait_html_abf162cd2700d6e610567a1798e63ea6b"><div class="ttname"><a href="structElevate_1_1ComponentTypeTrait.html#abf162cd2700d6e610567a1798e63ea6b">Elevate::ComponentTypeTrait::category</a></div><div class="ttdeci">EECategory category</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00116">TypeRegistry.h:116</a></div></div>
+<div class="line"><span class="lineno">  215</span>    virtual ::Elevate::GameObjectComponentFactory GetFactory()<span class="keyword"> const override </span>{ \</div>
+<div class="line"><span class="lineno">  216</span>        <span class="keyword">auto</span>&amp; entry = TypeRegistry::GetEntry&lt;ThisType&gt;(); \</div>
+<div class="line"><span class="lineno">  217</span>        if (<span class="keyword">auto</span>* trait = entry.GetTrait&lt;<a class="code hl_struct" href="structElevate_1_1ComponentTypeTrait.html">::Elevate::ComponentTypeTrait</a>&gt;()) { \</div>
+<div class="line"><span class="lineno">  218</span>            <span class="keywordflow">return</span> trait-&gt;factory; \</div>
+<div class="line"><span class="lineno">  219</span>        } \</div>
+<div class="line"><span class="lineno">  220</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; \</div>
+<div class="line"><span class="lineno">  221</span>    } \</div>
+<div class="line"><span class="lineno">  222</span>    virtual ::Elevate::GameObjectComponentDestructor GetDestructor()<span class="keyword"> const override </span>{ \</div>
+<div class="line"><span class="lineno">  223</span>        <span class="keyword">auto</span>&amp; entry = TypeRegistry::GetEntry&lt;ThisType&gt;(); \</div>
+<div class="line"><span class="lineno">  224</span>        if (<span class="keyword">auto</span>* trait = entry.GetTrait&lt;<a class="code hl_struct" href="structElevate_1_1ComponentTypeTrait.html">::Elevate::ComponentTypeTrait</a>&gt;()) { \</div>
+<div class="line"><span class="lineno">  225</span>            <span class="keywordflow">return</span> trait-&gt;destructor; \</div>
+<div class="line"><span class="lineno">  226</span>        } \</div>
+<div class="line"><span class="lineno">  227</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; \</div>
+<div class="line"><span class="lineno">  228</span>    } \</div>
+<div class="line"><span class="lineno">  229</span>    <span class="keywordtype">void</span> SetFromProperties(const ::Elevate::PropertySet&amp; props)<span class="keyword"> override </span>{ \</div>
+<div class="line"><span class="lineno">  230</span>        GetLayout().ApplyState(props); \</div>
+<div class="line"><span class="lineno">  231</span>    } \</div>
+<div class="line"><span class="lineno">  232</span>    EDITOR_ONLY_COMPONENT_END_CODE(ThisType)</div>
+<div class="ttc" id="astructElevate_1_1ComponentTypeTrait_html"><div class="ttname"><a href="structElevate_1_1ComponentTypeTrait.html">Elevate::ComponentTypeTrait</a></div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00135">TypeRegistry.h:136</a></div></div>
+<div class="ttc" id="astructElevate_1_1ComponentTypeTrait_html_abf162cd2700d6e610567a1798e63ea6b"><div class="ttname"><a href="structElevate_1_1ComponentTypeTrait.html#abf162cd2700d6e610567a1798e63ea6b">Elevate::ComponentTypeTrait::category</a></div><div class="ttdeci">EECategory category</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00137">TypeRegistry.h:137</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -491,6 +494,74 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="Reflection_8h_source.html#l00095">95</a> of file <a class="el" href="Reflection_8h_source.html">Reflection.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   97</span>      : \</div>
+<div class="line"><span class="lineno">   98</span>    virtual ::Elevate::TypeLayout GetLayout()<span class="keyword"> const override </span>{ \</div>
+<div class="line"><span class="lineno">   99</span>            std::vector&lt;::Elevate::TypeField&gt; allFields; \</div>
+<div class="line"><span class="lineno">  100</span>            allFields.push_back(<a class="code hl_struct" href="structElevate_1_1TypeField.html">::Elevate::TypeField</a>( \</div>
+<div class="line"><span class="lineno">  101</span>                <span class="stringliteral">&quot;m_guid&quot;</span>, \</div>
+<div class="line"><span class="lineno">  102</span>                <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a7b1419a14dcdd33f81732a4710376cd1">::Elevate::EngineDataType::GUID</a>, \</div>
+<div class="line"><span class="lineno">  103</span>                <a class="code hl_function" href="classElevate_1_1EEObject.html#a400ae029118df67079518b1972fe542e">::Elevate::EEObject::GetGuidOffset</a>() \</div>
+<div class="line"><span class="lineno">  104</span>            )); \</div>
+<div class="line"><span class="lineno">  105</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<span class="keyword">requires</span> { <span class="keyword">typename</span> ThisType::Super; }) { \</div>
+<div class="line"><span class="lineno">  106</span>                <span class="keyword">auto</span>&amp; registryMap = <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#a907a2b4293780fb2fa945b77fea24192">::Elevate::TypeRegistry::GetReflectedTypes</a>(); \</div>
+<div class="line"><span class="lineno">  107</span>                <span class="keyword">auto</span> it = registryMap.find(<span class="keyword">typeid</span>(<span class="keyword">typename</span> ThisType::Super)); \</div>
+<div class="line"><span class="lineno">  108</span>                if (it != registryMap.end()) { \</div>
+<div class="line"><span class="lineno">  109</span>                    for (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; field : it-&gt;second) { \</div>
+<div class="line"><span class="lineno">  110</span>                        allFields.push_back(field); \</div>
+<div class="line"><span class="lineno">  111</span>                    } \</div>
+<div class="line"><span class="lineno">  112</span>                } \</div>
+<div class="line"><span class="lineno">  113</span>            } \</div>
+<div class="line"><span class="lineno">  114</span>            \</div>
+<div class="line"><span class="lineno">  115</span>            for (const ::Elevate::TypeField&amp; field : generated_classEntry.ClassFieldStack) { \</div>
+<div class="line"><span class="lineno">  116</span>                allFields.push_back(field); \</div>
+<div class="line"><span class="lineno">  117</span>            } \</div>
+<div class="line"><span class="lineno">  118</span>            \</div>
+<div class="line"><span class="lineno">  119</span>            std::vector&lt;::Elevate::TypeField&gt; instanceFields; \</div>
+<div class="line"><span class="lineno">  120</span>            for (const ::Elevate::TypeField&amp; field : allFields) { \</div>
+<div class="line"><span class="lineno">  121</span>                <a class="code hl_struct" href="structElevate_1_1TypeField.html">::Elevate::TypeField</a> instField = field; \</div>
+<div class="line"><span class="lineno">  122</span>                instField.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a> = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(<span class="keyword">this</span>) + field.offset; \</div>
+<div class="line"><span class="lineno">  123</span>                instanceFields.push_back(instField); \</div>
+<div class="line"><span class="lineno">  124</span>            } \</div>
+<div class="line"><span class="lineno">  125</span>            return ::Elevate::TypeLayout(<span class="keyword">this</span>, generated_classEntry.ClassName, instanceFields); \</div>
+<div class="line"><span class="lineno">  126</span>        }</div>
+<div class="ttc" id="aclassElevate_1_1EEObject_html_a400ae029118df67079518b1972fe542e"><div class="ttname"><a href="classElevate_1_1EEObject.html#a400ae029118df67079518b1972fe542e">Elevate::EEObject::GetGuidOffset</a></div><div class="ttdeci">static size_t GetGuidOffset()</div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00036">EEObject.h:36</a></div></div>
+<div class="ttc" id="aclassElevate_1_1TypeRegistry_html_a907a2b4293780fb2fa945b77fea24192"><div class="ttname"><a href="classElevate_1_1TypeRegistry.html#a907a2b4293780fb2fa945b77fea24192">Elevate::TypeRegistry::GetReflectedTypes</a></div><div class="ttdeci">static std::map&lt; std::type_index, std::vector&lt; TypeField &gt; &gt; &amp; GetReflectedTypes()</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00233">TypeRegistry.h:233</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a084798f901873cb9a7cb959b62006324a7b1419a14dcdd33f81732a4710376cd1"><div class="ttname"><a href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a7b1419a14dcdd33f81732a4710376cd1">Elevate::EngineDataType::GUID</a></div><div class="ttdeci">@ GUID</div></div>
+<div class="ttc" id="astructElevate_1_1TypeField_html"><div class="ttname"><a href="structElevate_1_1TypeField.html">Elevate::TypeField</a></div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00012">TypeField.h:13</a></div></div>
+<div class="ttc" id="astructElevate_1_1TypeField_html_aaf3866edae7c6f2e93625741f0371bff"><div class="ttname"><a href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">Elevate::TypeField::data</a></div><div class="ttdeci">const void * data</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00018">TypeField.h:18</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a6bbb783058382ed84b2f508fabf54c2d" name="a6bbb783058382ed84b2f508fabf54c2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bbb783058382ed84b2f508fabf54c2d">&#9670;&#160;</a></span>END_OBJECT_CUSTOM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define END_OBJECT_CUSTOM</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">private</span>: \</div>
+<div class="line">    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">struct </span>ClassEntryEnd { \</div>
+<div class="line">        ClassEntryEnd() { \</div>
+<div class="line">            ::Elevate::TypeRegistry::Register&lt;ThisType&gt;( \</div>
+<div class="line">                    generated_classEntry.ClassName, \</div>
+<div class="line">                    generated_classEntry.Options \</div>
+<div class="line">            ); \</div>
+<div class="line">            ::Elevate::TypeRegistry::PopClassStack(); \</div>
+<div class="line">            ::Elevate::TypeRegistry::GetReflectedTypes()[<span class="keyword">typeid</span>(ThisType)] = generated_classEntry.ClassFieldStack; \</div>
+<div class="line">        } \</div>
+<div class="line">    } generated_classEntryEnd; \</div>
+<div class="line"><span class="keyword">public</span>: \</div>
+<div class="line">    <span class="keyword">inline</span> <span class="keyword">virtual</span> std::string GetName()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> generated_classEntry.ClassName; } \</div>
+<div class="line">    <span class="keyword">virtual</span> std::type_index GetTypeIndex()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="keyword">typeid</span>(ThisType); }</div>
+</div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="Reflection_8h_source.html#l00079">79</a> of file <a class="el" href="Reflection_8h_source.html">Reflection.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   80</span>       : \</div>
 <div class="line"><span class="lineno">   81</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">struct </span>ClassEntryEnd { \</div>
@@ -505,35 +576,7 @@ Macros</h2></td></tr>
 <div class="line"><span class="lineno">   90</span>    } generated_classEntryEnd; \</div>
 <div class="line"><span class="lineno">   91</span><span class="keyword">public</span>: \</div>
 <div class="line"><span class="lineno">   92</span>    <span class="keyword">inline</span> <span class="keyword">virtual</span> std::string GetName()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> generated_classEntry.ClassName; } \</div>
-<div class="line"><span class="lineno">   93</span>    <span class="keyword">inline</span> virtual ::Elevate::TypeLayout GetLayout()<span class="keyword"> const override </span>{ \</div>
-<div class="line"><span class="lineno">   94</span>        std::vector&lt;::Elevate::TypeField&gt; allFields; \</div>
-<div class="line"><span class="lineno">   95</span>        \</div>
-<div class="line"><span class="lineno">   96</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<span class="keyword">requires</span> { <span class="keyword">typename</span> ThisType::Super; }) { \</div>
-<div class="line"><span class="lineno">   97</span>            <span class="keyword">auto</span>&amp; registryMap = <a class="code hl_function" href="classElevate_1_1TypeRegistry.html#a907a2b4293780fb2fa945b77fea24192">::Elevate::TypeRegistry::GetReflectedTypes</a>(); \</div>
-<div class="line"><span class="lineno">   98</span>            <span class="keyword">auto</span> it = registryMap.find(<span class="keyword">typeid</span>(<span class="keyword">typename</span> ThisType::Super)); \</div>
-<div class="line"><span class="lineno">   99</span>            if (it != registryMap.end()) { \</div>
-<div class="line"><span class="lineno">  100</span>                for (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; field : it-&gt;second) { \</div>
-<div class="line"><span class="lineno">  101</span>                    allFields.push_back(field); \</div>
-<div class="line"><span class="lineno">  102</span>                } \</div>
-<div class="line"><span class="lineno">  103</span>            } \</div>
-<div class="line"><span class="lineno">  104</span>        } \</div>
-<div class="line"><span class="lineno">  105</span>        \</div>
-<div class="line"><span class="lineno">  106</span>        for (const ::Elevate::TypeField&amp; field : generated_classEntry.ClassFieldStack) { \</div>
-<div class="line"><span class="lineno">  107</span>            allFields.push_back(field); \</div>
-<div class="line"><span class="lineno">  108</span>        } \</div>
-<div class="line"><span class="lineno">  109</span>        \</div>
-<div class="line"><span class="lineno">  110</span>        std::vector&lt;::Elevate::TypeField&gt; instanceFields; \</div>
-<div class="line"><span class="lineno">  111</span>        for (const ::Elevate::TypeField&amp; field : allFields) { \</div>
-<div class="line"><span class="lineno">  112</span>            <a class="code hl_struct" href="structElevate_1_1TypeField.html">::Elevate::TypeField</a> instField = field; \</div>
-<div class="line"><span class="lineno">  113</span>            instField.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a> = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(<span class="keyword">this</span>) + field.offset; \</div>
-<div class="line"><span class="lineno">  114</span>            instanceFields.push_back(instField); \</div>
-<div class="line"><span class="lineno">  115</span>        } \</div>
-<div class="line"><span class="lineno">  116</span>        return ::Elevate::TypeLayout(<span class="keyword">this</span>, generated_classEntry.ClassName, instanceFields); \</div>
-<div class="line"><span class="lineno">  117</span>    } \</div>
-<div class="line"><span class="lineno">  118</span>    <span class="keyword">virtual</span> std::type_index GetTypeIndex()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="keyword">typeid</span>(ThisType); }</div>
-<div class="ttc" id="aclassElevate_1_1TypeRegistry_html_a907a2b4293780fb2fa945b77fea24192"><div class="ttname"><a href="classElevate_1_1TypeRegistry.html#a907a2b4293780fb2fa945b77fea24192">Elevate::TypeRegistry::GetReflectedTypes</a></div><div class="ttdeci">static std::map&lt; std::type_index, std::vector&lt; TypeField &gt; &gt; &amp; GetReflectedTypes()</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00204">TypeRegistry.h:204</a></div></div>
-<div class="ttc" id="astructElevate_1_1TypeField_html"><div class="ttname"><a href="structElevate_1_1TypeField.html">Elevate::TypeField</a></div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00011">TypeField.h:12</a></div></div>
-<div class="ttc" id="astructElevate_1_1TypeField_html_aaf3866edae7c6f2e93625741f0371bff"><div class="ttname"><a href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">Elevate::TypeField::data</a></div><div class="ttdeci">const void * data</div><div class="ttdef"><b>Definition</b> <a href="TypeField_8h_source.html#l00017">TypeField.h:17</a></div></div>
+<div class="line"><span class="lineno">   93</span>    <span class="keyword">virtual</span> std::type_index GetTypeIndex()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="keyword">typeid</span>(ThisType); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -580,35 +623,35 @@ Macros</h2></td></tr>
 <div class="line">        GetLayout().ApplyState(props); \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="Reflection_8h_source.html#l00234">234</a> of file <a class="el" href="Reflection_8h_source.html">Reflection.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  235</span>       : \</div>
-<div class="line"><span class="lineno">  236</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">struct </span>StructEntryEnd { \</div>
-<div class="line"><span class="lineno">  237</span>        StructEntryEnd() { \</div>
-<div class="line"><span class="lineno">  238</span>            ::Elevate::TypeRegistry::PopClassStack(); \</div>
-<div class="line"><span class="lineno">  239</span>            ::Elevate::TypeRegistry::Register&lt;ThisType&gt;( \</div>
-<div class="line"><span class="lineno">  240</span>                generated_structEntry.StructName, \</div>
-<div class="line"><span class="lineno">  241</span>                std::vector&lt;::Elevate::FieldOption&gt;{} \</div>
-<div class="line"><span class="lineno">  242</span>            ); \</div>
-<div class="line"><span class="lineno">  243</span>            ::Elevate::TypeRegistry::GetReflectedTypes()[<span class="keyword">typeid</span>(ThisType)] = generated_structEntry.StructFieldStack; \</div>
-<div class="line"><span class="lineno">  244</span>        } \</div>
-<div class="line"><span class="lineno">  245</span>    } generated_structEntryEnd; \</div>
-<div class="line"><span class="lineno">  246</span><span class="keyword">public</span>: \</div>
-<div class="line"><span class="lineno">  247</span>    inline ::Elevate::TypeLayout GetLayout()<span class="keyword"> const </span>{ \</div>
-<div class="line"><span class="lineno">  248</span>        std::vector&lt;::Elevate::TypeField&gt; instanceFields; \</div>
-<div class="line"><span class="lineno">  249</span>        for (const ::Elevate::TypeField&amp; field : generated_structEntry.StructFieldStack) { \</div>
-<div class="line"><span class="lineno">  250</span>            <a class="code hl_struct" href="structElevate_1_1TypeField.html">::Elevate::TypeField</a> instField = field; \</div>
-<div class="line"><span class="lineno">  251</span>            instField.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a> = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(<span class="keyword">this</span>) + field.offset; \</div>
-<div class="line"><span class="lineno">  252</span>            instanceFields.push_back(instField); \</div>
-<div class="line"><span class="lineno">  253</span>        } \</div>
-<div class="line"><span class="lineno">  254</span>        return ::Elevate::TypeLayout(<span class="keyword">this</span>, generated_structEntry.StructName, instanceFields); \</div>
-<div class="line"><span class="lineno">  255</span>    } \</div>
-<div class="line"><span class="lineno">  256</span>    std::type_index GetTypeIndex()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">typeid</span>(ThisType); } \</div>
-<div class="line"><span class="lineno">  257</span>    inline ::Elevate::PropertySet GetProperties()<span class="keyword"> const </span>{ \</div>
-<div class="line"><span class="lineno">  258</span>        <span class="keywordflow">return</span> GetLayout().CaptureState(); \</div>
-<div class="line"><span class="lineno">  259</span>    } \</div>
-<div class="line"><span class="lineno">  260</span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> SetFromProperties(const ::Elevate::PropertySet&amp; props) { \</div>
-<div class="line"><span class="lineno">  261</span>        GetLayout().ApplyState(props); \</div>
-<div class="line"><span class="lineno">  262</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Reflection_8h_source.html#l00251">251</a> of file <a class="el" href="Reflection_8h_source.html">Reflection.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  252</span>       : \</div>
+<div class="line"><span class="lineno">  253</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">struct </span>StructEntryEnd { \</div>
+<div class="line"><span class="lineno">  254</span>        StructEntryEnd() { \</div>
+<div class="line"><span class="lineno">  255</span>            ::Elevate::TypeRegistry::PopClassStack(); \</div>
+<div class="line"><span class="lineno">  256</span>            ::Elevate::TypeRegistry::Register&lt;ThisType&gt;( \</div>
+<div class="line"><span class="lineno">  257</span>                generated_structEntry.StructName, \</div>
+<div class="line"><span class="lineno">  258</span>                std::vector&lt;::Elevate::FieldOption&gt;{} \</div>
+<div class="line"><span class="lineno">  259</span>            ); \</div>
+<div class="line"><span class="lineno">  260</span>            ::Elevate::TypeRegistry::GetReflectedTypes()[<span class="keyword">typeid</span>(ThisType)] = generated_structEntry.StructFieldStack; \</div>
+<div class="line"><span class="lineno">  261</span>        } \</div>
+<div class="line"><span class="lineno">  262</span>    } generated_structEntryEnd; \</div>
+<div class="line"><span class="lineno">  263</span><span class="keyword">public</span>: \</div>
+<div class="line"><span class="lineno">  264</span>    inline ::Elevate::TypeLayout GetLayout()<span class="keyword"> const </span>{ \</div>
+<div class="line"><span class="lineno">  265</span>        std::vector&lt;::Elevate::TypeField&gt; instanceFields; \</div>
+<div class="line"><span class="lineno">  266</span>        for (const ::Elevate::TypeField&amp; field : generated_structEntry.StructFieldStack) { \</div>
+<div class="line"><span class="lineno">  267</span>            <a class="code hl_struct" href="structElevate_1_1TypeField.html">::Elevate::TypeField</a> instField = field; \</div>
+<div class="line"><span class="lineno">  268</span>            instField.<a class="code hl_variable" href="structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff">data</a> = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(<span class="keyword">this</span>) + field.offset; \</div>
+<div class="line"><span class="lineno">  269</span>            instanceFields.push_back(instField); \</div>
+<div class="line"><span class="lineno">  270</span>        } \</div>
+<div class="line"><span class="lineno">  271</span>        return ::Elevate::TypeLayout(<span class="keyword">this</span>, generated_structEntry.StructName, instanceFields); \</div>
+<div class="line"><span class="lineno">  272</span>    } \</div>
+<div class="line"><span class="lineno">  273</span>    std::type_index GetTypeIndex()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">typeid</span>(ThisType); } \</div>
+<div class="line"><span class="lineno">  274</span>    inline ::Elevate::PropertySet GetProperties()<span class="keyword"> const </span>{ \</div>
+<div class="line"><span class="lineno">  275</span>        <span class="keywordflow">return</span> GetLayout().CaptureState(); \</div>
+<div class="line"><span class="lineno">  276</span>    } \</div>
+<div class="line"><span class="lineno">  277</span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> SetFromProperties(const ::Elevate::PropertySet&amp; props) { \</div>
+<div class="line"><span class="lineno">  278</span>        GetLayout().ApplyState(props); \</div>
+<div class="line"><span class="lineno">  279</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

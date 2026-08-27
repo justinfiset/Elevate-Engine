@@ -95,17 +95,26 @@ $(document).ready(function(){initNavTree('Renderer_8cpp.html',''); initResizable
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">Renderer.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="eepch_8h_source.html">eepch.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Renderer_8h_source.html">Renderer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="OpenGLRendererAPI_8h_source.html">ElevateEngine/Renderer/OpenGL/OpenGLRendererAPI.h</a>&quot;</code><br />
+<code>#include &lt;random&gt;</code><br />
+<code>#include &lt;<a class="el" href="DebugRenderer_8h_source.html">ElevateEngine/Renderer/Debug/DebugRenderer.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Mesh_8h_source.html">ElevateEngine/Renderer/Mesh.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="OpenGLRendererAPI_8h_source.html">ElevateEngine/Renderer/OpenGL/OpenGLRendererAPI.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Scene_8h_source.html">ElevateEngine/Scene/Scene.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Cubemap_8h_source.html">ElevateEngine/Renderer/Cubemap.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Camera_8h_source.html">ElevateEngine/Renderer/Camera.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Texture_8h_source.html">ElevateEngine/Renderer/Texture/Texture.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Material_8h_source.html">ElevateEngine/Renderer/Material.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Framebuffer_8h_source.html">ElevateEngine/Renderer/Framebuffer.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Light_8h_source.html">ElevateEngine/Renderer/Light/Light.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="DirectionalLight_8h_source.html">ElevateEngine/Renderer/Light/DirectionalLight.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="SceneLighting_8h_source.html">ElevateEngine/Renderer/Light/SceneLighting.h</a>&gt;</code><br />
 </div>
 <p><a href="Renderer_8cpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -113,7 +122,63 @@ $(document).ready(function(){initNavTree('Renderer_8cpp.html',''); initResizable
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceElevate" id="r_namespaceElevate"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html">Elevate</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:abddc122c4b60fe63ea75aed7112d4e9b" id="r_abddc122c4b60fe63ea75aed7112d4e9b"><td class="memItemLeft" align="right" valign="top">constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Renderer_8cpp.html#abddc122c4b60fe63ea75aed7112d4e9b">DEFAULT_SHADOW_RESOLUTION</a> = 2048</td></tr>
+<tr class="separator:abddc122c4b60fe63ea75aed7112d4e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bdd4280ed4854b186e542e1f702eefa" id="r_a8bdd4280ed4854b186e542e1f702eefa"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Renderer_8cpp.html#a8bdd4280ed4854b186e542e1f702eefa">AO_KERNER_SAMPLE_COUNT</a> = 64</td></tr>
+<tr class="separator:a8bdd4280ed4854b186e542e1f702eefa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a8bdd4280ed4854b186e542e1f702eefa" name="a8bdd4280ed4854b186e542e1f702eefa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bdd4280ed4854b186e542e1f702eefa">&#9670;&#160;</a></span>AO_KERNER_SAMPLE_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr uint16_t AO_KERNER_SAMPLE_COUNT = 64</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00022">22</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abddc122c4b60fe63ea75aed7112d4e9b" name="abddc122c4b60fe63ea75aed7112d4e9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abddc122c4b60fe63ea75aed7112d4e9b">&#9670;&#160;</a></span>DEFAULT_SHADOW_RESOLUTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr uint32_t DEFAULT_SHADOW_RESOLUTION = 2048</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Renderer_8cpp_source.html#l00021">21</a> of file <a class="el" href="Renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

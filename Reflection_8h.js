@@ -10,6 +10,7 @@ var Reflection_8h =
     [ "EECATEGORY", "Reflection_8h.html#a01e1a835f0903cc727299a17acbb5d4a", null ],
     [ "END_COMPONENT", "Reflection_8h.html#af7a5582bb5ea504c14cb5667b6c7ddaa", null ],
     [ "END_OBJECT", "Reflection_8h.html#a474da1f4a109d75cbbbde38976e5f988", null ],
+    [ "END_OBJECT_CUSTOM", "Reflection_8h.html#a6bbb783058382ed84b2f508fabf54c2d", null ],
     [ "END_STRUCT", "Reflection_8h.html#a03163f5637fa0350242d625078d3ba09", null ],
     [ "PROPERTY", "Reflection_8h.html#afb9cb89fd1937229bbc7a50e43fa34ca", null ]
 ];

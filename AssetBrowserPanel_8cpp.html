@@ -94,24 +94,54 @@ $(document).ready(function(){initNavTree('AssetBrowserPanel_8cpp.html',''); init
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">AssetBrowserPanel.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="AssetBrowserPanel_8h_source.html">AssetBrowserPanel.h</a>&quot;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;imgui.h&gt;</code><br />
 <code>#include &lt;rapidjson/filereadstream.h&gt;</code><br />
 <code>#include &lt;rapidjson/document.h&gt;</code><br />
 <code>#include &lt;rapidjson/error/en.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="Log_8h_source.html">ElevateEngine/Core/Log.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Assert_8h_source.html">ElevateEngine/Core/Assert.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="PathResolver_8h_source.html">ElevateEngine/Core/PathResolver.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="TypeRegistry_8h_source.html">ElevateEngine/Core/TypeRegistry.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="AssetRegistry_8h_source.html">ElevateEngine/Core/AssetRegistry.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Files_8h_source.html">ElevateEngine/Core/Files.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Input_8h_source.html">ElevateEngine/Inputs/Input.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Texture_8h_source.html">ElevateEngine/Renderer/Texture/Texture.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="TextureManager_8h_source.html">ElevateEngine/Renderer/Texture/TextureManager.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="JsonSerializer_8h_source.html">ElevateEngine/Serialization/JsonSerializer.h</a>&gt;</code><br />
 </div>
 <p><a href="AssetBrowserPanel_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a63d1b42c554a29935003a64683d02a22" id="r_a63d1b42c554a29935003a64683d02a22"><td class="memItemLeft" align="right" valign="top">const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="AssetBrowserPanel_8cpp.html#a63d1b42c554a29935003a64683d02a22">rootPath</a> = fs::path(<a class="el" href="Core_8h.html#a6bdc844a285ee9758e30f4282dd455fa">EE_CONTENT_ROOT</a>).lexically_normal()</td></tr>
+<tr class="separator:a63d1b42c554a29935003a64683d02a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a63d1b42c554a29935003a64683d02a22" name="a63d1b42c554a29935003a64683d02a22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63d1b42c554a29935003a64683d02a22">&#9670;&#160;</a></span>rootPath</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const auto rootPath = fs::path(<a class="el" href="Core_8h.html#a6bdc844a285ee9758e30f4282dd455fa">EE_CONTENT_ROOT</a>).lexically_normal()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="AssetBrowserPanel_8cpp_source.html#l00028">28</a> of file <a class="el" href="AssetBrowserPanel_8cpp_source.html">AssetBrowserPanel.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

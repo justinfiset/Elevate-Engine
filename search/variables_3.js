@@ -1,8 +1,8 @@
 var searchData=
 [
   ['data_0',['data',['../structElevate_1_1TypeField.html#aaf3866edae7c6f2e93625741f0371bff',1,'Elevate::TypeField::data'],['../structElevate_1_1TextureMetadataBuilder.html#a5aeefb3b7ef073d18b49bcfdef78f2fe',1,'Elevate::TextureMetadataBuilder::data'],['../structElevate_1_1TextureLoadResult.html#a89db8b602edff389d88f0edd01027b92',1,'Elevate::TextureLoadResult::data']]],
-  ['depth_1',['Depth',['../structElevate_1_1PropertyField.html#abfdb0833b822b69eff5d39f86b44caf6',1,'Elevate::PropertyField']]],
-  ['depthattachment_2',['DepthAttachment',['../structElevate_1_1FramebufferMetadata.html#a635bef77ebc3d471859a25020ceac5eb',1,'Elevate::FramebufferMetadata']]],
+  ['default_5fshadow_5fresolution_1',['DEFAULT_SHADOW_RESOLUTION',['../Renderer_8cpp.html#abddc122c4b60fe63ea75aed7112d4e9b',1,'Renderer.cpp']]],
+  ['depth_2',['Depth',['../structElevate_1_1PropertyField.html#abfdb0833b822b69eff5d39f86b44caf6',1,'Elevate::PropertyField']]],
   ['depthtest_3',['DepthTest',['../structElevate_1_1RenderState.html#a088c9781880a2a670fddc3c7a38b8cad',1,'Elevate::RenderState']]],
   ['depthwrite_4',['DepthWrite',['../structElevate_1_1RenderState.html#aa9e367e4b57b2d3149c937384aab192a',1,'Elevate::RenderState']]],
   ['destructor_5',['destructor',['../structElevate_1_1ComponentTypeTrait.html#a495af3f3d2efd8dcc93950ec14fe5c9f',1,'Elevate::ComponentTypeTrait']]],

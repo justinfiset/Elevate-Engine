@@ -286,51 +286,51 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8cpp_source.html#l00231">231</a> of file <a class="el" href="Mesh_8cpp_source.html">Mesh.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  232</span>    {</div>
-<div class="line"><span class="lineno">  233</span>        <span class="keywordtype">size_t</span> indexOffset = 0;</div>
-<div class="line"><span class="lineno">  234</span> </div>
-<div class="line"><span class="lineno">  235</span>        std::vector&lt;Vertex&gt; vertices;</div>
-<div class="line"><span class="lineno">  236</span>        std::vector&lt;uint32_t&gt; indices;</div>
-<div class="line"><span class="lineno">  237</span>        std::vector&lt;std::shared_ptr&lt;Texture&gt;&gt; textures;</div>
-<div class="line"><span class="lineno">  238</span> </div>
-<div class="line"><span class="lineno">  239</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_function" href="classElevate_1_1Mesh.html#a57d023f8c80840844c8cf4d9efcc7d12">Mesh</a>&amp; mesh : meshes)</div>
-<div class="line"><span class="lineno">  240</span>        {</div>
-<div class="line"><span class="lineno">  241</span>            vertices.insert(</div>
-<div class="line"><span class="lineno">  242</span>                vertices.end(),</div>
-<div class="line"><span class="lineno">  243</span>                mesh.m_data.Vertices.begin(),</div>
-<div class="line"><span class="lineno">  244</span>                mesh.m_data.Vertices.end()</div>
-<div class="line"><span class="lineno">  245</span>            );</div>
-<div class="line"><span class="lineno">  246</span> </div>
-<div class="line"><span class="lineno">  247</span>            <span class="keywordflow">for</span> (uint32_t index : mesh.m_data.Indices)</div>
-<div class="line"><span class="lineno">  248</span>            {</div>
-<div class="line"><span class="lineno">  249</span>                indices.push_back(index + (uint32_t)indexOffset);</div>
-<div class="line"><span class="lineno">  250</span>            }</div>
-<div class="line"><span class="lineno">  251</span>            indexOffset += mesh.m_data.Vertices.size();</div>
-<div class="line"><span class="lineno">  252</span> </div>
-<div class="line"><span class="lineno">  253</span>            <span class="keywordflow">for</span> (std::shared_ptr&lt;Texture&gt; tex : mesh.m_data.Textures)</div>
-<div class="line"><span class="lineno">  254</span>            {</div>
-<div class="line"><span class="lineno">  255</span>                <span class="keywordflow">if</span> (!tex) <span class="keywordflow">continue</span>; <span class="comment">// TODO FIND IF AND WHY A TEXTURE COULD BE NULL</span></div>
-<div class="line"><span class="lineno">  256</span> </div>
-<div class="line"><span class="lineno">  257</span>                <span class="keywordtype">bool</span> found = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  258</span>                <span class="keywordflow">for</span> (std::shared_ptr&lt;Texture&gt; insertedTex : textures)</div>
-<div class="line"><span class="lineno">  259</span>                {</div>
-<div class="line"><span class="lineno">  260</span>                    <span class="keywordflow">if</span> (insertedTex-&gt;GetNativeHandle() == tex-&gt;GetNativeHandle())</div>
-<div class="line"><span class="lineno">  261</span>                    {</div>
-<div class="line"><span class="lineno">  262</span>                        found = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  263</span>                        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  264</span>                    }</div>
-<div class="line"><span class="lineno">  265</span>                }</div>
-<div class="line"><span class="lineno">  266</span> </div>
-<div class="line"><span class="lineno">  267</span>                <span class="keywordflow">if</span> (!found)</div>
-<div class="line"><span class="lineno">  268</span>                {</div>
-<div class="line"><span class="lineno">  269</span>                    textures.push_back(tex);</div>
-<div class="line"><span class="lineno">  270</span>                }</div>
-<div class="line"><span class="lineno">  271</span>            }</div>
-<div class="line"><span class="lineno">  272</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="Mesh_8cpp_source.html#l00248">248</a> of file <a class="el" href="Mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  249</span>    {</div>
+<div class="line"><span class="lineno">  250</span>        <span class="keywordtype">size_t</span> indexOffset = 0;</div>
+<div class="line"><span class="lineno">  251</span> </div>
+<div class="line"><span class="lineno">  252</span>        std::vector&lt;Vertex&gt; vertices;</div>
+<div class="line"><span class="lineno">  253</span>        std::vector&lt;uint32_t&gt; indices;</div>
+<div class="line"><span class="lineno">  254</span>        std::vector&lt;std::shared_ptr&lt;Texture&gt;&gt; textures;</div>
+<div class="line"><span class="lineno">  255</span> </div>
+<div class="line"><span class="lineno">  256</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_function" href="classElevate_1_1Mesh.html#a57d023f8c80840844c8cf4d9efcc7d12">Mesh</a>&amp; mesh : meshes)</div>
+<div class="line"><span class="lineno">  257</span>        {</div>
+<div class="line"><span class="lineno">  258</span>            vertices.insert(</div>
+<div class="line"><span class="lineno">  259</span>                vertices.end(),</div>
+<div class="line"><span class="lineno">  260</span>                mesh.m_data.Vertices.begin(),</div>
+<div class="line"><span class="lineno">  261</span>                mesh.m_data.Vertices.end()</div>
+<div class="line"><span class="lineno">  262</span>            );</div>
+<div class="line"><span class="lineno">  263</span> </div>
+<div class="line"><span class="lineno">  264</span>            <span class="keywordflow">for</span> (uint32_t index : mesh.m_data.Indices)</div>
+<div class="line"><span class="lineno">  265</span>            {</div>
+<div class="line"><span class="lineno">  266</span>                indices.push_back(index + (uint32_t)indexOffset);</div>
+<div class="line"><span class="lineno">  267</span>            }</div>
+<div class="line"><span class="lineno">  268</span>            indexOffset += mesh.m_data.Vertices.size();</div>
+<div class="line"><span class="lineno">  269</span> </div>
+<div class="line"><span class="lineno">  270</span>            <span class="keywordflow">for</span> (std::shared_ptr&lt;Texture&gt; tex : mesh.m_data.Textures)</div>
+<div class="line"><span class="lineno">  271</span>            {</div>
+<div class="line"><span class="lineno">  272</span>                <span class="keywordflow">if</span> (!tex) <span class="keywordflow">continue</span>; <span class="comment">// TODO FIND IF AND WHY A TEXTURE COULD BE NULL</span></div>
 <div class="line"><span class="lineno">  273</span> </div>
-<div class="line"><span class="lineno">  274</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1Mesh.html#a57d023f8c80840844c8cf4d9efcc7d12">Mesh</a>(vertices, indices, textures);</div>
-<div class="line"><span class="lineno">  275</span>    }</div>
+<div class="line"><span class="lineno">  274</span>                <span class="keywordtype">bool</span> found = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  275</span>                <span class="keywordflow">for</span> (std::shared_ptr&lt;Texture&gt; insertedTex : textures)</div>
+<div class="line"><span class="lineno">  276</span>                {</div>
+<div class="line"><span class="lineno">  277</span>                    <span class="keywordflow">if</span> (insertedTex-&gt;GetNativeHandle() == tex-&gt;GetNativeHandle())</div>
+<div class="line"><span class="lineno">  278</span>                    {</div>
+<div class="line"><span class="lineno">  279</span>                        found = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  280</span>                        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  281</span>                    }</div>
+<div class="line"><span class="lineno">  282</span>                }</div>
+<div class="line"><span class="lineno">  283</span> </div>
+<div class="line"><span class="lineno">  284</span>                <span class="keywordflow">if</span> (!found)</div>
+<div class="line"><span class="lineno">  285</span>                {</div>
+<div class="line"><span class="lineno">  286</span>                    textures.push_back(tex);</div>
+<div class="line"><span class="lineno">  287</span>                }</div>
+<div class="line"><span class="lineno">  288</span>            }</div>
+<div class="line"><span class="lineno">  289</span>        }</div>
+<div class="line"><span class="lineno">  290</span> </div>
+<div class="line"><span class="lineno">  291</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1Mesh.html#a57d023f8c80840844c8cf4d9efcc7d12">Mesh</a>(vertices, indices, textures);</div>
+<div class="line"><span class="lineno">  292</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -586,46 +586,46 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8cpp_source.html#l00191">191</a> of file <a class="el" href="Mesh_8cpp_source.html">Mesh.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  191</span>                                                       {</div>
-<div class="line"><span class="lineno">  192</span>        std::vector&lt;Vertex&gt; vertices;</div>
-<div class="line"><span class="lineno">  193</span>        std::vector&lt;uint32_t&gt; indices;</div>
-<div class="line"><span class="lineno">  194</span> </div>
-<div class="line"><span class="lineno">  195</span>        <span class="keywordtype">float</span> step = size / resolution;</div>
-<div class="line"><span class="lineno">  196</span>        <span class="keywordtype">float</span> offset = size * 0.5f;</div>
-<div class="line"><span class="lineno">  197</span> </div>
-<div class="line"><span class="lineno">  198</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt;= resolution; i++) {</div>
-<div class="line"><span class="lineno">  199</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt;= resolution; j++) {</div>
-<div class="line"><span class="lineno">  200</span>                Vertex v;</div>
-<div class="line"><span class="lineno">  201</span>                v.Position = { j * step - offset, 0.0f, i * step - offset };</div>
-<div class="line"><span class="lineno">  202</span>                v.Normal = { 0.0f, 1.0f, 0.0f };</div>
-<div class="line"><span class="lineno">  203</span>                v.TexCoords = { (float)j / resolution, (<span class="keywordtype">float</span>)i / resolution };</div>
-<div class="line"><span class="lineno">  204</span>                vertices.push_back(v);</div>
-<div class="line"><span class="lineno">  205</span>            }</div>
-<div class="line"><span class="lineno">  206</span>        }</div>
-<div class="line"><span class="lineno">  207</span> </div>
-<div class="line"><span class="lineno">  208</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; resolution; i++) {</div>
-<div class="line"><span class="lineno">  209</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; resolution; j++) {</div>
-<div class="line"><span class="lineno">  210</span>                <span class="keywordtype">int</span> row1 = i * (resolution + 1);</div>
-<div class="line"><span class="lineno">  211</span>                <span class="keywordtype">int</span> row2 = (i + 1) * (resolution + 1);</div>
-<div class="line"><span class="lineno">  212</span> </div>
-<div class="line"><span class="lineno">  213</span>                uint32_t v0 = row1 + j;</div>
-<div class="line"><span class="lineno">  214</span>                uint32_t v1 = row1 + j + 1;</div>
-<div class="line"><span class="lineno">  215</span>                uint32_t v2 = row2 + j;</div>
-<div class="line"><span class="lineno">  216</span>                uint32_t v3 = row2 + j + 1;</div>
-<div class="line"><span class="lineno">  217</span> </div>
-<div class="line"><span class="lineno">  218</span>                indices.push_back(v0);</div>
-<div class="line"><span class="lineno">  219</span>                indices.push_back(v2);</div>
-<div class="line"><span class="lineno">  220</span>                indices.push_back(v1);</div>
-<div class="line"><span class="lineno">  221</span> </div>
-<div class="line"><span class="lineno">  222</span>                indices.push_back(v1);</div>
-<div class="line"><span class="lineno">  223</span>                indices.push_back(v2);</div>
-<div class="line"><span class="lineno">  224</span>                indices.push_back(v3);</div>
-<div class="line"><span class="lineno">  225</span>            }</div>
-<div class="line"><span class="lineno">  226</span>        }</div>
-<div class="line"><span class="lineno">  227</span> </div>
-<div class="line"><span class="lineno">  228</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1Mesh.html#a57d023f8c80840844c8cf4d9efcc7d12">Mesh</a>(vertices, indices, {});</div>
-<div class="line"><span class="lineno">  229</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Mesh_8cpp_source.html#l00208">208</a> of file <a class="el" href="Mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  208</span>                                                       {</div>
+<div class="line"><span class="lineno">  209</span>        std::vector&lt;Vertex&gt; vertices;</div>
+<div class="line"><span class="lineno">  210</span>        std::vector&lt;uint32_t&gt; indices;</div>
+<div class="line"><span class="lineno">  211</span> </div>
+<div class="line"><span class="lineno">  212</span>        <span class="keywordtype">float</span> step = size / resolution;</div>
+<div class="line"><span class="lineno">  213</span>        <span class="keywordtype">float</span> offset = size * 0.5f;</div>
+<div class="line"><span class="lineno">  214</span> </div>
+<div class="line"><span class="lineno">  215</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt;= resolution; i++) {</div>
+<div class="line"><span class="lineno">  216</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt;= resolution; j++) {</div>
+<div class="line"><span class="lineno">  217</span>                Vertex v;</div>
+<div class="line"><span class="lineno">  218</span>                v.Position = { j * step - offset, 0.0f, i * step - offset };</div>
+<div class="line"><span class="lineno">  219</span>                v.Normal = { 0.0f, 1.0f, 0.0f };</div>
+<div class="line"><span class="lineno">  220</span>                v.TexCoords = { (float)j / resolution, (<span class="keywordtype">float</span>)i / resolution };</div>
+<div class="line"><span class="lineno">  221</span>                vertices.push_back(v);</div>
+<div class="line"><span class="lineno">  222</span>            }</div>
+<div class="line"><span class="lineno">  223</span>        }</div>
+<div class="line"><span class="lineno">  224</span> </div>
+<div class="line"><span class="lineno">  225</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; resolution; i++) {</div>
+<div class="line"><span class="lineno">  226</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; resolution; j++) {</div>
+<div class="line"><span class="lineno">  227</span>                <span class="keywordtype">int</span> row1 = i * (resolution + 1);</div>
+<div class="line"><span class="lineno">  228</span>                <span class="keywordtype">int</span> row2 = (i + 1) * (resolution + 1);</div>
+<div class="line"><span class="lineno">  229</span> </div>
+<div class="line"><span class="lineno">  230</span>                uint32_t v0 = row1 + j;</div>
+<div class="line"><span class="lineno">  231</span>                uint32_t v1 = row1 + j + 1;</div>
+<div class="line"><span class="lineno">  232</span>                uint32_t v2 = row2 + j;</div>
+<div class="line"><span class="lineno">  233</span>                uint32_t v3 = row2 + j + 1;</div>
+<div class="line"><span class="lineno">  234</span> </div>
+<div class="line"><span class="lineno">  235</span>                indices.push_back(v0);</div>
+<div class="line"><span class="lineno">  236</span>                indices.push_back(v2);</div>
+<div class="line"><span class="lineno">  237</span>                indices.push_back(v1);</div>
+<div class="line"><span class="lineno">  238</span> </div>
+<div class="line"><span class="lineno">  239</span>                indices.push_back(v1);</div>
+<div class="line"><span class="lineno">  240</span>                indices.push_back(v2);</div>
+<div class="line"><span class="lineno">  241</span>                indices.push_back(v3);</div>
+<div class="line"><span class="lineno">  242</span>            }</div>
+<div class="line"><span class="lineno">  243</span>        }</div>
+<div class="line"><span class="lineno">  244</span> </div>
+<div class="line"><span class="lineno">  245</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1Mesh.html#a57d023f8c80840844c8cf4d9efcc7d12">Mesh</a>(vertices, indices, {});</div>
+<div class="line"><span class="lineno">  246</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -655,9 +655,25 @@ Static Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Mesh_8cpp_source.html#l00186">186</a> of file <a class="el" href="Mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  187</span>    {</div>
-<div class="line"><span class="lineno">  188</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1Mesh.html#a1bf8ca2f939e65fa1fdcd4d96ec97060">GeneratePlane</a>(size, 1);</div>
-<div class="line"><span class="lineno">  189</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1Mesh_html_a1bf8ca2f939e65fa1fdcd4d96ec97060"><div class="ttname"><a href="classElevate_1_1Mesh.html#a1bf8ca2f939e65fa1fdcd4d96ec97060">Elevate::Mesh::GeneratePlane</a></div><div class="ttdeci">static Mesh GeneratePlane(float size, int resolution)</div><div class="ttdef"><b>Definition</b> <a href="Mesh_8cpp_source.html#l00191">Mesh.cpp:191</a></div></div>
+<div class="line"><span class="lineno">  188</span>        <span class="keywordtype">float</span> halfSize = size * 0.5f;</div>
+<div class="line"><span class="lineno">  189</span> </div>
+<div class="line"><span class="lineno">  190</span>        std::vector&lt;Vertex&gt; vertices =</div>
+<div class="line"><span class="lineno">  191</span>        {</div>
+<div class="line"><span class="lineno">  192</span>            <span class="comment">// Position                     Normal              UV</span></div>
+<div class="line"><span class="lineno">  193</span>            {{-halfSize, -halfSize, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},</div>
+<div class="line"><span class="lineno">  194</span>            {{ halfSize, -halfSize, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},</div>
+<div class="line"><span class="lineno">  195</span>            {{ halfSize,  halfSize, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},</div>
+<div class="line"><span class="lineno">  196</span>            {{-halfSize,  halfSize, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}}</div>
+<div class="line"><span class="lineno">  197</span>        };</div>
+<div class="line"><span class="lineno">  198</span> </div>
+<div class="line"><span class="lineno">  199</span>        std::vector&lt;uint32_t&gt; indices =</div>
+<div class="line"><span class="lineno">  200</span>        {</div>
+<div class="line"><span class="lineno">  201</span>            0, 1, 2,</div>
+<div class="line"><span class="lineno">  202</span>            2, 3, 0</div>
+<div class="line"><span class="lineno">  203</span>        };</div>
+<div class="line"><span class="lineno">  204</span> </div>
+<div class="line"><span class="lineno">  205</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1Mesh.html#a57d023f8c80840844c8cf4d9efcc7d12">Mesh</a>(vertices, indices, {});</div>
+<div class="line"><span class="lineno">  206</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

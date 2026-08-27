@@ -122,36 +122,40 @@ $(document).ready(function(){initNavTree('AnalyserPanel_8h_source.html',''); ini
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">class </span>AnalyserPanel : <span class="keyword">public</span> EditorWidget</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    {</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">void</span> OnImGuiRender() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordtype">void</span> RenderComponent(Component* component);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordtype">void</span> RenderComponentLayout(<span class="keyword">const</span> TypeLayout&amp; layout, Component* component = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">void</span> RenderField(<span class="keyword">const</span> TypeField&amp; field) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="comment">// TODO MOVE SOMEWHERE ELSE !!!! (ALL THE FOLLOWING UNDERNEATH)</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">struct </span>CategoryMenu</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            EECategory category;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            std::vector&lt;const TypeRegistry::Entry*&gt; items;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            std::vector&lt;CategoryMenu&gt; childs;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        };</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">void</span> InsertCategory(CategoryMenu&amp; root, <span class="keyword">const</span> TypeRegistry::Entry&amp; entry);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordtype">void</span> DrawCategoryChildren(<span class="keyword">const</span> CategoryMenu&amp; category, std::weak_ptr&lt;GameObject&gt; obj);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordtype">void</span> DrawCategoryMenu(<span class="keyword">const</span> CategoryMenu&amp; menu, std::weak_ptr&lt;GameObject&gt; obj);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        std::vector&lt;std::type_index&gt; m_alredyAddedComponents;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        std::map&lt;Component*, const void*&gt; m_textureCache;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    };</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#endif </span><span class="comment">// EE_EDITOR_BUILD</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        AnalyserPanel();</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">void</span> OnImGuiRender() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordtype">void</span> RenderComponent(Component* component);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">void</span> RenderComponentLayout(<span class="keyword">const</span> TypeLayout&amp; layout, Component* component = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">void</span> RenderField(<span class="keyword">const</span> TypeField&amp; field);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="comment">// TODO MOVE SOMEWHERE ELSE !!!! (ALL THE FOLLOWING UNDERNEATH)</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">struct </span>CategoryMenu</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            EECategory category;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            std::vector&lt;const TypeRegistry::Entry*&gt; items;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            std::vector&lt;CategoryMenu&gt; childs;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        };</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordtype">void</span> InsertCategory(CategoryMenu&amp; root, <span class="keyword">const</span> TypeRegistry::Entry&amp; entry);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordtype">void</span> DrawCategoryChildren(<span class="keyword">const</span> CategoryMenu&amp; category, std::weak_ptr&lt;GameObject&gt; obj);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordtype">void</span> DrawCategoryMenu(<span class="keyword">const</span> CategoryMenu&amp; menu, std::weak_ptr&lt;GameObject&gt; obj);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        std::vector&lt;std::type_index&gt; m_alredyAddedComponents;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        std::map&lt;Component*, const void*&gt; m_textureCache;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        std::shared_ptr&lt;Texture&gt; pickerIcon;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        std::shared_ptr&lt;Texture&gt; noneIcon;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        std::shared_ptr&lt;Texture&gt; navigateToIcon;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    };</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#endif </span><span class="comment">// EE_EDITOR_BUILD</span></div>
 <div class="ttc" id="aEEObject_8h_html"><div class="ttname"><a href="EEObject_8h.html">EEObject.h</a></div></div>
 <div class="ttc" id="aEditorWidget_8h_html"><div class="ttname"><a href="EditorWidget_8h.html">EditorWidget.h</a></div></div>
 <div class="ttc" id="aTypeLayout_8h_html"><div class="ttname"><a href="TypeLayout_8h.html">TypeLayout.h</a></div></div>
 <div class="ttc" id="aTypeRegistry_8h_html"><div class="ttname"><a href="TypeRegistry_8h.html">TypeRegistry.h</a></div></div>
-<div class="ttc" id="anamespaceElevate_1_1Editor_html"><div class="ttname"><a href="namespaceElevate_1_1Editor.html">Elevate::Editor</a></div><div class="ttdef"><b>Definition</b> <a href="Application_8h_source.html#l00025">Application.h:26</a></div></div>
+<div class="ttc" id="anamespaceElevate_1_1Editor_html"><div class="ttname"><a href="namespaceElevate_1_1Editor.html">Elevate::Editor</a></div><div class="ttdef"><b>Definition</b> <a href="Application_8h_source.html#l00026">Application.h:27</a></div></div>
 <div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00007">AudioDistanceProbe.h:8</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

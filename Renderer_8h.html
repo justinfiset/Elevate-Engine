@@ -97,18 +97,23 @@ $(document).ready(function(){initNavTree('Renderer_8h.html',''); initResizable()
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">Renderer.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="RendererAPI_8h_source.html">RendererAPI.h</a>&quot;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;<a class="el" href="RenderState_8h_source.html">ElevateEngine/Renderer/RenderState.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Material_8h_source.html">ElevateEngine/Renderer/Material.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="RenderBucket_8h_source.html">ElevateEngine/Renderer/Commands/RenderBucket.h</a>&gt;</code><br />
 </div>
 <p><a href="Renderer_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structElevate_1_1RendererStorage.html">Elevate::RendererStorage</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Renderer.html">Elevate::Renderer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -119,9 +124,67 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:a50d6e5907da10670e70f8436185d99d4" id="r_a50d6e5907da10670e70f8436185d99d4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">Elevate::TexturePtr</a> = std::shared_ptr&lt; <a class="el" href="classElevate_1_1Texture.html">Texture</a> &gt;</td></tr>
+<tr class="separator:a50d6e5907da10670e70f8436185d99d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a616e287e4c8d91552d66e7da0feb650c" id="r_a616e287e4c8d91552d66e7da0feb650c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a616e287e4c8d91552d66e7da0feb650c">Elevate::ScenePtr</a> = std::shared_ptr&lt; <a class="el" href="classElevate_1_1Scene.html">Scene</a> &gt;</td></tr>
 <tr class="separator:a616e287e4c8d91552d66e7da0feb650c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a140df895ed381110bcc4acc349818b97" id="r_a140df895ed381110bcc4acc349818b97"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Renderer_8h.html#a140df895ed381110bcc4acc349818b97">SHADOW_CASCADE_COUNT</a> = 4</td></tr>
+<tr class="separator:a140df895ed381110bcc4acc349818b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e6eb2439f4f48b7c9e6fd988e3dd82e" id="r_a4e6eb2439f4f48b7c9e6fd988e3dd82e"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Renderer_8h.html#a4e6eb2439f4f48b7c9e6fd988e3dd82e">SHADOW_MAP_SLOT</a> = 15 - <a class="el" href="Renderer_8h.html#a140df895ed381110bcc4acc349818b97">SHADOW_CASCADE_COUNT</a></td></tr>
+<tr class="separator:a4e6eb2439f4f48b7c9e6fd988e3dd82e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a140df895ed381110bcc4acc349818b97" name="a140df895ed381110bcc4acc349818b97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a140df895ed381110bcc4acc349818b97">&#9670;&#160;</a></span>SHADOW_CASCADE_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr uint8_t SHADOW_CASCADE_COUNT = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Renderer_8h_source.html#l00010">10</a> of file <a class="el" href="Renderer_8h_source.html">Renderer.h</a>.</p>
+
+</div>
+</div>
+<a id="a4e6eb2439f4f48b7c9e6fd988e3dd82e" name="a4e6eb2439f4f48b7c9e6fd988e3dd82e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e6eb2439f4f48b7c9e6fd988e3dd82e">&#9670;&#160;</a></span>SHADOW_MAP_SLOT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr uint8_t SHADOW_MAP_SLOT = 15 - <a class="el" href="Renderer_8h.html#a140df895ed381110bcc4acc349818b97">SHADOW_CASCADE_COUNT</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Renderer_8h_source.html#l00011">11</a> of file <a class="el" href="Renderer_8h_source.html">Renderer.h</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

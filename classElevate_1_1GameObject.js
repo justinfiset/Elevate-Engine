@@ -14,6 +14,8 @@ var classElevate_1_1GameObject =
     [ "GetName", "classElevate_1_1GameObject.html#af92e42ce2d59353b872aecbd2f5b61e0", null ],
     [ "GetObjectId", "classElevate_1_1GameObject.html#a2ebb5fc202f047ff1ad35b09142f5944", null ],
     [ "GetScene", "classElevate_1_1GameObject.html#a1aeab7e04d001d3c636c699919177a9d", null ],
+    [ "GetShared", "classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42", null ],
+    [ "GetWeak", "classElevate_1_1GameObject.html#a08c147138d6a2f47ad9f8d0b7689d6d0", null ],
     [ "HasChild", "classElevate_1_1GameObject.html#abf50e4fa516e48e0c40a602479dc66fa", null ],
     [ "HasComponent", "classElevate_1_1GameObject.html#aa988166bbf9b559ecdff10b48820e52f", null ],
     [ "Notify", "classElevate_1_1GameObject.html#a3041eda863456c066993a004c9b2d8fc", null ],

@@ -98,18 +98,27 @@ $(document).ready(function(){initNavTree('ReflectionTags_8h.html',''); initResiz
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">ReflectionTags.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;string&gt;</code><br />
 <code>#include &lt;variant&gt;</code><br />
+<code>#include &lt;typeindex&gt;</code><br />
+<code>#include &lt;<a class="el" href="AssetMetaData_8h_source.html">ElevateEngine/Core/AssetMetaData.h</a>&gt;</code><br />
 </div>
 <p><a href="ReflectionTags_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structElevate_1_1EmptyTag.html">Elevate::EmptyTag</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structElevate_1_1AssetTag.html">Elevate::AssetTag</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structElevate_1_1CreateAssetMenuTag.html">Elevate::CreateAssetMenuTag</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structElevate_1_1AssetColorTag.html">Elevate::AssetColorTag</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structElevate_1_1HideInInspectorTag.html">Elevate::HideInInspectorTag</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,6 +146,12 @@ Namespaces</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:aff348f40077ae04f01675fa94d00b50e" id="r_aff348f40077ae04f01675fa94d00b50e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ReflectionTags_8h.html#aff348f40077ae04f01675fa94d00b50e">EE_EditorTag</a>(x)&#160;&#160;&#160;<a class="el" href="structElevate_1_1EmptyTag.html">::Elevate::EmptyTag</a>{}</td></tr>
 <tr class="separator:aff348f40077ae04f01675fa94d00b50e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1e2dc46fade542d75f92080d3093d69" id="r_ab1e2dc46fade542d75f92080d3093d69"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ReflectionTags_8h.html#ab1e2dc46fade542d75f92080d3093d69">EE_CreateAssetMenu</a>&#160;&#160;&#160;<a class="el" href="ReflectionTags_8h.html#aff348f40077ae04f01675fa94d00b50e">EE_EditorTag</a>(CreateAssetMenuTag{})</td></tr>
+<tr class="separator:ab1e2dc46fade542d75f92080d3093d69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5b90500a7b4b9d6ba0bb457472d56c2" id="r_ab5b90500a7b4b9d6ba0bb457472d56c2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ReflectionTags_8h.html#ab5b90500a7b4b9d6ba0bb457472d56c2">EE_AssetColor</a>(r,  g,  b)&#160;&#160;&#160;<a class="el" href="ReflectionTags_8h.html#aff348f40077ae04f01675fa94d00b50e">EE_EditorTag</a>((AssetColorTag{r, g, b}))</td></tr>
+<tr class="separator:ab5b90500a7b4b9d6ba0bb457472d56c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0bb9e39fe68d11c0dd5d14458b26252" id="r_ad0bb9e39fe68d11c0dd5d14458b26252"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ReflectionTags_8h.html#ad0bb9e39fe68d11c0dd5d14458b26252">EE_Asset</a>(name,  extension, ...)&#160;&#160;&#160;<a class="el" href="ReflectionTags_8h.html#aff348f40077ae04f01675fa94d00b50e">EE_EditorTag</a>(AssetTag{BuildAssetMetaData&lt;ThisType&gt;(name, extension, ##__VA_ARGS__)})</td></tr>
+<tr class="separator:ad0bb9e39fe68d11c0dd5d14458b26252"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6317e39b14ca888db86620823fd26ccd" id="r_a6317e39b14ca888db86620823fd26ccd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ReflectionTags_8h.html#a6317e39b14ca888db86620823fd26ccd">EE_HideInInspector</a>&#160;&#160;&#160;<a class="el" href="ReflectionTags_8h.html#aff348f40077ae04f01675fa94d00b50e">EE_EditorTag</a>(HideInInspectorTag {})</td></tr>
 <tr class="separator:a6317e39b14ca888db86620823fd26ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a367adc608db34f9ef3909665af7cd820" id="r_a367adc608db34f9ef3909665af7cd820"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ReflectionTags_8h.html#a367adc608db34f9ef3909665af7cd820">EE_Flatten</a>&#160;&#160;&#160;<a class="el" href="ReflectionTags_8h.html#aff348f40077ae04f01675fa94d00b50e">EE_EditorTag</a>(FlattenTag {})</td></tr>
@@ -156,10 +171,90 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a2f3a84592c83687119bc37b27451c2c0" id="r_a2f3a84592c83687119bc37b27451c2c0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a2f3a84592c83687119bc37b27451c2c0">Elevate::FieldOption</a> = std::variant&lt; <a class="el" href="structElevate_1_1EmptyTag.html">EmptyTag</a>, <a class="el" href="structElevate_1_1HideInInspectorTag.html">HideInInspectorTag</a>, <a class="el" href="structElevate_1_1EditorIconTag.html">EditorIconTag</a>, <a class="el" href="structElevate_1_1FlattenTag.html">FlattenTag</a>, <a class="el" href="structElevate_1_1DisplayNameTag.html">DisplayNameTag</a>, <a class="el" href="structElevate_1_1TooltipTag.html">TooltipTag</a>, <a class="el" href="structElevate_1_1ReadOnlyTag.html">ReadOnlyTag</a>, <a class="el" href="structElevate_1_1ColorTag.html">ColorTag</a>, <a class="el" href="structElevate_1_1NoSerializeTag.html">NoSerializeTag</a> &gt;</td></tr>
-<tr class="separator:a2f3a84592c83687119bc37b27451c2c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a568359b57c6a02631a4c8f0e12886cec" id="r_a568359b57c6a02631a4c8f0e12886cec"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a568359b57c6a02631a4c8f0e12886cec">Elevate::AssetOption</a> = std::variant&lt; <a class="el" href="structElevate_1_1CreateAssetMenuTag.html">CreateAssetMenuTag</a>, <a class="el" href="structElevate_1_1AssetColorTag.html">AssetColorTag</a> &gt;</td></tr>
+<tr class="separator:a568359b57c6a02631a4c8f0e12886cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dded3255593b37becd8d85b7d115867" id="r_a4dded3255593b37becd8d85b7d115867"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a4dded3255593b37becd8d85b7d115867">Elevate::FieldOption</a> = std::variant&lt; <a class="el" href="structElevate_1_1EmptyTag.html">EmptyTag</a>, <a class="el" href="structElevate_1_1AssetTag.html">AssetTag</a>, <a class="el" href="structElevate_1_1HideInInspectorTag.html">HideInInspectorTag</a>, <a class="el" href="structElevate_1_1EditorIconTag.html">EditorIconTag</a>, <a class="el" href="structElevate_1_1FlattenTag.html">FlattenTag</a>, <a class="el" href="structElevate_1_1DisplayNameTag.html">DisplayNameTag</a>, <a class="el" href="structElevate_1_1TooltipTag.html">TooltipTag</a>, <a class="el" href="structElevate_1_1ReadOnlyTag.html">ReadOnlyTag</a>, <a class="el" href="structElevate_1_1ColorTag.html">ColorTag</a>, <a class="el" href="structElevate_1_1NoSerializeTag.html">NoSerializeTag</a> &gt;</td></tr>
+<tr class="separator:a4dded3255593b37becd8d85b7d115867"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a9c92c56188d4b02850b6fa1e20b47844" id="r_a9c92c56188d4b02850b6fa1e20b47844"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... Args&gt; </td></tr>
+<tr class="memitem:a9c92c56188d4b02850b6fa1e20b47844"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structElevate_1_1AssetMetaData.html">AssetMetaData</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a9c92c56188d4b02850b6fa1e20b47844">Elevate::BuildAssetMetaData</a> (const std::string &amp;name, const std::string &amp;ext, Args &amp;&amp;... args)</td></tr>
+<tr class="separator:a9c92c56188d4b02850b6fa1e20b47844"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ad0bb9e39fe68d11c0dd5d14458b26252" name="ad0bb9e39fe68d11c0dd5d14458b26252"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0bb9e39fe68d11c0dd5d14458b26252">&#9670;&#160;</a></span>EE_Asset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EE_Asset</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">extension, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="ReflectionTags_8h.html#aff348f40077ae04f01675fa94d00b50e">EE_EditorTag</a>(AssetTag{BuildAssetMetaData&lt;ThisType&gt;(name, extension, ##__VA_ARGS__)})</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00060">60</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
+
+</div>
+</div>
+<a id="ab5b90500a7b4b9d6ba0bb457472d56c2" name="ab5b90500a7b4b9d6ba0bb457472d56c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5b90500a7b4b9d6ba0bb457472d56c2">&#9670;&#160;</a></span>EE_AssetColor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EE_AssetColor</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">r, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">g, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">b&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="ReflectionTags_8h.html#aff348f40077ae04f01675fa94d00b50e">EE_EditorTag</a>((AssetColorTag{r, g, b}))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00029">29</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
+
+</div>
+</div>
 <a id="a7e5c9c36f4a00525e3dd471a23b9b674" name="a7e5c9c36f4a00525e3dd471a23b9b674"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7e5c9c36f4a00525e3dd471a23b9b674">&#9670;&#160;</a></span>EE_ColorPicker</h2>
 
@@ -172,7 +267,23 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00032">32</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00080">80</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
+
+</div>
+</div>
+<a id="ab1e2dc46fade542d75f92080d3093d69" name="ab1e2dc46fade542d75f92080d3093d69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1e2dc46fade542d75f92080d3093d69">&#9670;&#160;</a></span>EE_CreateAssetMenu</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EE_CreateAssetMenu&#160;&#160;&#160;<a class="el" href="ReflectionTags_8h.html#aff348f40077ae04f01675fa94d00b50e">EE_EditorTag</a>(CreateAssetMenuTag{})</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00027">27</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
 
 </div>
 </div>
@@ -188,7 +299,7 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00023">23</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00071">71</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
 
 </div>
 </div>
@@ -208,7 +319,7 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00035">35</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00083">83</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
 
 </div>
 </div>
@@ -228,7 +339,7 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00013">13</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00016">16</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
 
 </div>
 </div>
@@ -244,7 +355,7 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00020">20</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00068">68</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
 
 </div>
 </div>
@@ -260,7 +371,7 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00017">17</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00065">65</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
 
 </div>
 </div>
@@ -276,7 +387,7 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00038">38</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00086">86</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
 
 </div>
 </div>
@@ -292,7 +403,7 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00029">29</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00077">77</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
 
 </div>
 </div>
@@ -308,7 +419,7 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00026">26</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ReflectionTags_8h_source.html#l00074">74</a> of file <a class="el" href="ReflectionTags_8h_source.html">ReflectionTags.h</a>.</p>
 
 </div>
 </div>

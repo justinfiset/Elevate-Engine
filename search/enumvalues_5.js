@@ -7,5 +7,7 @@ var searchData=
   ['float_4',['Float',['../namespaceElevate.html#a084798f901873cb9a7cb959b62006324a22ae0e2b89e5e3d477f988cc36d3272b',1,'Elevate']]],
   ['float2_5',['Float2',['../namespaceElevate.html#a084798f901873cb9a7cb959b62006324a6694430a2b471b5d2de071f2ef1fdc57',1,'Elevate']]],
   ['float3_6',['Float3',['../namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121',1,'Elevate']]],
-  ['float4_7',['Float4',['../namespaceElevate.html#a084798f901873cb9a7cb959b62006324a33116adc6690289da9b82ea736864eeb',1,'Elevate']]]
+  ['float4_7',['Float4',['../namespaceElevate.html#a084798f901873cb9a7cb959b62006324a33116adc6690289da9b82ea736864eeb',1,'Elevate']]],
+  ['front_8',['Front',['../namespaceElevate.html#ab40741268ba207b0245f5193766bc867a5835bab1ade0060909e31a06af2e2cde',1,'Elevate']]],
+  ['frontandback_9',['FrontAndBack',['../namespaceElevate.html#ab40741268ba207b0245f5193766bc867a8be41da9b58e32ece35a2b5751f6aeb9',1,'Elevate']]]
 ];

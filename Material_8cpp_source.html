@@ -130,14 +130,12 @@ $(document).ready(function(){initNavTree('Material_8cpp_source.html',''); initRe
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        }</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classElevate_1_1Material.html#af2a4334711cf4b4d24df0e03d9826d51">   29</a></span>    <span class="keywordtype">void</span> Material::SetTexture(<span class="keyword">const</span> std::string&amp; name, <a class="code hl_typedef" href="namespaceElevate.html#ae81208d90da94e64748a7769d3fa8ed4">TexturePtr</a> texture)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">void</span> Material::SetTexture(<span class="keyword">const</span> std::string&amp; name, TexturePtr texture)</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    {</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        m_textures[name] = std::move(texture);</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
-</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_typedef" href="namespaceElevate.html#ae81208d90da94e64748a7769d3fa8ed4">TexturePtr</a> Material::GetTextureForUniform(<span class="keyword">const</span> std::string&amp; uniformName)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_typedef" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> Material::GetTextureForUniform(<span class="keyword">const</span> std::string&amp; uniformName)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">if</span> (m_textures.empty()) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
@@ -163,8 +161,7 @@ $(document).ready(function(){initNavTree('Material_8cpp_source.html',''); initRe
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="foldopen" id="foldopen00060" data-start="{" data-end="}">
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="classElevate_1_1Material.html#ac1e5516cb71a14e7efd9e7b4bb5b4010">   60</a></span>    <span class="keywordtype">void</span> Material::Apply()</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordtype">void</span> Material::Apply()</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    {</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">if</span> (!m_shader) <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
@@ -198,7 +195,7 @@ $(document).ready(function(){initNavTree('Material_8cpp_source.html',''); initRe
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            <span class="keywordflow">if</span> (uniform.Type != ShaderDataType::Sampler2D) <span class="keywordflow">continue</span>;</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            <span class="keyword">const</span> std::string&amp; texName = uniform.Name;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <a class="code hl_typedef" href="namespaceElevate.html#ae81208d90da94e64748a7769d3fa8ed4">TexturePtr</a> texture = GetTextureForUniform(texName);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <a class="code hl_typedef" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> texture = GetTextureForUniform(texName);</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            hasFlagName.assign(<span class="stringliteral">&quot;has_&quot;</span>).append(texName);</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
@@ -218,17 +215,14 @@ $(document).ready(function(){initNavTree('Material_8cpp_source.html',''); initRe
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            slot++;</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        }</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
-</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="foldopen" id="foldopen00115" data-start="{" data-end="}">
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="classElevate_1_1Material.html#a3a42f017edcb28c413bf6d58a54648e6">  115</a></span>    std::shared_ptr&lt;Shader&gt; Material::GetShader()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    std::shared_ptr&lt;Shader&gt; Material::GetShader()<span class="keyword"> const</span></div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">return</span> m_shader;</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
-</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
 <div class="foldopen" id="foldopen00120" data-start="{" data-end="}">
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="classElevate_1_1MaterialFactory.html#a24c4ca23d6e5638cf1d570d674aed69f">  120</a></span>    <a class="code hl_typedef" href="namespaceElevate.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7">MaterialPtr</a> MaterialFactory::Create(<span class="keyword">const</span> std::shared_ptr&lt;Shader&gt;&amp; shader)</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="classElevate_1_1MaterialFactory.html#a24c4ca23d6e5638cf1d570d674aed69f">  120</a></span>    <a class="code hl_class" href="classElevate_1_1EEObjectPtr.html">MaterialPtr</a> MaterialFactory::Create(<span class="keyword">const</span> std::shared_ptr&lt;Shader&gt;&amp; shader)</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    {</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="keywordflow">if</span> (!shader) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordflow">return</span> std::shared_ptr&lt;Material&gt;(<span class="keyword">new</span> <a class="code hl_class" href="classElevate_1_1Material.html">Material</a>(shader));</div>
@@ -236,17 +230,17 @@ $(document).ready(function(){initNavTree('Material_8cpp_source.html',''); initRe
 </div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
 <div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="classElevate_1_1MaterialRegistry.html#a63e843a5ae0b6561235dcd0972afdafc">  126</a></span>    <a class="code hl_typedef" href="namespaceElevate.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7">MaterialPtr</a> MaterialRegistry::LoadMaterial(<span class="keyword">const</span> std::shared_ptr&lt;Shader&gt;&amp; shader)</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="classElevate_1_1MaterialRegistry.html#a63e843a5ae0b6561235dcd0972afdafc">  126</a></span>    <a class="code hl_class" href="classElevate_1_1EEObjectPtr.html">MaterialPtr</a> MaterialRegistry::LoadMaterial(<span class="keyword">const</span> std::shared_ptr&lt;Shader&gt;&amp; shader)</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    {</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">if</span> (!shader) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <a class="code hl_typedef" href="namespaceElevate.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7">MaterialPtr</a> material = MaterialFactory::Create(shader);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <a class="code hl_class" href="classElevate_1_1EEObjectPtr.html">MaterialPtr</a> material = MaterialFactory::Create(shader);</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        instance().m_materials[material-&gt;GetID()] = material;</div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keywordflow">return</span> material;</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    }</div>
 </div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
 <div class="foldopen" id="foldopen00134" data-start="{" data-end="}">
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="classElevate_1_1MaterialRegistry.html#ae2952edd7510d0657926c3684b5a762b">  134</a></span>    <a class="code hl_typedef" href="namespaceElevate.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7">MaterialPtr</a> MaterialRegistry::GetMaterial(<a class="code hl_typedef" href="namespaceElevate.html#abc52d9cf77afc259a245351f60aa3128">MaterialID</a> <span class="keywordtype">id</span>)</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="classElevate_1_1MaterialRegistry.html#ae2952edd7510d0657926c3684b5a762b">  134</a></span>    <a class="code hl_class" href="classElevate_1_1EEObjectPtr.html">MaterialPtr</a> MaterialRegistry::GetMaterial(<a class="code hl_typedef" href="namespaceElevate.html#abc52d9cf77afc259a245351f60aa3128">MaterialID</a> <span class="keywordtype">id</span>)</div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    {</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keyword">auto</span>&amp; materials = instance().m_materials;</div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keyword">auto</span> it = materials.find(<span class="keywordtype">id</span>);</div>
@@ -266,7 +260,7 @@ $(document).ready(function(){initNavTree('Material_8cpp_source.html',''); initRe
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    }</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>}</div>
 <div class="ttc" id="aMaterial_8h_html"><div class="ttname"><a href="Material_8h.html">Material.h</a></div></div>
-<div class="ttc" id="aMaterial_8h_html_af1a2739c35a006bf87c56bccab1ec327"><div class="ttname"><a href="Material_8h.html#af1a2739c35a006bf87c56bccab1ec327">EE_DEFAULT_MATERIAL</a></div><div class="ttdeci">#define EE_DEFAULT_MATERIAL</div><div class="ttdef"><b>Definition</b> <a href="Material_8h_source.html#l00020">Material.h:20</a></div></div>
+<div class="ttc" id="aMaterial_8h_html_af1a2739c35a006bf87c56bccab1ec327"><div class="ttname"><a href="Material_8h.html#af1a2739c35a006bf87c56bccab1ec327">EE_DEFAULT_MATERIAL</a></div><div class="ttdeci">#define EE_DEFAULT_MATERIAL</div><div class="ttdef"><b>Definition</b> <a href="Material_8h_source.html#l00022">Material.h:22</a></div></div>
 <div class="ttc" id="aRenderer_8h_html"><div class="ttname"><a href="Renderer_8h.html">Renderer.h</a></div></div>
 <div class="ttc" id="aShaderManager_8h_html"><div class="ttname"><a href="ShaderManager_8h.html">ShaderManager.h</a></div></div>
 <div class="ttc" id="aShaderManager_8h_html_a5b144be345218d3732cc97b525b409c2"><div class="ttname"><a href="ShaderManager_8h.html#a5b144be345218d3732cc97b525b409c2">EE_DEFAULT_SHADER</a></div><div class="ttdeci">#define EE_DEFAULT_SHADER</div><div class="ttdef"><b>Definition</b> <a href="ShaderManager_8h_source.html#l00007">ShaderManager.h:7</a></div></div>
@@ -274,11 +268,11 @@ $(document).ready(function(){initNavTree('Material_8cpp_source.html',''); initRe
 <div class="ttc" id="aShader_8h_html_a37170057fcee6e4d0c887a2e4d276892"><div class="ttname"><a href="Shader_8h.html#a37170057fcee6e4d0c887a2e4d276892">EE_SHADER_VIEWPROJ</a></div><div class="ttdeci">#define EE_SHADER_VIEWPROJ</div><div class="ttdef"><b>Definition</b> <a href="Shader_8h_source.html#l00012">Shader.h:12</a></div></div>
 <div class="ttc" id="aShader_8h_html_ae9062f7b2ef6959e3c78b2423415854a"><div class="ttname"><a href="Shader_8h.html#ae9062f7b2ef6959e3c78b2423415854a">EE_SHADER_CAMPOS</a></div><div class="ttdeci">#define EE_SHADER_CAMPOS</div><div class="ttdef"><b>Definition</b> <a href="Shader_8h_source.html#l00013">Shader.h:13</a></div></div>
 <div class="ttc" id="aTextureManager_8h_html"><div class="ttname"><a href="TextureManager_8h.html">TextureManager.h</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Material_html"><div class="ttname"><a href="classElevate_1_1Material.html">Elevate::Material</a></div><div class="ttdef"><b>Definition</b> <a href="Material_8h_source.html#l00031">Material.h:32</a></div></div>
+<div class="ttc" id="aclassElevate_1_1EEObjectPtr_html"><div class="ttname"><a href="classElevate_1_1EEObjectPtr.html">Elevate::EEObjectPtr&lt; Material &gt;</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Material_html"><div class="ttname"><a href="classElevate_1_1Material.html">Elevate::Material</a></div><div class="ttdef"><b>Definition</b> <a href="Material_8h_source.html#l00033">Material.h:34</a></div></div>
 <div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00007">AudioDistanceProbe.h:8</a></div></div>
-<div class="ttc" id="anamespaceElevate_html_a5d6b19f0e8ea5bcb7a115eeb8ee69aa7"><div class="ttname"><a href="namespaceElevate.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7">Elevate::MaterialPtr</a></div><div class="ttdeci">std::shared_ptr&lt; Material &gt; MaterialPtr</div><div class="ttdef"><b>Definition</b> <a href="Material_8h_source.html#l00028">Material.h:28</a></div></div>
-<div class="ttc" id="anamespaceElevate_html_abc52d9cf77afc259a245351f60aa3128"><div class="ttname"><a href="namespaceElevate.html#abc52d9cf77afc259a245351f60aa3128">Elevate::MaterialID</a></div><div class="ttdeci">uint32_t MaterialID</div><div class="ttdef"><b>Definition</b> <a href="Material_8h_source.html#l00029">Material.h:29</a></div></div>
-<div class="ttc" id="anamespaceElevate_html_ae81208d90da94e64748a7769d3fa8ed4"><div class="ttname"><a href="namespaceElevate.html#ae81208d90da94e64748a7769d3fa8ed4">Elevate::TexturePtr</a></div><div class="ttdeci">std::shared_ptr&lt; Texture &gt; TexturePtr</div><div class="ttdef"><b>Definition</b> <a href="Texture_8h_source.html#l00013">Texture.h:13</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a50d6e5907da10670e70f8436185d99d4"><div class="ttname"><a href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">Elevate::TexturePtr</a></div><div class="ttdeci">std::shared_ptr&lt; Texture &gt; TexturePtr</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8h_source.html#l00018">Renderer.h:18</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_abc52d9cf77afc259a245351f60aa3128"><div class="ttname"><a href="namespaceElevate.html#abc52d9cf77afc259a245351f60aa3128">Elevate::MaterialID</a></div><div class="ttdeci">uint32_t MaterialID</div><div class="ttdef"><b>Definition</b> <a href="Material_8h_source.html#l00031">Material.h:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -3,7 +3,6 @@ var Texture_8h =
     [ "Elevate::TextureMetadata", "structElevate_1_1TextureMetadata.html", "structElevate_1_1TextureMetadata" ],
     [ "Elevate::TextureMetadataBuilder", "structElevate_1_1TextureMetadataBuilder.html", "structElevate_1_1TextureMetadataBuilder" ],
     [ "Elevate::Texture", "classElevate_1_1Texture.html", "classElevate_1_1Texture" ],
-    [ "TexturePtr", "Texture_8h.html#ae81208d90da94e64748a7769d3fa8ed4", null ],
     [ "TextureFilter", "Texture_8h.html#ad55cb5b8635f95892a67b7e420730b9c", [
       [ "Nearest", "Texture_8h.html#ad55cb5b8635f95892a67b7e420730b9ca60494f02d440f316319dd0fad40ad007", null ],
       [ "Linear", "Texture_8h.html#ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b", null ]
@@ -13,7 +12,14 @@ var Texture_8h =
       [ "GRAYSCALE", "Texture_8h.html#a6b8200f8cf0f799bee6e6b7d1301d00eabfc52a030be6cc5e47fe83a81e3175a0", null ],
       [ "RGB", "Texture_8h.html#a6b8200f8cf0f799bee6e6b7d1301d00ea889574aebacda6bfd3e534e2b49b8028", null ],
       [ "RGBA", "Texture_8h.html#a6b8200f8cf0f799bee6e6b7d1301d00eaea3495a278957dc58165e48a8945469f", null ],
-      [ "DEPTH", "Texture_8h.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111", null ]
+      [ "RGB16F", "Texture_8h.html#a6b8200f8cf0f799bee6e6b7d1301d00ea25cd126670bd567a899c64c4e6e8ca7d", null ],
+      [ "RGB32F", "Texture_8h.html#a6b8200f8cf0f799bee6e6b7d1301d00ead8936cc7055546f79128b9dbfb8c8bbb", null ],
+      [ "RGBA16F", "Texture_8h.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa29d843695056f9c171a9eb702d6910a", null ],
+      [ "RGBA32F", "Texture_8h.html#a6b8200f8cf0f799bee6e6b7d1301d00ea703a7a81e586669c930e3dcaf3e8c428", null ],
+      [ "DEPTH", "Texture_8h.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111", null ],
+      [ "SRGB", "Texture_8h.html#a6b8200f8cf0f799bee6e6b7d1301d00ea1f3f09bca5728eb7af4ea263ae84b9f1", null ],
+      [ "SRGBA", "Texture_8h.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa6b63903808be00ae4fcdb3850f811a4", null ],
+      [ "DEPTHSTENCIL", "Texture_8h.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa085fd28dd1b882ea7d4129fdda3cb86", null ]
     ] ],
     [ "TextureSource", "Texture_8h.html#ad6361ea92b9a6b52779e660ed5ea9df7", [
       [ "File", "Texture_8h.html#ad6361ea92b9a6b52779e660ed5ea9df7a0b27918290ff5323bea1e3b78a9cf04e", null ],
@@ -35,6 +41,9 @@ var Texture_8h =
       [ "Height", "Texture_8h.html#abbc8ef8e3bb95c91c8071d7f6302466faeec6c4bdbd339edf8cbea68becb85244", null ],
       [ "Cubemap", "Texture_8h.html#abbc8ef8e3bb95c91c8071d7f6302466fa29b142520cd0349c9f7375be4aa848c0", null ],
       [ "Ambient", "Texture_8h.html#abbc8ef8e3bb95c91c8071d7f6302466faed8e37bad13d76c6dbeb58152440b41e", null ],
+      [ "AmbientOcclusion", "Texture_8h.html#abbc8ef8e3bb95c91c8071d7f6302466fac8a11fb76942933fc111aea6941c334d", null ],
+      [ "Depth", "Texture_8h.html#abbc8ef8e3bb95c91c8071d7f6302466fa675056ad1441b6375b2c5abd48c27ef1", null ],
+      [ "ShadowMap", "Texture_8h.html#abbc8ef8e3bb95c91c8071d7f6302466fa353488005629cf8d75def358ee005f3d", null ],
       [ "Count", "Texture_8h.html#abbc8ef8e3bb95c91c8071d7f6302466fae93f994f01c537c4e2f7d8528c3eb5e9", null ]
     ] ],
     [ "TextureWrap", "Texture_8h.html#a7771c00d2b9fdd029ed480432ea0ff5f", [
@@ -42,5 +51,6 @@ var Texture_8h =
       [ "MirrorRepeat", "Texture_8h.html#a7771c00d2b9fdd029ed480432ea0ff5fa39a681a9d5ccc902bebd16a343dd7b74", null ],
       [ "ClampToEdge", "Texture_8h.html#a7771c00d2b9fdd029ed480432ea0ff5fa74556551231333c36debc3d373261134", null ],
       [ "ClampToBorder", "Texture_8h.html#a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147", null ]
-    ] ]
+    ] ],
+    [ "GetTextureFormatChannels", "Texture_8h.html#a68949307f7c5380e699c6c4b5b061d14", null ]
 ];

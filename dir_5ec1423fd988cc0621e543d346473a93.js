@@ -2,7 +2,7 @@ var dir_5ec1423fd988cc0621e543d346473a93 =
 [
     [ "AnalyserPanel.cpp", "AnalyserPanel_8cpp.html", null ],
     [ "AnalyserPanel.h", "AnalyserPanel_8h.html", null ],
-    [ "AssetBrowserPanel.cpp", "AssetBrowserPanel_8cpp.html", null ],
+    [ "AssetBrowserPanel.cpp", "AssetBrowserPanel_8cpp.html", "AssetBrowserPanel_8cpp" ],
     [ "AssetBrowserPanel.h", "AssetBrowserPanel_8h.html", "AssetBrowserPanel_8h" ],
     [ "ConsolePanel.cpp", "ConsolePanel_8cpp.html", null ],
     [ "ConsolePanel.h", "ConsolePanel_8h.html", "ConsolePanel_8h" ],

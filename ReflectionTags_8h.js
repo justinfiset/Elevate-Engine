@@ -1,6 +1,9 @@
 var ReflectionTags_8h =
 [
     [ "Elevate::EmptyTag", "structElevate_1_1EmptyTag.html", null ],
+    [ "Elevate::AssetTag", "structElevate_1_1AssetTag.html", "structElevate_1_1AssetTag" ],
+    [ "Elevate::CreateAssetMenuTag", "structElevate_1_1CreateAssetMenuTag.html", "structElevate_1_1CreateAssetMenuTag" ],
+    [ "Elevate::AssetColorTag", "structElevate_1_1AssetColorTag.html", "structElevate_1_1AssetColorTag" ],
     [ "Elevate::HideInInspectorTag", "structElevate_1_1HideInInspectorTag.html", null ],
     [ "Elevate::FlattenTag", "structElevate_1_1FlattenTag.html", null ],
     [ "Elevate::DisplayNameTag", "structElevate_1_1DisplayNameTag.html", "structElevate_1_1DisplayNameTag" ],
@@ -9,7 +12,10 @@ var ReflectionTags_8h =
     [ "Elevate::ColorTag", "structElevate_1_1ColorTag.html", null ],
     [ "Elevate::EditorIconTag", "structElevate_1_1EditorIconTag.html", "structElevate_1_1EditorIconTag" ],
     [ "Elevate::NoSerializeTag", "structElevate_1_1NoSerializeTag.html", null ],
+    [ "EE_Asset", "ReflectionTags_8h.html#ad0bb9e39fe68d11c0dd5d14458b26252", null ],
+    [ "EE_AssetColor", "ReflectionTags_8h.html#ab5b90500a7b4b9d6ba0bb457472d56c2", null ],
     [ "EE_ColorPicker", "ReflectionTags_8h.html#a7e5c9c36f4a00525e3dd471a23b9b674", null ],
+    [ "EE_CreateAssetMenu", "ReflectionTags_8h.html#ab1e2dc46fade542d75f92080d3093d69", null ],
     [ "EE_DisplayName", "ReflectionTags_8h.html#a412c22ebd8ea595dd40c2bcf7ea13d6d", null ],
     [ "EE_EditorIcon", "ReflectionTags_8h.html#a1d12d29192e01754b1022b313fd92e8f", null ],
     [ "EE_EditorTag", "ReflectionTags_8h.html#aff348f40077ae04f01675fa94d00b50e", null ],
@@ -18,5 +24,7 @@ var ReflectionTags_8h =
     [ "EE_NoSerialize", "ReflectionTags_8h.html#a6194583dbdc6837eaf857b0581208e0d", null ],
     [ "EE_ReadOnly", "ReflectionTags_8h.html#aec3f7349aaf4e5d5d058846f235f95b8", null ],
     [ "EE_Tooltip", "ReflectionTags_8h.html#a49485b8addc69383b1a665aad2b6d40b", null ],
-    [ "FieldOption", "ReflectionTags_8h.html#a2f3a84592c83687119bc37b27451c2c0", null ]
+    [ "AssetOption", "ReflectionTags_8h.html#a568359b57c6a02631a4c8f0e12886cec", null ],
+    [ "FieldOption", "ReflectionTags_8h.html#a4dded3255593b37becd8d85b7d115867", null ],
+    [ "BuildAssetMetaData", "ReflectionTags_8h.html#a9c92c56188d4b02850b6fa1e20b47844", null ]
 ];

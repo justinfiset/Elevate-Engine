@@ -11,7 +11,8 @@ var searchData=
   ['hasvalidshortid_8',['HasValidShortID',['../structWwiseItem.html#aad483a92cdcce99815e6d3be8f9ecc2b',1,'WwiseItem']]],
   ['height_9',['height',['../structElevate_1_1WindowData.html#a4bb867ab9cfcb30e4cb23bdd4dba3e86',1,'Elevate::WindowData::Height'],['../structElevate_1_1WindowProps.html#a7bd2e5894fc974f71209b74fb7b7a14f',1,'Elevate::WindowProps::Height'],['../structElevate_1_1TextureMetadata.html#ad32ba5c631b224db126025c8d5a99dfd',1,'Elevate::TextureMetadata::Height'],['../namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466faeec6c4bdbd339edf8cbea68becb85244',1,'Elevate::Height']]],
   ['hidden_10',['Hidden',['../namespaceElevate.html#a6eca3277644e3989c1cde78d599b4d8cab21f4c99a9a46ccb01923ee8baa80fcf',1,'Elevate']]],
-  ['hideininspectortag_11',['HideInInspectorTag',['../structElevate_1_1HideInInspectorTag.html',1,'Elevate']]],
-  ['hierarchypanel_2ecpp_12',['HierarchyPanel.cpp',['../HierarchyPanel_8cpp.html',1,'']]],
-  ['hierarchypanel_2eh_13',['HierarchyPanel.h',['../HierarchyPanel_8h.html',1,'']]]
+  ['hideinbrowser_11',['HideInBrowser',['../namespaceElevate.html#a9927bd4256434f56c5778b1e84c1388caa8a0529baf102ca3f166aee15de6f6e6',1,'Elevate']]],
+  ['hideininspectortag_12',['HideInInspectorTag',['../structElevate_1_1HideInInspectorTag.html',1,'Elevate']]],
+  ['hierarchypanel_2ecpp_13',['HierarchyPanel.cpp',['../HierarchyPanel_8cpp.html',1,'']]],
+  ['hierarchypanel_2eh_14',['HierarchyPanel.h',['../HierarchyPanel_8h.html',1,'']]]
 ];

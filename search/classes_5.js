@@ -9,7 +9,5 @@ var searchData=
   ['framebuffer_6',['Framebuffer',['../classElevate_1_1Framebuffer.html',1,'Elevate']]],
   ['framebuffercolorattachment_7',['FramebufferColorAttachment',['../structElevate_1_1FramebufferColorAttachment.html',1,'Elevate']]],
   ['framebufferdepthattachment_8',['FramebufferDepthAttachment',['../structElevate_1_1FramebufferDepthAttachment.html',1,'Elevate']]],
-  ['framebuffermetadata_9',['FramebufferMetadata',['../structElevate_1_1FramebufferMetadata.html',1,'Elevate']]],
-  ['framebufferstencilattachment_10',['FramebufferStencilAttachment',['../structElevate_1_1FramebufferStencilAttachment.html',1,'Elevate']]],
-  ['frustum_11',['Frustum',['../structElevate_1_1Frustum.html',1,'Elevate']]]
+  ['frustum_9',['Frustum',['../structElevate_1_1Frustum.html',1,'Elevate']]]
 ];

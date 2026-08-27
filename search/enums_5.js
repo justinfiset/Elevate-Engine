@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['primitivetype_0',['PrimitiveType',['../namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1',1,'Elevate']]],
-  ['propertyflag_1',['PropertyFlag',['../namespaceElevate.html#a6eca3277644e3989c1cde78d599b4d8c',1,'Elevate']]]
+  ['filetype_0',['FileType',['../namespaceElevate_1_1Editor.html#a718eccadaf819ea1260da6dd98dbd25c',1,'Elevate::Editor']]],
+  ['frustumplane_1',['FrustumPlane',['../namespaceElevate.html#a622c3d7de5705ecabab238d92cd07435',1,'Elevate']]]
 ];

@@ -58,7 +58,7 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", null ],
+        [ "Variables", "functions_vars.html", "functions_vars" ],
         [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Enumerator", "functions_eval.html", null ],
@@ -70,6 +70,7 @@ var NAVTREE =
       [ "File Members", "globals.html", [
         [ "All", "globals.html", "globals_dup" ],
         [ "Functions", "globals_func.html", null ],
+        [ "Variables", "globals_vars.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
         [ "Macros", "globals_defs.html", "globals_defs" ]
       ] ]
@@ -80,20 +81,21 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AddComponent_8h.html",
-"FileUtility_8h_source.html",
-"KeyCodes_8h.html#a836b84d73e635dd045c5e57d774963c6",
-"RendererAPI_8h.html#a7f8942dfad890eaf465cb12b3bfb050da18d58fde618e4a30e2dfdc122e693047",
-"classElevate_1_1AkBank.html#a808d2cd0c9b36ba26144ab861849b2b0",
-"classElevate_1_1EECategory.html#a931bdfcb2ac2a08ec1741dbe7a3fc562",
-"classElevate_1_1GameObject.html#a9df2b494b005355108e56ef86b7d3646",
-"classElevate_1_1LayerStack.html#a3ba8e7bd30d744e0d33c91037cd6f7fb",
-"classElevate_1_1OpenGLShader.html#a55c1cf5ccd454d0a65ec625f87ed96fe",
-"classElevate_1_1Shader.html",
-"classElevate_1_1VertexArray.html#af5d30348b93c4bf4a57887c22cf825be",
-"globals_c.html",
-"namespaceImGui.html",
-"structElevate_1_1Plane.html#a83eb69182b28b07908a7f943038e67d9",
-"structElevate_1_1WindowProps.html#a8d642cf689dff22104e9e695ecca4e50"
+"Event_8h.html#a062abdc15cb1ce3f4e7eb153bf386a91a50edb169910041bb3c06f6e8322d74c1",
+"KeyCodes_8h.html#a411cfed0dcc105521b8b9177fbea8a9e",
+"PropertyField_8h.html#a6eca3277644e3989c1cde78d599b4d8cab21f4c99a9a46ccb01923ee8baa80fcf",
+"WAAPIClient_8cpp_source.html",
+"classElevate_1_1Component.html#a0b3dedcebc4f56d07a98b0fdf8aacaa7",
+"classElevate_1_1Event.html#a271e0d48255da254f94b0d8968538580",
+"classElevate_1_1ITransformable.html#a907be86159bb94b0381ff997a5445fd0",
+"classElevate_1_1MouseButtonEvent.html#acbc999e83aa16471ec1ffa2b017def68",
+"classElevate_1_1RenderBucket.html#a4329d2393f5784c7cb97721adee03d50",
+"classElevate_1_1SoundEngine.html#a364cc87b6e2a00970e3d1f37e54996cd",
+"classElevate_1_1Window.html#a5110c08181a811b6abf0f5a18d42a777",
+"md_README.html#autotoc_md0",
+"namespaceElevate_1_1Platform.html",
+"structElevate_1_1FieldMeta.html#ad3720858ed2cf9fc5963afc81b8caa30",
+"structElevate_1_1TextureMetadata.html#afee1ceb8c816051b77d6ca8a13e6d406"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

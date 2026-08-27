@@ -7,6 +7,7 @@ var classElevate_1_1Component =
     [ "CopyFrom", "classElevate_1_1Component.html#a6ecd844157b8c5e6f9da21f4e6e2e058", null ],
     [ "Destroy", "classElevate_1_1Component.html#acf5caf9c2899580ff3d5f8878e5dcc68", null ],
     [ "GetDestructor", "classElevate_1_1Component.html#a31a5b7af743335acba40fd11367d636e", null ],
+    [ "GetEditorIcon", "classElevate_1_1Component.html#a4f96d37d35dd4249069f3ad376eb4b82", null ],
     [ "GetEditorIconHandle", "classElevate_1_1Component.html#ab031158149a71788a145f19d29de5969", null ],
     [ "GetFactory", "classElevate_1_1Component.html#ab334737bb8f3f797d2ed5456a2543ad2", null ],
     [ "GetName", "classElevate_1_1Component.html#a68d7a3fe01a022071b96c8d21a12370f", null ],

@@ -9,9 +9,11 @@ var searchData=
   ['serializer_6',['Serializer',['../classElevate_1_1Serializer.html',1,'Elevate']]],
   ['shader_7',['Shader',['../classElevate_1_1Shader.html',1,'Elevate']]],
   ['shadermanager_8',['ShaderManager',['../classElevate_1_1ShaderManager.html',1,'Elevate']]],
-  ['skyboxeditorwidget_9',['SkyboxEditorWidget',['../classElevate_1_1Editor_1_1SkyboxEditorWidget.html',1,'Elevate::Editor']]],
-  ['soundengine_10',['SoundEngine',['../classElevate_1_1SoundEngine.html',1,'Elevate']]],
-  ['sphereboundingvolume_11',['SphereBoundingVolume',['../classElevate_1_1SphereBoundingVolume.html',1,'Elevate']]],
-  ['statisticspanel_12',['StatisticsPanel',['../classElevate_1_1Editor_1_1StatisticsPanel.html',1,'Elevate::Editor']]],
-  ['surfacematerial_13',['SurfaceMaterial',['../structElevate_1_1SurfaceMaterial.html',1,'Elevate']]]
+  ['shadowsettings_9',['ShadowSettings',['../structElevate_1_1ShadowSettings.html',1,'Elevate']]],
+  ['skyboxeditorwidget_10',['SkyboxEditorWidget',['../classElevate_1_1Editor_1_1SkyboxEditorWidget.html',1,'Elevate::Editor']]],
+  ['soundengine_11',['SoundEngine',['../classElevate_1_1SoundEngine.html',1,'Elevate']]],
+  ['sphereboundingvolume_12',['SphereBoundingVolume',['../classElevate_1_1SphereBoundingVolume.html',1,'Elevate']]],
+  ['spotlight_13',['SpotLight',['../classElevate_1_1SpotLight.html',1,'Elevate']]],
+  ['statisticspanel_14',['StatisticsPanel',['../classElevate_1_1Editor_1_1StatisticsPanel.html',1,'Elevate::Editor']]],
+  ['surfacematerial_15',['SurfaceMaterial',['../structElevate_1_1SurfaceMaterial.html',1,'Elevate']]]
 ];

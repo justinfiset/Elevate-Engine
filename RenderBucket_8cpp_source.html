@@ -116,8 +116,8 @@ $(document).ready(function(){initNavTree('RenderBucket_8cpp_source.html',''); in
 </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classElevate_1_1RenderBucket.html#a56534925763f0feffa60a931b35a5870">   12</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1RenderBucket.html#a56534925763f0feffa60a931b35a5870">RenderBucket::Flush</a>()</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classElevate_1_1RenderBucket.html#aa2009a85827ccff5350f0745f4c7baad">   12</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1RenderBucket.html#aa2009a85827ccff5350f0745f4c7baad">RenderBucket::Flush</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.empty()) <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="comment">// Sends each command to be executed by the renderer</span></div>
@@ -125,92 +125,90 @@ $(document).ready(function(){initNavTree('RenderBucket_8cpp_source.html',''); in
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        {</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#ab9904838b703eea39d4b83dedf56f221">Renderer::Dispatch</a>(command);</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        }</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <a class="code hl_function" href="classElevate_1_1RenderBucket.html#aa279fac28d182184cf07d1cdd51af5e5">Clear</a>();</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    }</div>
 </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classElevate_1_1RenderBucket.html#aa279fac28d182184cf07d1cdd51af5e5">   25</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1RenderBucket.html#aa279fac28d182184cf07d1cdd51af5e5">RenderBucket::Clear</a>()</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.clear();</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a179dfcd55809e0e83099973870995b16">m_isSorted</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    }</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classElevate_1_1RenderBucket.html#aa279fac28d182184cf07d1cdd51af5e5">   23</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1RenderBucket.html#aa279fac28d182184cf07d1cdd51af5e5">RenderBucket::Clear</a>()</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.clear();</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a179dfcd55809e0e83099973870995b16">m_isSorted</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
 </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classElevate_1_1RenderBucket.html#a20ef501d3c1285dfb1356e311cce2732">   31</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1RenderBucket.html#a20ef501d3c1285dfb1356e311cce2732">RenderBucket::Sort</a>()</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.empty() || <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a179dfcd55809e0e83099973870995b16">m_isSorted</a>) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">const</span> <span class="keywordtype">size_t</span> n = <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.size();</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        std::vector&lt;RenderCommand&gt; tempBuffer(n);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <a class="code hl_struct" href="structElevate_1_1RenderCommand.html">RenderCommand</a>* src = <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.data();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_struct" href="structElevate_1_1RenderCommand.html">RenderCommand</a>* dst = tempBuffer.data();</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> bitsPerPass = 8;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> bucketCount = 1 &lt;&lt; bitsPerPass;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keyword">const</span> uint32_t mask = bucketCount - 1;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keyword">const</span> uint16_t keySizeBits = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>[0].m_SortingKey) * 8;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">for</span> (uint16_t shift = 0; shift &lt; keySizeBits; shift += bitsPerPass)</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            uint32_t count[bucketCount] = { 0 };</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; n; i++)</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                count[(src[i].<a class="code hl_variable" href="structElevate_1_1RenderCommand.html#a33ae7d915d63c6f221988739c3c430af">m_SortingKey</a> &gt;&gt; shift) &amp; mask]++;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            }</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; bucketCount; ++i)</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                count[i] += count[i - 1];</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            }</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keywordflow">for</span> (<span class="keywordtype">long</span> <span class="keywordtype">long</span> i = (<span class="keywordtype">long</span> <span class="keywordtype">long</span>)<a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.size() - 1; i &gt;= 0; --i)</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                uint32_t bucket = (src[i].<a class="code hl_variable" href="structElevate_1_1RenderCommand.html#a33ae7d915d63c6f221988739c3c430af">m_SortingKey</a> &gt;&gt; shift) &amp; mask;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                dst[--count[bucket]] = src[i];</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            std::swap(src, dst);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        }</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">if</span> (src != <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.data())</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        {</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            std::copy(tempBuffer.begin(), tempBuffer.end(), <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.begin());</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        }</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a179dfcd55809e0e83099973870995b16">m_isSorted</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classElevate_1_1RenderBucket.html#a20ef501d3c1285dfb1356e311cce2732">   29</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1RenderBucket.html#a20ef501d3c1285dfb1356e311cce2732">RenderBucket::Sort</a>()</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.empty() || <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a179dfcd55809e0e83099973870995b16">m_isSorted</a>) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">const</span> <span class="keywordtype">size_t</span> n = <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.size();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        std::vector&lt;RenderCommand&gt; tempBuffer(n);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <a class="code hl_struct" href="structElevate_1_1RenderCommand.html">RenderCommand</a>* src = <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.data();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <a class="code hl_struct" href="structElevate_1_1RenderCommand.html">RenderCommand</a>* dst = tempBuffer.data();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> bitsPerPass = 8;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> bucketCount = 1 &lt;&lt; bitsPerPass;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keyword">const</span> uint32_t mask = bucketCount - 1;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keyword">const</span> uint16_t keySizeBits = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>[0].m_SortingKey) * 8;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">for</span> (uint16_t shift = 0; shift &lt; keySizeBits; shift += bitsPerPass)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            uint32_t count[bucketCount] = { 0 };</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; n; i++)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                count[(src[i].<a class="code hl_variable" href="structElevate_1_1RenderCommand.html#a33ae7d915d63c6f221988739c3c430af">m_SortingKey</a> &gt;&gt; shift) &amp; mask]++;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; bucketCount; ++i)</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                count[i] += count[i - 1];</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="keywordflow">for</span> (<span class="keywordtype">long</span> <span class="keywordtype">long</span> i = (<span class="keywordtype">long</span> <span class="keywordtype">long</span>)<a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.size() - 1; i &gt;= 0; --i)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                uint32_t bucket = (src[i].<a class="code hl_variable" href="structElevate_1_1RenderCommand.html#a33ae7d915d63c6f221988739c3c430af">m_SortingKey</a> &gt;&gt; shift) &amp; mask;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                dst[--count[bucket]] = src[i];</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            std::swap(src, dst);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">if</span> (src != <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.data())</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            std::copy(tempBuffer.begin(), tempBuffer.end(), <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.begin());</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a179dfcd55809e0e83099973870995b16">m_isSorted</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    }</div>
 </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classElevate_1_1RenderBucket.html#a301ab2c53063fc517b593919520d2000">   77</a></span>    <span class="keywordtype">size_t</span> <a class="code hl_function" href="classElevate_1_1RenderBucket.html#a301ab2c53063fc517b593919520d2000">RenderBucket::GetCommandCount</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.size();</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classElevate_1_1RenderBucket.html#a301ab2c53063fc517b593919520d2000">   75</a></span>    <span class="keywordtype">size_t</span> <a class="code hl_function" href="classElevate_1_1RenderBucket.html#a301ab2c53063fc517b593919520d2000">RenderBucket::GetCommandCount</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">m_commands</a>.size();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    }</div>
 </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="foldopen" id="foldopen00082" data-start="{" data-end="}">
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="classElevate_1_1RenderBucket.html#aed5f3eef8c609a97560fc09f27126b6d">   82</a></span>    <span class="keywordtype">size_t</span> <a class="code hl_function" href="classElevate_1_1RenderBucket.html#aed5f3eef8c609a97560fc09f27126b6d">RenderBucket::GetMemoryUsage</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1RenderBucket.html#a301ab2c53063fc517b593919520d2000">GetCommandCount</a>() * <span class="keyword">sizeof</span>(<a class="code hl_struct" href="structElevate_1_1RenderCommand.html">RenderCommand</a>);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="classElevate_1_1RenderBucket.html#aed5f3eef8c609a97560fc09f27126b6d">   80</a></span>    <span class="keywordtype">size_t</span> <a class="code hl_function" href="classElevate_1_1RenderBucket.html#aed5f3eef8c609a97560fc09f27126b6d">RenderBucket::GetMemoryUsage</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1RenderBucket.html#a301ab2c53063fc517b593919520d2000">GetCommandCount</a>() * <span class="keyword">sizeof</span>(<a class="code hl_struct" href="structElevate_1_1RenderCommand.html">RenderCommand</a>);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    }</div>
 </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
 <div class="ttc" id="aRenderBucket_8h_html"><div class="ttname"><a href="RenderBucket_8h.html">RenderBucket.h</a></div></div>
 <div class="ttc" id="aRenderer_8h_html"><div class="ttname"><a href="Renderer_8h.html">Renderer.h</a></div></div>
-<div class="ttc" id="aclassElevate_1_1RenderBucket_html_a13a213a3bcd245f5aeb07ee1764b02fd"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">Elevate::RenderBucket::m_commands</a></div><div class="ttdeci">std::vector&lt; RenderCommand &gt; m_commands</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8h_source.html#l00031">RenderBucket.h:31</a></div></div>
-<div class="ttc" id="aclassElevate_1_1RenderBucket_html_a179dfcd55809e0e83099973870995b16"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a179dfcd55809e0e83099973870995b16">Elevate::RenderBucket::m_isSorted</a></div><div class="ttdeci">bool m_isSorted</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8h_source.html#l00032">RenderBucket.h:32</a></div></div>
-<div class="ttc" id="aclassElevate_1_1RenderBucket_html_a20ef501d3c1285dfb1356e311cce2732"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a20ef501d3c1285dfb1356e311cce2732">Elevate::RenderBucket::Sort</a></div><div class="ttdeci">void Sort()</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8cpp_source.html#l00031">RenderBucket.cpp:31</a></div></div>
-<div class="ttc" id="aclassElevate_1_1RenderBucket_html_a301ab2c53063fc517b593919520d2000"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a301ab2c53063fc517b593919520d2000">Elevate::RenderBucket::GetCommandCount</a></div><div class="ttdeci">size_t GetCommandCount() const</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8cpp_source.html#l00077">RenderBucket.cpp:77</a></div></div>
-<div class="ttc" id="aclassElevate_1_1RenderBucket_html_a56534925763f0feffa60a931b35a5870"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a56534925763f0feffa60a931b35a5870">Elevate::RenderBucket::Flush</a></div><div class="ttdeci">void Flush()</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8cpp_source.html#l00012">RenderBucket.cpp:12</a></div></div>
+<div class="ttc" id="aclassElevate_1_1RenderBucket_html_a13a213a3bcd245f5aeb07ee1764b02fd"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd">Elevate::RenderBucket::m_commands</a></div><div class="ttdeci">std::vector&lt; RenderCommand &gt; m_commands</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8h_source.html#l00036">RenderBucket.h:36</a></div></div>
+<div class="ttc" id="aclassElevate_1_1RenderBucket_html_a179dfcd55809e0e83099973870995b16"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a179dfcd55809e0e83099973870995b16">Elevate::RenderBucket::m_isSorted</a></div><div class="ttdeci">bool m_isSorted</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8h_source.html#l00037">RenderBucket.h:37</a></div></div>
+<div class="ttc" id="aclassElevate_1_1RenderBucket_html_a20ef501d3c1285dfb1356e311cce2732"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a20ef501d3c1285dfb1356e311cce2732">Elevate::RenderBucket::Sort</a></div><div class="ttdeci">void Sort()</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8cpp_source.html#l00029">RenderBucket.cpp:29</a></div></div>
+<div class="ttc" id="aclassElevate_1_1RenderBucket_html_a301ab2c53063fc517b593919520d2000"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a301ab2c53063fc517b593919520d2000">Elevate::RenderBucket::GetCommandCount</a></div><div class="ttdeci">size_t GetCommandCount() const</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8cpp_source.html#l00075">RenderBucket.cpp:75</a></div></div>
 <div class="ttc" id="aclassElevate_1_1RenderBucket_html_a74e57efa758d88c4212aa366e1910f97"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a74e57efa758d88c4212aa366e1910f97">Elevate::RenderBucket::Submit</a></div><div class="ttdeci">void Submit(const RenderCommand &amp;command)</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8cpp_source.html#l00006">RenderBucket.cpp:6</a></div></div>
-<div class="ttc" id="aclassElevate_1_1RenderBucket_html_aa279fac28d182184cf07d1cdd51af5e5"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#aa279fac28d182184cf07d1cdd51af5e5">Elevate::RenderBucket::Clear</a></div><div class="ttdeci">void Clear()</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8cpp_source.html#l00025">RenderBucket.cpp:25</a></div></div>
-<div class="ttc" id="aclassElevate_1_1RenderBucket_html_aed5f3eef8c609a97560fc09f27126b6d"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#aed5f3eef8c609a97560fc09f27126b6d">Elevate::RenderBucket::GetMemoryUsage</a></div><div class="ttdeci">size_t GetMemoryUsage() const</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8cpp_source.html#l00082">RenderBucket.cpp:82</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_ab9904838b703eea39d4b83dedf56f221"><div class="ttname"><a href="classElevate_1_1Renderer.html#ab9904838b703eea39d4b83dedf56f221">Elevate::Renderer::Dispatch</a></div><div class="ttdeci">static void Dispatch(const RenderCommand &amp;command)</div><div class="ttdoc">Immediatly process a RenderCommand. Do not use directly unless you know what you are donig.</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00121">Renderer.cpp:121</a></div></div>
+<div class="ttc" id="aclassElevate_1_1RenderBucket_html_aa2009a85827ccff5350f0745f4c7baad"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#aa2009a85827ccff5350f0745f4c7baad">Elevate::RenderBucket::Flush</a></div><div class="ttdeci">void Flush() const</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8cpp_source.html#l00012">RenderBucket.cpp:12</a></div></div>
+<div class="ttc" id="aclassElevate_1_1RenderBucket_html_aa279fac28d182184cf07d1cdd51af5e5"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#aa279fac28d182184cf07d1cdd51af5e5">Elevate::RenderBucket::Clear</a></div><div class="ttdeci">void Clear()</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8cpp_source.html#l00023">RenderBucket.cpp:23</a></div></div>
+<div class="ttc" id="aclassElevate_1_1RenderBucket_html_aed5f3eef8c609a97560fc09f27126b6d"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#aed5f3eef8c609a97560fc09f27126b6d">Elevate::RenderBucket::GetMemoryUsage</a></div><div class="ttdeci">size_t GetMemoryUsage() const</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8cpp_source.html#l00080">RenderBucket.cpp:80</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_ab9904838b703eea39d4b83dedf56f221"><div class="ttname"><a href="classElevate_1_1Renderer.html#ab9904838b703eea39d4b83dedf56f221">Elevate::Renderer::Dispatch</a></div><div class="ttdeci">static void Dispatch(const RenderCommand &amp;command)</div><div class="ttdoc">Immediatly process a RenderCommand. Do not use directly unless you know what you are donig.</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00432">Renderer.cpp:432</a></div></div>
 <div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00007">AudioDistanceProbe.h:8</a></div></div>
 <div class="ttc" id="astructElevate_1_1RenderCommand_html"><div class="ttname"><a href="structElevate_1_1RenderCommand.html">Elevate::RenderCommand</a></div><div class="ttdef"><b>Definition</b> <a href="RenderCommand_8h_source.html#l00014">RenderCommand.h:15</a></div></div>
 <div class="ttc" id="astructElevate_1_1RenderCommand_html_a33ae7d915d63c6f221988739c3c430af"><div class="ttname"><a href="structElevate_1_1RenderCommand.html#a33ae7d915d63c6f221988739c3c430af">Elevate::RenderCommand::m_SortingKey</a></div><div class="ttdeci">uint64_t m_SortingKey</div><div class="ttdef"><b>Definition</b> <a href="RenderCommand_8h_source.html#l00016">RenderCommand.h:16</a></div></div>

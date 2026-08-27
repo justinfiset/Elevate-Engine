@@ -8,5 +8,6 @@ var searchData=
   ['component_5',['Component',['../classElevate_1_1Component.html',1,'Elevate']]],
   ['componenttypetrait_6',['ComponentTypeTrait',['../structElevate_1_1ComponentTypeTrait.html',1,'Elevate']]],
   ['consolepanel_7',['ConsolePanel',['../classElevate_1_1Editor_1_1ConsolePanel.html',1,'Elevate::Editor']]],
-  ['cubemap_8',['Cubemap',['../classElevate_1_1Cubemap.html',1,'Elevate']]]
+  ['createassetmenutag_8',['CreateAssetMenuTag',['../structElevate_1_1CreateAssetMenuTag.html',1,'Elevate']]],
+  ['cubemap_9',['Cubemap',['../classElevate_1_1Cubemap.html',1,'Elevate']]]
 ];

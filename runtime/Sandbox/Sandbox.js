@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpxa89wvfv.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpmgrhco2c.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -212,6 +212,7 @@ Module["expectedDataFileDownloads"]++;
       Module["FS_createPath"]("/Content/WwiseProject", "Virtual Acoustics", true, true);
       Module["FS_createPath"]("/", "Engine", true, true);
       Module["FS_createPath"]("/Engine", "Cubemap", true, true);
+      Module["FS_createPath"]("/Engine", "Shaders", true, true);
       Module["FS_createPath"]("/Engine", "Textures", true, true);
       Module["FS_createPath"]("/Engine/Textures", "Skybox", true, true);
       Module["FS_createPath"]("/Engine/Textures/Skybox", "Default", true, true);
@@ -259,525 +260,585 @@ Module["expectedDataFileDownloads"]++;
     }, {
       "filename": "/Content/Models/backpack.mtl",
       "start": 1895558,
-      "end": 1895852
+      "end": 1895865
     }, {
       "filename": "/Content/Models/backpack.obj",
-      "start": 1895852,
-      "end": 9093373
+      "start": 1895865,
+      "end": 9093386
     }, {
       "filename": "/Content/Models/diffuse.jpg",
-      "start": 9093373,
-      "end": 15202228
+      "start": 9093386,
+      "end": 15202241
     }, {
       "filename": "/Content/Models/normal.png",
-      "start": 15202228,
-      "end": 30417099
+      "start": 15202241,
+      "end": 30417112
     }, {
       "filename": "/Content/Models/roughness.jpg",
-      "start": 30417099,
-      "end": 34805349
+      "start": 30417112,
+      "end": 34805362
     }, {
       "filename": "/Content/Models/specular.jpg",
-      "start": 34805349,
-      "end": 41527645
+      "start": 34805362,
+      "end": 41527658
     }, {
-      "filename": "/Content/Shaders/main.frag",
-      "start": 41527645,
-      "end": 41531916
-    }, {
-      "filename": "/Content/Shaders/main.vert",
-      "start": 41531916,
-      "end": 41532432
+      "filename": "/Content/Shaders/ColorTest.frag",
+      "start": 41527658,
+      "end": 41527803
     }, {
       "filename": "/Content/Skybox/bluecloud_bk.jpg",
-      "start": 41532432,
-      "end": 42156121
+      "start": 41527803,
+      "end": 42151492
     }, {
       "filename": "/Content/Skybox/bluecloud_dn.jpg",
-      "start": 42156121,
-      "end": 42820043
+      "start": 42151492,
+      "end": 42815414
     }, {
       "filename": "/Content/Skybox/bluecloud_ft.jpg",
-      "start": 42820043,
-      "end": 43509389
+      "start": 42815414,
+      "end": 43504760
     }, {
       "filename": "/Content/Skybox/bluecloud_lf.jpg",
-      "start": 43509389,
-      "end": 44196767
+      "start": 43504760,
+      "end": 44192138
     }, {
       "filename": "/Content/Skybox/bluecloud_rt.jpg",
-      "start": 44196767,
-      "end": 44846460
+      "start": 44192138,
+      "end": 44841831
     }, {
       "filename": "/Content/Skybox/bluecloud_up.jpg",
-      "start": 44846460,
-      "end": 45504107
+      "start": 44841831,
+      "end": 45499478
     }, {
       "filename": "/Content/Skybox/browncloud_bk.jpg",
-      "start": 45504107,
-      "end": 46400617
+      "start": 45499478,
+      "end": 46395988
     }, {
       "filename": "/Content/Skybox/browncloud_dn.jpg",
-      "start": 46400617,
-      "end": 47299956
+      "start": 46395988,
+      "end": 47295327
     }, {
       "filename": "/Content/Skybox/browncloud_ft.jpg",
-      "start": 47299956,
-      "end": 48192638
+      "start": 47295327,
+      "end": 48188009
     }, {
       "filename": "/Content/Skybox/browncloud_lf.jpg",
-      "start": 48192638,
-      "end": 49095335
+      "start": 48188009,
+      "end": 49090706
     }, {
       "filename": "/Content/Skybox/browncloud_rt.jpg",
-      "start": 49095335,
-      "end": 49988415
+      "start": 49090706,
+      "end": 49983786
     }, {
       "filename": "/Content/Skybox/browncloud_up.jpg",
-      "start": 49988415,
-      "end": 50887743
+      "start": 49983786,
+      "end": 50883114
     }, {
       "filename": "/Content/Skybox/graycloud_bk.jpg",
-      "start": 50887743,
-      "end": 51538484
+      "start": 50883114,
+      "end": 51533855
     }, {
       "filename": "/Content/Skybox/graycloud_dn.jpg",
-      "start": 51538484,
-      "end": 52213524
+      "start": 51533855,
+      "end": 52208895
     }, {
       "filename": "/Content/Skybox/graycloud_ft.jpg",
-      "start": 52213524,
-      "end": 52886585
+      "start": 52208895,
+      "end": 52881956
     }, {
       "filename": "/Content/Skybox/graycloud_lf.jpg",
-      "start": 52886585,
-      "end": 53564475
+      "start": 52881956,
+      "end": 53559846
     }, {
       "filename": "/Content/Skybox/graycloud_rt.jpg",
-      "start": 53564475,
-      "end": 54217310
+      "start": 53559846,
+      "end": 54212681
     }, {
       "filename": "/Content/Skybox/graycloud_up.jpg",
-      "start": 54217310,
-      "end": 54892362
+      "start": 54212681,
+      "end": 54887733
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive/back.jpg",
-      "start": 54892362,
-      "end": 55629696
+      "start": 54887733,
+      "end": 55625067
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive/bottom.jpg",
-      "start": 55629696,
-      "end": 56551602
+      "start": 55625067,
+      "end": 56546973
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive/front.jpg",
-      "start": 56551602,
-      "end": 57336125
+      "start": 56546973,
+      "end": 57331496
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive/left.jpg",
-      "start": 57336125,
-      "end": 58024142
+      "start": 57331496,
+      "end": 58019513
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive/readme.txt",
-      "start": 58024142,
-      "end": 58024382
+      "start": 58019513,
+      "end": 58019753
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive/right.jpg",
-      "start": 58024382,
-      "end": 58897956
+      "start": 58019753,
+      "end": 58893327
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive/top.jpg",
-      "start": 58897956,
-      "end": 59272009
+      "start": 58893327,
+      "end": 59267380
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive2/negx.jpg",
-      "start": 59272009,
-      "end": 60256779
+      "start": 59267380,
+      "end": 60252150
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive2/negy.jpg",
-      "start": 60256779,
-      "end": 61177474
+      "start": 60252150,
+      "end": 61172845
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive2/negz.jpg",
-      "start": 61177474,
-      "end": 62147340
+      "start": 61172845,
+      "end": 62142711
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive2/posx.jpg",
-      "start": 62147340,
-      "end": 62975591
+      "start": 62142711,
+      "end": 62970962
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive2/posy.jpg",
-      "start": 62975591,
-      "end": 63416763
+      "start": 62970962,
+      "end": 63412134
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive2/posz.jpg",
-      "start": 63416763,
-      "end": 64290994
+      "start": 63412134,
+      "end": 64286365
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive2/readme.txt",
-      "start": 64290994,
-      "end": 64291234
+      "start": 64286365,
+      "end": 64286605
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive3/negx.jpg",
-      "start": 64291234,
-      "end": 64990733
+      "start": 64286605,
+      "end": 64986104
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive3/negy.jpg",
-      "start": 64990733,
-      "end": 65641892
+      "start": 64986104,
+      "end": 65637263
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive3/negz.jpg",
-      "start": 65641892,
-      "end": 66334254
+      "start": 65637263,
+      "end": 66329625
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive3/posx.jpg",
-      "start": 66334254,
-      "end": 67094786
+      "start": 66329625,
+      "end": 67090157
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive3/posy.jpg",
-      "start": 67094786,
-      "end": 67383404
+      "start": 67090157,
+      "end": 67378775
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive3/posz.jpg",
-      "start": 67383404,
-      "end": 68107591
+      "start": 67378775,
+      "end": 68102962
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Maskonaive3/readme.txt",
-      "start": 68107591,
-      "end": 68107831
+      "start": 68102962,
+      "end": 68103202
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Nalovardo/negx.jpg",
-      "start": 68107831,
-      "end": 68309659
+      "start": 68103202,
+      "end": 68305030
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Nalovardo/negy.jpg",
-      "start": 68309659,
-      "end": 68517471
+      "start": 68305030,
+      "end": 68512842
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Nalovardo/negz.jpg",
-      "start": 68517471,
-      "end": 68707644
+      "start": 68512842,
+      "end": 68703015
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Nalovardo/posx.jpg",
-      "start": 68707644,
-      "end": 68897050
+      "start": 68703015,
+      "end": 68892421
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Nalovardo/posy.jpg",
-      "start": 68897050,
-      "end": 69053063
+      "start": 68892421,
+      "end": 69048434
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Nalovardo/posz.jpg",
-      "start": 69053063,
-      "end": 69251324
+      "start": 69048434,
+      "end": 69246695
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Nalovardo/readme.txt",
-      "start": 69251324,
-      "end": 69251564
+      "start": 69246695,
+      "end": 69246935
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Ryfjallet/negx.jpg",
-      "start": 69251564,
-      "end": 70544769
+      "start": 69246935,
+      "end": 70540140
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Ryfjallet/negy.jpg",
-      "start": 70544769,
-      "end": 72606592
+      "start": 70540140,
+      "end": 72601963
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Ryfjallet/negz.jpg",
-      "start": 72606592,
-      "end": 73611530
+      "start": 72601963,
+      "end": 73606901
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Ryfjallet/posx.jpg",
-      "start": 73611530,
-      "end": 74931540
+      "start": 73606901,
+      "end": 74926911
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Ryfjallet/posy.jpg",
-      "start": 74931540,
-      "end": 75510893
+      "start": 74926911,
+      "end": 75506264
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Ryfjallet/posz.jpg",
-      "start": 75510893,
-      "end": 76967150
+      "start": 75506264,
+      "end": 76962521
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Ryfjallet/readme.txt",
-      "start": 76967150,
-      "end": 76967390
+      "start": 76962521,
+      "end": 76962761
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Teide/negx.jpg",
-      "start": 76967390,
-      "end": 77531403
+      "start": 76962761,
+      "end": 77526774
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Teide/negy.jpg",
-      "start": 77531403,
-      "end": 78427820
+      "start": 77526774,
+      "end": 78423191
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Teide/negz.jpg",
-      "start": 78427820,
-      "end": 79000030
+      "start": 78423191,
+      "end": 78995401
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Teide/posx.jpg",
-      "start": 79000030,
-      "end": 79692616
+      "start": 78995401,
+      "end": 79687987
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Teide/posy.jpg",
-      "start": 79692616,
-      "end": 79906543
+      "start": 79687987,
+      "end": 79901914
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Teide/posz.jpg",
-      "start": 79906543,
-      "end": 80587307
+      "start": 79901914,
+      "end": 80582678
     }, {
       "filename": "/Content/Skybox/mountain-skyboxes/Teide/readme.txt",
-      "start": 80587307,
-      "end": 80587547
+      "start": 80582678,
+      "end": 80582918
     }, {
       "filename": "/Content/Skybox/readme.txt",
-      "start": 80587547,
-      "end": 80590201
+      "start": 80582918,
+      "end": 80585572
     }, {
       "filename": "/Content/Skybox/yellowcloud_bk.jpg",
-      "start": 80590201,
-      "end": 81373759
+      "start": 80585572,
+      "end": 81369130
     }, {
       "filename": "/Content/Skybox/yellowcloud_dn.jpg",
-      "start": 81373759,
-      "end": 82250902
+      "start": 81369130,
+      "end": 82246273
     }, {
       "filename": "/Content/Skybox/yellowcloud_ft.jpg",
-      "start": 82250902,
-      "end": 83160794
+      "start": 82246273,
+      "end": 83156165
     }, {
       "filename": "/Content/Skybox/yellowcloud_lf.jpg",
-      "start": 83160794,
-      "end": 84061045
+      "start": 83156165,
+      "end": 84056416
     }, {
       "filename": "/Content/Skybox/yellowcloud_rt.jpg",
-      "start": 84061045,
-      "end": 84936316
+      "start": 84056416,
+      "end": 84931687
     }, {
       "filename": "/Content/Skybox/yellowcloud_up.jpg",
-      "start": 84936316,
-      "end": 85813549
+      "start": 84931687,
+      "end": 85808920
     }, {
       "filename": "/Content/Textures/awesomeface.png",
-      "start": 85813549,
-      "end": 85872826
+      "start": 85808920,
+      "end": 85868197
     }, {
       "filename": "/Content/Textures/container.jpg",
-      "start": 85872826,
-      "end": 86057765
+      "start": 85868197,
+      "end": 86053136
     }, {
       "filename": "/Content/Textures/default.png",
-      "start": 86057765,
-      "end": 86057973
+      "start": 86053136,
+      "end": 86053344
     }, {
       "filename": "/Content/WwiseProject/.gitignore",
-      "start": 86057973,
-      "end": 86058137
+      "start": 86053344,
+      "end": 86053508
     }, {
       "filename": "/Content/WwiseProject/.p4ignore",
-      "start": 86058137,
-      "end": 86058939
+      "start": 86053508,
+      "end": 86054310
     }, {
       "filename": "/Content/WwiseProject/Attenuations/Default Work Unit.wwu",
-      "start": 86058939,
-      "end": 86059238
+      "start": 86054310,
+      "end": 86054609
     }, {
       "filename": "/Content/WwiseProject/Attenuations/Factory Attenuations.wwu",
-      "start": 86059238,
-      "end": 86068688
+      "start": 86054609,
+      "end": 86064059
     }, {
       "filename": "/Content/WwiseProject/Busses/Default Work Unit.wwu",
-      "start": 86068688,
-      "end": 86069539
+      "start": 86064059,
+      "end": 86064910
     }, {
       "filename": "/Content/WwiseProject/Containers/Default Work Unit.wwu",
-      "start": 86069539,
-      "end": 86071006
+      "start": 86064910,
+      "end": 86066377
     }, {
       "filename": "/Content/WwiseProject/Control Surface Sessions/Default Work Unit.wwu",
-      "start": 86071006,
-      "end": 86072516
+      "start": 86066377,
+      "end": 86067887
     }, {
       "filename": "/Content/WwiseProject/Conversion Settings/Default Work Unit.wwu",
-      "start": 86072516,
-      "end": 86074070
+      "start": 86067887,
+      "end": 86069441
     }, {
       "filename": "/Content/WwiseProject/Conversion Settings/Factory Conversion Settings.wwu",
-      "start": 86074070,
-      "end": 86093504
+      "start": 86069441,
+      "end": 86088875
     }, {
       "filename": "/Content/WwiseProject/Devices/Default Work Unit.wwu",
-      "start": 86093504,
-      "end": 86094136
+      "start": 86088875,
+      "end": 86089507
     }, {
       "filename": "/Content/WwiseProject/Dynamic Dialogue/Default Work Unit.wwu",
-      "start": 86094136,
-      "end": 86094441
+      "start": 86089507,
+      "end": 86089812
     }, {
       "filename": "/Content/WwiseProject/Effects/Default Work Unit.wwu",
-      "start": 86094441,
-      "end": 86094730
+      "start": 86089812,
+      "end": 86090101
     }, {
       "filename": "/Content/WwiseProject/Effects/Factory Effects.wwu",
-      "start": 86094730,
-      "end": 86216691
+      "start": 86090101,
+      "end": 86212062
     }, {
       "filename": "/Content/WwiseProject/Events/Default Work Unit.wwu",
-      "start": 86216691,
-      "end": 86217701
+      "start": 86212062,
+      "end": 86213072
     }, {
       "filename": "/Content/WwiseProject/Game Parameters/Default Work Unit.wwu",
-      "start": 86217701,
-      "end": 86218004
+      "start": 86213072,
+      "end": 86213375
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/ProjectInfo.json",
-      "start": 86218004,
-      "end": 86218685
+      "start": 86213375,
+      "end": 86214056
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/Global.bnk",
-      "start": 86218685,
-      "end": 86312508
+      "start": 86214056,
+      "end": 86307879
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/Global.json",
-      "start": 86312508,
-      "end": 86313726
+      "start": 86307879,
+      "end": 86309097
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/Global.txt",
-      "start": 86313726,
-      "end": 86314083
+      "start": 86309097,
+      "end": 86309454
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/Init.bnk",
-      "start": 86314083,
-      "end": 86314718
+      "start": 86309454,
+      "end": 86310089
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/Init.json",
-      "start": 86314718,
-      "end": 86316001
+      "start": 86310089,
+      "end": 86311372
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/Init.txt",
-      "start": 86316001,
-      "end": 86316218
+      "start": 86311372,
+      "end": 86311589
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/PlatformInfo.json",
-      "start": 86316218,
-      "end": 86317324
+      "start": 86311589,
+      "end": 86312695
     }, {
       "filename": "/Content/WwiseProject/GeneratedSoundBanks/Windows/PluginInfo.json",
-      "start": 86317324,
-      "end": 86317673
+      "start": 86312695,
+      "end": 86313044
     }, {
       "filename": "/Content/WwiseProject/Metadata/Default Work Unit.wwu",
-      "start": 86317673,
-      "end": 86317966
+      "start": 86313044,
+      "end": 86313337
     }, {
       "filename": "/Content/WwiseProject/Mixing Sessions/Default Work Unit.wwu",
-      "start": 86317966,
-      "end": 86318269
+      "start": 86313337,
+      "end": 86313640
     }, {
       "filename": "/Content/WwiseProject/Modulators/Default Work Unit.wwu",
-      "start": 86318269,
-      "end": 86318564
+      "start": 86313640,
+      "end": 86313935
     }, {
       "filename": "/Content/WwiseProject/Originals/SFX/470281__erokia__menu-ui-click-229.wav",
-      "start": 86318564,
-      "end": 86505952
+      "start": 86313935,
+      "end": 86501323
     }, {
       "filename": "/Content/WwiseProject/Presets/Default Work Unit.wwu",
-      "start": 86505952,
-      "end": 86506241
+      "start": 86501323,
+      "end": 86501612
     }, {
       "filename": "/Content/WwiseProject/Presets/Factory Spatial Audio.wwu",
-      "start": 86506241,
-      "end": 86507518
+      "start": 86501612,
+      "end": 86502889
     }, {
       "filename": "/Content/WwiseProject/Queries/Default Work Unit.wwu",
-      "start": 86507518,
-      "end": 86507807
+      "start": 86502889,
+      "end": 86503178
     }, {
       "filename": "/Content/WwiseProject/Queries/Factory Queries.wwu",
-      "start": 86507807,
-      "end": 86593886
+      "start": 86503178,
+      "end": 86589257
     }, {
       "filename": "/Content/WwiseProject/Sidechain Mixes/Default Work Unit.wwu",
-      "start": 86593886,
-      "end": 86594189
+      "start": 86589257,
+      "end": 86589560
     }, {
       "filename": "/Content/WwiseProject/SoundBanks/Default Work Unit.wwu",
-      "start": 86594189,
-      "end": 86594911
+      "start": 86589560,
+      "end": 86590282
     }, {
       "filename": "/Content/WwiseProject/Soundcaster Sessions/Default Work Unit.wwu",
-      "start": 86594911,
-      "end": 86595224
+      "start": 86590282,
+      "end": 86590595
     }, {
       "filename": "/Content/WwiseProject/States/Default Work Unit.wwu",
-      "start": 86595224,
-      "end": 86595854
+      "start": 86590595,
+      "end": 86591225
     }, {
       "filename": "/Content/WwiseProject/Switches/Default Work Unit.wwu",
-      "start": 86595854,
-      "end": 86596426
+      "start": 86591225,
+      "end": 86591797
     }, {
       "filename": "/Content/WwiseProject/Triggers/Default Work Unit.wwu",
-      "start": 86596426,
-      "end": 86596717
+      "start": 86591797,
+      "end": 86592088
     }, {
       "filename": "/Content/WwiseProject/Virtual Acoustics/Default Work Unit.wwu",
-      "start": 86596717,
-      "end": 86597024
+      "start": 86592088,
+      "end": 86592395
     }, {
       "filename": "/Content/WwiseProject/WwiseProject.wproj",
-      "start": 86597024,
-      "end": 86965551
+      "start": 86592395,
+      "end": 86960922
     }, {
       "filename": "/Engine/Cubemap/default.sky",
-      "start": 86965551,
-      "end": 86965903
+      "start": 86960922,
+      "end": 86961274
+    }, {
+      "filename": "/Engine/Shaders/BloomDownscale.frag",
+      "start": 86961274,
+      "end": 86963529
+    }, {
+      "filename": "/Engine/Shaders/BloomDownscale.vert",
+      "start": 86963529,
+      "end": 86963737
+    }, {
+      "filename": "/Engine/Shaders/BloomUpscale.frag",
+      "start": 86963737,
+      "end": 86964792
+    }, {
+      "filename": "/Engine/Shaders/BloomUpscale.vert",
+      "start": 86964792,
+      "end": 86965e3
+    }, {
+      "filename": "/Engine/Shaders/Composition.frag",
+      "start": 86965e3,
+      "end": 86965806
+    }, {
+      "filename": "/Engine/Shaders/Composition.vert",
+      "start": 86965806,
+      "end": 86966014
+    }, {
+      "filename": "/Engine/Shaders/DefaultLitShader.frag",
+      "start": 86966014,
+      "end": 86967980
+    }, {
+      "filename": "/Engine/Shaders/DefaultLitShader.vert",
+      "start": 86967980,
+      "end": 86968722
+    }, {
+      "filename": "/Engine/Shaders/Lighting.frag",
+      "start": 86968722,
+      "end": 86976572
+    }, {
+      "filename": "/Engine/Shaders/Lighting.vert",
+      "start": 86976572,
+      "end": 86976780
+    }, {
+      "filename": "/Engine/Shaders/SSAO.frag",
+      "start": 86976780,
+      "end": 86979011
+    }, {
+      "filename": "/Engine/Shaders/SSAO.vert",
+      "start": 86979011,
+      "end": 86979219
+    }, {
+      "filename": "/Engine/Shaders/SSAOBlur.frag",
+      "start": 86979219,
+      "end": 86980324
+    }, {
+      "filename": "/Engine/Shaders/SSAOBlur.vert",
+      "start": 86980324,
+      "end": 86980532
+    }, {
+      "filename": "/Engine/Shaders/Shadow.frag",
+      "start": 86980532,
+      "end": 86980555
+    }, {
+      "filename": "/Engine/Shaders/Shadow.vert",
+      "start": 86980555,
+      "end": 86980741
     }, {
       "filename": "/Engine/Textures/Skybox/Default/bottom.jpg",
-      "start": 86965903,
-      "end": 87033546
+      "start": 86980741,
+      "end": 87048384
     }, {
       "filename": "/Engine/Textures/Skybox/Default/side.jpg",
-      "start": 87033546,
-      "end": 87114849
+      "start": 87048384,
+      "end": 87129687
     }, {
       "filename": "/Engine/Textures/Skybox/Default/top.jpg",
-      "start": 87114849,
-      "end": 87182502
+      "start": 87129687,
+      "end": 87197340
     }, {
       "filename": "/Engine/Textures/debug.png",
-      "start": 87182502,
-      "end": 87186857
+      "start": 87197340,
+      "end": 87201695
     }, {
       "filename": "/app.config",
-      "start": 87186857,
-      "end": 87186957
+      "start": 87201695,
+      "end": 87201795
     }, {
       "filename": "/imgui.ini",
-      "start": 87186957,
-      "end": 87190712
+      "start": 87201795,
+      "end": 87205654
     } ],
-    "remote_package_size": 87190712
+    "remote_package_size": 87205654
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpxa89wvfv.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpvchvmh_6.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpmgrhco2c.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpxdhmzp03.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpvchvmh_6.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpuve1zfl0.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpxdhmzp03.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpht3e4teo.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpuve1zfl0.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpht3e4teo.js
 var programArgs = [];
 
 var thisProgram = "./this.program";
@@ -1721,7 +1782,7 @@ var addRunDependency = id => {
   assert(id, "addRunDependency requires an ID");
   assert(!runDependencyTracking[id]);
   runDependencyTracking[id] = 1;
-  if (runDependencyWatcher === null && globalThis.setInterval) {
+  if (!runDependencyWatcher && globalThis.setInterval) {
     // Check for missing dependencies every few seconds
     runDependencyWatcher = setInterval(() => {
       if (ABORT) {
@@ -1912,17 +1973,17 @@ var PThread = {
     PThread.unusedWorkers = [];
     PThread.pthreads = {};
   },
+  clearMailboxAwait: pthread_ptr => {
+    if (!waitAsyncPolyfilled) {
+      Atomics.notify((growMemViews(), HEAP32), ((pthread_ptr) >> 2));
+    }
+  },
   terminateRuntime: () => {
     assert(!ENVIRONMENT_IS_PTHREAD, "terminateRuntime() should only be called from the main thread");
     PThread.terminateAllThreads();
     var pthread_ptr = _pthread_self();
     ___set_thread_state(0, 0, 0, 1);
-    if (!waitAsyncPolyfilled) {
-      // Break the waitAsync loop.  Note that checkMailbox will not
-      // re-register since the `___set_thread_state` above causes _pthread_self
-      // to return 0.
-      Atomics.notify((growMemViews(), HEAP32), ((pthread_ptr) >> 2));
-    }
+    PThread.clearMailboxAwait(pthread_ptr);
   },
   returnWorkerToPool: worker => {
     // We don't want to run main thread queued calls here, since we are doing
@@ -1940,6 +2001,10 @@ var PThread = {
     // Detach the worker from the pthread object, and return it to the
     // worker pool as an unused worker.
     worker.pthread_ptr = 0;
+    // Clear any pending waitAsync waiter armed on this thread's struct
+    // BEFORE freeing the memory so that memory recycled by malloc in another
+    // thread will not have a window where a stale async waiter is still active.
+    PThread.clearMailboxAwait(pthread_ptr);
     // Finally, free the underlying (and now-unused) pthread structure in
     // linear memory.
     __emscripten_thread_free_data(pthread_ptr);
@@ -2292,12 +2357,16 @@ class ExceptionInfo {
 
 var uncaughtExceptionCount = 0;
 
+var __Unwind_RaiseException = ex => {
+  assert(false, "Exception thrown, but exception catching is not enabled. Compile with -sNO_DISABLE_EXCEPTION_CATCHING or -sEXCEPTION_CATCHING_ALLOWED=[..] to catch.");
+};
+
 var ___cxa_throw = (ptr, type, destructor) => {
   var info = new ExceptionInfo(ptr);
   // Initialize ExceptionInfo content after it was allocated in __cxa_allocate_exception.
   info.init(type, destructor);
   uncaughtExceptionCount++;
-  assert(false, "Exception thrown, but exception catching is not enabled. Compile with -sNO_DISABLE_EXCEPTION_CATCHING or -sEXCEPTION_CATCHING_ALLOWED=[..] to catch.");
+  __Unwind_RaiseException(ptr);
 };
 
 function pthreadCreateProxied(pthread_ptr, attr, startRoutine, arg) {
@@ -2318,7 +2387,7 @@ var ___pthread_create_js = (pthread_ptr, attr, startRoutine, arg) => {
   // Synchronously proxy the thread creation to main thread if possible. If we
   // need to transfer ownership of objects, then proxy asynchronously via
   // postMessage.
-  if (ENVIRONMENT_IS_PTHREAD && (transferList.length === 0 || error)) {
+  if (ENVIRONMENT_IS_PTHREAD && (!transferList.length || error)) {
     return pthreadCreateProxied(pthread_ptr, attr, startRoutine, arg);
   }
   // If on the main thread, and accessing Canvas/OffscreenCanvas failed, abort
@@ -2627,7 +2696,7 @@ var TTY = {
         } catch (e) {
           throw new FS.ErrnoError(29);
         }
-        if (result === undefined && bytesRead === 0) {
+        if (result === undefined && !bytesRead) {
           throw new FS.ErrnoError(6);
         }
         if (result === null || result === undefined) break;
@@ -2946,10 +3015,10 @@ var MEMFS = {
       var node = stream.node;
       node.mtime = node.ctime = Date.now();
       if (canOwn) {
-        assert(position === 0, "canOwn must imply no weird position inside the file");
+        assert(!position, "canOwn must imply no weird position inside the file");
         node.contents = buffer.subarray(offset, offset + length);
         node.usedBytes = length;
-      } else if (node.usedBytes === 0 && position === 0) {
+      } else if (!node.usedBytes && !position) {
         // If this is a simple first write to an empty file, do a fast set since we don't need to care about old data.
         node.contents = buffer.slice(offset, offset + length);
         node.usedBytes = length;
@@ -4421,7 +4490,7 @@ var FS = {
     // to write to file opened in read-only mode with MAP_PRIVATE flag,
     // as all modifications will be visible only in the memory of
     // the current process.
-    if ((prot & 2) !== 0 && (flags & 2) === 0 && (stream.flags & 2097155) !== 2) {
+    if ((prot & 2) && !(flags & 2) && (stream.flags & 2097155) !== 2) {
       throw new FS.ErrnoError(2);
     }
     if ((stream.flags & 2097155) === 1) {
@@ -4515,7 +4584,7 @@ var FS = {
     // use a buffer to avoid overhead of individual crypto calls per byte
     var randomBuffer = new Uint8Array(1024), randomLeft = 0;
     var randomByte = () => {
-      if (randomLeft === 0) {
+      if (!randomLeft) {
         randomFill(randomBuffer);
         randomLeft = randomBuffer.byteLength;
       }
@@ -4739,7 +4808,7 @@ var FS = {
           } catch (e) {
             throw new FS.ErrnoError(29);
           }
-          if (result === undefined && bytesRead === 0) {
+          if (result === undefined && !bytesRead) {
             throw new FS.ErrnoError(6);
           }
           if (result === null || result === undefined) break;
@@ -5130,7 +5199,7 @@ var stringToUTF8 = (str, outPtr, maxBytesToWrite) => {
 function ___syscall_getcwd(buf, size) {
   if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(6, 0, 1, buf, size);
   try {
-    if (size === 0) return -28;
+    if (!size) return -28;
     var cwd = FS.cwd();
     var cwdLengthInBytes = lengthBytesUTF8(cwd) + 1;
     if (size < cwdLengthInBytes) return -68;
@@ -5142,8 +5211,65 @@ function ___syscall_getcwd(buf, size) {
   }
 }
 
+function ___syscall_getdents64(fd, dirp, count) {
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(7, 0, 1, fd, dirp, count);
+  try {
+    var stream = SYSCALLS.getStreamFromFD(fd);
+    stream.getdents ||= FS.readdir(stream.path);
+    var struct_size = 280;
+    var pos = 0;
+    var off = FS.llseek(stream, 0, 1);
+    var startIdx = Math.floor(off / struct_size);
+    var endIdx = Math.min(stream.getdents.length, startIdx + Math.floor(count / struct_size));
+    for (var idx = startIdx; idx < endIdx; idx++) {
+      var id;
+      var type;
+      var name = stream.getdents[idx];
+      if (name === ".") {
+        id = stream.node.id;
+        type = 4;
+      } else if (name === "..") {
+        var lookup = FS.lookupPath(stream.path, {
+          parent: true
+        });
+        id = lookup.node.id;
+        type = 4;
+      } else {
+        var child;
+        try {
+          child = FS.lookupNode(stream.node, name);
+        } catch (e) {
+          // If the entry is not a directory, file, or symlink, nodefs
+          // lookupNode will raise EINVAL. Skip these and continue.
+          if (e?.errno === 28) {
+            continue;
+          }
+          throw e;
+        }
+        id = child.id;
+        type = FS.isChrdev(child.mode) ? 2 : // character device.
+        FS.isDir(child.mode) ? 4 : // directory
+        FS.isLink(child.mode) ? 10 : // symbolic link.
+        8;
+      }
+      assert(id);
+      (growMemViews(), HEAP64)[((dirp + pos) >> 3)] = BigInt(id);
+      (growMemViews(), HEAP64)[(((dirp + pos) + (8)) >> 3)] = BigInt((idx + 1) * struct_size);
+      (growMemViews(), HEAP16)[(((dirp + pos) + (16)) >> 1)] = 280;
+      (growMemViews(), HEAP8)[(dirp + pos) + (18)] = type;
+      stringToUTF8(name, dirp + pos + 19, 256);
+      pos += struct_size;
+    }
+    FS.llseek(stream, idx * struct_size, 0);
+    return pos;
+  } catch (e) {
+    if (typeof FS == "undefined" || !(e.name === "ErrnoError")) throw e;
+    return -e.errno;
+  }
+}
+
 function ___syscall_ioctl(fd, op, varargs) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(7, 0, 1, fd, op, varargs);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(8, 0, 1, fd, op, varargs);
   SYSCALLS.varargs = varargs;
   try {
     var stream = SYSCALLS.getStreamFromFD(fd);
@@ -5266,7 +5392,7 @@ function ___syscall_ioctl(fd, op, varargs) {
 }
 
 function ___syscall_lstat64(path, buf) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(8, 0, 1, path, buf);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(9, 0, 1, path, buf);
   try {
     path = SYSCALLS.getStr(path);
     return SYSCALLS.writeStat(buf, FS.lstat(path));
@@ -5277,7 +5403,7 @@ function ___syscall_lstat64(path, buf) {
 }
 
 function ___syscall_mkdirat(dirfd, path, mode) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(9, 0, 1, dirfd, path, mode);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(10, 0, 1, dirfd, path, mode);
   try {
     path = SYSCALLS.getStr(path);
     path = SYSCALLS.calculateAt(dirfd, path);
@@ -5291,7 +5417,7 @@ function ___syscall_mkdirat(dirfd, path, mode) {
 }
 
 function ___syscall_newfstatat(dirfd, path, buf, flags) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(10, 0, 1, dirfd, path, buf, flags);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(11, 0, 1, dirfd, path, buf, flags);
   try {
     path = SYSCALLS.getStr(path);
     var nofollow = flags & 256;
@@ -5307,7 +5433,7 @@ function ___syscall_newfstatat(dirfd, path, buf, flags) {
 }
 
 function ___syscall_openat(dirfd, path, flags, varargs) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(11, 0, 1, dirfd, path, flags, varargs);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(12, 0, 1, dirfd, path, flags, varargs);
   SYSCALLS.varargs = varargs;
   try {
     path = SYSCALLS.getStr(path);
@@ -5324,7 +5450,7 @@ function ___syscall_openat(dirfd, path, flags, varargs) {
 }
 
 function ___syscall_readlinkat(dirfd, path, buf, bufsize) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(12, 0, 1, dirfd, path, buf, bufsize);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(13, 0, 1, dirfd, path, buf, bufsize);
   try {
     path = SYSCALLS.getStr(path);
     path = SYSCALLS.calculateAt(dirfd, path);
@@ -5344,7 +5470,7 @@ function ___syscall_readlinkat(dirfd, path, buf, bufsize) {
 }
 
 function ___syscall_rmdir(path) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(13, 0, 1, path);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(14, 0, 1, path);
   try {
     path = SYSCALLS.getStr(path);
     FS.rmdir(path);
@@ -5356,7 +5482,7 @@ function ___syscall_rmdir(path) {
 }
 
 function ___syscall_stat64(path, buf) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(14, 0, 1, path, buf);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(15, 0, 1, path, buf);
   try {
     path = SYSCALLS.getStr(path);
     return SYSCALLS.writeStat(buf, FS.stat(path));
@@ -5367,7 +5493,7 @@ function ___syscall_stat64(path, buf) {
 }
 
 function ___syscall_unlinkat(dirfd, path, flags) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(15, 0, 1, dirfd, path, flags);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(16, 0, 1, dirfd, path, flags);
   try {
     path = SYSCALLS.getStr(path);
     path = SYSCALLS.calculateAt(dirfd, path);
@@ -5721,9 +5847,10 @@ var _emscripten_set_main_loop_timing = (mode, value) => {
     err("emscripten_set_main_loop_timing: Cannot set timing mode for main loop since a main loop does not exist! Call emscripten_set_main_loop first to set one up.");
     return 1;
   }
-  if (!MainLoop.running) {
+  // If there is no existing scheduler then we are transitioning from
+  // inactive to active and we add to runtime keepalive counter.
+  if (!MainLoop.scheduler) {
     runtimeKeepalivePush();
-    MainLoop.running = true;
   }
   if (mode == 0) {
     MainLoop.scheduler = function MainLoop_scheduler_setTimeout() {
@@ -5772,11 +5899,6 @@ var _emscripten_set_main_loop_timing = (mode, value) => {
   return 0;
 };
 
-var runtimeKeepalivePop = () => {
-  assert(runtimeKeepaliveCounter > 0);
-  runtimeKeepaliveCounter -= 1;
-};
-
 /**
    * @param {number=} arg
    * @param {boolean=} noSetTiming
@@ -5787,7 +5909,6 @@ var runtimeKeepalivePop = () => {
   var thisMainLoopId = MainLoop.currentlyRunningMainloop;
   function checkIsRunning() {
     if (thisMainLoopId < MainLoop.currentlyRunningMainloop) {
-      runtimeKeepalivePop();
       maybeExit();
       return false;
     }
@@ -5795,10 +5916,7 @@ var runtimeKeepalivePop = () => {
   }
   // We create the loop runner here but it is not actually running until
   // _emscripten_set_main_loop_timing is called (which might happen at a
-  // later time).  This member signifies that the current runner has not
-  // yet been started so that we can call runtimeKeepalivePush when it
-  // gets its timing set for the first time.
-  MainLoop.running = false;
+  // later time).
   MainLoop.runner = function MainLoop_runner() {
     if (ABORT) return;
     if (MainLoop.queue.length > 0) {
@@ -5856,11 +5974,15 @@ var runtimeKeepalivePop = () => {
   }
 };
 
+var runtimeKeepalivePop = () => {
+  assert(runtimeKeepaliveCounter > 0);
+  runtimeKeepaliveCounter -= 1;
+};
+
 var MainLoop = {
-  running: false,
+  func: null,
   scheduler: null,
   currentlyRunningMainloop: 0,
-  func: null,
   arg: 0,
   timingMode: 0,
   timingValue: 0,
@@ -5869,9 +5991,12 @@ var MainLoop = {
   preMainLoop: [],
   postMainLoop: [],
   pause() {
-    MainLoop.scheduler = null;
-    // Incrementing this signals the previous main loop that it's now become old, and it must return.
-    MainLoop.currentlyRunningMainloop++;
+    if (MainLoop.scheduler) {
+      MainLoop.scheduler = null;
+      // Incrementing this signals the previous main loop that it's now become old, and it must return.
+      MainLoop.currentlyRunningMainloop++;
+      runtimeKeepalivePop();
+    }
   },
   resume() {
     MainLoop.currentlyRunningMainloop++;
@@ -5918,7 +6043,7 @@ var MainLoop = {
   fakeRequestAnimationFrame(func) {
     // try to keep 60fps between calls to here
     var now = Date.now();
-    if (MainLoop.nextRAF === 0) {
+    if (!MainLoop.nextRAF) {
       MainLoop.nextRAF = now + 1e3 / 60;
     } else {
       while (now + 2 >= MainLoop.nextRAF) {
@@ -5976,7 +6101,7 @@ var getBoundingClientRect = e => specialHTMLTargets.indexOf(e) < 0 ? e.getBoundi
 };
 
 function _emscripten_get_element_css_size(target, width, height) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(16, 0, 1, target, width, height);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(17, 0, 1, target, width, height);
   target = target ? findEventTarget(target) : Module["canvas"];
   if (!target) return -4;
   var rect = getBoundingClientRect(target);
@@ -6081,7 +6206,7 @@ var JSEvents = {
   deferCall(targetFunction, precedence, argsList) {
     function arraysHaveEqualContent(arrA, arrB) {
       if (arrA.length != arrB.length) return false;
-      for (var i in arrA) {
+      for (var i = 0; i < arrA.length; i++) {
         if (arrA[i] != arrB[i]) return false;
       }
       return true;
@@ -6260,7 +6385,7 @@ var registerUiEventCallback = (target, userData, useCapture, callbackfunc, event
 };
 
 function _emscripten_set_resize_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(17, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(18, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
   return registerUiEventCallback(target, userData, useCapture, callbackfunc, 10, "resize", targetThread);
 }
 
@@ -6323,7 +6448,7 @@ var registerWheelEventCallback = (target, userData, useCapture, callbackfunc, ev
 };
 
 function _emscripten_set_wheel_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(18, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(19, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
   target = findEventTarget(target);
   if (!target) return -4;
   if (typeof target.onwheel != "undefined") {
@@ -6367,7 +6492,7 @@ var getEnvStrings = () => {
 };
 
 function _environ_get(__environ, environ_buf) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(19, 0, 1, __environ, environ_buf);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(20, 0, 1, __environ, environ_buf);
   var bufSize = 0;
   var envp = 0;
   for (var string of getEnvStrings()) {
@@ -6380,7 +6505,7 @@ function _environ_get(__environ, environ_buf) {
 }
 
 function _environ_sizes_get(penviron_count, penviron_buf_size) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(20, 0, 1, penviron_count, penviron_buf_size);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(21, 0, 1, penviron_count, penviron_buf_size);
   var strings = getEnvStrings();
   (growMemViews(), HEAPU32)[((penviron_count) >> 2)] = strings.length;
   var bufSize = 0;
@@ -6392,7 +6517,7 @@ function _environ_sizes_get(penviron_count, penviron_buf_size) {
 }
 
 function _fd_close(fd) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(21, 0, 1, fd);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(22, 0, 1, fd);
   try {
     var stream = SYSCALLS.getStreamFromFD(fd);
     FS.close(stream);
@@ -6404,7 +6529,7 @@ function _fd_close(fd) {
 }
 
 function _fd_fdstat_get(fd, pbuf) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(22, 0, 1, fd, pbuf);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(23, 0, 1, fd, pbuf);
   try {
     var rightsBase = 0;
     var rightsInheriting = 0;
@@ -6455,7 +6580,7 @@ function _fd_fdstat_get(fd, pbuf) {
 };
 
 function _fd_read(fd, iov, iovcnt, pnum) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(23, 0, 1, fd, iov, iovcnt, pnum);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(24, 0, 1, fd, iov, iovcnt, pnum);
   try {
     var stream = SYSCALLS.getStreamFromFD(fd);
     var num = doReadv(stream, iov, iovcnt);
@@ -6468,14 +6593,14 @@ function _fd_read(fd, iov, iovcnt, pnum) {
 }
 
 function _fd_seek(fd, offset, whence, newOffset) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(24, 0, 1, fd, offset, whence, newOffset);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(25, 0, 1, fd, offset, whence, newOffset);
   offset = bigintToI53Checked(offset);
   try {
     if (isNaN(offset)) return 22;
     var stream = SYSCALLS.getStreamFromFD(fd);
     FS.llseek(stream, offset, whence);
     (growMemViews(), HEAP64)[((newOffset) >> 3)] = BigInt(stream.position);
-    if (stream.getdents && offset === 0 && whence === 0) stream.getdents = null;
+    if (stream.getdents && !offset && whence === 0) stream.getdents = null;
     // reset readdir state
     return 0;
   } catch (e) {
@@ -6510,7 +6635,7 @@ function _fd_seek(fd, offset, whence, newOffset) {
 };
 
 function _fd_write(fd, iov, iovcnt, pnum) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(25, 0, 1, fd, iov, iovcnt, pnum);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(26, 0, 1, fd, iov, iovcnt, pnum);
   try {
     var stream = SYSCALLS.getStreamFromFD(fd);
     var num = doWritev(stream, iov, iovcnt);
@@ -6651,7 +6776,7 @@ var GL = {
   },
   MAX_TEMP_BUFFER_SIZE: 2097152,
   numTempVertexBuffersPerSize: 64,
-  log2ceilLookup: i => 32 - Math.clz32(i === 0 ? 0 : i - 1),
+  log2ceilLookup: i => 32 - Math.clz32(i ? i - 1 : 0),
   generateTempBuffers: (quads, context) => {
     var largestIndex = GL.log2ceilLookup(GL.MAX_TEMP_BUFFER_SIZE);
     context.tempVertexBufferCounters1 = [];
@@ -7186,6 +7311,18 @@ var _emscripten_glDrawArrays = (mode, first, count) => {
 };
 
 var _glDrawArrays = _emscripten_glDrawArrays;
+
+var tempFixedLengthArray = [];
+
+var _emscripten_glDrawBuffers = (n, bufs) => {
+  var bufArray = tempFixedLengthArray[n];
+  for (var i = 0; i < n; i++) {
+    bufArray[i] = (growMemViews(), HEAP32)[(((bufs) + (i * 4)) >> 2)];
+  }
+  GLctx.drawBuffers(bufArray);
+};
+
+var _glDrawBuffers = _emscripten_glDrawBuffers;
 
 var _emscripten_glDrawElements = (mode, count, type, indices) => {
   var buf;
@@ -7827,6 +7964,10 @@ var _emscripten_glPixelStorei = (pname, param) => {
 
 var _glPixelStorei = _emscripten_glPixelStorei;
 
+var _emscripten_glReadBuffer = x0 => GLctx.readBuffer(x0);
+
+var _glReadBuffer = _emscripten_glReadBuffer;
+
 var _emscripten_glRenderbufferStorage = (x0, x1, x2, x3) => GLctx.renderbufferStorage(x0, x1, x2, x3);
 
 var _glRenderbufferStorage = _emscripten_glRenderbufferStorage;
@@ -8392,8 +8533,8 @@ var Browser = {
           var ret = "";
           var leftchar = 0;
           var leftbits = 0;
-          for (var i = 0; i < data.length; i++) {
-            leftchar = (leftchar << 8) | data[i];
+          for (var byte of data) {
+            leftchar = (leftchar << 8) | byte;
             leftbits += 8;
             while (leftbits >= 6) {
               var curr = (leftchar >> (leftbits - 6)) & 63;
@@ -8804,7 +8945,7 @@ var Browser = {
 }
 
 function _emscripten_set_window_title(title) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(26, 0, 1, title);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(27, 0, 1, title);
   return document.title = UTF8ToString(title);
 }
 
@@ -10545,7 +10686,7 @@ var writeArrayToMemory = (array, buffer) => {
     for (var i = 0; i < args.length; i++) {
       var converter = toC[argTypes[i]];
       if (converter) {
-        if (stack === 0) stack = stackSave();
+        if (!stack) stack = stackSave();
         cArgs[i] = converter(args[i]);
       } else {
         cArgs[i] = args[i];
@@ -10554,7 +10695,7 @@ var writeArrayToMemory = (array, buffer) => {
   }
   var ret = func(...cArgs);
   function onDone(ret) {
-    if (stack !== 0) stackRestore(stack);
+    if (stack) stackRestore(stack);
     return convertReturnValue(ret);
   }
   ret = onDone(ret);
@@ -10594,6 +10735,8 @@ MainLoop.init();
 // Signal GL rendering layer that processing of a new frame is about to
 // start. This helps it optimize VBO double-buffering and reduce GPU stalls.
 registerPreMainLoop(() => GL.newRenderingFrameStarted());
+
+for (let i = 0; i < 32; ++i) tempFixedLengthArray.push(new Array(i));
 
 var miniTempWebGLFloatBuffersStorage = new Float32Array(288);
 
@@ -10688,7 +10831,7 @@ unexportedSymbols.forEach(unexportedRuntimeSymbol);
 // either synchronously or asynchronously from other threads in postMessage()d
 // or internally queued events. This way a pthread in a Worker can synchronously
 // access e.g. the DOM on the main thread.
-var proxiedFunctionTable = [ _proc_exit, exitOnMainThread, pthreadCreateProxied, ___syscall_chdir, ___syscall_fcntl64, ___syscall_fstat64, ___syscall_getcwd, ___syscall_ioctl, ___syscall_lstat64, ___syscall_mkdirat, ___syscall_newfstatat, ___syscall_openat, ___syscall_readlinkat, ___syscall_rmdir, ___syscall_stat64, ___syscall_unlinkat, _emscripten_get_element_css_size, _emscripten_set_resize_callback_on_thread, _emscripten_set_wheel_callback_on_thread, _environ_get, _environ_sizes_get, _fd_close, _fd_fdstat_get, _fd_read, _fd_seek, _fd_write, _emscripten_set_window_title ];
+var proxiedFunctionTable = [ _proc_exit, exitOnMainThread, pthreadCreateProxied, ___syscall_chdir, ___syscall_fcntl64, ___syscall_fstat64, ___syscall_getcwd, ___syscall_getdents64, ___syscall_ioctl, ___syscall_lstat64, ___syscall_mkdirat, ___syscall_newfstatat, ___syscall_openat, ___syscall_readlinkat, ___syscall_rmdir, ___syscall_stat64, ___syscall_unlinkat, _emscripten_get_element_css_size, _emscripten_set_resize_callback_on_thread, _emscripten_set_wheel_callback_on_thread, _environ_get, _environ_sizes_get, _fd_close, _fd_fdstat_get, _fd_read, _fd_seek, _fd_write, _emscripten_set_window_title ];
 
 function checkIncomingModuleAPI() {
   ignoredModuleProp("fetchSettings");
@@ -10794,6 +10937,10 @@ var dynCall_v = makeInvalidEarlyAccess("dynCall_v");
 
 var dynCall_viiii = makeInvalidEarlyAccess("dynCall_viiii");
 
+var dynCall_iiiiii = makeInvalidEarlyAccess("dynCall_iiiiii");
+
+var dynCall_viiiiii = makeInvalidEarlyAccess("dynCall_viiiiii");
+
 var dynCall_viif = makeInvalidEarlyAccess("dynCall_viif");
 
 var dynCall_viiff = makeInvalidEarlyAccess("dynCall_viiff");
@@ -10801,10 +10948,6 @@ var dynCall_viiff = makeInvalidEarlyAccess("dynCall_viiff");
 var dynCall_viifff = makeInvalidEarlyAccess("dynCall_viifff");
 
 var dynCall_viiffff = makeInvalidEarlyAccess("dynCall_viiffff");
-
-var dynCall_viiiiii = makeInvalidEarlyAccess("dynCall_viiiiii");
-
-var dynCall_iiiiii = makeInvalidEarlyAccess("dynCall_iiiiii");
 
 var dynCall_vidd = makeInvalidEarlyAccess("dynCall_vidd");
 
@@ -10873,12 +11016,12 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports["dynCall_iiiii"] != "undefined", "missing Wasm export: dynCall_iiiii");
   assert(typeof wasmExports["dynCall_v"] != "undefined", "missing Wasm export: dynCall_v");
   assert(typeof wasmExports["dynCall_viiii"] != "undefined", "missing Wasm export: dynCall_viiii");
+  assert(typeof wasmExports["dynCall_iiiiii"] != "undefined", "missing Wasm export: dynCall_iiiiii");
+  assert(typeof wasmExports["dynCall_viiiiii"] != "undefined", "missing Wasm export: dynCall_viiiiii");
   assert(typeof wasmExports["dynCall_viif"] != "undefined", "missing Wasm export: dynCall_viif");
   assert(typeof wasmExports["dynCall_viiff"] != "undefined", "missing Wasm export: dynCall_viiff");
   assert(typeof wasmExports["dynCall_viifff"] != "undefined", "missing Wasm export: dynCall_viifff");
   assert(typeof wasmExports["dynCall_viiffff"] != "undefined", "missing Wasm export: dynCall_viiffff");
-  assert(typeof wasmExports["dynCall_viiiiii"] != "undefined", "missing Wasm export: dynCall_viiiiii");
-  assert(typeof wasmExports["dynCall_iiiiii"] != "undefined", "missing Wasm export: dynCall_iiiiii");
   assert(typeof wasmExports["dynCall_vidd"] != "undefined", "missing Wasm export: dynCall_vidd");
   assert(typeof wasmExports["dynCall_di"] != "undefined", "missing Wasm export: dynCall_di");
   assert(typeof wasmExports["dynCall_vif"] != "undefined", "missing Wasm export: dynCall_vif");
@@ -10928,12 +11071,12 @@ function assignWasmExports(wasmExports) {
   dynCall_iiiii = createExportWrapper("dynCall_iiiii", wasmExports["dynCall_iiiii"], 5);
   dynCall_v = createExportWrapper("dynCall_v", wasmExports["dynCall_v"], 1);
   dynCall_viiii = createExportWrapper("dynCall_viiii", wasmExports["dynCall_viiii"], 5);
+  dynCall_iiiiii = createExportWrapper("dynCall_iiiiii", wasmExports["dynCall_iiiiii"], 6);
+  dynCall_viiiiii = createExportWrapper("dynCall_viiiiii", wasmExports["dynCall_viiiiii"], 7);
   dynCall_viif = createExportWrapper("dynCall_viif", wasmExports["dynCall_viif"], 4);
   dynCall_viiff = createExportWrapper("dynCall_viiff", wasmExports["dynCall_viiff"], 5);
   dynCall_viifff = createExportWrapper("dynCall_viifff", wasmExports["dynCall_viifff"], 6);
   dynCall_viiffff = createExportWrapper("dynCall_viiffff", wasmExports["dynCall_viiffff"], 7);
-  dynCall_viiiiii = createExportWrapper("dynCall_viiiiii", wasmExports["dynCall_viiiiii"], 7);
-  dynCall_iiiiii = createExportWrapper("dynCall_iiiiii", wasmExports["dynCall_iiiiii"], 6);
   dynCall_vidd = createExportWrapper("dynCall_vidd", wasmExports["dynCall_vidd"], 4);
   dynCall_di = createExportWrapper("dynCall_di", wasmExports["dynCall_di"], 2);
   dynCall_vif = createExportWrapper("dynCall_vif", wasmExports["dynCall_vif"], 3);
@@ -10963,6 +11106,7 @@ function assignWasmImports() {
     /** @export */ __syscall_fcntl64: ___syscall_fcntl64,
     /** @export */ __syscall_fstat64: ___syscall_fstat64,
     /** @export */ __syscall_getcwd: ___syscall_getcwd,
+    /** @export */ __syscall_getdents64: ___syscall_getdents64,
     /** @export */ __syscall_ioctl: ___syscall_ioctl,
     /** @export */ __syscall_lstat64: ___syscall_lstat64,
     /** @export */ __syscall_mkdirat: ___syscall_mkdirat,
@@ -11034,6 +11178,7 @@ function assignWasmImports() {
     /** @export */ glDetachShader: _glDetachShader,
     /** @export */ glDisable: _glDisable,
     /** @export */ glDrawArrays: _glDrawArrays,
+    /** @export */ glDrawBuffers: _glDrawBuffers,
     /** @export */ glDrawElements: _glDrawElements,
     /** @export */ glEnable: _glEnable,
     /** @export */ glEnableVertexAttribArray: _glEnableVertexAttribArray,
@@ -11061,6 +11206,7 @@ function assignWasmImports() {
     /** @export */ glIsProgram: _glIsProgram,
     /** @export */ glLinkProgram: _glLinkProgram,
     /** @export */ glPixelStorei: _glPixelStorei,
+    /** @export */ glReadBuffer: _glReadBuffer,
     /** @export */ glRenderbufferStorage: _glRenderbufferStorage,
     /** @export */ glScissor: _glScissor,
     /** @export */ glShaderSource: _glShaderSource,

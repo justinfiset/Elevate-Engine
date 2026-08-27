@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpol3mcn18.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmprsu205w3.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -183,6 +183,7 @@ Module["expectedDataFileDownloads"]++;
       Module["FS_createPath"]("/Editor", "Shaders", true, true);
       Module["FS_createPath"]("/", "Engine", true, true);
       Module["FS_createPath"]("/Engine", "Cubemap", true, true);
+      Module["FS_createPath"]("/Engine", "Shaders", true, true);
       Module["FS_createPath"]("/Engine", "Textures", true, true);
       Module["FS_createPath"]("/Engine/Textures", "Skybox", true, true);
       Module["FS_createPath"]("/Engine/Textures/Skybox", "Default", true, true);
@@ -276,103 +277,187 @@ Module["expectedDataFileDownloads"]++;
       "start": 456761,
       "end": 457768
     }, {
-      "filename": "/Editor/Icons/Light/flare.png",
+      "filename": "/Editor/Icons/Light/adjust.png",
       "start": 457768,
-      "end": 459059
+      "end": 458776
+    }, {
+      "filename": "/Editor/Icons/Light/arrow_top_right.png",
+      "start": 458776,
+      "end": 459205
+    }, {
+      "filename": "/Editor/Icons/Light/block.png",
+      "start": 459205,
+      "end": 460087
+    }, {
+      "filename": "/Editor/Icons/Light/flare.png",
+      "start": 460087,
+      "end": 461378
     }, {
       "filename": "/Editor/Icons/Light/lightbulb.png",
-      "start": 459059,
-      "end": 460488
+      "start": 461378,
+      "end": 462807
     }, {
       "filename": "/Editor/Icons/Light/object.png",
-      "start": 460488,
-      "end": 461339
+      "start": 462807,
+      "end": 463658
     }, {
       "filename": "/Editor/Icons/Light/pause.png",
-      "start": 461339,
-      "end": 461617
+      "start": 463658,
+      "end": 463936
     }, {
       "filename": "/Editor/Icons/Light/play.png",
-      "start": 461617,
-      "end": 462068
+      "start": 463936,
+      "end": 464387
     }, {
       "filename": "/Editor/Icons/Light/scene.png",
-      "start": 462068,
-      "end": 462614
+      "start": 464387,
+      "end": 464933
     }, {
       "filename": "/Editor/Icons/Light/stop.png",
-      "start": 462614,
-      "end": 462771
+      "start": 464933,
+      "end": 465090
     }, {
       "filename": "/Editor/Icons/Light/sun.png",
-      "start": 462771,
-      "end": 464504
+      "start": 465090,
+      "end": 466823
+    }, {
+      "filename": "/Editor/Shaders/Billboard.frag",
+      "start": 466823,
+      "end": 467779
+    }, {
+      "filename": "/Editor/Shaders/Billboard.vert",
+      "start": 467779,
+      "end": 468374
     }, {
       "filename": "/Editor/Shaders/debug.frag",
-      "start": 464504,
-      "end": 464588
+      "start": 468374,
+      "end": 468458
     }, {
       "filename": "/Editor/Shaders/debug.vert",
-      "start": 464588,
-      "end": 464812
+      "start": 468458,
+      "end": 468682
     }, {
       "filename": "/Editor/Shaders/grid.frag",
-      "start": 464812,
-      "end": 465836
+      "start": 468682,
+      "end": 469706
     }, {
       "filename": "/Editor/Shaders/grid.vert",
-      "start": 465836,
-      "end": 466181
+      "start": 469706,
+      "end": 470051
     }, {
       "filename": "/Engine/Cubemap/default.sky",
-      "start": 466181,
-      "end": 466533
+      "start": 470051,
+      "end": 470403
+    }, {
+      "filename": "/Engine/Shaders/BloomDownscale.frag",
+      "start": 470403,
+      "end": 472658
+    }, {
+      "filename": "/Engine/Shaders/BloomDownscale.vert",
+      "start": 472658,
+      "end": 472866
+    }, {
+      "filename": "/Engine/Shaders/BloomUpscale.frag",
+      "start": 472866,
+      "end": 473921
+    }, {
+      "filename": "/Engine/Shaders/BloomUpscale.vert",
+      "start": 473921,
+      "end": 474129
+    }, {
+      "filename": "/Engine/Shaders/Composition.frag",
+      "start": 474129,
+      "end": 474935
+    }, {
+      "filename": "/Engine/Shaders/Composition.vert",
+      "start": 474935,
+      "end": 475143
+    }, {
+      "filename": "/Engine/Shaders/DefaultLitShader.frag",
+      "start": 475143,
+      "end": 477109
+    }, {
+      "filename": "/Engine/Shaders/DefaultLitShader.vert",
+      "start": 477109,
+      "end": 477851
+    }, {
+      "filename": "/Engine/Shaders/Lighting.frag",
+      "start": 477851,
+      "end": 485701
+    }, {
+      "filename": "/Engine/Shaders/Lighting.vert",
+      "start": 485701,
+      "end": 485909
+    }, {
+      "filename": "/Engine/Shaders/SSAO.frag",
+      "start": 485909,
+      "end": 488140
+    }, {
+      "filename": "/Engine/Shaders/SSAO.vert",
+      "start": 488140,
+      "end": 488348
+    }, {
+      "filename": "/Engine/Shaders/SSAOBlur.frag",
+      "start": 488348,
+      "end": 489453
+    }, {
+      "filename": "/Engine/Shaders/SSAOBlur.vert",
+      "start": 489453,
+      "end": 489661
+    }, {
+      "filename": "/Engine/Shaders/Shadow.frag",
+      "start": 489661,
+      "end": 489684
+    }, {
+      "filename": "/Engine/Shaders/Shadow.vert",
+      "start": 489684,
+      "end": 489870
     }, {
       "filename": "/Engine/Textures/Skybox/Default/bottom.jpg",
-      "start": 466533,
-      "end": 534176
+      "start": 489870,
+      "end": 557513
     }, {
       "filename": "/Engine/Textures/Skybox/Default/side.jpg",
-      "start": 534176,
-      "end": 615479
+      "start": 557513,
+      "end": 638816
     }, {
       "filename": "/Engine/Textures/Skybox/Default/top.jpg",
-      "start": 615479,
-      "end": 683132
+      "start": 638816,
+      "end": 706469
     }, {
       "filename": "/Engine/Textures/debug.png",
-      "start": 683132,
-      "end": 687487
+      "start": 706469,
+      "end": 710824
     }, {
       "filename": "/app.config",
-      "start": 687487,
-      "end": 687590
+      "start": 710824,
+      "end": 710927
     }, {
       "filename": "/imgui.ini",
-      "start": 687590,
-      "end": 687820
+      "start": 710927,
+      "end": 711157
     } ],
-    "remote_package_size": 687820
+    "remote_package_size": 711157
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpol3mcn18.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp0cbheihk.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmprsu205w3.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpfrzk44wt.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp0cbheihk.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp58cygddh.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpfrzk44wt.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp45skcmol.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp58cygddh.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp45skcmol.js
 var programArgs = [];
 
 var thisProgram = "./this.program";
@@ -1317,7 +1402,7 @@ var addRunDependency = id => {
   assert(id, "addRunDependency requires an ID");
   assert(!runDependencyTracking[id]);
   runDependencyTracking[id] = 1;
-  if (runDependencyWatcher === null && globalThis.setInterval) {
+  if (!runDependencyWatcher && globalThis.setInterval) {
     // Check for missing dependencies every few seconds
     runDependencyWatcher = setInterval(() => {
       if (ABORT) {
@@ -1508,17 +1593,17 @@ var PThread = {
     PThread.unusedWorkers = [];
     PThread.pthreads = {};
   },
+  clearMailboxAwait: pthread_ptr => {
+    if (!waitAsyncPolyfilled) {
+      Atomics.notify((growMemViews(), HEAP32), ((pthread_ptr) >> 2));
+    }
+  },
   terminateRuntime: () => {
     assert(!ENVIRONMENT_IS_PTHREAD, "terminateRuntime() should only be called from the main thread");
     PThread.terminateAllThreads();
     var pthread_ptr = _pthread_self();
     ___set_thread_state(0, 0, 0, 1);
-    if (!waitAsyncPolyfilled) {
-      // Break the waitAsync loop.  Note that checkMailbox will not
-      // re-register since the `___set_thread_state` above causes _pthread_self
-      // to return 0.
-      Atomics.notify((growMemViews(), HEAP32), ((pthread_ptr) >> 2));
-    }
+    PThread.clearMailboxAwait(pthread_ptr);
   },
   returnWorkerToPool: worker => {
     // We don't want to run main thread queued calls here, since we are doing
@@ -1536,6 +1621,10 @@ var PThread = {
     // Detach the worker from the pthread object, and return it to the
     // worker pool as an unused worker.
     worker.pthread_ptr = 0;
+    // Clear any pending waitAsync waiter armed on this thread's struct
+    // BEFORE freeing the memory so that memory recycled by malloc in another
+    // thread will not have a window where a stale async waiter is still active.
+    PThread.clearMailboxAwait(pthread_ptr);
     // Finally, free the underlying (and now-unused) pthread structure in
     // linear memory.
     __emscripten_thread_free_data(pthread_ptr);
@@ -1888,12 +1977,16 @@ class ExceptionInfo {
 
 var uncaughtExceptionCount = 0;
 
+var __Unwind_RaiseException = ex => {
+  assert(false, "Exception thrown, but exception catching is not enabled. Compile with -sNO_DISABLE_EXCEPTION_CATCHING or -sEXCEPTION_CATCHING_ALLOWED=[..] to catch.");
+};
+
 var ___cxa_throw = (ptr, type, destructor) => {
   var info = new ExceptionInfo(ptr);
   // Initialize ExceptionInfo content after it was allocated in __cxa_allocate_exception.
   info.init(type, destructor);
   uncaughtExceptionCount++;
-  assert(false, "Exception thrown, but exception catching is not enabled. Compile with -sNO_DISABLE_EXCEPTION_CATCHING or -sEXCEPTION_CATCHING_ALLOWED=[..] to catch.");
+  __Unwind_RaiseException(ptr);
 };
 
 function pthreadCreateProxied(pthread_ptr, attr, startRoutine, arg) {
@@ -1914,7 +2007,7 @@ var ___pthread_create_js = (pthread_ptr, attr, startRoutine, arg) => {
   // Synchronously proxy the thread creation to main thread if possible. If we
   // need to transfer ownership of objects, then proxy asynchronously via
   // postMessage.
-  if (ENVIRONMENT_IS_PTHREAD && (transferList.length === 0 || error)) {
+  if (ENVIRONMENT_IS_PTHREAD && (!transferList.length || error)) {
     return pthreadCreateProxied(pthread_ptr, attr, startRoutine, arg);
   }
   // If on the main thread, and accessing Canvas/OffscreenCanvas failed, abort
@@ -2223,7 +2316,7 @@ var TTY = {
         } catch (e) {
           throw new FS.ErrnoError(29);
         }
-        if (result === undefined && bytesRead === 0) {
+        if (result === undefined && !bytesRead) {
           throw new FS.ErrnoError(6);
         }
         if (result === null || result === undefined) break;
@@ -2542,10 +2635,10 @@ var MEMFS = {
       var node = stream.node;
       node.mtime = node.ctime = Date.now();
       if (canOwn) {
-        assert(position === 0, "canOwn must imply no weird position inside the file");
+        assert(!position, "canOwn must imply no weird position inside the file");
         node.contents = buffer.subarray(offset, offset + length);
         node.usedBytes = length;
-      } else if (node.usedBytes === 0 && position === 0) {
+      } else if (!node.usedBytes && !position) {
         // If this is a simple first write to an empty file, do a fast set since we don't need to care about old data.
         node.contents = buffer.slice(offset, offset + length);
         node.usedBytes = length;
@@ -4017,7 +4110,7 @@ var FS = {
     // to write to file opened in read-only mode with MAP_PRIVATE flag,
     // as all modifications will be visible only in the memory of
     // the current process.
-    if ((prot & 2) !== 0 && (flags & 2) === 0 && (stream.flags & 2097155) !== 2) {
+    if ((prot & 2) && !(flags & 2) && (stream.flags & 2097155) !== 2) {
       throw new FS.ErrnoError(2);
     }
     if ((stream.flags & 2097155) === 1) {
@@ -4111,7 +4204,7 @@ var FS = {
     // use a buffer to avoid overhead of individual crypto calls per byte
     var randomBuffer = new Uint8Array(1024), randomLeft = 0;
     var randomByte = () => {
-      if (randomLeft === 0) {
+      if (!randomLeft) {
         randomFill(randomBuffer);
         randomLeft = randomBuffer.byteLength;
       }
@@ -4335,7 +4428,7 @@ var FS = {
           } catch (e) {
             throw new FS.ErrnoError(29);
           }
-          if (result === undefined && bytesRead === 0) {
+          if (result === undefined && !bytesRead) {
             throw new FS.ErrnoError(6);
           }
           if (result === null || result === undefined) break;
@@ -4768,7 +4861,7 @@ var stringToUTF8 = (str, outPtr, maxBytesToWrite) => {
 function ___syscall_getcwd(buf, size) {
   if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(9, 0, 1, buf, size);
   try {
-    if (size === 0) return -28;
+    if (!size) return -28;
     var cwd = FS.cwd();
     var cwdLengthInBytes = lengthBytesUTF8(cwd) + 1;
     if (size < cwdLengthInBytes) return -68;
@@ -5477,9 +5570,10 @@ var _emscripten_set_main_loop_timing = (mode, value) => {
     err("emscripten_set_main_loop_timing: Cannot set timing mode for main loop since a main loop does not exist! Call emscripten_set_main_loop first to set one up.");
     return 1;
   }
-  if (!MainLoop.running) {
+  // If there is no existing scheduler then we are transitioning from
+  // inactive to active and we add to runtime keepalive counter.
+  if (!MainLoop.scheduler) {
     runtimeKeepalivePush();
-    MainLoop.running = true;
   }
   if (mode == 0) {
     MainLoop.scheduler = function MainLoop_scheduler_setTimeout() {
@@ -5528,11 +5622,6 @@ var _emscripten_set_main_loop_timing = (mode, value) => {
   return 0;
 };
 
-var runtimeKeepalivePop = () => {
-  assert(runtimeKeepaliveCounter > 0);
-  runtimeKeepaliveCounter -= 1;
-};
-
 /**
    * @param {number=} arg
    * @param {boolean=} noSetTiming
@@ -5543,7 +5632,6 @@ var runtimeKeepalivePop = () => {
   var thisMainLoopId = MainLoop.currentlyRunningMainloop;
   function checkIsRunning() {
     if (thisMainLoopId < MainLoop.currentlyRunningMainloop) {
-      runtimeKeepalivePop();
       maybeExit();
       return false;
     }
@@ -5551,10 +5639,7 @@ var runtimeKeepalivePop = () => {
   }
   // We create the loop runner here but it is not actually running until
   // _emscripten_set_main_loop_timing is called (which might happen at a
-  // later time).  This member signifies that the current runner has not
-  // yet been started so that we can call runtimeKeepalivePush when it
-  // gets its timing set for the first time.
-  MainLoop.running = false;
+  // later time).
   MainLoop.runner = function MainLoop_runner() {
     if (ABORT) return;
     if (MainLoop.queue.length > 0) {
@@ -5612,11 +5697,15 @@ var runtimeKeepalivePop = () => {
   }
 };
 
+var runtimeKeepalivePop = () => {
+  assert(runtimeKeepaliveCounter > 0);
+  runtimeKeepaliveCounter -= 1;
+};
+
 var MainLoop = {
-  running: false,
+  func: null,
   scheduler: null,
   currentlyRunningMainloop: 0,
-  func: null,
   arg: 0,
   timingMode: 0,
   timingValue: 0,
@@ -5625,9 +5714,12 @@ var MainLoop = {
   preMainLoop: [],
   postMainLoop: [],
   pause() {
-    MainLoop.scheduler = null;
-    // Incrementing this signals the previous main loop that it's now become old, and it must return.
-    MainLoop.currentlyRunningMainloop++;
+    if (MainLoop.scheduler) {
+      MainLoop.scheduler = null;
+      // Incrementing this signals the previous main loop that it's now become old, and it must return.
+      MainLoop.currentlyRunningMainloop++;
+      runtimeKeepalivePop();
+    }
   },
   resume() {
     MainLoop.currentlyRunningMainloop++;
@@ -5674,7 +5766,7 @@ var MainLoop = {
   fakeRequestAnimationFrame(func) {
     // try to keep 60fps between calls to here
     var now = Date.now();
-    if (MainLoop.nextRAF === 0) {
+    if (!MainLoop.nextRAF) {
       MainLoop.nextRAF = now + 1e3 / 60;
     } else {
       while (now + 2 >= MainLoop.nextRAF) {
@@ -5847,7 +5939,7 @@ var JSEvents = {
   deferCall(targetFunction, precedence, argsList) {
     function arraysHaveEqualContent(arrA, arrB) {
       if (arrA.length != arrB.length) return false;
-      for (var i in arrA) {
+      for (var i = 0; i < arrA.length; i++) {
         if (arrA[i] != arrB[i]) return false;
       }
       return true;
@@ -6241,7 +6333,7 @@ function _fd_seek(fd, offset, whence, newOffset) {
     var stream = SYSCALLS.getStreamFromFD(fd);
     FS.llseek(stream, offset, whence);
     (growMemViews(), HEAP64)[((newOffset) >> 3)] = BigInt(stream.position);
-    if (stream.getdents && offset === 0 && whence === 0) stream.getdents = null;
+    if (stream.getdents && !offset && whence === 0) stream.getdents = null;
     // reset readdir state
     return 0;
   } catch (e) {
@@ -6417,7 +6509,7 @@ var GL = {
   },
   MAX_TEMP_BUFFER_SIZE: 2097152,
   numTempVertexBuffersPerSize: 64,
-  log2ceilLookup: i => 32 - Math.clz32(i === 0 ? 0 : i - 1),
+  log2ceilLookup: i => 32 - Math.clz32(i ? i - 1 : 0),
   generateTempBuffers: (quads, context) => {
     var largestIndex = GL.log2ceilLookup(GL.MAX_TEMP_BUFFER_SIZE);
     context.tempVertexBufferCounters1 = [];
@@ -6722,18 +6814,6 @@ var _emscripten_glBindBuffer = (target, buffer) => {
 
 var _glBindBuffer = _emscripten_glBindBuffer;
 
-var _emscripten_glBindFramebuffer = (target, framebuffer) => {
-  GLctx.bindFramebuffer(target, GL.framebuffers[framebuffer]);
-};
-
-var _glBindFramebuffer = _emscripten_glBindFramebuffer;
-
-var _emscripten_glBindRenderbuffer = (target, renderbuffer) => {
-  GLctx.bindRenderbuffer(target, GL.renderbuffers[renderbuffer]);
-};
-
-var _glBindRenderbuffer = _emscripten_glBindRenderbuffer;
-
 var _emscripten_glBindTexture = (target, texture) => {
   GLctx.bindTexture(target, GL.textures[texture]);
 };
@@ -6768,10 +6848,6 @@ var _emscripten_glBlendFuncSeparate = (x0, x1, x2, x3) => GLctx.blendFuncSeparat
 
 var _glBlendFuncSeparate = _emscripten_glBlendFuncSeparate;
 
-var _emscripten_glBlitFramebuffer = (x0, x1, x2, x3, x4, x5, x6, x7, x8, x9) => GLctx.blitFramebuffer(x0, x1, x2, x3, x4, x5, x6, x7, x8, x9);
-
-var _glBlitFramebuffer = _emscripten_glBlitFramebuffer;
-
 var _emscripten_glBufferData = (target, size, data, usage) => {
   if (GL.currentContext.version >= 2) {
     // If size is zero, WebGL would interpret uploading the whole input
@@ -6798,10 +6874,6 @@ var _emscripten_glBufferSubData = (target, offset, size, data) => webglBufferSub
 
 var _glBufferSubData = _emscripten_glBufferSubData;
 
-var _emscripten_glCheckFramebufferStatus = x0 => GLctx.checkFramebufferStatus(x0);
-
-var _glCheckFramebufferStatus = _emscripten_glCheckFramebufferStatus;
-
 var _emscripten_glClear = x0 => GLctx.clear(x0);
 
 var _glClear = _emscripten_glClear;
@@ -6809,12 +6881,6 @@ var _glClear = _emscripten_glClear;
 var _emscripten_glClearColor = (x0, x1, x2, x3) => GLctx.clearColor(x0, x1, x2, x3);
 
 var _glClearColor = _emscripten_glClearColor;
-
-var _emscripten_glColorMask = (red, green, blue, alpha) => {
-  GLctx.colorMask(!!red, !!green, !!blue, !!alpha);
-};
-
-var _glColorMask = _emscripten_glColorMask;
 
 var _emscripten_glCompileShader = shader => {
   GLctx.compileShader(GL.shaders[shader]);
@@ -6928,12 +6994,6 @@ var _emscripten_glDeleteVertexArraysOES = _glDeleteVertexArrays;
 
 var _glDeleteVertexArraysOES = _emscripten_glDeleteVertexArraysOES;
 
-var _emscripten_glDepthMask = flag => {
-  GLctx.depthMask(!!flag);
-};
-
-var _glDepthMask = _emscripten_glDepthMask;
-
 var _emscripten_glDetachShader = (program, shader) => {
   GLctx.detachShader(GL.programs[program], GL.shaders[shader]);
 };
@@ -6943,15 +7003,6 @@ var _glDetachShader = _emscripten_glDetachShader;
 var _emscripten_glDisable = x0 => GLctx.disable(x0);
 
 var _glDisable = _emscripten_glDisable;
-
-var _emscripten_glDrawArrays = (mode, first, count) => {
-  // bind any client-side buffers
-  GL.preDrawHandleClientVertexAttribBindings(first + count);
-  GLctx.drawArrays(mode, first, count);
-  GL.postDrawHandleClientVertexAttribBindings();
-};
-
-var _glDrawArrays = _emscripten_glDrawArrays;
 
 var _emscripten_glDrawElements = (mode, count, type, indices) => {
   var buf;
@@ -7015,22 +7066,6 @@ var _emscripten_glEnableVertexAttribArray = index => {
 
 var _glEnableVertexAttribArray = _emscripten_glEnableVertexAttribArray;
 
-var _emscripten_glFlush = () => GLctx.flush();
-
-var _glFlush = _emscripten_glFlush;
-
-var _emscripten_glFramebufferRenderbuffer = (target, attachment, renderbuffertarget, renderbuffer) => {
-  GLctx.framebufferRenderbuffer(target, attachment, renderbuffertarget, GL.renderbuffers[renderbuffer]);
-};
-
-var _glFramebufferRenderbuffer = _emscripten_glFramebufferRenderbuffer;
-
-var _emscripten_glFramebufferTexture2D = (target, attachment, textarget, texture, level) => {
-  GLctx.framebufferTexture2D(target, attachment, textarget, GL.textures[texture], level);
-};
-
-var _glFramebufferTexture2D = _emscripten_glFramebufferTexture2D;
-
 var _emscripten_glFrontFace = x0 => GLctx.frontFace(x0);
 
 var _glFrontFace = _emscripten_glFrontFace;
@@ -7040,18 +7075,6 @@ var _emscripten_glGenBuffers = (n, buffers) => {
 };
 
 var _glGenBuffers = _emscripten_glGenBuffers;
-
-var _emscripten_glGenFramebuffers = (n, ids) => {
-  GL.genObject(n, ids, "createFramebuffer", GL.framebuffers);
-};
-
-var _glGenFramebuffers = _emscripten_glGenFramebuffers;
-
-var _emscripten_glGenRenderbuffers = (n, renderbuffers) => {
-  GL.genObject(n, renderbuffers, "createRenderbuffer", GL.renderbuffers);
-};
-
-var _glGenRenderbuffers = _emscripten_glGenRenderbuffers;
 
 var _emscripten_glGenTextures = (n, textures) => {
   GL.genObject(n, textures, "createTexture", GL.textures);
@@ -7590,10 +7613,6 @@ var _emscripten_glPixelStorei = (pname, param) => {
 };
 
 var _glPixelStorei = _emscripten_glPixelStorei;
-
-var _emscripten_glRenderbufferStorage = (x0, x1, x2, x3) => GLctx.renderbufferStorage(x0, x1, x2, x3);
-
-var _glRenderbufferStorage = _emscripten_glRenderbufferStorage;
 
 var _emscripten_glScissor = (x0, x1, x2, x3) => GLctx.scissor(x0, x1, x2, x3);
 
@@ -8154,8 +8173,8 @@ var Browser = {
           var ret = "";
           var leftchar = 0;
           var leftbits = 0;
-          for (var i = 0; i < data.length; i++) {
-            leftchar = (leftchar << 8) | data[i];
+          for (var byte of data) {
+            leftchar = (leftchar << 8) | byte;
             leftbits += 8;
             while (leftbits >= 6) {
               var curr = (leftchar >> (leftbits - 6)) & 63;
@@ -10307,7 +10326,7 @@ var writeArrayToMemory = (array, buffer) => {
     for (var i = 0; i < args.length; i++) {
       var converter = toC[argTypes[i]];
       if (converter) {
-        if (stack === 0) stack = stackSave();
+        if (!stack) stack = stackSave();
         cArgs[i] = converter(args[i]);
       } else {
         cArgs[i] = args[i];
@@ -10316,7 +10335,7 @@ var writeArrayToMemory = (array, buffer) => {
   }
   var ret = func(...cArgs);
   function onDone(ret) {
-    if (stack !== 0) stackRestore(stack);
+    if (stack) stackRestore(stack);
     return convertReturnValue(ret);
   }
   ret = onDone(ret);
@@ -10483,7 +10502,7 @@ function checkIncomingModuleAPI() {
 }
 
 var ASM_CONSTS = {
-  5601136: $0 => {
+  5613776: $0 => {
     var url = UTF8ToString($0);
     window.open(url, "_blank");
   }
@@ -10785,8 +10804,6 @@ function assignWasmImports() {
     /** @export */ glActiveTexture: _glActiveTexture,
     /** @export */ glAttachShader: _glAttachShader,
     /** @export */ glBindBuffer: _glBindBuffer,
-    /** @export */ glBindFramebuffer: _glBindFramebuffer,
-    /** @export */ glBindRenderbuffer: _glBindRenderbuffer,
     /** @export */ glBindTexture: _glBindTexture,
     /** @export */ glBindVertexArray: _glBindVertexArray,
     /** @export */ glBindVertexArrayOES: _glBindVertexArrayOES,
@@ -10794,13 +10811,10 @@ function assignWasmImports() {
     /** @export */ glBlendEquationSeparate: _glBlendEquationSeparate,
     /** @export */ glBlendFunc: _glBlendFunc,
     /** @export */ glBlendFuncSeparate: _glBlendFuncSeparate,
-    /** @export */ glBlitFramebuffer: _glBlitFramebuffer,
     /** @export */ glBufferData: _glBufferData,
     /** @export */ glBufferSubData: _glBufferSubData,
-    /** @export */ glCheckFramebufferStatus: _glCheckFramebufferStatus,
     /** @export */ glClear: _glClear,
     /** @export */ glClearColor: _glClearColor,
-    /** @export */ glColorMask: _glColorMask,
     /** @export */ glCompileShader: _glCompileShader,
     /** @export */ glCreateProgram: _glCreateProgram,
     /** @export */ glCreateShader: _glCreateShader,
@@ -10811,20 +10825,13 @@ function assignWasmImports() {
     /** @export */ glDeleteTextures: _glDeleteTextures,
     /** @export */ glDeleteVertexArrays: _glDeleteVertexArrays,
     /** @export */ glDeleteVertexArraysOES: _glDeleteVertexArraysOES,
-    /** @export */ glDepthMask: _glDepthMask,
     /** @export */ glDetachShader: _glDetachShader,
     /** @export */ glDisable: _glDisable,
-    /** @export */ glDrawArrays: _glDrawArrays,
     /** @export */ glDrawElements: _glDrawElements,
     /** @export */ glEnable: _glEnable,
     /** @export */ glEnableVertexAttribArray: _glEnableVertexAttribArray,
-    /** @export */ glFlush: _glFlush,
-    /** @export */ glFramebufferRenderbuffer: _glFramebufferRenderbuffer,
-    /** @export */ glFramebufferTexture2D: _glFramebufferTexture2D,
     /** @export */ glFrontFace: _glFrontFace,
     /** @export */ glGenBuffers: _glGenBuffers,
-    /** @export */ glGenFramebuffers: _glGenFramebuffers,
-    /** @export */ glGenRenderbuffers: _glGenRenderbuffers,
     /** @export */ glGenTextures: _glGenTextures,
     /** @export */ glGenVertexArrays: _glGenVertexArrays,
     /** @export */ glGenVertexArraysOES: _glGenVertexArraysOES,
@@ -10842,7 +10849,6 @@ function assignWasmImports() {
     /** @export */ glIsProgram: _glIsProgram,
     /** @export */ glLinkProgram: _glLinkProgram,
     /** @export */ glPixelStorei: _glPixelStorei,
-    /** @export */ glRenderbufferStorage: _glRenderbufferStorage,
     /** @export */ glScissor: _glScissor,
     /** @export */ glShaderSource: _glShaderSource,
     /** @export */ glTexImage2D: _glTexImage2D,

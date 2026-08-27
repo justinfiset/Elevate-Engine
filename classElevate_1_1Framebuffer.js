@@ -1,15 +1,25 @@
 var classElevate_1_1Framebuffer =
 [
     [ "~Framebuffer", "classElevate_1_1Framebuffer.html#a1ca07118f569c92310584201b846a263", null ],
-    [ "Framebuffer", "classElevate_1_1Framebuffer.html#a713a36ba2817fd94e39944f6728bee0a", null ],
     [ "Bind", "classElevate_1_1Framebuffer.html#a85d1a1f861c135e0442b579a0b2e669e", null ],
     [ "BlitFramebufferToScreen", "classElevate_1_1Framebuffer.html#a6757b24d53a5454f1ebb57044deb181f", null ],
     [ "Clear", "classElevate_1_1Framebuffer.html#a098d89d3e682cf4e32961f9b56b2d9ce", null ],
+    [ "ClearAndUse", "classElevate_1_1Framebuffer.html#ad96bdc2b5747871883898bfa377ae8fd", null ],
+    [ "GetColorAttachmentHandle", "classElevate_1_1Framebuffer.html#a85050cf7de0b4e57dbf093329ad0a95e", null ],
+    [ "GetColorTexture", "classElevate_1_1Framebuffer.html#a4e11c359892a367245db3dc0cba468b7", null ],
+    [ "GetDepthAttachmentHandle", "classElevate_1_1Framebuffer.html#a7f248f5c15b2198b3250671b085f7847", null ],
+    [ "GetDepthTexture", "classElevate_1_1Framebuffer.html#a1034a364d9f3c5cb89267c843195be2b", null ],
     [ "GetFrameBufferId", "classElevate_1_1Framebuffer.html#a032135d19665526fb0ce5f803d827a73", null ],
-    [ "GetNativeTextureHandle", "classElevate_1_1Framebuffer.html#ab2977b78e36fa49e3fdb6b83d421e462", null ],
+    [ "GetHeight", "classElevate_1_1Framebuffer.html#a52e5761620b6f8ea1a98b9df7df68a6a", null ],
+    [ "GetWidth", "classElevate_1_1Framebuffer.html#a17df68945d14ad73152474c2e608c79a", null ],
     [ "Rescale", "classElevate_1_1Framebuffer.html#a85ecc2bb2226709df11f43763a8e8308", null ],
     [ "SetClearColor", "classElevate_1_1Framebuffer.html#ab325e2a01da7ac4e10c806f95ac48b06", null ],
     [ "Unbind", "classElevate_1_1Framebuffer.html#a49b8765310f450a72f7604405a9f0e5e", null ],
+    [ "Use", "classElevate_1_1Framebuffer.html#abcb4b30095e707301f28965a67f45071", null ],
+    [ "UseViewport", "classElevate_1_1Framebuffer.html#ac3fdf2d437f73af172b838bae29b5353", null ],
     [ "m_clearColor", "classElevate_1_1Framebuffer.html#a461573ece651732cb0663313568a9eda", null ],
-    [ "m_texture", "classElevate_1_1Framebuffer.html#a516ef8989b19d397a206df8d6464a9f2", null ]
+    [ "m_colorAttachments", "classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8", null ],
+    [ "m_depthAttachment", "classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f", null ],
+    [ "m_height", "classElevate_1_1Framebuffer.html#af8f89a6139fa32740de1a5164adae20c", null ],
+    [ "m_width", "classElevate_1_1Framebuffer.html#ac929d74e06e3e1bdebdb9c6c6caa161d", null ]
 ];

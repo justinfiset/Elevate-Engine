@@ -13,7 +13,7 @@ var classElevate_1_1Texture =
     [ "IsTextureLoaded", "classElevate_1_1Texture.html#aeb57b65a24322fb1b1c37dda3b62d4d1", null ],
     [ "MatchesPath", "classElevate_1_1Texture.html#a0f64de3b2abf4186f1110f2c4fb631e0", null ],
     [ "SetData", "classElevate_1_1Texture.html#a3e3ca8f0cb02b24c99829fbee6e26e77", null ],
-    [ "SetDataImpl", "classElevate_1_1Texture.html#a71f7bdf108755d5f1f549dea6de76807", null ],
+    [ "SetDataImpl", "classElevate_1_1Texture.html#aed97a0400d930de48cfb5255a4749684", null ],
     [ "Renderer", "classElevate_1_1Texture.html#a70538530bc36e033e360880ef311df61", null ],
     [ "m_meta", "classElevate_1_1Texture.html#a542b397b5941fcc1eb787962691e62e2", null ]
 ];

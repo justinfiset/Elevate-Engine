@@ -97,8 +97,8 @@ $(document).ready(function(){initNavTree('Texture_8h.html',''); initResizable();
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">Texture.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -123,11 +123,6 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceElevate" id="r_namespaceElevate"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html">Elevate</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ae81208d90da94e64748a7769d3fa8ed4" id="r_ae81208d90da94e64748a7769d3fa8ed4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#ae81208d90da94e64748a7769d3fa8ed4">Elevate::TexturePtr</a> = std::shared_ptr&lt; <a class="el" href="classElevate_1_1Texture.html">Texture</a> &gt;</td></tr>
-<tr class="separator:ae81208d90da94e64748a7769d3fa8ed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:ad6361ea92b9a6b52779e660ed5ea9df7" id="r_ad6361ea92b9a6b52779e660ed5ea9df7"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7">Elevate::TextureSource</a> : uint8_t { <a class="el" href="namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7a0b27918290ff5323bea1e3b78a9cf04e">Elevate::File</a>
@@ -137,11 +132,19 @@ Enumerations</h2></td></tr>
 <tr class="separator:ad6361ea92b9a6b52779e660ed5ea9df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b8200f8cf0f799bee6e6b7d1301d00e" id="r_a6b8200f8cf0f799bee6e6b7d1301d00e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">Elevate::TextureFormat</a> : uint8_t { <br />
 &#160;&#160;<a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaba2b45bdc11e2a4a6e86aab2ac693cbb">Elevate::EMPTY</a> = 0
-, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eabfc52a030be6cc5e47fe83a81e3175a0">Elevate::GRAYSCALE</a> = 1
-, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea889574aebacda6bfd3e534e2b49b8028">Elevate::RGB</a> = 3
-, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaea3495a278957dc58165e48a8945469f">Elevate::RGBA</a> = 4
+, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eabfc52a030be6cc5e47fe83a81e3175a0">Elevate::GRAYSCALE</a>
+, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea889574aebacda6bfd3e534e2b49b8028">Elevate::RGB</a>
+, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaea3495a278957dc58165e48a8945469f">Elevate::RGBA</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea25cd126670bd567a899c64c4e6e8ca7d">Elevate::RGB16F</a>
+, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ead8936cc7055546f79128b9dbfb8c8bbb">Elevate::RGB32F</a>
+, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa29d843695056f9c171a9eb702d6910a">Elevate::RGBA16F</a>
+, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea703a7a81e586669c930e3dcaf3e8c428">Elevate::RGBA32F</a>
 , <br />
 &#160;&#160;<a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">Elevate::DEPTH</a>
+, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea1f3f09bca5728eb7af4ea263ae84b9f1">Elevate::SRGB</a>
+, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa6b63903808be00ae4fcdb3850f811a4">Elevate::SRGBA</a>
+, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa085fd28dd1b882ea7d4129fdda3cb86">Elevate::DEPTHSTENCIL</a>
 <br />
  }</td></tr>
 <tr class="separator:a6b8200f8cf0f799bee6e6b7d1301d00e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,6 +156,10 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa29b142520cd0349c9f7375be4aa848c0">Elevate::Cubemap</a>
 , <a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466faed8e37bad13d76c6dbeb58152440b41e">Elevate::Ambient</a>
+, <a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fac8a11fb76942933fc111aea6941c334d">Elevate::AmbientOcclusion</a>
+, <a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa675056ad1441b6375b2c5abd48c27ef1">Elevate::Depth</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa353488005629cf8d75def358ee005f3d">Elevate::ShadowMap</a>
 , <a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fae93f994f01c537c4e2f7d8528c3eb5e9">Elevate::Count</a>
 <br />
  }</td></tr>
@@ -178,6 +185,11 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147">Elevate::ClampToBorder</a>
  }</td></tr>
 <tr class="separator:a7771c00d2b9fdd029ed480432ea0ff5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a68949307f7c5380e699c6c4b5b061d14" id="r_a68949307f7c5380e699c6c4b5b061d14"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a68949307f7c5380e699c6c4b5b061d14">Elevate::GetTextureFormatChannels</a> (<a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">TextureFormat</a> format)</td></tr>
+<tr class="separator:a68949307f7c5380e699c6c4b5b061d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

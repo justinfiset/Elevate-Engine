@@ -23,8 +23,8 @@ var classElevate_1_1OpenGLShader =
     [ "SetUniform4fv", "classElevate_1_1OpenGLShader.html#a2c3c5f97301647a8cac5915af4a5a6cd", null ],
     [ "SetUniform4i", "classElevate_1_1OpenGLShader.html#a06d4e821e94cfd4d0d803a8b75e1a267", null ],
     [ "SetUniform4iv", "classElevate_1_1OpenGLShader.html#aa7b74a80b099e0cef2c8fa86c95e7950", null ],
-    [ "SetUniformMatrix2fv", "classElevate_1_1OpenGLShader.html#ac3db3ac83bf60bf65810bcd9b49563c2", null ],
-    [ "SetUniformMatrix3fv", "classElevate_1_1OpenGLShader.html#a982a3fe90dcaf4c20eee32fb35011ffc", null ],
-    [ "SetUniformMatrix4fv", "classElevate_1_1OpenGLShader.html#a439a42dba74e6946d67562a1686b712f", null ],
+    [ "SetUniformMatrix2fv", "classElevate_1_1OpenGLShader.html#a39efe0f6bbbef6077da137200ed2c4ef", null ],
+    [ "SetUniformMatrix3fv", "classElevate_1_1OpenGLShader.html#ac0f96734ca58b0405e03838f9d2752ac", null ],
+    [ "SetUniformMatrix4fv", "classElevate_1_1OpenGLShader.html#a0b69673b460323b483ca8fdfd23c6aed", null ],
     [ "Unbind", "classElevate_1_1OpenGLShader.html#a55c1cf5ccd454d0a65ec625f87ed96fe", null ]
 ];

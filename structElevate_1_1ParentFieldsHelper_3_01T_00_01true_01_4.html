@@ -111,7 +111,7 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
 struct Elevate::ParentFieldsHelper&lt; T, true &gt;</div>
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00041">41</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00043">43</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="abef8beb23313c2614beb1b8562c3fc27" name="abef8beb23313c2614beb1b8562c3fc27"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abef8beb23313c2614beb1b8562c3fc27">&#9670;&#160;</a></span>Get()</h2>
@@ -138,18 +138,18 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00042">42</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   42</span>                                          {</div>
-<div class="line"><span class="lineno">   43</span>            <span class="keyword">using </span>Super = <span class="keyword">typename</span> T::Super;</div>
-<div class="line"><span class="lineno">   44</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (!std::is_same_v&lt;Super, void&gt; &amp;&amp;</div>
-<div class="line"><span class="lineno">   45</span>                std::is_base_of_v&lt;Component, Super&gt; &amp;&amp;</div>
-<div class="line"><span class="lineno">   46</span>                !std::is_same_v&lt;Super, Elevate::Component&gt;) {</div>
-<div class="line"><span class="lineno">   47</span>                <span class="keywordflow">return</span> Super::generated_classEntry.ClassFieldStack;</div>
-<div class="line"><span class="lineno">   48</span>            }</div>
-<div class="line"><span class="lineno">   49</span>            <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   50</span>                <span class="keywordflow">return</span> {};</div>
-<div class="line"><span class="lineno">   51</span>            }</div>
-<div class="line"><span class="lineno">   52</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00044">44</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   44</span>                                          {</div>
+<div class="line"><span class="lineno">   45</span>            <span class="keyword">using </span>Super = <span class="keyword">typename</span> T::Super;</div>
+<div class="line"><span class="lineno">   46</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (!std::is_same_v&lt;Super, void&gt; &amp;&amp;</div>
+<div class="line"><span class="lineno">   47</span>                std::is_base_of_v&lt;Component, Super&gt; &amp;&amp;</div>
+<div class="line"><span class="lineno">   48</span>                !std::is_same_v&lt;Super, Elevate::Component&gt;) {</div>
+<div class="line"><span class="lineno">   49</span>                <span class="keywordflow">return</span> Super::generated_classEntry.ClassFieldStack;</div>
+<div class="line"><span class="lineno">   50</span>            }</div>
+<div class="line"><span class="lineno">   51</span>            <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   52</span>                <span class="keywordflow">return</span> {};</div>
+<div class="line"><span class="lineno">   53</span>            }</div>
+<div class="line"><span class="lineno">   54</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>

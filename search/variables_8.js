@@ -1,17 +1,21 @@
 var searchData=
 [
-  ['iconpath_0',['iconpath',['../structElevate_1_1Editor_1_1FileItem.html#a4a04f4263a6b8d91da87f240811f573f',1,'Elevate::Editor::FileItem::iconPath'],['../structElevate_1_1FieldMeta.html#ad3720858ed2cf9fc5963afc81b8caa30',1,'Elevate::FieldMeta::IconPath'],['../structElevate_1_1Editor_1_1FileMetadata.html#aaa9f9e5f114894dfd041c33ed8d5d804',1,'Elevate::Editor::FileMetadata::iconPath']]],
+  ['iconpath_0',['iconpath',['../structElevate_1_1Editor_1_1FileMetadata.html#aaa9f9e5f114894dfd041c33ed8d5d804',1,'Elevate::Editor::FileMetadata::iconPath'],['../structElevate_1_1Editor_1_1FileItem.html#a4a04f4263a6b8d91da87f240811f573f',1,'Elevate::Editor::FileItem::iconPath'],['../structElevate_1_1FieldMeta.html#ad3720858ed2cf9fc5963afc81b8caa30',1,'Elevate::FieldMeta::IconPath']]],
   ['id_1',['id',['../structElevate_1_1Editor_1_1FileItem.html#a7279b703dc1e0aa1e427427c8e249f61',1,'Elevate::Editor::FileItem']]],
   ['index_2',['index',['../structElevate_1_1BufferElement.html#ae5a035dc1a1f01d28e423c87f0db3b67',1,'Elevate::BufferElement::Index'],['../structElevate_1_1FramebufferColorAttachment.html#a61f8063fe4f0f220e7bb5a2a0d564d67',1,'Elevate::FramebufferColorAttachment::Index']]],
   ['indices_3',['Indices',['../structElevate_1_1MeshData.html#a044007c3e621658520e242238ffc3280',1,'Elevate::MeshData']]],
   ['initialvalue_4',['InitialValue',['../structWwiseGameParameter.html#a6483a95e99830da8fc7a44ee71e22800',1,'WwiseGameParameter']]],
-  ['is_5fengine_5farray_5fv_5',['is_engine_array_v',['../namespaceElevate.html#a0488c120b5e8ebccc8f47b6a751bd01f',1,'Elevate']]],
-  ['iscolor_6',['iscolor',['../structElevate_1_1FieldMeta.html#a26db25751ab0dd6dd89091f5cd96c0b7',1,'Elevate::FieldMeta::isColor'],['../structElevate_1_1TypeField.html#acb36330b6489a8c98d7541d3bbee73ef',1,'Elevate::TypeField::isColor']]],
-  ['isinbank_7',['IsInBank',['../structWwiseItem.html#ac98f0ca8ca52695a1531f89a451f0b22',1,'WwiseItem']]],
-  ['isinitbank_8',['IsInitBank',['../structWwiseSoundbank.html#a9231fdf9ac09a8526123daa4435ebd10',1,'WwiseSoundbank']]],
-  ['isinwwise_9',['IsInWwise',['../structWwiseItem.html#a87384aecc90325b6e51fc2b9fd4f47ac',1,'WwiseItem']]],
-  ['isondisk_10',['IsOnDisk',['../structWwiseItem.html#a5854d247872c83fb2aff644b7ade37f7',1,'WwiseItem']]],
-  ['isrenderbuffer_11',['IsRenderbuffer',['../structElevate_1_1FramebufferDepthAttachment.html#a48d8aabb35f98e368f43ed9e3ca22f92',1,'Elevate::FramebufferDepthAttachment']]],
-  ['isuserbank_12',['IsUserBank',['../structWwiseSoundbank.html#a6bc333f5ce1740affaf1115b96b02fcf',1,'WwiseSoundbank']]],
-  ['isvalid_13',['IsValid',['../structWwiseSoundbank.html#a387a64190a31e2e16104e674c532638d',1,'WwiseSoundbank']]]
+  ['instance_5',['Instance',['../structElevate_1_1AssetEntry.html#a894af9e6041cc1336717dc6fcca23544',1,'Elevate::AssetEntry']]],
+  ['is_5fee_5fobject_5fptr_5fv_6',['is_ee_object_ptr_v',['../namespaceElevate.html#a29670a923d282ae3f1690cdda707d5a7',1,'Elevate']]],
+  ['is_5fengine_5farray_5fv_7',['is_engine_array_v',['../namespaceElevate.html#a0488c120b5e8ebccc8f47b6a751bd01f',1,'Elevate']]],
+  ['isasset_8',['isAsset',['../structElevate_1_1EditorTypeTrait.html#a9cd7d8dc4f13e56d2dd22167cefd8f13',1,'Elevate::EditorTypeTrait']]],
+  ['iscolor_9',['iscolor',['../structElevate_1_1FieldMeta.html#a26db25751ab0dd6dd89091f5cd96c0b7',1,'Elevate::FieldMeta::isColor'],['../structElevate_1_1TypeField.html#acb36330b6489a8c98d7541d3bbee73ef',1,'Elevate::TypeField::isColor']]],
+  ['isinbank_10',['IsInBank',['../structWwiseItem.html#ac98f0ca8ca52695a1531f89a451f0b22',1,'WwiseItem']]],
+  ['isinitbank_11',['IsInitBank',['../structWwiseSoundbank.html#a9231fdf9ac09a8526123daa4435ebd10',1,'WwiseSoundbank']]],
+  ['isinwwise_12',['IsInWwise',['../structWwiseItem.html#a87384aecc90325b6e51fc2b9fd4f47ac',1,'WwiseItem']]],
+  ['isloaded_13',['isLoaded',['../structElevate_1_1AssetEntry.html#ab05226398cfa5473bd016e40eb3a82d8',1,'Elevate::AssetEntry']]],
+  ['isondisk_14',['isondisk',['../structWwiseItem.html#a5854d247872c83fb2aff644b7ade37f7',1,'WwiseItem::IsOnDisk'],['../structElevate_1_1AssetEntry.html#a224a3af091d4e28ee4e82e8a978715a0',1,'Elevate::AssetEntry::isOnDisk']]],
+  ['isrenderbuffer_15',['IsRenderbuffer',['../structElevate_1_1FramebufferDepthAttachment.html#a48d8aabb35f98e368f43ed9e3ca22f92',1,'Elevate::FramebufferDepthAttachment']]],
+  ['isuserbank_16',['IsUserBank',['../structWwiseSoundbank.html#a6bc333f5ce1740affaf1115b96b02fcf',1,'WwiseSoundbank']]],
+  ['isvalid_17',['IsValid',['../structWwiseSoundbank.html#a387a64190a31e2e16104e674c532638d',1,'WwiseSoundbank']]]
 ];

@@ -2,6 +2,11 @@ var hierarchy =
 [
     [ "Elevate::Application", "classElevate_1_1Application.html", null ],
     [ "Elevate::ApplicationArguments", "structElevate_1_1ApplicationArguments.html", null ],
+    [ "Elevate::AssetColorTag", "structElevate_1_1AssetColorTag.html", null ],
+    [ "Elevate::AssetEntry", "structElevate_1_1AssetEntry.html", null ],
+    [ "Elevate::AssetMetaData", "structElevate_1_1AssetMetaData.html", null ],
+    [ "Elevate::AssetRegistry", "classElevate_1_1AssetRegistry.html", null ],
+    [ "Elevate::AssetTag", "structElevate_1_1AssetTag.html", null ],
     [ "Elevate::BoundingVolume", "classElevate_1_1BoundingVolume.html", [
       [ "Elevate::SphereBoundingVolume", "classElevate_1_1SphereBoundingVolume.html", null ]
     ] ],
@@ -18,24 +23,48 @@ var hierarchy =
       [ "Elevate::RemoveComponentCommand", "classElevate_1_1RemoveComponentCommand.html", null ]
     ] ],
     [ "Elevate::CommandManager", "classElevate_1_1CommandManager.html", null ],
+    [ "Elevate::CreateAssetMenuTag", "structElevate_1_1CreateAssetMenuTag.html", null ],
     [ "Elevate::Cubemap", "classElevate_1_1Cubemap.html", null ],
     [ "Elevate::DebugLineData", "structElevate_1_1DebugLineData.html", null ],
     [ "Elevate::DebugRenderer", "classElevate_1_1DebugRenderer.html", null ],
     [ "Elevate::DebugVertex", "structElevate_1_1DebugVertex.html", null ],
     [ "Elevate::DefaultShader", "classElevate_1_1DefaultShader.html", null ],
+    [ "Elevate::DirectionalShadowSettings", "structElevate_1_1DirectionalShadowSettings.html", null ],
     [ "Elevate::DisplayNameTag", "structElevate_1_1DisplayNameTag.html", null ],
     [ "Elevate::EditorIconTag", "structElevate_1_1EditorIconTag.html", null ],
     [ "Elevate::Editor::EditorMessage", "structElevate_1_1Editor_1_1EditorMessage.html", null ],
+    [ "Elevate::EditorRenderer", "classElevate_1_1EditorRenderer.html", null ],
     [ "Elevate::Editor::EditorWidget", "classElevate_1_1Editor_1_1EditorWidget.html", [
       [ "Elevate::Editor::AssetBrowserPanel", "classElevate_1_1Editor_1_1AssetBrowserPanel.html", null ],
       [ "Elevate::Editor::ConsolePanel", "classElevate_1_1Editor_1_1ConsolePanel.html", null ],
       [ "Elevate::Editor::SkyboxEditorWidget", "classElevate_1_1Editor_1_1SkyboxEditorWidget.html", null ],
       [ "Elevate::Editor::StatisticsPanel", "classElevate_1_1Editor_1_1StatisticsPanel.html", null ]
     ] ],
+    [ "Elevate::ee_ptr_target< T >", "structElevate_1_1ee__ptr__target.html", null ],
+    [ "Elevate::ee_ptr_target< EEObjectPtr< T > >", "structElevate_1_1ee__ptr__target_3_01EEObjectPtr_3_01T_01_4_01_4.html", null ],
     [ "Elevate::EECategory", "classElevate_1_1EECategory.html", null ],
     [ "Elevate::EmptyTag", "structElevate_1_1EmptyTag.html", null ],
     [ "std::enable_shared_from_this", null, [
-      [ "Elevate::GameObject", "classElevate_1_1GameObject.html", null ]
+      [ "Elevate::EEObject", "classElevate_1_1EEObject.html", [
+        [ "Elevate::Asset", "classElevate_1_1Asset.html", [
+          [ "Elevate::Material", "classElevate_1_1Material.html", null ]
+        ] ],
+        [ "Elevate::Component", "classElevate_1_1Component.html", [
+          [ "Elevate::AkBank", "classElevate_1_1AkBank.html", null ],
+          [ "Elevate::AudioDistanceProbe", "classElevate_1_1AudioDistanceProbe.html", null ],
+          [ "Elevate::Camera", "classElevate_1_1Camera.html", [
+            [ "Elevate::EditorCamera", "classElevate_1_1EditorCamera.html", null ]
+          ] ],
+          [ "Elevate::Light", "classElevate_1_1Light.html", [
+            [ "Elevate::DirectionalLight", "classElevate_1_1DirectionalLight.html", null ],
+            [ "Elevate::PointLight", "classElevate_1_1PointLight.html", null ],
+            [ "Elevate::SpotLight", "classElevate_1_1SpotLight.html", null ]
+          ] ],
+          [ "Elevate::Model", "classElevate_1_1Model.html", null ],
+          [ "Elevate::Rigidbody", "classElevate_1_1Rigidbody.html", null ]
+        ] ],
+        [ "Elevate::GameObject", "classElevate_1_1GameObject.html", null ]
+      ] ]
     ] ],
     [ "Elevate::EngineDataTypeTrait< T, typename >", "structElevate_1_1EngineDataTypeTrait.html", null ],
     [ "Elevate::EngineDataTypeTrait< bool >", "structElevate_1_1EngineDataTypeTrait_3_01bool_01_4.html", null ],
@@ -46,6 +75,7 @@ var hierarchy =
     [ "Elevate::EngineDataTypeTrait< glm::vec4 >", "structElevate_1_1EngineDataTypeTrait_3_01glm_1_1vec4_01_4.html", null ],
     [ "Elevate::EngineDataTypeTrait< int >", "structElevate_1_1EngineDataTypeTrait_3_01int_01_4.html", null ],
     [ "Elevate::EngineDataTypeTrait< std::string >", "structElevate_1_1EngineDataTypeTrait_3_01std_1_1string_01_4.html", null ],
+    [ "Elevate::EngineDataTypeTrait< T, std::enable_if_t< is_ee_object_ptr_v< T > > >", "structElevate_1_1EngineDataTypeTrait_3_01T_00_01std_1_1enable__if__t_3_01is__ee__object__ptr__v_3_01T_01_4_01_4_01_4.html", null ],
     [ "Elevate::EngineDataTypeTrait< T, std::enable_if_t< is_engine_array_v< T > > >", "structElevate_1_1EngineDataTypeTrait_3_01T_00_01std_1_1enable__if__t_3_01is__engine__array__v_3_01T_01_4_01_4_01_4.html", null ],
     [ "Elevate::TypeRegistry::Entry", "structElevate_1_1TypeRegistry_1_1Entry.html", null ],
     [ "Elevate::Event", "classElevate_1_1Event.html", [
@@ -71,6 +101,7 @@ var hierarchy =
     [ "Elevate::EventDispatcher", "classElevate_1_1EventDispatcher.html", null ],
     [ "std::false_type", null, [
       [ "Elevate::has_super< T, typename >", "structElevate_1_1has__super.html", null ],
+      [ "Elevate::is_ee_object_ptr< T >", "structElevate_1_1is__ee__object__ptr.html", null ],
       [ "Elevate::is_engine_array< T >", "structElevate_1_1is__engine__array.html", null ]
     ] ],
     [ "Elevate::FieldMeta", "structElevate_1_1FieldMeta.html", null ],
@@ -86,8 +117,6 @@ var hierarchy =
     ] ],
     [ "Elevate::FramebufferColorAttachment", "structElevate_1_1FramebufferColorAttachment.html", null ],
     [ "Elevate::FramebufferDepthAttachment", "structElevate_1_1FramebufferDepthAttachment.html", null ],
-    [ "Elevate::FramebufferMetadata", "structElevate_1_1FramebufferMetadata.html", null ],
-    [ "Elevate::FramebufferStencilAttachment", "structElevate_1_1FramebufferStencilAttachment.html", null ],
     [ "Elevate::Frustum", "structElevate_1_1Frustum.html", null ],
     [ "Elevate::GraphicsContext", "classElevate_1_1GraphicsContext.html", [
       [ "Elevate::OpenGLContext", "classElevate_1_1OpenGLContext.html", null ]
@@ -103,22 +132,7 @@ var hierarchy =
     [ "Elevate::InputBuffer", "classElevate_1_1InputBuffer.html", null ],
     [ "Elevate::ISerializable", "classElevate_1_1ISerializable.html", [
       [ "Elevate::EEObjectPtr< Elevate::GameObject >", "classElevate_1_1EEObjectPtr.html", null ],
-      [ "Elevate::EEObject", "classElevate_1_1EEObject.html", [
-        [ "Elevate::Component", "classElevate_1_1Component.html", [
-          [ "Elevate::AkBank", "classElevate_1_1AkBank.html", null ],
-          [ "Elevate::AudioDistanceProbe", "classElevate_1_1AudioDistanceProbe.html", null ],
-          [ "Elevate::Camera", "classElevate_1_1Camera.html", [
-            [ "Elevate::EditorCamera", "classElevate_1_1EditorCamera.html", null ]
-          ] ],
-          [ "Elevate::Light", "classElevate_1_1Light.html", [
-            [ "Elevate::DirectionalLight", "classElevate_1_1DirectionalLight.html", null ],
-            [ "Elevate::PointLight", "classElevate_1_1PointLight.html", null ]
-          ] ],
-          [ "Elevate::Model", "classElevate_1_1Model.html", null ],
-          [ "Elevate::Rigidbody", "classElevate_1_1Rigidbody.html", null ]
-        ] ],
-        [ "Elevate::GameObject", "classElevate_1_1GameObject.html", null ]
-      ] ],
+      [ "Elevate::EEObjectPtr< Material >", "classElevate_1_1EEObjectPtr.html", null ],
       [ "Elevate::EEObjectPtr< T >", "classElevate_1_1EEObjectPtr.html", null ],
       [ "Elevate::Scene", "classElevate_1_1Scene.html", null ]
     ] ],
@@ -138,9 +152,9 @@ var hierarchy =
       [ "Elevate::SceneLayer", "classElevate_1_1SceneLayer.html", null ]
     ] ],
     [ "Elevate::LayerStack", "classElevate_1_1LayerStack.html", null ],
+    [ "Elevate::LightAttenuation", "structElevate_1_1LightAttenuation.html", null ],
     [ "Elevate::Log", "classElevate_1_1Log.html", null ],
     [ "Elevate::LogImpl", "classElevate_1_1LogImpl.html", null ],
-    [ "Elevate::Material", "classElevate_1_1Material.html", null ],
     [ "Elevate::MaterialFactory", "classElevate_1_1MaterialFactory.html", null ],
     [ "Elevate::MaterialRegistry", "classElevate_1_1MaterialRegistry.html", null ],
     [ "Elevate::Mesh", "classElevate_1_1Mesh.html", null ],
@@ -152,6 +166,10 @@ var hierarchy =
     [ "Elevate::ParentFieldsHelper< T, true >", "structElevate_1_1ParentFieldsHelper_3_01T_00_01true_01_4.html", null ],
     [ "Elevate::PathResolver", "classElevate_1_1PathResolver.html", null ],
     [ "Elevate::Plane", "structElevate_1_1Plane.html", null ],
+    [ "Elevate::Profiler", "classElevate_1_1Profiler.html", null ],
+    [ "Elevate::ProfilerFrame", "structElevate_1_1ProfilerFrame.html", null ],
+    [ "Elevate::ProfilerSample", "structElevate_1_1ProfilerSample.html", null ],
+    [ "Elevate::ProfileTimer", "structElevate_1_1ProfileTimer.html", null ],
     [ "Elevate::PropertyContainer", "structElevate_1_1PropertyContainer.html", null ],
     [ "Elevate::PropertyField", "structElevate_1_1PropertyField.html", null ],
     [ "Elevate::ReadOnlyTag", "structElevate_1_1ReadOnlyTag.html", null ],
@@ -162,6 +180,7 @@ var hierarchy =
     [ "Elevate::RendererAPI", "classElevate_1_1RendererAPI.html", [
       [ "Elevate::OpenGLRendererAPI", "classElevate_1_1OpenGLRendererAPI.html", null ]
     ] ],
+    [ "Elevate::RendererStorage", "structElevate_1_1RendererStorage.html", null ],
     [ "Elevate::RenderState", "structElevate_1_1RenderState.html", null ],
     [ "Elevate::RigidbodyData", "structElevate_1_1RigidbodyData.html", null ],
     [ "Elevate::SceneLighting", "classElevate_1_1SceneLighting.html", null ],
@@ -175,6 +194,7 @@ var hierarchy =
       [ "Elevate::OpenGLShader", "classElevate_1_1OpenGLShader.html", null ]
     ] ],
     [ "Elevate::ShaderManager", "classElevate_1_1ShaderManager.html", null ],
+    [ "Elevate::ShadowSettings", "structElevate_1_1ShadowSettings.html", null ],
     [ "Elevate::SoundEngine", "classElevate_1_1SoundEngine.html", null ],
     [ "Elevate::SurfaceMaterial", "structElevate_1_1SurfaceMaterial.html", null ],
     [ "Elevate::Texture", "classElevate_1_1Texture.html", [
@@ -188,6 +208,7 @@ var hierarchy =
     [ "Elevate::TooltipTag", "structElevate_1_1TooltipTag.html", null ],
     [ "std::true_type", null, [
       [ "Elevate::has_super< T, std::void_t< typename T::Super > >", "structElevate_1_1has__super_3_01T_00_01std_1_1void__t_3_01typename_01T_1_1Super_01_4_01_4.html", null ],
+      [ "Elevate::is_ee_object_ptr< EEObjectPtr< T > >", "structElevate_1_1is__ee__object__ptr_3_01EEObjectPtr_3_01T_01_4_01_4.html", null ],
       [ "Elevate::is_engine_array< std::vector< T, Alloc > >", "structElevate_1_1is__engine__array_3_01std_1_1vector_3_01T_00_01Alloc_01_4_01_4.html", null ]
     ] ],
     [ "Elevate::TypeField", "structElevate_1_1TypeField.html", null ],

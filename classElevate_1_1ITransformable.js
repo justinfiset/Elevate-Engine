@@ -2,7 +2,7 @@ var classElevate_1_1ITransformable =
 [
     [ "GetModelMatrix", "classElevate_1_1ITransformable.html#a1551eeba7a86b703dab6ca94baaf5af6", null ],
     [ "GetPosition", "classElevate_1_1ITransformable.html#aca328b2d88192a3a97e185540f5f8662", null ],
-    [ "GetRotation", "classElevate_1_1ITransformable.html#aa124251c3ba3fef2607e7e1bb8b31538", null ],
+    [ "GetRotation", "classElevate_1_1ITransformable.html#a8f30e42842376a1786c6abe30648bdf5", null ],
     [ "GetScale", "classElevate_1_1ITransformable.html#a248cc98782969dd3c74d52f3a0e6ff18", null ],
     [ "GetTransform", "classElevate_1_1ITransformable.html#a9b8caf33fa037112af658dc37312c11d", null ],
     [ "GetTransform", "classElevate_1_1ITransformable.html#ab731d04cb106bc55e2e3559feb2007ed", null ],

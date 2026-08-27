@@ -5,5 +5,5 @@ var Material_8h =
     [ "Elevate::MaterialRegistry", "classElevate_1_1MaterialRegistry.html", null ],
     [ "EE_DEFAULT_MATERIAL", "Material_8h.html#af1a2739c35a006bf87c56bccab1ec327", null ],
     [ "MaterialID", "Material_8h.html#abc52d9cf77afc259a245351f60aa3128", null ],
-    [ "MaterialPtr", "Material_8h.html#a5d6b19f0e8ea5bcb7a115eeb8ee69aa7", null ]
+    [ "MaterialPtr", "Material_8h.html#ac037c840d7d069f9df2fd3be46d2747e", null ]
 ];

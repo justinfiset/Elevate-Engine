@@ -7,5 +7,7 @@ var dir_2745e5f891521c8b18cf82a3f645c2e7 =
     [ "PointLight.cpp", "PointLight_8cpp.html", null ],
     [ "PointLight.h", "PointLight_8h.html", "PointLight_8h" ],
     [ "SceneLighting.cpp", "SceneLighting_8cpp.html", null ],
-    [ "SceneLighting.h", "SceneLighting_8h.html", "SceneLighting_8h" ]
+    [ "SceneLighting.h", "SceneLighting_8h.html", "SceneLighting_8h" ],
+    [ "SpotLight.cpp", "SpotLight_8cpp.html", null ],
+    [ "SpotLight.h", "SpotLight_8h.html", "SpotLight_8h" ]
 ];
