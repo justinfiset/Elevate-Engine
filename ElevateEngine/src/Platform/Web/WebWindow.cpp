@@ -3,6 +3,7 @@
 #ifdef EE_PLATFORM_WEB
 #include <ElevateEngine/Core/Log.h>
 #include <emscripten/html5.h>
+#include <GLFW/glfw3.h>
 
 namespace Elevate
 {
