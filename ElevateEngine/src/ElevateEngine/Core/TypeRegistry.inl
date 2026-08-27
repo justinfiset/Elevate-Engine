@@ -39,7 +39,17 @@ namespace Elevate
     void TypeRegistry::Register(const std::string& name, const std::vector<FieldOption>& options)
     {
         std::type_index ti(typeid(T));
-        GetEntries().emplace(ti, Entry(name, ti));
+        auto& entry = GetEntries()[ti];
+        entry.name = name;
+        entry.type = ti;
+
+        if constexpr (std::is_base_of_v<EEObject, T> && !std::is_abstract_v<T> && std::is_default_constructible_v<T>)
+        {
+            entry.factory = []() -> std::shared_ptr<EEObject>
+            {
+                return std::make_shared<T>();
+            };
+        }
 
 #ifdef EE_EDITOR_BUILD
         // Passing T using a type_identity simple placeholder.

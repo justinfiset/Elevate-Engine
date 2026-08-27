@@ -23,6 +23,7 @@ Elevate::Editor::AnalyserPanel::AnalyserPanel()
 {
 	pickerIcon = Texture::CreateFromFile("editor://Icons/Light/adjust.png");
 	noneIcon = Texture::CreateFromFile("editor://Icons/Light/block.png");
+	navigateToIcon = Texture::CreateFromFile("editor://Icons/Light/arrow_top_right.png");
 }
 
 void Elevate::Editor::AnalyserPanel::OnImGuiRender()
@@ -268,11 +269,12 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 	{
 		// Convert to a non const EEObjectPtr of EEObject
 		auto* eePtr = const_cast<EEObjectPtr<EEObject>*>(reinterpret_cast<const EEObjectPtr<EEObject>*>(field.data));
+		auto assetPtr = const_cast<EEObjectPtr<Asset>*>(reinterpret_cast<const EEObjectPtr<Asset>*>(field.data));
 
 		if (eePtr)
 		{
-			std::string displayName = (*eePtr) ? (*eePtr)->GetName() : "None (EEObject)";
-
+			auto* assetEntry = assetPtr ? AssetRegistry::GetEntry(assetPtr->GetGuid()) : nullptr;
+			std::string displayName = (*eePtr) ? (assetEntry ? assetEntry->AssetName : "[Unknown Asset]") : "[None (EEObject)]";
 			char buf[128];
 			strncpy_s(buf, displayName.c_str(), sizeof(buf));
 
@@ -291,7 +293,7 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 			ImGui::PushStyleColor(ImGuiCol_Text, textDisabled);
 
 			std::string inputID = "##" + field.name;
-			ImGui::InputText(inputID.c_str(), buf, sizeof(buf), ImGuiInputTextFlags_ReadOnly | ImGuiInputTextFlags_AutoSelectAll);
+			ImGui::InputText(inputID.c_str(), buf, sizeof(buf), ImGuiInputTextFlags_ReadOnly);
 
 			ImGui::PopStyleColor(2);
 
@@ -301,6 +303,15 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 				ImGui::OpenPopup("AssetPickerPopup");
 			}
 
+			ImGui::SameLine(0, ImGui::GetStyle().ItemSpacing.x);
+			
+			
+			ImGui::BeginDisabled(!assetEntry || !assetEntry->isOnDisk);
+			if (ImGui::ImageButton("##navigateto", (ImTextureID)navigateToIcon->GetNativeHandle(), ImVec2(buttonSize, buttonSize)))
+			{
+				AssetBrowserPanel::SelectAsset(assetPtr->get());
+			}
+			ImGui::EndDisabled();
 			ImGui::SameLine(0, ImGui::GetStyle().ItemSpacing.x);
 			ImGui::TextUnformatted(field.GetDisplayName().c_str());
 
@@ -325,7 +336,7 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 					{
 						if (ImGui::Selectable(entry->AssetName.c_str()))
 						{
-							eePtr->reset(entry->Instance.get());
+							eePtr->SetGuid(guid);
 						}
 					}
 				}

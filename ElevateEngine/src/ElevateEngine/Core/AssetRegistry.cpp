@@ -7,6 +7,9 @@
 #include <ElevateEngine/Core/Core.h>
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/EEObject.h>
+#include <ElevateEngine/Core/TypeRegistry.h>
+#include <ElevateEngine/Serialization/JsonSerializer.h>
+#include <ElevateEngine/Files/FileUtility.h>
 
 namespace fs = std::filesystem;
 
@@ -84,6 +87,7 @@ namespace Elevate
                     .TypeIndex = typeMeta.TypeIndex,
                     .isOnDisk = true,
                     .isLoaded = false,
+                    .MetaData = &typeMeta,
                     .Instance = nullptr
                 };
             }
@@ -144,7 +148,7 @@ namespace Elevate
         if (doc.HasMember(EEObject::GuidFieldName) && doc[EEObject::GuidFieldName].IsString())
         {
             std::string res = doc[EEObject::GuidFieldName].GetString();
-            EE_CORE_WARN("Found asset with GUID : {}", res);
+            EE_CORE_TRACE("Found asset with GUID : {}", res);
             return Guid::FromString(res);
         }
         else
@@ -155,10 +159,58 @@ namespace Elevate
         return Guid{};
     }
 
+    std::shared_ptr<Asset> AssetRegistry::LoadAssetFromDisk(const AssetEntry& entry)
+    {
+        const AssetMetaData* meta = entry.MetaData;
+        if (!meta)
+        {
+            EE_CORE_ERROR("(AssetRegistry::LoadAssetFromDis) : Asset Meta Data was not provided to create asset from disk. Please add the EE_Asset tag to your asset.");
+            return nullptr;
+        }
+
+        auto& typeEntry = TypeRegistry::GetEntry(entry.TypeIndex);
+        if (!typeEntry.factory)
+        {
+            EE_CORE_ERROR("(AssetRegistry::LoadAssetFromDisk) : No factory registered for type {}. Object cannot be instantiated.", typeEntry.name);
+            return nullptr;
+        }
+
+        std::shared_ptr<EEObject> rawObject = typeEntry.factory();
+        std::shared_ptr<Asset> asset = std::dynamic_pointer_cast<Asset>(rawObject);
+        if (!asset)
+        {
+            EE_CORE_ERROR("(AssetRegistry::LoadAssetFromDisk) : Type {} derives from EEObject but NOT from Asset.", typeEntry.name);
+            return nullptr;
+        }
+
+        JsonSerializer serializer;
+        PropertySet props;
+
+        std::string diskContent = File::GetFileContent(entry.FilePath.string());
+        serializer.Deserialize(ByteUtils::FromString(diskContent), props);
+        asset->SetFromProperties(props);
+
+        asset->SetGuid(entry.Guid);
+        asset->OnLoad();
+
+        return asset;
+    }
+
     const AssetMetaData* AssetRegistry::GetMetaFromExtension(const std::string& extension)
     {
         auto it = Get().m_extensionMeta.find(extension);
         return (it != Get().m_extensionMeta.end()) ? &it->second : nullptr;
+    }
+
+    const AssetMetaData* AssetRegistry::GetMetaFromTypeIndex(std::type_index typeIndex)
+    {
+        auto it = Get().m_typeMeta.find(typeIndex);
+        return (it != Get().m_typeMeta.end()) ? &it->second : nullptr;
+    }
+
+    const std::unordered_map<std::string, AssetMetaData>& AssetRegistry::GetNameMetas()
+    {
+        return Get().m_nameMeta;
     }
 
     const AssetMetaData* AssetRegistry::GetMetaFromTypeName(const std::string & typeName)
@@ -176,22 +228,31 @@ namespace Elevate
         std::string ext = trait.Extension;
         std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
         instance.m_extensionMeta[ext] = trait;
+
+        instance.m_typeMeta[trait.TypeIndex] = trait;
     }
 
-    void AssetRegistry::RegisterAsset(const Asset* asset)
+    void AssetRegistry::RegisterAsset(const std::shared_ptr<Asset>& asset)
     {
         if (!asset)
         {
             EE_CORE_ERROR("(AssetRegistry::RegisterAsset) : Tried to register a nullptr Asset in the Asset Registry.");
         }
 
+        const AssetMetaData* metaData = GetMetaFromTypeIndex(asset->GetTypeIndex());
+        if (!metaData)
+        {
+            EE_CORE_WARN("(AssetRegistry::RegisterAsset) : No metadata found for type {}", asset->GetTypeIndex().name());
+        }
+
         Guid assetGuid = asset->GetGuid();
         if (s_indexedAssets.contains(assetGuid))
         {
             AssetEntry& entry = s_indexedAssets.at(assetGuid);
-            entry.Instance.reset(asset);
+            entry.Instance = asset;
             entry.isLoaded = true;
             entry.AssetName = asset->GetName();
+            entry.MetaData = metaData;
         }
         else
         {
@@ -201,9 +262,10 @@ namespace Elevate
                 .TypeIndex = asset->GetTypeIndex(),
                 .isOnDisk = false,
                 .isLoaded = true,
+                .MetaData = metaData
             };
             entry.AssetName = asset->GetName();
-            entry.Instance.reset(asset);
+            entry.Instance = asset;
             s_indexedAssets[assetGuid] = entry;
         }
     }

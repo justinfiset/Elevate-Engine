@@ -17,9 +17,8 @@ namespace Elevate
 		Asset() = default;
 		virtual ~Asset() = default;
 
-	protected:
-		virtual bool OnLoad() { return true; }
-		virtual void OnUnbind() { }
+		virtual void OnLoad() {}
+		virtual void OnUnbind() {}
 
 		END_OBJECT()
 	};

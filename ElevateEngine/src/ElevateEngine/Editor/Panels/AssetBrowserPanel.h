@@ -10,6 +10,11 @@
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Core/EEObject.h>
 
+namespace Elevate
+{
+	class Asset;
+}
+
 namespace Elevate::Editor {
 	
 	enum FileType {
@@ -74,7 +79,11 @@ namespace Elevate::Editor {
 		void OnUpdate() override;
 		void OnImGuiRender() override;
 
+		static void SelectAsset(const Asset* asset);
+
 	private:
+		inline static AssetBrowserPanel* s_instance;
+
 		struct AssetCreationNode
 		{
 			const char* Name;

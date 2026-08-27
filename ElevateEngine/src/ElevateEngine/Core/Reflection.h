@@ -226,7 +226,7 @@ public: \
         } \
         return nullptr; \
     } \
-    inline void SetFromProperties(const ::Elevate::PropertySet& props) { \
+    void SetFromProperties(const ::Elevate::PropertySet& props) override { \
         GetLayout().ApplyState(props); \
     } \
     EDITOR_ONLY_COMPONENT_END_CODE(ThisType)

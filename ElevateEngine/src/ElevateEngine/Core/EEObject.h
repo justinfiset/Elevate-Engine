@@ -13,6 +13,8 @@
 
 namespace Elevate
 {
+	class AssetRegistry;
+
 	class EEObject : public ITypeLayoutProvider, public std::enable_shared_from_this<EEObject>
 	{
 	protected:
@@ -37,6 +39,12 @@ namespace Elevate
 		virtual std::string GetName() const { return "EEObject"; }
 		virtual TypeLayout GetLayout() const { return TypeLayout(nullptr, GetName(), {}); }
 		PropertySet GetProperties() const { return GetLayout().CaptureState(); }
+		virtual void SetFromProperties(const ::Elevate::PropertySet& props) { }
 		virtual std::type_index GetTypeIndex() const { return typeid(EEObject); }
+
+	private:
+		void SetGuid(const Guid& guid);
+
+		friend class AssetRegistry;
 	};
 }

@@ -13,11 +13,13 @@ namespace Elevate
         static Guid New();
         static Guid FromString(const std::string& str);
 
+        bool IsValid() const;
         std::string ToString() const;
         ByteBuffer ToBytes() const;
 
         bool operator==(const Guid& other) const;
         bool operator!=(const Guid& other) const;
+        bool operator<(const Guid& other) const;
         std::size_t GetHash() const noexcept;
     private:
         std::byte m_bytes[16];

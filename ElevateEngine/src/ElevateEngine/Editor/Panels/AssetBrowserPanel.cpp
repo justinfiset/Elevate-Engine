@@ -10,6 +10,7 @@
 #include <rapidjson/error/en.h>
 
 #include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Core/PathResolver.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Core/AssetRegistry.h>
@@ -28,6 +29,8 @@ const auto rootPath = fs::path(EE_CONTENT_ROOT).lexically_normal();
 
 Elevate::Editor::AssetBrowserPanel::AssetBrowserPanel()
 {
+	s_instance = this;
+
 	LoadExtensionsMeta();
 	m_folderTexture = Texture::CreateFromFile(m_FileMetadata["DIRECTORY"].iconPath);
 
@@ -247,19 +250,35 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 	ImGui::End();
 }
 
+void Elevate::Editor::AssetBrowserPanel::SelectAsset(const Asset* asset)
+{
+	auto* entry = AssetRegistry::GetEntry(asset->GetGuid());
+	if (entry && s_instance)
+	{
+		s_instance->m_CurrentPath = entry->FilePath.root_directory();
+		s_instance->UpdateRelatedPaths();
+		s_instance->m_shouldUpdate = true;
+		s_instance->m_selected.clear();
+		// todo select the asset
+	}
+	else
+	{
+		EE_CORE_ERROR("Could not select unregistered asset.");
+	}
+}
+
 void Elevate::Editor::AssetBrowserPanel::BuildAssetNodeCache()
 {
-	for (auto& entry : TypeRegistry::GetEntries())
+	for (const auto& [name, meta] : AssetRegistry::GetNameMetas())
 	{
-		auto trait = entry.second.GetTrait<EditorTypeTrait>();
-		if (trait->assetMeta.Flags & AssetFlags::CreateAssetMenu)
+		if (meta.Flags & AssetFlags::CreateAssetMenu)
 		{
 			AssetCreationNode node;
-			node.Extension = trait->assetMeta.Extension.c_str();
-			node.Name = trait->assetMeta.TypeName.c_str();
-			node.Factory = trait->factory;
+			node.Extension = meta.Extension.c_str();
+			node.Name = meta.TypeName.c_str();
+			node.Factory = TypeRegistry::GetEntry(meta.TypeIndex).factory;
 			m_assetCreationList.push_back(node);
-		}
+		}	
 	}
 }
 

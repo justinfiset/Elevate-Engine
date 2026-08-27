@@ -42,6 +42,7 @@ namespace Elevate::Editor
 		std::map<Component*, const void*> m_textureCache;
 		std::shared_ptr<Texture> pickerIcon;
 		std::shared_ptr<Texture> noneIcon;
+		std::shared_ptr<Texture> navigateToIcon;
 	};
 }
 

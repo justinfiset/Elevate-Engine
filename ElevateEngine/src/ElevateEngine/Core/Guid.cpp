@@ -53,6 +53,12 @@ namespace Elevate
 		return std::equal(std::begin(m_bytes), std::end(m_bytes), std::begin(other.m_bytes));
 	}
 
+	bool Guid::IsValid() const
+	{
+		static const Guid nullGuid{};
+		return std::memcmp(m_bytes, nullGuid.m_bytes, sizeof(m_bytes)) != 0;
+	}
+
 	std::size_t Guid::GetHash() const noexcept
 	{
 		uint64_t high, low;
@@ -66,5 +72,10 @@ namespace Elevate
 	bool Guid::operator!=(const Guid& other) const
 	{
 		return !(*this == other);
+	}
+
+	bool Guid::operator<(const Guid& other) const
+	{
+		return m_bytes < other.m_bytes;
 	}
 }

@@ -140,6 +140,8 @@ namespace Elevate
 		GameObjectComponentDestructor destructor; // component destructor / remove from a gameObject
 	};
 
+	using ObjectFactory = std::function<std::shared_ptr<EEObject>()>;
+
 	class TypeRegistry {
 	public:
 		template<typename T>
@@ -152,6 +154,7 @@ namespace Elevate
 			std::string name;
 			std::type_index type{ typeid(void) };
 			std::map<std::type_index, std::shared_ptr<ITypeTrait>> traits;
+			ObjectFactory factory = nullptr;
 
 			Entry() = default;
 			Entry(const std::string& name, std::type_index& type)
@@ -186,10 +189,15 @@ namespace Elevate
 			return entries;
 		}
 
+		static Entry& GetEntry(std::type_index id)
+		{
+			return GetEntries()[id];
+		}
+
 		template<typename T>
 		static Entry& GetEntry()
 		{
-			return GetEntries()[typeid(T)];
+			return GetEntry(typeid(T));
 		}
 
 		static std::string GetName(const std::type_info& type);
