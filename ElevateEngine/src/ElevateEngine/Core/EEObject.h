@@ -33,7 +33,7 @@ namespace Elevate
 		virtual EECategory GetCategory() const { return m_category; }
 		const Guid& GetGuid() const { return m_guid; }
 
-		static constexpr size_t GetGuidOffset()
+		static size_t GetGuidOffset()
 		{
 			return reinterpret_cast<size_t>(&(static_cast<EEObject*>(nullptr)->m_guid));
 		}
