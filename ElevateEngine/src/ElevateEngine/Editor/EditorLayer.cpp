@@ -24,6 +24,7 @@
 #include <ElevateEngine/Scene/Scene.h>
 
 #include <ElevateEngine/Renderer/Camera/CameraManager.h>
+#include <ElevateEngine/Renderer/Framebuffer.h>
 
 // TODO : CHECK ESSENTIAL INCLUDES KNOW ESSENTIAL BELLOW
 // Core
@@ -42,6 +43,15 @@ namespace Elevate::Editor
 		m_pauseTexture = Texture::CreateFromFile("editor://Icons/Light/pause.png");
 		m_stopTexture = Texture::CreateFromFile("editor://Icons/Light/stop.png");
 		m_coloredStopTexture = Texture::CreateFromFile("editor://Icons/Light/Colored/stop.png");
+
+		ShaderManager::LoadShader(
+			"editor/billboard",
+			"editor://Shaders/Billboard.vert",
+			"editor://Shaders/Billboard.frag",
+			EE_SHADER_HEADER,
+			EE_SHADER_HEADER
+		);
+
 		InitUI();
 	}
 
@@ -67,11 +77,11 @@ namespace Elevate::Editor
 
 		// Grid
 		m_GridObject = GameObject::Create("Editor Grid", m_EditorScene);
-		Model& gridModel = m_GridObject->AddComponent<Model>(PrimitiveType::Quad);
+		Model& gridModel = m_GridObject->AddComponent<Model>(PrimitiveType::Plane);
 		
 		RenderState gridState;
-		gridState.BlendEnable = true;
-		gridState.Cullface = false;
+		gridState.BlendMode = BlendModeType::Alpha;
+		gridState.CullMode = CullFace::None;
 		gridState.DepthTest = true;
 		gridState.DepthWrite = false;
 		gridMaterial->SetRenderState(gridState);
@@ -241,6 +251,16 @@ namespace Elevate::Editor
 
 		for (auto& widgetPtr : m_widgets)
 			widgetPtr->OnImGuiRender();
+
+		ImGui::Begin("Directional Shadow Map");
+
+		Framebuffer& directionalFBO = Renderer::GetDirectionalFrameBuffer(0);
+		ImGui::Image(
+			(ImTextureID)directionalFBO.GetDepthAttachmentHandle(),
+			ImVec2(512.0f, 512.0f)
+		);
+
+		ImGui::End();
 	}
 
 	void EditorLayer::OnEvent(Event& event)

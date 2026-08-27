@@ -20,11 +20,35 @@ namespace Elevate
 
 	enum class TextureFormat : uint8_t {
 		EMPTY = 0,
-		GRAYSCALE = 1,
-		RGB = 3,
-		RGBA = 4,
-		DEPTH
+		GRAYSCALE,
+		RGB,
+		RGBA,
+		RGB16F,
+		RGB32F,
+		RGBA16F,
+		RGBA32F,
+		DEPTH,
+		SRGB,
+		SRGBA,
+		DEPTHSTENCIL // To use depth and stencil at the same time
 	};
+
+	inline uint8_t GetTextureFormatChannels(TextureFormat format)
+	{
+		switch (format)
+		{
+			case TextureFormat::GRAYSCALE:		return 1;
+			case TextureFormat::RGB:			return 3;
+			case TextureFormat::RGB16F:			return 3;
+			case TextureFormat::RGB32F:			return 3;
+			case TextureFormat::RGBA:			return 4;
+			case TextureFormat::RGBA16F:		return 4;
+			case TextureFormat::RGBA32F:		return 4;
+			case TextureFormat::DEPTH:			return 1;
+			case TextureFormat::DEPTHSTENCIL:	return 2;
+			default:								return 0;
+		}
+	}
 
 	enum class TextureType : uint8_t {
 		Diffuse,
@@ -33,7 +57,9 @@ namespace Elevate
 		Height,
 		Cubemap,
 		Ambient,
-
+		AmbientOcclusion,
+		Depth,
+		ShadowMap,
 		Count
 	};
 
@@ -79,7 +105,7 @@ namespace Elevate
 		TextureMetadataBuilder& Name(const std::string name) { data.Name = name; return *this; }
 		TextureMetadataBuilder& Path(const std::string& path) { data.Path = path; return *this; }
 		TextureMetadataBuilder& size(const uint32_t w, const uint32_t h) { data.Width = w; data.Height = h; return *this; }
-		TextureMetadataBuilder& Format(const TextureFormat fmt) { data.Format = fmt; data.Channels = (uint8_t)fmt; return *this; }
+		TextureMetadataBuilder& Format(const TextureFormat fmt) { data.Format = fmt; data.Channels = GetTextureFormatChannels(fmt); return *this; }
 		TextureMetadataBuilder& Usage(const TextureType type) { data.Usage = type; return *this; }
 		TextureMetadataBuilder& Source(const TextureSource src) { data.Source = src; return *this; }
 		TextureMetadataBuilder& State(const TextureState state) { data.State = state; return *this; }
@@ -108,7 +134,7 @@ namespace Elevate
 		static TexturePtr CreateFromFile(const std::string& path, TextureType usage = TextureType::Diffuse);
 		static TexturePtr CreateFromColor(const glm::vec3& color, const std::string& name, uint32_t width = 1, uint32_t height = 1);
 		static TexturePtr CreateFromColor(const glm::vec4& color, const std::string& name, uint32_t width = 1, uint32_t height = 1);
-		static TexturePtr CreateFromData(unsigned char* data, TextureMetadata& meta);
+		static TexturePtr CreateFromData(const void* data, TextureMetadata& metadata);
 
 		// NOT ALL GETTERS BUT THE MOST USED
 		inline const std::string& GetName() const { return m_meta.Name; }
@@ -123,7 +149,7 @@ namespace Elevate
 		Texture() = default;
 		Texture(TextureMetadata meta) : m_meta(meta) {}
 
-		virtual void SetDataImpl(unsigned char* data) = 0;
+		virtual void SetDataImpl(const void* data) = 0;
 
 	private:
 		virtual void Bind(uint32_t index = 0) = 0;

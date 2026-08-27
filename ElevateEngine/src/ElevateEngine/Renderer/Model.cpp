@@ -15,16 +15,19 @@ std::string GetUniformNameByType(Elevate::TexturePtr texture)
 {
 	switch (texture->GetUsage())
 	{
-	case Elevate::TextureType::Diffuse:  return "diffuseTex";
-	case Elevate::TextureType::Specular: return "specularTex";
-	case Elevate::TextureType::Ambient:  return "ambientTex";
-	case Elevate::TextureType::Normal:   return "normalTex";
+	case Elevate::TextureType::Diffuse:			return "diffuseTex";
+	case Elevate::TextureType::Specular:		return "specularTex";
+	case Elevate::TextureType::Ambient:			return "ambientTex";
+	case Elevate::TextureType::AmbientOcclusion: return "aoTex";
+	case Elevate::TextureType::Normal:			return "normalTex";
 	default: return "";
 	}
 }
 
-Elevate::Model::Model(PrimitiveType type) : Model("", nullptr)
+Elevate::Model::Model(PrimitiveType type, MaterialPtr material) : Model("", nullptr)
 {
+	SetMaterial(material ? material : MaterialRegistry::GetMaterial(EE_DEFAULT_MATERIAL));
+	
 	switch (type)
 	{
 	case PrimitiveType::Cube:
@@ -78,7 +81,12 @@ void Elevate::Model::LoadModel(std::string path)
 	std::string resolvedPath = PathResolver::Resolve(path);
 	// Importing the scene
 	Assimp::Importer import;
-	const aiScene* scene = import.ReadFile(resolvedPath, aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_OptimizeMeshes | aiProcess_ImproveCacheLocality);
+	const aiScene* scene = import.ReadFile(resolvedPath, 
+		aiProcess_Triangulate |
+		aiProcess_GenNormals |
+		aiProcess_OptimizeMeshes |
+		aiProcess_ImproveCacheLocality |
+		aiProcess_CalcTangentSpace);
 
 	// checking and exception catcher
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -142,11 +150,18 @@ void Elevate::Model::ProcessMesh(std::string basePath, aiMesh* mesh, const aiSce
 	if (mesh->mMaterialIndex >= 0)
 	{
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+
 		LoadMaterialTextures(basePath, material, aiTextureType_DIFFUSE, TextureType::Diffuse, data);
 		LoadMaterialTextures(basePath, material, aiTextureType_SPECULAR, TextureType::Specular, data);
-		LoadMaterialTextures(basePath, material, aiTextureType_AMBIENT, TextureType::Ambient, data);
-		LoadMaterialTextures(basePath, material, aiTextureType_AMBIENT_OCCLUSION, TextureType::Ambient, data); // todo create new texturetype
-		// todo : load all of the other texture types
+
+		// Load ambiant occlusion
+		LoadMaterialTextures(basePath, material, aiTextureType_AMBIENT_OCCLUSION, TextureType::AmbientOcclusion, data);
+		LoadMaterialTextures(basePath, material, aiTextureType_LIGHTMAP, TextureType::AmbientOcclusion, data);
+		LoadMaterialTextures(basePath, material, aiTextureType_AMBIENT, TextureType::AmbientOcclusion, data);
+
+		// Normal map
+		LoadMaterialTextures(basePath, material, aiTextureType_NORMALS, TextureType::Normal, data);
+		LoadMaterialTextures(basePath, material, aiTextureType_HEIGHT, TextureType::Normal, data);
 	}
 }
 
@@ -222,5 +237,8 @@ void Elevate::Model::LoadMaterialTextures(std::string basePath, aiMaterial* mat,
 
 void Elevate::Model::Render()
 {
-	Renderer::SubmitMesh(m_batchedMesh.GetVertexArray(), m_material, gameObject->GetModelMatrix());
+	if (m_material)
+	{
+		Renderer::SubmitMesh(m_batchedMesh.GetVertexArray(), m_material, gameObject->GetModelMatrix());
+	}
 }

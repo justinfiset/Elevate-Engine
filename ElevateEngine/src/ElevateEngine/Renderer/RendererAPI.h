@@ -35,19 +35,23 @@ namespace Elevate
 		};
 
 	public:
+		virtual ~RendererAPI() = default;
+
 		virtual void SetClearColor(const glm::vec4& color) const = 0;
 		virtual void SetViewport(int x, int y, int width, int height) const = 0;
+
 		virtual void Clear() const = 0;
+		virtual void ClearDepth() const = 0;
 		virtual void FlushBuffers() const = 0;
 
 		virtual void ClearTextureBindings() const = 0;
 		virtual void UnbindTexture(uint8_t slot = 0) const = 0;
 
 		virtual void DrawArray(const VertexArray* vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles) const = 0;
-		virtual void SetCullingState(bool enabled) const = 0;
+		virtual void SetCullingState(CullFace cullSetting) const = 0;
 		virtual void SetDepthWrittingState(bool enabled) const = 0;
 		virtual void SetDepthTestingState(bool enabled) const = 0;
-		virtual void SetBlendingState(bool enabled) const = 0;
+		virtual void SetBlendingState(BlendModeType mode) const = 0;
 
 		inline static GraphicAPI GetAPI() { return s_ActiveAPI; }
 		

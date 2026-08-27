@@ -1,10 +1,8 @@
-#include "eepch.h"
-
 #include <vector>
 
 #define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <GLFW/glfw3.h>
 
 #include "glm/gtc/type_ptr.hpp"
 
@@ -67,7 +65,6 @@ namespace Elevate
 			GLint maxLength = 0;
 			glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &maxLength);
 
-			// The maxLength includes the NULL character
 			// TODO optimiser et ne pas utiliser les vecteurs.
 			std::vector<GLchar> infoLog(maxLength);
 			glGetShaderInfoLog(fragmentShader, maxLength, &maxLength, &infoLog[0]);
@@ -233,25 +230,19 @@ namespace Elevate
 		GLCheck(glUniform4iv(glGetUniformLocation(m_RendererID, location.c_str()), count, value));
 	}
 
-	void OpenGLShader::SetUniformMatrix2fv(const std::string& location, float* data) const
+	void OpenGLShader::SetUniformMatrix2fv(const std::string& location, float* data, uint32_t count) const
 	{
-		GLCheck(glUniformMatrix2fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, data));
+		GLCheck(glUniformMatrix2fv(glGetUniformLocation(m_RendererID, location.c_str()), count, GL_FALSE, data));
 	}
 
-	void OpenGLShader::SetUniformMatrix3fv(const std::string& location, float* data) const
+	void OpenGLShader::SetUniformMatrix3fv(const std::string& location, float* data, uint32_t count) const
 	{
-		GLCheck(glUniformMatrix3fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, data));
+		GLCheck(glUniformMatrix3fv(glGetUniformLocation(m_RendererID, location.c_str()), count, GL_FALSE, data));
 	}
 
-	void OpenGLShader::SetUniformMatrix4fv(const std::string& location, float* data) const
+	void OpenGLShader::SetUniformMatrix4fv(const std::string& location, float* data, uint32_t count) const
 	{
-		//GLCheck(glUniformMatrix4fv(glGetUniformLocation(m_RendererID, location.c_str()), 1, GL_FALSE, data));
-		// todo remove this debug code 
-		int loc = glGetUniformLocation(m_RendererID, location.c_str());
-		if (loc == -1) {
-			EE_CORE_ERROR("Uniform '{0}' introuvable dans le shader ID {1}!", location, m_RendererID);
-		}
-		glUniformMatrix4fv(loc, 1, GL_FALSE, data);
+		GLCheck(glUniformMatrix4fv(glGetUniformLocation(m_RendererID, location.c_str()), count, GL_FALSE, data));;
 	}
 
 	static EngineDataType GLTypeToEngineDataType(GLenum type)

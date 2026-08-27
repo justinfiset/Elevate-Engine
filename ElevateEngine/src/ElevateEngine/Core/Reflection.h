@@ -4,14 +4,14 @@
 
 // Todo remove and add as a tag
 #define EECATEGORY(name) \
-    private: \
-        inline static struct categoryRegistrar { \
-            categoryRegistrar() { \
-                generated_classEntry.Category = EECategory(name); \
-            } \
-        } generated_categoryRegistrar; \
-        virtual EECategory GetCategory() const override { return generated_classEntry.Category; } \
-    public:
+private: \
+    inline static struct categoryRegistrar { \
+        categoryRegistrar() { \
+            ThisType::generated_classEntry.Category = ::Elevate::EECategory(name); \
+        } \
+    } generated_categoryRegistrar; \
+public: \
+    virtual ::Elevate::EECategory GetCategory() const override { return ThisType::generated_classEntry.Category; }
 
 namespace Elevate::Internal {
     template<typename T, typename = void>
@@ -76,7 +76,7 @@ private: \
     } generated_##param##PropertyEntry; \
 public:
 
-#define END_OBJECT() \
+#define END_OBJECT_CUSTOM() \
 private: \
     inline static struct ClassEntryEnd { \
         ClassEntryEnd() { \
@@ -90,32 +90,40 @@ private: \
     } generated_classEntryEnd; \
 public: \
     inline virtual std::string GetName() const override { return generated_classEntry.ClassName; } \
-    inline virtual ::Elevate::TypeLayout GetLayout() const override { \
-        std::vector<::Elevate::TypeField> allFields; \
-        \
-        if constexpr (requires { typename ThisType::Super; }) { \
-            auto& registryMap = ::Elevate::TypeRegistry::GetReflectedTypes(); \
-            auto it = registryMap.find(typeid(typename ThisType::Super)); \
-            if (it != registryMap.end()) { \
-                for (const auto& field : it->second) { \
-                    allFields.push_back(field); \
+    virtual std::type_index GetTypeIndex() const override { return typeid(ThisType); }
+
+#define END_OBJECT() \
+    END_OBJECT_CUSTOM() \
+public: \
+    virtual ::Elevate::TypeLayout GetLayout() const override { \
+            std::vector<::Elevate::TypeField> allFields; \
+            allFields.push_back(::Elevate::TypeField( \
+                "m_guid", \
+                ::Elevate::EngineDataType::GUID, \
+                ::Elevate::EEObject::GetGuidOffset() \
+            )); \
+            if constexpr (requires { typename ThisType::Super; }) { \
+                auto& registryMap = ::Elevate::TypeRegistry::GetReflectedTypes(); \
+                auto it = registryMap.find(typeid(typename ThisType::Super)); \
+                if (it != registryMap.end()) { \
+                    for (const auto& field : it->second) { \
+                        allFields.push_back(field); \
+                    } \
                 } \
             } \
-        } \
-        \
-        for (const ::Elevate::TypeField& field : generated_classEntry.ClassFieldStack) { \
-            allFields.push_back(field); \
-        } \
-        \
-        std::vector<::Elevate::TypeField> instanceFields; \
-        for (const ::Elevate::TypeField& field : allFields) { \
-            ::Elevate::TypeField instField = field; \
-            instField.data = reinterpret_cast<const char*>(this) + field.offset; \
-            instanceFields.push_back(instField); \
-        } \
-        return ::Elevate::TypeLayout(this, generated_classEntry.ClassName, instanceFields); \
-    } \
-    virtual std::type_index GetTypeIndex() const override { return typeid(ThisType); }
+            \
+            for (const ::Elevate::TypeField& field : generated_classEntry.ClassFieldStack) { \
+                allFields.push_back(field); \
+            } \
+            \
+            std::vector<::Elevate::TypeField> instanceFields; \
+            for (const ::Elevate::TypeField& field : allFields) { \
+                ::Elevate::TypeField instField = field; \
+                instField.data = reinterpret_cast<const char*>(this) + field.offset; \
+                instanceFields.push_back(instField); \
+            } \
+            return ::Elevate::TypeLayout(this, generated_classEntry.ClassName, instanceFields); \
+        }
 
 // =======================================================
 // BEGIN_COMPONENT / END_COMPONENT
@@ -133,6 +141,15 @@ public: \
 
 #ifdef EE_EDITOR_BUILD
 #define EDITOR_ONLY_COMPONENT_END_CODE(T) \
+        virtual ::std::shared_ptr<::Elevate::Texture> GetEditorIcon() const override { \
+            auto& entry = TypeRegistry::GetEntry<ThisType>(); \
+            if (auto* trait = entry.GetTrait<::Elevate::EditorTypeTrait>()) { \
+                if(!trait->editorIconPath.empty()) { \
+                    return Texture::CreateFromFile(trait->editorIconPath); \
+                } \
+            } \
+            return nullptr; \
+        } \
         virtual const void* GetEditorIconHandle() const override { \
             auto& entry = TypeRegistry::GetEntry<ThisType>(); \
             if (auto* trait = entry.GetTrait<::Elevate::EditorTypeTrait>()) { \
@@ -209,7 +226,7 @@ public: \
         } \
         return nullptr; \
     } \
-    inline void SetFromProperties(const ::Elevate::PropertySet& props) { \
+    void SetFromProperties(const ::Elevate::PropertySet& props) override { \
         GetLayout().ApplyState(props); \
     } \
     EDITOR_ONLY_COMPONENT_END_CODE(ThisType)

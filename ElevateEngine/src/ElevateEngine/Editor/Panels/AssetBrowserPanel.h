@@ -3,10 +3,17 @@
 #include <filesystem>
 #include <unordered_map>
 #include <vector>
+#include <set>
 
+#include <ElevateEngine/Core/Core.h>
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
-#include <set>
+#include <ElevateEngine/Core/EEObject.h>
+
+namespace Elevate
+{
+	class Asset;
+}
 
 namespace Elevate::Editor {
 	
@@ -72,7 +79,22 @@ namespace Elevate::Editor {
 		void OnUpdate() override;
 		void OnImGuiRender() override;
 
+		static void SelectAsset(const Asset* asset);
+
 	private:
+		inline static AssetBrowserPanel* s_instance;
+
+		struct AssetCreationNode
+		{
+			const char* Name;
+			const char* Extension;
+			std::function<std::shared_ptr<EEObject>()> Factory = nullptr;
+		};
+		void BuildAssetNodeCache();
+		std::vector<AssetCreationNode> m_assetCreationList;
+
+		void DrawContextMenu();
+
 		// Update the paths at the top of the browser
 		void UpdateRelatedPaths();
 		void AddParentPaths(std::filesystem::path path);
@@ -80,7 +102,7 @@ namespace Elevate::Editor {
 		void LoadFileItemsList();
 		void LoadExtensionsMeta(std::string filepath = "editor://Config/file_browser.json");
 
-		std::filesystem::path m_CurrentPath = ".";
+		std::filesystem::path m_CurrentPath;
 		std::vector<BrowserPath> m_relatedPaths;
 
 		//      < Path , Texture >
@@ -91,7 +113,7 @@ namespace Elevate::Editor {
 		std::vector<FileItem> m_FileItems;
 		std::unordered_map<std::string, FileMetadata> m_FileMetadata;
 
-		bool m_shouldUpdate = true;
+		bool m_shouldUpdate;
 
 		std::set<uint32_t> m_selected;
 		uint32_t m_lastSelected = 0;

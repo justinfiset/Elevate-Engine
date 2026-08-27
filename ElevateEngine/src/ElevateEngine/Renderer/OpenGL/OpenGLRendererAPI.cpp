@@ -43,6 +43,12 @@ namespace Elevate
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
+	void OpenGLRendererAPI::ClearDepth() const
+	{
+		glDepthMask(GL_TRUE);
+		glClear(GL_DEPTH_BUFFER_BIT);
+	}
+
 	void OpenGLRendererAPI::FlushBuffers() const
 	{
 		glFlush();
@@ -98,10 +104,26 @@ namespace Elevate
 		}
 	}
 	
-	void OpenGLRendererAPI::SetCullingState(bool enabled) const
+	void OpenGLRendererAPI::SetCullingState(CullFace cullSetting) const
 	{
-		if(enabled) glEnable(GL_CULL_FACE);
-		else        glDisable(GL_CULL_FACE);
+		switch (cullSetting)
+		{
+		case CullFace::None:
+			glDisable(GL_CULL_FACE);
+			return;
+		case CullFace::Front:
+			glEnable(GL_CULL_FACE);
+			glCullFace(GL_FRONT);
+			break;
+		case CullFace::Back:
+			glEnable(GL_CULL_FACE);
+			glCullFace(GL_BACK);
+			break;
+		case CullFace::FrontAndBack:
+			glEnable(GL_CULL_FACE);
+			glCullFace(GL_FRONT_AND_BACK);
+			break;
+		}
 	}
 
 	void OpenGLRendererAPI::SetDepthWrittingState(bool enabled) const
@@ -115,16 +137,21 @@ namespace Elevate
 		else        glDisable(GL_DEPTH_TEST);
 	}
 
-	void OpenGLRendererAPI::SetBlendingState(bool enabled) const
+	void OpenGLRendererAPI::SetBlendingState(BlendModeType mode) const
 	{
-		if (enabled)
+		switch (mode)
 		{
+		case BlendModeType::Alpha:
 			glEnable(GL_BLEND);
 			glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ZERO, GL_ONE);
-		}
-		else
-		{
+			break;
+		case BlendModeType::Additive:
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_ONE, GL_ONE); // Addition pure des couleurs HDR
+			break;
+		case BlendModeType::None:
 			glDisable(GL_BLEND);
+			break;
 		}
 	}
 }

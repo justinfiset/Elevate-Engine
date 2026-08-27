@@ -17,10 +17,9 @@ namespace Elevate {
 		void Update() override;
 		void OnNotify(Event& event) override;
 
-	protected:
-		void ClampRotation();
-
 	private:
+		float m_yaw = -90.0f;
+		float m_pitch = 0.0f;
 		float m_lastX, m_lastY;
 		bool m_followCursor = false;
 		float m_sensitivity = 0.5f;

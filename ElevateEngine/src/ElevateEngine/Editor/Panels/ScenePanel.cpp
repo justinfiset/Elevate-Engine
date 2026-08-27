@@ -11,6 +11,7 @@
 
 #include <ElevateEngine/Core/Application.h>
 #include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Framebuffer.h>
 
 #include <ElevateEngine/Editor/EditorLayer.h>
 #include <ElevateEngine/Editor/GizmoUtility.h>
@@ -77,12 +78,13 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 		window_width = (uint32_t)(qtY * arX);
 
 	// we rescale the framebuffer to the actual window size here and reset the glViewport 
-	Application::Get().FrameBuffer->Rescale(window_width, window_height);
+	auto& framebuffer = Renderer::GetMainFramebuffer();
+	framebuffer.Rescale(window_width, window_height);
 	Renderer::SetViewport(0, 0, window_width, window_height);
 
 	// we get the screen position of the window
 	ImVec2 pos = ImGui::GetCursorScreenPos();
-	ImGui::Image((ImTextureID)Application::Get().FrameBuffer->GetNativeTextureHandle(), ImVec2((float)window_width, (float)window_height), ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::Image((ImTextureID)framebuffer.GetColorAttachmentHandle(), ImVec2((float)window_width, (float)window_height), ImVec2(0, 1), ImVec2(1, 0));
 
 	// ImGuizmo //////////////////////////////////////////
 	if (Application::GetGameState() == EditorMode)
@@ -105,7 +107,7 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 				glm::value_ptr(cameraView),
 				glm::value_ptr(cameraProjection),
 				(ImGuizmo::OPERATION)m_CurrentEditorTool,
-				ImGuizmo::LOCAL, // Change to WORLD if needed
+				ImGuizmo::WORLD,
 				glm::value_ptr(entityMatrix)
 			);
 

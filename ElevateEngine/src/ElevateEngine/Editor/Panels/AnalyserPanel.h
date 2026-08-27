@@ -18,11 +18,12 @@ namespace Elevate::Editor
 	class AnalyserPanel : public EditorWidget
 	{
 	public:
+		AnalyserPanel();
 		void OnImGuiRender() override;
 	private:
 		void RenderComponent(Component* component);
 		void RenderComponentLayout(const TypeLayout& layout, Component* component = nullptr);
-		void RenderField(const TypeField& field) const;
+		void RenderField(const TypeField& field);
 
 		// TODO MOVE SOMEWHERE ELSE !!!! (ALL THE FOLLOWING UNDERNEATH)
 		struct CategoryMenu
@@ -39,6 +40,9 @@ namespace Elevate::Editor
 		std::vector<std::type_index> m_alredyAddedComponents;
 
 		std::map<Component*, const void*> m_textureCache;
+		std::shared_ptr<Texture> pickerIcon;
+		std::shared_ptr<Texture> noneIcon;
+		std::shared_ptr<Texture> navigateToIcon;
 	};
 }
 

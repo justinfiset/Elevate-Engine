@@ -1,4 +1,11 @@
 #pragma once
+
+#include <memory>
+#include <string>
+#include <type_traits>
+
+#include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
 
 namespace Elevate
@@ -7,10 +14,12 @@ namespace Elevate
     {
         bool visible = true;
         std::string editorIconPath = "";
+        bool isAsset = false;
 
         EditorTypeTrait() = default;
 
-        EditorTypeTrait(const std::vector<FieldOption> &options)
+        template<typename T>
+        EditorTypeTrait(std::type_identity<T>, const std::vector<FieldOption> &options)
         {
             for (auto& option : options)
             {
@@ -21,6 +30,10 @@ namespace Elevate
                 else if (std::holds_alternative<EditorIconTag>(option))
                 {
                     editorIconPath = std::get<EditorIconTag>(option).Path;
+                }
+                else if (auto* assetTag = std::get_if<AssetTag>(&option))
+                {
+                    isAsset = true;
                 }
             }
         }

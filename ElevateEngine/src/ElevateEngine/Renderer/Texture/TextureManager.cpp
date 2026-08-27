@@ -67,8 +67,6 @@ namespace Elevate {
 		std::filesystem::path fsPath = std::filesystem::absolute(resolvedPath);
 		std::string absPath = fsPath.string();
 
-		EE_CORE_TRACE("{}", absPath);
-
 		// If the texture is already loading, or already loaded, return and cancel
 		TexturePtr tex = GetTexture(absPath);
 		if (!tex)
@@ -111,9 +109,18 @@ namespace Elevate {
 				int height = 0;
 				int channels = 0;
 				res.data = stbi_load(res.meta.Path.c_str(), &width, &height, &channels, 0);
+
+				TextureFormat format = TextureFormat::RGBA;
+				switch (channels)
+				{
+					case 1: format = TextureFormat::GRAYSCALE;	break;
+					case 3: format = TextureFormat::RGB;		break;
+					case 4: format = TextureFormat::RGBA;		break;
+				}
+
 				res.meta = TextureMetadataBuilder(res.meta)
 					.size(static_cast<uint32_t>(width), static_cast<uint32_t>(height))
-					.Format((TextureFormat) channels)
+					.Format(format)
 					.State((res.data) ? TextureState::Loaded : TextureState::Failed)
 					.Build();
 

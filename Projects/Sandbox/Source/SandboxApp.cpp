@@ -20,19 +20,11 @@ private:
 	std::shared_ptr<Elevate::GameObject> m_demoCube;
 	std::shared_ptr<Elevate::GameObject> m_PointLightObject;
 public:
-	DebugLayer() : SceneLayer(Elevate::Scene::Create("Demo Scene")) { }
+	DebugLayer() : SceneLayer(Elevate::Scene::Create("Demo Scene")) {}
 
 	void OnAttach() override
 	{
-		uint32_t glslPointLightCount = 1;
-		std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(glslPointLightCount);
-		m_shader = Elevate::ShaderManager::LoadShader(
-			"main",
-			"content://Shaders/main.vert",
-			"content://Shaders/main.frag",
-			EE_SHADER_HEADER,
-			EE_SHADER_HEADER + glslPointLightCountDefine
-		);
+		m_shader = Elevate::ShaderManager::GetShader(EE_DEFAULT_SHADER);
 
 		Elevate::MaterialPtr material = Elevate::MaterialRegistry::LoadMaterial(m_shader);
 		material->Set("material.ambient", glm::vec3(1.0f, 1.0f, 1.0f));
@@ -51,15 +43,27 @@ public:
 		//    1
 		//);
 
+		Elevate::ShaderPtr colorShader = Elevate::Shader::CreateFromFiles(
+			"engine://Shaders/DefaultLitShader.vert",
+			"content://Shaders/ColorTest.frag",
+			EE_SHADER_HEADER,
+			EE_SHADER_HEADER
+		);
+		Elevate::MaterialPtr orangeEmissiveMat = Elevate::MaterialRegistry::LoadMaterial(colorShader);
+		orangeEmissiveMat->Set("u_Color", glm::vec3(5.0f, 1.0f, 0.1f));
+
+		auto emissiveCube = Elevate::GameObject::Create("Emissive Cube", m_scene);
+		emissiveCube->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Cube, orangeEmissiveMat);
+		emissiveCube->SetPosition({ 3.0f, 1.0f, -4.0f });
+		emissiveCube->SetScale({ 0.8f, 0.8f, 0.8f });
+
 		// Backpack
 		m_DemoObject = Elevate::GameObject::Create("Backpack", m_scene);
 		Elevate::Model& demoModel = m_DemoObject->AddComponent<Elevate::Model>("Content/Models/backpack.obj", material);
-		//Elevate::Rigidbody& rb = m_DemoObject->AddComponent<Elevate::Rigidbody>();
 		m_DemoObject->SetPosition({ 0.0f, 0.0f, -4.0f });
 
 		m_demoCube = Elevate::GameObject::Create("Cube", m_scene);
 		Elevate::Model& demoModel1 = m_demoCube->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Cube);
-		//Elevate::Rigidbody& rb1 = m_demoCube->AddComponent<Elevate::Rigidbody>();
 		Elevate::Camera& cam = m_demoCube->AddComponent<Elevate::Camera>();
 		m_demoCube->SetPosition({ 0.0f, 0.0f, 0.0f });
 		m_demoCube->SetRotation({ 0.0, -90.0f, 0.0f });
@@ -69,20 +73,20 @@ public:
 		m_PointLightObject->SetParent(m_DemoObject);
 		m_PointLightObject->SetPosition({ -2.0f, 0.0f, 2.0f });
 		Elevate::PointLight& pointLight = m_PointLightObject->AddComponent<Elevate::PointLight>(glm::vec3(1.0f, 1.0f, 1.0f));
-		pointLight.SetIntensity(0.5);
+		pointLight.SetIntensity(0.1f);
 
 		auto m_dirLightObj = Elevate::GameObject::Create("Directional Light", m_scene);
-		m_dirLightObj->SetRotation({ 0.0f, 45.0f, 20.0f });
 		Elevate::DirectionalLight& dirLight = m_dirLightObj->AddComponent<Elevate::DirectionalLight>(
 			glm::vec3(1.0f, 1.0f, 1.0f)
 		);
-		dirLight.SetIntensity(0.1f);
-		
-		// TODO CONSTRUIRE AUTOMATIQUEMENT VIA LA SCÈNE!!!!
-		m_scene->SetLighting(std::make_unique<Elevate::SceneLighting>(
-			&dirLight,
-			std::vector<Elevate::PointLight*>{ &pointLight }
-		));
+		dirLight.SetIntensity(0.5f);
+		m_dirLightObj->SetPosition({ 7.0f, 4.0f, 6.0f });
+		m_dirLightObj->SetRotation({ 0.0f, 45.0f, 45.0f });
+
+		auto plane = Elevate::GameObject::Create("Terrain", m_scene);
+		plane->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Plane);
+		plane->SetScale({ 30.0f, 1.0f, 30.0f });
+		plane->SetPosition({ 0.0f, 0.1f, 0.0f });
 	}
 
 	// TODO ajouter un icon de point light qui suit avec imgui la point light
@@ -114,16 +118,12 @@ public:
 
 		SceneLayer::OnEvent(event);
 	}
-
-	void OnImGuiRender() override
-	{
-	}
 };
 
 class Sandbox : public Elevate::Application
 {
 public:
-	Sandbox() 
+	Sandbox()
 	{
 #ifdef EE_USES_WWISE
 		Elevate::SoundEngine::SetImplementation(new Elevate::WwiseSoundEngine());
@@ -135,7 +135,7 @@ public:
 	~Sandbox() = default;
 };
 
-Elevate::Application* Elevate::CreateApplication() 
+Elevate::Application* Elevate::CreateApplication()
 {
 	return new Sandbox();
-}   
+}

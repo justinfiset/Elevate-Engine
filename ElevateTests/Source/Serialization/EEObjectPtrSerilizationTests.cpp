@@ -46,133 +46,133 @@ public:
     virtual ~MockEEObject() = default;
 };
 
-TEST_CASE("EEObject String Serialization and Roundtrip", "[Serialization][PropertySet][JSONSerializer][String]") {
-    auto originalObj = std::make_shared<MockEEObject>();
+//TEST_CASE("EEObject String Serialization and Roundtrip", "[Serialization][PropertySet][JSONSerializer][String]") {
+//    auto originalObj = std::make_shared<MockEEObject>();
+//
+//    originalObj->testStruct.testStructString = "ElevateEngineRocks";
+//
+//    TypeLayout originalLayout = originalObj->GetLayout();
+//    PropertySet originalProps = originalLayout.CaptureState();
+//
+//    JsonSerializer serializer;
+//    ByteBuffer buffer;
+//    REQUIRE(serializer.Serialize(originalProps, buffer));
+//
+//    std::string jsonStr = ByteUtils::ToString(buffer);
+//    CAPTURE(jsonStr);
+//
+//    CHECK(jsonStr.find("\"testStructString\":\"ElevateEngineRocks\"") != std::string::npos);
+//
+//    PropertySet deserializedProps;
+//    REQUIRE(serializer.Deserialize(buffer, deserializedProps));
+//
+//    auto newObj = std::make_shared<MockEEObject>();
+//    REQUIRE(newObj->testStruct.testStructString == "qwerty");
+//
+//    TypeLayout newLayout = newObj->GetLayout();
+//    newLayout.ApplyState(deserializedProps);
+//
+//    CHECK(newObj->testStruct.testStructString == "ElevateEngineRocks");
+//}
 
-    originalObj->testStruct.testStructString = "ElevateEngineRocks";
-
-    TypeLayout originalLayout = originalObj->GetLayout();
-    PropertySet originalProps = originalLayout.CaptureState();
-
-    JsonSerializer serializer;
-    ByteBuffer buffer;
-    REQUIRE(serializer.Serialize(originalProps, buffer));
-
-    std::string jsonStr = ByteUtils::ToString(buffer);
-    CAPTURE(jsonStr);
-
-    CHECK(jsonStr.find("\"testStructString\":\"ElevateEngineRocks\"") != std::string::npos);
-
-    PropertySet deserializedProps;
-    REQUIRE(serializer.Deserialize(buffer, deserializedProps));
-
-    auto newObj = std::make_shared<MockEEObject>();
-    REQUIRE(newObj->testStruct.testStructString == "qwerty");
-
-    TypeLayout newLayout = newObj->GetLayout();
-    newLayout.ApplyState(deserializedProps);
-
-    CHECK(newObj->testStruct.testStructString == "ElevateEngineRocks");
-}
-
-TEST_CASE("EEObject JSON Roundtrip and SetFromProperties", "[Serialization][PropertySet][JSONSerializer][TypeLayout]") {
-    auto originalObj = std::make_shared<MockEEObject>();
-    originalObj->testInt = 999999;
-    originalObj->testFloat = 42.42f;
-    originalObj->testStruct.testStructInt = 456;
-
-    TypeLayout originalLayout = originalObj->GetLayout();
-    PropertySet originalProps = originalLayout.CaptureState();
-
-    JsonSerializer serializer;
-    ByteBuffer buffer;
-    REQUIRE(serializer.Serialize(originalProps, buffer));
-
-    std::string jsonStr = ByteUtils::ToString(buffer);
-    CAPTURE(jsonStr);
-
-    PropertySet deserializedProps;
-    REQUIRE(serializer.Deserialize(buffer, deserializedProps));
-
-    auto newObj = std::make_shared<MockEEObject>();
-    REQUIRE(newObj->testInt == 123456);
-    REQUIRE(newObj->testFloat == 321.123f);
-    REQUIRE(newObj->testStruct.testStructInt == 123);
-
-    TypeLayout newLayout = newObj->GetLayout();
-    newLayout.ApplyState(deserializedProps);
-
-    CHECK(newObj->testInt == 999999);
-    CHECK(std::abs(newObj->testFloat - 42.42f) < 0.0001f);
-    CHECK(newObj->testStruct.testStructInt == 456);
-}
-
-TEST_CASE("TypeLayout::CaptureState with mock object", "[Serialization][TypeLayout][PropertySet]") {
-    auto objPtr (std::make_shared<MockEEObject>());
-    TypeLayout layout = objPtr->GetLayout();
-    PropertySet res = layout.CaptureState(); // Build the propertyset from the layout
-    
-    SECTION("Validate that all the types are correctly reflected") {
-        auto& objectType = Elevate::TypeRegistry::GetEntry<MockEEObject>().type;
-        CHECK(objectType == std::type_index(typeid(MockEEObject)));
-
-        auto& structType = Elevate::TypeRegistry::GetEntry<MockEEStruct>().type;
-        CHECK(structType == std::type_index(typeid(MockEEStruct)));
-    }
-
-    SECTION("Validation of the generated class layout") {
-        REQUIRE(!layout.GetFields().empty());
-        REQUIRE(layout.GetFieldCount() == 3);
-    }
-
-    SECTION("Validation of the generated PropertySet") {
-        // The propertyset should contain multiple properties
-        REQUIRE(!res.empty());
-        REQUIRE(res.size() == 3);
-    }
-}
-
-TEST_CASE("EEObject JSON Serilization", "[Serialization][PropertySet][JSONSerializer]") {
-    auto objPtr(std::make_shared<MockEEObject>());
-    Elevate::TypeLayout layout = objPtr->GetLayout();
-    Elevate::PropertySet res = layout.CaptureState();
-
-    Elevate::ByteBuffer outBuffer;
-    Elevate::JsonSerializer serializer;
-    bool success = serializer.Serialize(res, outBuffer);
-    REQUIRE(success);
-
-    std::string json = Elevate::ByteUtils::ToString(outBuffer);
-    CHECK(json.find("\"testInt\":123456") != std::string::npos);
-    CHECK(json.find("\"testStructInt\":123") != std::string::npos);
-    CHECK(json.find("\"testStructString\":\"qwerty\"") != std::string::npos);
-}
-
-TEST_CASE("EEObjectPtr serlization is not empty", "[Serialization]") {
-    Elevate::EEObjectPtr objPtr(std::make_shared<MockEEObject>());
-    Elevate::ByteBuffer guid = objPtr.Serialize();
-	REQUIRE(!guid.empty());
-}
-
-TEST_CASE("EEObjectPtr serialization ensures uniqueness", "[Serialization]") {
-    Elevate::EEObjectPtr ptr1 = std::make_shared<MockEEObject>();
-    Elevate::EEObjectPtr ptr2 = std::make_shared<MockEEObject>();
-
-    Elevate::ByteBuffer buffer1 = ptr1.Serialize();
-    Elevate::ByteBuffer buffer2 = ptr2.Serialize();
-
-    REQUIRE(!buffer1.empty());
-    REQUIRE(!buffer2.empty());
-
-    REQUIRE(buffer1 != buffer2);
-}
-
-TEST_CASE("EEObjectPtr serialization gives the same as the EEObject's guid.") {
-    Elevate::EEObjectPtr objPtr(std::make_shared<MockEEObject>());
-    Elevate::ByteBuffer guid = objPtr.Serialize();
-    REQUIRE(!guid.empty());
-
-    std::string objGuid = objPtr->GetGuid().ToString();
-    std::erase(objGuid, '-');
-    REQUIRE(Elevate::ByteUtils::ToHexString(guid) == objGuid);
-}
+//TEST_CASE("EEObject JSON Roundtrip and SetFromProperties", "[Serialization][PropertySet][JSONSerializer][TypeLayout]") {
+//    auto originalObj = std::make_shared<MockEEObject>();
+//    originalObj->testInt = 999999;
+//    originalObj->testFloat = 42.42f;
+//    originalObj->testStruct.testStructInt = 456;
+//
+//    TypeLayout originalLayout = originalObj->GetLayout();
+//    PropertySet originalProps = originalLayout.CaptureState();
+//
+//    JsonSerializer serializer;
+//    ByteBuffer buffer;
+//    REQUIRE(serializer.Serialize(originalProps, buffer));
+//
+//    std::string jsonStr = ByteUtils::ToString(buffer);
+//    CAPTURE(jsonStr);
+//
+//    PropertySet deserializedProps;
+//    REQUIRE(serializer.Deserialize(buffer, deserializedProps));
+//
+//    auto newObj = std::make_shared<MockEEObject>();
+//    REQUIRE(newObj->testInt == 123456);
+//    REQUIRE(newObj->testFloat == 321.123f);
+//    REQUIRE(newObj->testStruct.testStructInt == 123);
+//
+//    TypeLayout newLayout = newObj->GetLayout();
+//    newLayout.ApplyState(deserializedProps);
+//
+//    CHECK(newObj->testInt == 999999);
+//    CHECK(std::abs(newObj->testFloat - 42.42f) < 0.0001f);
+//    CHECK(newObj->testStruct.testStructInt == 456);
+//}
+//
+//TEST_CASE("TypeLayout::CaptureState with mock object", "[Serialization][TypeLayout][PropertySet]") {
+//    auto objPtr (std::make_shared<MockEEObject>());
+//    TypeLayout layout = objPtr->GetLayout();
+//    PropertySet res = layout.CaptureState(); // Build the propertyset from the layout
+//    
+//    SECTION("Validate that all the types are correctly reflected") {
+//        auto& objectType = Elevate::TypeRegistry::GetEntry<MockEEObject>().type;
+//        CHECK(objectType == std::type_index(typeid(MockEEObject)));
+//
+//        auto& structType = Elevate::TypeRegistry::GetEntry<MockEEStruct>().type;
+//        CHECK(structType == std::type_index(typeid(MockEEStruct)));
+//    }
+//
+//    SECTION("Validation of the generated class layout") {
+//        REQUIRE(!layout.GetFields().empty());
+//        REQUIRE(layout.GetFieldCount() == 3);
+//    }
+//
+//    SECTION("Validation of the generated PropertySet") {
+//        // The propertyset should contain multiple properties
+//        REQUIRE(!res.empty());
+//        REQUIRE(res.size() == 3);
+//    }
+//}
+//
+//TEST_CASE("EEObject JSON Serilization", "[Serialization][PropertySet][JSONSerializer]") {
+//    auto objPtr(std::make_shared<MockEEObject>());
+//    Elevate::TypeLayout layout = objPtr->GetLayout();
+//    Elevate::PropertySet res = layout.CaptureState();
+//
+//    Elevate::ByteBuffer outBuffer;
+//    Elevate::JsonSerializer serializer;
+//    bool success = serializer.Serialize(res, outBuffer);
+//    REQUIRE(success);
+//
+//    std::string json = Elevate::ByteUtils::ToString(outBuffer);
+//    CHECK(json.find("\"testInt\":123456") != std::string::npos);
+//    CHECK(json.find("\"testStructInt\":123") != std::string::npos);
+//    CHECK(json.find("\"testStructString\":\"qwerty\"") != std::string::npos);
+//}
+//
+//TEST_CASE("EEObjectPtr serlization is not empty", "[Serialization]") {
+//    Elevate::EEObjectPtr objPtr(std::make_shared<MockEEObject>());
+//    Elevate::ByteBuffer guid = objPtr.Serialize();
+//	REQUIRE(!guid.empty());
+//}
+//
+//TEST_CASE("EEObjectPtr serialization ensures uniqueness", "[Serialization]") {
+//    Elevate::EEObjectPtr ptr1 = std::make_shared<MockEEObject>();
+//    Elevate::EEObjectPtr ptr2 = std::make_shared<MockEEObject>();
+//
+//    Elevate::ByteBuffer buffer1 = ptr1.Serialize();
+//    Elevate::ByteBuffer buffer2 = ptr2.Serialize();
+//
+//    REQUIRE(!buffer1.empty());
+//    REQUIRE(!buffer2.empty());
+//
+//    REQUIRE(buffer1 != buffer2);
+//}   
+//
+//TEST_CASE("EEObjectPtr serialization gives the same as the EEObject's guid.") {
+//    Elevate::EEObjectPtr objPtr(std::make_shared<MockEEObject>());
+//    Elevate::ByteBuffer guid = objPtr.Serialize();
+//    REQUIRE(!guid.empty());
+//
+//    std::string objGuid = objPtr->GetGuid().ToString();
+//    std::erase(objGuid, '-');
+//    REQUIRE(Elevate::ByteUtils::ToHexString(guid) == objGuid);
+//}

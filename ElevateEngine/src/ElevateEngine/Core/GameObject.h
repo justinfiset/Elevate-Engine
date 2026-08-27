@@ -27,11 +27,14 @@ namespace Elevate
 		class EditorLayer;
 	}
 
-	class GameObject : public ITransformable, public EEObject, public std::enable_shared_from_this<GameObject>
+	class GameObject : public ITransformable, public EEObject
 	{
 	public:
 		GameObject(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent = nullptr);
 		~GameObject();
+
+		std::shared_ptr<GameObject> GetShared();
+		std::weak_ptr<GameObject> GetWeak();
 
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args);

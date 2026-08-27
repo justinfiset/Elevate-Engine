@@ -1,11 +1,12 @@
 #pragma once
 
-#include "ElevateEngine/Core/Window.h"
 
-#include "ElevateEngine/Renderer/GraphicsContext.h"
-
-#include <GLFW/glfw3.h>
 #include <string>
+
+#include <ElevateEngine/Core/Window.h>
+#include <ElevateEngine/Renderer/GraphicsContext.h>
+
+struct GLFWwindow;
 
 namespace Elevate
 {

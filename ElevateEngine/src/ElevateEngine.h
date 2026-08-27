@@ -40,8 +40,9 @@
 #include "ElevateEngine/Renderer/Shader/ShaderManager.h"
 #include "ElevateEngine/Renderer/Shader/Shader.h"
 // --- Lighting ----------------------
-#include <ElevateEngine/Renderer/Light/PointLight.h>
 #include <ElevateEngine/Renderer/Light/DirectionalLight.h>
+#include <ElevateEngine/Renderer/Light/PointLight.h>
+#include <ElevateEngine/Renderer/Light/SpotLight.h>
 // ===================================
 
 // === Physics =======================

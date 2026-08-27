@@ -39,10 +39,21 @@ namespace Elevate
     void TypeRegistry::Register(const std::string& name, const std::vector<FieldOption>& options)
     {
         std::type_index ti(typeid(T));
-        GetEntries().emplace(ti, Entry(name, ti));
+        auto& entry = GetEntries()[ti];
+        entry.name = name;
+        entry.type = ti;
+
+        if constexpr (std::is_base_of_v<EEObject, T> && !std::is_abstract_v<T> && std::is_default_constructible_v<T>)
+        {
+            entry.factory = []() -> std::shared_ptr<EEObject>
+            {
+                return std::make_shared<T>();
+            };
+        }
 
 #ifdef EE_EDITOR_BUILD
-        AddTrait<T, EditorTypeTrait>(options);
+        // Passing T using a type_identity simple placeholder.
+        AddTrait<T, EditorTypeTrait>(std::type_identity<T>{}, options);
 #endif
     }
 
@@ -82,7 +93,12 @@ namespace Elevate
             using ElementType = typename CleanedFieldT::value_type;
             field.elementType = DeduceEngineDataType<ElementType>();
 
-            if constexpr (std::is_class_v<ElementType> && !std::is_same_v<ElementType, std::string>)
+            if constexpr (is_ee_object_ptr_v<ElementType>)
+            {
+                using TargetT = ee_ptr_target_t<ElementType>;
+                field.targetType = typeid(TargetT);
+            }
+            else if constexpr (std::is_class_v<ElementType> && !std::is_same_v<ElementType, std::string>)
             {
                 auto& customFields = GetReflectedTypes();
                 std::type_index ti = typeid(ElementType);
@@ -110,6 +126,12 @@ namespace Elevate
                 auto* vec = static_cast<CleanedFieldT*>(vecPtr);
                 vec->resize(newSize);
                 };
+        }
+        else if constexpr (is_ee_object_ptr_v<CleanedFieldT>)
+        {
+            field = TypeField(name, EngineDataType::ObjectPtr, offset, meta.displayName);
+            using TargetT = ee_ptr_target_t<CleanedFieldT>;
+            field.targetType = typeid(TargetT);
         }
         else if (type == EngineDataType::Custom)
         {

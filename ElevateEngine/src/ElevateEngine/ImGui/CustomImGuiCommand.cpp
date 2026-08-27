@@ -19,6 +19,18 @@ void Elevate::UI::InputField(const char* label, std::string& data)
 	}
 }
 
+void Elevate::UI::InputField(const char* label, const std::string& data)
+{
+	ImGui::Text("%s", label);
+	ImGui::SameLine();
+
+	char buffer[255];
+	strncpy(buffer, data.c_str(), sizeof(buffer));
+	buffer[sizeof(buffer) - 1] = '\0';
+
+	ImGui::InputText("##InputField", buffer, sizeof(buffer));
+}
+
 bool Elevate::UI::EECollapsingHeader(const char* label, bool canOpen, const void* icon, std::function<float()> headerCustomContent)
 {
 	using namespace ImGui;

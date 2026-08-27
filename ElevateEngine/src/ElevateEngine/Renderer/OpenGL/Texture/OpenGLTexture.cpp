@@ -14,32 +14,51 @@ namespace Elevate
 {
 	constexpr GLenum ToInternalFormat(TextureFormat format) {
 		switch (format) {
-		case TextureFormat::GRAYSCALE:   return GL_R8;       // 8-bit single channel
-		case TextureFormat::RGB:         return GL_RGB8;     // 8-bit RGB
-		case TextureFormat::RGBA:        return GL_RGBA8;    // 8-bit RGBA
-		case TextureFormat::DEPTH:       return GL_DEPTH_COMPONENT24;
-		case TextureFormat::EMPTY:
-		default:                         return GL_RGBA8;
+			case TextureFormat::GRAYSCALE:		return GL_R8;       // 8-bit single channel
+			case TextureFormat::RGB:			return GL_RGB;		// 8-bit RGB
+			case TextureFormat::SRGB:			return GL_SRGB8;
+			case TextureFormat::RGBA:			return GL_RGBA8;    // 8-bit RGBA
+			case TextureFormat::SRGBA:			return GL_SRGB8_ALPHA8;
+			case TextureFormat::RGB16F:			return GL_RGB16F;
+			case TextureFormat::RGB32F:			return GL_RGB32F;
+			case TextureFormat::RGBA16F:		return GL_RGBA16F;
+			case TextureFormat::RGBA32F:		return GL_RGBA32F;
+			case TextureFormat::DEPTH:			return GL_DEPTH_COMPONENT24;
+			case TextureFormat::EMPTY:
+			default:							return GL_RGBA8;
 		}
 	}
 
 	constexpr GLenum ToOpenGL(TextureFormat format) {
 		switch (format) {
-		case TextureFormat::GRAYSCALE: return GL_RED;
-		case TextureFormat::RGB:       return GL_RGB;
-		case TextureFormat::RGBA:      return GL_RGBA;
-		case TextureFormat::DEPTH:     return GL_DEPTH_COMPONENT;
-		case TextureFormat::EMPTY:
+			case TextureFormat::GRAYSCALE:			return GL_RED;
+
+			case TextureFormat::RGB:				return GL_RGB;
+			case TextureFormat::SRGB:				return GL_RGB;
+			case TextureFormat::RGB16F:				return GL_RGB;
+			case TextureFormat::RGB32F:				return GL_RGB;
+
+			case TextureFormat::RGBA:				return GL_RGBA;
+			case TextureFormat::SRGBA:				return GL_RGBA;
+			case TextureFormat::RGBA16F:			return GL_RGBA;
+			case TextureFormat::RGBA32F:			return GL_RGBA;
+
+			case TextureFormat::DEPTH:				return GL_DEPTH_COMPONENT;
+			case TextureFormat::EMPTY:
 			//case TextureFormat::DEPTH16:            return GL_DEPTH_COMPONENT16;
 			//case TextureFormat::DEPTH24:            return GL_DEPTH_COMPONENT24;
 			//case TextureFormat::DEPTH32F:           return GL_DEPTH_COMPONENT32F;
 			//case TextureFormat::DEPTH24_STENCIL8:   return GL_DEPTH24_STENCIL8;
-		default:                       return GL_RGBA;
+			default:								return GL_RGBA;
 		}
 	}
 
 	constexpr GLenum ToOpenGLType(TextureFormat format) {
 		switch (format) {
+		case TextureFormat::RGB16F:				return GL_FLOAT;
+		case TextureFormat::RGB32F:				return GL_FLOAT;
+		case TextureFormat::RGBA16F:			return GL_FLOAT;
+		case TextureFormat::RGBA32F:			return GL_FLOAT;
 		case TextureFormat::DEPTH:				return GL_FLOAT;
 		default:                                return GL_UNSIGNED_BYTE;
 		}
@@ -47,19 +66,19 @@ namespace Elevate
 
 	constexpr GLenum ToOpenGL(TextureFilter filter) {
 		switch (filter) {
-		case TextureFilter::Nearest: return GL_NEAREST;
-		case TextureFilter::Linear:  return GL_LINEAR;
-		default:                     return GL_NEAREST;
+			case TextureFilter::Nearest: return GL_NEAREST;
+			case TextureFilter::Linear:  return GL_LINEAR;
+			default:                     return GL_NEAREST;
 		}
 	}
 
 	constexpr GLenum ToOpenGL(TextureWrap wrap) {
 		switch (wrap) {
-		case TextureWrap::Repeat:       return GL_REPEAT;
-		case TextureWrap::MirrorRepeat: return GL_MIRRORED_REPEAT;
-		case TextureWrap::ClampToEdge:  return GL_CLAMP_TO_EDGE;
-		case TextureWrap::ClampToBorder:return GL_CLAMP_TO_BORDER;
-		default:                        return GL_REPEAT;
+			case TextureWrap::Repeat:       return GL_REPEAT;
+			case TextureWrap::MirrorRepeat: return GL_MIRRORED_REPEAT;
+			case TextureWrap::ClampToEdge:  return GL_CLAMP_TO_EDGE;
+			case TextureWrap::ClampToBorder:return GL_CLAMP_TO_BORDER;
+			default:                        return GL_REPEAT;
 		}
 	}
 
@@ -77,12 +96,15 @@ namespace Elevate
 		return (filter == TextureFilter::Nearest) ? GL_NEAREST_MIPMAP_NEAREST : GL_LINEAR_MIPMAP_LINEAR;
 	}
 
-	OpenGLTexture::OpenGLTexture(unsigned char* data, TextureMetadata& meta)
+	OpenGLTexture::OpenGLTexture(const TextureMetadata& meta)
 		: Texture(meta)
 	{
-		// todo get parameters for the textures
 		GLCheck(glGenTextures(1, &m_textureID));
+	}
 
+	OpenGLTexture::OpenGLTexture(const void* data, const TextureMetadata& meta)
+		: OpenGLTexture(meta)
+	{
 		Bind();
 		SetDataImpl(data);
 	}
@@ -98,20 +120,31 @@ namespace Elevate
 		GLCheck(glBindTexture(ToOpenGL(m_meta.Usage), 0));
 	}
 
-	void OpenGLTexture::SetDataImpl(unsigned char* data)
+	void OpenGLTexture::SetDataImpl(const void* data)
 	{
 		Bind();
 
 		GLCheck(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
 
-		// set the texture wrapping parameters	
 		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, ToOpenGL(m_meta.WrapS)));
 		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, ToOpenGL(m_meta.WrapT)));
-		// set texture filtering parameters
 		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GetMinFilter(m_meta.MinFilter, m_meta.Mipmaps)));
 		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, ToOpenGL(m_meta.MagFilter)));
 
-		// Swizzle if there is only a single channnel
+		if (m_meta.Usage == TextureType::ShadowMap)
+		{
+			GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE));
+			GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL));
+
+#if defined(EE_PLATFORM_WEB)
+			GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+			GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+#else		// Not supported on WebGL
+			constexpr float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+			GLCheck(glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor));
+#endif
+		}
+
 #ifdef EE_SUPPORTS_DSA
 		if (m_meta.Format == TextureFormat::GRAYSCALE) {
 			GLint swizzleMask[] = { GL_RED, GL_RED, GL_RED, GL_ONE };
@@ -124,11 +157,7 @@ namespace Elevate
 		uint32_t width = m_meta.Width > 0 ? m_meta.Width : 1;
 		uint32_t height = m_meta.Height > 0 ? m_meta.Height : 1;
 
-		static const unsigned char fallbackPixel[4] = { 255, 0, 255, 255 };
 		const void* pixelsToUpload = data;
-		if (!pixelsToUpload) {
-			pixelsToUpload = fallbackPixel;
-		}
 
 		GLCheck(glTexImage2D(
 			GL_TEXTURE_2D,
@@ -142,7 +171,7 @@ namespace Elevate
 			pixelsToUpload
 		));
 
-		if (m_meta.Mipmaps && m_meta.Width > 0 && m_meta.Height > 0) {
+		if (m_meta.Mipmaps && width > 1 && height > 1 && pixelsToUpload != nullptr) {
 			GLCheck(glGenerateMipmap(GL_TEXTURE_2D));
 		}
 	}

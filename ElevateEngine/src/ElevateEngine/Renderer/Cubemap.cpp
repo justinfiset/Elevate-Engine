@@ -11,7 +11,7 @@
 
 Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 {
-	m_renderState.Cullface = false;
+	m_renderState.CullMode = CullFace::None;
 	m_renderState.DepthWrite = false;
 	m_renderState.DepthTest = false;
 
@@ -97,24 +97,23 @@ Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(const std::string& filePath)
 	return new Cubemap(paths, resolvedPath);
 }
 
-void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader)
+void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader) const
 {
 	if (!shader) shader = m_cubemapShader;
 
-	// todo send as a render command
 	Renderer::PushRenderState(m_renderState);
 	Renderer::BindShader(shader);
 	GLCheck(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));
 	Renderer::DrawArray(m_VertexArray);
 }
 
-void Elevate::Cubemap::SetProjectionMatrix(glm::mat4 proj)
+void Elevate::Cubemap::SetProjectionMatrix(glm::mat4 proj) const
 {
 	Renderer::BindShader(m_cubemapShader);
 	m_cubemapShader->SetUniformMatrix4fv("projection", proj);
 }
 
-void Elevate::Cubemap::SetViewMatrix(glm::mat4 view)
+void Elevate::Cubemap::SetViewMatrix(glm::mat4 view) const
 {
 	Renderer::BindShader(m_cubemapShader);
 	m_cubemapShader->SetUniformMatrix4fv("view", view);

@@ -9,44 +9,64 @@ namespace Elevate
 	EditorCamera::EditorCamera(float fov)
 		: Camera(fov, false) { }
 
-	void EditorCamera::Update()
-	{
-		float baseCamSpeed = 0.5f;
-		if (Input::IsKeyPressed(EE_KEY_LEFT_SHIFT))
-		{
-			baseCamSpeed = 2.5f;
-		}
-		float cameraSpeed = baseCamSpeed * Time::GetDeltaTime();
+    void EditorCamera::Update()
+    {
+        float baseCamSpeed = 0.5f;
 
-		glm::vec3 offset = { 0.0f, 0.0f, 0.0f };
-		if (Input::IsKeyPressed(EE_KEY_W))
-			offset += cameraSpeed * GetFrontVec();
-		if (Input::IsKeyPressed(EE_KEY_S))
-			offset -= cameraSpeed * GetFrontVec();
-		if (Input::IsKeyPressed(EE_KEY_D))
-			offset -= cameraSpeed * GetRightVec();
-		if (Input::IsKeyPressed(EE_KEY_A))
-			offset += cameraSpeed * GetRightVec();
-		gameObject->SetPosition(gameObject->GetPosition() + offset);
+        if (Input::IsKeyPressed(EE_KEY_LEFT_SHIFT))
+            baseCamSpeed = 2.5f;
 
-		if (m_followCursor)
-		{
-			float xpos = Input::GetMouseX();
-			float ypos = Input::GetMouseY();
+        float cameraSpeed = baseCamSpeed * Time::GetDeltaTime();
 
-			float xoffset = (xpos - m_lastX) * m_sensitivity;
-			float yoffset = (m_lastY - ypos) * m_sensitivity;
+        glm::vec3 offset(0.0f);
 
-			m_lastX = xpos;
-			m_lastY = ypos;
+        if (Input::IsKeyPressed(EE_KEY_W))
+            offset += cameraSpeed * GetFrontVec();
 
-			gameObject->GetRotation().y += xoffset;
-			gameObject->GetRotation().x += yoffset;
+        if (Input::IsKeyPressed(EE_KEY_S))
+            offset -= cameraSpeed * GetFrontVec();
 
-			ClampRotation();
-			UpdateCameraVectors();
-		}
-	}
+        if (Input::IsKeyPressed(EE_KEY_D))
+            offset += cameraSpeed * GetRightVec();
+
+        if (Input::IsKeyPressed(EE_KEY_A))
+            offset -= cameraSpeed * GetRightVec();
+
+        gameObject->SetPosition(gameObject->GetPosition() + offset);
+
+        if (!m_followCursor)
+            return;
+
+        float xpos = Input::GetMouseX();
+        float ypos = Input::GetMouseY();
+
+        float xoffset = (xpos - m_lastX) * m_sensitivity;
+        float yoffset = (m_lastY - ypos) * m_sensitivity;
+
+        m_lastX = xpos;
+        m_lastY = ypos;
+
+        m_yaw -= xoffset;
+        m_pitch += yoffset;
+
+        m_pitch = glm::clamp(m_pitch, -89.0f, 89.0f);
+
+        glm::quat yawRotation =
+            glm::angleAxis(
+                glm::radians(m_yaw),
+                glm::vec3(0.0f, 1.0f, 0.0f)
+            );
+
+        glm::quat pitchRotation =
+            glm::angleAxis(
+                glm::radians(m_pitch),
+                glm::vec3(1.0f, 0.0f, 0.0f)
+            );
+
+        gameObject->GetTransform().SetRotationQuaternion(
+            yawRotation * pitchRotation
+        );
+    }
 
 	void EditorCamera::OnNotify(Event& event)
 	{
@@ -67,15 +87,16 @@ namespace Elevate
 
 	void EditorCamera::Init()
 	{
-		gameObject->GetRotation().y = -90.0f;
-		Camera::Init();
-	}
+        m_yaw = -90.0f;
+        m_pitch = 0.0f;
 
-	void EditorCamera::ClampRotation()
-	{
-		if (gameObject->GetRotation().x > 89.0f)
-			gameObject->GetRotation().x = 89.0f;
-		if (gameObject->GetRotation().x < -89.0f)
-			gameObject->GetRotation().x = -89.0f;
+        gameObject->GetTransform().SetRotationQuaternion(
+            glm::angleAxis(
+                glm::radians(m_yaw),
+                glm::vec3(0.0f, 1.0f, 0.0f)
+            )
+        );
+
+		Camera::Init();
 	}
 }

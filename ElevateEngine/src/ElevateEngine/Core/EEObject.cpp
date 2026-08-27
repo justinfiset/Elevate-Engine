@@ -2,12 +2,8 @@
 
 namespace Elevate
 {
-	ByteBuffer Elevate::EEObject::Serialize() const
+	void EEObject::SetGuid(const Guid& guid)
 	{
-		return ByteBuffer();
-	}
-
-	void EEObject::Deserialize(const ByteBuffer& data)
-	{
+		m_guid = guid;
 	}
 }

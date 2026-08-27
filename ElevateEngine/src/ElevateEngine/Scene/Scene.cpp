@@ -11,6 +11,7 @@
 
 #include <ElevateEngine/Renderer/Camera.h>
 #include <ElevateEngine/Renderer/Camera/CameraManager.h>
+#include <ElevateEngine/Renderer/Light/SceneLighting.h>
 
 #include "ScenePrivate.h"
 
@@ -33,6 +34,8 @@ namespace Elevate
 		m_registryId = s_nextRegistryId;
 		s_nextRegistryId++;
 		GetRegistryMap()[m_registryId] = std::make_unique<entt::registry>();
+
+		m_sceneLighting = std::make_unique<SceneLighting>();
 
 		EE_TRACE("Created scene '{}' with registry id: {}", m_name.c_str(), m_registryId);
 	}
@@ -66,32 +69,6 @@ namespace Elevate
 		{
 			cam = Elevate::CameraManager::GetCurrent();
 		}
-
-		// Render the cubemap / skybox
-		if (cam)
-		{
-			// Either do not calculate here or stop calculating it in the layer
-			glm::mat4 view = glm::mat4(glm::mat3(cam->GenViewMatrix()));
-
-			if (m_cubemap)
-			{
-				m_cubemap->SetProjectionMatrix(cam->GetProjectionMatrix());
-				m_cubemap->SetViewMatrix(view);
-				m_cubemap->Draw();
-			}
-		}
-
-		// todo remove
-		//for (std::shared_ptr<GameObject> obj : m_rootObjects)
-		//{
-		//	obj->PreRender();
-		//}
-
-		// todo remove
-		//if (m_sceneLighting)
-		//{
-		//	Renderer::SetupShaders(this);
-		//}
 
 		for (EEObjectPtr<GameObject> obj : m_rootObjects)
 		{
@@ -166,6 +143,11 @@ namespace Elevate
 	std::weak_ptr<Cubemap> Scene::GetSkybox()
 	{
 		return m_cubemap;
+	}
+
+	SceneLighting* Scene::GetSceneLighting()
+	{
+		return m_sceneLighting.get();
 	}
 
 	void Scene::RemoveFromRoot(const EEObjectPtr<GameObject>& object)

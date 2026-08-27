@@ -1,12 +1,13 @@
 #pragma once
-#include "ElevateEngine/Renderer/FrameBuffer.h"
+#include "ElevateEngine/Renderer/Framebuffer.h"
 
 namespace Elevate
 {
 	class OpenGLFrameBuffer : public Framebuffer
 	{
 	public:
-		OpenGLFrameBuffer(TexturePtr tex);
+		OpenGLFrameBuffer(const std::vector<TexturePtr>& colorTextures, TexturePtr depthTexture, bool depthAsRenderbuffer);
+		~OpenGLFrameBuffer();
 
 		void Bind() const override;
 		void Unbind() const override;
@@ -19,8 +20,7 @@ namespace Elevate
 		const char* GetFramebufferStatusString(uint32_t status) const;
 	private:
 		// IDs
-		uint32_t m_frameBufferId;
-		uint32_t m_renderBufferId;
-		uint32_t m_textureId;
+		uint32_t m_frameBufferId = 0;
+		uint32_t m_renderBufferId = 0;
 	};
 }

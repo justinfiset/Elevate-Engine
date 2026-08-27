@@ -13,16 +13,18 @@ namespace Elevate
 
 		virtual void SetClearColor(const glm::vec4& color) const override;
 		virtual void SetViewport(int x, int y, int width, int height) const override;
+
 		virtual void Clear() const override;
+		virtual void ClearDepth() const override;
 		virtual void FlushBuffers() const override;
 
 		virtual void ClearTextureBindings() const override;
 		virtual void UnbindTexture(uint8_t slot = 0) const override;
 
 		virtual void DrawArray(const VertexArray* vao, DrawPrimitiveType primitive = DrawPrimitiveType::Triangles) const override;
-		virtual void SetCullingState(bool enabled) const override;
+		virtual void SetCullingState(CullFace cullSetting) const override;
 		virtual void SetDepthWrittingState(bool enabled) const override;
 		virtual void SetDepthTestingState(bool enabled) const override;
-		virtual void SetBlendingState(bool enabled) const override;
+		virtual void SetBlendingState(BlendModeType mode) const override;
 	};
 }

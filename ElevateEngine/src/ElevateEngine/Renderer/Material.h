@@ -11,6 +11,8 @@
 
 #include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/Asset.h>
+#include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Renderer/Buffer.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Shader/ShaderManager.h>
@@ -25,12 +27,51 @@ namespace Elevate
     class MaterialFactory;
     class MaterialRegistry;
 
-    using MaterialPtr = std::shared_ptr<Material>;
+    using MaterialPtr = EEObjectPtr<Material>;
     using MaterialID = uint32_t;
 
-    class Material
+    class Material : public Asset
     {
+        BEGIN_OBJECT(Material, EE_Asset("Material", ".mat", EE_CreateAssetMenu, EE_AssetColor(0.8f, 0.2f, 0.2f)))
+
     public:
+        virtual TypeLayout GetLayout() const override {
+            std::vector<TypeField> allFields;
+
+            TypeField guidField(
+                "m_guid",
+                EngineDataType::GUID,
+                GetGuidOffset()
+            );
+            guidField.data = reinterpret_cast<const char*>(this) + GetGuidOffset();
+            allFields.push_back(guidField);
+
+            if (m_shader)
+            {
+                const auto& layout = m_shader->GetLayout();
+
+                for (const auto& uniform : layout)
+                {
+                    if (uniform.Type == ShaderDataType::Sampler2D) continue;
+
+                    if (uniform.Name == EE_SHADER_VIEWPROJ ||
+                        uniform.Name == EE_SHADER_CAMPOS ||
+                        uniform.Name == EE_SHADER_MODEL)
+                    {
+                        continue;
+                    }
+
+                    if (m_definedUniforms[uniform.Index])
+                    {
+                        TypeField field(uniform.Name, uniform.Type, m_buffer.data() + uniform.Offset);
+                        allFields.push_back(field);
+                    }
+                }
+            }
+
+            return TypeLayout(this, GetName(), allFields);
+        }
+
         template<typename T>
         void Set(const std::string& name, const T& value)
         {
@@ -62,8 +103,10 @@ namespace Elevate
         RenderBucket::Type GetBucket() const { return m_bucket; }
         void SetBucket(RenderBucket::Type bucket) { m_bucket = bucket; }
 
-    private:
+        size_t GetTextureCount() const { return m_textures.size(); }
+
         Material();
+    private:
         Material(const std::shared_ptr<Shader>& shader);
 
         TexturePtr GetTextureForUniform(const std::string& uniformName) const;
@@ -82,6 +125,8 @@ namespace Elevate
         RenderBucket::Type m_bucket = RenderBucket::GBuffer;
 
         friend class MaterialFactory;
+
+        END_OBJECT_CUSTOM()
     };
 
     class MaterialFactory

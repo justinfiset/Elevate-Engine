@@ -5,7 +5,9 @@
 
 #include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Core/GameContext.h>
+
 #include <ElevateEngine/Events/Event.h>
+
 #include <ElevateEngine/Renderer/Cubemap.h>
 #include <ElevateEngine/Renderer/Light/SceneLighting.h>
 
@@ -43,7 +45,6 @@ namespace Elevate
 		void UpdateScene();
 		void RenderScene(Camera* cam = nullptr);
 		void Notify(Event& event); // Dispatch an event to gameobjects
-		void SubmitDrawCalls(RendererAPI& renderer);
 
 		inline const std::string& GetName() const { return m_name; };
 
@@ -58,14 +59,7 @@ namespace Elevate
 		void SetSkybox(const std::string& skyboxFilePath);
 		std::weak_ptr<Cubemap> GetSkybox();
 
-		inline void SetLighting(std::unique_ptr<SceneLighting> newLighting)
-		{
-			m_sceneLighting = std::move(newLighting);
-		}
-		inline const SceneLighting* GetSceneLighting() 
-		{
-			return m_sceneLighting.get();
-		}
+		SceneLighting* GetSceneLighting();
 	private:
 		void RemoveFromRoot(const EEObjectPtr<GameObject>& object);
 		void AddRootObject(const EEObjectPtr<GameObject>& newRootObject);

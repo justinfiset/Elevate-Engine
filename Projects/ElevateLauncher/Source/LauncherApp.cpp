@@ -415,7 +415,7 @@ public:
 			ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, ImGui::GetColorU32(ImGuiCol_FrameBg));
 
 			ImGui::PushFont(m_subHeaderFont);
-			ImGui::Text(templates[selectedTemplate].Name.c_str());
+			ImGui::Text("%s", templates[selectedTemplate].Name.c_str());
 			ImGui::Separator();
 			ImGui::PopFont();
 
@@ -445,9 +445,9 @@ public:
 				ImGui::SetCursorScreenPos(ImVec2(pos.x, p_max.y + padding));
 			}
 			ImGui::SeparatorText("Template Description");
-			ImGui::TextWrapped(templates[selectedTemplate].Desription.c_str());
+			ImGui::TextWrapped("%s", templates[selectedTemplate].Desription.c_str());
 			ImGui::SeparatorText("Template Path");
-			ImGui::TextWrapped(templates[selectedTemplate].Path.c_str());
+			ImGui::TextWrapped("%s", templates[selectedTemplate].Path.c_str());
 			ImGui::EndTable();
 		}
 
@@ -507,9 +507,9 @@ public:
 
 		ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, pos.y + padding));
 		ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + maxWidth - padding * 4 - optionButtonSize);
-		ImGui::TextColored(textColor, project.Name.c_str());
+		ImGui::TextColored(textColor, "%s", project.Name.c_str());
 		ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, ImGui::GetCursorScreenPos().y));
-		ImGui::TextDisabled(project.Path.c_str());
+		ImGui::TextDisabled("%s", project.Path.c_str());
 		ImGui::PopTextWrapPos();
 		ImGui::SetCursorScreenPos(ImVec2(pos.x, pos.y + height + padding));
 		ImGui::PopID();

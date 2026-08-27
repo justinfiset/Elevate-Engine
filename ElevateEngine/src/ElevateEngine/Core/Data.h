@@ -113,6 +113,8 @@ namespace Elevate
 		Double,
 		String,
 		Array,
+		GUID,
+		ObjectPtr,
 		Custom,
 		Unknown
 	};

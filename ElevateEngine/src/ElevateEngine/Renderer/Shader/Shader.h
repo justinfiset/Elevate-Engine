@@ -37,7 +37,7 @@ namespace Elevate
 		static std::shared_ptr<Shader> CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode);
 
 		// Lights
-		void UseLight(Light* newLightSetting, const std::string& lightName);
+		void UseLight(const Light* newLightSetting, const std::string& lightName) const;
 		void UseDirLight(DirectionalLight* newDirLight);
 
 		// Camera
@@ -96,11 +96,11 @@ namespace Elevate
 		virtual void SetUniform4iv(const std::string& location, int count, int* value) const = 0;
 
 		// MATRIX
-		virtual void SetUniformMatrix2fv(const std::string& location, float* data) const = 0;
+		virtual void SetUniformMatrix2fv(const std::string& location, float* data, uint32_t count = 1) const = 0;
 		void SetUniformMatrix2fv(const std::string& location, glm::mat2 data) const;
-		virtual void SetUniformMatrix3fv(const std::string& location, float* data) const = 0;
+		virtual void SetUniformMatrix3fv(const std::string& location, float* data, uint32_t count = 1) const = 0;
 		void SetUniformMatrix3fv(const std::string& location, glm::mat3 data) const;
-		virtual void SetUniformMatrix4fv(const std::string& location, float* data) const = 0;
+		virtual void SetUniformMatrix4fv(const std::string& location, float* data, uint32_t count = 1) const = 0;
 		void SetUniformMatrix4fv(const std::string& location, glm::mat4 data) const;
 
 		// TODO CHECK IF NEEDED FOR OTHER APIS

@@ -3,6 +3,7 @@
 
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
+#include <ElevateEngine/Renderer/Light/SceneLighting.h>
 
 namespace Elevate {
 	ShaderPtr ShaderManager::LoadShader(const std::string& name, ShaderPtr shader)
@@ -44,7 +45,28 @@ namespace Elevate {
 		EE_CORE_INFO("Initializing ShaderManager.");
 		// Create a default shader.
 		EE_CORE_TRACE("(ShaderManager) : Creating default shader.");
-		LoadShader(EE_DEFAULT_SHADER, Shader::CreateDefault());
+
+		std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(MAX_POINTLIGHT) + "\n";
+		std::string glslSpotLightCountDefine = "#define NR_SPOT_LIGHTS " + std::to_string(MAX_SPOTLIGHT) + "\n";
+		ShaderPtr defaultShader = Elevate::Shader::CreateFromFiles(
+			"engine://Shaders/DefaultLitShader.vert",
+			"engine://Shaders/DefaultLitShader.frag",
+			EE_SHADER_HEADER,
+			EE_SHADER_HEADER + glslPointLightCountDefine + glslSpotLightCountDefine
+		);
+		if (!defaultShader) {
+			defaultShader = Shader::CreateDefault();
+		}
+
+		if (defaultShader)
+		{
+			LoadShader(EE_DEFAULT_SHADER, defaultShader);
+		}
+		else
+		{
+			EE_CORE_ERROR("(ShaderManager) : Failed to create the default shader.");
+		}
+
 		EE_CORE_INFO("Initialized ShaderManager.");
 	}
 

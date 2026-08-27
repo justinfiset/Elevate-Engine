@@ -1,8 +1,9 @@
 #pragma once
 
+#include <memory>
+
 #include <ElevateEngine/Core/Layers/LayerStack.h>
 #include <ElevateEngine/Core/Window.h>
-#include <ElevateEngine/Renderer/FrameBuffer.h> // todo remove once the framebuffer is not present in this file anymore
 #include <ElevateEngine/Core/GameContext.h>
 
 #ifdef EE_USES_WWISE
@@ -56,9 +57,6 @@ namespace Elevate {
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
-		// TODO Maybe move somewhere else
-		std::unique_ptr<Framebuffer> FrameBuffer;
-
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 		static ApplicationArguments GetArguments();
@@ -87,9 +85,6 @@ namespace Elevate {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-
-		// TODO move somewhere else (renderer?)
-		std::shared_ptr<Framebuffer> m_FrameBuffer;
 
 		GameContextState m_state = Initializing;
 		ApplicationArguments m_args;

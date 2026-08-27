@@ -9,12 +9,22 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <ElevateEngine/Editor/EditorLayer.h>
 #include <ElevateEngine/ImGui/CustomImGuiCommand.h>
+#include <ElevateEngine/Renderer/Texture/TextureManager.h>
 
 #include <ElevateEngine/Editor/Commands/ComponentCommand.h>
+#include <ElevateEngine/Editor/EditorLayer.h>
+
+#include <ElevateEngine/Core/AssetRegistry.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Core/Component.h>
+
+Elevate::Editor::AnalyserPanel::AnalyserPanel()
+{
+	pickerIcon = Texture::CreateFromFile("editor://Icons/Light/adjust.png");
+	noneIcon = Texture::CreateFromFile("editor://Icons/Light/block.png");
+	navigateToIcon = Texture::CreateFromFile("editor://Icons/Light/arrow_top_right.png");
+}
 
 void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 {
@@ -185,29 +195,45 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const TypeLayout& lay
 	}
 }
 
-void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field) const
+void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 {
+	if (!field.data && field.type != EngineDataType::Custom)
+	{
+		ImGui::TextColored(ImVec4(1, 0, 0, 1), "[Null Data Pointer] %s", field.GetDisplayName().c_str());
+		return;
+	}
+
 	ImGui::BeginDisabled(field.readOnly);
 
 	ImGui::PushID(field.data);
 
 	switch (field.type)
 	{
+	case EngineDataType::Int:
+		ImGui::InputInt(field.GetDisplayName().c_str(), (int*)(field.data));
+		break;
+	case EngineDataType::Int2:
+		ImGui::InputInt2(field.GetDisplayName().c_str(), (int*)(field.data));
+		break;
+	case EngineDataType::Int3:
+		ImGui::InputInt3(field.GetDisplayName().c_str(), (int*)(field.data));
+		break;
+	case EngineDataType::Int4:
+		ImGui::InputInt4(field.GetDisplayName().c_str(), (int*)(field.data));
+		break;
+
 	case EngineDataType::Float:
 		ImGui::InputFloat(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
-
 	case EngineDataType::Float2:
 		ImGui::InputFloat2(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
-
 	case EngineDataType::Float3:
 		if (field.isColor)
 			ImGui::ColorEdit3(field.GetDisplayName().c_str(), (float*)(field.data));
 		else
 			ImGui::InputFloat3(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
-
 	case EngineDataType::Float4:
 		if (field.isColor)
 			ImGui::ColorEdit4(field.GetDisplayName().c_str(), (float*)(field.data));
@@ -235,6 +261,95 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field) const
 				RenderField(child);
 		}
 		break;
+
+	case EngineDataType::GUID: // We do not display the guid
+		break;
+
+	case EngineDataType::ObjectPtr:
+	{
+		// Convert to a non const EEObjectPtr of EEObject
+		auto* eePtr = const_cast<EEObjectPtr<EEObject>*>(reinterpret_cast<const EEObjectPtr<EEObject>*>(field.data));
+		auto assetPtr = const_cast<EEObjectPtr<Asset>*>(reinterpret_cast<const EEObjectPtr<Asset>*>(field.data));
+
+		if (eePtr)
+		{
+			auto* assetEntry = assetPtr ? AssetRegistry::GetEntry(assetPtr->GetGuid()) : nullptr;
+			std::string displayName = (*eePtr) ? (assetEntry ? assetEntry->AssetName : "[Unknown Asset]") : "[None (EEObject)]";
+			char buf[128];
+			strncpy(buf, displayName.c_str(), sizeof(buf) - 1);
+			buf[sizeof(buf) - 1] = '\0';
+
+			float buttonSize = ImGui::GetFrameHeight() - ImGui::GetStyle().ItemInnerSpacing.y;
+			float spacing = ImGui::GetStyle().ItemInnerSpacing.x;
+			float totalWidth = ImGui::CalcItemWidth();
+
+			ImGui::SetNextItemWidth(totalWidth - buttonSize - spacing);
+			ImGuiStyle& style = ImGui::GetStyle();
+
+			ImVec4 textDisabled = style.Colors[ImGuiCol_TextDisabled];
+			ImVec4 frameBgDisabled = style.Colors[ImGuiCol_FrameBg];
+			frameBgDisabled.w *= style.DisabledAlpha;
+
+			ImGui::PushStyleColor(ImGuiCol_FrameBg, frameBgDisabled);
+			ImGui::PushStyleColor(ImGuiCol_Text, textDisabled);
+
+			std::string inputID = "##" + field.name;
+			ImGui::InputText(inputID.c_str(), buf, sizeof(buf), ImGuiInputTextFlags_ReadOnly);
+
+			ImGui::PopStyleColor(2);
+
+			ImGui::SameLine(0, spacing);
+			if (ImGui::ImageButton("##picker", (ImTextureID)pickerIcon->GetNativeHandle(), ImVec2(buttonSize, buttonSize)))
+			{
+				ImGui::OpenPopup("AssetPickerPopup");
+			}
+
+			ImGui::SameLine(0, ImGui::GetStyle().ItemSpacing.x);
+			
+			
+			ImGui::BeginDisabled(!assetEntry || !assetEntry->isOnDisk);
+			if (ImGui::ImageButton("##navigateto", (ImTextureID)navigateToIcon->GetNativeHandle(), ImVec2(buttonSize, buttonSize)))
+			{
+				AssetBrowserPanel::SelectAsset(assetPtr->get());
+			}
+			ImGui::EndDisabled();
+			ImGui::SameLine(0, ImGui::GetStyle().ItemSpacing.x);
+			ImGui::TextUnformatted(field.GetDisplayName().c_str());
+
+			if (ImGui::BeginPopup("AssetPickerPopup"))
+			{
+				ImGui::TextDisabled("Select %s", field.GetDisplayName().c_str());
+				ImGui::Separator();
+
+				if (ImGui::Selectable("##"))
+				{
+					eePtr->reset();
+				}
+				ImGui::SameLine(ImGui::GetStyle().ItemSpacing.x);
+				ImGui::Image((ImTextureID)noneIcon->GetNativeHandle(), ImVec2(buttonSize, buttonSize));
+				ImGui::SameLine();
+				ImGui::Text("None");
+				
+				for (auto& guid : AssetRegistry::GetAssetsOfType(field.targetType))
+				{
+					auto* entry = AssetRegistry::GetEntry(guid);
+					if (entry)
+					{
+						if (ImGui::Selectable(entry->AssetName.c_str()))
+						{
+							eePtr->SetGuid(guid);
+						}
+					}
+				}
+				ImGui::EndPopup();
+			}
+		}
+		else
+		{
+			ImGui::TextColored(ImVec4(1, 0, 0, 1), "[Null Data EEObjectPtr] %s", field.GetDisplayName().c_str());
+		}
+		break;
+	}
 
 	default:
 		ImGui::TextColored(ImVec4(1, 0, 0, 1), "Unsupported data type: %s", field.name.c_str());

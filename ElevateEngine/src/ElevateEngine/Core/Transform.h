@@ -3,6 +3,7 @@
 #include <memory>
 
 #include <glm/mat4x4.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <glm/vec3.hpp>
 
 #include <ElevateEngine/Core/Data.h>
@@ -17,22 +18,22 @@ namespace Elevate
 	public:
 		Transform();
 
-		// TODO mettre dans le fichier cpp
-		void SetPosition(glm::vec3 pos) { this->position = pos; m_isDirty = true; }
-		void SetRotation(glm::vec3 rot) { this->rotation = rot; m_isDirty = true; }
-		void SetScale(glm::vec3 scale) { this->scale = scale; m_isDirty = true; }
+		void SetPosition(const glm::vec3& pos);
+		void SetRotation(const glm::vec3& rot);
+		void SetRotationQuaternion(const glm::quat& rot);
+		void SetScale(const glm::vec3& scale);
 
 		glm::vec3& GetPosition() { return position; }
 		const glm::vec3& GetPosition() const { return position; }
-		glm::vec3& GetRotation() { return rotation; }
-		const glm::vec3& GetRotation() const { return rotation; }
+		glm::vec3 GetRotation() const;
+		const glm::quat& GetRotationQuat() const;
 		glm::vec3& GetScale() { return scale; }
 		const glm::vec3& GetScale() const { return scale; }
 
 		glm::vec3 GetRight() const;
-		// TODO GETLEFT (-right)
+		glm::vec3 GetLeft() const;
 		glm::vec3 GetUp() const;
-		// TODO GETDOWN(); (-up)
+		glm::vec3 GetDown() const;
 		glm::vec3 GetBackward() const;
 		glm::vec3 GetForward() const;
 		glm::vec3 GetGlobalScale() const;
@@ -55,9 +56,9 @@ namespace Elevate
 	private:
 		bool m_isDirty = true;
 
-		glm::vec3 position;
-		glm::vec3 rotation;
-		glm::vec3 scale;
+		glm::vec3 position{ 0.0f };
+		glm::quat rotation{ 1.0f, 0.0f, 0.0f, 0.0f };
+		glm::vec3 scale{ 1.0f };
 
 		glm::mat4 m_ModelMatrix;
 	};
