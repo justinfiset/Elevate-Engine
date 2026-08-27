@@ -276,7 +276,8 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 			auto* assetEntry = assetPtr ? AssetRegistry::GetEntry(assetPtr->GetGuid()) : nullptr;
 			std::string displayName = (*eePtr) ? (assetEntry ? assetEntry->AssetName : "[Unknown Asset]") : "[None (EEObject)]";
 			char buf[128];
-			strncpy_s(buf, displayName.c_str(), sizeof(buf));
+			strncpy(buf, displayName.c_str(), sizeof(buf) - 1);
+			buf[sizeof(buf) - 1] = '\0';
 
 			float buttonSize = ImGui::GetFrameHeight() - ImGui::GetStyle().ItemInnerSpacing.y;
 			float spacing = ImGui::GetStyle().ItemInnerSpacing.x;

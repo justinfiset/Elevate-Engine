@@ -33,7 +33,10 @@ namespace Elevate
 		virtual EECategory GetCategory() const { return m_category; }
 		const Guid& GetGuid() const { return m_guid; }
 
-		static constexpr size_t GetGuidOffset();
+		static constexpr size_t GetGuidOffset()
+		{
+			return reinterpret_cast<size_t>(&(static_cast<EEObject*>(nullptr)->m_guid));
+		}
 		const void* GetGuidAddress() const { return &m_guid; }
 
 		// If no overrode, an empty layout is generated and nothing is shown in the inspector
