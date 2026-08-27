@@ -35,6 +35,8 @@ namespace Elevate
 		};
 
 	public:
+		virtual ~RendererAPI() = default;
+
 		virtual void SetClearColor(const glm::vec4& color) const = 0;
 		virtual void SetViewport(int x, int y, int width, int height) const = 0;
 
