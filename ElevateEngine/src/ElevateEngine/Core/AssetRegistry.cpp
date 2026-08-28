@@ -16,7 +16,8 @@ namespace fs = std::filesystem;
 namespace Elevate
 {
     std::unordered_map<Guid, AssetEntry> AssetRegistry::s_indexedAssets;
-    
+    std::unordered_map<std::filesystem::path, Guid> AssetRegistry::s_pathRegistry;
+
     std::string FormatAssetNameForUI(const std::filesystem::path& filePath)
     {
         std::string rawName = filePath.stem().string();
@@ -90,6 +91,7 @@ namespace Elevate
                     .MetaData = &typeMeta,
                     .Instance = nullptr
                 };
+                s_pathRegistry[entry.path()] = guid;
             }
         }
     }
@@ -208,6 +210,17 @@ namespace Elevate
         return (it != Get().m_typeMeta.end()) ? &it->second : nullptr;
     }
 
+    bool AssetRegistry::IsPathRegistered(std::filesystem::path path)
+    {
+        return s_pathRegistry.contains(path);
+    }
+
+    Guid AssetRegistry::GetPathGuid(std::filesystem::path path)
+    {
+        auto it = Get().s_pathRegistry.find(path);
+        return (it != Get().s_pathRegistry.end()) ? it->second : Guid{};
+    }
+
     const std::unordered_map<std::string, AssetMetaData>& AssetRegistry::GetNameMetas()
     {
         return Get().m_nameMeta;
@@ -293,5 +306,6 @@ namespace Elevate
         };
 
         s_indexedAssets[assetGuid] = entry;
+        s_pathRegistry[filePath] = assetGuid;
     }
 }

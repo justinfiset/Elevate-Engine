@@ -264,7 +264,7 @@ namespace Elevate::Editor
 		case EventType::KeyPressed:
 		{
 			KeyEvent& ke = (KeyEvent&)event;
-			
+
 			if (ke.GetKeyCode() == EE_KEY_DELETE)
 			{
 				if (auto lockedObj = m_SelectedObject.lock())
@@ -276,10 +276,14 @@ namespace Elevate::Editor
 				}
 			}
 
-			if (Input::IsKeyPressed(EE_KEY_LEFT_CONTROL)) {
-				if (ke.GetKeyCode() == EE_KEY_Z) {
+			if (Input::IsKeyPressed(EE_KEY_LEFT_CONTROL))
+			{
+				if (ke.GetKeyCode() == EE_KEY_Z)
+				{
 					Undo();
-				} else if (ke.GetKeyCode() == EE_KEY_Y) {
+				}
+				else if (ke.GetKeyCode() == EE_KEY_Y)
+				{
 					Redo();
 				}
 			}
@@ -289,7 +293,7 @@ namespace Elevate::Editor
 			break;
 		}
 
-		m_EditorScene->Notify(event);        
+		m_EditorScene->Notify(event);
 	}
 
 	EditorCamera* EditorLayer::GetCamera()
@@ -297,7 +301,7 @@ namespace Elevate::Editor
 		return m_CameraObject->GetComponent<EditorCamera>();
 	}
 
-	void EditorLayer::SelectObject(const EEObjectPtr<GameObject>& newSelection)
+	void EditorLayer::SelectObject(const EEObjectPtr<EEObject>& newSelection)
 	{
 		if (newSelection) {
 			m_SelectedObject = newSelection.ToWeak();

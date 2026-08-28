@@ -89,6 +89,9 @@ namespace Elevate
 		static const AssetMetaData* GetMetaFromTypeName(const std::string& typeName);
 		static const AssetMetaData* GetMetaFromTypeIndex(std::type_index typeIndex);
 
+		static bool IsPathRegistered(std::filesystem::path path);
+		static Guid GetPathGuid(std::filesystem::path path);
+
 		static const std::unordered_map<std::string, AssetMetaData>& GetNameMetas();
 
 		static void RegisterAssetType(AssetMetaData trait);
@@ -107,6 +110,7 @@ namespace Elevate
 
 	private:
 		static std::unordered_map<Guid, AssetEntry> s_indexedAssets;
+		static std::unordered_map<std::filesystem::path, Guid> s_pathRegistry;
 
 		std::unordered_map<std::string, AssetMetaData> m_nameMeta;		// Key ex: Material
 		std::unordered_map<std::string, AssetMetaData> m_extensionMeta;	// Key ex: .mat
