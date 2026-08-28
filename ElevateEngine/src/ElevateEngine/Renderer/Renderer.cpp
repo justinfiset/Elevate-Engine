@@ -765,12 +765,13 @@ namespace Elevate
     void Renderer::RenderEditor()
     {
         s_mainFramebuffer->Bind();
-        //s_geometryFramebuffer->BlitDepthTo(*s_mainFramebuffer); // Keep the original depth
+        s_geometryFramebuffer->BlitDepthTo(*s_mainFramebuffer); // Keep the original depth
+        s_mainFramebuffer->Bind();
 
         RenderState editorState;
         editorState.DepthTest = true;
         editorState.DepthWrite = false;
-        editorState.DepthFunc = DepthFunction::Less;
+        editorState.DepthFunc = DepthFunction::LessEqual;
         editorState.CullMode = CullFace::None;
         editorState.BlendMode = BlendModeType::Alpha;
 

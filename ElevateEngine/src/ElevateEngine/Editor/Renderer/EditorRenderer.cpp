@@ -27,6 +27,7 @@ namespace Elevate
         state.CullMode = CullFace::None;
         state.DepthTest = false;
         state.DepthWrite = false;
+        state.DepthFunc = DepthFunction::LessEqual;
 
         instanceMaterial->SetRenderState(state);
         instanceMaterial->SetBucket(RenderBucket::Type::Editor);
