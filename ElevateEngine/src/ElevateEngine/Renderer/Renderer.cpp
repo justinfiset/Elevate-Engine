@@ -74,9 +74,9 @@ namespace Elevate
             width,
             height,
             {
-                TextureFormat::RGBA16F,    // Color : Albedo (RGBA)
-                TextureFormat::RGB16F,  // Normals (RGB)
-                TextureFormat::RGBA     // Material : Roughness (R) + Metallic (G) + AO (B) + Extra (A)
+                TextureFormat::RGBA16F,     // Color : Albedo (RGBA)
+                TextureFormat::RGBA16F,     // Normals (RGB)
+                TextureFormat::RGBA16F      // Material : Roughness (R) + Metallic (G) + AO (B) + Extra (A)
             },
             false
         ));
@@ -705,7 +705,7 @@ namespace Elevate
         s_bloomUpsampleShader->SetUniform1f("u_FilterRadius", 0.005f);
 
         // Upsample the other way around
-        for (size_t i = s_bloomMipChain.size() - 1; i > 0; i--)
+        for (int i = static_cast<int>(s_bloomMipChain.size()) - 1; i > 0; i--)
         {
             currentSource = s_bloomMipChain[i]->GetColorTexture();
             auto& targetFramebuffer = s_bloomMipChain[i - 1];
