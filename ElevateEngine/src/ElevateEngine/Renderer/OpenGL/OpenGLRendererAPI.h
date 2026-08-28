@@ -26,5 +26,6 @@ namespace Elevate
 		virtual void SetDepthWrittingState(bool enabled) const override;
 		virtual void SetDepthTestingState(bool enabled) const override;
 		virtual void SetBlendingState(BlendModeType mode) const override;
+		virtual void SetDepthFunction(DepthFunction depthFunc) const override;
 	};
 }

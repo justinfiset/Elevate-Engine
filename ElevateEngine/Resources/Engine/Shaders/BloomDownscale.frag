@@ -24,22 +24,22 @@ void main()
     float y = srcTexelSize.y;
 
     // 13-tap sampling
-    vec3 a = texture(u_ScreenTex, vec2(v_TexCoord.x - 2*x, v_TexCoord.y + 2*y)).rgb;
-    vec3 b = texture(u_ScreenTex, vec2(v_TexCoord.x,       v_TexCoord.y + 2*y)).rgb;
-    vec3 c = texture(u_ScreenTex, vec2(v_TexCoord.x + 2*x, v_TexCoord.y + 2*y)).rgb;
+    vec3 a = texture(u_ScreenTex, vec2(v_TexCoord.x - 2.0 * x, v_TexCoord.y + 2.0 * y)).rgb;
+    vec3 b = texture(u_ScreenTex, vec2(v_TexCoord.x,           v_TexCoord.y + 2.0 * y)).rgb;
+    vec3 c = texture(u_ScreenTex, vec2(v_TexCoord.x + 2.0 * x, v_TexCoord.y + 2.0 * y)).rgb;
 
-    vec3 d = texture(u_ScreenTex, vec2(v_TexCoord.x - 2*x, v_TexCoord.y)).rgb;
-    vec3 e = texture(u_ScreenTex, vec2(v_TexCoord.x,       v_TexCoord.y)).rgb;
-    vec3 f = texture(u_ScreenTex, vec2(v_TexCoord.x + 2*x, v_TexCoord.y)).rgb;
+    vec3 d = texture(u_ScreenTex, vec2(v_TexCoord.x - 2.0 * x, v_TexCoord.y)).rgb;
+    vec3 e = texture(u_ScreenTex, vec2(v_TexCoord.x,           v_TexCoord.y)).rgb;
+    vec3 f = texture(u_ScreenTex, vec2(v_TexCoord.x + 2.0 * x, v_TexCoord.y)).rgb;
 
-    vec3 g = texture(u_ScreenTex, vec2(v_TexCoord.x - 2*x, v_TexCoord.y - 2*y)).rgb;
-    vec3 h = texture(u_ScreenTex, vec2(v_TexCoord.x,       v_TexCoord.y - 2*y)).rgb;
-    vec3 i = texture(u_ScreenTex, vec2(v_TexCoord.x + 2*x, v_TexCoord.y - 2*y)).rgb;
+    vec3 g = texture(u_ScreenTex, vec2(v_TexCoord.x - 2.0 * x, v_TexCoord.y - 2.0 * y)).rgb;
+    vec3 h = texture(u_ScreenTex, vec2(v_TexCoord.x,           v_TexCoord.y - 2.0 * y)).rgb;
+    vec3 i = texture(u_ScreenTex, vec2(v_TexCoord.x + 2.0 * x, v_TexCoord.y - 2.0 * y)).rgb;
 
-    vec3 j = texture(u_ScreenTex, vec2(v_TexCoord.x - x,   v_TexCoord.y + y)).rgb;
-    vec3 k = texture(u_ScreenTex, vec2(v_TexCoord.x + x,   v_TexCoord.y + y)).rgb;
-    vec3 l = texture(u_ScreenTex, vec2(v_TexCoord.x - x,   v_TexCoord.y - y)).rgb;
-    vec3 m = texture(u_ScreenTex, vec2(v_TexCoord.x + x,   v_TexCoord.y - y)).rgb;
+    vec3 j = texture(u_ScreenTex, vec2(v_TexCoord.x - x,       v_TexCoord.y + y)).rgb;
+    vec3 k = texture(u_ScreenTex, vec2(v_TexCoord.x + x,       v_TexCoord.y + y)).rgb;
+    vec3 l = texture(u_ScreenTex, vec2(v_TexCoord.x - x,       v_TexCoord.y - y)).rgb;
+    vec3 m = texture(u_ScreenTex, vec2(v_TexCoord.x + x,       v_TexCoord.y - y)).rgb;
 
     vec3 result = e * 0.125;
     result += (a + c + g + i) * 0.03125;

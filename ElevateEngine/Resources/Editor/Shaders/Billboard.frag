@@ -1,16 +1,29 @@
-out vec4 FragColor;
+precision highp float;
+
+layout(location = 0) out vec4 FragColor;
+layout(location = 1) out vec4 FragNormal;
+layout(location = 2) out vec4 FragMaterial;
 
 in vec2 textCord;
 uniform sampler2D billboardTexture;
-uniform vec4 outlineColor = vec4(0.0, 0.0, 0.0, 0.8);
+uniform vec4 colorModifier;
+
+vec4 outlineColor = vec4(0.0, 0.0, 0.0, 0.8);
 
 void main()
 {
     vec4 texColor = texture(billboardTexture, textCord);
 
+    if (texColor.a < 0.1)
+    {
+        discard;
+    }
+
+    vec4 modifiedColor = texColor * colorModifier;
+
     if (texColor.a < 0.95)
     {
-        vec2 texelSize = 1.0 / textureSize(billboardTexture, 0);
+        vec2 texelSize = vec2(1.0) / vec2(textureSize(billboardTexture, 0));
         float alphaSum = 0.0;
 
         for (int x = -1; x <= 1; ++x)
@@ -27,10 +40,16 @@ void main()
         if (outlineAlpha > 0.0)
         {
             vec4 finalOutline = vec4(outlineColor.rgb, outlineColor.a * outlineAlpha);
-            FragColor = mix(finalOutline, texColor, texColor.a);
+            FragColor = mix(finalOutline, modifiedColor, texColor.a);
+            
+            FragNormal   = vec4(0.0, 0.0, 1.0, 1.0);
+            FragMaterial = vec4(1.0, 0.0, 1.0, 1.0);
             return;
         }
     }
 
-    FragColor = texColor;
+    FragColor = modifiedColor;
+    
+    FragNormal   = vec4(0.0, 0.0, 1.0, 1.0);
+    FragMaterial = vec4(1.0, 0.0, 1.0, 1.0);
 }

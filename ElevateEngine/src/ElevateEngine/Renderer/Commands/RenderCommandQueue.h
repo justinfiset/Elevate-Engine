@@ -15,6 +15,7 @@ namespace Elevate
 	public:
 		void Submit(RenderBucket::Type type, const RenderCommand& command);
 		void Clear();
+		void Flush(RenderBucket::Type type);
 		void FlushAll();
 		uint64_t GetCount();
 		const RenderBucket& GetBucket(RenderBucket::Type bucketType) const;

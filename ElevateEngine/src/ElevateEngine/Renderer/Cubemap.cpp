@@ -21,7 +21,7 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	m_VertexBuffer.reset(Elevate::VertexBuffer::Create(&s_skyboxVertices[0], sizeof(s_skyboxVertices)));
 	m_VertexBuffer->SetLayout({
 		{ Elevate::ShaderDataType::Float3, "a_Position" },
-		});
+	});
 
 	m_IndexBuffer.reset(Elevate::IndexBuffer::Create(&s_skyboxIndices[0], sizeof(s_skyboxIndices) / sizeof(unsigned int)));
 	m_VertexArray.reset(VertexArray::Create());
@@ -103,7 +103,10 @@ void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader) const
 
 	Renderer::PushRenderState(m_renderState);
 	Renderer::BindShader(shader);
+
+	GLCheck(glActiveTexture(GL_TEXTURE0));
 	GLCheck(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));
+	shader->SetUniform1i("skybox", 0);
 	Renderer::DrawArray(m_VertexArray);
 }
 
