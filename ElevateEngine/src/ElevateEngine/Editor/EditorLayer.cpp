@@ -85,7 +85,7 @@ namespace Elevate::Editor
 		gridState.DepthTest = true;
 		gridState.DepthWrite = false;
 		gridMaterial->SetRenderState(gridState);
-		gridMaterial->SetBucket(RenderBucket::Type::Transparent);
+		gridMaterial->SetBucket(RenderBucket::Type::Editor);
 		gridModel.SetMaterial(gridMaterial);
 		m_GridObject->SetScale({ 50, 50, 50 });
 
@@ -251,16 +251,6 @@ namespace Elevate::Editor
 
 		for (auto& widgetPtr : m_widgets)
 			widgetPtr->OnImGuiRender();
-
-		ImGui::Begin("Directional Shadow Map");
-
-		Framebuffer& directionalFBO = Renderer::GetDirectionalFrameBuffer(0);
-		ImGui::Image(
-			(ImTextureID)directionalFBO.GetDepthAttachmentHandle(),
-			ImVec2(512.0f, 512.0f)
-		);
-
-		ImGui::End();
 	}
 
 	void EditorLayer::OnEvent(Event& event)

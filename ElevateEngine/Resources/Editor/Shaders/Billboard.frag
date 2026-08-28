@@ -6,12 +6,20 @@ layout(location = 2) out vec4 FragMaterial;
 
 in vec2 textCord;
 uniform sampler2D billboardTexture;
+uniform vec4 colorModifier;
 
 vec4 outlineColor = vec4(0.0, 0.0, 0.0, 0.8);
 
 void main()
 {
     vec4 texColor = texture(billboardTexture, textCord);
+
+    if (texColor.a < 0.1)
+    {
+        discard;
+    }
+
+    vec4 modifiedColor = texColor * colorModifier;
 
     if (texColor.a < 0.95)
     {
@@ -32,7 +40,7 @@ void main()
         if (outlineAlpha > 0.0)
         {
             vec4 finalOutline = vec4(outlineColor.rgb, outlineColor.a * outlineAlpha);
-            FragColor = mix(finalOutline, texColor, texColor.a);
+            FragColor = mix(finalOutline, modifiedColor, texColor.a);
             
             FragNormal   = vec4(0.0, 0.0, 1.0, 1.0);
             FragMaterial = vec4(1.0, 0.0, 1.0, 1.0);
@@ -40,7 +48,7 @@ void main()
         }
     }
 
-    FragColor = texColor;
+    FragColor = modifiedColor;
     
     FragNormal   = vec4(0.0, 0.0, 1.0, 1.0);
     FragMaterial = vec4(1.0, 0.0, 1.0, 1.0);

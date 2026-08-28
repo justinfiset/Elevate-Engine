@@ -16,7 +16,7 @@ namespace Elevate
 		}
 	}
 
-	OpenGLFrameBuffer::OpenGLFrameBuffer(const std::vector<TexturePtr>& colorTextures, TexturePtr depthTexture, bool depthAsRenderbuffer)
+	OpenGLFramebuffer::OpenGLFramebuffer(const std::vector<TexturePtr>& colorTextures, TexturePtr depthTexture, bool depthAsRenderbuffer)
 	{
 		GLCheck(glGenFramebuffers(1, &m_frameBufferId));
 		Bind();
@@ -93,7 +93,7 @@ namespace Elevate
 		Unbind();
 	}
 
-	OpenGLFrameBuffer::~OpenGLFrameBuffer()
+	OpenGLFramebuffer::~OpenGLFramebuffer()
 	{
 		// todo use this
 		//GLCheck(glDeleteFramebuffers(1, &m_frameBufferId));
@@ -103,17 +103,17 @@ namespace Elevate
 		//}
 	}
 
-	void OpenGLFrameBuffer::Bind() const
+	void OpenGLFramebuffer::Bind() const
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferId);
 	}
 
-	void OpenGLFrameBuffer::Unbind() const
+	void OpenGLFramebuffer::Unbind() const
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	void OpenGLFrameBuffer::BlitFramebufferToScreen(uint32_t screenWidth, uint32_t screenHeight) const
+	void OpenGLFramebuffer::BlitFramebufferToScreen(uint32_t screenWidth, uint32_t screenHeight) const
 	{
 		if (m_colorAttachments.empty())
 		{
@@ -147,7 +147,7 @@ namespace Elevate
 		GLCheck(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 	}
 
-	void OpenGLFrameBuffer::Rescale(uint32_t width, uint32_t height)
+	void OpenGLFramebuffer::Rescale(uint32_t width, uint32_t height)
 	{
 		m_width = width;
 		m_height = height;
@@ -201,7 +201,25 @@ namespace Elevate
 		Unbind();
 	}
 
-	bool OpenGLFrameBuffer::CheckCompleteness() const
+	void OpenGLFramebuffer::BlitDepthTo(const Framebuffer& target) const
+	{
+		const OpenGLFramebuffer& glFB = dynamic_cast<const OpenGLFramebuffer&>(target);
+		GLuint targetID = glFB.m_frameBufferId;
+
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBufferId);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, targetID);
+
+		glBlitFramebuffer(
+			0, 0, m_width, m_height,
+			0, 0, target.GetWidth(), target.GetHeight(),
+			GL_DEPTH_BUFFER_BIT,
+			GL_NEAREST
+		);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	bool OpenGLFramebuffer::CheckCompleteness() const
 	{
 		uint32_t status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 		if (status != GL_FRAMEBUFFER_COMPLETE) {
@@ -212,7 +230,7 @@ namespace Elevate
 		return true;
 	}
 
-	const char* OpenGLFrameBuffer::GetFramebufferStatusString(uint32_t status) const
+	const char* OpenGLFramebuffer::GetFramebufferStatusString(uint32_t status) const
 	{
 		switch (status)
 		{

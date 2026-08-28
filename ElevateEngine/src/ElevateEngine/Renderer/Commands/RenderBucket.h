@@ -14,6 +14,7 @@ namespace Elevate
 			GBuffer,
 			Transparent,
 			UI,
+			Editor,
 			Debug,
 			Count // Only used to keep the number of bucket at compile time
 		};

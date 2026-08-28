@@ -6,9 +6,11 @@ in vec2 textCord;
 in vec3 fragPos;
 in mat3 TBN;
 
+uniform vec3 u_Color;
+
 void main()
 {
-    FragColor    = vec4(5.0, 1.0, 0.1, 1.0);
+    FragColor    = vec4(u_Color, 1.0);
     FragNormal   = vec4(normalize(TBN[2]), 1.0);
     FragMaterial = vec4(0.5, 0.0, 1.0, 1.0);
 }

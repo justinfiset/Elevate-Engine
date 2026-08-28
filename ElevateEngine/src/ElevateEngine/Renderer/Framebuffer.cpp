@@ -72,7 +72,7 @@ namespace Elevate
             return nullptr;
 
         case RendererAPI::GraphicAPI::OpenGL:
-            return new OpenGLFrameBuffer(colorTextures, depthTexture, depthAsRenderbuffer);
+            return new OpenGLFramebuffer(colorTextures, depthTexture, depthAsRenderbuffer);
         }
 
         EE_CORE_ASSERT(false, "Unknown GraphicsAPI!");
@@ -118,19 +118,21 @@ namespace Elevate
 #if defined(EE_PLATFORM_WEB)
         // Linear is not supported in web
         TextureFilter filter = TextureFilter::Nearest;
+        TextureWrap depthWrap = TextureWrap::ClampToEdge;
 #else
         TextureFilter filter = TextureFilter::Linear;
+        TextureWrap depthWrap = TextureWrap::ClampToBorder;
 #endif
 
         TextureMetadata depthMeta = TextureMetadataBuilder()
-            .Name("ShadowMapDepthAttachment")
+            .Name("FramebufferDepthAttachment")
             .size(width, height)
             .Format(depthFormat)
             .Usage(depthUsage)
             .Source(TextureSource::RenderTarget)
             .State(TextureState::Ready)
             .Filter(filter, filter)
-            .Wrap(TextureWrap::ClampToBorder, TextureWrap::ClampToBorder)
+            .Wrap(depthWrap, depthWrap)
             .Mipmaps(false)
             .Build();
 

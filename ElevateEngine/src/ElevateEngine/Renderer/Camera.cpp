@@ -167,6 +167,7 @@ std::array<glm::vec3, 8> Elevate::Camera::CalculateFrustumCorners() const
 
 // ONLY IN THE EDITOR
 #ifdef EE_EDITOR_BUILD
+#include <ElevateEngine/Editor/EditorLayer.h>
 #include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
 
 void Elevate::Camera::RenderWhenSelected()
@@ -176,7 +177,10 @@ void Elevate::Camera::RenderWhenSelected()
 
 void Elevate::Camera::Render()
 {
-	EditorRenderer::DrawBillboard(gameObject->GetGlobalPosition(), GetEditorIcon(), 0.5f);
+	bool isSelected = Editor::EditorLayer::Get().GetSelectedObject().lock().get() == gameObject;
+	glm::vec4 colorMod = isSelected ? glm::vec4(1.5f, 1.5f, 0.5f, 1.0f)
+		: glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	EditorRenderer::DrawBillboard(gameObject->GetGlobalPosition(), GetEditorIcon(), 0.5f, colorMod);
 }
 
 void Elevate::Camera::DrawDebugFrustum()

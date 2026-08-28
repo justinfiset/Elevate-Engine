@@ -3,47 +3,66 @@
 #include <vector>
 #include <unordered_map>
 #include <mutex>
+#include <queue>
+#include <thread>
+#include <condition_variable>
+#include <atomic>
 
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 
-namespace Elevate 
+namespace Elevate
 {
-	struct TextureLoadResult
-	{
-		unsigned char* data;
-		TextureMetadata meta;
-	};
+    struct TextureLoadResult
+    {
+        unsigned char* data;
+        TextureMetadata meta;
+    };
 
-	class TextureManager
-	{
-	public:
-		static TexturePtr RegisterTexture(TexturePtr texture);
+    class TextureManager
+    {
+    public:
+        static TexturePtr RegisterTexture(TexturePtr texture);
 
-		static TexturePtr GetTexture(const std::string& path);
-		static TexturePtr LoadTextureAsync(const std::string& path, TextureType usage = TextureType::Diffuse);
+        static TexturePtr GetTexture(const std::string& path);
+        static TexturePtr LoadTextureAsync(const std::string& path, TextureType usage = TextureType::Diffuse);
 
-		inline static TexturePtr GetDefaultTexture() { return  instance().m_defaultTexture; }
+        inline static TexturePtr GetDefaultTexture() { return instance().m_defaultTexture; }
 
-		inline static bool IsAllLoaded() { return instance().m_loadingTextures.empty(); }
+        inline static bool IsAllLoaded() { return instance().m_loadingTextures.empty(); }
 
-		friend class Application;
-	protected:
-		static void UpdateLoadingTextures();
-	private:
-		TextureManager();
+        friend class Application;
+    protected:
+        static void UpdateLoadingTextures();
 
-		static TextureManager& instance()
-		{
-			static TextureManager instance;
-			return instance;
-		}
+    private:
+        struct TextureLoadTask {
+            std::string path;
+            TextureMetadata meta;
+        };
 
-		TexturePtr m_defaultTexture;
+        TextureManager();
+        ~TextureManager();
 
-		// Async loading
-		std::vector<TextureLoadResult> m_loadingTextures;
-		std::mutex m_textureMutex;
+        void WorkerLoop();
 
-		std::unordered_map<std::string, TexturePtr> m_Textures;
-	};
+        static TextureManager& instance()
+        {
+            static TextureManager instance;
+            return instance;
+        }
+
+        TexturePtr m_defaultTexture;
+
+        // Async loading & Thread Pool
+        std::vector<TextureLoadResult> m_loadingTextures;
+        std::mutex m_textureMutex;
+
+        std::queue<TextureLoadTask> m_loadQueue;
+        std::mutex m_queueMutex;
+        std::condition_variable m_queueCV;
+        std::vector<std::thread> m_workerThreads;
+        std::atomic<bool> m_isWorkerRunning{ true };
+
+        std::unordered_map<std::string, TexturePtr> m_Textures;
+    };
 }

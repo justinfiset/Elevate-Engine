@@ -83,7 +83,7 @@ namespace Elevate
         ));
 
         s_geometryFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
-        s_mainFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGB }));
+        s_mainFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGB }, false, TextureType::Depth));
         s_mainFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
 
         s_compositionShader = ShaderManager::LoadShader(
@@ -290,9 +290,13 @@ namespace Elevate
         RenderBloom();
         RenderComposition();
 
+#ifdef EE_EDITOR_BUILD
+        RenderEditor();
+#else
         s_mainFramebuffer->Bind();
         DebugRenderer::Render();
         s_mainFramebuffer->Unbind();
+#endif
 
         ClearStack();
     }
@@ -409,6 +413,11 @@ namespace Elevate
         if (!s_isStateCacheValid || newState.BlendMode != s_currentState.BlendMode)
         {
             s_API->SetBlendingState(newState.BlendMode);
+        }
+
+        if (!s_isStateCacheValid || newState.DepthFunc != s_currentState.DepthFunc)
+        {
+            s_API->SetDepthFunction(newState.DepthFunc);
         }
 
         s_currentState = newState;
@@ -559,7 +568,8 @@ namespace Elevate
         s_geometryFramebuffer->ClearAndUse();
 
         RenderSkybox();
-        DrawStack();
+        s_commands.Flush(RenderBucket::GBuffer);
+        s_commands.Flush(RenderBucket::Transparent);
 
         s_geometryFramebuffer->Unbind();
     }
@@ -750,4 +760,26 @@ namespace Elevate
 
         s_mainFramebuffer->Unbind();
     }
+
+#ifdef EE_EDITOR_BUILD
+    void Renderer::RenderEditor()
+    {
+        s_mainFramebuffer->Bind();
+        //s_geometryFramebuffer->BlitDepthTo(*s_mainFramebuffer); // Keep the original depth
+
+        RenderState editorState;
+        editorState.DepthTest = true;
+        editorState.DepthWrite = false;
+        editorState.DepthFunc = DepthFunction::Less;
+        editorState.CullMode = CullFace::None;
+        editorState.BlendMode = BlendModeType::Alpha;
+
+        PushRenderState(editorState);
+
+        s_commands.Flush(RenderBucket::Editor);
+        DebugRenderer::Render();
+
+        s_mainFramebuffer->Unbind();
+    }
+#endif
 }

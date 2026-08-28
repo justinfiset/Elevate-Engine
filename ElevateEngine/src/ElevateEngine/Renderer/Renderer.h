@@ -94,6 +94,9 @@ namespace Elevate
 		static void RenderSSAO();
 		static void RenderBloom();
 		static void RenderComposition();
+#ifdef EE_EDITOR_BUILD
+		static void RenderEditor();
+#endif
 
 		static void DrawStack();
 		static void ClearStack();

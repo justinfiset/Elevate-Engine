@@ -27,10 +27,6 @@ public:
 		m_shader = Elevate::ShaderManager::GetShader(EE_DEFAULT_SHADER);
 
 		Elevate::MaterialPtr material = Elevate::MaterialRegistry::LoadMaterial(m_shader);
-		material->Set("material.ambient", glm::vec3(1.0f, 1.0f, 1.0f));
-		material->Set("material.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
-		material->Set("material.specular", glm::vec3(1.0f, 1.0f, 1.0f));
-		material->Set("material.shininess", 32.0f);
 
 		m_scene->SetSkybox("engine://Cubemap/default.sky");
 

@@ -17,6 +17,12 @@ namespace Elevate
 		m_count = 0;
 	}
 
+	void RenderCommandQueue::Flush(RenderBucket::Type type)
+	{
+		m_buckets.at(type).Sort();
+		m_buckets.at(type).Flush();
+	}
+
 	void RenderCommandQueue::FlushAll()
 	{
 		for (size_t i = 0; i < m_buckets.size(); i++)

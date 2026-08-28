@@ -7,7 +7,7 @@
 
 namespace Elevate
 {
-    void EditorRenderer::DrawBillboard(const glm::vec3& position, TexturePtr icon, float scale)
+    void EditorRenderer::DrawBillboard(const glm::vec3& position, TexturePtr icon, float scale, glm::vec4 colorModifier)
     {
         if (!icon) return;
 
@@ -29,9 +29,10 @@ namespace Elevate
         state.DepthWrite = false;
 
         instanceMaterial->SetRenderState(state);
-        instanceMaterial->SetBucket(RenderBucket::Type::Transparent);
+        instanceMaterial->SetBucket(RenderBucket::Type::Editor);
 
         instanceMaterial->SetTexture("billboardTexture", icon);
+        instanceMaterial->Set("colorModifier", colorModifier);
         instanceMaterial->Set("worldPos", position);
         instanceMaterial->Set("scale", scale);
 
