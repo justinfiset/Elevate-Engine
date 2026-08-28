@@ -18,7 +18,7 @@ namespace Elevate::Editor
 			nodeFlags |= ImGuiTreeNodeFlags_Leaf;
 		}
 
-		if (object == EditorLayer::Get().GetSelectedObject().lock())
+		if (object.get() == EditorLayer::Get().GetSelectedObject().lock().get())
 		{
 			nodeFlags |= ImGuiTreeNodeFlags_Selected;
 		}

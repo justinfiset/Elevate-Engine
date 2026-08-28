@@ -60,7 +60,7 @@ namespace Elevate::Editor
 
 		EditorCamera* GetCamera();
 		inline std::weak_ptr<Scene> GetScene() { return m_EditorScene; }
-		inline std::weak_ptr<GameObject> GetSelectedObject() { return m_SelectedObject; }
+		inline std::weak_ptr<EEObject> GetSelectedObject() { return m_SelectedObject; }
 		void SelectObject(const EEObjectPtr<GameObject>& newSelection);
 		
 		inline static EditorLayer& Get() { return *s_Instance; }
@@ -81,7 +81,7 @@ namespace Elevate::Editor
 
 		std::shared_ptr<GameObject> m_CameraObject;
 
-		std::weak_ptr<GameObject> m_SelectedObject;
+		std::weak_ptr<EEObject> m_SelectedObject;
 
 		// Editor Scene
 		std::shared_ptr<Scene> m_EditorScene;

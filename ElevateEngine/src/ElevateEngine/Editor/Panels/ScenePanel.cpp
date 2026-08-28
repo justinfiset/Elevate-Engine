@@ -89,11 +89,16 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 	// ImGuizmo //////////////////////////////////////////
 	if (Application::GetGameState() == EditorMode)
 	{
-		std::weak_ptr<GameObject> selected = EditorLayer::Get().GetSelectedObject();
-		Camera* cam = EditorLayer::Get().GetCamera();
-		if (selected.lock())
+		std::weak_ptr<EEObject> selectedObject = EditorLayer::Get().GetSelectedObject();
+		std::shared_ptr<GameObject> selectedShared = nullptr;
+		if (selectedObject.lock())
 		{
-			std::shared_ptr<GameObject> selectedShared = selected.lock();
+			selectedShared = std::dynamic_pointer_cast<GameObject>(selectedObject.lock());
+		}
+
+		Camera* cam = EditorLayer::Get().GetCamera();
+		if (selectedShared)
+		{
 			ImGuizmo::SetDrawlist(ImGui::GetWindowDrawList());
 			ImGuizmo::SetOrthographic(false); // TODO SET DINAMICLY FROM THE EDITOR AND SETUP THE CAMERA ACCORDINGLY
 			ImGuizmo::SetRect(pos.x, pos.y, (float)window_width, (float)window_height);
