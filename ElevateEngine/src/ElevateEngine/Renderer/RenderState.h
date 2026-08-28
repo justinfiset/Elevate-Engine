@@ -17,11 +17,23 @@ namespace Elevate
 		None
 	};
 
+	enum class DepthFunction
+	{
+		Less,
+		LessEqual,
+		Equal,
+		Always,
+		Never,
+		Greater,
+		GreaterEqual
+	};
+
 	struct RenderState
 	{
 		CullFace CullMode = CullFace::Back;
 		bool DepthWrite = true; // Should we write in the depth buffer?
 		bool DepthTest = true; // Should we test the depth?
+		DepthFunction DepthFunc = DepthFunction::Less;
 		BlendModeType BlendMode = BlendModeType::None;
 	};
 }

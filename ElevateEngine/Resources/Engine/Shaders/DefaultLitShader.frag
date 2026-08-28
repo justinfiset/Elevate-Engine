@@ -1,5 +1,5 @@
 layout(location = 0) out vec4 o_Color;
-layout(location = 1) out vec3 o_Normal;
+layout(location = 1) out vec4 o_Normal;
 layout(location = 2) out vec4 o_Material; // r : Roughness, g : Metallic, b : AO, a : unused
 
 in vec2 textCord;
@@ -66,6 +66,6 @@ void main()
     float ao        = GetTextureScalar(aoTex, textCord, defaultAO, has_aoTex);
 
     o_Color = vec4(albedo, 1.0);
-    o_Normal = unitNormal;
+    o_Normal = vec4(unitNormal, 1.0);
     o_Material = vec4(roughness, metallic, ao, 1.0);
 }

@@ -7,6 +7,6 @@ namespace Elevate
     class EditorRenderer
     {
     public:
-        static void DrawBillboard(const glm::vec3& position, TexturePtr icon, float scale = 0.5f);
+        static void DrawBillboard(const glm::vec3& position, TexturePtr icon, float scale = 0.5f, glm::vec4 colorModifier = glm::vec4(1.0f));
     };
 }

@@ -74,15 +74,16 @@ namespace Elevate
             width,
             height,
             {
-                TextureFormat::RGBA16F,    // Color : Albedo (RGBA)
-                TextureFormat::RGB16F,  // Normals (RGB)
-                TextureFormat::RGBA     // Material : Roughness (R) + Metallic (G) + AO (B) + Extra (A)
+                TextureFormat::RGBA16F,     // Color : Albedo (RGBA)
+                TextureFormat::RGBA16F,     // Normals (RGB)
+                TextureFormat::RGBA16F      // Material : Roughness (R) + Metallic (G) + AO (B) + Extra (A)
             },
-            false
+            false,
+            TextureType::Depth
         ));
 
         s_geometryFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
-        s_mainFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGB }));
+        s_mainFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGB }, false, TextureType::Depth));
         s_mainFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
 
         s_compositionShader = ShaderManager::LoadShader(
@@ -234,7 +235,7 @@ namespace Elevate
         // Create the Framebuffers
         for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
         {
-            s_directionalShadowMaps[i].reset(Framebuffer::CreateDepthOnly(DEFAULT_SHADOW_RESOLUTION, DEFAULT_SHADOW_RESOLUTION));
+            s_directionalShadowMaps[i].reset(Framebuffer::CreateDepthOnly(DEFAULT_SHADOW_RESOLUTION, DEFAULT_SHADOW_RESOLUTION, TextureFormat::DEPTH, TextureType::ShadowMap));
         }
     }
 
@@ -289,9 +290,13 @@ namespace Elevate
         RenderBloom();
         RenderComposition();
 
+#ifdef EE_EDITOR_BUILD
+        RenderEditor();
+#else
         s_mainFramebuffer->Bind();
         DebugRenderer::Render();
         s_mainFramebuffer->Unbind();
+#endif
 
         ClearStack();
     }
@@ -408,6 +413,11 @@ namespace Elevate
         if (!s_isStateCacheValid || newState.BlendMode != s_currentState.BlendMode)
         {
             s_API->SetBlendingState(newState.BlendMode);
+        }
+
+        if (!s_isStateCacheValid || newState.DepthFunc != s_currentState.DepthFunc)
+        {
+            s_API->SetDepthFunction(newState.DepthFunc);
         }
 
         s_currentState = newState;
@@ -558,7 +568,8 @@ namespace Elevate
         s_geometryFramebuffer->ClearAndUse();
 
         RenderSkybox();
-        DrawStack();
+        s_commands.Flush(RenderBucket::GBuffer);
+        s_commands.Flush(RenderBucket::Transparent);
 
         s_geometryFramebuffer->Unbind();
     }
@@ -677,10 +688,6 @@ namespace Elevate
 
         BindShader(s_bloomDownsampleShader);
 
-        s_bloomDownsampleShader->SetUniform1i("u_MipLevel", 0);
-        s_bloomDownsampleShader->SetUniform1f("u_ScreenTex", 0);
-        s_bloomDownsampleShader->SetUniform1f("u_ScreenTex", 0);
-
         TexturePtr currentSource = s_lightPassFramebuffer->GetColorTexture();
 
         // Downsample trought the bloom mip chain
@@ -709,7 +716,7 @@ namespace Elevate
         s_bloomUpsampleShader->SetUniform1f("u_FilterRadius", 0.005f);
 
         // Upsample the other way around
-        for (size_t i = s_bloomMipChain.size() - 1; i > 0; i--)
+        for (int i = static_cast<int>(s_bloomMipChain.size()) - 1; i > 0; i--)
         {
             currentSource = s_bloomMipChain[i]->GetColorTexture();
             auto& targetFramebuffer = s_bloomMipChain[i - 1];
@@ -753,4 +760,26 @@ namespace Elevate
 
         s_mainFramebuffer->Unbind();
     }
+
+#ifdef EE_EDITOR_BUILD
+    void Renderer::RenderEditor()
+    {
+        s_mainFramebuffer->Bind();
+        //s_geometryFramebuffer->BlitDepthTo(*s_mainFramebuffer); // Keep the original depth
+
+        RenderState editorState;
+        editorState.DepthTest = true;
+        editorState.DepthWrite = false;
+        editorState.DepthFunc = DepthFunction::Less;
+        editorState.CullMode = CullFace::None;
+        editorState.BlendMode = BlendModeType::Alpha;
+
+        PushRenderState(editorState);
+
+        s_commands.Flush(RenderBucket::Editor);
+        DebugRenderer::Render();
+
+        s_mainFramebuffer->Unbind();
+    }
+#endif
 }

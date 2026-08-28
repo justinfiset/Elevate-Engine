@@ -52,6 +52,7 @@ namespace Elevate
 		virtual void SetDepthWrittingState(bool enabled) const = 0;
 		virtual void SetDepthTestingState(bool enabled) const = 0;
 		virtual void SetBlendingState(BlendModeType mode) const = 0;
+		virtual void SetDepthFunction(DepthFunction depthFunc) const = 0;
 
 		inline static GraphicAPI GetAPI() { return s_ActiveAPI; }
 		

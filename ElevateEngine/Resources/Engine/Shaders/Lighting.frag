@@ -1,5 +1,6 @@
 precision highp float;
 precision highp int;
+precision highp sampler2DShadow;
 
 in vec2 v_TexCoord;
 out vec4 FragColor;
@@ -169,7 +170,7 @@ float CalcShadow(vec3 fragPos, vec3 localNormal)
     float bias = max(0.00005 * (1.0 - cosTheta), 0.000005) / (cascadeSplitDepths[layer] * 0.5);
 
     float compareDepth = projCoords.z - bias;
-    vec2 texelSize = 1.0 / GetShadowMapSize(layer);
+    vec2 texelSize = vec2(1.0) / GetShadowMapSize(layer);
 
     float shadowVisibility = 0.0;
     float totalWeight = 0.0;

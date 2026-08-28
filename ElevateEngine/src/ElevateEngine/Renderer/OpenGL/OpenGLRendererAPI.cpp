@@ -133,8 +133,8 @@ namespace Elevate
 
 	void OpenGLRendererAPI::SetDepthTestingState(bool enabled) const
 	{
-		if (enabled) glEnable(GL_DEPTH_TEST);
-		else        glDisable(GL_DEPTH_TEST);
+		if (enabled)	glEnable(GL_DEPTH_TEST);
+		else			glDisable(GL_DEPTH_TEST);
 	}
 
 	void OpenGLRendererAPI::SetBlendingState(BlendModeType mode) const
@@ -152,6 +152,21 @@ namespace Elevate
 		case BlendModeType::None:
 			glDisable(GL_BLEND);
 			break;
+		}
+	}
+
+	void OpenGLRendererAPI::SetDepthFunction(DepthFunction depthFunc) const
+	{
+		switch (depthFunc)
+		{
+			case DepthFunction::Less:         GLCheck(glDepthFunc(GL_LESS));	break;
+			case DepthFunction::LessEqual:    GLCheck(glDepthFunc(GL_LEQUAL));	break;
+			case DepthFunction::Equal:        GLCheck(glDepthFunc(GL_EQUAL));	break;
+			case DepthFunction::Always:       GLCheck(glDepthFunc(GL_ALWAYS));	break;
+			case DepthFunction::Never:        GLCheck(glDepthFunc(GL_NEVER));	break;
+			case DepthFunction::Greater:      GLCheck(glDepthFunc(GL_GREATER)); break;
+			case DepthFunction::GreaterEqual: GLCheck(glDepthFunc(GL_GEQUAL));	break;
+			default:                          GLCheck(glDepthFunc(GL_LESS));	break;
 		}
 	}
 }
