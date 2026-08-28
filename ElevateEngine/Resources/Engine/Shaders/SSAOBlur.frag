@@ -7,7 +7,7 @@ in vec2 v_TexCoord;
 
 void main()
 {
-    vec2 texelSize = 1.0 / vec2(textureSize(aoTexture, 0));
+    vec2 texelSize = vec2(1.0) / vec2(textureSize(aoTexture, 0));
     float centerDepth = texture(gDepth, v_TexCoord).r;
     
     if (centerDepth >= 1.0)

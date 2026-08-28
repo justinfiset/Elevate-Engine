@@ -2,7 +2,8 @@ out vec4 FragColor;
 
 in vec2 textCord;
 uniform sampler2D billboardTexture;
-uniform vec4 outlineColor = vec4(0.0, 0.0, 0.0, 0.8);
+
+vec4 outlineColor = vec4(0.0, 0.0, 0.0, 0.8);
 
 void main()
 {
@@ -10,7 +11,7 @@ void main()
 
     if (texColor.a < 0.95)
     {
-        vec2 texelSize = 1.0 / textureSize(billboardTexture, 0);
+        vec2 texelSize = vec2(1.0) / vec2(textureSize(billboardTexture, 0));
         float alphaSum = 0.0;
 
         for (int x = -1; x <= 1; ++x)
