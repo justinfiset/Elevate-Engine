@@ -677,10 +677,6 @@ namespace Elevate
 
         BindShader(s_bloomDownsampleShader);
 
-        s_bloomDownsampleShader->SetUniform1i("u_MipLevel", 0);
-        s_bloomDownsampleShader->SetUniform1f("u_ScreenTex", 0);
-        s_bloomDownsampleShader->SetUniform1f("u_ScreenTex", 0);
-
         TexturePtr currentSource = s_lightPassFramebuffer->GetColorTexture();
 
         // Downsample trought the bloom mip chain
