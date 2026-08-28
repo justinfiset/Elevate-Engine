@@ -23,7 +23,7 @@ namespace Elevate
 			case TextureFormat::RGB32F:			return GL_RGB32F;
 			case TextureFormat::RGBA16F:		return GL_RGBA16F;
 			case TextureFormat::RGBA32F:		return GL_RGBA32F;
-			case TextureFormat::DEPTH:			return GL_DEPTH_COMPONENT24;
+			case TextureFormat::DEPTH:			return GL_DEPTH_COMPONENT32F;
 			case TextureFormat::EMPTY:
 			default:							return GL_RGBA8;
 		}
