@@ -913,24 +913,25 @@ $(document).ready(function(){initNavTree('Renderer_8cpp_source.html',''); initRe
 <div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>    <span class="keywordtype">void</span> Renderer::RenderEditor()</div>
 <div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>    {</div>
 <div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>        s_mainFramebuffer-&gt;Bind();</div>
-<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>        <span class="comment">//s_geometryFramebuffer-&gt;BlitDepthTo(*s_mainFramebuffer); // Keep the original depth</span></div>
-<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span> </div>
-<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>        RenderState editorState;</div>
-<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>        editorState.DepthTest = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>        editorState.DepthWrite = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>        editorState.DepthFunc = <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a1cfdf0e8d0c87a228c1f40d9bee7888b">DepthFunction::Less</a>;</div>
-<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>        editorState.CullMode = <a class="code hl_enumvalue" href="namespaceElevate.html#ab40741268ba207b0245f5193766bc867a6adf97f83acf6453d4a6a4b1070f3754">CullFace::None</a>;</div>
-<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>        editorState.BlendMode = <a class="code hl_enumvalue" href="namespaceElevate.html#ad002ce49518d7df611eb03b292c66071a6132295fcf5570fb8b0a944ef322a598">BlendModeType::Alpha</a>;</div>
-<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span> </div>
-<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">PushRenderState</a>(editorState);</div>
-<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span> </div>
-<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>        s_commands.<a class="code hl_function" href="classElevate_1_1RenderCommandQueue.html#a1fe1338c33417e7641e2522c30fc920a">Flush</a>(<a class="code hl_enumvalue" href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a53100758eb01e1700fa0d2021a99eff0">RenderBucket::Editor</a>);</div>
-<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>        <a class="code hl_function" href="classElevate_1_1DebugRenderer.html#aadaffa474d3c99a4aeb8940dabf4027f">DebugRenderer::Render</a>();</div>
-<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span> </div>
-<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>        s_mainFramebuffer-&gt;Unbind();</div>
-<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>    }</div>
-<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>}</div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>        s_geometryFramebuffer-&gt;BlitDepthTo(*s_mainFramebuffer); <span class="comment">// Keep the original depth</span></div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>        s_mainFramebuffer-&gt;Bind();</div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span> </div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>        RenderState editorState;</div>
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>        editorState.DepthTest = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>        editorState.DepthWrite = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>        editorState.DepthFunc = <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5ad3e6fdac55bb7b0edd7834c968ba1f38">DepthFunction::LessEqual</a>;</div>
+<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>        editorState.CullMode = <a class="code hl_enumvalue" href="namespaceElevate.html#ab40741268ba207b0245f5193766bc867a6adf97f83acf6453d4a6a4b1070f3754">CullFace::None</a>;</div>
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>        editorState.BlendMode = <a class="code hl_enumvalue" href="namespaceElevate.html#ad002ce49518d7df611eb03b292c66071a6132295fcf5570fb8b0a944ef322a598">BlendModeType::Alpha</a>;</div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span> </div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">PushRenderState</a>(editorState);</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span> </div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>        s_commands.<a class="code hl_function" href="classElevate_1_1RenderCommandQueue.html#a1fe1338c33417e7641e2522c30fc920a">Flush</a>(<a class="code hl_enumvalue" href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a53100758eb01e1700fa0d2021a99eff0">RenderBucket::Editor</a>);</div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>        <a class="code hl_function" href="classElevate_1_1DebugRenderer.html#aadaffa474d3c99a4aeb8940dabf4027f">DebugRenderer::Render</a>();</div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span> </div>
+<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>        s_mainFramebuffer-&gt;Unbind();</div>
+<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>    }</div>
+<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>}</div>
 <div class="ttc" id="aCamera_8h_html"><div class="ttname"><a href="Camera_8h.html">Camera.h</a></div></div>
 <div class="ttc" id="aCore_8h_html_a2ab88033038deb2307b90ef9b351135c"><div class="ttname"><a href="Core_8h.html#a2ab88033038deb2307b90ef9b351135c">EE_SHADER_HEADER</a></div><div class="ttdeci">#define EE_SHADER_HEADER</div><div class="ttdef"><b>Definition</b> <a href="Core_8h_source.html#l00032">Core.h:32</a></div></div>
 <div class="ttc" id="aCubemap_8h_html"><div class="ttname"><a href="Cubemap_8h.html">Cubemap.h</a></div></div>
@@ -1007,7 +1008,7 @@ $(document).ready(function(){initNavTree('Renderer_8cpp_source.html',''); initRe
 <div class="ttc" id="aeepch_8h_html"><div class="ttname"><a href="eepch_8h.html">eepch.h</a></div></div>
 <div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00007">AudioDistanceProbe.h:8</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a0dbb1d3a1b1a57cf0e5f691054c5c022ae7d31fc0602fb2ede144d18cdffd816b"><div class="ttname"><a href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ae7d31fc0602fb2ede144d18cdffd816b">Elevate::TextureState::Ready</a></div><div class="ttdeci">@ Ready</div></div>
-<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5a1cfdf0e8d0c87a228c1f40d9bee7888b"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a1cfdf0e8d0c87a228c1f40d9bee7888b">Elevate::DepthFunction::Less</a></div><div class="ttdeci">@ Less</div></div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5ad3e6fdac55bb7b0edd7834c968ba1f38"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5ad3e6fdac55bb7b0edd7834c968ba1f38">Elevate::DepthFunction::LessEqual</a></div><div class="ttdeci">@ LessEqual</div></div>
 <div class="ttc" id="anamespaceElevate_html_a50d6e5907da10670e70f8436185d99d4"><div class="ttname"><a href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">Elevate::TexturePtr</a></div><div class="ttdeci">std::shared_ptr&lt; Texture &gt; TexturePtr</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8h_source.html#l00018">Renderer.h:18</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a616e287e4c8d91552d66e7da0feb650c"><div class="ttname"><a href="namespaceElevate.html#a616e287e4c8d91552d66e7da0feb650c">Elevate::ScenePtr</a></div><div class="ttdeci">std::shared_ptr&lt; Scene &gt; ScenePtr</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8h_source.html#l00022">Renderer.h:22</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a6b8200f8cf0f799bee6e6b7d1301d00ea889574aebacda6bfd3e534e2b49b8028"><div class="ttname"><a href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea889574aebacda6bfd3e534e2b49b8028">Elevate::TextureFormat::RGB</a></div><div class="ttdeci">@ RGB</div></div>
