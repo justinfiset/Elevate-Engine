@@ -105,15 +105,15 @@ $(document).ready(function(){initNavTree('classElevate_1_1EditorRenderer.html','
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a7cd3621fc1a2751e90e57db587ca6411" id="r_a7cd3621fc1a2751e90e57db587ca6411"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EditorRenderer.html#a7cd3621fc1a2751e90e57db587ca6411">DrawBillboard</a> (const glm::vec3 &amp;position, <a class="el" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> icon, float scale=0.5f)</td></tr>
-<tr class="separator:a7cd3621fc1a2751e90e57db587ca6411"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a4e77196ebae678a7185c50bb86bf9f" id="r_a8a4e77196ebae678a7185c50bb86bf9f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EditorRenderer.html#a8a4e77196ebae678a7185c50bb86bf9f">DrawBillboard</a> (const glm::vec3 &amp;position, <a class="el" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> icon, float scale=0.5f, glm::vec4 colorModifier=glm::vec4(1.0f))</td></tr>
+<tr class="separator:a8a4e77196ebae678a7185c50bb86bf9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="EditorRenderer_8h_source.html#l00007">7</a> of file <a class="el" href="EditorRenderer_8h_source.html">EditorRenderer.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7cd3621fc1a2751e90e57db587ca6411" name="a7cd3621fc1a2751e90e57db587ca6411"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cd3621fc1a2751e90e57db587ca6411">&#9670;&#160;</a></span>DrawBillboard()</h2>
+<a id="a8a4e77196ebae678a7185c50bb86bf9f" name="a8a4e77196ebae678a7185c50bb86bf9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a4e77196ebae678a7185c50bb86bf9f">&#9670;&#160;</a></span>DrawBillboard()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -137,7 +137,13 @@ Static Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>scale</em> = <code>0.5f</code>&#160;</td>
+          <td class="paramname"><em>scale</em> = <code>0.5f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec4&#160;</td>
+          <td class="paramname"><em>colorModifier</em> = <code>glm::vec4(1.0f)</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -174,18 +180,19 @@ Static Public Member Functions</h2></td></tr>
 <div class="line"><span class="lineno">   29</span>        state.DepthWrite = <span class="keyword">false</span>;</div>
 <div class="line"><span class="lineno">   30</span> </div>
 <div class="line"><span class="lineno">   31</span>        instanceMaterial-&gt;SetRenderState(state);</div>
-<div class="line"><span class="lineno">   32</span>        instanceMaterial-&gt;SetBucket(<a class="code hl_enumvalue" href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a068c7634323788c9364a2f69b3f9dee7">RenderBucket::Type::Transparent</a>);</div>
+<div class="line"><span class="lineno">   32</span>        instanceMaterial-&gt;SetBucket(<a class="code hl_enumvalue" href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a53100758eb01e1700fa0d2021a99eff0">RenderBucket::Type::Editor</a>);</div>
 <div class="line"><span class="lineno">   33</span> </div>
 <div class="line"><span class="lineno">   34</span>        instanceMaterial-&gt;SetTexture(<span class="stringliteral">&quot;billboardTexture&quot;</span>, icon);</div>
-<div class="line"><span class="lineno">   35</span>        instanceMaterial-&gt;Set(<span class="stringliteral">&quot;worldPos&quot;</span>, position);</div>
-<div class="line"><span class="lineno">   36</span>        instanceMaterial-&gt;Set(<span class="stringliteral">&quot;scale&quot;</span>, scale);</div>
-<div class="line"><span class="lineno">   37</span> </div>
-<div class="line"><span class="lineno">   38</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a75b6b926ae673d78503caf57dd6dd40d">Renderer::SubmitMesh</a>(billboardQuad.GetVertexArray(), instanceMaterial, glm::mat4(1.0f));</div>
-<div class="line"><span class="lineno">   39</span>    }</div>
+<div class="line"><span class="lineno">   35</span>        instanceMaterial-&gt;Set(<span class="stringliteral">&quot;colorModifier&quot;</span>, colorModifier);</div>
+<div class="line"><span class="lineno">   36</span>        instanceMaterial-&gt;Set(<span class="stringliteral">&quot;worldPos&quot;</span>, position);</div>
+<div class="line"><span class="lineno">   37</span>        instanceMaterial-&gt;Set(<span class="stringliteral">&quot;scale&quot;</span>, scale);</div>
+<div class="line"><span class="lineno">   38</span> </div>
+<div class="line"><span class="lineno">   39</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a75b6b926ae673d78503caf57dd6dd40d">Renderer::SubmitMesh</a>(billboardQuad.GetVertexArray(), instanceMaterial, glm::mat4(1.0f));</div>
+<div class="line"><span class="lineno">   40</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1MaterialRegistry_html_a63e843a5ae0b6561235dcd0972afdafc"><div class="ttname"><a href="classElevate_1_1MaterialRegistry.html#a63e843a5ae0b6561235dcd0972afdafc">Elevate::MaterialRegistry::LoadMaterial</a></div><div class="ttdeci">static MaterialPtr LoadMaterial(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition</b> <a href="Material_8cpp_source.html#l00126">Material.cpp:126</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Mesh_html_a9e1e36e7552d5b52b3bb369e4ea8074d"><div class="ttname"><a href="classElevate_1_1Mesh.html#a9e1e36e7552d5b52b3bb369e4ea8074d">Elevate::Mesh::GenerateQuad</a></div><div class="ttdeci">static Mesh GenerateQuad(float size=1.0f)</div><div class="ttdef"><b>Definition</b> <a href="Mesh_8cpp_source.html#l00186">Mesh.cpp:186</a></div></div>
-<div class="ttc" id="aclassElevate_1_1RenderBucket_html_a3f870944d2537ae2f1f26ebb8481c7a2a068c7634323788c9364a2f69b3f9dee7"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a068c7634323788c9364a2f69b3f9dee7">Elevate::RenderBucket::Transparent</a></div><div class="ttdeci">@ Transparent</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8h_source.html#l00015">RenderBucket.h:15</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a75b6b926ae673d78503caf57dd6dd40d"><div class="ttname"><a href="classElevate_1_1Renderer.html#a75b6b926ae673d78503caf57dd6dd40d">Elevate::Renderer::SubmitMesh</a></div><div class="ttdeci">static void SubmitMesh(const std::shared_ptr&lt; VertexArray &gt; &amp;vao, const MaterialPtr &amp;material, const glm::mat4 &amp;transform)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00456">Renderer.cpp:456</a></div></div>
+<div class="ttc" id="aclassElevate_1_1RenderBucket_html_a3f870944d2537ae2f1f26ebb8481c7a2a53100758eb01e1700fa0d2021a99eff0"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a53100758eb01e1700fa0d2021a99eff0">Elevate::RenderBucket::Editor</a></div><div class="ttdeci">@ Editor</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8h_source.html#l00017">RenderBucket.h:17</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a75b6b926ae673d78503caf57dd6dd40d"><div class="ttname"><a href="classElevate_1_1Renderer.html#a75b6b926ae673d78503caf57dd6dd40d">Elevate::Renderer::SubmitMesh</a></div><div class="ttdeci">static void SubmitMesh(const std::shared_ptr&lt; VertexArray &gt; &amp;vao, const MaterialPtr &amp;material, const glm::mat4 &amp;transform)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00466">Renderer.cpp:466</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ShaderManager_html_abfcecf7139146f12bb54d3bcecf0b881"><div class="ttname"><a href="classElevate_1_1ShaderManager.html#abfcecf7139146f12bb54d3bcecf0b881">Elevate::ShaderManager::GetShader</a></div><div class="ttdeci">static ShaderPtr GetShader(const std::string &amp;name)</div><div class="ttdef"><b>Definition</b> <a href="ShaderManager_8cpp_source.html#l00038">ShaderManager.cpp:38</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_ab40741268ba207b0245f5193766bc867a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="namespaceElevate.html#ab40741268ba207b0245f5193766bc867a6adf97f83acf6453d4a6a4b1070f3754">Elevate::CullFace::None</a></div><div class="ttdeci">@ None</div></div>
 <div class="ttc" id="anamespaceElevate_html_ac037c840d7d069f9df2fd3be46d2747e"><div class="ttname"><a href="namespaceElevate.html#ac037c840d7d069f9df2fd3be46d2747e">Elevate::MaterialPtr</a></div><div class="ttdeci">EEObjectPtr&lt; Material &gt; MaterialPtr</div><div class="ttdef"><b>Definition</b> <a href="Material_8h_source.html#l00030">Material.h:30</a></div></div>

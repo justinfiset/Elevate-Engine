@@ -354,7 +354,7 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1OpenGLContext.html">OpenGLContext</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1OpenGLFrameBuffer.html">OpenGLFrameBuffer</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1OpenGLFramebuffer.html">OpenGLFramebuffer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1OpenGLIndexBuffer.html">OpenGLIndexBuffer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -686,6 +686,18 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceElevate.html#ad002ce49518d7df611eb03b292c66071a6adf97f83acf6453d4a6a4b1070f3754">None</a>
  }</td></tr>
 <tr class="separator:ad002ce49518d7df611eb03b292c66071"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37b3132c4688c0549c61869d806e72b5" id="r_a37b3132c4688c0549c61869d806e72b5"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5">DepthFunction</a> { <br />
+&#160;&#160;<a class="el" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a1cfdf0e8d0c87a228c1f40d9bee7888b">Less</a>
+, <a class="el" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5ad3e6fdac55bb7b0edd7834c968ba1f38">LessEqual</a>
+, <a class="el" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5af5f286e73bda105e538310b3190f75c5">Equal</a>
+, <a class="el" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a68eec46437c384d8dad18d5464ebc35c">Always</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a6e7b34fa59e1bd229b207892956dc41c">Never</a>
+, <a class="el" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a8768a6821cd735aea4f5b0df88c1fc6a">Greater</a>
+, <a class="el" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a758b05d899def79c9eb864ad4f96be1f">GreaterEqual</a>
+<br />
+ }</td></tr>
+<tr class="separator:a37b3132c4688c0549c61869d806e72b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6361ea92b9a6b52779e660ed5ea9df7" id="r_ad6361ea92b9a6b52779e660ed5ea9df7"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7">TextureSource</a> : uint8_t { <a class="el" href="namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7a0b27918290ff5323bea1e3b78a9cf04e">File</a>
 , <a class="el" href="namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7a5c5f06440fcb85cd5c8cfafe32e34b78">Generated</a>
 , <a class="el" href="namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7a9b0bffda4bcb312168c0d6537cb04b4d">RenderTarget</a>
@@ -702,14 +714,13 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa29d843695056f9c171a9eb702d6910a">RGBA16F</a>
 , <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea703a7a81e586669c930e3dcaf3e8c428">RGBA32F</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">DEPTH</a>
-, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea552b95de83e557ad11a9330164831ffb">DEPTH16</a>
-, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea25fda16aa10a025ab21b9019b094ef27">DEPTH24</a>
-, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea19f22a1cbc2e2733484acbf9fc1bb4cd">DEPTH32F</a>
-, <br />
 &#160;&#160;<a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea1f3f09bca5728eb7af4ea263ae84b9f1">SRGB</a>
 , <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa6b63903808be00ae4fcdb3850f811a4">SRGBA</a>
-, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaecaa8fe8cb0e85372f4cc76728c7cf3c">DEPTH_STENCIL</a>
+, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">DEPTH</a>
+, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea552b95de83e557ad11a9330164831ffb">DEPTH16</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea25fda16aa10a025ab21b9019b094ef27">DEPTH24</a>
+, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea19f22a1cbc2e2733484acbf9fc1bb4cd">DEPTH32F</a>
 , <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea0768a7b4ae12f44fd7d2b5320256b4b8">DEPTH24_STENCIL8</a>
 <br />
  }</td></tr>
@@ -1316,6 +1327,55 @@ template&lt;typename T &gt; </div>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="a37b3132c4688c0549c61869d806e72b5" name="a37b3132c4688c0549c61869d806e72b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37b3132c4688c0549c61869d806e72b5">&#9670;&#160;</a></span>DepthFunction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5">Elevate::DepthFunction</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a37b3132c4688c0549c61869d806e72b5a1cfdf0e8d0c87a228c1f40d9bee7888b" name="a37b3132c4688c0549c61869d806e72b5a1cfdf0e8d0c87a228c1f40d9bee7888b"></a>Less&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a37b3132c4688c0549c61869d806e72b5ad3e6fdac55bb7b0edd7834c968ba1f38" name="a37b3132c4688c0549c61869d806e72b5ad3e6fdac55bb7b0edd7834c968ba1f38"></a>LessEqual&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a37b3132c4688c0549c61869d806e72b5af5f286e73bda105e538310b3190f75c5" name="a37b3132c4688c0549c61869d806e72b5af5f286e73bda105e538310b3190f75c5"></a>Equal&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a37b3132c4688c0549c61869d806e72b5a68eec46437c384d8dad18d5464ebc35c" name="a37b3132c4688c0549c61869d806e72b5a68eec46437c384d8dad18d5464ebc35c"></a>Always&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a37b3132c4688c0549c61869d806e72b5a6e7b34fa59e1bd229b207892956dc41c" name="a37b3132c4688c0549c61869d806e72b5a6e7b34fa59e1bd229b207892956dc41c"></a>Never&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a37b3132c4688c0549c61869d806e72b5a8768a6821cd735aea4f5b0df88c1fc6a" name="a37b3132c4688c0549c61869d806e72b5a8768a6821cd735aea4f5b0df88c1fc6a"></a>Greater&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a37b3132c4688c0549c61869d806e72b5a758b05d899def79c9eb864ad4f96be1f" name="a37b3132c4688c0549c61869d806e72b5a758b05d899def79c9eb864ad4f96be1f"></a>GreaterEqual&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="RenderState_8h_source.html#l00020">20</a> of file <a class="el" href="RenderState_8h_source.html">RenderState.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   21</span>    {</div>
+<div class="line"><span class="lineno">   22</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a1cfdf0e8d0c87a228c1f40d9bee7888b">Less</a>,</div>
+<div class="line"><span class="lineno">   23</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5ad3e6fdac55bb7b0edd7834c968ba1f38">LessEqual</a>,</div>
+<div class="line"><span class="lineno">   24</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5af5f286e73bda105e538310b3190f75c5">Equal</a>,</div>
+<div class="line"><span class="lineno">   25</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a68eec46437c384d8dad18d5464ebc35c">Always</a>,</div>
+<div class="line"><span class="lineno">   26</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a6e7b34fa59e1bd229b207892956dc41c">Never</a>,</div>
+<div class="line"><span class="lineno">   27</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a8768a6821cd735aea4f5b0df88c1fc6a">Greater</a>,</div>
+<div class="line"><span class="lineno">   28</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a758b05d899def79c9eb864ad4f96be1f">GreaterEqual</a></div>
+<div class="line"><span class="lineno">   29</span>    };</div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5a1cfdf0e8d0c87a228c1f40d9bee7888b"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a1cfdf0e8d0c87a228c1f40d9bee7888b">Elevate::DepthFunction::Less</a></div><div class="ttdeci">@ Less</div></div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5a68eec46437c384d8dad18d5464ebc35c"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a68eec46437c384d8dad18d5464ebc35c">Elevate::DepthFunction::Always</a></div><div class="ttdeci">@ Always</div></div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5a6e7b34fa59e1bd229b207892956dc41c"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a6e7b34fa59e1bd229b207892956dc41c">Elevate::DepthFunction::Never</a></div><div class="ttdeci">@ Never</div></div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5a758b05d899def79c9eb864ad4f96be1f"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a758b05d899def79c9eb864ad4f96be1f">Elevate::DepthFunction::GreaterEqual</a></div><div class="ttdeci">@ GreaterEqual</div></div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5a8768a6821cd735aea4f5b0df88c1fc6a"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a8768a6821cd735aea4f5b0df88c1fc6a">Elevate::DepthFunction::Greater</a></div><div class="ttdeci">@ Greater</div></div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5ad3e6fdac55bb7b0edd7834c968ba1f38"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5ad3e6fdac55bb7b0edd7834c968ba1f38">Elevate::DepthFunction::LessEqual</a></div><div class="ttdeci">@ LessEqual</div></div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5af5f286e73bda105e538310b3190f75c5"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5af5f286e73bda105e538310b3190f75c5">Elevate::DepthFunction::Equal</a></div><div class="ttdeci">@ Equal</div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a7f8942dfad890eaf465cb12b3bfb050d" name="a7f8942dfad890eaf465cb12b3bfb050d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f8942dfad890eaf465cb12b3bfb050d">&#9670;&#160;</a></span>DrawPrimitiveType</h2>
 
@@ -1841,8 +1901,8 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b" name="ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b"></a>Linear&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8h_source.html#l00086">86</a> of file <a class="el" href="Texture_8h_source.html">Texture.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   86</span>: uint8_t { <a class="code hl_enumvalue" href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca60494f02d440f316319dd0fad40ad007">Nearest</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b">Linear</a> };</div>
+<p class="definition">Definition at line <a class="el" href="Texture_8h_source.html#l00088">88</a> of file <a class="el" href="Texture_8h_source.html">Texture.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   88</span>: uint8_t { <a class="code hl_enumvalue" href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca60494f02d440f316319dd0fad40ad007">Nearest</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b">Linear</a> };</div>
 <div class="ttc" id="anamespaceElevate_html_ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b"><div class="ttname"><a href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b">Elevate::TextureFilter::Linear</a></div><div class="ttdeci">@ Linear</div></div>
 <div class="ttc" id="anamespaceElevate_html_ad55cb5b8635f95892a67b7e420730b9ca60494f02d440f316319dd0fad40ad007"><div class="ttname"><a href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca60494f02d440f316319dd0fad40ad007">Elevate::TextureFilter::Nearest</a></div><div class="ttdeci">@ Nearest</div></div>
 </div><!-- fragment -->
@@ -1876,13 +1936,12 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="a6b8200f8cf0f799bee6e6b7d1301d00ead8936cc7055546f79128b9dbfb8c8bbb" name="a6b8200f8cf0f799bee6e6b7d1301d00ead8936cc7055546f79128b9dbfb8c8bbb"></a>RGB32F&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a6b8200f8cf0f799bee6e6b7d1301d00eaa29d843695056f9c171a9eb702d6910a" name="a6b8200f8cf0f799bee6e6b7d1301d00eaa29d843695056f9c171a9eb702d6910a"></a>RGBA16F&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a6b8200f8cf0f799bee6e6b7d1301d00ea703a7a81e586669c930e3dcaf3e8c428" name="a6b8200f8cf0f799bee6e6b7d1301d00ea703a7a81e586669c930e3dcaf3e8c428"></a>RGBA32F&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8200f8cf0f799bee6e6b7d1301d00ea1f3f09bca5728eb7af4ea263ae84b9f1" name="a6b8200f8cf0f799bee6e6b7d1301d00ea1f3f09bca5728eb7af4ea263ae84b9f1"></a>SRGB&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8200f8cf0f799bee6e6b7d1301d00eaa6b63903808be00ae4fcdb3850f811a4" name="a6b8200f8cf0f799bee6e6b7d1301d00eaa6b63903808be00ae4fcdb3850f811a4"></a>SRGBA&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111" name="a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111"></a>DEPTH&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a6b8200f8cf0f799bee6e6b7d1301d00ea552b95de83e557ad11a9330164831ffb" name="a6b8200f8cf0f799bee6e6b7d1301d00ea552b95de83e557ad11a9330164831ffb"></a>DEPTH16&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a6b8200f8cf0f799bee6e6b7d1301d00ea25fda16aa10a025ab21b9019b094ef27" name="a6b8200f8cf0f799bee6e6b7d1301d00ea25fda16aa10a025ab21b9019b094ef27"></a>DEPTH24&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a6b8200f8cf0f799bee6e6b7d1301d00ea19f22a1cbc2e2733484acbf9fc1bb4cd" name="a6b8200f8cf0f799bee6e6b7d1301d00ea19f22a1cbc2e2733484acbf9fc1bb4cd"></a>DEPTH32F&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6b8200f8cf0f799bee6e6b7d1301d00ea1f3f09bca5728eb7af4ea263ae84b9f1" name="a6b8200f8cf0f799bee6e6b7d1301d00ea1f3f09bca5728eb7af4ea263ae84b9f1"></a>SRGB&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6b8200f8cf0f799bee6e6b7d1301d00eaa6b63903808be00ae4fcdb3850f811a4" name="a6b8200f8cf0f799bee6e6b7d1301d00eaa6b63903808be00ae4fcdb3850f811a4"></a>SRGBA&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6b8200f8cf0f799bee6e6b7d1301d00eaecaa8fe8cb0e85372f4cc76728c7cf3c" name="a6b8200f8cf0f799bee6e6b7d1301d00eaecaa8fe8cb0e85372f4cc76728c7cf3c"></a>DEPTH_STENCIL&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a6b8200f8cf0f799bee6e6b7d1301d00ea0768a7b4ae12f44fd7d2b5320256b4b8" name="a6b8200f8cf0f799bee6e6b7d1301d00ea0768a7b4ae12f44fd7d2b5320256b4b8"></a>DEPTH24_STENCIL8&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -1890,21 +1949,24 @@ template&lt;typename T &gt; </div>
 <div class="fragment"><div class="line"><span class="lineno">   21</span>                             : uint8_t {</div>
 <div class="line"><span class="lineno">   22</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaba2b45bdc11e2a4a6e86aab2ac693cbb">EMPTY</a> = 0,</div>
 <div class="line"><span class="lineno">   23</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eabfc52a030be6cc5e47fe83a81e3175a0">GRAYSCALE</a>,</div>
-<div class="line"><span class="lineno">   24</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea889574aebacda6bfd3e534e2b49b8028">RGB</a>,</div>
-<div class="line"><span class="lineno">   25</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaea3495a278957dc58165e48a8945469f">RGBA</a>,</div>
-<div class="line"><span class="lineno">   26</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea25cd126670bd567a899c64c4e6e8ca7d">RGB16F</a>,</div>
-<div class="line"><span class="lineno">   27</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ead8936cc7055546f79128b9dbfb8c8bbb">RGB32F</a>,</div>
-<div class="line"><span class="lineno">   28</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa29d843695056f9c171a9eb702d6910a">RGBA16F</a>,</div>
-<div class="line"><span class="lineno">   29</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea703a7a81e586669c930e3dcaf3e8c428">RGBA32F</a>,</div>
-<div class="line"><span class="lineno">   30</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">DEPTH</a>,</div>
-<div class="line"><span class="lineno">   31</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea552b95de83e557ad11a9330164831ffb">DEPTH16</a>,</div>
-<div class="line"><span class="lineno">   32</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea25fda16aa10a025ab21b9019b094ef27">DEPTH24</a>,</div>
-<div class="line"><span class="lineno">   33</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea19f22a1cbc2e2733484acbf9fc1bb4cd">DEPTH32F</a>,</div>
-<div class="line"><span class="lineno">   34</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea1f3f09bca5728eb7af4ea263ae84b9f1">SRGB</a>,</div>
-<div class="line"><span class="lineno">   35</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa6b63903808be00ae4fcdb3850f811a4">SRGBA</a>,</div>
-<div class="line"><span class="lineno">   36</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaecaa8fe8cb0e85372f4cc76728c7cf3c">DEPTH_STENCIL</a>, <span class="comment">// To use depth and stencil at the same time</span></div>
-<div class="line"><span class="lineno">   37</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea0768a7b4ae12f44fd7d2b5320256b4b8">DEPTH24_STENCIL8</a></div>
-<div class="line"><span class="lineno">   38</span>    };</div>
+<div class="line"><span class="lineno">   24</span> </div>
+<div class="line"><span class="lineno">   25</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea889574aebacda6bfd3e534e2b49b8028">RGB</a>,</div>
+<div class="line"><span class="lineno">   26</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaea3495a278957dc58165e48a8945469f">RGBA</a>,</div>
+<div class="line"><span class="lineno">   27</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea25cd126670bd567a899c64c4e6e8ca7d">RGB16F</a>,</div>
+<div class="line"><span class="lineno">   28</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ead8936cc7055546f79128b9dbfb8c8bbb">RGB32F</a>,</div>
+<div class="line"><span class="lineno">   29</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa29d843695056f9c171a9eb702d6910a">RGBA16F</a>,</div>
+<div class="line"><span class="lineno">   30</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea703a7a81e586669c930e3dcaf3e8c428">RGBA32F</a>,</div>
+<div class="line"><span class="lineno">   31</span> </div>
+<div class="line"><span class="lineno">   32</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea1f3f09bca5728eb7af4ea263ae84b9f1">SRGB</a>,</div>
+<div class="line"><span class="lineno">   33</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa6b63903808be00ae4fcdb3850f811a4">SRGBA</a>,</div>
+<div class="line"><span class="lineno">   34</span> </div>
+<div class="line"><span class="lineno">   35</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">DEPTH</a>,</div>
+<div class="line"><span class="lineno">   36</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea552b95de83e557ad11a9330164831ffb">DEPTH16</a>,</div>
+<div class="line"><span class="lineno">   37</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea25fda16aa10a025ab21b9019b094ef27">DEPTH24</a>,</div>
+<div class="line"><span class="lineno">   38</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea19f22a1cbc2e2733484acbf9fc1bb4cd">DEPTH32F</a>,</div>
+<div class="line"><span class="lineno">   39</span> </div>
+<div class="line"><span class="lineno">   40</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea0768a7b4ae12f44fd7d2b5320256b4b8">DEPTH24_STENCIL8</a> <span class="comment">// To use depth and stencil at the same time</span></div>
+<div class="line"><span class="lineno">   41</span>    };</div>
 <div class="ttc" id="anamespaceElevate_html_a6b8200f8cf0f799bee6e6b7d1301d00ea0768a7b4ae12f44fd7d2b5320256b4b8"><div class="ttname"><a href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea0768a7b4ae12f44fd7d2b5320256b4b8">Elevate::TextureFormat::DEPTH24_STENCIL8</a></div><div class="ttdeci">@ DEPTH24_STENCIL8</div></div>
 <div class="ttc" id="anamespaceElevate_html_a6b8200f8cf0f799bee6e6b7d1301d00ea19f22a1cbc2e2733484acbf9fc1bb4cd"><div class="ttname"><a href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea19f22a1cbc2e2733484acbf9fc1bb4cd">Elevate::TextureFormat::DEPTH32F</a></div><div class="ttdeci">@ DEPTH32F</div></div>
 <div class="ttc" id="anamespaceElevate_html_a6b8200f8cf0f799bee6e6b7d1301d00ea1f3f09bca5728eb7af4ea263ae84b9f1"><div class="ttname"><a href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea1f3f09bca5728eb7af4ea263ae84b9f1">Elevate::TextureFormat::SRGB</a></div><div class="ttdeci">@ SRGB</div></div>
@@ -1920,7 +1982,6 @@ template&lt;typename T &gt; </div>
 <div class="ttc" id="anamespaceElevate_html_a6b8200f8cf0f799bee6e6b7d1301d00eabfc52a030be6cc5e47fe83a81e3175a0"><div class="ttname"><a href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eabfc52a030be6cc5e47fe83a81e3175a0">Elevate::TextureFormat::GRAYSCALE</a></div><div class="ttdeci">@ GRAYSCALE</div></div>
 <div class="ttc" id="anamespaceElevate_html_a6b8200f8cf0f799bee6e6b7d1301d00ead8936cc7055546f79128b9dbfb8c8bbb"><div class="ttname"><a href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ead8936cc7055546f79128b9dbfb8c8bbb">Elevate::TextureFormat::RGB32F</a></div><div class="ttdeci">@ RGB32F</div></div>
 <div class="ttc" id="anamespaceElevate_html_a6b8200f8cf0f799bee6e6b7d1301d00eaea3495a278957dc58165e48a8945469f"><div class="ttname"><a href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaea3495a278957dc58165e48a8945469f">Elevate::TextureFormat::RGBA</a></div><div class="ttdeci">@ RGBA</div></div>
-<div class="ttc" id="anamespaceElevate_html_a6b8200f8cf0f799bee6e6b7d1301d00eaecaa8fe8cb0e85372f4cc76728c7cf3c"><div class="ttname"><a href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaecaa8fe8cb0e85372f4cc76728c7cf3c">Elevate::TextureFormat::DEPTH_STENCIL</a></div><div class="ttdeci">@ DEPTH_STENCIL</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1988,15 +2049,15 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="a0dbb1d3a1b1a57cf0e5f691054c5c022ad7c8c85bf79bbe1b7188497c32c3b0ca" name="a0dbb1d3a1b1a57cf0e5f691054c5c022ad7c8c85bf79bbe1b7188497c32c3b0ca"></a>Failed&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8h_source.html#l00077">77</a> of file <a class="el" href="Texture_8h_source.html">Texture.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   77</span>                            : uint8_t {</div>
-<div class="line"><span class="lineno">   78</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ace2c8aed9c2fa0cfbed56cbda4d8bf07">Empty</a>,</div>
-<div class="line"><span class="lineno">   79</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022aa5ae20aa7fda5bd38bf0dce98e65bd2d">Unloaded</a> = <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ace2c8aed9c2fa0cfbed56cbda4d8bf07">Empty</a>, <span class="comment">// Same as empty but for files</span></div>
-<div class="line"><span class="lineno">   80</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a16bfbf9c462762cf1cba4134ec53c504">Loading</a>,</div>
-<div class="line"><span class="lineno">   81</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ae7d31fc0602fb2ede144d18cdffd816b">Ready</a>,</div>
-<div class="line"><span class="lineno">   82</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a7381d487d18845b379422325c0a768d6">Loaded</a> = <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ae7d31fc0602fb2ede144d18cdffd816b">Ready</a>, <span class="comment">// Same as ready but for files</span></div>
-<div class="line"><span class="lineno">   83</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ad7c8c85bf79bbe1b7188497c32c3b0ca">Failed</a></div>
-<div class="line"><span class="lineno">   84</span>    };</div>
+<p class="definition">Definition at line <a class="el" href="Texture_8h_source.html#l00079">79</a> of file <a class="el" href="Texture_8h_source.html">Texture.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   79</span>                            : uint8_t {</div>
+<div class="line"><span class="lineno">   80</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ace2c8aed9c2fa0cfbed56cbda4d8bf07">Empty</a>,</div>
+<div class="line"><span class="lineno">   81</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022aa5ae20aa7fda5bd38bf0dce98e65bd2d">Unloaded</a> = <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ace2c8aed9c2fa0cfbed56cbda4d8bf07">Empty</a>, <span class="comment">// Same as empty but for files</span></div>
+<div class="line"><span class="lineno">   82</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a16bfbf9c462762cf1cba4134ec53c504">Loading</a>,</div>
+<div class="line"><span class="lineno">   83</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ae7d31fc0602fb2ede144d18cdffd816b">Ready</a>,</div>
+<div class="line"><span class="lineno">   84</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a7381d487d18845b379422325c0a768d6">Loaded</a> = <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ae7d31fc0602fb2ede144d18cdffd816b">Ready</a>, <span class="comment">// Same as ready but for files</span></div>
+<div class="line"><span class="lineno">   85</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ad7c8c85bf79bbe1b7188497c32c3b0ca">Failed</a></div>
+<div class="line"><span class="lineno">   86</span>    };</div>
 <div class="ttc" id="anamespaceElevate_html_a0dbb1d3a1b1a57cf0e5f691054c5c022a16bfbf9c462762cf1cba4134ec53c504"><div class="ttname"><a href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a16bfbf9c462762cf1cba4134ec53c504">Elevate::TextureState::Loading</a></div><div class="ttdeci">@ Loading</div></div>
 <div class="ttc" id="anamespaceElevate_html_a0dbb1d3a1b1a57cf0e5f691054c5c022a7381d487d18845b379422325c0a768d6"><div class="ttname"><a href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022a7381d487d18845b379422325c0a768d6">Elevate::TextureState::Loaded</a></div><div class="ttdeci">@ Loaded</div></div>
 <div class="ttc" id="anamespaceElevate_html_a0dbb1d3a1b1a57cf0e5f691054c5c022aa5ae20aa7fda5bd38bf0dce98e65bd2d"><div class="ttname"><a href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022aa5ae20aa7fda5bd38bf0dce98e65bd2d">Elevate::TextureState::Unloaded</a></div><div class="ttdeci">@ Unloaded</div></div>
@@ -2038,19 +2099,19 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="abbc8ef8e3bb95c91c8071d7f6302466fae93f994f01c537c4e2f7d8528c3eb5e9" name="abbc8ef8e3bb95c91c8071d7f6302466fae93f994f01c537c4e2f7d8528c3eb5e9"></a>Count&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8h_source.html#l00064">64</a> of file <a class="el" href="Texture_8h_source.html">Texture.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   64</span>                           : uint8_t {</div>
-<div class="line"><span class="lineno">   65</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa41178642cae095a6bdb909119b4d16e8">Diffuse</a>,</div>
-<div class="line"><span class="lineno">   66</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa39b0044dd8789d333e7794f359406740">Specular</a>,</div>
-<div class="line"><span class="lineno">   67</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa960b44c579bc2f6818d2daaf9e4c16f0">Normal</a>,</div>
-<div class="line"><span class="lineno">   68</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466faeec6c4bdbd339edf8cbea68becb85244">Height</a>,</div>
-<div class="line"><span class="lineno">   69</span>        <a class="code hl_class" href="classElevate_1_1Cubemap.html">Cubemap</a>,</div>
-<div class="line"><span class="lineno">   70</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466faed8e37bad13d76c6dbeb58152440b41e">Ambient</a>,</div>
-<div class="line"><span class="lineno">   71</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fac8a11fb76942933fc111aea6941c334d">AmbientOcclusion</a>,</div>
-<div class="line"><span class="lineno">   72</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa675056ad1441b6375b2c5abd48c27ef1">Depth</a>,</div>
-<div class="line"><span class="lineno">   73</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa353488005629cf8d75def358ee005f3d">ShadowMap</a>,</div>
-<div class="line"><span class="lineno">   74</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fae93f994f01c537c4e2f7d8528c3eb5e9">Count</a></div>
-<div class="line"><span class="lineno">   75</span>    };</div>
+<p class="definition">Definition at line <a class="el" href="Texture_8h_source.html#l00066">66</a> of file <a class="el" href="Texture_8h_source.html">Texture.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   66</span>                           : uint8_t {</div>
+<div class="line"><span class="lineno">   67</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa41178642cae095a6bdb909119b4d16e8">Diffuse</a>,</div>
+<div class="line"><span class="lineno">   68</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa39b0044dd8789d333e7794f359406740">Specular</a>,</div>
+<div class="line"><span class="lineno">   69</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa960b44c579bc2f6818d2daaf9e4c16f0">Normal</a>,</div>
+<div class="line"><span class="lineno">   70</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466faeec6c4bdbd339edf8cbea68becb85244">Height</a>,</div>
+<div class="line"><span class="lineno">   71</span>        <a class="code hl_class" href="classElevate_1_1Cubemap.html">Cubemap</a>,</div>
+<div class="line"><span class="lineno">   72</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466faed8e37bad13d76c6dbeb58152440b41e">Ambient</a>,</div>
+<div class="line"><span class="lineno">   73</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fac8a11fb76942933fc111aea6941c334d">AmbientOcclusion</a>,</div>
+<div class="line"><span class="lineno">   74</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa675056ad1441b6375b2c5abd48c27ef1">Depth</a>,</div>
+<div class="line"><span class="lineno">   75</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa353488005629cf8d75def358ee005f3d">ShadowMap</a>,</div>
+<div class="line"><span class="lineno">   76</span>        <a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fae93f994f01c537c4e2f7d8528c3eb5e9">Count</a></div>
+<div class="line"><span class="lineno">   77</span>    };</div>
 <div class="ttc" id="aclassElevate_1_1Cubemap_html"><div class="ttname"><a href="classElevate_1_1Cubemap.html">Elevate::Cubemap</a></div><div class="ttdef"><b>Definition</b> <a href="Cubemap_8h_source.html#l00015">Cubemap.h:16</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_abbc8ef8e3bb95c91c8071d7f6302466fa353488005629cf8d75def358ee005f3d"><div class="ttname"><a href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa353488005629cf8d75def358ee005f3d">Elevate::TextureType::ShadowMap</a></div><div class="ttdeci">@ ShadowMap</div></div>
 <div class="ttc" id="anamespaceElevate_html_abbc8ef8e3bb95c91c8071d7f6302466fa39b0044dd8789d333e7794f359406740"><div class="ttname"><a href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa39b0044dd8789d333e7794f359406740">Elevate::TextureType::Specular</a></div><div class="ttdeci">@ Specular</div></div>
@@ -2090,8 +2151,8 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147" name="a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147"></a>ClampToBorder&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8h_source.html#l00087">87</a> of file <a class="el" href="Texture_8h_source.html">Texture.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   87</span>: uint8_t { <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa7020426cfb0a204051be4b3053d2acc8">Repeat</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa39a681a9d5ccc902bebd16a343dd7b74">MirrorRepeat</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa74556551231333c36debc3d373261134">ClampToEdge</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147">ClampToBorder</a> };</div>
+<p class="definition">Definition at line <a class="el" href="Texture_8h_source.html#l00089">89</a> of file <a class="el" href="Texture_8h_source.html">Texture.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   89</span>: uint8_t { <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa7020426cfb0a204051be4b3053d2acc8">Repeat</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa39a681a9d5ccc902bebd16a343dd7b74">MirrorRepeat</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa74556551231333c36debc3d373261134">ClampToEdge</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147">ClampToBorder</a> };</div>
 <div class="ttc" id="anamespaceElevate_html_a7771c00d2b9fdd029ed480432ea0ff5fa39a681a9d5ccc902bebd16a343dd7b74"><div class="ttname"><a href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa39a681a9d5ccc902bebd16a343dd7b74">Elevate::TextureWrap::MirrorRepeat</a></div><div class="ttdeci">@ MirrorRepeat</div></div>
 <div class="ttc" id="anamespaceElevate_html_a7771c00d2b9fdd029ed480432ea0ff5fa7020426cfb0a204051be4b3053d2acc8"><div class="ttname"><a href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa7020426cfb0a204051be4b3053d2acc8">Elevate::TextureWrap::Repeat</a></div><div class="ttdeci">@ Repeat</div></div>
 <div class="ttc" id="anamespaceElevate_html_a7771c00d2b9fdd029ed480432ea0ff5fa74556551231333c36debc3d373261134"><div class="ttname"><a href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa74556551231333c36debc3d373261134">Elevate::TextureWrap::ClampToEdge</a></div><div class="ttdeci">@ ClampToEdge</div></div>
@@ -2886,13 +2947,14 @@ template&lt;typename T , typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OpenGLTexture_8cpp_source.html#l00092">92</a> of file <a class="el" href="OpenGLTexture_8cpp_source.html">OpenGLTexture.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   92</span>                                                                         {</div>
-<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">if</span> (!useMipmaps) {</div>
-<div class="line"><span class="lineno">   94</span>            <span class="keywordflow">return</span> (filter == TextureFilter::Nearest) ? GL_NEAREST : GL_LINEAR;</div>
-<div class="line"><span class="lineno">   95</span>        }</div>
-<div class="line"><span class="lineno">   96</span>        <span class="keywordflow">return</span> (filter == TextureFilter::Nearest) ? GL_NEAREST_MIPMAP_NEAREST : GL_LINEAR_MIPMAP_LINEAR;</div>
-<div class="line"><span class="lineno">   97</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLTexture_8cpp_source.html#l00110">110</a> of file <a class="el" href="OpenGLTexture_8cpp_source.html">OpenGLTexture.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  111</span>    {</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">if</span> (!useMipmaps)</div>
+<div class="line"><span class="lineno">  113</span>        {</div>
+<div class="line"><span class="lineno">  114</span>            <span class="keywordflow">return</span> (filter == TextureFilter::Nearest) ? GL_NEAREST : GL_LINEAR;</div>
+<div class="line"><span class="lineno">  115</span>        }</div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">return</span> (filter == TextureFilter::Nearest) ? GL_NEAREST_MIPMAP_NEAREST : GL_LINEAR_MIPMAP_LINEAR;</div>
+<div class="line"><span class="lineno">  117</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2943,29 +3005,28 @@ template&lt;typename T , typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Texture_8h_source.html#l00040">40</a> of file <a class="el" href="Texture_8h_source.html">Texture.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   41</span>    {</div>
-<div class="line"><span class="lineno">   42</span>        <span class="keywordflow">switch</span> (format)</div>
-<div class="line"><span class="lineno">   43</span>        {</div>
-<div class="line"><span class="lineno">   44</span>        <span class="keywordflow">case</span> TextureFormat::GRAYSCALE:         <span class="keywordflow">return</span> 1;</div>
-<div class="line"><span class="lineno">   45</span>        <span class="keywordflow">case</span> TextureFormat::RGB:               <span class="keywordflow">return</span> 3;</div>
-<div class="line"><span class="lineno">   46</span>        <span class="keywordflow">case</span> TextureFormat::RGB16F:            <span class="keywordflow">return</span> 3;</div>
-<div class="line"><span class="lineno">   47</span>        <span class="keywordflow">case</span> TextureFormat::RGB32F:            <span class="keywordflow">return</span> 3;</div>
-<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">case</span> TextureFormat::RGBA:              <span class="keywordflow">return</span> 4;</div>
-<div class="line"><span class="lineno">   49</span>        <span class="keywordflow">case</span> TextureFormat::RGBA16F:           <span class="keywordflow">return</span> 4;</div>
-<div class="line"><span class="lineno">   50</span>        <span class="keywordflow">case</span> TextureFormat::RGBA32F:           <span class="keywordflow">return</span> 4;</div>
-<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">case</span> TextureFormat::SRGB:              <span class="keywordflow">return</span> 3;</div>
-<div class="line"><span class="lineno">   52</span>        <span class="keywordflow">case</span> TextureFormat::SRGBA:             <span class="keywordflow">return</span> 4;</div>
-<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">case</span> TextureFormat::DEPTH:             <span class="keywordflow">return</span> 1;</div>
-<div class="line"><span class="lineno">   54</span>        <span class="keywordflow">case</span> TextureFormat::DEPTH16:           <span class="keywordflow">return</span> 1;</div>
-<div class="line"><span class="lineno">   55</span>        <span class="keywordflow">case</span> TextureFormat::DEPTH24:           <span class="keywordflow">return</span> 1;</div>
-<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">case</span> TextureFormat::DEPTH32F:          <span class="keywordflow">return</span> 1;</div>
-<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">case</span> TextureFormat::DEPTH_STENCIL:     <span class="keywordflow">return</span> 2;</div>
-<div class="line"><span class="lineno">   58</span>        <span class="keywordflow">case</span> TextureFormat::DEPTH24_STENCIL8:  <span class="keywordflow">return</span> 2;</div>
-<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">case</span> TextureFormat::EMPTY:</div>
-<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">default</span>:                               <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">   61</span>        }</div>
-<div class="line"><span class="lineno">   62</span>    };</div>
+<p class="definition">Definition at line <a class="el" href="Texture_8h_source.html#l00043">43</a> of file <a class="el" href="Texture_8h_source.html">Texture.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   44</span>    {</div>
+<div class="line"><span class="lineno">   45</span>        <span class="keywordflow">switch</span> (format)</div>
+<div class="line"><span class="lineno">   46</span>        {</div>
+<div class="line"><span class="lineno">   47</span>        <span class="keywordflow">case</span> TextureFormat::GRAYSCALE:         <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">case</span> TextureFormat::RGB:               <span class="keywordflow">return</span> 3;</div>
+<div class="line"><span class="lineno">   49</span>        <span class="keywordflow">case</span> TextureFormat::RGB16F:            <span class="keywordflow">return</span> 3;</div>
+<div class="line"><span class="lineno">   50</span>        <span class="keywordflow">case</span> TextureFormat::RGB32F:            <span class="keywordflow">return</span> 3;</div>
+<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">case</span> TextureFormat::RGBA:              <span class="keywordflow">return</span> 4;</div>
+<div class="line"><span class="lineno">   52</span>        <span class="keywordflow">case</span> TextureFormat::RGBA16F:           <span class="keywordflow">return</span> 4;</div>
+<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">case</span> TextureFormat::RGBA32F:           <span class="keywordflow">return</span> 4;</div>
+<div class="line"><span class="lineno">   54</span>        <span class="keywordflow">case</span> TextureFormat::SRGB:              <span class="keywordflow">return</span> 3;</div>
+<div class="line"><span class="lineno">   55</span>        <span class="keywordflow">case</span> TextureFormat::SRGBA:             <span class="keywordflow">return</span> 4;</div>
+<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">case</span> TextureFormat::DEPTH:             <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">case</span> TextureFormat::DEPTH16:           <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">   58</span>        <span class="keywordflow">case</span> TextureFormat::DEPTH24:           <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">case</span> TextureFormat::DEPTH32F:          <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">case</span> TextureFormat::DEPTH24_STENCIL8:  <span class="keywordflow">return</span> 2;</div>
+<div class="line"><span class="lineno">   61</span>        <span class="keywordflow">case</span> TextureFormat::EMPTY:</div>
+<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">default</span>:                               <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">   63</span>        }</div>
+<div class="line"><span class="lineno">   64</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -3564,22 +3625,26 @@ template&lt;class... Ts&gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="OpenGLTexture_8cpp_source.html#l00015">15</a> of file <a class="el" href="OpenGLTexture_8cpp_source.html">OpenGLTexture.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   15</span>                                                            {</div>
-<div class="line"><span class="lineno">   16</span>        <span class="keywordflow">switch</span> (format) {</div>
-<div class="line"><span class="lineno">   17</span>            <span class="keywordflow">case</span> TextureFormat::GRAYSCALE:      <span class="keywordflow">return</span> GL_R8;       <span class="comment">// 8-bit single channel</span></div>
-<div class="line"><span class="lineno">   18</span>            <span class="keywordflow">case</span> TextureFormat::RGB:            <span class="keywordflow">return</span> GL_RGB;      <span class="comment">// 8-bit RGB</span></div>
-<div class="line"><span class="lineno">   19</span>            <span class="keywordflow">case</span> TextureFormat::SRGB:           <span class="keywordflow">return</span> GL_SRGB8;</div>
-<div class="line"><span class="lineno">   20</span>            <span class="keywordflow">case</span> TextureFormat::RGBA:           <span class="keywordflow">return</span> GL_RGBA8;    <span class="comment">// 8-bit RGBA</span></div>
-<div class="line"><span class="lineno">   21</span>            <span class="keywordflow">case</span> TextureFormat::SRGBA:          <span class="keywordflow">return</span> GL_SRGB8_ALPHA8;</div>
-<div class="line"><span class="lineno">   22</span>            <span class="keywordflow">case</span> TextureFormat::RGB16F:         <span class="keywordflow">return</span> GL_RGB16F;</div>
-<div class="line"><span class="lineno">   23</span>            <span class="keywordflow">case</span> TextureFormat::RGB32F:         <span class="keywordflow">return</span> GL_RGB32F;</div>
-<div class="line"><span class="lineno">   24</span>            <span class="keywordflow">case</span> TextureFormat::RGBA16F:        <span class="keywordflow">return</span> GL_RGBA16F;</div>
-<div class="line"><span class="lineno">   25</span>            <span class="keywordflow">case</span> TextureFormat::RGBA32F:        <span class="keywordflow">return</span> GL_RGBA32F;</div>
-<div class="line"><span class="lineno">   26</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH:          <span class="keywordflow">return</span> GL_DEPTH_COMPONENT24;</div>
-<div class="line"><span class="lineno">   27</span>            <span class="keywordflow">case</span> TextureFormat::EMPTY:</div>
-<div class="line"><span class="lineno">   28</span>            <span class="keywordflow">default</span>:                            <span class="keywordflow">return</span> GL_RGBA8;</div>
-<div class="line"><span class="lineno">   29</span>        }</div>
-<div class="line"><span class="lineno">   30</span>    }</div>
+<div class="fragment"><div class="line"><span class="lineno">   16</span>    {</div>
+<div class="line"><span class="lineno">   17</span>        <span class="keywordflow">switch</span> (format) {</div>
+<div class="line"><span class="lineno">   18</span>            <span class="keywordflow">case</span> TextureFormat::GRAYSCALE:      <span class="keywordflow">return</span> GL_R8;       <span class="comment">// 8-bit single channel</span></div>
+<div class="line"><span class="lineno">   19</span>            <span class="keywordflow">case</span> TextureFormat::RGB:            <span class="keywordflow">return</span> GL_RGB;      <span class="comment">// 8-bit RGB</span></div>
+<div class="line"><span class="lineno">   20</span>            <span class="keywordflow">case</span> TextureFormat::SRGB:           <span class="keywordflow">return</span> GL_SRGB8;</div>
+<div class="line"><span class="lineno">   21</span>            <span class="keywordflow">case</span> TextureFormat::RGBA:           <span class="keywordflow">return</span> GL_RGBA8;    <span class="comment">// 8-bit RGBA</span></div>
+<div class="line"><span class="lineno">   22</span>            <span class="keywordflow">case</span> TextureFormat::SRGBA:          <span class="keywordflow">return</span> GL_SRGB8_ALPHA8;</div>
+<div class="line"><span class="lineno">   23</span>            <span class="keywordflow">case</span> TextureFormat::RGB16F:         <span class="keywordflow">return</span> GL_RGB16F;</div>
+<div class="line"><span class="lineno">   24</span>            <span class="keywordflow">case</span> TextureFormat::RGB32F:         <span class="keywordflow">return</span> GL_RGB32F;</div>
+<div class="line"><span class="lineno">   25</span>            <span class="keywordflow">case</span> TextureFormat::RGBA16F:        <span class="keywordflow">return</span> GL_RGBA16F;</div>
+<div class="line"><span class="lineno">   26</span>            <span class="keywordflow">case</span> TextureFormat::RGBA32F:        <span class="keywordflow">return</span> GL_RGBA32F;</div>
+<div class="line"><span class="lineno">   27</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH:          <span class="keywordflow">return</span> GL_DEPTH_COMPONENT32F;</div>
+<div class="line"><span class="lineno">   28</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH16:        <span class="keywordflow">return</span> GL_DEPTH_COMPONENT16;</div>
+<div class="line"><span class="lineno">   29</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH24:        <span class="keywordflow">return</span> GL_DEPTH_COMPONENT24;</div>
+<div class="line"><span class="lineno">   30</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH32F:       <span class="keywordflow">return</span> GL_DEPTH_COMPONENT32F;</div>
+<div class="line"><span class="lineno">   31</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH24_STENCIL8: <span class="keywordflow">return</span> GL_DEPTH24_STENCIL8;</div>
+<div class="line"><span class="lineno">   32</span>            <span class="keywordflow">case</span> TextureFormat::EMPTY:</div>
+<div class="line"><span class="lineno">   33</span>            <span class="keywordflow">default</span>:                            <span class="keywordflow">return</span> GL_RGBA8;</div>
+<div class="line"><span class="lineno">   34</span>        }</div>
+<div class="line"><span class="lineno">   35</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -3609,13 +3674,12 @@ template&lt;class... Ts&gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="OpenGLFramebuffer_8cpp_source.html#l00011">11</a> of file <a class="el" href="OpenGLFramebuffer_8cpp_source.html">OpenGLFramebuffer.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   11</span>                                                    {</div>
-<div class="line"><span class="lineno">   12</span>        <span class="keywordflow">switch</span> (filter)</div>
-<div class="line"><span class="lineno">   13</span>        {</div>
-<div class="line"><span class="lineno">   14</span>            <span class="keywordflow">case</span> TextureFilter::Nearest: <span class="keywordflow">return</span> GL_NEAREST;</div>
-<div class="line"><span class="lineno">   15</span>            <span class="keywordflow">case</span> TextureFilter::Linear:  <span class="keywordflow">return</span> GL_LINEAR;</div>
-<div class="line"><span class="lineno">   16</span>            <span class="keywordflow">default</span>:                     <span class="keywordflow">return</span> GL_NEAREST;</div>
-<div class="line"><span class="lineno">   17</span>        }</div>
-<div class="line"><span class="lineno">   18</span>    }</div>
+<div class="line"><span class="lineno">   12</span>        <span class="keywordflow">switch</span> (filter) {</div>
+<div class="line"><span class="lineno">   13</span>        <span class="keywordflow">case</span> TextureFilter::Nearest: <span class="keywordflow">return</span> GL_NEAREST;</div>
+<div class="line"><span class="lineno">   14</span>        <span class="keywordflow">case</span> TextureFilter::Linear:  <span class="keywordflow">return</span> GL_LINEAR;</div>
+<div class="line"><span class="lineno">   15</span>        <span class="keywordflow">default</span>:                     <span class="keywordflow">return</span> GL_NEAREST;</div>
+<div class="line"><span class="lineno">   16</span>        }</div>
+<div class="line"><span class="lineno">   17</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -3643,30 +3707,30 @@ template&lt;class... Ts&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OpenGLTexture_8cpp_source.html#l00032">32</a> of file <a class="el" href="OpenGLTexture_8cpp_source.html">OpenGLTexture.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   32</span>                                                    {</div>
-<div class="line"><span class="lineno">   33</span>        <span class="keywordflow">switch</span> (format) {</div>
-<div class="line"><span class="lineno">   34</span>            <span class="keywordflow">case</span> TextureFormat::GRAYSCALE:          <span class="keywordflow">return</span> GL_RED;</div>
-<div class="line"><span class="lineno">   35</span> </div>
-<div class="line"><span class="lineno">   36</span>            <span class="keywordflow">case</span> TextureFormat::RGB:                <span class="keywordflow">return</span> GL_RGB;</div>
-<div class="line"><span class="lineno">   37</span>            <span class="keywordflow">case</span> TextureFormat::SRGB:               <span class="keywordflow">return</span> GL_RGB;</div>
-<div class="line"><span class="lineno">   38</span>            <span class="keywordflow">case</span> TextureFormat::RGB16F:             <span class="keywordflow">return</span> GL_RGB;</div>
-<div class="line"><span class="lineno">   39</span>            <span class="keywordflow">case</span> TextureFormat::RGB32F:             <span class="keywordflow">return</span> GL_RGB;</div>
-<div class="line"><span class="lineno">   40</span> </div>
-<div class="line"><span class="lineno">   41</span>            <span class="keywordflow">case</span> TextureFormat::RGBA:               <span class="keywordflow">return</span> GL_RGBA;</div>
-<div class="line"><span class="lineno">   42</span>            <span class="keywordflow">case</span> TextureFormat::SRGBA:              <span class="keywordflow">return</span> GL_RGBA;</div>
-<div class="line"><span class="lineno">   43</span>            <span class="keywordflow">case</span> TextureFormat::RGBA16F:            <span class="keywordflow">return</span> GL_RGBA;</div>
-<div class="line"><span class="lineno">   44</span>            <span class="keywordflow">case</span> TextureFormat::RGBA32F:            <span class="keywordflow">return</span> GL_RGBA;</div>
-<div class="line"><span class="lineno">   45</span> </div>
-<div class="line"><span class="lineno">   46</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH:              <span class="keywordflow">return</span> GL_DEPTH_COMPONENT24; <span class="comment">// A specific default format must be given for web builds.</span></div>
-<div class="line"><span class="lineno">   47</span>            <span class="keywordflow">case</span> TextureFormat::EMPTY:</div>
-<div class="line"><span class="lineno">   48</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH16:            <span class="keywordflow">return</span> GL_DEPTH_COMPONENT16;</div>
-<div class="line"><span class="lineno">   49</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH24:            <span class="keywordflow">return</span> GL_DEPTH_COMPONENT24;</div>
-<div class="line"><span class="lineno">   50</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH32F:           <span class="keywordflow">return</span> GL_DEPTH_COMPONENT32F;</div>
-<div class="line"><span class="lineno">   51</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH24_STENCIL8:   <span class="keywordflow">return</span> GL_DEPTH24_STENCIL8;</div>
-<div class="line"><span class="lineno">   52</span>            <span class="keywordflow">default</span>:                                <span class="keywordflow">return</span> GL_RGBA;</div>
-<div class="line"><span class="lineno">   53</span>        }</div>
-<div class="line"><span class="lineno">   54</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLTexture_8cpp_source.html#l00037">37</a> of file <a class="el" href="OpenGLTexture_8cpp_source.html">OpenGLTexture.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   38</span>    {</div>
+<div class="line"><span class="lineno">   39</span>        <span class="keywordflow">switch</span> (format) {</div>
+<div class="line"><span class="lineno">   40</span>            <span class="keywordflow">case</span> TextureFormat::GRAYSCALE:          <span class="keywordflow">return</span> GL_RED;</div>
+<div class="line"><span class="lineno">   41</span> </div>
+<div class="line"><span class="lineno">   42</span>            <span class="keywordflow">case</span> TextureFormat::RGB:                <span class="keywordflow">return</span> GL_RGB;</div>
+<div class="line"><span class="lineno">   43</span>            <span class="keywordflow">case</span> TextureFormat::SRGB:               <span class="keywordflow">return</span> GL_RGB;</div>
+<div class="line"><span class="lineno">   44</span>            <span class="keywordflow">case</span> TextureFormat::RGB16F:             <span class="keywordflow">return</span> GL_RGB;</div>
+<div class="line"><span class="lineno">   45</span>            <span class="keywordflow">case</span> TextureFormat::RGB32F:             <span class="keywordflow">return</span> GL_RGB;</div>
+<div class="line"><span class="lineno">   46</span> </div>
+<div class="line"><span class="lineno">   47</span>            <span class="keywordflow">case</span> TextureFormat::RGBA:               <span class="keywordflow">return</span> GL_RGBA;</div>
+<div class="line"><span class="lineno">   48</span>            <span class="keywordflow">case</span> TextureFormat::SRGBA:              <span class="keywordflow">return</span> GL_RGBA;</div>
+<div class="line"><span class="lineno">   49</span>            <span class="keywordflow">case</span> TextureFormat::RGBA16F:            <span class="keywordflow">return</span> GL_RGBA;</div>
+<div class="line"><span class="lineno">   50</span>            <span class="keywordflow">case</span> TextureFormat::RGBA32F:            <span class="keywordflow">return</span> GL_RGBA;</div>
+<div class="line"><span class="lineno">   51</span> </div>
+<div class="line"><span class="lineno">   52</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH:              <span class="keywordflow">return</span> GL_DEPTH_COMPONENT;</div>
+<div class="line"><span class="lineno">   53</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH16:            <span class="keywordflow">return</span> GL_DEPTH_COMPONENT;</div>
+<div class="line"><span class="lineno">   54</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH24:            <span class="keywordflow">return</span> GL_DEPTH_COMPONENT;</div>
+<div class="line"><span class="lineno">   55</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH32F:           <span class="keywordflow">return</span> GL_DEPTH_COMPONENT;</div>
+<div class="line"><span class="lineno">   56</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH24_STENCIL8:   <span class="keywordflow">return</span> GL_DEPTH_STENCIL;</div>
+<div class="line"><span class="lineno">   57</span>            <span class="keywordflow">case</span> TextureFormat::EMPTY:</div>
+<div class="line"><span class="lineno">   58</span>            <span class="keywordflow">default</span>:                                <span class="keywordflow">return</span> GL_RGBA;</div>
+<div class="line"><span class="lineno">   59</span>        }</div>
+<div class="line"><span class="lineno">   60</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -3694,13 +3758,14 @@ template&lt;class... Ts&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OpenGLTexture_8cpp_source.html#l00085">85</a> of file <a class="el" href="OpenGLTexture_8cpp_source.html">OpenGLTexture.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   85</span>                                                {</div>
-<div class="line"><span class="lineno">   86</span>        <span class="keywordflow">switch</span> (type) {</div>
-<div class="line"><span class="lineno">   87</span>        <span class="keywordflow">case</span> TextureType::Cubemap: <span class="keywordflow">return</span> GL_TEXTURE_CUBE_MAP;</div>
-<div class="line"><span class="lineno">   88</span>        <span class="keywordflow">default</span>:                   <span class="keywordflow">return</span> GL_TEXTURE_2D;</div>
-<div class="line"><span class="lineno">   89</span>        }</div>
-<div class="line"><span class="lineno">   90</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLTexture_8cpp_source.html#l00101">101</a> of file <a class="el" href="OpenGLTexture_8cpp_source.html">OpenGLTexture.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  102</span>    {</div>
+<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">switch</span> (type)</div>
+<div class="line"><span class="lineno">  104</span>        {</div>
+<div class="line"><span class="lineno">  105</span>            <span class="keywordflow">case</span> TextureType::Cubemap: <span class="keywordflow">return</span> GL_TEXTURE_CUBE_MAP;</div>
+<div class="line"><span class="lineno">  106</span>            <span class="keywordflow">default</span>:                   <span class="keywordflow">return</span> GL_TEXTURE_2D;</div>
+<div class="line"><span class="lineno">  107</span>        }</div>
+<div class="line"><span class="lineno">  108</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -3728,16 +3793,17 @@ template&lt;class... Ts&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OpenGLTexture_8cpp_source.html#l00075">75</a> of file <a class="el" href="OpenGLTexture_8cpp_source.html">OpenGLTexture.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   75</span>                                                {</div>
-<div class="line"><span class="lineno">   76</span>        <span class="keywordflow">switch</span> (wrap) {</div>
-<div class="line"><span class="lineno">   77</span>            <span class="keywordflow">case</span> TextureWrap::Repeat:       <span class="keywordflow">return</span> GL_REPEAT;</div>
-<div class="line"><span class="lineno">   78</span>            <span class="keywordflow">case</span> TextureWrap::MirrorRepeat: <span class="keywordflow">return</span> GL_MIRRORED_REPEAT;</div>
-<div class="line"><span class="lineno">   79</span>            <span class="keywordflow">case</span> TextureWrap::ClampToEdge:  <span class="keywordflow">return</span> GL_CLAMP_TO_EDGE;</div>
-<div class="line"><span class="lineno">   80</span>            <span class="keywordflow">case</span> TextureWrap::ClampToBorder:<span class="keywordflow">return</span> GL_CLAMP_TO_BORDER;</div>
-<div class="line"><span class="lineno">   81</span>            <span class="keywordflow">default</span>:                        <span class="keywordflow">return</span> GL_REPEAT;</div>
-<div class="line"><span class="lineno">   82</span>        }</div>
-<div class="line"><span class="lineno">   83</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLTexture_8cpp_source.html#l00089">89</a> of file <a class="el" href="OpenGLTexture_8cpp_source.html">OpenGLTexture.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   90</span>    {</div>
+<div class="line"><span class="lineno">   91</span>        <span class="keywordflow">switch</span> (wrap)</div>
+<div class="line"><span class="lineno">   92</span>        {</div>
+<div class="line"><span class="lineno">   93</span>            <span class="keywordflow">case</span> TextureWrap::Repeat:       <span class="keywordflow">return</span> GL_REPEAT;</div>
+<div class="line"><span class="lineno">   94</span>            <span class="keywordflow">case</span> TextureWrap::MirrorRepeat: <span class="keywordflow">return</span> GL_MIRRORED_REPEAT;</div>
+<div class="line"><span class="lineno">   95</span>            <span class="keywordflow">case</span> TextureWrap::ClampToEdge:  <span class="keywordflow">return</span> GL_CLAMP_TO_EDGE;</div>
+<div class="line"><span class="lineno">   96</span>            <span class="keywordflow">case</span> TextureWrap::ClampToBorder:<span class="keywordflow">return</span> GL_CLAMP_TO_BORDER;</div>
+<div class="line"><span class="lineno">   97</span>            <span class="keywordflow">default</span>:                        <span class="keywordflow">return</span> GL_REPEAT;</div>
+<div class="line"><span class="lineno">   98</span>        }</div>
+<div class="line"><span class="lineno">   99</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -3765,17 +3831,22 @@ template&lt;class... Ts&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OpenGLTexture_8cpp_source.html#l00056">56</a> of file <a class="el" href="OpenGLTexture_8cpp_source.html">OpenGLTexture.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   56</span>                                                        {</div>
-<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">switch</span> (format) {</div>
-<div class="line"><span class="lineno">   58</span>        <span class="keywordflow">case</span> TextureFormat::RGB16F:             <span class="keywordflow">return</span> GL_FLOAT;</div>
-<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">case</span> TextureFormat::RGB32F:             <span class="keywordflow">return</span> GL_FLOAT;</div>
-<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">case</span> TextureFormat::RGBA16F:            <span class="keywordflow">return</span> GL_FLOAT;</div>
-<div class="line"><span class="lineno">   61</span>        <span class="keywordflow">case</span> TextureFormat::RGBA32F:            <span class="keywordflow">return</span> GL_FLOAT;</div>
-<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">case</span> TextureFormat::DEPTH:              <span class="keywordflow">return</span> GL_FLOAT;</div>
-<div class="line"><span class="lineno">   63</span>        <span class="keywordflow">default</span>:                                <span class="keywordflow">return</span> GL_UNSIGNED_BYTE;</div>
-<div class="line"><span class="lineno">   64</span>        }</div>
-<div class="line"><span class="lineno">   65</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="OpenGLTexture_8cpp_source.html#l00062">62</a> of file <a class="el" href="OpenGLTexture_8cpp_source.html">OpenGLTexture.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   63</span>    {</div>
+<div class="line"><span class="lineno">   64</span>        <span class="keywordflow">switch</span> (format)</div>
+<div class="line"><span class="lineno">   65</span>        {</div>
+<div class="line"><span class="lineno">   66</span>            <span class="keywordflow">case</span> TextureFormat::RGB16F:             <span class="keywordflow">return</span> GL_FLOAT;</div>
+<div class="line"><span class="lineno">   67</span>            <span class="keywordflow">case</span> TextureFormat::RGB32F:             <span class="keywordflow">return</span> GL_FLOAT;</div>
+<div class="line"><span class="lineno">   68</span>            <span class="keywordflow">case</span> TextureFormat::RGBA16F:            <span class="keywordflow">return</span> GL_FLOAT;</div>
+<div class="line"><span class="lineno">   69</span>            <span class="keywordflow">case</span> TextureFormat::RGBA32F:            <span class="keywordflow">return</span> GL_FLOAT;</div>
+<div class="line"><span class="lineno">   70</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH:              <span class="keywordflow">return</span> GL_FLOAT;</div>
+<div class="line"><span class="lineno">   71</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH16:            <span class="keywordflow">return</span> GL_UNSIGNED_SHORT;</div>
+<div class="line"><span class="lineno">   72</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH24:            <span class="keywordflow">return</span> GL_UNSIGNED_INT;</div>
+<div class="line"><span class="lineno">   73</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH32F:           <span class="keywordflow">return</span> GL_FLOAT;</div>
+<div class="line"><span class="lineno">   74</span>            <span class="keywordflow">case</span> TextureFormat::DEPTH24_STENCIL8:   <span class="keywordflow">return</span> GL_UNSIGNED_INT_24_8;</div>
+<div class="line"><span class="lineno">   75</span>            <span class="keywordflow">default</span>:                                <span class="keywordflow">return</span> GL_UNSIGNED_BYTE;</div>
+<div class="line"><span class="lineno">   76</span>        }</div>
+<div class="line"><span class="lineno">   77</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

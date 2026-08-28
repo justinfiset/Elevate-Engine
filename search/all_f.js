@@ -28,7 +28,7 @@ var searchData=
   ['openglcontext_25',['openglcontext',['../classElevate_1_1OpenGLContext.html#afb00c28f5535924bd5382e4e69112b73',1,'Elevate::OpenGLContext::OpenGLContext()'],['../classElevate_1_1OpenGLContext.html',1,'Elevate::OpenGLContext']]],
   ['openglcontext_2ecpp_26',['OpenGLContext.cpp',['../OpenGLContext_8cpp.html',1,'']]],
   ['openglcontext_2eh_27',['OpenGLContext.h',['../OpenGLContext_8h.html',1,'']]],
-  ['openglframebuffer_28',['openglframebuffer',['../classElevate_1_1OpenGLFrameBuffer.html#a1162d87968501acd9f9a9ccb1dea1ed7',1,'Elevate::OpenGLFrameBuffer::OpenGLFrameBuffer()'],['../classElevate_1_1OpenGLFrameBuffer.html',1,'Elevate::OpenGLFrameBuffer']]],
+  ['openglframebuffer_28',['openglframebuffer',['../classElevate_1_1OpenGLFramebuffer.html#a4192f18a68c2288feec60a070749cf15',1,'Elevate::OpenGLFramebuffer::OpenGLFramebuffer()'],['../classElevate_1_1OpenGLFramebuffer.html',1,'Elevate::OpenGLFramebuffer']]],
   ['openglframebuffer_2ecpp_29',['OpenGLFramebuffer.cpp',['../OpenGLFramebuffer_8cpp.html',1,'']]],
   ['openglframebuffer_2eh_30',['OpenGLFramebuffer.h',['../OpenGLFramebuffer_8h.html',1,'']]],
   ['openglindexbuffer_31',['openglindexbuffer',['../classElevate_1_1OpenGLIndexBuffer.html',1,'Elevate::OpenGLIndexBuffer'],['../classElevate_1_1OpenGLIndexBuffer.html#afbe64dcbd49dd2c39f8f2a40344fdc71',1,'Elevate::OpenGLIndexBuffer::OpenGLIndexBuffer()']]],

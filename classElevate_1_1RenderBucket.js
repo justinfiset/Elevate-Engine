@@ -5,6 +5,7 @@ var classElevate_1_1RenderBucket =
       [ "GBuffer", "classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a043349080a0e319e357e727c34b25653", null ],
       [ "Transparent", "classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a068c7634323788c9364a2f69b3f9dee7", null ],
       [ "UI", "classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2ad21c7f1d0ecc83224911e5831064a6c1", null ],
+      [ "Editor", "classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a53100758eb01e1700fa0d2021a99eff0", null ],
       [ "Debug", "classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a086085c573a38f3053f8d7e5f82b5a52", null ],
       [ "Count", "classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a388c97ea1fd5a54eb5c1d283d29cb460", null ]
     ] ],

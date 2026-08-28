@@ -5,5 +5,7 @@ var searchData=
   ['gbuffer_2',['GBuffer',['../classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a043349080a0e319e357e727c34b25653',1,'Elevate::RenderBucket']]],
   ['generated_3',['Generated',['../namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7a5c5f06440fcb85cd5c8cfafe32e34b78',1,'Elevate']]],
   ['grayscale_4',['GRAYSCALE',['../namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eabfc52a030be6cc5e47fe83a81e3175a0',1,'Elevate']]],
-  ['guid_5',['GUID',['../namespaceElevate.html#a084798f901873cb9a7cb959b62006324a7b1419a14dcdd33f81732a4710376cd1',1,'Elevate']]]
+  ['greater_5',['Greater',['../namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a8768a6821cd735aea4f5b0df88c1fc6a',1,'Elevate']]],
+  ['greaterequal_6',['GreaterEqual',['../namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a758b05d899def79c9eb864ad4f96be1f',1,'Elevate']]],
+  ['guid_7',['GUID',['../namespaceElevate.html#a084798f901873cb9a7cb959b62006324a7b1419a14dcdd33f81732a4710376cd1',1,'Elevate']]]
 ];

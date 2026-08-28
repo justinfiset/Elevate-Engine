@@ -74,7 +74,7 @@ var searchData=
   ['getforward_71',['GetForward',['../classElevate_1_1Transform.html#a616fc18ec58093aee499444ed4a38d14',1,'Elevate::Transform']]],
   ['getfov_72',['GetFOV',['../classElevate_1_1Camera.html#afb72b2be4df35d23b725bca632f3fd57',1,'Elevate::Camera']]],
   ['getfragmentshader_73',['GetFragmentShader',['../classElevate_1_1DefaultShader.html#a24b0587444de597732087628953940b6',1,'Elevate::DefaultShader']]],
-  ['getframebufferid_74',['getframebufferid',['../classElevate_1_1OpenGLFrameBuffer.html#ac46bbacc6e887e9f7a84fcdb9bb0dbfa',1,'Elevate::OpenGLFrameBuffer::GetFrameBufferId()'],['../classElevate_1_1Framebuffer.html#a032135d19665526fb0ce5f803d827a73',1,'Elevate::Framebuffer::GetFrameBufferId()']]],
+  ['getframebufferid_74',['getframebufferid',['../classElevate_1_1OpenGLFramebuffer.html#ac1b845c6317b59fd58bcca09afb55e16',1,'Elevate::OpenGLFramebuffer::GetFrameBufferId()'],['../classElevate_1_1Framebuffer.html#a032135d19665526fb0ce5f803d827a73',1,'Elevate::Framebuffer::GetFrameBufferId()']]],
   ['getframedata_75',['GetFrameData',['../classElevate_1_1Renderer.html#a669aca02e5d63a5567d74ea236bf8e74',1,'Elevate::Renderer']]],
   ['getfrontvec_76',['GetFrontVec',['../classElevate_1_1Camera.html#ad7398797471e2ac791b10a0901dcf26d',1,'Elevate::Camera']]],
   ['getgamecontextstatename_77',['GetGameContextStateName',['../namespaceElevate.html#a3334896a162702230b934d59cb3bbe83',1,'Elevate']]],

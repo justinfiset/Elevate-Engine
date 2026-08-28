@@ -84,18 +84,18 @@ var NAVTREEINDEX =
 "Event_8h.html#a062abdc15cb1ce3f4e7eb153bf386a91a50edb169910041bb3c06f6e8322d74c1",
 "KeyCodes_8h.html#a411cfed0dcc105521b8b9177fbea8a9e",
 "PropertyField_8h.html#a6eca3277644e3989c1cde78d599b4d8cab21f4c99a9a46ccb01923ee8baa80fcf",
-"Vertex_8h.html",
-"classElevate_1_1Component.html#a032858ae1fe02d2d1170981c2af2d67c",
-"classElevate_1_1Event.html",
-"classElevate_1_1ITransformable.html#a8654f01e95026f1b1ec9d5edfcfd8353",
-"classElevate_1_1MouseButtonEvent.html#a5657af86414b4ebf24d11703694fe96e",
-"classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2ad21c7f1d0ecc83224911e5831064a6c1",
-"classElevate_1_1SoundEngine.html",
-"classElevate_1_1Window.html#a3ebcec9c69ef0e69fc9298010af56709",
-"hierarchy.html",
-"namespaceElevate_1_1Editor_1_1Icons.html#a5c631373a6d0543d1c1b3afa23bcc9a8",
-"structElevate_1_1FieldMeta.html#a26db25751ab0dd6dd89091f5cd96c0b7",
-"structElevate_1_1TextureMetadata.html#acc2f4cb562a6975282e062e1224d51a4"
+"TypeRegistry_8inl_source.html",
+"classElevate_1_1CommandManager.html#a6cee1f0932b0c222067f19fbc0040c24",
+"classElevate_1_1Editor_1_1SkyboxEditorWidget.html",
+"classElevate_1_1ITransformable.html",
+"classElevate_1_1Model.html#a6ce7079bfdb2c82143b66d45d66d45dc",
+"classElevate_1_1RenderBucket.html#a20ef501d3c1285dfb1356e311cce2732",
+"classElevate_1_1Shader.html#ad82056d7a4f7f847f2f4a5fde7a9c2eb",
+"classElevate_1_1WAAPIClient.html#a586afcc97947d406c3767b3dc9fbfb11",
+"globals_defs_g.html",
+"namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7a9b0bffda4bcb312168c0d6537cb04b4d",
+"structElevate_1_1EmptyTag.html",
+"structElevate_1_1TextureLoadResult.html#a8284b006ebe4c7c8d383e19ae7ef31ca"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

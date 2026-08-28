@@ -13,6 +13,6 @@ var searchData=
   ['distancetopoint_10',['DistanceToPoint',['../structElevate_1_1Plane.html#a6a76d8a50394fef74c243db73fd5fe59',1,'Elevate::Plane']]],
   ['draw_11',['Draw',['../classElevate_1_1Cubemap.html#a65cbb8b8d785b39afe6b61be691e4cc0',1,'Elevate::Cubemap']]],
   ['drawarray_12',['drawarray',['../classElevate_1_1OpenGLRendererAPI.html#a59ada8d31e530e8c366b4a9a3f8b6ec0',1,'Elevate::OpenGLRendererAPI::DrawArray()'],['../classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667',1,'Elevate::Renderer::DrawArray(const VertexArray *vao, DrawPrimitiveType primitive=DrawPrimitiveType::Triangles)'],['../classElevate_1_1Renderer.html#a7a8374e741355518c044251e1e698dce',1,'Elevate::Renderer::DrawArray(const std::shared_ptr&lt; VertexArray &gt; &amp;vao, DrawPrimitiveType primitive=DrawPrimitiveType::Triangles)'],['../classElevate_1_1RendererAPI.html#a3880f081005ef41481cdf767d85a19ae',1,'Elevate::RendererAPI::DrawArray()']]],
-  ['drawbillboard_13',['DrawBillboard',['../classElevate_1_1EditorRenderer.html#a7cd3621fc1a2751e90e57db587ca6411',1,'Elevate::EditorRenderer']]],
+  ['drawbillboard_13',['DrawBillboard',['../classElevate_1_1EditorRenderer.html#a8a4e77196ebae678a7185c50bb86bf9f',1,'Elevate::EditorRenderer']]],
   ['drawprimitivetypetoopengl_14',['DrawPrimitiveTypeToOpenGL',['../classElevate_1_1OpenGLRendererAPI.html#aebbcc44c6e574b9419ddc6f69bce786c',1,'Elevate::OpenGLRendererAPI']]]
 ];

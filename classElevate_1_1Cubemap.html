@@ -164,7 +164,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="line"><span class="lineno">   21</span>    m_VertexBuffer.reset(<a class="code hl_function" href="classElevate_1_1VertexBuffer.html#ac8a994fd567722b801198b80c1f2613e">Elevate::VertexBuffer::Create</a>(&amp;s_skyboxVertices[0], <span class="keyword">sizeof</span>(s_skyboxVertices)));</div>
 <div class="line"><span class="lineno">   22</span>    m_VertexBuffer-&gt;SetLayout({</div>
 <div class="line"><span class="lineno">   23</span>        { <a class="code hl_enumvalue" href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">Elevate::ShaderDataType::Float3</a>, <span class="stringliteral">&quot;a_Position&quot;</span> },</div>
-<div class="line"><span class="lineno">   24</span>        });</div>
+<div class="line"><span class="lineno">   24</span>    });</div>
 <div class="line"><span class="lineno">   25</span> </div>
 <div class="line"><span class="lineno">   26</span>    m_IndexBuffer.reset(<a class="code hl_function" href="classElevate_1_1IndexBuffer.html#ae21ecb4fdae45359a6541505fed12473">Elevate::IndexBuffer::Create</a>(&amp;s_skyboxIndices[0], <span class="keyword">sizeof</span>(s_skyboxIndices) / <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)));</div>
 <div class="line"><span class="lineno">   27</span>    m_VertexArray.reset(<a class="code hl_function" href="classElevate_1_1VertexArray.html#af79bb22e55a6514a933d739c73397e1e">VertexArray::Create</a>());</div>
@@ -216,9 +216,9 @@ Static Public Member Functions</h2></td></tr>
 <div class="ttc" id="aclassElevate_1_1VertexBuffer_html_ac8a994fd567722b801198b80c1f2613e"><div class="ttname"><a href="classElevate_1_1VertexBuffer.html#ac8a994fd567722b801198b80c1f2613e">Elevate::VertexBuffer::Create</a></div><div class="ttdeci">static VertexBuffer * Create(const void *vertices, const uint32_t size)</div><div class="ttdef"><b>Definition</b> <a href="Buffer_8cpp_source.html#l00011">Buffer.cpp:11</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121"><div class="ttname"><a href="namespaceElevate.html#a084798f901873cb9a7cb959b62006324a8a8a1d211464d4bdee46db3c75bfa121">Elevate::EngineDataType::Float3</a></div><div class="ttdeci">@ Float3</div></div>
 <div class="ttc" id="anamespaceElevate_html_ab40741268ba207b0245f5193766bc867a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="namespaceElevate.html#ab40741268ba207b0245f5193766bc867a6adf97f83acf6453d4a6a4b1070f3754">Elevate::CullFace::None</a></div><div class="ttdeci">@ None</div></div>
-<div class="ttc" id="astructElevate_1_1RenderState_html_a088c9781880a2a670fddc3c7a38b8cad"><div class="ttname"><a href="structElevate_1_1RenderState.html#a088c9781880a2a670fddc3c7a38b8cad">Elevate::RenderState::DepthTest</a></div><div class="ttdeci">bool DepthTest</div><div class="ttdef"><b>Definition</b> <a href="RenderState_8h_source.html#l00024">RenderState.h:24</a></div></div>
-<div class="ttc" id="astructElevate_1_1RenderState_html_aa9e367e4b57b2d3149c937384aab192a"><div class="ttname"><a href="structElevate_1_1RenderState.html#aa9e367e4b57b2d3149c937384aab192a">Elevate::RenderState::DepthWrite</a></div><div class="ttdeci">bool DepthWrite</div><div class="ttdef"><b>Definition</b> <a href="RenderState_8h_source.html#l00023">RenderState.h:23</a></div></div>
-<div class="ttc" id="astructElevate_1_1RenderState_html_acb10772bfeb4668634d5808e461c52a3"><div class="ttname"><a href="structElevate_1_1RenderState.html#acb10772bfeb4668634d5808e461c52a3">Elevate::RenderState::CullMode</a></div><div class="ttdeci">CullFace CullMode</div><div class="ttdef"><b>Definition</b> <a href="RenderState_8h_source.html#l00022">RenderState.h:22</a></div></div>
+<div class="ttc" id="astructElevate_1_1RenderState_html_a088c9781880a2a670fddc3c7a38b8cad"><div class="ttname"><a href="structElevate_1_1RenderState.html#a088c9781880a2a670fddc3c7a38b8cad">Elevate::RenderState::DepthTest</a></div><div class="ttdeci">bool DepthTest</div><div class="ttdef"><b>Definition</b> <a href="RenderState_8h_source.html#l00035">RenderState.h:35</a></div></div>
+<div class="ttc" id="astructElevate_1_1RenderState_html_aa9e367e4b57b2d3149c937384aab192a"><div class="ttname"><a href="structElevate_1_1RenderState.html#aa9e367e4b57b2d3149c937384aab192a">Elevate::RenderState::DepthWrite</a></div><div class="ttdeci">bool DepthWrite</div><div class="ttdef"><b>Definition</b> <a href="RenderState_8h_source.html#l00034">RenderState.h:34</a></div></div>
+<div class="ttc" id="astructElevate_1_1RenderState_html_acb10772bfeb4668634d5808e461c52a3"><div class="ttname"><a href="structElevate_1_1RenderState.html#acb10772bfeb4668634d5808e461c52a3">Elevate::RenderState::CullMode</a></div><div class="ttdeci">CullFace CullMode</div><div class="ttdef"><b>Definition</b> <a href="RenderState_8h_source.html#l00033">RenderState.h:33</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -304,12 +304,15 @@ Static Public Member Functions</h2></td></tr>
 <div class="line"><span class="lineno">  103</span> </div>
 <div class="line"><span class="lineno">  104</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">Renderer::PushRenderState</a>(m_renderState);</div>
 <div class="line"><span class="lineno">  105</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Renderer::BindShader</a>(shader);</div>
-<div class="line"><span class="lineno">  106</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));</div>
-<div class="line"><span class="lineno">  107</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">Renderer::DrawArray</a>(m_VertexArray);</div>
-<div class="line"><span class="lineno">  108</span>}</div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a0174d02b9894e9d18702b10add0e3fcb"><div class="ttname"><a href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">Elevate::Renderer::PushRenderState</a></div><div class="ttdeci">static void PushRenderState(const RenderState &amp;newState)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00391">Renderer.cpp:391</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a9a0e9683c75b87fb1653900877bba302"><div class="ttname"><a href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Elevate::Renderer::BindShader</a></div><div class="ttdeci">static bool BindShader(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00304">Renderer.cpp:304</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_aa8fb2f24ccd1629ea1bd98ddce55e667"><div class="ttname"><a href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">Elevate::Renderer::DrawArray</a></div><div class="ttdeci">static void DrawArray(const VertexArray *vao, DrawPrimitiveType primitive=DrawPrimitiveType::Triangles)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00368">Renderer.cpp:368</a></div></div>
+<div class="line"><span class="lineno">  106</span> </div>
+<div class="line"><span class="lineno">  107</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glActiveTexture(GL_TEXTURE0));</div>
+<div class="line"><span class="lineno">  108</span>    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));</div>
+<div class="line"><span class="lineno">  109</span>    shader-&gt;SetUniform1i(<span class="stringliteral">&quot;skybox&quot;</span>, 0);</div>
+<div class="line"><span class="lineno">  110</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">Renderer::DrawArray</a>(m_VertexArray);</div>
+<div class="line"><span class="lineno">  111</span>}</div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a0174d02b9894e9d18702b10add0e3fcb"><div class="ttname"><a href="classElevate_1_1Renderer.html#a0174d02b9894e9d18702b10add0e3fcb">Elevate::Renderer::PushRenderState</a></div><div class="ttdeci">static void PushRenderState(const RenderState &amp;newState)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00396">Renderer.cpp:396</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a9a0e9683c75b87fb1653900877bba302"><div class="ttname"><a href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Elevate::Renderer::BindShader</a></div><div class="ttdeci">static bool BindShader(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00309">Renderer.cpp:309</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_aa8fb2f24ccd1629ea1bd98ddce55e667"><div class="ttname"><a href="classElevate_1_1Renderer.html#aa8fb2f24ccd1629ea1bd98ddce55e667">Elevate::Renderer::DrawArray</a></div><div class="ttdeci">static void DrawArray(const VertexArray *vao, DrawPrimitiveType primitive=DrawPrimitiveType::Triangles)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00373">Renderer.cpp:373</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -328,10 +331,10 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00122">122</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  123</span>{</div>
-<div class="line"><span class="lineno">  124</span>    <span class="keywordflow">return</span> m_filePath;</div>
-<div class="line"><span class="lineno">  125</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00125">125</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  126</span>{</div>
+<div class="line"><span class="lineno">  127</span>    <span class="keywordflow">return</span> m_filePath;</div>
+<div class="line"><span class="lineno">  128</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -351,11 +354,11 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00110">110</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  111</span>{</div>
-<div class="line"><span class="lineno">  112</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Renderer::BindShader</a>(m_cubemapShader);</div>
-<div class="line"><span class="lineno">  113</span>    m_cubemapShader-&gt;SetUniformMatrix4fv(<span class="stringliteral">&quot;projection&quot;</span>, proj);</div>
-<div class="line"><span class="lineno">  114</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00113">113</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  114</span>{</div>
+<div class="line"><span class="lineno">  115</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Renderer::BindShader</a>(m_cubemapShader);</div>
+<div class="line"><span class="lineno">  116</span>    m_cubemapShader-&gt;SetUniformMatrix4fv(<span class="stringliteral">&quot;projection&quot;</span>, proj);</div>
+<div class="line"><span class="lineno">  117</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -375,11 +378,11 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00116">116</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  117</span>{</div>
-<div class="line"><span class="lineno">  118</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Renderer::BindShader</a>(m_cubemapShader);</div>
-<div class="line"><span class="lineno">  119</span>    m_cubemapShader-&gt;SetUniformMatrix4fv(<span class="stringliteral">&quot;view&quot;</span>, view);</div>
-<div class="line"><span class="lineno">  120</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Cubemap_8cpp_source.html#l00119">119</a> of file <a class="el" href="Cubemap_8cpp_source.html">Cubemap.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  120</span>{</div>
+<div class="line"><span class="lineno">  121</span>    <a class="code hl_function" href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Renderer::BindShader</a>(m_cubemapShader);</div>
+<div class="line"><span class="lineno">  122</span>    m_cubemapShader-&gt;SetUniformMatrix4fv(<span class="stringliteral">&quot;view&quot;</span>, view);</div>
+<div class="line"><span class="lineno">  123</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['openglcontext_0',['OpenGLContext',['../classElevate_1_1OpenGLContext.html',1,'Elevate']]],
-  ['openglframebuffer_1',['OpenGLFrameBuffer',['../classElevate_1_1OpenGLFrameBuffer.html',1,'Elevate']]],
+  ['openglframebuffer_1',['OpenGLFramebuffer',['../classElevate_1_1OpenGLFramebuffer.html',1,'Elevate']]],
   ['openglindexbuffer_2',['OpenGLIndexBuffer',['../classElevate_1_1OpenGLIndexBuffer.html',1,'Elevate']]],
   ['openglrendererapi_3',['OpenGLRendererAPI',['../classElevate_1_1OpenGLRendererAPI.html',1,'Elevate']]],
   ['openglshader_4',['OpenGLShader',['../classElevate_1_1OpenGLShader.html',1,'Elevate']]],

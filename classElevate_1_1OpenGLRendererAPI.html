@@ -140,6 +140,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a05fbbfc9dcd287385aa9b16409a2461e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73eed1ba80dd85c8a8328be641bce464" id="r_a73eed1ba80dd85c8a8328be641bce464"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1OpenGLRendererAPI.html#a73eed1ba80dd85c8a8328be641bce464">SetBlendingState</a> (<a class="el" href="namespaceElevate.html#ad002ce49518d7df611eb03b292c66071">BlendModeType</a> mode) const override</td></tr>
 <tr class="separator:a73eed1ba80dd85c8a8328be641bce464"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cc891550bbff5fdcd1500a86ce35789" id="r_a8cc891550bbff5fdcd1500a86ce35789"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1OpenGLRendererAPI.html#a8cc891550bbff5fdcd1500a86ce35789">SetDepthFunction</a> (<a class="el" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5">DepthFunction</a> depthFunc) const override</td></tr>
+<tr class="separator:a8cc891550bbff5fdcd1500a86ce35789"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classElevate_1_1RendererAPI"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classElevate_1_1RendererAPI')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classElevate_1_1RendererAPI.html">Elevate::RendererAPI</a></td></tr>
 <tr class="memitem:a418bd329124e2ddcfc60d2aab0f7f077 inherit pub_methods_classElevate_1_1RendererAPI" id="r_a418bd329124e2ddcfc60d2aab0f7f077"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1RendererAPI.html#a418bd329124e2ddcfc60d2aab0f7f077">~RendererAPI</a> ()=default</td></tr>
 <tr class="separator:a418bd329124e2ddcfc60d2aab0f7f077 inherit pub_methods_classElevate_1_1RendererAPI"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -556,6 +558,56 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="a8cc891550bbff5fdcd1500a86ce35789" name="a8cc891550bbff5fdcd1500a86ce35789"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cc891550bbff5fdcd1500a86ce35789">&#9670;&#160;</a></span>SetDepthFunction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Elevate::OpenGLRendererAPI::SetDepthFunction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5">DepthFunction</a>&#160;</td>
+          <td class="paramname"><em>depthFunc</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classElevate_1_1RendererAPI.html#a33220d9e58de88bf4fd2dd6aa2e2d44d">Elevate::RendererAPI</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="OpenGLRendererAPI_8cpp_source.html#l00158">158</a> of file <a class="el" href="OpenGLRendererAPI_8cpp_source.html">OpenGLRendererAPI.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  159</span>    {</div>
+<div class="line"><span class="lineno">  160</span>        <span class="keywordflow">switch</span> (depthFunc)</div>
+<div class="line"><span class="lineno">  161</span>        {</div>
+<div class="line"><span class="lineno">  162</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a1cfdf0e8d0c87a228c1f40d9bee7888b">DepthFunction::Less</a>:         <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDepthFunc(GL_LESS));    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  163</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5ad3e6fdac55bb7b0edd7834c968ba1f38">DepthFunction::LessEqual</a>:    <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDepthFunc(GL_LEQUAL));  <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  164</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5af5f286e73bda105e538310b3190f75c5">DepthFunction::Equal</a>:        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDepthFunc(GL_EQUAL));   <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  165</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a68eec46437c384d8dad18d5464ebc35c">DepthFunction::Always</a>:       <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDepthFunc(GL_ALWAYS));  <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  166</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a6e7b34fa59e1bd229b207892956dc41c">DepthFunction::Never</a>:        <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDepthFunc(GL_NEVER));   <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  167</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a8768a6821cd735aea4f5b0df88c1fc6a">DepthFunction::Greater</a>:      <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDepthFunc(GL_GREATER)); <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  168</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a758b05d899def79c9eb864ad4f96be1f">DepthFunction::GreaterEqual</a>: <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDepthFunc(GL_GEQUAL));  <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  169</span>            <span class="keywordflow">default</span>:                          <a class="code hl_define" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">GLCheck</a>(glDepthFunc(GL_LESS));    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  170</span>        }</div>
+<div class="line"><span class="lineno">  171</span>    }</div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5a1cfdf0e8d0c87a228c1f40d9bee7888b"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a1cfdf0e8d0c87a228c1f40d9bee7888b">Elevate::DepthFunction::Less</a></div><div class="ttdeci">@ Less</div></div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5a68eec46437c384d8dad18d5464ebc35c"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a68eec46437c384d8dad18d5464ebc35c">Elevate::DepthFunction::Always</a></div><div class="ttdeci">@ Always</div></div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5a6e7b34fa59e1bd229b207892956dc41c"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a6e7b34fa59e1bd229b207892956dc41c">Elevate::DepthFunction::Never</a></div><div class="ttdeci">@ Never</div></div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5a758b05d899def79c9eb864ad4f96be1f"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a758b05d899def79c9eb864ad4f96be1f">Elevate::DepthFunction::GreaterEqual</a></div><div class="ttdeci">@ GreaterEqual</div></div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5a8768a6821cd735aea4f5b0df88c1fc6a"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a8768a6821cd735aea4f5b0df88c1fc6a">Elevate::DepthFunction::Greater</a></div><div class="ttdeci">@ Greater</div></div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5ad3e6fdac55bb7b0edd7834c968ba1f38"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5ad3e6fdac55bb7b0edd7834c968ba1f38">Elevate::DepthFunction::LessEqual</a></div><div class="ttdeci">@ LessEqual</div></div>
+<div class="ttc" id="anamespaceElevate_html_a37b3132c4688c0549c61869d806e72b5af5f286e73bda105e538310b3190f75c5"><div class="ttname"><a href="namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5af5f286e73bda105e538310b3190f75c5">Elevate::DepthFunction::Equal</a></div><div class="ttdeci">@ Equal</div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a05fbbfc9dcd287385aa9b16409a2461e" name="a05fbbfc9dcd287385aa9b16409a2461e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a05fbbfc9dcd287385aa9b16409a2461e">&#9670;&#160;</a></span>SetDepthTestingState()</h2>
 
@@ -584,8 +636,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="OpenGLRendererAPI_8cpp_source.html#l00134">134</a> of file <a class="el" href="OpenGLRendererAPI_8cpp_source.html">OpenGLRendererAPI.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  135</span>    {</div>
-<div class="line"><span class="lineno">  136</span>        <span class="keywordflow">if</span> (enabled) glEnable(GL_DEPTH_TEST);</div>
-<div class="line"><span class="lineno">  137</span>        <span class="keywordflow">else</span>        glDisable(GL_DEPTH_TEST);</div>
+<div class="line"><span class="lineno">  136</span>        <span class="keywordflow">if</span> (enabled)    glEnable(GL_DEPTH_TEST);</div>
+<div class="line"><span class="lineno">  137</span>        <span class="keywordflow">else</span>            glDisable(GL_DEPTH_TEST);</div>
 <div class="line"><span class="lineno">  138</span>    }</div>
 </div><!-- fragment -->
 </div>

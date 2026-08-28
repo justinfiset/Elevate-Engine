@@ -13,6 +13,7 @@ var classElevate_1_1RendererAPI =
     [ "SetBlendingState", "classElevate_1_1RendererAPI.html#a0856243b52dd01df42fb895a4d8a1fa9", null ],
     [ "SetClearColor", "classElevate_1_1RendererAPI.html#a40473b8c59c5758289288b35663856de", null ],
     [ "SetCullingState", "classElevate_1_1RendererAPI.html#a9f81e95dd7cc30b929ea378f617ae807", null ],
+    [ "SetDepthFunction", "classElevate_1_1RendererAPI.html#a33220d9e58de88bf4fd2dd6aa2e2d44d", null ],
     [ "SetDepthTestingState", "classElevate_1_1RendererAPI.html#aa4c5d8cb7aa6eee9808cb9faedf664af", null ],
     [ "SetDepthWrittingState", "classElevate_1_1RendererAPI.html#a6ddc6e2f8dc24fc7abc369696e1062d9", null ],
     [ "SetViewport", "classElevate_1_1RendererAPI.html#a24b4e678ac741bb125f04fad133d1222", null ],

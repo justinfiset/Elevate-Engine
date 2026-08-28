@@ -113,7 +113,7 @@ var hierarchy =
     [ "Elevate::Editor::FileMetadata", "structElevate_1_1Editor_1_1FileMetadata.html", null ],
     [ "Elevate::FlattenTag", "structElevate_1_1FlattenTag.html", null ],
     [ "Elevate::Framebuffer", "classElevate_1_1Framebuffer.html", [
-      [ "Elevate::OpenGLFrameBuffer", "classElevate_1_1OpenGLFrameBuffer.html", null ]
+      [ "Elevate::OpenGLFramebuffer", "classElevate_1_1OpenGLFramebuffer.html", null ]
     ] ],
     [ "Elevate::FramebufferColorAttachment", "structElevate_1_1FramebufferColorAttachment.html", null ],
     [ "Elevate::FramebufferDepthAttachment", "structElevate_1_1FramebufferDepthAttachment.html", null ],

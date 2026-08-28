@@ -2,6 +2,7 @@ var classElevate_1_1Framebuffer =
 [
     [ "~Framebuffer", "classElevate_1_1Framebuffer.html#a1ca07118f569c92310584201b846a263", null ],
     [ "Bind", "classElevate_1_1Framebuffer.html#a85d1a1f861c135e0442b579a0b2e669e", null ],
+    [ "BlitDepthTo", "classElevate_1_1Framebuffer.html#a3201a6038e2404c46c34934ea0b9a045", null ],
     [ "BlitFramebufferToScreen", "classElevate_1_1Framebuffer.html#a6757b24d53a5454f1ebb57044deb181f", null ],
     [ "Clear", "classElevate_1_1Framebuffer.html#a098d89d3e682cf4e32961f9b56b2d9ce", null ],
     [ "ClearAndUse", "classElevate_1_1Framebuffer.html#ad96bdc2b5747871883898bfa377ae8fd", null ],

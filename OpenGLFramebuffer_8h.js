@@ -1,4 +1,4 @@
 var OpenGLFramebuffer_8h =
 [
-    [ "Elevate::OpenGLFrameBuffer", "classElevate_1_1OpenGLFrameBuffer.html", "classElevate_1_1OpenGLFrameBuffer" ]
+    [ "Elevate::OpenGLFramebuffer", "classElevate_1_1OpenGLFramebuffer.html", "classElevate_1_1OpenGLFramebuffer" ]
 ];

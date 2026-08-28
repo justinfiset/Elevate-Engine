@@ -144,7 +144,7 @@ var namespaceElevate =
     [ "MouseScrolledEvent", "classElevate_1_1MouseScrolledEvent.html", "classElevate_1_1MouseScrolledEvent" ],
     [ "NoSerializeTag", "structElevate_1_1NoSerializeTag.html", null ],
     [ "OpenGLContext", "classElevate_1_1OpenGLContext.html", "classElevate_1_1OpenGLContext" ],
-    [ "OpenGLFrameBuffer", "classElevate_1_1OpenGLFrameBuffer.html", "classElevate_1_1OpenGLFrameBuffer" ],
+    [ "OpenGLFramebuffer", "classElevate_1_1OpenGLFramebuffer.html", "classElevate_1_1OpenGLFramebuffer" ],
     [ "OpenGLIndexBuffer", "classElevate_1_1OpenGLIndexBuffer.html", "classElevate_1_1OpenGLIndexBuffer" ],
     [ "OpenGLRendererAPI", "classElevate_1_1OpenGLRendererAPI.html", "classElevate_1_1OpenGLRendererAPI" ],
     [ "OpenGLShader", "classElevate_1_1OpenGLShader.html", "classElevate_1_1OpenGLShader" ],
@@ -248,6 +248,15 @@ var namespaceElevate =
       [ "Front", "namespaceElevate.html#ab40741268ba207b0245f5193766bc867a5835bab1ade0060909e31a06af2e2cde", null ],
       [ "Back", "namespaceElevate.html#ab40741268ba207b0245f5193766bc867a0557fa923dcee4d0f86b1409f5c2167f", null ],
       [ "FrontAndBack", "namespaceElevate.html#ab40741268ba207b0245f5193766bc867a8be41da9b58e32ece35a2b5751f6aeb9", null ]
+    ] ],
+    [ "DepthFunction", "namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5", [
+      [ "Less", "namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a1cfdf0e8d0c87a228c1f40d9bee7888b", null ],
+      [ "LessEqual", "namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5ad3e6fdac55bb7b0edd7834c968ba1f38", null ],
+      [ "Equal", "namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5af5f286e73bda105e538310b3190f75c5", null ],
+      [ "Always", "namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a68eec46437c384d8dad18d5464ebc35c", null ],
+      [ "Never", "namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a6e7b34fa59e1bd229b207892956dc41c", null ],
+      [ "Greater", "namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a8768a6821cd735aea4f5b0df88c1fc6a", null ],
+      [ "GreaterEqual", "namespaceElevate.html#a37b3132c4688c0549c61869d806e72b5a758b05d899def79c9eb864ad4f96be1f", null ]
     ] ],
     [ "DrawPrimitiveType", "namespaceElevate.html#a7f8942dfad890eaf465cb12b3bfb050d", [
       [ "Points", "namespaceElevate.html#a7f8942dfad890eaf465cb12b3bfb050da75dd5f1160a3f02b6fae89c54361a1b3", null ],
@@ -370,13 +379,12 @@ var namespaceElevate =
       [ "RGB32F", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ead8936cc7055546f79128b9dbfb8c8bbb", null ],
       [ "RGBA16F", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa29d843695056f9c171a9eb702d6910a", null ],
       [ "RGBA32F", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea703a7a81e586669c930e3dcaf3e8c428", null ],
+      [ "SRGB", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea1f3f09bca5728eb7af4ea263ae84b9f1", null ],
+      [ "SRGBA", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa6b63903808be00ae4fcdb3850f811a4", null ],
       [ "DEPTH", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111", null ],
       [ "DEPTH16", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea552b95de83e557ad11a9330164831ffb", null ],
       [ "DEPTH24", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea25fda16aa10a025ab21b9019b094ef27", null ],
       [ "DEPTH32F", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea19f22a1cbc2e2733484acbf9fc1bb4cd", null ],
-      [ "SRGB", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea1f3f09bca5728eb7af4ea263ae84b9f1", null ],
-      [ "SRGBA", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaa6b63903808be00ae4fcdb3850f811a4", null ],
-      [ "DEPTH_STENCIL", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaecaa8fe8cb0e85372f4cc76728c7cf3c", null ],
       [ "DEPTH24_STENCIL8", "namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00ea0768a7b4ae12f44fd7d2b5320256b4b8", null ]
     ] ],
     [ "TextureSource", "namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7", [

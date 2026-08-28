@@ -188,7 +188,7 @@ $(document).ready(function(){initNavTree('EditorLayer_8cpp_source.html',''); ini
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        gridState.DepthTest = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        gridState.DepthWrite = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        gridMaterial-&gt;SetRenderState(gridState);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        gridMaterial-&gt;SetBucket(<a class="code hl_enumvalue" href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a068c7634323788c9364a2f69b3f9dee7">RenderBucket::Type::Transparent</a>);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        gridMaterial-&gt;SetBucket(<a class="code hl_enumvalue" href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a53100758eb01e1700fa0d2021a99eff0">RenderBucket::Type::Editor</a>);</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        gridModel.SetMaterial(gridMaterial);</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        m_GridObject-&gt;SetScale({ 50, 50, 50 });</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
@@ -354,63 +354,53 @@ $(document).ready(function(){initNavTree('EditorLayer_8cpp_source.html',''); ini
 <div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
 <div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; widgetPtr : m_widgets)</div>
 <div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>            widgetPtr-&gt;OnImGuiRender();</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        ImGui::Begin(<span class="stringliteral">&quot;Directional Shadow Map&quot;</span>);</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        Framebuffer&amp; directionalFBO = <a class="code hl_function" href="classElevate_1_1Renderer.html#a88544e4c292ba49cc596d37578909b6c">Renderer::GetDirectionalFrameBuffer</a>(0);</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        ImGui::Image(</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>            (ImTextureID)directionalFBO.GetDepthAttachmentHandle(),</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            ImVec2(512.0f, 512.0f)</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        );</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        ImGui::End();</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    }</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keywordtype">void</span> EditorLayer::OnEvent(Event&amp; event)</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    {</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        <span class="keywordflow">switch</span> (event.GetEventType())</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        {</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a062abdc15cb1ce3f4e7eb153bf386a91ac17e6984c1e5a887a49831beadee6bca">EventType::KeyPressed</a>:</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        {</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>            KeyEvent&amp; ke = (KeyEvent&amp;)event;</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>            </div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>            <span class="keywordflow">if</span> (ke.GetKeyCode() == <a class="code hl_define" href="KeyCodes_8h.html#a4c300eac933b2524478d33d4a11a900a">EE_KEY_DELETE</a>) {</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>                Execute(std::make_unique&lt;DeleteGameobjectCommand&gt;(m_SelectedObject));</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>            }</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>            <span class="keywordflow">if</span> (<a class="code hl_function" href="classElevate_1_1Input.html#a7c2a9b173587658828ef756c47ae5ba6">Input::IsKeyPressed</a>(<a class="code hl_define" href="KeyCodes_8h.html#a3fd4c769622eec18df90e7ae1c3f4e69">EE_KEY_LEFT_CONTROL</a>)) {</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>                <span class="keywordflow">if</span> (ke.GetKeyCode() == <a class="code hl_define" href="KeyCodes_8h.html#a64cddaee5ade83c52a613a0a4fc014b5">EE_KEY_Z</a>) {</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>                    Undo();</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ke.GetKeyCode() == <a class="code hl_define" href="KeyCodes_8h.html#aae20298fc4bf15edb9aae67f80574667">EE_KEY_Y</a>) {</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>                    Redo();</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>                }</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            }</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        }</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        }</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        m_EditorScene-&gt;Notify(event);        </div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    }</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    EditorCamera* EditorLayer::GetCamera()</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    {</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        <span class="keywordflow">return</span> m_CameraObject-&gt;GetComponent&lt;EditorCamera&gt;();</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    }</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keywordtype">void</span> EditorLayer::OnEvent(Event&amp; event)</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    {</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="keywordflow">switch</span> (event.GetEventType())</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        {</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceElevate.html#a062abdc15cb1ce3f4e7eb153bf386a91ac17e6984c1e5a887a49831beadee6bca">EventType::KeyPressed</a>:</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        {</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>            KeyEvent&amp; ke = (KeyEvent&amp;)event;</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>            </div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>            <span class="keywordflow">if</span> (ke.GetKeyCode() == <a class="code hl_define" href="KeyCodes_8h.html#a4c300eac933b2524478d33d4a11a900a">EE_KEY_DELETE</a>) {</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>                Execute(std::make_unique&lt;DeleteGameobjectCommand&gt;(m_SelectedObject));</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            }</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            <span class="keywordflow">if</span> (<a class="code hl_function" href="classElevate_1_1Input.html#a7c2a9b173587658828ef756c47ae5ba6">Input::IsKeyPressed</a>(<a class="code hl_define" href="KeyCodes_8h.html#a3fd4c769622eec18df90e7ae1c3f4e69">EE_KEY_LEFT_CONTROL</a>)) {</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>                <span class="keywordflow">if</span> (ke.GetKeyCode() == <a class="code hl_define" href="KeyCodes_8h.html#a64cddaee5ade83c52a613a0a4fc014b5">EE_KEY_Z</a>) {</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>                    Undo();</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ke.GetKeyCode() == <a class="code hl_define" href="KeyCodes_8h.html#aae20298fc4bf15edb9aae67f80574667">EE_KEY_Y</a>) {</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>                    Redo();</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>                }</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>            }</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        }</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        }</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        m_EditorScene-&gt;Notify(event);        </div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    }</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    EditorCamera* EditorLayer::GetCamera()</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    {</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        <span class="keywordflow">return</span> m_CameraObject-&gt;GetComponent&lt;EditorCamera&gt;();</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    }</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    <span class="keywordtype">void</span> EditorLayer::SelectObject(<span class="keyword">const</span> EEObjectPtr&lt;GameObject&gt;&amp; newSelection)</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    {</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        <span class="keywordflow">if</span> (newSelection) {</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>            m_SelectedObject = newSelection.ToWeak();</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        }</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>            m_SelectedObject.reset();</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        }</div>
 <div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    }</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span> </div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <span class="keywordtype">void</span> EditorLayer::SelectObject(<span class="keyword">const</span> EEObjectPtr&lt;GameObject&gt;&amp; newSelection)</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    {</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        <span class="keywordflow">if</span> (newSelection) {</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>            m_SelectedObject = newSelection.ToWeak();</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        }</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>            m_SelectedObject.reset();</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        }</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    }</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>}</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="preprocessor">#endif </span><span class="comment">// EE_EDITOR_BUILD</span></div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>}</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="preprocessor">#endif </span><span class="comment">// EE_EDITOR_BUILD</span></div>
 <div class="ttc" id="aApplication_8h_html"><div class="ttname"><a href="Application_8h.html">Application.h</a></div></div>
 <div class="ttc" id="aCameraManager_8h_html"><div class="ttname"><a href="CameraManager_8h.html">CameraManager.h</a></div></div>
 <div class="ttc" id="aCore_8h_html_a2ab88033038deb2307b90ef9b351135c"><div class="ttname"><a href="Core_8h.html#a2ab88033038deb2307b90ef9b351135c">EE_SHADER_HEADER</a></div><div class="ttdeci">#define EE_SHADER_HEADER</div><div class="ttdef"><b>Definition</b> <a href="Core_8h_source.html#l00032">Core.h:32</a></div></div>
@@ -439,9 +429,8 @@ $(document).ready(function(){initNavTree('EditorLayer_8cpp_source.html',''); ini
 <div class="ttc" id="aclassElevate_1_1Input_html_a7c2a9b173587658828ef756c47ae5ba6"><div class="ttname"><a href="classElevate_1_1Input.html#a7c2a9b173587658828ef756c47ae5ba6">Elevate::Input::IsKeyPressed</a></div><div class="ttdeci">static bool IsKeyPressed(int keycode)</div><div class="ttdef"><b>Definition</b> <a href="Input_8h_source.html#l00033">Input.h:33</a></div></div>
 <div class="ttc" id="aclassElevate_1_1MaterialRegistry_html_a63e843a5ae0b6561235dcd0972afdafc"><div class="ttname"><a href="classElevate_1_1MaterialRegistry.html#a63e843a5ae0b6561235dcd0972afdafc">Elevate::MaterialRegistry::LoadMaterial</a></div><div class="ttdeci">static MaterialPtr LoadMaterial(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition</b> <a href="Material_8cpp_source.html#l00126">Material.cpp:126</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Model_html"><div class="ttname"><a href="classElevate_1_1Model.html">Elevate::Model</a></div><div class="ttdef"><b>Definition</b> <a href="Model_8h_source.html#l00018">Model.h:19</a></div></div>
-<div class="ttc" id="aclassElevate_1_1RenderBucket_html_a3f870944d2537ae2f1f26ebb8481c7a2a068c7634323788c9364a2f69b3f9dee7"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a068c7634323788c9364a2f69b3f9dee7">Elevate::RenderBucket::Transparent</a></div><div class="ttdeci">@ Transparent</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8h_source.html#l00015">RenderBucket.h:15</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a88544e4c292ba49cc596d37578909b6c"><div class="ttname"><a href="classElevate_1_1Renderer.html#a88544e4c292ba49cc596d37578909b6c">Elevate::Renderer::GetDirectionalFrameBuffer</a></div><div class="ttdeci">static Framebuffer &amp; GetDirectionalFrameBuffer(uint32_t index)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00427">Renderer.cpp:427</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a9a0e9683c75b87fb1653900877bba302"><div class="ttname"><a href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Elevate::Renderer::BindShader</a></div><div class="ttdeci">static bool BindShader(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00304">Renderer.cpp:304</a></div></div>
+<div class="ttc" id="aclassElevate_1_1RenderBucket_html_a3f870944d2537ae2f1f26ebb8481c7a2a53100758eb01e1700fa0d2021a99eff0"><div class="ttname"><a href="classElevate_1_1RenderBucket.html#a3f870944d2537ae2f1f26ebb8481c7a2a53100758eb01e1700fa0d2021a99eff0">Elevate::RenderBucket::Editor</a></div><div class="ttdeci">@ Editor</div><div class="ttdef"><b>Definition</b> <a href="RenderBucket_8h_source.html#l00017">RenderBucket.h:17</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a9a0e9683c75b87fb1653900877bba302"><div class="ttname"><a href="classElevate_1_1Renderer.html#a9a0e9683c75b87fb1653900877bba302">Elevate::Renderer::BindShader</a></div><div class="ttdeci">static bool BindShader(const std::shared_ptr&lt; Shader &gt; &amp;shader)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00309">Renderer.cpp:309</a></div></div>
 <div class="ttc" id="aclassElevate_1_1SceneManager_html_a488dfec26cab92be149f3aac30a9cf90"><div class="ttname"><a href="classElevate_1_1SceneManager.html#a488dfec26cab92be149f3aac30a9cf90">Elevate::SceneManager::GetCurrentScene</a></div><div class="ttdeci">static ScenePtr GetCurrentScene()</div><div class="ttdef"><b>Definition</b> <a href="SceneManager_8h_source.html#l00020">SceneManager.h:20</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Scene_html_a2e822e9a585516edfc5e531b41e46611"><div class="ttname"><a href="classElevate_1_1Scene.html#a2e822e9a585516edfc5e531b41e46611">Elevate::Scene::Create</a></div><div class="ttdeci">static ScenePtr Create(std::string name, SceneType type=SceneType::RuntimeScene)</div><div class="ttdef"><b>Definition</b> <a href="Scene_8cpp_source.html#l00130">Scene.cpp:130</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ShaderManager_html_a5072c12a616182c1558bfbc6e2037979"><div class="ttname"><a href="classElevate_1_1ShaderManager.html#a5072c12a616182c1558bfbc6e2037979">Elevate::ShaderManager::LoadShader</a></div><div class="ttdeci">static ShaderPtr LoadShader(const std::string &amp;name, ShaderPtr shader)</div><div class="ttdef"><b>Definition</b> <a href="ShaderManager_8cpp_source.html#l00009">ShaderManager.cpp:9</a></div></div>

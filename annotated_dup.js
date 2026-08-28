@@ -129,7 +129,7 @@ var annotated_dup =
       [ "MouseScrolledEvent", "classElevate_1_1MouseScrolledEvent.html", "classElevate_1_1MouseScrolledEvent" ],
       [ "NoSerializeTag", "structElevate_1_1NoSerializeTag.html", null ],
       [ "OpenGLContext", "classElevate_1_1OpenGLContext.html", "classElevate_1_1OpenGLContext" ],
-      [ "OpenGLFrameBuffer", "classElevate_1_1OpenGLFrameBuffer.html", "classElevate_1_1OpenGLFrameBuffer" ],
+      [ "OpenGLFramebuffer", "classElevate_1_1OpenGLFramebuffer.html", "classElevate_1_1OpenGLFramebuffer" ],
       [ "OpenGLIndexBuffer", "classElevate_1_1OpenGLIndexBuffer.html", "classElevate_1_1OpenGLIndexBuffer" ],
       [ "OpenGLRendererAPI", "classElevate_1_1OpenGLRendererAPI.html", "classElevate_1_1OpenGLRendererAPI" ],
       [ "OpenGLShader", "classElevate_1_1OpenGLShader.html", "classElevate_1_1OpenGLShader" ],

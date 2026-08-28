@@ -19,7 +19,7 @@ var searchData=
   ['_7ejsonserializer_16',['~JsonSerializer',['../classElevate_1_1JsonSerializer.html#ac70822f0489dcfc2cdf2ad4d3ac036d4',1,'Elevate::JsonSerializer']]],
   ['_7elayer_17',['~Layer',['../classElevate_1_1Layer.html#ae0147d73b519a4d0a5f69bd82dbc4ac3',1,'Elevate::Layer']]],
   ['_7elayerstack_18',['~LayerStack',['../classElevate_1_1LayerStack.html#aba2e3b9884a0eb84d6019a6ec3145bb7',1,'Elevate::LayerStack']]],
-  ['_7eopenglframebuffer_19',['~OpenGLFrameBuffer',['../classElevate_1_1OpenGLFrameBuffer.html#a4c5b71ef6f781f3727dc19e8ca3609c2',1,'Elevate::OpenGLFrameBuffer']]],
+  ['_7eopenglframebuffer_19',['~OpenGLFramebuffer',['../classElevate_1_1OpenGLFramebuffer.html#a92805e65a837e663d73651322356092b',1,'Elevate::OpenGLFramebuffer']]],
   ['_7eopenglindexbuffer_20',['~OpenGLIndexBuffer',['../classElevate_1_1OpenGLIndexBuffer.html#afefe52b80288407b2ffa8d3516cdd206',1,'Elevate::OpenGLIndexBuffer']]],
   ['_7eopenglshader_21',['~OpenGLShader',['../classElevate_1_1OpenGLShader.html#a74d2acbdbcfc98556be2523ba83bd197',1,'Elevate::OpenGLShader']]],
   ['_7eopenglvertexarray_22',['~OpenGLVertexArray',['../classElevate_1_1OpenGLVertexArray.html#a8b503b0cdce8f48e53ce32f6afb9acb4',1,'Elevate::OpenGLVertexArray']]],

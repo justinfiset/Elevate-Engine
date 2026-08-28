@@ -112,7 +112,7 @@ Inheritance diagram for Elevate::Framebuffer:</div>
  <div class="center">
   <img src="classElevate_1_1Framebuffer.png" usemap="#Elevate::Framebuffer_map" alt=""/>
   <map id="Elevate::Framebuffer_map" name="Elevate::Framebuffer_map">
-<area href="classElevate_1_1OpenGLFrameBuffer.html" alt="Elevate::OpenGLFrameBuffer" shape="rect" coords="0,56,178,80"/>
+<area href="classElevate_1_1OpenGLFramebuffer.html" alt="Elevate::OpenGLFramebuffer" shape="rect" coords="0,56,177,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -150,13 +150,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a032135d19665526fb0ce5f803d827a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab325e2a01da7ac4e10c806f95ac48b06" id="r_ab325e2a01da7ac4e10c806f95ac48b06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Framebuffer.html#ab325e2a01da7ac4e10c806f95ac48b06">SetClearColor</a> (glm::vec4 color)</td></tr>
 <tr class="separator:ab325e2a01da7ac4e10c806f95ac48b06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3201a6038e2404c46c34934ea0b9a045" id="r_a3201a6038e2404c46c34934ea0b9a045"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Framebuffer.html#a3201a6038e2404c46c34934ea0b9a045">BlitDepthTo</a> (const <a class="el" href="classElevate_1_1Framebuffer.html">Framebuffer</a> &amp;target) const =0</td></tr>
+<tr class="separator:a3201a6038e2404c46c34934ea0b9a045"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:afaf9674b18e16e5ec0ac8ce1ba38ee1c" id="r_afaf9674b18e16e5ec0ac8ce1ba38ee1c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classElevate_1_1Framebuffer.html">Framebuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Framebuffer.html#afaf9674b18e16e5ec0ac8ce1ba38ee1c">Create</a> (uint32_t width, uint32_t height, std::vector&lt; <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">TextureFormat</a> &gt; colorFormats, bool depthAsRenderbuffer=true)</td></tr>
-<tr class="separator:afaf9674b18e16e5ec0ac8ce1ba38ee1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3170e01024eb841f18dfa1fe57d8e797" id="r_a3170e01024eb841f18dfa1fe57d8e797"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classElevate_1_1Framebuffer.html">Framebuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Framebuffer.html#a3170e01024eb841f18dfa1fe57d8e797">CreateDepthOnly</a> (uint32_t width=2048, uint32_t height=2048, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">TextureFormat</a> depthFormat=<a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">TextureFormat::DEPTH</a>)</td></tr>
-<tr class="separator:a3170e01024eb841f18dfa1fe57d8e797"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a773b54bbef88aea89be668a4ea92c3a8" id="r_a773b54bbef88aea89be668a4ea92c3a8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classElevate_1_1Framebuffer.html">Framebuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Framebuffer.html#a773b54bbef88aea89be668a4ea92c3a8">Create</a> (uint32_t width, uint32_t height, std::vector&lt; <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">TextureFormat</a> &gt; colorFormats, bool depthAsRenderbuffer=true, <a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466f">TextureType</a> depthUsage=<a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa675056ad1441b6375b2c5abd48c27ef1">TextureType::Depth</a>)</td></tr>
+<tr class="separator:a773b54bbef88aea89be668a4ea92c3a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a247a8e72e98968c1f460f33f37043374" id="r_a247a8e72e98968c1f460f33f37043374"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classElevate_1_1Framebuffer.html">Framebuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Framebuffer.html#a247a8e72e98968c1f460f33f37043374">CreateDepthOnly</a> (uint32_t width=2048, uint32_t height=2048, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">TextureFormat</a> depthFormat=<a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">TextureFormat::DEPTH</a>, <a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466f">TextureType</a> depthUsage=<a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa675056ad1441b6375b2c5abd48c27ef1">TextureType::Depth</a>)</td></tr>
+<tr class="separator:a247a8e72e98968c1f460f33f37043374"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29e08c5e0164bd6a2ce7e7a095178b7d" id="r_a29e08c5e0164bd6a2ce7e7a095178b7d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classElevate_1_1Framebuffer.html">Framebuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Framebuffer.html#a29e08c5e0164bd6a2ce7e7a095178b7d">Create</a> (const std::vector&lt; <a class="el" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> &gt; &amp;colorTextures, <a class="el" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> depthTexture=nullptr, bool depthAsRenderbuffer=true)</td></tr>
 <tr class="separator:a29e08c5e0164bd6a2ce7e7a095178b7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -169,8 +171,8 @@ Protected Member Functions</h2></td></tr>
 Static Protected Member Functions</h2></td></tr>
 <tr class="memitem:acda8cf66e3410be1d2c4bd2023a25642" id="r_acda8cf66e3410be1d2c4bd2023a25642"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Framebuffer.html#acda8cf66e3410be1d2c4bd2023a25642">CreateColorTexture</a> (uint32_t width, uint32_t height, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">TextureFormat</a> colorFormat=<a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaea3495a278957dc58165e48a8945469f">TextureFormat::RGBA</a>)</td></tr>
 <tr class="separator:acda8cf66e3410be1d2c4bd2023a25642"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a269e68f8412d62ce98a0bdf54ffc8ee7" id="r_a269e68f8412d62ce98a0bdf54ffc8ee7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Framebuffer.html#a269e68f8412d62ce98a0bdf54ffc8ee7">CreateDepthTexture</a> (uint32_t width, uint32_t height, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">TextureFormat</a> depthFormat=<a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">TextureFormat::DEPTH</a>)</td></tr>
-<tr class="separator:a269e68f8412d62ce98a0bdf54ffc8ee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ab243afa6fbde2c930de22e5825caf4" id="r_a4ab243afa6fbde2c930de22e5825caf4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Framebuffer.html#a4ab243afa6fbde2c930de22e5825caf4">CreateDepthTexture</a> (uint32_t width, uint32_t height, <a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">TextureFormat</a> depthFormat=<a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">TextureFormat::DEPTH</a>, <a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466f">TextureType</a> usage=<a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa675056ad1441b6375b2c5abd48c27ef1">TextureType::Depth</a>)</td></tr>
+<tr class="separator:a4ab243afa6fbde2c930de22e5825caf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -238,7 +240,35 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classElevate_1_1OpenGLFrameBuffer.html#a507b5e313ddf94a10c03837691ded292">Elevate::OpenGLFrameBuffer</a>.</p>
+<p>Implemented in <a class="el" href="classElevate_1_1OpenGLFramebuffer.html#a1622f7a494af10daf975a08252bc011d">Elevate::OpenGLFramebuffer</a>.</p>
+
+</div>
+</div>
+<a id="a3201a6038e2404c46c34934ea0b9a045" name="a3201a6038e2404c46c34934ea0b9a045"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3201a6038e2404c46c34934ea0b9a045">&#9670;&#160;</a></span>BlitDepthTo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Elevate::Framebuffer::BlitDepthTo </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classElevate_1_1Framebuffer.html">Framebuffer</a> &amp;&#160;</td>
+          <td class="paramname"><em>target</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classElevate_1_1OpenGLFramebuffer.html#a587fcb318d4996c028564e4913e25e8a">Elevate::OpenGLFramebuffer</a>.</p>
 
 </div>
 </div>
@@ -276,7 +306,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classElevate_1_1OpenGLFrameBuffer.html#abc0883bcd45870ebd8711a0604d43e6f">Elevate::OpenGLFrameBuffer</a>.</p>
+<p>Implemented in <a class="el" href="classElevate_1_1OpenGLFramebuffer.html#acfd53850026a80c13d42ef61cdbc4bf0">Elevate::OpenGLFramebuffer</a>.</p>
 
 </div>
 </div>
@@ -303,14 +333,14 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00122">122</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  123</span>    {</div>
-<div class="line"><span class="lineno">  124</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a1ac1d566a5f17a52d1ad35a255e9e5b9">Renderer::SetClearColor</a>(<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a461573ece651732cb0663313568a9eda">m_clearColor</a>);</div>
-<div class="line"><span class="lineno">  125</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#af5da18c2872ee27d6858763b78ebf75b">Renderer::Clear</a>();</div>
-<div class="line"><span class="lineno">  126</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1Framebuffer_html_a461573ece651732cb0663313568a9eda"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a461573ece651732cb0663313568a9eda">Elevate::Framebuffer::m_clearColor</a></div><div class="ttdeci">glm::vec4 m_clearColor</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8h_source.html#l00072">Framebuffer.h:72</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a1ac1d566a5f17a52d1ad35a255e9e5b9"><div class="ttname"><a href="classElevate_1_1Renderer.html#a1ac1d566a5f17a52d1ad35a255e9e5b9">Elevate::Renderer::SetClearColor</a></div><div class="ttdeci">static void SetClearColor(const glm::vec4 &amp;color)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00343">Renderer.cpp:343</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_af5da18c2872ee27d6858763b78ebf75b"><div class="ttname"><a href="classElevate_1_1Renderer.html#af5da18c2872ee27d6858763b78ebf75b">Elevate::Renderer::Clear</a></div><div class="ttdeci">static void Clear()</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00348">Renderer.cpp:348</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00142">142</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  143</span>    {</div>
+<div class="line"><span class="lineno">  144</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a1ac1d566a5f17a52d1ad35a255e9e5b9">Renderer::SetClearColor</a>(<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a461573ece651732cb0663313568a9eda">m_clearColor</a>);</div>
+<div class="line"><span class="lineno">  145</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#af5da18c2872ee27d6858763b78ebf75b">Renderer::Clear</a>();</div>
+<div class="line"><span class="lineno">  146</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1Framebuffer_html_a461573ece651732cb0663313568a9eda"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a461573ece651732cb0663313568a9eda">Elevate::Framebuffer::m_clearColor</a></div><div class="ttdeci">glm::vec4 m_clearColor</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8h_source.html#l00074">Framebuffer.h:74</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a1ac1d566a5f17a52d1ad35a255e9e5b9"><div class="ttname"><a href="classElevate_1_1Renderer.html#a1ac1d566a5f17a52d1ad35a255e9e5b9">Elevate::Renderer::SetClearColor</a></div><div class="ttdeci">static void SetClearColor(const glm::vec4 &amp;color)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00348">Renderer.cpp:348</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_af5da18c2872ee27d6858763b78ebf75b"><div class="ttname"><a href="classElevate_1_1Renderer.html#af5da18c2872ee27d6858763b78ebf75b">Elevate::Renderer::Clear</a></div><div class="ttdeci">static void Clear()</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00353">Renderer.cpp:353</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -329,13 +359,13 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00071">71</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   72</span>    {</div>
-<div class="line"><span class="lineno">   73</span>        <a class="code hl_function" href="classElevate_1_1Framebuffer.html#abcb4b30095e707301f28965a67f45071">Use</a>();</div>
-<div class="line"><span class="lineno">   74</span>        <a class="code hl_function" href="classElevate_1_1Framebuffer.html#a098d89d3e682cf4e32961f9b56b2d9ce">Clear</a>();</div>
-<div class="line"><span class="lineno">   75</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1Framebuffer_html_a098d89d3e682cf4e32961f9b56b2d9ce"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a098d89d3e682cf4e32961f9b56b2d9ce">Elevate::Framebuffer::Clear</a></div><div class="ttdeci">virtual void Clear() const</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8cpp_source.html#l00122">Framebuffer.cpp:122</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Framebuffer_html_abcb4b30095e707301f28965a67f45071"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#abcb4b30095e707301f28965a67f45071">Elevate::Framebuffer::Use</a></div><div class="ttdeci">void Use()</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8cpp_source.html#l00077">Framebuffer.cpp:77</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00082">82</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   83</span>    {</div>
+<div class="line"><span class="lineno">   84</span>        <a class="code hl_function" href="classElevate_1_1Framebuffer.html#abcb4b30095e707301f28965a67f45071">Use</a>();</div>
+<div class="line"><span class="lineno">   85</span>        <a class="code hl_function" href="classElevate_1_1Framebuffer.html#a098d89d3e682cf4e32961f9b56b2d9ce">Clear</a>();</div>
+<div class="line"><span class="lineno">   86</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1Framebuffer_html_a098d89d3e682cf4e32961f9b56b2d9ce"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a098d89d3e682cf4e32961f9b56b2d9ce">Elevate::Framebuffer::Clear</a></div><div class="ttdeci">virtual void Clear() const</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8cpp_source.html#l00142">Framebuffer.cpp:142</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Framebuffer_html_abcb4b30095e707301f28965a67f45071"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#abcb4b30095e707301f28965a67f45071">Elevate::Framebuffer::Use</a></div><div class="ttdeci">void Use()</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8cpp_source.html#l00088">Framebuffer.cpp:88</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -379,29 +409,29 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00055">55</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   56</span>    {</div>
-<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">switch</span> (<a class="code hl_function" href="classElevate_1_1Renderer.html#ae4334e52a757b03df393099fac19b019">Renderer::GetAPI</a>())</div>
-<div class="line"><span class="lineno">   58</span>        {</div>
-<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="classElevate_1_1RendererAPI.html#ad30acad1326768eff346c30ffb38dc0ba6adf97f83acf6453d4a6a4b1070f3754">RendererAPI::GraphicAPI::None</a>:</div>
-<div class="line"><span class="lineno">   60</span>            EE_CORE_ASSERT(<span class="keyword">false</span>, <span class="stringliteral">&quot;GraphicsAPI::None is not supported!&quot;</span>);</div>
-<div class="line"><span class="lineno">   61</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">   62</span> </div>
-<div class="line"><span class="lineno">   63</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="classElevate_1_1RendererAPI.html#ad30acad1326768eff346c30ffb38dc0ba760716b590ee7c0adc25f434f577d8be">RendererAPI::GraphicAPI::OpenGL</a>:</div>
-<div class="line"><span class="lineno">   64</span>            <span class="keywordflow">return</span> <span class="keyword">new</span> OpenGLFrameBuffer(colorTextures, depthTexture, depthAsRenderbuffer);</div>
-<div class="line"><span class="lineno">   65</span>        }</div>
-<div class="line"><span class="lineno">   66</span> </div>
-<div class="line"><span class="lineno">   67</span>        EE_CORE_ASSERT(<span class="keyword">false</span>, <span class="stringliteral">&quot;Unknown GraphicsAPI!&quot;</span>);</div>
-<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">   69</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00066">66</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   67</span>    {</div>
+<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">switch</span> (<a class="code hl_function" href="classElevate_1_1Renderer.html#ae4334e52a757b03df393099fac19b019">Renderer::GetAPI</a>())</div>
+<div class="line"><span class="lineno">   69</span>        {</div>
+<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="classElevate_1_1RendererAPI.html#ad30acad1326768eff346c30ffb38dc0ba6adf97f83acf6453d4a6a4b1070f3754">RendererAPI::GraphicAPI::None</a>:</div>
+<div class="line"><span class="lineno">   71</span>            EE_CORE_ASSERT(<span class="keyword">false</span>, <span class="stringliteral">&quot;GraphicsAPI::None is not supported!&quot;</span>);</div>
+<div class="line"><span class="lineno">   72</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="classElevate_1_1RendererAPI.html#ad30acad1326768eff346c30ffb38dc0ba760716b590ee7c0adc25f434f577d8be">RendererAPI::GraphicAPI::OpenGL</a>:</div>
+<div class="line"><span class="lineno">   75</span>            <span class="keywordflow">return</span> <span class="keyword">new</span> OpenGLFramebuffer(colorTextures, depthTexture, depthAsRenderbuffer);</div>
+<div class="line"><span class="lineno">   76</span>        }</div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span>        EE_CORE_ASSERT(<span class="keyword">false</span>, <span class="stringliteral">&quot;Unknown GraphicsAPI!&quot;</span>);</div>
+<div class="line"><span class="lineno">   79</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   80</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1RendererAPI_html_ad30acad1326768eff346c30ffb38dc0ba6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#ad30acad1326768eff346c30ffb38dc0ba6adf97f83acf6453d4a6a4b1070f3754">Elevate::RendererAPI::GraphicAPI::None</a></div><div class="ttdeci">@ None</div></div>
 <div class="ttc" id="aclassElevate_1_1RendererAPI_html_ad30acad1326768eff346c30ffb38dc0ba760716b590ee7c0adc25f434f577d8be"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#ad30acad1326768eff346c30ffb38dc0ba760716b590ee7c0adc25f434f577d8be">Elevate::RendererAPI::GraphicAPI::OpenGL</a></div><div class="ttdeci">@ OpenGL</div></div>
 <div class="ttc" id="aclassElevate_1_1Renderer_html_ae4334e52a757b03df393099fac19b019"><div class="ttname"><a href="classElevate_1_1Renderer.html#ae4334e52a757b03df393099fac19b019">Elevate::Renderer::GetAPI</a></div><div class="ttdeci">static RendererAPI::GraphicAPI GetAPI()</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8h_source.html#l00043">Renderer.h:43</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="afaf9674b18e16e5ec0ac8ce1ba38ee1c" name="afaf9674b18e16e5ec0ac8ce1ba38ee1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afaf9674b18e16e5ec0ac8ce1ba38ee1c">&#9670;&#160;</a></span>Create() <span class="overload">[2/2]</span></h2>
+<a id="a773b54bbef88aea89be668a4ea92c3a8" name="a773b54bbef88aea89be668a4ea92c3a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a773b54bbef88aea89be668a4ea92c3a8">&#9670;&#160;</a></span>Create() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -431,7 +461,13 @@ Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>depthAsRenderbuffer</em> = <code>true</code>&#160;</td>
+          <td class="paramname"><em>depthAsRenderbuffer</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466f">TextureType</a>&#160;</td>
+          <td class="paramname"><em>depthUsage</em> = <code><a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa675056ad1441b6375b2c5abd48c27ef1">TextureType::Depth</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -448,30 +484,36 @@ Protected Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00023">23</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   24</span>    {</div>
-<div class="line"><span class="lineno">   25</span>        <span class="keywordtype">size_t</span> colorAttachmentCount = colorFormats.size();</div>
-<div class="line"><span class="lineno">   26</span> </div>
-<div class="line"><span class="lineno">   27</span>        std::vector&lt;TexturePtr&gt; colorTextures;</div>
-<div class="line"><span class="lineno">   28</span>        colorTextures.reserve(colorAttachmentCount);</div>
-<div class="line"><span class="lineno">   29</span>        <span class="keywordflow">for</span> (uint32_t i = 0; i &lt; colorAttachmentCount; i++)</div>
-<div class="line"><span class="lineno">   30</span>        {</div>
-<div class="line"><span class="lineno">   31</span>            colorTextures.push_back(<a class="code hl_function" href="classElevate_1_1Framebuffer.html#acda8cf66e3410be1d2c4bd2023a25642">CreateColorTexture</a>(width, height, colorFormats[i]));</div>
-<div class="line"><span class="lineno">   32</span>        }</div>
-<div class="line"><span class="lineno">   33</span> </div>
-<div class="line"><span class="lineno">   34</span>        <a class="code hl_typedef" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> colorTex = <a class="code hl_function" href="classElevate_1_1Framebuffer.html#acda8cf66e3410be1d2c4bd2023a25642">CreateColorTexture</a>(width, height);</div>
-<div class="line"><span class="lineno">   35</span>        <a class="code hl_typedef" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> depthTex = <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">   36</span>        <span class="keywordflow">if</span> (!depthAsRenderbuffer)</div>
-<div class="line"><span class="lineno">   37</span>        {</div>
-<div class="line"><span class="lineno">   38</span>            depthTex = <a class="code hl_function" href="classElevate_1_1Framebuffer.html#a269e68f8412d62ce98a0bdf54ffc8ee7">CreateDepthTexture</a>(width, height);</div>
-<div class="line"><span class="lineno">   39</span>        }</div>
-<div class="line"><span class="lineno">   40</span>        Framebuffer* buffer = <a class="code hl_function" href="classElevate_1_1Framebuffer.html#afaf9674b18e16e5ec0ac8ce1ba38ee1c">Framebuffer::Create</a>(colorTextures, depthTex, depthAsRenderbuffer);</div>
-<div class="line"><span class="lineno">   41</span>        buffer-&gt;m_width = width;</div>
-<div class="line"><span class="lineno">   42</span>        buffer-&gt;m_height = height;</div>
-<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">return</span> buffer;</div>
-<div class="line"><span class="lineno">   44</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1Framebuffer_html_a269e68f8412d62ce98a0bdf54ffc8ee7"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a269e68f8412d62ce98a0bdf54ffc8ee7">Elevate::Framebuffer::CreateDepthTexture</a></div><div class="ttdeci">static TexturePtr CreateDepthTexture(uint32_t width, uint32_t height, TextureFormat depthFormat=TextureFormat::DEPTH)</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8cpp_source.html#l00105">Framebuffer.cpp:105</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Framebuffer_html_acda8cf66e3410be1d2c4bd2023a25642"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#acda8cf66e3410be1d2c4bd2023a25642">Elevate::Framebuffer::CreateColorTexture</a></div><div class="ttdeci">static TexturePtr CreateColorTexture(uint32_t width, uint32_t height, TextureFormat colorFormat=TextureFormat::RGBA)</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8cpp_source.html#l00088">Framebuffer.cpp:88</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Framebuffer_html_afaf9674b18e16e5ec0ac8ce1ba38ee1c"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#afaf9674b18e16e5ec0ac8ce1ba38ee1c">Elevate::Framebuffer::Create</a></div><div class="ttdeci">static Framebuffer * Create(uint32_t width, uint32_t height, std::vector&lt; TextureFormat &gt; colorFormats, bool depthAsRenderbuffer=true)</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8cpp_source.html#l00023">Framebuffer.cpp:23</a></div></div>
+<div class="line"><span class="lineno">   25</span>        <span class="keywordflow">if</span> (width == 0 || height == 0)</div>
+<div class="line"><span class="lineno">   26</span>        {</div>
+<div class="line"><span class="lineno">   27</span>            EE_CORE_WARN(<span class="stringliteral">&quot;Framebuffer::Create - Attempted to create framebuffer with 0x0 dimensions. Skipping.&quot;</span>);</div>
+<div class="line"><span class="lineno">   28</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   29</span>        }</div>
+<div class="line"><span class="lineno">   30</span> </div>
+<div class="line"><span class="lineno">   31</span>        <span class="keywordtype">size_t</span> colorAttachmentCount = colorFormats.size();</div>
+<div class="line"><span class="lineno">   32</span> </div>
+<div class="line"><span class="lineno">   33</span>        std::vector&lt;TexturePtr&gt; colorTextures;</div>
+<div class="line"><span class="lineno">   34</span>        colorTextures.reserve(colorAttachmentCount);</div>
+<div class="line"><span class="lineno">   35</span>        <span class="keywordflow">for</span> (uint32_t i = 0; i &lt; colorAttachmentCount; i++)</div>
+<div class="line"><span class="lineno">   36</span>        {</div>
+<div class="line"><span class="lineno">   37</span>            colorTextures.push_back(<a class="code hl_function" href="classElevate_1_1Framebuffer.html#acda8cf66e3410be1d2c4bd2023a25642">CreateColorTexture</a>(width, height, colorFormats[i]));</div>
+<div class="line"><span class="lineno">   38</span>        }</div>
+<div class="line"><span class="lineno">   39</span> </div>
+<div class="line"><span class="lineno">   40</span>        <a class="code hl_typedef" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> depthTex = <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   41</span>        <span class="keywordflow">if</span> (!depthAsRenderbuffer)</div>
+<div class="line"><span class="lineno">   42</span>        {</div>
+<div class="line"><span class="lineno">   43</span>            depthTex = <a class="code hl_function" href="classElevate_1_1Framebuffer.html#a4ab243afa6fbde2c930de22e5825caf4">CreateDepthTexture</a>(width, height, <a class="code hl_enumvalue" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">TextureFormat::DEPTH</a>, depthUsage);</div>
+<div class="line"><span class="lineno">   44</span>        }</div>
+<div class="line"><span class="lineno">   45</span>        Framebuffer* buffer = <a class="code hl_function" href="classElevate_1_1Framebuffer.html#a773b54bbef88aea89be668a4ea92c3a8">Framebuffer::Create</a>(colorTextures, depthTex, depthAsRenderbuffer);</div>
+<div class="line"><span class="lineno">   46</span>        buffer-&gt;m_width = width;</div>
+<div class="line"><span class="lineno">   47</span>        buffer-&gt;m_height = height;</div>
+<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">return</span> buffer;</div>
+<div class="line"><span class="lineno">   49</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1Framebuffer_html_a4ab243afa6fbde2c930de22e5825caf4"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a4ab243afa6fbde2c930de22e5825caf4">Elevate::Framebuffer::CreateDepthTexture</a></div><div class="ttdeci">static TexturePtr CreateDepthTexture(uint32_t width, uint32_t height, TextureFormat depthFormat=TextureFormat::DEPTH, TextureType usage=TextureType::Depth)</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8cpp_source.html#l00116">Framebuffer.cpp:116</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Framebuffer_html_a773b54bbef88aea89be668a4ea92c3a8"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a773b54bbef88aea89be668a4ea92c3a8">Elevate::Framebuffer::Create</a></div><div class="ttdeci">static Framebuffer * Create(uint32_t width, uint32_t height, std::vector&lt; TextureFormat &gt; colorFormats, bool depthAsRenderbuffer=true, TextureType depthUsage=TextureType::Depth)</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8cpp_source.html#l00023">Framebuffer.cpp:23</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Framebuffer_html_acda8cf66e3410be1d2c4bd2023a25642"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#acda8cf66e3410be1d2c4bd2023a25642">Elevate::Framebuffer::CreateColorTexture</a></div><div class="ttdeci">static TexturePtr CreateColorTexture(uint32_t width, uint32_t height, TextureFormat colorFormat=TextureFormat::RGBA)</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8cpp_source.html#l00099">Framebuffer.cpp:99</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a50d6e5907da10670e70f8436185d99d4"><div class="ttname"><a href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">Elevate::TexturePtr</a></div><div class="ttdeci">std::shared_ptr&lt; Texture &gt; TexturePtr</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8h_source.html#l00018">Renderer.h:18</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111"><div class="ttname"><a href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">Elevate::TextureFormat::DEPTH</a></div><div class="ttdeci">@ DEPTH</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -515,22 +557,22 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00088">88</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   89</span>    {</div>
-<div class="line"><span class="lineno">   90</span>        TextureMetadata colorMeta = TextureMetadataBuilder()</div>
-<div class="line"><span class="lineno">   91</span>            .Name(<span class="stringliteral">&quot;FramebufferColorAttachment0&quot;</span>)</div>
-<div class="line"><span class="lineno">   92</span>            .size(width, height)</div>
-<div class="line"><span class="lineno">   93</span>            .Format(colorFormat)</div>
-<div class="line"><span class="lineno">   94</span>            .Usage(<a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa41178642cae095a6bdb909119b4d16e8">TextureType::Diffuse</a>)</div>
-<div class="line"><span class="lineno">   95</span>            .Source(<a class="code hl_enumvalue" href="namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7a9b0bffda4bcb312168c0d6537cb04b4d">TextureSource::RenderTarget</a>)</div>
-<div class="line"><span class="lineno">   96</span>            .State(<a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ae7d31fc0602fb2ede144d18cdffd816b">TextureState::Ready</a>)</div>
-<div class="line"><span class="lineno">   97</span>            .Filter(<a class="code hl_enumvalue" href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b">TextureFilter::Linear</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b">TextureFilter::Linear</a>)</div>
-<div class="line"><span class="lineno">   98</span>            .Wrap(<a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa74556551231333c36debc3d373261134">TextureWrap::ClampToEdge</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa74556551231333c36debc3d373261134">TextureWrap::ClampToEdge</a>)</div>
-<div class="line"><span class="lineno">   99</span>            .Mipmaps(<span class="keyword">false</span>)</div>
-<div class="line"><span class="lineno">  100</span>            .Build();</div>
-<div class="line"><span class="lineno">  101</span> </div>
-<div class="line"><span class="lineno">  102</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1Texture.html#aacac9b00dd0c21da18588616fdaeb9ff">Texture::CreateFromData</a>(<span class="keyword">nullptr</span>, colorMeta);</div>
-<div class="line"><span class="lineno">  103</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00099">99</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  100</span>    {</div>
+<div class="line"><span class="lineno">  101</span>        TextureMetadata colorMeta = TextureMetadataBuilder()</div>
+<div class="line"><span class="lineno">  102</span>            .Name(<span class="stringliteral">&quot;FramebufferColorAttachment0&quot;</span>)</div>
+<div class="line"><span class="lineno">  103</span>            .size(width, height)</div>
+<div class="line"><span class="lineno">  104</span>            .Format(colorFormat)</div>
+<div class="line"><span class="lineno">  105</span>            .Usage(<a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa41178642cae095a6bdb909119b4d16e8">TextureType::Diffuse</a>)</div>
+<div class="line"><span class="lineno">  106</span>            .Source(<a class="code hl_enumvalue" href="namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7a9b0bffda4bcb312168c0d6537cb04b4d">TextureSource::RenderTarget</a>)</div>
+<div class="line"><span class="lineno">  107</span>            .State(<a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ae7d31fc0602fb2ede144d18cdffd816b">TextureState::Ready</a>)</div>
+<div class="line"><span class="lineno">  108</span>            .Filter(<a class="code hl_enumvalue" href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b">TextureFilter::Linear</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b">TextureFilter::Linear</a>)</div>
+<div class="line"><span class="lineno">  109</span>            .Wrap(<a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa74556551231333c36debc3d373261134">TextureWrap::ClampToEdge</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa74556551231333c36debc3d373261134">TextureWrap::ClampToEdge</a>)</div>
+<div class="line"><span class="lineno">  110</span>            .Mipmaps(<span class="keyword">false</span>)</div>
+<div class="line"><span class="lineno">  111</span>            .Build();</div>
+<div class="line"><span class="lineno">  112</span> </div>
+<div class="line"><span class="lineno">  113</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1Texture.html#aacac9b00dd0c21da18588616fdaeb9ff">Texture::CreateFromData</a>(<span class="keyword">nullptr</span>, colorMeta);</div>
+<div class="line"><span class="lineno">  114</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1Texture_html_aacac9b00dd0c21da18588616fdaeb9ff"><div class="ttname"><a href="classElevate_1_1Texture.html#aacac9b00dd0c21da18588616fdaeb9ff">Elevate::Texture::CreateFromData</a></div><div class="ttdeci">static TexturePtr CreateFromData(const void *data, TextureMetadata &amp;metadata)</div><div class="ttdef"><b>Definition</b> <a href="Texture_8cpp_source.html#l00087">Texture.cpp:87</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a0dbb1d3a1b1a57cf0e5f691054c5c022ae7d31fc0602fb2ede144d18cdffd816b"><div class="ttname"><a href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ae7d31fc0602fb2ede144d18cdffd816b">Elevate::TextureState::Ready</a></div><div class="ttdeci">@ Ready</div></div>
 <div class="ttc" id="anamespaceElevate_html_a7771c00d2b9fdd029ed480432ea0ff5fa74556551231333c36debc3d373261134"><div class="ttname"><a href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa74556551231333c36debc3d373261134">Elevate::TextureWrap::ClampToEdge</a></div><div class="ttdeci">@ ClampToEdge</div></div>
@@ -540,8 +582,8 @@ Protected Attributes</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a3170e01024eb841f18dfa1fe57d8e797" name="a3170e01024eb841f18dfa1fe57d8e797"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3170e01024eb841f18dfa1fe57d8e797">&#9670;&#160;</a></span>CreateDepthOnly()</h2>
+<a id="a247a8e72e98968c1f460f33f37043374" name="a247a8e72e98968c1f460f33f37043374"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a247a8e72e98968c1f460f33f37043374">&#9670;&#160;</a></span>CreateDepthOnly()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -565,7 +607,13 @@ Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">TextureFormat</a>&#160;</td>
-          <td class="paramname"><em>depthFormat</em> = <code><a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">TextureFormat::DEPTH</a></code>&#160;</td>
+          <td class="paramname"><em>depthFormat</em> = <code><a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">TextureFormat::DEPTH</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466f">TextureType</a>&#160;</td>
+          <td class="paramname"><em>depthUsage</em> = <code><a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa675056ad1441b6375b2c5abd48c27ef1">TextureType::Depth</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -580,20 +628,26 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00046">46</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   47</span>    {</div>
-<div class="line"><span class="lineno">   48</span>        <a class="code hl_typedef" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> depthTex = <a class="code hl_function" href="classElevate_1_1Framebuffer.html#a269e68f8412d62ce98a0bdf54ffc8ee7">CreateDepthTexture</a>(width, height, depthFormat);</div>
-<div class="line"><span class="lineno">   49</span>        Framebuffer* buffer = <a class="code hl_function" href="classElevate_1_1Framebuffer.html#afaf9674b18e16e5ec0ac8ce1ba38ee1c">Framebuffer::Create</a>({ }, depthTex, <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">   50</span>        buffer-&gt;<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#ac929d74e06e3e1bdebdb9c6c6caa161d">m_width</a> = width;</div>
-<div class="line"><span class="lineno">   51</span>        buffer-&gt;m_height = height;</div>
-<div class="line"><span class="lineno">   52</span>        <span class="keywordflow">return</span> buffer;</div>
-<div class="line"><span class="lineno">   53</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1Framebuffer_html_ac929d74e06e3e1bdebdb9c6c6caa161d"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#ac929d74e06e3e1bdebdb9c6c6caa161d">Elevate::Framebuffer::m_width</a></div><div class="ttdeci">uint32_t m_width</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8h_source.html#l00073">Framebuffer.h:73</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00051">51</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   52</span>    {</div>
+<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">if</span> (width == 0 || height == 0)</div>
+<div class="line"><span class="lineno">   54</span>        {</div>
+<div class="line"><span class="lineno">   55</span>            EE_CORE_WARN(<span class="stringliteral">&quot;Framebuffer::Create - Attempted to create framebuffer with 0x0 dimensions. Skipping.&quot;</span>);</div>
+<div class="line"><span class="lineno">   56</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   57</span>        }</div>
+<div class="line"><span class="lineno">   58</span> </div>
+<div class="line"><span class="lineno">   59</span>        <a class="code hl_typedef" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> depthTex = <a class="code hl_function" href="classElevate_1_1Framebuffer.html#a4ab243afa6fbde2c930de22e5825caf4">CreateDepthTexture</a>(width, height, depthFormat, depthUsage);</div>
+<div class="line"><span class="lineno">   60</span>        Framebuffer* buffer = <a class="code hl_function" href="classElevate_1_1Framebuffer.html#a773b54bbef88aea89be668a4ea92c3a8">Framebuffer::Create</a>({ }, depthTex, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">   61</span>        buffer-&gt;<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#ac929d74e06e3e1bdebdb9c6c6caa161d">m_width</a> = width;</div>
+<div class="line"><span class="lineno">   62</span>        buffer-&gt;m_height = height;</div>
+<div class="line"><span class="lineno">   63</span>        <span class="keywordflow">return</span> buffer;</div>
+<div class="line"><span class="lineno">   64</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1Framebuffer_html_ac929d74e06e3e1bdebdb9c6c6caa161d"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#ac929d74e06e3e1bdebdb9c6c6caa161d">Elevate::Framebuffer::m_width</a></div><div class="ttdeci">uint32_t m_width</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8h_source.html#l00075">Framebuffer.h:75</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a269e68f8412d62ce98a0bdf54ffc8ee7" name="a269e68f8412d62ce98a0bdf54ffc8ee7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a269e68f8412d62ce98a0bdf54ffc8ee7">&#9670;&#160;</a></span>CreateDepthTexture()</h2>
+<a id="a4ab243afa6fbde2c930de22e5825caf4" name="a4ab243afa6fbde2c930de22e5825caf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ab243afa6fbde2c930de22e5825caf4">&#9670;&#160;</a></span>CreateDepthTexture()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -617,7 +671,13 @@ Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00e">TextureFormat</a>&#160;</td>
-          <td class="paramname"><em>depthFormat</em> = <code><a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">TextureFormat::DEPTH</a></code>&#160;</td>
+          <td class="paramname"><em>depthFormat</em> = <code><a class="el" href="namespaceElevate.html#a6b8200f8cf0f799bee6e6b7d1301d00eaaa1780b4fcce2d5d9af13dc25386d111">TextureFormat::DEPTH</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466f">TextureType</a>&#160;</td>
+          <td class="paramname"><em>usage</em> = <code><a class="el" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa675056ad1441b6375b2c5abd48c27ef1">TextureType::Depth</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -632,24 +692,35 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00105">105</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  106</span>    {</div>
-<div class="line"><span class="lineno">  107</span>        TextureMetadata depthMeta = TextureMetadataBuilder()</div>
-<div class="line"><span class="lineno">  108</span>            .Name(<span class="stringliteral">&quot;ShadowMapDepthAttachment&quot;</span>)</div>
-<div class="line"><span class="lineno">  109</span>            .size(width, height)</div>
-<div class="line"><span class="lineno">  110</span>            .Format(depthFormat)</div>
-<div class="line"><span class="lineno">  111</span>            .Usage(<a class="code hl_enumvalue" href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa353488005629cf8d75def358ee005f3d">TextureType::ShadowMap</a>)</div>
-<div class="line"><span class="lineno">  112</span>            .Source(<a class="code hl_enumvalue" href="namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7a9b0bffda4bcb312168c0d6537cb04b4d">TextureSource::RenderTarget</a>)</div>
-<div class="line"><span class="lineno">  113</span>            .State(<a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ae7d31fc0602fb2ede144d18cdffd816b">TextureState::Ready</a>)</div>
-<div class="line"><span class="lineno">  114</span>            .Filter(<a class="code hl_enumvalue" href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b">TextureFilter::Linear</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b">TextureFilter::Linear</a>)</div>
-<div class="line"><span class="lineno">  115</span>            .Wrap(<a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147">TextureWrap::ClampToBorder</a>, <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147">TextureWrap::ClampToBorder</a>)</div>
-<div class="line"><span class="lineno">  116</span>            .Mipmaps(<span class="keyword">false</span>)</div>
-<div class="line"><span class="lineno">  117</span>            .Build();</div>
-<div class="line"><span class="lineno">  118</span> </div>
-<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1Texture.html#aacac9b00dd0c21da18588616fdaeb9ff">Texture::CreateFromData</a>(<span class="keyword">nullptr</span>, depthMeta);</div>
-<div class="line"><span class="lineno">  120</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00116">116</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  117</span>    {</div>
+<div class="line"><span class="lineno">  118</span><span class="preprocessor">#if defined(EE_PLATFORM_WEB)</span></div>
+<div class="line"><span class="lineno">  119</span>        <span class="comment">// Linear is not supported in web</span></div>
+<div class="line"><span class="lineno">  120</span>        <a class="code hl_enumeration" href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9c">TextureFilter</a> filter = <a class="code hl_enumvalue" href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca60494f02d440f316319dd0fad40ad007">TextureFilter::Nearest</a>;</div>
+<div class="line"><span class="lineno">  121</span>        <a class="code hl_enumeration" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5f">TextureWrap</a> depthWrap = <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa74556551231333c36debc3d373261134">TextureWrap::ClampToEdge</a>;</div>
+<div class="line"><span class="lineno">  122</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  123</span>        <a class="code hl_enumeration" href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9c">TextureFilter</a> filter = <a class="code hl_enumvalue" href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca32a843da6ea40ab3b17a3421ccdf671b">TextureFilter::Linear</a>;</div>
+<div class="line"><span class="lineno">  124</span>        <a class="code hl_enumeration" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5f">TextureWrap</a> depthWrap = <a class="code hl_enumvalue" href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147">TextureWrap::ClampToBorder</a>;</div>
+<div class="line"><span class="lineno">  125</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  126</span> </div>
+<div class="line"><span class="lineno">  127</span>        TextureMetadata depthMeta = TextureMetadataBuilder()</div>
+<div class="line"><span class="lineno">  128</span>            .Name(<span class="stringliteral">&quot;FramebufferDepthAttachment&quot;</span>)</div>
+<div class="line"><span class="lineno">  129</span>            .size(width, height)</div>
+<div class="line"><span class="lineno">  130</span>            .Format(depthFormat)</div>
+<div class="line"><span class="lineno">  131</span>            .Usage(depthUsage)</div>
+<div class="line"><span class="lineno">  132</span>            .Source(<a class="code hl_enumvalue" href="namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7a9b0bffda4bcb312168c0d6537cb04b4d">TextureSource::RenderTarget</a>)</div>
+<div class="line"><span class="lineno">  133</span>            .State(<a class="code hl_enumvalue" href="namespaceElevate.html#a0dbb1d3a1b1a57cf0e5f691054c5c022ae7d31fc0602fb2ede144d18cdffd816b">TextureState::Ready</a>)</div>
+<div class="line"><span class="lineno">  134</span>            .Filter(filter, filter)</div>
+<div class="line"><span class="lineno">  135</span>            .Wrap(depthWrap, depthWrap)</div>
+<div class="line"><span class="lineno">  136</span>            .Mipmaps(<span class="keyword">false</span>)</div>
+<div class="line"><span class="lineno">  137</span>            .Build();</div>
+<div class="line"><span class="lineno">  138</span> </div>
+<div class="line"><span class="lineno">  139</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1Texture.html#aacac9b00dd0c21da18588616fdaeb9ff">Texture::CreateFromData</a>(<span class="keyword">nullptr</span>, depthMeta);</div>
+<div class="line"><span class="lineno">  140</span>    }</div>
+<div class="ttc" id="anamespaceElevate_html_a7771c00d2b9fdd029ed480432ea0ff5f"><div class="ttname"><a href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5f">Elevate::TextureWrap</a></div><div class="ttdeci">TextureWrap</div><div class="ttdef"><b>Definition</b> <a href="Texture_8h_source.html#l00089">Texture.h:89</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147"><div class="ttname"><a href="namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147">Elevate::TextureWrap::ClampToBorder</a></div><div class="ttdeci">@ ClampToBorder</div></div>
-<div class="ttc" id="anamespaceElevate_html_abbc8ef8e3bb95c91c8071d7f6302466fa353488005629cf8d75def358ee005f3d"><div class="ttname"><a href="namespaceElevate.html#abbc8ef8e3bb95c91c8071d7f6302466fa353488005629cf8d75def358ee005f3d">Elevate::TextureType::ShadowMap</a></div><div class="ttdeci">@ ShadowMap</div></div>
+<div class="ttc" id="anamespaceElevate_html_ad55cb5b8635f95892a67b7e420730b9c"><div class="ttname"><a href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9c">Elevate::TextureFilter</a></div><div class="ttdeci">TextureFilter</div><div class="ttdef"><b>Definition</b> <a href="Texture_8h_source.html#l00088">Texture.h:88</a></div></div>
+<div class="ttc" id="anamespaceElevate_html_ad55cb5b8635f95892a67b7e420730b9ca60494f02d440f316319dd0fad40ad007"><div class="ttname"><a href="namespaceElevate.html#ad55cb5b8635f95892a67b7e420730b9ca60494f02d440f316319dd0fad40ad007">Elevate::TextureFilter::Nearest</a></div><div class="ttdeci">@ Nearest</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -677,21 +748,21 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00128">128</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  129</span>    {</div>
-<div class="line"><span class="lineno">  130</span>        <span class="keywordflow">if</span> (index &gt;= <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.size())</div>
-<div class="line"><span class="lineno">  131</span>        {</div>
-<div class="line"><span class="lineno">  132</span>            EE_CORE_WARN(<span class="stringliteral">&quot;Framebuffer::GetColorAttachmentHandle - Index out of bounds: {0}&quot;</span>, index);</div>
-<div class="line"><span class="lineno">  133</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">  134</span>        }</div>
-<div class="line"><span class="lineno">  135</span> </div>
-<div class="line"><span class="lineno">  136</span>        <span class="keywordflow">if</span> (<a class="code hl_typedef" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> tex = <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.at(index).Texture)</div>
-<div class="line"><span class="lineno">  137</span>        {</div>
-<div class="line"><span class="lineno">  138</span>            <span class="keywordflow">return</span> tex-&gt;GetNativeHandle();</div>
-<div class="line"><span class="lineno">  139</span>        }</div>
-<div class="line"><span class="lineno">  140</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">  141</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1Framebuffer_html_a520d8458065192c5840bbf46d1510ef8"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">Elevate::Framebuffer::m_colorAttachments</a></div><div class="ttdeci">std::vector&lt; FramebufferColorAttachment &gt; m_colorAttachments</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8h_source.html#l00070">Framebuffer.h:70</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00148">148</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  149</span>    {</div>
+<div class="line"><span class="lineno">  150</span>        <span class="keywordflow">if</span> (index &gt;= <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.size())</div>
+<div class="line"><span class="lineno">  151</span>        {</div>
+<div class="line"><span class="lineno">  152</span>            EE_CORE_WARN(<span class="stringliteral">&quot;Framebuffer::GetColorAttachmentHandle - Index out of bounds: {0}&quot;</span>, index);</div>
+<div class="line"><span class="lineno">  153</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  154</span>        }</div>
+<div class="line"><span class="lineno">  155</span> </div>
+<div class="line"><span class="lineno">  156</span>        <span class="keywordflow">if</span> (<a class="code hl_typedef" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> tex = <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.at(index).Texture)</div>
+<div class="line"><span class="lineno">  157</span>        {</div>
+<div class="line"><span class="lineno">  158</span>            <span class="keywordflow">return</span> tex-&gt;GetNativeHandle();</div>
+<div class="line"><span class="lineno">  159</span>        }</div>
+<div class="line"><span class="lineno">  160</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  161</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1Framebuffer_html_a520d8458065192c5840bbf46d1510ef8"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">Elevate::Framebuffer::m_colorAttachments</a></div><div class="ttdeci">std::vector&lt; FramebufferColorAttachment &gt; m_colorAttachments</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8h_source.html#l00072">Framebuffer.h:72</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -719,20 +790,20 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00152">152</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  153</span>    {</div>
-<div class="line"><span class="lineno">  154</span>        <span class="keywordflow">if</span> (index &gt;= <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.size())</div>
-<div class="line"><span class="lineno">  155</span>        {</div>
-<div class="line"><span class="lineno">  156</span>            EE_CORE_WARN(<span class="stringliteral">&quot;Framebuffer::GetColorTexture - Index out of bounds: {0}&quot;</span>, index);</div>
-<div class="line"><span class="lineno">  157</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">  158</span>        }</div>
-<div class="line"><span class="lineno">  159</span> </div>
-<div class="line"><span class="lineno">  160</span>        <span class="keywordflow">if</span> (<a class="code hl_typedef" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> tex = <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.at(index).Texture)</div>
-<div class="line"><span class="lineno">  161</span>        {</div>
-<div class="line"><span class="lineno">  162</span>            <span class="keywordflow">return</span> tex;</div>
-<div class="line"><span class="lineno">  163</span>        }</div>
-<div class="line"><span class="lineno">  164</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">  165</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00172">172</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  173</span>    {</div>
+<div class="line"><span class="lineno">  174</span>        <span class="keywordflow">if</span> (index &gt;= <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.size())</div>
+<div class="line"><span class="lineno">  175</span>        {</div>
+<div class="line"><span class="lineno">  176</span>            EE_CORE_WARN(<span class="stringliteral">&quot;Framebuffer::GetColorTexture - Index out of bounds: {0}&quot;</span>, index);</div>
+<div class="line"><span class="lineno">  177</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  178</span>        }</div>
+<div class="line"><span class="lineno">  179</span> </div>
+<div class="line"><span class="lineno">  180</span>        <span class="keywordflow">if</span> (<a class="code hl_typedef" href="namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4">TexturePtr</a> tex = <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a520d8458065192c5840bbf46d1510ef8">m_colorAttachments</a>.at(index).Texture)</div>
+<div class="line"><span class="lineno">  181</span>        {</div>
+<div class="line"><span class="lineno">  182</span>            <span class="keywordflow">return</span> tex;</div>
+<div class="line"><span class="lineno">  183</span>        }</div>
+<div class="line"><span class="lineno">  184</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  185</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -759,15 +830,15 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00143">143</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  144</span>    {</div>
-<div class="line"><span class="lineno">  145</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>.has_value() &amp;&amp; <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>-&gt;Texture)</div>
-<div class="line"><span class="lineno">  146</span>        {</div>
-<div class="line"><span class="lineno">  147</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>-&gt;Texture-&gt;GetNativeHandle();</div>
-<div class="line"><span class="lineno">  148</span>        }</div>
-<div class="line"><span class="lineno">  149</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">  150</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1Framebuffer_html_a94f5fdbaeec8a35cec1eb3e816b6851f"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">Elevate::Framebuffer::m_depthAttachment</a></div><div class="ttdeci">std::optional&lt; FramebufferDepthAttachment &gt; m_depthAttachment</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8h_source.html#l00071">Framebuffer.h:71</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00163">163</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  164</span>    {</div>
+<div class="line"><span class="lineno">  165</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>.has_value() &amp;&amp; <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>-&gt;Texture)</div>
+<div class="line"><span class="lineno">  166</span>        {</div>
+<div class="line"><span class="lineno">  167</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>-&gt;Texture-&gt;GetNativeHandle();</div>
+<div class="line"><span class="lineno">  168</span>        }</div>
+<div class="line"><span class="lineno">  169</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  170</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1Framebuffer_html_a94f5fdbaeec8a35cec1eb3e816b6851f"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">Elevate::Framebuffer::m_depthAttachment</a></div><div class="ttdeci">std::optional&lt; FramebufferDepthAttachment &gt; m_depthAttachment</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8h_source.html#l00073">Framebuffer.h:73</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -794,14 +865,14 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00167">167</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  168</span>    {</div>
-<div class="line"><span class="lineno">  169</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>.has_value())</div>
-<div class="line"><span class="lineno">  170</span>        {</div>
-<div class="line"><span class="lineno">  171</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>-&gt;Texture;</div>
-<div class="line"><span class="lineno">  172</span>        }</div>
-<div class="line"><span class="lineno">  173</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">  174</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00187">187</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  188</span>    {</div>
+<div class="line"><span class="lineno">  189</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>.has_value())</div>
+<div class="line"><span class="lineno">  190</span>        {</div>
+<div class="line"><span class="lineno">  191</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#a94f5fdbaeec8a35cec1eb3e816b6851f">m_depthAttachment</a>-&gt;Texture;</div>
+<div class="line"><span class="lineno">  192</span>        }</div>
+<div class="line"><span class="lineno">  193</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  194</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -828,7 +899,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classElevate_1_1OpenGLFrameBuffer.html#ac46bbacc6e887e9f7a84fcdb9bb0dbfa">Elevate::OpenGLFrameBuffer</a>.</p>
+<p>Implemented in <a class="el" href="classElevate_1_1OpenGLFramebuffer.html#ac1b845c6317b59fd58bcca09afb55e16">Elevate::OpenGLFramebuffer</a>.</p>
 
 </div>
 </div>
@@ -851,7 +922,7 @@ Protected Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><span class="lineno">   19</span>    {</div>
 <div class="line"><span class="lineno">   20</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classElevate_1_1Framebuffer.html#af8f89a6139fa32740de1a5164adae20c">m_height</a>;</div>
 <div class="line"><span class="lineno">   21</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1Framebuffer_html_af8f89a6139fa32740de1a5164adae20c"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#af8f89a6139fa32740de1a5164adae20c">Elevate::Framebuffer::m_height</a></div><div class="ttdeci">uint32_t m_height</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8h_source.html#l00074">Framebuffer.h:74</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Framebuffer_html_af8f89a6139fa32740de1a5164adae20c"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#af8f89a6139fa32740de1a5164adae20c">Elevate::Framebuffer::m_height</a></div><div class="ttdeci">uint32_t m_height</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8h_source.html#l00076">Framebuffer.h:76</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -911,7 +982,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classElevate_1_1OpenGLFrameBuffer.html#a8a7892aff304e92065ad8884dc86c3ed">Elevate::OpenGLFrameBuffer</a>.</p>
+<p>Implemented in <a class="el" href="classElevate_1_1OpenGLFramebuffer.html#aa7c9eb41c5e75246df4697a817f5670c">Elevate::OpenGLFramebuffer</a>.</p>
 
 </div>
 </div>
@@ -967,7 +1038,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classElevate_1_1OpenGLFrameBuffer.html#a9d9c4560ead60339a9d7f6b384074a3e">Elevate::OpenGLFrameBuffer</a>.</p>
+<p>Implemented in <a class="el" href="classElevate_1_1OpenGLFramebuffer.html#a06f5d839cb700494380600d3043a12c1">Elevate::OpenGLFramebuffer</a>.</p>
 
 </div>
 </div>
@@ -986,13 +1057,13 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00077">77</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   78</span>    {</div>
-<div class="line"><span class="lineno">   79</span>        <a class="code hl_function" href="classElevate_1_1Framebuffer.html#a85d1a1f861c135e0442b579a0b2e669e">Bind</a>();</div>
-<div class="line"><span class="lineno">   80</span>        <a class="code hl_function" href="classElevate_1_1Framebuffer.html#ac3fdf2d437f73af172b838bae29b5353">UseViewport</a>();</div>
-<div class="line"><span class="lineno">   81</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00088">88</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   89</span>    {</div>
+<div class="line"><span class="lineno">   90</span>        <a class="code hl_function" href="classElevate_1_1Framebuffer.html#a85d1a1f861c135e0442b579a0b2e669e">Bind</a>();</div>
+<div class="line"><span class="lineno">   91</span>        <a class="code hl_function" href="classElevate_1_1Framebuffer.html#ac3fdf2d437f73af172b838bae29b5353">UseViewport</a>();</div>
+<div class="line"><span class="lineno">   92</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1Framebuffer_html_a85d1a1f861c135e0442b579a0b2e669e"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a85d1a1f861c135e0442b579a0b2e669e">Elevate::Framebuffer::Bind</a></div><div class="ttdeci">virtual void Bind() const =0</div></div>
-<div class="ttc" id="aclassElevate_1_1Framebuffer_html_ac3fdf2d437f73af172b838bae29b5353"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#ac3fdf2d437f73af172b838bae29b5353">Elevate::Framebuffer::UseViewport</a></div><div class="ttdeci">void UseViewport()</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8cpp_source.html#l00083">Framebuffer.cpp:83</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Framebuffer_html_ac3fdf2d437f73af172b838bae29b5353"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#ac3fdf2d437f73af172b838bae29b5353">Elevate::Framebuffer::UseViewport</a></div><div class="ttdeci">void UseViewport()</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8cpp_source.html#l00094">Framebuffer.cpp:94</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1019,13 +1090,13 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00083">83</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   84</span>    {</div>
-<div class="line"><span class="lineno">   85</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a2356117b047f7d951c083bee461f1b14">Renderer::SetViewport</a>(0, 0, <a class="code hl_function" href="classElevate_1_1Framebuffer.html#a17df68945d14ad73152474c2e608c79a">GetWidth</a>(), <a class="code hl_function" href="classElevate_1_1Framebuffer.html#a52e5761620b6f8ea1a98b9df7df68a6a">GetHeight</a>());</div>
-<div class="line"><span class="lineno">   86</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8cpp_source.html#l00094">94</a> of file <a class="el" href="Framebuffer_8cpp_source.html">Framebuffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   95</span>    {</div>
+<div class="line"><span class="lineno">   96</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a2356117b047f7d951c083bee461f1b14">Renderer::SetViewport</a>(0, 0, <a class="code hl_function" href="classElevate_1_1Framebuffer.html#a17df68945d14ad73152474c2e608c79a">GetWidth</a>(), <a class="code hl_function" href="classElevate_1_1Framebuffer.html#a52e5761620b6f8ea1a98b9df7df68a6a">GetHeight</a>());</div>
+<div class="line"><span class="lineno">   97</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1Framebuffer_html_a17df68945d14ad73152474c2e608c79a"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a17df68945d14ad73152474c2e608c79a">Elevate::Framebuffer::GetWidth</a></div><div class="ttdeci">uint32_t GetWidth() const</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8cpp_source.html#l00013">Framebuffer.cpp:13</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Framebuffer_html_a52e5761620b6f8ea1a98b9df7df68a6a"><div class="ttname"><a href="classElevate_1_1Framebuffer.html#a52e5761620b6f8ea1a98b9df7df68a6a">Elevate::Framebuffer::GetHeight</a></div><div class="ttdeci">uint32_t GetHeight() const</div><div class="ttdef"><b>Definition</b> <a href="Framebuffer_8cpp_source.html#l00018">Framebuffer.cpp:18</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a2356117b047f7d951c083bee461f1b14"><div class="ttname"><a href="classElevate_1_1Renderer.html#a2356117b047f7d951c083bee461f1b14">Elevate::Renderer::SetViewport</a></div><div class="ttdeci">static void SetViewport(int x, int y, int width, int height)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00363">Renderer.cpp:363</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a2356117b047f7d951c083bee461f1b14"><div class="ttname"><a href="classElevate_1_1Renderer.html#a2356117b047f7d951c083bee461f1b14">Elevate::Renderer::SetViewport</a></div><div class="ttdeci">static void SetViewport(int x, int y, int width, int height)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00368">Renderer.cpp:368</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1050,8 +1121,8 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8h_source.html#l00072">72</a> of file <a class="el" href="Framebuffer_8h_source.html">Framebuffer.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   72</span>{ 1.0f, 1.0f, 1.0f, 1.0f };</div>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8h_source.html#l00074">74</a> of file <a class="el" href="Framebuffer_8h_source.html">Framebuffer.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   74</span>{ 1.0f, 1.0f, 1.0f, 1.0f };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1075,7 +1146,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8h_source.html#l00070">70</a> of file <a class="el" href="Framebuffer_8h_source.html">Framebuffer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8h_source.html#l00072">72</a> of file <a class="el" href="Framebuffer_8h_source.html">Framebuffer.h</a>.</p>
 
 </div>
 </div>
@@ -1099,7 +1170,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8h_source.html#l00071">71</a> of file <a class="el" href="Framebuffer_8h_source.html">Framebuffer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8h_source.html#l00073">73</a> of file <a class="el" href="Framebuffer_8h_source.html">Framebuffer.h</a>.</p>
 
 </div>
 </div>
@@ -1123,7 +1194,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8h_source.html#l00074">74</a> of file <a class="el" href="Framebuffer_8h_source.html">Framebuffer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8h_source.html#l00076">76</a> of file <a class="el" href="Framebuffer_8h_source.html">Framebuffer.h</a>.</p>
 
 </div>
 </div>
@@ -1147,7 +1218,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Framebuffer_8h_source.html#l00073">73</a> of file <a class="el" href="Framebuffer_8h_source.html">Framebuffer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Framebuffer_8h_source.html#l00075">75</a> of file <a class="el" href="Framebuffer_8h_source.html">Framebuffer.h</a>.</p>
 
 </div>
 </div>
