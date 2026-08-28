@@ -1,4 +1,8 @@
+precision highp float;
+
 layout(location = 0) out vec4 o_Color;
+layout(location = 1) out vec4 o_Normal;
+layout(location = 2) out vec4 o_Material;
 
 in vec2 fragPos2D;
 
@@ -46,4 +50,6 @@ void main()
     }
 
     o_Color = displayColor;
+    o_Normal = vec4(0.0, 1.0, 0.0, 1.0);
+    o_Material = vec4(1.0, 0.0, 1.0, 1.0);
 }

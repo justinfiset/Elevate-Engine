@@ -20,8 +20,14 @@ namespace Elevate
         return m_height;
     }
 
-    Framebuffer* Framebuffer::Create(uint32_t width, uint32_t height, std::vector<TextureFormat> colorFormats, bool depthAsRenderbuffer)
+    Framebuffer* Framebuffer::Create(uint32_t width, uint32_t height, std::vector<TextureFormat> colorFormats, bool depthAsRenderbuffer, TextureType depthUsage)
     {
+        if (width == 0 || height == 0)
+        {
+            EE_CORE_WARN("Framebuffer::Create - Attempted to create framebuffer with 0x0 dimensions. Skipping.");
+            return nullptr;
+        }
+
         size_t colorAttachmentCount = colorFormats.size();
 
         std::vector<TexturePtr> colorTextures;
@@ -31,11 +37,10 @@ namespace Elevate
             colorTextures.push_back(CreateColorTexture(width, height, colorFormats[i]));
         }
 
-        TexturePtr colorTex = CreateColorTexture(width, height);
         TexturePtr depthTex = nullptr;
         if (!depthAsRenderbuffer)
         {
-            depthTex = CreateDepthTexture(width, height);
+            depthTex = CreateDepthTexture(width, height, TextureFormat::DEPTH, depthUsage);
         }
         Framebuffer* buffer = Framebuffer::Create(colorTextures, depthTex, depthAsRenderbuffer);
         buffer->m_width = width;
@@ -43,9 +48,15 @@ namespace Elevate
         return buffer;
     }
 
-    Framebuffer* Framebuffer::CreateDepthOnly(uint32_t width, uint32_t height, TextureFormat depthFormat)
+    Framebuffer* Framebuffer::CreateDepthOnly(uint32_t width, uint32_t height, TextureFormat depthFormat, TextureType depthUsage)
     {
-        TexturePtr depthTex = CreateDepthTexture(width, height, depthFormat);
+        if (width == 0 || height == 0)
+        {
+            EE_CORE_WARN("Framebuffer::Create - Attempted to create framebuffer with 0x0 dimensions. Skipping.");
+            return nullptr;
+        }
+
+        TexturePtr depthTex = CreateDepthTexture(width, height, depthFormat, depthUsage);
         Framebuffer* buffer = Framebuffer::Create({ }, depthTex, false);
         buffer->m_width = width;
         buffer->m_height = height;
@@ -102,16 +113,23 @@ namespace Elevate
         return Texture::CreateFromData(nullptr, colorMeta);
     }
 
-    TexturePtr Framebuffer::CreateDepthTexture(uint32_t width, uint32_t height, TextureFormat depthFormat)
+    TexturePtr Framebuffer::CreateDepthTexture(uint32_t width, uint32_t height, TextureFormat depthFormat, TextureType depthUsage)
     {
+#if defined(EE_PLATFORM_WEB)
+        // Linear is not supported in web
+        TextureFilter filter = TextureFilter::Nearest;
+#else
+        TextureFilter filter = TextureFilter::Linear;
+#endif
+
         TextureMetadata depthMeta = TextureMetadataBuilder()
             .Name("ShadowMapDepthAttachment")
             .size(width, height)
             .Format(depthFormat)
-            .Usage(TextureType::ShadowMap)
+            .Usage(depthUsage)
             .Source(TextureSource::RenderTarget)
             .State(TextureState::Ready)
-            .Filter(TextureFilter::Linear, TextureFilter::Linear)
+            .Filter(filter, filter)
             .Wrap(TextureWrap::ClampToBorder, TextureWrap::ClampToBorder)
             .Mipmaps(false)
             .Build();

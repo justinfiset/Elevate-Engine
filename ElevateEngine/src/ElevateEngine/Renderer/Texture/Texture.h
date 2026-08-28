@@ -21,32 +21,45 @@ namespace Elevate
 	enum class TextureFormat : uint8_t {
 		EMPTY = 0,
 		GRAYSCALE,
+
 		RGB,
 		RGBA,
 		RGB16F,
 		RGB32F,
 		RGBA16F,
 		RGBA32F,
-		DEPTH,
+
 		SRGB,
 		SRGBA,
-		DEPTHSTENCIL // To use depth and stencil at the same time
+
+		DEPTH,
+		DEPTH16,
+		DEPTH24,
+		DEPTH32F,
+
+		DEPTH24_STENCIL8 // To use depth and stencil at the same time
 	};
 
 	inline uint8_t GetTextureFormatChannels(TextureFormat format)
 	{
 		switch (format)
 		{
-			case TextureFormat::GRAYSCALE:		return 1;
-			case TextureFormat::RGB:			return 3;
-			case TextureFormat::RGB16F:			return 3;
-			case TextureFormat::RGB32F:			return 3;
-			case TextureFormat::RGBA:			return 4;
-			case TextureFormat::RGBA16F:		return 4;
-			case TextureFormat::RGBA32F:		return 4;
-			case TextureFormat::DEPTH:			return 1;
-			case TextureFormat::DEPTHSTENCIL:	return 2;
-			default:								return 0;
+		case TextureFormat::GRAYSCALE:         return 1;
+		case TextureFormat::RGB:               return 3;
+		case TextureFormat::RGB16F:            return 3;
+		case TextureFormat::RGB32F:            return 3;
+		case TextureFormat::RGBA:              return 4;
+		case TextureFormat::RGBA16F:           return 4;
+		case TextureFormat::RGBA32F:           return 4;
+		case TextureFormat::SRGB:              return 3;
+		case TextureFormat::SRGBA:             return 4;
+		case TextureFormat::DEPTH:             return 1;
+		case TextureFormat::DEPTH16:           return 1;
+		case TextureFormat::DEPTH24:           return 1;
+		case TextureFormat::DEPTH32F:          return 1;
+		case TextureFormat::DEPTH24_STENCIL8:  return 2;
+		case TextureFormat::EMPTY:
+		default:                               return 0;
 		}
 	}
 

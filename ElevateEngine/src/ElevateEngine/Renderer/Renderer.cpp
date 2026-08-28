@@ -78,7 +78,8 @@ namespace Elevate
                 TextureFormat::RGBA16F,     // Normals (RGB)
                 TextureFormat::RGBA16F      // Material : Roughness (R) + Metallic (G) + AO (B) + Extra (A)
             },
-            false
+            false,
+            TextureType::Depth
         ));
 
         s_geometryFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
@@ -234,7 +235,7 @@ namespace Elevate
         // Create the Framebuffers
         for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
         {
-            s_directionalShadowMaps[i].reset(Framebuffer::CreateDepthOnly(DEFAULT_SHADOW_RESOLUTION, DEFAULT_SHADOW_RESOLUTION));
+            s_directionalShadowMaps[i].reset(Framebuffer::CreateDepthOnly(DEFAULT_SHADOW_RESOLUTION, DEFAULT_SHADOW_RESOLUTION, TextureFormat::DEPTH, TextureType::ShadowMap));
         }
     }
 

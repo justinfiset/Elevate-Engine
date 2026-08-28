@@ -1,4 +1,8 @@
-out vec4 FragColor;
+precision highp float;
+
+layout(location = 0) out vec4 FragColor;
+layout(location = 1) out vec4 FragNormal;
+layout(location = 2) out vec4 FragMaterial;
 
 in vec2 textCord;
 uniform sampler2D billboardTexture;
@@ -29,9 +33,15 @@ void main()
         {
             vec4 finalOutline = vec4(outlineColor.rgb, outlineColor.a * outlineAlpha);
             FragColor = mix(finalOutline, texColor, texColor.a);
+            
+            FragNormal   = vec4(0.0, 0.0, 1.0, 1.0);
+            FragMaterial = vec4(1.0, 0.0, 1.0, 1.0);
             return;
         }
     }
 
     FragColor = texColor;
+    
+    FragNormal   = vec4(0.0, 0.0, 1.0, 1.0);
+    FragMaterial = vec4(1.0, 0.0, 1.0, 1.0);
 }

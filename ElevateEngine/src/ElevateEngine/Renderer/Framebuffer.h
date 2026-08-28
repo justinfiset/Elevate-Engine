@@ -50,9 +50,9 @@ namespace Elevate
 		inline void SetClearColor(glm::vec4 color) { m_clearColor = color; }
 
 		// Color + Depth + Stencil (most used case)
-		static Framebuffer* Create(uint32_t width, uint32_t height, std::vector<TextureFormat> colorFormats, bool depthAsRenderbuffer = true);
+		static Framebuffer* Create(uint32_t width, uint32_t height, std::vector<TextureFormat> colorFormats, bool depthAsRenderbuffer = true, TextureType depthUsage = TextureType::Depth);
 		// 0 Color and only 1 Depth texture
-		static Framebuffer* CreateDepthOnly(uint32_t width = 2048, uint32_t height = 2048, TextureFormat depthFormat = TextureFormat::DEPTH);
+		static Framebuffer* CreateDepthOnly(uint32_t width = 2048, uint32_t height = 2048, TextureFormat depthFormat = TextureFormat::DEPTH, TextureType depthUsage = TextureType::Depth);
 		// Pass custom config for the FrameBuffer
 		static Framebuffer* Create(
 			const std::vector<TexturePtr>& colorTextures,
@@ -64,7 +64,7 @@ namespace Elevate
 		void UseViewport();
 
 		static TexturePtr CreateColorTexture(uint32_t width, uint32_t height, TextureFormat colorFormat = TextureFormat::RGBA);
-		static TexturePtr CreateDepthTexture(uint32_t width, uint32_t height, TextureFormat depthFormat = TextureFormat::DEPTH);
+		static TexturePtr CreateDepthTexture(uint32_t width, uint32_t height, TextureFormat depthFormat = TextureFormat::DEPTH, TextureType usage = TextureType::Depth);
 
 	protected:
 		std::vector<FramebufferColorAttachment> m_colorAttachments;
