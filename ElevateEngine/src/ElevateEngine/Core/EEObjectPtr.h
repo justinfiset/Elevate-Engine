@@ -212,6 +212,17 @@ namespace Elevate
 		{
 			return std::weak_ptr<T>(m_ptr);
 		}
+
+		std::shared_ptr<T> ToShared() const
+		{
+			get(); // Force the proxy to resolve the object if pointer is invalid
+			return m_ptr;
+		}
+
+		operator std::shared_ptr<T>() const
+		{
+			return ToShared();
+		}
 	};
 
 	template<typename T>

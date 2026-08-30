@@ -30,11 +30,12 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 {
 	ImGui::Begin("Analyse");
 
-	std::shared_ptr<EEObject> lockedSelected = EditorLayer::Get().GetSelectedObject().lock();
+	std::shared_ptr<EEObject> selected = EditorLayer::Get().GetSelectedObject().lock();
+
 	std::shared_ptr<GameObject> obj = nullptr;
-	if (lockedSelected)
+	if (selected)
 	{
-		obj = std::dynamic_pointer_cast<GameObject>(lockedSelected);
+		obj = std::dynamic_pointer_cast<GameObject>(selected);
 	}
 
 	if (obj)
@@ -122,7 +123,16 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 			ImGui::EndPopup();
 		}
 	}
-
+	else if (selected)
+	{
+		ImGui::Text("%s", selected->GetName().c_str());
+		ImGui::Separator();
+		const auto layout = selected->GetLayout();
+		for (const auto& field : layout)
+		{
+			RenderField(field);
+		}
+	}
 	ImGui::End();
 }
 

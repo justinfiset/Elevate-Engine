@@ -4,11 +4,13 @@
 #include <unordered_map>
 #include <memory>
 
+#include <ElevateEngine/Core/EEObjectPtr.h>
+
 #define EE_DEFAULT_SHADER "default"
 
 namespace Elevate {
 	class Shader;
-	using ShaderPtr = std::shared_ptr<Shader>;
+	using ShaderPtr = EEObjectPtr<Shader>;
 
 	class ShaderManager {
 	public:
