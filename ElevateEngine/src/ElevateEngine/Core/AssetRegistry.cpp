@@ -91,7 +91,9 @@ namespace Elevate
                     .MetaData = &typeMeta,
                     .Instance = nullptr
                 };
-                s_pathRegistry[entry.path()] = guid;
+                
+                fs::path normalizedPath = fs::absolute(entry.path()).lexically_normal();
+                s_pathRegistry[normalizedPath] = guid;
             }
         }
     }
@@ -212,13 +214,15 @@ namespace Elevate
 
     bool AssetRegistry::IsPathRegistered(std::filesystem::path path)
     {
-        return s_pathRegistry.contains(path);
+        fs::path normalizedPath = fs::absolute(path).lexically_normal();
+        return s_pathRegistry.find(normalizedPath) != s_pathRegistry.end();
     }
 
     Guid AssetRegistry::GetPathGuid(std::filesystem::path path)
     {
-        auto it = Get().s_pathRegistry.find(path);
-        return (it != Get().s_pathRegistry.end()) ? it->second : Guid{};
+        fs::path normalizedPath = fs::absolute(path).lexically_normal();
+    auto it = s_pathRegistry.find(normalizedPath);
+    return (it != s_pathRegistry.end()) ? it->second : Guid{};
     }
 
     const std::unordered_map<std::string, AssetMetaData>& AssetRegistry::GetNameMetas()
@@ -306,6 +310,8 @@ namespace Elevate
         };
 
         s_indexedAssets[assetGuid] = entry;
-        s_pathRegistry[filePath] = assetGuid;
+        
+        fs::path normalizedPath = fs::absolute(filePath).lexically_normal();
+        s_pathRegistry[normalizedPath] = assetGuid;
     }
 }
