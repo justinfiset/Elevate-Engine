@@ -231,7 +231,7 @@ var namespaceElevate =
     [ "PropertyValue", "namespaceElevate.html#aace8d290e19160cac7d1b9696d8766df", null ],
     [ "ScenePtr", "namespaceElevate.html#a616e287e4c8d91552d66e7da0feb650c", null ],
     [ "ShaderDataType", "namespaceElevate.html#a6146041726c8a1f0fca97298ff0aa8f3", null ],
-    [ "ShaderPtr", "namespaceElevate.html#adda8bd5e6a5ec46962fbb985f0441b62", null ],
+    [ "ShaderPtr", "namespaceElevate.html#a4593a68e909581ee37bd5ce6930e6790", null ],
     [ "TexturePtr", "namespaceElevate.html#a50d6e5907da10670e70f8436185d99d4", null ],
     [ "AssetFlags", "namespaceElevate.html#a9927bd4256434f56c5778b1e84c1388c", [
       [ "None", "namespaceElevate.html#a9927bd4256434f56c5778b1e84c1388ca6adf97f83acf6453d4a6a4b1070f3754", null ],

@@ -164,8 +164,8 @@ $(document).ready(function(){initNavTree('EditorLayer_8h_source.html',''); initR
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        EditorCamera* GetCamera();</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keyword">inline</span> std::weak_ptr&lt;Scene&gt; GetScene() { <span class="keywordflow">return</span> m_EditorScene; }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">inline</span> std::weak_ptr&lt;GameObject&gt; GetSelectedObject() { <span class="keywordflow">return</span> m_SelectedObject; }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordtype">void</span> SelectObject(<span class="keyword">const</span> EEObjectPtr&lt;GameObject&gt;&amp; newSelection);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">inline</span> std::weak_ptr&lt;EEObject&gt; GetSelectedObject() { <span class="keywordflow">return</span> m_SelectedObject; }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordtype">void</span> SelectObject(<span class="keyword">const</span> EEObjectPtr&lt;EEObject&gt;&amp; newSelection);</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        </div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keyword">inline</span> <span class="keyword">static</span> EditorLayer&amp; Get() { <span class="keywordflow">return</span> *s_Instance; }</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
@@ -185,7 +185,7 @@ $(document).ready(function(){initNavTree('EditorLayer_8h_source.html',''); initR
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        std::shared_ptr&lt;GameObject&gt; m_CameraObject;</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        std::weak_ptr&lt;GameObject&gt; m_SelectedObject;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        std::weak_ptr&lt;EEObject&gt; m_SelectedObject;</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="comment">// Editor Scene</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        std::shared_ptr&lt;Scene&gt; m_EditorScene;</div>

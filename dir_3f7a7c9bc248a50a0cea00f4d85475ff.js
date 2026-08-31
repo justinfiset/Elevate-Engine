@@ -5,6 +5,7 @@ var dir_3f7a7c9bc248a50a0cea00f4d85475ff =
     [ "Application.cpp", "Application_8cpp.html", "Application_8cpp" ],
     [ "Application.h", "Application_8h.html", "Application_8h" ],
     [ "Assert.h", "Assert_8h.html", "Assert_8h" ],
+    [ "Asset.cpp", "Asset_8cpp.html", null ],
     [ "Asset.h", "Asset_8h.html", "Asset_8h" ],
     [ "AssetMetaData.h", "AssetMetaData_8h.html", "AssetMetaData_8h" ],
     [ "AssetRegistry.cpp", "AssetRegistry_8cpp.html", "AssetRegistry_8cpp" ],

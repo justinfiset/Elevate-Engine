@@ -23,10 +23,11 @@ var searchData=
   ['ismousebuttonpressed_20',['ismousebuttonpressed',['../classElevate_1_1InputBuffer.html#aca2d0b441c036dececd7789e7a7b5460',1,'Elevate::InputBuffer::IsMouseButtonPressed()'],['../classElevate_1_1Input.html#a10f260e52c0db6e0a3ca4983210fd8f3',1,'Elevate::Input::IsMouseButtonPressed(int button)']]],
   ['ismousebuttonup_21',['ismousebuttonup',['../classElevate_1_1Input.html#a1b0e2682a0787ee3ba1604895b66fbcf',1,'Elevate::Input::IsMouseButtonUp()'],['../classElevate_1_1InputBuffer.html#ad71acc2fdd65b23c1aa03532095d3c1d',1,'Elevate::InputBuffer::IsMouseButtonUp()']]],
   ['isonfrustum_22',['isonfrustum',['../classElevate_1_1BoundingVolume.html#a9ec02ce8e185f611e71448185014bc09',1,'Elevate::BoundingVolume::IsOnFrustum()'],['../classElevate_1_1SphereBoundingVolume.html#a658cc62847d129ae632fae0f4a266b6a',1,'Elevate::SphereBoundingVolume::IsOnFrustum()']]],
-  ['isprimitive_23',['IsPrimitive',['../structElevate_1_1PropertyField.html#a525df6f6bf6ab2e303a189eea09fc8a0',1,'Elevate::PropertyField']]],
-  ['istextureloaded_24',['IsTextureLoaded',['../classElevate_1_1Texture.html#aeb57b65a24322fb1b1c37dda3b62d4d1',1,'Elevate::Texture']]],
-  ['isundoable_25',['IsUndoable',['../classElevate_1_1Command.html#aee1562a5c788052da3881730446a93bc',1,'Elevate::Command']]],
-  ['isvalid_26',['IsValid',['../classElevate_1_1Guid.html#a83431a00c5720c084d961ed3e275a473',1,'Elevate::Guid']]],
-  ['isvaliddirectory_27',['IsValidDirectory',['../classElevate_1_1WwiseFileDataSource.html#a3eb6bdb43c03ed0ccc05f02b5bd2fece',1,'Elevate::WwiseFileDataSource']]],
-  ['isvsync_28',['isvsync',['../classElevate_1_1Window.html#a9233b2b693f35d32b2f70b31956d1464',1,'Elevate::Window::IsVSync()'],['../classElevate_1_1GlfwWindow.html#a49503a8a825b9a90e7fa0b728941589b',1,'Elevate::GlfwWindow::IsVSync()']]]
+  ['ispathregistered_23',['IsPathRegistered',['../classElevate_1_1AssetRegistry.html#a04b58eb321c6380b7964ddf7b3d07964',1,'Elevate::AssetRegistry']]],
+  ['isprimitive_24',['IsPrimitive',['../structElevate_1_1PropertyField.html#a525df6f6bf6ab2e303a189eea09fc8a0',1,'Elevate::PropertyField']]],
+  ['istextureloaded_25',['IsTextureLoaded',['../classElevate_1_1Texture.html#aeb57b65a24322fb1b1c37dda3b62d4d1',1,'Elevate::Texture']]],
+  ['isundoable_26',['IsUndoable',['../classElevate_1_1Command.html#aee1562a5c788052da3881730446a93bc',1,'Elevate::Command']]],
+  ['isvalid_27',['IsValid',['../classElevate_1_1Guid.html#a83431a00c5720c084d961ed3e275a473',1,'Elevate::Guid']]],
+  ['isvaliddirectory_28',['IsValidDirectory',['../classElevate_1_1WwiseFileDataSource.html#a3eb6bdb43c03ed0ccc05f02b5bd2fece',1,'Elevate::WwiseFileDataSource']]],
+  ['isvsync_29',['isvsync',['../classElevate_1_1Window.html#a9233b2b693f35d32b2f70b31956d1464',1,'Elevate::Window::IsVSync()'],['../classElevate_1_1GlfwWindow.html#a49503a8a825b9a90e7fa0b728941589b',1,'Elevate::GlfwWindow::IsVSync()']]]
 ];

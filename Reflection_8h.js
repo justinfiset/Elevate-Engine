@@ -5,6 +5,8 @@ var Reflection_8h =
     [ "BEGIN_COMPONENT", "Reflection_8h.html#abef824e4e17eb3b5c93fb628c8399faf", null ],
     [ "BEGIN_OBJECT", "Reflection_8h.html#ad2bb496c7f0b331e05cd728b248159a0", null ],
     [ "BEGIN_STRUCT", "Reflection_8h.html#ab767a985f57080afbf2fa83879789f99", null ],
+    [ "DECLARE_AUTO_OBJECT_LAYOUT", "Reflection_8h.html#a876629cb9622faedf9a881942e6af4c7", null ],
+    [ "DECLARE_AUTO_OBJECT_NAME", "Reflection_8h.html#a2884c10354113bc53fad98490cb5e262", null ],
     [ "DECLARE_BASE", "Reflection_8h.html#a4403ada93912e086c815bb1f98f9b585", null ],
     [ "EDITOR_ONLY_COMPONENT_END_CODE", "Reflection_8h.html#ae65f387443ec3d1a9df3fc925aa4629e", null ],
     [ "EECATEGORY", "Reflection_8h.html#a01e1a835f0903cc727299a17acbb5d4a", null ],

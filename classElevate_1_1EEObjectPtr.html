@@ -96,6 +96,7 @@ $(document).ready(function(){initNavTree('classElevate_1_1EEObjectPtr.html','');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classElevate_1_1EEObjectPtr-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Elevate::EEObjectPtr&lt; T &gt; Class Template Reference</div></div>
 </div><!--header-->
@@ -142,6 +143,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a636cac6b90dfa41efd4a2457f1e54e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a457db11ff0addcd3c7a6018a10c4923a" id="r_a457db11ff0addcd3c7a6018a10c4923a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObjectPtr.html#a457db11ff0addcd3c7a6018a10c4923a">operator==</a> (const std::shared_ptr&lt; T &gt; &amp;other) const noexcept</td></tr>
 <tr class="separator:a457db11ff0addcd3c7a6018a10c4923a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72fc4b25b85dcc36fc724da22275a48b" id="r_a72fc4b25b85dcc36fc724da22275a48b"><td class="memTemplParams" colspan="2">template&lt;typename U , typename  = std::enable_if_t&lt;std::is_base_of_v&lt;T, U&gt;&gt;&gt; </td></tr>
+<tr class="memitem:a72fc4b25b85dcc36fc724da22275a48b"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObjectPtr.html#a72fc4b25b85dcc36fc724da22275a48b">EEObjectPtr</a> (const <a class="el" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr</a>&lt; U &gt; &amp;other)</td></tr>
+<tr class="separator:a72fc4b25b85dcc36fc724da22275a48b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a346974bc0a4a1fce662774de2d902f95" id="r_a346974bc0a4a1fce662774de2d902f95"><td class="memTemplParams" colspan="2">template&lt;typename U , typename  = std::enable_if_t&lt;std::is_base_of_v&lt;T, U&gt;&gt;&gt; </td></tr>
+<tr class="memitem:a346974bc0a4a1fce662774de2d902f95"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObjectPtr.html#a346974bc0a4a1fce662774de2d902f95">operator=</a> (const <a class="el" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr</a>&lt; U &gt; &amp;other)</td></tr>
+<tr class="separator:a346974bc0a4a1fce662774de2d902f95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3775a109293130085208026677a7450" id="r_ac3775a109293130085208026677a7450"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObjectPtr.html#ac3775a109293130085208026677a7450">operator=</a> (const <a class="el" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr</a>&lt; T &gt; &amp;other)</td></tr>
 <tr class="separator:ac3775a109293130085208026677a7450"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d905c41a4188e672711efb3a61ce0e7" id="r_a4d905c41a4188e672711efb3a61ce0e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObjectPtr.html#a4d905c41a4188e672711efb3a61ce0e7">operator=</a> (std::shared_ptr&lt; T &gt; ptr)</td></tr>
@@ -160,11 +167,21 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab0d411b4abcb4074b9a195e6124150c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fe9d0fc78f9e3ed4e034ed8b39231b8" id="r_a7fe9d0fc78f9e3ed4e034ed8b39231b8"><td class="memItemLeft" align="right" valign="top">std::weak_ptr&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObjectPtr.html#a7fe9d0fc78f9e3ed4e034ed8b39231b8">ToWeak</a> () const noexcept</td></tr>
 <tr class="separator:a7fe9d0fc78f9e3ed4e034ed8b39231b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed23f5b6a718081cc6ae57352514e774" id="r_aed23f5b6a718081cc6ae57352514e774"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObjectPtr.html#aed23f5b6a718081cc6ae57352514e774">ToShared</a> () const</td></tr>
+<tr class="separator:aed23f5b6a718081cc6ae57352514e774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad80131cfce04b2bc6e0d543b838fe84b" id="r_ad80131cfce04b2bc6e0d543b838fe84b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObjectPtr.html#ad80131cfce04b2bc6e0d543b838fe84b">operator std::shared_ptr&lt; T &gt;</a> () const</td></tr>
+<tr class="separator:ad80131cfce04b2bc6e0d543b838fe84b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classElevate_1_1ISerializable"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classElevate_1_1ISerializable')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classElevate_1_1ISerializable.html">Elevate::ISerializable</a></td></tr>
 <tr class="memitem:a9e7850410577b11c7607681622d5d04e inherit pub_methods_classElevate_1_1ISerializable" id="r_a9e7850410577b11c7607681622d5d04e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1ISerializable.html#a9e7850410577b11c7607681622d5d04e">~ISerializable</a> ()=default</td></tr>
 <tr class="separator:a9e7850410577b11c7607681622d5d04e inherit pub_methods_classElevate_1_1ISerializable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9ba7ad68dfea010ed457531d70f9fe1 inherit pub_methods_classElevate_1_1ISerializable" id="r_ab9ba7ad68dfea010ed457531d70f9fe1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1ISerializable.html#ab9ba7ad68dfea010ed457531d70f9fe1">Deserialize</a> (const <a class="el" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a> &amp;data)</td></tr>
 <tr class="separator:ab9ba7ad68dfea010ed457531d70f9fe1 inherit pub_methods_classElevate_1_1ISerializable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a36f14a754e859755ff95a19f7492b596" id="r_a36f14a754e859755ff95a19f7492b596"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:a36f14a754e859755ff95a19f7492b596"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObjectPtr.html#a36f14a754e859755ff95a19f7492b596">EEObjectPtr</a></td></tr>
+<tr class="separator:a36f14a754e859755ff95a19f7492b596"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
@@ -172,7 +189,7 @@ class Elevate::EEObjectPtr&lt; T &gt;</div>
 <p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00016">16</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af0c9f6840dc1f02a5d7d13850b1eb55e" name="af0c9f6840dc1f02a5d7d13850b1eb55e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0c9f6840dc1f02a5d7d13850b1eb55e">&#9670;&#160;</a></span>EEObjectPtr() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af0c9f6840dc1f02a5d7d13850b1eb55e">&#9670;&#160;</a></span>EEObjectPtr() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,16 +213,16 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00036">36</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   36</span>                      : m_ptr(<span class="keyword">nullptr</span>), m_guid(Guid{})</div>
-<div class="line"><span class="lineno">   37</span>        {</div>
-<div class="line"><span class="lineno">   38</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
-<div class="line"><span class="lineno">   39</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00040">40</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   40</span>                      : m_ptr(<span class="keyword">nullptr</span>), m_guid(Guid{})</div>
+<div class="line"><span class="lineno">   41</span>        {</div>
+<div class="line"><span class="lineno">   42</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
+<div class="line"><span class="lineno">   43</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
 <a id="a5972e4409b8de203ca05e0c2a1500bdf" name="a5972e4409b8de203ca05e0c2a1500bdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5972e4409b8de203ca05e0c2a1500bdf">&#9670;&#160;</a></span>EEObjectPtr() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5972e4409b8de203ca05e0c2a1500bdf">&#9670;&#160;</a></span>EEObjectPtr() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -230,13 +247,13 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00040">40</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   40</span>: m_ptr(<span class="keyword">nullptr</span>), m_guid(Guid{}) { }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00044">44</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   44</span>: m_ptr(<span class="keyword">nullptr</span>), m_guid(Guid{}) { }</div>
 </div><!-- fragment -->
 </div>
 </div>
 <a id="a6f0213c3705ade388ad462c07805e372" name="a6f0213c3705ade388ad462c07805e372"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f0213c3705ade388ad462c07805e372">&#9670;&#160;</a></span>EEObjectPtr() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f0213c3705ade388ad462c07805e372">&#9670;&#160;</a></span>EEObjectPtr() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -261,17 +278,17 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00041">41</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   41</span>                                          : m_ptr(std::move(ptr))</div>
-<div class="line"><span class="lineno">   42</span>        {</div>
-<div class="line"><span class="lineno">   43</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
-<div class="line"><span class="lineno">   44</span>            UpdateGuid();</div>
-<div class="line"><span class="lineno">   45</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00045">45</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   45</span>                                          : m_ptr(std::move(ptr))</div>
+<div class="line"><span class="lineno">   46</span>        {</div>
+<div class="line"><span class="lineno">   47</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
+<div class="line"><span class="lineno">   48</span>            UpdateGuid();</div>
+<div class="line"><span class="lineno">   49</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
 <a id="abdbc814d7117bb9abd84ff682d78df1a" name="abdbc814d7117bb9abd84ff682d78df1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdbc814d7117bb9abd84ff682d78df1a">&#9670;&#160;</a></span>EEObjectPtr() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abdbc814d7117bb9abd84ff682d78df1a">&#9670;&#160;</a></span>EEObjectPtr() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -296,13 +313,13 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00046">46</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   46</span>: m_ptr(other.m_ptr), m_guid(other.m_guid) { }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00050">50</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   50</span>: m_ptr(other.m_ptr), m_guid(other.m_guid) { }</div>
 </div><!-- fragment -->
 </div>
 </div>
 <a id="aaecf62352ce090b1f6e9c0de7469da36" name="aaecf62352ce090b1f6e9c0de7469da36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaecf62352ce090b1f6e9c0de7469da36">&#9670;&#160;</a></span>EEObjectPtr() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaecf62352ce090b1f6e9c0de7469da36">&#9670;&#160;</a></span>EEObjectPtr() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -327,11 +344,47 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00048">48</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   48</span>                                               : m_ptr(<span class="keyword">nullptr</span>), m_guid(guid)</div>
-<div class="line"><span class="lineno">   49</span>        {</div>
-<div class="line"><span class="lineno">   50</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
-<div class="line"><span class="lineno">   51</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00052">52</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   52</span>                                               : m_ptr(<span class="keyword">nullptr</span>), m_guid(guid)</div>
+<div class="line"><span class="lineno">   53</span>        {</div>
+<div class="line"><span class="lineno">   54</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
+<div class="line"><span class="lineno">   55</span>        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a72fc4b25b85dcc36fc724da22275a48b" name="a72fc4b25b85dcc36fc724da22275a48b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72fc4b25b85dcc36fc724da22275a48b">&#9670;&#160;</a></span>EEObjectPtr() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename U , typename  = std::enable_if_t&lt;std::is_base_of_v&lt;T, U&gt;&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classElevate_1_1EEObjectPtr.html">Elevate::EEObjectPtr</a>&lt; T &gt;::EEObjectPtr </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr</a>&lt; U &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00125">125</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  126</span>            : m_ptr(other.m_ptr), m_guid(other.m_guid)</div>
+<div class="line"><span class="lineno">  127</span>        {</div>
+<div class="line"><span class="lineno">  128</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
+<div class="line"><span class="lineno">  129</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -361,24 +414,24 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00070">70</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   71</span>        {</div>
-<div class="line"><span class="lineno">   72</span>            <span class="keywordflow">if</span> (m_ptr)</div>
-<div class="line"><span class="lineno">   73</span>            {</div>
-<div class="line"><span class="lineno">   74</span>                <span class="keywordflow">return</span> m_ptr.get();</div>
-<div class="line"><span class="lineno">   75</span>            }</div>
-<div class="line"><span class="lineno">   76</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (m_guid.<a class="code hl_function" href="classElevate_1_1Guid.html#a83431a00c5720c084d961ed3e275a473">IsValid</a>())</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00074">74</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   75</span>        {</div>
+<div class="line"><span class="lineno">   76</span>            <span class="keywordflow">if</span> (m_ptr)</div>
 <div class="line"><span class="lineno">   77</span>            {</div>
-<div class="line"><span class="lineno">   78</span>                <span class="keyword">auto</span> rawAsset = <a class="code hl_function" href="namespaceElevate_1_1Detail.html#a348bc298ca98d7dd525cbfbf9a818ad0">Detail::ResolveAssetHelper</a>(m_guid);</div>
-<div class="line"><span class="lineno">   79</span>                m_ptr = std::static_pointer_cast&lt;T&gt;(rawAsset);</div>
-<div class="line"><span class="lineno">   80</span>                UpdateGuid();</div>
-<div class="line"><span class="lineno">   81</span>                <span class="keywordflow">if</span> (m_ptr)</div>
-<div class="line"><span class="lineno">   82</span>                {</div>
-<div class="line"><span class="lineno">   83</span>                    <span class="keywordflow">return</span> m_ptr.get();</div>
-<div class="line"><span class="lineno">   84</span>                }</div>
-<div class="line"><span class="lineno">   85</span>            }</div>
-<div class="line"><span class="lineno">   86</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">   87</span>        }</div>
+<div class="line"><span class="lineno">   78</span>                <span class="keywordflow">return</span> m_ptr.get();</div>
+<div class="line"><span class="lineno">   79</span>            }</div>
+<div class="line"><span class="lineno">   80</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (m_guid.<a class="code hl_function" href="classElevate_1_1Guid.html#a83431a00c5720c084d961ed3e275a473">IsValid</a>())</div>
+<div class="line"><span class="lineno">   81</span>            {</div>
+<div class="line"><span class="lineno">   82</span>                <span class="keyword">auto</span> rawAsset = <a class="code hl_function" href="namespaceElevate_1_1Detail.html#a348bc298ca98d7dd525cbfbf9a818ad0">Detail::ResolveAssetHelper</a>(m_guid);</div>
+<div class="line"><span class="lineno">   83</span>                m_ptr = std::static_pointer_cast&lt;T&gt;(rawAsset);</div>
+<div class="line"><span class="lineno">   84</span>                UpdateGuid();</div>
+<div class="line"><span class="lineno">   85</span>                <span class="keywordflow">if</span> (m_ptr)</div>
+<div class="line"><span class="lineno">   86</span>                {</div>
+<div class="line"><span class="lineno">   87</span>                    <span class="keywordflow">return</span> m_ptr.get();</div>
+<div class="line"><span class="lineno">   88</span>                }</div>
+<div class="line"><span class="lineno">   89</span>            }</div>
+<div class="line"><span class="lineno">   90</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   91</span>        }</div>
 <div class="ttc" id="aclassElevate_1_1Guid_html_a83431a00c5720c084d961ed3e275a473"><div class="ttname"><a href="classElevate_1_1Guid.html#a83431a00c5720c084d961ed3e275a473">Elevate::Guid::IsValid</a></div><div class="ttdeci">bool IsValid() const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00056">Guid.cpp:56</a></div></div>
 <div class="ttc" id="anamespaceElevate_1_1Detail_html_a348bc298ca98d7dd525cbfbf9a818ad0"><div class="ttname"><a href="namespaceElevate_1_1Detail.html#a348bc298ca98d7dd525cbfbf9a818ad0">Elevate::Detail::ResolveAssetHelper</a></div><div class="ttdeci">std::shared_ptr&lt; EEObject &gt; ResolveAssetHelper(const Guid &amp;guid)</div><div class="ttdef"><b>Definition</b> <a href="EEObjectPtr_8cpp_source.html#l00008">EEObjectPtr.cpp:8</a></div></div>
 </div><!-- fragment -->
@@ -409,10 +462,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00062">62</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   63</span>        {</div>
-<div class="line"><span class="lineno">   64</span>            <span class="keywordflow">return</span> m_guid;</div>
-<div class="line"><span class="lineno">   65</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00066">66</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   67</span>        {</div>
+<div class="line"><span class="lineno">   68</span>            <span class="keywordflow">return</span> m_guid;</div>
+<div class="line"><span class="lineno">   69</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -441,11 +494,44 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00099">99</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  100</span>        {</div>
-<div class="line"><span class="lineno">  101</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1EEObjectPtr.html#a9a169a47f2f1a8a8b9c24d1c15eb69f6">get</a>() != <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">  102</span>        }</div>
-<div class="ttc" id="aclassElevate_1_1EEObjectPtr_html_a9a169a47f2f1a8a8b9c24d1c15eb69f6"><div class="ttname"><a href="classElevate_1_1EEObjectPtr.html#a9a169a47f2f1a8a8b9c24d1c15eb69f6">Elevate::EEObjectPtr::get</a></div><div class="ttdeci">T * get() const</div><div class="ttdef"><b>Definition</b> <a href="EEObjectPtr_8h_source.html#l00070">EEObjectPtr.h:70</a></div></div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00103">103</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  104</span>        {</div>
+<div class="line"><span class="lineno">  105</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1EEObjectPtr.html#a9a169a47f2f1a8a8b9c24d1c15eb69f6">get</a>() != <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  106</span>        }</div>
+<div class="ttc" id="aclassElevate_1_1EEObjectPtr_html_a9a169a47f2f1a8a8b9c24d1c15eb69f6"><div class="ttname"><a href="classElevate_1_1EEObjectPtr.html#a9a169a47f2f1a8a8b9c24d1c15eb69f6">Elevate::EEObjectPtr::get</a></div><div class="ttdeci">T * get() const</div><div class="ttdef"><b>Definition</b> <a href="EEObjectPtr_8h_source.html#l00074">EEObjectPtr.h:74</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad80131cfce04b2bc6e0d543b838fe84b" name="ad80131cfce04b2bc6e0d543b838fe84b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad80131cfce04b2bc6e0d543b838fe84b">&#9670;&#160;</a></span>operator std::shared_ptr&lt; T &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classElevate_1_1EEObjectPtr.html">Elevate::EEObjectPtr</a>&lt; T &gt;::operator std::shared_ptr&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00222">222</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  223</span>        {</div>
+<div class="line"><span class="lineno">  224</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1EEObjectPtr.html#aed23f5b6a718081cc6ae57352514e774">ToShared</a>();</div>
+<div class="line"><span class="lineno">  225</span>        }</div>
+<div class="ttc" id="aclassElevate_1_1EEObjectPtr_html_aed23f5b6a718081cc6ae57352514e774"><div class="ttname"><a href="classElevate_1_1EEObjectPtr.html#aed23f5b6a718081cc6ae57352514e774">Elevate::EEObjectPtr::ToShared</a></div><div class="ttdeci">std::shared_ptr&lt; T &gt; ToShared() const</div><div class="ttdef"><b>Definition</b> <a href="EEObjectPtr_8h_source.html#l00216">EEObjectPtr.h:216</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -474,10 +560,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00094">94</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   95</span>        {</div>
-<div class="line"><span class="lineno">   96</span>            <span class="keywordflow">return</span> *<a class="code hl_function" href="classElevate_1_1EEObjectPtr.html#a9a169a47f2f1a8a8b9c24d1c15eb69f6">get</a>();</div>
-<div class="line"><span class="lineno">   97</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00098">98</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   99</span>        {</div>
+<div class="line"><span class="lineno">  100</span>            <span class="keywordflow">return</span> *<a class="code hl_function" href="classElevate_1_1EEObjectPtr.html#a9a169a47f2f1a8a8b9c24d1c15eb69f6">get</a>();</div>
+<div class="line"><span class="lineno">  101</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -506,10 +592,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00089">89</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   90</span>        {</div>
-<div class="line"><span class="lineno">   91</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1EEObjectPtr.html#a9a169a47f2f1a8a8b9c24d1c15eb69f6">get</a>();</div>
-<div class="line"><span class="lineno">   92</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00093">93</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   94</span>        {</div>
+<div class="line"><span class="lineno">   95</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1EEObjectPtr.html#a9a169a47f2f1a8a8b9c24d1c15eb69f6">get</a>();</div>
+<div class="line"><span class="lineno">   96</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -539,15 +625,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00184">184</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  185</span>        {</div>
-<div class="line"><span class="lineno">  186</span>            <span class="keywordflow">return</span> m_guid &lt; other.m_guid;</div>
-<div class="line"><span class="lineno">  187</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00206">206</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  207</span>        {</div>
+<div class="line"><span class="lineno">  208</span>            <span class="keywordflow">return</span> m_guid &lt; other.m_guid;</div>
+<div class="line"><span class="lineno">  209</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
 <a id="ac3775a109293130085208026677a7450" name="ac3775a109293130085208026677a7450"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3775a109293130085208026677a7450">&#9670;&#160;</a></span>operator=() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3775a109293130085208026677a7450">&#9670;&#160;</a></span>operator=() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -572,20 +658,60 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00120">120</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  120</span>                                                               {</div>
-<div class="line"><span class="lineno">  121</span>            <span class="keywordflow">if</span> (<span class="keyword">this</span> != &amp;other)</div>
-<div class="line"><span class="lineno">  122</span>            {</div>
-<div class="line"><span class="lineno">  123</span>                m_ptr = other.m_ptr;</div>
-<div class="line"><span class="lineno">  124</span>                m_guid = other.m_guid;</div>
-<div class="line"><span class="lineno">  125</span>            }</div>
-<div class="line"><span class="lineno">  126</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  127</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00142">142</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  142</span>                                                               {</div>
+<div class="line"><span class="lineno">  143</span>            <span class="keywordflow">if</span> (<span class="keyword">this</span> != &amp;other)</div>
+<div class="line"><span class="lineno">  144</span>            {</div>
+<div class="line"><span class="lineno">  145</span>                m_ptr = other.m_ptr;</div>
+<div class="line"><span class="lineno">  146</span>                m_guid = other.m_guid;</div>
+<div class="line"><span class="lineno">  147</span>            }</div>
+<div class="line"><span class="lineno">  148</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  149</span>        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a346974bc0a4a1fce662774de2d902f95" name="a346974bc0a4a1fce662774de2d902f95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a346974bc0a4a1fce662774de2d902f95">&#9670;&#160;</a></span>operator=() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename U , typename  = std::enable_if_t&lt;std::is_base_of_v&lt;T, U&gt;&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr</a>&lt; T &gt; &amp; <a class="el" href="classElevate_1_1EEObjectPtr.html">Elevate::EEObjectPtr</a>&lt; T &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr</a>&lt; U &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00132">132</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  133</span>        {</div>
+<div class="line"><span class="lineno">  134</span>            <span class="keywordflow">if</span> ((<span class="keywordtype">void</span>*)<span class="keyword">this</span> != (<span class="keywordtype">void</span>*)&amp;other)</div>
+<div class="line"><span class="lineno">  135</span>            {</div>
+<div class="line"><span class="lineno">  136</span>                m_ptr = other.m_ptr;</div>
+<div class="line"><span class="lineno">  137</span>                m_guid = other.m_guid;</div>
+<div class="line"><span class="lineno">  138</span>            }</div>
+<div class="line"><span class="lineno">  139</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  140</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
 <a id="a89181893ee2bd44b9e158460f92e5768" name="a89181893ee2bd44b9e158460f92e5768"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89181893ee2bd44b9e158460f92e5768">&#9670;&#160;</a></span>operator=() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a89181893ee2bd44b9e158460f92e5768">&#9670;&#160;</a></span>operator=() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -610,17 +736,17 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00136">136</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  136</span>                                                         {</div>
-<div class="line"><span class="lineno">  137</span>            m_ptr.reset();</div>
-<div class="line"><span class="lineno">  138</span>            UpdateGuid();</div>
-<div class="line"><span class="lineno">  139</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  140</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00158">158</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  158</span>                                                         {</div>
+<div class="line"><span class="lineno">  159</span>            m_ptr.reset();</div>
+<div class="line"><span class="lineno">  160</span>            UpdateGuid();</div>
+<div class="line"><span class="lineno">  161</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  162</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
 <a id="a4d905c41a4188e672711efb3a61ce0e7" name="a4d905c41a4188e672711efb3a61ce0e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d905c41a4188e672711efb3a61ce0e7">&#9670;&#160;</a></span>operator=() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d905c41a4188e672711efb3a61ce0e7">&#9670;&#160;</a></span>operator=() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -645,13 +771,13 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00129">129</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  129</span>                                                        {</div>
-<div class="line"><span class="lineno">  130</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
-<div class="line"><span class="lineno">  131</span>            m_ptr = std::move(ptr);</div>
-<div class="line"><span class="lineno">  132</span>            UpdateGuid();</div>
-<div class="line"><span class="lineno">  133</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  134</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00151">151</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  151</span>                                                        {</div>
+<div class="line"><span class="lineno">  152</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
+<div class="line"><span class="lineno">  153</span>            m_ptr = std::move(ptr);</div>
+<div class="line"><span class="lineno">  154</span>            UpdateGuid();</div>
+<div class="line"><span class="lineno">  155</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  156</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -681,10 +807,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00104">104</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  105</span>        {</div>
-<div class="line"><span class="lineno">  106</span>            <span class="keywordflow">return</span> m_guid == other.m_guid;</div>
-<div class="line"><span class="lineno">  107</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00108">108</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  109</span>        {</div>
+<div class="line"><span class="lineno">  110</span>            <span class="keywordflow">return</span> m_guid == other.m_guid;</div>
+<div class="line"><span class="lineno">  111</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -714,16 +840,16 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00109">109</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  110</span>        {</div>
-<div class="line"><span class="lineno">  111</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
-<div class="line"><span class="lineno">  112</span> </div>
-<div class="line"><span class="lineno">  113</span>            <span class="keywordflow">if</span> (!other)</div>
-<div class="line"><span class="lineno">  114</span>            {</div>
-<div class="line"><span class="lineno">  115</span>                <span class="keywordflow">return</span> !m_guid.<a class="code hl_function" href="classElevate_1_1Guid.html#a83431a00c5720c084d961ed3e275a473">IsValid</a>();</div>
-<div class="line"><span class="lineno">  116</span>            }</div>
-<div class="line"><span class="lineno">  117</span>            <span class="keywordflow">return</span> m_guid == other-&gt;GetGuid();</div>
-<div class="line"><span class="lineno">  118</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00113">113</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  114</span>        {</div>
+<div class="line"><span class="lineno">  115</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
+<div class="line"><span class="lineno">  116</span> </div>
+<div class="line"><span class="lineno">  117</span>            <span class="keywordflow">if</span> (!other)</div>
+<div class="line"><span class="lineno">  118</span>            {</div>
+<div class="line"><span class="lineno">  119</span>                <span class="keywordflow">return</span> !m_guid.<a class="code hl_function" href="classElevate_1_1Guid.html#a83431a00c5720c084d961ed3e275a473">IsValid</a>();</div>
+<div class="line"><span class="lineno">  120</span>            }</div>
+<div class="line"><span class="lineno">  121</span>            <span class="keywordflow">return</span> m_guid == other-&gt;GetGuid();</div>
+<div class="line"><span class="lineno">  122</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -752,11 +878,11 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00178">178</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  179</span>        {</div>
-<div class="line"><span class="lineno">  180</span>            m_ptr.reset();</div>
-<div class="line"><span class="lineno">  181</span>            UpdateGuid();</div>
-<div class="line"><span class="lineno">  182</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00200">200</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  201</span>        {</div>
+<div class="line"><span class="lineno">  202</span>            m_ptr.reset();</div>
+<div class="line"><span class="lineno">  203</span>            UpdateGuid();</div>
+<div class="line"><span class="lineno">  204</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -786,20 +912,20 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00163">163</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  164</span>        {</div>
-<div class="line"><span class="lineno">  165</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
-<div class="line"><span class="lineno">  166</span>            <span class="keywordflow">if</span> (rawPtr)</div>
-<div class="line"><span class="lineno">  167</span>            {</div>
-<div class="line"><span class="lineno">  168</span>                <span class="keyword">auto</span> nonConst = <span class="keyword">const_cast&lt;</span>T*<span class="keyword">&gt;</span>(rawPtr);</div>
-<div class="line"><span class="lineno">  169</span>                m_ptr = std::static_pointer_cast&lt;T&gt;(nonConst-&gt;shared_from_this());      </div>
-<div class="line"><span class="lineno">  170</span>            }</div>
-<div class="line"><span class="lineno">  171</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  172</span>            {</div>
-<div class="line"><span class="lineno">  173</span>                m_ptr.reset();</div>
-<div class="line"><span class="lineno">  174</span>            }</div>
-<div class="line"><span class="lineno">  175</span>            UpdateGuid();</div>
-<div class="line"><span class="lineno">  176</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00185">185</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  186</span>        {</div>
+<div class="line"><span class="lineno">  187</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
+<div class="line"><span class="lineno">  188</span>            <span class="keywordflow">if</span> (rawPtr)</div>
+<div class="line"><span class="lineno">  189</span>            {</div>
+<div class="line"><span class="lineno">  190</span>                <span class="keyword">auto</span> nonConst = <span class="keyword">const_cast&lt;</span>T*<span class="keyword">&gt;</span>(rawPtr);</div>
+<div class="line"><span class="lineno">  191</span>                m_ptr = std::static_pointer_cast&lt;T&gt;(nonConst-&gt;shared_from_this());      </div>
+<div class="line"><span class="lineno">  192</span>            }</div>
+<div class="line"><span class="lineno">  193</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  194</span>            {</div>
+<div class="line"><span class="lineno">  195</span>                m_ptr.reset();</div>
+<div class="line"><span class="lineno">  196</span>            }</div>
+<div class="line"><span class="lineno">  197</span>            UpdateGuid();</div>
+<div class="line"><span class="lineno">  198</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -829,12 +955,12 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00142">142</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  143</span>        {</div>
-<div class="line"><span class="lineno">  144</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
-<div class="line"><span class="lineno">  145</span>            m_ptr = std::move(ptr);</div>
-<div class="line"><span class="lineno">  146</span>            UpdateGuid();</div>
-<div class="line"><span class="lineno">  147</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00164">164</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  165</span>        {</div>
+<div class="line"><span class="lineno">  166</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
+<div class="line"><span class="lineno">  167</span>            m_ptr = std::move(ptr);</div>
+<div class="line"><span class="lineno">  168</span>            UpdateGuid();</div>
+<div class="line"><span class="lineno">  169</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -864,19 +990,19 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00149">149</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  150</span>        {</div>
-<div class="line"><span class="lineno">  151</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
-<div class="line"><span class="lineno">  152</span>            <span class="keywordflow">if</span> (rawPtr)</div>
-<div class="line"><span class="lineno">  153</span>            {</div>
-<div class="line"><span class="lineno">  154</span>                m_ptr = std::static_pointer_cast&lt;T&gt;(rawPtr-&gt;shared_from_this());</div>
-<div class="line"><span class="lineno">  155</span>            }</div>
-<div class="line"><span class="lineno">  156</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  157</span>            {</div>
-<div class="line"><span class="lineno">  158</span>                m_ptr.reset();</div>
-<div class="line"><span class="lineno">  159</span>            }</div>
-<div class="line"><span class="lineno">  160</span>            UpdateGuid();</div>
-<div class="line"><span class="lineno">  161</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00171">171</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  172</span>        {</div>
+<div class="line"><span class="lineno">  173</span>            <span class="keyword">static_assert</span>(std::is_base_of_v&lt;EEObject, T&gt;, <span class="stringliteral">&quot;T must derive from EEObject&quot;</span>);</div>
+<div class="line"><span class="lineno">  174</span>            <span class="keywordflow">if</span> (rawPtr)</div>
+<div class="line"><span class="lineno">  175</span>            {</div>
+<div class="line"><span class="lineno">  176</span>                m_ptr = std::static_pointer_cast&lt;T&gt;(rawPtr-&gt;shared_from_this());</div>
+<div class="line"><span class="lineno">  177</span>            }</div>
+<div class="line"><span class="lineno">  178</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  179</span>            {</div>
+<div class="line"><span class="lineno">  180</span>                m_ptr.reset();</div>
+<div class="line"><span class="lineno">  181</span>            }</div>
+<div class="line"><span class="lineno">  182</span>            UpdateGuid();</div>
+<div class="line"><span class="lineno">  183</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -907,16 +1033,16 @@ template&lt;typename T &gt; </div>
 
 <p>Reimplemented from <a class="el" href="classElevate_1_1ISerializable.html#ad87b1895465b1c9f5ca015d888d8ad35">Elevate::ISerializable</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00196">196</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  197</span>    {</div>
-<div class="line"><span class="lineno">  198</span>        <span class="keywordflow">if</span> (m_ptr)</div>
-<div class="line"><span class="lineno">  199</span>        {</div>
-<div class="line"><span class="lineno">  200</span>            <span class="comment">// We already verified that the type is derived from EEObject, therefore this is safe.</span></div>
-<div class="line"><span class="lineno">  201</span>            <span class="keyword">const</span> EEObject* base = (<span class="keyword">const</span> EEObject*)m_ptr.get();</div>
-<div class="line"><span class="lineno">  202</span>            <span class="keywordflow">return</span> base-&gt;GetGuid().ToBytes();</div>
-<div class="line"><span class="lineno">  203</span>        }</div>
-<div class="line"><span class="lineno">  204</span>        <span class="keywordflow">return</span> m_guid.<a class="code hl_function" href="classElevate_1_1Guid.html#aa4f7aad3ecfa23dd9d386d65dc92ed2c">ToBytes</a>();</div>
-<div class="line"><span class="lineno">  205</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00229">229</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  230</span>    {</div>
+<div class="line"><span class="lineno">  231</span>        <span class="keywordflow">if</span> (m_ptr)</div>
+<div class="line"><span class="lineno">  232</span>        {</div>
+<div class="line"><span class="lineno">  233</span>            <span class="comment">// We already verified that the type is derived from EEObject, therefore this is safe.</span></div>
+<div class="line"><span class="lineno">  234</span>            <span class="keyword">const</span> EEObject* base = (<span class="keyword">const</span> EEObject*)m_ptr.get();</div>
+<div class="line"><span class="lineno">  235</span>            <span class="keywordflow">return</span> base-&gt;GetGuid().ToBytes();</div>
+<div class="line"><span class="lineno">  236</span>        }</div>
+<div class="line"><span class="lineno">  237</span>        <span class="keywordflow">return</span> m_guid.<a class="code hl_function" href="classElevate_1_1Guid.html#aa4f7aad3ecfa23dd9d386d65dc92ed2c">ToBytes</a>();</div>
+<div class="line"><span class="lineno">  238</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1Guid_html_aa4f7aad3ecfa23dd9d386d65dc92ed2c"><div class="ttname"><a href="classElevate_1_1Guid.html#aa4f7aad3ecfa23dd9d386d65dc92ed2c">Elevate::Guid::ToBytes</a></div><div class="ttdeci">ByteBuffer ToBytes() const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00046">Guid.cpp:46</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -947,14 +1073,47 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00053">53</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   54</span>        {</div>
-<div class="line"><span class="lineno">   55</span>            <span class="keywordflow">if</span> (m_guid != guid)</div>
-<div class="line"><span class="lineno">   56</span>            {</div>
-<div class="line"><span class="lineno">   57</span>                m_guid = guid;</div>
-<div class="line"><span class="lineno">   58</span>                m_ptr = <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">   59</span>            }</div>
-<div class="line"><span class="lineno">   60</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00057">57</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   58</span>        {</div>
+<div class="line"><span class="lineno">   59</span>            <span class="keywordflow">if</span> (m_guid != guid)</div>
+<div class="line"><span class="lineno">   60</span>            {</div>
+<div class="line"><span class="lineno">   61</span>                m_guid = guid;</div>
+<div class="line"><span class="lineno">   62</span>                m_ptr = <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   63</span>            }</div>
+<div class="line"><span class="lineno">   64</span>        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aed23f5b6a718081cc6ae57352514e774" name="aed23f5b6a718081cc6ae57352514e774"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed23f5b6a718081cc6ae57352514e774">&#9670;&#160;</a></span>ToShared()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; T &gt; <a class="el" href="classElevate_1_1EEObjectPtr.html">Elevate::EEObjectPtr</a>&lt; T &gt;::ToShared </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00216">216</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  217</span>        {</div>
+<div class="line"><span class="lineno">  218</span>            <a class="code hl_function" href="classElevate_1_1EEObjectPtr.html#a9a169a47f2f1a8a8b9c24d1c15eb69f6">get</a>(); <span class="comment">// Force the proxy to resolve the object if pointer is invalid</span></div>
+<div class="line"><span class="lineno">  219</span>            <span class="keywordflow">return</span> m_ptr;</div>
+<div class="line"><span class="lineno">  220</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -983,11 +1142,40 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00189">189</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  190</span>        {</div>
-<div class="line"><span class="lineno">  191</span>            <span class="keywordflow">return</span> std::weak_ptr&lt;T&gt;(m_ptr);</div>
-<div class="line"><span class="lineno">  192</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00211">211</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  212</span>        {</div>
+<div class="line"><span class="lineno">  213</span>            <span class="keywordflow">return</span> std::weak_ptr&lt;T&gt;(m_ptr);</div>
+<div class="line"><span class="lineno">  214</span>        }</div>
 </div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a36f14a754e859755ff95a19f7492b596" name="a36f14a754e859755ff95a19f7492b596"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36f14a754e859755ff95a19f7492b596">&#9670;&#160;</a></span>EEObjectPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classElevate_1_1EEObjectPtr.html">EEObjectPtr</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="EEObjectPtr_8h_source.html#l00021">21</a> of file <a class="el" href="EEObjectPtr_8h_source.html">EEObjectPtr.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>

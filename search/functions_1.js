@@ -13,7 +13,7 @@ var searchData=
   ['addpropertydirect_10',['AddPropertyDirect',['../classElevate_1_1TypeRegistry.html#ab4f41508ed61bdb014d4bc68d00ed04d',1,'Elevate::TypeRegistry']]],
   ['addspotlight_11',['AddSpotLight',['../classElevate_1_1SceneLighting.html#aca3f78f2c85dd536213e9f1cf74cd650',1,'Elevate::SceneLighting']]],
   ['addtrait_12',['AddTrait',['../classElevate_1_1TypeRegistry.html#a06e00076db17658891350496312a2890',1,'Elevate::TypeRegistry']]],
-  ['addvertexbuffer_13',['addvertexbuffer',['../classElevate_1_1VertexArray.html#a51d2fbac4c583012659c915e212aa898',1,'Elevate::VertexArray::AddVertexBuffer()'],['../classElevate_1_1OpenGLVertexArray.html#a1fadce043631ef6290642703e64f852c',1,'Elevate::OpenGLVertexArray::AddVertexBuffer()']]],
+  ['addvertexbuffer_13',['addvertexbuffer',['../classElevate_1_1OpenGLVertexArray.html#a1fadce043631ef6290642703e64f852c',1,'Elevate::OpenGLVertexArray::AddVertexBuffer()'],['../classElevate_1_1VertexArray.html#a51d2fbac4c583012659c915e212aa898',1,'Elevate::VertexArray::AddVertexBuffer()']]],
   ['application_14',['Application',['../classElevate_1_1Application.html#a36cdafcf896d128b9385d7232c45eb8b',1,'Elevate::Application']]],
   ['applicationarguments_15',['applicationarguments',['../structElevate_1_1ApplicationArguments.html#af8dca09374552f14efc0e4bbc4365bfd',1,'Elevate::ApplicationArguments::ApplicationArguments()=default'],['../structElevate_1_1ApplicationArguments.html#ad3cce45c82364176645f8ca5250a40df',1,'Elevate::ApplicationArguments::ApplicationArguments(int argc, char **argv)']]],
   ['applypropertyvalues_16',['ApplyPropertyValues',['../namespaceElevate.html#aefa313bcd96b9bc0c129c10ca022f1dd',1,'Elevate']]],
@@ -23,7 +23,6 @@ var searchData=
   ['apptickevent_20',['AppTickEvent',['../classElevate_1_1AppTickEvent.html#a28b7118df4d32048d5eba665f914fa44',1,'Elevate::AppTickEvent']]],
   ['appupdateevent_21',['AppUpdateEvent',['../classElevate_1_1AppUpdateEvent.html#a3aabbb5faece8e5f0bdf4f8f7264fcb3',1,'Elevate::AppUpdateEvent']]],
   ['asset_22',['Asset',['../classElevate_1_1Asset.html#a10b71ab05476201ab5b9d950598ce5e2',1,'Elevate::Asset']]],
-  ['assetbrowserpanel_23',['AssetBrowserPanel',['../classElevate_1_1Editor_1_1AssetBrowserPanel.html#acd083a05fa6789e786ce0162aaca2e55',1,'Elevate::Editor::AssetBrowserPanel']]],
-  ['assettag_24',['AssetTag',['../structElevate_1_1AssetTag.html#adb6ab2df399103f7b3d271d3e4a1bdc2',1,'Elevate::AssetTag']]],
-  ['audiodistanceprobe_25',['AudioDistanceProbe',['../classElevate_1_1AudioDistanceProbe.html#a709c88b5668175405f4b57bef9b9df71',1,'Elevate::AudioDistanceProbe']]]
+  ['assettag_23',['AssetTag',['../structElevate_1_1AssetTag.html#adb6ab2df399103f7b3d271d3e4a1bdc2',1,'Elevate::AssetTag']]],
+  ['audiodistanceprobe_24',['AudioDistanceProbe',['../classElevate_1_1AudioDistanceProbe.html#a709c88b5668175405f4b57bef9b9df71',1,'Elevate::AudioDistanceProbe']]]
 ];

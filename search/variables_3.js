@@ -7,6 +7,6 @@ var searchData=
   ['depthtest_4',['DepthTest',['../structElevate_1_1RenderState.html#a088c9781880a2a670fddc3c7a38b8cad',1,'Elevate::RenderState']]],
   ['depthwrite_5',['DepthWrite',['../structElevate_1_1RenderState.html#aa9e367e4b57b2d3149c937384aab192a',1,'Elevate::RenderState']]],
   ['destructor_6',['destructor',['../structElevate_1_1ComponentTypeTrait.html#a495af3f3d2efd8dcc93950ec14fe5c9f',1,'Elevate::ComponentTypeTrait']]],
-  ['displayname_7',['displayname',['../structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f',1,'Elevate::TypeField::displayName'],['../structElevate_1_1FieldMeta.html#a353e60ec3c7a3671dd3b1c51e508828d',1,'Elevate::FieldMeta::displayName'],['../structElevate_1_1Editor_1_1BrowserPath.html#ad0542826a97570cdc18d20b61b80ee5b',1,'Elevate::Editor::BrowserPath::DisplayName']]],
+  ['displayname_7',['displayname',['../structElevate_1_1TypeField.html#a7ee7b54b9d508918e730cd4cfb5f376f',1,'Elevate::TypeField::displayName'],['../structElevate_1_1FieldMeta.html#a353e60ec3c7a3671dd3b1c51e508828d',1,'Elevate::FieldMeta::displayName']]],
   ['distance_8',['distance',['../structElevate_1_1Plane.html#a02a7dfd9ef312ee324a3b330b4a08694',1,'Elevate::Plane']]]
 ];

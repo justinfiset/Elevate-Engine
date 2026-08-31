@@ -120,6 +120,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a10b71ab05476201ab5b9d950598ce5e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7aa9c0b63e887a6487219d87be3ed625" id="r_a7aa9c0b63e887a6487219d87be3ed625"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Asset.html#a7aa9c0b63e887a6487219d87be3ed625">~Asset</a> ()=default</td></tr>
 <tr class="separator:a7aa9c0b63e887a6487219d87be3ed625"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bce217ceba392cb81748c8205e3cd61" id="r_a8bce217ceba392cb81748c8205e3cd61"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Asset.html#a8bce217ceba392cb81748c8205e3cd61">GetName</a> () const override</td></tr>
+<tr class="separator:a8bce217ceba392cb81748c8205e3cd61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a0116ba6a942f77899b0d37ecb6656d" id="r_a1a0116ba6a942f77899b0d37ecb6656d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Asset.html#a1a0116ba6a942f77899b0d37ecb6656d">OnLoad</a> ()</td></tr>
 <tr class="separator:a1a0116ba6a942f77899b0d37ecb6656d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6787b6b2f21d2cf9fadc452552e18144" id="r_a6787b6b2f21d2cf9fadc452552e18144"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1Asset.html#a6787b6b2f21d2cf9fadc452552e18144">OnUnbind</a> ()</td></tr>
@@ -137,8 +139,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a64b3abed985d21aa5388b10fd8da25aa inherit pub_methods_classElevate_1_1EEObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f0793d8d8feaa789b1383f6fba68096 inherit pub_methods_classElevate_1_1EEObject" id="r_a6f0793d8d8feaa789b1383f6fba68096"><td class="memItemLeft" align="right" valign="top">const void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObject.html#a6f0793d8d8feaa789b1383f6fba68096">GetGuidAddress</a> () const</td></tr>
 <tr class="separator:a6f0793d8d8feaa789b1383f6fba68096 inherit pub_methods_classElevate_1_1EEObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a489398ed969b22f1b46bb3b8411f73b5 inherit pub_methods_classElevate_1_1EEObject" id="r_a489398ed969b22f1b46bb3b8411f73b5"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObject.html#a489398ed969b22f1b46bb3b8411f73b5">GetName</a> () const</td></tr>
-<tr class="separator:a489398ed969b22f1b46bb3b8411f73b5 inherit pub_methods_classElevate_1_1EEObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0bde30963e44be13481cd2aa1146a501 inherit pub_methods_classElevate_1_1EEObject" id="r_a0bde30963e44be13481cd2aa1146a501"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classElevate_1_1TypeLayout.html">TypeLayout</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObject.html#a0bde30963e44be13481cd2aa1146a501">GetLayout</a> () const</td></tr>
 <tr class="separator:a0bde30963e44be13481cd2aa1146a501 inherit pub_methods_classElevate_1_1EEObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acec0c8de8fa3cdab99285ffaf0f3d678 inherit pub_methods_classElevate_1_1EEObject" id="r_acec0c8de8fa3cdab99285ffaf0f3d678"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">PropertySet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classElevate_1_1EEObject.html#acec0c8de8fa3cdab99285ffaf0f3d678">GetProperties</a> () const</td></tr>
@@ -220,6 +220,45 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8bce217ceba392cb81748c8205e3cd61" name="a8bce217ceba392cb81748c8205e3cd61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bce217ceba392cb81748c8205e3cd61">&#9670;&#160;</a></span>GetName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Elevate::Asset::GetName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classElevate_1_1EEObject.html#a489398ed969b22f1b46bb3b8411f73b5">Elevate::EEObject</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="Asset_8cpp_source.html#l00007">7</a> of file <a class="el" href="Asset_8cpp_source.html">Asset.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">    8</span>    {</div>
+<div class="line"><span class="lineno">    9</span>        <span class="keyword">auto</span> entry = <a class="code hl_function" href="classElevate_1_1AssetRegistry.html#afde12a0422bdd6301b81d927835e9240">AssetRegistry::GetEntry</a>(<a class="code hl_variable" href="classElevate_1_1EEObject.html#aca5c15fded37fb9d489fda0a5399b4b7">m_guid</a>);</div>
+<div class="line"><span class="lineno">   10</span>        <span class="keywordflow">if</span> (entry)</div>
+<div class="line"><span class="lineno">   11</span>        {</div>
+<div class="line"><span class="lineno">   12</span>            <span class="keywordflow">return</span> entry-&gt;AssetName;</div>
+<div class="line"><span class="lineno">   13</span>        }</div>
+<div class="line"><span class="lineno">   14</span>        <span class="keywordflow">return</span> generated_classEntry.ClassName;</div>
+<div class="line"><span class="lineno">   15</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1AssetRegistry_html_afde12a0422bdd6301b81d927835e9240"><div class="ttname"><a href="classElevate_1_1AssetRegistry.html#afde12a0422bdd6301b81d927835e9240">Elevate::AssetRegistry::GetEntry</a></div><div class="ttdeci">static const AssetEntry * GetEntry(const Guid &amp;guid)</div><div class="ttdef"><b>Definition</b> <a href="AssetRegistry_8cpp_source.html#l00114">AssetRegistry.cpp:114</a></div></div>
+<div class="ttc" id="aclassElevate_1_1EEObject_html_aca5c15fded37fb9d489fda0a5399b4b7"><div class="ttname"><a href="classElevate_1_1EEObject.html#aca5c15fded37fb9d489fda0a5399b4b7">Elevate::EEObject::m_guid</a></div><div class="ttdeci">Guid m_guid</div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00023">EEObject.h:23</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a1a0116ba6a942f77899b0d37ecb6656d" name="a1a0116ba6a942f77899b0d37ecb6656d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1a0116ba6a942f77899b0d37ecb6656d">&#9670;&#160;</a></span>OnLoad()</h2>
 
@@ -243,8 +282,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Asset_8h_source.html#l00020">20</a> of file <a class="el" href="Asset_8h_source.html">Asset.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   20</span>{}</div>
+<p class="definition">Definition at line <a class="el" href="Asset_8h_source.html#l00022">22</a> of file <a class="el" href="Asset_8h_source.html">Asset.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   22</span>{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -271,13 +310,14 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Asset_8h_source.html#l00021">21</a> of file <a class="el" href="Asset_8h_source.html">Asset.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   21</span>{}</div>
+<p class="definition">Definition at line <a class="el" href="Asset_8h_source.html#l00023">23</a> of file <a class="el" href="Asset_8h_source.html">Asset.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   23</span>{}</div>
 </div><!-- fragment -->
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>ElevateEngine/src/ElevateEngine/Core/<a class="el" href="Asset_8h_source.html">Asset.h</a></li>
+<li>ElevateEngine/src/ElevateEngine/Core/<a class="el" href="Asset_8cpp_source.html">Asset.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

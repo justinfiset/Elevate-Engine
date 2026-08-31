@@ -2,13 +2,9 @@ var annotated_dup =
 [
     [ "Elevate", "namespaceElevate.html", [
       [ "Editor", "namespaceElevate_1_1Editor.html", [
-        [ "AssetBrowserPanel", "classElevate_1_1Editor_1_1AssetBrowserPanel.html", "classElevate_1_1Editor_1_1AssetBrowserPanel" ],
-        [ "BrowserPath", "structElevate_1_1Editor_1_1BrowserPath.html", "structElevate_1_1Editor_1_1BrowserPath" ],
         [ "ConsolePanel", "classElevate_1_1Editor_1_1ConsolePanel.html", "classElevate_1_1Editor_1_1ConsolePanel" ],
         [ "EditorMessage", "structElevate_1_1Editor_1_1EditorMessage.html", "structElevate_1_1Editor_1_1EditorMessage" ],
         [ "EditorWidget", "classElevate_1_1Editor_1_1EditorWidget.html", "classElevate_1_1Editor_1_1EditorWidget" ],
-        [ "FileItem", "structElevate_1_1Editor_1_1FileItem.html", "structElevate_1_1Editor_1_1FileItem" ],
-        [ "FileMetadata", "structElevate_1_1Editor_1_1FileMetadata.html", "structElevate_1_1Editor_1_1FileMetadata" ],
         [ "SkyboxEditorWidget", "classElevate_1_1Editor_1_1SkyboxEditorWidget.html", "classElevate_1_1Editor_1_1SkyboxEditorWidget" ],
         [ "StatisticsPanel", "classElevate_1_1Editor_1_1StatisticsPanel.html", "classElevate_1_1Editor_1_1StatisticsPanel" ]
       ] ],

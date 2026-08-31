@@ -10,7 +10,6 @@ var hierarchy =
     [ "Elevate::BoundingVolume", "classElevate_1_1BoundingVolume.html", [
       [ "Elevate::SphereBoundingVolume", "classElevate_1_1SphereBoundingVolume.html", null ]
     ] ],
-    [ "Elevate::Editor::BrowserPath", "structElevate_1_1Editor_1_1BrowserPath.html", null ],
     [ "Elevate::BufferElement", "structElevate_1_1BufferElement.html", null ],
     [ "Elevate::BufferLayout", "classElevate_1_1BufferLayout.html", null ],
     [ "Elevate::CameraManager", "classElevate_1_1CameraManager.html", null ],
@@ -35,7 +34,6 @@ var hierarchy =
     [ "Elevate::Editor::EditorMessage", "structElevate_1_1Editor_1_1EditorMessage.html", null ],
     [ "Elevate::EditorRenderer", "classElevate_1_1EditorRenderer.html", null ],
     [ "Elevate::Editor::EditorWidget", "classElevate_1_1Editor_1_1EditorWidget.html", [
-      [ "Elevate::Editor::AssetBrowserPanel", "classElevate_1_1Editor_1_1AssetBrowserPanel.html", null ],
       [ "Elevate::Editor::ConsolePanel", "classElevate_1_1Editor_1_1ConsolePanel.html", null ],
       [ "Elevate::Editor::SkyboxEditorWidget", "classElevate_1_1Editor_1_1SkyboxEditorWidget.html", null ],
       [ "Elevate::Editor::StatisticsPanel", "classElevate_1_1Editor_1_1StatisticsPanel.html", null ]
@@ -63,7 +61,10 @@ var hierarchy =
           [ "Elevate::Model", "classElevate_1_1Model.html", null ],
           [ "Elevate::Rigidbody", "classElevate_1_1Rigidbody.html", null ]
         ] ],
-        [ "Elevate::GameObject", "classElevate_1_1GameObject.html", null ]
+        [ "Elevate::GameObject", "classElevate_1_1GameObject.html", null ],
+        [ "Elevate::Shader", "classElevate_1_1Shader.html", [
+          [ "Elevate::OpenGLShader", "classElevate_1_1OpenGLShader.html", null ]
+        ] ]
       ] ]
     ] ],
     [ "Elevate::EngineDataTypeTrait< T, typename >", "structElevate_1_1EngineDataTypeTrait.html", null ],
@@ -109,8 +110,6 @@ var hierarchy =
     [ "Elevate::FileDialogImpl", "classElevate_1_1FileDialogImpl.html", [
       [ "Elevate::DesktropFileDialog", "classElevate_1_1DesktropFileDialog.html", null ]
     ] ],
-    [ "Elevate::Editor::FileItem", "structElevate_1_1Editor_1_1FileItem.html", null ],
-    [ "Elevate::Editor::FileMetadata", "structElevate_1_1Editor_1_1FileMetadata.html", null ],
     [ "Elevate::FlattenTag", "structElevate_1_1FlattenTag.html", null ],
     [ "Elevate::Framebuffer", "classElevate_1_1Framebuffer.html", [
       [ "Elevate::OpenGLFramebuffer", "classElevate_1_1OpenGLFramebuffer.html", null ]
@@ -132,6 +131,7 @@ var hierarchy =
     [ "Elevate::InputBuffer", "classElevate_1_1InputBuffer.html", null ],
     [ "Elevate::ISerializable", "classElevate_1_1ISerializable.html", [
       [ "Elevate::EEObjectPtr< Elevate::GameObject >", "classElevate_1_1EEObjectPtr.html", null ],
+      [ "Elevate::EEObjectPtr< Elevate::Shader >", "classElevate_1_1EEObjectPtr.html", null ],
       [ "Elevate::EEObjectPtr< Material >", "classElevate_1_1EEObjectPtr.html", null ],
       [ "Elevate::EEObjectPtr< T >", "classElevate_1_1EEObjectPtr.html", null ],
       [ "Elevate::Scene", "classElevate_1_1Scene.html", null ]
@@ -189,9 +189,6 @@ var hierarchy =
     [ "Elevate::Internal::ScopeSelector< T, std::void_t< decltype(T::generated_classEntry)> >", "structElevate_1_1Internal_1_1ScopeSelector_3_01T_00_01std_1_1void__t_3_01decltype_07T_1_1generated__classEntry_08_4_01_4.html", null ],
     [ "Elevate::Serializer", "classElevate_1_1Serializer.html", [
       [ "Elevate::JsonSerializer", "classElevate_1_1JsonSerializer.html", null ]
-    ] ],
-    [ "Elevate::Shader", "classElevate_1_1Shader.html", [
-      [ "Elevate::OpenGLShader", "classElevate_1_1OpenGLShader.html", null ]
     ] ],
     [ "Elevate::ShaderManager", "classElevate_1_1ShaderManager.html", null ],
     [ "Elevate::ShadowSettings", "structElevate_1_1ShadowSettings.html", null ],
