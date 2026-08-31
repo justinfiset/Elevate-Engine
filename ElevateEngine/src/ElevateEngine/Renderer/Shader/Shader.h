@@ -4,6 +4,8 @@
 #include <memory>
 
 #include <glm/glm.hpp>
+#include <ElevateEngine/Core/EEObject.h>
+#include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Renderer/Buffer.h>
 
 // the list of uniform names used by the shader
@@ -19,7 +21,10 @@ namespace Elevate
 	class DirectionalLight;
 	class Camera;
 
-	class Shader
+	class Shader;
+	using ShaderPtr = EEObjectPtr<Shader>;
+
+	class Shader : public EEObject
 	{
 	public:
 		~Shader() {}
@@ -29,12 +34,12 @@ namespace Elevate
 
 		static std::shared_ptr<Shader> CreateDefaultNative(); // Safe fallback in case of shader creation failure
 		static std::shared_ptr<Shader> CreateDefaultErrorNative(); // Safe fallback with an error pattern shader
-		static std::shared_ptr<Shader> CreateDefault();
-		static std::shared_ptr<Shader> CreateDefaultError();
+		static ShaderPtr CreateDefault();
+		static ShaderPtr CreateDefaultError();
 
-		static std::shared_ptr<Shader> Create(const std::string& vertexSource, const std::string& fragmentSouce);
-		static std::shared_ptr<Shader> CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath);
-		static std::shared_ptr<Shader> CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode);
+		static ShaderPtr Create(const std::string& vertexSource, const std::string& fragmentSouce);
+		static ShaderPtr CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath);
+		static ShaderPtr CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode);
 
 		// Lights
 		void UseLight(const Light* newLightSetting, const std::string& lightName) const;
@@ -124,8 +129,6 @@ namespace Elevate
 
 		friend class Renderer;
 	};
-
-	using ShaderPtr = std::shared_ptr<Shader>;
 
 	class DefaultShader
 	{

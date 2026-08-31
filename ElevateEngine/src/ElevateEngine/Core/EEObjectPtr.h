@@ -16,6 +16,10 @@ namespace Elevate
 	class EEObjectPtr : public ISerializable
 	{
 	private:
+		// Allow other type to interact with other's private members
+		template<typename U>
+		friend class EEObjectPtr;
+
 		mutable std::shared_ptr<T> m_ptr = nullptr;
 		mutable Guid m_guid{};
 
@@ -117,6 +121,24 @@ namespace Elevate
 			return m_guid == other->GetGuid();
 		}
 
+		template<typename U, typename = std::enable_if_t<std::is_base_of_v<T, U>>>
+		EEObjectPtr(const EEObjectPtr<U>& other)
+			: m_ptr(other.m_ptr), m_guid(other.m_guid)
+		{
+			static_assert(std::is_base_of_v<EEObject, T>, "T must derive from EEObject");
+		}
+
+		template<typename U, typename = std::enable_if_t<std::is_base_of_v<T, U>>>
+		EEObjectPtr<T>& operator=(const EEObjectPtr<U>& other)
+		{
+			if ((void*)this != (void*)&other)
+			{
+				m_ptr = other.m_ptr;
+				m_guid = other.m_guid;
+			}
+			return *this;
+		}
+
 		EEObjectPtr<T>& operator=(const EEObjectPtr<T>& other) {
 			if (this != &other)
 			{
@@ -189,6 +211,17 @@ namespace Elevate
 		std::weak_ptr<T> ToWeak() const noexcept
 		{
 			return std::weak_ptr<T>(m_ptr);
+		}
+
+		std::shared_ptr<T> ToShared() const
+		{
+			get(); // Force the proxy to resolve the object if pointer is invalid
+			return m_ptr;
+		}
+
+		operator std::shared_ptr<T>() const
+		{
+			return ToShared();
 		}
 	};
 

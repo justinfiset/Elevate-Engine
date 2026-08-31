@@ -26,6 +26,59 @@ namespace Elevate
         }
     }
 
+    TypeLayout Material::GetLayout() const
+    {
+        std::vector<TypeField> allFields;
+
+        TypeField guidField(
+            "m_guid",
+            EngineDataType::GUID,
+            GetGuidOffset()
+        );
+        guidField.data = reinterpret_cast<const char*>(this) + GetGuidOffset();
+        allFields.push_back(guidField);
+
+        alignas(Material) char dummyBuffer[sizeof(Material)];
+        Material* dummyObj = reinterpret_cast<Material*>(dummyBuffer);
+        size_t shaderOffset = static_cast<size_t>(
+            reinterpret_cast<const char*>(&(dummyObj->m_shader)) - dummyBuffer
+        );
+
+        TypeField shaderField(
+            "Shader",
+            EngineDataType::ObjectPtr,
+            shaderOffset
+        );
+        shaderField.targetType = typeid(Shader);
+        shaderField.data = reinterpret_cast<const char*>(this) + shaderOffset;
+        allFields.push_back(shaderField);
+
+        if (m_shader)
+        {
+            const auto& layout = m_shader->GetLayout();
+
+            for (const auto& uniform : layout)
+            {
+                if (uniform.Type == ShaderDataType::Sampler2D) continue;
+
+                if (uniform.Name == EE_SHADER_VIEWPROJ ||
+                    uniform.Name == EE_SHADER_CAMPOS ||
+                    uniform.Name == EE_SHADER_MODEL)
+                {
+                    continue;
+                }
+
+                if (m_definedUniforms[uniform.Index])
+                {
+                    TypeField field(uniform.Name, uniform.Type, m_buffer.data() + uniform.Offset);
+                    allFields.push_back(field);
+                }
+            }
+        }
+
+        return TypeLayout(this, GetName(), allFields);
+    }
+
     void Material::SetTexture(const std::string& name, TexturePtr texture)
     {
         m_textures[name] = std::move(texture);

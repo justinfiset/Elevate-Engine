@@ -23,6 +23,8 @@
 
 #include <ElevateEngine/Serialization/JsonSerializer.h>
 
+#include <ElevateEngine/Editor/EditorLayer.h>
+
 namespace fs = std::filesystem;
 
 const auto rootPath = fs::path(EE_CONTENT_ROOT).lexically_normal();
@@ -179,6 +181,31 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 			if (!ImGui::GetIO().KeyCtrl)
 			{
 				m_selected.clear();
+				
+				if (AssetRegistry::IsPathRegistered(item.path))
+				{
+					Guid guid = AssetRegistry::GetPathGuid(item.path);
+					auto entry = AssetRegistry::GetEntry(guid);
+
+					if (entry)
+					{
+						if (!entry->isLoaded || !entry->Instance)
+						{
+							auto loadedAsset = AssetRegistry::GetAsset<Asset>(entry->AssetGuid);
+							if (loadedAsset)
+							{
+								AssetRegistry::RegisterAsset(loadedAsset);
+								entry = AssetRegistry::GetEntry(guid); // Update the entry
+							}
+						}
+
+						if (entry && entry->Instance)
+						{
+							EEObjectPtr<EEObject> eeObject(entry->Instance);
+							EditorLayer::Get().SelectObject(eeObject);
+						}
+					}
+				}
 			}
 
 			if (ImGui::GetIO().KeyShift)

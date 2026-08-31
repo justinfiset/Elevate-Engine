@@ -113,9 +113,13 @@ namespace Elevate::Editor
 
 		m_EditorScene->RenderScene(GetCamera());
 
-		if (m_SelectedObject.lock())
+		std::shared_ptr<EEObject> lockedObj = m_SelectedObject.lock();
+		if (lockedObj)
 		{
-			m_SelectedObject.lock()->RenderWhenSelected();
+			if (auto gameObject = std::dynamic_pointer_cast<GameObject>(lockedObj))
+			{
+				gameObject->RenderWhenSelected();
+			}
 		}
 	}
 
@@ -260,15 +264,26 @@ namespace Elevate::Editor
 		case EventType::KeyPressed:
 		{
 			KeyEvent& ke = (KeyEvent&)event;
-			
-			if (ke.GetKeyCode() == EE_KEY_DELETE) {
-				Execute(std::make_unique<DeleteGameobjectCommand>(m_SelectedObject));
+
+			if (ke.GetKeyCode() == EE_KEY_DELETE)
+			{
+				if (auto lockedObj = m_SelectedObject.lock())
+				{
+					if (auto gameObj = std::dynamic_pointer_cast<GameObject>(lockedObj))
+					{
+						Execute(std::make_unique<DeleteGameobjectCommand>(gameObj));
+					}
+				}
 			}
 
-			if (Input::IsKeyPressed(EE_KEY_LEFT_CONTROL)) {
-				if (ke.GetKeyCode() == EE_KEY_Z) {
+			if (Input::IsKeyPressed(EE_KEY_LEFT_CONTROL))
+			{
+				if (ke.GetKeyCode() == EE_KEY_Z)
+				{
 					Undo();
-				} else if (ke.GetKeyCode() == EE_KEY_Y) {
+				}
+				else if (ke.GetKeyCode() == EE_KEY_Y)
+				{
 					Redo();
 				}
 			}
@@ -278,7 +293,7 @@ namespace Elevate::Editor
 			break;
 		}
 
-		m_EditorScene->Notify(event);        
+		m_EditorScene->Notify(event);
 	}
 
 	EditorCamera* EditorLayer::GetCamera()
@@ -286,7 +301,7 @@ namespace Elevate::Editor
 		return m_CameraObject->GetComponent<EditorCamera>();
 	}
 
-	void EditorLayer::SelectObject(const EEObjectPtr<GameObject>& newSelection)
+	void EditorLayer::SelectObject(const EEObjectPtr<EEObject>& newSelection)
 	{
 		if (newSelection) {
 			m_SelectedObject = newSelection.ToWeak();

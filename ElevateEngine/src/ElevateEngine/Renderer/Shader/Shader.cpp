@@ -35,19 +35,19 @@ namespace Elevate
 		return nullptr;
 	}
 
-	std::shared_ptr<Shader> Shader::CreateDefault()
+	ShaderPtr Shader::CreateDefault()
 	{
 		return Create(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetFragmentShader()));
 	}
 
-	std::shared_ptr<Shader> Shader::CreateDefaultError()
+	ShaderPtr Shader::CreateDefaultError()
 	{
 		return Create(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetErrorShader()));
 	}
 
 	ShaderPtr Shader::Create(const std::string& vertexSource, const std::string& fragmentSouce)
 	{
-		std::shared_ptr<Shader> shader = nullptr;
+		ShaderPtr shader = nullptr;
 		
 		if (!vertexSource.empty() && !fragmentSouce.empty())
 		{

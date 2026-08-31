@@ -16,7 +16,8 @@ namespace fs = std::filesystem;
 namespace Elevate
 {
     std::unordered_map<Guid, AssetEntry> AssetRegistry::s_indexedAssets;
-    
+    std::unordered_map<std::filesystem::path, Guid> AssetRegistry::s_pathRegistry;
+
     std::string FormatAssetNameForUI(const std::filesystem::path& filePath)
     {
         std::string rawName = filePath.stem().string();
@@ -90,6 +91,9 @@ namespace Elevate
                     .MetaData = &typeMeta,
                     .Instance = nullptr
                 };
+                
+                fs::path normalizedPath = fs::absolute(entry.path()).lexically_normal();
+                s_pathRegistry[normalizedPath] = guid;
             }
         }
     }
@@ -208,6 +212,19 @@ namespace Elevate
         return (it != Get().m_typeMeta.end()) ? &it->second : nullptr;
     }
 
+    bool AssetRegistry::IsPathRegistered(std::filesystem::path path)
+    {
+        fs::path normalizedPath = fs::absolute(path).lexically_normal();
+        return s_pathRegistry.find(normalizedPath) != s_pathRegistry.end();
+    }
+
+    Guid AssetRegistry::GetPathGuid(std::filesystem::path path)
+    {
+        fs::path normalizedPath = fs::absolute(path).lexically_normal();
+    auto it = s_pathRegistry.find(normalizedPath);
+    return (it != s_pathRegistry.end()) ? it->second : Guid{};
+    }
+
     const std::unordered_map<std::string, AssetMetaData>& AssetRegistry::GetNameMetas()
     {
         return Get().m_nameMeta;
@@ -251,13 +268,13 @@ namespace Elevate
             AssetEntry& entry = s_indexedAssets.at(assetGuid);
             entry.Instance = asset;
             entry.isLoaded = true;
-            entry.AssetName = asset->GetName();
             entry.MetaData = metaData;
         }
         else
         {
             AssetEntry entry{
                 .AssetGuid = assetGuid,
+                .AssetName = asset->GetName(),
                 .FilePath = "[Runtime Asset]",
                 .TypeIndex = asset->GetTypeIndex(),
                 .isOnDisk = false,
@@ -293,5 +310,8 @@ namespace Elevate
         };
 
         s_indexedAssets[assetGuid] = entry;
+        
+        fs::path normalizedPath = fs::absolute(filePath).lexically_normal();
+        s_pathRegistry[normalizedPath] = assetGuid;
     }
 }

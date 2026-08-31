@@ -10,6 +10,7 @@
 #include <glm/glm.hpp>
 
 #include <ElevateEngine/Core/Assert.h>
+#include <ElevateEngine/Core/Reflection.h>
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/Asset.h>
 #include <ElevateEngine/Core/EEObjectPtr.h>
@@ -35,42 +36,7 @@ namespace Elevate
         BEGIN_OBJECT(Material, EE_Asset("Material", ".mat", EE_CreateAssetMenu, EE_AssetColor(0.8f, 0.2f, 0.2f)))
 
     public:
-        virtual TypeLayout GetLayout() const override {
-            std::vector<TypeField> allFields;
-
-            TypeField guidField(
-                "m_guid",
-                EngineDataType::GUID,
-                GetGuidOffset()
-            );
-            guidField.data = reinterpret_cast<const char*>(this) + GetGuidOffset();
-            allFields.push_back(guidField);
-
-            if (m_shader)
-            {
-                const auto& layout = m_shader->GetLayout();
-
-                for (const auto& uniform : layout)
-                {
-                    if (uniform.Type == ShaderDataType::Sampler2D) continue;
-
-                    if (uniform.Name == EE_SHADER_VIEWPROJ ||
-                        uniform.Name == EE_SHADER_CAMPOS ||
-                        uniform.Name == EE_SHADER_MODEL)
-                    {
-                        continue;
-                    }
-
-                    if (m_definedUniforms[uniform.Index])
-                    {
-                        TypeField field(uniform.Name, uniform.Type, m_buffer.data() + uniform.Offset);
-                        allFields.push_back(field);
-                    }
-                }
-            }
-
-            return TypeLayout(this, GetName(), allFields);
-        }
+        virtual TypeLayout GetLayout() const override;
 
         template<typename T>
         void Set(const std::string& name, const T& value)
@@ -111,7 +77,8 @@ namespace Elevate
 
         TexturePtr GetTextureForUniform(const std::string& uniformName) const;
 
-        std::shared_ptr<Shader> m_shader{ nullptr };
+        EEObjectPtr<Shader> m_shader{ nullptr };
+        PROPERTY(m_shader);
 
         std::vector<uint8_t> m_buffer;
         std::vector<bool> m_definedUniforms;

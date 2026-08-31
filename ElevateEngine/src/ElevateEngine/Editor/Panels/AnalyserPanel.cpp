@@ -30,10 +30,16 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 {
 	ImGui::Begin("Analyse");
 
-	std::weak_ptr<GameObject> selected = EditorLayer::Get().GetSelectedObject();
-	if (selected.lock())
+	std::shared_ptr<EEObject> selected = EditorLayer::Get().GetSelectedObject().lock();
+
+	std::shared_ptr<GameObject> obj = nullptr;
+	if (selected)
 	{
-		std::shared_ptr<GameObject> obj = selected.lock();
+		obj = std::dynamic_pointer_cast<GameObject>(selected);
+	}
+
+	if (obj)
+	{
 		Elevate::UI::InputField("Name: ", obj->GetName());
 
 		// Serialisation of the tranform and all other components
@@ -104,17 +110,29 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 			{
 				InsertCategory(root, pair.second);
 			}
-			std::weak_ptr<GameObject> obj = EditorLayer::Get().GetSelectedObject();
-			for (auto& cat : root.childs)
-			{
-				DrawCategoryMenu(cat, obj);
-			}
-			DrawCategoryChildren(root, obj);
 
+			std::shared_ptr<EEObject> obj = EditorLayer::Get().GetSelectedObject().lock();
+			if (auto gameObject = std::dynamic_pointer_cast<GameObject>(obj))
+			{
+				for (auto& cat : root.childs)
+				{
+					DrawCategoryMenu(cat, gameObject);
+				}
+				DrawCategoryChildren(root, gameObject);
+			}
 			ImGui::EndPopup();
 		}
 	}
-
+	else if (selected)
+	{
+		ImGui::Text("%s", selected->GetName().c_str());
+		ImGui::Separator();
+		const auto layout = selected->GetLayout();
+		for (const auto& field : layout)
+		{
+			RenderField(field);
+		}
+	}
 	ImGui::End();
 }
 
