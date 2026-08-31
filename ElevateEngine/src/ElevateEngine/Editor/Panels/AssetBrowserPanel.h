@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef EE_EDITOR_BUILD
+
 #include <filesystem>
 #include <unordered_map>
 #include <vector>
@@ -120,3 +122,5 @@ namespace Elevate::Editor {
 		uint32_t m_nextId = 0;
 	};
 }
+
+#endif
