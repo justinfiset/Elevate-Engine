@@ -1,5 +1,7 @@
 #include "AssetBrowserPanel.h"
 
+#ifdef EE_EDITOR_BUILD
+
 #include <algorithm>
 #include <cmath>
 #include <fstream>
@@ -556,3 +558,5 @@ void Elevate::Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath
 		m_FileMetadata[extension] = meta;   
 	}
 }
+
+#endif
