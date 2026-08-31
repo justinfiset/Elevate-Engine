@@ -195,7 +195,7 @@ void Elevate::Editor::AssetBrowserPanel::OnImGuiRender()
 							if (loadedAsset)
 							{
 								AssetRegistry::RegisterAsset(loadedAsset);
-								entry = AssetRegistry::GetEntry(guid);
+								entry = AssetRegistry::GetEntry(guid); // Update the entry
 							}
 						}
 

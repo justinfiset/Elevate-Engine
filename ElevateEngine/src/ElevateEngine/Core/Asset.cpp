@@ -11,6 +11,6 @@ namespace Elevate
 		{
 			return entry->AssetName;
 		}
-		return EEObject::GetName();
+		return generated_classEntry.ClassName;
 	}
 }

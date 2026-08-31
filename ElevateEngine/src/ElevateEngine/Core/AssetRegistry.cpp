@@ -268,13 +268,13 @@ namespace Elevate
             AssetEntry& entry = s_indexedAssets.at(assetGuid);
             entry.Instance = asset;
             entry.isLoaded = true;
-            entry.AssetName = asset->GetName();
             entry.MetaData = metaData;
         }
         else
         {
             AssetEntry entry{
                 .AssetGuid = assetGuid,
+                .AssetName = asset->GetName(),
                 .FilePath = "[Runtime Asset]",
                 .TypeIndex = asset->GetTypeIndex(),
                 .isOnDisk = false,
