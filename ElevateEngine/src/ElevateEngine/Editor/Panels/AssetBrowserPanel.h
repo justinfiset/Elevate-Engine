@@ -17,16 +17,18 @@ namespace Elevate
 	class Asset;
 }
 
-namespace Elevate::Editor {
-	
-	enum FileType {
+namespace Elevate::Editor
+{	
+	enum FileType
+	{
 		Directory = 0,
 		File = 1,
 		Internal = 2,
 		Image = 3
 	};
 
-	struct FileMetadata {
+	struct FileMetadata
+	{
 		FileType type;
 		std::string iconPath;
 		glm::vec4 color{ 1.0f, 1.0f, 1.0f, 0.0f };
@@ -39,22 +41,27 @@ namespace Elevate::Editor {
 		}
 
 		static FileType ParseFileType(std::string typeStr) {
-			if (typeStr == "DIRECTORY") {
+			if (typeStr == "DIRECTORY")
+			{
 				return FileType::Directory;
 			}
-			else if (typeStr == "FILE") {
+			else if (typeStr == "FILE")
+			{
 				return FileType::File;
 			}
-			else if (typeStr == "IMAGE") {
+			else if (typeStr == "IMAGE")
+			{
 				return FileType::Image;
 			}
-			else {
+			else
+			{
 				return FileType::Internal;
 			}
 		}
 	};
 
-	struct FileItem {
+	struct FileItem
+	{
 		uint32_t id = 0;
 		std::string name;
 		std::string path;
@@ -68,7 +75,8 @@ namespace Elevate::Editor {
 			path(filePath), name(fileName), extension(fileExtension), iconPath(icon), type(type) { }
 	};
 
-	struct BrowserPath {
+	struct BrowserPath
+	{
 		std::filesystem::path Path;
 		std::string DisplayName;
 	};

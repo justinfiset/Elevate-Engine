@@ -254,12 +254,14 @@ namespace Elevate
         if (!asset)
         {
             EE_CORE_ERROR("(AssetRegistry::RegisterAsset) : Tried to register a nullptr Asset in the Asset Registry.");
+            return;
         }
 
         const AssetMetaData* metaData = GetMetaFromTypeIndex(asset->GetTypeIndex());
         if (!metaData)
         {
             EE_CORE_WARN("(AssetRegistry::RegisterAsset) : No metadata found for type {}", asset->GetTypeIndex().name());
+            return;
         }
 
         Guid assetGuid = asset->GetGuid();
