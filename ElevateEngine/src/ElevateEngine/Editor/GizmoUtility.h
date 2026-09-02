@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include "ImGuizmo.h"
 
 namespace Elevate::Editor {
 	std::string GuizmoOperationToString(int tool)

@@ -16,8 +16,8 @@
 #include <ElevateEngine/Core/GameObject.h>
 #include <ElevateEngine/Renderer/Camera.h>
 
-#include "ImGuizmo.h"
-#include "imgui.h"
+#include <imgui.h>
+#include <ImGuizmo.h>
 
 void Elevate::Editor::ScenePanel::OnImGuiRender()
 {
