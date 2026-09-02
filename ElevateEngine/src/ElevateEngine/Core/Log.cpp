@@ -7,7 +7,7 @@
 
 #include <spdlog/logger.h>
 #include <spdlog/common.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/sinks/stdout_color_sinks.h> // iwyu: keep
 
 namespace Elevate
 {

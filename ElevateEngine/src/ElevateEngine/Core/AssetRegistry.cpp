@@ -1,21 +1,26 @@
 #include "AssetRegistry.h"
 
 #include <cstdio>
+#include <cctype>
 #include <system_error>
 
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
 #include <rapidjson/error/en.h>
 
+// Core
 #include <ElevateEngine/Core/Core.h>
-#include <ElevateEngine/Core/Assert.h>
+#include <ElevateEngine/Core/Asset.h>
 #include <ElevateEngine/Core/AssetMetaData.h>
 #include <ElevateEngine/Core/Byte.h>
 #include <ElevateEngine/Core/Guid.h>
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
+// Serialization
 #include <ElevateEngine/Serialization/JsonSerializer.h>
+#include <ElevateEngine/Serialization/PropertyField.h>
+// Files
 #include <ElevateEngine/Files/FileUtility.h>
 
 namespace fs = std::filesystem;

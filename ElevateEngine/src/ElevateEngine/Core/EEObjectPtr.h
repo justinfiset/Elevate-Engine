@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <type_traits>
 
 #include <ElevateEngine/Core/Byte.h>
 #include <ElevateEngine/Core/Guid.h>

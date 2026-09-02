@@ -6,6 +6,7 @@
 #include <filesystem>
 #include <format>
 #include <unordered_map>
+#include <vector>
 
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/Asset.h>

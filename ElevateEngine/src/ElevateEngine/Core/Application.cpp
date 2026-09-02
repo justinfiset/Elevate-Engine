@@ -2,6 +2,7 @@
 
 #include <filesystem>
 #include <format>
+#include <functional>
 
 // Core
 #include "ElevateEngine/Core/Log.h"

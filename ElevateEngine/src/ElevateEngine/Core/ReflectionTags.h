@@ -5,6 +5,8 @@
 #include <typeindex>
 #include <type_traits>
 
+#include <glm/vec4.hpp>
+
 #include <ElevateEngine/Core/AssetMetaData.h>
 
 namespace Elevate

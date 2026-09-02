@@ -1,8 +1,7 @@
 #include "WAAPIClient.h"
 
-#include <ElevateEngine/Core/Log.h>
-
 #if defined(EE_USES_WWISE) && !defined(EE_PLATFORM_WEB)
+	#include <ElevateEngine/Core/Log.h>
 	#include <AK/WwiseAuthoringAPI/AkAutobahn/Client.h>
 	#include <AK/WwiseAuthoringAPI/AkAutobahn/Logger.h>
 	#include <AK/WwiseAuthoringAPI/waapi.h>

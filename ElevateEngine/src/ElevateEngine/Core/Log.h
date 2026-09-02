@@ -1,6 +1,6 @@
 #pragma once
 
-#include <format>
+#include <format> // iwyu: keep
 #include <string>
 #include <memory>
 #include <vector>

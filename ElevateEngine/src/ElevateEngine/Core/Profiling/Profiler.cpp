@@ -1,5 +1,6 @@
 #include "Profiler.h"
 
+#include <chrono>
 #include <thread>
 
 #include <ElevateEngine/Core/Log.h>

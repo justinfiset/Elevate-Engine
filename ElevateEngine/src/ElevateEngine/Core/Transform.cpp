@@ -1,7 +1,6 @@
 #include "Transform.h"
 
-// Maths
-#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/matrix_transform.hpp> // iwyu: keep
 
 Elevate::Transform::Transform()
 	: m_ModelMatrix(glm::mat4(1.0f)), position(glm::vec3(0.0f)),

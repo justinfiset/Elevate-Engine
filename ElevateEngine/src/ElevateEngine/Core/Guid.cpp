@@ -1,6 +1,5 @@
 #include "Guid.h"
 
-#include <stdint.h>
 #include <uuid.h>
 #include <algorithm>
 #include <cstring>

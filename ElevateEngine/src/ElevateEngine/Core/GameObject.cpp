@@ -1,17 +1,18 @@
 #include "GameObject.h"
 
 #include <format>
-
 #include <entt/entt.hpp>
 
 #include <ElevateEngine/Audio/SoundEngine.h>
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/EEObjectPtr.h>
+#include <ElevateEngine/Core/Guid.h>
 #include <ElevateEngine/Scene/Scene.h>
 #include <ElevateEngine/Scene/ScenePrivate.h>
-#include <glm/gtx/matrix_decompose.hpp>
 
+#include <glm/gtx/matrix_decompose.hpp> // iwyu: keep
 
 namespace Elevate
 {
