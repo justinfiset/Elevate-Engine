@@ -4,10 +4,12 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
+#include <algorithm>
+#include <functional>
+#include <string_view>
 
-#include "Core.h"
+#include <spdlog/fmt/bundled/base.h>
+#include <spdlog/logger.h>
 
 // Create a simple system to tell the .js what we are trying to log if building for the web
 #ifdef EE_PLATFORM_WEB

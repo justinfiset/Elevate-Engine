@@ -1,7 +1,13 @@
 #include "EEObjectPtr.h"
 
-#include <ElevateEngine/Core/EEObject.h>
+#include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Core/AssetRegistry.h>
+
+// Forwards
+namespace Elevate
+{
+	class Guid;
+}
 
 namespace Elevate
 {

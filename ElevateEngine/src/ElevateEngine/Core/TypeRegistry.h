@@ -1,24 +1,21 @@
 #pragma once
 
 #include <initializer_list>
-#include <map>
 #include <vector>
 #include <string>
 #include <type_traits>
 #include <typeindex>
 #include <typeinfo>
+#include <format>
 
 #include <entt/entt.hpp>
 #include <glm/fwd.hpp>
 
 #include <ElevateEngine/Core/EEObject.h>
-#include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Core/ReflectionTags.h>
 #include <ElevateEngine/Core/Data.h>
-#include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/EECategory.h>
-// todo remove in the near futur
-#include <ElevateEngine/Core/TypeLayout.h>
+#include <ElevateEngine/Core/TypeField.h>
 
 #ifdef EE_RELEASE
 	#undef EE_REGISTRY_LOG
@@ -28,7 +25,11 @@ namespace Elevate
 {
 	class Component;
 	class GameObject;
+	template <typename T> class EEObjectPtr;
+}
 
+namespace Elevate
+{
 	template<typename T, typename = void>
 	struct has_super : std::false_type {};
 	template<typename T>

@@ -1,10 +1,19 @@
 #pragma once
+
+#include <memory>
+
+#include "ElevateEngine/Core/Reflection.h"
+#include "ElevateEngine/Core/ReflectionTags.h"
+#include "ElevateEngine/Core/TypeField.h"
 #include "ElevateEngine/Renderer/Camera.h"
-#include "ElevateEngine/Core/TypeRegistry.h"
 
-namespace Elevate {
+namespace Elevate
+{
 	class Event;
+}
 
+namespace Elevate
+{
 	class EditorCamera : public Camera
 	{
 	public:

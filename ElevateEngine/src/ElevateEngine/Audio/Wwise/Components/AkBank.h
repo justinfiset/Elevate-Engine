@@ -1,6 +1,10 @@
+#pragma once
+
 #include <string>
+
+#include <ElevateEngine/Core/Reflection.h>
+#include <ElevateEngine/Core/TypeField.h>
 #include <ElevateEngine/Core/Component.h>
-#include <ElevateEngine/Core/TypeRegistry.h>
 
 namespace Elevate
 {

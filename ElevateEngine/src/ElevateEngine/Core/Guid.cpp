@@ -1,9 +1,18 @@
 #include "Guid.h"
 
-#include <string>
+#include <stdint.h>
 #include <uuid.h>
+#include <algorithm>
+#include <cstring>
+#include <format>
+#include <iterator>
+#include <optional>
+#include <random>
+#include <span>
+#include <string>
 
 #include <ElevateEngine/Core/Log.h>
+#include "ElevateEngine/Core/Byte.h"
 
 namespace Elevate
 {

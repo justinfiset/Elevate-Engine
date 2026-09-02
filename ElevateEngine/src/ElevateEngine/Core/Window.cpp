@@ -1,5 +1,8 @@
 #include "Window.h"
 
+#include <stdio.h>
+#include <format>
+
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Events/ApplicationEvent.h>
 

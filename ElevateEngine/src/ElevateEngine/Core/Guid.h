@@ -1,7 +1,10 @@
 #pragma once
 
-#include <string>
+#include <cstddef>
+#include <cstdint>
 #include <functional>
+#include <string>
+#include <string_view>
 
 #include <ElevateEngine/Core/Byte.h>
 

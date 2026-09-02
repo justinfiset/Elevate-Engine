@@ -1,6 +1,10 @@
 #include "Profiler.h"
 
+#include <thread>
+
 #include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/Profiling/ProfilerSample.h>
+#include <ElevateEngine/Core/Profiling/ProfilerFrame.h>
 
 namespace Elevate
 {

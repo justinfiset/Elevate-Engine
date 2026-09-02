@@ -1,5 +1,7 @@
-#include "eepch.h"
 #include "TypeRegistry.h"
+
+#include <cctype>
+#include <ElevateEngine/Core/Log.h>
 
 std::string Elevate::TypeRegistry::GetName(const std::type_info& type)
 {

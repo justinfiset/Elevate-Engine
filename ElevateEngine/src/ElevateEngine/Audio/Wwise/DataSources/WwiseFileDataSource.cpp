@@ -4,6 +4,7 @@
 #include <ElevateEngine/Audio/Wwise/WwiseItem.h>
 
 #include <array>
+#include <algorithm>
 #include <format>
 #include <memory>
 #include <string>
@@ -11,6 +12,7 @@
 #include <filesystem>
 
 #include <rapidxml.hpp>
+#include <flxml.h>
 #include <flxml/utils.h>
 #include <flxml/wrappers.h>
 

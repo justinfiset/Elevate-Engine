@@ -1,10 +1,17 @@
 #include "AssetRegistry.h"
 
+#include <cstdio>
+#include <system_error>
+
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
 #include <rapidjson/error/en.h>
 
 #include <ElevateEngine/Core/Core.h>
+#include <ElevateEngine/Core/Assert.h>
+#include <ElevateEngine/Core/AssetMetaData.h>
+#include <ElevateEngine/Core/Byte.h>
+#include <ElevateEngine/Core/Guid.h>
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/TypeRegistry.h>

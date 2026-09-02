@@ -2,15 +2,14 @@
 #include <string>
 #include <cstring>
 #include <vector>
+#include <initializer_list>
 
-#include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/TypeField.h>
 
 namespace Elevate
 {
     struct PropertyField;
     using PropertySet = std::vector<PropertyField>;
-    struct PropertyContainer;
 
     class TypeLayout
     {

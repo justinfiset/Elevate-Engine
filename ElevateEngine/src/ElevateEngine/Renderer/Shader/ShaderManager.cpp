@@ -1,6 +1,7 @@
 #include "eepch.h"
 #include "ShaderManager.h"
 
+#include <ElevateEngine/Core/Core.h>
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Light/SceneLighting.h>

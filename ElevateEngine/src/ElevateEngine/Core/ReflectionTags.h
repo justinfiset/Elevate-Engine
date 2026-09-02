@@ -3,6 +3,7 @@
 #include <string>
 #include <variant>
 #include <typeindex>
+#include <type_traits>
 
 #include <ElevateEngine/Core/AssetMetaData.h>
 
