@@ -224,25 +224,25 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1FileDialogImpl.html#a0fe154ed6572dee35c50ebd7bbfdc916">Elevate::FileDialogImpl</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="DesktopFileDialog_8cpp_source.html#l00019">19</a> of file <a class="el" href="DesktopFileDialog_8cpp_source.html">DesktopFileDialog.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   20</span>    {</div>
-<div class="line"><span class="lineno">   21</span>        std::vector&lt;const char*&gt; filterPtrs = ConvertFilters(filters);</div>
-<div class="line"><span class="lineno">   22</span> </div>
-<div class="line"><span class="lineno">   23</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* result = tinyfd_openFileDialog(</div>
-<div class="line"><span class="lineno">   24</span>            title.empty() ? <span class="keyword">nullptr</span> : title.c_str(),</div>
-<div class="line"><span class="lineno">   25</span>            defaultPathOrFile.empty() ? nullptr : defaultPathOrFile.c_str(),</div>
-<div class="line"><span class="lineno">   26</span>            static_cast&lt;int&gt;(filterPtrs.size()),</div>
-<div class="line"><span class="lineno">   27</span>            filterPtrs.empty() ? nullptr : filterPtrs.data(),</div>
-<div class="line"><span class="lineno">   28</span>            filterDescription.empty() ? nullptr : filterDescription.c_str(),</div>
-<div class="line"><span class="lineno">   29</span>            allowMultiple ? 1 : 0</div>
-<div class="line"><span class="lineno">   30</span>        );</div>
-<div class="line"><span class="lineno">   31</span> </div>
-<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">if</span> (result == <span class="keyword">nullptr</span>)</div>
-<div class="line"><span class="lineno">   33</span>        {</div>
-<div class="line"><span class="lineno">   34</span>            result = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><span class="lineno">   35</span>        }</div>
-<div class="line"><span class="lineno">   36</span>        <a class="code hl_function" href="classElevate_1_1FileDialogImpl.html#a13191cce6e2e28ed0f5c8ecfc07b9bcb">SetResult</a>(std::string(result));</div>
-<div class="line"><span class="lineno">   37</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="DesktopFileDialog_8cpp_source.html#l00024">24</a> of file <a class="el" href="DesktopFileDialog_8cpp_source.html">DesktopFileDialog.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   25</span>    {</div>
+<div class="line"><span class="lineno">   26</span>        std::vector&lt;const char*&gt; filterPtrs = ConvertFilters(filters);</div>
+<div class="line"><span class="lineno">   27</span> </div>
+<div class="line"><span class="lineno">   28</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* result = tinyfd_openFileDialog(</div>
+<div class="line"><span class="lineno">   29</span>            title.empty() ? <span class="keyword">nullptr</span> : title.c_str(),</div>
+<div class="line"><span class="lineno">   30</span>            defaultPathOrFile.empty() ? nullptr : defaultPathOrFile.c_str(),</div>
+<div class="line"><span class="lineno">   31</span>            static_cast&lt;int&gt;(filterPtrs.size()),</div>
+<div class="line"><span class="lineno">   32</span>            filterPtrs.empty() ? nullptr : filterPtrs.data(),</div>
+<div class="line"><span class="lineno">   33</span>            filterDescription.empty() ? nullptr : filterDescription.c_str(),</div>
+<div class="line"><span class="lineno">   34</span>            allowMultiple ? 1 : 0</div>
+<div class="line"><span class="lineno">   35</span>        );</div>
+<div class="line"><span class="lineno">   36</span> </div>
+<div class="line"><span class="lineno">   37</span>        <span class="keywordflow">if</span> (result == <span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">   38</span>        {</div>
+<div class="line"><span class="lineno">   39</span>            result = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><span class="lineno">   40</span>        }</div>
+<div class="line"><span class="lineno">   41</span>        <a class="code hl_function" href="classElevate_1_1FileDialogImpl.html#a13191cce6e2e28ed0f5c8ecfc07b9bcb">SetResult</a>(std::string(result));</div>
+<div class="line"><span class="lineno">   42</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1FileDialogImpl_html_a13191cce6e2e28ed0f5c8ecfc07b9bcb"><div class="ttname"><a href="classElevate_1_1FileDialogImpl.html#a13191cce6e2e28ed0f5c8ecfc07b9bcb">Elevate::FileDialogImpl::SetResult</a></div><div class="ttdeci">void SetResult(const std::string &amp;result)</div><div class="ttdef"><b>Definition</b> <a href="FileDialog_8cpp_source.html#l00037">FileDialog.cpp:37</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -295,24 +295,24 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1FileDialogImpl.html#acf42e0799c93028c5b9a2734933cb70d">Elevate::FileDialogImpl</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="DesktopFileDialog_8cpp_source.html#l00039">39</a> of file <a class="el" href="DesktopFileDialog_8cpp_source.html">DesktopFileDialog.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   40</span>    {</div>
-<div class="line"><span class="lineno">   41</span>        std::vector&lt;const char*&gt; filterPtrs = ConvertFilters(filters);</div>
-<div class="line"><span class="lineno">   42</span> </div>
-<div class="line"><span class="lineno">   43</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* result = tinyfd_saveFileDialog(</div>
-<div class="line"><span class="lineno">   44</span>            title.empty() ? <span class="keyword">nullptr</span> : title.c_str(),</div>
-<div class="line"><span class="lineno">   45</span>            defaultPathOrFile.empty() ? nullptr : defaultPathOrFile.c_str(),</div>
-<div class="line"><span class="lineno">   46</span>            static_cast&lt;int&gt;(filterPtrs.size()),</div>
-<div class="line"><span class="lineno">   47</span>            filterPtrs.empty() ? nullptr : filterPtrs.data(),</div>
-<div class="line"><span class="lineno">   48</span>            filterDescription.empty() ? nullptr : filterDescription.c_str()</div>
-<div class="line"><span class="lineno">   49</span>        );</div>
-<div class="line"><span class="lineno">   50</span> </div>
-<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">if</span> (result == <span class="keyword">nullptr</span>)</div>
-<div class="line"><span class="lineno">   52</span>        {</div>
-<div class="line"><span class="lineno">   53</span>            result = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><span class="lineno">   54</span>        }</div>
-<div class="line"><span class="lineno">   55</span>        <a class="code hl_function" href="classElevate_1_1FileDialogImpl.html#a13191cce6e2e28ed0f5c8ecfc07b9bcb">SetResult</a>(std::string(result));</div>
-<div class="line"><span class="lineno">   56</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="DesktopFileDialog_8cpp_source.html#l00044">44</a> of file <a class="el" href="DesktopFileDialog_8cpp_source.html">DesktopFileDialog.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   45</span>    {</div>
+<div class="line"><span class="lineno">   46</span>        std::vector&lt;const char*&gt; filterPtrs = ConvertFilters(filters);</div>
+<div class="line"><span class="lineno">   47</span> </div>
+<div class="line"><span class="lineno">   48</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* result = tinyfd_saveFileDialog(</div>
+<div class="line"><span class="lineno">   49</span>            title.empty() ? <span class="keyword">nullptr</span> : title.c_str(),</div>
+<div class="line"><span class="lineno">   50</span>            defaultPathOrFile.empty() ? nullptr : defaultPathOrFile.c_str(),</div>
+<div class="line"><span class="lineno">   51</span>            static_cast&lt;int&gt;(filterPtrs.size()),</div>
+<div class="line"><span class="lineno">   52</span>            filterPtrs.empty() ? nullptr : filterPtrs.data(),</div>
+<div class="line"><span class="lineno">   53</span>            filterDescription.empty() ? nullptr : filterDescription.c_str()</div>
+<div class="line"><span class="lineno">   54</span>        );</div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">if</span> (result == <span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">   57</span>        {</div>
+<div class="line"><span class="lineno">   58</span>            result = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><span class="lineno">   59</span>        }</div>
+<div class="line"><span class="lineno">   60</span>        <a class="code hl_function" href="classElevate_1_1FileDialogImpl.html#a13191cce6e2e28ed0f5c8ecfc07b9bcb">SetResult</a>(std::string(result));</div>
+<div class="line"><span class="lineno">   61</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -352,19 +352,76 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classElevate_1_1FileDialogImpl.html#af8cae36df53133f295fce05bdf39b421">Elevate::FileDialogImpl</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="DesktopFileDialog_8cpp_source.html#l00058">58</a> of file <a class="el" href="DesktopFileDialog_8cpp_source.html">DesktopFileDialog.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   59</span>    {</div>
-<div class="line"><span class="lineno">   60</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* result = tinyfd_selectFolderDialog(</div>
-<div class="line"><span class="lineno">   61</span>            title.empty() ? <span class="keyword">nullptr</span> : title.c_str(),</div>
-<div class="line"><span class="lineno">   62</span>            defaultPath.empty() ? nullptr : defaultPath.c_str()</div>
-<div class="line"><span class="lineno">   63</span>        );</div>
-<div class="line"><span class="lineno">   64</span> </div>
-<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">if</span> (result == <span class="keyword">nullptr</span>)</div>
-<div class="line"><span class="lineno">   66</span>        {</div>
-<div class="line"><span class="lineno">   67</span>            result = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><span class="lineno">   68</span>        }</div>
-<div class="line"><span class="lineno">   69</span>        <a class="code hl_function" href="classElevate_1_1FileDialogImpl.html#a13191cce6e2e28ed0f5c8ecfc07b9bcb">SetResult</a>(std::string(result));</div>
-<div class="line"><span class="lineno">   70</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="DesktopFileDialog_8cpp_source.html#l00063">63</a> of file <a class="el" href="DesktopFileDialog_8cpp_source.html">DesktopFileDialog.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   64</span>    {</div>
+<div class="line"><span class="lineno">   65</span><span class="preprocessor">#ifdef _WIN32</span></div>
+<div class="line"><span class="lineno">   66</span>        std::string selectedFolder = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><span class="lineno">   67</span> </div>
+<div class="line"><span class="lineno">   68</span>        HRESULT hr = CoInitializeEx(<span class="keyword">nullptr</span>, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);</div>
+<div class="line"><span class="lineno">   69</span>        <span class="keywordtype">bool</span> coInit = SUCCEEDED(hr);</div>
+<div class="line"><span class="lineno">   70</span> </div>
+<div class="line"><span class="lineno">   71</span>        IFileOpenDialog* pFileOpen = <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   72</span>        hr = CoCreateInstance(CLSID_FileOpenDialog, <span class="keyword">nullptr</span>, CLSCTX_ALL, IID_IFileOpenDialog, <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">void</span>**<span class="keyword">&gt;</span>(&amp;pFileOpen));</div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>        <span class="keywordflow">if</span> (SUCCEEDED(hr))</div>
+<div class="line"><span class="lineno">   75</span>        {</div>
+<div class="line"><span class="lineno">   76</span>            FILEOPENDIALOGOPTIONS options;</div>
+<div class="line"><span class="lineno">   77</span>            <span class="keywordflow">if</span> (SUCCEEDED(pFileOpen-&gt;GetOptions(&amp;options)))</div>
+<div class="line"><span class="lineno">   78</span>            {</div>
+<div class="line"><span class="lineno">   79</span>                pFileOpen-&gt;SetOptions(options | FOS_PICKFOLDERS | FOS_FORCEFILESYSTEM);</div>
+<div class="line"><span class="lineno">   80</span>            }</div>
+<div class="line"><span class="lineno">   81</span> </div>
+<div class="line"><span class="lineno">   82</span>            <span class="keywordflow">if</span> (!title.empty())</div>
+<div class="line"><span class="lineno">   83</span>            {</div>
+<div class="line"><span class="lineno">   84</span>                <span class="keywordtype">int</span> sizeNeeded = MultiByteToWideChar(CP_UTF8, 0, title.c_str(), (<span class="keywordtype">int</span>)title.size(), <span class="keyword">nullptr</span>, 0);</div>
+<div class="line"><span class="lineno">   85</span>                std::wstring wTitle(sizeNeeded, 0);</div>
+<div class="line"><span class="lineno">   86</span>                MultiByteToWideChar(CP_UTF8, 0, title.c_str(), (<span class="keywordtype">int</span>)title.size(), &amp;wTitle[0], sizeNeeded);</div>
+<div class="line"><span class="lineno">   87</span>                pFileOpen-&gt;SetTitle(wTitle.c_str());</div>
+<div class="line"><span class="lineno">   88</span>            }</div>
+<div class="line"><span class="lineno">   89</span> </div>
+<div class="line"><span class="lineno">   90</span>            <span class="keywordflow">if</span> (SUCCEEDED(pFileOpen-&gt;Show(<span class="keyword">nullptr</span>)))</div>
+<div class="line"><span class="lineno">   91</span>            {</div>
+<div class="line"><span class="lineno">   92</span>                IShellItem* pItem = <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   93</span>                <span class="keywordflow">if</span> (SUCCEEDED(pFileOpen-&gt;GetResult(&amp;pItem)))</div>
+<div class="line"><span class="lineno">   94</span>                {</div>
+<div class="line"><span class="lineno">   95</span>                    PWSTR pszPath = <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   96</span>                    <span class="keywordflow">if</span> (SUCCEEDED(pItem-&gt;GetDisplayName(SIGDN_FILESYSPATH, &amp;pszPath)))</div>
+<div class="line"><span class="lineno">   97</span>                    {</div>
+<div class="line"><span class="lineno">   98</span>                        <span class="keywordtype">int</span> sizeNeeded = WideCharToMultiByte(CP_UTF8, 0, pszPath, -1, <span class="keyword">nullptr</span>, 0, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>);</div>
+<div class="line"><span class="lineno">   99</span>                        std::string path(sizeNeeded, 0);</div>
+<div class="line"><span class="lineno">  100</span>                        WideCharToMultiByte(CP_UTF8, 0, pszPath, -1, &amp;path[0], sizeNeeded, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>);</div>
+<div class="line"><span class="lineno">  101</span> </div>
+<div class="line"><span class="lineno">  102</span>                        <span class="keywordflow">if</span> (!path.empty() &amp;&amp; path.back() == <span class="charliteral">&#39;\0&#39;</span>)</div>
+<div class="line"><span class="lineno">  103</span>                        {</div>
+<div class="line"><span class="lineno">  104</span>                            path.pop_back();</div>
+<div class="line"><span class="lineno">  105</span>                        }</div>
+<div class="line"><span class="lineno">  106</span>                        selectedFolder = path;</div>
+<div class="line"><span class="lineno">  107</span>                        CoTaskMemFree(pszPath);</div>
+<div class="line"><span class="lineno">  108</span>                    }</div>
+<div class="line"><span class="lineno">  109</span>                    pItem-&gt;Release();</div>
+<div class="line"><span class="lineno">  110</span>                }</div>
+<div class="line"><span class="lineno">  111</span>            }</div>
+<div class="line"><span class="lineno">  112</span>            pFileOpen-&gt;Release();</div>
+<div class="line"><span class="lineno">  113</span>        }</div>
+<div class="line"><span class="lineno">  114</span> </div>
+<div class="line"><span class="lineno">  115</span>        <span class="keywordflow">if</span> (coInit)</div>
+<div class="line"><span class="lineno">  116</span>        {</div>
+<div class="line"><span class="lineno">  117</span>            CoUninitialize();</div>
+<div class="line"><span class="lineno">  118</span>        }</div>
+<div class="line"><span class="lineno">  119</span>        <a class="code hl_function" href="classElevate_1_1FileDialogImpl.html#a13191cce6e2e28ed0f5c8ecfc07b9bcb">SetResult</a>(selectedFolder);</div>
+<div class="line"><span class="lineno">  120</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  121</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* result = tinyfd_selectFolderDialog(</div>
+<div class="line"><span class="lineno">  122</span>            title.empty() ? <span class="keyword">nullptr</span> : title.c_str(),</div>
+<div class="line"><span class="lineno">  123</span>            defaultPath.empty() ? nullptr : defaultPath.c_str()</div>
+<div class="line"><span class="lineno">  124</span>        );</div>
+<div class="line"><span class="lineno">  125</span> </div>
+<div class="line"><span class="lineno">  126</span>        <span class="keywordflow">if</span> (result == <span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">  127</span>        {</div>
+<div class="line"><span class="lineno">  128</span>            result = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><span class="lineno">  129</span>        }</div>
+<div class="line"><span class="lineno">  130</span>        <a class="code hl_function" href="classElevate_1_1FileDialogImpl.html#a13191cce6e2e28ed0f5c8ecfc07b9bcb">SetResult</a>(std::string(result));</div>
+<div class="line"><span class="lineno">  131</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  132</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

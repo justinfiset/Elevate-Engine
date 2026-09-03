@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp1hpb5ice.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmppdu7gy_w.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -329,23 +329,23 @@ Module["expectedDataFileDownloads"]++;
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp1hpb5ice.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpxkwvrxta.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmppdu7gy_w.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpjo31p5lo.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpxkwvrxta.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmphnfmw_ag.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpjo31p5lo.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpuww5vxi9.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmphnfmw_ag.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpuww5vxi9.js
 var programArgs = [];
 
 var thisProgram = "./this.program";
@@ -6659,6 +6659,18 @@ var _emscripten_glBindBuffer = (target, buffer) => {
 
 var _glBindBuffer = _emscripten_glBindBuffer;
 
+var _emscripten_glBindFramebuffer = (target, framebuffer) => {
+  GLctx.bindFramebuffer(target, GL.framebuffers[framebuffer]);
+};
+
+var _glBindFramebuffer = _emscripten_glBindFramebuffer;
+
+var _emscripten_glBindRenderbuffer = (target, renderbuffer) => {
+  GLctx.bindRenderbuffer(target, GL.renderbuffers[renderbuffer]);
+};
+
+var _glBindRenderbuffer = _emscripten_glBindRenderbuffer;
+
 var _emscripten_glBindTexture = (target, texture) => {
   GLctx.bindTexture(target, GL.textures[texture]);
 };
@@ -6693,6 +6705,10 @@ var _emscripten_glBlendFuncSeparate = (x0, x1, x2, x3) => GLctx.blendFuncSeparat
 
 var _glBlendFuncSeparate = _emscripten_glBlendFuncSeparate;
 
+var _emscripten_glBlitFramebuffer = (x0, x1, x2, x3, x4, x5, x6, x7, x8, x9) => GLctx.blitFramebuffer(x0, x1, x2, x3, x4, x5, x6, x7, x8, x9);
+
+var _glBlitFramebuffer = _emscripten_glBlitFramebuffer;
+
 var _emscripten_glBufferData = (target, size, data, usage) => {
   if (GL.currentContext.version >= 2) {
     // If size is zero, WebGL would interpret uploading the whole input
@@ -6719,6 +6735,10 @@ var _emscripten_glBufferSubData = (target, offset, size, data) => webglBufferSub
 
 var _glBufferSubData = _emscripten_glBufferSubData;
 
+var _emscripten_glCheckFramebufferStatus = x0 => GLctx.checkFramebufferStatus(x0);
+
+var _glCheckFramebufferStatus = _emscripten_glCheckFramebufferStatus;
+
 var _emscripten_glClear = x0 => GLctx.clear(x0);
 
 var _glClear = _emscripten_glClear;
@@ -6726,6 +6746,12 @@ var _glClear = _emscripten_glClear;
 var _emscripten_glClearColor = (x0, x1, x2, x3) => GLctx.clearColor(x0, x1, x2, x3);
 
 var _glClearColor = _emscripten_glClearColor;
+
+var _emscripten_glColorMask = (red, green, blue, alpha) => {
+  GLctx.colorMask(!!red, !!green, !!blue, !!alpha);
+};
+
+var _glColorMask = _emscripten_glColorMask;
 
 var _emscripten_glCompileShader = shader => {
   GLctx.compileShader(GL.shaders[shader]);
@@ -6839,6 +6865,16 @@ var _emscripten_glDeleteVertexArraysOES = _glDeleteVertexArrays;
 
 var _glDeleteVertexArraysOES = _emscripten_glDeleteVertexArraysOES;
 
+var _emscripten_glDepthFunc = x0 => GLctx.depthFunc(x0);
+
+var _glDepthFunc = _emscripten_glDepthFunc;
+
+var _emscripten_glDepthMask = flag => {
+  GLctx.depthMask(!!flag);
+};
+
+var _glDepthMask = _emscripten_glDepthMask;
+
 var _emscripten_glDetachShader = (program, shader) => {
   GLctx.detachShader(GL.programs[program], GL.shaders[shader]);
 };
@@ -6848,6 +6884,27 @@ var _glDetachShader = _emscripten_glDetachShader;
 var _emscripten_glDisable = x0 => GLctx.disable(x0);
 
 var _glDisable = _emscripten_glDisable;
+
+var _emscripten_glDrawArrays = (mode, first, count) => {
+  // bind any client-side buffers
+  GL.preDrawHandleClientVertexAttribBindings(first + count);
+  GLctx.drawArrays(mode, first, count);
+  GL.postDrawHandleClientVertexAttribBindings();
+};
+
+var _glDrawArrays = _emscripten_glDrawArrays;
+
+var tempFixedLengthArray = [];
+
+var _emscripten_glDrawBuffers = (n, bufs) => {
+  var bufArray = tempFixedLengthArray[n];
+  for (var i = 0; i < n; i++) {
+    bufArray[i] = (growMemViews(), HEAP32)[(((bufs) + (i * 4)) >> 2)];
+  }
+  GLctx.drawBuffers(bufArray);
+};
+
+var _glDrawBuffers = _emscripten_glDrawBuffers;
 
 var _emscripten_glDrawElements = (mode, count, type, indices) => {
   var buf;
@@ -6911,6 +6968,22 @@ var _emscripten_glEnableVertexAttribArray = index => {
 
 var _glEnableVertexAttribArray = _emscripten_glEnableVertexAttribArray;
 
+var _emscripten_glFlush = () => GLctx.flush();
+
+var _glFlush = _emscripten_glFlush;
+
+var _emscripten_glFramebufferRenderbuffer = (target, attachment, renderbuffertarget, renderbuffer) => {
+  GLctx.framebufferRenderbuffer(target, attachment, renderbuffertarget, GL.renderbuffers[renderbuffer]);
+};
+
+var _glFramebufferRenderbuffer = _emscripten_glFramebufferRenderbuffer;
+
+var _emscripten_glFramebufferTexture2D = (target, attachment, textarget, texture, level) => {
+  GLctx.framebufferTexture2D(target, attachment, textarget, GL.textures[texture], level);
+};
+
+var _glFramebufferTexture2D = _emscripten_glFramebufferTexture2D;
+
 var _emscripten_glFrontFace = x0 => GLctx.frontFace(x0);
 
 var _glFrontFace = _emscripten_glFrontFace;
@@ -6920,6 +6993,18 @@ var _emscripten_glGenBuffers = (n, buffers) => {
 };
 
 var _glGenBuffers = _emscripten_glGenBuffers;
+
+var _emscripten_glGenFramebuffers = (n, ids) => {
+  GL.genObject(n, ids, "createFramebuffer", GL.framebuffers);
+};
+
+var _glGenFramebuffers = _emscripten_glGenFramebuffers;
+
+var _emscripten_glGenRenderbuffers = (n, renderbuffers) => {
+  GL.genObject(n, renderbuffers, "createRenderbuffer", GL.renderbuffers);
+};
+
+var _glGenRenderbuffers = _emscripten_glGenRenderbuffers;
 
 var _emscripten_glGenTextures = (n, textures) => {
   GL.genObject(n, textures, "createTexture", GL.textures);
@@ -6940,6 +7025,22 @@ var _glGenVertexArraysOES = _emscripten_glGenVertexArraysOES;
 var _emscripten_glGenerateMipmap = x0 => GLctx.generateMipmap(x0);
 
 var _glGenerateMipmap = _emscripten_glGenerateMipmap;
+
+var __glGetActiveAttribOrUniform = (funcName, program, index, bufSize, length, size, type, name) => {
+  program = GL.programs[program];
+  var info = GLctx[funcName](program, index);
+  if (info) {
+    // If an error occurs, nothing will be written to length, size and type and name.
+    var numBytesWrittenExclNull = name && stringToUTF8(info.name, name, bufSize);
+    if (length) (growMemViews(), HEAP32)[((length) >> 2)] = numBytesWrittenExclNull;
+    if (size) (growMemViews(), HEAP32)[((size) >> 2)] = info.size;
+    if (type) (growMemViews(), HEAP32)[((type) >> 2)] = info.type;
+  }
+};
+
+var _emscripten_glGetActiveUniform = (program, index, bufSize, length, size, type, name) => __glGetActiveAttribOrUniform("getActiveUniform", program, index, bufSize, length, size, type, name);
+
+var _glGetActiveUniform = _emscripten_glGetActiveUniform;
 
 var _emscripten_glGetAttribLocation = (program, name) => GLctx.getAttribLocation(GL.programs[program], UTF8ToString(name));
 
@@ -7443,6 +7544,14 @@ var _emscripten_glPixelStorei = (pname, param) => {
 
 var _glPixelStorei = _emscripten_glPixelStorei;
 
+var _emscripten_glReadBuffer = x0 => GLctx.readBuffer(x0);
+
+var _glReadBuffer = _emscripten_glReadBuffer;
+
+var _emscripten_glRenderbufferStorage = (x0, x1, x2, x3) => GLctx.renderbufferStorage(x0, x1, x2, x3);
+
+var _glRenderbufferStorage = _emscripten_glRenderbufferStorage;
+
 var _emscripten_glScissor = (x0, x1, x2, x3) => GLctx.scissor(x0, x1, x2, x3);
 
 var _glScissor = _emscripten_glScissor;
@@ -7554,13 +7663,284 @@ var webglGetProgramUniformLocation = (program, location) => {
 
 var webglGetUniformLocation = location => webglGetProgramUniformLocation(GLctx.currentProgram, location);
 
+var _emscripten_glUniform1f = (location, v0) => {
+  GLctx.uniform1f(webglGetUniformLocation(location), v0);
+};
+
+var _glUniform1f = _emscripten_glUniform1f;
+
+var miniTempWebGLFloatBuffers = [];
+
+var _emscripten_glUniform1fv = (location, count, value) => {
+  if (GL.currentContext.version >= 2) {
+    count && GLctx.uniform1fv(webglGetUniformLocation(location), (growMemViews(), HEAPF32), ((value) >> 2), count);
+    return;
+  }
+  if (count <= 288) {
+    // avoid allocation when uploading few enough uniforms
+    var view = miniTempWebGLFloatBuffers[count];
+    for (var i = 0; i < count; ++i) {
+      view[i] = (growMemViews(), HEAPF32)[(((value) + (4 * i)) >> 2)];
+    }
+  } else {
+    var view = (growMemViews(), HEAPF32).subarray((((value) >> 2)), ((value + count * 4) >> 2));
+  }
+  GLctx.uniform1fv(webglGetUniformLocation(location), view);
+};
+
+var _glUniform1fv = _emscripten_glUniform1fv;
+
 var _emscripten_glUniform1i = (location, v0) => {
   GLctx.uniform1i(webglGetUniformLocation(location), v0);
 };
 
 var _glUniform1i = _emscripten_glUniform1i;
 
-var miniTempWebGLFloatBuffers = [];
+var miniTempWebGLIntBuffers = [];
+
+var _emscripten_glUniform1iv = (location, count, value) => {
+  if (GL.currentContext.version >= 2) {
+    count && GLctx.uniform1iv(webglGetUniformLocation(location), (growMemViews(), HEAP32), ((value) >> 2), count);
+    return;
+  }
+  if (count <= 288) {
+    // avoid allocation when uploading few enough uniforms
+    var view = miniTempWebGLIntBuffers[count];
+    for (var i = 0; i < count; ++i) {
+      view[i] = (growMemViews(), HEAP32)[(((value) + (4 * i)) >> 2)];
+    }
+  } else {
+    var view = (growMemViews(), HEAP32).subarray((((value) >> 2)), ((value + count * 4) >> 2));
+  }
+  GLctx.uniform1iv(webglGetUniformLocation(location), view);
+};
+
+var _glUniform1iv = _emscripten_glUniform1iv;
+
+var _emscripten_glUniform2f = (location, v0, v1) => {
+  GLctx.uniform2f(webglGetUniformLocation(location), v0, v1);
+};
+
+var _glUniform2f = _emscripten_glUniform2f;
+
+var _emscripten_glUniform2fv = (location, count, value) => {
+  if (GL.currentContext.version >= 2) {
+    count && GLctx.uniform2fv(webglGetUniformLocation(location), (growMemViews(), HEAPF32), ((value) >> 2), count * 2);
+    return;
+  }
+  if (count <= 144) {
+    // avoid allocation when uploading few enough uniforms
+    count *= 2;
+    var view = miniTempWebGLFloatBuffers[count];
+    for (var i = 0; i < count; i += 2) {
+      view[i] = (growMemViews(), HEAPF32)[(((value) + (4 * i)) >> 2)];
+      view[i + 1] = (growMemViews(), HEAPF32)[(((value) + (4 * i + 4)) >> 2)];
+    }
+  } else {
+    var view = (growMemViews(), HEAPF32).subarray((((value) >> 2)), ((value + count * 8) >> 2));
+  }
+  GLctx.uniform2fv(webglGetUniformLocation(location), view);
+};
+
+var _glUniform2fv = _emscripten_glUniform2fv;
+
+var _emscripten_glUniform2i = (location, v0, v1) => {
+  GLctx.uniform2i(webglGetUniformLocation(location), v0, v1);
+};
+
+var _glUniform2i = _emscripten_glUniform2i;
+
+var _emscripten_glUniform2iv = (location, count, value) => {
+  if (GL.currentContext.version >= 2) {
+    count && GLctx.uniform2iv(webglGetUniformLocation(location), (growMemViews(), HEAP32), ((value) >> 2), count * 2);
+    return;
+  }
+  if (count <= 144) {
+    // avoid allocation when uploading few enough uniforms
+    count *= 2;
+    var view = miniTempWebGLIntBuffers[count];
+    for (var i = 0; i < count; i += 2) {
+      view[i] = (growMemViews(), HEAP32)[(((value) + (4 * i)) >> 2)];
+      view[i + 1] = (growMemViews(), HEAP32)[(((value) + (4 * i + 4)) >> 2)];
+    }
+  } else {
+    var view = (growMemViews(), HEAP32).subarray((((value) >> 2)), ((value + count * 8) >> 2));
+  }
+  GLctx.uniform2iv(webglGetUniformLocation(location), view);
+};
+
+var _glUniform2iv = _emscripten_glUniform2iv;
+
+var _emscripten_glUniform3f = (location, v0, v1, v2) => {
+  GLctx.uniform3f(webglGetUniformLocation(location), v0, v1, v2);
+};
+
+var _glUniform3f = _emscripten_glUniform3f;
+
+var _emscripten_glUniform3fv = (location, count, value) => {
+  if (GL.currentContext.version >= 2) {
+    count && GLctx.uniform3fv(webglGetUniformLocation(location), (growMemViews(), HEAPF32), ((value) >> 2), count * 3);
+    return;
+  }
+  if (count <= 96) {
+    // avoid allocation when uploading few enough uniforms
+    count *= 3;
+    var view = miniTempWebGLFloatBuffers[count];
+    for (var i = 0; i < count; i += 3) {
+      view[i] = (growMemViews(), HEAPF32)[(((value) + (4 * i)) >> 2)];
+      view[i + 1] = (growMemViews(), HEAPF32)[(((value) + (4 * i + 4)) >> 2)];
+      view[i + 2] = (growMemViews(), HEAPF32)[(((value) + (4 * i + 8)) >> 2)];
+    }
+  } else {
+    var view = (growMemViews(), HEAPF32).subarray((((value) >> 2)), ((value + count * 12) >> 2));
+  }
+  GLctx.uniform3fv(webglGetUniformLocation(location), view);
+};
+
+var _glUniform3fv = _emscripten_glUniform3fv;
+
+var _emscripten_glUniform3i = (location, v0, v1, v2) => {
+  GLctx.uniform3i(webglGetUniformLocation(location), v0, v1, v2);
+};
+
+var _glUniform3i = _emscripten_glUniform3i;
+
+var _emscripten_glUniform3iv = (location, count, value) => {
+  if (GL.currentContext.version >= 2) {
+    count && GLctx.uniform3iv(webglGetUniformLocation(location), (growMemViews(), HEAP32), ((value) >> 2), count * 3);
+    return;
+  }
+  if (count <= 96) {
+    // avoid allocation when uploading few enough uniforms
+    count *= 3;
+    var view = miniTempWebGLIntBuffers[count];
+    for (var i = 0; i < count; i += 3) {
+      view[i] = (growMemViews(), HEAP32)[(((value) + (4 * i)) >> 2)];
+      view[i + 1] = (growMemViews(), HEAP32)[(((value) + (4 * i + 4)) >> 2)];
+      view[i + 2] = (growMemViews(), HEAP32)[(((value) + (4 * i + 8)) >> 2)];
+    }
+  } else {
+    var view = (growMemViews(), HEAP32).subarray((((value) >> 2)), ((value + count * 12) >> 2));
+  }
+  GLctx.uniform3iv(webglGetUniformLocation(location), view);
+};
+
+var _glUniform3iv = _emscripten_glUniform3iv;
+
+var _emscripten_glUniform4f = (location, v0, v1, v2, v3) => {
+  GLctx.uniform4f(webglGetUniformLocation(location), v0, v1, v2, v3);
+};
+
+var _glUniform4f = _emscripten_glUniform4f;
+
+var _emscripten_glUniform4fv = (location, count, value) => {
+  if (GL.currentContext.version >= 2) {
+    count && GLctx.uniform4fv(webglGetUniformLocation(location), (growMemViews(), HEAPF32), ((value) >> 2), count * 4);
+    return;
+  }
+  if (count <= 72) {
+    // avoid allocation when uploading few enough uniforms
+    var view = miniTempWebGLFloatBuffers[4 * count];
+    // hoist the heap out of the loop for size and for pthreads+growth.
+    var heap = (growMemViews(), HEAPF32);
+    value = ((value) >> 2);
+    count *= 4;
+    for (var i = 0; i < count; i += 4) {
+      var dst = value + i;
+      view[i] = heap[dst];
+      view[i + 1] = heap[dst + 1];
+      view[i + 2] = heap[dst + 2];
+      view[i + 3] = heap[dst + 3];
+    }
+  } else {
+    var view = (growMemViews(), HEAPF32).subarray((((value) >> 2)), ((value + count * 16) >> 2));
+  }
+  GLctx.uniform4fv(webglGetUniformLocation(location), view);
+};
+
+var _glUniform4fv = _emscripten_glUniform4fv;
+
+var _emscripten_glUniform4i = (location, v0, v1, v2, v3) => {
+  GLctx.uniform4i(webglGetUniformLocation(location), v0, v1, v2, v3);
+};
+
+var _glUniform4i = _emscripten_glUniform4i;
+
+var _emscripten_glUniform4iv = (location, count, value) => {
+  if (GL.currentContext.version >= 2) {
+    count && GLctx.uniform4iv(webglGetUniformLocation(location), (growMemViews(), HEAP32), ((value) >> 2), count * 4);
+    return;
+  }
+  if (count <= 72) {
+    // avoid allocation when uploading few enough uniforms
+    count *= 4;
+    var view = miniTempWebGLIntBuffers[count];
+    for (var i = 0; i < count; i += 4) {
+      view[i] = (growMemViews(), HEAP32)[(((value) + (4 * i)) >> 2)];
+      view[i + 1] = (growMemViews(), HEAP32)[(((value) + (4 * i + 4)) >> 2)];
+      view[i + 2] = (growMemViews(), HEAP32)[(((value) + (4 * i + 8)) >> 2)];
+      view[i + 3] = (growMemViews(), HEAP32)[(((value) + (4 * i + 12)) >> 2)];
+    }
+  } else {
+    var view = (growMemViews(), HEAP32).subarray((((value) >> 2)), ((value + count * 16) >> 2));
+  }
+  GLctx.uniform4iv(webglGetUniformLocation(location), view);
+};
+
+var _glUniform4iv = _emscripten_glUniform4iv;
+
+var _emscripten_glUniformMatrix2fv = (location, count, transpose, value) => {
+  if (GL.currentContext.version >= 2) {
+    count && GLctx.uniformMatrix2fv(webglGetUniformLocation(location), !!transpose, (growMemViews(), 
+    HEAPF32), ((value) >> 2), count * 4);
+    return;
+  }
+  if (count <= 72) {
+    // avoid allocation when uploading few enough uniforms
+    count *= 4;
+    var view = miniTempWebGLFloatBuffers[count];
+    for (var i = 0; i < count; i += 4) {
+      view[i] = (growMemViews(), HEAPF32)[(((value) + (4 * i)) >> 2)];
+      view[i + 1] = (growMemViews(), HEAPF32)[(((value) + (4 * i + 4)) >> 2)];
+      view[i + 2] = (growMemViews(), HEAPF32)[(((value) + (4 * i + 8)) >> 2)];
+      view[i + 3] = (growMemViews(), HEAPF32)[(((value) + (4 * i + 12)) >> 2)];
+    }
+  } else {
+    var view = (growMemViews(), HEAPF32).subarray((((value) >> 2)), ((value + count * 16) >> 2));
+  }
+  GLctx.uniformMatrix2fv(webglGetUniformLocation(location), !!transpose, view);
+};
+
+var _glUniformMatrix2fv = _emscripten_glUniformMatrix2fv;
+
+var _emscripten_glUniformMatrix3fv = (location, count, transpose, value) => {
+  if (GL.currentContext.version >= 2) {
+    count && GLctx.uniformMatrix3fv(webglGetUniformLocation(location), !!transpose, (growMemViews(), 
+    HEAPF32), ((value) >> 2), count * 9);
+    return;
+  }
+  if (count <= 32) {
+    // avoid allocation when uploading few enough uniforms
+    count *= 9;
+    var view = miniTempWebGLFloatBuffers[count];
+    for (var i = 0; i < count; i += 9) {
+      view[i] = (growMemViews(), HEAPF32)[(((value) + (4 * i)) >> 2)];
+      view[i + 1] = (growMemViews(), HEAPF32)[(((value) + (4 * i + 4)) >> 2)];
+      view[i + 2] = (growMemViews(), HEAPF32)[(((value) + (4 * i + 8)) >> 2)];
+      view[i + 3] = (growMemViews(), HEAPF32)[(((value) + (4 * i + 12)) >> 2)];
+      view[i + 4] = (growMemViews(), HEAPF32)[(((value) + (4 * i + 16)) >> 2)];
+      view[i + 5] = (growMemViews(), HEAPF32)[(((value) + (4 * i + 20)) >> 2)];
+      view[i + 6] = (growMemViews(), HEAPF32)[(((value) + (4 * i + 24)) >> 2)];
+      view[i + 7] = (growMemViews(), HEAPF32)[(((value) + (4 * i + 28)) >> 2)];
+      view[i + 8] = (growMemViews(), HEAPF32)[(((value) + (4 * i + 32)) >> 2)];
+    }
+  } else {
+    var view = (growMemViews(), HEAPF32).subarray((((value) >> 2)), ((value + count * 36) >> 2));
+  }
+  GLctx.uniformMatrix3fv(webglGetUniformLocation(location), !!transpose, view);
+};
+
+var _glUniformMatrix3fv = _emscripten_glUniformMatrix3fv;
 
 var _emscripten_glUniformMatrix4fv = (location, count, transpose, value) => {
   if (GL.currentContext.version >= 2) {
@@ -9934,11 +10314,20 @@ MainLoop.init();
 // start. This helps it optimize VBO double-buffering and reduce GPU stalls.
 registerPreMainLoop(() => GL.newRenderingFrameStarted());
 
+for (let i = 0; i < 32; ++i) tempFixedLengthArray.push(new Array(i));
+
 var miniTempWebGLFloatBuffersStorage = new Float32Array(288);
 
 // Create GL_POOL_TEMP_BUFFERS_SIZE+1 temporary buffers, for uploads of size 0 through GL_POOL_TEMP_BUFFERS_SIZE inclusive
 for (/**@suppress{duplicate}*/ var i = 0; i <= 288; ++i) {
   miniTempWebGLFloatBuffers[i] = miniTempWebGLFloatBuffersStorage.subarray(0, i);
+}
+
+var miniTempWebGLIntBuffersStorage = new Int32Array(288);
+
+// Create GL_POOL_TEMP_BUFFERS_SIZE+1 temporary buffers, for uploads of size 0 through GL_POOL_TEMP_BUFFERS_SIZE inclusive
+for (/**@suppress{duplicate}*/ var i = 0; i <= 288; ++i) {
+  miniTempWebGLIntBuffers[i] = miniTempWebGLIntBuffersStorage.subarray(0, i);
 }
 
 // End JS library code
@@ -10004,11 +10393,11 @@ Module["FS_createDataFile"] = FS_createDataFile;
 
 Module["FS_createLazyFile"] = FS_createLazyFile;
 
-var missingLibrarySymbols = [ "writeI53ToI64Clamped", "writeI53ToI64Signaling", "writeI53ToU64Clamped", "writeI53ToU64Signaling", "convertI32PairToI53", "convertI32PairToI53Checked", "convertU32PairToI53", "getTempRet0", "setTempRet0", "createNamedFunction", "zeroMemory", "withStackSave", "inetPton4", "inetNtop4", "inetPton6", "inetNtop6", "readSockaddr", "writeSockaddr", "runMainThreadEmAsm", "autoResumeAudioContext", "dynCallLegacy", "getDynCaller", "dynCall", "asmjsMangle", "HandleAllocator", "addOnInit", "addOnPostCtor", "addOnPreMain", "STACK_SIZE", "STACK_ALIGN", "POINTER_SIZE", "ASSERTIONS", "convertJsFunctionToWasm", "getEmptyTableSlot", "updateTableMap", "getFunctionAddress", "addFunction", "removeFunction", "setValue", "getValue", "intArrayToString", "AsciiToString", "stringToAscii", "UTF16ToString", "stringToUTF16", "lengthBytesUTF16", "UTF32ToString", "stringToUTF32", "lengthBytesUTF32", "registerKeyEventCallback", "findCanvasEventTarget", "registerMouseEventCallback", "registerFocusEventCallback", "fillDeviceOrientationEventData", "registerDeviceOrientationEventCallback", "fillDeviceMotionEventData", "registerDeviceMotionEventCallback", "screenOrientation", "fillOrientationChangeEventData", "registerOrientationChangeEventCallback", "fillFullscreenChangeEventData", "registerFullscreenChangeEventCallback", "callCanvasResizedCallback", "JSEvents_requestFullscreen", "JSEvents_resizeCanvasForFullscreen", "registerRestoreOldStyle", "hideEverythingExceptGivenElement", "restoreHiddenElements", "setLetterbox", "currentFullscreenStrategy", "softFullscreenResizeWebGLRenderTarget", "doRequestFullscreen", "fillPointerlockChangeEventData", "registerPointerlockChangeEventCallback", "registerPointerlockErrorEventCallback", "requestPointerLock", "fillVisibilityChangeEventData", "registerVisibilityChangeEventCallback", "registerTouchEventCallback", "fillGamepadEventData", "registerGamepadEventCallback", "registerBeforeUnloadEventCallback", "fillBatteryEventData", "registerBatteryEventCallback", "setCanvasElementSizeCallingThread", "setCanvasElementSizeMainThread", "setCanvasElementSize", "getCanvasSizeCallingThread", "getCanvasSizeMainThread", "getCanvasElementSize", "jsStackTrace", "getCallstack", "convertPCtoSourceLocation", "wasiRightsToMuslOFlags", "wasiOFlagsToMuslOFlags", "setImmediateWrapped", "safeRequestAnimationFrame", "clearImmediateWrapped", "registerPostMainLoop", "getPromise", "makePromise", "addPromise", "idsToPromises", "makePromiseCallback", "findMatchingCatch", "incrementUncaughtExceptionCount", "decrementUncaughtExceptionCount", "Browser_asyncPrepareDataCounter", "arraySum", "addDays", "getSocketFromFD", "getSocketAddress", "FS_mkdirTree", "_setNetworkCallback", "emscriptenWebGLGetUniform", "emscriptenWebGLGetVertexAttrib", "__glGetActiveAttribOrUniform", "emscriptenWebGLGetBufferBinding", "emscriptenWebGLValidateMapBufferTarget", "writeGLArray", "emscripten_webgl_destroy_context_before_on_calling_thread", "registerWebGlEventCallback", "runAndAbortIfError", "emscriptenWebGLGetIndexed", "writeStringToMemory", "writeAsciiToMemory", "allocateUTF8", "allocateUTF8OnStack", "demangle", "stackTrace", "getNativeTypeSize" ];
+var missingLibrarySymbols = [ "writeI53ToI64Clamped", "writeI53ToI64Signaling", "writeI53ToU64Clamped", "writeI53ToU64Signaling", "convertI32PairToI53", "convertI32PairToI53Checked", "convertU32PairToI53", "getTempRet0", "setTempRet0", "createNamedFunction", "zeroMemory", "withStackSave", "inetPton4", "inetNtop4", "inetPton6", "inetNtop6", "readSockaddr", "writeSockaddr", "runMainThreadEmAsm", "autoResumeAudioContext", "dynCallLegacy", "getDynCaller", "dynCall", "asmjsMangle", "HandleAllocator", "addOnInit", "addOnPostCtor", "addOnPreMain", "STACK_SIZE", "STACK_ALIGN", "POINTER_SIZE", "ASSERTIONS", "convertJsFunctionToWasm", "getEmptyTableSlot", "updateTableMap", "getFunctionAddress", "addFunction", "removeFunction", "setValue", "getValue", "intArrayToString", "AsciiToString", "stringToAscii", "UTF16ToString", "stringToUTF16", "lengthBytesUTF16", "UTF32ToString", "stringToUTF32", "lengthBytesUTF32", "registerKeyEventCallback", "findCanvasEventTarget", "registerMouseEventCallback", "registerFocusEventCallback", "fillDeviceOrientationEventData", "registerDeviceOrientationEventCallback", "fillDeviceMotionEventData", "registerDeviceMotionEventCallback", "screenOrientation", "fillOrientationChangeEventData", "registerOrientationChangeEventCallback", "fillFullscreenChangeEventData", "registerFullscreenChangeEventCallback", "callCanvasResizedCallback", "JSEvents_requestFullscreen", "JSEvents_resizeCanvasForFullscreen", "registerRestoreOldStyle", "hideEverythingExceptGivenElement", "restoreHiddenElements", "setLetterbox", "currentFullscreenStrategy", "softFullscreenResizeWebGLRenderTarget", "doRequestFullscreen", "fillPointerlockChangeEventData", "registerPointerlockChangeEventCallback", "registerPointerlockErrorEventCallback", "requestPointerLock", "fillVisibilityChangeEventData", "registerVisibilityChangeEventCallback", "registerTouchEventCallback", "fillGamepadEventData", "registerGamepadEventCallback", "registerBeforeUnloadEventCallback", "fillBatteryEventData", "registerBatteryEventCallback", "setCanvasElementSizeCallingThread", "setCanvasElementSizeMainThread", "setCanvasElementSize", "getCanvasSizeCallingThread", "getCanvasSizeMainThread", "getCanvasElementSize", "jsStackTrace", "getCallstack", "convertPCtoSourceLocation", "wasiRightsToMuslOFlags", "wasiOFlagsToMuslOFlags", "setImmediateWrapped", "safeRequestAnimationFrame", "clearImmediateWrapped", "registerPostMainLoop", "getPromise", "makePromise", "addPromise", "idsToPromises", "makePromiseCallback", "findMatchingCatch", "incrementUncaughtExceptionCount", "decrementUncaughtExceptionCount", "Browser_asyncPrepareDataCounter", "arraySum", "addDays", "getSocketFromFD", "getSocketAddress", "FS_mkdirTree", "_setNetworkCallback", "emscriptenWebGLGetUniform", "emscriptenWebGLGetVertexAttrib", "emscriptenWebGLGetBufferBinding", "emscriptenWebGLValidateMapBufferTarget", "writeGLArray", "emscripten_webgl_destroy_context_before_on_calling_thread", "registerWebGlEventCallback", "runAndAbortIfError", "emscriptenWebGLGetIndexed", "writeStringToMemory", "writeAsciiToMemory", "allocateUTF8", "allocateUTF8OnStack", "demangle", "stackTrace", "getNativeTypeSize" ];
 
 missingLibrarySymbols.forEach(missingLibrarySymbol);
 
-var unexportedSymbols = [ "run", "out", "err", "callMain", "abort", "wasmExports", "writeStackCookie", "checkStackCookie", "writeI53ToI64", "readI53FromI64", "readI53FromU64", "INT53_MAX", "INT53_MIN", "bigintToI53Checked", "HEAP8", "HEAPU8", "HEAP16", "HEAPU16", "HEAP32", "HEAPU32", "HEAPF32", "HEAPF64", "HEAP64", "HEAPU64", "stackSave", "stackRestore", "stackAlloc", "ptrToString", "exitJS", "getHeapMax", "growMemory", "ENV", "ERRNO_CODES", "strError", "DNS", "Protocols", "Sockets", "timers", "warnOnce", "readEmAsmArgsArray", "readEmAsmArgs", "runEmAsmFunction", "jstoi_q", "getExecutableName", "handleException", "keepRuntimeAlive", "runtimeKeepalivePush", "runtimeKeepalivePop", "callUserCallback", "maybeExit", "asyncLoad", "alignMemory", "mmapAlloc", "wasmMemory", "getUniqueRunDependency", "noExitRuntime", "addOnPreRun", "addOnExit", "addOnPostRun", "freeTableIndexes", "functionsInTableMap", "PATH", "PATH_FS", "UTF8Decoder", "UTF8ArrayToString", "UTF8ToString", "stringToUTF8Array", "stringToUTF8", "lengthBytesUTF8", "intArrayFromString", "UTF16Decoder", "stringToNewUTF8", "stringToUTF8OnStack", "writeArrayToMemory", "JSEvents", "specialHTMLTargets", "findEventTarget", "getBoundingClientRect", "fillMouseEventData", "registerWheelEventCallback", "registerUiEventCallback", "restoreOldWindowedStyle", "UNWIND_CACHE", "ExitStatus", "getEnvStrings", "checkWasiClock", "doReadv", "doWritev", "initRandomFill", "randomFill", "safeSetTimeout", "emSetImmediate", "emClearImmediate_deps", "emClearImmediate", "registerPreMainLoop", "promiseMap", "uncaughtExceptionCount", "exceptionCaught", "ExceptionInfo", "Browser", "requestFullscreen", "setCanvasSize", "getUserMedia", "createContext", "getPreloadedImageData__data", "wget", "MONTH_DAYS_REGULAR", "MONTH_DAYS_LEAP", "MONTH_DAYS_REGULAR_CUMULATIVE", "MONTH_DAYS_LEAP_CUMULATIVE", "isLeapYear", "ydayFromDate", "SYSCALLS", "preloadPlugins", "FS_createPreloadedFile", "FS_modeStringToFlags", "FS_getMode", "FS_fileDataToTypedArray", "FS_stdin_getChar_buffer", "FS_stdin_getChar", "FS_readFile", "FS_root", "FS_mounts", "FS_devices", "FS_streams", "FS_nextInode", "FS_nameTable", "FS_currentPath", "FS_initialized", "FS_ignorePermissions", "FS_filesystems", "FS_syncFSRequests", "FS_lookupPath", "FS_getPath", "FS_hashName", "FS_hashAddNode", "FS_hashRemoveNode", "FS_lookupNode", "FS_createNode", "FS_destroyNode", "FS_isRoot", "FS_isMountpoint", "FS_isFile", "FS_isDir", "FS_isLink", "FS_isChrdev", "FS_isBlkdev", "FS_isFIFO", "FS_isSocket", "FS_flagsToPermissionString", "FS_nodePermissions", "FS_mayLookup", "FS_mayCreate", "FS_mayDelete", "FS_mayOpen", "FS_checkOpExists", "FS_nextfd", "FS_getStreamChecked", "FS_getStream", "FS_createStream", "FS_closeStream", "FS_dupStream", "FS_doSetAttr", "FS_chrdev_stream_ops", "FS_major", "FS_minor", "FS_makedev", "FS_registerDevice", "FS_getDevice", "FS_getMounts", "FS_syncfs", "FS_mount", "FS_unmount", "FS_lookup", "FS_mknod", "FS_statfs", "FS_statfsStream", "FS_statfsNode", "FS_create", "FS_mkdir", "FS_mkdev", "FS_symlink", "FS_link", "FS_rename", "FS_rmdir", "FS_readdir", "FS_readlink", "FS_stat", "FS_fstat", "FS_lstat", "FS_doChmod", "FS_chmod", "FS_lchmod", "FS_fchmod", "FS_doChown", "FS_chown", "FS_lchown", "FS_fchown", "FS_doTruncate", "FS_truncate", "FS_ftruncate", "FS_utime", "FS_open", "FS_close", "FS_isClosed", "FS_llseek", "FS_read", "FS_write", "FS_mmap", "FS_msync", "FS_ioctl", "FS_writeFile", "FS_cwd", "FS_chdir", "FS_createDefaultDirectories", "FS_createDefaultDevices", "FS_createSpecialDirectories", "FS_createStandardStreams", "FS_staticInit", "FS_init", "FS_quit", "FS_findObject", "FS_analyzePath", "FS_createFile", "FS_forceLoadFile", "MEMFS", "TTY", "PIPEFS", "SOCKFS", "tempFixedLengthArray", "miniTempWebGLFloatBuffers", "miniTempWebGLIntBuffers", "heapObjectForWebGLType", "toTypedArrayIndex", "webgl_enable_ANGLE_instanced_arrays", "webgl_enable_OES_vertex_array_object", "webgl_enable_WEBGL_draw_buffers", "webgl_enable_WEBGL_multi_draw", "webgl_enable_EXT_polygon_offset_clamp", "webgl_enable_EXT_clip_control", "webgl_enable_WEBGL_polygon_mode", "GL", "emscriptenWebGLGet", "computeUnpackAlignedImageSize", "colorChannelsInGlTextureFormat", "emscriptenWebGLGetTexPixelData", "webglGetProgramUniformLocation", "webglGetUniformLocation", "webglPrepareUniformLocationsBeforeFirstUse", "webglGetLeftBracePos", "AL", "GLUT", "EGL", "GLEW", "IDBStore", "SDL", "SDL_gfx", "GLFW_Window", "GLFW", "waitAsyncPolyfilled", "webgl_enable_WEBGL_draw_instanced_base_vertex_base_instance", "webgl_enable_WEBGL_multi_draw_instanced_base_vertex_base_instance", "print", "printErr", "jstoi_s", "PThread", "terminateWorker", "cleanupThread", "registerTLSInit", "spawnThread", "exitOnMainThread", "proxyToMainThread", "proxiedJSCallArgs", "invokeEntryPoint", "checkMailbox" ];
+var unexportedSymbols = [ "run", "out", "err", "callMain", "abort", "wasmExports", "writeStackCookie", "checkStackCookie", "writeI53ToI64", "readI53FromI64", "readI53FromU64", "INT53_MAX", "INT53_MIN", "bigintToI53Checked", "HEAP8", "HEAPU8", "HEAP16", "HEAPU16", "HEAP32", "HEAPU32", "HEAPF32", "HEAPF64", "HEAP64", "HEAPU64", "stackSave", "stackRestore", "stackAlloc", "ptrToString", "exitJS", "getHeapMax", "growMemory", "ENV", "ERRNO_CODES", "strError", "DNS", "Protocols", "Sockets", "timers", "warnOnce", "readEmAsmArgsArray", "readEmAsmArgs", "runEmAsmFunction", "jstoi_q", "getExecutableName", "handleException", "keepRuntimeAlive", "runtimeKeepalivePush", "runtimeKeepalivePop", "callUserCallback", "maybeExit", "asyncLoad", "alignMemory", "mmapAlloc", "wasmMemory", "getUniqueRunDependency", "noExitRuntime", "addOnPreRun", "addOnExit", "addOnPostRun", "freeTableIndexes", "functionsInTableMap", "PATH", "PATH_FS", "UTF8Decoder", "UTF8ArrayToString", "UTF8ToString", "stringToUTF8Array", "stringToUTF8", "lengthBytesUTF8", "intArrayFromString", "UTF16Decoder", "stringToNewUTF8", "stringToUTF8OnStack", "writeArrayToMemory", "JSEvents", "specialHTMLTargets", "findEventTarget", "getBoundingClientRect", "fillMouseEventData", "registerWheelEventCallback", "registerUiEventCallback", "restoreOldWindowedStyle", "UNWIND_CACHE", "ExitStatus", "getEnvStrings", "checkWasiClock", "doReadv", "doWritev", "initRandomFill", "randomFill", "safeSetTimeout", "emSetImmediate", "emClearImmediate_deps", "emClearImmediate", "registerPreMainLoop", "promiseMap", "uncaughtExceptionCount", "exceptionCaught", "ExceptionInfo", "Browser", "requestFullscreen", "setCanvasSize", "getUserMedia", "createContext", "getPreloadedImageData__data", "wget", "MONTH_DAYS_REGULAR", "MONTH_DAYS_LEAP", "MONTH_DAYS_REGULAR_CUMULATIVE", "MONTH_DAYS_LEAP_CUMULATIVE", "isLeapYear", "ydayFromDate", "SYSCALLS", "preloadPlugins", "FS_createPreloadedFile", "FS_modeStringToFlags", "FS_getMode", "FS_fileDataToTypedArray", "FS_stdin_getChar_buffer", "FS_stdin_getChar", "FS_readFile", "FS_root", "FS_mounts", "FS_devices", "FS_streams", "FS_nextInode", "FS_nameTable", "FS_currentPath", "FS_initialized", "FS_ignorePermissions", "FS_filesystems", "FS_syncFSRequests", "FS_lookupPath", "FS_getPath", "FS_hashName", "FS_hashAddNode", "FS_hashRemoveNode", "FS_lookupNode", "FS_createNode", "FS_destroyNode", "FS_isRoot", "FS_isMountpoint", "FS_isFile", "FS_isDir", "FS_isLink", "FS_isChrdev", "FS_isBlkdev", "FS_isFIFO", "FS_isSocket", "FS_flagsToPermissionString", "FS_nodePermissions", "FS_mayLookup", "FS_mayCreate", "FS_mayDelete", "FS_mayOpen", "FS_checkOpExists", "FS_nextfd", "FS_getStreamChecked", "FS_getStream", "FS_createStream", "FS_closeStream", "FS_dupStream", "FS_doSetAttr", "FS_chrdev_stream_ops", "FS_major", "FS_minor", "FS_makedev", "FS_registerDevice", "FS_getDevice", "FS_getMounts", "FS_syncfs", "FS_mount", "FS_unmount", "FS_lookup", "FS_mknod", "FS_statfs", "FS_statfsStream", "FS_statfsNode", "FS_create", "FS_mkdir", "FS_mkdev", "FS_symlink", "FS_link", "FS_rename", "FS_rmdir", "FS_readdir", "FS_readlink", "FS_stat", "FS_fstat", "FS_lstat", "FS_doChmod", "FS_chmod", "FS_lchmod", "FS_fchmod", "FS_doChown", "FS_chown", "FS_lchown", "FS_fchown", "FS_doTruncate", "FS_truncate", "FS_ftruncate", "FS_utime", "FS_open", "FS_close", "FS_isClosed", "FS_llseek", "FS_read", "FS_write", "FS_mmap", "FS_msync", "FS_ioctl", "FS_writeFile", "FS_cwd", "FS_chdir", "FS_createDefaultDirectories", "FS_createDefaultDevices", "FS_createSpecialDirectories", "FS_createStandardStreams", "FS_staticInit", "FS_init", "FS_quit", "FS_findObject", "FS_analyzePath", "FS_createFile", "FS_forceLoadFile", "MEMFS", "TTY", "PIPEFS", "SOCKFS", "tempFixedLengthArray", "miniTempWebGLFloatBuffers", "miniTempWebGLIntBuffers", "heapObjectForWebGLType", "toTypedArrayIndex", "webgl_enable_ANGLE_instanced_arrays", "webgl_enable_OES_vertex_array_object", "webgl_enable_WEBGL_draw_buffers", "webgl_enable_WEBGL_multi_draw", "webgl_enable_EXT_polygon_offset_clamp", "webgl_enable_EXT_clip_control", "webgl_enable_WEBGL_polygon_mode", "GL", "emscriptenWebGLGet", "computeUnpackAlignedImageSize", "colorChannelsInGlTextureFormat", "emscriptenWebGLGetTexPixelData", "webglGetProgramUniformLocation", "webglGetUniformLocation", "webglPrepareUniformLocationsBeforeFirstUse", "webglGetLeftBracePos", "__glGetActiveAttribOrUniform", "AL", "GLUT", "EGL", "GLEW", "IDBStore", "SDL", "SDL_gfx", "GLFW_Window", "GLFW", "waitAsyncPolyfilled", "webgl_enable_WEBGL_draw_instanced_base_vertex_base_instance", "webgl_enable_WEBGL_multi_draw_instanced_base_vertex_base_instance", "print", "printErr", "jstoi_s", "PThread", "terminateWorker", "cleanupThread", "registerTLSInit", "spawnThread", "exitOnMainThread", "proxyToMainThread", "proxiedJSCallArgs", "invokeEntryPoint", "checkMailbox" ];
 
 unexportedSymbols.forEach(unexportedRuntimeSymbol);
 
@@ -10053,7 +10442,7 @@ function checkIncomingModuleAPI() {
 }
 
 var ASM_CONSTS = {
-  5528776: $0 => {
+  5534536: $0 => {
     var url = UTF8ToString($0);
     window.open(url, "_blank");
   }
@@ -10137,6 +10526,14 @@ var dynCall_iiiiii = makeInvalidEarlyAccess("dynCall_iiiiii");
 
 var dynCall_viiiiii = makeInvalidEarlyAccess("dynCall_viiiiii");
 
+var dynCall_viif = makeInvalidEarlyAccess("dynCall_viif");
+
+var dynCall_viiff = makeInvalidEarlyAccess("dynCall_viiff");
+
+var dynCall_viifff = makeInvalidEarlyAccess("dynCall_viifff");
+
+var dynCall_viiffff = makeInvalidEarlyAccess("dynCall_viiffff");
+
 var dynCall_vidd = makeInvalidEarlyAccess("dynCall_vidd");
 
 var dynCall_di = makeInvalidEarlyAccess("dynCall_di");
@@ -10204,6 +10601,10 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports["dynCall_viiii"] != "undefined", "missing Wasm export: dynCall_viiii");
   assert(typeof wasmExports["dynCall_iiiiii"] != "undefined", "missing Wasm export: dynCall_iiiiii");
   assert(typeof wasmExports["dynCall_viiiiii"] != "undefined", "missing Wasm export: dynCall_viiiiii");
+  assert(typeof wasmExports["dynCall_viif"] != "undefined", "missing Wasm export: dynCall_viif");
+  assert(typeof wasmExports["dynCall_viiff"] != "undefined", "missing Wasm export: dynCall_viiff");
+  assert(typeof wasmExports["dynCall_viifff"] != "undefined", "missing Wasm export: dynCall_viifff");
+  assert(typeof wasmExports["dynCall_viiffff"] != "undefined", "missing Wasm export: dynCall_viiffff");
   assert(typeof wasmExports["dynCall_vidd"] != "undefined", "missing Wasm export: dynCall_vidd");
   assert(typeof wasmExports["dynCall_di"] != "undefined", "missing Wasm export: dynCall_di");
   assert(typeof wasmExports["dynCall_vif"] != "undefined", "missing Wasm export: dynCall_vif");
@@ -10254,6 +10655,10 @@ function assignWasmExports(wasmExports) {
   dynCall_viiii = createExportWrapper("dynCall_viiii", wasmExports["dynCall_viiii"], 5);
   dynCall_iiiiii = createExportWrapper("dynCall_iiiiii", wasmExports["dynCall_iiiiii"], 6);
   dynCall_viiiiii = createExportWrapper("dynCall_viiiiii", wasmExports["dynCall_viiiiii"], 7);
+  dynCall_viif = createExportWrapper("dynCall_viif", wasmExports["dynCall_viif"], 4);
+  dynCall_viiff = createExportWrapper("dynCall_viiff", wasmExports["dynCall_viiff"], 5);
+  dynCall_viifff = createExportWrapper("dynCall_viifff", wasmExports["dynCall_viifff"], 6);
+  dynCall_viiffff = createExportWrapper("dynCall_viiffff", wasmExports["dynCall_viiffff"], 7);
   dynCall_vidd = createExportWrapper("dynCall_vidd", wasmExports["dynCall_vidd"], 4);
   dynCall_di = createExportWrapper("dynCall_di", wasmExports["dynCall_di"], 2);
   dynCall_vif = createExportWrapper("dynCall_vif", wasmExports["dynCall_vif"], 3);
@@ -10328,16 +10733,22 @@ function assignWasmImports() {
     /** @export */ glActiveTexture: _glActiveTexture,
     /** @export */ glAttachShader: _glAttachShader,
     /** @export */ glBindBuffer: _glBindBuffer,
+    /** @export */ glBindFramebuffer: _glBindFramebuffer,
+    /** @export */ glBindRenderbuffer: _glBindRenderbuffer,
     /** @export */ glBindTexture: _glBindTexture,
+    /** @export */ glBindVertexArray: _glBindVertexArray,
     /** @export */ glBindVertexArrayOES: _glBindVertexArrayOES,
     /** @export */ glBlendEquation: _glBlendEquation,
     /** @export */ glBlendEquationSeparate: _glBlendEquationSeparate,
     /** @export */ glBlendFunc: _glBlendFunc,
     /** @export */ glBlendFuncSeparate: _glBlendFuncSeparate,
+    /** @export */ glBlitFramebuffer: _glBlitFramebuffer,
     /** @export */ glBufferData: _glBufferData,
     /** @export */ glBufferSubData: _glBufferSubData,
+    /** @export */ glCheckFramebufferStatus: _glCheckFramebufferStatus,
     /** @export */ glClear: _glClear,
     /** @export */ glClearColor: _glClearColor,
+    /** @export */ glColorMask: _glColorMask,
     /** @export */ glCompileShader: _glCompileShader,
     /** @export */ glCreateProgram: _glCreateProgram,
     /** @export */ glCreateShader: _glCreateShader,
@@ -10346,17 +10757,29 @@ function assignWasmImports() {
     /** @export */ glDeleteProgram: _glDeleteProgram,
     /** @export */ glDeleteShader: _glDeleteShader,
     /** @export */ glDeleteTextures: _glDeleteTextures,
+    /** @export */ glDeleteVertexArrays: _glDeleteVertexArrays,
     /** @export */ glDeleteVertexArraysOES: _glDeleteVertexArraysOES,
+    /** @export */ glDepthFunc: _glDepthFunc,
+    /** @export */ glDepthMask: _glDepthMask,
     /** @export */ glDetachShader: _glDetachShader,
     /** @export */ glDisable: _glDisable,
+    /** @export */ glDrawArrays: _glDrawArrays,
+    /** @export */ glDrawBuffers: _glDrawBuffers,
     /** @export */ glDrawElements: _glDrawElements,
     /** @export */ glEnable: _glEnable,
     /** @export */ glEnableVertexAttribArray: _glEnableVertexAttribArray,
+    /** @export */ glFlush: _glFlush,
+    /** @export */ glFramebufferRenderbuffer: _glFramebufferRenderbuffer,
+    /** @export */ glFramebufferTexture2D: _glFramebufferTexture2D,
     /** @export */ glFrontFace: _glFrontFace,
     /** @export */ glGenBuffers: _glGenBuffers,
+    /** @export */ glGenFramebuffers: _glGenFramebuffers,
+    /** @export */ glGenRenderbuffers: _glGenRenderbuffers,
     /** @export */ glGenTextures: _glGenTextures,
+    /** @export */ glGenVertexArrays: _glGenVertexArrays,
     /** @export */ glGenVertexArraysOES: _glGenVertexArraysOES,
     /** @export */ glGenerateMipmap: _glGenerateMipmap,
+    /** @export */ glGetActiveUniform: _glGetActiveUniform,
     /** @export */ glGetAttribLocation: _glGetAttribLocation,
     /** @export */ glGetIntegerv: _glGetIntegerv,
     /** @export */ glGetProgramInfoLog: _glGetProgramInfoLog,
@@ -10369,11 +10792,30 @@ function assignWasmImports() {
     /** @export */ glIsProgram: _glIsProgram,
     /** @export */ glLinkProgram: _glLinkProgram,
     /** @export */ glPixelStorei: _glPixelStorei,
+    /** @export */ glReadBuffer: _glReadBuffer,
+    /** @export */ glRenderbufferStorage: _glRenderbufferStorage,
     /** @export */ glScissor: _glScissor,
     /** @export */ glShaderSource: _glShaderSource,
     /** @export */ glTexImage2D: _glTexImage2D,
     /** @export */ glTexParameteri: _glTexParameteri,
+    /** @export */ glUniform1f: _glUniform1f,
+    /** @export */ glUniform1fv: _glUniform1fv,
     /** @export */ glUniform1i: _glUniform1i,
+    /** @export */ glUniform1iv: _glUniform1iv,
+    /** @export */ glUniform2f: _glUniform2f,
+    /** @export */ glUniform2fv: _glUniform2fv,
+    /** @export */ glUniform2i: _glUniform2i,
+    /** @export */ glUniform2iv: _glUniform2iv,
+    /** @export */ glUniform3f: _glUniform3f,
+    /** @export */ glUniform3fv: _glUniform3fv,
+    /** @export */ glUniform3i: _glUniform3i,
+    /** @export */ glUniform3iv: _glUniform3iv,
+    /** @export */ glUniform4f: _glUniform4f,
+    /** @export */ glUniform4fv: _glUniform4fv,
+    /** @export */ glUniform4i: _glUniform4i,
+    /** @export */ glUniform4iv: _glUniform4iv,
+    /** @export */ glUniformMatrix2fv: _glUniformMatrix2fv,
+    /** @export */ glUniformMatrix3fv: _glUniformMatrix3fv,
     /** @export */ glUniformMatrix4fv: _glUniformMatrix4fv,
     /** @export */ glUseProgram: _glUseProgram,
     /** @export */ glVertexAttribPointer: _glVertexAttribPointer,

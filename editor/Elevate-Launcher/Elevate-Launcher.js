@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpk89pupw6.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpewu7f7ic.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -441,23 +441,23 @@ Module["expectedDataFileDownloads"]++;
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpk89pupw6.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp8jw17yw8.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpewu7f7ic.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp3b55xllw.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp8jw17yw8.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp3fzxc33b.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp3b55xllw.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp0f17gza7.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp3fzxc33b.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp0f17gza7.js
 var programArgs = [];
 
 var thisProgram = "./this.program";
@@ -6814,6 +6814,18 @@ var _emscripten_glBindBuffer = (target, buffer) => {
 
 var _glBindBuffer = _emscripten_glBindBuffer;
 
+var _emscripten_glBindFramebuffer = (target, framebuffer) => {
+  GLctx.bindFramebuffer(target, GL.framebuffers[framebuffer]);
+};
+
+var _glBindFramebuffer = _emscripten_glBindFramebuffer;
+
+var _emscripten_glBindRenderbuffer = (target, renderbuffer) => {
+  GLctx.bindRenderbuffer(target, GL.renderbuffers[renderbuffer]);
+};
+
+var _glBindRenderbuffer = _emscripten_glBindRenderbuffer;
+
 var _emscripten_glBindTexture = (target, texture) => {
   GLctx.bindTexture(target, GL.textures[texture]);
 };
@@ -6848,6 +6860,10 @@ var _emscripten_glBlendFuncSeparate = (x0, x1, x2, x3) => GLctx.blendFuncSeparat
 
 var _glBlendFuncSeparate = _emscripten_glBlendFuncSeparate;
 
+var _emscripten_glBlitFramebuffer = (x0, x1, x2, x3, x4, x5, x6, x7, x8, x9) => GLctx.blitFramebuffer(x0, x1, x2, x3, x4, x5, x6, x7, x8, x9);
+
+var _glBlitFramebuffer = _emscripten_glBlitFramebuffer;
+
 var _emscripten_glBufferData = (target, size, data, usage) => {
   if (GL.currentContext.version >= 2) {
     // If size is zero, WebGL would interpret uploading the whole input
@@ -6874,6 +6890,10 @@ var _emscripten_glBufferSubData = (target, offset, size, data) => webglBufferSub
 
 var _glBufferSubData = _emscripten_glBufferSubData;
 
+var _emscripten_glCheckFramebufferStatus = x0 => GLctx.checkFramebufferStatus(x0);
+
+var _glCheckFramebufferStatus = _emscripten_glCheckFramebufferStatus;
+
 var _emscripten_glClear = x0 => GLctx.clear(x0);
 
 var _glClear = _emscripten_glClear;
@@ -6881,6 +6901,12 @@ var _glClear = _emscripten_glClear;
 var _emscripten_glClearColor = (x0, x1, x2, x3) => GLctx.clearColor(x0, x1, x2, x3);
 
 var _glClearColor = _emscripten_glClearColor;
+
+var _emscripten_glColorMask = (red, green, blue, alpha) => {
+  GLctx.colorMask(!!red, !!green, !!blue, !!alpha);
+};
+
+var _glColorMask = _emscripten_glColorMask;
 
 var _emscripten_glCompileShader = shader => {
   GLctx.compileShader(GL.shaders[shader]);
@@ -6994,6 +7020,16 @@ var _emscripten_glDeleteVertexArraysOES = _glDeleteVertexArrays;
 
 var _glDeleteVertexArraysOES = _emscripten_glDeleteVertexArraysOES;
 
+var _emscripten_glDepthFunc = x0 => GLctx.depthFunc(x0);
+
+var _glDepthFunc = _emscripten_glDepthFunc;
+
+var _emscripten_glDepthMask = flag => {
+  GLctx.depthMask(!!flag);
+};
+
+var _glDepthMask = _emscripten_glDepthMask;
+
 var _emscripten_glDetachShader = (program, shader) => {
   GLctx.detachShader(GL.programs[program], GL.shaders[shader]);
 };
@@ -7003,6 +7039,27 @@ var _glDetachShader = _emscripten_glDetachShader;
 var _emscripten_glDisable = x0 => GLctx.disable(x0);
 
 var _glDisable = _emscripten_glDisable;
+
+var _emscripten_glDrawArrays = (mode, first, count) => {
+  // bind any client-side buffers
+  GL.preDrawHandleClientVertexAttribBindings(first + count);
+  GLctx.drawArrays(mode, first, count);
+  GL.postDrawHandleClientVertexAttribBindings();
+};
+
+var _glDrawArrays = _emscripten_glDrawArrays;
+
+var tempFixedLengthArray = [];
+
+var _emscripten_glDrawBuffers = (n, bufs) => {
+  var bufArray = tempFixedLengthArray[n];
+  for (var i = 0; i < n; i++) {
+    bufArray[i] = (growMemViews(), HEAP32)[(((bufs) + (i * 4)) >> 2)];
+  }
+  GLctx.drawBuffers(bufArray);
+};
+
+var _glDrawBuffers = _emscripten_glDrawBuffers;
 
 var _emscripten_glDrawElements = (mode, count, type, indices) => {
   var buf;
@@ -7066,6 +7123,22 @@ var _emscripten_glEnableVertexAttribArray = index => {
 
 var _glEnableVertexAttribArray = _emscripten_glEnableVertexAttribArray;
 
+var _emscripten_glFlush = () => GLctx.flush();
+
+var _glFlush = _emscripten_glFlush;
+
+var _emscripten_glFramebufferRenderbuffer = (target, attachment, renderbuffertarget, renderbuffer) => {
+  GLctx.framebufferRenderbuffer(target, attachment, renderbuffertarget, GL.renderbuffers[renderbuffer]);
+};
+
+var _glFramebufferRenderbuffer = _emscripten_glFramebufferRenderbuffer;
+
+var _emscripten_glFramebufferTexture2D = (target, attachment, textarget, texture, level) => {
+  GLctx.framebufferTexture2D(target, attachment, textarget, GL.textures[texture], level);
+};
+
+var _glFramebufferTexture2D = _emscripten_glFramebufferTexture2D;
+
 var _emscripten_glFrontFace = x0 => GLctx.frontFace(x0);
 
 var _glFrontFace = _emscripten_glFrontFace;
@@ -7075,6 +7148,18 @@ var _emscripten_glGenBuffers = (n, buffers) => {
 };
 
 var _glGenBuffers = _emscripten_glGenBuffers;
+
+var _emscripten_glGenFramebuffers = (n, ids) => {
+  GL.genObject(n, ids, "createFramebuffer", GL.framebuffers);
+};
+
+var _glGenFramebuffers = _emscripten_glGenFramebuffers;
+
+var _emscripten_glGenRenderbuffers = (n, renderbuffers) => {
+  GL.genObject(n, renderbuffers, "createRenderbuffer", GL.renderbuffers);
+};
+
+var _glGenRenderbuffers = _emscripten_glGenRenderbuffers;
 
 var _emscripten_glGenTextures = (n, textures) => {
   GL.genObject(n, textures, "createTexture", GL.textures);
@@ -7613,6 +7698,14 @@ var _emscripten_glPixelStorei = (pname, param) => {
 };
 
 var _glPixelStorei = _emscripten_glPixelStorei;
+
+var _emscripten_glReadBuffer = x0 => GLctx.readBuffer(x0);
+
+var _glReadBuffer = _emscripten_glReadBuffer;
+
+var _emscripten_glRenderbufferStorage = (x0, x1, x2, x3) => GLctx.renderbufferStorage(x0, x1, x2, x3);
+
+var _glRenderbufferStorage = _emscripten_glRenderbufferStorage;
 
 var _emscripten_glScissor = (x0, x1, x2, x3) => GLctx.scissor(x0, x1, x2, x3);
 
@@ -10376,6 +10469,8 @@ MainLoop.init();
 // start. This helps it optimize VBO double-buffering and reduce GPU stalls.
 registerPreMainLoop(() => GL.newRenderingFrameStarted());
 
+for (let i = 0; i < 32; ++i) tempFixedLengthArray.push(new Array(i));
+
 var miniTempWebGLFloatBuffersStorage = new Float32Array(288);
 
 // Create GL_POOL_TEMP_BUFFERS_SIZE+1 temporary buffers, for uploads of size 0 through GL_POOL_TEMP_BUFFERS_SIZE inclusive
@@ -10502,7 +10597,7 @@ function checkIncomingModuleAPI() {
 }
 
 var ASM_CONSTS = {
-  5614448: $0 => {
+  5616608: $0 => {
     var url = UTF8ToString($0);
     window.open(url, "_blank");
   }
@@ -10804,6 +10899,8 @@ function assignWasmImports() {
     /** @export */ glActiveTexture: _glActiveTexture,
     /** @export */ glAttachShader: _glAttachShader,
     /** @export */ glBindBuffer: _glBindBuffer,
+    /** @export */ glBindFramebuffer: _glBindFramebuffer,
+    /** @export */ glBindRenderbuffer: _glBindRenderbuffer,
     /** @export */ glBindTexture: _glBindTexture,
     /** @export */ glBindVertexArray: _glBindVertexArray,
     /** @export */ glBindVertexArrayOES: _glBindVertexArrayOES,
@@ -10811,10 +10908,13 @@ function assignWasmImports() {
     /** @export */ glBlendEquationSeparate: _glBlendEquationSeparate,
     /** @export */ glBlendFunc: _glBlendFunc,
     /** @export */ glBlendFuncSeparate: _glBlendFuncSeparate,
+    /** @export */ glBlitFramebuffer: _glBlitFramebuffer,
     /** @export */ glBufferData: _glBufferData,
     /** @export */ glBufferSubData: _glBufferSubData,
+    /** @export */ glCheckFramebufferStatus: _glCheckFramebufferStatus,
     /** @export */ glClear: _glClear,
     /** @export */ glClearColor: _glClearColor,
+    /** @export */ glColorMask: _glColorMask,
     /** @export */ glCompileShader: _glCompileShader,
     /** @export */ glCreateProgram: _glCreateProgram,
     /** @export */ glCreateShader: _glCreateShader,
@@ -10825,13 +10925,22 @@ function assignWasmImports() {
     /** @export */ glDeleteTextures: _glDeleteTextures,
     /** @export */ glDeleteVertexArrays: _glDeleteVertexArrays,
     /** @export */ glDeleteVertexArraysOES: _glDeleteVertexArraysOES,
+    /** @export */ glDepthFunc: _glDepthFunc,
+    /** @export */ glDepthMask: _glDepthMask,
     /** @export */ glDetachShader: _glDetachShader,
     /** @export */ glDisable: _glDisable,
+    /** @export */ glDrawArrays: _glDrawArrays,
+    /** @export */ glDrawBuffers: _glDrawBuffers,
     /** @export */ glDrawElements: _glDrawElements,
     /** @export */ glEnable: _glEnable,
     /** @export */ glEnableVertexAttribArray: _glEnableVertexAttribArray,
+    /** @export */ glFlush: _glFlush,
+    /** @export */ glFramebufferRenderbuffer: _glFramebufferRenderbuffer,
+    /** @export */ glFramebufferTexture2D: _glFramebufferTexture2D,
     /** @export */ glFrontFace: _glFrontFace,
     /** @export */ glGenBuffers: _glGenBuffers,
+    /** @export */ glGenFramebuffers: _glGenFramebuffers,
+    /** @export */ glGenRenderbuffers: _glGenRenderbuffers,
     /** @export */ glGenTextures: _glGenTextures,
     /** @export */ glGenVertexArrays: _glGenVertexArrays,
     /** @export */ glGenVertexArraysOES: _glGenVertexArraysOES,
@@ -10849,6 +10958,8 @@ function assignWasmImports() {
     /** @export */ glIsProgram: _glIsProgram,
     /** @export */ glLinkProgram: _glLinkProgram,
     /** @export */ glPixelStorei: _glPixelStorei,
+    /** @export */ glReadBuffer: _glReadBuffer,
+    /** @export */ glRenderbufferStorage: _glRenderbufferStorage,
     /** @export */ glScissor: _glScissor,
     /** @export */ glShaderSource: _glShaderSource,
     /** @export */ glTexImage2D: _glTexImage2D,
