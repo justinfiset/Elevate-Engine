@@ -265,12 +265,14 @@ public:
 		static bool areTemplatesLoaded = false;
 		static std::vector<ProjectTemplate> templates;
 
-		if (!areTemplatesLoaded) {
+		if (!areTemplatesLoaded)
+		{
 			templates = m_controller.GetProjectTemplates();
 			areTemplatesLoaded = true;
 		}
 
-		if (templates.empty()) {
+		if (templates.empty())
+		{
 			ImGui::PushFont(m_headerFont);
 			ImGui::Text("Create a New Project");
 			ImGui::Separator();
@@ -325,7 +327,6 @@ public:
 			return;
 		}
 		
-
 		LauncherButton cancelButton = { "Cancel", [this]() { m_controller.SetActiveTab(LauncherTab::ProjectList); } };
 
 		LauncherButton createButton = { "Create", [this]() {
@@ -371,12 +372,22 @@ public:
 			{
 				Elevate::FileDialog::RequestSelectFolder("Select a directory", ".");
 			}
-			
+
 			std::string selectedPath;
 			if (Elevate::FileDialog::DisplayAndGetResult(selectedPath))
 			{
 				props.Path = selectedPath;
 			}
+
+			if (!props.Path.empty())
+			{
+				ImGui::Dummy(ImVec2(padding, padding / 2.0f));
+				ImGui::BeginDisabled();
+				ImGui::Dummy(ImVec2(padding / 4.0f, 1.0f));
+				ImGui::SameLine();
+				ImGui::TextWrapped("Full path : %s", std::string(props.Path + "/" + props.Name).c_str());
+				ImGui::EndDisabled();
+			}			
 
 			const char* templateLabel = templates[selectedTemplate].Name.c_str();
 			ImGui::NewLine();
