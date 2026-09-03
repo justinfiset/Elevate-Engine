@@ -112,6 +112,7 @@ namespace Elevate {
 		EE_CORE_INFO("Initializing ElevateEngine...");
 		auto app = CreateApplication();
 		app->m_args = ApplicationArguments(argc, argv);
+		app->Init();
 		EE_CORE_TRACE("Application Initialized.");
 		app->Run();
 
