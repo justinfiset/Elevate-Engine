@@ -6,7 +6,6 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <shobjidl.h>
-#include <atlbase.h>
 #endif
 
 namespace Elevate
