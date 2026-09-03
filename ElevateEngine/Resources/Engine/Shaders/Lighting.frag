@@ -156,7 +156,13 @@ float CalcShadow(vec3 fragPos, vec3 localNormal)
         }
     }
 
-    vec4 fragPosLightSpace = lightSpaceMatrices[layer] * vec4(fragPos, 1.0);
+    vec3 lightDir = normalize(-dirLight.direction);
+    float cosTheta = max(dot(normalize(localNormal), lightDir), 0.0);
+
+    float normalOffsetScale = 0.05;
+    vec3 biasedFragPos = fragPos + normalize(localNormal) * (normalOffsetScale * (1.0 - cosTheta));
+
+    vec4 fragPosLightSpace = lightSpaceMatrices[layer] * vec4(biasedFragPos, 1.0);
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     projCoords = projCoords * 0.5 + 0.5;
 
@@ -165,11 +171,9 @@ float CalcShadow(vec3 fragPos, vec3 localNormal)
         return 1.0; 
     }
 
-    vec3 lightDir = normalize(-dirLight.direction);
-    float cosTheta = max(dot(normalize(localNormal), lightDir), 0.0);
-    float bias = max(0.00005 * (1.0 - cosTheta), 0.000005) / (cascadeSplitDepths[layer] * 0.5);
-
-    float compareDepth = projCoords.z - bias;
+    float depthBias = 0.000001 / (cascadeSplitDepths[layer] * 0.5);
+    float compareDepth = projCoords.z - depthBias;
+    
     vec2 texelSize = vec2(1.0) / GetShadowMapSize(layer);
 
     float shadowVisibility = 0.0;

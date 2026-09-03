@@ -15,12 +15,10 @@ namespace Elevate
 		bool CastShadows = true;
 		int Resolution = 2048;
 		float ZPadding = 10.0f;
-		float Bias = 0.005f;
 
 		PROPERTY(CastShadows)
 		PROPERTY(Resolution)
 		PROPERTY(ZPadding)
-		PROPERTY(Bias)
 		END_STRUCT()
 	};
 
@@ -32,12 +30,10 @@ namespace Elevate
 		int Resolution = 2048;
 		float ZPadding = 10.0f;
 		float FarPlane = 100.0f;
-		float Bias = 0.005f;
 
 		PROPERTY(CastShadows)
 		PROPERTY(Resolution)
 		PROPERTY(ZPadding)
-		PROPERTY(Bias)
 		END_STRUCT()
 	};
 

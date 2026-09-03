@@ -28,6 +28,7 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 		// Aspect Ratio Selection
 		if (ImGui::BeginMenu(GuizmoOperationToString(m_CurrentEditorTool).c_str()))
 		{
+			// The numbers are matching ImGuizmo enums values
 			ImGui::RadioButton("Translate", &m_CurrentEditorTool, 7);
 			ImGui::RadioButton("Rotate", &m_CurrentEditorTool, 120);
 			ImGui::RadioButton("Scale", &m_CurrentEditorTool, 896);
