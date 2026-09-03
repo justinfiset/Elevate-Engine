@@ -15,18 +15,21 @@
 
 #define EE_INVALID_ENTITY_ID UINT32_MAX
 
+// Forwards
 namespace Elevate
 {
 	class Event;
 	class Scene;
 	class Component;
-	class TypeRegistry;
 
 	namespace Editor
 	{
 		class EditorLayer;
 	}
+}
 
+namespace Elevate
+{
 	class GameObject : public ITransformable, public EEObject
 	{
 	public:

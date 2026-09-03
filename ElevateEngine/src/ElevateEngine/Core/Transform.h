@@ -2,12 +2,11 @@
 
 #include <memory>
 
-#include <glm/mat4x4.hpp>
-#include <glm/gtc/quaternion.hpp>
-#include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp> // iwyu: keep
+#include <glm/gtc/quaternion.hpp> // iwyu: keep
+#include <glm/vec3.hpp> // iwyu: keep
 
 #include <ElevateEngine/Core/Data.h>
-
 #include <ElevateEngine/Core/ITypeLayoutProvider.h>
 #include <ElevateEngine/Core/TypeLayout.h>
 

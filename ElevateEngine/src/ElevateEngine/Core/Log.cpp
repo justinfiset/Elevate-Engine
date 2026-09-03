@@ -1,10 +1,13 @@
 #define _SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING
 
 #include "Log.h"
-#include <memory>
 
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
+#include <memory>
+#include <utility>
+
+#include <spdlog/logger.h>
+#include <spdlog/common.h>
+#include <spdlog/sinks/stdout_color_sinks.h> // iwyu: keep
 
 namespace Elevate
 {

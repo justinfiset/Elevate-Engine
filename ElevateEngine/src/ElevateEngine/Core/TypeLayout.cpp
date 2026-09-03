@@ -1,10 +1,14 @@
 #include "TypeLayout.h"
 
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <variant>
+
+#include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/Guid.h>
 #include <ElevateEngine/Core/TypeField.h>
 #include <ElevateEngine/Serialization/PropertyField.h>
-
-#include <algorithm>
 
 namespace Elevate
 {

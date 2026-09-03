@@ -5,33 +5,19 @@
 #include <initializer_list>
 #include <string>
 #include <typeindex>
-#include <typeinfo>
 #include <variant>
 
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/EEObject.h>
-#include <ElevateEngine/Core/GameObject.inl>
 
-// todo make editor only
-#include <ElevateEngine/Core/TypeLayout.h>
+#include "ElevateEngine/Core/ReflectionTags.h"
 
 #ifdef EE_EDITOR_BUILD
-#include <ElevateEngine/Editor/EditorTypeTrait.h>
-#endif
-
 namespace Elevate
 {
-    class Component;
-    class GameObject;
-
-    struct ColorTag;
-    struct DisplayNameTag;
-    struct EditorIconTag;
-    struct FlattenTag;
-    struct HideInInspectorTag;
-    struct ReadOnlyTag;
-    struct TooltipTag;
+    struct EditorTypeTrait;
 }
+#endif
 
 namespace Elevate
 {

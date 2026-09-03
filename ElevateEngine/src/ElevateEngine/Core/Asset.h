@@ -4,6 +4,7 @@
 
 #include <ElevateEngine/Core/Reflection.h>
 #include <ElevateEngine/Core/EEObject.h>
+#include <ElevateEngine/Core/TypeField.h>
 
 namespace Elevate
 {

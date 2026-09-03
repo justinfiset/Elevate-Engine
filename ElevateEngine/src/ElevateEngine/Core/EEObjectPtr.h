@@ -1,6 +1,8 @@
 #pragma once
 #include <memory>
+#include <type_traits>
 
+#include <ElevateEngine/Core/Byte.h>
 #include <ElevateEngine/Core/Guid.h>
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Serialization/ISerializable.h>
@@ -238,4 +240,4 @@ namespace Elevate
 	}
 }
 
-#include "EEObjectPtr.inl"
+//#include "EEObjectPtr.inl"

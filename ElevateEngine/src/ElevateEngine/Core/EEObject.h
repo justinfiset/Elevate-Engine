@@ -2,6 +2,8 @@
 
 #include <memory>
 #include <typeindex>
+#include <cstddef>
+#include <string>
 
 // Interfaces
 #include <ElevateEngine/Core/ITypeLayoutProvider.h>
@@ -14,8 +16,6 @@
 
 namespace Elevate
 {
-	class AssetRegistry;
-
 	class EEObject : public ITypeLayoutProvider, public std::enable_shared_from_this<EEObject>
 	{
 	protected:

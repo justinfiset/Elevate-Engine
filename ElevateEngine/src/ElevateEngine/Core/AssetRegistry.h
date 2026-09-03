@@ -1,13 +1,21 @@
 #pragma once
 
 #include <string>
+#include <memory>
 #include <typeindex>
 #include <filesystem>
+#include <format>
+#include <unordered_map>
+#include <vector>
 
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/Asset.h>
 #include <ElevateEngine/Core/Guid.h>
-#include <ElevateEngine/Core/AssetMetaData.h>
+
+namespace Elevate
+{
+	struct AssetMetaData;
+}
 
 namespace Elevate
 {

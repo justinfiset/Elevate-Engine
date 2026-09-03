@@ -31,6 +31,9 @@
 #define EE_SHADER_VERSION_HEADER EE_SHADER_VERSION_STRING " " EE_SHADER_PROFILE_STRING
 #define EE_SHADER_HEADER EE_SHADER_VERSION_HEADER "\n" EE_SHADER_PRECISION_STRING
 
+#define EE_STRINGIFY2(x) #x
+#define EE_STRINGIFY(x) EE_STRINGIFY2(x)
+
 #ifndef EE_PLATFORM_WEB
     #define EE_ENGINE_DIR EE_RESOURCE_DIR "/Engine/"
     #define EE_EDITOR_DIR EE_RESOURCE_DIR "/Editor/"
@@ -38,6 +41,7 @@
     #define EE_ENGINE_DIR "/Engine/"
     #define EE_EDITOR_DIR "/Editor/"
 #endif
+#define EE_CONTENT_ROOT "./Content/"
 #define EE_CONTENT_ROOT "./Content/"
 
 #define BIT(x) (1 << x)

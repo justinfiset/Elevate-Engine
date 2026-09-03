@@ -1,9 +1,15 @@
 #pragma once
+#include <cstddef>
 #include <cstdint>
 #include <stack>
+#include <vector>
 
-#include "ProfilerSample.h"
-#include "ProfilerFrame.h"
+// Forwards
+namespace Elevate
+{
+    struct ProfilerFrame;
+    struct ProfilerSample;
+}
 
 namespace Elevate
 {

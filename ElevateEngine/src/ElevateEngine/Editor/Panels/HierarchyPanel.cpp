@@ -1,5 +1,4 @@
-﻿#include "eepch.h"
-#include "HierarchyPanel.h"
+﻿#include "HierarchyPanel.h"
 
 #ifdef EE_EDITOR_BUILD
 

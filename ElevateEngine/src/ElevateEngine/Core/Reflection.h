@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ElevateEngine/Core/TypeRegistry.h>
+#include <ElevateEngine/Core/GameObject.h>
 
 // Todo remove and add as a tag
 #define EECATEGORY(name) \

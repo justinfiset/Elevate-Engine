@@ -1,21 +1,23 @@
-﻿#include "eepch.h"
-#include "ScenePanel.h"
+﻿#include "ScenePanel.h"
 
 #ifdef EE_EDITOR_BUILD
 
-#include "imgui.h"
-#include "ImGuizmo.h"
-
-#include "glm/glm.hpp"
-#include <glm/gtc/type_ptr.hpp>
+#include <glm/glm.hpp>          // iwyu: keep
+#include <glm/gtc/type_ptr.hpp> // iwyu: keep
 
 #include <ElevateEngine/Core/Application.h>
-#include <ElevateEngine/Renderer/Renderer.h>
-#include <ElevateEngine/Renderer/Framebuffer.h>
-
+#include <ElevateEngine/Editor/Camera/EditorCamera.h>
 #include <ElevateEngine/Editor/EditorLayer.h>
 #include <ElevateEngine/Editor/GizmoUtility.h>
-#include <ElevateEngine/Editor/Camera/EditorCamera.h>
+#include <ElevateEngine/Renderer/Framebuffer.h>
+#include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Core/EEObject.h>
+#include <ElevateEngine/Core/GameContext.h>
+#include <ElevateEngine/Core/GameObject.h>
+#include <ElevateEngine/Renderer/Camera.h>
+
+#include <imgui.h>
+#include <ImGuizmo.h>
 
 void Elevate::Editor::ScenePanel::OnImGuiRender()
 {

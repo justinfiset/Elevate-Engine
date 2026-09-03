@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include <glm/glm.hpp>
+#include <glm/glm.hpp> // iwyu: keep
 #include <ElevateEngine/Editor/EditorWidget.h>
 
 namespace Elevate::Editor 

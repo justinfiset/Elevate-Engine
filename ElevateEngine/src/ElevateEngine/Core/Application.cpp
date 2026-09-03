@@ -1,26 +1,36 @@
-#include "eepch.h"
-
-#include <filesystem>
-
 #include "Application.h"
 
-#include "ElevateEngine/Core/Time.h"
-#include "ElevateEngine/Core/Core.h"
-#include "ElevateEngine/Core/Log.h"
-#include "ElevateEngine/Core/Assert.h"
-#include "ElevateEngine/Core/Layers/LayerStack.h"
-#include <ElevateEngine/Core/AssetRegistry.h>
+#include <filesystem>
+#include <format>
+#include <functional>
 
+// Core
+#include "ElevateEngine/Core/Log.h"
+#include "ElevateEngine/Core/Time.h"
+#include "ElevateEngine/Core/Assert.h"
+#include <ElevateEngine/Core/AssetRegistry.h>
+#include "ElevateEngine/Core/GameContext.h"
+#include "ElevateEngine/Core/Layers/Layer.h"
+#include "ElevateEngine/Core/Layers/LayerStack.h"
+#include "ElevateEngine/Core/Window.h"
+// Events
+#include "ElevateEngine/Events/Event.h"
+#include "ElevateEngine/Events/KeyEvent.h"
+#include "ElevateEngine/Events/MouseEvent.h"
+#include "ElevateEngine/Events/ApplicationEvent.h"
+// Audio
+#include <ElevateEngine/Audio/SoundEngine.h>
+// ImGui
+#include "ElevateEngine/ImGui/ImGuiLayer.h"
+// Renderer
 #include "ElevateEngine/Renderer/Renderer.h"
 #include "ElevateEngine/Renderer/Texture/TextureManager.h"
-
+// Others
 #include "ElevateEngine/Inputs/Input.h"
-#include "ElevateEngine/Files/FileUtility.h"
-#include "ElevateEngine/Events/ApplicationEvent.h"
-#include "ElevateEngine/ImGui/ImGuiLayer.h"
-#include "ElevateEngine/Editor/EditorLayer.h"
 
-#include <ElevateEngine/Audio/SoundEngine.h>
+#ifdef EE_EDITOR_BUILD
+	#include "ElevateEngine/Editor/EditorLayer.h"
+#endif
 
 #ifdef EE_PLATFORM_WEB
     #include <emscripten.h>

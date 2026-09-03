@@ -1,6 +1,8 @@
 #pragma once
-#include <ElevateEngine/Renderer/Texture/TextureManager.h>
-#include <glm/glm.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+
+#include <ElevateEngine/Renderer/Texture/Texture.h>
 
 namespace Elevate
 {
