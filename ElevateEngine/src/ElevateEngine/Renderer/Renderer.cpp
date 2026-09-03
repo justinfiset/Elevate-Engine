@@ -99,6 +99,8 @@ namespace Elevate
         InitLightingRenderer(width, height);
         InitSSAORenderer(width, height);
         InitBloomRenderer(width, height);
+
+        EE_CORE_INFO("Initialized the renderer.");
     }
 
     static float RandomFloat(float min, float max)
@@ -509,6 +511,11 @@ namespace Elevate
 
     void Renderer::RenderShaowMaps()
     {
+        if (!s_data.ActiveLighting)
+        {
+            return;
+        }
+
         auto* dirLight = s_data.ActiveLighting->GetDirLight();
         if (dirLight)
         {
@@ -565,13 +572,16 @@ namespace Elevate
 
     void Renderer::RenderGeometry()
     {
-        s_geometryFramebuffer->ClearAndUse();
+        if (s_geometryFramebuffer)
+        {
+            s_geometryFramebuffer->ClearAndUse();
 
-        RenderSkybox();
-        s_commands.Flush(RenderBucket::GBuffer);
-        s_commands.Flush(RenderBucket::Transparent);
+            RenderSkybox();
+            s_commands.Flush(RenderBucket::GBuffer);
+            s_commands.Flush(RenderBucket::Transparent);
 
-        s_geometryFramebuffer->Unbind();
+            s_geometryFramebuffer->Unbind();
+        }
     }
 
     void Renderer::RenderLighting()
@@ -628,52 +638,55 @@ namespace Elevate
 
     void Renderer::RenderSSAO()
     {
-        s_ssaoFramebuffer->ClearAndUse();
-
-        BindShader(s_ssaoShader);
-
-        // Bind the gDepth
-        BindTexture(s_geometryFramebuffer->GetDepthTexture(), 0);
-        s_ssaoShader->SetUniform1i("gDepth", 0);
-        // Bind the gNormal
-        BindTexture(s_geometryFramebuffer->GetColorTexture(1), 1);
-        s_ssaoShader->SetUniform1i("gNormal", 1);
-        // Bind the noise texture
-        BindTexture(s_ssaoNoiseTexture, 2);
-        s_ssaoShader->SetUniform1i("noiseTexture", 2);
-
-        glm::vec2 noiseScale(
-            static_cast<float>(s_ssaoFramebuffer->GetWidth()) / 4.0f,
-            static_cast<float>(s_ssaoFramebuffer->GetHeight()) / 4.0f
-        );
-        s_ssaoShader->SetUniform2f("noiseScale", noiseScale);
-
-
-        s_ssaoShader->SetUniformMatrix4fv("inverseProjection", glm::inverse(s_data.Projection));
-        s_ssaoShader->SetUniformMatrix4fv("projection", s_data.Projection);
-        s_ssaoShader->SetUniformMatrix4fv("view", s_data.View);
-
-        for (int i = 0; i < s_ssaoKernel.size(); i++)
+        if (s_ssaoFramebuffer)
         {
-            s_ssaoShader->SetUniform3f("samples[" + std::to_string(i) + "]", s_ssaoKernel[i]);
+            s_ssaoFramebuffer->ClearAndUse();
+
+            BindShader(s_ssaoShader);
+
+            // Bind the gDepth
+            BindTexture(s_geometryFramebuffer->GetDepthTexture(), 0);
+            s_ssaoShader->SetUniform1i("gDepth", 0);
+            // Bind the gNormal
+            BindTexture(s_geometryFramebuffer->GetColorTexture(1), 1);
+            s_ssaoShader->SetUniform1i("gNormal", 1);
+            // Bind the noise texture
+            BindTexture(s_ssaoNoiseTexture, 2);
+            s_ssaoShader->SetUniform1i("noiseTexture", 2);
+
+            glm::vec2 noiseScale(
+                static_cast<float>(s_ssaoFramebuffer->GetWidth()) / 4.0f,
+                static_cast<float>(s_ssaoFramebuffer->GetHeight()) / 4.0f
+            );
+            s_ssaoShader->SetUniform2f("noiseScale", noiseScale);
+
+
+            s_ssaoShader->SetUniformMatrix4fv("inverseProjection", glm::inverse(s_data.Projection));
+            s_ssaoShader->SetUniformMatrix4fv("projection", s_data.Projection);
+            s_ssaoShader->SetUniformMatrix4fv("view", s_data.View);
+
+            for (int i = 0; i < s_ssaoKernel.size(); i++)
+            {
+                s_ssaoShader->SetUniform3f("samples[" + std::to_string(i) + "]", s_ssaoKernel[i]);
+            }
+
+            DrawArray(s_fullscreenQuad.GetVertexArray());
+            s_ssaoFramebuffer->Unbind();
+
+
+            // Second pass to blur
+            s_ssaoBlurFramebuffer->ClearAndUse();
+
+            BindShader(s_ssaoBlurShader);
+            BindTexture(s_ssaoFramebuffer->GetColorTexture(), 0);
+            s_ssaoBlurShader->SetUniform1i("aoTexture", 0);
+            BindTexture(s_geometryFramebuffer->GetDepthTexture(), 1);
+            s_ssaoBlurShader->SetUniform1i("gDepth", 1);
+
+
+            DrawArray(s_fullscreenQuad.GetVertexArray());
+            s_ssaoBlurFramebuffer->Unbind();
         }
-
-        DrawArray(s_fullscreenQuad.GetVertexArray());
-        s_ssaoFramebuffer->Unbind();
-
-
-        // Second pass to blur
-        s_ssaoBlurFramebuffer->ClearAndUse();
-
-        BindShader(s_ssaoBlurShader);
-        BindTexture(s_ssaoFramebuffer->GetColorTexture(), 0);
-        s_ssaoBlurShader->SetUniform1i("aoTexture", 0);
-        BindTexture(s_geometryFramebuffer->GetDepthTexture(), 1);
-        s_ssaoBlurShader->SetUniform1i("gDepth", 1);
-
-
-        DrawArray(s_fullscreenQuad.GetVertexArray());
-        s_ssaoBlurFramebuffer->Unbind();
     }
 
     void Renderer::RenderBloom()
