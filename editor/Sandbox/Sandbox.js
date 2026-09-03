@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp2yt555lg.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp6zva40q3.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -880,81 +880,81 @@ Module["expectedDataFileDownloads"]++;
     }, {
       "filename": "/Engine/Shaders/Lighting.frag",
       "start": 87020525,
-      "end": 87028629
+      "end": 87028758
     }, {
       "filename": "/Engine/Shaders/Lighting.vert",
-      "start": 87028629,
-      "end": 87028837
+      "start": 87028758,
+      "end": 87028966
     }, {
       "filename": "/Engine/Shaders/SSAO.frag",
-      "start": 87028837,
-      "end": 87031068
+      "start": 87028966,
+      "end": 87031197
     }, {
       "filename": "/Engine/Shaders/SSAO.vert",
-      "start": 87031068,
-      "end": 87031276
+      "start": 87031197,
+      "end": 87031405
     }, {
       "filename": "/Engine/Shaders/SSAOBlur.frag",
-      "start": 87031276,
-      "end": 87032387
+      "start": 87031405,
+      "end": 87032516
     }, {
       "filename": "/Engine/Shaders/SSAOBlur.vert",
-      "start": 87032387,
-      "end": 87032595
+      "start": 87032516,
+      "end": 87032724
     }, {
       "filename": "/Engine/Shaders/Shadow.frag",
-      "start": 87032595,
-      "end": 87032618
+      "start": 87032724,
+      "end": 87032747
     }, {
       "filename": "/Engine/Shaders/Shadow.vert",
-      "start": 87032618,
-      "end": 87032804
+      "start": 87032747,
+      "end": 87032933
     }, {
       "filename": "/Engine/Textures/Skybox/Default/bottom.jpg",
-      "start": 87032804,
-      "end": 87100447
+      "start": 87032933,
+      "end": 87100576
     }, {
       "filename": "/Engine/Textures/Skybox/Default/side.jpg",
-      "start": 87100447,
-      "end": 87181750
+      "start": 87100576,
+      "end": 87181879
     }, {
       "filename": "/Engine/Textures/Skybox/Default/top.jpg",
-      "start": 87181750,
-      "end": 87249403
+      "start": 87181879,
+      "end": 87249532
     }, {
       "filename": "/Engine/Textures/debug.png",
-      "start": 87249403,
-      "end": 87253758
+      "start": 87249532,
+      "end": 87253887
     }, {
       "filename": "/app.config",
-      "start": 87253758,
-      "end": 87253858
+      "start": 87253887,
+      "end": 87253987
     }, {
       "filename": "/imgui.ini",
-      "start": 87253858,
-      "end": 87257717
+      "start": 87253987,
+      "end": 87257846
     } ],
-    "remote_package_size": 87257717
+    "remote_package_size": 87257846
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp2yt555lg.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpszmxuh3e.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp6zva40q3.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpiktan2fj.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpszmxuh3e.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpn4xqcmkb.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpiktan2fj.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmper8_lhme.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpn4xqcmkb.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmper8_lhme.js
 var programArgs = [];
 
 var thisProgram = "./this.program";

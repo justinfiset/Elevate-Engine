@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmptse2e1uk.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpk89pupw6.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -383,81 +383,81 @@ Module["expectedDataFileDownloads"]++;
     }, {
       "filename": "/Engine/Shaders/Lighting.frag",
       "start": 478633,
-      "end": 486737
+      "end": 486866
     }, {
       "filename": "/Engine/Shaders/Lighting.vert",
-      "start": 486737,
-      "end": 486945
+      "start": 486866,
+      "end": 487074
     }, {
       "filename": "/Engine/Shaders/SSAO.frag",
-      "start": 486945,
-      "end": 489176
+      "start": 487074,
+      "end": 489305
     }, {
       "filename": "/Engine/Shaders/SSAO.vert",
-      "start": 489176,
-      "end": 489384
+      "start": 489305,
+      "end": 489513
     }, {
       "filename": "/Engine/Shaders/SSAOBlur.frag",
-      "start": 489384,
-      "end": 490495
+      "start": 489513,
+      "end": 490624
     }, {
       "filename": "/Engine/Shaders/SSAOBlur.vert",
-      "start": 490495,
-      "end": 490703
+      "start": 490624,
+      "end": 490832
     }, {
       "filename": "/Engine/Shaders/Shadow.frag",
-      "start": 490703,
-      "end": 490726
+      "start": 490832,
+      "end": 490855
     }, {
       "filename": "/Engine/Shaders/Shadow.vert",
-      "start": 490726,
-      "end": 490912
+      "start": 490855,
+      "end": 491041
     }, {
       "filename": "/Engine/Textures/Skybox/Default/bottom.jpg",
-      "start": 490912,
-      "end": 558555
+      "start": 491041,
+      "end": 558684
     }, {
       "filename": "/Engine/Textures/Skybox/Default/side.jpg",
-      "start": 558555,
-      "end": 639858
+      "start": 558684,
+      "end": 639987
     }, {
       "filename": "/Engine/Textures/Skybox/Default/top.jpg",
-      "start": 639858,
-      "end": 707511
+      "start": 639987,
+      "end": 707640
     }, {
       "filename": "/Engine/Textures/debug.png",
-      "start": 707511,
-      "end": 711866
+      "start": 707640,
+      "end": 711995
     }, {
       "filename": "/app.config",
-      "start": 711866,
-      "end": 711969
+      "start": 711995,
+      "end": 712098
     }, {
       "filename": "/imgui.ini",
-      "start": 711969,
-      "end": 712199
+      "start": 712098,
+      "end": 712328
     } ],
-    "remote_package_size": 712199
+    "remote_package_size": 712328
   });
 })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmptse2e1uk.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpcj1jpq2c.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpk89pupw6.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp8jw17yw8.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpcj1jpq2c.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp61aswraw.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp8jw17yw8.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp3fzxc33b.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp61aswraw.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp3fzxc33b.js
 var programArgs = [];
 
 var thisProgram = "./this.program";

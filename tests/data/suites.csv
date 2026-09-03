@@ -1,4 +1,4 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","0","TypeRegistry Entry must contain valid informations.","","2026-09-03","passed","2026-09-03","","ElevateEngine-Tests","ElevateEngine-Tests.global",""
 "","0","EEObject Array of Structs JSON Roundtrip","","2026-09-03","passed","2026-09-03","","ElevateEngine-Tests","ElevateEngine-Tests.global",""
+"","0","TypeRegistry Entry must contain valid informations.","","2026-09-03","passed","2026-09-03","","ElevateEngine-Tests","ElevateEngine-Tests.global",""
 "","0","TypeRegistry must contain the entry for a user defined EEObject.","","2026-09-03","passed","2026-09-03","","ElevateEngine-Tests","ElevateEngine-Tests.global",""

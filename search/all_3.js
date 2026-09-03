@@ -18,7 +18,7 @@ var searchData=
   ['castshadows_15',['castshadows',['../structElevate_1_1DirectionalShadowSettings.html#aff1f1cd666e8e3b6843edb183e3d2ade',1,'Elevate::DirectionalShadowSettings::CastShadows'],['../structElevate_1_1ShadowSettings.html#a5f8dfa3fa71970a42d55691372fee1a0',1,'Elevate::ShadowSettings::CastShadows']]],
   ['category_16',['category',['../structElevate_1_1ComponentTypeTrait.html#abf162cd2700d6e610567a1798e63ea6b',1,'Elevate::ComponentTypeTrait']]],
   ['channels_17',['Channels',['../structElevate_1_1TextureMetadata.html#a48fa8c69f8a97ac634aee1800dd4b292',1,'Elevate::TextureMetadata']]],
-  ['children_18',['children',['../structElevate_1_1PropertyContainer.html#a2bb296fbff34a07dfb24583be38c53da',1,'Elevate::PropertyContainer::Children'],['../structWwiseItem.html#a48bdf1a4c765c3bc387cc064d5d0e904',1,'WwiseItem::Children'],['../structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8',1,'Elevate::TypeField::children']]],
+  ['children_18',['children',['../structElevate_1_1TypeField.html#a232d18d32d6ea8bdbecfb3b4914748a8',1,'Elevate::TypeField::children'],['../structElevate_1_1PropertyContainer.html#a2bb296fbff34a07dfb24583be38c53da',1,'Elevate::PropertyContainer::Children'],['../structWwiseItem.html#a48bdf1a4c765c3bc387cc064d5d0e904',1,'WwiseItem::Children']]],
   ['clamptoborder_19',['ClampToBorder',['../namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fafb07f88f6f11cc5ab9c951290716f147',1,'Elevate']]],
   ['clamptoedge_20',['ClampToEdge',['../namespaceElevate.html#a7771c00d2b9fdd029ed480432ea0ff5fa74556551231333c36debc3d373261134',1,'Elevate']]],
   ['classpaths_21',['ClassPaths',['../classElevate_1_1TypeRegistry.html#a3c4a21033e06d11c840541816a15369e',1,'Elevate::TypeRegistry']]],
