@@ -120,7 +120,7 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Simple profiler class that allows you to profile code execution time. It uses a stack-based approach to allow for nested profiling samples. Each frame, you can call <a class="el" href="classElevate_1_1Profiler.html#a90c135dbff455486546a4199f9070214">BeginFrame()</a> and <a class="el" href="classElevate_1_1Profiler.html#a5c8af2f9527316b99456ef711dd61d9e">EndFrame()</a> to mark the start and end of a frame, and within that frame, you can call <a class="el" href="classElevate_1_1Profiler.html#aab064518e679709b60a0b693eb61dd92">BeginSample()</a> and <a class="el" href="classElevate_1_1Profiler.html#a49cb5d5062fc0f2e7d649b85013ee373">EndSample()</a> to mark the start and end of a profiling sample. The profiler will automatically calculate the duration of each sample and store it in a <a class="el" href="structElevate_1_1ProfilerSample.html">ProfilerSample</a> struct, which is then stored in a <a class="el" href="structElevate_1_1ProfilerFrame.html">ProfilerFrame</a> struct. The profiler also keeps track of the total time spent in each frame and stores it in the <a class="el" href="structElevate_1_1ProfilerFrame.html">ProfilerFrame</a> struct. The profiler maintains a history of the last MAX_FRAME_HISTORY frames, which can be accessed for analysis. </p>
 
-<p class="definition">Definition at line <a class="el" href="Profiler_8h_source.html#l00020">20</a> of file <a class="el" href="Profiler_8h_source.html">Profiler.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Profiler_8h_source.html#l00026">26</a> of file <a class="el" href="Profiler_8h_source.html">Profiler.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a90c135dbff455486546a4199f9070214" name="a90c135dbff455486546a4199f9070214"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a90c135dbff455486546a4199f9070214">&#9670;&#160;</a></span>BeginFrame()</h2>
@@ -145,14 +145,14 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Profiler_8cpp_source.html#l00012">12</a> of file <a class="el" href="Profiler_8cpp_source.html">Profiler.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   13</span>    {</div>
-<div class="line"><span class="lineno">   14</span>        m_FrameNumber++;</div>
-<div class="line"><span class="lineno">   15</span>        m_SampleStack = std::stack&lt;ProfilerSample&gt;();</div>
-<div class="line"><span class="lineno">   16</span> </div>
-<div class="line"><span class="lineno">   17</span>        m_CurrentFrame = ProfilerFrame();</div>
-<div class="line"><span class="lineno">   18</span>        m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a3700fe5c40099b7e8b187b41d995d340">FrameNumber</a> = m_FrameNumber;</div>
-<div class="line"><span class="lineno">   19</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Profiler_8cpp_source.html#l00017">17</a> of file <a class="el" href="Profiler_8cpp_source.html">Profiler.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   18</span>    {</div>
+<div class="line"><span class="lineno">   19</span>        m_FrameNumber++;</div>
+<div class="line"><span class="lineno">   20</span>        m_SampleStack = std::stack&lt;ProfilerSample&gt;();</div>
+<div class="line"><span class="lineno">   21</span> </div>
+<div class="line"><span class="lineno">   22</span>        m_CurrentFrame = ProfilerFrame();</div>
+<div class="line"><span class="lineno">   23</span>        m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a3700fe5c40099b7e8b187b41d995d340">FrameNumber</a> = m_FrameNumber;</div>
+<div class="line"><span class="lineno">   24</span>    }</div>
 <div class="ttc" id="astructElevate_1_1ProfilerFrame_html_a3700fe5c40099b7e8b187b41d995d340"><div class="ttname"><a href="structElevate_1_1ProfilerFrame.html#a3700fe5c40099b7e8b187b41d995d340">Elevate::ProfilerFrame::FrameNumber</a></div><div class="ttdeci">uint64_t FrameNumber</div><div class="ttdef"><b>Definition</b> <a href="ProfilerFrame_8h_source.html#l00011">ProfilerFrame.h:11</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -181,14 +181,14 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Profiler_8cpp_source.html#l00037">37</a> of file <a class="el" href="Profiler_8cpp_source.html">Profiler.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   38</span>    {</div>
-<div class="line"><span class="lineno">   39</span>        ProfilerSample sample;</div>
-<div class="line"><span class="lineno">   40</span>        sample.Name = name;</div>
-<div class="line"><span class="lineno">   41</span>        sample.ThreadID = <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(std::hash&lt;std::thread::id&gt;{}(std::this_thread::get_id()));</div>
-<div class="line"><span class="lineno">   42</span>        sample.StartTime = std::chrono::high_resolution_clock::now();</div>
-<div class="line"><span class="lineno">   43</span>        m_SampleStack.push(sample);</div>
-<div class="line"><span class="lineno">   44</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Profiler_8cpp_source.html#l00042">42</a> of file <a class="el" href="Profiler_8cpp_source.html">Profiler.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   43</span>    {</div>
+<div class="line"><span class="lineno">   44</span>        ProfilerSample sample;</div>
+<div class="line"><span class="lineno">   45</span>        sample.Name = name;</div>
+<div class="line"><span class="lineno">   46</span>        sample.ThreadID = <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(std::hash&lt;std::thread::id&gt;{}(std::this_thread::get_id()));</div>
+<div class="line"><span class="lineno">   47</span>        sample.StartTime = std::chrono::high_resolution_clock::now();</div>
+<div class="line"><span class="lineno">   48</span>        m_SampleStack.push(sample);</div>
+<div class="line"><span class="lineno">   49</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -215,21 +215,21 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Profiler_8cpp_source.html#l00021">21</a> of file <a class="el" href="Profiler_8cpp_source.html">Profiler.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   22</span>    {</div>
-<div class="line"><span class="lineno">   23</span>        m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a6b5db9fd9adf99f7e5b0ba9b103758cb">totalTimeMilliseconds</a> = 0.0f;</div>
-<div class="line"><span class="lineno">   24</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sample : m_CurrentFrame.Samples)</div>
-<div class="line"><span class="lineno">   25</span>        {</div>
-<div class="line"><span class="lineno">   26</span>            m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a6b5db9fd9adf99f7e5b0ba9b103758cb">totalTimeMilliseconds</a> += sample.GetDurationMilliseconds();</div>
-<div class="line"><span class="lineno">   27</span>        }</div>
-<div class="line"><span class="lineno">   28</span> </div>
-<div class="line"><span class="lineno">   29</span>        m_Frames.push_back(m_CurrentFrame);</div>
-<div class="line"><span class="lineno">   30</span> </div>
-<div class="line"><span class="lineno">   31</span>        <span class="keywordflow">if</span> (m_Frames.size() &gt; MAX_FRAME_HISTORY)</div>
-<div class="line"><span class="lineno">   32</span>        {</div>
-<div class="line"><span class="lineno">   33</span>            m_Frames.erase(m_Frames.begin());</div>
-<div class="line"><span class="lineno">   34</span>        }</div>
-<div class="line"><span class="lineno">   35</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Profiler_8cpp_source.html#l00026">26</a> of file <a class="el" href="Profiler_8cpp_source.html">Profiler.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   27</span>    {</div>
+<div class="line"><span class="lineno">   28</span>        m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a6b5db9fd9adf99f7e5b0ba9b103758cb">totalTimeMilliseconds</a> = 0.0f;</div>
+<div class="line"><span class="lineno">   29</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sample : m_CurrentFrame.Samples)</div>
+<div class="line"><span class="lineno">   30</span>        {</div>
+<div class="line"><span class="lineno">   31</span>            m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a6b5db9fd9adf99f7e5b0ba9b103758cb">totalTimeMilliseconds</a> += sample.GetDurationMilliseconds();</div>
+<div class="line"><span class="lineno">   32</span>        }</div>
+<div class="line"><span class="lineno">   33</span> </div>
+<div class="line"><span class="lineno">   34</span>        m_Frames.push_back(m_CurrentFrame);</div>
+<div class="line"><span class="lineno">   35</span> </div>
+<div class="line"><span class="lineno">   36</span>        <span class="keywordflow">if</span> (m_Frames.size() &gt; MAX_FRAME_HISTORY)</div>
+<div class="line"><span class="lineno">   37</span>        {</div>
+<div class="line"><span class="lineno">   38</span>            m_Frames.erase(m_Frames.begin());</div>
+<div class="line"><span class="lineno">   39</span>        }</div>
+<div class="line"><span class="lineno">   40</span>    }</div>
 <div class="ttc" id="astructElevate_1_1ProfilerFrame_html_a6b5db9fd9adf99f7e5b0ba9b103758cb"><div class="ttname"><a href="structElevate_1_1ProfilerFrame.html#a6b5db9fd9adf99f7e5b0ba9b103758cb">Elevate::ProfilerFrame::totalTimeMilliseconds</a></div><div class="ttdeci">float totalTimeMilliseconds</div><div class="ttdef"><b>Definition</b> <a href="ProfilerFrame_8h_source.html#l00012">ProfilerFrame.h:12</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -257,20 +257,20 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Profiler_8cpp_source.html#l00046">46</a> of file <a class="el" href="Profiler_8cpp_source.html">Profiler.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   47</span>    {</div>
-<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">if</span> (m_SampleStack.empty())</div>
-<div class="line"><span class="lineno">   49</span>        {</div>
-<div class="line"><span class="lineno">   50</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;Profiler::EndSample() called without a matching BeginSample()&quot;</span>);</div>
-<div class="line"><span class="lineno">   51</span>            <span class="keywordflow">return</span>; <span class="comment">// Nothing left to close.</span></div>
-<div class="line"><span class="lineno">   52</span>        }</div>
-<div class="line"><span class="lineno">   53</span> </div>
-<div class="line"><span class="lineno">   54</span>        <span class="comment">// Pop sample and add to the current frame</span></div>
-<div class="line"><span class="lineno">   55</span>        ProfilerSample sample = m_SampleStack.top();</div>
-<div class="line"><span class="lineno">   56</span>        m_SampleStack.pop();</div>
-<div class="line"><span class="lineno">   57</span>        sample.EndTime = std::chrono::high_resolution_clock::now();</div>
-<div class="line"><span class="lineno">   58</span>        m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a34dbfb90150c493f014bcf2c36424ca3">Samples</a>.push_back(sample);</div>
-<div class="line"><span class="lineno">   59</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Profiler_8cpp_source.html#l00051">51</a> of file <a class="el" href="Profiler_8cpp_source.html">Profiler.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   52</span>    {</div>
+<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">if</span> (m_SampleStack.empty())</div>
+<div class="line"><span class="lineno">   54</span>        {</div>
+<div class="line"><span class="lineno">   55</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;Profiler::EndSample() called without a matching BeginSample()&quot;</span>);</div>
+<div class="line"><span class="lineno">   56</span>            <span class="keywordflow">return</span>; <span class="comment">// Nothing left to close.</span></div>
+<div class="line"><span class="lineno">   57</span>        }</div>
+<div class="line"><span class="lineno">   58</span> </div>
+<div class="line"><span class="lineno">   59</span>        <span class="comment">// Pop sample and add to the current frame</span></div>
+<div class="line"><span class="lineno">   60</span>        ProfilerSample sample = m_SampleStack.top();</div>
+<div class="line"><span class="lineno">   61</span>        m_SampleStack.pop();</div>
+<div class="line"><span class="lineno">   62</span>        sample.EndTime = std::chrono::high_resolution_clock::now();</div>
+<div class="line"><span class="lineno">   63</span>        m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a34dbfb90150c493f014bcf2c36424ca3">Samples</a>.push_back(sample);</div>
+<div class="line"><span class="lineno">   64</span>    }</div>
 <div class="ttc" id="astructElevate_1_1ProfilerFrame_html_a34dbfb90150c493f014bcf2c36424ca3"><div class="ttname"><a href="structElevate_1_1ProfilerFrame.html#a34dbfb90150c493f014bcf2c36424ca3">Elevate::ProfilerFrame::Samples</a></div><div class="ttdeci">std::vector&lt; ProfilerSample &gt; Samples</div><div class="ttdef"><b>Definition</b> <a href="ProfilerFrame_8h_source.html#l00013">ProfilerFrame.h:13</a></div></div>
 </div><!-- fragment -->
 </div>

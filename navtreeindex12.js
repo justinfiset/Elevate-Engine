@@ -1,5 +1,8 @@
 var NAVTREEINDEX12 =
 {
+"globals_defs.html":[4,1,4,0],
+"globals_defs_b.html":[4,1,4,1],
+"globals_defs_c.html":[4,1,4,2],
 "globals_defs_d.html":[4,1,4,3],
 "globals_defs_e.html":[4,1,4,4],
 "globals_defs_g.html":[4,1,4,5],
@@ -246,8 +249,5 @@ var NAVTREEINDEX12 =
 "namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1a5c22b826138634df6ddf1e22fdb7e66e":[2,0,1,222,8],
 "namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1aa296104f0c61a9cf39f4824d05315e12":[2,0,1,222,0],
 "namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1ace1e467293d9b3110edaffcddb74b63e":[2,0,1,222,2],
-"namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1ae9017664588010860a92ceb5f8fcb824":[2,0,1,222,7],
-"namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1aee6aaf22abac7bd5c8c8b1edc1164cd1":[2,0,1,222,1],
-"namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1afd8a9233da3895cba640f2065708fa69":[2,0,1,222,3],
-"namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7":[2,0,1,227]
+"namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1ae9017664588010860a92ceb5f8fcb824":[2,0,1,222,7]
 };

@@ -127,7 +127,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00152">152</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00153">153</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a35fd9f0e602a0d81ff6095ddbc6ff661" name="a35fd9f0e602a0d81ff6095ddbc6ff661"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a35fd9f0e602a0d81ff6095ddbc6ff661">&#9670;&#160;</a></span>Entry() <span class="overload">[1/2]</span></h2>
@@ -188,10 +188,10 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00160">160</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  161</span>                : <a class="code hl_variable" href="structElevate_1_1TypeRegistry_1_1Entry.html#adc89a402189fb137eaa94be2df821b53">name</a>(<a class="code hl_variable" href="structElevate_1_1TypeRegistry_1_1Entry.html#adc89a402189fb137eaa94be2df821b53">name</a>), <a class="code hl_variable" href="structElevate_1_1TypeRegistry_1_1Entry.html#aa3e665a6571a2df6dae23d17085905a0">type</a>(<a class="code hl_variable" href="structElevate_1_1TypeRegistry_1_1Entry.html#aa3e665a6571a2df6dae23d17085905a0">type</a>) { }</div>
-<div class="ttc" id="astructElevate_1_1TypeRegistry_1_1Entry_html_aa3e665a6571a2df6dae23d17085905a0"><div class="ttname"><a href="structElevate_1_1TypeRegistry_1_1Entry.html#aa3e665a6571a2df6dae23d17085905a0">Elevate::TypeRegistry::Entry::type</a></div><div class="ttdeci">std::type_index type</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00155">TypeRegistry.h:155</a></div></div>
-<div class="ttc" id="astructElevate_1_1TypeRegistry_1_1Entry_html_adc89a402189fb137eaa94be2df821b53"><div class="ttname"><a href="structElevate_1_1TypeRegistry_1_1Entry.html#adc89a402189fb137eaa94be2df821b53">Elevate::TypeRegistry::Entry::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00154">TypeRegistry.h:154</a></div></div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00161">161</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  162</span>                : <a class="code hl_variable" href="structElevate_1_1TypeRegistry_1_1Entry.html#adc89a402189fb137eaa94be2df821b53">name</a>(<a class="code hl_variable" href="structElevate_1_1TypeRegistry_1_1Entry.html#adc89a402189fb137eaa94be2df821b53">name</a>), <a class="code hl_variable" href="structElevate_1_1TypeRegistry_1_1Entry.html#aa3e665a6571a2df6dae23d17085905a0">type</a>(<a class="code hl_variable" href="structElevate_1_1TypeRegistry_1_1Entry.html#aa3e665a6571a2df6dae23d17085905a0">type</a>) { }</div>
+<div class="ttc" id="astructElevate_1_1TypeRegistry_1_1Entry_html_aa3e665a6571a2df6dae23d17085905a0"><div class="ttname"><a href="structElevate_1_1TypeRegistry_1_1Entry.html#aa3e665a6571a2df6dae23d17085905a0">Elevate::TypeRegistry::Entry::type</a></div><div class="ttdeci">std::type_index type</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00156">TypeRegistry.h:156</a></div></div>
+<div class="ttc" id="astructElevate_1_1TypeRegistry_1_1Entry_html_adc89a402189fb137eaa94be2df821b53"><div class="ttname"><a href="structElevate_1_1TypeRegistry_1_1Entry.html#adc89a402189fb137eaa94be2df821b53">Elevate::TypeRegistry::Entry::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00155">TypeRegistry.h:155</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -223,12 +223,12 @@ template&lt;typename T &gt; </div>
 <p>Function to get a specific variation of ITypeTraits added to the current object type.</p>
 <dl class="section return"><dt>Returns</dt><dd>the Trait typed asked. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00169">169</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  170</span>            {</div>
-<div class="line"><span class="lineno">  171</span>                <span class="keyword">auto</span> it = <a class="code hl_variable" href="structElevate_1_1TypeRegistry_1_1Entry.html#a89ddcc8afbffa4c3ac4035b2f60e23a1">traits</a>.find(<span class="keyword">typeid</span>(T));</div>
-<div class="line"><span class="lineno">  172</span>                <span class="keywordflow">return</span> (it != <a class="code hl_variable" href="structElevate_1_1TypeRegistry_1_1Entry.html#a89ddcc8afbffa4c3ac4035b2f60e23a1">traits</a>.end()) ? <span class="keyword">static_cast&lt;</span>T*<span class="keyword">&gt;</span>(it-&gt;second.get()) : nullptr;</div>
-<div class="line"><span class="lineno">  173</span>            }</div>
-<div class="ttc" id="astructElevate_1_1TypeRegistry_1_1Entry_html_a89ddcc8afbffa4c3ac4035b2f60e23a1"><div class="ttname"><a href="structElevate_1_1TypeRegistry_1_1Entry.html#a89ddcc8afbffa4c3ac4035b2f60e23a1">Elevate::TypeRegistry::Entry::traits</a></div><div class="ttdeci">std::map&lt; std::type_index, std::shared_ptr&lt; ITypeTrait &gt; &gt; traits</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00156">TypeRegistry.h:156</a></div></div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00170">170</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  171</span>            {</div>
+<div class="line"><span class="lineno">  172</span>                <span class="keyword">auto</span> it = <a class="code hl_variable" href="structElevate_1_1TypeRegistry_1_1Entry.html#a89ddcc8afbffa4c3ac4035b2f60e23a1">traits</a>.find(<span class="keyword">typeid</span>(T));</div>
+<div class="line"><span class="lineno">  173</span>                <span class="keywordflow">return</span> (it != <a class="code hl_variable" href="structElevate_1_1TypeRegistry_1_1Entry.html#a89ddcc8afbffa4c3ac4035b2f60e23a1">traits</a>.end()) ? <span class="keyword">static_cast&lt;</span>T*<span class="keyword">&gt;</span>(it-&gt;second.get()) : nullptr;</div>
+<div class="line"><span class="lineno">  174</span>            }</div>
+<div class="ttc" id="astructElevate_1_1TypeRegistry_1_1Entry_html_a89ddcc8afbffa4c3ac4035b2f60e23a1"><div class="ttname"><a href="structElevate_1_1TypeRegistry_1_1Entry.html#a89ddcc8afbffa4c3ac4035b2f60e23a1">Elevate::TypeRegistry::Entry::traits</a></div><div class="ttdeci">std::map&lt; std::type_index, std::shared_ptr&lt; ITypeTrait &gt; &gt; traits</div><div class="ttdef"><b>Definition</b> <a href="TypeRegistry_8h_source.html#l00157">TypeRegistry.h:157</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -245,7 +245,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00157">157</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00158">158</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
 
 </div>
 </div>
@@ -261,7 +261,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00154">154</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00155">155</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
 
 </div>
 </div>
@@ -277,7 +277,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00156">156</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00157">157</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
 
 </div>
 </div>
@@ -293,8 +293,8 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00155">155</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  155</span>{ <span class="keyword">typeid</span>(void) };</div>
+<p class="definition">Definition at line <a class="el" href="TypeRegistry_8h_source.html#l00156">156</a> of file <a class="el" href="TypeRegistry_8h_source.html">TypeRegistry.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  156</span>{ <span class="keyword">typeid</span>(void) };</div>
 </div><!-- fragment -->
 </div>
 </div>

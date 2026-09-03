@@ -104,116 +104,125 @@ $(document).ready(function(){initNavTree('Guid_8cpp_source.html',''); initResiza
 <div class="contents">
 <a href="Guid_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="Guid_8h.html">Guid.h</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;uuid.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="Log_8h.html">ElevateEngine/Core/Log.h</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceElevate.html">Elevate</a></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#a4b903221bb2411f152fc1f215db5907b">   10</a></span>    <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a> <a class="code hl_function" href="classElevate_1_1Guid.html#a4b903221bb2411f152fc1f215db5907b">Guid::New</a>()</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        <span class="keyword">static</span> std::random_device rd;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="keyword">static</span> std::seed_seq seed{ rd(), rd(), rd(), rd() };</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keyword">static</span> std::mt19937 generator(seed);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        uuids::uuid_random_generator gen(generator);</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        uuids::uuid <span class="keywordtype">id</span> = gen();</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a> result;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        std::span&lt;std::byte const, 16&gt; bytes = <span class="keywordtype">id</span>.as_bytes();</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        std::copy(bytes.begin(), bytes.end(), result.m_bytes);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    }</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;uuid.h&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;cstring&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;format&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;iterator&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;random&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;span&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="Log_8h.html">ElevateEngine/Core/Log.h</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="Byte_8h.html">ElevateEngine/Core/Byte.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceElevate.html">Elevate</a></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#a4b903221bb2411f152fc1f215db5907b">   18</a></span>    <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a> <a class="code hl_function" href="classElevate_1_1Guid.html#a4b903221bb2411f152fc1f215db5907b">Guid::New</a>()</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keyword">static</span> std::random_device rd;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keyword">static</span> std::seed_seq seed{ rd(), rd(), rd(), rd() };</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">static</span> std::mt19937 generator(seed);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        uuids::uuid_random_generator gen(generator);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        uuids::uuid <span class="keywordtype">id</span> = gen();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a> result;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        std::span&lt;std::byte const, 16&gt; bytes = <span class="keywordtype">id</span>.as_bytes();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        std::copy(bytes.begin(), bytes.end(), result.m_bytes);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    }</div>
 </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#ae7f00d705ef2e88ea29d8c274ade19cd">   24</a></span>    <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a> <a class="code hl_function" href="classElevate_1_1Guid.html#ae7f00d705ef2e88ea29d8c274ade19cd">Guid::FromString</a>(<span class="keyword">const</span> std::string&amp; str)</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">auto</span> idOpt = uuids::uuid::from_string(str);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordflow">if</span> (!idOpt.has_value())</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;Failed to parse guid from string : {}&quot;</span>, str);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a>{}; <span class="comment">// Return an ampty guid</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        }</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a> result;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        std::span&lt;std::byte const, 16&gt; bytes = idOpt-&gt;as_bytes();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        std::copy(bytes.begin(), bytes.end(), result.m_bytes);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#ae7f00d705ef2e88ea29d8c274ade19cd">   32</a></span>    <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a> <a class="code hl_function" href="classElevate_1_1Guid.html#ae7f00d705ef2e88ea29d8c274ade19cd">Guid::FromString</a>(<span class="keyword">const</span> std::string&amp; str)</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keyword">auto</span> idOpt = uuids::uuid::from_string(str);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">if</span> (!idOpt.has_value())</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;Failed to parse guid from string : {}&quot;</span>, str);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a>{}; <span class="comment">// Return an ampty guid</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a> result;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        std::span&lt;std::byte const, 16&gt; bytes = idOpt-&gt;as_bytes();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        std::copy(bytes.begin(), bytes.end(), result.m_bytes);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
 </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#a0b035c82f69e6a5a625c0b1ffced78f0">   39</a></span>    std::string <a class="code hl_function" href="classElevate_1_1Guid.html#a0b035c82f69e6a5a625c0b1ffced78f0">Guid::ToString</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keyword">auto</span> beginPtr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>uint8_t*<span class="keyword">&gt;</span>(m_bytes);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keyword">auto</span> <span class="keywordtype">id</span> = uuids::uuid(beginPtr, beginPtr + 16);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">return</span> uuids::to_string(<span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#a0b035c82f69e6a5a625c0b1ffced78f0">   47</a></span>    std::string <a class="code hl_function" href="classElevate_1_1Guid.html#a0b035c82f69e6a5a625c0b1ffced78f0">Guid::ToString</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keyword">auto</span> beginPtr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>uint8_t*<span class="keyword">&gt;</span>(m_bytes);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keyword">auto</span> <span class="keywordtype">id</span> = uuids::uuid(beginPtr, beginPtr + 16);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">return</span> uuids::to_string(<span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
 </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#aa4f7aad3ecfa23dd9d386d65dc92ed2c">   46</a></span>    <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a> <a class="code hl_function" href="classElevate_1_1Guid.html#aa4f7aad3ecfa23dd9d386d65dc92ed2c">Guid::ToBytes</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">return</span> <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>(std::begin(m_bytes), std::end(m_bytes));</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#aa4f7aad3ecfa23dd9d386d65dc92ed2c">   54</a></span>    <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a> <a class="code hl_function" href="classElevate_1_1Guid.html#aa4f7aad3ecfa23dd9d386d65dc92ed2c">Guid::ToBytes</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordflow">return</span> <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>(std::begin(m_bytes), std::end(m_bytes));</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    }</div>
 </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#a6c66a7d7ed2bdfddf592fda65f6a3e9a">   51</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classElevate_1_1Guid.html#a6c66a7d7ed2bdfddf592fda65f6a3e9a">Guid::operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a>&amp; other)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">return</span> std::equal(std::begin(m_bytes), std::end(m_bytes), std::begin(other.m_bytes));</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#a6c66a7d7ed2bdfddf592fda65f6a3e9a">   59</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classElevate_1_1Guid.html#a6c66a7d7ed2bdfddf592fda65f6a3e9a">Guid::operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a>&amp; other)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">return</span> std::equal(std::begin(m_bytes), std::end(m_bytes), std::begin(other.m_bytes));</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
 </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="foldopen" id="foldopen00056" data-start="{" data-end="}">
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#a83431a00c5720c084d961ed3e275a473">   56</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classElevate_1_1Guid.html#a83431a00c5720c084d961ed3e275a473">Guid::IsValid</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a> nullGuid{};</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">return</span> std::memcmp(m_bytes, nullGuid.m_bytes, <span class="keyword">sizeof</span>(m_bytes)) != 0;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="foldopen" id="foldopen00064" data-start="{" data-end="}">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#a83431a00c5720c084d961ed3e275a473">   64</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classElevate_1_1Guid.html#a83431a00c5720c084d961ed3e275a473">Guid::IsValid</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a> nullGuid{};</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">return</span> std::memcmp(m_bytes, nullGuid.m_bytes, <span class="keyword">sizeof</span>(m_bytes)) != 0;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    }</div>
 </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#a50c0269952349cc8bdf154eec490bc1c">   62</a></span>    std::size_t <a class="code hl_function" href="classElevate_1_1Guid.html#a50c0269952349cc8bdf154eec490bc1c">Guid::GetHash</a>() const noexcept</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        uint64_t high, low;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        std::memcpy(&amp;high, m_bytes, <span class="keyword">sizeof</span>(uint64_t));</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        std::memcpy(&amp;low, m_bytes + 8, <span class="keyword">sizeof</span>(uint64_t));</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        std::size_t h1 = std::hash&lt;uint64_t&gt;{}(high);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        std::size_t h2 = std::hash&lt;uint64_t&gt;{}(low);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">return</span> h1 ^ (h2 + 0x9e3779b9 + (h1 &lt;&lt; 6) + (h1 &gt;&gt; 2));</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="foldopen" id="foldopen00070" data-start="{" data-end="}">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#a50c0269952349cc8bdf154eec490bc1c">   70</a></span>    std::size_t <a class="code hl_function" href="classElevate_1_1Guid.html#a50c0269952349cc8bdf154eec490bc1c">Guid::GetHash</a>() const noexcept</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        uint64_t high, low;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        std::memcpy(&amp;high, m_bytes, <span class="keyword">sizeof</span>(uint64_t));</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        std::memcpy(&amp;low, m_bytes + 8, <span class="keyword">sizeof</span>(uint64_t));</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        std::size_t h1 = std::hash&lt;uint64_t&gt;{}(high);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        std::size_t h2 = std::hash&lt;uint64_t&gt;{}(low);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">return</span> h1 ^ (h2 + 0x9e3779b9 + (h1 &lt;&lt; 6) + (h1 &gt;&gt; 2));</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    }</div>
 </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="foldopen" id="foldopen00072" data-start="{" data-end="}">
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#ae392a05e01ba0c1dbce7049e3ad5bc52">   72</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classElevate_1_1Guid.html#ae392a05e01ba0c1dbce7049e3ad5bc52">Guid::operator!=</a>(<span class="keyword">const</span> <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a>&amp; other)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> !(*<span class="keyword">this</span> == other);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#ae392a05e01ba0c1dbce7049e3ad5bc52">   80</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classElevate_1_1Guid.html#ae392a05e01ba0c1dbce7049e3ad5bc52">Guid::operator!=</a>(<span class="keyword">const</span> <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a>&amp; other)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">return</span> !(*<span class="keyword">this</span> == other);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    }</div>
 </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#aa4b504490d266885281b6d660106b760">   77</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classElevate_1_1Guid.html#aa4b504490d266885281b6d660106b760">Guid::operator&lt;</a>(<span class="keyword">const</span> <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a>&amp; other)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">return</span> std::memcmp(m_bytes, other.m_bytes, <span class="keyword">sizeof</span>(m_bytes)) &lt; 0;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="classElevate_1_1Guid.html#aa4b504490d266885281b6d660106b760">   85</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classElevate_1_1Guid.html#aa4b504490d266885281b6d660106b760">Guid::operator&lt;</a>(<span class="keyword">const</span> <a class="code hl_class" href="classElevate_1_1Guid.html">Guid</a>&amp; other)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keywordflow">return</span> std::memcmp(m_bytes, other.m_bytes, <span class="keyword">sizeof</span>(m_bytes)) &lt; 0;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
 </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+<div class="ttc" id="aByte_8h_html"><div class="ttname"><a href="Byte_8h.html">Byte.h</a></div></div>
 <div class="ttc" id="aGuid_8h_html"><div class="ttname"><a href="Guid_8h.html">Guid.h</a></div></div>
 <div class="ttc" id="aLog_8h_html"><div class="ttname"><a href="Log_8h.html">Log.h</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Guid_html"><div class="ttname"><a href="classElevate_1_1Guid.html">Elevate::Guid</a></div><div class="ttdef"><b>Definition</b> <a href="Guid_8h_source.html#l00010">Guid.h:11</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Guid_html_a0b035c82f69e6a5a625c0b1ffced78f0"><div class="ttname"><a href="classElevate_1_1Guid.html#a0b035c82f69e6a5a625c0b1ffced78f0">Elevate::Guid::ToString</a></div><div class="ttdeci">std::string ToString() const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00039">Guid.cpp:39</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Guid_html_a4b903221bb2411f152fc1f215db5907b"><div class="ttname"><a href="classElevate_1_1Guid.html#a4b903221bb2411f152fc1f215db5907b">Elevate::Guid::New</a></div><div class="ttdeci">static Guid New()</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00010">Guid.cpp:10</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Guid_html_a50c0269952349cc8bdf154eec490bc1c"><div class="ttname"><a href="classElevate_1_1Guid.html#a50c0269952349cc8bdf154eec490bc1c">Elevate::Guid::GetHash</a></div><div class="ttdeci">std::size_t GetHash() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00062">Guid.cpp:62</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Guid_html_a6c66a7d7ed2bdfddf592fda65f6a3e9a"><div class="ttname"><a href="classElevate_1_1Guid.html#a6c66a7d7ed2bdfddf592fda65f6a3e9a">Elevate::Guid::operator==</a></div><div class="ttdeci">bool operator==(const Guid &amp;other) const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00051">Guid.cpp:51</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Guid_html_a83431a00c5720c084d961ed3e275a473"><div class="ttname"><a href="classElevate_1_1Guid.html#a83431a00c5720c084d961ed3e275a473">Elevate::Guid::IsValid</a></div><div class="ttdeci">bool IsValid() const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00056">Guid.cpp:56</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Guid_html_aa4b504490d266885281b6d660106b760"><div class="ttname"><a href="classElevate_1_1Guid.html#aa4b504490d266885281b6d660106b760">Elevate::Guid::operator&lt;</a></div><div class="ttdeci">bool operator&lt;(const Guid &amp;other) const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00077">Guid.cpp:77</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Guid_html_aa4f7aad3ecfa23dd9d386d65dc92ed2c"><div class="ttname"><a href="classElevate_1_1Guid.html#aa4f7aad3ecfa23dd9d386d65dc92ed2c">Elevate::Guid::ToBytes</a></div><div class="ttdeci">ByteBuffer ToBytes() const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00046">Guid.cpp:46</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Guid_html_ae392a05e01ba0c1dbce7049e3ad5bc52"><div class="ttname"><a href="classElevate_1_1Guid.html#ae392a05e01ba0c1dbce7049e3ad5bc52">Elevate::Guid::operator!=</a></div><div class="ttdeci">bool operator!=(const Guid &amp;other) const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00072">Guid.cpp:72</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Guid_html_ae7f00d705ef2e88ea29d8c274ade19cd"><div class="ttname"><a href="classElevate_1_1Guid.html#ae7f00d705ef2e88ea29d8c274ade19cd">Elevate::Guid::FromString</a></div><div class="ttdeci">static Guid FromString(const std::string &amp;str)</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00024">Guid.cpp:24</a></div></div>
-<div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00007">AudioDistanceProbe.h:8</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Guid_html"><div class="ttname"><a href="classElevate_1_1Guid.html">Elevate::Guid</a></div><div class="ttdef"><b>Definition</b> <a href="Guid_8h_source.html#l00013">Guid.h:14</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Guid_html_a0b035c82f69e6a5a625c0b1ffced78f0"><div class="ttname"><a href="classElevate_1_1Guid.html#a0b035c82f69e6a5a625c0b1ffced78f0">Elevate::Guid::ToString</a></div><div class="ttdeci">std::string ToString() const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00047">Guid.cpp:47</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Guid_html_a4b903221bb2411f152fc1f215db5907b"><div class="ttname"><a href="classElevate_1_1Guid.html#a4b903221bb2411f152fc1f215db5907b">Elevate::Guid::New</a></div><div class="ttdeci">static Guid New()</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00018">Guid.cpp:18</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Guid_html_a50c0269952349cc8bdf154eec490bc1c"><div class="ttname"><a href="classElevate_1_1Guid.html#a50c0269952349cc8bdf154eec490bc1c">Elevate::Guid::GetHash</a></div><div class="ttdeci">std::size_t GetHash() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00070">Guid.cpp:70</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Guid_html_a6c66a7d7ed2bdfddf592fda65f6a3e9a"><div class="ttname"><a href="classElevate_1_1Guid.html#a6c66a7d7ed2bdfddf592fda65f6a3e9a">Elevate::Guid::operator==</a></div><div class="ttdeci">bool operator==(const Guid &amp;other) const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00059">Guid.cpp:59</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Guid_html_a83431a00c5720c084d961ed3e275a473"><div class="ttname"><a href="classElevate_1_1Guid.html#a83431a00c5720c084d961ed3e275a473">Elevate::Guid::IsValid</a></div><div class="ttdeci">bool IsValid() const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00064">Guid.cpp:64</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Guid_html_aa4b504490d266885281b6d660106b760"><div class="ttname"><a href="classElevate_1_1Guid.html#aa4b504490d266885281b6d660106b760">Elevate::Guid::operator&lt;</a></div><div class="ttdeci">bool operator&lt;(const Guid &amp;other) const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00085">Guid.cpp:85</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Guid_html_aa4f7aad3ecfa23dd9d386d65dc92ed2c"><div class="ttname"><a href="classElevate_1_1Guid.html#aa4f7aad3ecfa23dd9d386d65dc92ed2c">Elevate::Guid::ToBytes</a></div><div class="ttdeci">ByteBuffer ToBytes() const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00054">Guid.cpp:54</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Guid_html_ae392a05e01ba0c1dbce7049e3ad5bc52"><div class="ttname"><a href="classElevate_1_1Guid.html#ae392a05e01ba0c1dbce7049e3ad5bc52">Elevate::Guid::operator!=</a></div><div class="ttdeci">bool operator!=(const Guid &amp;other) const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00080">Guid.cpp:80</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Guid_html_ae7f00d705ef2e88ea29d8c274ade19cd"><div class="ttname"><a href="classElevate_1_1Guid.html#ae7f00d705ef2e88ea29d8c274ade19cd">Elevate::Guid::FromString</a></div><div class="ttdeci">static Guid FromString(const std::string &amp;str)</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00032">Guid.cpp:32</a></div></div>
+<div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00008">AudioDistanceProbe.h:9</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a662833bd41c873b3ffeddc33c6f28e19"><div class="ttname"><a href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">Elevate::ByteBuffer</a></div><div class="ttdeci">std::vector&lt; Byte &gt; ByteBuffer</div><div class="ttdef"><b>Definition</b> <a href="Byte_8h_source.html#l00013">Byte.h:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

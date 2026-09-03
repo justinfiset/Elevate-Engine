@@ -105,22 +105,24 @@ $(document).ready(function(){initNavTree('ReflectionTags_8cpp_source.html',''); 
 <a href="ReflectionTags_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="ReflectionTags_8h.html">ReflectionTags.h</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="AssetRegistry_8h.html">ElevateEngine/Core/AssetRegistry.h</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="foldopen" id="foldopen00005" data-start="{" data-end="}">
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="structElevate_1_1AssetTag.html#adb6ab2df399103f7b3d271d3e4a1bdc2">    5</a></span><a class="code hl_function" href="structElevate_1_1AssetTag.html#adb6ab2df399103f7b3d271d3e4a1bdc2">Elevate::AssetTag::AssetTag</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structElevate_1_1AssetMetaData.html">AssetMetaData</a>&amp; meta)</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <a class="code hl_variable" href="structElevate_1_1AssetTag.html#aefddebb9be120991cb8e7aff57822f2a">Meta</a> = meta;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifdef EE_EDITOR_BUILD</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <a class="code hl_function" href="classElevate_1_1AssetRegistry.html#ade194fe925d0fa056d4aaf40a6a172bf">AssetRegistry::RegisterAssetType</a>(meta);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>}</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="AssetMetaData_8h.html">ElevateEngine/Core/AssetMetaData.h</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="foldopen" id="foldopen00006" data-start="{" data-end="}">
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="structElevate_1_1AssetTag.html#adb6ab2df399103f7b3d271d3e4a1bdc2">    6</a></span><a class="code hl_function" href="structElevate_1_1AssetTag.html#adb6ab2df399103f7b3d271d3e4a1bdc2">Elevate::AssetTag::AssetTag</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structElevate_1_1AssetMetaData.html">AssetMetaData</a>&amp; meta)</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <a class="code hl_variable" href="structElevate_1_1AssetTag.html#aefddebb9be120991cb8e7aff57822f2a">Meta</a> = meta;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#ifdef EE_EDITOR_BUILD</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_function" href="classElevate_1_1AssetRegistry.html#ade194fe925d0fa056d4aaf40a6a172bf">AssetRegistry::RegisterAssetType</a>(meta);</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
 </div>
+<div class="ttc" id="aAssetMetaData_8h_html"><div class="ttname"><a href="AssetMetaData_8h.html">AssetMetaData.h</a></div></div>
 <div class="ttc" id="aAssetRegistry_8h_html"><div class="ttname"><a href="AssetRegistry_8h.html">AssetRegistry.h</a></div></div>
 <div class="ttc" id="aReflectionTags_8h_html"><div class="ttname"><a href="ReflectionTags_8h.html">ReflectionTags.h</a></div></div>
-<div class="ttc" id="aclassElevate_1_1AssetRegistry_html_ade194fe925d0fa056d4aaf40a6a172bf"><div class="ttname"><a href="classElevate_1_1AssetRegistry.html#ade194fe925d0fa056d4aaf40a6a172bf">Elevate::AssetRegistry::RegisterAssetType</a></div><div class="ttdeci">static void RegisterAssetType(AssetMetaData trait)</div><div class="ttdef"><b>Definition</b> <a href="AssetRegistry_8cpp_source.html#l00239">AssetRegistry.cpp:239</a></div></div>
+<div class="ttc" id="aclassElevate_1_1AssetRegistry_html_ade194fe925d0fa056d4aaf40a6a172bf"><div class="ttname"><a href="classElevate_1_1AssetRegistry.html#ade194fe925d0fa056d4aaf40a6a172bf">Elevate::AssetRegistry::RegisterAssetType</a></div><div class="ttdeci">static void RegisterAssetType(AssetMetaData trait)</div><div class="ttdef"><b>Definition</b> <a href="AssetRegistry_8cpp_source.html#l00251">AssetRegistry.cpp:251</a></div></div>
 <div class="ttc" id="astructElevate_1_1AssetMetaData_html"><div class="ttname"><a href="structElevate_1_1AssetMetaData.html">Elevate::AssetMetaData</a></div><div class="ttdef"><b>Definition</b> <a href="AssetMetaData_8h_source.html#l00042">AssetMetaData.h:43</a></div></div>
-<div class="ttc" id="astructElevate_1_1AssetTag_html_adb6ab2df399103f7b3d271d3e4a1bdc2"><div class="ttname"><a href="structElevate_1_1AssetTag.html#adb6ab2df399103f7b3d271d3e4a1bdc2">Elevate::AssetTag::AssetTag</a></div><div class="ttdeci">AssetTag(const AssetMetaData &amp;meta)</div><div class="ttdef"><b>Definition</b> <a href="ReflectionTags_8cpp_source.html#l00005">ReflectionTags.cpp:5</a></div></div>
-<div class="ttc" id="astructElevate_1_1AssetTag_html_aefddebb9be120991cb8e7aff57822f2a"><div class="ttname"><a href="structElevate_1_1AssetTag.html#aefddebb9be120991cb8e7aff57822f2a">Elevate::AssetTag::Meta</a></div><div class="ttdeci">AssetMetaData Meta</div><div class="ttdef"><b>Definition</b> <a href="ReflectionTags_8h_source.html#l00023">ReflectionTags.h:23</a></div></div>
+<div class="ttc" id="astructElevate_1_1AssetTag_html_adb6ab2df399103f7b3d271d3e4a1bdc2"><div class="ttname"><a href="structElevate_1_1AssetTag.html#adb6ab2df399103f7b3d271d3e4a1bdc2">Elevate::AssetTag::AssetTag</a></div><div class="ttdeci">AssetTag(const AssetMetaData &amp;meta)</div><div class="ttdef"><b>Definition</b> <a href="ReflectionTags_8cpp_source.html#l00006">ReflectionTags.cpp:6</a></div></div>
+<div class="ttc" id="astructElevate_1_1AssetTag_html_aefddebb9be120991cb8e7aff57822f2a"><div class="ttname"><a href="structElevate_1_1AssetTag.html#aefddebb9be120991cb8e7aff57822f2a">Elevate::AssetTag::Meta</a></div><div class="ttdeci">AssetMetaData Meta</div><div class="ttdef"><b>Definition</b> <a href="ReflectionTags_8h_source.html#l00026">ReflectionTags.h:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

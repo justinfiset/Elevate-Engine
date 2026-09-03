@@ -104,79 +104,86 @@ $(document).ready(function(){initNavTree('Profiler_8cpp_source.html',''); initRe
 <div class="contents">
 <a href="Profiler_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="Profiler_8h.html">Profiler.h</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="Log_8h.html">ElevateEngine/Core/Log.h</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceElevate.html">Elevate</a></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    uint64_t Profiler::m_FrameNumber = 0;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    ProfilerFrame Profiler::m_CurrentFrame = {};</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    std::stack&lt;ProfilerSample&gt; Profiler::m_SampleStack;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    std::vector&lt;ProfilerFrame&gt; Profiler::m_Frames;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classElevate_1_1Profiler.html#a90c135dbff455486546a4199f9070214">   12</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Profiler.html#a90c135dbff455486546a4199f9070214">Profiler::BeginFrame</a>()</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        m_FrameNumber++;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        m_SampleStack = std::stack&lt;ProfilerSample&gt;();</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;chrono&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="Log_8h.html">ElevateEngine/Core/Log.h</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="ProfilerSample_8h.html">ElevateEngine/Core/Profiling/ProfilerSample.h</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="ProfilerFrame_8h.html">ElevateEngine/Core/Profiling/ProfilerFrame.h</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceElevate.html">Elevate</a></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    uint64_t Profiler::m_FrameNumber = 0;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    ProfilerFrame Profiler::m_CurrentFrame = {};</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    std::stack&lt;ProfilerSample&gt; Profiler::m_SampleStack;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    std::vector&lt;ProfilerFrame&gt; Profiler::m_Frames;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        m_CurrentFrame = <a class="code hl_struct" href="structElevate_1_1ProfilerFrame.html">ProfilerFrame</a>();</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a3700fe5c40099b7e8b187b41d995d340">FrameNumber</a> = m_FrameNumber;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classElevate_1_1Profiler.html#a90c135dbff455486546a4199f9070214">   17</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Profiler.html#a90c135dbff455486546a4199f9070214">Profiler::BeginFrame</a>()</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        m_FrameNumber++;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        m_SampleStack = std::stack&lt;ProfilerSample&gt;();</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        m_CurrentFrame = <a class="code hl_struct" href="structElevate_1_1ProfilerFrame.html">ProfilerFrame</a>();</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a3700fe5c40099b7e8b187b41d995d340">FrameNumber</a> = m_FrameNumber;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    }</div>
 </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classElevate_1_1Profiler.html#a5c8af2f9527316b99456ef711dd61d9e">   21</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Profiler.html#a5c8af2f9527316b99456ef711dd61d9e">Profiler::EndFrame</a>()</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a6b5db9fd9adf99f7e5b0ba9b103758cb">totalTimeMilliseconds</a> = 0.0f;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sample : m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a34dbfb90150c493f014bcf2c36424ca3">Samples</a>)</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a6b5db9fd9adf99f7e5b0ba9b103758cb">totalTimeMilliseconds</a> += sample.GetDurationMilliseconds();</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        }</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        m_Frames.push_back(m_CurrentFrame);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">if</span> (m_Frames.size() &gt; MAX_FRAME_HISTORY)</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            m_Frames.erase(m_Frames.begin());</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        }</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classElevate_1_1Profiler.html#a5c8af2f9527316b99456ef711dd61d9e">   26</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Profiler.html#a5c8af2f9527316b99456ef711dd61d9e">Profiler::EndFrame</a>()</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a6b5db9fd9adf99f7e5b0ba9b103758cb">totalTimeMilliseconds</a> = 0.0f;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sample : m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a34dbfb90150c493f014bcf2c36424ca3">Samples</a>)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a6b5db9fd9adf99f7e5b0ba9b103758cb">totalTimeMilliseconds</a> += sample.GetDurationMilliseconds();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        m_Frames.push_back(m_CurrentFrame);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">if</span> (m_Frames.size() &gt; MAX_FRAME_HISTORY)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            m_Frames.erase(m_Frames.begin());</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    }</div>
 </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classElevate_1_1Profiler.html#aab064518e679709b60a0b693eb61dd92">   37</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Profiler.html#aab064518e679709b60a0b693eb61dd92">Profiler::BeginSample</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name)</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_struct" href="structElevate_1_1ProfilerSample.html">ProfilerSample</a> sample;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        sample.<a class="code hl_variable" href="structElevate_1_1ProfilerSample.html#a58effbc630312dadb946ff0e5e9c016f">Name</a> = name;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        sample.<a class="code hl_variable" href="structElevate_1_1ProfilerSample.html#a3aa076c188152372f74f41382c326a2b">ThreadID</a> = <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(std::hash&lt;std::thread::id&gt;{}(std::this_thread::get_id()));</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        sample.<a class="code hl_variable" href="structElevate_1_1ProfilerSample.html#ab7f90f25df4fe6c1b0031d95b8d7204b">StartTime</a> = std::chrono::high_resolution_clock::now();</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        m_SampleStack.push(sample);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="classElevate_1_1Profiler.html#aab064518e679709b60a0b693eb61dd92">   42</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Profiler.html#aab064518e679709b60a0b693eb61dd92">Profiler::BeginSample</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name)</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_struct" href="structElevate_1_1ProfilerSample.html">ProfilerSample</a> sample;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        sample.<a class="code hl_variable" href="structElevate_1_1ProfilerSample.html#a58effbc630312dadb946ff0e5e9c016f">Name</a> = name;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        sample.<a class="code hl_variable" href="structElevate_1_1ProfilerSample.html#a3aa076c188152372f74f41382c326a2b">ThreadID</a> = <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(std::hash&lt;std::thread::id&gt;{}(std::this_thread::get_id()));</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        sample.<a class="code hl_variable" href="structElevate_1_1ProfilerSample.html#ab7f90f25df4fe6c1b0031d95b8d7204b">StartTime</a> = std::chrono::high_resolution_clock::now();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        m_SampleStack.push(sample);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
 </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="classElevate_1_1Profiler.html#a49cb5d5062fc0f2e7d649b85013ee373">   46</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Profiler.html#a49cb5d5062fc0f2e7d649b85013ee373">Profiler::EndSample</a>()</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">if</span> (m_SampleStack.empty())</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;Profiler::EndSample() called without a matching BeginSample()&quot;</span>);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <span class="keywordflow">return</span>; <span class="comment">// Nothing left to close.</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        }</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="comment">// Pop sample and add to the current frame</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_struct" href="structElevate_1_1ProfilerSample.html">ProfilerSample</a> sample = m_SampleStack.top();</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        m_SampleStack.pop();</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        sample.<a class="code hl_variable" href="structElevate_1_1ProfilerSample.html#a304e2ba7a64cc9a089a5ecc85f2330a2">EndTime</a> = std::chrono::high_resolution_clock::now();</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a34dbfb90150c493f014bcf2c36424ca3">Samples</a>.push_back(sample);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="classElevate_1_1Profiler.html#a49cb5d5062fc0f2e7d649b85013ee373">   51</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Profiler.html#a49cb5d5062fc0f2e7d649b85013ee373">Profiler::EndSample</a>()</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">if</span> (m_SampleStack.empty())</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;Profiler::EndSample() called without a matching BeginSample()&quot;</span>);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="keywordflow">return</span>; <span class="comment">// Nothing left to close.</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="comment">// Pop sample and add to the current frame</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <a class="code hl_struct" href="structElevate_1_1ProfilerSample.html">ProfilerSample</a> sample = m_SampleStack.top();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        m_SampleStack.pop();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        sample.<a class="code hl_variable" href="structElevate_1_1ProfilerSample.html#a304e2ba7a64cc9a089a5ecc85f2330a2">EndTime</a> = std::chrono::high_resolution_clock::now();</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        m_CurrentFrame.<a class="code hl_variable" href="structElevate_1_1ProfilerFrame.html#a34dbfb90150c493f014bcf2c36424ca3">Samples</a>.push_back(sample);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
 </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
 <div class="ttc" id="aLog_8h_html"><div class="ttname"><a href="Log_8h.html">Log.h</a></div></div>
+<div class="ttc" id="aProfilerFrame_8h_html"><div class="ttname"><a href="ProfilerFrame_8h.html">ProfilerFrame.h</a></div></div>
+<div class="ttc" id="aProfilerSample_8h_html"><div class="ttname"><a href="ProfilerSample_8h.html">ProfilerSample.h</a></div></div>
 <div class="ttc" id="aProfiler_8h_html"><div class="ttname"><a href="Profiler_8h.html">Profiler.h</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Profiler_html_a49cb5d5062fc0f2e7d649b85013ee373"><div class="ttname"><a href="classElevate_1_1Profiler.html#a49cb5d5062fc0f2e7d649b85013ee373">Elevate::Profiler::EndSample</a></div><div class="ttdeci">static void EndSample()</div><div class="ttdef"><b>Definition</b> <a href="Profiler_8cpp_source.html#l00046">Profiler.cpp:46</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Profiler_html_a5c8af2f9527316b99456ef711dd61d9e"><div class="ttname"><a href="classElevate_1_1Profiler.html#a5c8af2f9527316b99456ef711dd61d9e">Elevate::Profiler::EndFrame</a></div><div class="ttdeci">static void EndFrame()</div><div class="ttdef"><b>Definition</b> <a href="Profiler_8cpp_source.html#l00021">Profiler.cpp:21</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Profiler_html_a90c135dbff455486546a4199f9070214"><div class="ttname"><a href="classElevate_1_1Profiler.html#a90c135dbff455486546a4199f9070214">Elevate::Profiler::BeginFrame</a></div><div class="ttdeci">static void BeginFrame()</div><div class="ttdef"><b>Definition</b> <a href="Profiler_8cpp_source.html#l00012">Profiler.cpp:12</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Profiler_html_aab064518e679709b60a0b693eb61dd92"><div class="ttname"><a href="classElevate_1_1Profiler.html#aab064518e679709b60a0b693eb61dd92">Elevate::Profiler::BeginSample</a></div><div class="ttdeci">static void BeginSample(const char *name)</div><div class="ttdef"><b>Definition</b> <a href="Profiler_8cpp_source.html#l00037">Profiler.cpp:37</a></div></div>
-<div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00007">AudioDistanceProbe.h:8</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Profiler_html_a49cb5d5062fc0f2e7d649b85013ee373"><div class="ttname"><a href="classElevate_1_1Profiler.html#a49cb5d5062fc0f2e7d649b85013ee373">Elevate::Profiler::EndSample</a></div><div class="ttdeci">static void EndSample()</div><div class="ttdef"><b>Definition</b> <a href="Profiler_8cpp_source.html#l00051">Profiler.cpp:51</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Profiler_html_a5c8af2f9527316b99456ef711dd61d9e"><div class="ttname"><a href="classElevate_1_1Profiler.html#a5c8af2f9527316b99456ef711dd61d9e">Elevate::Profiler::EndFrame</a></div><div class="ttdeci">static void EndFrame()</div><div class="ttdef"><b>Definition</b> <a href="Profiler_8cpp_source.html#l00026">Profiler.cpp:26</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Profiler_html_a90c135dbff455486546a4199f9070214"><div class="ttname"><a href="classElevate_1_1Profiler.html#a90c135dbff455486546a4199f9070214">Elevate::Profiler::BeginFrame</a></div><div class="ttdeci">static void BeginFrame()</div><div class="ttdef"><b>Definition</b> <a href="Profiler_8cpp_source.html#l00017">Profiler.cpp:17</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Profiler_html_aab064518e679709b60a0b693eb61dd92"><div class="ttname"><a href="classElevate_1_1Profiler.html#aab064518e679709b60a0b693eb61dd92">Elevate::Profiler::BeginSample</a></div><div class="ttdeci">static void BeginSample(const char *name)</div><div class="ttdef"><b>Definition</b> <a href="Profiler_8cpp_source.html#l00042">Profiler.cpp:42</a></div></div>
+<div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00008">AudioDistanceProbe.h:9</a></div></div>
 <div class="ttc" id="astructElevate_1_1ProfilerFrame_html"><div class="ttname"><a href="structElevate_1_1ProfilerFrame.html">Elevate::ProfilerFrame</a></div><div class="ttdef"><b>Definition</b> <a href="ProfilerFrame_8h_source.html#l00009">ProfilerFrame.h:10</a></div></div>
 <div class="ttc" id="astructElevate_1_1ProfilerFrame_html_a34dbfb90150c493f014bcf2c36424ca3"><div class="ttname"><a href="structElevate_1_1ProfilerFrame.html#a34dbfb90150c493f014bcf2c36424ca3">Elevate::ProfilerFrame::Samples</a></div><div class="ttdeci">std::vector&lt; ProfilerSample &gt; Samples</div><div class="ttdef"><b>Definition</b> <a href="ProfilerFrame_8h_source.html#l00013">ProfilerFrame.h:13</a></div></div>
 <div class="ttc" id="astructElevate_1_1ProfilerFrame_html_a3700fe5c40099b7e8b187b41d995d340"><div class="ttname"><a href="structElevate_1_1ProfilerFrame.html#a3700fe5c40099b7e8b187b41d995d340">Elevate::ProfilerFrame::FrameNumber</a></div><div class="ttdeci">uint64_t FrameNumber</div><div class="ttdef"><b>Definition</b> <a href="ProfilerFrame_8h_source.html#l00011">ProfilerFrame.h:11</a></div></div>

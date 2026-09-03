@@ -227,46 +227,46 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Window_8cpp_source.html#l00034">34</a> of file <a class="el" href="Window_8cpp_source.html">Window.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   35</span>    {</div>
-<div class="line"><span class="lineno">   36</span>        <span class="comment">// TODO put this part in a util somehwerre to get the document</span></div>
-<div class="line"><span class="lineno">   38</span>        FILE* fp = fopen(appConfigFilePath.c_str(), <span class="stringliteral">&quot;r&quot;</span>);</div>
-<div class="line"><span class="lineno">   39</span>        <span class="keywordtype">char</span> readBuffer[65536];</div>
-<div class="line"><span class="lineno">   40</span>        rapidjson::FileReadStream is(fp, readBuffer,</div>
-<div class="line"><span class="lineno">   41</span>            <span class="keyword">sizeof</span>(readBuffer));</div>
-<div class="line"><span class="lineno">   42</span>        rapidjson::Document doc;</div>
-<div class="line"><span class="lineno">   43</span>        doc.ParseStream(is);</div>
-<div class="line"><span class="lineno">   44</span>        fclose(fp);</div>
-<div class="line"><span class="lineno">   45</span> </div>
-<div class="line"><span class="lineno">   46</span>        <span class="comment">// Error handling</span></div>
-<div class="line"><span class="lineno">   47</span>        <span class="keywordflow">if</span> (doc.HasParseError())</div>
-<div class="line"><span class="lineno">   48</span>        {</div>
-<div class="line"><span class="lineno">   49</span>            EE_CORE_TRACE(<span class="stringliteral">&quot;ERROR PARSING The WindowProps JSON&quot;</span>);</div>
-<div class="line"><span class="lineno">   50</span>        }</div>
-<div class="line"><span class="lineno">   52</span> </div>
-<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">if</span> (doc.HasMember(<span class="stringliteral">&quot;title&quot;</span>) &amp;&amp; doc[<span class="stringliteral">&quot;title&quot;</span>].IsString())</div>
-<div class="line"><span class="lineno">   54</span>        {</div>
-<div class="line"><span class="lineno">   55</span>            this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#ac792c3775b21ced52ede6829394916d5">Title</a> = doc[<span class="stringliteral">&quot;title&quot;</span>].GetString();</div>
-<div class="line"><span class="lineno">   56</span>        }</div>
-<div class="line"><span class="lineno">   57</span> </div>
-<div class="line"><span class="lineno">   58</span>        <span class="keywordflow">if</span> (doc.HasMember(<span class="stringliteral">&quot;size&quot;</span>))</div>
-<div class="line"><span class="lineno">   59</span>        {</div>
-<div class="line"><span class="lineno">   60</span>            <span class="keyword">const</span> rapidjson::Value&amp; size = doc[<span class="stringliteral">&quot;size&quot;</span>];</div>
-<div class="line"><span class="lineno">   61</span>            <span class="keywordflow">if</span> (size.HasMember(<span class="stringliteral">&quot;x&quot;</span>) &amp;&amp; size[<span class="stringliteral">&quot;x&quot;</span>].IsInt())</div>
-<div class="line"><span class="lineno">   62</span>            {</div>
-<div class="line"><span class="lineno">   63</span>                this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#a8879f707c416e3e89606fe340cad1ece">Width</a> = size[<span class="stringliteral">&quot;x&quot;</span>].GetInt();</div>
-<div class="line"><span class="lineno">   64</span>            }</div>
-<div class="line"><span class="lineno">   65</span>            <span class="keywordflow">if</span> (size.HasMember(<span class="stringliteral">&quot;y&quot;</span>) &amp;&amp; size[<span class="stringliteral">&quot;y&quot;</span>].IsInt())</div>
-<div class="line"><span class="lineno">   66</span>            {</div>
-<div class="line"><span class="lineno">   67</span>                this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#a7bd2e5894fc974f71209b74fb7b7a14f">Height</a> = size[<span class="stringliteral">&quot;y&quot;</span>].GetInt();</div>
-<div class="line"><span class="lineno">   68</span>            }</div>
-<div class="line"><span class="lineno">   69</span>        }</div>
-<div class="line"><span class="lineno">   70</span> </div>
-<div class="line"><span class="lineno">   71</span>        <span class="keywordflow">if</span> (doc.HasMember(<span class="stringliteral">&quot;vsync&quot;</span>) &amp;&amp; doc[<span class="stringliteral">&quot;vsync&quot;</span>].IsBool())</div>
-<div class="line"><span class="lineno">   72</span>        {</div>
-<div class="line"><span class="lineno">   73</span>            this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#add5a672a2ac6781f12b8a957654e04d5">VSync</a> = doc[<span class="stringliteral">&quot;vsync&quot;</span>].GetBool();</div>
-<div class="line"><span class="lineno">   74</span>        }</div>
-<div class="line"><span class="lineno">   75</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Window_8cpp_source.html#l00037">37</a> of file <a class="el" href="Window_8cpp_source.html">Window.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   38</span>    {</div>
+<div class="line"><span class="lineno">   39</span>        <span class="comment">// TODO put this part in a util somehwerre to get the document</span></div>
+<div class="line"><span class="lineno">   41</span>        FILE* fp = fopen(appConfigFilePath.c_str(), <span class="stringliteral">&quot;r&quot;</span>);</div>
+<div class="line"><span class="lineno">   42</span>        <span class="keywordtype">char</span> readBuffer[65536];</div>
+<div class="line"><span class="lineno">   43</span>        rapidjson::FileReadStream is(fp, readBuffer,</div>
+<div class="line"><span class="lineno">   44</span>            <span class="keyword">sizeof</span>(readBuffer));</div>
+<div class="line"><span class="lineno">   45</span>        rapidjson::Document doc;</div>
+<div class="line"><span class="lineno">   46</span>        doc.ParseStream(is);</div>
+<div class="line"><span class="lineno">   47</span>        fclose(fp);</div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>        <span class="comment">// Error handling</span></div>
+<div class="line"><span class="lineno">   50</span>        <span class="keywordflow">if</span> (doc.HasParseError())</div>
+<div class="line"><span class="lineno">   51</span>        {</div>
+<div class="line"><span class="lineno">   52</span>            EE_CORE_TRACE(<span class="stringliteral">&quot;ERROR PARSING The WindowProps JSON&quot;</span>);</div>
+<div class="line"><span class="lineno">   53</span>        }</div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">if</span> (doc.HasMember(<span class="stringliteral">&quot;title&quot;</span>) &amp;&amp; doc[<span class="stringliteral">&quot;title&quot;</span>].IsString())</div>
+<div class="line"><span class="lineno">   57</span>        {</div>
+<div class="line"><span class="lineno">   58</span>            this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#ac792c3775b21ced52ede6829394916d5">Title</a> = doc[<span class="stringliteral">&quot;title&quot;</span>].GetString();</div>
+<div class="line"><span class="lineno">   59</span>        }</div>
+<div class="line"><span class="lineno">   60</span> </div>
+<div class="line"><span class="lineno">   61</span>        <span class="keywordflow">if</span> (doc.HasMember(<span class="stringliteral">&quot;size&quot;</span>))</div>
+<div class="line"><span class="lineno">   62</span>        {</div>
+<div class="line"><span class="lineno">   63</span>            <span class="keyword">const</span> rapidjson::Value&amp; size = doc[<span class="stringliteral">&quot;size&quot;</span>];</div>
+<div class="line"><span class="lineno">   64</span>            <span class="keywordflow">if</span> (size.HasMember(<span class="stringliteral">&quot;x&quot;</span>) &amp;&amp; size[<span class="stringliteral">&quot;x&quot;</span>].IsInt())</div>
+<div class="line"><span class="lineno">   65</span>            {</div>
+<div class="line"><span class="lineno">   66</span>                this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#a8879f707c416e3e89606fe340cad1ece">Width</a> = size[<span class="stringliteral">&quot;x&quot;</span>].GetInt();</div>
+<div class="line"><span class="lineno">   67</span>            }</div>
+<div class="line"><span class="lineno">   68</span>            <span class="keywordflow">if</span> (size.HasMember(<span class="stringliteral">&quot;y&quot;</span>) &amp;&amp; size[<span class="stringliteral">&quot;y&quot;</span>].IsInt())</div>
+<div class="line"><span class="lineno">   69</span>            {</div>
+<div class="line"><span class="lineno">   70</span>                this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#a7bd2e5894fc974f71209b74fb7b7a14f">Height</a> = size[<span class="stringliteral">&quot;y&quot;</span>].GetInt();</div>
+<div class="line"><span class="lineno">   71</span>            }</div>
+<div class="line"><span class="lineno">   72</span>        }</div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>        <span class="keywordflow">if</span> (doc.HasMember(<span class="stringliteral">&quot;vsync&quot;</span>) &amp;&amp; doc[<span class="stringliteral">&quot;vsync&quot;</span>].IsBool())</div>
+<div class="line"><span class="lineno">   75</span>        {</div>
+<div class="line"><span class="lineno">   76</span>            this-&gt;<a class="code hl_variable" href="structElevate_1_1WindowProps.html#add5a672a2ac6781f12b8a957654e04d5">VSync</a> = doc[<span class="stringliteral">&quot;vsync&quot;</span>].GetBool();</div>
+<div class="line"><span class="lineno">   77</span>        }</div>
+<div class="line"><span class="lineno">   78</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -130,7 +130,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Guid_8h_source.html#l00010">10</a> of file <a class="el" href="Guid_8h_source.html">Guid.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Guid_8h_source.html#l00013">13</a> of file <a class="el" href="Guid_8h_source.html">Guid.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae7f00d705ef2e88ea29d8c274ade19cd" name="ae7f00d705ef2e88ea29d8c274ade19cd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae7f00d705ef2e88ea29d8c274ade19cd">&#9670;&#160;</a></span>FromString()</h2>
@@ -156,20 +156,20 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00024">24</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   25</span>    {</div>
-<div class="line"><span class="lineno">   26</span>        <span class="keyword">auto</span> idOpt = uuids::uuid::from_string(str);</div>
-<div class="line"><span class="lineno">   27</span>        <span class="keywordflow">if</span> (!idOpt.has_value())</div>
-<div class="line"><span class="lineno">   28</span>        {</div>
-<div class="line"><span class="lineno">   29</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;Failed to parse guid from string : {}&quot;</span>, str);</div>
-<div class="line"><span class="lineno">   30</span>            <span class="keywordflow">return</span> Guid{}; <span class="comment">// Return an ampty guid</span></div>
-<div class="line"><span class="lineno">   31</span>        }</div>
-<div class="line"><span class="lineno">   32</span> </div>
-<div class="line"><span class="lineno">   33</span>        Guid result;</div>
-<div class="line"><span class="lineno">   34</span>        std::span&lt;std::byte const, 16&gt; bytes = idOpt-&gt;as_bytes();</div>
-<div class="line"><span class="lineno">   35</span>        std::copy(bytes.begin(), bytes.end(), result.m_bytes);</div>
-<div class="line"><span class="lineno">   36</span>        <span class="keywordflow">return</span> result;</div>
-<div class="line"><span class="lineno">   37</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00032">32</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   33</span>    {</div>
+<div class="line"><span class="lineno">   34</span>        <span class="keyword">auto</span> idOpt = uuids::uuid::from_string(str);</div>
+<div class="line"><span class="lineno">   35</span>        <span class="keywordflow">if</span> (!idOpt.has_value())</div>
+<div class="line"><span class="lineno">   36</span>        {</div>
+<div class="line"><span class="lineno">   37</span>            EE_CORE_ERROR(<span class="stringliteral">&quot;Failed to parse guid from string : {}&quot;</span>, str);</div>
+<div class="line"><span class="lineno">   38</span>            <span class="keywordflow">return</span> Guid{}; <span class="comment">// Return an ampty guid</span></div>
+<div class="line"><span class="lineno">   39</span>        }</div>
+<div class="line"><span class="lineno">   40</span> </div>
+<div class="line"><span class="lineno">   41</span>        Guid result;</div>
+<div class="line"><span class="lineno">   42</span>        std::span&lt;std::byte const, 16&gt; bytes = idOpt-&gt;as_bytes();</div>
+<div class="line"><span class="lineno">   43</span>        std::copy(bytes.begin(), bytes.end(), result.m_bytes);</div>
+<div class="line"><span class="lineno">   44</span>        <span class="keywordflow">return</span> result;</div>
+<div class="line"><span class="lineno">   45</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -196,15 +196,15 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00062">62</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   63</span>    {</div>
-<div class="line"><span class="lineno">   64</span>        uint64_t high, low;</div>
-<div class="line"><span class="lineno">   65</span>        std::memcpy(&amp;high, m_bytes, <span class="keyword">sizeof</span>(uint64_t));</div>
-<div class="line"><span class="lineno">   66</span>        std::memcpy(&amp;low, m_bytes + 8, <span class="keyword">sizeof</span>(uint64_t));</div>
-<div class="line"><span class="lineno">   67</span>        std::size_t h1 = std::hash&lt;uint64_t&gt;{}(high);</div>
-<div class="line"><span class="lineno">   68</span>        std::size_t h2 = std::hash&lt;uint64_t&gt;{}(low);</div>
-<div class="line"><span class="lineno">   69</span>        <span class="keywordflow">return</span> h1 ^ (h2 + 0x9e3779b9 + (h1 &lt;&lt; 6) + (h1 &gt;&gt; 2));</div>
-<div class="line"><span class="lineno">   70</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00070">70</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   71</span>    {</div>
+<div class="line"><span class="lineno">   72</span>        uint64_t high, low;</div>
+<div class="line"><span class="lineno">   73</span>        std::memcpy(&amp;high, m_bytes, <span class="keyword">sizeof</span>(uint64_t));</div>
+<div class="line"><span class="lineno">   74</span>        std::memcpy(&amp;low, m_bytes + 8, <span class="keyword">sizeof</span>(uint64_t));</div>
+<div class="line"><span class="lineno">   75</span>        std::size_t h1 = std::hash&lt;uint64_t&gt;{}(high);</div>
+<div class="line"><span class="lineno">   76</span>        std::size_t h2 = std::hash&lt;uint64_t&gt;{}(low);</div>
+<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">return</span> h1 ^ (h2 + 0x9e3779b9 + (h1 &lt;&lt; 6) + (h1 &gt;&gt; 2));</div>
+<div class="line"><span class="lineno">   78</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -223,11 +223,11 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00056">56</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   57</span>    {</div>
-<div class="line"><span class="lineno">   58</span>        <span class="keyword">static</span> <span class="keyword">const</span> Guid nullGuid{};</div>
-<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">return</span> std::memcmp(m_bytes, nullGuid.m_bytes, <span class="keyword">sizeof</span>(m_bytes)) != 0;</div>
-<div class="line"><span class="lineno">   60</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00064">64</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   65</span>    {</div>
+<div class="line"><span class="lineno">   66</span>        <span class="keyword">static</span> <span class="keyword">const</span> Guid nullGuid{};</div>
+<div class="line"><span class="lineno">   67</span>        <span class="keywordflow">return</span> std::memcmp(m_bytes, nullGuid.m_bytes, <span class="keyword">sizeof</span>(m_bytes)) != 0;</div>
+<div class="line"><span class="lineno">   68</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -254,19 +254,19 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00010">10</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   11</span>    {</div>
-<div class="line"><span class="lineno">   12</span>        <span class="keyword">static</span> std::random_device rd;</div>
-<div class="line"><span class="lineno">   13</span>        <span class="keyword">static</span> std::seed_seq seed{ rd(), rd(), rd(), rd() };</div>
-<div class="line"><span class="lineno">   14</span>        <span class="keyword">static</span> std::mt19937 generator(seed);</div>
-<div class="line"><span class="lineno">   15</span>        uuids::uuid_random_generator gen(generator);</div>
-<div class="line"><span class="lineno">   16</span>        uuids::uuid <span class="keywordtype">id</span> = gen();</div>
-<div class="line"><span class="lineno">   17</span> </div>
-<div class="line"><span class="lineno">   18</span>        Guid result;</div>
-<div class="line"><span class="lineno">   19</span>        std::span&lt;std::byte const, 16&gt; bytes = <span class="keywordtype">id</span>.as_bytes();</div>
-<div class="line"><span class="lineno">   20</span>        std::copy(bytes.begin(), bytes.end(), result.m_bytes);</div>
-<div class="line"><span class="lineno">   21</span>        <span class="keywordflow">return</span> result;</div>
-<div class="line"><span class="lineno">   22</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00018">18</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   19</span>    {</div>
+<div class="line"><span class="lineno">   20</span>        <span class="keyword">static</span> std::random_device rd;</div>
+<div class="line"><span class="lineno">   21</span>        <span class="keyword">static</span> std::seed_seq seed{ rd(), rd(), rd(), rd() };</div>
+<div class="line"><span class="lineno">   22</span>        <span class="keyword">static</span> std::mt19937 generator(seed);</div>
+<div class="line"><span class="lineno">   23</span>        uuids::uuid_random_generator gen(generator);</div>
+<div class="line"><span class="lineno">   24</span>        uuids::uuid <span class="keywordtype">id</span> = gen();</div>
+<div class="line"><span class="lineno">   25</span> </div>
+<div class="line"><span class="lineno">   26</span>        Guid result;</div>
+<div class="line"><span class="lineno">   27</span>        std::span&lt;std::byte const, 16&gt; bytes = <span class="keywordtype">id</span>.as_bytes();</div>
+<div class="line"><span class="lineno">   28</span>        std::copy(bytes.begin(), bytes.end(), result.m_bytes);</div>
+<div class="line"><span class="lineno">   29</span>        <span class="keywordflow">return</span> result;</div>
+<div class="line"><span class="lineno">   30</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -286,10 +286,10 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00072">72</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   73</span>    {</div>
-<div class="line"><span class="lineno">   74</span>        <span class="keywordflow">return</span> !(*<span class="keyword">this</span> == other);</div>
-<div class="line"><span class="lineno">   75</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00080">80</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   81</span>    {</div>
+<div class="line"><span class="lineno">   82</span>        <span class="keywordflow">return</span> !(*<span class="keyword">this</span> == other);</div>
+<div class="line"><span class="lineno">   83</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -309,10 +309,10 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00077">77</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   78</span>    {</div>
-<div class="line"><span class="lineno">   79</span>        <span class="keywordflow">return</span> std::memcmp(m_bytes, other.m_bytes, <span class="keyword">sizeof</span>(m_bytes)) &lt; 0;</div>
-<div class="line"><span class="lineno">   80</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00085">85</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   86</span>    {</div>
+<div class="line"><span class="lineno">   87</span>        <span class="keywordflow">return</span> std::memcmp(m_bytes, other.m_bytes, <span class="keyword">sizeof</span>(m_bytes)) &lt; 0;</div>
+<div class="line"><span class="lineno">   88</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -332,10 +332,10 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00051">51</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   52</span>    {</div>
-<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">return</span> std::equal(std::begin(m_bytes), std::end(m_bytes), std::begin(other.m_bytes));</div>
-<div class="line"><span class="lineno">   54</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00059">59</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   60</span>    {</div>
+<div class="line"><span class="lineno">   61</span>        <span class="keywordflow">return</span> std::equal(std::begin(m_bytes), std::end(m_bytes), std::begin(other.m_bytes));</div>
+<div class="line"><span class="lineno">   62</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -354,10 +354,10 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00046">46</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   47</span>    {</div>
-<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">return</span> <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>(std::begin(m_bytes), std::end(m_bytes));</div>
-<div class="line"><span class="lineno">   49</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00054">54</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   55</span>    {</div>
+<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">return</span> <a class="code hl_typedef" href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">ByteBuffer</a>(std::begin(m_bytes), std::end(m_bytes));</div>
+<div class="line"><span class="lineno">   57</span>    }</div>
 <div class="ttc" id="anamespaceElevate_html_a662833bd41c873b3ffeddc33c6f28e19"><div class="ttname"><a href="namespaceElevate.html#a662833bd41c873b3ffeddc33c6f28e19">Elevate::ByteBuffer</a></div><div class="ttdeci">std::vector&lt; Byte &gt; ByteBuffer</div><div class="ttdef"><b>Definition</b> <a href="Byte_8h_source.html#l00013">Byte.h:13</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -377,12 +377,12 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00039">39</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   40</span>    {</div>
-<div class="line"><span class="lineno">   41</span>        <span class="keyword">auto</span> beginPtr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>uint8_t*<span class="keyword">&gt;</span>(m_bytes);</div>
-<div class="line"><span class="lineno">   42</span>        <span class="keyword">auto</span> <span class="keywordtype">id</span> = uuids::uuid(beginPtr, beginPtr + 16);</div>
-<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">return</span> uuids::to_string(<span class="keywordtype">id</span>);</div>
-<div class="line"><span class="lineno">   44</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Guid_8cpp_source.html#l00047">47</a> of file <a class="el" href="Guid_8cpp_source.html">Guid.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   48</span>    {</div>
+<div class="line"><span class="lineno">   49</span>        <span class="keyword">auto</span> beginPtr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>uint8_t*<span class="keyword">&gt;</span>(m_bytes);</div>
+<div class="line"><span class="lineno">   50</span>        <span class="keyword">auto</span> <span class="keywordtype">id</span> = uuids::uuid(beginPtr, beginPtr + 16);</div>
+<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">return</span> uuids::to_string(<span class="keywordtype">id</span>);</div>
+<div class="line"><span class="lineno">   52</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

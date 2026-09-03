@@ -267,7 +267,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00030">30</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00033">33</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ade38ddcdc7968d32b787327669d9bd6c" name="ade38ddcdc7968d32b787327669d9bd6c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ade38ddcdc7968d32b787327669d9bd6c">&#9670;&#160;</a></span>GameObject()</h2>
@@ -301,15 +301,15 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00022">22</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   23</span>        : m_name(name), m_scene(scene.get()), m_parent(parent)</div>
-<div class="line"><span class="lineno">   24</span>    {</div>
-<div class="line"><span class="lineno">   25</span>        m_goId = s_goIdCount;</div>
-<div class="line"><span class="lineno">   26</span>        s_goIdCount++;</div>
-<div class="line"><span class="lineno">   27</span>        EE_CORE_TRACE(<span class="stringliteral">&quot;Created object &#39;{}&#39;, id=&#39;{}&#39;, GUID=&#39;{}&#39;&quot;</span>, m_name, m_goId, <a class="code hl_variable" href="classElevate_1_1EEObject.html#aca5c15fded37fb9d489fda0a5399b4b7">m_guid</a>.<a class="code hl_function" href="classElevate_1_1Guid.html#a0b035c82f69e6a5a625c0b1ffced78f0">ToString</a>());</div>
-<div class="line"><span class="lineno">   28</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00021">21</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   22</span>        : m_name(name), m_scene(scene.get()), m_parent(parent)</div>
+<div class="line"><span class="lineno">   23</span>    {</div>
+<div class="line"><span class="lineno">   24</span>        m_goId = s_goIdCount;</div>
+<div class="line"><span class="lineno">   25</span>        s_goIdCount++;</div>
+<div class="line"><span class="lineno">   26</span>        EE_CORE_TRACE(<span class="stringliteral">&quot;Created object &#39;{}&#39;, id=&#39;{}&#39;, GUID=&#39;{}&#39;&quot;</span>, m_name, m_goId, <a class="code hl_variable" href="classElevate_1_1EEObject.html#aca5c15fded37fb9d489fda0a5399b4b7">m_guid</a>.<a class="code hl_function" href="classElevate_1_1Guid.html#a0b035c82f69e6a5a625c0b1ffced78f0">ToString</a>());</div>
+<div class="line"><span class="lineno">   27</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1EEObject_html_aca5c15fded37fb9d489fda0a5399b4b7"><div class="ttname"><a href="classElevate_1_1EEObject.html#aca5c15fded37fb9d489fda0a5399b4b7">Elevate::EEObject::m_guid</a></div><div class="ttdeci">Guid m_guid</div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00023">EEObject.h:23</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Guid_html_a0b035c82f69e6a5a625c0b1ffced78f0"><div class="ttname"><a href="classElevate_1_1Guid.html#a0b035c82f69e6a5a625c0b1ffced78f0">Elevate::Guid::ToString</a></div><div class="ttdeci">std::string ToString() const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00039">Guid.cpp:39</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Guid_html_a0b035c82f69e6a5a625c0b1ffced78f0"><div class="ttname"><a href="classElevate_1_1Guid.html#a0b035c82f69e6a5a625c0b1ffced78f0">Elevate::Guid::ToString</a></div><div class="ttdeci">std::string ToString() const</div><div class="ttdef"><b>Definition</b> <a href="Guid_8cpp_source.html#l00047">Guid.cpp:47</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -328,15 +328,15 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00217">217</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  218</span>{</div>
-<div class="line"><span class="lineno">  219</span>    <a class="code hl_function" href="classElevate_1_1SoundEngine.html#a6fad9b224064a1c9861625d58a3ad9a1">SoundEngine::UnregisterGameObject</a>(<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  220</span> </div>
-<div class="line"><span class="lineno">  221</span>    <span class="comment">//if (m_scene)</span></div>
-<div class="line"><span class="lineno">  222</span>    <span class="comment">//{</span></div>
-<div class="line"><span class="lineno">  223</span>    <span class="comment">//  m_scene-&gt;m_registryId.destroy(entt::entity(m_entityId));</span></div>
-<div class="line"><span class="lineno">  224</span>    <span class="comment">//} else EE_CORE_ERROR(&quot;Object &#39;{0}&#39; must be destroyed from an existing scene!&quot;, m_name);</span></div>
-<div class="line"><span class="lineno">  225</span>}</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00216">216</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  217</span>{</div>
+<div class="line"><span class="lineno">  218</span>    <a class="code hl_function" href="classElevate_1_1SoundEngine.html#a6fad9b224064a1c9861625d58a3ad9a1">SoundEngine::UnregisterGameObject</a>(<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  219</span> </div>
+<div class="line"><span class="lineno">  220</span>    <span class="comment">//if (m_scene)</span></div>
+<div class="line"><span class="lineno">  221</span>    <span class="comment">//{</span></div>
+<div class="line"><span class="lineno">  222</span>    <span class="comment">//  m_scene-&gt;m_registryId.destroy(entt::entity(m_entityId));</span></div>
+<div class="line"><span class="lineno">  223</span>    <span class="comment">//} else EE_CORE_ERROR(&quot;Object &#39;{0}&#39; must be destroyed from an existing scene!&quot;, m_name);</span></div>
+<div class="line"><span class="lineno">  224</span>}</div>
 <div class="ttc" id="aclassElevate_1_1SoundEngine_html_a6fad9b224064a1c9861625d58a3ad9a1"><div class="ttname"><a href="classElevate_1_1SoundEngine.html#a6fad9b224064a1c9861625d58a3ad9a1">Elevate::SoundEngine::UnregisterGameObject</a></div><div class="ttdeci">static void UnregisterGameObject(GameObject *obj)</div><div class="ttdef"><b>Definition</b> <a href="SoundEngine_8cpp_source.html#l00058">SoundEngine.cpp:58</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -366,16 +366,16 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00335">335</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  336</span>    {</div>
-<div class="line"><span class="lineno">  337</span>        <span class="keywordflow">if</span> (child)</div>
-<div class="line"><span class="lineno">  338</span>        {</div>
-<div class="line"><span class="lineno">  339</span>            child-&gt;m_parent = <a class="code hl_function" href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">GetShared</a>();</div>
-<div class="line"><span class="lineno">  340</span>            m_childs.emplace(child);</div>
-<div class="line"><span class="lineno">  341</span>            m_scene-&gt;RemoveFromRoot(child);</div>
-<div class="line"><span class="lineno">  342</span>        }</div>
-<div class="line"><span class="lineno">  343</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1GameObject_html_a6d4ad9044d8601211f7bed9975c72a42"><div class="ttname"><a href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">Elevate::GameObject::GetShared</a></div><div class="ttdeci">std::shared_ptr&lt; GameObject &gt; GetShared()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00227">GameObject.cpp:227</a></div></div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00334">334</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  335</span>    {</div>
+<div class="line"><span class="lineno">  336</span>        <span class="keywordflow">if</span> (child)</div>
+<div class="line"><span class="lineno">  337</span>        {</div>
+<div class="line"><span class="lineno">  338</span>            child-&gt;m_parent = <a class="code hl_function" href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">GetShared</a>();</div>
+<div class="line"><span class="lineno">  339</span>            m_childs.emplace(child);</div>
+<div class="line"><span class="lineno">  340</span>            m_scene-&gt;RemoveFromRoot(child);</div>
+<div class="line"><span class="lineno">  341</span>        }</div>
+<div class="line"><span class="lineno">  342</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1GameObject_html_a6d4ad9044d8601211f7bed9975c72a42"><div class="ttname"><a href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">Elevate::GameObject::GetShared</a></div><div class="ttdeci">std::shared_ptr&lt; GameObject &gt; GetShared()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00226">GameObject.cpp:226</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -415,7 +415,7 @@ template&lt;typename T , typename... Args&gt; </div>
 <div class="line"><span class="lineno">   39</span>        <span class="keywordflow">return</span> comp;</div>
 <div class="line"><span class="lineno">   40</span>    }</div>
 <div class="ttc" id="aGameObject_8inl_html_a54f655d1c6977f638ab56e3271b8c9f4"><div class="ttname"><a href="GameObject_8inl.html#a54f655d1c6977f638ab56e3271b8c9f4">EE_VALIDATE_COMPONENT_TYPE</a></div><div class="ttdeci">#define EE_VALIDATE_COMPONENT_TYPE()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8inl_source.html#l00018">GameObject.inl:18</a></div></div>
-<div class="ttc" id="aLog_8h_html_af0588ff6a5d639863663d5fbbccd860a"><div class="ttname"><a href="Log_8h.html#af0588ff6a5d639863663d5fbbccd860a">EE_ERROR</a></div><div class="ttdeci">#define EE_ERROR(...)</div><div class="ttdef"><b>Definition</b> <a href="Log_8h_source.html#l00099">Log.h:99</a></div></div>
+<div class="ttc" id="aLog_8h_html_af0588ff6a5d639863663d5fbbccd860a"><div class="ttname"><a href="Log_8h.html#af0588ff6a5d639863663d5fbbccd860a">EE_ERROR</a></div><div class="ttdeci">#define EE_ERROR(...)</div><div class="ttdef"><b>Definition</b> <a href="Log_8h_source.html#l00101">Log.h:101</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a06c21c65d4610d777c1af377f433e602"><div class="ttname"><a href="namespaceElevate.html#a06c21c65d4610d777c1af377f433e602">Elevate::GetRegistryMap</a></div><div class="ttdeci">std::unordered_map&lt; uint32_t, std::unique_ptr&lt; entt::registry &gt; &gt; &amp; GetRegistryMap()</div><div class="ttdef"><b>Definition</b> <a href="ScenePrivate_8cpp_source.html#l00006">ScenePrivate.cpp:6</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -460,13 +460,13 @@ template&lt;typename T , typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00350">350</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  351</span>    {</div>
-<div class="line"><span class="lineno">  352</span>        std::shared_ptr&lt;GameObject&gt; obj = std::make_shared&lt;GameObject&gt;(name, scene, parent);</div>
-<div class="line"><span class="lineno">  353</span>        obj-&gt;Initialize();</div>
-<div class="line"><span class="lineno">  354</span>        obj-&gt;SetPosition({ 0.0f, 0.0f, 0.0f });</div>
-<div class="line"><span class="lineno">  355</span>        <span class="keywordflow">return</span> obj;</div>
-<div class="line"><span class="lineno">  356</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00349">349</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  350</span>    {</div>
+<div class="line"><span class="lineno">  351</span>        std::shared_ptr&lt;GameObject&gt; obj = std::make_shared&lt;GameObject&gt;(name, scene, parent);</div>
+<div class="line"><span class="lineno">  352</span>        obj-&gt;Initialize();</div>
+<div class="line"><span class="lineno">  353</span>        obj-&gt;SetPosition({ 0.0f, 0.0f, 0.0f });</div>
+<div class="line"><span class="lineno">  354</span>        <span class="keywordflow">return</span> obj;</div>
+<div class="line"><span class="lineno">  355</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -485,26 +485,26 @@ template&lt;typename T , typename... Args&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00314">314</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  315</span>    {</div>
-<div class="line"><span class="lineno">  316</span>        <span class="keywordflow">if</span> (m_parent) {</div>
-<div class="line"><span class="lineno">  317</span>            m_parent-&gt;RemoveChild(<a class="code hl_function" href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">GetShared</a>());</div>
-<div class="line"><span class="lineno">  318</span>        }</div>
-<div class="line"><span class="lineno">  319</span>        <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  320</span>            m_scene-&gt;RemoveFromRoot(<a class="code hl_function" href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">GetShared</a>());</div>
-<div class="line"><span class="lineno">  321</span>        }</div>
-<div class="line"><span class="lineno">  322</span> </div>
-<div class="line"><span class="lineno">  323</span>        <span class="keyword">auto</span> childsCopy = m_childs;</div>
-<div class="line"><span class="lineno">  324</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : childsCopy)</div>
-<div class="line"><span class="lineno">  325</span>        {</div>
-<div class="line"><span class="lineno">  326</span>            <span class="keywordflow">if</span> (child)</div>
-<div class="line"><span class="lineno">  327</span>            {</div>
-<div class="line"><span class="lineno">  328</span>                child-&gt;Destroy();</div>
-<div class="line"><span class="lineno">  329</span>            }</div>
-<div class="line"><span class="lineno">  330</span>        }</div>
-<div class="line"><span class="lineno">  331</span>        m_childs.clear();</div>
-<div class="line"><span class="lineno">  332</span>        m_parent.reset();</div>
-<div class="line"><span class="lineno">  333</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00313">313</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  314</span>    {</div>
+<div class="line"><span class="lineno">  315</span>        <span class="keywordflow">if</span> (m_parent) {</div>
+<div class="line"><span class="lineno">  316</span>            m_parent-&gt;RemoveChild(<a class="code hl_function" href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">GetShared</a>());</div>
+<div class="line"><span class="lineno">  317</span>        }</div>
+<div class="line"><span class="lineno">  318</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  319</span>            m_scene-&gt;RemoveFromRoot(<a class="code hl_function" href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">GetShared</a>());</div>
+<div class="line"><span class="lineno">  320</span>        }</div>
+<div class="line"><span class="lineno">  321</span> </div>
+<div class="line"><span class="lineno">  322</span>        <span class="keyword">auto</span> childsCopy = m_childs;</div>
+<div class="line"><span class="lineno">  323</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : childsCopy)</div>
+<div class="line"><span class="lineno">  324</span>        {</div>
+<div class="line"><span class="lineno">  325</span>            <span class="keywordflow">if</span> (child)</div>
+<div class="line"><span class="lineno">  326</span>            {</div>
+<div class="line"><span class="lineno">  327</span>                child-&gt;Destroy();</div>
+<div class="line"><span class="lineno">  328</span>            }</div>
+<div class="line"><span class="lineno">  329</span>        }</div>
+<div class="line"><span class="lineno">  330</span>        m_childs.clear();</div>
+<div class="line"><span class="lineno">  331</span>        m_parent.reset();</div>
+<div class="line"><span class="lineno">  332</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -523,17 +523,17 @@ template&lt;typename T , typename... Args&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00359">359</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  360</span>    {</div>
-<div class="line"><span class="lineno">  361</span>        <span class="keywordflow">if</span> (m_parent)</div>
-<div class="line"><span class="lineno">  362</span>        {</div>
-<div class="line"><span class="lineno">  363</span>            <span class="keywordflow">return</span> m_parent-&gt;GenGlobalMatrix() * <a class="code hl_function" href="classElevate_1_1ITransformable.html#a1551eeba7a86b703dab6ca94baaf5af6">GetModelMatrix</a>();</div>
-<div class="line"><span class="lineno">  364</span>        }</div>
-<div class="line"><span class="lineno">  365</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  366</span>        {</div>
-<div class="line"><span class="lineno">  367</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1ITransformable.html#a1551eeba7a86b703dab6ca94baaf5af6">GetModelMatrix</a>();</div>
-<div class="line"><span class="lineno">  368</span>        }</div>
-<div class="line"><span class="lineno">  369</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00358">358</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  359</span>    {</div>
+<div class="line"><span class="lineno">  360</span>        <span class="keywordflow">if</span> (m_parent)</div>
+<div class="line"><span class="lineno">  361</span>        {</div>
+<div class="line"><span class="lineno">  362</span>            <span class="keywordflow">return</span> m_parent-&gt;GenGlobalMatrix() * <a class="code hl_function" href="classElevate_1_1ITransformable.html#a1551eeba7a86b703dab6ca94baaf5af6">GetModelMatrix</a>();</div>
+<div class="line"><span class="lineno">  363</span>        }</div>
+<div class="line"><span class="lineno">  364</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  365</span>        {</div>
+<div class="line"><span class="lineno">  366</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1ITransformable.html#a1551eeba7a86b703dab6ca94baaf5af6">GetModelMatrix</a>();</div>
+<div class="line"><span class="lineno">  367</span>        }</div>
+<div class="line"><span class="lineno">  368</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1ITransformable_html_a1551eeba7a86b703dab6ca94baaf5af6"><div class="ttname"><a href="classElevate_1_1ITransformable.html#a1551eeba7a86b703dab6ca94baaf5af6">Elevate::ITransformable::GetModelMatrix</a></div><div class="ttdeci">const glm::mat4 &amp; GetModelMatrix() const</div><div class="ttdef"><b>Definition</b> <a href="ITransformable_8h_source.html#l00038">ITransformable.h:38</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -561,8 +561,8 @@ template&lt;typename T , typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00065">65</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   65</span>{ <span class="keywordflow">return</span> m_childs; }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00068">68</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   68</span>{ <span class="keywordflow">return</span> m_childs; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -620,25 +620,25 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00237">237</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  238</span>    {</div>
-<div class="line"><span class="lineno">  239</span>        std::vector&lt;Component*&gt; components;</div>
-<div class="line"><span class="lineno">  240</span>        <span class="keywordflow">if</span> (!m_scene) <span class="keywordflow">return</span> components;</div>
-<div class="line"><span class="lineno">  241</span> </div>
-<div class="line"><span class="lineno">  242</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [type, entry] : <a class="code hl_friend" href="classElevate_1_1GameObject.html#aa40fb7396d6a5c413a454ebe1b95d7b4">TypeRegistry</a>::GetEntries()) {</div>
-<div class="line"><span class="lineno">  243</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span>* trait = entry.GetTrait&lt;ComponentTypeTrait&gt;()) {</div>
-<div class="line"><span class="lineno">  244</span>                <span class="keywordflow">if</span> (trait-&gt;getter) {</div>
-<div class="line"><span class="lineno">  245</span>                    <span class="keywordflow">if</span> (Component* component = trait-&gt;getter(<a class="code hl_function" href="classElevate_1_1GameObject.html#a08c147138d6a2f47ad9f8d0b7689d6d0">GetWeak</a>())) {</div>
-<div class="line"><span class="lineno">  246</span>                        components.push_back(component);</div>
-<div class="line"><span class="lineno">  247</span>                    }</div>
-<div class="line"><span class="lineno">  248</span>                }</div>
-<div class="line"><span class="lineno">  249</span>            }</div>
-<div class="line"><span class="lineno">  250</span>        }</div>
-<div class="line"><span class="lineno">  251</span> </div>
-<div class="line"><span class="lineno">  252</span>        <span class="keywordflow">return</span> components;</div>
-<div class="line"><span class="lineno">  253</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1GameObject_html_a08c147138d6a2f47ad9f8d0b7689d6d0"><div class="ttname"><a href="classElevate_1_1GameObject.html#a08c147138d6a2f47ad9f8d0b7689d6d0">Elevate::GameObject::GetWeak</a></div><div class="ttdeci">std::weak_ptr&lt; GameObject &gt; GetWeak()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00232">GameObject.cpp:232</a></div></div>
-<div class="ttc" id="aclassElevate_1_1GameObject_html_aa40fb7396d6a5c413a454ebe1b95d7b4"><div class="ttname"><a href="classElevate_1_1GameObject.html#aa40fb7396d6a5c413a454ebe1b95d7b4">Elevate::GameObject::TypeRegistry</a></div><div class="ttdeci">friend class TypeRegistry</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8h_source.html#l00112">GameObject.h:112</a></div></div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00236">236</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  237</span>    {</div>
+<div class="line"><span class="lineno">  238</span>        std::vector&lt;Component*&gt; components;</div>
+<div class="line"><span class="lineno">  239</span>        <span class="keywordflow">if</span> (!m_scene) <span class="keywordflow">return</span> components;</div>
+<div class="line"><span class="lineno">  240</span> </div>
+<div class="line"><span class="lineno">  241</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [type, entry] : <a class="code hl_friend" href="classElevate_1_1GameObject.html#aa40fb7396d6a5c413a454ebe1b95d7b4">TypeRegistry</a>::GetEntries()) {</div>
+<div class="line"><span class="lineno">  242</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span>* trait = entry.GetTrait&lt;ComponentTypeTrait&gt;()) {</div>
+<div class="line"><span class="lineno">  243</span>                <span class="keywordflow">if</span> (trait-&gt;getter) {</div>
+<div class="line"><span class="lineno">  244</span>                    <span class="keywordflow">if</span> (Component* component = trait-&gt;getter(<a class="code hl_function" href="classElevate_1_1GameObject.html#a08c147138d6a2f47ad9f8d0b7689d6d0">GetWeak</a>())) {</div>
+<div class="line"><span class="lineno">  245</span>                        components.push_back(component);</div>
+<div class="line"><span class="lineno">  246</span>                    }</div>
+<div class="line"><span class="lineno">  247</span>                }</div>
+<div class="line"><span class="lineno">  248</span>            }</div>
+<div class="line"><span class="lineno">  249</span>        }</div>
+<div class="line"><span class="lineno">  250</span> </div>
+<div class="line"><span class="lineno">  251</span>        <span class="keywordflow">return</span> components;</div>
+<div class="line"><span class="lineno">  252</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1GameObject_html_a08c147138d6a2f47ad9f8d0b7689d6d0"><div class="ttname"><a href="classElevate_1_1GameObject.html#a08c147138d6a2f47ad9f8d0b7689d6d0">Elevate::GameObject::GetWeak</a></div><div class="ttdeci">std::weak_ptr&lt; GameObject &gt; GetWeak()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00231">GameObject.cpp:231</a></div></div>
+<div class="ttc" id="aclassElevate_1_1GameObject_html_aa40fb7396d6a5c413a454ebe1b95d7b4"><div class="ttname"><a href="classElevate_1_1GameObject.html#aa40fb7396d6a5c413a454ebe1b95d7b4">Elevate::GameObject::TypeRegistry</a></div><div class="ttdeci">friend class TypeRegistry</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8h_source.html#l00115">GameObject.h:115</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -665,8 +665,8 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00061">61</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   61</span>{ <span class="keywordflow">return</span> m_entityId; }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00064">64</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   64</span>{ <span class="keywordflow">return</span> m_entityId; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -685,12 +685,12 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00054">54</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   55</span>    {</div>
-<div class="line"><span class="lineno">   56</span>        glm::mat4 global = <a class="code hl_function" href="classElevate_1_1GameObject.html#a91640cf9c6201af6148c8ff71d82c674">GenGlobalMatrix</a>();</div>
-<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">return</span> glm::vec3(global[3]);</div>
-<div class="line"><span class="lineno">   58</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1GameObject_html_a91640cf9c6201af6148c8ff71d82c674"><div class="ttname"><a href="classElevate_1_1GameObject.html#a91640cf9c6201af6148c8ff71d82c674">Elevate::GameObject::GenGlobalMatrix</a></div><div class="ttdeci">glm::mat4 GenGlobalMatrix() const</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00359">GameObject.cpp:359</a></div></div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00053">53</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   54</span>    {</div>
+<div class="line"><span class="lineno">   55</span>        glm::mat4 global = <a class="code hl_function" href="classElevate_1_1GameObject.html#a91640cf9c6201af6148c8ff71d82c674">GenGlobalMatrix</a>();</div>
+<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">return</span> glm::vec3(global[3]);</div>
+<div class="line"><span class="lineno">   57</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1GameObject_html_a91640cf9c6201af6148c8ff71d82c674"><div class="ttname"><a href="classElevate_1_1GameObject.html#a91640cf9c6201af6148c8ff71d82c674">Elevate::GameObject::GenGlobalMatrix</a></div><div class="ttdeci">glm::mat4 GenGlobalMatrix() const</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00358">GameObject.cpp:358</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -717,8 +717,8 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00053">53</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   53</span>{ <span class="keywordflow">return</span> m_name; }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00056">56</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   56</span>{ <span class="keywordflow">return</span> m_name; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -745,8 +745,8 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00062">62</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   62</span>{ <span class="keywordflow">return</span> m_goId; }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00065">65</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   65</span>{ <span class="keywordflow">return</span> m_goId; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -773,8 +773,8 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00069">69</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   69</span>{ <span class="keywordflow">return</span> m_scene; }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00072">72</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   72</span>{ <span class="keywordflow">return</span> m_scene; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -793,10 +793,10 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00227">227</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  228</span>{</div>
-<div class="line"><span class="lineno">  229</span>    <span class="keywordflow">return</span> std::static_pointer_cast&lt;GameObject&gt;(shared_from_this());</div>
-<div class="line"><span class="lineno">  230</span>}</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00226">226</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  227</span>{</div>
+<div class="line"><span class="lineno">  228</span>    <span class="keywordflow">return</span> std::static_pointer_cast&lt;GameObject&gt;(shared_from_this());</div>
+<div class="line"><span class="lineno">  229</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -815,10 +815,10 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00232">232</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  233</span>{</div>
-<div class="line"><span class="lineno">  234</span>    <span class="keywordflow">return</span> std::static_pointer_cast&lt;GameObject&gt;(shared_from_this());</div>
-<div class="line"><span class="lineno">  235</span>}</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00231">231</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  232</span>{</div>
+<div class="line"><span class="lineno">  233</span>    <span class="keywordflow">return</span> std::static_pointer_cast&lt;GameObject&gt;(shared_from_this());</div>
+<div class="line"><span class="lineno">  234</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -845,8 +845,8 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00064">64</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   64</span>{ <span class="keywordflow">return</span> m_childs.empty(); }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00067">67</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   67</span>{ <span class="keywordflow">return</span> m_childs.empty(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -900,22 +900,22 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00094">94</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   95</span>    {</div>
-<div class="line"><span class="lineno">   96</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
-<div class="line"><span class="lineno">   97</span>        {</div>
-<div class="line"><span class="lineno">   98</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
-<div class="line"><span class="lineno">   99</span>            {</div>
-<div class="line"><span class="lineno">  100</span>                comp-&gt;OnNotify(e);</div>
-<div class="line"><span class="lineno">  101</span>            }</div>
-<div class="line"><span class="lineno">  102</span>        }</div>
-<div class="line"><span class="lineno">  103</span> </div>
-<div class="line"><span class="lineno">  104</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
-<div class="line"><span class="lineno">  105</span>        {</div>
-<div class="line"><span class="lineno">  106</span>            child-&gt;Notify(e);</div>
-<div class="line"><span class="lineno">  107</span>        }</div>
-<div class="line"><span class="lineno">  108</span>    }</div>
-<div class="ttc" id="aclassElevate_1_1GameObject_html_aeb6a47910df1c6ea840021b7a5031435"><div class="ttname"><a href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">Elevate::GameObject::GetComponents</a></div><div class="ttdeci">std::vector&lt; Component * &gt; GetComponents()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00237">GameObject.cpp:237</a></div></div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00093">93</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   94</span>    {</div>
+<div class="line"><span class="lineno">   95</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
+<div class="line"><span class="lineno">   96</span>        {</div>
+<div class="line"><span class="lineno">   97</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
+<div class="line"><span class="lineno">   98</span>            {</div>
+<div class="line"><span class="lineno">   99</span>                comp-&gt;OnNotify(e);</div>
+<div class="line"><span class="lineno">  100</span>            }</div>
+<div class="line"><span class="lineno">  101</span>        }</div>
+<div class="line"><span class="lineno">  102</span> </div>
+<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
+<div class="line"><span class="lineno">  104</span>        {</div>
+<div class="line"><span class="lineno">  105</span>            child-&gt;Notify(e);</div>
+<div class="line"><span class="lineno">  106</span>        }</div>
+<div class="line"><span class="lineno">  107</span>    }</div>
+<div class="ttc" id="aclassElevate_1_1GameObject_html_aeb6a47910df1c6ea840021b7a5031435"><div class="ttname"><a href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">Elevate::GameObject::GetComponents</a></div><div class="ttdeci">std::vector&lt; Component * &gt; GetComponents()</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8cpp_source.html#l00236">GameObject.cpp:236</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -944,26 +944,26 @@ template&lt;typename T &gt; </div>
 
 <p>Reimplemented from <a class="el" href="classElevate_1_1ITransformable.html#a44de11ba6a27c3e0627f6cdc3b80ab2c">Elevate::ITransformable</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00110">110</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  111</span>    {</div>
-<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">if</span> (m_entityId != <a class="code hl_define" href="GameObject_8h.html#a24ce27a99e52e3f99af50034f64225f4">EE_INVALID_ENTITY_ID</a> &amp;&amp; m_isInitialized)</div>
-<div class="line"><span class="lineno">  113</span>        {</div>
-<div class="line"><span class="lineno">  114</span>            <a class="code hl_function" href="classElevate_1_1SoundEngine.html#a0cf5e946f1e3a7c0a39c8d0737c16fee">SoundEngine::UpdatePosition</a>(<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  115</span>        }</div>
-<div class="line"><span class="lineno">  116</span> </div>
-<div class="line"><span class="lineno">  117</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
-<div class="line"><span class="lineno">  118</span>        {</div>
-<div class="line"><span class="lineno">  119</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
-<div class="line"><span class="lineno">  120</span>            {</div>
-<div class="line"><span class="lineno">  121</span>                comp-&gt;OnSetPosition();</div>
-<div class="line"><span class="lineno">  122</span>            }</div>
-<div class="line"><span class="lineno">  123</span>        }</div>
-<div class="line"><span class="lineno">  124</span> </div>
-<div class="line"><span class="lineno">  125</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
-<div class="line"><span class="lineno">  126</span>        {</div>
-<div class="line"><span class="lineno">  127</span>            child-&gt;OnSetPosition();</div>
-<div class="line"><span class="lineno">  128</span>        }</div>
-<div class="line"><span class="lineno">  129</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00109">109</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  110</span>    {</div>
+<div class="line"><span class="lineno">  111</span>        <span class="keywordflow">if</span> (m_entityId != <a class="code hl_define" href="GameObject_8h.html#a24ce27a99e52e3f99af50034f64225f4">EE_INVALID_ENTITY_ID</a> &amp;&amp; m_isInitialized)</div>
+<div class="line"><span class="lineno">  112</span>        {</div>
+<div class="line"><span class="lineno">  113</span>            <a class="code hl_function" href="classElevate_1_1SoundEngine.html#a0cf5e946f1e3a7c0a39c8d0737c16fee">SoundEngine::UpdatePosition</a>(<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  114</span>        }</div>
+<div class="line"><span class="lineno">  115</span> </div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
+<div class="line"><span class="lineno">  117</span>        {</div>
+<div class="line"><span class="lineno">  118</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
+<div class="line"><span class="lineno">  119</span>            {</div>
+<div class="line"><span class="lineno">  120</span>                comp-&gt;OnSetPosition();</div>
+<div class="line"><span class="lineno">  121</span>            }</div>
+<div class="line"><span class="lineno">  122</span>        }</div>
+<div class="line"><span class="lineno">  123</span> </div>
+<div class="line"><span class="lineno">  124</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
+<div class="line"><span class="lineno">  125</span>        {</div>
+<div class="line"><span class="lineno">  126</span>            child-&gt;OnSetPosition();</div>
+<div class="line"><span class="lineno">  127</span>        }</div>
+<div class="line"><span class="lineno">  128</span>    }</div>
 <div class="ttc" id="aGameObject_8h_html_a24ce27a99e52e3f99af50034f64225f4"><div class="ttname"><a href="GameObject_8h.html#a24ce27a99e52e3f99af50034f64225f4">EE_INVALID_ENTITY_ID</a></div><div class="ttdeci">#define EE_INVALID_ENTITY_ID</div><div class="ttdef"><b>Definition</b> <a href="GameObject_8h_source.html#l00016">GameObject.h:16</a></div></div>
 <div class="ttc" id="aclassElevate_1_1SoundEngine_html_a0cf5e946f1e3a7c0a39c8d0737c16fee"><div class="ttname"><a href="classElevate_1_1SoundEngine.html#a0cf5e946f1e3a7c0a39c8d0737c16fee">Elevate::SoundEngine::UpdatePosition</a></div><div class="ttdeci">static void UpdatePosition(GameObject *obj)</div><div class="ttdef"><b>Definition</b> <a href="SoundEngine_8cpp_source.html#l00064">SoundEngine.cpp:64</a></div></div>
 </div><!-- fragment -->
@@ -994,21 +994,21 @@ template&lt;typename T &gt; </div>
 
 <p>Reimplemented from <a class="el" href="classElevate_1_1ITransformable.html#a7c86d4272482ea70e98080d58e503390">Elevate::ITransformable</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00131">131</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  132</span>    {</div>
-<div class="line"><span class="lineno">  133</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
-<div class="line"><span class="lineno">  134</span>        {</div>
-<div class="line"><span class="lineno">  135</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
-<div class="line"><span class="lineno">  136</span>            {</div>
-<div class="line"><span class="lineno">  137</span>                comp-&gt;OnSetRotation();</div>
-<div class="line"><span class="lineno">  138</span>            }</div>
-<div class="line"><span class="lineno">  139</span>        }</div>
-<div class="line"><span class="lineno">  140</span> </div>
-<div class="line"><span class="lineno">  141</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
-<div class="line"><span class="lineno">  142</span>        {</div>
-<div class="line"><span class="lineno">  143</span>            child-&gt;OnSetRotation();</div>
-<div class="line"><span class="lineno">  144</span>        }</div>
-<div class="line"><span class="lineno">  145</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00130">130</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  131</span>    {</div>
+<div class="line"><span class="lineno">  132</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
+<div class="line"><span class="lineno">  133</span>        {</div>
+<div class="line"><span class="lineno">  134</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
+<div class="line"><span class="lineno">  135</span>            {</div>
+<div class="line"><span class="lineno">  136</span>                comp-&gt;OnSetRotation();</div>
+<div class="line"><span class="lineno">  137</span>            }</div>
+<div class="line"><span class="lineno">  138</span>        }</div>
+<div class="line"><span class="lineno">  139</span> </div>
+<div class="line"><span class="lineno">  140</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
+<div class="line"><span class="lineno">  141</span>        {</div>
+<div class="line"><span class="lineno">  142</span>            child-&gt;OnSetRotation();</div>
+<div class="line"><span class="lineno">  143</span>        }</div>
+<div class="line"><span class="lineno">  144</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1037,21 +1037,21 @@ template&lt;typename T &gt; </div>
 
 <p>Reimplemented from <a class="el" href="classElevate_1_1ITransformable.html#af6f67fa6d3f60a90936542a57902cf8a">Elevate::ITransformable</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00147">147</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  148</span>    {</div>
-<div class="line"><span class="lineno">  149</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
-<div class="line"><span class="lineno">  150</span>        {</div>
-<div class="line"><span class="lineno">  151</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
-<div class="line"><span class="lineno">  152</span>            {</div>
-<div class="line"><span class="lineno">  153</span>                comp-&gt;OnSetScale();</div>
-<div class="line"><span class="lineno">  154</span>            }</div>
-<div class="line"><span class="lineno">  155</span>        }</div>
-<div class="line"><span class="lineno">  156</span> </div>
-<div class="line"><span class="lineno">  157</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
-<div class="line"><span class="lineno">  158</span>        {</div>
-<div class="line"><span class="lineno">  159</span>            child-&gt;OnSetScale();</div>
-<div class="line"><span class="lineno">  160</span>        }</div>
-<div class="line"><span class="lineno">  161</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00146">146</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  147</span>    {</div>
+<div class="line"><span class="lineno">  148</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
+<div class="line"><span class="lineno">  149</span>        {</div>
+<div class="line"><span class="lineno">  150</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
+<div class="line"><span class="lineno">  151</span>            {</div>
+<div class="line"><span class="lineno">  152</span>                comp-&gt;OnSetScale();</div>
+<div class="line"><span class="lineno">  153</span>            }</div>
+<div class="line"><span class="lineno">  154</span>        }</div>
+<div class="line"><span class="lineno">  155</span> </div>
+<div class="line"><span class="lineno">  156</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
+<div class="line"><span class="lineno">  157</span>        {</div>
+<div class="line"><span class="lineno">  158</span>            child-&gt;OnSetScale();</div>
+<div class="line"><span class="lineno">  159</span>        }</div>
+<div class="line"><span class="lineno">  160</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1071,10 +1071,10 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00345">345</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  346</span>    {</div>
-<div class="line"><span class="lineno">  347</span>        m_childs.erase(child);</div>
-<div class="line"><span class="lineno">  348</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00344">344</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  345</span>    {</div>
+<div class="line"><span class="lineno">  346</span>        m_childs.erase(child);</div>
+<div class="line"><span class="lineno">  347</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1132,22 +1132,22 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00077">77</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   78</span>    {</div>
-<div class="line"><span class="lineno">   79</span>        <span class="comment">// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK</span></div>
-<div class="line"><span class="lineno">   80</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
-<div class="line"><span class="lineno">   81</span>        {</div>
-<div class="line"><span class="lineno">   82</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
-<div class="line"><span class="lineno">   83</span>            {</div>
-<div class="line"><span class="lineno">   84</span>                comp-&gt;Render();</div>
-<div class="line"><span class="lineno">   85</span>            }</div>
-<div class="line"><span class="lineno">   86</span>        }</div>
-<div class="line"><span class="lineno">   87</span> </div>
-<div class="line"><span class="lineno">   88</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
-<div class="line"><span class="lineno">   89</span>        {</div>
-<div class="line"><span class="lineno">   90</span>            child-&gt;Render();</div>
-<div class="line"><span class="lineno">   91</span>        }</div>
-<div class="line"><span class="lineno">   92</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00076">76</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   77</span>    {</div>
+<div class="line"><span class="lineno">   78</span>        <span class="comment">// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK</span></div>
+<div class="line"><span class="lineno">   79</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
+<div class="line"><span class="lineno">   80</span>        {</div>
+<div class="line"><span class="lineno">   81</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
+<div class="line"><span class="lineno">   82</span>            {</div>
+<div class="line"><span class="lineno">   83</span>                comp-&gt;Render();</div>
+<div class="line"><span class="lineno">   84</span>            }</div>
+<div class="line"><span class="lineno">   85</span>        }</div>
+<div class="line"><span class="lineno">   86</span> </div>
+<div class="line"><span class="lineno">   87</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
+<div class="line"><span class="lineno">   88</span>        {</div>
+<div class="line"><span class="lineno">   89</span>            child-&gt;Render();</div>
+<div class="line"><span class="lineno">   90</span>        }</div>
+<div class="line"><span class="lineno">   91</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1174,22 +1174,22 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00255">255</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  256</span>    {</div>
-<div class="line"><span class="lineno">  257</span>        <span class="comment">// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK</span></div>
-<div class="line"><span class="lineno">  258</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
-<div class="line"><span class="lineno">  259</span>        {</div>
-<div class="line"><span class="lineno">  260</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
-<div class="line"><span class="lineno">  261</span>            {</div>
-<div class="line"><span class="lineno">  262</span>                comp-&gt;RenderInEditor();</div>
-<div class="line"><span class="lineno">  263</span>            }</div>
-<div class="line"><span class="lineno">  264</span>        }</div>
-<div class="line"><span class="lineno">  265</span> </div>
-<div class="line"><span class="lineno">  266</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
-<div class="line"><span class="lineno">  267</span>        {</div>
-<div class="line"><span class="lineno">  268</span>            child-&gt;RenderInEditor();</div>
-<div class="line"><span class="lineno">  269</span>        }</div>
-<div class="line"><span class="lineno">  270</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00254">254</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  255</span>    {</div>
+<div class="line"><span class="lineno">  256</span>        <span class="comment">// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK</span></div>
+<div class="line"><span class="lineno">  257</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
+<div class="line"><span class="lineno">  258</span>        {</div>
+<div class="line"><span class="lineno">  259</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
+<div class="line"><span class="lineno">  260</span>            {</div>
+<div class="line"><span class="lineno">  261</span>                comp-&gt;RenderInEditor();</div>
+<div class="line"><span class="lineno">  262</span>            }</div>
+<div class="line"><span class="lineno">  263</span>        }</div>
+<div class="line"><span class="lineno">  264</span> </div>
+<div class="line"><span class="lineno">  265</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
+<div class="line"><span class="lineno">  266</span>        {</div>
+<div class="line"><span class="lineno">  267</span>            child-&gt;RenderInEditor();</div>
+<div class="line"><span class="lineno">  268</span>        }</div>
+<div class="line"><span class="lineno">  269</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1216,22 +1216,22 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00272">272</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  273</span>    {</div>
-<div class="line"><span class="lineno">  274</span>        <span class="comment">// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK</span></div>
-<div class="line"><span class="lineno">  275</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
-<div class="line"><span class="lineno">  276</span>        {</div>
-<div class="line"><span class="lineno">  277</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
-<div class="line"><span class="lineno">  278</span>            {</div>
-<div class="line"><span class="lineno">  279</span>                comp-&gt;RenderWhenSelected();</div>
-<div class="line"><span class="lineno">  280</span>            }</div>
-<div class="line"><span class="lineno">  281</span>        }</div>
-<div class="line"><span class="lineno">  282</span> </div>
-<div class="line"><span class="lineno">  283</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
-<div class="line"><span class="lineno">  284</span>        {</div>
-<div class="line"><span class="lineno">  285</span>            child-&gt;RenderWhenSelected();</div>
-<div class="line"><span class="lineno">  286</span>        }</div>
-<div class="line"><span class="lineno">  287</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00271">271</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  272</span>    {</div>
+<div class="line"><span class="lineno">  273</span>        <span class="comment">// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK</span></div>
+<div class="line"><span class="lineno">  274</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
+<div class="line"><span class="lineno">  275</span>        {</div>
+<div class="line"><span class="lineno">  276</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
+<div class="line"><span class="lineno">  277</span>            {</div>
+<div class="line"><span class="lineno">  278</span>                comp-&gt;RenderWhenSelected();</div>
+<div class="line"><span class="lineno">  279</span>            }</div>
+<div class="line"><span class="lineno">  280</span>        }</div>
+<div class="line"><span class="lineno">  281</span> </div>
+<div class="line"><span class="lineno">  282</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
+<div class="line"><span class="lineno">  283</span>        {</div>
+<div class="line"><span class="lineno">  284</span>            child-&gt;RenderWhenSelected();</div>
+<div class="line"><span class="lineno">  285</span>        }</div>
+<div class="line"><span class="lineno">  286</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1251,33 +1251,33 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00030">30</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   31</span>    {</div>
-<div class="line"><span class="lineno">   32</span>        glm::mat4 newLocal =</div>
-<div class="line"><span class="lineno">   33</span>            m_parent</div>
-<div class="line"><span class="lineno">   34</span>            ? glm::inverse(m_parent-&gt;GenGlobalMatrix()) * newWorld</div>
-<div class="line"><span class="lineno">   35</span>            : newWorld;</div>
-<div class="line"><span class="lineno">   36</span> </div>
-<div class="line"><span class="lineno">   37</span>        glm::vec3 scale;</div>
-<div class="line"><span class="lineno">   38</span>        glm::quat rotationQuat;</div>
-<div class="line"><span class="lineno">   39</span>        glm::vec3 position;</div>
-<div class="line"><span class="lineno">   40</span>        glm::vec3 skew;</div>
-<div class="line"><span class="lineno">   41</span>        glm::vec4 perspective;</div>
-<div class="line"><span class="lineno">   42</span> </div>
-<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">if</span> (!glm::decompose(newLocal, scale, rotationQuat, position, skew, perspective))</div>
-<div class="line"><span class="lineno">   44</span>        {</div>
-<div class="line"><span class="lineno">   45</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   46</span>        }</div>
-<div class="line"><span class="lineno">   47</span>        rotationQuat = glm::normalize(rotationQuat);</div>
-<div class="line"><span class="lineno">   48</span> </div>
-<div class="line"><span class="lineno">   49</span>        <a class="code hl_function" href="classElevate_1_1ITransformable.html#a9387e1fd3baef520d86c9316a176a21a">SetPosition</a>(position);</div>
-<div class="line"><span class="lineno">   50</span>        <a class="code hl_variable" href="classElevate_1_1ITransformable.html#a907be86159bb94b0381ff997a5445fd0">m_Transform</a>.<a class="code hl_function" href="classElevate_1_1Transform.html#a423a3ffcdbb570d5ba7fe55430d6d191">SetRotationQuaternion</a>(rotationQuat);</div>
-<div class="line"><span class="lineno">   51</span>        <a class="code hl_function" href="classElevate_1_1ITransformable.html#abfc286abcd3e08b5619366098b719b6e">SetScale</a>(scale);</div>
-<div class="line"><span class="lineno">   52</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00029">29</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   30</span>    {</div>
+<div class="line"><span class="lineno">   31</span>        glm::mat4 newLocal =</div>
+<div class="line"><span class="lineno">   32</span>            m_parent</div>
+<div class="line"><span class="lineno">   33</span>            ? glm::inverse(m_parent-&gt;GenGlobalMatrix()) * newWorld</div>
+<div class="line"><span class="lineno">   34</span>            : newWorld;</div>
+<div class="line"><span class="lineno">   35</span> </div>
+<div class="line"><span class="lineno">   36</span>        glm::vec3 scale;</div>
+<div class="line"><span class="lineno">   37</span>        glm::quat rotationQuat;</div>
+<div class="line"><span class="lineno">   38</span>        glm::vec3 position;</div>
+<div class="line"><span class="lineno">   39</span>        glm::vec3 skew;</div>
+<div class="line"><span class="lineno">   40</span>        glm::vec4 perspective;</div>
+<div class="line"><span class="lineno">   41</span> </div>
+<div class="line"><span class="lineno">   42</span>        <span class="keywordflow">if</span> (!glm::decompose(newLocal, scale, rotationQuat, position, skew, perspective))</div>
+<div class="line"><span class="lineno">   43</span>        {</div>
+<div class="line"><span class="lineno">   44</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   45</span>        }</div>
+<div class="line"><span class="lineno">   46</span>        rotationQuat = glm::normalize(rotationQuat);</div>
+<div class="line"><span class="lineno">   47</span> </div>
+<div class="line"><span class="lineno">   48</span>        <a class="code hl_function" href="classElevate_1_1ITransformable.html#a9387e1fd3baef520d86c9316a176a21a">SetPosition</a>(position);</div>
+<div class="line"><span class="lineno">   49</span>        <a class="code hl_variable" href="classElevate_1_1ITransformable.html#a907be86159bb94b0381ff997a5445fd0">m_Transform</a>.<a class="code hl_function" href="classElevate_1_1Transform.html#a423a3ffcdbb570d5ba7fe55430d6d191">SetRotationQuaternion</a>(rotationQuat);</div>
+<div class="line"><span class="lineno">   50</span>        <a class="code hl_function" href="classElevate_1_1ITransformable.html#abfc286abcd3e08b5619366098b719b6e">SetScale</a>(scale);</div>
+<div class="line"><span class="lineno">   51</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1ITransformable_html_a907be86159bb94b0381ff997a5445fd0"><div class="ttname"><a href="classElevate_1_1ITransformable.html#a907be86159bb94b0381ff997a5445fd0">Elevate::ITransformable::m_Transform</a></div><div class="ttdeci">Transform m_Transform</div><div class="ttdef"><b>Definition</b> <a href="ITransformable_8h_source.html#l00047">ITransformable.h:47</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ITransformable_html_a9387e1fd3baef520d86c9316a176a21a"><div class="ttname"><a href="classElevate_1_1ITransformable.html#a9387e1fd3baef520d86c9316a176a21a">Elevate::ITransformable::SetPosition</a></div><div class="ttdeci">void SetPosition(glm::vec3 pos)</div><div class="ttdef"><b>Definition</b> <a href="ITransformable_8h_source.html#l00018">ITransformable.h:18</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ITransformable_html_abfc286abcd3e08b5619366098b719b6e"><div class="ttname"><a href="classElevate_1_1ITransformable.html#abfc286abcd3e08b5619366098b719b6e">Elevate::ITransformable::SetScale</a></div><div class="ttdeci">void SetScale(glm::vec3 scale)</div><div class="ttdef"><b>Definition</b> <a href="ITransformable_8h_source.html#l00028">ITransformable.h:28</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Transform_html_a423a3ffcdbb570d5ba7fe55430d6d191"><div class="ttname"><a href="classElevate_1_1Transform.html#a423a3ffcdbb570d5ba7fe55430d6d191">Elevate::Transform::SetRotationQuaternion</a></div><div class="ttdeci">void SetRotationQuaternion(const glm::quat &amp;rot)</div><div class="ttdef"><b>Definition</b> <a href="Transform_8cpp_source.html#l00023">Transform.cpp:23</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Transform_html_a423a3ffcdbb570d5ba7fe55430d6d191"><div class="ttname"><a href="classElevate_1_1Transform.html#a423a3ffcdbb570d5ba7fe55430d6d191">Elevate::Transform::SetRotationQuaternion</a></div><div class="ttdeci">void SetRotationQuaternion(const glm::quat &amp;rot)</div><div class="ttdef"><b>Definition</b> <a href="Transform_8cpp_source.html#l00022">Transform.cpp:22</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1305,8 +1305,8 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00054">54</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   54</span>{ m_name = newName; }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00057">57</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   57</span>{ m_name = newName; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1326,30 +1326,30 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00289">289</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  290</span>    {</div>
-<div class="line"><span class="lineno">  291</span>        <span class="keywordflow">if</span> (newParent == m_parent)</div>
-<div class="line"><span class="lineno">  292</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  293</span> </div>
-<div class="line"><span class="lineno">  294</span>        <span class="keywordflow">if</span> (m_parent)</div>
-<div class="line"><span class="lineno">  295</span>        {</div>
-<div class="line"><span class="lineno">  296</span>            m_parent-&gt;RemoveChild(<a class="code hl_function" href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">GetShared</a>());</div>
-<div class="line"><span class="lineno">  297</span>        }</div>
-<div class="line"><span class="lineno">  298</span> </div>
-<div class="line"><span class="lineno">  299</span>        this-&gt;m_parent = newParent;</div>
-<div class="line"><span class="lineno">  300</span> </div>
-<div class="line"><span class="lineno">  301</span>        <span class="keywordflow">if</span> (newParent)</div>
-<div class="line"><span class="lineno">  302</span>        {</div>
-<div class="line"><span class="lineno">  303</span>            newParent-&gt;AddChild(<a class="code hl_function" href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">GetShared</a>());</div>
-<div class="line"><span class="lineno">  304</span>            <span class="keywordflow">if</span> (m_scene)</div>
-<div class="line"><span class="lineno">  305</span>            {</div>
-<div class="line"><span class="lineno">  306</span>                m_scene-&gt;RemoveFromRoot(<a class="code hl_function" href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">GetShared</a>());</div>
-<div class="line"><span class="lineno">  307</span>            }</div>
-<div class="line"><span class="lineno">  308</span>        }</div>
-<div class="line"><span class="lineno">  309</span>        <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  310</span>            m_scene-&gt;AddRootObject(<a class="code hl_function" href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">GetShared</a>());</div>
-<div class="line"><span class="lineno">  311</span>        }</div>
-<div class="line"><span class="lineno">  312</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00288">288</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  289</span>    {</div>
+<div class="line"><span class="lineno">  290</span>        <span class="keywordflow">if</span> (newParent == m_parent)</div>
+<div class="line"><span class="lineno">  291</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  292</span> </div>
+<div class="line"><span class="lineno">  293</span>        <span class="keywordflow">if</span> (m_parent)</div>
+<div class="line"><span class="lineno">  294</span>        {</div>
+<div class="line"><span class="lineno">  295</span>            m_parent-&gt;RemoveChild(<a class="code hl_function" href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">GetShared</a>());</div>
+<div class="line"><span class="lineno">  296</span>        }</div>
+<div class="line"><span class="lineno">  297</span> </div>
+<div class="line"><span class="lineno">  298</span>        this-&gt;m_parent = newParent;</div>
+<div class="line"><span class="lineno">  299</span> </div>
+<div class="line"><span class="lineno">  300</span>        <span class="keywordflow">if</span> (newParent)</div>
+<div class="line"><span class="lineno">  301</span>        {</div>
+<div class="line"><span class="lineno">  302</span>            newParent-&gt;AddChild(<a class="code hl_function" href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">GetShared</a>());</div>
+<div class="line"><span class="lineno">  303</span>            <span class="keywordflow">if</span> (m_scene)</div>
+<div class="line"><span class="lineno">  304</span>            {</div>
+<div class="line"><span class="lineno">  305</span>                m_scene-&gt;RemoveFromRoot(<a class="code hl_function" href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">GetShared</a>());</div>
+<div class="line"><span class="lineno">  306</span>            }</div>
+<div class="line"><span class="lineno">  307</span>        }</div>
+<div class="line"><span class="lineno">  308</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  309</span>            m_scene-&gt;AddRootObject(<a class="code hl_function" href="classElevate_1_1GameObject.html#a6d4ad9044d8601211f7bed9975c72a42">GetShared</a>());</div>
+<div class="line"><span class="lineno">  310</span>        }</div>
+<div class="line"><span class="lineno">  311</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1376,22 +1376,22 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00060">60</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   61</span>    {</div>
-<div class="line"><span class="lineno">   62</span>        <span class="comment">// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK</span></div>
-<div class="line"><span class="lineno">   63</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
-<div class="line"><span class="lineno">   64</span>        {</div>
-<div class="line"><span class="lineno">   65</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
-<div class="line"><span class="lineno">   66</span>            {</div>
-<div class="line"><span class="lineno">   67</span>                comp-&gt;Update();</div>
-<div class="line"><span class="lineno">   68</span>            }</div>
-<div class="line"><span class="lineno">   69</span>        }</div>
-<div class="line"><span class="lineno">   70</span> </div>
-<div class="line"><span class="lineno">   71</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
-<div class="line"><span class="lineno">   72</span>        {</div>
-<div class="line"><span class="lineno">   73</span>            child-&gt;Update();</div>
-<div class="line"><span class="lineno">   74</span>        }</div>
-<div class="line"><span class="lineno">   75</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="GameObject_8cpp_source.html#l00059">59</a> of file <a class="el" href="GameObject_8cpp_source.html">GameObject.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   60</span>    {</div>
+<div class="line"><span class="lineno">   61</span>        <span class="comment">// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK</span></div>
+<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">for</span> (Component* comp : <a class="code hl_function" href="classElevate_1_1GameObject.html#aeb6a47910df1c6ea840021b7a5031435">GetComponents</a>())</div>
+<div class="line"><span class="lineno">   63</span>        {</div>
+<div class="line"><span class="lineno">   64</span>            <span class="keywordflow">if</span> (comp-&gt;IsActive())</div>
+<div class="line"><span class="lineno">   65</span>            {</div>
+<div class="line"><span class="lineno">   66</span>                comp-&gt;Update();</div>
+<div class="line"><span class="lineno">   67</span>            }</div>
+<div class="line"><span class="lineno">   68</span>        }</div>
+<div class="line"><span class="lineno">   69</span> </div>
+<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; child : m_childs)</div>
+<div class="line"><span class="lineno">   71</span>        {</div>
+<div class="line"><span class="lineno">   72</span>            child-&gt;Update();</div>
+<div class="line"><span class="lineno">   73</span>        }</div>
+<div class="line"><span class="lineno">   74</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1416,7 +1416,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00113">113</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00116">116</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
 
 </div>
 </div>
@@ -1440,7 +1440,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00111">111</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00114">114</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
 
 </div>
 </div>
@@ -1464,7 +1464,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00112">112</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="GameObject_8h_source.html#l00115">115</a> of file <a class="el" href="GameObject_8h_source.html">GameObject.h</a>.</p>
 
 </div>
 </div>

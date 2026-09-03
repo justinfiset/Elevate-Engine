@@ -106,20 +106,20 @@ $(document).ready(function(){initNavTree('EEObject_8h_source.html',''); initResi
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;typeindex&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">// Interfaces</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="ITypeLayoutProvider_8h.html">ElevateEngine/Core/ITypeLayoutProvider.h</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="Guid_8h.html">ElevateEngine/Core/Guid.h</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="EECategory_8h.html">ElevateEngine/Core/EECategory.h</a>&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="TypeLayout_8h.html">ElevateEngine/Core/TypeLayout.h</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="PropertyField_8h.html">ElevateEngine/Serialization/PropertyField.h</a>&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceElevate.html">Elevate</a></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">class </span>AssetRegistry;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">// Interfaces</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="ITypeLayoutProvider_8h.html">ElevateEngine/Core/ITypeLayoutProvider.h</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="Guid_8h.html">ElevateEngine/Core/Guid.h</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="EECategory_8h.html">ElevateEngine/Core/EECategory.h</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="TypeLayout_8h.html">ElevateEngine/Core/TypeLayout.h</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="PropertyField_8h.html">ElevateEngine/Serialization/PropertyField.h</a>&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceElevate.html">Elevate</a></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
 <div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classElevate_1_1EEObject.html">   19</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classElevate_1_1EEObject.html">EEObject</a> : <span class="keyword">public</span> <a class="code hl_class" href="classElevate_1_1ITypeLayoutProvider.html">ITypeLayoutProvider</a>, <span class="keyword">public</span> std::enable_shared_from_this&lt;EEObject&gt;</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    {</div>
@@ -167,7 +167,7 @@ $(document).ready(function(){initNavTree('EEObject_8h_source.html',''); initResi
 <div class="ttc" id="aITypeLayoutProvider_8h_html"><div class="ttname"><a href="ITypeLayoutProvider_8h.html">ITypeLayoutProvider.h</a></div></div>
 <div class="ttc" id="aPropertyField_8h_html"><div class="ttname"><a href="PropertyField_8h.html">PropertyField.h</a></div></div>
 <div class="ttc" id="aTypeLayout_8h_html"><div class="ttname"><a href="TypeLayout_8h.html">TypeLayout.h</a></div></div>
-<div class="ttc" id="aclassElevate_1_1AssetRegistry_html"><div class="ttname"><a href="classElevate_1_1AssetRegistry.html">Elevate::AssetRegistry</a></div><div class="ttdef"><b>Definition</b> <a href="AssetRegistry_8h_source.html#l00035">AssetRegistry.h:36</a></div></div>
+<div class="ttc" id="aclassElevate_1_1AssetRegistry_html"><div class="ttname"><a href="classElevate_1_1AssetRegistry.html">Elevate::AssetRegistry</a></div><div class="ttdef"><b>Definition</b> <a href="AssetRegistry_8h_source.html#l00043">AssetRegistry.h:44</a></div></div>
 <div class="ttc" id="aclassElevate_1_1EECategory_html"><div class="ttname"><a href="classElevate_1_1EECategory.html">Elevate::EECategory</a></div><div class="ttdef"><b>Definition</b> <a href="EECategory_8h_source.html#l00007">EECategory.h:8</a></div></div>
 <div class="ttc" id="aclassElevate_1_1EEObject_html"><div class="ttname"><a href="classElevate_1_1EEObject.html">Elevate::EEObject</a></div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00019">EEObject.h:20</a></div></div>
 <div class="ttc" id="aclassElevate_1_1EEObject_html_a0bde30963e44be13481cd2aa1146a501"><div class="ttname"><a href="classElevate_1_1EEObject.html#a0bde30963e44be13481cd2aa1146a501">Elevate::EEObject::GetLayout</a></div><div class="ttdeci">virtual TypeLayout GetLayout() const</div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00044">EEObject.h:44</a></div></div>
@@ -185,11 +185,11 @@ $(document).ready(function(){initNavTree('EEObject_8h_source.html',''); initResi
 <div class="ttc" id="aclassElevate_1_1EEObject_html_aca5c15fded37fb9d489fda0a5399b4b7"><div class="ttname"><a href="classElevate_1_1EEObject.html#aca5c15fded37fb9d489fda0a5399b4b7">Elevate::EEObject::m_guid</a></div><div class="ttdeci">Guid m_guid</div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00023">EEObject.h:23</a></div></div>
 <div class="ttc" id="aclassElevate_1_1EEObject_html_acec0c8de8fa3cdab99285ffaf0f3d678"><div class="ttname"><a href="classElevate_1_1EEObject.html#acec0c8de8fa3cdab99285ffaf0f3d678">Elevate::EEObject::GetProperties</a></div><div class="ttdeci">PropertySet GetProperties() const</div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00045">EEObject.h:45</a></div></div>
 <div class="ttc" id="aclassElevate_1_1EEObject_html_ad7832477c8574c1662f70e6764a824d8"><div class="ttname"><a href="classElevate_1_1EEObject.html#ad7832477c8574c1662f70e6764a824d8">Elevate::EEObject::GetTypeIndex</a></div><div class="ttdeci">virtual std::type_index GetTypeIndex() const</div><div class="ttdef"><b>Definition</b> <a href="EEObject_8h_source.html#l00047">EEObject.h:47</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Guid_html"><div class="ttname"><a href="classElevate_1_1Guid.html">Elevate::Guid</a></div><div class="ttdef"><b>Definition</b> <a href="Guid_8h_source.html#l00010">Guid.h:11</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Guid_html"><div class="ttname"><a href="classElevate_1_1Guid.html">Elevate::Guid</a></div><div class="ttdef"><b>Definition</b> <a href="Guid_8h_source.html#l00013">Guid.h:14</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ITypeLayoutProvider_html"><div class="ttname"><a href="classElevate_1_1ITypeLayoutProvider.html">Elevate::ITypeLayoutProvider</a></div><div class="ttdef"><b>Definition</b> <a href="ITypeLayoutProvider_8h_source.html#l00007">ITypeLayoutProvider.h:8</a></div></div>
-<div class="ttc" id="aclassElevate_1_1TypeLayout_html"><div class="ttname"><a href="classElevate_1_1TypeLayout.html">Elevate::TypeLayout</a></div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8h_source.html#l00015">TypeLayout.h:16</a></div></div>
-<div class="ttc" id="aclassElevate_1_1TypeLayout_html_ae2f5e7bd5cf35681584f83653b37b338"><div class="ttname"><a href="classElevate_1_1TypeLayout.html#ae2f5e7bd5cf35681584f83653b37b338">Elevate::TypeLayout::CaptureState</a></div><div class="ttdeci">PropertySet CaptureState() const</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8cpp_source.html#l00188">TypeLayout.cpp:188</a></div></div>
-<div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00007">AudioDistanceProbe.h:8</a></div></div>
+<div class="ttc" id="aclassElevate_1_1TypeLayout_html"><div class="ttname"><a href="classElevate_1_1TypeLayout.html">Elevate::TypeLayout</a></div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8h_source.html#l00014">TypeLayout.h:15</a></div></div>
+<div class="ttc" id="aclassElevate_1_1TypeLayout_html_ae2f5e7bd5cf35681584f83653b37b338"><div class="ttname"><a href="classElevate_1_1TypeLayout.html#ae2f5e7bd5cf35681584f83653b37b338">Elevate::TypeLayout::CaptureState</a></div><div class="ttdeci">PropertySet CaptureState() const</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8cpp_source.html#l00192">TypeLayout.cpp:192</a></div></div>
+<div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioDistanceProbe_8h_source.html#l00008">AudioDistanceProbe.h:9</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_ad8eb70886b5e306739cefd321c8dd6e8"><div class="ttname"><a href="namespaceElevate.html#ad8eb70886b5e306739cefd321c8dd6e8">Elevate::PropertySet</a></div><div class="ttdeci">std::vector&lt; PropertyField &gt; PropertySet</div><div class="ttdef"><b>Definition</b> <a href="TypeLayout_8h_source.html#l00012">TypeLayout.h:12</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

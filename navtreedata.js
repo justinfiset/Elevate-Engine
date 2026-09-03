@@ -81,21 +81,21 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AddComponent_8h.html",
-"Event_8h.html#a062abdc15cb1ce3f4e7eb153bf386a91a7584c169de594c27f00084b93186fd7c",
-"KeyCodes_8h.html#a4d486064e35f5fe81630e096ba928f14",
-"ReflectionTags_8cpp_source.html",
-"UUID_8h_source.html",
-"classElevate_1_1CommandManager.html#a6cee1f0932b0c222067f19fbc0040c24",
-"classElevate_1_1Editor_1_1EditorWidget.html#af711f0b7680b7895d154a012df4fed8b",
-"classElevate_1_1ISerializable.html#ad87b1895465b1c9f5ca015d888d8ad35",
-"classElevate_1_1Model.html#a5ddf9d4b4dd23e862da19a4d915f5d91",
-"classElevate_1_1RenderBucket.html#a179dfcd55809e0e83099973870995b16",
-"classElevate_1_1Shader.html#acda24ae152f2f84e2d3e9938846dc1c5",
-"classElevate_1_1WAAPIClient.html#a4dfb782d6466ae14f01b91b9d04cdd20",
-"globals_defs_d.html",
-"namespaceElevate.html#ad6361ea92b9a6b52779e660ed5ea9df7a0b27918290ff5323bea1e3b78a9cf04e",
-"structElevate_1_1FramebufferColorAttachment.html#a1af053e54509775e433c67adb632fa53",
-"structElevate_1_1TextureMetadataBuilder.html#a16286b4837bf1ca8ab16daebac3d6ad8"
+"Event_8h.html#a062abdc15cb1ce3f4e7eb153bf386a91a559b408d45669603dbac61cd15984f13",
+"KeyCodes_8h.html#a43183cdf499b4278e39d2f0edf2e414d",
+"PropertyField_8h.html#aace8d290e19160cac7d1b9696d8766df",
+"TypeRegistry_8inl.html",
+"classElevate_1_1CommandManager.html#a5850973772514545c0a44ca18baef1c9",
+"classElevate_1_1Editor_1_1EditorWidget.html#add5461f1ba8a21b51f456f743a50c4b4",
+"classElevate_1_1ISerializable.html#ab9ba7ad68dfea010ed457531d70f9fe1",
+"classElevate_1_1Model.html",
+"classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd",
+"classElevate_1_1Shader.html#ac727cdaa3dab393f67f60099ba7a09fa",
+"classElevate_1_1WAAPIClient.html#a346feef0250bb4ccee6486ae93dc3c3e",
+"globals_defs.html",
+"namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1aee6aaf22abac7bd5c8c8b1edc1164cd1",
+"structElevate_1_1FramebufferColorAttachment.html",
+"structElevate_1_1TextureMetadataBuilder.html#a10284b2604330b1b8f69461df57c4649"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
