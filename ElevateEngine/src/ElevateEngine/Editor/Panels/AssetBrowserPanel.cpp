@@ -421,6 +421,12 @@ void Elevate::Editor::AssetBrowserPanel::DrawContextMenu()
 		std::strcpy(m_renameBuffer, selected.name.c_str());
 		m_isRenaming = true;
 	}
+
+	if (ImGui::MenuItem("Delete"))
+	{
+		RemoveItem(selected);
+	}
+
 	ImGui::EndDisabled();
 }
 
@@ -460,6 +466,22 @@ void Elevate::Editor::AssetBrowserPanel::AddParentPaths(std::filesystem::path pa
 	if (parentNorm != rootNorm && parentNorm.string().find(rootNorm.string()) == 0)
 	{
 		AddParentPaths(parent);
+	}
+}
+
+void Elevate::Editor::AssetBrowserPanel::RemoveItem(const FileItem& item)
+{
+	fs::path fsPath = item.path;
+
+	try
+	{
+		fs::remove(fsPath);
+		// todo : remove asset from registry
+		m_shouldUpdate = true;
+	}
+	catch (const fs::filesystem_error& e)
+	{
+		EE_CORE_ERROR("Failed to remove file: {}", e.what());
 	}
 }
 
