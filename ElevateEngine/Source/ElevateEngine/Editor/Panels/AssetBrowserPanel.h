@@ -109,6 +109,7 @@ namespace Elevate::Editor
 		void UpdateRelatedPaths();
 		void AddParentPaths(std::filesystem::path path);
 
+		void RemoveItem(const FileItem& item);
 		void RenameItem(const FileItem& item);
 
 		void LoadFileItemsList();
