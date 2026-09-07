@@ -5,9 +5,9 @@
 #include <ElevateEngine/Events/MouseEvent.h>
 #include <ElevateEngine/Events/KeyEvent.h>
 #include <ElevateEngine/Inputs/Input.h>
-#include <ElevateEngine/Renderer/OpenGL/OpenGLContext.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 
+#include <ElevateEngine/Platform/OpenGL/Context/OpenGLContext.h>
 #include <GLFW/glfw3.h>
 
 static void Elevate_MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)

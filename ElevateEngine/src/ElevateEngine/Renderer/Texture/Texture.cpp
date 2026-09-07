@@ -7,7 +7,7 @@
 
 #include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Renderer/Renderer.h>
-#include <ElevateEngine/Renderer/OpenGL/Texture/OpenGLTexture.h>
+#include <ElevateEngine/Platform/OpenGL/Textures/OpenGLTexture.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
 
 namespace Elevate

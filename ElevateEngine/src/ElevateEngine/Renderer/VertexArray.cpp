@@ -3,7 +3,7 @@
 
 #include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Renderer/Renderer.h>
-#include <ElevateEngine/Renderer/OpenGL/OpenGLVertexArray.h>
+#include <ElevateEngine/Platform/OpenGL/Buffers/OpenGLVertexArray.h>
 
 namespace Elevate
 {
