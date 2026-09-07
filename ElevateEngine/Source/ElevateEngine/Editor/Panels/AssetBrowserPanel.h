@@ -109,6 +109,8 @@ namespace Elevate::Editor
 		void UpdateRelatedPaths();
 		void AddParentPaths(std::filesystem::path path);
 
+		void RenameItem(const FileItem& item);
+
 		void LoadFileItemsList();
 		void LoadExtensionsMeta(std::string filepath = "editor://Config/file_browser.json");
 
@@ -124,6 +126,10 @@ namespace Elevate::Editor
 		std::unordered_map<std::string, FileMetadata> m_FileMetadata;
 
 		bool m_shouldUpdate;
+
+		// Object rename
+		bool m_isRenaming;
+		char m_renameBuffer[256] = "";
 
 		std::set<uint32_t> m_selected;
 		uint32_t m_lastSelected = 0;
