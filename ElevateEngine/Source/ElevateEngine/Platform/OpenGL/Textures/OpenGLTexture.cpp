@@ -146,6 +146,12 @@ namespace Elevate
 
 		GLCheck(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
 
+		GLenum minFilter = GetMinFilter(m_meta.MinFilter, m_meta.Mipmaps);
+		GLenum magFilter = ToOpenGL(m_meta.MagFilter);
+		EE_CORE_INFO("Texture ID={} | MinFilter: {} | MagFilter: {}", m_textureID,
+			(minFilter == GL_LINEAR ? "LINEAR" : "NEAREST"),
+			(magFilter == GL_LINEAR ? "LINEAR" : "NEAREST"));
+
 		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, ToOpenGL(m_meta.WrapS)));
 		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, ToOpenGL(m_meta.WrapT)));
 		GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GetMinFilter(m_meta.MinFilter, m_meta.Mipmaps)));

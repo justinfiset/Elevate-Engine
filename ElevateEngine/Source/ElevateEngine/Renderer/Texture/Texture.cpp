@@ -24,6 +24,11 @@ namespace Elevate
 		return TextureManager::LoadTextureAsync(path, usage);
 	}
 
+	TexturePtr Texture::CreateFromFile(const std::string& path, const TextureMetadata& metadata)
+	{
+		return TextureManager::LoadTextureAsync(path, metadata);
+	}
+
 	TexturePtr Texture::CreateFromColor(const glm::vec3& color, const std::string& name, uint32_t width, uint32_t height)
 	{
 		size_t size = 3 * width * height;

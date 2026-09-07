@@ -25,6 +25,7 @@ namespace Elevate
 
         static TexturePtr GetTexture(const std::string& path);
         static TexturePtr LoadTextureAsync(const std::string& path, TextureType usage = TextureType::Diffuse);
+        static TexturePtr LoadTextureAsync(const std::string& path, const TextureMetadata& metadata);
 
         inline static TexturePtr GetDefaultTexture() { return instance().m_defaultTexture; }
 

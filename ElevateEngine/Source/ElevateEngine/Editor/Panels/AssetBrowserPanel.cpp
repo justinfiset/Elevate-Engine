@@ -42,6 +42,16 @@ Elevate::Editor::AssetBrowserPanel::AssetBrowserPanel()
 	m_CurrentPath = rootPath;
 	m_shouldUpdate = true;
 
+	TextureMetadata texMeta = TextureMetadataBuilder()
+		.Filter(TextureFilter::Linear, TextureFilter::Linear)
+		.Mipmaps(false)
+		.Usage(TextureType::Diffuse)
+		.Build();
+
+	m_newFolderTexture = Texture::CreateFromFile("editor://Icons/Light/new_folder.png", texMeta);
+	m_deleteTexture = Texture::CreateFromFile("editor://Icons/Light/delete.png", texMeta);
+	m_renameTexture = Texture::CreateFromFile("editor://Icons/Light/rename.png", texMeta);
+
 	EE_CORE_INFO("Editor Assets Browser Initiated.");
 }
 
@@ -358,8 +368,31 @@ void Elevate::Editor::AssetBrowserPanel::BuildAssetNodeCache()
 
 void Elevate::Editor::AssetBrowserPanel::DrawContextMenu()
 {
+	static float iconSize = ImGui::GetFontSize();
+
 	if (ImGui::BeginMenu("Create"))
 	{
+		ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 3.0f);
+		ImGui::Image((ImTextureID)m_newFolderTexture->GetNativeHandle(), ImVec2(iconSize, iconSize));
+		ImGui::SameLine(0.0f, 8.0f);
+
+		if (ImGui::MenuItem("Create Folder"))
+		{
+			fs::path path = m_CurrentPath / "New_Folder";
+			
+			try
+			{
+				fs::create_directory(path);
+				m_shouldUpdate = true;
+			}
+			catch (const fs::filesystem_error& e)
+			{
+				EE_CORE_ERROR("Failed to remove file: {}", e.what());
+			}
+		}
+
+		ImGui::Separator();
+
 		for (auto& type : m_assetCreationList)
 		{
 			if (ImGui::MenuItem(type.Name))
@@ -416,11 +449,20 @@ void Elevate::Editor::AssetBrowserPanel::DrawContextMenu()
 	}
 	
 	ImGui::BeginDisabled(!hasSeleected);
+	
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 3.0f);
+	ImGui::Image((ImTextureID)m_renameTexture->GetNativeHandle(), ImVec2(iconSize, iconSize));
+	ImGui::SameLine(0.0f, 8.0f);
+
 	if (ImGui::MenuItem("Rename"))
 	{
 		std::strcpy(m_renameBuffer, selected.name.c_str());
 		m_isRenaming = true;
 	}
+
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 3.0f);
+	ImGui::Image((ImTextureID)m_deleteTexture->GetNativeHandle(), ImVec2(iconSize, iconSize));
+	ImGui::SameLine(0.0f, 8.0f);
 
 	if (ImGui::MenuItem("Delete"))
 	{
@@ -476,7 +518,7 @@ void Elevate::Editor::AssetBrowserPanel::RemoveItem(const FileItem& item)
 	try
 	{
 		fs::remove(fsPath);
-		// todo : remove asset from registry
+		// todo : remove asset from
 		m_shouldUpdate = true;
 	}
 	catch (const fs::filesystem_error& e)
@@ -524,21 +566,27 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
 		return;
 	}
 
-	for (const auto& entry : fs::directory_iterator(m_CurrentPath)) {
+	for (const auto& entry : fs::directory_iterator(m_CurrentPath))
+	{
 		FileMetadata meta;
 		std::string ext = "";
 
-		if (entry.is_directory()) {
-			if (fs::is_empty(entry.path())) {
+		if (entry.is_directory())
+		{
+			if (fs::is_empty(entry.path()))
+			{
 				meta = m_FileMetadata["EMPTY_DIRECTORY"];
 			}
-			else {
+			else
+			{
 				meta = m_FileMetadata["DIRECTORY"];
 			}
 		}
-		else {
+		else
+		{
 			ext = entry.path().extension().string();
-			if (!ext.empty() && ext[0] == '.') {
+			if (!ext.empty() && ext[0] == '.')
+			{
 				ext = ext.substr(1);
 			}
 
@@ -549,20 +597,24 @@ void Elevate::Editor::AssetBrowserPanel::LoadFileItemsList()
 			}
 			else
 			{
-				if (m_FileMetadata.find(ext) != m_FileMetadata.end()) {
+				if (m_FileMetadata.find(ext) != m_FileMetadata.end())
+				{
 					meta = m_FileMetadata[ext];
 				}
-				else {
+				else
+				{
 					meta = m_FileMetadata["ANY"];
 				}
 			}
 		}
 
 		FileItem fileItem;
-		if (meta.type == Image) {
+		if (meta.type == Image)
+		{
 			fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, entry.path().string(), meta.type);
 		}
-		else {
+		else
+		{
 			fileItem = FileItem(entry.path().string(), entry.path().filename().string(), ext, meta.iconPath, meta.type);
 		}
 
