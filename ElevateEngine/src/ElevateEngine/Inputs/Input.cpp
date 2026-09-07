@@ -1,11 +1,11 @@
 #include "Input.h"
 
 #if defined(EE_PLATFORM_WINDOWS)
-    #include "Platform/Windows/WindowsInput.h"
+    #include <ElevateEngine/Platform/Windows/WindowsInput.h>
 #elif defined(EE_PLATFORM_WEB)
-    #include "Platform/Web/WebInput.h"
+    #include <ElevateEngine/Platform/Web/WebInput.h>
 #elif defined(EE_PLATFORM_LINUX)
-    #include "Platform/Linux/LinuxInput.h"
+    #include <ElevateEngine/Platform/Linux/LinuxInput.h>
 #endif
 
 namespace Elevate

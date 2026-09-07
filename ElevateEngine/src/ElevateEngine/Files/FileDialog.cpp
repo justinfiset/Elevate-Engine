@@ -4,10 +4,10 @@
 #include <ElevateEngine/Core/PathResolver.h>
 
 #ifndef EE_PLATFORM_WEB
-    #include <Platform/Desktop/DesktopFileDialog.h>
+    #include <ElevateEngine/Platform/Desktop/DesktopFileDialog.h>
     Elevate::FileDialogImpl* Elevate::FileDialog::s_impl = new Elevate::DesktropFileDialog();
 #else
-    #include <Platform/Web/WebFileDialog.h>
+    #include <ElevateEngine/Platform/Web/WebFileDialog.h>
     Elevate::FileDialogImpl* Elevate::FileDialog::s_impl = new Elevate::WebFileDialog();
 #endif
 
