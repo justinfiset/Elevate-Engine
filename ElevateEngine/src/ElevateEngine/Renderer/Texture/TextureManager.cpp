@@ -147,6 +147,45 @@ namespace Elevate {
         return tex;
     }
 
+    TexturePtr TextureManager::LoadTextureAsync(const std::string& path, const TextureMetadata& metadata)
+    {
+        std::string resolvedPath = PathResolver::Resolve(path);
+        std::filesystem::path fsPath = std::filesystem::absolute(resolvedPath);
+        std::string absPath = fsPath.string();
+
+        TexturePtr tex = GetTexture(absPath);
+        if (!tex)
+        {
+            for (TextureLoadResult& res : instance().m_loadingTextures) {
+                if (res.meta.Path == absPath)
+                {
+                    return nullptr;
+                }
+            }
+        }
+        else
+        {
+            return tex;
+        }
+
+        TextureMetadata _meta = metadata;
+        _meta.Name = fsPath.filename().string();
+        _meta.Path = absPath;
+        _meta.State = TextureState::Unloaded;
+
+        tex = Texture::CreateFromData(nullptr, _meta);
+        instance().m_Textures[absPath] = tex;
+
+        {
+            std::lock_guard<std::mutex> lock(instance().m_queueMutex);
+            instance().m_loadQueue.push({ absPath, _meta });
+        }
+
+        instance().m_queueCV.notify_one();
+
+        return tex;
+    }
+
     void TextureManager::UpdateLoadingTextures()
     {
         TextureManager& manager = instance();

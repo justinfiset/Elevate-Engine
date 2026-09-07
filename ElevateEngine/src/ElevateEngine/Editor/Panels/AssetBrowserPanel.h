@@ -135,6 +135,10 @@ namespace Elevate::Editor
 		std::set<uint32_t> m_selected;
 		uint32_t m_lastSelected = 0;
 		uint32_t m_nextId = 0;
+
+		TexturePtr m_newFolderTexture;
+		TexturePtr m_renameTexture;
+		TexturePtr m_deleteTexture;
 	};
 }
 

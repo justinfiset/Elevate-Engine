@@ -31,10 +31,10 @@ namespace Elevate::UI
 		style.ChildBorderSize = 1.0f;
 		style.PopupRounding = 2.700000047683716f;
 		style.PopupBorderSize = 1.0f;
-		style.FramePadding = ImVec2(4.0f, 3.0f);
+		style.FramePadding = ImVec2(6.0f, 5.0f);
 		style.FrameRounding = 2.400000095367432f;
 		style.FrameBorderSize = 0.0f;
-		style.ItemSpacing = ImVec2(8.0f, 4.0f);
+		style.ItemSpacing = ImVec2(10.0f, 4.0f);
 		style.ItemInnerSpacing = ImVec2(4.0f, 4.0f);
 		style.CellPadding = ImVec2(4.0f, 2.0f);
 		style.IndentSpacing = 21.0f;
@@ -123,10 +123,10 @@ namespace Elevate::UI
 		style.ChildBorderSize = 1.0f;
 		style.PopupRounding = 0.0f;
 		style.PopupBorderSize = 1.0f;
-		style.FramePadding = ImVec2(4.0f, 3.0f);
+		style.FramePadding = ImVec2(6.0f, 5.0f);
 		style.FrameRounding = 0.0f;
 		style.FrameBorderSize = 0.0f;
-		style.ItemSpacing = ImVec2(8.0f, 4.0f);
+		style.ItemSpacing = ImVec2(10.0f, 4.0f);
 		style.ItemInnerSpacing = ImVec2(4.0f, 4.0f);
 		style.CellPadding = ImVec2(4.0f, 2.0f);
 		style.IndentSpacing = 21.0f;
