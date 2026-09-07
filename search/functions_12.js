@@ -12,12 +12,12 @@ var searchData=
   ['setactive_9',['SetActive',['../classElevate_1_1Component.html#ae9db68fd96e772244f0bb2c9b9f1399d',1,'Elevate::Component']]],
   ['setblendingstate_10',['setblendingstate',['../classElevate_1_1OpenGLRendererAPI.html#a73eed1ba80dd85c8a8328be641bce464',1,'Elevate::OpenGLRendererAPI::SetBlendingState()'],['../classElevate_1_1RendererAPI.html#a0856243b52dd01df42fb895a4d8a1fa9',1,'Elevate::RendererAPI::SetBlendingState()']]],
   ['setcameraposition_11',['SetCameraPosition',['../classElevate_1_1Shader.html#adca3bdbed4fadd10acc66a9b044a57f7',1,'Elevate::Shader']]],
-  ['setclearcolor_12',['setclearcolor',['../classElevate_1_1OpenGLRendererAPI.html#adc0352ed7c05287652c21cbec7d901eb',1,'Elevate::OpenGLRendererAPI::SetClearColor()'],['../classElevate_1_1Framebuffer.html#ab325e2a01da7ac4e10c806f95ac48b06',1,'Elevate::Framebuffer::SetClearColor()'],['../classElevate_1_1RendererAPI.html#a40473b8c59c5758289288b35663856de',1,'Elevate::RendererAPI::SetClearColor()'],['../classElevate_1_1Renderer.html#a1ac1d566a5f17a52d1ad35a255e9e5b9',1,'Elevate::Renderer::SetClearColor()']]],
+  ['setclearcolor_12',['setclearcolor',['../classElevate_1_1Framebuffer.html#ab325e2a01da7ac4e10c806f95ac48b06',1,'Elevate::Framebuffer::SetClearColor()'],['../classElevate_1_1OpenGLRendererAPI.html#adc0352ed7c05287652c21cbec7d901eb',1,'Elevate::OpenGLRendererAPI::SetClearColor()'],['../classElevate_1_1RendererAPI.html#a40473b8c59c5758289288b35663856de',1,'Elevate::RendererAPI::SetClearColor()'],['../classElevate_1_1Renderer.html#a1ac1d566a5f17a52d1ad35a255e9e5b9',1,'Elevate::Renderer::SetClearColor()']]],
   ['setcolor_13',['SetColor',['../classElevate_1_1Light.html#a410ae550fb17e533f5d0d5c8b2908ce4',1,'Elevate::Light']]],
   ['setcullingstate_14',['setcullingstate',['../classElevate_1_1OpenGLRendererAPI.html#a8421e1f97d11bb3d5479fdc525d491d7',1,'Elevate::OpenGLRendererAPI::SetCullingState()'],['../classElevate_1_1RendererAPI.html#a9f81e95dd7cc30b929ea378f617ae807',1,'Elevate::RendererAPI::SetCullingState()']]],
   ['setcurrent_15',['SetCurrent',['../classElevate_1_1CameraManager.html#ad87a896979c6e4707d5e74390ae7e07d',1,'Elevate::CameraManager']]],
   ['setdarktheme_16',['SetDarkTheme',['../namespaceElevate_1_1UI.html#a309d5705f1daa31d2377b106e53e6d2f',1,'Elevate::UI']]],
-  ['setdata_17',['setdata',['../classElevate_1_1VertexBuffer.html#a5e201e5217c1545daf3bd26bffe25c4b',1,'Elevate::VertexBuffer::SetData()'],['../classElevate_1_1OpenGLVertexBuffer.html#a55460800558590d5a4185450c3dcb4bf',1,'Elevate::OpenGLVertexBuffer::SetData()'],['../classElevate_1_1Texture.html#a3e3ca8f0cb02b24c99829fbee6e26e77',1,'Elevate::Texture::SetData()']]],
+  ['setdata_17',['setdata',['../classElevate_1_1OpenGLVertexBuffer.html#a55460800558590d5a4185450c3dcb4bf',1,'Elevate::OpenGLVertexBuffer::SetData()'],['../classElevate_1_1VertexBuffer.html#a5e201e5217c1545daf3bd26bffe25c4b',1,'Elevate::VertexBuffer::SetData()'],['../classElevate_1_1Texture.html#a3e3ca8f0cb02b24c99829fbee6e26e77',1,'Elevate::Texture::SetData()']]],
   ['setdataimpl_18',['setdataimpl',['../classElevate_1_1OpenGLTexture.html#a76539c41e4b4ab7c573062a6b8b88e15',1,'Elevate::OpenGLTexture::SetDataImpl()'],['../classElevate_1_1Texture.html#aed97a0400d930de48cfb5255a4749684',1,'Elevate::Texture::SetDataImpl()']]],
   ['setdefaultlistener_19',['SetDefaultListener',['../classElevate_1_1SoundEngine.html#a797ef8350013303788215ff5a0fc4eb0',1,'Elevate::SoundEngine']]],
   ['setdefaultlistenerimpl_20',['SetDefaultListenerImpl',['../classElevate_1_1SoundEngine.html#a72b146845d5682fe5a81b90fcaa34ffd',1,'Elevate::SoundEngine']]],
@@ -39,7 +39,7 @@ var searchData=
   ['setintensity_36',['SetIntensity',['../classElevate_1_1Light.html#a22692ea3c6152e59eb9e903295e10792',1,'Elevate::Light']]],
   ['setkeypressed_37',['SetKeyPressed',['../classElevate_1_1InputBuffer.html#a1a6ac0d82871e54c3010be0087c7f429',1,'Elevate::InputBuffer']]],
   ['setkeyreleased_38',['SetKeyReleased',['../classElevate_1_1InputBuffer.html#a00c96d9b3ed1e59fe613c03bc4e4528e',1,'Elevate::InputBuffer']]],
-  ['setlayout_39',['setlayout',['../classElevate_1_1VertexBuffer.html#a3a37dea1acbab0e112b56fa80194d06e',1,'Elevate::VertexBuffer::SetLayout()'],['../classElevate_1_1OpenGLVertexBuffer.html#ab13e47cc379e052ac68c6ac42d9cbf0f',1,'Elevate::OpenGLVertexBuffer::SetLayout()']]],
+  ['setlayout_39',['setlayout',['../classElevate_1_1OpenGLVertexBuffer.html#ab13e47cc379e052ac68c6ac42d9cbf0f',1,'Elevate::OpenGLVertexBuffer::SetLayout()'],['../classElevate_1_1VertexBuffer.html#a3a37dea1acbab0e112b56fa80194d06e',1,'Elevate::VertexBuffer::SetLayout()']]],
   ['setlighttheme_40',['SetLightTheme',['../namespaceElevate_1_1UI.html#a15e7a91bfd12b3dd3c2b4766e535119c',1,'Elevate::UI']]],
   ['setmaterial_41',['SetMaterial',['../classElevate_1_1Model.html#a5ddf9d4b4dd23e862da19a4d915f5d91',1,'Elevate::Model']]],
   ['setmodelmatrix_42',['setmodelmatrix',['../classElevate_1_1Shader.html#af74966d637bdc8259da32a83f530d43f',1,'Elevate::Shader::SetModelMatrix(const glm::mat4 &amp;modelMatrix)'],['../classElevate_1_1Shader.html#a9b3bee329ad9d09161f91bfdde9cbe1a',1,'Elevate::Shader::SetModelMatrix(const GameObject &amp;object)']]],
@@ -95,5 +95,5 @@ var searchData=
   ['submitmesh_92',['SubmitMesh',['../classElevate_1_1Renderer.html#a75b6b926ae673d78503caf57dd6dd40d',1,'Elevate::Renderer']]],
   ['suspend_93',['Suspend',['../classElevate_1_1SoundEngine.html#a82a17a18a9c49f057dfd4d50e851209b',1,'Elevate::SoundEngine']]],
   ['suspendimpl_94',['SuspendImpl',['../classElevate_1_1SoundEngine.html#afd76593c186541f778dfabe000eaf078',1,'Elevate::SoundEngine']]],
-  ['swapbuffers_95',['swapbuffers',['../classElevate_1_1GraphicsContext.html#a64bd4078d5a6fb84ac4867762facaf77',1,'Elevate::GraphicsContext::SwapBuffers()'],['../classElevate_1_1OpenGLContext.html#a602f0a4a918e6ca99c0c69ae0565f6ae',1,'Elevate::OpenGLContext::SwapBuffers()']]]
+  ['swapbuffers_95',['swapbuffers',['../classElevate_1_1OpenGLContext.html#a602f0a4a918e6ca99c0c69ae0565f6ae',1,'Elevate::OpenGLContext::SwapBuffers()'],['../classElevate_1_1GraphicsContext.html#a64bd4078d5a6fb84ac4867762facaf77',1,'Elevate::GraphicsContext::SwapBuffers()']]]
 ];

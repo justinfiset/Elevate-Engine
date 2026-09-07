@@ -92,10 +92,10 @@ var NAVTREEINDEX =
 "classElevate_1_1RenderBucket.html#a13a213a3bcd245f5aeb07ee1764b02fd",
 "classElevate_1_1Shader.html#ac727cdaa3dab393f67f60099ba7a09fa",
 "classElevate_1_1WAAPIClient.html#a346feef0250bb4ccee6486ae93dc3c3e",
-"globals_defs.html",
-"namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1aee6aaf22abac7bd5c8c8b1edc1164cd1",
-"structElevate_1_1FramebufferColorAttachment.html#a1af053e54509775e433c67adb632fa53",
-"structElevate_1_1TextureMetadataBuilder.html#a1fd765a2a4e7393bde01e77b0c255c25"
+"globals_b.html",
+"namespaceElevate.html#ad60c7d338e89eb9acc236131ecfff9f1a5c22b826138634df6ddf1e22fdb7e66e",
+"structElevate_1_1FlattenTag.html",
+"structElevate_1_1TextureMetadataBuilder.html#a10284b2604330b1b8f69461df57c4649"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

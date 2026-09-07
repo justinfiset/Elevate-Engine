@@ -1,5 +1,9 @@
 var NAVTREEINDEX15 =
 {
+"structElevate_1_1TextureMetadataBuilder.html#a10284b2604330b1b8f69461df57c4649":[2,0,1,169,4],
+"structElevate_1_1TextureMetadataBuilder.html#a10284b2604330b1b8f69461df57c4649":[3,0,0,163,4],
+"structElevate_1_1TextureMetadataBuilder.html#a16286b4837bf1ca8ab16daebac3d6ad8":[3,0,0,163,2],
+"structElevate_1_1TextureMetadataBuilder.html#a16286b4837bf1ca8ab16daebac3d6ad8":[2,0,1,169,2],
 "structElevate_1_1TextureMetadataBuilder.html#a1fd765a2a4e7393bde01e77b0c255c25":[3,0,0,163,0],
 "structElevate_1_1TextureMetadataBuilder.html#a1fd765a2a4e7393bde01e77b0c255c25":[2,0,1,169,0],
 "structElevate_1_1TextureMetadataBuilder.html#a310dae36002475e342fa3c979e9dcda8":[3,0,0,163,13],

@@ -1,5 +1,9 @@
 var NAVTREEINDEX14 =
 {
+"structElevate_1_1FlattenTag.html":[2,0,1,70],
+"structElevate_1_1FlattenTag.html":[3,0,0,64],
+"structElevate_1_1FramebufferColorAttachment.html":[2,0,1,72],
+"structElevate_1_1FramebufferColorAttachment.html":[3,0,0,66],
 "structElevate_1_1FramebufferColorAttachment.html#a1af053e54509775e433c67adb632fa53":[3,0,0,66,1],
 "structElevate_1_1FramebufferColorAttachment.html#a1af053e54509775e433c67adb632fa53":[2,0,1,72,1],
 "structElevate_1_1FramebufferColorAttachment.html#a59ce6e9417b2662eccb527e3c1efb5e2":[3,0,0,66,3],
@@ -245,9 +249,5 @@ var NAVTREEINDEX14 =
 "structElevate_1_1TextureMetadata.html#afee1ceb8c816051b77d6ca8a13e6d406":[3,0,0,162,13],
 "structElevate_1_1TextureMetadata.html#afee1ceb8c816051b77d6ca8a13e6d406":[2,0,1,168,13],
 "structElevate_1_1TextureMetadataBuilder.html":[3,0,0,163],
-"structElevate_1_1TextureMetadataBuilder.html":[2,0,1,169],
-"structElevate_1_1TextureMetadataBuilder.html#a10284b2604330b1b8f69461df57c4649":[2,0,1,169,4],
-"structElevate_1_1TextureMetadataBuilder.html#a10284b2604330b1b8f69461df57c4649":[3,0,0,163,4],
-"structElevate_1_1TextureMetadataBuilder.html#a16286b4837bf1ca8ab16daebac3d6ad8":[3,0,0,163,2],
-"structElevate_1_1TextureMetadataBuilder.html#a16286b4837bf1ca8ab16daebac3d6ad8":[2,0,1,169,2]
+"structElevate_1_1TextureMetadataBuilder.html":[2,0,1,169]
 };

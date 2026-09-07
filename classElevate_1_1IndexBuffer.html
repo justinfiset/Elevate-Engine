@@ -223,17 +223,17 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Buffer_8cpp_source.html#l00023">23</a> of file <a class="el" href="Buffer_8cpp_source.html">Buffer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   24</span>    {</div>
-<div class="line"><span class="lineno">   25</span>        <span class="keywordflow">switch</span> (<a class="code hl_function" href="classElevate_1_1Renderer.html#ae4334e52a757b03df393099fac19b019">Renderer::GetAPI</a>())</div>
-<div class="line"><span class="lineno">   26</span>        {</div>
-<div class="line"><span class="lineno">   27</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="classElevate_1_1RendererAPI.html#ad30acad1326768eff346c30ffb38dc0ba6adf97f83acf6453d4a6a4b1070f3754">RendererAPI::GraphicAPI::None</a>: <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   28</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="classElevate_1_1RendererAPI.html#ad30acad1326768eff346c30ffb38dc0ba760716b590ee7c0adc25f434f577d8be">RendererAPI::GraphicAPI::OpenGL</a>: <span class="keywordflow">return</span> <span class="keyword">new</span> OpenGLIndexBuffer(vertices, count);</div>
-<div class="line"><span class="lineno">   29</span>        }</div>
-<div class="line"><span class="lineno">   30</span> </div>
-<div class="line"><span class="lineno">   31</span>        EE_CORE_ASSERT(<span class="keyword">false</span>, <span class="stringliteral">&quot;A supported RendererAPI needs to be supported!&quot;</span>);</div>
-<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><span class="lineno">   33</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Buffer_8cpp_source.html#l00024">24</a> of file <a class="el" href="Buffer_8cpp_source.html">Buffer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   25</span>    {</div>
+<div class="line"><span class="lineno">   26</span>        <span class="keywordflow">switch</span> (<a class="code hl_function" href="classElevate_1_1Renderer.html#ae4334e52a757b03df393099fac19b019">Renderer::GetAPI</a>())</div>
+<div class="line"><span class="lineno">   27</span>        {</div>
+<div class="line"><span class="lineno">   28</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="classElevate_1_1RendererAPI.html#ad30acad1326768eff346c30ffb38dc0ba6adf97f83acf6453d4a6a4b1070f3754">RendererAPI::GraphicAPI::None</a>: <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   29</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="classElevate_1_1RendererAPI.html#ad30acad1326768eff346c30ffb38dc0ba760716b590ee7c0adc25f434f577d8be">RendererAPI::GraphicAPI::OpenGL</a>: <span class="keywordflow">return</span> <span class="keyword">new</span> OpenGLIndexBuffer(vertices, count);</div>
+<div class="line"><span class="lineno">   30</span>        }</div>
+<div class="line"><span class="lineno">   31</span> </div>
+<div class="line"><span class="lineno">   32</span>        EE_CORE_ASSERT(<span class="keyword">false</span>, <span class="stringliteral">&quot;A supported RendererAPI needs to be supported!&quot;</span>);</div>
+<div class="line"><span class="lineno">   33</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   34</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1RendererAPI_html_ad30acad1326768eff346c30ffb38dc0ba6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#ad30acad1326768eff346c30ffb38dc0ba6adf97f83acf6453d4a6a4b1070f3754">Elevate::RendererAPI::GraphicAPI::None</a></div><div class="ttdeci">@ None</div></div>
 <div class="ttc" id="aclassElevate_1_1RendererAPI_html_ad30acad1326768eff346c30ffb38dc0ba760716b590ee7c0adc25f434f577d8be"><div class="ttname"><a href="classElevate_1_1RendererAPI.html#ad30acad1326768eff346c30ffb38dc0ba760716b590ee7c0adc25f434f577d8be">Elevate::RendererAPI::GraphicAPI::OpenGL</a></div><div class="ttdeci">@ OpenGL</div></div>
 <div class="ttc" id="aclassElevate_1_1Renderer_html_ae4334e52a757b03df393099fac19b019"><div class="ttname"><a href="classElevate_1_1Renderer.html#ae4334e52a757b03df393099fac19b019">Elevate::Renderer::GetAPI</a></div><div class="ttdeci">static RendererAPI::GraphicAPI GetAPI()</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8h_source.html#l00043">Renderer.h:43</a></div></div>

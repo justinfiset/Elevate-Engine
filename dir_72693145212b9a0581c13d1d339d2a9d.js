@@ -4,7 +4,6 @@ var dir_72693145212b9a0581c13d1d339d2a9d =
     [ "Commands", "dir_84ce1254a2a9fae715af9bf2af02133d.html", "dir_84ce1254a2a9fae715af9bf2af02133d" ],
     [ "Debug", "dir_dc866a62519fcae8f53966bc7f952f36.html", "dir_dc866a62519fcae8f53966bc7f952f36" ],
     [ "Light", "dir_2745e5f891521c8b18cf82a3f645c2e7.html", "dir_2745e5f891521c8b18cf82a3f645c2e7" ],
-    [ "OpenGL", "dir_81d5ed1e5a3a91bf082d283aff48a7b5.html", "dir_81d5ed1e5a3a91bf082d283aff48a7b5" ],
     [ "Shader", "dir_00782cd0a5a635dbd433aa319b9319b9.html", "dir_00782cd0a5a635dbd433aa319b9319b9" ],
     [ "Texture", "dir_4ea77ff9caeb243fe7c1809a3416a918.html", "dir_4ea77ff9caeb243fe7c1809a3416a918" ],
     [ "Buffer.cpp", "Buffer_8cpp.html", null ],
