@@ -1,5 +1,8 @@
-![Elevate Logo](./Assets/Logo/logo-png.png)
-![Elevate Demo](./Assets/Preview/elevate.gif)
+<p align="center">
+  <img src="./Assets/Logo/logo-png.png" width="100%" alt="Elevate Logo" />
+  <br/>
+  <img src="./Assets/Preview/elevate.gif" width="100%" alt="Elevate Demo" />
+</p>
 
 # Web Build Demo
 
