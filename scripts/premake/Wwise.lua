@@ -137,7 +137,7 @@ function Wwise.SetupEngine()
     defines {"EE_USES_WWISE"}
 
     local wwiseSDKSoundEngineSamplesSrc = path.getabsolute(wwiseSDK .. "/samples/SoundEngine")
-    local wwiseSDKSoundEngineSampleDest = path.getabsolute("src/ElevateEngine/Audio/Ak")
+    local wwiseSDKSoundEngineSampleDest = path.getabsolute("Source/ElevateEngine/Audio/Ak")
 
     local samplesPlatform = Wwise.GetSamplePlatform()
     if not samplesPlatform then
