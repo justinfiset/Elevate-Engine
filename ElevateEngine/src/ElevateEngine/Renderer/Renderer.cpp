@@ -524,21 +524,24 @@ namespace Elevate
             
             BindShader(s_shadowShader);
 
-            // Rescale the framebuffer if the resolution was edited
-            if (s_directionalShadowMaps[0]->GetWidth() != settings.Resolution || s_directionalShadowMaps[0]->GetHeight() != settings.Resolution)
+            if (settings.CastShadows)
             {
-                for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
+                // Rescale the framebuffer if the resolution was edited
+                if (s_directionalShadowMaps[0]->GetWidth() != settings.Resolution || s_directionalShadowMaps[0]->GetHeight() != settings.Resolution)
                 {
-                    s_directionalShadowMaps[i]->Rescale(settings.Resolution, settings.Resolution);
+                    for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
+                    {
+                        s_directionalShadowMaps[i]->Rescale(settings.Resolution, settings.Resolution);
+                    }
                 }
-            }
 
-            RenderState shadowState;
-            shadowState.CullMode = CullFace::Front;
-            shadowState.DepthTest = true;
-            shadowState.DepthWrite = true;
-            shadowState.BlendMode = BlendModeType::None;
-            PushRenderState(shadowState);
+                RenderState shadowState;
+                shadowState.CullMode = CullFace::Front;
+                shadowState.DepthTest = true;
+                shadowState.DepthWrite = true;
+                shadowState.BlendMode = BlendModeType::None;
+                PushRenderState(shadowState);
+            }
 
             const auto& bucket = s_commands.GetBucket(RenderBucket::GBuffer);
 
@@ -547,12 +550,15 @@ namespace Elevate
                 s_directionalShadowMaps[i]->Use();
                 ClearDepth();
 
-                s_shadowShader->SetUniformMatrix4fv("lightSpaceMatrix", s_data.LightSpaceMatrices[i]);
-
-                for (const auto& command : bucket)
+                if (settings.CastShadows)
                 {
-                    s_shadowShader->SetModelMatrix(command.Transform);
-                    DrawArray(command.m_VertexArray);
+                    s_shadowShader->SetUniformMatrix4fv("lightSpaceMatrix", s_data.LightSpaceMatrices[i]);
+
+                    for (const auto& command : bucket)
+                    {
+                        s_shadowShader->SetModelMatrix(command.Transform);
+                        DrawArray(command.m_VertexArray);
+                    }
                 }
 
                 s_directionalShadowMaps[i]->Unbind();
