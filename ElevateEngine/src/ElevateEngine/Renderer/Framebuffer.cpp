@@ -6,7 +6,7 @@
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 
-#include <ElevateEngine/Renderer/OpenGL/OpenGLFramebuffer.h>
+#include <ElevateEngine/Platform/OpenGL/Framebuffer/OpenGLFramebuffer.h>
 
 namespace Elevate
 {

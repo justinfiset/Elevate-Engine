@@ -4,7 +4,8 @@
 #include <ElevateEngine/Core/Assert.h>
 
 #include "Renderer.h"
-#include "OpenGL/OpenGLBuffer.h"
+
+#include <ElevateEngine/Platform/OpenGL/Buffers/OpenGLBuffer.h>
 
 namespace Elevate
 {

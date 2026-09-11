@@ -5,7 +5,6 @@
 
 #include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
 #include <ElevateEngine/Renderer/Mesh.h>
-#include <ElevateEngine/Renderer/OpenGL/OpenGLRendererAPI.h>
 #include <ElevateEngine/Scene/Scene.h>
 #include <ElevateEngine/Renderer/Cubemap.h>
 
@@ -17,6 +16,8 @@
 #include <ElevateEngine/Renderer/Light/Light.h>
 #include <ElevateEngine/Renderer/Light/DirectionalLight.h>
 #include <ElevateEngine/Renderer/Light/SceneLighting.h>
+
+#include <ElevateEngine/Platform/OpenGL/Renderer/OpenGLRendererAPI.h>
 
 constexpr uint32_t DEFAULT_SHADOW_RESOLUTION = 2048;
 constexpr uint16_t AO_KERNER_SAMPLE_COUNT = 64;

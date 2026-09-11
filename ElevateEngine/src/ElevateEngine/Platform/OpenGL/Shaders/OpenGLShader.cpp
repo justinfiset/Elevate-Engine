@@ -6,7 +6,7 @@
 
 #include "glm/gtc/type_ptr.hpp"
 
-#include <ElevateEngine/Renderer/OpenGL/Shader/OpenGLShader.h>
+#include <ElevateEngine/Platform/OpenGL/Shaders/OpenGLShader.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
 #include <ElevateEngine/Core/Assert.h>
 

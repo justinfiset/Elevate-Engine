@@ -13,11 +13,11 @@
 #include <rapidjson/rapidjson.h>
 
 #if defined(EE_PLATFORM_WINDOWS)
-	#include <Platform/Windows/WindowsWindow.h>
+	#include <ElevateEngine/Platform/Windows/WindowsWindow.h>
 #elif defined(EE_PLATFORM_WEB)
-	#include <Platform/Web/WebWindow.h>
+	#include <ElevateEngine/Platform/Web/WebWindow.h>
 #elif defined(EE_PLATFORM_LINUX)
-	#include <Platform/Linux/LinuxWindow.h>
+	#include <ElevateEngine/Platform/Linux/LinuxWindow.h>
 #else
 	#error "Unknown platform! Cannot create window on this platform."
 #endif
