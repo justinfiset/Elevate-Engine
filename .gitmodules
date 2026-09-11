@@ -1,25 +1,25 @@
 [submodule "ElevateEngine/vendor/rapidjson"]
-	path = ElevateEngine/vendor/rapidjson
+	path = ElevateEngine/temp_vendor/rapidjson
 	url = https://github.com/Tencent/rapidjson
 	ignore = all
 [submodule "ElevateEngine/vendor/ImGuizmo"]
-	path = ElevateEngine/vendor/ImGuizmo
+	path = ElevateEngine/temp_vendor/ImGuizmo
 	url = https://github.com/justinfiset/ImGuizmo
 	ignore = all
 [submodule "ElevateEngine/vendor/ImGui"]
-	path = ElevateEngine/vendor/ImGui
+	path = ElevateEngine/temp_vendor/ImGui
 	url = https://github.com/ocornut/imgui
 	ignore = all
 	branch = docking
 [submodule "ElevateEngine/vendor/assimp"]
-	path = ElevateEngine/vendor/assimp
+	path = ElevateEngine/temp_vendor/assimp
 	url = https://github.com/assimp/assimp
 	ignore = all
 [submodule "ElevateEngine/vendor/rapidxml"]
-	path = ElevateEngine/vendor/rapidxml
+	path = ElevateEngine/temp_vendor/rapidxml
 	url = https://github.com/dwd/rapidxml.git
 [submodule "ElevateEngine/vendor/GLFW"]
-	path = ElevateEngine/vendor/GLFW
+	path = ElevateEngine/temp_vendor/GLFW
 	url = https://github.com/glfw/glfw
 [submodule "Docs/doxygen-awesome-css"]
 	path = Docs/doxygen-awesome-css
@@ -28,19 +28,19 @@
 	path = vendor/premake-export-compile-commands
 	url = https://github.com/tarruda/premake-export-compile-commands
 [submodule "ElevateEngine/vendor/spdlog"]
-	path = ElevateEngine/vendor/spdlog
+	path = ElevateEngine/temp_vendor/spdlog
 	url = https://github.com/gabime/spdlog.git
 [submodule "ElevateEngine/vendor/glm"]
-	path = ElevateEngine/vendor/glm
+	path = ElevateEngine/temp_vendor/glm
 	url = https://github.com/g-truc/glm
 [submodule "ElevateEngine/vendor/ImGuiFileDialog"]
-	path = ElevateEngine/vendor/ImGuiFileDialog
+	path = ElevateEngine/temp_vendor/ImGuiFileDialog
 	url = https://github.com/aiekick/ImGuiFileDialog
 [submodule "ElevateEngine/vendor/tinyfiledialogs"]
-	path = ElevateEngine/vendor/tinyfiledialogs
+	path = ElevateEngine/temp_vendor/tinyfiledialogs
 	url = https://git.code.sf.net/p/tinyfiledialogs/code
 [submodule "ElevateEngine/vendor/stduuid"]
-	path = ElevateEngine/vendor/stduuid
+	path = ElevateEngine/temp_vendor/stduuid
 	url = https://github.com/mariusbancila/stduuid/
 [submodule "ElevateTests/Vendor/Catch2"]
 	path = ElevateTests/Vendor/Catch2
