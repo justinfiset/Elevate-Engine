@@ -21,9 +21,9 @@ workspace "ElevateEngine"
 	include "ElevateEngine/engine.lua"
 
 	group "Dependencies"
-		include "ElevateEngine/vendor/glfw.lua"
-		include "ElevateEngine/vendor/imgui.lua"
-		include "ElevateEngine/vendor/assimp.lua"
+		include "ElevateEngine/Vendor/glfw.lua"
+		include "ElevateEngine/Vendor/imgui.lua"
+		include "ElevateEngine/Vendor/assimp.lua"
 
 	if os.target() ~= "emscripten" then
 		group "Tests"
