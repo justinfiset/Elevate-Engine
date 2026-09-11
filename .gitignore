@@ -1,6 +1,6 @@
 PREMAKE_CONFIG
 
-ElevateEngine/src/ElevateEngine/Audio/Ak
+ElevateEngine/Source/ElevateEngine/Audio/Ak
 
 compile_commands
 
