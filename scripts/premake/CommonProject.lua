@@ -88,7 +88,7 @@ function CommonProject.SetupProject(directory, customCallback)
 		vendorPath.."/ImGui/",
 		vendorPath.."/glm/",
 		vendorPath.."/spdlog/include",
-		enginePath.."/src",
+		enginePath.."/Source",
 	}
 
 	links { "ElevateEngine" }

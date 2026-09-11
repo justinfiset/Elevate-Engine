@@ -16,33 +16,33 @@ project "ElevateEngine"
 	objdir ("%{wks.location}/Build/bin-int/" .. outputdir .. "/%{prj.name}")
 
 	IncludeDir = {}
-	IncludeDir["Vendors"] = "vendor"
-	IncludeDir["GLFW"] = "vendor/GLFW/include" 
-	IncludeDir["Glad"] = "vendor/Glad/include"
-	IncludeDir["ImGui"] = "vendor/ImGui/"
-	IncludeDir["glm"] = "vendor/glm/"
-	IncludeDir["rapidjson"] = "vendor/rapidjson/include"
-	IncludeDir["rapidxml"] = "vendor/rapidxml/include"
-	IncludeDir["stb"] = "vendor/stb/"
-	IncludeDir["spdlog"] = "vendor/spdlog/include"
-	IncludeDir["assimp"] = "vendor/assimp/include"
-	IncludeDir["tinyfiledialogs"] = "vendor/tinyfiledialogs"
-	IncludeDir["ImGuizmo"] = "vendor/ImGuizmo"
-	IncludeDir["entt"] = "vendor/entt/include"
-	IncludeDir["stduuid"] = "vendor/stduuid/include"
+	IncludeDir["Vendors"] = "Vendor"
+	IncludeDir["GLFW"] = "Vendor/GLFW/include" 
+	IncludeDir["Glad"] = "Vendor/Glad/include"
+	IncludeDir["ImGui"] = "Vendor/ImGui/"
+	IncludeDir["glm"] = "Vendor/glm/"
+	IncludeDir["rapidjson"] = "Vendor/rapidjson/include"
+	IncludeDir["rapidxml"] = "Vendor/rapidxml/include"
+	IncludeDir["stb"] = "Vendor/stb/"
+	IncludeDir["spdlog"] = "Vendor/spdlog/include"
+	IncludeDir["assimp"] = "Vendor/assimp/include"
+	IncludeDir["tinyfiledialogs"] = "Vendor/tinyfiledialogs"
+	IncludeDir["ImGuizmo"] = "Vendor/ImGuizmo"
+	IncludeDir["entt"] = "Vendor/entt/include"
+	IncludeDir["stduuid"] = "Vendor/stduuid/include"
 
 	files
 	{
-		"src/**.h",
-		"src/**.inl",
-		"src/**.cpp",
+		"Source/**.h",
+		"Source/**.inl",
+		"Source/**.cpp",
 
-		"src/**.vert",
-		"src/**.frag",
+		"Source/**.vert",
+		"Source/**.frag",
 
-		"vendor/ImGuizmo/ImGuizmo.cpp",
-		"vendor/ImGuiFileDialog/**.cpp",
-		"vendor/tinyfiledialogs/tinyfiledialogs.c",
+		"Vendor/ImGuizmo/ImGuizmo.cpp",
+		"Vendor/ImGuiFileDialog/**.cpp",
+		"Vendor/tinyfiledialogs/tinyfiledialogs.c",
 	}
 
 	defines 
@@ -54,14 +54,14 @@ project "ElevateEngine"
 		"GLM_ENABLE_EXPERIMENTAL",
 	}
 
-	includedirs { "src", values(IncludeDir) }
+	includedirs { "Source", values(IncludeDir) }
 
 	links { "ImGui", "assimp" }
 
 	Wwise.SetupEngine()
 	filter "not system:emscripten"
 		links { "GLFW" }
-        files { "vendor/Glad/src/glad.c" }
+        files { "Vendor/Glad/src/glad.c" }
     filter {}
 
 	BuildPlatform.SetPlatformDefines()
