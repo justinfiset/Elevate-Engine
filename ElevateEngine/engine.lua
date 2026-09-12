@@ -30,7 +30,7 @@ project "ElevateEngine"
 	IncludeDir["ImGuizmo"] = "Vendor/ImGuizmo"
 	IncludeDir["entt"] = "Vendor/entt/include"
 	IncludeDir["stduuid"] = "Vendor/stduuid/include"
-	IncludeDir["Jolt"] = "Vendor/JoltPhysics/Jolt"
+	IncludeDir["Jolt"] = "Vendor/JoltPhysics"
 
 	files
 	{
