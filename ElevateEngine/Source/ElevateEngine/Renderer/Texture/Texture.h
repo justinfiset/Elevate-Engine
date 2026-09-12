@@ -145,6 +145,7 @@ namespace Elevate
 		bool MatchesPath(std::string pathToMatch);
 
 		static TexturePtr CreateFromFile(const std::string& path, TextureType usage = TextureType::Diffuse);
+		static TexturePtr CreateFromFile(const std::string& path, const TextureMetadata& metadata);
 		static TexturePtr CreateFromColor(const glm::vec3& color, const std::string& name, uint32_t width = 1, uint32_t height = 1);
 		static TexturePtr CreateFromColor(const glm::vec4& color, const std::string& name, uint32_t width = 1, uint32_t height = 1);
 		static TexturePtr CreateFromData(const void* data, TextureMetadata& metadata);

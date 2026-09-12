@@ -10,6 +10,7 @@ namespace Elevate
 
 		UITheme GetCurrentTheme();
 
+		void ApplyFont();
 		void SetDarkTheme();
 		void SetLightTheme();
 	}

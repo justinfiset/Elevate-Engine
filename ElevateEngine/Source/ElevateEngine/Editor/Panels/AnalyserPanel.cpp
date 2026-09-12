@@ -297,7 +297,7 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 			strncpy(buf, displayName.c_str(), sizeof(buf) - 1);
 			buf[sizeof(buf) - 1] = '\0';
 
-			float buttonSize = ImGui::GetFrameHeight() - ImGui::GetStyle().ItemInnerSpacing.y;
+			float buttonSize = ImGui::GetFontSize();
 			float spacing = ImGui::GetStyle().ItemInnerSpacing.x;
 			float totalWidth = ImGui::CalcItemWidth();
 
