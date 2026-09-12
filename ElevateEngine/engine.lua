@@ -30,6 +30,7 @@ project "ElevateEngine"
 	IncludeDir["ImGuizmo"] = "Vendor/ImGuizmo"
 	IncludeDir["entt"] = "Vendor/entt/include"
 	IncludeDir["stduuid"] = "Vendor/stduuid/include"
+	IncludeDir["Jolt"] = "Vendor/JoltPhysics/Jolt"
 
 	files
 	{
@@ -56,7 +57,7 @@ project "ElevateEngine"
 
 	includedirs { "Source", values(IncludeDir) }
 
-	links { "ImGui", "assimp" }
+	links { "ImGui", "assimp", "Jolt" }
 
 	Wwise.SetupEngine()
 	filter "not system:emscripten"

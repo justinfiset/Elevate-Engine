@@ -23,6 +23,7 @@ workspace "ElevateEngine"
 	group "Dependencies"
 		include "ElevateEngine/Vendor/glfw.lua"
 		include "ElevateEngine/Vendor/imgui.lua"
+		include "ElevateEngine/Vendor/Jolt.lua"
 		include "ElevateEngine/Vendor/assimp.lua"
 
 	if os.target() ~= "emscripten" then
