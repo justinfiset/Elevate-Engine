@@ -27,7 +27,7 @@ jobs:
           sed -i 's/-MP//g' compile_commands.json
           sed -i 's/"command": "cc/"command": "cc -std=c++20/g' compile_commands.json
 
-          jq '[.[] | select(.file | contains("ElevateEngine/src"))]' compile_commands.json > filtered_commands.json
+          jq '[.[] | select(.file | contains("ElevateEngine/Source"))]' compile_commands.json > filtered_commands.json
           mv filtered_commands.json compile_commands.json
 
           jq -r '.[].directory' compile_commands.json | xargs mkdir -p
@@ -55,5 +55,5 @@ jobs:
           # On affiche le résultat
           cat clean_report.txt || echo "No suggestions found."
           
-          grep -E "ElevateEngine/src|should add|should remove|forward declare|---|^#" || echo "No suggestions found."
+          grep -E "ElevateEngine/Source|should add|should remove|forward declare|---|^#" || echo "No suggestions found."
           echo "===================================================="
