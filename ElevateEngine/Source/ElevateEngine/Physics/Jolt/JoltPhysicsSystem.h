@@ -81,7 +81,12 @@ namespace Elevate::Jolt
 		JoltObjectLayerPairFilter m_ObjectLayerPairFilter;
 		JoltObjectVsBroadPhaseLayerFilter m_ObjectVsBroadPhaseLayerFilter;
 
+		JPH::BodyInterface* m_BodyInterface = nullptr;
+
 		JPH::TempAllocatorImpl* m_TempAllocator = nullptr;
 		JPH::JobSystem* m_JobSystem = nullptr;
+	
+		JPH::BodyID m_TestCube;
+		JPH::BodyID m_TestFloor;
 	};
 }

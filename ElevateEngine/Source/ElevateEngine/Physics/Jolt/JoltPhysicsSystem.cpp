@@ -5,6 +5,10 @@
 #include <Jolt/Core/Memory.h>
 #include <Jolt/RegisterTypes.h>
 
+// todo remove once not used in the debug code
+#include <Jolt/Physics/Collision/Shape/BoxShape.h>
+#include <Jolt/Physics/Body/BodyCreationSettings.h>
+
 #include <ElevateEngine/Core/Log.h>
 
 namespace Elevate::Jolt
@@ -45,6 +49,76 @@ namespace Elevate::Jolt
 			m_ObjectLayerPairFilter
 		);
 
+		m_BodyInterface = &m_PhysicsSystem.GetBodyInterface();
+
+		/* The folloowing code is for debug purposes do not commit this */
+		// todo remove this debug code to test the impl.
+		JPH::BoxShapeSettings shapeSettings(
+			JPH::Vec3(1.0f, 1.0f, 1.0f)
+		);
+
+		JPH::ShapeSettings::ShapeResult shapeResult = shapeSettings.Create();
+
+		if (shapeResult.HasError())
+		{
+			EE_CORE_ERROR("Failed to create Jolt Physics shape: {}", shapeResult.GetError().c_str());
+			return;
+		}
+
+		JPH::ShapeRefC cubeShape = shapeResult.Get();
+
+		JPH::BodyCreationSettings cubeSettings(
+			cubeShape,
+			JPH::RVec3(0.0, 5.0, 0.0),
+			JPH::Quat::sIdentity(),
+			JPH::EMotionType::Dynamic,
+			PhysicsLayers::MOVING
+		);
+
+		JPH::BoxShapeSettings floorShapeSettings(
+			JPH::Vec3(10.0f, 0.5f, 10.0f)
+		);
+
+		JPH::ShapeSettings::ShapeResult floorShapeResult = floorShapeSettings.Create();
+
+		if (floorShapeResult.HasError())
+		{
+			EE_CORE_ERROR("Failed to create Jolt Physics shape: {}", floorShapeResult.GetError().c_str());
+			return;
+		}
+
+		JPH::ShapeRefC floorShape = floorShapeResult.Get();
+
+		JPH::BodyCreationSettings floorSettings(
+			floorShape,
+			JPH::RVec3(0.0, -0.5, 0.0),
+			JPH::Quat::sIdentity(),
+			JPH::EMotionType::Static,
+			PhysicsLayers::NON_MOVING
+		);
+
+		m_TestCube = m_BodyInterface->CreateAndAddBody(
+			cubeSettings,
+			JPH::EActivation::Activate
+		);
+
+		m_TestFloor = m_BodyInterface->CreateAndAddBody(
+			floorSettings,
+			JPH::EActivation::DontActivate
+		);
+
+		if (m_TestCube.IsInvalid())
+		{
+			EE_CORE_ERROR("Failed to create Jolt cube body!");
+			return;
+		}
+
+		if (m_TestFloor.IsInvalid())
+		{
+			EE_CORE_ERROR("Failed to create Jolt floor body!");
+			return;
+		}
+
 		EE_CORE_INFO("Initialized the Jolt Physics engine!");
 	}
 
@@ -64,8 +138,10 @@ namespace Elevate::Jolt
 
 	void JoltPhysicsSystem::Update(float deltaTime)
 	{
+		constexpr float PHYSICS_TIMESTEP = 1.0f / 30.0f;
+
 		m_PhysicsSystem.Update(
-			deltaTime,
+			PHYSICS_TIMESTEP,
 			1,
 			m_TempAllocator,
 			m_JobSystem

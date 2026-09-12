@@ -4,6 +4,7 @@ namespace Elevate
 {
 	class PhysicsSystem
 	{
+	public:
 		~PhysicsSystem() = default;
 
 		virtual void Init() = 0;

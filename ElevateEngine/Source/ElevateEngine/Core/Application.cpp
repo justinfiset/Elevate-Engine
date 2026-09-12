@@ -25,8 +25,10 @@
 // Renderer
 #include "ElevateEngine/Renderer/Renderer.h"
 #include "ElevateEngine/Renderer/Texture/TextureManager.h"
-// Others
+// Inputs
 #include "ElevateEngine/Inputs/Input.h"
+// Physics
+#include <ElevateEngine/Physics/Jolt/JoltPhysicsSystem.h>
 
 #ifdef EE_EDITOR_BUILD
 	#include "ElevateEngine/Editor/EditorLayer.h"
@@ -58,6 +60,9 @@ namespace Elevate {
 		#else
 			SetGameState(GameContextState::Runtime);
 		#endif
+
+		m_PhysicsSystem = std::make_unique<Jolt::JoltPhysicsSystem>();
+		m_PhysicsSystem->Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -137,12 +142,14 @@ namespace Elevate {
 		{
 #endif // #if EE_ASSERTS_ENABLED
 			// TIME UPDATE //////////////////
-			Time::currentTime_ = (float) m_Window->GetTime();
-			Time::deltaTime_ = Time::currentTime_ - lastTime;
+			Time::currentTime_ = (float)m_Window->GetTime();
+			float rawDeltaTime = Time::currentTime_ - lastTime;
 			lastTime = Time::currentTime_;
+			Time::deltaTime_ = std::min(rawDeltaTime, 0.25f); // Clamping to prevent weird behaviours
 			/////////////////////////////////
 
 			SoundEngine::RenderAudio();
+			m_PhysicsSystem->Update(Time::deltaTime_);
 			TextureManager::UpdateLoadingTextures();
 
 			for (Layer* layer : m_LayerStack)
@@ -210,6 +217,7 @@ namespace Elevate {
 	{
 		m_ImGuiLayer->Cleanup();
 		SoundEngine::Terminate();
+		m_PhysicsSystem->Shutdown();
 	}
 
 	const GameContextState& Application::GetGameState()

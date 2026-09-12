@@ -3,6 +3,8 @@ project "Jolt"
     language "C++"
     cppdialect "C++17"
 
+    staticruntime "on"
+
     targetdir ("%{wks.location}/bin/%{cfg.buildcfg}/%{prj.name}")
     objdir ("%{wks.location}/bin-int/%{cfg.buildcfg}/%{prj.name}")
 
@@ -56,7 +58,7 @@ project "Jolt"
     -- Debug
     -- =========================================================================
 
-    filter "configurations:Debug"
+    filter "configurations:Debug or Editor_Debug"
         runtime "Debug"
         symbols "On"
 
@@ -64,12 +66,12 @@ project "Jolt"
         {
             "JPH_ENABLE_ASSERTS"
         }
-
+        
     -- =========================================================================
     -- Release
     -- =========================================================================
 
-    filter "configurations:Release"
+    filter "configurations:Release or Editor_Release"
         runtime "Release"
         optimize "On"
 

@@ -6,6 +6,8 @@
 #include <ElevateEngine/Core/Window.h>
 #include <ElevateEngine/Core/GameContext.h>
 
+#include <ElevateEngine/Physics/PhysicsSystem.h>
+
 #ifdef EE_USES_WWISE
 #include <ElevateEngine/Audio/Wwise/WwiseSoundEngine.h>
 #endif
@@ -85,6 +87,9 @@ namespace Elevate {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+		// Phyisc
+		std::unique_ptr<PhysicsSystem> m_PhysicsSystem;
 
 		GameContextState m_state = Initializing;
 		ApplicationArguments m_args;
