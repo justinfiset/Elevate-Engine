@@ -109,6 +109,9 @@ namespace Elevate::Editor
 		void UpdateRelatedPaths();
 		void AddParentPaths(std::filesystem::path path);
 
+		void RemoveItem(const FileItem& item);
+		void RenameItem(const FileItem& item);
+
 		void LoadFileItemsList();
 		void LoadExtensionsMeta(std::string filepath = "editor://Config/file_browser.json");
 
@@ -125,9 +128,17 @@ namespace Elevate::Editor
 
 		bool m_shouldUpdate;
 
+		// Object rename
+		bool m_isRenaming;
+		char m_renameBuffer[256] = "";
+
 		std::set<uint32_t> m_selected;
 		uint32_t m_lastSelected = 0;
 		uint32_t m_nextId = 0;
+
+		TexturePtr m_newFolderTexture;
+		TexturePtr m_renameTexture;
+		TexturePtr m_deleteTexture;
 	};
 }
 
