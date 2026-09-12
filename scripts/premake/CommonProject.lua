@@ -81,7 +81,7 @@ function CommonProject.SetupProject(directory, customCallback)
 	}
 
 	local enginePath = path.getabsolute(_MAIN_SCRIPT_DIR.."/ElevateEngine")
-	local vendorPath = path.getabsolute(_MAIN_SCRIPT_DIR).."/ElevateEngine/vendor"
+	local vendorPath = path.getabsolute(_MAIN_SCRIPT_DIR).."/ElevateEngine/Vendor"
 	includedirs
 	{
 		vendorPath.."/entt/include",
