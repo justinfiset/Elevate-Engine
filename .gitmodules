@@ -47,4 +47,4 @@
 	url = https://github.com/catchorg/Catch2/
 [submodule "ElevateEngine/vendor/JoltPhysics"]
 	path = ElevateEngine/vendor/JoltPhysics
-	url = https://github.com/jrouwe/JoltPhysics
+	url = https://github.com/jrouwe/JoltPhysics/
