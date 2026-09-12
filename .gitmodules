@@ -45,3 +45,6 @@
 [submodule "ElevateTests/Vendor/Catch2"]
 	path = ElevateTests/Vendor/Catch2
 	url = https://github.com/catchorg/Catch2/
+[submodule "ElevateEngine/vendor/JoltPhysics"]
+	path = ElevateEngine/vendor/JoltPhysics
+	url = https://github.com/jrouwe/JoltPhysics
