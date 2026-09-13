@@ -10,6 +10,7 @@
 #include <Jolt/Physics/Body/BodyCreationSettings.h>
 
 #include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Core/Assert.h>
 
 namespace Elevate::Jolt
 {
@@ -17,9 +18,38 @@ namespace Elevate::Jolt
 	/// JoltPhysicsSystem
 	///////////////////////////////////////////////////////////////////////
 
+	// Connect Jolt with out trace function
+	static void TraceImpl(const char* inFMT, ...)
+	{
+		// Format the message
+		va_list list;
+		va_start(list, inFMT);
+		char buffer[1024];
+		vsnprintf(buffer, sizeof(buffer), inFMT, list);
+		va_end(list);
+
+		EE_CORE_TRACE("{}", buffer);
+	}
+
+	// Connect the Jolt assertion with our assertion
+#ifdef JPH_ENABLE_ASSERTS
+	// Callback for asserts, connect this to your own assert handler if you have one
+	static bool AssertFailedImpl(const char* inExpression, const char* inMessage, const char* inFile, JPH::uint inLine)
+	{
+		// Log the error
+		EE_CORE_ERROR("{}:{}: ({}) {}", inFile, inLine, inExpression, (inMessage != nullptr ? inMessage : ""));
+		// Breakpoint
+		return true;
+	};
+#endif // JPH_ENABLE_ASSERTS
+
 	void JoltPhysicsSystem::Init()
 	{
 		JPH::RegisterDefaultAllocator();
+
+		// Connect the logger and assertions to our logging system
+		JPH::Trace = TraceImpl;
+		JPH_IF_ENABLE_ASSERTS(JPH::AssertFailed = AssertFailedImpl;)
 
 		JPH::Factory::sInstance = new JPH::Factory();
 		JPH::RegisterTypes();
