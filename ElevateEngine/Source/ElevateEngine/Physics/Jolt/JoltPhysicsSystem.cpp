@@ -1,5 +1,8 @@
 #include "JoltPhysicsSystem.h"
 
+#include <cstdarg>
+#include <cstdio>
+
 #include <Jolt/Core/Factory.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
 #include <Jolt/Core/Memory.h>
