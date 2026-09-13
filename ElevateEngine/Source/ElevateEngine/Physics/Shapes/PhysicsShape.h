@@ -2,7 +2,7 @@
 
 namespace Elevate
 {
-    class PhysicsShape
+    struct PhysicsShape
     {
     public:
         virtual ~PhysicsShape() = default;

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Core/GameObject.h>
 
