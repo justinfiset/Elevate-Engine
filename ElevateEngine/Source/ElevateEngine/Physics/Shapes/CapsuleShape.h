@@ -1,14 +1,17 @@
 #pragma once
 
 #include "PhysicsShape.h"
+#include <ElevateEngine/Core/Reflection.h>
 
 namespace Elevate
 {
-    class CapsuleShape : public PhysicsShape
+    struct CapsuleShape : public PhysicsShape
     {
+        BEGIN_STRUCT(CapsuleShape)
+
     public:
-        CapsuleShape(float radius, float halfHeight)
-            : m_Radius(radius), m_HalfHeight(halfHeight) {}
+        CapsuleShape() : m_Radius(0.5f), m_HalfHeight(0.5f) { }
+        CapsuleShape(float radius, float halfHeight) : m_Radius(radius), m_HalfHeight(halfHeight) { }
         ~CapsuleShape() = default;
 
         float GetRadius() const { return m_Radius; }
@@ -16,6 +19,11 @@ namespace Elevate
 
     private:
         float m_Radius;
+        PROPERTY(m_Radius)
+
         float m_HalfHeight;
+        PROPERTY(m_HalfHeight)
+
+        END_STRUCT()
     };
 }

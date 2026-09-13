@@ -1,8 +1,6 @@
 #pragma once
 #include "Collider.h"
 
-#include <glm/glm.hpp>
-
 #include <ElevateEngine/Physics/Shapes/SphereShape.h>
 #include <ElevateEngine/Core/Reflection.h>
 
