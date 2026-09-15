@@ -289,3 +289,26 @@ public: \
     inline void SetFromProperties(const ::Elevate::PropertySet& props) { \
         GetLayout().ApplyState(props); \
     }
+
+// =======================================================
+// BEGIN_ENUM / ENUM_VALUE / END_ENUM
+// =======================================================
+
+#include <ElevateEngine/Core/Enums.h>
+
+#define BEGIN_ENUM(EnumName) \
+    inline static struct EnumName##EnumEntry { \
+        using EnumType = EnumName; \
+        EnumName##EnumEntry() { \
+            ::Elevate::TypeRegistry::RegisterEnum<EnumType>( \
+                #EnumName, \
+                {
+
+#define ENUM_VALUE(name) \
+                    { #name, static_cast<int64_t>(EnumType::name) },
+
+#define END_ENUM() \
+                } \
+            ); \
+        } \
+    } generated_enumEntry;

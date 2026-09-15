@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <deque>
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Editor/UI/EditorMessage.h>
@@ -17,6 +18,6 @@ namespace Elevate::Editor
 		void LogCallback(LogLevel level, std::string_view text);
 
 	private:
-		std::vector<EditorMessage> m_logs;
+		std::deque<EditorMessage> m_logs;
 	};
 }

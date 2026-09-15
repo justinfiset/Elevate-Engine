@@ -263,6 +263,60 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 		ImGui::Checkbox(field.GetDisplayName().c_str(), (bool*)(field.data));
 		break;
 
+	case EngineDataType::Enum:
+	{
+		const auto* enumInfo = TypeRegistry::GetEnum(field.targetType);
+
+		if (!enumInfo)
+		{
+			ImGui::TextColored(
+				ImVec4(1, 0, 0, 1),
+				"[Unknown Enum] %s",
+				field.GetDisplayName().c_str()
+			);
+			break;
+		}
+
+		const EnumType currentValue = *static_cast<const EnumType*>(field.data);
+		const char* currentName = "Unknown";
+
+		for (const auto& value : enumInfo->Values)
+		{
+			if (value.Value == currentValue)
+			{
+				currentName = value.Name.c_str();
+				break;
+			}
+		}
+
+		float totalWidth = ImGui::CalcItemWidth();
+		ImGui::SetNextItemWidth(totalWidth);
+
+		std::string inputID = "##" + field.name;
+
+		if (ImGui::BeginCombo(inputID.c_str(), currentName))
+		{
+			for (const auto& value : enumInfo->Values)
+			{
+				const bool selected = value.Value == currentValue;
+
+				if (ImGui::Selectable(value.Name.c_str(), selected))
+				{
+					*const_cast<EnumType*>(static_cast<const EnumType*>(field.data)) = value.Value;
+				}
+
+				if (selected)
+					ImGui::SetItemDefaultFocus();
+			}
+
+			ImGui::EndCombo();
+		}
+
+		ImGui::SameLine(0, ImGui::GetStyle().ItemInnerSpacing.x);
+		ImGui::TextUnformatted(field.GetDisplayName().c_str());
+
+		break;
+	}
 	case EngineDataType::Custom:
 		if (!field.flatten)
 		{

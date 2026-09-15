@@ -71,7 +71,7 @@ namespace Elevate
 #define EE_Flatten EE_EditorTag(FlattenTag {})
 
 	struct DisplayNameTag { const char* value; };
-#define EE_DisplayName EE_EditorTag(DisplayNameTag {})
+#define EE_DisplayName(displayName) EE_EditorTag(DisplayNameTag {displayName})
 
 	struct TooltipTag { const char* text; };
 #define EE_Tooltip EE_EditorTag(TooltipTag {})

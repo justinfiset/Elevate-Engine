@@ -68,7 +68,7 @@ namespace Elevate
         Class* dummyObj = reinterpret_cast<Class*>(dummyBuffer);
         size_t offset = static_cast<size_t>(
             reinterpret_cast<const char*>(&(dummyObj->*member)) - dummyBuffer
-            );
+        );
 
         TypeField field;
 
@@ -118,6 +118,11 @@ namespace Elevate
             field = TypeField(name, EngineDataType::ObjectPtr, offset, meta.displayName);
             using TargetT = ee_ptr_target_t<CleanedFieldT>;
             field.targetType = typeid(TargetT);
+        }
+        else if (type == EngineDataType::Enum)
+        {
+            field = TypeField(name, type, offset, meta.displayName);
+            field.targetType = typeid(CleanedFieldT);
         }
         else if (type == EngineDataType::Custom)
         {

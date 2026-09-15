@@ -14,6 +14,7 @@
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/ReflectionTags.h>
 #include <ElevateEngine/Core/Data.h>
+#include <ElevateEngine/Core/Enums.h>
 #include <ElevateEngine/Core/EECategory.h>
 #include <ElevateEngine/Core/TypeField.h>
 
@@ -122,6 +123,11 @@ namespace Elevate
 	struct EngineDataTypeTrait<T, std::enable_if_t<is_ee_object_ptr_v<T>>>
 	{
 		static constexpr EngineDataType value = EngineDataType::ObjectPtr;
+	};
+	template<typename T>
+	struct EngineDataTypeTrait<T, std::enable_if_t<std::is_enum_v<T>>>
+	{
+		static constexpr EngineDataType value = EngineDataType::Enum;
 	};
 
 	struct ITypeTrait
@@ -244,6 +250,55 @@ namespace Elevate
 			std::initializer_list<FieldOption> options,
 			std::vector<TypeField>& targetStack
 		);
+
+		// Enums
+		struct EnumValue
+		{
+			std::string Name;
+			EnumType Value;
+		};
+
+		struct EnumInfo
+		{
+			std::string Name;
+			std::vector<EnumValue> Values;
+		};
+
+		template<typename T>
+		static void RegisterEnum(const char* name, std::initializer_list<EnumValue> values)
+		{
+			static_assert(std::is_enum_v<T>);	
+
+			EnumInfo info;
+			info.Name = name;
+			info.Values = values;
+
+			GetEnums()[typeid(T)] = std::move(info);
+		}
+
+		static std::unordered_map<std::type_index, EnumInfo>& GetEnums()
+		{
+			static std::unordered_map<std::type_index, EnumInfo> enums;
+			return enums;
+		}
+
+		static const EnumInfo* GetEnum(std::type_index typeIndex)
+		{
+			auto& enums = GetEnums();
+
+			auto it = enums.find(typeIndex);
+			if (it != enums.end())
+			{
+				return &it->second;
+			}
+			return nullptr;
+		}
+
+		template<typename T>
+		static const EnumInfo* GetEnum()
+		{
+			return GetEnum(typeid(T));
+		}
 	};
 }
 

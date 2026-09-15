@@ -115,6 +115,7 @@ namespace Elevate
 		Array,
 		GUID,
 		ObjectPtr,
+		Enum,
 		Custom,
 		Unknown
 	};

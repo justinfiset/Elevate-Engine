@@ -1,4 +1,5 @@
 #pragma once
+#include <ElevateEngine/Core/Reflection.h>
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/GameObject.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
@@ -8,6 +9,19 @@
 
 namespace Elevate
 {
+	enum class RigidbodyType : EnumType
+	{
+		Dynamic,
+		Kinematic,
+		Static
+	};
+
+	BEGIN_ENUM(RigidbodyType)
+		ENUM_VALUE(Dynamic)
+		ENUM_VALUE(Kinematic)
+		ENUM_VALUE(Static)
+	END_ENUM()
+
 	struct SurfaceMaterial
 	{
 		BEGIN_STRUCT(SurfaceMaterial)
@@ -23,8 +37,11 @@ namespace Elevate
 	};
 
 	struct RigidbodyData
-	{	
+	{
 		BEGIN_STRUCT(RigidbodyData)
+
+		RigidbodyType m_type = RigidbodyType::Dynamic;
+		PROPERTY(m_type, EE_DisplayName("Body Type"))
 
 		glm::vec3 m_gravity = { 0, -9.81, 0 };
 		PROPERTY(m_gravity)

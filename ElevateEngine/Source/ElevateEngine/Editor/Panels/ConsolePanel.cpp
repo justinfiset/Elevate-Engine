@@ -55,22 +55,34 @@ void Elevate::Editor::ConsolePanel::OnImGuiRender()
 
 void Elevate::Editor::ConsolePanel::LogCallback(LogLevel level, std::string_view text)
 {
+	constexpr size_t MAX_LOGS = 1000;
+	EditorMessage::Type type;
+
 	switch (level)
 	{
 	case LogLevel::Trace:
-		m_logs.push_back(EditorMessage(std::string(text), EditorMessage::Type::Message));
+		type = EditorMessage::Type::Message;
 		break;
 	case LogLevel::Info:
-		m_logs.push_back(EditorMessage(std::string(text), EditorMessage::Type::Information));
+		type = EditorMessage::Type::Information;
 		break;
 	case LogLevel::Warning:
-		m_logs.push_back(EditorMessage(std::string(text), EditorMessage::Type::Warning));
+		type = EditorMessage::Type::Warning;
 		break;
 	case LogLevel::Error:
-		m_logs.push_back(EditorMessage(std::string(text), EditorMessage::Type::Error));
+		type = EditorMessage::Type::Error;
 		break;
 	case LogLevel::Fatal:
-		m_logs.push_back(EditorMessage(std::string(text), EditorMessage::Type::Error));
+		type = EditorMessage::Type::Error;
 		break;
+	default:
+		return;
+	}
+
+	m_logs.emplace_back(std::string(text), type);
+
+	if (m_logs.size() > MAX_LOGS)
+	{
+		m_logs.pop_front();
 	}
 }
