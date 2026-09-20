@@ -3,23 +3,22 @@
 #include "ElevateEngine/Inputs/Input.h"
 #include "ElevateEngine/Core/GameObject.h"
 #include "ElevateEngine/Core/Time.h"
+#include <ElevateEngine/Physics/PhysicsSystem.h>
 
 namespace Elevate
 {
-	Rigidbody::Rigidbody()
+	void Rigidbody::Init()
 	{
+		PhysicsSystem::Get().AddRigidbody(this);
 	}
 
-	Rigidbody::Rigidbody(const Rigidbody& other)
+	void Rigidbody::Destroy()
 	{
-		m_data = other.m_data;
+		PhysicsSystem::Get().RemoveRigidbody(this);
 	}
 
-	void Rigidbody::Update()
+	RigidbodyType Rigidbody::GetType()
 	{
-		m_data.m_force = m_data.m_gravity * m_data.m_mass;
-		m_data.m_velocity = m_data.m_velocity + m_data.m_force / m_data.m_mass * Time::GetDeltaTime();
-		glm::vec3 pos = gameObject->GetPosition() + m_data.m_velocity * Time::GetDeltaTime();
-		gameObject->SetPosition(pos);
+		return m_data.m_type;
 	}
 }

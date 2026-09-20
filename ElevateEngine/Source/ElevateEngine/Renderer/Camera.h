@@ -53,8 +53,6 @@ namespace Elevate
 		void Render() override;
 		void RenderWhenSelected() override;
 		void DrawDebugFrustum();
-#else
-		void RenderWhenSelected() override {}
 #endif
 
 	private:

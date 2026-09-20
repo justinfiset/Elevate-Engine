@@ -35,6 +35,7 @@ namespace Elevate
 
 		static void AddDebugLine(DebugLineData line);
 		static void AddDebugCone(const glm::vec3& origin, const glm::vec3& direction, float radius, float range, uint16_t segmentCount, const glm::vec4& color);
+		static void AddDebugCube(const glm::vec3& origin, const glm::vec3& extent, const glm::vec4 color);
 
 	private:
 		static DebugRenderer& Get()

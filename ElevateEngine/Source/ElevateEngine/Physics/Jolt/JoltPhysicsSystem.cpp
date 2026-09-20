@@ -14,6 +14,7 @@
 
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/Assert.h>
+#include <ElevateEngine/Physics/Rigidbody.h>
 
 namespace Elevate::Jolt
 {
@@ -45,6 +46,16 @@ namespace Elevate::Jolt
 		return true;
 	};
 #endif // JPH_ENABLE_ASSERTS
+
+	JoltPhysicsSystem::JoltPhysicsSystem()
+	{
+		s_Instance = this;
+	}
+
+	JoltPhysicsSystem::~JoltPhysicsSystem()
+	{
+		s_Instance = nullptr;
+	}
 
 	void JoltPhysicsSystem::Init()
 	{
@@ -84,6 +95,40 @@ namespace Elevate::Jolt
 
 		m_BodyInterface = &m_PhysicsSystem.GetBodyInterface();
 
+		EE_CORE_INFO("Initialized the Jolt Physics engine!");
+	}
+
+	void JoltPhysicsSystem::Shutdown()
+	{
+		delete m_JobSystem;
+		m_JobSystem = nullptr;
+
+		delete m_TempAllocator;
+		m_TempAllocator = nullptr;
+
+		JPH::UnregisterTypes();
+
+		delete JPH::Factory::sInstance;
+		JPH::Factory::sInstance = nullptr;
+	}
+
+	void JoltPhysicsSystem::Update(float deltaTime)
+	{
+		constexpr float PHYSICS_TIMESTEP = 1.0f / 30.0f;
+
+		m_PhysicsSystem.Update(
+			PHYSICS_TIMESTEP,
+			1,
+			m_TempAllocator,
+			m_JobSystem
+		);
+
+		SyncDynamicBodies();
+		SyncKinematicBodies();
+	}
+
+	void JoltPhysicsSystem::AddRigidbody(Rigidbody* rigidbody)
+	{
 		/* The folloowing code is for debug purposes do not commit this */
 		// todo remove this debug code to test the impl.
 		JPH::BoxShapeSettings shapeSettings(
@@ -151,34 +196,59 @@ namespace Elevate::Jolt
 			EE_CORE_ERROR("Failed to create Jolt floor body!");
 			return;
 		}
-
-		EE_CORE_INFO("Initialized the Jolt Physics engine!");
 	}
 
-	void JoltPhysicsSystem::Shutdown()
+	void JoltPhysicsSystem::RemoveRigidbody(Rigidbody* rigidbody)
 	{
-		delete m_JobSystem;
-		m_JobSystem = nullptr;
 
-		delete m_TempAllocator;
-		m_TempAllocator = nullptr;
-
-		JPH::UnregisterTypes();
-
-		delete JPH::Factory::sInstance;
-		JPH::Factory::sInstance = nullptr;
 	}
 
-	void JoltPhysicsSystem::Update(float deltaTime)
+	JPH::ShapeRefC JoltPhysicsSystem::CreateBoxShape(const BoxCollider& collider) const
 	{
-		constexpr float PHYSICS_TIMESTEP = 1.0f / 30.0f;
+		return JPH::ShapeRefC();
+	}
 
-		m_PhysicsSystem.Update(
-			PHYSICS_TIMESTEP,
-			1,
-			m_TempAllocator,
-			m_JobSystem
-		);
+	JPH::ShapeRefC JoltPhysicsSystem::CreateCapsuleShape(const CapsuleCollider& collider) const
+	{
+		return JPH::ShapeRefC();
+	}
+
+	JPH::ShapeRefC JoltPhysicsSystem::CreateSphereShape(const SphereCollider& coolider) const
+	{
+		return JPH::ShapeRefC();
+	}
+
+	JPH::ShapeRefC JoltPhysicsSystem::CreatePlaneShape(const PlaneCollider& collider) const
+	{
+		return JPH::ShapeRefC();
+	}
+
+	void JoltPhysicsSystem::SyncDynamicBodies()
+	{
+		for (auto& body : m_Bodies)
+		{
+			Rigidbody* rigidbody = body.Rigidbody;
+
+			if (rigidbody->GetType() != RigidbodyType::Dynamic)
+			{
+				continue;
+			}
+
+			// Fetch the data from jolt
+			JPH::Vec3 position;
+			JPH::Quat rotation;
+			m_BodyInterface->GetPositionAndRotation(body.BodyID, position, rotation);
+			
+			// Apply the data to the world object
+			Transform& transform = rigidbody->gameObject->GetTransform();
+			transform.SetPosition(glm::vec3{ position.GetX(), position.GetY(), position.GetZ() });
+			transform.SetRotationQuaternion(glm::quat{ rotation.GetX(), rotation.GetY(), rotation.GetZ(), rotation.GetW() });
+		}
+	}
+
+	void JoltPhysicsSystem::SyncKinematicBodies()
+	{
+		// todo implement this.
 	}
 
 	///////////////////////////////////////////////////////////////////////

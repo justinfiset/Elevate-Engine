@@ -49,6 +49,42 @@ void Elevate::DebugRenderer::AddDebugCone(const glm::vec3& origin, const glm::ve
 	}
 }
 
+void Elevate::DebugRenderer::AddDebugCube(const glm::vec3& origin, const glm::vec3& extent, const glm::vec4 color)
+{
+	const glm::vec3 min = origin - extent;
+	const glm::vec3 max = origin + extent;
+
+	glm::vec3 corners[8] =
+	{
+		{ min.x, min.y, min.z },
+		{ max.x, min.y, min.z },
+		{ max.x, max.y, min.z },
+		{ min.x, max.y, min.z },
+		{ min.x, min.y, max.z },
+		{ max.x, min.y, max.z },
+		{ max.x, max.y, max.z },
+		{ min.x, max.y, max.z }
+	};
+
+	// Bottom
+	AddDebugLine({ corners[0], corners[1], color });
+	AddDebugLine({ corners[1], corners[5], color });
+	AddDebugLine({ corners[5], corners[4], color });
+	AddDebugLine({ corners[4], corners[0], color });
+
+	// Top
+	AddDebugLine({ corners[3], corners[2], color });
+	AddDebugLine({ corners[2], corners[6], color });
+	AddDebugLine({ corners[6], corners[7], color });
+	AddDebugLine({ corners[7], corners[3], color });
+
+	// Vertical
+	AddDebugLine({ corners[0], corners[3], color });
+	AddDebugLine({ corners[1], corners[2], color });
+	AddDebugLine({ corners[5], corners[6], color });
+	AddDebugLine({ corners[4], corners[7], color });
+}
+
 void Elevate::DebugRenderer::InternalInit()
 {
 	InitLineRender();

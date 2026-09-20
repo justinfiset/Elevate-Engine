@@ -67,10 +67,12 @@ namespace Elevate
 		BEGIN_COMPONENT(Rigidbody, EE_EditorIcon(Editor::Icons::COMPONENT_ICON_RIGIDBODY))
 		EECATEGORY("Physics")
 
-		Rigidbody();
-		Rigidbody(const Rigidbody& other);
+		Rigidbody() = default;
 
-		void Update() override;
+		void Init() override;
+		void Destroy() override;
+
+		RigidbodyType GetType();
 
 	private:
 		RigidbodyData m_data;

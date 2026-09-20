@@ -1,24 +1,22 @@
 #pragma once
 #include "Collider.h"
 
-#include <glm/glm.hpp>
-
-#include <ElevateEngine/Physics/Shapes/BoxShape.h>
+#include <ElevateEngine/Physics/Shapes/PlaneShape.h>
 #include <ElevateEngine/Core/Reflection.h>
 
 namespace Elevate
 {
-    class BoxCollider : public Collider
+    class PlaneCollider : public Collider
     {
-        BEGIN_COMPONENT(BoxCollider)
+        BEGIN_COMPONENT(PlaneCollider)
         DECLARE_BASE(Collider)
         EECATEGORY("Physics")
 
     public:
-        BoxCollider() = default;
-        BoxCollider(const glm::vec3& size) : m_Shape(size * 0.5f) { }
+        PlaneCollider() = default;
+        PlaneCollider(const glm::vec3& size) : m_Shape(size * 0.5f) {}
 
-        const BoxShape& GetShape() const
+        const PlaneShape& GetShape() const
         {
             return m_Shape;
         }
@@ -28,7 +26,7 @@ namespace Elevate
 #endif
 
     private:
-        BoxShape m_Shape;
+        PlaneShape m_Shape;
         PROPERTY(m_Shape, EE_Flatten)
 
         END_COMPONENT()

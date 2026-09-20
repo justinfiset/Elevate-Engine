@@ -11,6 +11,13 @@
 
 namespace Elevate::Jolt
 {
+	// Small struct to link ElevateEngine's Rigidbody with jols's system
+	struct JoltPhysicsBody
+	{
+		Rigidbody* Rigidbody = nullptr;
+		JPH::BodyID BodyID;
+	};
+
 	///////////////////////////////////////////////////////////////////////
 	/// JoltBroadPhaseLayer
 	///////////////////////////////////////////////////////////////////////
@@ -70,11 +77,32 @@ namespace Elevate::Jolt
 	class JoltPhysicsSystem final : public PhysicsSystem
 	{
 	public:
+		JoltPhysicsSystem();
+		~JoltPhysicsSystem();
+
 		void Init() override;
 		void Shutdown() override;
 		void Update(float deltaTime) override;
 
+		virtual void AddRigidbody(Rigidbody* rigidbody) override;
+		virtual void RemoveRigidbody(Rigidbody* rigidbody) override;
+
 	private:
+		JPH::ShapeRefC CreateBoxShape(const BoxCollider& collider) const;
+		JPH::ShapeRefC CreateCapsuleShape(const CapsuleCollider& collider) const;
+		JPH::ShapeRefC CreateSphereShape(const SphereCollider& coolider) const;
+		JPH::ShapeRefC CreatePlaneShape(const PlaneCollider& collider) const;
+
+		/// <summary>
+		/// Syncs all of the rigidbodies positions to the positions calculated by
+		/// the Jolt physics system.
+		/// </summary>
+		void SyncDynamicBodies();
+
+		void SyncKinematicBodies();
+
+		std::vector<JoltPhysicsBody> m_Bodies;
+
 		JPH::PhysicsSystem m_PhysicsSystem;
 
 		JoltBroadPhaseLayer m_BroadPhaseLayer;
