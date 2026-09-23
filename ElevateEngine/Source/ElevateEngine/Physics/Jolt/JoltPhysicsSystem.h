@@ -14,7 +14,7 @@ namespace Elevate::Jolt
 	// Small struct to link ElevateEngine's Rigidbody with jols's system
 	struct JoltPhysicsBody
 	{
-		Rigidbody* Rigidbody = nullptr;
+		const Rigidbody* Rigidbody = nullptr;
 		JPH::BodyID BodyID;
 	};
 
@@ -84,15 +84,11 @@ namespace Elevate::Jolt
 		void Shutdown() override;
 		void Update(float deltaTime) override;
 
-		virtual void AddRigidbody(Rigidbody* rigidbody) override;
-		virtual void RemoveRigidbody(Rigidbody* rigidbody) override;
+		virtual void AddRigidbody(const Rigidbody* rigidbody) override;
+		virtual void RemoveRigidbody(const Rigidbody* rigidbody) override;
+		virtual void RebuildRigidbody(const Rigidbody* rigidbody) override;
 
 	private:
-		JPH::ShapeRefC CreateBoxShape(const BoxCollider& collider) const;
-		JPH::ShapeRefC CreateCapsuleShape(const CapsuleCollider& collider) const;
-		JPH::ShapeRefC CreateSphereShape(const SphereCollider& coolider) const;
-		JPH::ShapeRefC CreatePlaneShape(const PlaneCollider& collider) const;
-
 		/// <summary>
 		/// Syncs all of the rigidbodies positions to the positions calculated by
 		/// the Jolt physics system.

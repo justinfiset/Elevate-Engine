@@ -1,4 +1,7 @@
 #pragma once
+
+#include <vector>
+
 #include <ElevateEngine/Core/Reflection.h>
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/GameObject.h>
@@ -6,6 +9,11 @@
 #include <ElevateEngine/Editor/Components/ComponentsIcon.h>
 
 #include "glm/glm.hpp"
+
+namespace Elevate
+{
+	class Collider;
+}
 
 namespace Elevate
 {
@@ -63,6 +71,8 @@ namespace Elevate
 
 	class Rigidbody : public Component
 	{
+		friend class Collider;
+
 	public:
 		BEGIN_COMPONENT(Rigidbody, EE_EditorIcon(Editor::Icons::COMPONENT_ICON_RIGIDBODY))
 		EECATEGORY("Physics")
@@ -72,11 +82,18 @@ namespace Elevate
 		void Init() override;
 		void Destroy() override;
 
-		RigidbodyType GetType();
+		RigidbodyType GetType() const;
+		const std::vector<const Collider*>& GetColliders() const;
+
+	private:
+		void AddCollider(const Collider* collider);
+		void RemoveCollider(const Collider* collider);
 
 	private:
 		RigidbodyData m_data;
 		PROPERTY(m_data, EE_Flatten)
+
+		std::vector<const Collider*> m_Colliders;
 
 		END_COMPONENT()
 	};

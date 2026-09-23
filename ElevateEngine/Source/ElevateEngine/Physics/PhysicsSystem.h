@@ -25,8 +25,9 @@ namespace Elevate
 		virtual void Shutdown() = 0;
 		virtual void Update(float deltaTime) = 0;
 	
-		virtual void AddRigidbody(Rigidbody* rigidbody) = 0;
-		virtual void RemoveRigidbody(Rigidbody* rigidbody) = 0;
+		virtual void AddRigidbody(const Rigidbody* rigidbody) = 0;
+		virtual void RemoveRigidbody(const Rigidbody* rigidbody) = 0;
+		virtual void RebuildRigidbody(const Rigidbody* rigidbody) = 0;
 
 	protected:
 		static PhysicsSystem* s_Instance;

@@ -18,10 +18,16 @@ namespace Elevate
         void SetCenter(const glm::vec3& center) { m_Center = center; }
         const glm::vec3 GetWorldCenter() const;
 
+        virtual void Init() override;
+        virtual void Destroy() override;
+
     protected:
 #ifdef EE_EDITOR_BUILD
         static constexpr glm::vec4 s_OutlineColor = { 0.2f, 0.85f, 0.3f, 1.0f };
 #endif
+
+        virtual void OnInitCollider();
+        virtual void OnRemoveCollider();
 
     private:
         bool m_IsTrigger{ false };

@@ -1,4 +1,5 @@
 #include "JoltPhysicsSystem.h"
+#include "JoltShapeFactory.h"
 
 #include <cstdarg>
 #include <cstdio>
@@ -7,14 +8,14 @@
 #include <Jolt/Core/JobSystemThreadPool.h>
 #include <Jolt/Core/Memory.h>
 #include <Jolt/RegisterTypes.h>
-
-// todo remove once not used in the debug code
-#include <Jolt/Physics/Collision/Shape/BoxShape.h>
+#include <Jolt/Physics/Collision/Shape/StaticCompoundShape.h>
 #include <Jolt/Physics/Body/BodyCreationSettings.h>
 
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/Assert.h>
+#include <ElevateEngine/Core/Application.h>
 #include <ElevateEngine/Physics/Rigidbody.h>
+#include <ElevateEngine/Physics/Colliders/Collider.h>
 
 namespace Elevate::Jolt
 {
@@ -114,120 +115,150 @@ namespace Elevate::Jolt
 
 	void JoltPhysicsSystem::Update(float deltaTime)
 	{
-		constexpr float PHYSICS_TIMESTEP = 1.0f / 30.0f;
+		if (Application::GetGameState() == GameContextState::Runtime)
+		{
+			constexpr float PHYSICS_TIMESTEP = 1.0f / 30.0f;
 
-		m_PhysicsSystem.Update(
-			PHYSICS_TIMESTEP,
-			1,
-			m_TempAllocator,
-			m_JobSystem
-		);
+			m_PhysicsSystem.Update(
+				PHYSICS_TIMESTEP,
+				1,
+				m_TempAllocator,
+				m_JobSystem
+			);
 
-		SyncDynamicBodies();
-		SyncKinematicBodies();
+			SyncDynamicBodies();
+			SyncKinematicBodies();
+		}
 	}
 
-	void JoltPhysicsSystem::AddRigidbody(Rigidbody* rigidbody)
+	JPH::EMotionType GetBodyMotionType(const Rigidbody* rigidbody)
 	{
-		/* The folloowing code is for debug purposes do not commit this */
-		// todo remove this debug code to test the impl.
-		JPH::BoxShapeSettings shapeSettings(
-			JPH::Vec3(1.0f, 1.0f, 1.0f)
-		);
-
-		JPH::ShapeSettings::ShapeResult shapeResult = shapeSettings.Create();
-
-		if (shapeResult.HasError())
+		switch (rigidbody->GetType())
 		{
-			EE_CORE_ERROR("Failed to create Jolt Physics shape: {}", shapeResult.GetError().c_str());
+		case RigidbodyType::Dynamic:
+			return JPH::EMotionType::Dynamic;
+		case RigidbodyType::Kinematic:
+			return JPH::EMotionType::Kinematic;
+		case RigidbodyType::Static:
+			return JPH::EMotionType::Static;
+		default:
+			EE_CORE_ERROR("Unknown RigidbodyType.");
+			break;
+		}
+		return JPH::EMotionType::Static;
+	}
+
+	JPH::ObjectLayer GetObjectLayer(const Rigidbody* rigidbody)
+	{
+		switch (rigidbody->GetType())
+		{
+		case RigidbodyType::Static:
+			return PhysicsLayers::NON_MOVING;
+		case RigidbodyType::Dynamic:
+		case RigidbodyType::Kinematic:
+			return PhysicsLayers::MOVING;
+		default:
+			EE_CORE_ERROR("Unknown RigidbodyType.");
+			return PhysicsLayers::NON_MOVING;
+		}
+	}
+
+	JPH::EActivation GetBodyActivation(const Rigidbody* rigidbody)
+	{
+		return rigidbody->GetType() == RigidbodyType::Static ? JPH::EActivation::DontActivate : JPH::EActivation::Activate;
+	}
+
+	void JoltPhysicsSystem::AddRigidbody(const Rigidbody* rigidbody)
+	{
+		JPH::StaticCompoundShapeSettings compoundSettings;
+
+		const auto& colliders = rigidbody->GetColliders();
+		if (colliders.empty())
+		{
 			return;
 		}
 
-		JPH::ShapeRefC cubeShape = shapeResult.Get();
+		for (const auto& collider : colliders)
+		{
+			auto shapeResult = JoltShapeFactory::Create(collider);
 
-		JPH::BodyCreationSettings cubeSettings(
-			cubeShape,
-			JPH::RVec3(0.0, 5.0, 0.0),
+			if (!shapeResult)
+			{
+				EE_CORE_WARN("JoltShapeFactory returned a non valid collider.");
+				return;
+			}
+
+			const auto& center = collider->GetCenter();
+			JPH::Vec3 position(center.x, center.y, center.z);
+			JPH::Quat rotation(0.0f, 0.0f, 0.0f, 1.0f);
+
+			compoundSettings.AddShape(
+				JPH::Vec3(center.x, center.y, center.z),
+				JPH::Quat(0.0f, 0.0f, 0.0f, 1.0f),
+				shapeResult
+			);
+		}
+
+		JPH::ShapeSettings::ShapeResult compoundResult = compoundSettings.Create();
+
+		if (compoundResult.HasError())
+		{
+			EE_CORE_ERROR("Failed to create Jolt Physics shape: {}", compoundResult.GetError().c_str());
+			return;
+		}
+
+		JPH::BodyCreationSettings bodySettings(
+			compoundResult.Get(),
+			JPH::RVec3::sZero(),
 			JPH::Quat::sIdentity(),
-			JPH::EMotionType::Dynamic,
-			PhysicsLayers::MOVING
+			GetBodyMotionType(rigidbody),
+			GetObjectLayer(rigidbody)
 		);
 
-		JPH::BoxShapeSettings floorShapeSettings(
-			JPH::Vec3(10.0f, 0.5f, 10.0f)
-		);
+		auto activation = GetBodyActivation(rigidbody);
+		auto bodyID = m_BodyInterface->CreateAndAddBody(bodySettings, activation);
 
-		JPH::ShapeSettings::ShapeResult floorShapeResult = floorShapeSettings.Create();
-
-		if (floorShapeResult.HasError())
+		if (bodyID.IsInvalid())
 		{
-			EE_CORE_ERROR("Failed to create Jolt Physics shape: {}", floorShapeResult.GetError().c_str());
+			EE_CORE_WARN("Failed to create Jolt physics body!");
 			return;
 		}
 
-		JPH::ShapeRefC floorShape = floorShapeResult.Get();
+		JoltPhysicsBody joltBody;
+		joltBody.Rigidbody = rigidbody;
+		joltBody.BodyID = bodyID;
+		m_Bodies.push_back(joltBody);
+	}
 
-		JPH::BodyCreationSettings floorSettings(
-			floorShape,
-			JPH::RVec3(0.0, -0.5, 0.0),
-			JPH::Quat::sIdentity(),
-			JPH::EMotionType::Static,
-			PhysicsLayers::NON_MOVING
-		);
-
-		m_TestCube = m_BodyInterface->CreateAndAddBody(
-			cubeSettings,
-			JPH::EActivation::Activate
-		);
-
-		m_TestFloor = m_BodyInterface->CreateAndAddBody(
-			floorSettings,
-			JPH::EActivation::DontActivate
-		);
-
-		if (m_TestCube.IsInvalid())
+	void JoltPhysicsSystem::RemoveRigidbody(const Rigidbody* rigidbody)
+	{
+		auto it = std::find_if(m_Bodies.begin(), m_Bodies.end(), [rigidbody](const auto& body)
 		{
-			EE_CORE_ERROR("Failed to create Jolt cube body!");
+			return body.Rigidbody == rigidbody;
+		});
+
+		if (it == m_Bodies.end())
+		{
 			return;
 		}
 
-		if (m_TestFloor.IsInvalid())
-		{
-			EE_CORE_ERROR("Failed to create Jolt floor body!");
-			return;
-		}
+		m_BodyInterface->RemoveBody(it->BodyID);
+		m_BodyInterface->DestroyBody(it->BodyID);
+
+		m_Bodies.erase(it);
 	}
 
-	void JoltPhysicsSystem::RemoveRigidbody(Rigidbody* rigidbody)
+	void JoltPhysicsSystem::RebuildRigidbody(const Rigidbody* rigidbody)
 	{
-
-	}
-
-	JPH::ShapeRefC JoltPhysicsSystem::CreateBoxShape(const BoxCollider& collider) const
-	{
-		return JPH::ShapeRefC();
-	}
-
-	JPH::ShapeRefC JoltPhysicsSystem::CreateCapsuleShape(const CapsuleCollider& collider) const
-	{
-		return JPH::ShapeRefC();
-	}
-
-	JPH::ShapeRefC JoltPhysicsSystem::CreateSphereShape(const SphereCollider& coolider) const
-	{
-		return JPH::ShapeRefC();
-	}
-
-	JPH::ShapeRefC JoltPhysicsSystem::CreatePlaneShape(const PlaneCollider& collider) const
-	{
-		return JPH::ShapeRefC();
+		RemoveRigidbody(rigidbody);
+		AddRigidbody(rigidbody);
 	}
 
 	void JoltPhysicsSystem::SyncDynamicBodies()
 	{
 		for (auto& body : m_Bodies)
 		{
-			Rigidbody* rigidbody = body.Rigidbody;
+			const Rigidbody* rigidbody = body.Rigidbody;
 
 			if (rigidbody->GetType() != RigidbodyType::Dynamic)
 			{
