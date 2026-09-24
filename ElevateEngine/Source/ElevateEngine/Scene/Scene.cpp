@@ -50,6 +50,22 @@ namespace Elevate
 	//	}
 	//}
 
+	void Scene::OnAwake()
+	{
+		for (const auto& obj : m_rootObjects)
+		{
+			obj->Awake();
+		}
+	}
+
+	void Scene::OnStart()
+	{
+		for (const auto& obj : m_rootObjects)
+		{
+			obj->Start();
+		}
+	}
+
 	void Scene::UpdateScene()
 	{
 		if (m_type == SceneType::RuntimeScene && Application::GetGameState() != Runtime)

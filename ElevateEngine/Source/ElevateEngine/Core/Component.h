@@ -53,6 +53,9 @@ namespace Elevate
 		virtual void Destroy() {}
 		virtual void Update() {}
 
+		virtual void Awake() {}
+		virtual void Start() {}
+
 		virtual void Render() {}
 		virtual void RenderInEditor() {} // Function that is only called if we are in the editor
 		virtual void RenderWhenSelected() {}

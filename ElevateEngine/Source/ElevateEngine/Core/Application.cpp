@@ -249,6 +249,12 @@ namespace Elevate {
 	void Application::OnStateChange(GameContextState oldState, GameContextState newState)
 	{
 		GameContextEvent e(oldState, newState);
+
+		if (PhysicsSystem::IsInitialized())
+		{
+			PhysicsSystem::Get().FlushAllBodies(); // Reset the physic system
+		}
+		
 		OnEvent(e);
 	}
 

@@ -56,6 +56,38 @@ namespace Elevate
 		return glm::vec3(global[3]);
 	}
 
+	void GameObject::Awake()
+	{
+		for (Component* comp : GetComponents())
+		{
+			if (comp->IsActive())
+			{
+				comp->Awake();
+			}
+		}
+
+		for (const auto& child : m_childs)
+		{
+			child->Awake();
+		}
+	}
+
+	void GameObject::Start()
+	{
+		for (Component* comp : GetComponents())
+		{
+			if (comp->IsActive())
+			{
+				comp->Start();
+			}
+		}
+
+		for (const auto& child : m_childs)
+		{
+			child->Start();
+		}
+	}
+
 	void GameObject::Update()
 	{
 		// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK

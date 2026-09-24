@@ -84,6 +84,7 @@ namespace Elevate::Jolt
 		void Shutdown() override;
 		void Update(float deltaTime) override;
 
+		virtual void FlushAllBodies() override;
 		virtual void AddRigidbody(const Rigidbody* rigidbody) override;
 		virtual void RemoveRigidbody(const Rigidbody* rigidbody) override;
 		virtual void RebuildRigidbody(const Rigidbody* rigidbody) override;

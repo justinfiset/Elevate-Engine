@@ -79,7 +79,7 @@ namespace Elevate
 
 		Rigidbody() = default;
 
-		void Init() override;
+		void Awake() override;
 		void Destroy() override;
 
 		RigidbodyType GetType() const;

@@ -42,6 +42,8 @@ namespace Elevate
 		//~Scene(); // todo check if we remove in the future
 		~Scene() = default;
 
+		void OnAwake();
+		void OnStart();
 		void UpdateScene();
 		void RenderScene(Camera* cam = nullptr);
 		void Notify(Event& event); // Dispatch an event to gameobjects

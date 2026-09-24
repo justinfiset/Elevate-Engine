@@ -76,6 +76,8 @@ namespace Elevate
 		glm::vec3 GetGlobalPosition();
 
 	protected:
+		void Awake();
+		void Start();
 		void Update();
 		void Render();
 		void Notify(Event& event);

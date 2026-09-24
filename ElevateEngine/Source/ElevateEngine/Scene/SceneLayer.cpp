@@ -4,6 +4,7 @@
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Scene/SceneManager.h>
+#include <ElevateEngine/Events/ApplicationEvent.h>
 
 void Elevate::SceneLayer::OnDetach()
 {
@@ -35,5 +36,16 @@ void Elevate::SceneLayer::OnRender(Camera* cam)
 
 void Elevate::SceneLayer::OnEvent(Event& event)
 {
+	const auto type = event.GetEventType();
+	if (type == EventType::GameContextChanged)
+	{
+		// If we are getting into runtime
+		GameContextEvent& contextEvent = dynamic_cast<GameContextEvent&>(event);
+		if (contextEvent.GetNewState() == GameContextState::Runtime)
+		{
+			m_scene->OnAwake();
+			m_scene->OnStart();
+		}
+	}
 	m_scene->Notify(event);
 }

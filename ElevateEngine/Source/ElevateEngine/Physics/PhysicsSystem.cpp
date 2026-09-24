@@ -11,4 +11,9 @@ namespace Elevate
 		EE_CORE_ASSERT(s_Instance, "PhysicsEngine has not been initialized!");
 		return *s_Instance;
 	}
+
+	bool PhysicsSystem::IsInitialized()
+	{
+		return s_Instance != nullptr;
+	}
 }

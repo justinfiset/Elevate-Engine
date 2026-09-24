@@ -168,11 +168,23 @@ namespace Elevate::Jolt
 		return rigidbody->GetType() == RigidbodyType::Static ? JPH::EActivation::DontActivate : JPH::EActivation::Activate;
 	}
 
+	void JoltPhysicsSystem::FlushAllBodies()
+	{
+		while (!m_Bodies.empty())
+		{
+			RemoveRigidbody(m_Bodies.back().Rigidbody);
+		}
+
+		m_Bodies.clear();
+	}
+
 	void JoltPhysicsSystem::AddRigidbody(const Rigidbody* rigidbody)
 	{
 		JPH::StaticCompoundShapeSettings compoundSettings;
-
+		const auto& position = rigidbody->gameObject->GetPosition();
+		const auto& quat = rigidbody->gameObject->GetTransform().GetRotationQuat();
 		const auto& colliders = rigidbody->GetColliders();
+		
 		if (colliders.empty())
 		{
 			return;
@@ -189,12 +201,9 @@ namespace Elevate::Jolt
 			}
 
 			const auto& center = collider->GetCenter();
-			JPH::Vec3 position(center.x, center.y, center.z);
-			JPH::Quat rotation(0.0f, 0.0f, 0.0f, 1.0f);
-
 			compoundSettings.AddShape(
 				JPH::Vec3(center.x, center.y, center.z),
-				JPH::Quat(0.0f, 0.0f, 0.0f, 1.0f),
+				JPH::Quat::sIdentity(),
 				shapeResult
 			);
 		}
@@ -209,8 +218,8 @@ namespace Elevate::Jolt
 
 		JPH::BodyCreationSettings bodySettings(
 			compoundResult.Get(),
-			JPH::RVec3::sZero(),
-			JPH::Quat::sIdentity(),
+			JPH::RVec3(position.x, position.y, position.z),
+			JPH::Quat(quat.x, quat.y, quat.z, quat.w),
 			GetBodyMotionType(rigidbody),
 			GetObjectLayer(rigidbody)
 		);

@@ -7,7 +7,7 @@
 
 namespace Elevate
 {
-	void Rigidbody::Init()
+	void Rigidbody::Awake()
 	{
 		PhysicsSystem::Get().AddRigidbody(this);
 	}

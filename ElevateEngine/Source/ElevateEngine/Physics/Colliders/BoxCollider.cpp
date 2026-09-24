@@ -9,7 +9,8 @@ namespace Elevate
 #ifdef EE_EDITOR_BUILD
 	void BoxCollider::RenderWhenSelected()
 	{
-		DebugRenderer::AddDebugCube(GetWorldCenter(), m_Shape.GetHalfExtents(), s_OutlineColor);
+		const auto& transform = gameObject->GetTransform();
+		DebugRenderer::AddDebugCube(GetWorldCenter(), m_Shape.GetHalfExtents(), s_OutlineColor, transform.GetUp(), transform.GetLeft());
 	}
 #endif
 }

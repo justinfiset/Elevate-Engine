@@ -49,21 +49,26 @@ void Elevate::DebugRenderer::AddDebugCone(const glm::vec3& origin, const glm::ve
 	}
 }
 
-void Elevate::DebugRenderer::AddDebugCube(const glm::vec3& origin, const glm::vec3& extent, const glm::vec4 color)
+void Elevate::DebugRenderer::AddDebugCube(const glm::vec3& origin, const glm::vec3& extent, const glm::vec4& color, glm::vec3 up, const glm::vec3& left)
 {
-	const glm::vec3 min = origin - extent;
-	const glm::vec3 max = origin + extent;
+	glm::vec3 right = glm::normalize(-left);
+	glm::vec3 normalizedUp = glm::normalize(up);
+	glm::vec3 forward = glm::normalize(glm::cross(right, normalizedUp));
+
+	const glm::vec3 x = right * extent.x;
+	const glm::vec3 y = normalizedUp * extent.y;
+	const glm::vec3 z = forward * extent.z;
 
 	glm::vec3 corners[8] =
 	{
-		{ min.x, min.y, min.z },
-		{ max.x, min.y, min.z },
-		{ max.x, max.y, min.z },
-		{ min.x, max.y, min.z },
-		{ min.x, min.y, max.z },
-		{ max.x, min.y, max.z },
-		{ max.x, max.y, max.z },
-		{ min.x, max.y, max.z }
+		origin - x - y - z,
+		origin + x - y - z,
+		origin + x + y - z,
+		origin - x + y - z,
+		origin - x - y + z,
+		origin + x - y + z,
+		origin + x + y + z,
+		origin - x + y + z
 	};
 
 	// Bottom
