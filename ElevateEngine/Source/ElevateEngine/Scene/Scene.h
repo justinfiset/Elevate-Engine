@@ -43,7 +43,7 @@ namespace Elevate
 	class Scene : public EEObject
 	{
 		BEGIN_OBJECT(Scene)
-		using Super = Scene;
+		using Super = EEObject;
 
 	public:
 		Scene();
@@ -89,6 +89,7 @@ namespace Elevate
 
 		// Root objects of the scene hierarchy.
 		std::set<EEObjectPtr<GameObject>> m_rootObjects;
+		PROPERTY(m_rootObjects)
 
 		std::shared_ptr<Cubemap> m_cubemap;
 		std::unique_ptr<SceneLighting> m_sceneLighting = nullptr;
