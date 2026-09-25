@@ -1,6 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
 
+#include <ElevateEngine/Core/GameObject.h>
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/Reflection.h>
 

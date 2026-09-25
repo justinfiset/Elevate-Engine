@@ -190,8 +190,6 @@ public: \
             if (trait) { \
                 trait->category = generated_classEntry.Category; \
                 trait->getter = [](std::weak_ptr<GameObject> go) -> Component* { \
-                    EE_INFO("ENTER GETTER"); \
-                    return nullptr; \
                     if (std::shared_ptr<GameObject> obj = go.lock()) { \
                         return obj->GetComponent<ThisType>(); \
                     } \

@@ -6,6 +6,7 @@
 #include <assimp/postprocess.h>
 #include <assimp/Importer.hpp>
 
+#include <ElevateEngine/Core/GameObject.h>
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>

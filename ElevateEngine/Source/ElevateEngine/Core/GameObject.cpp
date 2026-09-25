@@ -14,8 +14,6 @@
 
 #include <glm/gtx/matrix_decompose.hpp> // iwyu: keep
 
-#include <ElevateEngine/Physics/Colliders/CapsuleCollider.h> // todo remove this
-
 namespace Elevate
 {
 	uint32_t GameObject::s_goIdCount = 0;
@@ -142,12 +140,7 @@ namespace Elevate
 
 	void GameObject::OnSetPosition()
 	{
-		if (!m_isInitialized)
-		{
-			return;
-		}
-
-		if (m_entityId != EE_INVALID_ENTITY_ID)
+		if (m_entityId != EE_INVALID_ENTITY_ID && m_isInitialized)
 		{
 			SoundEngine::UpdatePosition(this);
 		}
@@ -235,7 +228,7 @@ namespace Elevate
 			EE_CORE_ERROR("Object '%s' must be linked with an existing scene!", m_name);
 		}
 	}
-	
+
 	//GameObject::~GameObject()
 	//{
 	//	if (m_scene)
@@ -252,7 +245,7 @@ namespace Elevate
 	//			return;
 	//		}
 
-	GameObject::~GameObject()
+	Elevate::GameObject::~GameObject()
 	{
 		SoundEngine::UnregisterGameObject(this);
 
@@ -272,36 +265,17 @@ namespace Elevate
 		return std::static_pointer_cast<GameObject>(shared_from_this());
 	}
 
-
 	std::vector<Component*> GameObject::GetComponents()
 	{
 		std::vector<Component*> components;
+		if (!m_scene) return components;
 
-		if (!m_scene)
-		{
-			return components;
-		}
-
-		for (auto& [type, entry] : TypeRegistry::GetEntries())
-		{
-			if (auto* trait = entry.GetTrait<ComponentTypeTrait>())
-			{
-				if (trait->getter)
-				{
-					EE_INFO("BEFORE GetWeak");
-
-					auto weak = GetWeak();
-
-					EE_INFO("AFTER GetWeak");
-
-					EE_INFO("BEFORE CALL getter: {}", entry.name);
-
-					Component* component = trait->getter(weak);
-
-					EE_INFO("AFTER CALL getter: {}", entry.name);
-
-					if (component)
+		for (auto& [type, entry] : TypeRegistry::GetEntries()) {
+			if (auto* trait = entry.GetTrait<ComponentTypeTrait>()) {
+				if (trait->getter) {
+					if (Component* component = trait->getter(GetWeak())) {
 						components.push_back(component);
+					}
 				}
 			}
 		}

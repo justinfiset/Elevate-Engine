@@ -31,7 +31,7 @@ namespace Elevate
 			EE_ERROR("Error: Tried to add an already existing component to the %s GameObject", m_name);
 			return GetRegistryMap()[m_scene->m_registryId]->get<T>(entt::entity(m_entityId));
 		}
-	
+
 		auto& comp = GetRegistryMap()[m_scene->m_registryId]->emplace<T>(entt::entity(m_entityId), std::forward<Args>(args)...);
 		comp.gameObject = this;
 		comp.Init();
@@ -44,34 +44,17 @@ namespace Elevate
 	{
 		EE_VALIDATE_COMPONENT_TYPE();
 
-		EE_INFO("Getting component type: {}", typeid(T).name());
-
-		if (!m_scene)
-			return nullptr;
-
-		auto& registryMap = GetRegistryMap();
-
-		auto it = registryMap.find(m_scene->m_registryId);
-
-		if (it == registryMap.end())
-			return nullptr;
-
-		if (!it->second)
-			return nullptr;
-
-		entt::registry* registry = it->second.get();
-
-		entt::entity entity = entt::entity(m_entityId);
-
-		bool valid = registry->valid(entity);
-
-		T* component = registry->try_get<T>(entity);
+		T* component = GetRegistryMap()[m_scene->m_registryId]->try_get<T>(entt::entity(m_entityId));
 
 		if (!component)
+		{
 			return nullptr;
+		}
 
 		if (onlyReturnActive && !component->IsActive())
+		{
 			return nullptr;
+		}
 
 		return component;
 	}

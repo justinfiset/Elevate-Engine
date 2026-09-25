@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef EE_DEBUG
+	#define JPH_ENABLE_ASSERTS
+#endif
+
 #include <cstdint>
 
 #include <Jolt/Jolt.h>
