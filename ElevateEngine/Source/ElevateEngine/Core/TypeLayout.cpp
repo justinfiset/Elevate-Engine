@@ -6,6 +6,7 @@
 #include <variant>
 
 #include <ElevateEngine/Core/Data.h>
+#include <ElevateEngine/Core/Enums.h>
 #include <ElevateEngine/Core/Guid.h>
 #include <ElevateEngine/Core/TypeField.h>
 #include <ElevateEngine/Serialization/PropertyField.h>
@@ -39,7 +40,10 @@ namespace Elevate
 
     void TypeLayout::BindInstance(const void* instancePtr)
     {
-        if (!m_objectInstance) return;
+        if (!instancePtr)
+        {
+            return;
+        }
 
         m_objectInstance = instancePtr;
 
@@ -83,6 +87,9 @@ namespace Elevate
             break;
         case EngineDataType::String:
             prop.Value = *reinterpret_cast<const std::string*>(field.data);
+            break;
+        case EngineDataType::Enum:
+            prop.Value = *static_cast<const EnumType*>(field.data);
             break;
         case EngineDataType::GUID:
             if (auto* guidPtr = reinterpret_cast<const Guid*>(field.data))
@@ -292,6 +299,10 @@ namespace Elevate
                             {
                                 *reinterpret_cast<std::string*>(mutableElementPtr) = std::get<std::string>(elemProp.Value);
                             }
+                            else if (field.elementType == EngineDataType::Enum)
+                            {
+                                *reinterpret_cast<EnumType*>(mutableElementPtr) = static_cast<EnumType>(std::get<EnumType>(elemProp.Value));
+                            }
                         }
                     }
                 }
@@ -354,6 +365,10 @@ namespace Elevate
                     case EngineDataType::GUID:
                         if (std::holds_alternative<std::string>(it->Value))
                             *reinterpret_cast<Guid*>(mutableData) = Guid::FromString(std::get<std::string>(it->Value));
+                        break;
+                    case EngineDataType::Enum:
+                        if (std::holds_alternative<EnumType>(it->Value))
+                            *reinterpret_cast<EnumType*>(mutableData) = std::get<EnumType>(it->Value);
                         break;
                     default:
                         break;

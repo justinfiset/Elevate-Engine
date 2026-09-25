@@ -34,17 +34,32 @@ void Elevate::SceneLayer::OnRender(Camera* cam)
 	}
 }
 
+#include <ElevateEngine/Inputs/KeyCodes.h>
+#include <ElevateEngine/Events/KeyEvent.h>
+#include <ElevateEngine/Serialization/JsonSerializer.h>
 void Elevate::SceneLayer::OnEvent(Event& event)
 {
 	const auto type = event.GetEventType();
 	if (type == EventType::GameContextChanged)
 	{
 		// If we are getting into runtime
-		GameContextEvent& contextEvent = dynamic_cast<GameContextEvent&>(event);
+		auto contextEvent = dynamic_cast<GameContextEvent&>(event);
 		if (contextEvent.GetNewState() == GameContextState::Runtime)
 		{
 			m_scene->OnAwake();
 			m_scene->OnStart();
+		}
+	}
+	else if (type == EventType::KeyPressed)
+	{
+		auto keyEvent = dynamic_cast<KeyPressedEvent&>(event);
+		if (keyEvent.GetKeyCode() == EE_KEY_E)
+		{
+			JsonSerializer serializer;
+			Elevate::ByteBuffer buffer;
+			serializer.Serialize(m_scene->GetProperties(), buffer);
+			std::string serialization = ByteUtils::ToString(buffer);
+			EE_CORE_INFO("{}", serialization);
 		}
 	}
 	m_scene->Notify(event);

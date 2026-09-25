@@ -23,7 +23,7 @@ namespace Elevate
 
     private:
         CapsuleShape m_Shape;
-        PROPERTY(m_Shape, EE_Flatten)
+        //PROPERTY(m_Shape, EE_Flatten)
 
         END_COMPONENT()
     };

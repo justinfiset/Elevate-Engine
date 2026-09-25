@@ -3,7 +3,12 @@
 #include <vector>
 
 #include <ElevateEngine/Core/TypeRegistry.h>
-#include <ElevateEngine/Core/GameObject.h>
+
+namespace Elevate
+{
+    class GameObject;
+    class Component;
+}
 
 // Todo remove and add as a tag
 #define EECATEGORY(name) \
@@ -185,6 +190,8 @@ public: \
             if (trait) { \
                 trait->category = generated_classEntry.Category; \
                 trait->getter = [](std::weak_ptr<GameObject> go) -> Component* { \
+                    EE_INFO("ENTER GETTER"); \
+                    return nullptr; \
                     if (std::shared_ptr<GameObject> obj = go.lock()) { \
                         return obj->GetComponent<ThisType>(); \
                     } \
@@ -307,8 +314,8 @@ public: \
 #define ENUM_VALUE(name) \
                     { #name, static_cast<int64_t>(EnumType::name) },
 
-#define END_ENUM() \
+#define END_ENUM(EnumName) \
                 } \
             ); \
         } \
-    } generated_enumEntry;
+    } generated_##EnumName##EnumEntryInstance;

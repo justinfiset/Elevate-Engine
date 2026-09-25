@@ -27,6 +27,7 @@ namespace Elevate
         EngineDataType elementType = EngineDataType::Custom;
         std::vector<TypeField> elementChildren;
 
+        // Array
         std::function<size_t(const void*)> GetArraySize;
         std::function<const void* (const void* instance, size_t index)> GetElementAddress;
 

@@ -23,7 +23,7 @@ namespace Elevate
         double,             // Covers float and double
         std::string,
         ByteBuffer,         // Raw data for custom types
-        PropertyContainer   // For recusrive structs
+        PropertyContainer  // For recusrive structs
     >;
 
 	enum PropertyFlag

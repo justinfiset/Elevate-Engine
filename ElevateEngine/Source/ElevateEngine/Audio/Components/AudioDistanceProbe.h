@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <ElevateEngine/Core/GameObject.h>
 #include <ElevateEngine/Core/Reflection.h>
 #include <ElevateEngine/Core/TypeField.h>
 #include <ElevateEngine/Core/Component.h>

@@ -44,17 +44,34 @@ namespace Elevate
 	{
 		EE_VALIDATE_COMPONENT_TYPE();
 
-		T* component = GetRegistryMap()[m_scene->m_registryId]->try_get<T>(entt::entity(m_entityId));
+		EE_INFO("Getting component type: {}", typeid(T).name());
+
+		if (!m_scene)
+			return nullptr;
+
+		auto& registryMap = GetRegistryMap();
+
+		auto it = registryMap.find(m_scene->m_registryId);
+
+		if (it == registryMap.end())
+			return nullptr;
+
+		if (!it->second)
+			return nullptr;
+
+		entt::registry* registry = it->second.get();
+
+		entt::entity entity = entt::entity(m_entityId);
+
+		bool valid = registry->valid(entity);
+
+		T* component = registry->try_get<T>(entity);
 
 		if (!component)
-		{
 			return nullptr;
-		}
 
 		if (onlyReturnActive && !component->IsActive())
-		{
 			return nullptr;
-		}
 
 		return component;
 	}

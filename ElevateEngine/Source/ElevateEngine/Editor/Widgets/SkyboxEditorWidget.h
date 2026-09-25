@@ -15,7 +15,7 @@ namespace Elevate::Editor
 			ImGui::Begin("Environment");
 			ImGui::SeparatorText("Skybox");
 			
-			auto scene = SceneManager::GetCurrentScene(RuntimeScene);
+			auto scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
 			auto skybox = scene->GetSkybox().lock();
 
 			if (ImGui::Button("Select Skybox File"))

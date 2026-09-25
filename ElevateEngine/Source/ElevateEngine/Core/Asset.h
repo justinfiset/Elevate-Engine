@@ -11,7 +11,6 @@ namespace Elevate
 	class Asset : public EEObject
 	{
 		BEGIN_OBJECT(Asset)
-
 		using Super = Asset;
 
 	public:

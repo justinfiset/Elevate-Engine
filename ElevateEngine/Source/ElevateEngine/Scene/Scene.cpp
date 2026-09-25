@@ -66,6 +66,11 @@ namespace Elevate
 		}
 	}
 
+	std::string Scene::GetName() const
+	{
+		return m_name;
+	}
+
 	void Scene::UpdateScene()
 	{
 		if (m_type == SceneType::RuntimeScene && Application::GetGameState() != Runtime)
@@ -90,14 +95,14 @@ namespace Elevate
 		{
 			switch (m_type)
 			{
-			case EditorScene:
+			case SceneType::EditorScene:
 				if (Application::GetGameState() == EditorMode)
 				{
 					obj->Render();
 				}
 
 				break;
-			case RuntimeScene:
+			case SceneType::RuntimeScene:
 				obj->Render();
 
 				if (Application::GetGameState() == EditorMode)
@@ -106,7 +111,7 @@ namespace Elevate
 				}
 
 				break;
-			case DebugScene:
+			case SceneType::DebugScene:
 				obj->Render();
 				break;
 			}
@@ -147,7 +152,6 @@ namespace Elevate
 	{
 		ScenePtr scene = std::make_shared<Scene>(name, type);
 		SceneManager::LoadScene(scene);
-		scene->Serialize();
 		return scene;
 	}
 

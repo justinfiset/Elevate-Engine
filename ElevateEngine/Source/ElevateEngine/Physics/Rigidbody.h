@@ -28,7 +28,7 @@ namespace Elevate
 		ENUM_VALUE(Dynamic)
 		ENUM_VALUE(Kinematic)
 		ENUM_VALUE(Static)
-	END_ENUM()
+	END_ENUM(RigidbodyType)
 
 	struct SurfaceMaterial
 	{
