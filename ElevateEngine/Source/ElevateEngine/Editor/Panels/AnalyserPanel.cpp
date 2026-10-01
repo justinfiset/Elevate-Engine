@@ -265,7 +265,7 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 
 	case EngineDataType::Enum:
 	{
-		const auto* enumInfo = TypeRegistry::GetEnum(field.targetType);
+		const auto* enumInfo = TypeRegistry::GetEnum(field.GetTargetType());
 
 		if (!enumInfo)
 		{
@@ -402,7 +402,7 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 				ImGui::SameLine();
 				ImGui::Text("None");
 				
-				for (auto& guid : AssetRegistry::GetAssetsOfType(field.targetType))
+				for (auto& guid : AssetRegistry::GetAssetsOfType(field.GetTargetType()))
 				{
 					auto* entry = AssetRegistry::GetEntry(guid);
 					if (entry)

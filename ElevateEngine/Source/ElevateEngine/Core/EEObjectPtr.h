@@ -2,6 +2,7 @@
 #include <memory>
 #include <type_traits>
 
+#include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Core/Byte.h>
 #include <ElevateEngine/Core/Guid.h>
 #include <ElevateEngine/Core/EEObject.h>
@@ -9,6 +10,30 @@
 
 namespace Elevate
 {
+// Only enable the assertion if the type is defined, otherwise, we will get an imcomplete type error
+#ifdef EE_ASSERTS_ENABLED
+	namespace Internal
+	{
+		template<typename T, typename = void>
+		struct is_valid_ee_object : std::true_type {};
+
+		template<typename T>
+		struct is_valid_ee_object<T, std::void_t<decltype(sizeof(T))>>
+			: std::bool_constant<std::is_base_of_v<EEObject, T>> {
+		};
+
+		template<typename T>
+		inline constexpr bool is_valid_ee_object_v = is_valid_ee_object<T>::value;
+	}
+
+#define VALIDATE_OBJECTPTR_TYPE(T) static_assert(Internal::is_valid_ee_object_v<T>, "T must derive from EEObject")
+
+#else
+
+#define VALIDATE_OBJECTPTR_TYPE(T)
+
+#endif
+
 	namespace Detail
 	{
 		std::shared_ptr<EEObject> ResolveAssetHelper(const Guid& guid);
@@ -41,19 +66,19 @@ namespace Elevate
 	public:
 		EEObjectPtr() : m_ptr(nullptr), m_guid(Guid{})
 		{
-			static_assert(std::is_base_of_v<EEObject, T>, "T must derive from EEObject");
+			VALIDATE_OBJECTPTR_TYPE(T);
 		}
 		EEObjectPtr(std::nullptr_t) noexcept : m_ptr(nullptr), m_guid(Guid{}) { }
 		EEObjectPtr(std::shared_ptr<T> ptr) : m_ptr(std::move(ptr))
 		{
-			static_assert(std::is_base_of_v<EEObject, T>, "T must derive from EEObject");
+			VALIDATE_OBJECTPTR_TYPE(T);
 			UpdateGuid();
 		}
 		EEObjectPtr(const EEObjectPtr<T>& other) : m_ptr(other.m_ptr), m_guid(other.m_guid) { }
 
 		explicit EEObjectPtr(const Guid& guid) : m_ptr(nullptr), m_guid(guid)
 		{
-			static_assert(std::is_base_of_v<EEObject, T>, "T must derive from EEObject");
+			VALIDATE_OBJECTPTR_TYPE(T);
 		}
 
 		void SetGuid(const Guid& guid)
@@ -114,7 +139,7 @@ namespace Elevate
 
 		bool operator==(const std::shared_ptr<T>& other) const noexcept
 		{
-			static_assert(std::is_base_of_v<EEObject, T>, "T must derive from EEObject");
+			VALIDATE_OBJECTPTR_TYPE(T);
 
 			if (!other)
 			{
@@ -127,7 +152,7 @@ namespace Elevate
 		EEObjectPtr(const EEObjectPtr<U>& other)
 			: m_ptr(other.m_ptr), m_guid(other.m_guid)
 		{
-			static_assert(std::is_base_of_v<EEObject, T>, "T must derive from EEObject");
+			VALIDATE_OBJECTPTR_TYPE(T);
 		}
 
 		template<typename U, typename = std::enable_if_t<std::is_base_of_v<T, U>>>
@@ -151,7 +176,7 @@ namespace Elevate
 		}
 
 		EEObjectPtr<T>& operator=(std::shared_ptr<T> ptr) {
-			static_assert(std::is_base_of_v<EEObject, T>, "T must derive from EEObject");
+			VALIDATE_OBJECTPTR_TYPE(T);
 			m_ptr = std::move(ptr);
 			UpdateGuid();
 			return *this;
@@ -165,14 +190,14 @@ namespace Elevate
 
 		void reset(std::shared_ptr<T> ptr)
 		{
-			static_assert(std::is_base_of_v<EEObject, T>, "T must derive from EEObject");
+			VALIDATE_OBJECTPTR_TYPE(T);
 			m_ptr = std::move(ptr);
 			UpdateGuid();
 		}
 
 		void reset(T* rawPtr)
 		{
-			static_assert(std::is_base_of_v<EEObject, T>, "T must derive from EEObject");
+			VALIDATE_OBJECTPTR_TYPE(T);
 			if (rawPtr)
 			{
 				m_ptr = std::static_pointer_cast<T>(rawPtr->shared_from_this());
@@ -186,7 +211,7 @@ namespace Elevate
 
 		void reset(const T* rawPtr)
 		{
-			static_assert(std::is_base_of_v<EEObject, T>, "T must derive from EEObject");
+			VALIDATE_OBJECTPTR_TYPE(T);
 			if (rawPtr)
 			{
 				auto nonConst = const_cast<T*>(rawPtr);

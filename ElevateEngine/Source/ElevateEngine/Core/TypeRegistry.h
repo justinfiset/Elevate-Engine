@@ -84,6 +84,8 @@ namespace Elevate
 	struct is_engine_array : std::false_type {};
 	template<typename T, typename Alloc>
 	struct is_engine_array<std::vector<T, Alloc>> : std::true_type {};
+	template<typename T, typename Alloc>
+	struct is_engine_array<std::set<T, Alloc>> : std::true_type {};
 	template<typename T>
 	inline constexpr bool is_engine_array_v = is_engine_array<T>::value;
 
@@ -182,7 +184,7 @@ namespace Elevate
 
 		template<typename T>
 		static void Register(const std::string& name, const std::vector<FieldOption>& options);
-		
+
 		template<typename T, typename Trait, typename... Args>
 		static void AddTrait(Args&&... args)
 		{
@@ -193,6 +195,12 @@ namespace Elevate
 		static std::unordered_map<std::type_index, Entry>& GetEntries()
 		{
 			static std::unordered_map<std::type_index, Entry> entries;
+			return entries;
+		}
+
+		static std::unordered_map<const void*, std::type_index>& GetTypeIndexes()
+		{
+			static std::unordered_map<const void*, std::type_index> entries;
 			return entries;
 		}
 
@@ -265,15 +273,28 @@ namespace Elevate
 		};
 
 		template<typename T>
+		static const void* GetTypeKey()
+		{
+			static const char key{};
+			return &key;
+		}
+
+		template<typename T>
 		static void RegisterEnum(const char* name, std::initializer_list<EnumValue> values)
 		{
-			static_assert(std::is_enum_v<T>);	
+			static_assert(std::is_enum_v<T>);
+
+			std::type_index ti = typeid(T);
 
 			EnumInfo info;
 			info.Name = name;
 			info.Values = values;
 
-			GetEnums()[typeid(T)] = std::move(info);
+			// Register in the type_index -> Entry relation map
+			GetEnums()[ti] = std::move(info);
+
+			// Register the T -> type_index relation map
+			GetTypeIndexes().insert_or_assign(GetTypeKey<T>(), ti);
 		}
 
 		static std::unordered_map<std::type_index, EnumInfo>& GetEnums()

@@ -49,7 +49,7 @@ namespace Elevate
             EngineDataType::ObjectPtr,
             shaderOffset
         );
-        shaderField.targetType = typeid(Shader);
+        shaderField.targetTypeKey = TypeRegistry::GetTypeKey<Shader>();
         shaderField.data = reinterpret_cast<const char*>(this) + shaderOffset;
         allFields.push_back(shaderField);
 

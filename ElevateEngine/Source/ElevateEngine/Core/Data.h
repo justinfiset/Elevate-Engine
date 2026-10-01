@@ -120,6 +120,12 @@ namespace Elevate
 		Unknown
 	};
 
+	enum class EngineContainerType
+	{
+		Vector,
+		Set
+	};
+
 	inline uint32_t GetDataTypeCount(EngineDataType type) {
 		return ShaderDataTypeCount[static_cast<uint32_t>(type)];
 	}

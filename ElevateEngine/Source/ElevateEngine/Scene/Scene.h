@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <vector>
 #include <entt/entt.hpp>
 
 #include <ElevateEngine/Core/Enums.h>
@@ -36,8 +37,8 @@ namespace Elevate
 
 	BEGIN_ENUM(SceneType)
 		ENUM_VALUE(RuntimeScene)
-		ENUM_VALUE(RuntimeScene)
-		ENUM_VALUE(RuntimeScene)
+		ENUM_VALUE(EditorScene)
+		ENUM_VALUE(DebugScene)
 	END_ENUM(SceneType)
 
 	class Scene : public EEObject
@@ -59,7 +60,7 @@ namespace Elevate
 		virtual std::string GetName() const override;
 
 		void AddObject(const EEObjectPtr<GameObject>& newObject, const EEObjectPtr<GameObject>& parent);
-		const std::set<EEObjectPtr<GameObject>> GetRootObjects() const { return m_rootObjects; }
+		const std::vector<EEObjectPtr<GameObject>>& GetRootObjects() const { return m_rootObjects; }
 
 		inline SceneType GetType() { return m_type; }
 
@@ -88,7 +89,7 @@ namespace Elevate
 		uint32_t m_registryId;
 
 		// Root objects of the scene hierarchy.
-		std::set<EEObjectPtr<GameObject>> m_rootObjects;
+		std::vector<EEObjectPtr<GameObject>> m_rootObjects;
 		PROPERTY(m_rootObjects)
 
 		std::shared_ptr<Cubemap> m_cubemap;

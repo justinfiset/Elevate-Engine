@@ -2,13 +2,34 @@
 
 #include <vector>
 
-#include <ElevateEngine/Core/TypeRegistry.h>
+// =======================================================
+// BEGIN_ENUM / ENUM_VALUE / END_ENUM
+// =======================================================
+
+#define BEGIN_ENUM(EnumName) \
+    inline static struct EnumName##EnumEntry { \
+        using EnumType = EnumName; \
+        EnumName##EnumEntry() { \
+            ::Elevate::TypeRegistry::RegisterEnum<EnumType>( \
+                #EnumName, \
+                {
+
+#define ENUM_VALUE(name) \
+                    { #name, static_cast<int64_t>(EnumType::name) },
+
+#define END_ENUM(EnumName) \
+                } \
+            ); \
+        } \
+    } generated_##EnumName##EnumEntryInstance;
 
 namespace Elevate
 {
     class GameObject;
     class Component;
 }
+
+#include "ReflectionInternal.h"
 
 // Todo remove and add as a tag
 #define EECATEGORY(name) \
@@ -20,22 +41,6 @@ private: \
     } generated_categoryRegistrar; \
 public: \
     virtual ::Elevate::EECategory GetCategory() const override { return ThisType::generated_classEntry.Category; }
-
-namespace Elevate::Internal {
-    template<typename T, typename = void>
-    struct ScopeSelector {
-        static std::vector<::Elevate::TypeField>& GetStack(T*) {
-            return T::generated_structEntry.StructFieldStack;
-        }
-    };
-
-    template<typename T>
-    struct ScopeSelector<T, std::void_t<decltype(T::generated_classEntry)>> {
-        static std::vector<::Elevate::TypeField>& GetStack(T*) {
-            return T::generated_classEntry.ClassFieldStack;
-        }
-    };
-}
 
 // =======================================================
 // DECLARE_AUTO_OBJECT_NAME / DECLARE_AUTO_OBJECT_LAYOUT
@@ -294,26 +299,3 @@ public: \
     inline void SetFromProperties(const ::Elevate::PropertySet& props) { \
         GetLayout().ApplyState(props); \
     }
-
-// =======================================================
-// BEGIN_ENUM / ENUM_VALUE / END_ENUM
-// =======================================================
-
-#include <ElevateEngine/Core/Enums.h>
-
-#define BEGIN_ENUM(EnumName) \
-    inline static struct EnumName##EnumEntry { \
-        using EnumType = EnumName; \
-        EnumName##EnumEntry() { \
-            ::Elevate::TypeRegistry::RegisterEnum<EnumType>( \
-                #EnumName, \
-                {
-
-#define ENUM_VALUE(name) \
-                    { #name, static_cast<int64_t>(EnumType::name) },
-
-#define END_ENUM(EnumName) \
-                } \
-            ); \
-        } \
-    } generated_##EnumName##EnumEntryInstance;

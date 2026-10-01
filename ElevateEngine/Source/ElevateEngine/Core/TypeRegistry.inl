@@ -9,7 +9,6 @@
 
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/EEObject.h>
-
 #include "ElevateEngine/Core/ReflectionTags.h"
 
 #ifdef EE_EDITOR_BUILD
@@ -24,10 +23,14 @@ namespace Elevate
     template<typename T>
     void TypeRegistry::Register(const std::string& name, const std::vector<FieldOption>& options)
     {
+        // Register in the type_index -> Entry relation map
         std::type_index ti(typeid(T));
         auto& entry = GetEntries()[ti];
         entry.name = name;
         entry.type = ti;
+
+        // Register the T -> type_index relation map
+        GetTypeIndexes().insert_or_assign(GetTypeKey<T>(), ti);
 
         if constexpr (std::is_base_of_v<EEObject, T> && !std::is_abstract_v<T> && std::is_default_constructible_v<T>)
         {
@@ -82,7 +85,7 @@ namespace Elevate
             if constexpr (is_ee_object_ptr_v<ElementType>)
             {
                 using TargetT = ee_ptr_target_t<ElementType>;
-                field.targetType = typeid(TargetT);
+                field.targetTypeKey = GetTypeKey<TargetT>();
             }
             else if constexpr (std::is_class_v<ElementType> && !std::is_same_v<ElementType, std::string>)
             {
@@ -117,12 +120,12 @@ namespace Elevate
         {
             field = TypeField(name, EngineDataType::ObjectPtr, offset, meta.displayName);
             using TargetT = ee_ptr_target_t<CleanedFieldT>;
-            field.targetType = typeid(TargetT);
+            field.targetTypeKey = GetTypeKey<TargetT>();
         }
         else if (type == EngineDataType::Enum)
         {
             field = TypeField(name, type, offset, meta.displayName);
-            field.targetType = typeid(CleanedFieldT);
+            field.targetTypeKey = GetTypeKey<CleanedFieldT>();
         }
         else if (type == EngineDataType::Custom)
         {

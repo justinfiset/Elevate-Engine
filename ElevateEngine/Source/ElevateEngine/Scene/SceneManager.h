@@ -1,8 +1,13 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
-#include <ElevateEngine/Scene/Scene.h>
+namespace Elevate
+{
+	class Scene;
+	using ScenePtr = std::shared_ptr<Scene>;
+}
 
 namespace Elevate
 {

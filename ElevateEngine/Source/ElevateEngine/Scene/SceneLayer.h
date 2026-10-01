@@ -1,13 +1,17 @@
 #pragma once
 
+#include <memory>
+
 #include <ElevateEngine/Core/Layers/Layer.h>
-#include <ElevateEngine/Scene/Scene.h>
 
 namespace Elevate
 {
-	class RendererAPI;
 	class Camera;
+	class Scene;
+}
 
+namespace Elevate
+{
 	/// <summary>
 	/// Simple layer thats contains a single scene and take care of all loading/unloading update and rendering.
 	/// This is a good starting point if your are looking to create your own scene logic.

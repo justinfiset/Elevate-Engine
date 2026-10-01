@@ -172,13 +172,17 @@ namespace Elevate
 
 	void Scene::RemoveFromRoot(const EEObjectPtr<GameObject>& object)
 	{
-		m_rootObjects.erase(object);
+		auto it = std::find(m_rootObjects.begin(), m_rootObjects.end(), object);
+		if (it != m_rootObjects.end())
+		{
+			m_rootObjects.erase(it);
+		}
 	}
 
 	void Scene::AddRootObject(const EEObjectPtr<GameObject>& newRootObject)
 	{
 		newRootObject->m_parent.reset();
 		newRootObject->m_scene = this;
-		m_rootObjects.insert(newRootObject);
+		m_rootObjects.push_back(newRootObject);
 	}
 }

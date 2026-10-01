@@ -2,6 +2,7 @@
 #include "SceneLayer.h"
 
 #include <ElevateEngine/Core/Log.h>
+#include <ElevateEngine/Scene/Scene.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Scene/SceneManager.h>
 #include <ElevateEngine/Events/ApplicationEvent.h>

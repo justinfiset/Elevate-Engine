@@ -21,7 +21,7 @@ namespace Elevate
         bool flatten = false;
         bool readOnly = false;
         bool isColor = false;
-        std::type_index targetType{ typeid(void) };
+        const void* targetTypeKey = nullptr;
         std::vector<TypeField> children;
 
         EngineDataType elementType = EngineDataType::Custom;
@@ -90,6 +90,8 @@ namespace Elevate
                 children.emplace_back(child, childDataPtr);
             }
         }
+
+        std::type_index GetTargetType() const;
 
         inline const std::string& GetDisplayName() const
         {

@@ -9,7 +9,6 @@
 #include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Core/Guid.h>
-#include <ElevateEngine/Scene/Scene.h>
 #include <ElevateEngine/Scene/ScenePrivate.h>
 
 #include <glm/gtx/matrix_decompose.hpp> // iwyu: keep
