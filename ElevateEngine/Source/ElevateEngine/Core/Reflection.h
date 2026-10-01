@@ -200,6 +200,12 @@ public: \
                     } \
                     return nullptr; \
                 }; \
+                trait->const_getter = [](std::weak_ptr<const GameObject> go) -> const Component* { \
+                    if (std::shared_ptr<const GameObject> obj = go.lock()) { \
+                        return obj->GetComponent<ThisType>(); \
+                    } \
+                    return nullptr; \
+                }; \
                 trait->factory = [](std::weak_ptr<GameObject> go) -> Component* { \
                     if (std::shared_ptr<GameObject> obj = go.lock()) { \
                         return &obj->AddComponent<ThisType>(); \

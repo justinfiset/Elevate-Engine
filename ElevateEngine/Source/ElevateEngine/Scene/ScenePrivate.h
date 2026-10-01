@@ -7,5 +7,5 @@
 
 namespace Elevate
 {
-	extern std::unordered_map<uint32_t, std::unique_ptr<entt::registry>>& GetRegistryMap();;
+	extern std::unordered_map<uint32_t, std::unique_ptr<entt::registry>>& GetRegistryMap();
 }

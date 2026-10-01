@@ -12,6 +12,7 @@
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Core/ITransformable.h>
+#include <ElevateEngine/Core/Reflection.h>
 
 #define EE_INVALID_ENTITY_ID UINT32_MAX
 
@@ -33,19 +34,27 @@ namespace Elevate
 	class GameObject : public ITransformable, public EEObject
 	{
 	public:
+		BEGIN_OBJECT(GameObject);
+		using Super = EEObject;
+	
 		GameObject(std::string name, std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> parent = nullptr);
 		~GameObject();
 
 		std::shared_ptr<GameObject> GetShared();
 		std::weak_ptr<GameObject> GetWeak();
+		std::shared_ptr<const GameObject> GetShared() const;
+		std::weak_ptr<const GameObject> GetWeak() const;
 
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args);
 
 		template <typename T>
 		T* GetComponent(bool onlyReturnActive = false);
+		template <typename T>
+		const T* GetComponent(bool onlyReturnActive = false) const;
 
 		std::vector<Component*> GetComponents();
+		std::vector<const Component*> GetComponents() const;
 
 		template <typename T>
 		bool HasComponent();
@@ -53,8 +62,9 @@ namespace Elevate
 		template <typename T>
 		void RemoveComponent();
 
-		inline std::string& GetName() { return m_name; }
 		inline void SetName(std::string newName) { m_name = newName; }
+		std::string GetName() const override;
+		virtual TypeLayout GetLayout() const override;
 		
 		void SetParent(const EEObjectPtr<GameObject>& newParent);
 		void Destroy();
@@ -99,6 +109,7 @@ namespace Elevate
 
 	private:
 		std::string m_name;
+		PROPERTY(m_name);
 
 		// Parent and Child
 		EEObjectPtr<GameObject> m_parent;
@@ -112,6 +123,8 @@ namespace Elevate
 		bool m_isInitialized = false;
 
 		Scene* m_scene;
+
+		END_OBJECT_CUSTOM();
 
 		friend class Scene;
 		friend class TypeRegistry;

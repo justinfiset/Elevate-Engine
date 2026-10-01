@@ -37,6 +37,7 @@ void Elevate::SceneLayer::OnRender(Camera* cam)
 
 #include <ElevateEngine/Inputs/KeyCodes.h>
 #include <ElevateEngine/Events/KeyEvent.h>
+#include <ElevateEngine/Core/GameObject.h>
 #include <ElevateEngine/Serialization/JsonSerializer.h>
 void Elevate::SceneLayer::OnEvent(Event& event)
 {
@@ -58,9 +59,12 @@ void Elevate::SceneLayer::OnEvent(Event& event)
 		{
 			JsonSerializer serializer;
 			Elevate::ByteBuffer buffer;
-			serializer.Serialize(m_scene->GetProperties(), buffer);
-			std::string serialization = ByteUtils::ToString(buffer);
-			EE_CORE_INFO("{}", serialization);
+			for (auto& obj : m_scene->GetRootObjects())
+			{
+				serializer.Serialize(obj->GetProperties(), buffer);
+				std::string serialization = ByteUtils::ToString(buffer);
+				EE_CORE_INFO("{}", serialization);
+			}
 		}
 	}
 	m_scene->Notify(event);

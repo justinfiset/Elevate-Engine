@@ -190,6 +190,33 @@ namespace Elevate
 		}
 	}
 
+	std::string GameObject::GetName() const
+	{
+		return m_name;
+	}
+	
+	TypeLayout GameObject::GetLayout() const
+	{
+		std::vector<TypeField> allFields;
+
+		// Add the guid
+		allFields.push_back(::Elevate::TypeField("m_guid", EngineDataType::GUID, GetGuidOffset()));
+
+		// Add all the components
+		for (const auto& component : GetComponents())
+		{
+			const auto& layout = component->GetLayout();
+			TypeField field;
+			field.children.insert(std::end(field.children), layout.begin(), layout.end());
+			field.name = layout.GetName();
+			field.type = EngineDataType::Custom;
+
+			allFields.push_back(field);
+		}
+
+		return TypeLayout(this, GetName(), allFields);
+	}
+
 	void GameObject::Initialize()
 	{
 		if (m_scene)
@@ -248,6 +275,7 @@ namespace Elevate
 	{
 		SoundEngine::UnregisterGameObject(this);
 
+		// todo fix: 
 		//if (m_scene)
 		//{
 		//	m_scene->m_registryId.destroy(entt::entity(m_entityId));
@@ -262,6 +290,16 @@ namespace Elevate
 	std::weak_ptr<GameObject> GameObject::GetWeak()
 	{
 		return std::static_pointer_cast<GameObject>(shared_from_this());
+	}
+
+	std::shared_ptr<const GameObject> GameObject::GetShared() const
+	{
+		return std::static_pointer_cast<const GameObject>(shared_from_this());
+	}
+
+	std::weak_ptr<const GameObject> GameObject::GetWeak() const
+	{
+		return std::static_pointer_cast<const GameObject>(shared_from_this());
 	}
 
 	std::vector<Component*> GameObject::GetComponents()
@@ -282,9 +320,26 @@ namespace Elevate
 		return components;
 	}
 
+	std::vector<const Component*> GameObject::GetComponents() const
+	{
+		std::vector<const Component*> components;
+		if (!m_scene) return components;
+
+		for (auto& [type, entry] : TypeRegistry::GetEntries()) {
+			if (auto* trait = entry.GetTrait<ComponentTypeTrait>()) {
+				if (trait->const_getter) {
+					if (const Component* component = trait->const_getter(GetWeak())) {
+						components.push_back(component);
+					}
+				}
+			}
+		}
+
+		return components;
+	}
+
 	void GameObject::RenderInEditor()
 	{
-		// TODO MAKE GETCOMPONENTS ONLY RETURN ACTIVE COMOPNENTS TO PREVENT THE CHECK
 		for (Component* comp : GetComponents())
 		{
 			if (comp->IsActive())

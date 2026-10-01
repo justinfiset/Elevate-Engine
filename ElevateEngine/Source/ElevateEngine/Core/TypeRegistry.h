@@ -138,6 +138,7 @@ namespace Elevate
 	};
 
 	using GameObjectComponentGetter = std::function<Component* (std::weak_ptr<GameObject>)>;
+	using GameObjectConstComponentGetter = std::function<const Component* (std::weak_ptr<const GameObject>)>;
 	using GameObjectComponentFactory = std::function<Component* (std::weak_ptr<GameObject>)>;
 	using GameObjectComponentDestructor = std::function<void(std::weak_ptr<GameObject>)>;
 
@@ -145,6 +146,7 @@ namespace Elevate
 	{
 		EECategory category;
 		GameObjectComponentGetter getter; // method to get the type of component from a gameobject
+		GameObjectConstComponentGetter const_getter;
 		GameObjectComponentFactory factory; // factory to create / add to a gameObject
 		GameObjectComponentDestructor destructor; // component destructor / remove from a gameObject
 	};
