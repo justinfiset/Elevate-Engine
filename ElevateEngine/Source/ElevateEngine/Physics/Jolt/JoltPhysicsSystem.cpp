@@ -172,7 +172,7 @@ namespace Elevate::Jolt
 	{
 		while (!m_Bodies.empty())
 		{
-			RemoveRigidbody(m_Bodies.back().Rigidbody);
+			RemoveRigidbody(m_Bodies.back().rigidbody);
 		}
 
 		m_Bodies.clear();
@@ -234,8 +234,8 @@ namespace Elevate::Jolt
 		}
 
 		JoltPhysicsBody joltBody;
-		joltBody.Rigidbody = rigidbody;
-		joltBody.BodyID = bodyID;
+		joltBody.rigidbody = rigidbody;
+		joltBody.bodyID = bodyID;
 		m_Bodies.push_back(joltBody);
 	}
 
@@ -243,7 +243,7 @@ namespace Elevate::Jolt
 	{
 		auto it = std::find_if(m_Bodies.begin(), m_Bodies.end(), [rigidbody](const auto& body)
 		{
-			return body.Rigidbody == rigidbody;
+			return body.rigidbody == rigidbody;
 		});
 
 		if (it == m_Bodies.end())
@@ -251,8 +251,8 @@ namespace Elevate::Jolt
 			return;
 		}
 
-		m_BodyInterface->RemoveBody(it->BodyID);
-		m_BodyInterface->DestroyBody(it->BodyID);
+		m_BodyInterface->RemoveBody(it->bodyID);
+		m_BodyInterface->DestroyBody(it->bodyID);
 
 		m_Bodies.erase(it);
 	}
@@ -267,7 +267,7 @@ namespace Elevate::Jolt
 	{
 		for (auto& body : m_Bodies)
 		{
-			const Rigidbody* rigidbody = body.Rigidbody;
+			const Rigidbody* rigidbody = body.rigidbody;
 
 			if (rigidbody->GetType() != RigidbodyType::Dynamic)
 			{
@@ -277,7 +277,7 @@ namespace Elevate::Jolt
 			// Fetch the data from jolt
 			JPH::Vec3 position;
 			JPH::Quat rotation;
-			m_BodyInterface->GetPositionAndRotation(body.BodyID, position, rotation);
+			m_BodyInterface->GetPositionAndRotation(body.bodyID, position, rotation);
 			
 			// Apply the data to the world object
 			Transform& transform = rigidbody->gameObject->GetTransform();

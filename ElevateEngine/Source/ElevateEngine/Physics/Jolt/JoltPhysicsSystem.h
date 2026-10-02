@@ -18,8 +18,8 @@ namespace Elevate::Jolt
 	// Small struct to link ElevateEngine's Rigidbody with jols's system
 	struct JoltPhysicsBody
 	{
-		const Rigidbody* Rigidbody = nullptr;
-		JPH::BodyID BodyID;
+		const Rigidbody* rigidbody = nullptr;
+		JPH::BodyID bodyID;
 	};
 
 	///////////////////////////////////////////////////////////////////////
