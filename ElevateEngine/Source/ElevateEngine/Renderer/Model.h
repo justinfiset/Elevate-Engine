@@ -38,7 +38,7 @@ namespace Elevate
 		void LoadMaterialTextures(std::string basePath, aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data);
 
 	private:
-		MaterialPtr m_material;
+		EEObjectPtr<Material> m_material;
 		PROPERTY(m_material);
 
 		Mesh m_batchedMesh;

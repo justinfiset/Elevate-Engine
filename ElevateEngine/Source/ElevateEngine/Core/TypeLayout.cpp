@@ -8,6 +8,7 @@
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/Enums.h>
 #include <ElevateEngine/Core/Guid.h>
+#include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Core/TypeField.h>
 #include <ElevateEngine/Serialization/PropertyField.h>
 
@@ -92,13 +93,22 @@ namespace Elevate
             prop.Value = *static_cast<const EnumType*>(field.data);
             break;
         case EngineDataType::GUID:
-            if (auto* guidPtr = reinterpret_cast<const Guid*>(field.data))
-            {
-                prop.Value = guidPtr->ToString();
-            }
+        {
+            const auto* guidPtr = reinterpret_cast<const Guid*>(field.data);
+            prop.Value = guidPtr->ToString();
             break;
+        }
+        case EngineDataType::ObjectPtr:
+        {
+            const auto* objPtr = reinterpret_cast<const IEEObjectPtr*>(field.data);
+            prop.Value = objPtr->GetGuid().ToString();
+            break;
+        }
         default:
+        {
+            prop.Value = "Unknown value type.";
             break;
+        }
         }
     }
 

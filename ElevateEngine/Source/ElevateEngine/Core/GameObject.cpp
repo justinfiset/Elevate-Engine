@@ -202,6 +202,11 @@ namespace Elevate
 		// Add the guid
 		allFields.push_back(::Elevate::TypeField("m_guid", EngineDataType::GUID, GetGuidOffset()));
 
+		for (const ::Elevate::TypeField& field : generated_classEntry.ClassFieldStack)
+		{
+			allFields.push_back(field);
+		}
+
 		// Add all the components
 		for (const auto& component : GetComponents())
 		{
