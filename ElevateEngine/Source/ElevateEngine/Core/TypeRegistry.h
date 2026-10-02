@@ -6,12 +6,13 @@
 #include <type_traits>
 #include <typeindex>
 #include <typeinfo>
+#include <set>
 #include <format>
 
-#include <entt/entt.hpp>
 #include <glm/fwd.hpp>
 
 #include <ElevateEngine/Core/EEObject.h>
+#include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Core/ReflectionTags.h>
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/Enums.h>
@@ -26,7 +27,6 @@ namespace Elevate
 {
 	class Component;
 	class GameObject;
-	template <typename T> class EEObjectPtr;
 }
 
 namespace Elevate

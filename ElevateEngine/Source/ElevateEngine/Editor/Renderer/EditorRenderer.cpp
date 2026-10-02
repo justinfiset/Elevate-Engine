@@ -12,7 +12,7 @@ namespace Elevate
         if (!icon) return;
 
         static Mesh billboardQuad = Mesh::GenerateQuad();
-        static ShaderPtr billboardShader = ShaderManager::GetShader("editor/billboard");
+        static EEObjectPtr<Shader> billboardShader = ShaderManager::GetShader("editor/billboard");
 
         if (!billboardShader)
         {

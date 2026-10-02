@@ -1,11 +1,25 @@
 #pragma once
-
-#include <unordered_map>
-#include <memory>
-
+#include <cstdint>
 #include <entt/entt.hpp>
 
 namespace Elevate
 {
-	extern std::unordered_map<uint32_t, std::unique_ptr<entt::registry>>& GetRegistryMap();
+	// Getter / Creation / Destruction
+	extern entt::registry* TryGetRegistry(uint32_t registryId);
+	extern void CreateRegistry(uint32_t registryId);
+	extern void DestroyRegistry(uint32_t registryId);
+
+	// Manipulation
+	template<typename T>
+	T* TryGetFromRegistry(uint32_t registryId, entt::entity entityId)
+	{
+		auto* registry = TryGetRegistry(registryId);
+
+		if (!registry)
+		{
+			return nullptr;
+		}
+
+		return registry->try_get<T>(entityId);
+	}
 }

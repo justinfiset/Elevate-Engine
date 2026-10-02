@@ -1,8 +1,6 @@
 #pragma once
 #include "GameObject.h"
 
-#include <format>
-
 #include <entt/entt.hpp>
 
 #include <ElevateEngine/Core/Log.h>
@@ -25,17 +23,17 @@ namespace Elevate
 	{
 		EE_VALIDATE_COMPONENT_TYPE();
 
-		// We can't add a second component of the same type
-		if (GetRegistryMap()[m_scene->m_registryId]->all_of<T>(entt::entity(m_entityId)))
+		auto* registry = TryGetRegistry(m_scene->GetRegistryId());
+
+		if (HasComponent<T>())
 		{
-			EE_ERROR("Error: Tried to add an already existing component to the %s GameObject", m_name);
-			return GetRegistryMap()[m_scene->m_registryId]->get<T>(entt::entity(m_entityId));
+			EE_ERROR("Error: Tried to add an already existing component to the {} GameObject", m_name);
+			return *TryGetFromRegistry<T>(m_scene->GetRegistryId(), entt::entity(m_entityId));
 		}
 
-		auto& comp = GetRegistryMap()[m_scene->m_registryId]->emplace<T>(entt::entity(m_entityId), std::forward<Args>(args)...);
+		auto& comp = registry->emplace<T>(entt::entity(m_entityId), std::forward<Args>(args)...);
 		comp.gameObject = this;
 		comp.Init();
-
 		return comp;
 	}
 
@@ -44,13 +42,8 @@ namespace Elevate
 	{
 		EE_VALIDATE_COMPONENT_TYPE();
 
-		T* component = GetRegistryMap()[m_scene->m_registryId]->try_get<T>(entt::entity(m_entityId));
-
-		if (!component)
-		{
-			return nullptr;
-		}
-
+		T* component = TryGetFromRegistry<T>(m_scene->GetRegistryId(), entt::entity(m_entityId));
+			
 		if (onlyReturnActive && !component->IsActive())
 		{
 			return nullptr;
@@ -64,12 +57,7 @@ namespace Elevate
 	{
 		EE_VALIDATE_COMPONENT_TYPE();
 
-		T* component = GetRegistryMap()[m_scene->m_registryId]->try_get<T>(entt::entity(m_entityId));
-
-		if (!component)
-		{
-			return nullptr;
-		}
+		T* component = TryGetFromRegistry<T>(m_scene->GetRegistryId(), entt::entity(m_entityId));
 
 		if (onlyReturnActive && !component->IsActive())
 		{
@@ -84,7 +72,12 @@ namespace Elevate
 	{
 		EE_VALIDATE_COMPONENT_TYPE();
 
-		return GetRegistryMap()[m_scene->m_registryId]->all_of<T>(entt::entity(m_entityId));
+		if (auto* registry = TryGetRegistry(m_scene->GetRegistryId()))
+		{
+			return registry->all_of<T>(entt::entity(m_entityId));
+		}
+
+		return false;
 	}
 
 	template <typename T>
@@ -95,8 +88,12 @@ namespace Elevate
 		if (HasComponent<T>())
 		{
 			GetComponent<T>()->Destroy();
-			GetRegistryMap()[m_scene->m_registryId]->remove<T>(entt::entity(m_entityId));
+			auto* registry = TryGetRegistry(m_scene->GetRegistryId());
+			registry->remove<T>(entt::entity(m_entityId));
 		}
-		else EE_ERROR("Trying to remove a missing component. You need to add the component before removing it.");
+		else
+		{
+			EE_ERROR("Trying to remove a missing component. You need to add the component before removing it.");
+		}
 	}
 }

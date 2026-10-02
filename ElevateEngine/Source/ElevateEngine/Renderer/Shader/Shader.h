@@ -22,7 +22,6 @@ namespace Elevate
 	class Camera;
 
 	class Shader;
-	using ShaderPtr = EEObjectPtr<Shader>;
 
 	class Shader : public EEObject
 	{
@@ -34,12 +33,12 @@ namespace Elevate
 
 		static std::shared_ptr<Shader> CreateDefaultNative(); // Safe fallback in case of shader creation failure
 		static std::shared_ptr<Shader> CreateDefaultErrorNative(); // Safe fallback with an error pattern shader
-		static ShaderPtr CreateDefault();
-		static ShaderPtr CreateDefaultError();
+		static EEObjectPtr<Shader> CreateDefault();
+		static EEObjectPtr<Shader> CreateDefaultError();
 
-		static ShaderPtr Create(const std::string& vertexSource, const std::string& fragmentSouce);
-		static ShaderPtr CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath);
-		static ShaderPtr CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode);
+		static EEObjectPtr<Shader> Create(const std::string& vertexSource, const std::string& fragmentSouce);
+		static EEObjectPtr<Shader> CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath);
+		static EEObjectPtr<Shader> CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode);
 
 		// Lights
 		void UseLight(const Light* newLightSetting, const std::string& lightName) const;

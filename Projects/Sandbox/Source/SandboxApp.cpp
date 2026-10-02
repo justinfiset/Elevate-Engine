@@ -14,7 +14,7 @@
 class DebugLayer : public Elevate::SceneLayer
 {
 public:
-	Elevate::ShaderPtr m_shader;
+	Elevate::EEObjectPtr<Elevate::Shader> m_shader;
 private:
 	std::shared_ptr<Elevate::GameObject> m_DemoObject;
 	std::shared_ptr<Elevate::GameObject> m_demoCube;
@@ -39,7 +39,7 @@ public:
 		//    1
 		//);
 
-		Elevate::ShaderPtr colorShader = Elevate::Shader::CreateFromFiles(
+		Elevate::EEObjectPtr<Elevate::Shader> colorShader = Elevate::Shader::CreateFromFiles(
 			"engine://Shaders/DefaultLitShader.vert",
 			"content://Shaders/ColorTest.frag",
 			EE_SHADER_HEADER,

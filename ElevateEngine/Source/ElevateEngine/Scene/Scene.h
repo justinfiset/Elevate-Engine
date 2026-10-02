@@ -2,7 +2,6 @@
 
 #include <memory>
 #include <vector>
-#include <entt/entt.hpp>
 
 #include <ElevateEngine/Core/Enums.h>
 #include <ElevateEngine/Core/Reflection.h>
@@ -49,8 +48,7 @@ namespace Elevate
 	public:
 		Scene();
 		Scene(std::string name, SceneType type = SceneType::RuntimeScene);
-		//~Scene(); // todo check if we remove in the future
-		~Scene() = default;
+		virtual ~Scene();
 
 		void OnAwake();
 		void OnStart();
@@ -66,19 +64,20 @@ namespace Elevate
 
 		static ScenePtr Create(std::string name, SceneType type = SceneType::RuntimeScene);
 			
-		// Cubemap
+		// Cubemap -> todo : move in a more specific struct
 		void SetSkybox(const std::string& skyboxFilePath);
 		std::weak_ptr<Cubemap> GetSkybox();
 
 		SceneLighting* GetSceneLighting();
-	private:
+
+		uint32_t GetRegistryId();
+
 		void RemoveFromRoot(const EEObjectPtr<GameObject>& object);
 		void AddRootObject(const EEObjectPtr<GameObject>& newRootObject);
 
 	private:
 		static uint32_t s_nextRegistryId;
 
-	private:
 		std::string m_name;
 		PROPERTY(m_name);
 
@@ -97,8 +96,5 @@ namespace Elevate
 
 		END_OBJECT_CUSTOM()
 		DECLARE_AUTO_OBJECT_LAYOUT()
-		
-		friend class GameObject;
-		friend class ComponentRegistry;
 	};
 }

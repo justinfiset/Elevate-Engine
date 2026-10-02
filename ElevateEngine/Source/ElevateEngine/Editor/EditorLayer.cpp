@@ -293,7 +293,10 @@ namespace Elevate::Editor
 			break;
 		}
 
-		m_EditorScene->Notify(event);
+		if (m_EditorScene)
+		{
+			m_EditorScene->Notify(event);
+		}
 	}
 
 	EditorCamera* EditorLayer::GetCamera()

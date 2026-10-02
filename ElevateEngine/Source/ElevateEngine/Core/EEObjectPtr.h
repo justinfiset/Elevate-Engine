@@ -39,8 +39,17 @@ namespace Elevate
 		std::shared_ptr<EEObject> ResolveAssetHelper(const Guid& guid);
 	}
 
+	class IEEObjectPtr
+	{
+	public:
+		virtual ~IEEObjectPtr() = default;
+
+		virtual const Guid& GetGuid() const = 0;
+		virtual void SetGuid(const Guid& guid) = 0;
+	};
+
 	template<typename T>
-	class EEObjectPtr : public ISerializable
+	class EEObjectPtr : public IEEObjectPtr, public ISerializable
 	{
 	private:
 		// Allow other type to interact with other's private members
@@ -81,7 +90,7 @@ namespace Elevate
 			VALIDATE_OBJECTPTR_TYPE(T);
 		}
 
-		void SetGuid(const Guid& guid)
+		void SetGuid(const Guid& guid) override
 		{
 			if (m_guid != guid)
 			{
@@ -90,7 +99,7 @@ namespace Elevate
 			}
 		}
 
-		const Guid& GetGuid()
+		const Guid& GetGuid() const override
 		{
 			return m_guid;
 		}

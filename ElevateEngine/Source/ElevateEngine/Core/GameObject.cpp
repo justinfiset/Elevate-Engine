@@ -230,56 +230,37 @@ namespace Elevate
 				m_scene->AddRootObject(GetShared());
 			}
 
-			auto& registryMap = GetRegistryMap();
-			auto registryIt = registryMap.find(m_scene->m_registryId);
-
-			if (registryIt == registryMap.end()) {
-				EE_CORE_ERROR("Registry not found for scene '%s' with id: %d",
-					m_scene->GetName(), m_scene->m_registryId);
-				return;
+			auto* registry = TryGetRegistry(m_scene->GetRegistryId());
+			if (registry)
+			{
+				const auto entity = registry->create();
+				m_entityId = static_cast<std::uint32_t>(entity);
 			}
-			if (!registryIt->second) {
-				EE_CORE_ERROR("Registry pointer is null for scene '%s' with id: %d",
-					m_scene->GetName(), m_scene->m_registryId);
-				return;
+			else
+			{
+				EE_ASSERT(false, "Could not create a valid entity for GameObject : {}", m_name);
 			}
-			entt::entity entity = registryIt->second->create();
-			m_entityId = static_cast<std::uint32_t>(entity);
-
+		
 			SoundEngine::RegisterGameObject(this);
 			m_isInitialized = true;
 		}
 		else
 		{
-			EE_CORE_ERROR("Object '%s' must be linked with an existing scene!", m_name);
+			EE_CORE_ERROR("Object {} must be linked with an existing scene!", m_name);
 		}
 	}
 
-	//GameObject::~GameObject()
-	//{
-	//	if (m_scene)
-	//	{
-	//		auto& registryMap = GetRegistryMap();
-	//		auto registryIt = registryMap.find(m_scene->m_registryId);
-
-	//		if (registryIt == registryMap.end())
-	//		{
-	//			return;
-	//		}
-	//		if (!registryIt->second)
-	//		{
-	//			return;
-	//		}
-
-	Elevate::GameObject::~GameObject()
+	GameObject::~GameObject()
 	{
 		SoundEngine::UnregisterGameObject(this);
 
-		// todo fix: 
-		//if (m_scene)
-		//{
-		//	m_scene->m_registryId.destroy(entt::entity(m_entityId));
-		//} else EE_CORE_ERROR("Object '{0}' must be destroyed from an existing scene!", m_name);
+		if (m_scene)
+		{
+			if (auto* registry = TryGetRegistry(m_scene->GetRegistryId()))
+			{
+				registry->destroy(entt::entity(m_entityId));
+			}
+		}
 	}
 
 	std::shared_ptr<GameObject> GameObject::GetShared()
@@ -342,10 +323,7 @@ namespace Elevate
 	{
 		for (Component* comp : GetComponents())
 		{
-			if (comp->IsActive())
-			{
-				comp->RenderInEditor();
-			}
+			comp->RenderInEditor();
 		}
 
 		for (const auto& child : m_childs)

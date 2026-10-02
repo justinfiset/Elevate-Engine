@@ -35,19 +35,19 @@ namespace Elevate
 		return nullptr;
 	}
 
-	ShaderPtr Shader::CreateDefault()
+	EEObjectPtr<Shader> Shader::CreateDefault()
 	{
 		return Create(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetFragmentShader()));
 	}
 
-	ShaderPtr Shader::CreateDefaultError()
+	EEObjectPtr<Shader> Shader::CreateDefaultError()
 	{
 		return Create(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetErrorShader()));
 	}
 
-	ShaderPtr Shader::Create(const std::string& vertexSource, const std::string& fragmentSouce)
+	EEObjectPtr<Shader> Shader::Create(const std::string& vertexSource, const std::string& fragmentSouce)
 	{
-		ShaderPtr shader = nullptr;
+		EEObjectPtr<Shader> shader = nullptr;
 		
 		if (!vertexSource.empty() && !fragmentSouce.empty())
 		{
@@ -76,14 +76,14 @@ namespace Elevate
 		return shader;
 	}
 
-	ShaderPtr Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath)
+	EEObjectPtr<Shader> Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath)
 	{
 		std::string vertexSource = File::GetFileContent(vertexSrcPath);
 		std::string fragmentSource = File::GetFileContent(fragSrcPath);
 		return Create(vertexSource, fragmentSource);
 	}
 
-	ShaderPtr Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode)
+	EEObjectPtr<Shader> Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode)
 	{
 		std::string vertexContent = File::GetFileContent(vertexSrcPath);
 		std::string fragmentContent = File::GetFileContent(fragSrcPath);

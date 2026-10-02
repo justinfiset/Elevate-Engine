@@ -33,22 +33,17 @@ namespace Elevate
 	{
 		m_registryId = s_nextRegistryId;
 		s_nextRegistryId++;
-		GetRegistryMap()[m_registryId] = std::make_unique<entt::registry>();
+		CreateRegistry(m_registryId);
 
 		m_sceneLighting = std::make_unique<SceneLighting>();
 
 		EE_TRACE("Created scene '{}' with registry id: {}", m_name.c_str(), m_registryId);
 	}
 
-	//Scene::~Scene()
-	//{
-	//	auto& registryMap = GetRegistryMap();
-	//	auto registryIt = registryMap.find(m_registryId);
-
-	//	if (registryIt != registryMap.end()) {
-	//		registryMap.erase(registryIt);
-	//	}
-	//}
+	Scene::~Scene()
+	{
+		DestroyRegistry(m_registryId);
+	}
 
 	void Scene::OnAwake()
 	{
@@ -168,6 +163,11 @@ namespace Elevate
 	SceneLighting* Scene::GetSceneLighting()
 	{
 		return m_sceneLighting.get();
+	}
+
+	uint32_t Scene::GetRegistryId()
+	{
+		return m_registryId;
 	}
 
 	void Scene::RemoveFromRoot(const EEObjectPtr<GameObject>& object)
