@@ -1,17 +1,19 @@
 #pragma once
 
 class Application;
+
 namespace Elevate
 {
 	class Time
 	{
+	public:
+		static inline float GetCurrentTime() { return s_currentTime; }
+		static inline float GetDeltaTime() { return s_deltaTime; }
+
 	private:
 		friend class Application;
-	public:
-		static inline float GetCurrentTime() { return currentTime_; }
-		static inline float GetDeltaTime() { return deltaTime_; }
-	private:
-		static inline float currentTime_;
-		static inline float deltaTime_;
+
+		static inline float s_currentTime;
+		static inline float s_deltaTime;
 	};
 }

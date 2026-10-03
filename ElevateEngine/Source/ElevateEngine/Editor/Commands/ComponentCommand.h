@@ -66,7 +66,7 @@ namespace Elevate
 
 		virtual void Execute() override
 		{
-			EE_CORE_TRACE("AddComponentCommand");
+			CoreLogger::Trace("AddComponentCommand");
 			if (!m_obj.expired() && m_factory)
 			{
 				m_factory(m_obj);

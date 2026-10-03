@@ -4,7 +4,8 @@
 #include <string>
 #include <type_traits>
 
-#include <ElevateEngine/Core/Log.h>
+import Elevate.Foundations;
+
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
 

@@ -1,10 +1,10 @@
-#include "eepch.h"
 #include "OpenGLBuffer.h"
+
+import Elevate.Foundations;
 
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include "ElevateEngine/Renderer/Vertex.h"
 #include <GLFW/glfw3.h>
-#include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
 #include <ElevateEngine/Renderer/GraphicsContext.h>
 
@@ -71,7 +71,7 @@ namespace Elevate
 		}
 		else
 		{
-			EE_CORE_ERROR("ERROR : (OpenGLVertexBuffer::SetData) Buffer is not initialized yet.");
+			CoreLogger::Error("ERROR : (OpenGLVertexBuffer::SetData) Buffer is not initialized yet.");
 		}
 	}
 
@@ -84,7 +84,7 @@ namespace Elevate
 		}
 		else
 		{
-			EE_CORE_ERROR("ERROR : (OpenGLVertexBuffer::Resize) You must initialize the VertexBuffer before resizing it.");
+			CoreLogger::Error("ERROR : (OpenGLVertexBuffer::Resize) You must initialize the VertexBuffer before resizing it.");
 		}
 	}
 

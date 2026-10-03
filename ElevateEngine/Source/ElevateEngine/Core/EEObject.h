@@ -5,10 +5,11 @@
 #include <cstddef>
 #include <string>
 
+import Elevate.Foundations;
+
 // Interfaces
 #include <ElevateEngine/Core/ITypeLayoutProvider.h>
 
-#include <ElevateEngine/Core/Guid.h>
 #include <ElevateEngine/Core/EECategory.h>
 
 #include <ElevateEngine/Core/TypeLayout.h>

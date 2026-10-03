@@ -1,6 +1,7 @@
 #include "GlfwWindow.h"
 
-#include <ElevateEngine/Core/Assert.h>
+import Elevate.Foundations;
+
 #include <ElevateEngine/Events/ApplicationEvent.h>
 #include <ElevateEngine/Events/MouseEvent.h>
 #include <ElevateEngine/Events/KeyEvent.h>
@@ -34,7 +35,7 @@ namespace Elevate
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
-		EE_CORE_ERROR("GLFW Error: ({0}): {1}", error, description);
+		CoreLogger::Error("GLFW Error: ({0}): {1}", error, description);
 	}
 
 	GlfwWindow::GlfwWindow(const WindowProps& props)
@@ -59,7 +60,7 @@ namespace Elevate
 		if (!s_GLFWInitialized)
 		{
 			int success = glfwInit();
-			EE_CORE_ASSERT(success, "Could not initialize GLFW.");
+			Assert::That(success, "Could not initialize GLFW.");
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}

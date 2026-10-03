@@ -4,8 +4,9 @@
 #include <variant>
 #include <vector>
 
+import Elevate.Foundations;
+
 #include <ElevateEngine/Core/Data.h>
-#include <ElevateEngine/Core/Byte.h>
 
 namespace Elevate
 {

@@ -236,7 +236,7 @@ public: \
             } \
         } \
         else { \
-            EE_ERROR("Error: Tried setting a %s from a %s component in CopyFrom(Component*)", \
+            CoreLogger::Error("Error: Tried setting a %s from a %s component in CopyFrom(Component*)", \
                 this->GetName(), other ? other->GetName() : "null"); \
         } \
     } \

@@ -4,7 +4,8 @@
 #include <stb/stb_image.h>
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 
-#include <ElevateEngine/Core/Log.h>
+import Elevate.Foundations;
+
 #include <ElevateEngine/Core/PathResolver.h>
 
 namespace Elevate {
@@ -18,7 +19,7 @@ namespace Elevate {
             m_workerThreads.emplace_back(&TextureManager::WorkerLoop, this);
         }
 
-        EE_CORE_INFO("Texture Manager Initialized with {} worker thread(s).", workerCount);
+        CoreLogger::Info("Texture Manager Initialized with {} worker thread(s).", workerCount);
     }
 
     TextureManager::~TextureManager()
@@ -199,7 +200,7 @@ namespace Elevate {
             case TextureState::Loaded:
                 if (manager.m_Textures.count(it->meta.Path))
                 {
-                    EE_CORE_INFO("Loaded texture : {}, {}x{}", it->meta.Path, it->meta.Width, it->meta.Height);
+                    CoreLogger::Info("Loaded texture : {}, {}x{}", it->meta.Path, it->meta.Width, it->meta.Height);
                     manager.m_Textures[it->meta.Path]->SetData(it->data, it->meta);
                     stbi_image_free(it->data);
                     it->data = nullptr;
@@ -209,7 +210,7 @@ namespace Elevate {
             case TextureState::Failed:
                 if (manager.m_Textures.count(it->meta.Path))
                 {
-                    EE_CORE_ERROR("Failed to load texture : {}", it->meta.Path);
+                    CoreLogger::Error("Failed to load texture : {}", it->meta.Path);
                     manager.m_Textures[it->meta.Path]->SetData(it->data, it->meta);
                     if (it->data)
                     {

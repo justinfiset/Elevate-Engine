@@ -1,17 +1,16 @@
-#include "Guid.h"
+module;
 
 #include <uuid.h>
 #include <algorithm>
 #include <cstring>
-#include <format>
 #include <iterator>
-#include <optional>
 #include <random>
 #include <span>
 #include <string>
 
-#include <ElevateEngine/Core/Log.h>
-#include "ElevateEngine/Core/Byte.h"
+module Elevate.Foundations.Guid;
+
+import Elevate.Foundations.CoreLogger;
 
 namespace Elevate
 {
@@ -34,7 +33,7 @@ namespace Elevate
 		auto idOpt = uuids::uuid::from_string(str);
 		if (!idOpt.has_value())
 		{
-			EE_CORE_ERROR("Failed to parse guid from string : {}", str);
+			CoreLogger::Error("Failed to parse guid from string : {}", str);
 			return Guid{}; // Return an ampty guid
 		}
 

@@ -1,7 +1,7 @@
-#include "eepch.h"
 #include "OpenGLFramebuffer.h"
 
-#include <ElevateEngine/Core/Assert.h>
+import Elevate.Foundations;
+
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
@@ -28,7 +28,7 @@ namespace Elevate
 			for (size_t i = 0; i < colorTextures.size(); ++i)
 			{
 				auto& tex = colorTextures[i];
-				EE_CORE_ASSERT(tex->GetWidth() > 0 && tex->GetHeight() > 0, "Framebuffer texture dimensions must be positive");
+				Assert::That(tex->GetWidth() > 0 && tex->GetHeight() > 0, "Framebuffer texture dimensions must be positive");
 
 				GLuint texId = static_cast<GLuint>(reinterpret_cast<intptr_t>(tex->GetNativeHandle()));
 				GLenum attachmentPoint = GL_COLOR_ATTACHMENT0 + static_cast<GLenum>(i);
@@ -117,7 +117,7 @@ namespace Elevate
 	{
 		if (m_colorAttachments.empty())
 		{
-			EE_CORE_WARN("Cannot blit a framebuffer without color attachments to screen!");
+			CoreLogger::Warn("Cannot blit a framebuffer without color attachments to screen!");
 			return;
 		}
 
@@ -226,7 +226,7 @@ namespace Elevate
 		uint32_t status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 		if (status != GL_FRAMEBUFFER_COMPLETE) {
 			const char* msg = GetFramebufferStatusString(status);
-			EE_CORE_ERROR("Framebuffer error: {}", msg);
+			CoreLogger::Error("Framebuffer error: {}", msg);
 			return false;
 		}
 		return true;

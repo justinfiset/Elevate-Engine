@@ -4,10 +4,10 @@
 #include <format>
 #include <functional>
 
+import Elevate.Foundations;
+
 // Core
-#include "ElevateEngine/Core/Log.h"
 #include "ElevateEngine/Core/Time.h"
-#include "ElevateEngine/Core/Assert.h"
 #include <ElevateEngine/Core/AssetRegistry.h>
 #include "ElevateEngine/Core/GameContext.h"
 #include "ElevateEngine/Core/Layers/Layer.h"
@@ -46,10 +46,10 @@ namespace Elevate {
 
 	Application::Application()
 	{
-		EE_CORE_ASSERT(!s_Instance, "Application already exists!");
+		Assert::That(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
-		EE_CORE_TRACE("Current working directory : {}", std::filesystem::current_path().string().c_str());
+		CoreLogger::Trace("Current working directory : {}", std::filesystem::current_path().string().c_str());
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
@@ -114,11 +114,11 @@ namespace Elevate {
 
 	void Application::Start(int argc, char** argv)
 	{
-		EE_CORE_INFO("Initializing ElevateEngine...");
+		CoreLogger::Info("Initializing ElevateEngine...");
 		auto app = CreateApplication();
 		app->m_args = ApplicationArguments(argc, argv);
 		app->Init();
-		EE_CORE_TRACE("Application Initialized.");
+		CoreLogger::Trace("Application Initialized.");
 		app->Run();
 
 #ifndef EE_PLATFORM_WEB
@@ -142,14 +142,14 @@ namespace Elevate {
 		{
 #endif // #if EE_ASSERTS_ENABLED
 			// TIME UPDATE //////////////////
-			Time::currentTime_ = (float)m_Window->GetTime();
-			float rawDeltaTime = Time::currentTime_ - lastTime;
-			lastTime = Time::currentTime_;
-			Time::deltaTime_ = std::min(rawDeltaTime, 0.25f); // Clamping to prevent weird behaviours
+			Time::s_currentTime = (float)m_Window->GetTime();
+			float rawDeltaTime = Time::s_currentTime - lastTime;
+			lastTime = Time::s_currentTime;
+			Time::s_deltaTime = std::min(rawDeltaTime, 0.25f); // Clamping to prevent weird behaviours
 			/////////////////////////////////
 
 			SoundEngine::RenderAudio();
-			m_PhysicsSystem->Update(Time::deltaTime_);
+			m_PhysicsSystem->Update(Time::s_deltaTime);
 			TextureManager::UpdateLoadingTextures();
 
 			for (Layer* layer : m_LayerStack)
@@ -195,7 +195,7 @@ namespace Elevate {
 		}
 		catch (const std::exception& exc)
 		{
-			EE_CORE_ERROR("{}", exc.what());
+			CoreLogger::Error("{}", exc.what());
 		}
 #endif // #if EE_ASSERTS_ENABLED
 	}
@@ -232,7 +232,7 @@ namespace Elevate {
 			GameContextState oldState = s_Instance->m_state;
 			s_Instance->m_state = newState;
 
-			EE_CORE_INFO("GameContext state changed from {} to {}",
+			CoreLogger::Info("GameContext state changed from {} to {}",
 				GetGameContextStateName(oldState),
 				GetGameContextStateName(newState));
 

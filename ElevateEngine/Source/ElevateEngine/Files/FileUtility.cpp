@@ -2,7 +2,9 @@
 #include "FileUtility.h"
 
 #include <fstream>
-#include <ElevateEngine/Core/Log.h>
+
+import Elevate.Foundations;
+
 #include <ElevateEngine/Core/PathResolver.h>
 
 std::string Elevate::File::GetFileContent(std::string path)
@@ -15,7 +17,7 @@ std::string Elevate::File::GetFileContent(std::string path)
 	// If file does not exists
 	if (!s.is_open())
 	{
-		EE_CORE_ERROR("Could not open file : {0}, file does not exist", resolvedPath);
+		CoreLogger::Error("Could not open file : {0}, file does not exist", resolvedPath);
 		return std::string();
 	}
 

@@ -8,12 +8,11 @@
 #include <unordered_map>
 #include <vector>
 
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Asset.h>
-#include <ElevateEngine/Core/Guid.h>
+import Elevate.Foundations;
 
 namespace Elevate
 {
+	class Asset;
 	struct AssetMetaData;
 }
 
@@ -61,14 +60,14 @@ namespace Elevate
 
 			if (!guid.IsValid())
 			{
-				EE_CORE_ERROR("Could not get asset for invaid guid.");
+				CoreLogger::Error("Could not get asset for invaid guid.");
 				return nullptr;
 			}
 
 			auto it = s_indexedAssets.find(guid);
 			if (it == s_indexedAssets.end())
 			{
-				EE_CORE_ERROR("Asset with GUID {} is not indexed in AssetRegistry.", guid.ToString());
+				CoreLogger::Error("Asset with GUID {} is not indexed in AssetRegistry.", guid.ToString());
 				return nullptr;
 			}
 			
@@ -89,7 +88,7 @@ namespace Elevate
 				}
 			}
 
-			EE_CORE_ERROR("Failed to load asset {} from path: {}", guid.ToString(), entry.FilePath.string());
+			CoreLogger::Error("Failed to load asset {} from path: {}", guid.ToString(), entry.FilePath.string());
 			return nullptr;
 		}
 

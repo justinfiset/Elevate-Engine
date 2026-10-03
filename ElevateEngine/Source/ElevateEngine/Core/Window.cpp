@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include <format>
 
-#include <ElevateEngine/Core/Log.h>
+import Elevate.Foundations;
+
 #include <ElevateEngine/Events/ApplicationEvent.h>
 
 #include <rapidjson/document.h>
@@ -49,7 +50,7 @@ namespace Elevate
 		// Error handling
 		if (doc.HasParseError())
 		{
-			EE_CORE_TRACE("ERROR PARSING The WindowProps JSON");
+			CoreLogger::Trace("ERROR PARSING The WindowProps JSON");
 		}
 		///////////////////////////////////////////////////////
 
@@ -87,12 +88,12 @@ namespace Elevate
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
-		EE_CORE_TRACE("Creating window: {} ({}x{})", props.Title.c_str(), props.Width, props.Height);
+		CoreLogger::Trace("Creating window: {} ({}x{})", props.Title.c_str(), props.Width, props.Height);
 	}
 
 	void Window::SetWindowSize(unsigned int width, unsigned int height)
 	{
-		EE_CORE_INFO("Setting window size to {}x{}", width, height);
+		CoreLogger::Info("Setting window size to {}x{}", width, height);
 		m_Data.Width = width;
 		m_Data.Height = height;
 		WindowResizeEvent event(width, height);

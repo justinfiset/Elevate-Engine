@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EditorColor.h"
+#include <chrono>
 #include <glm/vec4.hpp>
 
 namespace Elevate::Editor

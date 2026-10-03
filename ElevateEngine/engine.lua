@@ -34,12 +34,7 @@ project "ElevateEngine"
 
 	files
 	{
-		"Source/**.h",
-		"Source/**.inl",
-		"Source/**.cpp",
-
-		"Source/**.vert",
-		"Source/**.frag",
+		"Source/**",
 
 		"Vendor/ImGuizmo/ImGuizmo.cpp",
 		"Vendor/ImGuiFileDialog/**.cpp",

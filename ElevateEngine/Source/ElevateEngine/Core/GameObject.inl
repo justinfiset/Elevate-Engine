@@ -3,8 +3,8 @@
 
 #include <entt/entt.hpp>
 
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Assert.h>
+import Elevate.Foundations;
+
 #include <ElevateEngine/Scene/Scene.h>
 #include <ElevateEngine/Scene/ScenePrivate.h>
 
@@ -13,7 +13,7 @@ namespace Elevate
 	class Component;
 }
 
-#define EE_VALIDATE_COMPONENT_TYPE() EE_ASSERT((std::is_base_of<Component, T>::value), "EE_VALIDATE_COMPONENT_TYPE() %s : Type specifier must be a child of the Component class.", m_name);
+#define EE_VALIDATE_COMPONENT_TYPE() Assert::That((std::is_base_of<Component, T>::value), "EE_VALIDATE_COMPONENT_TYPE() {} : Type specifier must be a child of the Component class.", m_name);
 
 // TODO REPLACE ALL EE_LOGS TO EE_CORE_LOGS (they are in the engine so they should use this feature)
 namespace Elevate
@@ -27,7 +27,7 @@ namespace Elevate
 
 		if (HasComponent<T>())
 		{
-			EE_ERROR("Error: Tried to add an already existing component to the {} GameObject", m_name);
+			CoreLogger::Error("Error: Tried to add an already existing component to the {} GameObject", m_name);
 			return *TryGetFromRegistry<T>(m_scene->GetRegistryId(), entt::entity(m_entityId));
 		}
 
@@ -93,7 +93,7 @@ namespace Elevate
 		}
 		else
 		{
-			EE_ERROR("Trying to remove a missing component. You need to add the component before removing it.");
+			CoreLogger::Error("Trying to remove a missing component. You need to add the component before removing it.");
 		}
 	}
 }

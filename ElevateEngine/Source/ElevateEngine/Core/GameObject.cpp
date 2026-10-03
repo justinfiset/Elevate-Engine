@@ -1,14 +1,13 @@
 #include "GameObject.h"
 
-#include <format>
 #include <entt/entt.hpp>
+
+import Elevate.Foundations;
 
 #include <ElevateEngine/Audio/SoundEngine.h>
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
-#include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/EEObjectPtr.h>
-#include <ElevateEngine/Core/Guid.h>
 #include <ElevateEngine/Scene/ScenePrivate.h>
 
 #include <glm/gtx/matrix_decompose.hpp> // iwyu: keep
@@ -22,7 +21,7 @@ namespace Elevate
 	{
 		m_goId = s_goIdCount;
 		s_goIdCount++;
-		EE_CORE_TRACE("Created object '{}', id='{}', GUID='{}'", m_name, m_goId, m_guid.ToString());
+		CoreLogger::Trace("Created object '{}', id='{}', GUID='{}'", m_name, m_goId, m_guid.ToString());
 	}
 
 	void GameObject::SetFromGlobalMatrix(const glm::mat4& newWorld)
@@ -243,7 +242,7 @@ namespace Elevate
 			}
 			else
 			{
-				EE_ASSERT(false, "Could not create a valid entity for GameObject : {}", m_name);
+				Assert::That(false, "Could not create a valid entity for GameObject : {}", m_name);
 			}
 		
 			SoundEngine::RegisterGameObject(this);
@@ -251,7 +250,7 @@ namespace Elevate
 		}
 		else
 		{
-			EE_CORE_ERROR("Object {} must be linked with an existing scene!", m_name);
+			CoreLogger::Error("Object {} must be linked with an existing scene!", m_name);
 		}
 	}
 

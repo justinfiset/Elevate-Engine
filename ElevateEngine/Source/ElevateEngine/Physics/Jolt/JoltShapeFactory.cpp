@@ -1,11 +1,12 @@
 #include "JoltShapeFactory.h"
 
+import Elevate.Foundations;
+
 #include <Jolt/Physics/Collision/Shape/BoxShape.h>
 #include <Jolt/Physics/Collision/Shape/PlaneShape.h>
 #include <Jolt/Physics/Collision/Shape/SphereShape.h>
 #include <Jolt/Physics/Collision/Shape/CapsuleShape.h>
 
-#include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Physics/Colliders/Collider.h>
 #include <ElevateEngine/Physics/Colliders/BoxCollider.h>
 #include <ElevateEngine/Physics/Colliders/CapsuleCollider.h>
@@ -20,7 +21,7 @@ namespace Elevate::Jolt
 	{
 		if (!collider)
 		{
-			EE_CORE_WARN("Cannot create a shape out of a null collider.");
+			CoreLogger::Warn("Cannot create a shape out of a null collider.");
 			return nullptr;
 		}
 
@@ -45,7 +46,7 @@ namespace Elevate::Jolt
 			return CreatePlaneShape(static_cast<const PlaneCollider&>(*collider));
 		}
 			
-		EE_CORE_WARN("Unsupported collider type.");
+		CoreLogger::Warn("Unsupported collider type.");
 		return nullptr;
 	}
 
@@ -53,7 +54,7 @@ namespace Elevate::Jolt
 	{
 		if (shapeResult.HasError())
 		{
-			EE_CORE_ERROR("Failed to create Jolt Physics shape: {}", shapeResult.GetError().c_str());
+			CoreLogger::Error("Failed to create Jolt Physics shape: {}", shapeResult.GetError().c_str());
 			return false;
 		}
 		return true;

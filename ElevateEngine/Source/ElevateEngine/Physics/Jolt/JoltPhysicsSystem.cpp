@@ -1,6 +1,8 @@
 #include "JoltPhysicsSystem.h"
 #include "JoltShapeFactory.h"
 
+import Elevate.Foundations;
+
 #include <cstdarg>
 #include <cstdio>
 
@@ -11,8 +13,6 @@
 #include <Jolt/Physics/Collision/Shape/StaticCompoundShape.h>
 #include <Jolt/Physics/Body/BodyCreationSettings.h>
 
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Core/Application.h>
 #include <ElevateEngine/Physics/Rigidbody.h>
 #include <ElevateEngine/Physics/Colliders/Collider.h>
@@ -33,7 +33,7 @@ namespace Elevate::Jolt
 		vsnprintf(buffer, sizeof(buffer), inFMT, list);
 		va_end(list);
 
-		EE_CORE_TRACE("{}", buffer);
+		CoreLogger::Trace("[Jolt Physics] {}", buffer);
 	}
 
 	// Connect the Jolt assertion with our assertion
@@ -42,7 +42,7 @@ namespace Elevate::Jolt
 	static bool AssertFailedImpl(const char* inExpression, const char* inMessage, const char* inFile, JPH::uint inLine)
 	{
 		// Log the error
-		EE_CORE_ERROR("{}:{}: ({}) {}", inFile, inLine, inExpression, (inMessage != nullptr ? inMessage : ""));
+		CoreLogger::Error("{}:{}: ({}) {}", inFile, inLine, inExpression, (inMessage != nullptr ? inMessage : ""));
 		// Breakpoint
 		return true;
 	};
@@ -96,7 +96,7 @@ namespace Elevate::Jolt
 
 		m_BodyInterface = &m_PhysicsSystem.GetBodyInterface();
 
-		EE_CORE_INFO("Initialized the Jolt Physics engine!");
+		CoreLogger::Info("Initialized the Jolt Physics engine!");
 	}
 
 	void JoltPhysicsSystem::Shutdown()
@@ -142,7 +142,7 @@ namespace Elevate::Jolt
 		case RigidbodyType::Static:
 			return JPH::EMotionType::Static;
 		default:
-			EE_CORE_ERROR("Unknown RigidbodyType.");
+			CoreLogger::Error("Unknown RigidbodyType.");
 			break;
 		}
 		return JPH::EMotionType::Static;
@@ -158,7 +158,7 @@ namespace Elevate::Jolt
 		case RigidbodyType::Kinematic:
 			return PhysicsLayers::MOVING;
 		default:
-			EE_CORE_ERROR("Unknown RigidbodyType.");
+			CoreLogger::Error("Unknown RigidbodyType.");
 			return PhysicsLayers::NON_MOVING;
 		}
 	}
@@ -196,7 +196,7 @@ namespace Elevate::Jolt
 
 			if (!shapeResult)
 			{
-				EE_CORE_WARN("JoltShapeFactory returned a non valid collider.");
+				CoreLogger::Warn("JoltShapeFactory returned a non valid collider.");
 				return;
 			}
 
@@ -212,7 +212,7 @@ namespace Elevate::Jolt
 
 		if (compoundResult.HasError())
 		{
-			EE_CORE_ERROR("Failed to create Jolt Physics shape: {}", compoundResult.GetError().c_str());
+			CoreLogger::Error("Failed to create Jolt Physics shape: {}", compoundResult.GetError().c_str());
 			return;
 		}
 
@@ -229,7 +229,7 @@ namespace Elevate::Jolt
 
 		if (bodyID.IsInvalid())
 		{
-			EE_CORE_WARN("Failed to create Jolt physics body!");
+			CoreLogger::Warn("Failed to create Jolt physics body!");
 			return;
 		}
 

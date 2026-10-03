@@ -2,8 +2,6 @@
 
 #ifdef EE_EDITOR_BUILD
 
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Core/Layers/Layer.h>
 #include <ElevateEngine/Core/Command.h>
 
@@ -69,7 +67,7 @@ namespace Elevate::Editor
 		inline static void CreateWidget() 
 		{
 			bool isValid = std::is_base_of_v<EditorWidget, T>;
-			EE_ASSERT(isValid, "An attemp to add a non widget element to the widget stack was detected.");
+			Assert::That(isValid, "An attemp to add a non widget element to the widget stack was detected.");
 			Get().m_widgets.push_back(std::make_unique<T>());
 		}
 	private:

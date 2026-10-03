@@ -4,7 +4,7 @@
 #include <memory>
 #include <entt/entt.hpp>
 
-#include <ElevateEngine/Core/Assert.h>
+import Elevate.Foundations;
 
 namespace Elevate
 {
@@ -29,7 +29,7 @@ namespace Elevate
 	{
 		auto* registry = TryGetRegistry(registryId);
 
-		EE_ASSERT(!registry, "Registry {} already exists.", registryId);
+		Assert::That(!registry, "Registry {} already exists.", registryId);
 
 		s_RegistryMap.emplace(registryId, std::make_unique<entt::registry>());
 	}
@@ -40,7 +40,7 @@ namespace Elevate
 
 		if (it == s_RegistryMap.end())
 		{
-			EE_ASSERT(false, "Registry {} does not exist.", registryId);
+			Assert::That(false, "Registry {} does not exist.", registryId);
 			return;
 		}
 

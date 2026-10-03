@@ -5,7 +5,7 @@
 #include <filesystem>
 #include <glm/common.hpp>
 
-#include <ElevateEngine/Core/Assert.h>
+import Elevate.Foundations;
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Platform/OpenGL/Textures/OpenGLTexture.h>
 #include <ElevateEngine/Renderer/Texture/TextureManager.h>
@@ -101,7 +101,7 @@ namespace Elevate
 			texture = std::make_shared<OpenGLTexture>(data, metadata);
 			break;
 		default:
-			EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
+			Assert::That(false, "A supported RendererAPI needs to be supported!");
 			return nullptr;
 			break;
 		}

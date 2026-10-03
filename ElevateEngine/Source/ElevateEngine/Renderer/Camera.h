@@ -1,5 +1,7 @@
 #pragma once
-#include <ElevateEngine/Core/Core.h>
+
+import Elevate.Foundations;
+
 #include <ElevateEngine/Core/GameObject.h>
 #include <ElevateEngine/Core/Component.h>
 #include <ElevateEngine/Core/TypeRegistry.h>

@@ -1,7 +1,8 @@
 #include "eepch.h"
 #include "SceneLayer.h"
 
-#include <ElevateEngine/Core/Log.h>
+import Elevate.Foundations;
+
 #include <ElevateEngine/Scene/Scene.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Scene/SceneManager.h>
@@ -31,7 +32,7 @@ void Elevate::SceneLayer::OnRender(Camera* cam)
 	}
 	else
 	{
-		EE_CORE_ERROR("Cannot render a scene with a nullptr camera.");
+		CoreLogger::Error("Cannot render a scene with a nullptr camera.");
 	}
 }
 
@@ -63,7 +64,7 @@ void Elevate::SceneLayer::OnEvent(Event& event)
 			{
 				serializer.Serialize(obj->GetProperties(), buffer);
 				std::string serialization = ByteUtils::ToString(buffer);
-				EE_CORE_INFO("{}", serialization);
+				CoreLogger::Info("{}", serialization);
 			}
 		}
 	}

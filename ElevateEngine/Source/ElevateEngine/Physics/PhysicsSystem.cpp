@@ -1,6 +1,6 @@
 #include "PhysicsSystem.h"
 
-#include <ElevateEngine/Core/Assert.h>
+import Elevate.Foundations;
 
 namespace Elevate
 {
@@ -8,7 +8,7 @@ namespace Elevate
 
 	PhysicsSystem& PhysicsSystem::Get()
 	{
-		EE_CORE_ASSERT(s_Instance, "PhysicsEngine has not been initialized!");
+		Assert::That(s_Instance, "PhysicsEngine has not been initialized!");
 		return *s_Instance;
 	}
 

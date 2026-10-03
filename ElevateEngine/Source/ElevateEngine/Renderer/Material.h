@@ -9,9 +9,9 @@
 
 #include <glm/glm.hpp>
 
-#include <ElevateEngine/Core/Assert.h>
+import Elevate.Foundations;
+
 #include <ElevateEngine/Core/Reflection.h>
-#include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/Asset.h>
 #include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Renderer/Buffer.h>
@@ -45,7 +45,7 @@ namespace Elevate
             {
                 if (uniform.Name == name)
                 {
-                    EE_ASSERT(uniform.Offset + sizeof(T) <= m_buffer.size(),
+                    Assert::That(uniform.Offset + sizeof(T) <= m_buffer.size(),
                         "Set Uniform: data size greater then buffer size!");
 
                     std::memcpy(m_buffer.data() + uniform.Offset, &value, sizeof(T));
@@ -53,7 +53,7 @@ namespace Elevate
                     return;
                 }
             }
-            EE_WARN("Uniform '{0}' not found in the shader : {1}", name, m_shader->GetID());
+            CoreLogger::Warn("Uniform '{0}' not found in the shader : {1}", name, m_shader->GetID());
         }
 
         void SetTexture(const std::string& name, TexturePtr texture);

@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <vector>
 
-#include <ElevateEngine/Core/Byte.h>
+import Elevate.Foundations;
 
 namespace Elevate
 {

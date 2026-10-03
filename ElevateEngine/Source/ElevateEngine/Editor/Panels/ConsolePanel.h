@@ -1,8 +1,10 @@
 #pragma once
 
+import Elevate.Foundations;
+import Elevate.Foundations.Logger;
+
 #include <string>
 #include <deque>
-#include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Editor/UI/EditorMessage.h>
 

@@ -1,5 +1,7 @@
 #include "EditorRenderer.h"
-#include <ElevateEngine/Core/Log.h>
+
+import Elevate.Foundations;
+
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/Mesh.h>
 #include <ElevateEngine/Renderer/Material.h>
@@ -16,7 +18,7 @@ namespace Elevate
 
         if (!billboardShader)
         {
-            EE_CORE_ERROR("Could not find billboard shader 'editor/billboard'.");
+            CoreLogger::Error("Could not find billboard shader 'editor/billboard'.");
             return;
         }
 

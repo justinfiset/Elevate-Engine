@@ -1,6 +1,5 @@
 #pragma once
 
-#include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Core/Application.h>
 
 extern Elevate::Application* Elevate::CreateApplication();

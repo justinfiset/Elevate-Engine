@@ -32,7 +32,7 @@ namespace Elevate::Editor
 			std::string filePath;
 			if (FileDialog::DisplayAndGetResult(filePath))
 			{
-				EE_CORE_TRACE("Setting new scene skybox from file : {}", filePath);
+				CoreLogger::Trace("Setting new scene skybox from file : {}", filePath);
 				if (!filePath.empty())
 				{
 					scene->SetSkybox(filePath);

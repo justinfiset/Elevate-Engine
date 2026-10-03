@@ -1,5 +1,7 @@
 #include "Cubemap.h"
 
+#include <ElevateEngine/Foundations/Core.h> // todo remove asap
+
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <ElevateEngine/Core/PathResolver.h>
 #include <ElevateEngine/Renderer/Renderer.h>
@@ -53,7 +55,7 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 		}
 		else
 		{
-			EE_CORE_ERROR("Error : Unable to load cubemap texture [{}] : {} with the following skybox file : {}", i, paths[i].c_str(), skyboxFilePath);
+			CoreLogger::Error("Error : Unable to load cubemap texture [{}] : {} with the following skybox file : {}", i, paths[i].c_str(), skyboxFilePath);
 			return;
 		}
 	}
@@ -73,7 +75,7 @@ Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(const std::string& filePath)
 	FILE* fp = fopen(resolvedPath.c_str(), "r");
 	if (!fp)
 	{
-		EE_CORE_ERROR("Error : Cannot open cubemap config file ({})", resolvedPath);
+		CoreLogger::Error("Error : Cannot open cubemap config file ({})", resolvedPath);
 		return nullptr;
 	}
 

@@ -1,7 +1,7 @@
 #include "WAAPIClient.h"
 
 #if defined(EE_USES_WWISE) && !defined(EE_PLATFORM_WEB)
-	#include <ElevateEngine/Core/Log.h>
+	import Elevate.Foundations;
 	#include <AK/WwiseAuthoringAPI/AkAutobahn/Client.h>
 	#include <AK/WwiseAuthoringAPI/AkAutobahn/Logger.h>
 	#include <AK/WwiseAuthoringAPI/waapi.h>
@@ -18,7 +18,7 @@ namespace Elevate
 		m_isConnected = m_client->Connect(m_ip.c_str(), m_port);
 		if (!m_isConnected)
 		{
-			EE_CORE_ERROR("Could not connect to WAAPI.");
+			CoreLogger::Error("Could not connect to WAAPI.");
 		}
 
 		// todo remove this test
@@ -26,55 +26,8 @@ namespace Elevate
 		AkJson wwiseInfoJson;
 		if (!m_client->Call(ak::wwise::core::getInfo, AkJson(AkJson::Type::Map), AkJson(AkJson::Type::Map), wwiseInfoJson, 10))
 		{
-			EE_CORE_ERROR("Failed to obtain Wwise Info within 10ms: {}", std::string(wwiseInfoJson["message"].GetVariant()));
+			CoreLogger::Error("Failed to obtain Wwise Info within 10ms: {}", std::string(wwiseInfoJson["message"].GetVariant()));
 		}
-
-		// todo remove this test
-		// Fetch all of the supported objects via WAAPI
-		// use this as the wwise data source
-		//const AkJson args( AkJson::Map{
-		//	{ "from", AkJson::Map{ { "ofType", AkJson::Array{
-		//		AkVariant("Bus"),
-		//		AkVariant("Event"),
-		//		AkVariant("SoundBank"),
-		//		AkVariant("State"),
-		//		AkVariant("Switch"),
-		//		AkVariant("SwitchGroup"),
-		//		AkVariant("StateGroup"),
-		//	} } } }
-		//});
-
-		//const AkJson options(AkJson::Map{
-		//	{ "return", AkJson::Array{
-		//		AkVariant("name"),
-		//		AkVariant("id"),
-		//		AkVariant("shortId"),
-		//		AkVariant("type"),
-		//		AkVariant("path"),
-		//	} }
-		//});
-
-		//AkJson res;
-		//if (!m_client->Call(ak::wwise::core::object::get, args, options, res, 2000))
-		//{
-		//	EE_CORE_ERROR("Failed to fetch all of the objects in the Wwise Project.");
-		//}
-		//else
-		//{
-		//	if (res.IsMap() && res.HasKey("return"));
-		//	{
-		//		auto resArr = res["return"];
-		//		for (auto obj : resArr.GetArray())
-		//		{
-		//			std::string name = obj["name"].GetVariant();
-		//			std::string guid = obj["id"].GetVariant();
-		//			std::string type = obj["type"].GetVariant();
-		//			std::string path = obj["path"].GetVariant();
-		//			uint64_t shortId = obj["shortId"].GetVariant();
-		//		}
-		//	}
-		//}
-
 		return m_isConnected;
 #else
 		return false;
@@ -114,8 +67,7 @@ namespace Elevate
 	void WAAPIClient::LoggerCallback([[maybe_unused]] const char* logMessage)
 	{
 #if EE_WAAPI_AVAILABLE
-		// todo use a custom logger here to know who prints what
-		EE_CORE_TRACE("{}", logMessage);
+		CoreLogger::Trace("[WAAPIClient] : {}", logMessage);
 #endif
 	}
 

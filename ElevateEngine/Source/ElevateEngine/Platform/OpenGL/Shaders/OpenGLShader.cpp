@@ -4,11 +4,12 @@
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <GLFW/glfw3.h>
 
+import Elevate.Foundations;
+
 #include "glm/gtc/type_ptr.hpp"
 
 #include <ElevateEngine/Platform/OpenGL/Shaders/OpenGLShader.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
-#include <ElevateEngine/Core/Assert.h>
 
 namespace Elevate
 {
@@ -41,8 +42,8 @@ namespace Elevate
 			// We don't need the shader anymore.
 			glDeleteShader(vertexShader);
 
-			EE_CORE_ERROR("{}", infoLog.data());
-			EE_CORE_ASSERT(false, "Vertex shader compilation failure.");
+			CoreLogger::Error("{}", infoLog.data());
+			Assert::That(false, "Vertex shader compilation failure.");
 			return;
 		}
 
@@ -74,8 +75,8 @@ namespace Elevate
 			// Either of them. Don't leak shaders.
 			glDeleteShader(vertexShader);
 
-			EE_CORE_ERROR("{}", infoLog.data());
-			EE_CORE_ASSERT(false, "Fragment shader compilation failure.");
+			CoreLogger::Error("{}", infoLog.data());
+			Assert::That(false, "Fragment shader compilation failure.");
 			return;
 		}
 
@@ -113,8 +114,8 @@ namespace Elevate
 			// Use the infoLog as you see fit.
 
 			// Log and leave
-			EE_CORE_ERROR("{}", infoLog.data());
-			EE_CORE_ERROR("Error : Unable to link shaders.");
+			CoreLogger::Error("{}", infoLog.data());
+			CoreLogger::Error("Error : Unable to link shaders.");
 			return;
 		}
 
@@ -277,7 +278,7 @@ namespace Elevate
 		glGetProgramiv(m_RendererID, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxNameLength);
 		std::vector<GLchar> nameBuffer(maxNameLength);
 
-		EE_CORE_TRACE("Starting reflection for shader ID {}", m_RendererID);
+		CoreLogger::Trace("Starting reflection for shader ID {}", m_RendererID);
 		for (GLint i = 0; i < uniformCount; i++)
 		{
 			GLsizei length;
@@ -286,9 +287,9 @@ namespace Elevate
 			glGetActiveUniform(m_RendererID, i, maxNameLength, &length, &size, &type, nameBuffer.data());
 			std::string name(nameBuffer.data(), length);
 			elements.push_back({ GLTypeToEngineDataType(type), name });
-			EE_CORE_TRACE(" - Found uniform {}", name);
+			CoreLogger::Trace(" - Found uniform {}", name);
 		}
-		EE_CORE_TRACE("Completed shader reflection.");
+		CoreLogger::Trace("Completed shader reflection.");
 		return BufferLayout(elements);
 	}
 }

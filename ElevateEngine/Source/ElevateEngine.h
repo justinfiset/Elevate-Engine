@@ -3,9 +3,9 @@
 // For use by ElevateEngine applications
 
 // === Core ==========================
-#include <ElevateEngine/Core/Core.h>
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Assert.h>
+//#include <ElevateEngine/Core/Core.h>
+//#include <ElevateEngine/Core/Log.h>
+//#include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Core/Application.h>
 #include <ElevateEngine/Core/Layers/Layer.h>
 #include <ElevateEngine/Core/GameObject.h>

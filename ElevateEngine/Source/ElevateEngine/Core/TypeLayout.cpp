@@ -5,9 +5,10 @@
 #include <functional>
 #include <variant>
 
+import Elevate.Foundations;
+
 #include <ElevateEngine/Core/Data.h>
 #include <ElevateEngine/Core/Enums.h>
-#include <ElevateEngine/Core/Guid.h>
 #include <ElevateEngine/Core/EEObjectPtr.h>
 #include <ElevateEngine/Core/TypeField.h>
 #include <ElevateEngine/Serialization/PropertyField.h>

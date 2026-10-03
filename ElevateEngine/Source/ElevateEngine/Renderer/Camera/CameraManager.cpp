@@ -3,7 +3,7 @@
 #include "CameraManager.h"
 #include "ElevateEngine/Core/Application.h"
 
-#include <ElevateEngine/Core/Assert.h>
+import Elevate.Foundations;
 
 #ifdef EE_EDITOR_BUILD
 #include "ElevateEngine/Editor/EditorLayer.h"
@@ -26,7 +26,7 @@ namespace Elevate
 		Camera* runtime = GetRuntime();
 		if (!runtime)
 		{
-			EE_CORE_ASSERT(false, "ERROR : There is no active camera! - CameraManager::GetCurrent()");
+			Assert::That(false, "ERROR : There is no active camera! - CameraManager::GetCurrent()");
 		}
 
 		return runtime;

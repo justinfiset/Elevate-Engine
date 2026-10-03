@@ -19,7 +19,7 @@ namespace Elevate
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::GraphicAPI::None: EE_CORE_ASSERT(false, "Renderer none is not supported");
+		case RendererAPI::GraphicAPI::None: Assert::That(false, "Renderer none is not supported");
 		case RendererAPI::GraphicAPI::OpenGL: return std::make_shared<OpenGLShader>(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetFragmentShader()));
 		}
 		return nullptr;
@@ -29,7 +29,7 @@ namespace Elevate
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::GraphicAPI::None: EE_CORE_ASSERT(false, "Renderer none is not supported");
+		case RendererAPI::GraphicAPI::None: Assert::That(false, "Renderer none is not supported");
 		case RendererAPI::GraphicAPI::OpenGL: return std::make_shared<OpenGLShader>(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetErrorShader()));
 		}
 		return nullptr;
@@ -53,26 +53,26 @@ namespace Elevate
 		{
 			switch (Renderer::GetAPI())
 			{
-			case RendererAPI::GraphicAPI::None: EE_CORE_ASSERT(false, "Renderer none is not supported"); break;
+			case RendererAPI::GraphicAPI::None: Assert::That(false, "Renderer none is not supported"); break;
 			case RendererAPI::GraphicAPI::OpenGL: shader = std::make_shared<OpenGLShader>(vertexSource, fragmentSouce);
 			}
 		}
 		else
 		{
-			EE_CORE_ERROR("Error : Tried to create a shader with an empty vertex or fragment source -> Vertex : {} And Fragment : {}", vertexSource, fragmentSouce);
+			CoreLogger::Error("Error : Tried to create a shader with an empty vertex or fragment source -> Vertex : {} And Fragment : {}", vertexSource, fragmentSouce);
 			return CreateDefaultErrorNative();
 		}
 
 		if (!shader->IsInitialized())
 		{
 			shader.reset(); // Free the memory of that unused shader and reset to nullptr
-			EE_CORE_ERROR("Error : Could not create a valid shader. Fallback to default shader.");
+			CoreLogger::Error("Error : Could not create a valid shader. Fallback to default shader.");
 			return CreateDefaultErrorNative();
 		}
 
 		shader->m_layout = shader->ExtractReflectionData();
 
-		EE_CORE_TRACE("Shader layout has {} elements.", shader->m_layout.GetElements().size());
+		CoreLogger::Trace("Shader layout has {} elements.", shader->m_layout.GetElements().size());
 		return shader;
 	}
 
@@ -96,7 +96,7 @@ namespace Elevate
 		}
 		else
 		{
-			EE_CORE_ERROR("Error : Tried to create a shader with an empty vertex or fragment source -> Vertex : {} And Fragment : {}", vertexContent, fragmentContent);
+			CoreLogger::Error("Error : Tried to create a shader with an empty vertex or fragment source -> Vertex : {} And Fragment : {}", vertexContent, fragmentContent);
 			return CreateDefaultError();
 		}
 	}
@@ -185,7 +185,7 @@ namespace Elevate
 			SetUniformMatrix4fv(location, (float*) value);
 			break;
 		default:
-			EE_CORE_ASSERT(false, "(Shader::SetUniform()) : Unsupported datatype provided.");
+			Assert::That(false, "(Shader::SetUniform()) : Unsupported datatype provided.");
 			break;
 		}
 	}

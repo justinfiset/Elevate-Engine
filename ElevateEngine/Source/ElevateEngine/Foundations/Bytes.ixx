@@ -1,13 +1,15 @@
-#pragma once
+module;
 
-#include <cstdint>
+#include <cstddef>
 #include <vector>
 #include <span>
 #include <string>
 #include <sstream>
 #include <iomanip>
 
-namespace Elevate
+export module Elevate.Foundations.Bytes;
+
+export namespace Elevate
 {
     using Byte = std::byte;
     using ByteBuffer = std::vector<Byte>;
@@ -24,7 +26,7 @@ namespace Elevate
          * \param bytes Any type of byte array.
          * \return A string built from the content of the given byte array.
          */
-        inline std::string ToString(const ByteSpan& bytes)
+        inline std::string ToString(ByteSpan bytes)
         {
             return std::string(reinterpret_cast<const char*>(bytes.data()), bytes.size());
         }
@@ -36,7 +38,7 @@ namespace Elevate
          * \param bytes Any type of byte array.
          * \return A string built from the content of the given byte array.
          */
-        inline std::string ToHexString(const ByteSpan& bytes)
+        inline std::string ToHexString(ByteSpan bytes)
         {
             std::stringstream ss;
             ss << std::hex << std::setfill('0');

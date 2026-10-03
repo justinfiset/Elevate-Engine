@@ -1,7 +1,7 @@
 #include "eepch.h"
 #include "VertexArray.h"
 
-#include <ElevateEngine/Core/Assert.h>
+import Elevate.Foundations;
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Platform/OpenGL/Buffers/OpenGLVertexArray.h>
 
@@ -42,7 +42,7 @@ namespace Elevate
 		case RendererAPI::GraphicAPI::OpenGL: return new OpenGLVertexArray();
 		}
 
-		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
+		Assert::That(false, "A supported RendererAPI needs to be supported!");
 		return nullptr;
 	}
 }

@@ -1,8 +1,8 @@
 #include "eepch.h"
 #include "Framebuffer.h"
 
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Assert.h>
+import Elevate.Foundations;
+
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 
@@ -24,7 +24,7 @@ namespace Elevate
     {
         if (width == 0 || height == 0)
         {
-            EE_CORE_WARN("Framebuffer::Create - Attempted to create framebuffer with 0x0 dimensions. Skipping.");
+            CoreLogger::Warn("Framebuffer::Create - Attempted to create framebuffer with 0x0 dimensions. Skipping.");
             return nullptr;
         }
 
@@ -52,7 +52,7 @@ namespace Elevate
     {
         if (width == 0 || height == 0)
         {
-            EE_CORE_WARN("Framebuffer::Create - Attempted to create framebuffer with 0x0 dimensions. Skipping.");
+            CoreLogger::Warn("Framebuffer::Create - Attempted to create framebuffer with 0x0 dimensions. Skipping.");
             return nullptr;
         }
 
@@ -68,14 +68,14 @@ namespace Elevate
         switch (Renderer::GetAPI())
         {
         case RendererAPI::GraphicAPI::None:
-            EE_CORE_ASSERT(false, "GraphicsAPI::None is not supported!");
+            Assert::That(false, "GraphicsAPI::None is not supported!");
             return nullptr;
 
         case RendererAPI::GraphicAPI::OpenGL:
             return new OpenGLFramebuffer(colorTextures, depthTexture, depthAsRenderbuffer);
         }
 
-        EE_CORE_ASSERT(false, "Unknown GraphicsAPI!");
+        Assert::That(false, "Unknown GraphicsAPI!");
         return nullptr;
     }
 
@@ -149,7 +149,7 @@ namespace Elevate
 	{
 		if (index >= m_colorAttachments.size())
 		{
-			EE_CORE_WARN("Framebuffer::GetColorAttachmentHandle - Index out of bounds: {0}", index);
+			CoreLogger::Warn("Framebuffer::GetColorAttachmentHandle - Index out of bounds: {0}", index);
 			return nullptr;
 		}
 
@@ -173,7 +173,7 @@ namespace Elevate
     {
         if (index >= m_colorAttachments.size())
         {
-            EE_CORE_WARN("Framebuffer::GetColorTexture - Index out of bounds: {0}", index);
+            CoreLogger::Warn("Framebuffer::GetColorTexture - Index out of bounds: {0}", index);
             return nullptr;
         }
 

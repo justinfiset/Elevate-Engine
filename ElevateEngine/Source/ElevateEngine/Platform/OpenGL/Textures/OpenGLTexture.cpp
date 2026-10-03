@@ -2,8 +2,9 @@
 
 #include "OpenGLTexture.h"
 
-#include "ElevateEngine/Core/Log.h"
+import Elevate.Foundations;
 
+// todo put in Elevate.Foundations.Image
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
@@ -178,7 +179,7 @@ namespace Elevate
 		}
 #endif
 
-		EE_CORE_INFO("Creating Texture: ID={}, Size={}x{}, Format={}", m_textureID, m_meta.Width, m_meta.Height, (int)m_meta.Format);
+		CoreLogger::Info("Creating Texture: ID={}, Size={}x{}, Format={}", m_textureID, m_meta.Width, m_meta.Height, (int)m_meta.Format);
 
 		uint32_t width = m_meta.Width > 0 ? m_meta.Width : 1;
 		uint32_t height = m_meta.Height > 0 ? m_meta.Height : 1;

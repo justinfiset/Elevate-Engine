@@ -1,8 +1,7 @@
 #include "SoundEngine.h"
 
-#include <format>
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Core.h>
+import Elevate.Foundations;
+#include <ElevateEngine/Foundations/Core.h>
 
 Elevate::SoundEngine* Elevate::SoundEngine::Impl = nullptr;
 
@@ -11,10 +10,10 @@ Elevate::SoundEngine* Elevate::SoundEngine::Impl = nullptr;
 
 bool Elevate::SoundEngine::Init()
 {
-	EE_CORE_CWARN(!Impl, "Error : No valid SoundEngine impl. found. Using a null SoundEngine.");
+	(!Impl, "Error : No valid SoundEngine impl. found. Using a null SoundEngine.");
 	EE_CHECK_SOUNDENGINE(false);
 	bool result = Impl->InitImpl();
-	EE_CERROR(!result, "Error (SoundEngine::Init) : Could not initialize the sound engine.");
+	CoreLogger::CError(!result, "Error (SoundEngine::Init) : Could not initialize the sound engine.");
 	return result;
 	// todo register to native window callbacks
 }

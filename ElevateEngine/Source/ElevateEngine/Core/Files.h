@@ -1,6 +1,6 @@
 #pragma once
-// TODO REMOVE WHITESPACE FROM THIS FILE
-#include <ElevateEngine/Core/Log.h>
+
+import Elevate.Foundations;
 
 #ifdef _WIN32
 	#define WIN32_LEAN_AND_MEAN
@@ -25,11 +25,11 @@ namespace Elevate::Files
 			std::string command = "xdg-open " + filePath + " &";
 			system(command.c_str());
 #else
-			EE_CORE_ERROR("Unsupported OS");
+			CoreLogger::Error("Unsupported OS");
 #endif
 		}
 		else {
-			EE_CORE_ERROR("ERROR - Cannot open file '{0}', file not found.", filePath);
+			CoreLogger::Error("ERROR - Cannot open file '{0}', file not found.", filePath);
 		}
 	}
 }

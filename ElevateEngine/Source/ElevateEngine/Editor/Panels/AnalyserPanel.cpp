@@ -1,6 +1,4 @@
-﻿#include "eepch.h"
-
-#include "./AnalyserPanel.h"
+﻿#include "AnalyserPanel.h"
 
 #ifdef EE_EDITOR_BUILD
 
@@ -18,6 +16,7 @@
 #include <ElevateEngine/Core/AssetRegistry.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Core/Component.h>
+#include <ElevateEngine/Core/Asset.h>
 
 Elevate::Editor::AnalyserPanel::AnalyserPanel()
 {

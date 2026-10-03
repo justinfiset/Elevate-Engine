@@ -3,7 +3,8 @@
 #include <chrono>
 #include <thread>
 
-#include <ElevateEngine/Core/Log.h>
+import Elevate.Foundations;
+
 #include <ElevateEngine/Core/Profiling/ProfilerSample.h>
 #include <ElevateEngine/Core/Profiling/ProfilerFrame.h>
 
@@ -52,7 +53,7 @@ namespace Elevate
     {
         if (m_SampleStack.empty())
         {
-            EE_CORE_ERROR("Profiler::EndSample() called without a matching BeginSample()");
+            CoreLogger::Error("Profiler::EndSample() called without a matching BeginSample()");
             return; // Nothing left to close.
         }
 

@@ -7,7 +7,6 @@
 #include <vector>
 #include <set>
 
-#include <ElevateEngine/Core/Core.h>
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Core/EEObject.h>

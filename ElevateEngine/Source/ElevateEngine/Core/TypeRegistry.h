@@ -8,6 +8,7 @@
 #include <typeinfo>
 #include <set>
 #include <format>
+#include <map>
 
 #include <glm/fwd.hpp>
 

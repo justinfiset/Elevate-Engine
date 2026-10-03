@@ -1,8 +1,9 @@
 #include "eepch.h"
 #include "ShaderManager.h"
 
-#include <ElevateEngine/Core/Core.h>
-#include <ElevateEngine/Core/Log.h>
+import Elevate.Foundations;
+#include <ElevateEngine/Foundations/Core.h> // todo remove this and switch
+
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Light/SceneLighting.h>
 
@@ -11,7 +12,7 @@ namespace Elevate {
 	{
 		if (name == EE_DEFAULT_SHADER && GetShader(EE_DEFAULT_SHADER))
 		{
-			EE_CORE_ERROR("(ShaderManager::LoadShader) : You cannot create a shader with the name : default. This is reservez for the default shader for the whole engine.");
+			CoreLogger::Error("(ShaderManager::LoadShader) : You cannot create a shader with the name : default. This is reservez for the default shader for the whole engine.");
 			return nullptr;
 		}
 
@@ -43,9 +44,9 @@ namespace Elevate {
 
 	void ShaderManager::Init()
 	{
-		EE_CORE_INFO("Initializing ShaderManager.");
+		CoreLogger::Info("Initializing ShaderManager.");
 		// Create a default shader.
-		EE_CORE_TRACE("(ShaderManager) : Creating default shader.");
+		CoreLogger::Trace("(ShaderManager) : Creating default shader.");
 
 		std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(MAX_POINTLIGHT) + "\n";
 		std::string glslSpotLightCountDefine = "#define NR_SPOT_LIGHTS " + std::to_string(MAX_SPOTLIGHT) + "\n";
@@ -65,10 +66,10 @@ namespace Elevate {
 		}
 		else
 		{
-			EE_CORE_ERROR("(ShaderManager) : Failed to create the default shader.");
+			CoreLogger::Error("(ShaderManager) : Failed to create the default shader.");
 		}
 
-		EE_CORE_INFO("Initialized ShaderManager.");
+		CoreLogger::Info("Initialized ShaderManager.");
 	}
 
 	ShaderManager& ShaderManager::instance()

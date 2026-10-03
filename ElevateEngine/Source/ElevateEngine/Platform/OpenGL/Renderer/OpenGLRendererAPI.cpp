@@ -72,13 +72,13 @@ namespace Elevate
 	void OpenGLRendererAPI::DrawArray(const VertexArray* vao, DrawPrimitiveType primitive) const
 	{
 		if (!glfwGetCurrentContext()) {
-			EE_CORE_ERROR("No OpenGL context active!");
+			CoreLogger::Error("No OpenGL context active!");
 			return;
 		}
 
 		if (!vao)
 		{
-			EE_CORE_ERROR("VAO or IndexBuffer is null!");
+			CoreLogger::Error("VAO or IndexBuffer is null!");
 			return;
 		}
 
@@ -88,7 +88,7 @@ namespace Elevate
 		{
 			if (vao->GetIndexBuffer()->GetCount() == 0) 
 			{
-				EE_CORE_ERROR("IndexBuffer has 0 indices!");
+				CoreLogger::Error("IndexBuffer has 0 indices!");
 				return;
 			}
 

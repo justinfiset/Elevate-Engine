@@ -1,7 +1,8 @@
 #pragma once
 
+import Elevate.Foundations;
+
 #include <ElevateEngine/Serialization/PropertyField.h>
-#include <ElevateEngine/Core/Byte.h>
 
 namespace Elevate
 {

@@ -1,7 +1,7 @@
 #include "PathResolver.h"
 
-#include <ElevateEngine/Core/Core.h>
-#include <ElevateEngine/Core/Log.h>
+import Elevate.Foundations;
+#include <ElevateEngine/Foundations/Core.h> // todo : remove
 
 std::string Elevate::PathResolver::Resolve(const std::string& virtualPath)
 {
@@ -12,7 +12,7 @@ std::string Elevate::PathResolver::Resolve(const std::string& virtualPath)
 	else if (virtualPath.starts_with("editor://"))
 	{
 #ifndef EE_EDITOR_BUILD
-		EE_CORE_ERROR("You cannot use editor:// path while building without the editor.");
+		CoreLogger::Error("You cannot use editor:// path while building without the editor.");
 		return virtualPath;
 #else
 		return std::string(EE_EDITOR_DIR) + virtualPath.substr(9);

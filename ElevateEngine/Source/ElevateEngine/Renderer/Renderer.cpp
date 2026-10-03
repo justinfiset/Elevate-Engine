@@ -101,7 +101,7 @@ namespace Elevate
         InitSSAORenderer(width, height);
         InitBloomRenderer(width, height);
 
-        EE_CORE_INFO("Initialized the renderer.");
+        CoreLogger::Info("Initialized the renderer.");
     }
 
     static float RandomFloat(float min, float max)

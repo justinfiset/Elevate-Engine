@@ -1,7 +1,8 @@
 #include "TypeRegistry.h"
 
+import Elevate.Foundations;
+
 #include <cctype>
-#include <ElevateEngine/Core/Log.h>
 
 std::string Elevate::TypeRegistry::GetName(const std::type_info& type)
 {
@@ -63,7 +64,7 @@ std::string Elevate::TypeRegistry::GetCleanedName(std::string rawName)
 void Elevate::TypeRegistry::AddClassToStack(std::string newClass)
 {
 #ifdef EE_REGISTRY_LOG
-	EE_CORE_INFO("{}", GetCleanedName(newClass));
+	CoreLogger::Info("{}", GetCleanedName(newClass));
 #endif
 	CompilationClassStack().push_back(newClass);
 }
@@ -72,7 +73,7 @@ void Elevate::TypeRegistry::PopClassStack()
 {
 	if (CompilationClassStack().empty())
 	{
-		EE_CORE_ERROR("ERROR: Tried to PopClassStack but stack is empty!");
+		CoreLogger::Error("ERROR: Tried to PopClassStack but stack is empty!");
 		return;
 	}
 

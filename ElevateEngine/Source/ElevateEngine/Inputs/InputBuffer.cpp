@@ -1,9 +1,7 @@
-#include "eepch.h"
-
 #include "ElevateEngine/Inputs/Input.h"
-#include "ElevateEngine/Core/Assert.h"
-#include "ElevateEngine/Core/Log.h"
 #include "InputBuffer.h"
+
+import Elevate.Foundations;
 
 namespace Elevate
 {
@@ -123,7 +121,7 @@ namespace Elevate
 	std::uint8_t InputBuffer::GetKeyState(size_t index) const
 	{
 		size_t bitPos = index * 2;
-		EE_CORE_ASSERT(index >= 0 && bitPos < keyStates.size(), "InputBuffer::GetKeyState() : Invalid key index.");
+		Assert::That(index >= 0 && bitPos < keyStates.size(), "InputBuffer::GetKeyState() : Invalid key index.");
 
 		return (keyStates[bitPos] ? 2 : 0) | (keyStates[bitPos + 1] ? 1 : 0);
 	}
@@ -131,7 +129,7 @@ namespace Elevate
 	void InputBuffer::SetKeyState(size_t index, std::uint8_t value)
 	{
 		size_t bitPos = index * 2;
-		EE_CORE_ASSERT(index >= 0 && bitPos < keyStates.size(), "InputBuffer::SetKeyState() : Invalid key index.");
+		Assert::That(index >= 0 && bitPos < keyStates.size(), "InputBuffer::SetKeyState() : Invalid key index.");
 
 		keyStates[bitPos] = (value & 0x02) != 0;
 		keyStates[bitPos + 1] = (value & 0x01) != 0;
@@ -140,14 +138,14 @@ namespace Elevate
 	std::uint8_t InputBuffer::GetMouseButtonState(size_t index) const
 	{
 		size_t bitPos = index * 2;
-		EE_CORE_ASSERT(index >= 0 && bitPos < keyStates.size(), "InputBuffer::GetMouseButtonState() : Invalid buton index.");
+		Assert::That(index >= 0 && bitPos < keyStates.size(), "InputBuffer::GetMouseButtonState() : Invalid buton index.");
 
 		return (mouseButtonStates[bitPos] ? 2 : 0) | (mouseButtonStates[bitPos + 1] ? 1 : 0);
 	}
 	void InputBuffer::SetMouseButtonState(size_t index, std::uint8_t value)
 	{
 		size_t bitPos = index * 2;
-		EE_CORE_ASSERT(index >= 0 && bitPos < keyStates.size(), "InputBuffer::SetMouseButtonState() : Invalid buton index.");
+		Assert::That(index >= 0 && bitPos < keyStates.size(), "InputBuffer::SetMouseButtonState() : Invalid buton index.");
 
 		mouseButtonStates[bitPos] = (value & 0x02) != 0;
 		mouseButtonStates[bitPos + 1] = (value & 0x01) != 0;

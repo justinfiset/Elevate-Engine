@@ -37,7 +37,7 @@ namespace Elevate
 
 		m_sceneLighting = std::make_unique<SceneLighting>();
 
-		EE_TRACE("Created scene '{}' with registry id: {}", m_name.c_str(), m_registryId);
+		CoreLogger::Trace("Created scene '{}' with registry id: {}", m_name.c_str(), m_registryId);
 	}
 
 	Scene::~Scene()
@@ -138,7 +138,7 @@ namespace Elevate
 			}
 			else
 			{
-				EE_CORE_ERROR("Cannot add a child object from a different scene.");
+				CoreLogger::Error("Cannot add a child object from a different scene.");
 			}
 		}
 	}

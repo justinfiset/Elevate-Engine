@@ -26,7 +26,7 @@ namespace Elevate
         unsigned int width, height;
         GetCanvasSize(width, height);
         WindowProps webProps(props.Title, width, height, props.VSync);
-        EE_CORE_INFO("Initializing WebWindow with canvas size: {}x{}", width, height);
+        CoreLogger::Info("Initializing WebWindow with canvas size: {}x{}", width, height);
         GlfwWindow::Init(webProps);
 
         emscripten_set_resize_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, this, EM_TRUE, 

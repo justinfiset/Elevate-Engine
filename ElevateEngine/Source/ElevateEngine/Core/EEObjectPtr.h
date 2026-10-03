@@ -2,9 +2,8 @@
 #include <memory>
 #include <type_traits>
 
-#include <ElevateEngine/Core/Assert.h>
-#include <ElevateEngine/Core/Byte.h>
-#include <ElevateEngine/Core/Guid.h>
+import Elevate.Foundations;
+
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Serialization/ISerializable.h>
 

@@ -1,6 +1,7 @@
 #include "WwiseFileDataSource.h"
 
-#include <ElevateEngine/Core/Log.h>
+import Elevate.Foundations;
+
 #include <ElevateEngine/Audio/Wwise/WwiseItem.h>
 
 #include <array>
@@ -24,7 +25,7 @@ namespace Elevate
 {
 	void WwiseFileDataSource::RefreshSource()
 	{
-		EE_CORE_INFO("Getting Wwise Project Info from Files...");
+		CoreLogger::Info("Getting Wwise Project Info from Files...");
 
 		m_treeRoot.reset(new WwiseItem());
 		m_treeRoot->Type = WwiseType::TreeRoot;
@@ -33,7 +34,7 @@ namespace Elevate
 		fs::path basePath = m_projectPath;
 		if (!fs::is_directory(basePath))
 		{
-			EE_CORE_ERROR("ERROR (WwiseFileDataSource::RefreshSource() : The provided project path is not a valid directory : {}", basePath.string());
+			CoreLogger::Error("ERROR (WwiseFileDataSource::RefreshSource() : The provided project path is not a valid directory : {}", basePath.string());
 		}
 
 		for (const auto& entry : fs::directory_iterator(basePath))
@@ -41,7 +42,7 @@ namespace Elevate
 			ProcessRootFolder(entry);
 		}
 
-		EE_CORE_TRACE("Wwise Project File Analysed.");
+		CoreLogger::Trace("Wwise Project File Analysed.");
 	}
 
 	void WwiseFileDataSource::ProcessRootFolder(const std::filesystem::path& rootFolder)

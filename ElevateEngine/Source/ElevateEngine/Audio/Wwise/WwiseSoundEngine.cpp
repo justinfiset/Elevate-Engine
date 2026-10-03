@@ -52,7 +52,7 @@ namespace Elevate
 		if (!success)
 		{
 			std::string nameAsStr = std::filesystem::path(bankName).string();
-			EE_CORE_CERROR(true, "ERROR: Failed to load SoundBank : {}", nameAsStr);
+			CoreLogger::CError(true, "ERROR: Failed to load SoundBank : {}", nameAsStr);
 		}
 		return success;
 	}
@@ -65,7 +65,7 @@ namespace Elevate
 		AkBankID bankID; // Not used
 		AKRESULT res = AK::SoundEngine::LoadBank(bankName, bankID);
 		bool success = res == AK_Success;
-		EE_CORE_CERROR(!success, "ERROR: Failed to load SoundBank : {}", bankName);
+		CoreLogger::CError(!success, "ERROR: Failed to load SoundBank : {}", bankName);
 		return success;
 	}
 	bool WwiseSoundEngine::LoadBank(std::string& bankName)
@@ -75,19 +75,19 @@ namespace Elevate
 
 	bool WwiseSoundEngine::InitImpl()
 	{
-		EE_CORE_INFO("Initializing Wwise Sound Engine...");
+		CoreLogger::Info("Initializing Wwise Sound Engine...");
 
 		// Creating the memory manager
 		AkMemSettings memorySettings;
 		AK::MemoryMgr::GetDefaultSettings(memorySettings);
 		if (AK::MemoryMgr::Init(&memorySettings) != AK_Success)
 		{
-			EE_CORE_ASSERT(false, "ERROR: Failed to initialize the Wwise memory manager.");
+			Assert::That(false, "ERROR: Failed to initialize the Wwise memory manager.");
 			return false;
 		}
 		else
 		{
-			EE_CORE_TRACE("Wwise memory manager initialized!");
+			CoreLogger::Trace("Wwise memory manager initialized!");
 		}
 
 		// Creating the stream manager
@@ -95,12 +95,12 @@ namespace Elevate
 		AK::StreamMgr::GetDefaultSettings(streamSettings);
 		if (!AK::StreamMgr::Create(streamSettings))
 		{
-			EE_CORE_ASSERT(false, "ERROR: Failed to create the Wwise stream manager.");
+			Assert::That(false, "ERROR: Failed to create the Wwise stream manager.");
 			return false;
 		}
 		else
 		{
-			EE_CORE_TRACE("Wwise stream manager initialized!");
+			CoreLogger::Trace("Wwise stream manager initialized!");
 		}
 
 		// Creating a streaming device
@@ -110,12 +110,12 @@ namespace Elevate
 		m_lowLevelIO = std::make_unique<CAkFilePackageLowLevelIODeferred>();
 		if (m_lowLevelIO->Init(deviceSettings) != AK_Success)
 		{
-			EE_CORE_ASSERT(false, "ERROR: Failed to create the Wwise streaming device and low-level I/O system.");
+			Assert::That(false, "ERROR: Failed to create the Wwise streaming device and low-level I/O system.");
 			return false;
 		}
 		else
 		{
-			EE_CORE_TRACE("Wwise streaming device and low-level I/O initialized!");
+			CoreLogger::Trace("Wwise streaming device and low-level I/O initialized!");
 		}
 
 		// Initializing the sound engine itself
@@ -127,24 +127,24 @@ namespace Elevate
 
 		if (AK::SoundEngine::Init(&initSettings, &platformInitSettings) != AK_Success)
 		{
-			EE_CORE_ASSERT(false, "ERROR: Failded to initialize the Sound Engine.");
+			Assert::That(false, "ERROR: Failded to initialize the Sound Engine.");
 			return false;
 		}
 		else
 		{
-			EE_CORE_TRACE("Wwise SoundEngine initialized!");
+			CoreLogger::Trace("Wwise SoundEngine initialized!");
 		}
 
 		// Initializing the interactive music engine
 		AkSpatialAudioInitSettings spatialAudioSettings;
 		if (AK::SpatialAudio::Init(spatialAudioSettings) != AK_Success)
 		{
-			EE_CORE_ASSERT(false, "ERROR: Failded to initialize Spatial Audio.");
+			Assert::That(false, "ERROR: Failded to initialize Spatial Audio.");
 			return false;
 		}
 		else
 		{
-			EE_CORE_TRACE("Wwise Spatial Audio initialized!");
+			CoreLogger::Trace("Wwise Spatial Audio initialized!");
 		}
 
 #ifndef AK_OPTIMIZED
@@ -152,16 +152,16 @@ namespace Elevate
 		AK::Comm::GetDefaultInitSettings(communicationSettings);
 		if (AK::Comm::Init(communicationSettings) != AK_Success)
 		{
-			EE_CORE_ASSERT(false, "ERROR: Failded to initialize Wwise communication.");
+			Assert::That(false, "ERROR: Failded to initialize Wwise communication.");
 			return false;
 		}
 		else
 		{
-			EE_CORE_TRACE("Wwise communication initialized!");
+			CoreLogger::Trace("Wwise communication initialized!");
 		}
 #endif // AK_OPTIMIZED
 
-		EE_CORE_INFO("Wwise Initialized!");
+		CoreLogger::Info("Wwise Initialized!");
 
 		PrepareAudio();
 
@@ -255,11 +255,11 @@ namespace Elevate
 			AkGameObjectID id = obj->GetObjectId();
 			if (AK::SoundEngine::RegisterGameObj(id, obj->GetName().c_str()) != AK_Success)
 			{
-				EE_CORE_ERROR("SoundEngine Error : Unable to register gO => (name : {}), (id : {})", obj->GetObjectId(), obj->GetName().c_str());
+				CoreLogger::Error("SoundEngine Error : Unable to register gO => (name : {}), (id : {})", obj->GetObjectId(), obj->GetName().c_str());
 			}
 			else
 			{
-				EE_CORE_TRACE("SoundEngine registed gO => (name : {}), (id : {})", obj->GetObjectId(), obj->GetName().c_str());
+				CoreLogger::Trace("SoundEngine registed gO => (name : {}), (id : {})", obj->GetObjectId(), obj->GetName().c_str());
 			}
 		}
 	}
@@ -290,7 +290,7 @@ namespace Elevate
 
 			if (AK::SoundEngine::SetPosition(id, soundPosition) == AK_InvalidParameter)
 			{
-				EE_CORE_ERROR("SoundEngine Error : could not set the transform values for {} with values [{}, {}, {}]", obj->GetName(), objectPosition.x, objectPosition.y, objectPosition.z);
+				CoreLogger::Error("SoundEngine Error : could not set the transform values for {} with values [{}, {}, {}]", obj->GetName(), objectPosition.x, objectPosition.y, objectPosition.z);
 			}
 		}
 	}
@@ -304,7 +304,7 @@ namespace Elevate
 		}
 		else
 		{
-			EE_CORE_ERROR("Error (WwiseSoundEngine::PostEventImpl) : Cannot play an event on a null GameObject.");
+			CoreLogger::Error("Error (WwiseSoundEngine::PostEventImpl) : Cannot play an event on a null GameObject.");
 		}
 	}
 
@@ -317,7 +317,7 @@ namespace Elevate
 		}
 		else
 		{
-			EE_CORE_ERROR("Error (WwiseSoundEngine::PostEventImpl) : Cannot play an event on a null GameObject.");
+			CoreLogger::Error("Error (WwiseSoundEngine::PostEventImpl) : Cannot play an event on a null GameObject.");
 		}
 	}
 

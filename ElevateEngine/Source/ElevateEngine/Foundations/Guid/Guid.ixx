@@ -1,14 +1,15 @@
-#pragma once
+module;
 
 #include <cstddef>
 #include <cstdint>
 #include <functional>
 #include <string>
-#include <string_view>
 
-#include <ElevateEngine/Core/Byte.h>
+export module Elevate.Foundations.Guid;
 
-namespace Elevate
+import Elevate.Foundations.Bytes;
+
+export namespace Elevate
 {
     class Guid
     {

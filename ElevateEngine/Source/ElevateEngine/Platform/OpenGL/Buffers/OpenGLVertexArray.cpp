@@ -1,11 +1,9 @@
-#include "eepch.h"
-
 #include "OpenGLVertexArray.h"
+
+import Elevate.Foundations;
 
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Assert.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
 #include <ElevateEngine/Renderer/Buffer.h>
 #include <ElevateEngine/Renderer/GraphicsContext.h>
@@ -41,7 +39,7 @@ void Elevate::OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuf
 {
 	VertexArray::AddVertexBuffer(vertexBuffer);
 
-	EE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex buffer layout is empty, assertion failed");
+	Assert::That(vertexBuffer->GetLayout().GetElements().size(), "Vertex buffer layout is empty, assertion failed");
 
 	Bind();               // bind VAO
 	vertexBuffer->Bind(); // bind VBO
@@ -49,11 +47,11 @@ void Elevate::OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuf
 	uint32_t index = 0;
 	const auto& layout = vertexBuffer->GetLayout();
 
-	EE_CORE_TRACE("Adding Vertex Buffer :");
+	CoreLogger::Trace("Adding Vertex Buffer :");
 	for (const auto& element : layout)
 	{
 		// TODO REMOVES THE LOGS FROM HERE
-		EE_CORE_TRACE(" -> Attrib {} : {} | Count={} | Type={} | Stride={} | Offset={}",
+		CoreLogger::Trace(" -> Attrib {} : {} | Count={} | Type={} | Stride={} | Offset={}",
 			element.Name.c_str(), index, element.Count, GetDataAPIType(element.Type), layout.GetStride(), element.Offset);
 
 		LinkAttribute(

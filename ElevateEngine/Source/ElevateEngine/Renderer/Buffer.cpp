@@ -1,7 +1,7 @@
 #include "eepch.h"
 #include "Buffer.h"
 
-#include <ElevateEngine/Core/Assert.h>
+import Elevate.Foundations;
 
 #include "Renderer.h"
 
@@ -17,7 +17,7 @@ namespace Elevate
 		case RendererAPI::GraphicAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
 		}
 
-		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
+		Assert::That(false, "A supported RendererAPI needs to be supported!");
 		return nullptr;
 	}
 
@@ -29,7 +29,7 @@ namespace Elevate
 		case RendererAPI::GraphicAPI::OpenGL: return new OpenGLIndexBuffer(vertices, count);
 		}
 
-		EE_CORE_ASSERT(false, "A supported RendererAPI needs to be supported!");
+		Assert::That(false, "A supported RendererAPI needs to be supported!");
 		return nullptr;
 	}
 }

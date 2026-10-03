@@ -7,7 +7,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
 
-#include <ElevateEngine/Core/Core.h>
+#include <ElevateEngine/Foundations/Core.h> // todo remove
+
 #include <ElevateEngine/Core/Application.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Renderer.h>

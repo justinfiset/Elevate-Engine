@@ -5,10 +5,10 @@
 
 Elevate::Editor::ConsolePanel::ConsolePanel()
 {
-	Elevate::Log::GetCoreLogger()->AddCallback([this](LogLevel level, std::string_view text) {
+	CoreLogger::AddCallback([this](LogLevel level, std::string_view text) {
 		LogCallback(level, text);
 	});
-	Elevate::Log::GetClientLogger()->AddCallback([this](LogLevel level, std::string_view text) {
+	Logger::AddCallback([this](LogLevel level, std::string_view text) {
 		LogCallback(level, text);
 	});
 }

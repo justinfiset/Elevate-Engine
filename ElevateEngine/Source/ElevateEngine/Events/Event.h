@@ -1,6 +1,7 @@
 #pragma once
 
-#include "ElevateEngine/Core/Core.h"
+#include <ElevateEngine/Foundations/Core.h>
+
 #include <string>
 #include <cstdint>
 #include <ostream>

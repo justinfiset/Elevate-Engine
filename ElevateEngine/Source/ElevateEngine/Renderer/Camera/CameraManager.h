@@ -1,6 +1,7 @@
 #pragma once
 
-#include <ElevateEngine/Core/Core.h>
+import Elevate.Foundations;
+
 #include <memory>
 
 namespace Elevate

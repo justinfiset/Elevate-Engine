@@ -1,12 +1,12 @@
 #include "Command.h"
-#include <format>
-#include <ElevateEngine/Core/Log.h>
+
+import Elevate.Foundations;
 
 void Elevate::CommandManager::ExecuteStack()
 {
 	while (!m_executeStack.empty())
 	{
-		EE_CORE_TRACE("ExecuteStack while loop iteration");
+		CoreLogger::Trace("ExecuteStack while loop iteration");
 		auto command = std::move(m_executeStack.top());
 		m_executeStack.pop();
 		Execute(std::move(command));
@@ -15,7 +15,7 @@ void Elevate::CommandManager::ExecuteStack()
 
 void Elevate::CommandManager::Execute(std::unique_ptr<Command> command)
 {
-	EE_CORE_TRACE("Execute");
+	CoreLogger::Trace("Execute");
 	command->Execute();
 
 	if (command->IsUndoable())

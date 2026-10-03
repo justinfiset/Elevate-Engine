@@ -1,6 +1,7 @@
 #include "FileDialog.h"
-#include <ElevateEngine/Core/Core.h>
-#include <ElevateEngine/Core/Log.h>
+
+import Elevate.Foundations;
+
 #include <ElevateEngine/Core/PathResolver.h>
 
 #ifndef EE_PLATFORM_WEB
@@ -76,7 +77,7 @@ namespace Elevate
     {
         if (!s_impl)
         {
-            EE_CORE_ERROR("FileDialog implementation not set!");
+            CoreLogger::Error("FileDialog implementation not set!");
             return false;
         }
         return true;

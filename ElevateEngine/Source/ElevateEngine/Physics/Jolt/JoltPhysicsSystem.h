@@ -5,6 +5,7 @@
 #endif
 
 #include <cstdint>
+#include <vector>
 
 #include <Jolt/Jolt.h>
 #include <Jolt/Physics/PhysicsSystem.h>

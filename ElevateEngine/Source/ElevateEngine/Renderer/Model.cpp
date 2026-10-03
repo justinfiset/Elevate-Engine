@@ -48,7 +48,7 @@ Elevate::Model::Model(PrimitiveType type, MaterialPtr material) : Model("", null
 		break;
 	case PrimitiveType::Torus:
 	default:
-		EE_CORE_ASSERT(false, "Unsupported primitive shape given for mesh creation.");
+		Assert::That(false, "Unsupported primitive shape given for mesh creation.");
 		break;
 	}
 }
@@ -91,7 +91,7 @@ void Elevate::Model::LoadModel(std::string path)
 	// checking and exception catcher
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
-		EE_CORE_ERROR("ASSIMP LOADING ERROR : {}", import.GetErrorString());
+		CoreLogger::Error("ASSIMP LOADING ERROR : {}", import.GetErrorString());
 		return;
 	}
 	m_Directory = resolvedPath.substr(0, resolvedPath.find_last_of('/')); // Used to get the textures afterward
