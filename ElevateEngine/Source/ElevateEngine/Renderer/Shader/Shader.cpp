@@ -1,4 +1,4 @@
-#include "eepch.h"
+
 #include "Shader.h"
 
 #include <glm/gtc/type_ptr.hpp>

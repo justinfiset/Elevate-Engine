@@ -1,4 +1,3 @@
-#include "eepch.h"
 #include "SceneLayer.h"
 
 import Elevate.Foundations;

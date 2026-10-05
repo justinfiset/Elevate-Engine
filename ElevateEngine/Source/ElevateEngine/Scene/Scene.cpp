@@ -1,4 +1,4 @@
-#include "eepch.h"
+
 #include "Scene.h"
 
 #include <ElevateEngine/Core/GameObject.h>

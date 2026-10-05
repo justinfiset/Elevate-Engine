@@ -1,4 +1,4 @@
-#include "eepch.h"
+
 #include "PointLight.h"
 #include "ElevateEngine/Renderer/Shader/Shader.h"
 #include <ElevateEngine/Renderer/Light/SceneLighting.h>

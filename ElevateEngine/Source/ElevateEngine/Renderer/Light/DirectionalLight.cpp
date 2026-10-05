@@ -1,4 +1,4 @@
-#include "eepch.h"
+
 #include "DirectionalLight.h"
 
 #include <glm/gtc/constants.hpp>

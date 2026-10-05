@@ -1,4 +1,4 @@
-#include "eepch.h"
+
 #include "GraphicsContext.h"
 
 namespace Elevate

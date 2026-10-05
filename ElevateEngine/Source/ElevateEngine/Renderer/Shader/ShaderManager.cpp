@@ -1,4 +1,4 @@
-#include "eepch.h"
+
 #include "ShaderManager.h"
 
 import Elevate.Foundations;

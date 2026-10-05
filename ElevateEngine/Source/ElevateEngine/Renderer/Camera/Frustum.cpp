@@ -1,4 +1,4 @@
-#include "eepch.h"
+
 #include "Frustum.h"
 
 #include "ElevateEngine/Renderer/Camera.h"

@@ -1,4 +1,4 @@
-﻿#include "eepch.h"
+﻿
 #include "EditorLayer.h"
 
 #ifdef EE_EDITOR_BUILD

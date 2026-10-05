@@ -1,4 +1,4 @@
-#include "eepch.h"
+
 #include "OpenGLRendererAPI.h"
 
 #include <ElevateEngine/Renderer/GraphicsAPI.h>

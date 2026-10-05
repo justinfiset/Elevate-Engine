@@ -1,4 +1,4 @@
-#include "eepch.h"
+
 #include "VertexArray.h"
 
 import Elevate.Foundations;
