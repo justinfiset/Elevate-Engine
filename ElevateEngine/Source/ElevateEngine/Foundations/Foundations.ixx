@@ -15,3 +15,6 @@ export import Elevate.Foundations.Logger;
 // Low level types
 export import Elevate.Foundations.Bytes;
 export import Elevate.Foundations.Guid;
+
+// Path + Files
+export import Elevate.Foundations.Paths;

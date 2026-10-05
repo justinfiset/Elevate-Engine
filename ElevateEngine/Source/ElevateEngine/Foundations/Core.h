@@ -34,16 +34,6 @@
 #define EE_STRINGIFY2(x) #x
 #define EE_STRINGIFY(x) EE_STRINGIFY2(x)
 
-#ifndef EE_PLATFORM_WEB
-    #define EE_ENGINE_DIR EE_RESOURCE_DIR "/Engine/"
-    #define EE_EDITOR_DIR EE_RESOURCE_DIR "/Editor/"
-#else
-    #define EE_ENGINE_DIR "/Engine/"
-    #define EE_EDITOR_DIR "/Editor/"
-#endif
-#define EE_CONTENT_ROOT "./Content/"
-#define EE_CONTENT_ROOT "./Content/"
-
 #define BIT(x) (1 << x)
 
 #define EE_BIND_EVNT_FN(fn) std::bind(&fn, this, std::placeholders::_1)

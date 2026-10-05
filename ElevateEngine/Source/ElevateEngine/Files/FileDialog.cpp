@@ -2,8 +2,6 @@
 
 import Elevate.Foundations;
 
-#include <ElevateEngine/Core/PathResolver.h>
-
 #ifndef EE_PLATFORM_WEB
     #include <ElevateEngine/Platform/Desktop/DesktopFileDialog.h>
     Elevate::FileDialogImpl* Elevate::FileDialog::s_impl = new Elevate::DesktropFileDialog();
@@ -45,7 +43,7 @@ namespace Elevate
     {
         if (ValidateImpl())
         {
-            s_impl->OpenFile(title, PathResolver::Resolve(defaultPathOrFile), filters, filterDescription, allowMultiple);
+            s_impl->OpenFile(title, PathResolver::Resolve(defaultPathOrFile).string(), filters, filterDescription, allowMultiple);
         }
         return "";
     }
@@ -54,7 +52,7 @@ namespace Elevate
     {
         if (ValidateImpl())
         {
-            s_impl->SaveFile(title, PathResolver::Resolve(defaultPathOrFile), filters, filterDescription);
+            s_impl->SaveFile(title, PathResolver::Resolve(defaultPathOrFile).string(), filters, filterDescription);
         }
         return "";
     }
@@ -63,7 +61,7 @@ namespace Elevate
     {
         if (ValidateImpl())
         {
-            s_impl->SelectFolder(title, PathResolver::Resolve(defaultPath));
+            s_impl->SelectFolder(title, PathResolver::Resolve(defaultPath).string());
         }
         return "";
     }

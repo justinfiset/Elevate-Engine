@@ -5,7 +5,7 @@
 #include "ImGuiTheme.h"
 #include "imgui.h"
 
-#include <ElevateEngine/Core/PathResolver.h>
+import Elevate.Foundations;
 
 namespace Elevate::UI
 {
@@ -20,7 +20,7 @@ namespace Elevate::UI
 	{
 		static std::string fontPath = "editor://Fonts/FiraCode/FiraCode-Regular.ttf";
 		ImGuiIO& io = ImGui::GetIO();
-		ImFont* font = io.Fonts->AddFontFromFileTTF(PathResolver::Resolve(fontPath).c_str(), 14.0f);
+		ImFont* font = io.Fonts->AddFontFromFileTTF(PathResolver::Resolve(fontPath).string().c_str(), 14.0f);
 		io.FontDefault = font;
 	}
 

@@ -2,8 +2,9 @@
 
 #include <ElevateEngine/Foundations/Core.h> // todo remove asap
 
+import Elevate.Foundations;
+
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
-#include <ElevateEngine/Core/PathResolver.h>
 #include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
 
@@ -70,12 +71,12 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 
 Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(const std::string& filePath)
 {
-	std::string resolvedPath = PathResolver::Resolve(filePath);
+	auto resolvedPath = PathResolver::Resolve(filePath);
 
-	FILE* fp = fopen(resolvedPath.c_str(), "r");
+	FILE* fp = fopen(resolvedPath.string().c_str(), "r");
 	if (!fp)
 	{
-		CoreLogger::Error("Error : Cannot open cubemap config file ({})", resolvedPath);
+		CoreLogger::Error("Error : Cannot open cubemap config file ({})", resolvedPath.string());
 		return nullptr;
 	}
 
@@ -88,15 +89,15 @@ Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(const std::string& filePath)
 	// todo add more error catching, check if member exists or return
 	std::string paths[6] =
 	{
-		PathResolver::Resolve(doc["right"].GetString()),
-		PathResolver::Resolve(doc["left"].GetString()),
-		PathResolver::Resolve(doc["up"].GetString()),
-		PathResolver::Resolve(doc["down"].GetString()),
-		PathResolver::Resolve(doc["front"].GetString()),
-		PathResolver::Resolve(doc["back"].GetString())
+		PathResolver::Resolve(doc["right"].GetString()).string(),
+		PathResolver::Resolve(doc["left"].GetString()).string(),
+		PathResolver::Resolve(doc["up"].GetString()).string(),
+		PathResolver::Resolve(doc["down"].GetString()).string(),
+		PathResolver::Resolve(doc["front"].GetString()).string(),
+		PathResolver::Resolve(doc["back"].GetString()).string()
 	};
 
-	return new Cubemap(paths, resolvedPath);
+	return new Cubemap(paths, resolvedPath.string());
 }
 
 void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader) const

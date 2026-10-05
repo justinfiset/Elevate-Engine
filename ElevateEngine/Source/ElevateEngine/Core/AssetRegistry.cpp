@@ -9,6 +9,7 @@
 #include <rapidjson/error/en.h>
 
 import Elevate.Foundations;
+
 #include <ElevateEngine/Foundations/Core.h>
 
 // Core
@@ -68,7 +69,7 @@ namespace Elevate
 
 	void AssetRegistry::RefreshFromDisk()
 	{
-		fs::path rootPath = EE_CONTENT_ROOT;
+		fs::path rootPath = Paths::Content();
 		if (!fs::exists(rootPath) || !fs::is_directory(rootPath))
 		{
 			CoreLogger::Error("Content root dir could not be resolved by Asset Registry.");

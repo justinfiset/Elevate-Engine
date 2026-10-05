@@ -11,7 +11,6 @@
 #include <rapidjson/document.h>
 #include <rapidjson/error/en.h>
 
-#include <ElevateEngine/Core/PathResolver.h>
 #include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Core/AssetRegistry.h>
 #include <ElevateEngine/Core/Files.h>
@@ -27,10 +26,7 @@
 #include <ElevateEngine/Editor/EditorLayer.h>
 
 import Elevate.Foundations;
-
 namespace fs = std::filesystem;
-
-const auto rootPath = fs::path(EE_CONTENT_ROOT).lexically_normal();
 
 namespace Elevate
 {
@@ -42,7 +38,7 @@ namespace Elevate
 		LoadExtensionsMeta();
 		m_folderTexture = Texture::CreateFromFile(m_FileMetadata["DIRECTORY"].iconPath);
 
-		m_CurrentPath = rootPath;
+		m_CurrentPath = Paths::Content().lexically_normal();
 		m_shouldUpdate = true;
 
 		TextureMetadata texMeta = TextureMetadataBuilder()
@@ -112,7 +108,7 @@ namespace Elevate
 
 		int index = 0;
 
-		if (m_CurrentPath != rootPath && m_CurrentPath.has_parent_path())
+		if (m_CurrentPath != Paths::Content().lexically_normal() && m_CurrentPath.has_parent_path())
 		{
 			ImGui::PushID(index);
 			ImGui::BeginGroup();
@@ -481,7 +477,7 @@ namespace Elevate
 		m_relatedPaths.clear();
 
 		const auto currentNorm = fs::weakly_canonical(m_CurrentPath);
-		const auto rootNorm = fs::weakly_canonical(rootPath);
+		const auto rootNorm = fs::weakly_canonical(Paths::Content().lexically_normal());
 
 		std::string displayName = (currentNorm == rootNorm) ? "Game Content" : currentNorm.filename().string();
 		m_relatedPaths.push_back({ m_CurrentPath, displayName });
@@ -499,7 +495,7 @@ namespace Elevate
 
 		std::filesystem::path parent = path.parent_path();
 		const auto parentNorm = fs::weakly_canonical(parent);
-		const auto rootNorm = fs::weakly_canonical(rootPath);
+		const auto rootNorm = fs::weakly_canonical(Paths::Content().lexically_normal());
 
 		if (parentNorm == rootNorm)
 		{
@@ -652,11 +648,11 @@ namespace Elevate
 
 	void Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath)
 	{
-		std::string resolvedPath = PathResolver::Resolve(filepath);
-		FILE* fp = fopen(resolvedPath.c_str(), "r");
+		auto resolvedPath = PathResolver::Resolve(filepath);
+		FILE* fp = fopen(resolvedPath.string().c_str(), "r");
 		if (!fp)
 		{
-			CoreLogger::Error("Cannot open JSON file : {}", resolvedPath);
+			CoreLogger::Error("Cannot open JSON file : {}", resolvedPath.string());
 			return;
 		}
 

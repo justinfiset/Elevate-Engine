@@ -5,11 +5,9 @@
 
 import Elevate.Foundations;
 
-#include <ElevateEngine/Core/PathResolver.h>
-
 std::string Elevate::File::GetFileContent(std::string path)
 {
-	std::string resolvedPath = PathResolver::Resolve(path);
+	auto resolvedPath = PathResolver::Resolve(path);
 
 	std::string content;
 	std::ifstream s(resolvedPath, std::ios::in);
@@ -17,7 +15,7 @@ std::string Elevate::File::GetFileContent(std::string path)
 	// If file does not exists
 	if (!s.is_open())
 	{
-		CoreLogger::Error("Could not open file : {0}, file does not exist", resolvedPath);
+		CoreLogger::Error("Could not open file : {0}, file does not exist", resolvedPath.string());
 		return std::string();
 	}
 
