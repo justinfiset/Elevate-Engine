@@ -6,8 +6,6 @@
 	#define EE_NO_SOUNDENGINE 0 // todo change back once managed by the lua
 #endif
 
-#define EE_API
-
 #if defined(EE_PLATFORM_WINDOWS) || defined(EE_PLATFORM_LINUX) || defined(EE_PLATFORM_WEB)
     #ifdef EE_DIST
         #ifdef _WIN32
@@ -30,10 +28,5 @@
 
 #define EE_SHADER_VERSION_HEADER EE_SHADER_VERSION_STRING " " EE_SHADER_PROFILE_STRING
 #define EE_SHADER_HEADER EE_SHADER_VERSION_HEADER "\n" EE_SHADER_PRECISION_STRING
-
-#define EE_STRINGIFY2(x) #x
-#define EE_STRINGIFY(x) EE_STRINGIFY2(x)
-
-#define BIT(x) (1 << x)
 
 #define EE_BIND_EVNT_FN(fn) std::bind(&fn, this, std::placeholders::_1)

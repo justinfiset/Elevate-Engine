@@ -20,8 +20,6 @@ import Elevate.Foundations;
 // Serialization
 #include <ElevateEngine/Serialization/JsonSerializer.h>
 #include <ElevateEngine/Serialization/PropertyField.h>
-// Files
-#include <ElevateEngine/Files/FileUtility.h>
 
 namespace fs = std::filesystem;
 
@@ -202,7 +200,7 @@ namespace Elevate
 		JsonSerializer serializer;
 		PropertySet props;
 
-		std::string diskContent = File::GetFileContent(entry.FilePath.string());
+		std::string diskContent = Files::GetFileContent(entry.FilePath.string());
 		serializer.Deserialize(ByteUtils::FromString(diskContent), props);
 		asset->SetFromProperties(props);
 

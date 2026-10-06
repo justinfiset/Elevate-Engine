@@ -1,7 +1,8 @@
-
 #include "Renderer.h"
 
 #include <random>
+
+#include <ElevateEngine/Foundations/Core.h>
 
 #include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
 #include <ElevateEngine/Renderer/Mesh.h>

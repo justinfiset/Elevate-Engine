@@ -1,5 +1,7 @@
 #include <ElevateEngine.h>
 
+#include <ElevateEngine/Foundations/Core.h> // todo : remove asap
+
 // MATHS
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_decompose.hpp>

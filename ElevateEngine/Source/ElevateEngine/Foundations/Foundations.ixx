@@ -18,3 +18,7 @@ export import Elevate.Foundations.Guid;
 
 // Path + Files
 export import Elevate.Foundations.Paths;
+export import Elevate.Foundations.Files;
+
+// Low Level Functions
+export import Elevate.Foundations.Shell;

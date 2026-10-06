@@ -1,9 +1,10 @@
-﻿
-#include "EditorLayer.h"
+﻿#include "EditorLayer.h"
 
 #ifdef EE_EDITOR_BUILD
 
 #include "imgui.h"
+
+#include <ElevateEngine/Foundations/Core.h>
 
 #include <ElevateEngine/Core/Application.h>
 

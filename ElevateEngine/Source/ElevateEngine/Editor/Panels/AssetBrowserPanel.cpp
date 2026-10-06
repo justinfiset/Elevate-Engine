@@ -13,7 +13,6 @@
 
 #include <ElevateEngine/Core/TypeRegistry.h>
 #include <ElevateEngine/Core/AssetRegistry.h>
-#include <ElevateEngine/Core/Files.h>
 #include <ElevateEngine/Core/Asset.h>
 
 #include <ElevateEngine/Inputs/Input.h>
@@ -104,7 +103,8 @@ namespace Elevate
 		float spacing = ImGui::GetStyle().ItemSpacing.x * 2;
 		float panelWidth = ImGui::GetWindowSize().x;
 		int colNb = (int)std::floor(panelWidth / (buttonSize.x + spacing));
-		colNb = std::max(1, colNb);
+
+		colNb = max(1, colNb);
 
 		int index = 0;
 
@@ -251,8 +251,8 @@ namespace Elevate
 				if (ImGui::GetIO().KeyShift)
 				{
 					m_selected.clear();
-					int start = std::min(itemIndex, m_lastSelected);
-					int end = std::max(itemIndex, m_lastSelected);
+					int start = min(itemIndex, m_lastSelected);
+					int end = max(itemIndex, m_lastSelected);
 					for (int i = start; i <= end; i++) {
 						m_selected.insert(i);
 					}

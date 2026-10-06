@@ -29,7 +29,7 @@ namespace Elevate {
 		GameContextState m_oldState;
 	};
 
-	class EE_API WindowResizeEvent : public Event
+	class WindowResizeEvent : public Event
 	{
 	public:
 		WindowResizeEvent(unsigned int width, unsigned int height)
@@ -51,7 +51,7 @@ namespace Elevate {
 		unsigned int m_Width, m_Height;
 	};
 
-	class EE_API WindowCloseEvent : public Event
+	class WindowCloseEvent : public Event
 	{
 	public:
 		WindowCloseEvent() = default;
@@ -60,7 +60,7 @@ namespace Elevate {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class EE_API WindowFocusEvent : public Event
+	class WindowFocusEvent : public Event
 	{
 	public:
 		WindowFocusEvent(bool isFocused)
@@ -82,7 +82,7 @@ namespace Elevate {
 		bool m_IsFocused;
 	};
 
-	class EE_API AppTickEvent : public Event
+	class AppTickEvent : public Event
 	{
 	public:
 		AppTickEvent() = default;
@@ -91,7 +91,7 @@ namespace Elevate {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class EE_API AppUpdateEvent : public Event
+	class AppUpdateEvent : public Event
 	{
 	public:
 		AppUpdateEvent() = default;
@@ -100,7 +100,7 @@ namespace Elevate {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class EE_API AppRenderEvent : public Event
+	class AppRenderEvent : public Event
 	{
 	public:
 		AppRenderEvent() = default;

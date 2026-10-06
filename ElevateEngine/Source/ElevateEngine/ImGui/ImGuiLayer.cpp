@@ -1,3 +1,4 @@
+#include <ElevateEngine/Foundations/Core.h> // todo : remove asap
 
 #include "ImGuiLayer.h"
 

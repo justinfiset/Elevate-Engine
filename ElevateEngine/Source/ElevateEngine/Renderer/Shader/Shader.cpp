@@ -8,10 +8,13 @@
 #include "ElevateEngine/Renderer/Light/Light.h"
 #include "ElevateEngine/Renderer/Light/DirectionalLight.h"
 #include <ElevateEngine/Platform/OpenGL/Shaders/OpenGLShader.h>
-#include "ElevateEngine/Files/FileUtility.h"
 #include "ElevateEngine/Core/GameObject.h"
 #include <ElevateEngine/Renderer/Camera.h>
 #include <ElevateEngine/Renderer/Camera/CameraManager.h>
+
+import Elevate.Foundations;	
+
+#include <ElevateEngine/Foundations/Core.h> // todo remove this
 
 namespace Elevate 
 {
@@ -78,15 +81,15 @@ namespace Elevate
 
 	EEObjectPtr<Shader> Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath)
 	{
-		std::string vertexSource = File::GetFileContent(vertexSrcPath);
-		std::string fragmentSource = File::GetFileContent(fragSrcPath);
+		std::string vertexSource = Files::GetFileContent(vertexSrcPath);
+		std::string fragmentSource = Files::GetFileContent(fragSrcPath);
 		return Create(vertexSource, fragmentSource);
 	}
 
 	EEObjectPtr<Shader> Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode)
 	{
-		std::string vertexContent = File::GetFileContent(vertexSrcPath);
-		std::string fragmentContent = File::GetFileContent(fragSrcPath);
+		std::string vertexContent = Files::GetFileContent(vertexSrcPath);
+		std::string fragmentContent = Files::GetFileContent(fragSrcPath);
 
 		if (!vertexContent.empty() && !fragmentContent.empty())
 		{

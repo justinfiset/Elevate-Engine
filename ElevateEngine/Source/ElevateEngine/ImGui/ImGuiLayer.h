@@ -8,7 +8,7 @@
 
 namespace Elevate
 {
-	class EE_API ImGuiLayer : public Layer
+	class ImGuiLayer : public Layer
 	{
 	public:
 		ImGuiLayer();

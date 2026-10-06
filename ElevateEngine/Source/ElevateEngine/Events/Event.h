@@ -1,7 +1,5 @@
 #pragma once
 
-#include <ElevateEngine/Foundations/Core.h>
-
 #include <string>
 #include <cstdint>
 #include <ostream>
@@ -20,13 +18,13 @@ namespace Elevate {
 
 	enum EventCategory : uint8_t
 	{
-		NoneCategory = 0,
-		EventCategoryApplication    = BIT(0),
-		EventCategoryInput          = BIT(1),
-		EventCategoryKeyboard       = BIT(2),
-		EventCategoryMouse          = BIT(3),
-		EventCategoryMouseButton    = BIT(4),
-		EventCategoryGameContext    = BIT(5)
+		NoneCategory				= 0,
+		EventCategoryApplication    = 1 << 0,
+		EventCategoryInput          = 1 << 1,
+		EventCategoryKeyboard       = 1 << 2,
+		EventCategoryMouse          = 1 << 3,
+		EventCategoryMouseButton    = 1 << 4,
+		EventCategoryGameContext    = 1 << 5,
 	};
 
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }\
