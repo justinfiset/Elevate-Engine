@@ -1,29 +1,37 @@
-#include "JsonSerializer.h"
+module;
+
 #include <variant>
 
 #include <rapidjson/document.h>
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/writer.h>
 
+module Elevate.Serialization.JsonSerializer;
+
 namespace Elevate
 {
-    template<class... Ts> struct overload : Ts... { using Ts::operator()...; };
-    template<class... Ts> overload(Ts...) -> overload<Ts...>;
-
-    rapidjson::Value SerializeValue(const PropertyValue& value, rapidjson::Document::AllocatorType& allocator);
-
-    void SerializeRecursive(const PropertySet& fields, rapidjson::Value& parentObj, rapidjson::Document::AllocatorType& allocator)
+    template <class... Ts>
+    struct overload : Ts...
     {
-        for (const auto& property : fields)
+        using Ts::operator()...;
+    };
+    template <class... Ts>
+    overload(Ts...) -> overload<Ts...>;
+
+    rapidjson::Value SerializeValue(const PropertyValue &value, rapidjson::Document::AllocatorType &allocator);
+
+    void SerializeRecursive(const PropertySet &fields, rapidjson::Value &parentObj, rapidjson::Document::AllocatorType &allocator)
+    {
+        for (const auto &property : fields)
         {
             rapidjson::Value key(property.Name.c_str(), allocator);
 
             if (property.Type == EngineDataType::Array && std::holds_alternative<PropertyContainer>(property.Value))
             {
-                const auto& container = std::get<PropertyContainer>(property.Value);
+                const auto &container = std::get<PropertyContainer>(property.Value);
                 rapidjson::Value jsonArray(rapidjson::kArrayType);
 
-                for (const auto& elem : container.Children)
+                for (const auto &elem : container.Children)
                 {
                     jsonArray.PushBack(SerializeValue(elem.Value, allocator), allocator);
                 }
@@ -38,66 +46,70 @@ namespace Elevate
         }
     }
 
-    rapidjson::Value SerializeValue(const PropertyValue& value, rapidjson::Document::AllocatorType& allocator)
+    rapidjson::Value SerializeValue(const PropertyValue &value, rapidjson::Document::AllocatorType &allocator)
     {
-        return std::visit(overload{
-            [&](bool v) { return rapidjson::Value(v); },
-            [&](int64_t v) { return rapidjson::Value(v); },
-            [&](double v) { return rapidjson::Value(v); },
-            [&](const std::string& v) {
-                return rapidjson::Value(v.c_str(), allocator);
-            },
-            [&](const ByteBuffer& v) {
-                return rapidjson::Value(
-                    reinterpret_cast<const char*>(v.data()),
-                    static_cast<rapidjson::SizeType>(v.size()),
-                    allocator
-                );
-            },
-            [&](const PropertyContainer& v) {
-                bool isArrayContainer = !v.Children.empty() && v.Children[0].Name.rfind("[", 0) == 0;
+        return std::visit(overload{[&](bool v)
+                                   { return rapidjson::Value(v); },
+                                   [&](int64_t v)
+                                   { return rapidjson::Value(v); },
+                                   [&](double v)
+                                   { return rapidjson::Value(v); },
+                                   [&](const std::string &v)
+                                   {
+                                       return rapidjson::Value(v.c_str(), allocator);
+                                   },
+                                   [&](const ByteBuffer &v)
+                                   {
+                                       return rapidjson::Value(
+                                           reinterpret_cast<const char *>(v.data()),
+                                           static_cast<rapidjson::SizeType>(v.size()),
+                                           allocator);
+                                   },
+                                   [&](const PropertyContainer &v)
+                                   {
+                                       bool isArrayContainer = !v.Children.empty() && v.Children[0].Name.rfind("[", 0) == 0;
 
-                if (isArrayContainer)
-                {
-                    rapidjson::Value jsonArray(rapidjson::kArrayType);
-                    for (const auto& elem : v.Children)
-                    {
-                        jsonArray.PushBack(SerializeValue(elem.Value, allocator), allocator);
-                    }
-                    return jsonArray;
-                }
-                else
-                {
-                    // Check if the container itself represents an array element or flat items collection
-                    bool allIndices = true;
-                    for (const auto& elem : v.Children)
-                    {
-                        if (elem.Name.rfind("[", 0) != 0)
-                        {
-                            allIndices = false;
-                            break;
-                        }
-                    }
+                                       if (isArrayContainer)
+                                       {
+                                           rapidjson::Value jsonArray(rapidjson::kArrayType);
+                                           for (const auto &elem : v.Children)
+                                           {
+                                               jsonArray.PushBack(SerializeValue(elem.Value, allocator), allocator);
+                                           }
+                                           return jsonArray;
+                                       }
+                                       else
+                                       {
+                                           // Check if the container itself represents an array element or flat items collection
+                                           bool allIndices = true;
+                                           for (const auto &elem : v.Children)
+                                           {
+                                               if (elem.Name.rfind("[", 0) != 0)
+                                               {
+                                                   allIndices = false;
+                                                   break;
+                                               }
+                                           }
 
-                    if (!v.Children.empty() && allIndices)
-                    {
-                        rapidjson::Value jsonArray(rapidjson::kArrayType);
-                        for (const auto& elem : v.Children)
-                        {
-                            jsonArray.PushBack(SerializeValue(elem.Value, allocator), allocator);
-                        }
-                        return jsonArray;
-                    }
+                                           if (!v.Children.empty() && allIndices)
+                                           {
+                                               rapidjson::Value jsonArray(rapidjson::kArrayType);
+                                               for (const auto &elem : v.Children)
+                                               {
+                                                   jsonArray.PushBack(SerializeValue(elem.Value, allocator), allocator);
+                                               }
+                                               return jsonArray;
+                                           }
 
-                    rapidjson::Value childObj(rapidjson::kObjectType);
-                    SerializeRecursive(v.Children, childObj, allocator);
-                    return childObj;
-                }
-            }
-            }, value);
+                                           rapidjson::Value childObj(rapidjson::kObjectType);
+                                           SerializeRecursive(v.Children, childObj, allocator);
+                                           return childObj;
+                                       }
+                                   }},
+                          value);
     }
 
-    bool JsonSerializer::Serialize(const PropertySet& fields, ByteBuffer& outBuffer) const
+    bool JsonSerializer::Serialize(const PropertySet &fields, ByteBuffer &outBuffer) const
     {
         rapidjson::Document doc;
         doc.SetObject();
@@ -108,21 +120,22 @@ namespace Elevate
         rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
         doc.Accept(writer);
 
-        const std::byte* dataPtr = reinterpret_cast<const std::byte*>(buffer.GetString());
+        const std::byte *dataPtr = reinterpret_cast<const std::byte *>(buffer.GetString());
         outBuffer.assign(dataPtr, dataPtr + buffer.GetSize());
         return true;
     }
 
-    void ParseJsonValue(const rapidjson::Value& val, PropertyField& prop, const std::string& currentPath, uint16_t currentDepth);
+    void ParseJsonValue(const rapidjson::Value &val, PropertyField &prop, const std::string &currentPath, uint16_t currentDepth);
 
-    void DeserializeRecursive(const rapidjson::Value& jsonObj, PropertySet& outFields, const std::string& parentPath, uint16_t currentDepth)
+    void DeserializeRecursive(const rapidjson::Value &jsonObj, PropertySet &outFields, const std::string &parentPath, uint16_t currentDepth)
     {
-        if (!jsonObj.IsObject()) return;
+        if (!jsonObj.IsObject())
+            return;
 
         for (auto it = jsonObj.MemberBegin(); it != jsonObj.MemberEnd(); ++it)
         {
             std::string name = it->name.GetString();
-            const auto& val = it->value;
+            const auto &val = it->value;
 
             PropertyField prop;
             prop.Name = name;
@@ -134,7 +147,7 @@ namespace Elevate
         }
     }
 
-    void ParseJsonValue(const rapidjson::Value& val, PropertyField& prop, const std::string& currentPath, uint16_t currentDepth)
+    void ParseJsonValue(const rapidjson::Value &val, PropertyField &prop, const std::string &currentPath, uint16_t currentDepth)
     {
         if (val.IsBool())
         {
@@ -170,7 +183,7 @@ namespace Elevate
 
             for (rapidjson::SizeType i = 0; i < val.Size(); ++i)
             {
-                const auto& elemVal = val[i];
+                const auto &elemVal = val[i];
                 PropertyField elemProp;
                 std::string indexStr = "[" + std::to_string(i) + "]";
 
@@ -188,11 +201,12 @@ namespace Elevate
         }
     }
 
-    bool JsonSerializer::Deserialize(const ByteBuffer& data, PropertySet& outFields)
+    bool JsonSerializer::Deserialize(const ByteBuffer &data, PropertySet &outFields)
     {
-        if (data.empty()) return false;
+        if (data.empty())
+            return false;
 
-        std::string jsonStr(reinterpret_cast<const char*>(data.data()), data.size());
+        std::string jsonStr(reinterpret_cast<const char *>(data.data()), data.size());
 
         rapidjson::Document doc;
         doc.Parse(jsonStr.c_str());

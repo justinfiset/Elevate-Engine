@@ -3,9 +3,9 @@
 namespace Elevate {
 	enum class GraphicsContextState
 	{
-		UNINITIALIZED,
-		ACTIVE,
-		TERMINATED
+		Uninitialized,
+		Active,
+		Terminated
 	};
 
 	class GraphicsContext
@@ -16,24 +16,24 @@ namespace Elevate {
 
 		virtual void Init()
 		{
-			s_context->m_state = GraphicsContextState::ACTIVE;
+			s_context->m_state = GraphicsContextState::Active;
 		}
 
 		virtual void SwapBuffers() = 0;
 
-		static GraphicsContext* Get()
+		static const GraphicsContext* Get() const
 		{
 			return s_context;
 		}
 
-		static bool Valid()
+		static bool IsValid() const
 		{
 			return s_context != nullptr;
 		}
 
 		static bool CanUseContext()
 		{
-			return Valid() && s_context->m_state == GraphicsContextState::ACTIVE;
+			return IsValid() && s_context->m_state == GraphicsContextState::Active;
 		}
 	private:
 		GraphicsContextState m_state;

@@ -1,0 +1,277 @@
+module;
+
+#include <memory>
+#include <type_traits>
+
+export module Elevate.Core.Objects.ObjectPtr;
+
+import Elevate.Foundations.Bytes;
+import Elevate.Foundations.Guid;
+import Elevate.Serialization.ISerializable;
+import Elevate.Core.Objects.Object;
+
+export namespace Elevate
+{
+	// Only enable the assertion if the type is defined, otherwise, we will get an imcomplete type error
+#ifdef EE_ASSERTS_ENABLED
+	namespace Internal
+	{
+		template<typename T, typename = void>
+		struct is_valid_ee_object : std::true_type {};
+
+		template<typename T>
+		struct is_valid_ee_object<T, std::void_t<decltype(sizeof(T))>>
+			: std::bool_constant<std::is_base_of_v<EEObject, T>> {
+		};
+
+		template<typename T>
+		inline constexpr bool is_valid_ee_object_v = is_valid_ee_object<T>::value;
+	}
+
+#define VALIDATE_OBJECTPTR_TYPE(T) static_assert(Internal::is_valid_ee_object_v<T>, "T must derive from EEObject")
+
+#else
+
+#define VALIDATE_OBJECTPTR_TYPE(T)
+
+#endif
+
+	namespace Detail
+	{
+		std::shared_ptr<EEObject> ResolveAssetHelper(const Guid& guid);
+	}
+
+	class IEEObjectPtr
+	{
+	public:
+		virtual ~IEEObjectPtr() = default;
+
+		virtual const Guid& GetGuid() const = 0;
+		virtual void SetGuid(const Guid& guid) = 0;
+	};
+
+	template<typename T>
+	class EEObjectPtr : public IEEObjectPtr, public ISerializable
+	{
+	private:
+		// Allow other type to interact with other's private members
+		template<typename U>
+		friend class EEObjectPtr;
+
+		mutable std::shared_ptr<T> m_ptr = nullptr;
+		mutable Guid m_guid{};
+
+	private:
+		void UpdateGuid() const
+		{
+			if (m_ptr)
+			{
+				m_guid = m_ptr->GetGuid();
+			}
+			else
+			{
+				m_guid = Guid{};
+			}
+		}
+
+	public:
+		EEObjectPtr() : m_ptr(nullptr), m_guid(Guid{})
+		{
+			VALIDATE_OBJECTPTR_TYPE(T);
+		}
+		EEObjectPtr(std::nullptr_t) noexcept : m_ptr(nullptr), m_guid(Guid{}) {}
+		EEObjectPtr(std::shared_ptr<T> ptr) : m_ptr(std::move(ptr))
+		{
+			VALIDATE_OBJECTPTR_TYPE(T);
+			UpdateGuid();
+		}
+		EEObjectPtr(const EEObjectPtr<T>& other) : m_ptr(other.m_ptr), m_guid(other.m_guid) {}
+
+		explicit EEObjectPtr(const Guid& guid) : m_ptr(nullptr), m_guid(guid)
+		{
+			VALIDATE_OBJECTPTR_TYPE(T);
+		}
+
+		void SetGuid(const Guid& guid) override
+		{
+			if (m_guid != guid)
+			{
+				m_guid = guid;
+				m_ptr = nullptr;
+			}
+		}
+
+		const Guid& GetGuid() const override
+		{
+			return m_guid;
+		}
+
+		virtual ByteBuffer Serialize() const override;
+		// todo : virtual void Deserialize(const ByteBuffer& data);
+
+		T* get() const
+		{
+			if (m_ptr)
+			{
+				return m_ptr.get();
+			}
+			else if (m_guid.IsValid())
+			{
+				auto rawAsset = Detail::ResolveAssetHelper(m_guid);
+				m_ptr = std::static_pointer_cast<T>(rawAsset);
+				UpdateGuid();
+				if (m_ptr)
+				{
+					return m_ptr.get();
+				}
+			}
+			return nullptr;
+		}
+
+		T* operator->() const noexcept
+		{
+			return get();
+		}
+
+		T& operator*() const noexcept
+		{
+			return *get();
+		}
+
+		explicit operator bool() const noexcept
+		{
+			return get() != nullptr;
+		}
+
+		bool operator==(const EEObjectPtr<T>& other) const noexcept
+		{
+			return m_guid == other.m_guid;
+		}
+
+		bool operator==(const std::shared_ptr<T>& other) const noexcept
+		{
+			VALIDATE_OBJECTPTR_TYPE(T);
+
+			if (!other)
+			{
+				return !m_guid.IsValid();
+			}
+			return m_guid == other->GetGuid();
+		}
+
+		template<typename U, typename = std::enable_if_t<std::is_base_of_v<T, U>>>
+		EEObjectPtr(const EEObjectPtr<U>& other)
+			: m_ptr(other.m_ptr), m_guid(other.m_guid)
+		{
+			VALIDATE_OBJECTPTR_TYPE(T);
+		}
+
+		template<typename U, typename = std::enable_if_t<std::is_base_of_v<T, U>>>
+		EEObjectPtr<T>& operator=(const EEObjectPtr<U>& other)
+		{
+			if ((void*)this != (void*)&other)
+			{
+				m_ptr = other.m_ptr;
+				m_guid = other.m_guid;
+			}
+			return *this;
+		}
+
+		EEObjectPtr<T>& operator=(const EEObjectPtr<T>& other) {
+			if (this != &other)
+			{
+				m_ptr = other.m_ptr;
+				m_guid = other.m_guid;
+			}
+			return *this;
+		}
+
+		EEObjectPtr<T>& operator=(std::shared_ptr<T> ptr) {
+			VALIDATE_OBJECTPTR_TYPE(T);
+			m_ptr = std::move(ptr);
+			UpdateGuid();
+			return *this;
+		}
+
+		EEObjectPtr<T>& operator=(std::nullptr_t) noexcept {
+			m_ptr.reset();
+			UpdateGuid();
+			return *this;
+		}
+
+		void reset(std::shared_ptr<T> ptr)
+		{
+			VALIDATE_OBJECTPTR_TYPE(T);
+			m_ptr = std::move(ptr);
+			UpdateGuid();
+		}
+
+		void reset(T* rawPtr)
+		{
+			VALIDATE_OBJECTPTR_TYPE(T);
+			if (rawPtr)
+			{
+				m_ptr = std::static_pointer_cast<T>(rawPtr->shared_from_this());
+			}
+			else
+			{
+				m_ptr.reset();
+			}
+			UpdateGuid();
+		}
+
+		void reset(const T* rawPtr)
+		{
+			VALIDATE_OBJECTPTR_TYPE(T);
+			if (rawPtr)
+			{
+				auto nonConst = const_cast<T*>(rawPtr);
+				m_ptr = std::static_pointer_cast<T>(nonConst->shared_from_this());
+			}
+			else
+			{
+				m_ptr.reset();
+			}
+			UpdateGuid();
+		}
+
+		void reset() noexcept
+		{
+			m_ptr.reset();
+			UpdateGuid();
+		}
+
+		bool operator<(const EEObjectPtr<T>& other) const noexcept
+		{
+			return m_guid < other.m_guid;
+		}
+
+		std::weak_ptr<T> ToWeak() const noexcept
+		{
+			return std::weak_ptr<T>(m_ptr);
+		}
+
+		std::shared_ptr<T> ToShared() const
+		{
+			get(); // Force the proxy to resolve the object if pointer is invalid
+			return m_ptr;
+		}
+
+		operator std::shared_ptr<T>() const
+		{
+			return ToShared();
+		}
+	};
+
+	template<typename T>
+	inline ByteBuffer EEObjectPtr<T>::Serialize() const
+	{
+		if (m_ptr)
+		{
+			// We already verified that the type is derived from EEObject, therefore this is safe.
+			const EEObject* base = (const EEObject*)m_ptr.get();
+			return base->GetGuid().ToBytes();
+		}
+		return m_guid.ToBytes();
+	}
+}

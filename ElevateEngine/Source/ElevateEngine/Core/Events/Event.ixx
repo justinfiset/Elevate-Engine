@@ -1,0 +1,82 @@
+module;
+
+#include <cstdint>
+#include <functional>
+#include <ostream>
+#include <string>
+
+export module Elevate.Core.Events.Event;
+
+export namespace Elevate
+{
+	enum class EventType
+	{
+		None = 0,
+		GameContextChanged,
+		WindowClose, WindowResize, WindowFocus,
+		AppTick, AppUpdate, AppRender,
+		KeyPressed, KeyReleased, KeyTyped,
+		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
+	};
+
+	enum EventCategory : uint8_t
+	{
+		NoneCategory = 0,
+		EventCategoryApplication = 1 << 0,
+		EventCategoryInput = 1 << 1,
+		EventCategoryKeyboard = 1 << 2,
+		EventCategoryMouse = 1 << 3,
+		EventCategoryMouseButton = 1 << 4,
+		EventCategoryGameContext = 1 << 5,
+	};
+
+	class Event
+	{
+		friend class EventDispatcher;
+	public:
+		bool Handled = false;
+
+		virtual EventType GetEventType() const = 0;
+		virtual const char* GetName() const = 0;
+		virtual int GetCategoryFlags() const = 0;
+		virtual std::string ToString() const { return GetName(); }
+
+		inline bool IsInCategory(EventCategory category)
+		{
+			return GetCategoryFlags() & static_cast<uint8_t>(category);;
+		}
+	protected:
+		bool m_Handled = false;
+	};
+
+	using EventCallbackFn = std::function<void(Event&)>;
+
+	class EventDispatcher
+	{
+		template<typename T>
+		using EventFn = std::function<bool(T&)>;
+	public:
+		EventDispatcher(Event& event)
+			: m_Event(event)
+		{
+		}
+
+		template<typename T>
+		bool Dispatch(EventFn<T> func)
+		{
+			if (m_Event.GetEventType() == T::GetStaticType())
+			{
+				m_Event.m_Handled = func(*(T*)&m_Event);
+				return true;
+			}
+			return false;
+		}
+	private:
+		Event& m_Event;
+	};
+
+	inline std::ostream& operator<<(std::ostream& os, const Event& e)
+	{
+		return os << e.ToString();
+	}
+}

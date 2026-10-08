@@ -1,13 +1,18 @@
-#include "AudioDistanceProbe.h"
+module;
 
 #include <ElevateEngine/Audio/SoundEngine.h>
 
-void Elevate::AudioDistanceProbe::Init()
-{
-	SoundEngine::SetDistanceProbe(gameObject);
-}
+module Elevate.Audio.AudioDistanceProbe;
 
-void Elevate::AudioDistanceProbe::Destroy()
+namespace Elevate
 {
-	SoundEngine::UnsetDistanceProbe();
+	void AudioDistanceProbe::Init()
+	{
+		SoundEngine::SetDistanceProbe(gameObject);
+	}
+
+	void AudioDistanceProbe::Destroy()
+	{
+		SoundEngine::UnsetDistanceProbe();
+	}
 }
