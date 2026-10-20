@@ -1,6 +1,7 @@
 #pragma once
-#include "ElevateEngine/Renderer/Buffer.h"
-#include "ElevateEngine/Renderer/VertexArray.h"
+
+#include "ElevateEngine/Renderer/Buffers/Buffer.h"
+#include "ElevateEngine/Renderer/Vertex/VertexArray.h"
 
 namespace Elevate
 {

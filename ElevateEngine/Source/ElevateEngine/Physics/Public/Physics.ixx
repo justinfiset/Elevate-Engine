@@ -1,3 +1,3 @@
 export module Elevate.Physics;
 
-export import Elevate.PhysicsSystem;
+export import Elevate.Physics.PhysicsSystem;

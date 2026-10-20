@@ -2,25 +2,24 @@
 
 #ifdef EE_EDITOR_BUILD
 
-#include <ElevateEngine/Core/Layers/Layer.h>
-#include <ElevateEngine/Core/Command.h>
-
-#include <ElevateEngine/Editor/EditorWidget.h>
-#include <ElevateEngine/Editor/Panels/ScenePanel.h>
-#include <ElevateEngine/Editor/Panels/HierarchyPanel.h>
-#include <ElevateEngine/Editor/Panels/AnalyserPanel.h>
-#include <ElevateEngine/Editor/Panels/AssetBrowserPanel.h>
-#include <ElevateEngine/Editor/Panels/StatisticsPanel.h>
-#include <ElevateEngine/Editor/Panels/ConsolePanel.h>
-
 #include <memory>
+#include <type_traits>
+#include <vector>
+
+#include <ElevateEngine/Editor/Commands/Command.h>
+#include <ElevateEngine/Editor/EditorWidget.h>
 
 #ifdef EE_USES_WWISE
 #include <ElevateEngine/Audio/Wwise/Editor/WwiseBrowserWidget.h>
 #endif // #ifdef EE_USES_WWISE
 
+import Elevate.Core.Layers.Layer;
+import Elevate.Core.Objects.Object;
+import Elevate.Core.Objects.ObjectPtr;
+
 namespace Elevate
 {
+	class Event;
 	class Shader;
 	class GameObject;
 	class Scene;
@@ -35,19 +34,7 @@ namespace Elevate::Editor
 	public:
 		EditorLayer();
 
-		void InitUI()
-		{
-			CreateWidget<ConsolePanel>();
-			CreateWidget<HierarchyPanel>();
-			CreateWidget<ScenePanel>();
-			CreateWidget<AnalyserPanel>();
-			CreateWidget<AssetBrowserPanel>();
-			CreateWidget<StatisticsPanel>();
-
-#ifdef EE_USES_WWISE
-			CreateWidget<WwiseBrowserWidget>();
-#endif // #ifdef EE_USES_WWISE
-		}
+		void InitUI();
 
 		virtual void OnAttach() override;
 		//virtual void OnDetach() {}
@@ -60,11 +47,11 @@ namespace Elevate::Editor
 		inline std::weak_ptr<Scene> GetScene() { return m_EditorScene; }
 		inline std::weak_ptr<EEObject> GetSelectedObject() { return m_SelectedObject; }
 		void SelectObject(const EEObjectPtr<EEObject>& newSelection);
-		
+
 		inline static EditorLayer& Get() { return *s_Instance; }
 
 		template <typename T>
-		inline static void CreateWidget() 
+		inline static void CreateWidget()
 		{
 			bool isValid = std::is_base_of_v<EditorWidget, T>;
 			Assert::That(isValid, "An attemp to add a non widget element to the widget stack was detected.");
@@ -83,7 +70,7 @@ namespace Elevate::Editor
 
 		// Editor Scene
 		std::shared_ptr<Scene> m_EditorScene;
-		
+
 		// Grid
 		std::shared_ptr<Shader> m_GridShader;
 		std::shared_ptr<GameObject> m_GridObject;

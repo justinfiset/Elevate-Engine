@@ -1,7 +1,8 @@
 #pragma once
 
-#include <ElevateEngine/Core/Command.h>
-#include <ElevateEngine/Core/GameObject.h>
+#include <ElevateEngine/Editor/Commands/Command.h>
+
+import Elevate.Core.Scene:GameObject;
 
 namespace Elevate
 {
@@ -18,7 +19,7 @@ namespace Elevate
 	private:
 		std::weak_ptr<GameObject> m_object;
 	public:
-		DeleteGameobjectCommand(std::weak_ptr<GameObject> object) : m_object(object) { }
+		DeleteGameobjectCommand(std::weak_ptr<GameObject> object) : m_object(object) {}
 		virtual void Execute() override { m_object.lock()->Destroy(); }
 		virtual void Undo() override { /* TODO IMPLEMENT */ }
 	};

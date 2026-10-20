@@ -2,7 +2,7 @@ module;
 
 #include <memory>
 
-export module Elevate.Core.Scene.SceneLayer;
+export module Elevate.Core.Scene:SceneLayer;
 
 import Elevate.Core.Layers.Layer;
 

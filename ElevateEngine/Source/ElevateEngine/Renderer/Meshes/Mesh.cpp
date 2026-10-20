@@ -3,9 +3,10 @@
 #include <stddef.h>
 #include <cmath>
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
-#include <ElevateEngine/Renderer/Texture/TextureManager.h>
-#include <ElevateEngine/Renderer/Renderer.h>
-#include <ElevateEngine/Renderer/Buffer.h>
+#include <ElevateEngine/Renderer/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Buffers/Buffer.h>
+
+import Elevate.Renderer.Textures.TextureManager;
 
 namespace Elevate
 {
@@ -21,7 +22,7 @@ namespace Elevate
 			{ ShaderDataType::Float2, "a_TexCord" },
 			{ ShaderDataType::Float3, "a_Tangent" },
 			{ ShaderDataType::Float3, "a_Bitangent" }
-		});
+			});
 
 		//Creating the IndexBuffer (containing indices)
 		m_IndexBuffer.reset(IndexBuffer::Create(&data.Indices[0], (uint32_t)data.Indices.size()));
@@ -39,7 +40,8 @@ namespace Elevate
 	}
 
 	Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices, const std::vector<std::shared_ptr<Texture>>& textures)
-		: Mesh(MeshData(vertices, indices, textures)) { }
+		: Mesh(MeshData(vertices, indices, textures)) {
+	}
 
 	Mesh* Mesh::Create(const MeshData& data)
 	{
@@ -59,7 +61,7 @@ namespace Elevate
 		std::vector<uint32_t> indices;
 
 		auto addFace = [&](glm::vec3 normal, glm::vec3 v0, glm::vec3 v1, glm::vec3 v2, glm::vec3 v3) {
-			uint32_t startIndex = (uint32_t) vertices.size();
+			uint32_t startIndex = (uint32_t)vertices.size();
 
 			Vertex a{ v0, normal, {0.0f, 0.0f} };
 			Vertex b{ v1, normal, {1.0f, 0.0f} };
@@ -77,7 +79,7 @@ namespace Elevate
 			indices.push_back(startIndex);
 			indices.push_back(startIndex + 2);
 			indices.push_back(startIndex + 3);
-		};
+			};
 
 		// Front (+Z)
 		addFace({ 0, 0, 1 },
@@ -132,7 +134,7 @@ namespace Elevate
 		const float pi = std::acos(-1.0f);
 		std::vector<Vertex> vertices;
 		std::vector<uint32_t> indices;
-		
+
 		float latStep = pi / latitudes;
 		float longStep = 2 * pi / longitudes;
 
@@ -147,14 +149,14 @@ namespace Elevate
 				float theta = lon * longStep;
 
 				Vertex v;
-				v.Position = { 
+				v.Position = {
 					xy * cosf(theta),
 					xy * sinf(theta),
 					z
 				};
-				v.TexCoords = { 
-					(float) lon / longitudes,
-					(float) lat / latitudes 
+				v.TexCoords = {
+					(float)lon / longitudes,
+					(float)lat / latitudes
 				};
 				v.Normal = glm::normalize(v.Position);
 				vertices.push_back(v);
@@ -171,7 +173,7 @@ namespace Elevate
 				indices.insert(indices.end(), {
 					curr, next, curr + 1,
 					next, next + 1, curr + 1
-				});
+					});
 			}
 		}
 

@@ -1,44 +1,44 @@
 #include "EditorRenderer.h"
 
-import Elevate.Foundations;
+import Elevate.Foundations.CoreLogger;
 
-#include <ElevateEngine/Renderer/Renderer.h>
-#include <ElevateEngine/Renderer/Mesh.h>
-#include <ElevateEngine/Renderer/Material.h>
+#include <ElevateEngine/Renderer/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Meshes/Mesh.h>
+#include <ElevateEngine/Renderer/Materials/Material.h>
 #include <ElevateEngine/Renderer/Shader/ShaderManager.h>
 
 namespace Elevate
 {
-    void EditorRenderer::DrawBillboard(const glm::vec3& position, TexturePtr icon, float scale, glm::vec4 colorModifier)
-    {
-        if (!icon) return;
+	void EditorRenderer::DrawBillboard(const glm::vec3& position, std::shared_ptr<Texture> icon, float scale, glm::vec4 colorModifier)
+	{
+		if (!icon) return;
 
-        static Mesh billboardQuad = Mesh::GenerateQuad();
-        static EEObjectPtr<Shader> billboardShader = ShaderManager::GetShader("editor/billboard");
+		static Mesh billboardQuad = Mesh::GenerateQuad();
+		static EEObjectPtr<Shader> billboardShader = ShaderManager::GetShader("editor/billboard");
 
-        if (!billboardShader)
-        {
-            CoreLogger::Error("Could not find billboard shader 'editor/billboard'.");
-            return;
-        }
+		if (!billboardShader)
+		{
+			CoreLogger::Error("Could not find billboard shader 'editor/billboard'.");
+			return;
+		}
 
-        MaterialPtr instanceMaterial = MaterialRegistry::LoadMaterial(billboardShader);
+		MaterialPtr instanceMaterial = MaterialRegistry::LoadMaterial(billboardShader);
 
-        RenderState state;
-        state.BlendMode = BlendModeType::Alpha;
-        state.CullMode = CullFace::None;
-        state.DepthTest = false;
-        state.DepthWrite = false;
-        state.DepthFunc = DepthFunction::LessEqual;
+		RenderState state;
+		state.BlendMode = BlendModeType::Alpha;
+		state.CullMode = CullFace::None;
+		state.DepthTest = false;
+		state.DepthWrite = false;
+		state.DepthFunc = DepthFunction::LessEqual;
 
-        instanceMaterial->SetRenderState(state);
-        instanceMaterial->SetBucket(RenderBucket::Type::Editor);
+		instanceMaterial->SetRenderState(state);
+		instanceMaterial->SetBucket(RenderBucket::Type::Editor);
 
-        instanceMaterial->SetTexture("billboardTexture", icon);
-        instanceMaterial->Set("colorModifier", colorModifier);
-        instanceMaterial->Set("worldPos", position);
-        instanceMaterial->Set("scale", scale);
+		instanceMaterial->SetTexture("billboardTexture", icon);
+		instanceMaterial->Set("colorModifier", colorModifier);
+		instanceMaterial->Set("worldPos", position);
+		instanceMaterial->Set("scale", scale);
 
-        Renderer::SubmitMesh(billboardQuad.GetVertexArray(), instanceMaterial, glm::mat4(1.0f));
-    }
+		Renderer::SubmitMesh(billboardQuad.GetVertexArray(), instanceMaterial, glm::mat4(1.0f));
+	}
 }

@@ -1,4 +1,3 @@
-
 #include "GraphicsContext.h"
 
 namespace Elevate
@@ -6,13 +5,13 @@ namespace Elevate
 	GraphicsContext* Elevate::GraphicsContext::s_context = nullptr;
 
 	Elevate::GraphicsContext::GraphicsContext()
-		: m_state(GraphicsContextState::UNINITIALIZED)
+		: m_state(GraphicsContextState::Uninitialized)
 	{
 		s_context = this;
 	}
 
 	Elevate::GraphicsContext::~GraphicsContext()
 	{
-		m_state = GraphicsContextState::TERMINATED;
+		m_state = GraphicsContextState::Terminated;
 	}
 }

@@ -13,9 +13,11 @@ import Elevate.Foundations;
 #include <Jolt/Physics/Collision/Shape/StaticCompoundShape.h>
 #include <Jolt/Physics/Body/BodyCreationSettings.h>
 
-#include <ElevateEngine/Core/Application.h>
-#include <ElevateEngine/Physics/Rigidbody.h>
-#include <ElevateEngine/Physics/Colliders/Collider.h>
+#include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
+#include <ElevateEngine/Physics/public/Colliders/Collider.h>
+
+import Elevate.Foundations.CoreLogger;
+import Elevate.Core.Application;
 
 namespace Elevate::Jolt
 {
@@ -66,7 +68,7 @@ namespace Elevate::Jolt
 		JPH::Trace = TraceImpl;
 		JPH_IF_ENABLE_ASSERTS(JPH::AssertFailed = AssertFailedImpl;)
 
-		JPH::Factory::sInstance = new JPH::Factory();
+			JPH::Factory::sInstance = new JPH::Factory();
 		JPH::RegisterTypes();
 
 		constexpr JPH::uint maxBodies = 10240;
@@ -184,7 +186,7 @@ namespace Elevate::Jolt
 		const auto& position = rigidbody->gameObject->GetPosition();
 		const auto& quat = rigidbody->gameObject->GetTransform().GetRotationQuat();
 		const auto& colliders = rigidbody->GetColliders();
-		
+
 		if (colliders.empty())
 		{
 			return;
@@ -242,9 +244,9 @@ namespace Elevate::Jolt
 	void JoltPhysicsSystem::RemoveRigidbody(const Rigidbody* rigidbody)
 	{
 		auto it = std::find_if(m_Bodies.begin(), m_Bodies.end(), [rigidbody](const auto& body)
-		{
-			return body.rigidbody == rigidbody;
-		});
+			{
+				return body.rigidbody == rigidbody;
+			});
 
 		if (it == m_Bodies.end())
 		{
@@ -278,7 +280,7 @@ namespace Elevate::Jolt
 			JPH::Vec3 position;
 			JPH::Quat rotation;
 			m_BodyInterface->GetPositionAndRotation(body.bodyID, position, rotation);
-			
+
 			// Apply the data to the world object
 			Transform& transform = rigidbody->gameObject->GetTransform();
 			transform.SetPosition(glm::vec3{ position.GetX(), position.GetY(), position.GetZ() });

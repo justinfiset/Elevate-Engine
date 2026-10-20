@@ -1,11 +1,13 @@
 #pragma once
 
+import Elevate.Renderer.Textures.Texture;
+
 #include <stdint.h>
 #include <memory>
 #include <vector>
 
-#include <ElevateEngine/Renderer/Vertex.h>
-#include <ElevateEngine/Renderer/Texture/Texture.h>
+#include <ElevateEngine/Renderer/Vertex/VertexArray.h>
+#include <ElevateEngine/Renderer/Vertex/Vertex.h>
 
 namespace Elevate
 {
@@ -17,11 +19,12 @@ namespace Elevate
 	{
 		std::vector<Vertex> Vertices;
 		std::vector<uint32_t> Indices;
-		std::vector<TexturePtr> Textures;
+		std::vector<std::shared_ptr<Texture>> Textures;
 
 		MeshData() = default;
-		MeshData(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices, const std::vector<TexturePtr>& textures)
-			: Vertices(vertices), Indices(indices), Textures(textures) { }
+		MeshData(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices, const std::vector<std::shared_ptr<Texture>>& textures)
+			: Vertices(vertices), Indices(indices), Textures(textures) {
+		}
 	};
 
 	enum class PrimitiveType : uint8_t
@@ -60,7 +63,7 @@ namespace Elevate
 		static Mesh CombineMeshes(std::vector<Mesh>& meshes);
 
 		/*
-		TODO: GENERATIONS FOR THESE PRIMITIVES : 
+		TODO: GENERATIONS FOR THESE PRIMITIVES :
 		Cubesphere,
 		Icosphere,
 		Cylinder,

@@ -8,7 +8,7 @@ module;
 
 export module Elevate.Renderer.Textures.Texture;
 
-import Elevate.Renderer.Textures.TextureMetadata;
+export import Elevate.Renderer.Textures.TextureMetadata;
 
 export namespace Elevate
 {

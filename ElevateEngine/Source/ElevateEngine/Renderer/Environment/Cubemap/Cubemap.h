@@ -3,8 +3,8 @@
 #include <memory>
 #include <filesystem>
 
-#include <ElevateEngine/Renderer/Buffer.h>
-#include <ElevateEngine/Renderer/VertexArray.h>
+#include <ElevateEngine/Renderer/Buffers/Buffer.h>
+#include <ElevateEngine/Renderer/Vertex/VertexArray.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/RenderState.h>
 
@@ -50,7 +50,7 @@ namespace Elevate
 			-1.0f,  1.0f,  1.0f
 		};
 
-		unsigned int s_skyboxIndices[6 * 2 *3] = {
+		unsigned int s_skyboxIndices[6 * 2 * 3] = {
 			// Front
 			0, 1, 2,
 			2, 3, 0,

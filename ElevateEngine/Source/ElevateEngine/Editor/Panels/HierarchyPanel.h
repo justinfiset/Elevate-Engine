@@ -2,13 +2,14 @@
 
 #ifdef EE_EDITOR_BUILD
 
-#include <ElevateEngine/Core/GameObject.h>
+#include <memory>
+
 #include <ElevateEngine/Editor/EditorWidget.h>
 
-namespace Elevate
-{
-	class Texture;
-}
+import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Core.Scene:GameObject;
+import Elevate.Renderer.Textures.Texture;
+
 namespace Elevate::Editor
 {
 	class HierarchyPanel : public EditorWidget

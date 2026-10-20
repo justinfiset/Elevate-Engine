@@ -1,18 +1,19 @@
-
-#include "Camera.h"
+module;
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
-#include "ElevateEngine/Core/Application.h"
-#include "ElevateEngine/Core/GameObject.h"
-
-#include "ElevateEngine/Renderer/Camera/CameraManager.h"
-#include <ElevateEngine/Audio/SoundEngine.h>
-
 #if EE_EDITOR_BUILD
 #include <ElevateEngine/Editor/Renderer/EditorRenderer.h>
 #endif
+
+module Elevate.Renderer.Camera.Camera;
+
+import Elevate.Core.Window;
+import Elevate.Core.Application;
+import Elevate.Core.Scene:GameObject;
+import Elevate.Audio.SoundEngine;
+import Elevate.Renderer.Camera.CameraManager;
 
 Elevate::Camera::Camera(float fov, bool overrideCurrent)
 {
@@ -190,7 +191,7 @@ void Elevate::Camera::DrawDebugFrustum()
 	glm::vec4 color = glm::vec4(0.96f, 0.47f, 0.12f, 1.0f);
 
 	// Draw the lines from the near corners to the far corners
-	for (int i = 0; i < 4; i++) 
+	for (int i = 0; i < 4; i++)
 	{
 		DebugRenderer::AddDebugLine({ corners[i], corners[i + 4], color });
 	}

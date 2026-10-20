@@ -1,18 +1,18 @@
-
-
 #include "Model.h"
 
-import Elevate.Foundations;
+#include <memory>
+
+import Elevate.Foundations.CoreLogger;
+import Elevate.Renderer.Textures.Texture;
 
 #include <glm/glm.hpp>
-#include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Shader/ShaderManager.h>
-#include <ElevateEngine/Core/GameObject.h>
 
 #include <filesystem>
 
-std::string GetUniformNameByType(Elevate::TexturePtr texture)
+std::string GetUniformNameByType(Elevate::std::shared_ptr<Texture> texture)
 {
 	switch (texture->GetUsage())
 	{
@@ -28,7 +28,7 @@ std::string GetUniformNameByType(Elevate::TexturePtr texture)
 Elevate::Model::Model(PrimitiveType type, MaterialPtr material) : Model("", nullptr)
 {
 	SetMaterial(material ? material : MaterialRegistry::GetMaterial(EE_DEFAULT_MATERIAL));
-	
+
 	switch (type)
 	{
 	case PrimitiveType::Cube:
@@ -83,10 +83,10 @@ void Elevate::Model::LoadModel(std::string path)
 	// Importing the scene
 	Assimp::Importer import;
 	const aiScene* scene = import.ReadFile(resolvedPath.string(),
-		aiProcess_Triangulate			|
-		aiProcess_GenNormals			|
-		aiProcess_OptimizeMeshes		|
-		aiProcess_ImproveCacheLocality	|
+		aiProcess_Triangulate |
+		aiProcess_GenNormals |
+		aiProcess_OptimizeMeshes |
+		aiProcess_ImproveCacheLocality |
 		aiProcess_CalcTangentSpace
 	);
 
@@ -100,7 +100,7 @@ void Elevate::Model::LoadModel(std::string path)
 
 	// Recursive method to process all the nodes in the model
 	MeshData data;
-	std::vector<Mesh> meshes;	
+	std::vector<Mesh> meshes;
 	std::filesystem::path fsPath(resolvedPath);
 	ProcessNode(fsPath.parent_path().string(), scene->mRootNode, scene, data);
 
@@ -128,7 +128,7 @@ void Elevate::Model::ProcessNode(std::string basePath, aiNode* node, const aiSce
 
 void Elevate::Model::ProcessMesh(std::string basePath, aiMesh* mesh, const aiScene* scene, MeshData& data)
 {
-	uint32_t offset = (uint32_t) data.Vertices.size();
+	uint32_t offset = (uint32_t)data.Vertices.size();
 
 	// Process vertices
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
@@ -221,7 +221,7 @@ void Elevate::Model::LoadMaterialTextures(std::string basePath, aiMaterial* mat,
 		std::string path = directory.string();
 
 		bool skip = false;
-		for (TexturePtr tex : data.Textures)
+		for (std::shared_ptr<Texture> tex : data.Textures)
 		{
 			if (tex->MatchesPath(path))
 			{
@@ -229,7 +229,7 @@ void Elevate::Model::LoadMaterialTextures(std::string basePath, aiMaterial* mat,
 				break;
 			}
 		}
-			
+
 		if (!skip)
 		{
 			data.Textures.emplace_back(Texture::CreateFromFile(path, texType));

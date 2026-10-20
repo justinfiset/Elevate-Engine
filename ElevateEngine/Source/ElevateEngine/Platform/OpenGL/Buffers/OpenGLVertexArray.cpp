@@ -1,12 +1,12 @@
 #include "OpenGLVertexArray.h"
 
-import Elevate.Foundations;
-
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 
 #include <ElevateEngine/Renderer/GLDebug.h>
-#include <ElevateEngine/Renderer/Buffer.h>
+#include <ElevateEngine/Renderer/Buffers/Buffer.h>
 #include <ElevateEngine/Renderer/GraphicsContext.h>
+
+import Elevate.Foundations;
 
 Elevate::OpenGLVertexArray::OpenGLVertexArray()
 {
@@ -55,13 +55,13 @@ void Elevate::OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuf
 			element.Name.c_str(), index, element.Count, GetDataAPIType(element.Type), layout.GetStride(), element.Offset);
 
 		LinkAttribute(
-			index, 
+			index,
 			element.Count, GetDataAPIType(element.Type),
-			element.Normalized, 
-			layout.GetStride(), 
+			element.Normalized,
+			layout.GetStride(),
 			(const void*)(uintptr_t)element.Offset
 		);
-		
+
 		index++;
 	}
 }

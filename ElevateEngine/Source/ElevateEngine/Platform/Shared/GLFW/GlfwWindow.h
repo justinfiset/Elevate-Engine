@@ -1,9 +1,9 @@
 #pragma once
 
+import Elevate.Core.Window;
 
 #include <string>
 
-#include <ElevateEngine/Core/Window.h>
 #include <ElevateEngine/Renderer/GraphicsContext.h>
 
 struct GLFWwindow;

@@ -3,16 +3,16 @@ module;
 #include <string>
 #include <functional>
 
-export module Elevate.Core.Scene.Component;
+export module Elevate.Core.Scene:Component;
 
 import Elevate.Core.Events.Event;
 import Elevate.Core.Objects.Object;
-export import Elevate.Core.Scene.ComponentTypeTrait;
+import Elevate.Core.Scene:Scene;
+export import Elevate.Core.Scene:ComponentTypeTrait;
 
 export namespace Elevate
 {
 	class GameObject;
-	class Scene;
 	class Texture;
 
 	class Component : public EEObject
@@ -39,13 +39,13 @@ export namespace Elevate
 		virtual const void* GetEditorIconHandle() const { return nullptr; }
 #endif
 
-		inline void SetActive(bool newState) { m_IsActive = newState; }
-		inline bool IsActive() { return m_IsActive; }
+		void SetActive(bool newState) { m_IsActive = newState; }
+		bool IsActive() const { return m_IsActive; }
 
 		// EEObject Implementation
 		// If no overrode, an empty layout is generated and nothing is shown in the inspector
-		inline virtual std::string GetName() const { return "Unknown Component"; }
-		inline virtual std::type_index GetTypeIndex() const { return typeid(Component); }
+		virtual std::string GetName() const { return "Unknown Component"; }
+		virtual std::type_index GetTypeIndex() const { return typeid(Component); }
 
 		virtual bool RemoveFromGameObject() { return false; }
 

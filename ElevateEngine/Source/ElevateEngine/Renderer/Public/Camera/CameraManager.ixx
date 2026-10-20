@@ -1,10 +1,10 @@
-#pragma once
-
-import Elevate.Foundations;
+module;
 
 #include <memory>
 
-namespace Elevate
+export module Elevate.Renderer.Camera.CameraManager;
+
+export namespace Elevate
 {
 	class Camera;
 
@@ -16,11 +16,13 @@ namespace Elevate
 #ifdef EE_EDITOR_BUILD
 		static Camera* GetEditor();
 #endif
+
 		static Camera* GetRuntime();
 
 		static void SetCurrent(Camera* current);
 
 		static void NotifyDestruction(Camera* camera);
+
 	private:
 		static Camera* s_currentCamera;
 	};

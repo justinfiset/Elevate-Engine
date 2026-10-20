@@ -21,12 +21,12 @@ namespace Elevate {
 
 		virtual void SwapBuffers() = 0;
 
-		static const GraphicsContext* Get() const
+		static const GraphicsContext* Get()
 		{
 			return s_context;
 		}
 
-		static bool IsValid() const
+		static bool IsValid()
 		{
 			return s_context != nullptr;
 		}

@@ -1,37 +1,38 @@
 #include "Collider.h"
-#include <ElevateEngine/Physics/Rigidbody.h>
+
+#include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
 
 const glm::vec3 Elevate::Collider::GetWorldCenter() const
 {
-    return gameObject->GetPosition() + m_Center;
+	return gameObject->GetPosition() + m_Center;
 }
 
 void Elevate::Collider::Init()
 {
-    OnInitCollider();
+	OnInitCollider();
 }
 
 void Elevate::Collider::Destroy()
 {
-    OnRemoveCollider();
+	OnRemoveCollider();
 }
 
 void Elevate::Collider::OnInitCollider()
 {
-    if (!gameObject->HasComponent<Rigidbody>())
-    {
-        gameObject->AddComponent<Rigidbody>();
-    }
+	if (!gameObject->HasComponent<Rigidbody>())
+	{
+		gameObject->AddComponent<Rigidbody>();
+	}
 
-    Rigidbody* rb = gameObject->GetComponent<Rigidbody>();
-    rb->AddCollider(this);
+	Rigidbody* rb = gameObject->GetComponent<Rigidbody>();
+	rb->AddCollider(this);
 }
 
 void Elevate::Collider::OnRemoveCollider()
 {
-    if (gameObject->HasComponent<Rigidbody>())
-    {
-        Rigidbody* rb = gameObject->GetComponent<Rigidbody>();
-        rb->RemoveCollider(this);
-    }
+	if (gameObject->HasComponent<Rigidbody>())
+	{
+		Rigidbody* rb = gameObject->GetComponent<Rigidbody>();
+		rb->RemoveCollider(this);
+	}
 }

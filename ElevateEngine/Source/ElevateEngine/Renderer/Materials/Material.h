@@ -9,110 +9,116 @@
 
 #include <glm/glm.hpp>
 
-import Elevate.Foundations;
-
-#include <ElevateEngine/Core/Reflection.h>
-#include <ElevateEngine/Core/Asset.h>
-#include <ElevateEngine/Core/EEObjectPtr.h>
-#include <ElevateEngine/Renderer/Buffer.h>
+#include <ElevateEngine/Renderer/Buffers/Buffer.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Shader/ShaderManager.h>
-#include <ElevateEngine/Renderer/Texture/Texture.h>
 #include <ElevateEngine/Renderer/Commands/RenderBucket.h>
+
+#include "Reflection.h"
+
+// Foundations
+import Elevate.Foundations.Assert;
+
+// Core
+import Elevate.Core.Assets.Asset;
+import Elevate.Core.Objects.ObjectPtr;
+
+// Renderer
+import Elevate.Renderer.Textures.Texture;
 
 #define EE_DEFAULT_MATERIAL 0
 
 namespace Elevate
 {
-    class Material;
-    class MaterialFactory;
-    class MaterialRegistry;
+	class Material;
+	class MaterialFactory;
+	class MaterialRegistry;
 
-    using MaterialPtr = EEObjectPtr<Material>;
-    using MaterialID = uint32_t;
+	using MaterialPtr = EEObjectPtr<Material>;
+	using MaterialID = uint32_t;
 
-    class Material : public Asset
-    {
-        BEGIN_OBJECT(Material, EE_Asset("Material", ".mat", EE_CreateAssetMenu, EE_AssetColor(0.8f, 0.2f, 0.2f)))
+	class Material : public Asset
+	{
+		BEGIN_OBJECT(Material, AssetTag("Material", ".mat", CreateAssetMenuTag(), AssetColorTag(0.8f, 0.2f, 0.2f)))
 
-    public:
-        virtual TypeLayout GetLayout() const override;
+	public:
+		virtual TypeLayout GetLayout() const override;
 
-        template<typename T>
-        void Set(const std::string& name, const T& value)
-        {
-            for (const auto& uniform : m_shader->GetLayout())
-            {
-                if (uniform.Name == name)
-                {
-                    Assert::That(uniform.Offset + sizeof(T) <= m_buffer.size(),
-                        "Set Uniform: data size greater then buffer size!");
+		template<typename T>
+		void Set(const std::string& name, const T& value)
+		{
+			for (const auto& uniform : m_shader->GetLayout())
+			{
+				if (uniform.Name == name)
+				{
+					Assert::That(uniform.Offset + sizeof(T) <= m_buffer.size(),
+						"Set Uniform: data size greater then buffer size!");
 
-                    std::memcpy(m_buffer.data() + uniform.Offset, &value, sizeof(T));
-                    m_definedUniforms[uniform.Index] = true;
-                    return;
-                }
-            }
-            CoreLogger::Warn("Uniform '{0}' not found in the shader : {1}", name, m_shader->GetID());
-        }
+					std::memcpy(m_buffer.data() + uniform.Offset, &value, sizeof(T));
+					m_definedUniforms[uniform.Index] = true;
+					return;
+				}
+			}
+			CoreLogger::Warn("Uniform '{0}' not found in the shader : {1}", name, m_shader->GetID());
+		}
 
-        void SetTexture(const std::string& name, TexturePtr texture);
-        void Apply();
+		void SetTexture(const std::string& name, std::shared_ptr<Texture> texture);
+		void Apply();
 
-        std::shared_ptr<Shader> GetShader() const;
-        MaterialID GetID() const { return m_id; }
+		std::shared_ptr<Shader> GetShader() const;
+		MaterialID GetID() const { return m_id; }
 
-        RenderState& GetRenderState() { return m_state; }
-        const RenderState& GetRenderState() const { return m_state; }
-        void SetRenderState(const RenderState& state) { m_state = state; }
+		RenderState& GetRenderState() { return m_state; }
+		const RenderState& GetRenderState() const { return m_state; }
+		void SetRenderState(const RenderState& state) { m_state = state; }
 
-        RenderBucket::Type GetBucket() const { return m_bucket; }
-        void SetBucket(RenderBucket::Type bucket) { m_bucket = bucket; }
+		RenderBucket::Type GetBucket() const { return m_bucket; }
+		void SetBucket(RenderBucket::Type bucket) { m_bucket = bucket; }
 
-        size_t GetTextureCount() const { return m_textures.size(); }
+		size_t GetTextureCount() const { return m_textures.size(); }
 
-        Material();
-    private:
-        Material(const std::shared_ptr<Shader>& shader);
+		Material();
+	private:
+		Material(const std::shared_ptr<Shader>& shader);
 
-        TexturePtr GetTextureForUniform(const std::string& uniformName) const;
+		std::shared_ptr<Texture> GetTextureForUniform(const std::string& uniformName) const;
 
-        EEObjectPtr<Shader> m_shader{ nullptr };
-        PROPERTY(m_shader);
+		EEObjectPtr<Shader> m_shader{ nullptr };
+		PROPERTY(m_shader);
 
-        std::vector<uint8_t> m_buffer;
-        std::vector<bool> m_definedUniforms;
+		std::vector<uint8_t> m_buffer;
+		std::vector<bool> m_definedUniforms;
 
-        std::unordered_map<std::string, TexturePtr> m_textures;
+		std::unordered_map<std::string, std::shared_ptr<Texture>> m_textures;
 
-        MaterialID m_id{ 0 };
-        static MaterialID s_nextId;
+		MaterialID m_id{ 0 };
+		static MaterialID s_nextId;
 
-        RenderState m_state;
-        RenderBucket::Type m_bucket = RenderBucket::GBuffer;
+		RenderState m_state;
+		RenderBucket::Type m_bucket = RenderBucket::GBuffer;
 
-        friend class MaterialFactory;
+		friend class MaterialFactory;
 
-        END_OBJECT_CUSTOM()
-    };
+		END_OBJECT_CUSTOM()
+	};
 
-    class MaterialFactory
-    {
-    protected:
-        static MaterialPtr Create(const std::shared_ptr<Shader>& shader);
-        friend class MaterialRegistry;
-    };
+	class MaterialFactory
+	{
+	protected:
+		static MaterialPtr Create(const std::shared_ptr<Shader>& shader);
+		friend class MaterialRegistry;
+	};
 
-    class MaterialRegistry
-    {
-    public:
-        static MaterialPtr LoadMaterial(const std::shared_ptr<Shader>& shader);
-        static MaterialPtr GetMaterial(MaterialID id);
+	class MaterialRegistry
+	{
+	public:
+		static MaterialPtr LoadMaterial(const std::shared_ptr<Shader>& shader);
+		static MaterialPtr GetMaterial(MaterialID id);
 
-    private:
-        MaterialRegistry();
-        static MaterialRegistry& instance();
+	private:
+		MaterialRegistry();
+		static MaterialRegistry& instance();
 
-        std::unordered_map<MaterialID, MaterialPtr> m_materials;
-    };
+		std::unordered_map<MaterialID, MaterialPtr> m_materials;
+	};
 }

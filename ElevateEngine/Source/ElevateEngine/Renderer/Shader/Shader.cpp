@@ -3,20 +3,25 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-#include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Renderer/Renderer.h>
 
 #include "ElevateEngine/Renderer/Light/Light.h"
 #include "ElevateEngine/Renderer/Light/DirectionalLight.h"
 #include <ElevateEngine/Platform/OpenGL/Shaders/OpenGLShader.h>
-#include "ElevateEngine/Core/GameObject.h"
-#include <ElevateEngine/Renderer/Camera.h>
-#include <ElevateEngine/Renderer/Camera/CameraManager.h>
-
-import Elevate.Foundations;	
 
 #include <ElevateEngine/Foundations/Core.h> // todo remove this
 
-namespace Elevate 
+// Foundations
+import Elevate.Foundations.CoreLogger;
+
+// Core
+import Elevate.Core.Objects.GameObject;
+
+// Renderer
+import Elevate.Renderer.Camera.Camera;
+import Elevate.Renderer.Camera.CameraManager;
+
+namespace Elevate
 {
 	std::shared_ptr<Shader> Shader::CreateDefaultNative()
 	{
@@ -51,7 +56,7 @@ namespace Elevate
 	EEObjectPtr<Shader> Shader::Create(const std::string& vertexSource, const std::string& fragmentSouce)
 	{
 		EEObjectPtr<Shader> shader = nullptr;
-		
+
 		if (!vertexSource.empty() && !fragmentSouce.empty())
 		{
 			switch (Renderer::GetAPI())
@@ -163,7 +168,7 @@ namespace Elevate
 			// todo impl all of the types here based on the functions we have in the shader part
 			// todo remove the need to cast to float* and directly use the SetUniform2fv functions (create them if necessary)
 		case ShaderDataType::Float:  SetUniform1f(location, *(float*)value); break;
-		case ShaderDataType::Float2: 
+		case ShaderDataType::Float2:
 		{
 			float* data = (float*)value;
 			SetUniform2f(location, data[0], data[1]);
@@ -185,7 +190,7 @@ namespace Elevate
 			SetUniform1i(location, *(int*)value);
 			break;
 		case ShaderDataType::Mat4:
-			SetUniformMatrix4fv(location, (float*) value);
+			SetUniformMatrix4fv(location, (float*)value);
 			break;
 		default:
 			Assert::That(false, "(Shader::SetUniform()) : Unsupported datatype provided.");

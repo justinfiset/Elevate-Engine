@@ -1,30 +1,30 @@
 #pragma once
 #include "Collider.h"
 
-#include <ElevateEngine/Physics/Shapes/SphereShape.h>
-#include <ElevateEngine/Core/Reflection.h>
+#include <ElevateEngine/Physics/Public/Shapes/SphereShape.h>
+#include "Reflection.h"
 
 namespace Elevate
 {
-    class SphereCollider : public Collider
-    {
-        BEGIN_COMPONENT(SphereCollider)
-        DECLARE_BASE(Collider)
-        EECATEGORY("Physics")
+	class SphereCollider : public Collider
+	{
+		BEGIN_COMPONENT(SphereCollider)
+			DECLARE_BASE(Collider)
+		EECATEGORY("Physics")
 
-    public:
-        SphereCollider() = default;
-        SphereCollider(float radius) : m_Shape(radius) {}
+	public:
+		SphereCollider() = default;
+		SphereCollider(float radius) : m_Shape(radius) {}
 
-        const SphereShape& GetShape() const
-        {
-            return m_Shape;
-        }
+		const SphereShape& GetShape() const
+		{
+			return m_Shape;
+		}
 
-    private:
-        SphereShape m_Shape;
-        PROPERTY(m_Shape, EE_Flatten)
+	private:
+		SphereShape m_Shape;
+		PROPERTY(m_Shape, EE_Flatten)
 
-        END_COMPONENT()
-    };
+			END_COMPONENT()
+	};
 }

@@ -1,19 +1,4 @@
-
-#include "Scene.h"
-
-#include <ElevateEngine/Core/GameObject.h>
-#include <ElevateEngine/Core/Application.h>
-
-#include <ElevateEngine/Scene/SceneManager.h>
-
-#include <ElevateEngine/Renderer/Model.h>
-#include <ElevateEngine/Renderer/Renderer.h>
-
-#include <ElevateEngine/Renderer/Camera.h>
-#include <ElevateEngine/Renderer/Camera/CameraManager.h>
-#include <ElevateEngine/Renderer/Light/SceneLighting.h>
-
-#include "ScenePrivate.h"
+module;
 
 // rapidjson
 #include <rapidjson/filereadstream.h>
@@ -23,17 +8,33 @@
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/writer.h>
 
+#include <ElevateEngine/Renderer/Models/Model.h>
+#include <ElevateEngine/Renderer/Renderer/Renderer.h>
+
+#include <ElevateEngine/Renderer/Light/SceneLighting.h>
+
+export module Elevate.Core.Scene:Scene;
+
+import Elevate.Core.Application;
+import Elevate.Core.Objects.ObjectPtr;
+
+import Elevate.Core.Scene:GameObject;
+import Elevate.Core.Scene.SceneManager;
+
+import Elevate.Renderer.Camera.Camera;
+import Elevate.Renderer.Camera.CameraManager;
+
 namespace Elevate
 {
 	std::uint32_t Scene::s_nextRegistryId = 1;
 
-	Scene::Scene() : Scene("DefaultScene", SceneType::RuntimeScene) { }
+	Scene::Scene() : Scene("DefaultScene", SceneType::RuntimeScene) {}
 
 	Scene::Scene(std::string name, SceneType type) : m_name(name), m_type(type)
 	{
 		m_registryId = s_nextRegistryId;
 		s_nextRegistryId++;
-		CreateRegistry(m_registryId);
+		SceneManager::GetComponentRegistry()->CreateRegistry(m_registryId);
 
 		m_sceneLighting = std::make_unique<SceneLighting>();
 
@@ -42,7 +43,8 @@ namespace Elevate
 
 	Scene::~Scene()
 	{
-		DestroyRegistry(m_registryId);
+		Application::Get()->Registry
+			DestroyRegistry(m_registryId);
 	}
 
 	void Scene::OnAwake()
@@ -143,9 +145,9 @@ namespace Elevate
 		}
 	}
 
-	ScenePtr Scene::Create(std::string name, SceneType type)
+	std::shared_ptr<Scene> Scene::Create(std::string name, SceneType type)
 	{
-		ScenePtr scene = std::make_shared<Scene>(name, type);
+		std::shared_ptr<Scene> scene = std::make_shared<Scene>(name, type);
 		SceneManager::LoadScene(scene);
 		return scene;
 	}

@@ -1,20 +1,22 @@
 #pragma once
-#include <ElevateEngine/Files/FileDialog.h>
-#include <ElevateEngine/Scene/SceneManager.h>
+
 #include <ElevateEngine/Editor/EditorWidget.h>
 
 #include "imgui.h"
+
+import Elevate.Foundations.Files.FileDialog;
+import Elevate.Core.Scene.SceneManager;
 
 namespace Elevate::Editor
 {
 	class SkyboxEditorWidget : public EditorWidget
 	{
 	public:
-		void OnImGuiRender() override 
+		void OnImGuiRender() override
 		{
 			ImGui::Begin("Environment");
 			ImGui::SeparatorText("Skybox");
-			
+
 			auto scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
 			auto skybox = scene->GetSkybox().lock();
 
@@ -43,7 +45,7 @@ namespace Elevate::Editor
 			{
 				ImGui::Text("Skybox : %s", skybox->GetFilePath().c_str());
 				// Skybox textures preview
-				for (int i = 0; i < 6; i++) 
+				for (int i = 0; i < 6; i++)
 				{
 
 				}

@@ -6,6 +6,7 @@ module;
 export module Elevate.Core.Window;
 
 import Elevate.Core.Events;
+import Elevate.Core.Events.Event;
 
 export namespace Elevate
 {
@@ -26,10 +27,11 @@ export namespace Elevate
 		unsigned int Height;
 		bool VSync;
 
-		WindowProps () : Title("ElevateEngine Dev"), Width(1280), Height(720), VSync(false) { }
+		WindowProps() : Title("ElevateEngine Dev"), Width(1280), Height(720), VSync(false) {}
 
 		WindowProps(const std::string& title, unsigned int width, unsigned int height, bool vsync)
-			: Title(title), Width(width), Height(height), VSync(vsync) { }
+			: Title(title), Width(width), Height(height), VSync(vsync) {
+		}
 
 		// To get all the revelant data from a .config file written in json
 		WindowProps(const std::string appConfigFilePath);
@@ -39,7 +41,7 @@ export namespace Elevate
 	{
 	public:
 		Window() = default;
-		virtual ~Window() { }
+		virtual ~Window() {}
 
 		virtual void Init(const WindowProps& props);
 		virtual void OnUpdate() = 0;
@@ -61,10 +63,10 @@ export namespace Elevate
 		virtual void* GetNativeWindow() const = 0; // Ex: Get the GLFW window on Windows
 
 		const WindowData& GetWindowData() const { return m_Data; }
-		
+
 		void SetWindowSize(unsigned int width, unsigned int height);
 		void EventCallback(Event& event) { m_Data.EventCallback(event); }
-	
+
 	protected:
 		WindowData m_Data;
 	};

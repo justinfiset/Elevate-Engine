@@ -1,10 +1,6 @@
 #pragma once
 
-#include "ElevateEngine/Core/Layers/Layer.h"
-#include "ElevateEngine/Events/Event.h"	
-#include "ElevateEngine/Events/KeyEvent.h"
-#include "ElevateEngine/Events/MouseEvent.h"
-#include "ElevateEngine/Events/ApplicationEvent.h"
+import Elevate.Core.Layers.Layer;
 
 namespace Elevate
 {

@@ -11,21 +11,22 @@
 #include <rapidjson/document.h>
 #include <rapidjson/error/en.h>
 
-#include <ElevateEngine/Core/TypeRegistry.h>
-#include <ElevateEngine/Core/AssetRegistry.h>
-#include <ElevateEngine/Core/Asset.h>
-
 #include <ElevateEngine/Inputs/Input.h>
-
-#include <ElevateEngine/Renderer/Texture/Texture.h>
-#include <ElevateEngine/Renderer/Texture/TextureManager.h>
-
-#include <ElevateEngine/Serialization/JsonSerializer.h>
 
 #include <ElevateEngine/Editor/EditorLayer.h>
 
-import Elevate.Foundations;
 namespace fs = std::filesystem;
+
+import Elevate.Foundations.CoreLogger;
+
+import Elevate.Core.Types.TypeRegistry;
+import Elevate.Core.Assets.AssetRegistry;
+import Elevate.Core.Assets.Asset;
+
+import Elevate.Renderer.Textures.Texture;
+import Elevate.Renderer.Textures.TextureManager;
+
+import Elevate.Serialization.JsonSerializer;
 
 namespace Elevate
 {

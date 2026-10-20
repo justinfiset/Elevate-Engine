@@ -1,10 +1,18 @@
-﻿#include "HierarchyPanel.h"
+﻿#ifdef EE_EDITOR_BUILD
 
-#ifdef EE_EDITOR_BUILD
+#include <cstdint>
+#include <cstring>
+#include <memory>
+#include <string>
 
 #include "imgui.h"
+
 #include <ElevateEngine/Editor/EditorLayer.h>
-#include <ElevateEngine/Scene/SceneManager.h>
+#include "HierarchyPanel.h"
+
+import Elevate.Core.Scene.SceneManager;
+import Elevate.Core.Scene:Scene;
+import Elevate.Core.Scene:SceneType;
 
 namespace Elevate::Editor
 {
@@ -23,7 +31,7 @@ namespace Elevate::Editor
 		}
 
 		bool open = false;
-		if (m_renaming && object == m_renamedObject) 
+		if (m_renaming && object == m_renamedObject)
 		{
 			ImGui::Image((ImTextureID)m_objectTexture->GetNativeHandle(), ImVec2(16, 16));
 			ImGui::SameLine();
@@ -69,7 +77,7 @@ namespace Elevate::Editor
 			if (ImGui::BeginPopupContextItem())
 			{
 				if (ImGui::MenuItem("Delete")) { object->Destroy(); }
-				if (ImGui::MenuItem("Rename")) 
+				if (ImGui::MenuItem("Rename"))
 				{
 					m_renaming = true;
 					m_renamedObject = object;
@@ -115,7 +123,7 @@ namespace Elevate::Editor
 
 		for (auto it = SceneManager::begin(); it != SceneManager::end(); it++)
 		{
-			ScenePtr scene = *it;
+			auto scene = *it;
 			if (scene->GetType() == SceneType::RuntimeScene && !scene->GetRootObjects().empty())
 			{
 				ImGui::Image((ImTextureID)m_sceneTexture->GetNativeHandle(), ImVec2(16, 16));

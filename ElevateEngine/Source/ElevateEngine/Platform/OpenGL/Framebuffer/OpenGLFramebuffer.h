@@ -1,12 +1,13 @@
 #pragma once
-#include "ElevateEngine/Renderer/Framebuffer.h"
+
+#include "ElevateEngine/Renderer/Framebuffers/Framebuffer.h"
 
 namespace Elevate
 {
 	class OpenGLFramebuffer : public Framebuffer
 	{
 	public:
-		OpenGLFramebuffer(const std::vector<TexturePtr>& colorTextures, TexturePtr depthTexture, bool depthAsRenderbuffer);
+		OpenGLFramebuffer(const std::vector<std::shared_ptr<Texture>>& colorTextures, std::shared_ptr<Texture> depthTexture, bool depthAsRenderbuffer);
 		~OpenGLFramebuffer();
 
 		void Bind() const override;
@@ -16,7 +17,7 @@ namespace Elevate
 
 		virtual void BlitDepthTo(const Framebuffer& target) const override;
 
-		inline uint32_t GetFrameBufferId() const override { return m_frameBufferId;  }
+		inline uint32_t GetFrameBufferId() const override { return m_frameBufferId; }
 	private:
 		bool CheckCompleteness() const;
 		const char* GetFramebufferStatusString(uint32_t status) const;

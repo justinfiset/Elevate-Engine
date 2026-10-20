@@ -2,10 +2,19 @@
 
 #ifdef EE_EDITOR_BUILD
 
+#include <memory>
+#include <typeindex>
+#include <map>
+#include <vector>
+
 #include <ElevateEngine/Editor/EditorWidget.h>
-#include <ElevateEngine/Core/TypeLayout.h>
-#include <ElevateEngine/Core/EEObject.h>
-#include <ElevateEngine/Core/TypeRegistry.h>
+
+import Elevate.Core.Types.TypeLayout;
+import Elevate.Core.Types.TypeRegistry;
+import Elevate.Core.Types.TypeField;
+import Elevate.Core.Objects.Category;
+import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Core.Scene:GameObject;
 
 namespace Elevate
 {

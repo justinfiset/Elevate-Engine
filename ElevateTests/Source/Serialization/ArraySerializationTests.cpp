@@ -5,7 +5,7 @@
 #include <ElevateEngine/Core/Byte.h>
 #include <ElevateEngine/Core/EEObject.h>
 #include <ElevateEngine/Core/EEObjectPtr.h>
-#include <ElevateEngine/Core/Reflection.h>
+#include "Reflection.h"
 #include <ElevateEngine/Core/TypeLayout.h>
 #include <ElevateEngine/Serialization/PropertyField.h>
 #include <ElevateEngine/Serialization/JsonSerializer.h>

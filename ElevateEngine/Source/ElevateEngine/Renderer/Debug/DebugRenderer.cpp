@@ -9,10 +9,11 @@
 
 #include <ElevateEngine/Foundations/Core.h> // todo remove
 
-#include <ElevateEngine/Core/Application.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
-#include <ElevateEngine/Renderer/Renderer.h>
-#include <ElevateEngine/Renderer/Buffer.h>
+#include <ElevateEngine/Renderer/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Buffers/Buffer.h>
+
+import Elevate.Core.Application;
 
 void Elevate::DebugRenderer::Init()
 {
@@ -124,7 +125,7 @@ void Elevate::DebugRenderer::InitLineRender()
 	m_lineBuffer->SetLayout({
 		{ ShaderDataType::Float3, "a_Position" },
 		{ ShaderDataType::Float4, "a_Color" },
-	});
+		});
 
 	m_lineArray.reset(VertexArray::Create());
 	m_lineArray->AddVertexBuffer(m_lineBuffer);

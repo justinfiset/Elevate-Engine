@@ -1,71 +1,80 @@
-#include "SceneLayer.h"
+module;
 
-import Elevate.Foundations;
+#include <ElevateEngine/Renderer/Renderer/Renderer.h>
 
-#include <ElevateEngine/Scene/Scene.h>
-#include <ElevateEngine/Renderer/Renderer.h>
-#include <ElevateEngine/Scene/SceneManager.h>
-#include <ElevateEngine/Events/ApplicationEvent.h>
+module Elevate.Core.Scene:SceneLayer;
 
-void Elevate::SceneLayer::OnDetach()
-{
-	SceneManager::UnloadScene(m_scene);
-}
+import Elevate.Foundations.CoreLogger;
 
-void Elevate::SceneLayer::OnUpdate()
-{
-	m_scene->UpdateScene();
-}
+import Elevate.Core.Scene:Scene;
+import Elevate.Core.Scene.SceneManager;
 
-void Elevate::SceneLayer::OnRender()
-{
-	OnRender(nullptr);
-}
-
-void Elevate::SceneLayer::OnRender(Camera* cam)
-{
-	if (cam)
-	{
-		Renderer::BeginFrame(m_scene, *cam);
-		m_scene->RenderScene(cam);
-	}
-	else
-	{
-		CoreLogger::Error("Cannot render a scene with a nullptr camera.");
-	}
-}
-
+// todo : remove
+import Elevate.Core.Events;
+import Elevate.Core.Scene:GameObject;
+import Elevate.Serialization.JsonSerializer;
+import Elevate.Core.Events;
 #include <ElevateEngine/Inputs/KeyCodes.h>
-#include <ElevateEngine/Events/KeyEvent.h>
-#include <ElevateEngine/Core/GameObject.h>
-#include <ElevateEngine/Serialization/JsonSerializer.h>
-void Elevate::SceneLayer::OnEvent(Event& event)
+
+namespace Elevate
 {
-	const auto type = event.GetEventType();
-	if (type == EventType::GameContextChanged)
+	void SceneLayer::OnDetach()
 	{
-		// If we are getting into runtime
-		auto contextEvent = dynamic_cast<GameContextEvent&>(event);
-		if (contextEvent.GetNewState() == GameContextState::Runtime)
+		SceneManager::UnloadScene(m_scene);
+	}
+
+	void SceneLayer::OnUpdate()
+	{
+		m_scene->UpdateScene();
+	}
+
+	void SceneLayer::OnRender()
+	{
+		OnRender(nullptr);
+	}
+
+	void SceneLayer::OnRender(Camera* cam)
+	{
+		if (cam)
 		{
-			m_scene->OnAwake();
-			m_scene->OnStart();
+			Renderer::BeginFrame(m_scene, *cam);
+			m_scene->RenderScene(cam);
+		}
+		else
+		{
+			CoreLogger::Error("Cannot render a scene with a nullptr camera.");
 		}
 	}
-	else if (type == EventType::KeyPressed)
+
+	// todo remove:
+	void SceneLayer::OnEvent(Event& event)
 	{
-		auto keyEvent = dynamic_cast<KeyPressedEvent&>(event);
-		if (keyEvent.GetKeyCode() == EE_KEY_E)
+		const auto type = event.GetEventType();
+		if (type == EventType::GameContextChanged)
 		{
-			JsonSerializer serializer;
-			Elevate::ByteBuffer buffer;
-			for (auto& obj : m_scene->GetRootObjects())
+			// If we are getting into runtime
+			auto contextEvent = dynamic_cast<GameContextEvent&>(event);
+			if (contextEvent.GetNewState() == GameContextState::Runtime)
 			{
-				serializer.Serialize(obj->GetProperties(), buffer);
-				std::string serialization = ByteUtils::ToString(buffer);
-				CoreLogger::Info("{}", serialization);
+				m_scene->OnAwake();
+				m_scene->OnStart();
 			}
 		}
+		else if (type == EventType::KeyPressed)
+		{
+			auto keyEvent = dynamic_cast<KeyPressedEvent&>(event);
+			if (keyEvent.GetKeyCode() == EE_KEY_E)
+			{
+				JsonSerializer serializer;
+				ByteBuffer buffer;
+				for (auto& obj : m_scene->GetRootObjects())
+				{
+					serializer.Serialize(obj->GetProperties(), buffer);
+					std::string serialization = ByteUtils::ToString(buffer);
+					CoreLogger::Info("{}", serialization);
+				}
+			}
+		}
+		m_scene->Notify(event);
 	}
-	m_scene->Notify(event);
 }

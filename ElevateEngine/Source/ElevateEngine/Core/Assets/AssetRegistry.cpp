@@ -9,18 +9,22 @@ module;
 #include <rapidjson/document.h>
 #include <rapidjson/error/en.h>
 
-// Core
-#include <ElevateEngine/Core/EEObject.h>
-#include <ElevateEngine/Core/TypeRegistry.h>
-// Serialization
-#include <ElevateEngine/Serialization/JsonSerializer.h>
-#include <ElevateEngine/Serialization/PropertyField.h>
-
-namespace fs = std::filesystem;
-
 module Elevate.Core.Assets.AssetRegistry;
 
+// Foundations
+import Elevate.Foundations.Paths;
+import Elevate.Foundations.Files;
+
+// Core
 import Elevate.Core.Assets.Asset;
+import Elevate.Core.Objects.Object;
+import Elevate.Core.Types.TypeRegistry;
+
+// Serialization
+import Elevate.Serialization.JsonSerializer;
+import Elevate.Serialization.PropertyField;
+
+namespace fs = std::filesystem;
 
 namespace Elevate
 {

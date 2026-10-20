@@ -1,12 +1,12 @@
 #include "OpenGLBuffer.h"
 
-import Elevate.Foundations;
-
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
-#include "ElevateEngine/Renderer/Vertex.h"
+#include <ElevateEngine/Renderer/Vertex/Vertex.h>
 #include <GLFW/glfw3.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
 #include <ElevateEngine/Renderer/GraphicsContext.h>
+
+import Elevate.Foundations;
 
 namespace Elevate
 {
@@ -17,16 +17,16 @@ namespace Elevate
 #else
 		glGenBuffers(n, ids);
 #endif
-    }
+	}
 
 	inline void NamedBufferData(uint32_t buffer, uint32_t target, size_t size, const void* data, uint32_t usage) {
 #ifdef EE_SUPPORTS_DSA
 		glNamedBufferData(buffer, size, data, usage);
 #else
-        glBindBuffer(target, buffer);
-        glBufferData(target, size, data, usage);
+		glBindBuffer(target, buffer);
+		glBufferData(target, size, data, usage);
 #endif
-    }
+	}
 
 	///////////////////////////////////////////////////////////////////////////////////////
 	// VertexBuffer ///////////////////////////////////////////////////////////////////////

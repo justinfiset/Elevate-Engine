@@ -3,7 +3,7 @@
 #include <Jolt/Jolt.h>
 #include <Jolt/Physics/PhysicsSystem.h>
 
-#include <ElevateEngine/Physics/PhysicsSystem.h>
+import Elevate.Physics.PhysicsSystem;
 
 namespace Elevate::Jolt
 {

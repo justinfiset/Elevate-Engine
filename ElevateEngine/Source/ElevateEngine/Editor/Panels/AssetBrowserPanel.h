@@ -5,11 +5,16 @@
 #include <filesystem>
 #include <unordered_map>
 #include <vector>
+#include <memory>
 #include <set>
 
+#include <glm/vec4.hpp>
+
 #include <ElevateEngine/Editor/EditorWidget.h>
-#include <ElevateEngine/Renderer/Texture/Texture.h>
-#include <ElevateEngine/Core/EEObject.h>
+
+import Elevate.Core.Objects.Object;
+import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Renderer.Textures.Texture;
 
 namespace Elevate
 {
@@ -17,7 +22,7 @@ namespace Elevate
 }
 
 namespace Elevate::Editor
-{	
+{
 	enum FileType
 	{
 		Directory = 0,
@@ -71,7 +76,8 @@ namespace Elevate::Editor
 
 		FileItem() = default;
 		FileItem(std::string filePath, std::string fileName, std::string fileExtension, std::string icon, FileType type) :
-			path(filePath), name(fileName), extension(fileExtension), iconPath(icon), type(type) { }
+			path(filePath), name(fileName), extension(fileExtension), iconPath(icon), type(type) {
+		}
 	};
 
 	struct BrowserPath
@@ -118,9 +124,9 @@ namespace Elevate::Editor
 		std::vector<BrowserPath> m_relatedPaths;
 
 		//      < Path , Texture >
-		std::unordered_map<std::string, TexturePtr> m_currentTextures;
+		std::unordered_map<std::string, std::shared_ptr<Texture>> m_currentTextures;
 		std::vector<std::string> m_ignoredExtensions;
-		TexturePtr m_folderTexture;
+		std::shared_ptr<Texture> m_folderTexture;
 
 		std::vector<FileItem> m_FileItems;
 		std::unordered_map<std::string, FileMetadata> m_FileMetadata;
@@ -135,9 +141,9 @@ namespace Elevate::Editor
 		uint32_t m_lastSelected = 0;
 		uint32_t m_nextId = 0;
 
-		TexturePtr m_newFolderTexture;
-		TexturePtr m_renameTexture;
-		TexturePtr m_deleteTexture;
+		std::shared_ptr<Texture> m_newFolderTexture;
+		std::shared_ptr<Texture> m_renameTexture;
+		std::shared_ptr<Texture> m_deleteTexture;
 	};
 }
 

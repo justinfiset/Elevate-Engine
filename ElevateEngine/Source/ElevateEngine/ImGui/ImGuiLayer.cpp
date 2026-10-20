@@ -5,16 +5,16 @@
 #include "imgui.h"
 #include "backends/imgui_impl_opengl3.h"
 #include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_opengl3.h"
 #include "ImGuizmo.h"
 
-#include "ElevateEngine/Core/Application.h"
+import Elevate.Core.Application;
 
 #include "ElevateEngine/ImGui/ImGuiTheme.h"
 #include <GLFW/glfw3.h>
 
 Elevate::ImGuiLayer::ImGuiLayer()
-	: Layer("ImGuiLayer") { }
+	: Layer("ImGuiLayer") {
+}
 
 Elevate::ImGuiLayer::~ImGuiLayer()
 {
@@ -34,7 +34,7 @@ void Elevate::ImGuiLayer::OnAttach()
 	//io.ConfigViewportsNoAutoMerge = true;
 	//io.ConfigViewportsNoTaskBarIcon = true;
 	UI::SetDarkTheme();
-	
+
 	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 	ImGuiStyle& style = ImGui::GetStyle();
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -49,7 +49,7 @@ void Elevate::ImGuiLayer::OnAttach()
 	// Setup Platform/Renderer bindings#
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(EE_SHADER_VERSION_HEADER);
-}   
+}
 
 void Elevate::ImGuiLayer::OnDetach()
 {

@@ -1,16 +1,17 @@
-#pragma once
+module;
 
+#include "Reflection.h"
 #include <string>
 
-#include <ElevateEngine/Core/GameObject.h>
-#include <ElevateEngine/Core/Reflection.h>
-#include <ElevateEngine/Core/TypeField.h>
-#include <ElevateEngine/Core/Component.h>
+export module Elevate.Audio.Wwise.AkBank;
 
-namespace Elevate
+import Elevate.Core.Scene:GameObject;
+import Elevate.Core.Scene:Component;
+
+export namespace Elevate
 {
 	class AkBank : public Component
-	{	
+	{
 		BEGIN_COMPONENT(AkBank)
 
 	public:

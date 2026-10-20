@@ -1,22 +1,24 @@
-#pragma once
+module;
 
-import Elevate.Foundations;
-
-#include <ElevateEngine/Core/GameObject.h>
-#include <ElevateEngine/Core/Component.h>
-#include <ElevateEngine/Core/TypeRegistry.h>
-#include <ElevateEngine/Editor/Components/ComponentsIcon.h>
-
+#include "Reflection.h"
 #include "glm/glm.hpp"
 
+#include <ElevateEngine/Editor/Components/ComponentsIcon.h>
+
+export module Elevate.Renderer.Camera.Camera;
+
+import Elevate.Foundations;
+import Elevate.Core.Scene:GameObject;
+import Elevate.Core.Scene:Component;
+
 // TODO add ortographic or projection settings (bool value or constructors)
-namespace Elevate
+export namespace Elevate
 {
 	class Camera : public Component
 	{
 	public:
-		BEGIN_COMPONENT(Camera, EE_EditorIcon(Editor::Icons::COMPONENT_ICON_CAMERA))
-		EECATEGORY("Rendering")
+		BEGIN_COMPONENT(Camera, EditorIconTag(Editor::Icons::COMPONENT_ICON_CAMERA));
+		EECATEGORY("Rendering");
 
 		// All possible constructors
 		Camera(float fov = 60.0f, bool overrideCurrent = true);
@@ -24,7 +26,7 @@ namespace Elevate
 
 		void UpdateAspectRatio(float aspectRatio);
 
-		inline const glm::mat4& GetProjectionMatrix() const { return m_projectionMatrix;  }
+		inline const glm::mat4& GetProjectionMatrix() const { return m_projectionMatrix; }
 		glm::mat4 GenViewMatrix() const;
 
 		glm::vec3 GetFrontVec() const;
@@ -42,7 +44,7 @@ namespace Elevate
 		inline void SetFar(float farPlane);
 
 		inline float GetAspectRatio() const { return m_aspectRatio; }
-		
+
 		glm::mat4 GenViewProjectionMatrix() const;
 
 		void Init() override;
@@ -65,19 +67,18 @@ namespace Elevate
 		float m_aspectRatio;
 
 		float m_FOV;
-		PROPERTY(m_FOV)
+		PROPERTY(m_FOV);
 
 		glm::mat4 m_projectionMatrix;
 
 		bool m_canBeMainCamera = true;
 
 		float m_near = 0.1f;
-		PROPERTY(m_near)
+		PROPERTY(m_near);
 
 		float m_far = 50.0f;
-		PROPERTY(m_far)
+		PROPERTY(m_far);
 
-		END_COMPONENT()
+		END_COMPONENT();
 	};
-	using CameraPtr = std::shared_ptr<Camera>;
 }

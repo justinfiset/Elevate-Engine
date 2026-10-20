@@ -1,25 +1,27 @@
 #pragma once
 
 #include "glm/glm.hpp"
-#include <ElevateEngine/Renderer/Texture/Texture.h>
 
-
+#include <memory>
 #include <optional>
 #include <vector>
+
+import Elevate.Renderer.Textures.Texture;
 
 namespace Elevate
 {
 	struct FramebufferColorAttachment {
-		TexturePtr Texture = nullptr;
+		std::shared_ptr<Texture> Texture = nullptr;
 		uint8_t Index = 0;
 
 		FramebufferColorAttachment() = default;
-		FramebufferColorAttachment(TexturePtr tex, uint32_t index = 0)
-			: Texture(tex), Index(index) { }
+		FramebufferColorAttachment(std::shared_ptr<Texture> tex, uint32_t index = 0)
+			: Texture(tex), Index(index) {
+		}
 	};
 
 	struct FramebufferDepthAttachment {
-		TexturePtr Texture = nullptr;
+		std::shared_ptr<Texture> Texture = nullptr;
 		bool IsRenderbuffer = false;
 	};
 
@@ -43,8 +45,8 @@ namespace Elevate
 		virtual void* GetColorAttachmentHandle(uint32_t index = 0) const;
 		virtual void* GetDepthAttachmentHandle() const;
 
-		virtual TexturePtr GetColorTexture(uint32_t index = 0) const;
-		virtual TexturePtr GetDepthTexture() const;
+		virtual std::shared_ptr<Texture> GetColorTexture(uint32_t index = 0) const;
+		virtual std::shared_ptr<Texture> GetDepthTexture() const;
 
 		virtual uint32_t GetFrameBufferId() const = 0;
 		inline void SetClearColor(glm::vec4 color) { m_clearColor = color; }
@@ -57,16 +59,16 @@ namespace Elevate
 		static Framebuffer* CreateDepthOnly(uint32_t width = 2048, uint32_t height = 2048, TextureFormat depthFormat = TextureFormat::DEPTH, TextureType depthUsage = TextureType::Depth);
 		// Pass custom config for the FrameBuffer
 		static Framebuffer* Create(
-			const std::vector<TexturePtr>& colorTextures,
-			TexturePtr depthTexture = nullptr,
+			const std::vector<std::shared_ptr<Texture>>& colorTextures,
+			std::shared_ptr<Texture> depthTexture = nullptr,
 			bool depthAsRenderbuffer = true
 		);
 
 	protected:
 		void UseViewport();
 
-		static TexturePtr CreateColorTexture(uint32_t width, uint32_t height, TextureFormat colorFormat = TextureFormat::RGBA);
-		static TexturePtr CreateDepthTexture(uint32_t width, uint32_t height, TextureFormat depthFormat = TextureFormat::DEPTH, TextureType usage = TextureType::Depth);
+		static std::shared_ptr<Texture> CreateColorTexture(uint32_t width, uint32_t height, TextureFormat colorFormat = TextureFormat::RGBA);
+		static std::shared_ptr<Texture> CreateDepthTexture(uint32_t width, uint32_t height, TextureFormat depthFormat = TextureFormat::DEPTH, TextureType usage = TextureType::Depth);
 
 	protected:
 		std::vector<FramebufferColorAttachment> m_colorAttachments;

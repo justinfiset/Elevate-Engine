@@ -2,17 +2,18 @@
 
 #include <string>
 #include <memory>
-
 #include <glm/glm.hpp>
-#include <ElevateEngine/Core/EEObject.h>
-#include <ElevateEngine/Core/EEObjectPtr.h>
-#include <ElevateEngine/Renderer/Buffer.h>
+
+#include <ElevateEngine/Renderer/Buffers/Buffer.h>
 
 // the list of uniform names used by the shader
 // TODO v�rif si uniquement avec opengl ou non
 #define EE_SHADER_MODEL "model"
 #define EE_SHADER_VIEWPROJ "viewProj"
 #define EE_SHADER_CAMPOS "camPos"
+
+import Elevate.Core.Objects.Object;
+import Elevate.Core.Objects.ObjectPtr;
 
 namespace Elevate
 {
@@ -54,7 +55,7 @@ namespace Elevate
 		void SetProjectionViewMatrix(const Camera& cam);
 
 		/// UNIFORMS
-		
+
 		/// <summary>
 		/// Sets any uniform of any type. Dispatchs the uniform using the right setter function.
 		/// </summary>
@@ -68,15 +69,15 @@ namespace Elevate
 		virtual void SetUniform3f(const std::string& location, float x, float y, float z) const = 0;
 		virtual void SetUniform4f(const std::string& location, float x, float y, float z, float w) const = 0;
 		// with glm vectors
-		inline void SetUniform2f(const std::string& location, glm::vec2 value) const 
+		inline void SetUniform2f(const std::string& location, glm::vec2 value) const
 		{
 			SetUniform2f(location, value.x, value.y);
 		}
-		inline void SetUniform3f(const std::string& location, glm::vec3 value) const 
+		inline void SetUniform3f(const std::string& location, glm::vec3 value) const
 		{
 			SetUniform3f(location, value.x, value.y, value.z);
 		}
-		inline void SetUniform4f(const std::string& location, glm::vec4 value) const 
+		inline void SetUniform4f(const std::string& location, glm::vec4 value) const
 		{
 			SetUniform4f(location, value.x, value.y, value.z, value.w);
 		}

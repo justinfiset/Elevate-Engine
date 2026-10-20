@@ -2,10 +2,6 @@ module;
 
 #include <memory>
 
-#ifdef EE_USES_WWISE
-#include <ElevateEngine/Audio/Wwise/WwiseSoundEngine.h>
-#endif
-
 export module Elevate.Core.Application;
 
 export import Elevate.Core.Application.GameContext;
@@ -14,6 +10,10 @@ import Elevate.Core.Window;
 import Elevate.Core.Events;
 import Elevate.Core.Layers;
 import Elevate.Physics;
+
+#ifdef EE_USES_WWISE
+import Elevate.Audio.Wwise.SoundEngine;
+#endif
 
 export namespace Elevate {
 	class Layer;

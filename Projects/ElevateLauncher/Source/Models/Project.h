@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <memory>
 
-#include <ElevateEngine/Core/Reflection.h>
+#include "Reflection.h"
 
 namespace Elevate
 {

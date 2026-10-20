@@ -1,10 +1,11 @@
 #include "OpenGLFramebuffer.h"
 
-import Elevate.Foundations;
-
-#include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
+
+import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Assert;
 
 namespace Elevate
 {
@@ -16,7 +17,7 @@ namespace Elevate
 		}
 	}
 
-	OpenGLFramebuffer::OpenGLFramebuffer(const std::vector<TexturePtr>& colorTextures, TexturePtr depthTexture, bool depthAsRenderbuffer)
+	OpenGLFramebuffer::OpenGLFramebuffer(const std::vector<std::shared_ptr<Texture>>& colorTextures, std::shared_ptr<Texture> depthTexture, bool depthAsRenderbuffer)
 	{
 		GLCheck(glGenFramebuffers(1, &m_frameBufferId));
 		Bind();
@@ -140,7 +141,7 @@ namespace Elevate
 		GLCheck(glBlitFramebuffer(
 			0, 0, srcW, srcH,
 			0, 0, screenWidth, screenHeight,
-			GL_COLOR_BUFFER_BIT, 
+			GL_COLOR_BUFFER_BIT,
 			filter
 		));
 

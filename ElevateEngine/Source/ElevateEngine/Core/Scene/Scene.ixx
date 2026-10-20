@@ -6,19 +6,19 @@ module;
 #include <ElevateEngine/Core/Reflection/Reflection.h>
 #include <ElevateEngine/Renderer/Light/SceneLighting.h>
 
-export module Elevate.Core.Scene.Scene;
+export module Elevate.Core.Scene:Scene;
 
 import Elevate.Core.Objects.Object;
 import Elevate.Core.Objects.ObjectPtr;
-import Elevate.Core.Scene.ComponentRegistry;
-import Elevate.Core.Scene.SceneType;
+import Elevate.Core.Scene:GameObject;
+import Elevate.Core.Scene:ComponentRegistry;
+import Elevate.Core.Scene:SceneType;
 
 // Forward declarations
 namespace Elevate
 {
 	class Cubemap;
 	class Shader;
-	class GameObject;
 	class Camera;
 	class ComponentRegistry;
 	class RendererAPI;
@@ -69,16 +69,16 @@ export namespace Elevate
 		PROPERTY(m_name);
 
 		SceneType m_type;
-		PROPERTY(m_type)
+		PROPERTY(m_type);
 
-			// Component registry id for all entt::entity
-			uint32_t m_registryId;
+		// Component registry id for all entt::entity
+		uint32_t m_registryId;
 
 		// Root objects of the scene hierarchy.
 		std::vector<EEObjectPtr<GameObject>> m_rootObjects;
-		PROPERTY(m_rootObjects)
+		PROPERTY(m_rootObjects);
 
-			std::shared_ptr<Cubemap> m_cubemap;
+		std::shared_ptr<Cubemap> m_cubemap;
 		std::unique_ptr<SceneLighting> m_sceneLighting = nullptr;
 
 		END_OBJECT_CUSTOM();

@@ -1,7 +1,6 @@
-#include "WAAPIClient.h"
+module;
 
 #if defined(EE_USES_WWISE) && !defined(EE_PLATFORM_WEB)
-	import Elevate.Foundations;
 	#include <AK/WwiseAuthoringAPI/AkAutobahn/Client.h>
 	#include <AK/WwiseAuthoringAPI/AkAutobahn/Logger.h>
 	#include <AK/WwiseAuthoringAPI/waapi.h>
@@ -9,6 +8,10 @@
 #else
     #define EE_WAAPI_AVAILABLE 0
 #endif
+
+module Elevate.Audio.Wwise.WAAPI.Client;
+
+import Elevate.Foundations.CoreLogger;
 
 namespace Elevate
 {

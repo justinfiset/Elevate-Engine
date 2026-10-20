@@ -1,8 +1,8 @@
 module;
 
-#include <ElevateEngine/Audio/SoundEngine.h>
-
 module Elevate.Audio.AudioDistanceProbe;
+
+import Elevate.Audio.SoundEngine;
 
 namespace Elevate
 {

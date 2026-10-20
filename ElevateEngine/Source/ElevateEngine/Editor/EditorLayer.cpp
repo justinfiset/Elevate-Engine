@@ -1,37 +1,51 @@
-﻿#include "EditorLayer.h"
+﻿#ifdef EE_EDITOR_BUILD
 
-#ifdef EE_EDITOR_BUILD
+#include <cstdlib>
+#include <memory>
 
 #include "imgui.h"
+#include <glm/glm.hpp>
+#include <entt/entt.hpp>
 
 #include <ElevateEngine/Foundations/Core.h>
 
-#include <ElevateEngine/Core/Application.h>
-
-#include <ElevateEngine/Scene/SceneManager.h>
-
-#include <ElevateEngine/Renderer/Model.h>
+#include <ElevateEngine/Renderer/Models/Model.h>
+#include <ElevateEngine/Renderer/Materials/Material.h>
 #include <ElevateEngine/Renderer/Shader/Shader.h>
-#include "ElevateEngine/Renderer/Shader/ShaderManager.h"
+#include <ElevateEngine/Renderer/Shader/ShaderManager.h>
+#include <ElevateEngine/Inputs/Input.h>
+#include <ElevateEngine/ImGui/ImGuiTheme.h>
 
 #include <ElevateEngine/Editor/Camera/EditorCamera.h>
-
 #include <ElevateEngine/Editor/Widgets/SkyboxEditorWidget.h>
-
-#include <ElevateEngine/ImGui/ImGuiTheme.h>
-#include <ElevateEngine/Inputs/Input.h>
-
 #include <ElevateEngine/Editor/Commands/GameobjectCommands.h>
-#include <ElevateEngine/Scene/Scene.h>
 
-#include <ElevateEngine/Renderer/Camera/CameraManager.h>
-#include <ElevateEngine/Renderer/Framebuffer.h>
+#include <ElevateEngine/Editor/Panels/ScenePanel.h>
+#include <ElevateEngine/Editor/Panels/HierarchyPanel.h>
+#include <ElevateEngine/Editor/Panels/AnalyserPanel.h>
+#include <ElevateEngine/Editor/Panels/AssetBrowserPanel.h>
+#include <ElevateEngine/Editor/Panels/StatisticsPanel.h>
+#include <ElevateEngine/Editor/Panels/ConsolePanel.h>
 
-// TODO : CHECK ESSENTIAL INCLUDES KNOW ESSENTIAL BELLOW
-// Core
-#include <ElevateEngine/Core/GameObject.h>
-// Rendering
+#ifdef EE_USES_WWISE
+#include <ElevateEngine/Audio/Wwise/Editor/WwiseBrowserWidget.h>
+#endif // EE_USES_WWISE
+
 #include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Framebuffer.h>
+#include <ElevateEngine/Renderer/Camera/CameraManager.h>
+
+#include "EditorLayer.h"
+
+import Elevate.Core.Application;
+import Elevate.Core.Scene:Scene;
+import Elevate.Core.Scene:SceneType;
+import Elevate.Core.Scene.SceneManager;
+import Elevate.Core.Scene:GameObject;
+import Elevate.Core.Objects.Object;
+import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Core.Events.KeyEvent;
+import Elevate.Renderer.Textures.Texture;
 
 namespace Elevate::Editor
 {
@@ -79,7 +93,7 @@ namespace Elevate::Editor
 		// Grid
 		m_GridObject = GameObject::Create("Editor Grid", m_EditorScene);
 		Model& gridModel = m_GridObject->AddComponent<Model>(PrimitiveType::Plane);
-		
+
 		RenderState gridState;
 		gridState.BlendMode = BlendModeType::Alpha;
 		gridState.CullMode = CullFace::None;
@@ -154,22 +168,22 @@ namespace Elevate::Editor
 			{
 				// TODO: CONVERT TO COMMANDS
 				if (ImGui::MenuItem("Cube")) {
-					ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
+					std::shared_ptr<Scene> scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
 					std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Cube", scene);
 					obj->AddComponent<Elevate::Model>(PrimitiveType::Cube);
 				}
 				if (ImGui::MenuItem("Plane")) {
-					ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
+					std::shared_ptr<Scene> scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
 					std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Plane", scene);
 					obj->AddComponent<Elevate::Model>(PrimitiveType::Plane);
 				}
 				if (ImGui::MenuItem("Quad")) {
-					ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
+					std::shared_ptr<Scene> scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
 					std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Quad", scene);
 					obj->AddComponent<Elevate::Model>(PrimitiveType::Quad);
 				}
 				if (ImGui::MenuItem("UV Sphere")) {
-					ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
+					std::shared_ptr<Scene> scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
 					std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("UV Sphere", scene);
 					obj->AddComponent<Elevate::Model>(PrimitiveType::UVSphere);
 				}

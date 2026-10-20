@@ -4,20 +4,16 @@ module;
 #include <format>
 #include <functional>
 
-// Audio
-#include <ElevateEngine/Audio/SoundEngine.h>
 // Core
 #include "ElevateEngine/Core/Time.h"
-
 // ImGui
 #include "ElevateEngine/ImGui/ImGuiLayer.h"
 // Renderer
-#include "ElevateEngine/Renderer/Renderer.h"
-#include "ElevateEngine/Renderer/Texture/TextureManager.h"
+#include "ElevateEngine/Renderer/Renderer/Renderer.h"
 // Inputs
 #include "ElevateEngine/Inputs/Input.h"
 // Physics
-#include <ElevateEngine/Physics/Jolt/JoltPhysicsSystem.h>
+#include <ElevateEngine/Physics/Backend/Jolt/JoltPhysicsSystem.h>
 
 #ifdef EE_EDITOR_BUILD
 #include "ElevateEngine/Editor/EditorLayer.h"
@@ -29,11 +25,16 @@ module;
 
 module Elevate.Core.Application;
 
+// Core
 import Elevate.Core.Assets.AssetRegistry;
 import Elevate.Core.Layers.Layer;
 import Elevate.Core.Layesr.LayerStack;
 import Elevate.Core.Window;
 import Elevate.Core.Events;
+// Audio
+import Elevate.Audio.SoundEngine;
+// Renderer
+import Elevate.Renderer.Textures.TextureManager;
 
 namespace Elevate {
 

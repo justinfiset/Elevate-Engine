@@ -1,42 +1,43 @@
 #pragma once
-#include <glm/glm.hpp>
 
-#include <ElevateEngine/Core/GameObject.h>
-#include <ElevateEngine/Core/Component.h>
-#include <ElevateEngine/Core/Reflection.h>
+#include <glm/glm.hpp>
+#include "Reflection.h"
+
+import Elevate.Core.Scene:GameObject;
+import Elevate.Core.Scene:Component;
 
 namespace Elevate
 {
-    class Collider : public Component
-    {
-        BEGIN_COMPONENT(Collider, EE_HideInInspector)
-        EECATEGORY("Physics")
+	class Collider : public Component
+	{
+		BEGIN_COMPONENT(Collider, EE_HideInInspector);
+		EECATEGORY("Physics");
 
-    public:
-        virtual ~Collider() = default;
+	public:
+		virtual ~Collider() = default;
 
-        const glm::vec3& GetCenter() const { return m_Center; }
-        void SetCenter(const glm::vec3& center) { m_Center = center; }
-        const glm::vec3 GetWorldCenter() const;
+		const glm::vec3& GetCenter() const { return m_Center; }
+		void SetCenter(const glm::vec3& center) { m_Center = center; }
+		const glm::vec3 GetWorldCenter() const;
 
-        virtual void Init() override;
-        virtual void Destroy() override;
+		virtual void Init() override;
+		virtual void Destroy() override;
 
-    protected:
+	protected:
 #ifdef EE_EDITOR_BUILD
-        static constexpr glm::vec4 s_OutlineColor = { 0.2f, 0.85f, 0.3f, 1.0f };
+		static constexpr glm::vec4 s_OutlineColor = { 0.2f, 0.85f, 0.3f, 1.0f };
 #endif
 
-        virtual void OnInitCollider();
-        virtual void OnRemoveCollider();
+		virtual void OnInitCollider();
+		virtual void OnRemoveCollider();
 
-    private:
-        bool m_IsTrigger{ false };
-        PROPERTY(m_IsTrigger)
+	private:
+		bool m_IsTrigger{ false };
+		PROPERTY(m_IsTrigger);
 
-        glm::vec3 m_Center{0.0f, 0.0f, 0.0f};
-        PROPERTY(m_Center)
+		glm::vec3 m_Center{ 0.0f, 0.0f, 0.0f };
+		PROPERTY(m_Center);
 
-        END_COMPONENT()
-    };
+		END_COMPONENT();
+	};
 }

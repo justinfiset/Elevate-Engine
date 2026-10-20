@@ -1,8 +1,10 @@
-#pragma once
+module;
 
 #include <cstdint>
 
-namespace Elevate
+export module Elevate.Audio.SoundEngine;
+
+export namespace Elevate
 {
 	class GameObject;
 

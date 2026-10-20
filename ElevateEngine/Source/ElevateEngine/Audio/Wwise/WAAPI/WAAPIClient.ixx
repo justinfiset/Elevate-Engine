@@ -1,9 +1,11 @@
-#pragma once
+module;
 
 #include <string>
 #include <cstdint>
 
-namespace AK
+export module Elevate.Audio.Wwise.WAAPI.Client;
+
+export namespace AK
 {
 	namespace WwiseAuthoringAPI
 	{
@@ -11,7 +13,7 @@ namespace AK
 	}
 }
 
-namespace Elevate
+export namespace Elevate
 {
 	class WAAPIClient
 	{

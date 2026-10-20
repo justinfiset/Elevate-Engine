@@ -67,28 +67,14 @@ export namespace Elevate
 	// Editor Analyser Tags
 
 	struct HideInInspectorTag {};
-#define EE_HideInInspector EE_EditorTag(HideInInspectorTag {})
-
 	struct FlattenTag {};
-#define EE_Flatten EE_EditorTag(FlattenTag {})
-
 	struct DisplayNameTag { const char* value; };
-#define EE_DisplayName(displayName) EE_EditorTag(DisplayNameTag {displayName})
-
 	struct TooltipTag { const char* text; };
-#define EE_Tooltip EE_EditorTag(TooltipTag {})
-
 	struct ReadOnlyTag {};
-#define EE_ReadOnly EE_EditorTag(ReadOnlyTag {})
-
 	struct ColorTag {};
-#define EE_ColorPicker EE_EditorTag(ColorTag {})
-
 	struct EditorIconTag { const char* Path; };
-#define EE_EditorIcon(path) EE_EditorTag(EditorIconTag{path})
 
 	struct NoSerializeTag {};
-#define EE_NoSerialize EE_EditorTag(NoSerializeTag {})
 
 	using FieldOption = std::variant<
 		EmptyTag, // To allow empty types depending on compilation settings

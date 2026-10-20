@@ -1,83 +1,72 @@
 module;
 
-#include <unordered_map>
-#include <memory>
 #include <cstdint>
+#include <memory>
 #include <entt/entt.hpp>
 
-export module Elevate.Core.Scene.ComponentRegistry;
-
-import Elevate.Foundations.CoreLogger;
-import Elevate.Foundations.Assert;
+export module Elevate.Core.Scene:ComponentRegistry;
 
 export namespace Elevate
 {
-	struct RegistryMap
-	{
-		std::unordered_map<uint32_t, std::unique_ptr<entt::registry>> map;
-
-		~RegistryMap()
-		{
-			CoreLogger::Trace("Destroying Registry Map");
-		}
-	};
-
 	class ComponentRegistry
 	{
 	public:
-		// Manipulation
-		static void CreateRegistry(uint32_t registryId)
+		static constexpr uint32_t InvalidEntity = UINT32_MAX;
+
+		ComponentRegistry();
+		~ComponentRegistry();
+		ComponentRegistry(ComponentRegistry&&) noexcept;
+		ComponentRegistry& operator=(ComponentRegistry&&) noexcept;
+		ComponentRegistry(const ComponentRegistry&) = delete;
+		ComponentRegistry& operator=(const ComponentRegistry&) = delete;
+
+		/////////////////////////////////////////////
+		// Registry
+		/////////////////////////////////////////////
+		void CreateRegistry(uint32_t registryId);
+		void DestroyRegistry(uint32_t registryId);
+		bool HasRegistry(uint32_t registryId) const;
+
+		/////////////////////////////////////////////
+		// Entity
+		/////////////////////////////////////////////
+
+		uint32_t CreateEntity(uint32_t registryId);
+		void DestroyEntity(uint32_t registryId, uint32_t entityId);
+
+		template<typename T>
+		T* TryGet(uint32_t registryId, uint32_t entityId)
 		{
-			auto* registry = TryGetRegistry(registryId);
-
-			Assert::That(!registry, "Registry {} already exists.", registryId);
-
-			s_Instance.m_RegistryMap.map.emplace(registryId, std::make_unique<entt::registry>());
+			auto* reg = Native(registryId);
+			return reg ? reg->try_get<T>(entt::entity(entityId)) : nullptr;
 		}
 
-		static void DestroyRegistry(uint32_t registryId)
+		template<typename T, typename... Args>
+		T& Add(uint32_t registryId, uint32_t entityId, Args&&... args)
 		{
-			auto it = s_Instance.m_RegistryMap.map.find(registryId);
-
-			if (it == s_Instance.m_RegistryMap.map.end())
-			{
-				Assert::That(false, "Registry {} does not exist.", registryId);
-				return;
-			}
-
-			s_Instance.m_RegistryMap.map.erase(it);
-		}
-
-	private:
-		static entt::registry* TryGetRegistry(uint32_t registryId)
-		{
-			auto it = s_Instance.m_RegistryMap.map.find(registryId);
-
-			if (it == s_Instance.m_RegistryMap.map.end())
-			{
-				return nullptr;
-			}
-
-			return it->second.get();
+			return Native(registryId)->emplace<T>(entt::entity(entityId), std::forward<Args>(args)...);
 		}
 
 		template<typename T>
-		static T* TryGetFromRegistry(uint32_t registryId, entt::entity entityId)
+		bool Has(uint32_t registryId, uint32_t entityId)
 		{
-			auto* registry = TryGetRegistry(registryId);
+			auto* reg = Native(registryId);
+			return reg && reg->all_of<T>(entt::entity(entityId));
+		}
 
-			if (!registry)
+		template<typename T>
+		void Remove(uint32_t registryId, uint32_t entityId)
+		{
+			if (auto* reg = Native(registryId))
 			{
-				return nullptr;
+				reg->remove<T>(entt::entity(entityId));
 			}
-
-			return registry->try_get<T>(entityId);
 		}
 
 	private:
-		static ComponentRegistry s_Instance;
-		RegistryMap m_RegistryMap;
-	};
+		entt::registry* Native(uint32_t registryId);
 
-	ComponentRegistry ComponentRegistry::s_Instance;
+		struct Impl;
+		std::unique_ptr<Impl> m_Impl;
+	};
 }

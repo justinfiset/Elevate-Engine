@@ -1,12 +1,27 @@
-#include "SoundEngine.h"
+module Elevate.Audio.SoundEngine;
 
-import Elevate.Foundations;
-#include <ElevateEngine/Foundations/Core.h>
+import Elevate.Foundations.CoreLogger;
+
+class GameObject;
 
 Elevate::SoundEngine* Elevate::SoundEngine::Impl = nullptr;
 
 // Return given arguments if no soundengine is used or no valid implementation is provided.
-#define EE_CHECK_SOUNDENGINE(...) if(EE_NO_SOUNDENGINE == 1 || !Impl) { return __VA_ARGS__; }
+#if defined(EE_NO_SOUNDENGINE) && (EE_NO_SOUNDENGINE == 1)
+#   define EE_CHECK_SOUNDENGINE(...) \
+        do { \
+            CoreLogger::CWarning(true, "SoundEngine call ignored: EE_NO_SOUNDENGINE is active."); \
+            return __VA_ARGS__; \
+        } while(0)
+#else
+#   define EE_CHECK_SOUNDENGINE(...) \
+        do { \
+            if (!Impl) { \
+                CoreLogger::CError(true, "SoundEngine call failed: Impl is nullptr."); \
+                return __VA_ARGS__; \
+            } \
+        } while(0)
+#endif
 
 bool Elevate::SoundEngine::Init()
 {

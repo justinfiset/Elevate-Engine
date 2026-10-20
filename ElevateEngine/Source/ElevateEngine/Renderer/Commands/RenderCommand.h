@@ -4,7 +4,7 @@
 #include <glm/mat4x4.hpp>
 
 #include <ElevateEngine/Renderer/RenderState.h>
-#include <ElevateEngine/Renderer/VertexArray.h>
+#include <ElevateEngine/Renderer/Vertex/VertexArray.h>
 
 namespace Elevate
 {
@@ -23,7 +23,8 @@ namespace Elevate
 
 		RenderCommand() = default;
 		RenderCommand(const std::shared_ptr<Material>& material, const std::shared_ptr<Elevate::VertexArray>& vertexArray, const glm::mat4& transform, const RenderState& state)
-			: m_MaterialInstance(material.get()), m_VertexArray(vertexArray.get()), Transform(transform), m_State(state), m_SortingKey(GetSortKey()) { }
+			: m_MaterialInstance(material.get()), m_VertexArray(vertexArray.get()), Transform(transform), m_State(state), m_SortingKey(GetSortKey()) {
+		}
 
 	public:
 		uint64_t GetSortKey() const;

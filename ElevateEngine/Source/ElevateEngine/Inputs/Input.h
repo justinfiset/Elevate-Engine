@@ -6,11 +6,13 @@
 #include <ElevateEngine/Inputs/MouseButtonCodes.h>
 // =======================================
 
-#include <ElevateEngine/Events/KeyEvent.h>
-#include <ElevateEngine/Events/MouseEvent.h>
+import Elevate.Core.Events.KeyEvent;
+import Elevate.Core.Events.MouseEvent;
+
 #include <ElevateEngine/Inputs/InputBuffer.h>
 
 #include <glm/glm.hpp>
+#include <ctype.h>
 
 // In order of execution when a key / button is pressed
 #define EE_STATE_RELEASED 0
@@ -25,12 +27,12 @@ namespace Elevate {
 	public:
 		// Keyboard
 		inline static bool IsKeyDown(int keycode) { return s_Instance->inputBuffer.IsKeyDown(keycode); }
-		inline static bool IsKeyDown(char key) { return IsKeyDown((int) toupper(key)); }
+		inline static bool IsKeyDown(char key) { return IsKeyDown((int)toupper(key)); }
 
 		inline static bool IsKeyUp(int keycode) { return s_Instance->inputBuffer.IsKeyUp(keycode); }
 		inline static bool IsKeyUp(char key) { return IsKeyUp((int)toupper(key)); }
 
-		inline static bool IsKeyPressed(int keycode) { return s_Instance->inputBuffer.IsKeyPressed(keycode); }	
+		inline static bool IsKeyPressed(int keycode) { return s_Instance->inputBuffer.IsKeyPressed(keycode); }
 		inline static bool IsKeyPressed(char key) { return IsKeyPressed((int)toupper(key)); }
 		// Mouse
 		inline static bool IsMouseButtonDown(int button) { return s_Instance->inputBuffer.IsMouseButtonDown(button); }
@@ -48,14 +50,14 @@ namespace Elevate {
 		// Has to be called before polling events to reset all the intermediates states of the keys (down or up)
 		inline static void ManageMidStates() { s_Instance->inputBuffer.ManageMidSates(); }
 		inline static void ResetAllStates() { s_Instance->inputBuffer.ResetAllStates(); }
-			
+
 		/// Managed Callbacks // Could be used to simulate inputs to an app by sending events
 		// Keyboard
-		inline static void OnKeyPressedEvent(KeyPressedEvent& e) 
+		inline static void OnKeyPressedEvent(KeyPressedEvent& e)
 		{
 			s_Instance->inputBuffer.SetKeyPressed(e.GetKeyCode(), e.GetRepeatCount());
 		}
-		inline static void OnKeyReleasedEvent(KeyReleasedEvent& e) 
+		inline static void OnKeyReleasedEvent(KeyReleasedEvent& e)
 		{
 			s_Instance->inputBuffer.SetKeyReleased(e.GetKeyCode());
 		}

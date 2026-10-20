@@ -3,12 +3,6 @@ module;
 #include <stdio.h>
 #include <format>
 
-module Elevate.Core.Window;
-
-import Elevate.Foundations;
-
-#include <ElevateEngine/Events/ApplicationEvent.h>
-
 #include <rapidjson/document.h>
 #include <rapidjson/allocators.h>
 #include <rapidjson/filereadstream.h>
@@ -16,14 +10,19 @@ import Elevate.Foundations;
 #include <rapidjson/rapidjson.h>
 
 #if defined(EE_PLATFORM_WINDOWS)
-	#include <ElevateEngine/Platform/Windows/WindowsWindow.h>
+#include <ElevateEngine/Platform/Windows/WindowsWindow.h>
 #elif defined(EE_PLATFORM_WEB)
-	#include <ElevateEngine/Platform/Web/WebWindow.h>
+#include <ElevateEngine/Platform/Web/WebWindow.h>
 #elif defined(EE_PLATFORM_LINUX)
-	#include <ElevateEngine/Platform/Linux/LinuxWindow.h>
+#include <ElevateEngine/Platform/Linux/LinuxWindow.h>
 #else
-	#error "Unknown platform! Cannot create window on this platform."
+#error "Unknown platform! Cannot create window on this platform."
 #endif
+
+module Elevate.Core.Window;
+
+import Elevate.Foundations.CoreLogger;
+import Elevate.Core.Events.ApplicationEvent;
 
 namespace Elevate
 {
@@ -34,12 +33,13 @@ namespace Elevate
 #elif defined(EE_PLATFORM_LINUX)
 	using PlatformWindow = LinuxWindow;
 #else
-	#error "Unknown platform! Cannot create window on this platform."
+#error "Unknown platform! Cannot create window on this platform."
 #endif
 
 	WindowProps::WindowProps(const std::string appConfigFilePath)
 	{
 		// TODO put this part in a util somehwerre to get the document
+		// todo : use impl in foundations to read file content;
 		///////////////////////////////////////////////////////
 		FILE* fp = fopen(appConfigFilePath.c_str(), "r");
 		char readBuffer[65536];

@@ -1,16 +1,23 @@
-#include "GameObject.h"
+module;
 
-#include <entt/entt.hpp>
-
-import Elevate.Foundations;
-
-#include <ElevateEngine/Audio/SoundEngine.h>
-#include <ElevateEngine/Core/Component.h>
-#include <ElevateEngine/Core/TypeRegistry.h>
-#include <ElevateEngine/Core/EEObjectPtr.h>
-#include <ElevateEngine/Scene/ScenePrivate.h>
+#include <cstdint>
+#include <memory>
+#include <set>
+#include <string>
+#include <vector>
 
 #include <glm/gtx/matrix_decompose.hpp> // iwyu: keep
+
+module Elevate.Core.Scene:GameObject;
+
+import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Assert;
+import Elevate.Core.Scene:Component;
+import Elevate.Core.Scene.SceneManager;
+import Elevate.Core.Scene:ComponentRegistry;
+import Elevate.Core.Types.TypeRegistry;
+import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Audio.SoundEngine;
 
 namespace Elevate
 {
@@ -138,7 +145,7 @@ namespace Elevate
 
 	void GameObject::OnSetPosition()
 	{
-		if (m_entityId != EE_INVALID_ENTITY_ID && m_isInitialized)
+		if (m_entityId != INVALID_ENTITY_ID && m_isInitialized)
 		{
 			SoundEngine::UpdatePosition(this);
 		}
@@ -193,7 +200,7 @@ namespace Elevate
 	{
 		return m_name;
 	}
-	
+
 	TypeLayout GameObject::GetLayout() const
 	{
 		std::vector<TypeField> allFields;
@@ -223,46 +230,37 @@ namespace Elevate
 
 	void GameObject::Initialize()
 	{
-		if (m_scene)
+		if (!m_scene)
 		{
-			if (m_parent)
-			{
-				m_parent->AddChild(GetShared());
-			}
-			else
-			{
-				m_scene->AddRootObject(GetShared());
-			}
+			CoreLogger::Error("Object {} must be linked with an existing scene!", m_name);
+			return;
+		}
 
-			auto* registry = TryGetRegistry(m_scene->GetRegistryId());
-			if (registry)
-			{
-				const auto entity = registry->create();
-				m_entityId = static_cast<std::uint32_t>(entity);
-			}
-			else
-			{
-				Assert::That(false, "Could not create a valid entity for GameObject : {}", m_name);
-			}
-		
-			SoundEngine::RegisterGameObject(this);
-			m_isInitialized = true;
+		if (m_parent)
+		{
+			m_parent->AddChild(GetShared());
 		}
 		else
 		{
-			CoreLogger::Error("Object {} must be linked with an existing scene!", m_name);
+			m_scene->AddRootObject(GetShared());
 		}
+
+		m_entityId = Registry().CreateEntity(m_scene->GetRegistryId());
+		Assert::That(m_entityId != INVALID_ENTITY_ID, "Could not create a valid entity for GameObject : {}", m_name);
+
+		SoundEngine::RegisterGameObject(this);
+		m_isInitialized = true;
 	}
 
 	GameObject::~GameObject()
 	{
 		SoundEngine::UnregisterGameObject(this);
 
-		if (m_scene)
+		if (m_scene && m_entityId != INVALID_ENTITY_ID)
 		{
-			if (auto* registry = TryGetRegistry(m_scene->GetRegistryId()))
+			if (auto* registry = SceneManager::GetComponentRegistry())
 			{
-				registry->destroy(entt::entity(m_entityId));
+				registry->DestroyEntity(m_scene->GetRegistryId(), m_entityId);
 			}
 		}
 	}

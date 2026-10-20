@@ -2,7 +2,7 @@
 #include "VertexArray.h"
 
 import Elevate.Foundations;
-#include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Renderer/Renderer.h>
 #include <ElevateEngine/Platform/OpenGL/Buffers/OpenGLVertexArray.h>
 
 namespace Elevate

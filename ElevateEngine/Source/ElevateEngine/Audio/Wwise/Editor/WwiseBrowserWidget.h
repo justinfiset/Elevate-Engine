@@ -1,10 +1,11 @@
 #pragma once
 #ifdef EE_EDITOR_BUILD
 
+import Elevate.Audio.Wwise.SoundEngine;
+import Elevate.Audio.Wwise.WAAPI.Client;
+
 #include <ElevateEngine/Editor/EditorWidget.h>
 #include <ElevateEngine/Audio/Wwise/WwiseItem.h>
-#include <ElevateEngine/Audio/Wwise/WwiseSoundEngine.h>
-#include <ElevateEngine/Audio/Wwise/WAAPI/WAAPIClient.h>
 
 #include <ElevateEngine/Editor/UI/EditorMessage.h>
 

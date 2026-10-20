@@ -1,14 +1,16 @@
-moudle;
+module;
 
 #include <string>
 #include <filesystem>
 #include <glm/common.hpp>
 
-#include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Renderer/Renderer.h>
 #include <ElevateEngine/Platform/OpenGL/Textures/OpenGLTexture.h>
-#include <ElevateEngine/Renderer/Textures/TextureManager.h>
 
 module Elevate.Renderer.Textures.Texture;
+
+import Elevate.Foundations.Assert;
+import Elevate.Renderer.Textures.TextureManager;
 
 namespace Elevate
 {
@@ -19,17 +21,17 @@ namespace Elevate
 		return currentPath == otherPath;
 	}
 
-	TexturePtr Texture::CreateFromFile(const std::string& path, TextureType usage)
+	std::shared_ptr<Texture> Texture::CreateFromFile(const std::string& path, TextureType usage)
 	{
 		return TextureManager::LoadTextureAsync(path, usage);
 	}
 
-	TexturePtr Texture::CreateFromFile(const std::string& path, const TextureMetadata& metadata)
+	std::shared_ptr<Texture> Texture::CreateFromFile(const std::string& path, const TextureMetadata& metadata)
 	{
 		return TextureManager::LoadTextureAsync(path, metadata);
 	}
 
-	TexturePtr Texture::CreateFromColor(const glm::vec3& color, const std::string& name, uint32_t width, uint32_t height)
+	std::shared_ptr<Texture> Texture::CreateFromColor(const glm::vec3& color, const std::string& name, uint32_t width, uint32_t height)
 	{
 		size_t size = 3 * width * height;
 		std::vector<unsigned char> pixels(size);
@@ -58,7 +60,7 @@ namespace Elevate
 		return CreateFromData(pixels.data(), meta);
 	}
 
-	TexturePtr Texture::CreateFromColor(const glm::vec4& color, const std::string& name, uint32_t width, uint32_t height)
+	std::shared_ptr<Texture> Texture::CreateFromColor(const glm::vec4& color, const std::string& name, uint32_t width, uint32_t height)
 	{
 		size_t size = 4 * width * height;
 		std::vector<unsigned char> pixels(size);
@@ -89,15 +91,15 @@ namespace Elevate
 		return CreateFromData(pixels.data(), meta);
 	}
 
-	TexturePtr Texture::CreateFromData(const void* data, TextureMetadata& metadata)
+	std::shared_ptr<Texture> Texture::CreateFromData(const void* data, TextureMetadata& metadata)
 	{
-		TexturePtr texture;
+		std::shared_ptr<Texture> texture;
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::GraphicAPI::None: 
-			texture = nullptr; 
+		case RendererAPI::GraphicAPI::None:
+			texture = nullptr;
 			break;
-		case RendererAPI::GraphicAPI::OpenGL: 
+		case RendererAPI::GraphicAPI::OpenGL:
 			texture = std::make_shared<OpenGLTexture>(data, metadata);
 			break;
 		default:

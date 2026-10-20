@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <memory>
 
-#include <ElevateEngine/Core/EEObjectPtr.h>
+import Elevate.Core.Objects.ObjectPtr;
 
 #define EE_DEFAULT_SHADER "default"
 

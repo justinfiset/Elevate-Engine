@@ -1,9 +1,11 @@
-#pragma once
+module;
 
 #include <string>
 #include <vector>
 
-namespace Elevate
+export module Elevate.Foundations.Files.FileDialog;
+
+export namespace Elevate
 {
 	class FileDialogImpl
 	{

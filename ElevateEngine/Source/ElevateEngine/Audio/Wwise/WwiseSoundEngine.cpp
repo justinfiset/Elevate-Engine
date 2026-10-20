@@ -1,11 +1,8 @@
 #ifdef EE_USES_WWISE
 
+module;
+
 #include <filesystem>
-
-#include "WwiseSoundEngine.h"
-
-#include <ElevateEngine/Core/GameObject.h>
-#include <ElevateEngine/Audio/Wwise/WAAPI/WAAPIClient.h>
 
 #include <glm/vec3.hpp>
 
@@ -19,11 +16,6 @@
 #include <AK/SpatialAudio/Common/AkSpatialAudio.h>
 #include <AK/Tools/Common/AkPlatformFuncs.h>
 
-// Wwise Communication
-#ifndef AK_OPTIMIZED // Keep the following header out in release mode
-#include <AK/Comm/AkCommunication.h>
-#endif // AK_OPTIMIZED
-
 // Decoders
 #if EE_AUDIO_VORBIS
 #include <AK/Plugin/AkVorbisDecoderFactory.h> // This is necessary to be able to play vorbis files
@@ -32,9 +24,20 @@
 #include <AK/Plugin/AkOpusDecoderFactory.h>   // This is necessary to be able to play opus files
 #endif // EE_AUDIO_OPUS
 
+// Wwise Communication
+#ifndef AK_OPTIMIZED // Keep the following header out in release mode
+#include <AK/Comm/AkCommunication.h>
+#endif // AK_OPTIMIZED
+
 // TODO REMOVE
 // For Wwise integration testing
 #define BANKNAME_INIT L"Init.bnk"
+
+module Elevate.Audio.Wwise.SoundEngine;
+
+import Elevate.Core.Scene:GameObject;
+import Elevate.Foundations.CoreLogger;
+import Elevate.Audio.Wwise.WAAPI.Client;
 
 namespace Elevate
 {
@@ -297,7 +300,7 @@ namespace Elevate
 
 	void WwiseSoundEngine::PostEventImpl(const char* eventName, GameObject* obj)
 	{
-		if (obj)	
+		if (obj)
 		{
 			AkGameObjectID id = obj->GetObjectId();
 			AK::SoundEngine::PostEvent(eventName, id);

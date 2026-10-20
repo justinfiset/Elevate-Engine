@@ -1,7 +1,8 @@
 #include "GlfwInput.h"
-#include <ElevateEngine/Core/Application.h>
 
 #include <GLFW/glfw3.h>
+
+import Elevate.Core.Application;
 
 glm::vec2 Elevate::GlfwInput::GetMousePositionImpl()
 {
@@ -9,5 +10,5 @@ glm::vec2 Elevate::GlfwInput::GetMousePositionImpl()
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
 
-	return { (float)xpos, (float)ypos };	
+	return { (float)xpos, (float)ypos };
 }

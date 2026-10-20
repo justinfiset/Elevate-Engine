@@ -1,14 +1,15 @@
 #pragma once
 
 #include <memory>
-#include "ElevateEngine/Renderer/Buffer.h"
+#include "ElevateEngine/Renderer/Buffers/Buffer.h"
+
 namespace Elevate
 {
 	class VertexArray
 	{
 	public:
 		virtual ~VertexArray() = default;
-		
+
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 

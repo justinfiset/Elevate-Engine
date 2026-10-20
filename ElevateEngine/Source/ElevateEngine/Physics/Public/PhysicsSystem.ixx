@@ -1,7 +1,7 @@
-export module Elevate.PhysicsSystem;
+export module Elevate.Physics.PhysicsSystem;
 
 // Physics Forwards
-namespace Elevate
+export namespace Elevate
 {
 	class Rigidbody;
 	class BoxCollider;

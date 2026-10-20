@@ -1,4 +1,5 @@
 #pragma once
+
 #include <vector>
 #include <string>
 
@@ -6,21 +7,22 @@
 #include <assimp/postprocess.h>
 #include <assimp/Importer.hpp>
 
-#include <ElevateEngine/Core/GameObject.h>
-#include <ElevateEngine/Core/Component.h>
-#include <ElevateEngine/Core/TypeRegistry.h>
-#include <ElevateEngine/Renderer/Texture/Texture.h>
-#include <ElevateEngine/Renderer/Material.h>
-#include <ElevateEngine/Renderer/Mesh.h>
-#include <ElevateEngine/Renderer/Buffer.h>
+import Elevate.Core.Scene:GameObject;
+import Elevate.Core.Scene:Component;
+
+import Elevate.Renderer.Textures.Texture;
+
+#include <ElevateEngine/Renderer/Materials/Material.h>
+#include <ElevateEngine/Renderer/Meshes/Mesh.h>
+#include <ElevateEngine/Renderer/Buffers/Buffer.h>
 
 namespace Elevate
 {
 	class Model : public Component
 	{
 	public:
-		BEGIN_COMPONENT(Model)
-		EECATEGORY("Rendering")
+		BEGIN_COMPONENT(Model);
+		EECATEGORY("Rendering");
 
 		Model() = default;
 		Model(PrimitiveType type, MaterialPtr material = nullptr);
@@ -44,6 +46,6 @@ namespace Elevate
 		Mesh m_batchedMesh;
 		std::string m_Directory;
 
-		END_COMPONENT()
+		END_COMPONENT();
 	};
 }

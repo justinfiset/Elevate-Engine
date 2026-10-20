@@ -3,7 +3,7 @@ module;
 #include <functional>
 #include <memory>
 
-export module Elevate.Core.Scene.ComponentTypeTrait;
+export module Elevate.Core.Scene:ComponentTypeTrait;
 
 import Elevate.Core.Objects.Category;
 import Elevate.Core.Types.ITypeTrait;

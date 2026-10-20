@@ -1,5 +1,8 @@
-#include "AkBank.h"
+module Elevate.Audio.Wwise.AkBank;
 
-void Elevate::AkBank::Init()
+namespace Elevate
 {
+	void AkBank::Init()
+	{
+	}
 }

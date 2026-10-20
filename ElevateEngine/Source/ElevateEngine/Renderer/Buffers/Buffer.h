@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ElevateEngine/Core/Data.h"
+import Elevate.Foundations.Data;
 
 #include <vector>
 #include <iterator>
@@ -24,7 +24,8 @@ namespace Elevate
 
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
 			: Name(name), Type(type), Size(GetDataTypeSize(type)), Offset(0), Count(GetDataTypeCount(type)),
-			Normalized(normalized), Index(0) { }
+			Normalized(normalized), Index(0) {
+		}
 	};
 
 	class BufferLayout
@@ -33,7 +34,7 @@ namespace Elevate
 		BufferLayout() = default;
 
 		BufferLayout(const std::initializer_list<BufferElement>& elements)
-			: m_elements(elements) 
+			: m_elements(elements)
 		{
 			CalculateOffsetAndStride();
 		}
@@ -75,7 +76,8 @@ namespace Elevate
 	{
 	public:
 		VertexBuffer(const void* vertices, uint32_t size)
-			: m_data(vertices), m_size(size) { }
+			: m_data(vertices), m_size(size) {
+		}
 
 		virtual ~VertexBuffer() = default;
 
@@ -87,7 +89,7 @@ namespace Elevate
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
-		
+
 		static VertexBuffer* Create(const void* vertices, const uint32_t size);
 
 		uint32_t GetSize() { return m_size; }

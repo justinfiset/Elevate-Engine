@@ -4,7 +4,7 @@
 #include <memory>
 
 #include <ElevateEngine/Renderer/RenderState.h>
-#include <ElevateEngine/Renderer/Material.h>
+#include <ElevateEngine/Renderer/Materials/Material.h>
 #include <ElevateEngine/Renderer/Commands/RenderBucket.h>
 
 constexpr uint8_t SHADOW_CASCADE_COUNT = 4;
@@ -15,11 +15,9 @@ namespace Elevate
 	class Camera;
 	class Shader;
 	class Texture;
-	using TexturePtr = std::shared_ptr<Texture>;
 	class Cubemap;
 	class Scene;
 	class Mesh;
-	using ScenePtr = std::shared_ptr<Scene>;
 	class SceneLighting;
 
 	class Framebuffer;
@@ -28,7 +26,7 @@ namespace Elevate
 		glm::mat4 View;
 		glm::mat4 Projection;
 		glm::mat4 ViewProj;
-		
+
 		std::array<glm::mat4, SHADOW_CASCADE_COUNT> LightSpaceMatrices;
 		std::array<float, SHADOW_CASCADE_COUNT> CascadeSplitDepths;
 
@@ -51,7 +49,7 @@ namespace Elevate
 	public:
 
 		// RENDER API STATIC WRAPPER
-		static void BeginFrame(const ScenePtr scene, const Camera& cam);
+		static void BeginFrame(const std::shared_ptr<Scene> scene, const Camera& cam);
 		static void RenderFrame();
 		static void Present(uint32_t width, uint32_t height);
 
@@ -131,7 +129,7 @@ namespace Elevate
 		static std::unique_ptr<Elevate::Framebuffer> s_ssaoFramebuffer;
 		static std::shared_ptr<Shader> s_ssaoBlurShader;
 		static std::unique_ptr<Framebuffer> s_ssaoBlurFramebuffer;
-		static TexturePtr s_ssaoNoiseTexture;
+		static std::shared_ptr<Texture> s_ssaoNoiseTexture;
 
 		// Bloom
 		static std::vector<std::unique_ptr<Framebuffer>> s_bloomMipChain;

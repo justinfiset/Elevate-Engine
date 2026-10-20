@@ -1,22 +1,34 @@
-﻿#include "AnalyserPanel.h"
+﻿#include <cstring>
+#include <functional>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+#include <string_view>
+#include <typeindex>
+#include <unordered_map>
+#include <vector>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/ext/matrix_float4x4.hpp>
+#include <glm/ext/vector_float3.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
+
+#include "AnalyserPanel.h"
 
 #ifdef EE_EDITOR_BUILD
 
 #include "imgui.h"
 
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
 #include <ElevateEngine/ImGui/CustomImGuiCommand.h>
-#include <ElevateEngine/Renderer/Texture/TextureManager.h>
-
 #include <ElevateEngine/Editor/Commands/ComponentCommand.h>
 #include <ElevateEngine/Editor/EditorLayer.h>
 
-#include <ElevateEngine/Core/AssetRegistry.h>
-#include <ElevateEngine/Core/TypeRegistry.h>
-#include <ElevateEngine/Core/Component.h>
-#include <ElevateEngine/Core/Asset.h>
+import Elevate.Core.Scene:Component;
+import Elevate.Core.Assets.Asset;
+import Elevate.Core.Assets.AssetRegistry;
+import Elevate.Renderer.Textures.Texture;
 
 Elevate::Editor::AnalyserPanel::AnalyserPanel()
 {
@@ -53,7 +65,7 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 		RenderComponentLayout(obj->GetTransform().GetLayout());
 
 		ImGui::PopStyleVar();
-		
+
 		// TODO REMOVE AND / OR CHECK IF THE GAMEOBJECT IS DIFFERENT, THIS IS A COSTLY OPERATION FOR EACH FRAME
 		m_alredyAddedComponents.clear();
 
@@ -87,7 +99,7 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 					}
 				}
 			}
-			else 
+			else
 			{
 				ImGui::PopStyleColor(4);
 				ImGui::PopStyleVar();
@@ -376,8 +388,8 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 			}
 
 			ImGui::SameLine(0, ImGui::GetStyle().ItemSpacing.x);
-			
-			
+
+
 			ImGui::BeginDisabled(!assetEntry || !assetEntry->isOnDisk);
 			if (ImGui::ImageButton("##navigateto", (ImTextureID)navigateToIcon->GetNativeHandle(), ImVec2(buttonSize, buttonSize)))
 			{
@@ -400,7 +412,7 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 				ImGui::Image((ImTextureID)noneIcon->GetNativeHandle(), ImVec2(buttonSize, buttonSize));
 				ImGui::SameLine();
 				ImGui::Text("None");
-				
+
 				for (auto& guid : AssetRegistry::GetAssetsOfType(field.GetTargetType()))
 				{
 					auto* entry = AssetRegistry::GetEntry(guid);

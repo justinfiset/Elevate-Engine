@@ -1,12 +1,10 @@
+import Elevate.Foundations.CoreLogger;
+import Elevate.Core.Events.MouseEvent;
+
 #include "GlfwWindow.h"
 
-import Elevate.Foundations;
-
-#include <ElevateEngine/Events/ApplicationEvent.h>
-#include <ElevateEngine/Events/MouseEvent.h>
-#include <ElevateEngine/Events/KeyEvent.h>
 #include <ElevateEngine/Inputs/Input.h>
-#include <ElevateEngine/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Renderer/Renderer.h>
 
 #include <ElevateEngine/Platform/OpenGL/Context/OpenGLContext.h>
 #include <GLFW/glfw3.h>
@@ -64,7 +62,7 @@ namespace Elevate
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
-		
+
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -75,45 +73,45 @@ namespace Elevate
 		m_Context = new OpenGLContext(m_Window);
 		m_Context->Init();
 
-		
+
 		SetVSync(props.VSync);
 
 		// Set GLFW callbacks
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
-		{
-			void* userPtr = glfwGetWindowUserPointer(window);
-			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-			dataPtr->Width = width;
-			dataPtr->Height = height;
-			WindowResizeEvent event(width, height);
-			dataPtr->EventCallback(event);
-		});
+			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+				dataPtr->Width = width;
+				dataPtr->Height = height;
+				WindowResizeEvent event(width, height);
+				dataPtr->EventCallback(event);
+			});
 
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
-		{
-			void* userPtr = glfwGetWindowUserPointer(window);
-			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-			WindowCloseEvent event;
-			dataPtr->EventCallback(event);
-		});
+			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+				WindowCloseEvent event;
+				dataPtr->EventCallback(event);
+			});
 
 		glfwSetWindowFocusCallback(m_Window, [](GLFWwindow* window, int focused)
-		{
-			void* userPtr = glfwGetWindowUserPointer(window);
-			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-			WindowFocusEvent event(focused);
-			dataPtr->EventCallback(event);
-		});
+			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+				WindowFocusEvent event(focused);
+				dataPtr->EventCallback(event);
+			});
 
 		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
-		{
-			void* userPtr = glfwGetWindowUserPointer(window);
-			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-
-			switch(action)
 			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+
+				switch (action)
+				{
 				case GLFW_PRESS:
 				{
 					KeyPressedEvent event(key, 0);
@@ -132,34 +130,34 @@ namespace Elevate
 					dataPtr->EventCallback(event);
 					break;
 				}
-			}
-		});
+				}
+			});
 
 		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
-		{
-			void* userPtr = glfwGetWindowUserPointer(window);
-			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-			KeyTypedEvent event(keycode);
-			dataPtr->EventCallback(event);
-		});
+			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+				KeyTypedEvent event(keycode);
+				dataPtr->EventCallback(event);
+			});
 
 		glfwSetMouseButtonCallback(m_Window, Elevate_MouseButtonCallback);
 
 		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset)
-		{
-			void* userPtr = glfwGetWindowUserPointer(window);
-			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-			MouseScrolledEvent event((float)xOffset, (float)yOffset);
-			dataPtr->EventCallback(event);
-		});
+			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+				MouseScrolledEvent event((float)xOffset, (float)yOffset);
+				dataPtr->EventCallback(event);
+			});
 
 		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xPos, double yPos)
-		{
-			void* userPtr = glfwGetWindowUserPointer(window);
-			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-			MouseMovedEvent event((float)xPos, (float)yPos);
-			dataPtr->EventCallback(event);
-		});
+			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+				MouseMovedEvent event((float)xPos, (float)yPos);
+				dataPtr->EventCallback(event);
+			});
 	}
 
 	void GlfwWindow::Shutdown()
@@ -181,7 +179,7 @@ namespace Elevate
 			glfwSwapInterval(0);
 
 		m_Data.VSync = enabled;
-	}	
+	}
 
 	bool GlfwWindow::IsVSync() const
 	{

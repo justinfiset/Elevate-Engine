@@ -1,17 +1,17 @@
 #include "JoltShapeFactory.h"
 
-import Elevate.Foundations;
-
 #include <Jolt/Physics/Collision/Shape/BoxShape.h>
 #include <Jolt/Physics/Collision/Shape/PlaneShape.h>
 #include <Jolt/Physics/Collision/Shape/SphereShape.h>
 #include <Jolt/Physics/Collision/Shape/CapsuleShape.h>
 
-#include <ElevateEngine/Physics/Colliders/Collider.h>
-#include <ElevateEngine/Physics/Colliders/BoxCollider.h>
-#include <ElevateEngine/Physics/Colliders/CapsuleCollider.h>
-#include <ElevateEngine/Physics/Colliders/SphereCollider.h>
-#include <ElevateEngine/Physics/Colliders/PlaneCollider.h>
+#include <ElevateEngine/Physics/Public/Colliders/Collider.h>
+#include <ElevateEngine/Physics/Public/Colliders/BoxCollider.h>
+#include <ElevateEngine/Physics/Public/Colliders/CapsuleCollider.h>
+#include <ElevateEngine/Physics/Public/Colliders/SphereCollider.h>
+#include <ElevateEngine/Physics/Public/Colliders/PlaneCollider.h>
+
+import Elevate.Foundations.CoreLogger;
 
 namespace Elevate::Jolt
 {
@@ -45,7 +45,7 @@ namespace Elevate::Jolt
 		{
 			return CreatePlaneShape(static_cast<const PlaneCollider&>(*collider));
 		}
-			
+
 		CoreLogger::Warn("Unsupported collider type.");
 		return nullptr;
 	}

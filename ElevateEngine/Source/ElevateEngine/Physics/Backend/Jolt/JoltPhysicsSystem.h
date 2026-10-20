@@ -1,7 +1,9 @@
 #pragma once
 
+import Elevate.Physics.PhysicsSystem;
+
 #ifdef EE_DEBUG
-	#define JPH_ENABLE_ASSERTS
+#define JPH_ENABLE_ASSERTS
 #endif
 
 #include <cstdint>
@@ -11,8 +13,6 @@
 #include <Jolt/Physics/PhysicsSystem.h>
 #include <Jolt/Core/TempAllocator.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
-
-#include <ElevateEngine/Physics/PhysicsSystem.h>
 
 namespace Elevate::Jolt
 {
@@ -58,7 +58,7 @@ namespace Elevate::Jolt
 	///////////////////////////////////////////////////////////////////////
 	/// JoltObjectLayerPairFilter
 	///////////////////////////////////////////////////////////////////////
-	
+
 	class JoltObjectLayerPairFilter final : public JPH::ObjectLayerPairFilter
 	{
 	public:
@@ -68,7 +68,7 @@ namespace Elevate::Jolt
 	///////////////////////////////////////////////////////////////////////
 	/// JoltObjectVsBroadPhaseLayerFilter
 	///////////////////////////////////////////////////////////////////////
-	 
+
 	class JoltObjectVsBroadPhaseLayerFilter final : public JPH::ObjectVsBroadPhaseLayerFilter
 	{
 	public:
@@ -115,7 +115,7 @@ namespace Elevate::Jolt
 
 		JPH::TempAllocatorImpl* m_TempAllocator = nullptr;
 		JPH::JobSystem* m_JobSystem = nullptr;
-	
+
 		JPH::BodyID m_TestCube;
 		JPH::BodyID m_TestFloor;
 	};

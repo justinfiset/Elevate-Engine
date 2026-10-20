@@ -2,10 +2,11 @@
 
 #include <memory>
 
-#include "ElevateEngine/Core/Reflection.h"
-#include "ElevateEngine/Core/ReflectionTags.h"
-#include "ElevateEngine/Core/TypeField.h"
-#include "ElevateEngine/Renderer/Camera.h"
+#include "Reflection.h"
+
+import Elevate.Core.Types.TypeField;
+import Elevate.Core.Scene:GameObject;
+import Elevate.Renderer.Camera.Camera;
 
 namespace Elevate
 {
@@ -17,8 +18,8 @@ namespace Elevate
 	class EditorCamera : public Camera
 	{
 	public:
-		BEGIN_COMPONENT(EditorCamera, EE_HideInInspector)
-		DECLARE_BASE(Camera)
+		BEGIN_COMPONENT(EditorCamera, HideInInspectorTag());
+		DECLARE_BASE(Camera);
 
 		EditorCamera(float fov = 60.0f); // TODO CHANGER, ON VEUT QUELQUE CHOSE DE CUSTUM
 
@@ -33,6 +34,6 @@ namespace Elevate
 		bool m_followCursor = false;
 		float m_sensitivity = 0.5f;
 
-		END_COMPONENT()
+		END_COMPONENT();
 	};
 };
