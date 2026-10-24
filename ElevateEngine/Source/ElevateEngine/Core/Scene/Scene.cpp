@@ -10,6 +10,7 @@ module;
 module Elevate.Core.Scene;
 
 // Foundations
+import Elevate.Foundations.Assert;
 import Elevate.Foundations.CoreLogger;
 // Core
 import Elevate.Core.Application;
@@ -19,13 +20,16 @@ namespace Elevate
 {
 	std::uint32_t Scene::s_nextRegistryId = 1;
 
-	Scene::Scene() : Scene("DefaultScene", SceneType::RuntimeScene) {}
+	Scene::Scene() : Scene(nullptr, "DefaultScene", SceneType::RuntimeScene) {}
 
-	Scene::Scene(std::string name, SceneType type) : m_name(name), m_type(type)
+	Scene::Scene(SceneManager* sceneManager, std::string name, SceneType type) : m_name(name), m_type(type)
 	{
+		Assert::That(sceneManager != nullptr, "Scene Manager is null.");
+		m_sceneManager = sceneManager;
+
 		m_registryId = s_nextRegistryId;
 		s_nextRegistryId++;
-		SceneManager::GetComponentRegistry()->CreateRegistry(m_registryId);
+		m_sceneManager->GetComponentRegistry().CreateRegistry(m_registryId);
 
 		m_sceneLighting = std::make_unique<SceneLighting>();
 
@@ -129,11 +133,10 @@ namespace Elevate
 		}
 	}
 
-	std::shared_ptr<Scene> Scene::Create(std::string name, SceneType type)
+	ComponentRegistry& Scene::GetComponentRegistry()
 	{
-		std::shared_ptr<Scene> scene = std::make_shared<Scene>(name, type);
-		SceneManager::LoadScene(scene);
-		return scene;
+		Assert::That(m_sceneManager != nullptr, "SceneManager is null.");
+		return m_sceneManager->GetComponentRegistry();
 	}
 
 	void Scene::SetSkybox(const std::string& skyboxFilePath)

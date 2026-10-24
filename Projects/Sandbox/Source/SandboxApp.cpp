@@ -22,7 +22,10 @@ private:
 	std::shared_ptr<Elevate::GameObject> m_demoCube;
 	std::shared_ptr<Elevate::GameObject> m_PointLightObject;
 public:
-	DebugLayer() : SceneLayer(Elevate::Scene::Create("Demo Scene")) {}
+	explicit DebugLayer(std::shared_ptr<Elevate::SceneManager> sceneManager)
+		: SceneLayer(std::move(sceneManager), sceneManager->CreateScene("Demo Scene"))
+	{
+	}
 
 	void OnAttach() override
 	{
@@ -85,6 +88,8 @@ public:
 		plane->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Plane);
 		plane->SetScale({ 30.0f, 1.0f, 30.0f });
 		plane->SetPosition({ 0.0f, 0.1f, 0.0f });
+
+		SceneLayer::OnAttach();
 	}
 
 	// TODO ajouter un icon de point light qui suit avec imgui la point light
@@ -128,7 +133,8 @@ public:
 #endif
 		Init();
 
-		PushLayer(new DebugLayer());
+		auto sceneManager = GetServices().Resolve<Elevate::SceneManager>();
+		PushLayer(new DebugLayer(sceneManager));
 	}
 	~Sandbox() = default;
 };

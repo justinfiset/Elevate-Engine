@@ -124,24 +124,25 @@ namespace Elevate::Editor
 	{
 		ImGui::Begin("Hierarchy");
 
-		for (auto it = SceneManager::begin(); it != SceneManager::end(); it++)
-		{
-			auto scene = *it;
-			if (scene->GetType() == SceneType::RuntimeScene && !scene->GetRootObjects().empty())
-			{
-				ImGui::Image((ImTextureID)m_sceneTexture->GetNativeHandle(), ImVec2(16, 16));
-				ImGui::SameLine();
+		// todo : set back after DI is implemented
+		//for (auto it = SceneManager::begin(); it != SceneManager::end(); it++)
+		//{
+		//	auto scene = *it;
+		//	if (scene->GetType() == SceneType::RuntimeScene && !scene->GetRootObjects().empty())
+		//	{
+		//		ImGui::Image((ImTextureID)m_sceneTexture->GetNativeHandle(), ImVec2(16, 16));
+		//		ImGui::SameLine();
 
-				if (ImGui::TreeNodeEx(scene->GetName().c_str(), ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth))
-				{
-					for (const auto& object : scene->GetRootObjects())
-					{
-						DrawTreeHierarchy(object);
-					}
-					ImGui::TreePop();
-				}
-			}
-		}
+		//		if (ImGui::TreeNodeEx(scene->GetName().c_str(), ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth))
+		//		{
+		//			for (const auto& object : scene->GetRootObjects())
+		//			{
+		//				DrawTreeHierarchy(object);
+		//			}
+		//			ImGui::TreePop();
+		//		}
+		//	}
+		//}
 
 		if (ImGui::IsWindowHovered() && !ImGui::IsAnyItemHovered())
 		{

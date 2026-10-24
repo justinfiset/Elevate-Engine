@@ -64,6 +64,8 @@ export namespace Elevate::Editor
 		}
 
 	private:
+		std::shared_ptr<SceneManager> m_sceneManager;
+
 		std::vector<std::unique_ptr<Widget>> m_widgets;
 		std::shared_ptr<Texture> m_playTexture;
 		std::shared_ptr<Texture> m_pauseTexture;

@@ -17,11 +17,12 @@ export namespace Elevate
 	class SceneLayer : public Layer
 	{
 	public:
-		SceneLayer(std::shared_ptr<Scene> scene)
-			: m_scene(scene) {
+		SceneLayer(std::shared_ptr<SceneManager> sceneManager, std::shared_ptr<Scene> scene)
+			: m_sceneManager(std::move(sceneManager)), m_scene(std::move(scene))
+		{
 		}
 
-		//virtual void OnAttach() override;
+		virtual void OnAttach() override;
 		virtual void OnDetach() override;
 		virtual void OnUpdate() override;
 		virtual void OnRender() override;
@@ -30,6 +31,7 @@ export namespace Elevate
 		virtual void OnEvent(Event& event) override;
 
 	protected:
+		std::shared_ptr<SceneManager> m_sceneManager;
 		std::shared_ptr<Scene> m_scene;
 	};
 }

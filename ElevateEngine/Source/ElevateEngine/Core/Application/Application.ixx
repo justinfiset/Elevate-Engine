@@ -6,6 +6,8 @@ export module Elevate.Core.Application;
 
 export import Elevate.Core.Application.GameContext;
 
+import Elevate.Foundations.Services;
+
 import Elevate.Core.Window;
 import Elevate.Core.Events;
 import Elevate.Core.Layers;
@@ -62,6 +64,8 @@ export namespace Elevate {
 		static const GameContextState& GetGameState();
 		static void SetGameState(GameContextState newState);
 
+		ServiceProvider& GetServices() { return *m_Provider; }
+
 	protected:
 		void OnStateChange(GameContextState oldState, GameContextState newState);
 
@@ -88,6 +92,8 @@ export namespace Elevate {
 
 		GameContextState m_state = Initializing;
 		ApplicationArguments m_args;
+
+		std::unique_ptr<ServiceProvider> m_Provider;
 
 		static Application* s_Instance;
 	};

@@ -49,6 +49,11 @@ namespace Elevate
 
 	void ComponentRegistry::CreateRegistry(uint32_t registryId)
 	{
+		if (!m_Impl)
+		{
+			return;
+		}
+
 		Assert::That(!m_Impl->TryGet(registryId), "Registry {} already exists.", registryId);
 
 		m_Impl->Registries.emplace(registryId, std::make_unique<entt::registry>());
@@ -56,6 +61,11 @@ namespace Elevate
 
 	void ComponentRegistry::DestroyRegistry(uint32_t registryId)
 	{
+		if (!m_Impl)
+		{
+			return;
+		}
+
 		auto it = m_Impl->Registries.find(registryId);
 
 		if (it == m_Impl->Registries.end())
@@ -69,11 +79,21 @@ namespace Elevate
 
 	bool ComponentRegistry::HasRegistry(uint32_t registryId) const
 	{
+		if (!m_Impl)
+		{
+			return false;
+		}
+
 		return m_Impl->Registries.contains(registryId);
 	}
 
 	uint32_t ComponentRegistry::CreateEntity(uint32_t registryId)
 	{
+		if (!m_Impl)
+		{
+			return INVALID_ENTITY_ID;
+		}
+
 		auto* registry = m_Impl->TryGet(registryId);
 
 		if (!registry)
@@ -87,6 +107,11 @@ namespace Elevate
 
 	void ComponentRegistry::DestroyEntity(uint32_t registryId, uint32_t entityId)
 	{
+		if (!m_Impl)
+		{
+			return;
+		}
+
 		auto* registry = m_Impl->TryGet(registryId);
 
 		if (!registry || entityId == InvalidEntity)
@@ -104,6 +129,11 @@ namespace Elevate
 
 	entt::registry* ComponentRegistry::Native(uint32_t registryId)
 	{
+		if (!m_Impl)
+		{
+			return nullptr;
+		}
+
 		return m_Impl->TryGet(registryId);
 	}
 }

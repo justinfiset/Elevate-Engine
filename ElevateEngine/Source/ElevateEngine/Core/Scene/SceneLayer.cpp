@@ -18,9 +18,14 @@ import Elevate.Input;
 
 namespace Elevate
 {
+	void SceneLayer::OnAttach()
+	{
+		m_sceneManager->LoadScene(m_scene);
+	}
+
 	void SceneLayer::OnDetach()
 	{
-		SceneManager::UnloadScene(m_scene);
+		m_sceneManager->UnloadScene(m_scene);
 	}
 
 	void SceneLayer::OnUpdate()

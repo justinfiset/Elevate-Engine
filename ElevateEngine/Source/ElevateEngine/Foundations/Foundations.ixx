@@ -25,3 +25,6 @@ export import Elevate.Foundations.Files;
 
 // Low Level Functions
 export import Elevate.Foundations.Shell;
+
+// DI
+export import Elevate.Foundations.Services;

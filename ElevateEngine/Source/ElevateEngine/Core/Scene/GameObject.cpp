@@ -253,9 +253,7 @@ namespace Elevate
 
 	ComponentRegistry& GameObject::Registry() const
 	{
-		auto registry = SceneManager::GetComponentRegistry();
-		Assert::That(registry != nullptr, "Component registry is null.");
-		return *registry;
+		return m_scene->GetComponentRegistry();
 	}
 
 	uint32_t GameObject::RegistryId() const
@@ -269,10 +267,7 @@ namespace Elevate
 
 		if (m_scene && m_entityId != INVALID_ENTITY_ID)
 		{
-			if (auto* registry = SceneManager::GetComponentRegistry())
-			{
-				registry->DestroyEntity(m_scene->GetRegistryId(), m_entityId);
-			}
+			Registry().DestroyEntity(m_scene->GetRegistryId(), m_entityId);
 		}
 	}
 

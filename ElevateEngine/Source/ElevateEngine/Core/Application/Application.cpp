@@ -24,6 +24,7 @@ import Elevate.Core.Layers.ImGuiLayer;
 import Elevate.Core.Layers.LayerStack;
 import Elevate.Core.Window;
 import Elevate.Core.Events;
+import Elevate.Core.ServiceModule;
 // Audio
 import Elevate.Audio.SoundEngine;
 // Renderer
@@ -52,6 +53,12 @@ namespace Elevate {
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		// Dependency Injection
+		ServiceCollection collection;
+		CoreServiceModule coreServices;
+		coreServices.Register(collection);
+		m_Provider = std::make_unique<ServiceProvider>(std::move(collection).Build());
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);

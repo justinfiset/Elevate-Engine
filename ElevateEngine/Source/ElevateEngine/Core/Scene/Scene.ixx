@@ -33,7 +33,7 @@ export namespace Elevate
 
 	public:
 		Scene();
-		Scene(std::string name, SceneType type = SceneType::RuntimeScene);
+		Scene(SceneManager* sceneManager, std::string name, SceneType type = SceneType::RuntimeScene);
 		virtual ~Scene();
 
 		void OnAwake();
@@ -48,8 +48,6 @@ export namespace Elevate
 
 		inline SceneType GetType() { return m_type; }
 
-		static std::shared_ptr<Scene> Create(std::string name, SceneType type = SceneType::RuntimeScene);
-
 		// Cubemap -> todo : move in a more specific struct
 		void SetSkybox(const std::string& skyboxFilePath);
 		std::weak_ptr<Cubemap> GetSkybox();
@@ -58,11 +56,14 @@ export namespace Elevate
 
 		uint32_t GetRegistryId();
 
+		ComponentRegistry& GetComponentRegistry();
+
 		void RemoveFromRoot(const EEObjectPtr<GameObject>& object);
 		void AddRootObject(const EEObjectPtr<GameObject>& newRootObject);
 
 	private:
 		static uint32_t s_nextRegistryId;
+		SceneManager* m_sceneManager = nullptr;
 
 		std::string m_name;
 		PROPERTY(m_name);

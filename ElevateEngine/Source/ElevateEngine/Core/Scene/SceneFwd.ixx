@@ -6,4 +6,5 @@ export namespace Elevate
 	class Component;
 	class ComponentRegistry;
 	class Scene;
+	class SceneManager;
 }

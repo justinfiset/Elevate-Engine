@@ -3,6 +3,7 @@ module;
 #include <algorithm>
 #include <memory>
 #include <vector>
+#include <string>
 
 export module Elevate.Core.Scene:SceneManager;
 
@@ -16,35 +17,47 @@ export namespace Elevate
 	class SceneManager
 	{
 	public:
-		static inline void LoadScene(std::shared_ptr<Scene> scene)
+		SceneManager(std::shared_ptr<ComponentRegistry> componentRegistry)
+			: m_componentRegistry(componentRegistry)
 		{
-			PushScene(scene);
 		}
 
-		static inline void UnloadScene(std::shared_ptr<Scene> scene)
+		std::shared_ptr<Scene> CreateScene(std::string name, SceneType type = SceneType::RuntimeScene)
 		{
-			PopScene(scene);
+			auto scene = std::make_shared<Scene>(this, std::move(name), type);
+			LoadScene(scene);
+			return scene;
 		}
 
-		static ComponentRegistry* GetComponentRegistry()
+		void LoadScene(std::shared_ptr<Scene> scene)
 		{
-			return s_ComponentRegistry.get();
+			m_scenes.push_back(scene);
 		}
 
-		static inline void SetScene(std::shared_ptr<Scene> scene)
+		void UnloadScene(std::shared_ptr<Scene> scene)
 		{
-			s_Scenes.clear();
+			m_scenes.erase(std::remove(m_scenes.begin(), m_scenes.end(), scene), m_scenes.end());
+		}
+
+		ComponentRegistry& GetComponentRegistry()
+		{
+			return *m_componentRegistry;
+		}
+
+		inline void SetScene(std::shared_ptr<Scene> scene)
+		{
+			m_scenes.clear();
 			LoadScene(scene);
 		}
 
-		static inline std::shared_ptr<Scene> GetCurrentScene()
+		std::shared_ptr<Scene> GetCurrentScene()
 		{
-			return s_Scenes.empty() ? nullptr : s_Scenes.back();
+			return m_scenes.empty() ? nullptr : m_scenes.back();
 		}
 
-		static inline std::shared_ptr<Scene> GetCurrentScene(SceneType type)
+		std::shared_ptr<Scene> GetCurrentScene(SceneType type)
 		{
-			for (auto it = s_Scenes.rbegin(); it != s_Scenes.rend(); ++it)
+			for (auto it = m_scenes.rbegin(); it != m_scenes.rend(); ++it)
 			{
 				if ((*it)->GetType() == type)
 				{
@@ -55,29 +68,13 @@ export namespace Elevate
 			return nullptr;
 		}
 
-		static inline std::vector<std::shared_ptr<Scene>>::iterator begin()
-		{
-			return s_Scenes.begin();
-		}
-
-		static inline std::vector<std::shared_ptr<Scene>>::iterator end()
-		{
-			return s_Scenes.end();
-		}
+		auto begin() { return m_scenes.begin(); }
+		auto end() { return m_scenes.end(); }
+		auto begin() const { return m_scenes.begin(); }
+		auto end() const { return m_scenes.end(); }
 
 	private:
-		static inline void PushScene(std::shared_ptr<Scene> scene)
-		{
-			s_Scenes.push_back(scene);
-		}
-
-		static inline void PopScene(std::shared_ptr<Scene> scene)
-		{
-			s_Scenes.erase(std::remove(s_Scenes.begin(), s_Scenes.end(), scene), s_Scenes.end());
-		}
-
-	private:
-		static std::vector<std::shared_ptr<Scene>> s_Scenes;
-		static std::unique_ptr<ComponentRegistry> s_ComponentRegistry;
+		std::shared_ptr<ComponentRegistry> m_componentRegistry;
+		std::vector<std::shared_ptr<Scene>> m_scenes;
 	};
 }
