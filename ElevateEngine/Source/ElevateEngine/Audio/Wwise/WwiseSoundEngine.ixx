@@ -11,7 +11,11 @@ module;
 #include <ElevateEngine/Audio/Wwise/DataSources/WwiseMergedDataSource.h>
 #endif
 
+#endif // #ifdef EE_USES_WWISE
+
 export module Elevate.Audio.Wwise.SoundEngine;
+
+#ifdef EE_USES_WWISE
 
 import Elevate.Core.Scene;
 import Elevate.Audio.SoundEngine;
