@@ -18,7 +18,9 @@ import Elevate.Audio.Wwise.SoundEngine;
 #endif
 
 export namespace Elevate {
-	class Layer;
+	class Application;
+	using ApplicationFactory = Application * (*)();
+
 	class ImGuiLayer;
 
 	namespace Editor
@@ -45,7 +47,7 @@ export namespace Elevate {
 		Application();
 		virtual ~Application() = default;
 
-		static void Start(int argc, char** argv);
+		static void Start(int argc, char** argv, ApplicationFactory factory);
 		void Init();
 		void EngineFrame();
 		void Run();
@@ -97,7 +99,4 @@ export namespace Elevate {
 
 		static Application* s_Instance;
 	};
-
-	// To be defined in CLIENT
-	Application* CreateApplication();
 }

@@ -118,10 +118,18 @@ namespace Elevate {
 	}
 #endif
 
-	void Application::Start(int argc, char** argv)
+	void Application::Start(int argc, char** argv, ApplicationFactory factory)
 	{
 		CoreLogger::Info("Initializing ElevateEngine...");
-		auto app = CreateApplication();
+
+		if (!factory)
+		{
+			CoreLogger::Error("No application factory provided.");
+			return;
+		}
+
+		auto app = factory();
+
 		app->m_args = ApplicationArguments(argc, argv);
 		app->Init();
 		CoreLogger::Trace("Application Initialized.");

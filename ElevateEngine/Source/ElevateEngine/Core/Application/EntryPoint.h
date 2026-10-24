@@ -2,9 +2,12 @@
 
 import Elevate.Core.Application;
 
-extern Elevate::Application* Elevate::CreateApplication();
+namespace Elevate
+{
+	Application* CreateApplication();
+}
 
 int main(int argc, char** argv)
 {
-	Elevate::Application::Start(argc, argv);
+	Elevate::Application::Start(argc, argv, &Elevate::CreateApplication);
 }

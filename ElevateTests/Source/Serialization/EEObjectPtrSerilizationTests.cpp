@@ -1,49 +1,41 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 
-#include <ElevateEngine/Core/Data.h>
-#include <ElevateEngine/Core/Byte.h>
-
-#include <ElevateEngine/Core/EEObject.h>
-#include <ElevateEngine/Core/EEObjectPtr.h>
 #include "Reflection.h"
 
-#include <ElevateEngine/Core/TypeLayout.h>
-#include <ElevateEngine/Serialization/PropertyField.h>
-#include <ElevateEngine/Serialization/JsonSerializer.h>
-
+import Elevate;
 using namespace Elevate;
 
 struct MockEEStruct
 {
-    BEGIN_STRUCT(MockEEStruct)
-    int testStructInt = 123;
-    PROPERTY(testStructInt)
-    std::string testStructString = "qwerty";
-    PROPERTY(testStructString)
-    END_STRUCT()
+	BEGIN_STRUCT(MockEEStruct);
+	int testStructInt = 123;
+	PROPERTY(testStructInt);
+	std::string testStructString = "qwerty";
+	PROPERTY(testStructString);
+	END_STRUCT();
 };
 
 class MockEEObject : public EEObject
 {
 public:
-    using Super = EEObject;
+	using Super = EEObject;
 
-    BEGIN_OBJECT(MockEEObject)
+	BEGIN_OBJECT(MockEEObject)
 
-    int testInt = 123456;
-    PROPERTY(testInt)
+		int testInt = 123456;
+	PROPERTY(testInt)
 
-    float testFloat = 321.123f;
-    PROPERTY(testFloat)
+		float testFloat = 321.123f;
+	PROPERTY(testFloat)
 
-    MockEEStruct testStruct;
-    PROPERTY(testStruct);
+		MockEEStruct testStruct;
+	PROPERTY(testStruct);
 
-    END_OBJECT()
+	END_OBJECT()
 
-    MockEEObject() = default;
-    virtual ~MockEEObject() = default;
+		MockEEObject() = default;
+	virtual ~MockEEObject() = default;
 };
 
 //TEST_CASE("EEObject String Serialization and Roundtrip", "[Serialization][PropertySet][JSONSerializer][String]") {
