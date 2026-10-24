@@ -6,7 +6,10 @@ module;
 
 export module Elevate.Foundations.CoreLogger;
 
-import Elevate.Foundations.Logger;
+export import Elevate.Foundations.Callbacks;
+export import Elevate.Foundations.Logger.LogLevel;
+export import Elevate.Foundations.Logger.LogCallback;
+import Elevate.Foundations.Logger.Internal;
 
 export namespace Elevate
 {
@@ -15,9 +18,14 @@ export namespace Elevate
 	public:
 		static Internal::LogImpl* GetImpl();
 
-		static void AddCallback(LogCallback callback)
+		static CallbackID AddCallback(LogCallback callback)
 		{
-			GetImpl()->AddCallback(callback);
+			return GetImpl()->AddCallback(callback);
+		}
+
+		static void RemoveCallback(CallbackID callbackId)
+		{
+			GetImpl()->RemoveCallback(callbackId);
 		}
 
 		template<typename... Args>

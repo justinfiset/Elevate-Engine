@@ -4,10 +4,10 @@ module;
 
 export module Elevate.Audio.SoundEngine;
 
+import Elevate.Core.Scene;
+
 export namespace Elevate
 {
-	class GameObject;
-
 	class SoundEngine
 	{
 	public:

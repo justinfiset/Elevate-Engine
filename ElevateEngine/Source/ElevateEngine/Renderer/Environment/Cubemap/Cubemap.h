@@ -2,11 +2,12 @@
 #include <string>
 #include <memory>
 #include <filesystem>
+#include <glm/glm.hpp>
 
-#include <ElevateEngine/Renderer/Buffers/Buffer.h>
-#include <ElevateEngine/Renderer/Vertex/VertexArray.h>
-#include <ElevateEngine/Renderer/Shader/Shader.h>
-#include <ElevateEngine/Renderer/RenderState.h>
+import Elevate.Renderer.Shader;
+import Elevate.Renderer.Buffers;
+import Elevate.Renderer.VertexArray;
+import Elevate.Renderer.RenderState;
 
 namespace Elevate
 {

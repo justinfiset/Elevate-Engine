@@ -4,12 +4,13 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <ElevateEngine/Renderer/Camera.h>
-#include <ElevateEngine/Renderer/Renderer.h>
-#include <ElevateEngine/Renderer/Shader/Shader.h>
 #include <ElevateEngine/Renderer/Light/DirectionalLight.h>
 #include <ElevateEngine/Renderer/Light/PointLight.h>
 #include <ElevateEngine/Renderer/Light/SpotLight.h>
+
+import Elevate.Renderer.Renderer;
+import Elevate.Renderer.Camera;
+import Elevate.Renderer.Shader;
 
 namespace Elevate
 {
@@ -24,7 +25,7 @@ namespace Elevate
 				shader->UseDirLight(m_dirLight);
 			}
 
-			size_t pointLightsCount = m_pointLights.size();		
+			size_t pointLightsCount = m_pointLights.size();
 			shader->SetUniform1i("u_NumPointLights", (int)pointLightsCount);
 			for (size_t i = 0; i < pointLightsCount; i++)
 			{
@@ -142,7 +143,7 @@ namespace Elevate
 		{
 			return;
 		}
-		
+
 		if (std::find(m_pointLights.begin(), m_pointLights.end(), light) == m_pointLights.end())
 		{
 			m_pointLights.push_back(light);

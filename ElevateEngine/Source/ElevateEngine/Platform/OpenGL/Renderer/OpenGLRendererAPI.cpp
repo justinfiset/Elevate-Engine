@@ -5,7 +5,8 @@
 #include <GLFW/glfw3.h>
 
 #include <ElevateEngine/Renderer/GLDebug.h>
-#include <ElevateEngine/Renderer/Renderer.h>
+
+import Elevate.Renderer.Renderer;
 
 namespace Elevate
 {
@@ -13,14 +14,14 @@ namespace Elevate
 	{
 		switch (type)
 		{
-			case DrawPrimitiveType::Points:        return GL_POINTS;
-			case DrawPrimitiveType::Lines:         return GL_LINES;
-			case DrawPrimitiveType::LineStrip:     return GL_LINE_STRIP;
-			case DrawPrimitiveType::Triangles:     return GL_TRIANGLES;
-			case DrawPrimitiveType::TriangleStrip: return GL_TRIANGLE_STRIP;
-			case DrawPrimitiveType::TriangleFan:   return GL_TRIANGLE_FAN;
-			case DrawPrimitiveType::Patches:       return GL_PATCHES;
-			default:							   return GL_TRIANGLES;
+		case DrawPrimitiveType::Points:        return GL_POINTS;
+		case DrawPrimitiveType::Lines:         return GL_LINES;
+		case DrawPrimitiveType::LineStrip:     return GL_LINE_STRIP;
+		case DrawPrimitiveType::Triangles:     return GL_TRIANGLES;
+		case DrawPrimitiveType::TriangleStrip: return GL_TRIANGLE_STRIP;
+		case DrawPrimitiveType::TriangleFan:   return GL_TRIANGLE_FAN;
+		case DrawPrimitiveType::Patches:       return GL_PATCHES;
+		default:							   return GL_TRIANGLES;
 		}
 		return GL_TRIANGLES;
 	}
@@ -86,7 +87,7 @@ namespace Elevate
 
 		if (vao->GetIndexBuffer())
 		{
-			if (vao->GetIndexBuffer()->GetCount() == 0) 
+			if (vao->GetIndexBuffer()->GetCount() == 0)
 			{
 				CoreLogger::Error("IndexBuffer has 0 indices!");
 				return;
@@ -103,7 +104,7 @@ namespace Elevate
 			}
 		}
 	}
-	
+
 	void OpenGLRendererAPI::SetCullingState(CullFace cullSetting) const
 	{
 		switch (cullSetting)
@@ -159,14 +160,14 @@ namespace Elevate
 	{
 		switch (depthFunc)
 		{
-			case DepthFunction::Less:         GLCheck(glDepthFunc(GL_LESS));	break;
-			case DepthFunction::LessEqual:    GLCheck(glDepthFunc(GL_LEQUAL));	break;
-			case DepthFunction::Equal:        GLCheck(glDepthFunc(GL_EQUAL));	break;
-			case DepthFunction::Always:       GLCheck(glDepthFunc(GL_ALWAYS));	break;
-			case DepthFunction::Never:        GLCheck(glDepthFunc(GL_NEVER));	break;
-			case DepthFunction::Greater:      GLCheck(glDepthFunc(GL_GREATER)); break;
-			case DepthFunction::GreaterEqual: GLCheck(glDepthFunc(GL_GEQUAL));	break;
-			default:                          GLCheck(glDepthFunc(GL_LESS));	break;
+		case DepthFunction::Less:         GLCheck(glDepthFunc(GL_LESS));	break;
+		case DepthFunction::LessEqual:    GLCheck(glDepthFunc(GL_LEQUAL));	break;
+		case DepthFunction::Equal:        GLCheck(glDepthFunc(GL_EQUAL));	break;
+		case DepthFunction::Always:       GLCheck(glDepthFunc(GL_ALWAYS));	break;
+		case DepthFunction::Never:        GLCheck(glDepthFunc(GL_NEVER));	break;
+		case DepthFunction::Greater:      GLCheck(glDepthFunc(GL_GREATER)); break;
+		case DepthFunction::GreaterEqual: GLCheck(glDepthFunc(GL_GEQUAL));	break;
+		default:                          GLCheck(glDepthFunc(GL_LESS));	break;
 		}
 	}
 }

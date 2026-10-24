@@ -3,10 +3,11 @@
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 
 #include <ElevateEngine/Renderer/GLDebug.h>
-#include <ElevateEngine/Renderer/Buffers/Buffer.h>
-#include <ElevateEngine/Renderer/GraphicsContext.h>
 
-import Elevate.Foundations;
+import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Assert;
+import Elevate.Renderer.GraphicsContext;
+import Elevate.Renderer.Buffers;
 
 Elevate::OpenGLVertexArray::OpenGLVertexArray()
 {

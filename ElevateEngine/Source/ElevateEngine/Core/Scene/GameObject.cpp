@@ -8,15 +8,14 @@ module;
 
 #include <glm/gtx/matrix_decompose.hpp> // iwyu: keep
 
-module Elevate.Core.Scene:GameObject;
+module Elevate.Core.Scene;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
-import Elevate.Core.Scene:Component;
-import Elevate.Core.Scene.SceneManager;
-import Elevate.Core.Scene:ComponentRegistry;
+
 import Elevate.Core.Types.TypeRegistry;
 import Elevate.Core.Objects.ObjectPtr;
+
 import Elevate.Audio.SoundEngine;
 
 namespace Elevate
@@ -252,6 +251,18 @@ namespace Elevate
 		m_isInitialized = true;
 	}
 
+	ComponentRegistry& GameObject::Registry() const
+	{
+		auto registry = SceneManager::GetComponentRegistry();
+		Assert::That(registry != nullptr, "Component registry is null.");
+		return *registry;
+	}
+
+	uint32_t GameObject::RegistryId() const
+	{
+		return m_scene->GetRegistryId();
+	}
+
 	GameObject::~GameObject()
 	{
 		SoundEngine::UnregisterGameObject(this);
@@ -288,12 +299,20 @@ namespace Elevate
 	std::vector<Component*> GameObject::GetComponents()
 	{
 		std::vector<Component*> components;
-		if (!m_scene) return components;
 
-		for (auto& [type, entry] : TypeRegistry::GetEntries()) {
-			if (auto* trait = entry.GetTrait<ComponentTypeTrait>()) {
-				if (trait->getter) {
-					if (Component* component = trait->getter(GetWeak())) {
+		if (!m_scene)
+		{
+			return components;
+		}
+
+		for (auto& [type, entry] : TypeRegistry::GetEntries())
+		{
+			if (auto* trait = entry.GetTrait<ComponentTypeTrait>())
+			{
+				if (trait->getter)
+				{
+					if (Component* component = static_cast<Component*>(trait->getter(this)))
+					{
 						components.push_back(component);
 					}
 				}
@@ -306,12 +325,18 @@ namespace Elevate
 	std::vector<const Component*> GameObject::GetComponents() const
 	{
 		std::vector<const Component*> components;
-		if (!m_scene) return components;
+		if (!m_scene)
+		{
+			return components;
+		}
 
-		for (auto& [type, entry] : TypeRegistry::GetEntries()) {
+		for (auto& [type, entry] : TypeRegistry::GetEntries())
+		{
 			if (auto* trait = entry.GetTrait<ComponentTypeTrait>()) {
-				if (trait->const_getter) {
-					if (const Component* component = trait->const_getter(GetWeak())) {
+				if (trait->const_getter)
+				{
+					if (const Component* component = static_cast<const Component*>(trait->const_getter(this)))
+					{
 						components.push_back(component);
 					}
 				}

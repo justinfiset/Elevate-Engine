@@ -5,7 +5,7 @@ module;
 #include <unordered_map>
 #include <entt/entt.hpp>
 
-module Elevate.Core.Scene:ComponentRegistry;
+module Elevate.Core.Scene;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;

@@ -4,20 +4,8 @@ module;
 #include <format>
 #include <functional>
 
-// Core
-#include "ElevateEngine/Core/Time.h"
-// ImGui
-#include "ElevateEngine/ImGui/ImGuiLayer.h"
-// Renderer
-#include "ElevateEngine/Renderer/Renderer/Renderer.h"
-// Inputs
-#include "ElevateEngine/Inputs/Input.h"
 // Physics
 #include <ElevateEngine/Physics/Backend/Jolt/JoltPhysicsSystem.h>
-
-#ifdef EE_EDITOR_BUILD
-#include "ElevateEngine/Editor/EditorLayer.h"
-#endif
 
 #ifdef EE_PLATFORM_WEB
 #include <emscripten.h>
@@ -25,16 +13,29 @@ module;
 
 module Elevate.Core.Application;
 
+// Foundations
+import Elevate.Foundations.Time;
+import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Assert;
 // Core
 import Elevate.Core.Assets.AssetRegistry;
 import Elevate.Core.Layers.Layer;
-import Elevate.Core.Layesr.LayerStack;
+import Elevate.Core.Layers.ImGuiLayer;
+import Elevate.Core.Layers.LayerStack;
 import Elevate.Core.Window;
 import Elevate.Core.Events;
 // Audio
 import Elevate.Audio.SoundEngine;
 // Renderer
-import Elevate.Renderer.Textures.TextureManager;
+import Elevate.Renderer.Texture;
+import Elevate.Renderer.Renderer;
+// Input
+import Elevate.Input;
+
+// Editor
+#ifdef EE_EDITOR_BUILD
+import Elevate.Editor.Layer;
+#endif
 
 namespace Elevate {
 
@@ -52,6 +53,9 @@ namespace Elevate {
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
+
 #ifdef EE_EDITOR_BUILD
 		PushOverlay(new Elevate::Editor::EditorLayer());
 		SetGameState(GameContextState::EditorMode);
@@ -61,9 +65,6 @@ namespace Elevate {
 
 		m_PhysicsSystem = std::make_unique<Jolt::JoltPhysicsSystem>();
 		m_PhysicsSystem->Init();
-
-		m_ImGuiLayer = new ImGuiLayer();
-		PushOverlay(m_ImGuiLayer);
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -140,14 +141,15 @@ namespace Elevate {
 		{
 #endif // #if EE_ASSERTS_ENABLED
 			// TIME UPDATE //////////////////
-			Time::s_currentTime = (float)m_Window->GetTime();
-			float rawDeltaTime = Time::s_currentTime - lastTime;
-			lastTime = Time::s_currentTime;
-			Time::s_deltaTime = std::min(rawDeltaTime, 0.25f); // Clamping to prevent weird behaviours
+			float currentTime = Time::GetCurrentTime();
+			float rawDeltaTime = currentTime - lastTime;
+			float deltaTime = std::min(rawDeltaTime, 0.25f); // Clamping to prevent weird behaviours
+			Time::Update((float)m_Window->GetTime(), deltaTime);
+			lastTime = currentTime;
 			/////////////////////////////////
 
 			SoundEngine::RenderAudio();
-			m_PhysicsSystem->Update(Time::s_deltaTime);
+			m_PhysicsSystem->Update(Time::GetDeltaTime());
 			TextureManager::UpdateLoadingTextures();
 
 			for (Layer* layer : m_LayerStack)

@@ -2,8 +2,6 @@ module Elevate.Audio.SoundEngine;
 
 import Elevate.Foundations.CoreLogger;
 
-class GameObject;
-
 Elevate::SoundEngine* Elevate::SoundEngine::Impl = nullptr;
 
 // Return given arguments if no soundengine is used or no valid implementation is provided.

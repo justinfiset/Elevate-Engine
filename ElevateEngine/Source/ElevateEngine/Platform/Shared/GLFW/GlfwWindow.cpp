@@ -1,28 +1,43 @@
-import Elevate.Foundations.CoreLogger;
-import Elevate.Core.Events.MouseEvent;
+#include <memory>
+#include <ctype.h>
+#include <bitset>
+#include <glm/glm.hpp>
+
+#include <GLFW/glfw3.h>
+#include <ElevateEngine/Platform/OpenGL/Context/OpenGLContext.h>
 
 #include "GlfwWindow.h"
 
-#include <ElevateEngine/Inputs/Input.h>
-#include <ElevateEngine/Renderer/Renderer/Renderer.h>
-
-#include <ElevateEngine/Platform/OpenGL/Context/OpenGLContext.h>
-#include <GLFW/glfw3.h>
+// Foundations
+import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Assert;
+// Core
+import Elevate.Core.Events.KeyEvent;
+import Elevate.Core.Events.MouseEvent;
+import Elevate.Core.Events.ApplicationEvent;
+// Input
+import Elevate.Input;
+// Renderer
+import Elevate.Renderer.Renderer;
 
 static void Elevate_MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
 	auto* dataPtr = static_cast<Elevate::WindowData*>(glfwGetWindowUserPointer(window));
 	if (!dataPtr)
+	{
 		return;
+	}
+
+	const auto mouseButton = static_cast<Elevate::MouseButton>(button);
 
 	if (action == GLFW_PRESS)
 	{
-		Elevate::MouseButtonPressedEvent event(button);
+		Elevate::MouseButtonPressedEvent event(mouseButton);
 		dataPtr->EventCallback(event);
 	}
 	else if (action == GLFW_RELEASE)
 	{
-		Elevate::MouseButtonReleasedEvent event(button);
+		Elevate::MouseButtonReleasedEvent event(mouseButton);
 		dataPtr->EventCallback(event);
 	}
 }
@@ -110,34 +125,37 @@ namespace Elevate
 				void* userPtr = glfwGetWindowUserPointer(window);
 				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
 
+				const auto keyCode = static_cast<Elevate::KeyCode>(key);
+
 				switch (action)
 				{
 				case GLFW_PRESS:
 				{
-					KeyPressedEvent event(key, 0);
+					KeyPressedEvent event(keyCode, 0);
 					dataPtr->EventCallback(event);
 					break;
 				}
 				case GLFW_RELEASE:
 				{
-					KeyReleasedEvent event(key);
+					KeyReleasedEvent event(keyCode);
 					dataPtr->EventCallback(event);
 					break;
 				}
 				case GLFW_REPEAT:
 				{
-					KeyPressedEvent event(key, 1);
+					KeyPressedEvent event(keyCode, 1);
 					dataPtr->EventCallback(event);
 					break;
 				}
 				}
 			});
 
-		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int key)
 			{
 				void* userPtr = glfwGetWindowUserPointer(window);
 				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-				KeyTypedEvent event(keycode);
+				const auto keyCode = static_cast<Elevate::KeyCode>(key);
+				KeyTypedEvent event(keyCode);
 				dataPtr->EventCallback(event);
 			});
 

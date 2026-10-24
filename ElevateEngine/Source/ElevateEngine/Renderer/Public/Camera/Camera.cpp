@@ -4,16 +4,20 @@ module;
 #include "glm/gtc/matrix_transform.hpp"
 
 #if EE_EDITOR_BUILD
-#include <ElevateEngine/Editor/Renderer/EditorRenderer.h>
+#include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
 #endif
 
-module Elevate.Renderer.Camera.Camera;
+module Elevate.Renderer.Camera;
 
 import Elevate.Core.Window;
 import Elevate.Core.Application;
-import Elevate.Core.Scene:GameObject;
+import Elevate.Core.Scene;
 import Elevate.Audio.SoundEngine;
-import Elevate.Renderer.Camera.CameraManager;
+
+#if EE_EDITOR_BUILD
+import Elevate.Editor.Renderer;
+import Elevate.Editor.Selection;
+#endif
 
 Elevate::Camera::Camera(float fov, bool overrideCurrent)
 {
@@ -166,10 +170,8 @@ std::array<glm::vec3, 8> Elevate::Camera::CalculateFrustumCorners() const
 	return CalculateFrustumCorners(0.0f, 1.0f);
 }
 
-// ONLY IN THE EDITOR
+// Only in the editor
 #ifdef EE_EDITOR_BUILD
-#include <ElevateEngine/Editor/EditorLayer.h>
-#include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
 
 void Elevate::Camera::RenderWhenSelected()
 {
@@ -178,7 +180,7 @@ void Elevate::Camera::RenderWhenSelected()
 
 void Elevate::Camera::Render()
 {
-	bool isSelected = Editor::EditorLayer::Get().GetSelectedObject().lock().get() == gameObject;
+	bool isSelected = Editor::Selection::IsSelected(gameObject);
 	glm::vec4 colorMod = isSelected ? glm::vec4(1.5f, 1.5f, 0.5f, 1.0f)
 		: glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	EditorRenderer::DrawBillboard(gameObject->GetGlobalPosition(), GetEditorIcon(), 0.5f, colorMod);

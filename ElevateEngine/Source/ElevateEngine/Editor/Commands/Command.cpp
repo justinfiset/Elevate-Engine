@@ -1,4 +1,4 @@
-#include "Command.h"
+module Elevate.Editor.Commands.Command;
 
 import Elevate.Foundations;
 

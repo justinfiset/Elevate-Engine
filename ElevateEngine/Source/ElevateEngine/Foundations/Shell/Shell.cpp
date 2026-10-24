@@ -1,44 +1,35 @@
 module;
 
-#ifdef _WIN32
-    #define WIN32_LEAN_AND_MEAN
-    #define NOMINMAX
-    #include <Windows.h>
-    #include <shellapi.h>
-#endif
-
 #include <filesystem>
+#include <string>
 
 module Elevate.Foundations.Shell;
 
+import :Native;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Paths;
 
-namespace Elevate::Files
+namespace Elevate::Shell
 {
-    void OpenWithDefaultApp(std::string_view filePath)
-    {
-        auto fsPath = PathResolver::Resolve(filePath);
-        if (std::filesystem::exists(fsPath))
-        {
-#ifdef _WIN32
-            // Windows
-            ShellExecuteA(NULL, "open", fsPath.string().c_str(), NULL, NULL, SW_SHOWNORMAL);
-#elif __APPLE__
-            // macOS
-            std::string command = "open " + filePath.string() + " &";
-            system(command.c_str());
-#elif __linux__
-            // Linux
-            std::string command = "xdg-open " + filePath.string() + " &";
-            system(command.c_str());
-#else
-            CoreLogger::Error("Unsupported OS");
-#endif
-        }
-        else
-        {
-            CoreLogger::Error("ERROR - Cannot open file '{0}', file not found.", filePath);
-        }
-    }
+	void OpenWithDefaultApp(std::string_view filePath)
+	{
+		auto fsPath = PathResolver::Resolve(filePath);
+		if (!std::filesystem::exists(fsPath))
+		{
+			CoreLogger::Error("ERROR - Cannot open file '{0}', file not found.", filePath);
+			return;
+		}
+		if (!Native::Open(fsPath.string()))
+		{
+			CoreLogger::Error("Unsupported OS or failed to open '{0}'.", filePath);
+		}
+	}
+
+	void OpenURL(std::string_view url)
+	{
+		if (!Native::Open(std::string(url)))
+		{
+			CoreLogger::Error("Failed to open URL '{0}'.", url);
+		}
+	}
 }

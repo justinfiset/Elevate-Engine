@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ElevateEngine/Renderer/Buffers/Buffer.h"
+import Elevate.Renderer.Buffers;
 
 namespace Elevate
 {

@@ -5,24 +5,23 @@ module;
 
 #include <ElevateEngine/Core/Reflection/Reflection.h>
 #include <ElevateEngine/Renderer/Light/SceneLighting.h>
+#include <ElevateEngine/Renderer/Environment/Cubemap/Cubemap.h>
 
 export module Elevate.Core.Scene:Scene;
 
+import Elevate.Core.Events.Event;
 import Elevate.Core.Objects.Object;
 import Elevate.Core.Objects.ObjectPtr;
-import Elevate.Core.Scene:GameObject;
-import Elevate.Core.Scene:ComponentRegistry;
-import Elevate.Core.Scene:SceneType;
+
+import :Fwd;
+import :ComponentRegistry;
+import :SceneType;
 
 // Forward declarations
 namespace Elevate
 {
-	class Cubemap;
 	class Shader;
-	class Camera;
-	class ComponentRegistry;
 	class RendererAPI;
-	class Event;
 }
 
 export namespace Elevate
@@ -40,7 +39,7 @@ export namespace Elevate
 		void OnAwake();
 		void OnStart();
 		void UpdateScene();
-		void RenderScene(Camera* cam = nullptr);
+		void RenderScene();
 		void Notify(Event& event); // Dispatch an event to gameobjects
 		virtual std::string GetName() const override;
 

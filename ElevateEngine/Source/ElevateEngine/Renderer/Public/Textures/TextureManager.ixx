@@ -8,14 +8,10 @@ module;
 #include <condition_variable>
 #include <atomic>
 
-export module Elevate.Renderer.Textures.TextureManager;
+export module Elevate.Renderer.Texture:TextureManager;
 
-import Elevate.Renderer.Textures.TextureMetadata;
-
-namespace Elevate
-{
-	class Texture;
-}
+import :TextureMetadata;
+import :Texture;
 
 export namespace Elevate
 {

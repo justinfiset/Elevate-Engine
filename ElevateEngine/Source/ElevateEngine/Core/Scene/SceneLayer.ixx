@@ -2,15 +2,11 @@ module;
 
 #include <memory>
 
-export module Elevate.Core.Scene:SceneLayer;
+export module Elevate.Core.SceneLayer;
 
+import Elevate.Core.Scene;
 import Elevate.Core.Layers.Layer;
-
-namespace Elevate
-{
-	class Camera;
-	class Scene;
-}
+import Elevate.Renderer.Camera;
 
 export namespace Elevate
 {

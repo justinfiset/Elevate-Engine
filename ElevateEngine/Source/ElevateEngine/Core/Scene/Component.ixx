@@ -1,19 +1,24 @@
 module;
 
-#include <string>
 #include <functional>
+#include <memory>
+#include <string>
+#include <typeindex>
 
 export module Elevate.Core.Scene:Component;
 
 import Elevate.Core.Events.Event;
 import Elevate.Core.Objects.Object;
-import Elevate.Core.Scene:Scene;
-export import Elevate.Core.Scene:ComponentTypeTrait;
+import Elevate.Core.Types.TypeRegistry;
+
+import Elevate.Renderer.Texture;
+
+import :Fwd;
+export import :ComponentTypeTrait;
 
 export namespace Elevate
 {
-	class GameObject;
-	class Texture;
+	template<> inline constexpr bool reflection_stop_v<Component> = true;
 
 	class Component : public EEObject
 	{

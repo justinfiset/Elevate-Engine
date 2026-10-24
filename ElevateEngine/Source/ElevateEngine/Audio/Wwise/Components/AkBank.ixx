@@ -5,8 +5,7 @@ module;
 
 export module Elevate.Audio.Wwise.AkBank;
 
-import Elevate.Core.Scene:GameObject;
-import Elevate.Core.Scene:Component;
+import Elevate.Core.Scene;
 
 export namespace Elevate
 {

@@ -1,32 +1,42 @@
-#include "AssetBrowserPanel.h"
-
-#ifdef EE_EDITOR_BUILD
+module;
 
 #include <algorithm>
 #include <cmath>
 #include <fstream>
+#include <string>
+#include <filesystem>
 
 #include <imgui.h>
+
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
 #include <rapidjson/error/en.h>
 
-#include <ElevateEngine/Inputs/Input.h>
+#include <glm/glm.hpp>
 
-#include <ElevateEngine/Editor/EditorLayer.h>
+module Elevate.Editor.Panels.AssetBrowserPanel;
 
-namespace fs = std::filesystem;
+#ifdef EE_EDITOR_BUILD
 
+// Foundations
 import Elevate.Foundations.CoreLogger;
-
+import Elevate.Foundations.Paths;
+import Elevate.Foundations.Files;
+import Elevate.Foundations.Shell;
+// Core
 import Elevate.Core.Types.TypeRegistry;
 import Elevate.Core.Assets.AssetRegistry;
 import Elevate.Core.Assets.Asset;
-
-import Elevate.Renderer.Textures.Texture;
-import Elevate.Renderer.Textures.TextureManager;
-
+// Renderer
+import Elevate.Renderer.Texture;
+// Serialization
 import Elevate.Serialization.JsonSerializer;
+// Input
+import Elevate.Input;
+// Editor
+import Elevate.Editor.Layer;
+
+namespace fs = std::filesystem;
 
 namespace Elevate
 {
@@ -105,7 +115,7 @@ namespace Elevate
 		float panelWidth = ImGui::GetWindowSize().x;
 		int colNb = (int)std::floor(panelWidth / (buttonSize.x + spacing));
 
-		colNb = max(1, colNb);
+		colNb = std::max(1, colNb);
 
 		int index = 0;
 
@@ -172,7 +182,7 @@ namespace Elevate
 					break;
 				}
 				else {
-					Files::OpenWithDefaultApp(item.path);
+					Shell::OpenWithDefaultApp(item.path);
 				}
 			}
 
@@ -252,9 +262,10 @@ namespace Elevate
 				if (ImGui::GetIO().KeyShift)
 				{
 					m_selected.clear();
-					int start = min(itemIndex, m_lastSelected);
-					int end = max(itemIndex, m_lastSelected);
-					for (int i = start; i <= end; i++) {
+					int start = std::min(itemIndex, m_lastSelected);
+					int end = std::max(itemIndex, m_lastSelected);
+					for (int i = start; i <= end; i++)
+					{
 						m_selected.insert(i);
 					}
 				}

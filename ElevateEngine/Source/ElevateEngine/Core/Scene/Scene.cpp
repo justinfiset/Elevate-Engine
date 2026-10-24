@@ -1,28 +1,19 @@
 module;
 
-// rapidjson
-#include <rapidjson/filereadstream.h>
-#include <rapidjson/document.h>
-#include <rapidjson/error/en.h>
-#include <rapidjson/rapidjson.h>
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/writer.h>
+#include <format>
+#include <type_traits>
 
-#include <ElevateEngine/Renderer/Models/Model.h>
-#include <ElevateEngine/Renderer/Renderer/Renderer.h>
+#include <ElevateEngine/Renderer/Environment/Cubemap/Cubemap.h>
 
 #include <ElevateEngine/Renderer/Light/SceneLighting.h>
 
-export module Elevate.Core.Scene:Scene;
+module Elevate.Core.Scene;
 
+// Foundations
+import Elevate.Foundations.CoreLogger;
+// Core
 import Elevate.Core.Application;
 import Elevate.Core.Objects.ObjectPtr;
-
-import Elevate.Core.Scene:GameObject;
-import Elevate.Core.Scene.SceneManager;
-
-import Elevate.Renderer.Camera.Camera;
-import Elevate.Renderer.Camera.CameraManager;
 
 namespace Elevate
 {
@@ -43,8 +34,6 @@ namespace Elevate
 
 	Scene::~Scene()
 	{
-		Application::Get()->Registry
-			DestroyRegistry(m_registryId);
 	}
 
 	void Scene::OnAwake()
@@ -81,13 +70,8 @@ namespace Elevate
 		}
 	}
 
-	void Scene::RenderScene(Camera* cam)
+	void Scene::RenderScene()
 	{
-		if (!cam)
-		{
-			cam = Elevate::CameraManager::GetCurrent();
-		}
-
 		for (EEObjectPtr<GameObject> obj : m_rootObjects)
 		{
 			switch (m_type)

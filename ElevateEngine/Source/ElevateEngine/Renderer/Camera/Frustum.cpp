@@ -1,8 +1,8 @@
 
 #include "Frustum.h"
 
-#include "ElevateEngine/Renderer/Camera.h"
-#include "ElevateEngine/Core/GameObject.h"
+import Elevate.Core.Scene;
+import Elevate.Renderer.Camera;
 
 namespace Elevate
 {

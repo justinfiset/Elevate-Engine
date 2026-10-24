@@ -1,15 +1,16 @@
 #include <vector>
-
+#include <string>
 #define GLFW_INCLUDE_NONE
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <GLFW/glfw3.h>
-
-import Elevate.Foundations;
 
 #include "glm/gtc/type_ptr.hpp"
 
 #include <ElevateEngine/Platform/OpenGL/Shaders/OpenGLShader.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
+
+import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Assert;
 
 namespace Elevate
 {

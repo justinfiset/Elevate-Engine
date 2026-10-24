@@ -1,12 +1,11 @@
-#include "Profiler.h"
+module;
 
 #include <chrono>
 #include <thread>
 
-import Elevate.Foundations;
+module Elevate.Core.Profiling:Profiler;
 
-#include <ElevateEngine/Core/Profiling/ProfilerSample.h>
-#include <ElevateEngine/Core/Profiling/ProfilerFrame.h>
+import Elevate.Foundations.CoreLogger;
 
 namespace Elevate
 {

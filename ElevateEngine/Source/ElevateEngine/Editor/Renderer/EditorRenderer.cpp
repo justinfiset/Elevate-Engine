@@ -1,11 +1,17 @@
-#include "EditorRenderer.h"
+module;
+
+#include <glm/glm.hpp>
+
+module Elevate.Editor.Renderer;
 
 import Elevate.Foundations.CoreLogger;
-
-#include <ElevateEngine/Renderer/Renderer/Renderer.h>
-#include <ElevateEngine/Renderer/Meshes/Mesh.h>
-#include <ElevateEngine/Renderer/Materials/Material.h>
-#include <ElevateEngine/Renderer/Shader/ShaderManager.h>
+import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Renderer.Shader;
+import Elevate.Renderer.ShaderManager;
+import Elevate.Renderer.Meshes.Mesh;
+import Elevate.Renderer.Materials.Material;
+import Elevate.Renderer.Renderer;
+import Elevate.Renderer.RenderState;
 
 namespace Elevate
 {

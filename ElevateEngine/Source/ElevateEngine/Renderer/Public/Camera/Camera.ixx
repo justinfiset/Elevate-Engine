@@ -1,15 +1,13 @@
 module;
 
-#include "Reflection.h"
 #include "glm/glm.hpp"
 
-#include <ElevateEngine/Editor/Components/ComponentsIcon.h>
+#include "Reflection.h"
 
-export module Elevate.Renderer.Camera.Camera;
+export module Elevate.Renderer.Camera:Camera;
 
 import Elevate.Foundations;
-import Elevate.Core.Scene:GameObject;
-import Elevate.Core.Scene:Component;
+import Elevate.Core.Scene;
 
 // TODO add ortographic or projection settings (bool value or constructors)
 export namespace Elevate

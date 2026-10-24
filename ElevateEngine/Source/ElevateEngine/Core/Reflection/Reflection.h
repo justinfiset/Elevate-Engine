@@ -4,13 +4,26 @@
 #include <string>
 
 import Elevate.Foundations.CoreLogger;
+import Elevate.Core.Types.TypeLayout;
 import Elevate.Core.Types.TypeRegistry;
 import Elevate.Core.Reflection.ReflectionTags;
 
 #ifdef EE_EDITOR_BUILD
+import Elevate.Renderer.Texture;
 import Elevate.Editor.Types.EditorTypeTrait;
-import Elevate.Renderer.Textures.Texture;
+import Elevate.Editor.Icons;
 #endif
+
+// todo : do not use macro in the future
+#ifdef EE_EDITOR_BUILD
+#define EE_EditorTag(x) x
+#else
+#define EE_EditorTag(x) ::Elevate::EmptyTag{}
+#endif
+
+#define EE_CreateAssetMenu EE_EditorTag(CreateAssetMenuTag{})
+#define EE_AssetColor(r, g, b) EE_EditorTag((AssetColorTag{r, g, b}))
+#define EE_Asset(name, extension, ...) EE_EditorTag(AssetTag{BuildAssetMetadata<ThisType>(name, extension, ##__VA_ARGS__)})
 
 // =======================================================
 // BEGIN_ENUM / ENUM_VALUE / END_ENUM
@@ -32,12 +45,6 @@ import Elevate.Renderer.Textures.Texture;
             ); \
         } \
     } generated_##EnumName##EnumEntryInstance;
-
-namespace Elevate
-{
-	class GameObject;
-	class Component;
-}
 
 #include "ReflectionInternal.h"
 

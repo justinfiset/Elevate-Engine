@@ -4,5 +4,6 @@ export namespace Elevate
 {
 	class GameObject;
 	class Component;
+	class ComponentRegistry;
 	class Scene;
 }

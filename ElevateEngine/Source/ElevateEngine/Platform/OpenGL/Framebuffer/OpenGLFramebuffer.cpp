@@ -1,11 +1,17 @@
-#include "OpenGLFramebuffer.h"
-
-#include <ElevateEngine/Renderer/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 
+#include "glm/glm.hpp"
+
+#include <memory>
+#include <optional>
+#include <vector>
+
+#include "OpenGLFramebuffer.h"
+
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
+import Elevate.Renderer.Renderer;
 
 namespace Elevate
 {
@@ -125,13 +131,13 @@ namespace Elevate
 		GLCheck(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBufferId));
 		GLCheck(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0));
 
-		uint32_t srcW = !m_colorAttachments.empty() ? m_colorAttachments[0].Texture->GetWidth() : 1280;
-		uint32_t srcH = !m_colorAttachments.empty() ? m_colorAttachments[0].Texture->GetHeight() : 720;
+		uint32_t srcW = !m_colorAttachments.empty() ? m_colorAttachments[0].Tex->GetWidth() : 1280;
+		uint32_t srcH = !m_colorAttachments.empty() ? m_colorAttachments[0].Tex->GetHeight() : 720;
 
 		bool isMagnifying = (screenWidth >= srcW) && (screenHeight >= srcH);
 		auto filterType = isMagnifying
-			? m_colorAttachments[0].Texture->GetMetadata().MagFilter
-			: m_colorAttachments[0].Texture->GetMetadata().MinFilter;
+			? m_colorAttachments[0].Tex->GetMetadata().MagFilter
+			: m_colorAttachments[0].Tex->GetMetadata().MinFilter;
 		GLenum filter = ToOpenGL(filterType);
 		if (filter != GL_NEAREST && filter != GL_LINEAR)
 		{
@@ -161,7 +167,7 @@ namespace Elevate
 
 		for (auto& attachment : m_colorAttachments)
 		{
-			if (auto& tex = attachment.Texture)
+			if (auto& tex = attachment.Tex)
 			{
 				if (tex->GetWidth() == width && tex->GetHeight() == height) continue;
 
@@ -177,9 +183,9 @@ namespace Elevate
 
 		if (m_depthAttachment.has_value())
 		{
-			if (m_depthAttachment->Texture)
+			if (m_depthAttachment->Tex)
 			{
-				auto& depthTex = m_depthAttachment->Texture;
+				auto& depthTex = m_depthAttachment->Tex;
 				TextureMetadata meta = depthTex->GetMetadata();
 				meta.Width = width;
 				meta.Height = height;

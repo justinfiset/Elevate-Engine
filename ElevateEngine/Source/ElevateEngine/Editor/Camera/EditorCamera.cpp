@@ -1,13 +1,20 @@
+module;
+
+#include <glm/glm.hpp>
 #include <glm/ext/quaternion_trigonometric.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
-#include <ElevateEngine/Core/Time.h>
+module Elevate.Editor.Camera;
 
-#include <ElevateEngine/Inputs/Input.h>
-#include "EditorCamera.h"
-
-
-import Elevate.Core.Scene:GameObject;
-import Elevate.Renderer.Camera.Camera;
+// Foundations
+import Elevate.Foundations.Time;
+// Core
+import Elevate.Core.Scene;
+// Renderer
+import Elevate.Renderer.Camera;
+// Input
+import Elevate.Input;
 
 namespace Elevate
 {
@@ -19,23 +26,23 @@ namespace Elevate
 	{
 		float baseCamSpeed = 0.5f;
 
-		if (Input::IsKeyPressed(EE_KEY_LEFT_SHIFT))
+		if (Input::IsKeyPressed(KeyCode::LeftShift))
 			baseCamSpeed = 2.5f;
 
 		float cameraSpeed = baseCamSpeed * Time::GetDeltaTime();
 
 		glm::vec3 offset(0.0f);
 
-		if (Input::IsKeyPressed(EE_KEY_W))
+		if (Input::IsKeyPressed(KeyCode::W))
 			offset += cameraSpeed * GetFrontVec();
 
-		if (Input::IsKeyPressed(EE_KEY_S))
+		if (Input::IsKeyPressed(KeyCode::S))
 			offset -= cameraSpeed * GetFrontVec();
 
-		if (Input::IsKeyPressed(EE_KEY_D))
+		if (Input::IsKeyPressed(KeyCode::D))
 			offset += cameraSpeed * GetRightVec();
 
-		if (Input::IsKeyPressed(EE_KEY_A))
+		if (Input::IsKeyPressed(KeyCode::A))
 			offset -= cameraSpeed * GetRightVec();
 
 		gameObject->SetPosition(gameObject->GetPosition() + offset);
@@ -78,13 +85,13 @@ namespace Elevate
 	{
 		if (event.IsInCategory(EventCategoryMouseButton))
 		{
-			if (Input::IsMouseButtonDown(EE_MOUSE_BUTTON_RIGHT))
+			if (Input::IsMouseButtonDown(MouseButton::Right))
 			{
 				m_followCursor = true;
 				m_lastX = Input::GetMouseX();
 				m_lastY = Input::GetMouseY();
 			}
-			else if (Input::IsMouseButtonUp(EE_MOUSE_BUTTON_RIGHT))
+			else if (Input::IsMouseButtonUp(MouseButton::Right))
 			{
 				m_followCursor = false;
 			}

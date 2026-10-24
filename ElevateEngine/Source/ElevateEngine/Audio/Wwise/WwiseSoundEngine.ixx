@@ -13,12 +13,11 @@ module;
 
 export module Elevate.Audio.Wwise.SoundEngine;
 
+import Elevate.Core.Scene;
 import Elevate.Audio.SoundEngine;
 
 export namespace Elevate
 {
-	class GameObject;
-
 	class WwiseSoundEngine : public SoundEngine
 	{
 	public:

@@ -5,7 +5,7 @@ import Elevate.Core.Assets.AssetMetadata;
 
 namespace Elevate
 {
-	AssetTag::AssetTag(const AssetMetadata &meta)
+	AssetTag::AssetTag(const AssetMetadata& meta)
 	{
 		Meta = meta;
 #ifdef EE_EDITOR_BUILD

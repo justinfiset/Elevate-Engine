@@ -29,7 +29,7 @@ namespace Elevate
 
 	private:
 		PlaneShape m_Shape;
-		PROPERTY(m_Shape, EE_Flatten);
+		PROPERTY(m_Shape, FlattenTag());
 
 		END_COMPONENT();
 	};

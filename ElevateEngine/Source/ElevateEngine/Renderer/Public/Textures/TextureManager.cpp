@@ -1,15 +1,16 @@
 module;
 
+#include <mutex>
 #include <memory>
 #include <filesystem>
 #include <stb/stb_image.h>
 
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 
-module Elevate.Renderer.Textures.TextureManager;
+module Elevate.Renderer.Texture;
 
+import Elevate.Foundations.Paths;
 import Elevate.Foundations.CoreLogger;
-import Elevate.Renderer.Textures.Texture;
 
 namespace Elevate {
 	TextureManager::TextureManager()

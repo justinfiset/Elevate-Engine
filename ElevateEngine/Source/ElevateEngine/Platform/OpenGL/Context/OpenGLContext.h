@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ElevateEngine/Renderer/GraphicsContext.h"
+import Elevate.Renderer.GraphicsContext;
 
 struct GLFWwindow;
 

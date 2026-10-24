@@ -1,10 +1,11 @@
-
 #include "Rigidbody.h"
-#include "ElevateEngine/Inputs/Input.h"
-#include "ElevateEngine/Core/Time.h"
 
-import Elevate.Core.Scene:GameObject;
+// Core
+import Elevate.Core.Scene;
+// Physics
 import Elevate.Physics.PhysicsSystem;
+// Input
+import Elevate.Input;
 
 namespace Elevate
 {

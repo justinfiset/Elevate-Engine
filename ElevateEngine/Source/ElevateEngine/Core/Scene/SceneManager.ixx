@@ -4,16 +4,15 @@ module;
 #include <memory>
 #include <vector>
 
-export module Elevate.Core.Scene.SceneManager;
+export module Elevate.Core.Scene:SceneManager;
 
-import Elevate.Core.Scene:Scene;
-import Elevate.Core.Scene:SceneType;
-import Elevate.Core.Scene:ComponentRegistry;
+import :Fwd;
+import :Scene;
+import :SceneType;
+import :ComponentRegistry;
 
 export namespace Elevate
 {
-	class Scene;
-
 	class SceneManager
 	{
 	public:
@@ -78,7 +77,7 @@ export namespace Elevate
 		}
 
 	private:
-		static inline std::vector<std::shared_ptr<Scene>> s_Scenes;
-		static inline std::unique_ptr<ComponentRegistry> s_ComponentRegistry = std::make_unique<ComponentRegistry>();
+		static std::vector<std::shared_ptr<Scene>> s_Scenes;
+		static std::unique_ptr<ComponentRegistry> s_ComponentRegistry;
 	};
 }

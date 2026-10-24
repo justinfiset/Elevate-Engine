@@ -1,4 +1,6 @@
-﻿#include <cstring>
+﻿module;
+
+#include <cstring>
 #include <functional>
 #include <map>
 #include <memory>
@@ -15,20 +17,32 @@
 #include <glm/ext/vector_float3.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
 
-#include "AnalyserPanel.h"
+#include "imgui.h"
+
+module Elevate.Editor.Panels.AnalyserPanel;
 
 #ifdef EE_EDITOR_BUILD
 
-#include "imgui.h"
-
-#include <ElevateEngine/ImGui/CustomImGuiCommand.h>
-#include <ElevateEngine/Editor/Commands/ComponentCommand.h>
-#include <ElevateEngine/Editor/EditorLayer.h>
-
-import Elevate.Core.Scene:Component;
+// Foundations
+import Elevate.Foundations.Enums;
+// Core
+import Elevate.Core.Scene;
+import Elevate.Core.Objects.Object;
+import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Core.Types.TypeRegistry;
+import Elevate.Core.Types.TypeField;
 import Elevate.Core.Assets.Asset;
 import Elevate.Core.Assets.AssetRegistry;
-import Elevate.Renderer.Textures.Texture;
+// Renderer
+import Elevate.Renderer.Texture;
+// Editor
+import Elevate.Editor.Layer;
+import Elevate.Editor.Types.EditorTypeTrait;
+import Elevate.Editor.Commands.ComponentCommand;
+import Elevate.Editor.Panels.AssetBrowserPanel;
+// Widgets
+import Elevate.Editor.Widgets.CollapsingHeader;
+import Elevate.Editor.Widgets.InputField;
 
 Elevate::Editor::AnalyserPanel::AnalyserPanel()
 {
@@ -51,7 +65,7 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 
 	if (obj)
 	{
-		Elevate::UI::InputField("Name: ", obj->GetName());
+		Widgets::InputField("Name: ", obj->GetName());
 
 		// Serialisation of the tranform and all other components
 		glm::vec4 color = EECategory("Transform").GetCategoryColor() * 0.6f;
@@ -175,7 +189,7 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const TypeLayout& lay
 		texHandle = m_textureCache.at(component);
 	}
 
-	if (UI::EECollapsingHeader((layout.GetName()).c_str(),
+	if (Widgets::CollapsingHeader((layout.GetName()).c_str(),
 		layout.GetFieldCount() > 0,
 		texHandle,
 		[&layout, &component]()

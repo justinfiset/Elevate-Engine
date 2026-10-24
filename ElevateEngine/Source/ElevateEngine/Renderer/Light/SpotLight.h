@@ -1,19 +1,21 @@
 #pragma once
 #include "Light.h"
-#include <ElevateEngine/Editor/Components/ComponentsIcon.h>
+#include "Reflection.h"
 
 namespace Elevate
 {
 	class SpotLight : public Light
 	{
-		BEGIN_COMPONENT(SpotLight, EE_EditorIcon(Editor::Icons::COMPONENT_ICON_SPOTLIGHT))
-		DECLARE_BASE(Light)
-		EECATEGORY("Lighting")
+		BEGIN_COMPONENT(SpotLight, EditorIconTag(Editor::Icons::COMPONENT_ICON_SPOTLIGHT));
+		DECLARE_BASE(Light);
+		EECATEGORY("Lighting");
 
 	public:
 		SpotLight() = default;
 		SpotLight(float innerCone, float outerCone)
-			: m_innerCone(innerCone), m_outerCone(outerCone) { }
+			: m_innerCone(innerCone), m_outerCone(outerCone)
+		{
+		}
 
 		virtual void Init() override;
 		virtual void Destroy() override;
@@ -27,16 +29,16 @@ namespace Elevate
 #endif
 
 		float m_innerCone = 15.0f;
-		PROPERTY(m_innerCone)
+		PROPERTY(m_innerCone);
 		float m_outerCone = 30.0f;
-		PROPERTY(m_outerCone)
+		PROPERTY(m_outerCone);
 
 		LightAttenuation m_attenuation;
 		PROPERTY(m_attenuation);
 
 		ShadowSettings m_shadowSettings;
-		PROPERTY(m_shadowSettings)
+		PROPERTY(m_shadowSettings);
 
-		END_COMPONENT()
+		END_COMPONENT();
 	};
 }

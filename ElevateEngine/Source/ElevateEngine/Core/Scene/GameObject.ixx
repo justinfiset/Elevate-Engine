@@ -17,18 +17,21 @@ export module Elevate.Core.Scene:GameObject;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
+
+import Elevate.Core.Events.Event;
 import Elevate.Core.Objects.Object;
 import Elevate.Core.Objects.ObjectPtr;
-import Elevate.Core.Scene:Component;
-import Elevate.Core.Scene:ComponentRegistry;
+
 import Elevate.Core.Transform.ITransformable;
 import Elevate.Core.Types.TypeRegistry;
+
+import :Fwd;
+import :Component;
+import :ComponentRegistry;
 
 // Forwards
 namespace Elevate
 {
-	class Event;
-
 	namespace Editor
 	{
 		class EditorLayer;
@@ -39,18 +42,6 @@ export namespace Elevate
 {
 	constexpr uint32_t INVALID_ENTITY_ID = ComponentRegistry::InvalidEntity;
 
-	class GameObject;
-
-	class IScene
-	{
-	public:
-		virtual ~IScene() = default;
-
-		virtual void AddRootObject(const EEObjectPtr<GameObject>& obj) = 0;
-		virtual void RemoveFromRoot(const EEObjectPtr<GameObject>& obj) = 0;
-		virtual uint32_t GetRegistryId() = 0;
-	};
-
 	class GameObject : public ITransformable, public EEObject
 	{
 	public:
@@ -59,7 +50,7 @@ export namespace Elevate
 
 		GameObject(
 			std::string name,
-			std::shared_ptr<IScene> scene,
+			std::shared_ptr<Scene> scene,
 			std::shared_ptr<GameObject> parent = nullptr);
 
 		~GameObject();
@@ -95,16 +86,16 @@ export namespace Elevate
 
 		static std::shared_ptr<GameObject> Create(
 			std::string name,
-			std::shared_ptr<IScene> scene,
+			std::shared_ptr<Scene> scene,
 			std::shared_ptr<GameObject> parent = nullptr);
 
-		IScene* GetScene() { return m_scene; }
+		Scene* GetScene() { return m_scene; }
 
 		glm::mat4 GenGlobalMatrix() const;
 		void SetFromGlobalMatrix(const glm::mat4& newWorld);
 		glm::vec3 GetGlobalPosition();
 
-		// Component operations: definitions in GameObjectImplf
+		// Component operations: definitions in GameObjectImpl
 
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args);
@@ -144,6 +135,7 @@ export namespace Elevate
 		void Initialize();
 
 		ComponentRegistry& Registry() const;
+		uint32_t RegistryId() const;
 
 	private:
 		std::string m_name;
@@ -158,7 +150,7 @@ export namespace Elevate
 		static uint32_t s_goIdCount;
 		bool m_isInitialized = false;
 
-		IScene* m_scene;
+		Scene* m_scene;
 
 		END_OBJECT_CUSTOM();
 
@@ -176,7 +168,7 @@ namespace Elevate
 		static_assert(std::is_base_of_v<Component, T>, "AddComponent: T must derive from Component.");
 
 		auto& registry = Registry();
-		const uint32_t registryId = m_scene->GetRegistryId();
+		const uint32_t registryId = RegistryId();
 
 		if (T* existing = registry.TryGet<T>(registryId, m_entityId))
 		{
@@ -185,10 +177,8 @@ namespace Elevate
 		}
 
 		T& comp = registry.Add<T>(registryId, m_entityId, std::forward<Args>(args)...);
-
 		comp.gameObject = this;
 		comp.Init();
-
 		return comp;
 	}
 
@@ -197,11 +187,9 @@ namespace Elevate
 	{
 		static_assert(std::is_base_of_v<Component, T>, "GetComponent: T must derive from Component.");
 
-		T* component = Registry().TryGet<T>(m_scene->GetRegistryId(), m_entityId);
-
+		T* component = Registry().TryGet<T>(RegistryId(), m_entityId);
 		if (onlyReturnActive && component && !component->IsActive())
 			return nullptr;
-
 		return component;
 	}
 
@@ -210,11 +198,9 @@ namespace Elevate
 	{
 		static_assert(std::is_base_of_v<Component, T>, "GetComponent: T must derive from Component.");
 
-		const T* component = Registry().TryGet<T>(m_scene->GetRegistryId(), m_entityId);
-
+		const T* component = Registry().TryGet<T>(RegistryId(), m_entityId);
 		if (onlyReturnActive && component && !component->IsActive())
 			return nullptr;
-
 		return component;
 	}
 
@@ -222,8 +208,7 @@ namespace Elevate
 	bool GameObject::HasComponent()
 	{
 		static_assert(std::is_base_of_v<Component, T>, "HasComponent: T must derive from Component.");
-
-		return Registry().Has<T>(m_scene->GetRegistryId(), m_entityId);
+		return Registry().Has<T>(RegistryId(), m_entityId);
 	}
 
 	template <typename T>
@@ -232,15 +217,12 @@ namespace Elevate
 		static_assert(std::is_base_of_v<Component, T>, "RemoveComponent: T must derive from Component.");
 
 		auto& registry = Registry();
-		const uint32_t registryId = m_scene->GetRegistryId();
+		const uint32_t registryId = RegistryId();
 
 		T* component = registry.TryGet<T>(registryId, m_entityId);
-
 		if (!component)
 		{
-			CoreLogger::Error(
-				"Trying to remove a missing component. "
-				"You need to add the component before removing it.");
+			CoreLogger::Error("Trying to remove a missing component. You need to add the component before removing it.");
 			return;
 		}
 

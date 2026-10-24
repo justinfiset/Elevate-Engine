@@ -1,14 +1,14 @@
-module;
+module Elevate.Renderer.Camera;
+
+// Foundations
+import Elevate.Foundations.Assert;
+// Core
+import Elevate.Core.Application;
 
 #ifdef EE_EDITOR_BUILD
-#include "ElevateEngine/Editor/EditorLayer.h"
-#include "ElevateEngine/Editor/Camera/EditorCamera.h"
+import Elevate.Editor.Camera;
+import Elevate.Editor.Layer;
 #endif
-
-module Elevate.Renderer.Camera.CameraManager;
-
-import Elevate.Foundations.Assert;
-import Elevate.Core.Application;
 
 namespace Elevate
 {

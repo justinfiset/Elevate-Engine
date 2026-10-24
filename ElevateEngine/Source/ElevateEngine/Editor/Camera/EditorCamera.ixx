@@ -1,0 +1,39 @@
+module;
+
+#include <memory>
+
+#include "Reflection.h"
+
+export module Elevate.Editor.Camera;
+
+// Core
+import Elevate.Core.Events.Event;
+import Elevate.Core.Types.TypeField;
+import Elevate.Core.Scene;
+// Renderer
+import Elevate.Renderer.Camera;
+
+export namespace Elevate
+{
+	class EditorCamera : public Camera
+	{
+	public:
+		BEGIN_COMPONENT(EditorCamera, HideInInspectorTag());
+		DECLARE_BASE(Camera);
+
+		EditorCamera(float fov = 60.0f); // TODO CHANGER, ON VEUT QUELQUE CHOSE DE CUSTUM
+
+		void Init() override;
+		void Update() override;
+		void OnNotify(Event& event) override;
+
+	private:
+		float m_yaw = -90.0f;
+		float m_pitch = 0.0f;
+		float m_lastX, m_lastY;
+		bool m_followCursor = false;
+		float m_sensitivity = 0.5f;
+
+		END_COMPONENT();
+	};
+};

@@ -1,7 +1,8 @@
 #pragma once
 
-#include "ElevateEngine/Inputs/Input.h"
-#include "ElevateEngine/Inputs/InputBuffer.h"
+#include <glm/vec2.hpp>
+
+import Elevate.Input;
 
 namespace Elevate {
 	class GlfwInput : public Input

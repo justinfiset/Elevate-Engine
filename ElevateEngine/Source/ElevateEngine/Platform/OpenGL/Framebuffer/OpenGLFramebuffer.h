@@ -1,6 +1,7 @@
 #pragma once
 
-#include "ElevateEngine/Renderer/Framebuffers/Framebuffer.h"
+import Elevate.Renderer.Framebuffers;
+import Elevate.Renderer.Texture;
 
 namespace Elevate
 {

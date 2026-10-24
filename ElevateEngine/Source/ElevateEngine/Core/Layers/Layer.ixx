@@ -4,10 +4,10 @@ module;
 
 export module Elevate.Core.Layers.Layer;
 
+import Elevate.Core.Events.Event;
+
 export namespace Elevate
 {
-	class Event;
-
 	class Layer
 	{
 	public:

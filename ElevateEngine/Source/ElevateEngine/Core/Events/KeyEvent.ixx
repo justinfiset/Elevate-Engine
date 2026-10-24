@@ -8,27 +8,29 @@ module;
 export module Elevate.Core.Events.KeyEvent;
 
 import Elevate.Core.Events.Event;
+import Elevate.Input.Keyboard.KeyCode;
 
 export namespace Elevate
 {
 	class KeyEvent : public Event
 	{
 	public:
-		inline int GetKeyCode() const { return m_KeyCode; }
+		inline KeyCode GetKeyCode() const { return m_KeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
 	protected:
-		KeyEvent(int keycode) : m_KeyCode(keycode) {}
+		KeyEvent(KeyCode keycode) : m_KeyCode(keycode) {}
 
-		int m_KeyCode;
+		KeyCode m_KeyCode;
 	};
 
 	class KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int keycode, int repeatCount)
-			: KeyEvent(keycode), m_RepeatCount(repeatCount) {
+		KeyPressedEvent(KeyCode keycode, int repeatCount)
+			: KeyEvent(keycode), m_RepeatCount(repeatCount)
+		{
 		}
 
 		inline int GetRepeatCount() const { return m_RepeatCount; }
@@ -36,7 +38,7 @@ export namespace Elevate
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyPressedEvent: " << m_KeyCode << " (" << m_RepeatCount << " repeats)";
+			ss << "KeyPressedEvent: " << static_cast<int32_t>(m_KeyCode) << " (" << m_RepeatCount << " repeats)";
 			return ss.str();
 		}
 
@@ -49,14 +51,15 @@ export namespace Elevate
 	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keycode)
-			: KeyEvent(keycode) {
+		KeyReleasedEvent(KeyCode keycode)
+			: KeyEvent(keycode)
+		{
 		}
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyReleasedEvent: " << m_KeyCode;
+			ss << "KeyReleasedEvent: " << static_cast<int32_t>(m_KeyCode);
 			return ss.str();
 		}
 
@@ -69,14 +72,15 @@ export namespace Elevate
 	class KeyTypedEvent : public KeyEvent
 	{
 	public:
-		KeyTypedEvent(int keycode)
-			: KeyEvent(keycode) {
+		KeyTypedEvent(KeyCode keycode)
+			: KeyEvent(keycode)
+		{
 		}
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyTypedEvent: " << m_KeyCode;
+			ss << "KeyTypedEvent: " << static_cast<int32_t>(m_KeyCode);
 			return ss.str();
 		}
 

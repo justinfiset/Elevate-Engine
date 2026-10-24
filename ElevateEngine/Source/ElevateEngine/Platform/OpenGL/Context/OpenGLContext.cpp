@@ -1,12 +1,10 @@
-
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <GLFW/glfw3.h>
+
+#include "OpenGLContext.h"
 
 import Elevate.Foundations.Assert;
 import Elevate.Foundations.CoreLogger;
-
-#include "OpenGLContext.h"
-#include <GLFW/glfw3.h>
-#include <ElevateEngine/Renderer/Renderer/Renderer.h>
 
 Elevate::OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 	: m_WindowHandle(windowHandle)

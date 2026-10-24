@@ -1,6 +1,6 @@
 #pragma once
 
-import Elevate.Renderer.Textures.Texture;
+import Elevate.Renderer.Texture;
 
 namespace Elevate
 {

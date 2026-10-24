@@ -1,17 +1,17 @@
-#include <ElevateEngine.h>
-
-#include <ElevateEngine/Foundations/Core.h> // todo : remove asap
-
 // MATHS
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "ElevateEngine/Renderer/Cubemap.h"
-#include "ElevateEngine/Renderer/Shader/ShaderManager.h"
-#include "ElevateEngine/Renderer/Shader/Shader.h"
-#include <ElevateEngine/Renderer/Camera/CameraManager.h>
+#include <ElevateEngine/Foundations/Core.h> // todo : remove asap
+#include <ElevateEngine/Renderer/Environment/Cubemap/Cubemap.h>
+
+#include <ElevateEngine/Renderer/Light/DirectionalLight.h>
+#include <ElevateEngine/Renderer/Light/PointLight.h>
+#include <ElevateEngine/Renderer/Light/SpotLight.h>
+
+#include <ElevateEngine.h>
 
 class DebugLayer : public Elevate::SceneLayer
 {
@@ -26,7 +26,7 @@ public:
 
 	void OnAttach() override
 	{
-		m_shader = Elevate::ShaderManager::GetShader(EE_DEFAULT_SHADER);
+		m_shader = Elevate::ShaderManager::GetShader(Elevate::EE_DEFAULT_SHADER);
 
 		Elevate::MaterialPtr material = Elevate::MaterialRegistry::LoadMaterial(m_shader);
 
@@ -105,7 +105,7 @@ public:
 		case Elevate::EventType::KeyTyped:
 		{
 			Elevate::KeyPressedEvent kp = (Elevate::KeyPressedEvent&)event;
-			if (kp.GetKeyCode() == EE_KEY_SPACE)
+			if (kp.GetKeyCode() == Elevate::KeyCode::Space)
 			{
 				// Do something here...
 			}

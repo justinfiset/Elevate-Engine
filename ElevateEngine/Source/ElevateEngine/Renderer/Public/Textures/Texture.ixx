@@ -6,14 +6,13 @@ module;
 #include <glm/vec4.hpp>
 #include <glm/vec3.hpp>
 
-export module Elevate.Renderer.Textures.Texture;
+export module Elevate.Renderer.Texture:Texture;
 
-export import Elevate.Renderer.Textures.TextureMetadata;
+import :TextureMetadata;
 
 export namespace Elevate
 {
 	class Renderer;
-	class Texture;
 
 	class Texture
 	{

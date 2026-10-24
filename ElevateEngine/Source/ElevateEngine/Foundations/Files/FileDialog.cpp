@@ -1,83 +1,89 @@
-#include "FileDialog.h"
+module;
+
+#ifndef EE_PLATFORM_WEB
+#include <ElevateEngine/Platform/Desktop/DesktopFileDialog.h>
+#else
+#include <ElevateEngine/Platform/Web/WebFileDialog.h>
+#endif
+
+module Elevate.Foundations.Files.FileDialog;
 
 import Elevate.Foundations;
 
-#ifndef EE_PLATFORM_WEB
-    #include <ElevateEngine/Platform/Desktop/DesktopFileDialog.h>
-    Elevate::FileDialogImpl* Elevate::FileDialog::s_impl = new Elevate::DesktropFileDialog();
-#else
-    #include <ElevateEngine/Platform/Web/WebFileDialog.h>
-    Elevate::FileDialogImpl* Elevate::FileDialog::s_impl = new Elevate::WebFileDialog();
-#endif
-
 namespace Elevate
 {
-    bool FileDialogImpl::DisplayAndGetResult(std::string& outPath)
-    {
-        if (HasResult())
-        {
-            outPath = ConsumeResult();
-            return true;
-        }
-        return false;
-    }
+#ifndef EE_PLATFORM_WEB
+	FileDialogImpl* FileDialog::s_impl = new DesktropFileDialog();
+#else
+	FileDialogImpl* FileDialog::s_impl = new WebFileDialog();
+#endif
 
-    bool FileDialogImpl::HasResult()
-    {
-        return m_hasResult;
-    }
+	bool FileDialogImpl::DisplayAndGetResult(std::string& outPath)
+	{
+		if (HasResult())
+		{
+			outPath = ConsumeResult();
+			return true;
+		}
+		return false;
+	}
 
-    std::string FileDialogImpl::ConsumeResult()
-    {
-        m_hasResult = false;
-        return m_result;
-    }
+	bool FileDialogImpl::HasResult()
+	{
+		return m_hasResult;
+	}
 
-    void FileDialogImpl::SetResult(const std::string& result)
-    {
-        m_hasResult = true;
-        m_result = result;
-    }
+	std::string FileDialogImpl::ConsumeResult()
+	{
+		m_hasResult = false;
+		return m_result;
+	}
 
-    std::string FileDialog::RequestOpenFile(const std::string& title, const std::string& defaultPathOrFile, const std::vector<std::string>& filters, const std::string& filterDescription, bool allowMultiple)
-    {
-        if (ValidateImpl())
-        {
-            s_impl->OpenFile(title, PathResolver::Resolve(defaultPathOrFile).string(), filters, filterDescription, allowMultiple);
-        }
-        return "";
-    }
+	void FileDialogImpl::SetResult(const std::string& result)
+	{
+		m_hasResult = true;
+		m_result = result;
+	}
 
-    std::string FileDialog::RequestSaveFile(const std::string& title, const std::string& defaultPathOrFile, const std::vector<std::string>& filters, const std::string& filterDescription)
-    {
-        if (ValidateImpl())
-        {
-            s_impl->SaveFile(title, PathResolver::Resolve(defaultPathOrFile).string(), filters, filterDescription);
-        }
-        return "";
-    }
+	std::string FileDialog::RequestOpenFile(const std::string& title, const std::string& defaultPathOrFile, const std::vector<std::string>& filters, const std::string& filterDescription, bool allowMultiple)
+	{
+		if (ValidateImpl())
+		{
+			s_impl->OpenFile(title, PathResolver::Resolve(defaultPathOrFile).string(), filters, filterDescription, allowMultiple);
+		}
+		return "";
+	}
 
-    std::string FileDialog::RequestSelectFolder(const std::string& title, const std::string& defaultPath)
-    {
-        if (ValidateImpl())
-        {
-            s_impl->SelectFolder(title, PathResolver::Resolve(defaultPath).string());
-        }
-        return "";
-    }
+	std::string FileDialog::RequestSaveFile(const std::string& title, const std::string& defaultPathOrFile, const std::vector<std::string>& filters, const std::string& filterDescription)
+	{
+		if (ValidateImpl())
+		{
+			s_impl->SaveFile(title, PathResolver::Resolve(defaultPathOrFile).string(), filters, filterDescription);
+		}
+		return "";
+	}
 
-    bool FileDialog::DisplayAndGetResult(std::string& outPath)
-    {
-        return s_impl->DisplayAndGetResult(outPath);
-    }
+	std::string FileDialog::RequestSelectFolder(const std::string& title, const std::string& defaultPath)
+	{
+		if (ValidateImpl())
+		{
+			s_impl->SelectFolder(title, PathResolver::Resolve(defaultPath).string());
+		}
+		return "";
+	}
 
-    bool FileDialog::ValidateImpl()
-    {
-        if (!s_impl)
-        {
-            CoreLogger::Error("FileDialog implementation not set!");
-            return false;
-        }
-        return true;
-    }
+	bool FileDialog::DisplayAndGetResult(std::string& outPath)
+	{
+		return s_impl->DisplayAndGetResult(outPath);
+	}
+
+	bool FileDialog::ValidateImpl()
+	{
+		if (!s_impl)
+		{
+			CoreLogger::Error("FileDialog implementation not set!");
+			return false;
+		}
+		return true;
+	}
 }

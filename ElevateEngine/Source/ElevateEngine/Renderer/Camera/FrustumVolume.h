@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Frustum.h"
-#include "ElevateEngine/Core/Transform.h"
+
+import Elevate.Core.Transform.Transform;
 
 namespace Elevate
 {

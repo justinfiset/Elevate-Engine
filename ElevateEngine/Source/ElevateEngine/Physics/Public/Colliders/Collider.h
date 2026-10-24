@@ -3,14 +3,13 @@
 #include <glm/glm.hpp>
 #include "Reflection.h"
 
-import Elevate.Core.Scene:GameObject;
-import Elevate.Core.Scene:Component;
+import Elevate.Core.Scene;
 
 namespace Elevate
 {
 	class Collider : public Component
 	{
-		BEGIN_COMPONENT(Collider, EE_HideInInspector);
+		BEGIN_COMPONENT(Collider, HideInInspectorTag());
 		EECATEGORY("Physics");
 
 	public:

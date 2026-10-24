@@ -5,8 +5,7 @@
 #include "Reflection.h"
 
 import Elevate.Foundations.Enums;
-import Elevate.Core.Scene:Component;
-import Elevate.Core.Scene:GameObject;
+import Elevate.Core.Scene;
 
 namespace Elevate
 {
@@ -51,7 +50,7 @@ namespace Elevate
 		BEGIN_STRUCT(RigidbodyData);
 
 		RigidbodyType m_type = RigidbodyType::Dynamic;
-		PROPERTY(m_type, EE_DisplayName("Body Type"));
+		PROPERTY(m_type, DisplayNameTag("Body Type"));
 
 		glm::vec3 m_gravity = { 0, -9.81, 0 };
 		PROPERTY(m_gravity);
@@ -93,7 +92,7 @@ namespace Elevate
 
 	private:
 		RigidbodyData m_data;
-		PROPERTY(m_data, EE_Flatten);
+		PROPERTY(m_data, FlattenTag());
 
 		std::vector<const Collider*> m_Colliders;
 

@@ -2,12 +2,12 @@ module;
 
 #include <memory>
 
-export module Elevate.Renderer.Camera.CameraManager;
+export module Elevate.Renderer.Camera:CameraManager;
+
+import :Fwd;
 
 export namespace Elevate
 {
-	class Camera;
-
 	class CameraManager
 	{
 	public:

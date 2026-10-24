@@ -1,16 +1,31 @@
-#include "StatisticsPanel.h"
+module;
+
+#include <format>
+#include <chrono>
 
 #include <imgui.h>
-#include "ConsolePanel.h"
+#include <glm/vec4.hpp>
+
+module Elevate.Editor.Panels.ConsolePanel;
+
+import Elevate.Foundations.CoreLogger;
 
 Elevate::Editor::ConsolePanel::ConsolePanel()
 {
-	CoreLogger::AddCallback([this](LogLevel level, std::string_view text) {
-		LogCallback(level, text);
-	});
-	Logger::AddCallback([this](LogLevel level, std::string_view text) {
-		LogCallback(level, text);
-	});
+	m_coreLoggerCallback = CoreLogger::AddCallback([this](LogLevel level, std::string_view text)
+		{
+			LogCallback(level, text);
+		});
+	m_loggerCallback = Logger::AddCallback([this](LogLevel level, std::string_view text)
+		{
+			LogCallback(level, text);
+		});
+}
+
+Elevate::Editor::ConsolePanel::~ConsolePanel()
+{
+	CoreLogger::RemoveCallback(m_coreLoggerCallback);
+	Logger::RemoveCallback(m_loggerCallback);
 }
 
 void Elevate::Editor::ConsolePanel::OnImGuiRender()

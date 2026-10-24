@@ -1,6 +1,8 @@
 #pragma once
 
-#include <ElevateEngine/Renderer/RendererAPI.h>
+#include <glm/glm.hpp>
+
+import Elevate.Renderer.RendererAPI;
 
 namespace Elevate
 {

@@ -27,12 +27,6 @@ import Elevate.Core.Types.ITypeTrait;
 
 import Elevate.Core.Reflection.ReflectionTags;
 
-namespace Elevate
-{
-	class Component;
-	class GameObject;
-}
-
 #ifdef EE_EDITOR_BUILD
 import Elevate.Editor.Types.EditorTypeTrait;
 #endif
@@ -44,6 +38,14 @@ export namespace Elevate
 	template<typename T>
 	struct has_super<T, std::void_t<typename T::Super>> : std::true_type {};
 
+	template<typename T>
+	inline constexpr bool reflection_stop_v = false;
+
+	template<typename T, typename = void>
+	struct has_class_entry : std::false_type {};
+	template<typename T>
+	struct has_class_entry<T, std::void_t<decltype(T::generated_classEntry)>> : std::true_type {};
+
 	template<typename T, bool = has_super<T>::value>
 	struct ParentFieldsHelper {
 		static std::vector<TypeField> Get() { return {}; }
@@ -53,28 +55,10 @@ export namespace Elevate
 	struct ParentFieldsHelper<T, true> {
 		static std::vector<TypeField> Get() {
 			using Super = typename T::Super;
-			if constexpr (!std::is_same_v<Super, void> &&
-				std::is_base_of_v<Component, Super> &&
-				!std::is_same_v<Super, Elevate::Component>) {
+			if constexpr (has_class_entry<Super>::value && !reflection_stop_v<Super>)
 				return Super::generated_classEntry.ClassFieldStack;
-			}
-			else {
+			else
 				return {};
-			}
-		}
-	};
-
-	// Prevent recursion when facing the Component class
-	template<>
-	struct ParentFieldsHelper<Elevate::Component, true> {
-		static std::vector<Elevate::TypeField> Get() {
-			return {};
-		}
-	};
-	template<>
-	struct ParentFieldsHelper<Elevate::Component, false> {
-		static std::vector<Elevate::TypeField> Get() {
-			return {};
 		}
 	};
 

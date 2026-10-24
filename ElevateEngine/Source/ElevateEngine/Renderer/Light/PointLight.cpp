@@ -1,13 +1,13 @@
+#include <ElevateEngine/Renderer/Light/SceneLighting.h>
 
 #include "PointLight.h"
-#include "ElevateEngine/Renderer/Shader/Shader.h"
-#include <ElevateEngine/Renderer/Light/SceneLighting.h>
-#include <ElevateEngine/Core/GameObject.h>
 
 #ifdef EE_EDITOR_BUILD
-#include <ElevateEngine/Editor/EditorLayer.h>
-#include <ElevateEngine/Editor/Renderer/EditorRenderer.h>
+import Elevate.Editor.Renderer;
+import Elevate.Editor.Selection;
 #endif
+
+import Elevate.Renderer.Shader;
 
 namespace Elevate
 {
@@ -34,7 +34,7 @@ namespace Elevate
 #ifdef EE_EDITOR_BUILD
 	void PointLight::Render()
 	{
-		bool isSelected = Editor::EditorLayer::Get().GetSelectedObject().lock().get() == gameObject;
+		bool isSelected = Editor::Selection::IsSelected(gameObject);
 		glm::vec4 colorMod = isSelected ? glm::vec4(1.5f, 1.5f, 0.5f, 1.0f)
 			: glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 		EditorRenderer::DrawBillboard(gameObject->GetGlobalPosition(), GetEditorIcon(), 0.5f, colorMod);

@@ -1,4 +1,5 @@
 export module Elevate.Renderer.Camera;
 
-export import Elevate.Renderer.Camera.Camera;
-export import Elevate.Renderer.Camera.CameraManager;
+export import :Fwd;
+export import :Camera;
+export import :CameraManager;

@@ -1,6 +1,8 @@
-#include "StatisticsPanel.h"
+module;
 
 #include <imgui.h>
+
+module Elevate.Editor.Panels.StatisticsPanel;
 
 void Elevate::Editor::StatisticsPanel::OnImGuiRender()
 {

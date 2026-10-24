@@ -4,13 +4,14 @@ module;
 #include <filesystem>
 #include <glm/common.hpp>
 
-#include <ElevateEngine/Renderer/Renderer/Renderer.h>
+#include <glm/glm.hpp>
+
 #include <ElevateEngine/Platform/OpenGL/Textures/OpenGLTexture.h>
 
-module Elevate.Renderer.Textures.Texture;
+module Elevate.Renderer.Texture:Texture;
 
 import Elevate.Foundations.Assert;
-import Elevate.Renderer.Textures.TextureManager;
+import Elevate.Renderer.Renderer;
 
 namespace Elevate
 {

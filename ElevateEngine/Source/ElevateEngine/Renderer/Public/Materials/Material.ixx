@@ -1,0 +1,125 @@
+module;
+
+#include <cstdint>
+#include <cstring>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
+#include <glm/glm.hpp>
+
+#include "Reflection.h"
+
+export module Elevate.Renderer.Materials.Material;
+
+// Foundations
+import Elevate.Foundations.Assert;
+// Core
+import Elevate.Core.Assets.Asset;
+import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Core.Types.TypeLayout;
+// Renderer
+import Elevate.Renderer.Texture;
+import Elevate.Renderer.Shader;
+import Elevate.Renderer.ShaderManager;
+import Elevate.Renderer.Buffers;
+import Elevate.Renderer.Commands.RenderBucket;
+import Elevate.Renderer.RenderState;
+
+export namespace Elevate
+{
+	class Material;
+	class MaterialFactory;
+	class MaterialRegistry;
+
+	using MaterialPtr = EEObjectPtr<Material>;
+	using MaterialID = uint32_t;
+
+	inline constexpr MaterialID EE_DEFAULT_MATERIAL = 0;
+
+	class Material : public Asset
+	{
+		BEGIN_OBJECT(Material, EE_Asset("Material", ".mat", EE_CreateAssetMenu, EE_AssetColor(0.8f, 0.2f, 0.2f)))
+
+	public:
+		virtual TypeLayout GetLayout() const override;
+
+		template<typename T>
+		void Set(const std::string& name, const T& value)
+		{
+			for (const auto& uniform : m_shader->GetLayout())
+			{
+				if (uniform.Name == name)
+				{
+					Assert::That(uniform.Offset + sizeof(T) <= m_buffer.size(),
+						"Set Uniform: data size greater then buffer size!");
+
+					std::memcpy(m_buffer.data() + uniform.Offset, &value, sizeof(T));
+					m_definedUniforms[uniform.Index] = true;
+					return;
+				}
+			}
+			CoreLogger::Warn("Uniform '{0}' not found in the shader : {1}", name, m_shader->GetID());
+		}
+
+		void SetTexture(const std::string& name, std::shared_ptr<Texture> texture);
+		void Apply();
+
+		std::shared_ptr<Shader> GetShader() const;
+		MaterialID GetID() const { return m_id; }
+
+		RenderState& GetRenderState() { return m_state; }
+		const RenderState& GetRenderState() const { return m_state; }
+		void SetRenderState(const RenderState& state) { m_state = state; }
+
+		RenderBucket::Type GetBucket() const { return m_bucket; }
+		void SetBucket(RenderBucket::Type bucket) { m_bucket = bucket; }
+
+		size_t GetTextureCount() const { return m_textures.size(); }
+
+		Material();
+	private:
+		Material(const std::shared_ptr<Shader>& shader);
+
+		std::shared_ptr<Texture> GetTextureForUniform(const std::string& uniformName) const;
+
+		EEObjectPtr<Shader> m_shader{ nullptr };
+		PROPERTY(m_shader);
+
+		std::vector<uint8_t> m_buffer;
+		std::vector<bool> m_definedUniforms;
+
+		std::unordered_map<std::string, std::shared_ptr<Texture>> m_textures;
+
+		MaterialID m_id{ 0 };
+		static MaterialID s_nextId;
+
+		RenderState m_state;
+		RenderBucket::Type m_bucket = RenderBucket::GBuffer;
+
+		friend class MaterialFactory;
+
+		END_OBJECT_CUSTOM()
+	};
+
+	class MaterialFactory
+	{
+	protected:
+		static MaterialPtr Create(const std::shared_ptr<Shader>& shader);
+		friend class MaterialRegistry;
+	};
+
+	class MaterialRegistry
+	{
+	public:
+		static MaterialPtr LoadMaterial(const std::shared_ptr<Shader>& shader);
+		static MaterialPtr GetMaterial(MaterialID id);
+
+	private:
+		MaterialRegistry();
+		static MaterialRegistry& instance();
+
+		std::unordered_map<MaterialID, MaterialPtr> m_materials;
+	};
+}

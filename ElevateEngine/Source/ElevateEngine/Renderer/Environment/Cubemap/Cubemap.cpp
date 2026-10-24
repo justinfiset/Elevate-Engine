@@ -2,15 +2,16 @@
 
 #include <ElevateEngine/Foundations/Core.h> // todo remove asap
 
-import Elevate.Foundations;
-
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
-#include <ElevateEngine/Renderer/Renderer.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
 
 #include <stb/stb_image.h>
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
+
+import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Paths;
+import Elevate.Renderer.Renderer;
 
 Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 {
@@ -24,7 +25,7 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	m_VertexBuffer.reset(Elevate::VertexBuffer::Create(&s_skyboxVertices[0], sizeof(s_skyboxVertices)));
 	m_VertexBuffer->SetLayout({
 		{ Elevate::ShaderDataType::Float3, "a_Position" },
-	});
+		});
 
 	m_IndexBuffer.reset(Elevate::IndexBuffer::Create(&s_skyboxIndices[0], sizeof(s_skyboxIndices) / sizeof(unsigned int)));
 	m_VertexArray.reset(VertexArray::Create());
@@ -34,10 +35,10 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 
 	// Shaders
 	std::string vert = std::string(EE_SHADER_HEADER) +
-#include "ElevateEngine/Renderer/Cubemap/skybox.vert"
+#include "ElevateEngine/Renderer/Environment/Cubemap/skybox.vert"
 		;
 	std::string frag = std::string(EE_SHADER_HEADER) +
-#include "ElevateEngine/Renderer/Cubemap/skybox.frag"
+#include "ElevateEngine/Renderer/Environment/Cubemap/skybox.frag"
 		;
 	m_cubemapShader = Elevate::Shader::Create(vert, frag);
 

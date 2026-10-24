@@ -9,11 +9,13 @@
 
 #include <ElevateEngine/Foundations/Core.h> // todo remove
 
-#include <ElevateEngine/Renderer/Shader/Shader.h>
-#include <ElevateEngine/Renderer/Renderer/Renderer.h>
-#include <ElevateEngine/Renderer/Buffers/Buffer.h>
-
+// Core
 import Elevate.Core.Application;
+// Renderer
+import Elevate.Renderer.Renderer;
+import Elevate.Renderer.Buffers;
+import Elevate.Renderer.Shader;
+import Elevate.Renderer.RenderState;
 
 void Elevate::DebugRenderer::Init()
 {

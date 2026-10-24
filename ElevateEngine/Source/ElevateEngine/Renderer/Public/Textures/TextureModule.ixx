@@ -1,5 +1,5 @@
-export module Elevate.Renderer.Textures;
+export module Elevate.Renderer.Texture;
 
-export import Elevate.Renderer.Textures.Texture;
-export import Elevate.Renderer.Textures.TextureMetadata;
-export import Elevate.Renderer.Textures.TextureManager;
+export import :Texture;
+export import :TextureMetadata;
+export import :TextureManager;

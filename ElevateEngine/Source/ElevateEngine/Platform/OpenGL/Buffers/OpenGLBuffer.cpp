@@ -1,12 +1,12 @@
 #include "OpenGLBuffer.h"
 
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
-#include <ElevateEngine/Renderer/Vertex/Vertex.h>
 #include <GLFW/glfw3.h>
 #include <ElevateEngine/Renderer/GLDebug.h>
-#include <ElevateEngine/Renderer/GraphicsContext.h>
 
-import Elevate.Foundations;
+import Elevate.Foundations.CoreLogger;
+import Elevate.Renderer.Vertex;
+import Elevate.Renderer.GraphicsContext;
 
 namespace Elevate
 {

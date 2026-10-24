@@ -29,10 +29,7 @@ export namespace Elevate
 		AssetTag(const AssetMetadata& meta);
 	};
 	struct CreateAssetMenuTag { const char* Path; const char* Ext; };
-#define EE_CreateAssetMenu EE_EditorTag(CreateAssetMenuTag{})
 	struct AssetColorTag { float r, g, b; };
-#define EE_AssetColor(r, g, b) EE_EditorTag((AssetColorTag{r, g, b}))
-
 	using AssetOption = std::variant<
 		CreateAssetMenuTag, AssetColorTag
 	>;
@@ -61,8 +58,6 @@ export namespace Elevate
 
 		return meta;
 	}
-
-#define EE_Asset(name, extension, ...) EE_EditorTag(AssetTag{BuildAssetMetaData<ThisType>(name, extension, ##__VA_ARGS__)})
 
 	// Editor Analyser Tags
 

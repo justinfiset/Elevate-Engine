@@ -1,20 +1,20 @@
 module;
 
-#include <ElevateEngine/Renderer/Renderer/Renderer.h>
+#include <memory>
+#include <algorithm>
+#include <vector>
+#include <string>
 
-module Elevate.Core.Scene:SceneLayer;
+module Elevate.Core.SceneLayer;
 
 import Elevate.Foundations.CoreLogger;
-
-import Elevate.Core.Scene:Scene;
-import Elevate.Core.Scene.SceneManager;
+import Elevate.Renderer.Renderer;
 
 // todo : remove
-import Elevate.Core.Events;
-import Elevate.Core.Scene:GameObject;
 import Elevate.Serialization.JsonSerializer;
 import Elevate.Core.Events;
-#include <ElevateEngine/Inputs/KeyCodes.h>
+import Elevate.Input;
+
 
 namespace Elevate
 {
@@ -38,7 +38,7 @@ namespace Elevate
 		if (cam)
 		{
 			Renderer::BeginFrame(m_scene, *cam);
-			m_scene->RenderScene(cam);
+			m_scene->RenderScene();
 		}
 		else
 		{
@@ -63,7 +63,7 @@ namespace Elevate
 		else if (type == EventType::KeyPressed)
 		{
 			auto keyEvent = dynamic_cast<KeyPressedEvent&>(event);
-			if (keyEvent.GetKeyCode() == EE_KEY_E)
+			if (keyEvent.GetKeyCode() == KeyCode::E)
 			{
 				JsonSerializer serializer;
 				ByteBuffer buffer;

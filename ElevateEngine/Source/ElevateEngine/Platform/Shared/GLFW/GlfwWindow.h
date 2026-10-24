@@ -1,10 +1,11 @@
 #pragma once
 
-import Elevate.Core.Window;
-
 #include <string>
 
-#include <ElevateEngine/Renderer/GraphicsContext.h>
+// Core
+import Elevate.Core.Window;
+// Renderer
+import Elevate.Renderer.GraphicsContext;
 
 struct GLFWwindow;
 

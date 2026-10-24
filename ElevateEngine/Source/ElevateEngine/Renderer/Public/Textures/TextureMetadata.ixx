@@ -3,7 +3,7 @@ module;
 #include <string>
 #include <cstdint>
 
-export module Elevate.Renderer.Textures.TextureMetadata;
+export module Elevate.Renderer.Texture:TextureMetadata;
 
 export namespace Elevate
 {

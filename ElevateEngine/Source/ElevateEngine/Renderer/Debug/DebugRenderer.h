@@ -2,9 +2,11 @@
 
 #ifdef EE_EDITOR_BUILD
 #include <vector>
+#include <memory>
 #include "DebugTypes.h"
-#include <ElevateEngine/Renderer/Vertex/VertexArray.h>
-#include <ElevateEngine/Renderer/Shader/ShaderManager.h>
+import Elevate.Renderer.ShaderManager;
+import Elevate.Renderer.VertexArray;
+import Elevate.Renderer.Buffers;
 #endif
 
 namespace Elevate

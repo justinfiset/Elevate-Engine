@@ -1,16 +1,19 @@
-
-#include "DirectionalLight.h"
+#include <string_view>
 
 #include <glm/gtc/constants.hpp>
-#include "SpotLight.h"
 #include <glm/geometric.hpp>
 
 #include <ElevateEngine/Renderer/Light/SceneLighting.h>
 
 #ifdef EE_EDITOR_BUILD
-#include <ElevateEngine/Editor/EditorLayer.h>
 #include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
-#include <ElevateEngine/Editor/Renderer/EditorRenderer.h>
+#endif
+
+#include "DirectionalLight.h"
+
+#ifdef EE_EDITOR_BUILD
+import Elevate.Editor.Renderer;
+import Elevate.Editor.Selection;
 #endif
 
 namespace Elevate
@@ -33,9 +36,8 @@ namespace Elevate
 #ifdef EE_EDITOR_BUILD
 	void DirectionalLight::Render()
 	{
-		bool isSelected = Editor::EditorLayer::Get().GetSelectedObject().lock().get() == gameObject;
-		glm::vec4 colorMod = isSelected ? glm::vec4(1.5f, 1.5f, 0.5f, 1.0f)
-			: glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		bool isSelected = Editor::Selection::IsSelected(gameObject);
+		glm::vec4 colorMod = isSelected ? glm::vec4(1.5f, 1.5f, 0.5f, 1.0f) : glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 		EditorRenderer::DrawBillboard(gameObject->GetGlobalPosition(), GetEditorIcon(), 0.7f, colorMod);
 	}
 

@@ -1,7 +1,8 @@
 #pragma once
 
-#include <ElevateEngine/Renderer/Shader/Shader.h>
 #include "glm/glm.hpp"
+
+import Elevate.Renderer.Shader;
 
 namespace Elevate
 {

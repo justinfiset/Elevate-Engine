@@ -1,4 +1,4 @@
-﻿#ifdef EE_EDITOR_BUILD
+﻿module;
 
 #include <cstdint>
 #include <cstring>
@@ -7,12 +7,15 @@
 
 #include "imgui.h"
 
-#include <ElevateEngine/Editor/EditorLayer.h>
-#include "HierarchyPanel.h"
+module Elevate.Editor.Panels.HierarchyPanel;
 
-import Elevate.Core.Scene.SceneManager;
-import Elevate.Core.Scene:Scene;
-import Elevate.Core.Scene:SceneType;
+#ifdef EE_EDITOR_BUILD
+
+// Core
+import Elevate.Core.Scene;
+import Elevate.Core.Objects.ObjectPtr;
+// Editor
+import Elevate.Editor.Layer;
 
 namespace Elevate::Editor
 {
