@@ -14,7 +14,7 @@ import Elevate.Core.Application;
 // Renderer
 import Elevate.Renderer.Renderer;
 import Elevate.Renderer.Buffers;
-import Elevate.Renderer.Shader;
+import Elevate.Renderer.Shaders;
 import Elevate.Renderer.RenderState;
 
 void Elevate::DebugRenderer::Init()

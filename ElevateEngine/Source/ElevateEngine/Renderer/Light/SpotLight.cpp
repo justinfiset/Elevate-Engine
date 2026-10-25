@@ -8,7 +8,7 @@
 #include "SpotLight.h"
 
 import Elevate.Core.Scene;
-import Elevate.Renderer.Shader;
+import Elevate.Renderer.Shaders;
 
 #ifdef EE_EDITOR_BUILD
 import Elevate.Editor.Renderer;

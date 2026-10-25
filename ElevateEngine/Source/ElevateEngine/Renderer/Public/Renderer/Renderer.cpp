@@ -3,9 +3,6 @@ module;
 #include <random>
 #include <ElevateEngine/Foundations/Core.h>
 
-#include <ElevateEngine/Renderer/Environment/Cubemap/Cubemap.h>
-#include <ElevateEngine/Renderer/Light/SceneLighting.h>
-
 #include <ElevateEngine/Renderer/Light/Light.h>
 #include <ElevateEngine/Renderer/Light/DirectionalLight.h>
 
@@ -13,6 +10,9 @@ module;
 #include <ElevateEngine/Platform/OpenGL/Renderer/OpenGLRendererAPI.h>
 
 module Elevate.Renderer.Renderer;
+
+import Elevate.Renderer.Cubemap;
+import Elevate.Renderer.SceneLighting;
 
 constexpr uint32_t DEFAULT_SHADOW_RESOLUTION = 2048;
 constexpr uint16_t AO_KERNER_SAMPLE_COUNT = 64;

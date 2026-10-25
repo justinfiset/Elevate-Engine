@@ -7,7 +7,7 @@ import Elevate.Editor.Renderer;
 import Elevate.Editor.Selection;
 #endif
 
-import Elevate.Renderer.Shader;
+import Elevate.Renderer.Shaders;
 
 namespace Elevate
 {

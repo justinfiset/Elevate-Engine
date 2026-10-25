@@ -21,8 +21,7 @@ import Elevate.Core.Objects.ObjectPtr;
 import Elevate.Core.Types.TypeLayout;
 // Renderer
 import Elevate.Renderer.Texture;
-import Elevate.Renderer.Shader;
-import Elevate.Renderer.ShaderManager;
+import Elevate.Renderer.Shaders;
 import Elevate.Renderer.Buffers;
 import Elevate.Renderer.Commands.RenderBucket;
 import Elevate.Renderer.RenderState;

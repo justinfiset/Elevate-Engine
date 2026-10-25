@@ -1,4 +1,4 @@
-#include "Cubemap.h"
+module;
 
 #include <ElevateEngine/Foundations/Core.h> // todo remove asap
 
@@ -8,6 +8,8 @@
 #include <stb/stb_image.h>
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
+
+module Elevate.Renderer.Cubemap;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Paths;

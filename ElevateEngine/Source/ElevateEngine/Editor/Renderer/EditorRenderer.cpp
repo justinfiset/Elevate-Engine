@@ -6,8 +6,7 @@ module Elevate.Editor.Renderer;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Objects.ObjectPtr;
-import Elevate.Renderer.Shader;
-import Elevate.Renderer.ShaderManager;
+import Elevate.Renderer.Shaders;
 import Elevate.Renderer.Meshes.Mesh;
 import Elevate.Renderer.Materials.Material;
 import Elevate.Renderer.Renderer;

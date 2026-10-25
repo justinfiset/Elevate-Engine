@@ -1,6 +1,5 @@
 
-
-#include "SceneLighting.h"
+module;
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -8,9 +7,11 @@
 #include <ElevateEngine/Renderer/Light/PointLight.h>
 #include <ElevateEngine/Renderer/Light/SpotLight.h>
 
+module Elevate.Renderer.SceneLighting;
+
 import Elevate.Renderer.Renderer;
 import Elevate.Renderer.Camera;
-import Elevate.Renderer.Shader;
+import Elevate.Renderer.Shaders;
 
 namespace Elevate
 {

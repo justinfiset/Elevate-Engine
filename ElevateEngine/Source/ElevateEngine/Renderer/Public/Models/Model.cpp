@@ -18,8 +18,7 @@ import Elevate.Foundations.Paths;
 // Renderer
 import Elevate.Renderer.Renderer;
 import Elevate.Renderer.Texture;
-import Elevate.Renderer.Shader;
-import Elevate.Renderer.ShaderManager;
+import Elevate.Renderer.Shaders;
 
 namespace Elevate
 {

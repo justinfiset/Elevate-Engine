@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 #include "DebugTypes.h"
-import Elevate.Renderer.ShaderManager;
+import Elevate.Renderer.Shaders;
 import Elevate.Renderer.VertexArray;
 import Elevate.Renderer.Buffers;
 #endif

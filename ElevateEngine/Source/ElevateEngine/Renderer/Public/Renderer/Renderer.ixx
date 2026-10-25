@@ -4,13 +4,12 @@ module;
 #include <memory>
 #include <glm/glm.hpp>
 
-#include <ElevateEngine/Renderer/Light/SceneLighting.h>
-#include <ElevateEngine/Renderer/Environment/Cubemap/Cubemap.h>
-
 export module Elevate.Renderer.Renderer;
 
 import Elevate.Core.Scene;
+import Elevate.Renderer.Cubemap;
 import Elevate.Renderer.RendererAPI;
+import Elevate.Renderer.SceneLighting;
 export import Elevate.Renderer.RenderState;
 import Elevate.Renderer.Camera;
 import Elevate.Renderer.Texture;

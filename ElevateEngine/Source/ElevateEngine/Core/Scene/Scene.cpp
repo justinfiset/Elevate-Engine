@@ -3,10 +3,6 @@ module;
 #include <format>
 #include <type_traits>
 
-#include <ElevateEngine/Renderer/Environment/Cubemap/Cubemap.h>
-
-#include <ElevateEngine/Renderer/Light/SceneLighting.h>
-
 module Elevate.Core.Scene;
 
 // Foundations
@@ -15,6 +11,8 @@ import Elevate.Foundations.CoreLogger;
 // Core
 import Elevate.Core.Application;
 import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Renderer.Cubemap;
+import Elevate.Renderer.SceneLighting;
 
 namespace Elevate
 {

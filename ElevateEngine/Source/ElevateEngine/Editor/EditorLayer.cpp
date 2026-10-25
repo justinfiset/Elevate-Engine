@@ -26,8 +26,7 @@ import Elevate.Renderer.Meshes.Mesh;
 import Elevate.Renderer.Models.Model;
 import Elevate.Renderer.Camera;
 import Elevate.Renderer.Framebuffers;
-import Elevate.Renderer.Shader;
-import Elevate.Renderer.ShaderManager;
+import Elevate.Renderer.Shaders;
 import Elevate.Renderer.Renderer;
 import Elevate.Renderer.Materials.Material;
 // Input

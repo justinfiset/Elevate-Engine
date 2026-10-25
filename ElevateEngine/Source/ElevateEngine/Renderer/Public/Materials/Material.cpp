@@ -12,7 +12,7 @@ module;
 module Elevate.Renderer.Materials.Material;
 
 import Elevate.Renderer.Texture;
-import Elevate.Renderer.ShaderManager;
+import Elevate.Renderer.Shaders;
 import Elevate.Renderer.Renderer;
 
 namespace Elevate

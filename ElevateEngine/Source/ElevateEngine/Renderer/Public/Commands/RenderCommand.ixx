@@ -6,13 +6,12 @@ module;
 export module Elevate.Renderer.Commands.RenderCommand;
 
 import Elevate.Renderer.VertexArray;
+import Elevate.Renderer.Shaders;
+import Elevate.Renderer.Materials.Material;
 export import Elevate.Renderer.RenderState;
 
 export namespace Elevate
 {
-	class Shader;
-	class Material;
-
 	struct RenderCommand
 	{
 		uint64_t m_SortingKey = 0;

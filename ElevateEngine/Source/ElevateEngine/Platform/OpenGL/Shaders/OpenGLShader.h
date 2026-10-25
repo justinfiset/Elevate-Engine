@@ -2,7 +2,7 @@
 
 #include "glm/glm.hpp"
 
-import Elevate.Renderer.Shader;
+import Elevate.Renderer.Shaders;
 
 namespace Elevate
 {
@@ -17,7 +17,7 @@ namespace Elevate
 		virtual void Unbind() const override;
 		virtual uint32_t GetHashCode() const override;
 
-		virtual unsigned int GetRendererID() const override { return m_RendererID;  }
+		virtual unsigned int GetRendererID() const override { return m_RendererID; }
 
 		/// UNIFORMS
 		// FLOATS

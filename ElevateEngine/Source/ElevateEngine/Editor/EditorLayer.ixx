@@ -18,6 +18,7 @@ import Elevate.Core.Objects.ObjectPtr;
 import Elevate.Core.Scene;
 // Renderer
 import Elevate.Renderer.Texture;
+import Elevate.Renderer.Shaders;
 // Editor
 import Elevate.Editor.Commands.Command;
 import Elevate.Editor.Widgets.Widget;
@@ -26,11 +27,6 @@ import Elevate.Editor.Camera;
 #ifdef EE_USES_WWISE
 import Elevate.Editor.Panels.Audio.WwiseBrowser;
 #endif // #ifdef EE_USES_WWISE
-
-namespace Elevate
-{
-	class Shader;
-}
 
 export namespace Elevate::Editor
 {

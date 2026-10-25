@@ -10,7 +10,6 @@ export import Elevate.Renderer.Meshes;
 export import Elevate.Renderer.Models;
 export import Elevate.Renderer.Renderer;
 export import Elevate.Renderer.RenderState;
-export import Elevate.Renderer.Shader;
-export import Elevate.Renderer.ShaderManager;
+export import Elevate.Renderer.Shaders;
 export import Elevate.Renderer.Texture;
 export import Elevate.Renderer.Vertex;

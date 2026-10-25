@@ -7,7 +7,7 @@
 import Elevate.Core.Scene;
 import Elevate.Core.Types.TypeRegistry;
 // Renderer
-import Elevate.Renderer.Shader;
+import Elevate.Renderer.Shaders;
 
 namespace Elevate
 {

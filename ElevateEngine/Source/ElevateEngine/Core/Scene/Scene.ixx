@@ -4,14 +4,13 @@ module;
 #include <vector>
 
 #include <ElevateEngine/Core/Reflection/Reflection.h>
-#include <ElevateEngine/Renderer/Light/SceneLighting.h>
-#include <ElevateEngine/Renderer/Environment/Cubemap/Cubemap.h>
-
 export module Elevate.Core.Scene:Scene;
 
 import Elevate.Core.Events.Event;
 import Elevate.Core.Objects.Object;
 import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Renderer.Cubemap;
+import Elevate.Renderer.SceneLighting;
 
 import :Fwd;
 import :ComponentRegistry;
@@ -20,7 +19,6 @@ import :SceneType;
 // Forward declarations
 namespace Elevate
 {
-	class Shader;
 	class RendererAPI;
 }
 
