@@ -65,6 +65,7 @@ local function moduleBuildCommands()
 		end
 
 		if moduleName then
+			local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
 			table.insert(commands,
 				"$(CXX) $(ALL_CXXFLAGS) --precompile -x c++-module "
 				.. relativePath .. " -o " .. moduleDirectory .. "/" .. moduleName .. ".pcm")
@@ -98,10 +99,11 @@ local function webModuleBuildCommands()
 		end
 
 		if moduleName then
+			local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
 			local scriptOutput = "%MODULE_DIR%/" .. moduleName .. ".pcm"
 			script:write("em++ -std=c++20 -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD "
 				.. includeFlags .. " -x c++-module -fprebuilt-module-path=\"%MODULE_DIR%\" "
-				.. "--precompile \"" .. filename .. "\" -o \"" .. scriptOutput .. "\"\r\n")
+				.. "--precompile \"" .. relativePath .. "\" -o \"" .. scriptOutput .. "\"\r\n")
 		end
 	end
 	script:write("exit /b 0\r\n")
