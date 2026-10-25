@@ -54,9 +54,22 @@ end
 
 local function moduleBuildCommands()
 	local commands = {}
+	local moduleDirectory = "%{cfg.objdir}/modules"
+	table.insert(commands, "mkdir -p " .. moduleDirectory)
 	for _, filename in ipairs(orderedModuleFiles()) do
 		local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
-		table.insert(commands, "$(CXX) $(ALL_CXXFLAGS) -fmodules-ts -fmodule-only -x c++ -c " .. relativePath)
+		local moduleName = nil
+		local file = io.open(filename, "r")
+		if file then
+			moduleName = file:read("*all"):match("export%s+module%s+([%w%.]+)%s*;")
+			file:close()
+		end
+
+		if moduleName then
+			table.insert(commands,
+				"$(CXX) $(ALL_CXXFLAGS) --precompile -x c++-module "
+				.. relativePath .. " -o " .. moduleDirectory .. "/" .. moduleName .. ".pcm")
+		end
 	end
 	return commands
 end
@@ -82,8 +95,9 @@ local function webModuleBuildCommands()
 			local moduleOutput = moduleDirectory .. "/" .. moduleName .. ".pcm"
 			table.insert(commands,
 				"em++ -std=c++20 -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD "
-				.. includeFlags .. " -x c++ -fmodule-output=" .. moduleOutput
-				.. " -fprebuilt-module-path=" .. moduleDirectory .. " -c " .. relativePath)
+				.. includeFlags .. " -x c++-module "
+				.. " -fprebuilt-module-path=" .. moduleDirectory .. " --precompile "
+				.. relativePath .. " -o " .. moduleOutput)
 		end
 	end
 	return commands
@@ -155,7 +169,7 @@ project "ElevateEngine"
 		
 	filter { "system:linux", "language:C++" }
 		links { "GL", "X11", "pthread", "dl" }
-		buildoptions { "-fmodules-ts" }
+		buildoptions { "-fprebuilt-module-path=%{cfg.objdir}/modules" }
 
 	filter "system:linux"
 		prebuildcommands(moduleBuildCommands())
@@ -163,12 +177,14 @@ project "ElevateEngine"
 	filter "system:emscripten"
 		prebuildcommands(webModuleBuildCommands())
 
-	filter { "system:emscripten", "files:**.ixx" }
+	filter { "system:emscripten", "language:C++" }
 		buildoptions
 		{
-			"-x", "c++",
 			"-fprebuilt-module-path=%{cfg.objdir}/modules"
 		}
+
+	filter { "system:emscripten", "files:**.ixx" }
+		buildoptions { "-x", "c++-module" }
 
 	filter "configurations:Editor_Debug"
 		defines { "EE_DEBUG", "EE_EDITOR_BUILD" }
