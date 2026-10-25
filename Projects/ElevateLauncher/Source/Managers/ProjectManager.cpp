@@ -30,14 +30,14 @@ namespace EL
 		// Check if the given path is valid
 		if (!fs::exists(props.Path) || !fs::is_directory(props.Path))
 		{
-			EE_ERROR("The provided path is not a valid directory. : {}", projectDir);
+			Elevate::Logger::Error("The provided path is not a valid directory. : {}", projectDir);
 			m_lastMessage = "The provided path is not a valid directory.";
 			return false;
 		}
 
 		if (fs::exists(projectDir))
 		{
-			EE_ERROR("A directory with this path already exists. : {}", projectDir);
+			Elevate::Logger::Error("A directory with this path already exists. : {}", projectDir);
 			m_lastMessage = "A directory with this path already exists.";
 			return false;
 		}
@@ -45,7 +45,7 @@ namespace EL
 		// Check if the project already exists
 		if (IsProjectValid(project))
 		{
-			EE_ERROR("A project is already present in the folder.");
+			Elevate::Logger::Error("A project is already present in the folder.");
 			m_lastMessage = "A project is already present in the folder.";
 			return false;
 		}
@@ -71,15 +71,15 @@ namespace EL
 			}
 			else
 			{
-				EE_ERROR("Failed to write project config file at: {}", projectConfigPath);
+				Elevate::Logger::Error("Failed to write project config file at: {}", projectConfigPath);
 				m_lastMessage = "Failed to create project configuration file.";
 				return false;
 			}
 		}
 		catch (fs::filesystem_error e)
 		{
-			EE_ERROR("Error Filesystem: {0}", e.what());
-			EE_ERROR("Error code: {0}", e.code().value());
+			Elevate::Logger::Error("Error Filesystem: {0}", e.what());
+			Elevate::Logger::Error("Error code: {0}", e.code().value());
 			m_lastMessage = std::string("FileSystem Error : ") + e.what();
 			return false;
 		}
@@ -87,7 +87,7 @@ namespace EL
 		project.IsValid = IsProjectValid(project);
 		if (!project.IsValid)
 		{
-			EE_ERROR("Failed to create a valid project.");
+			Elevate::Logger::Error("Failed to create a valid project.");
 			return false;
 		}
 
@@ -107,7 +107,7 @@ namespace EL
 
 		if (!fs::exists(fullTemplateDir) || !fs::is_directory(fullTemplateDir))
 		{
-			EE_WARN("Templates directory does not exist: {}", fullTemplateDir);
+			Elevate::Logger::Warn("Templates directory does not exist: {}", fullTemplateDir);
 			m_templatesLoaded = true;
 			return m_projectTemplates;
 		}
@@ -142,7 +142,7 @@ namespace EL
 
 	void ProjectManager::RefreshProjectList()
 	{
-		EE_INFO("Fetching local projects...");
+		Elevate::Logger::Info("Fetching local projects...");
 
 		// todo get info from local files
 		m_projectList.Projects.clear();
@@ -159,7 +159,7 @@ namespace EL
 			return;
 		}
 
-		EE_TRACE("Found the following projects : {}", fileContent);
+		Elevate::Logger::Trace("Found the following projects : {}", fileContent);
 
 		Elevate::JsonSerializer serializer;
 		Elevate::ByteBuffer bytes = Elevate::ByteUtils::FromString(fileContent);
@@ -169,7 +169,7 @@ namespace EL
 		{
 			m_projectList.SetFromProperties(props);
 			uint32_t nextId = 0;
-			EE_TRACE("Found {} projects.", m_projectList.Projects.size());
+			Elevate::Logger::Trace("Found {} projects.", m_projectList.Projects.size());
 			for (auto& project : m_projectList.Projects)
 			{
 				project.Id = nextId++;
@@ -178,7 +178,7 @@ namespace EL
 		}
 		else
 		{
-			EE_ERROR("Could not deserialize the projects json content.");
+			Elevate::Logger::Error("Could not deserialize the projects json content.");
 		}
 	}
 
@@ -189,9 +189,9 @@ namespace EL
 
 		serializer.Serialize(m_projectList.GetProperties(), bytes);
 		
-		EE_INFO("Saving all of the following projects : ");
+		Elevate::Logger::Info("Saving all of the following projects : ");
 		std::string fileContent = Elevate::ByteUtils::ToString(bytes);
-		EE_TRACE("{}", fileContent);
+		Elevate::Logger::Trace("{}", fileContent);
 
 		std::string filePath = (Elevate::Paths::Content() / "projects.json").string();
 		std::ofstream outFile(filePath);
@@ -203,7 +203,7 @@ namespace EL
 		}
 		else
 		{
-			EE_ERROR("Failed to write projects config list file at: {}", filePath);
+			Elevate::Logger::Error("Failed to write projects config list file at: {}", filePath);
 		}
 	}
 
@@ -241,7 +241,7 @@ namespace EL
 
 		if (it != m_projectList.Projects.end())
 		{
-			EE_INFO("Removing project '{}' (ID: {})", it->Name, projectId);
+			Elevate::Logger::Info("Removing project '{}' (ID: {})", it->Name, projectId);
 
 			m_projectList.Projects.erase(it);
 
@@ -255,7 +255,7 @@ namespace EL
 		}
 		else
 		{
-			EE_WARN("RemoveProjectFromList: Project with ID {} was not found! File on disk was NOT updated.", projectId);
+			Elevate::Logger::Warn("RemoveProjectFromList: Project with ID {} was not found! File on disk was NOT updated.", projectId);
 		}
 	}
 
