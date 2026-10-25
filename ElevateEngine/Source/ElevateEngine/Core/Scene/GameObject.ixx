@@ -21,6 +21,7 @@ import Elevate.Foundations.Assert;
 import Elevate.Core.Events.Event;
 import Elevate.Core.Objects.Object;
 import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Core.Objects.Category;
 
 import Elevate.Core.Transform.ITransformable;
 import Elevate.Core.Types.TypeRegistry;

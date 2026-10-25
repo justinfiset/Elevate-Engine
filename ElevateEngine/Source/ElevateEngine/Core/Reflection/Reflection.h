@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <typeindex>
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Types.TypeLayout;
