@@ -134,7 +134,7 @@ end
 
 local function webModuleBuildCommands()
 	local commands = {}
-	local moduleDirectory = "%{cfg.objdir}/modules"
+	local moduleDirectory = _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
 	local includeFlags = "-I\"%~dp0..\\ElevateEngine\\Source\" -I\"%~dp0..\\ElevateEngine\\Vendor\" "
 		.. "-I\"%~dp0..\\ElevateEngine\\Vendor\\glm\" -I\"%~dp0..\\ElevateEngine\\Vendor\\spdlog\\include\" "
 		.. "-I\"%~dp0..\\ElevateEngine\\Vendor\\rapidjson\\include\" "
@@ -150,7 +150,7 @@ local function webModuleBuildCommands()
 	end
 
 	script:write("@echo off\r\n")
-	script:write("set MODULE_DIR=%~1\r\n")
+	script:write("set MODULE_DIR=%~f1\r\n")
 	script:write("if not exist \"%MODULE_DIR%\" mkdir \"%MODULE_DIR%\"\r\n")
 	script:write("set MODULE_FLAGS=%MODULE_DIR%\\module-flags.rsp\r\n")
 	script:write("if exist \"%MODULE_FLAGS%\" del /q \"%MODULE_FLAGS%\"\r\n")
@@ -257,8 +257,8 @@ project "ElevateEngine"
 	filter "system:emscripten"
 		prebuildcommands(webModuleBuildCommands())
 		buildoptions {
-			"-fprebuilt-module-path=%{cfg.objdir}/modules",
-			"@%{cfg.objdir}/modules/module-flags.rsp"
+			"-fprebuilt-module-path=" .. _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules",
+			"@" .. _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules/module-flags.rsp"
 		}
 
 	filter { "system:emscripten", "files:**.ixx" }
