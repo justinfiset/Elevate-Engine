@@ -1,7 +1,6 @@
 module;
 
 #include "Core.h"
-#include "Assert.h"
 
 export module Elevate.Foundations;
 

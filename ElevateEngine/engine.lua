@@ -109,19 +109,6 @@ local function orderedModuleFiles()
 	return ordered
 end
 
-local function prebuiltModuleOptions()
-	local options = {}
-	for _, filename in ipairs(orderedModuleFiles()) do
-		local moduleName = moduleNameForFile(filename)
-		if moduleName then
-			local moduleOutputName = moduleName:gsub(":", "-")
-			table.insert(options,
-				"-fmodule-file=" .. moduleName .. "=%{cfg.objdir}/modules/" .. moduleOutputName .. ".pcm")
-		end
-	end
-	return options
-end
-
 local function moduleBuildCommands()
 	local commands = {}
 	local moduleDirectory = "%{cfg.objdir}/modules"
@@ -265,10 +252,7 @@ project "ElevateEngine"
 
 	filter "system:emscripten"
 		prebuildcommands(webModuleBuildCommands())
-
-	filter { "system:emscripten", "language:C++" }
 		buildoptions { "-fprebuilt-module-path=%{cfg.objdir}/modules" }
-		buildoptions(prebuiltModuleOptions())
 
 	filter { "system:emscripten", "files:**.ixx" }
 		buildoptions { "-x", "c++-module" }
