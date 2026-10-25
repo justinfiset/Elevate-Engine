@@ -1,6 +1,8 @@
 export module Elevate.Serialization.JsonSerializer;
 
 import Elevate.Serialization.ISerializer;
+import Elevate.Serialization.PropertyField;
+import Elevate.Foundations.Bytes;
 
 export namespace Elevate
 {
