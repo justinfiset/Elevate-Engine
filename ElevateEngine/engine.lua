@@ -109,7 +109,9 @@ local function webModuleBuildCommands()
 	script:write("exit /b 0\r\n")
 	script:close()
 
-	table.insert(commands, "call \"" .. scriptPath .. "\" \"" .. moduleDirectory .. "\"")
+	local windowsScriptPath = scriptPath:gsub("/", "\\")
+	table.insert(commands,
+		"cmd.exe /d /c \"\"" .. windowsScriptPath .. "\" \"" .. moduleDirectory .. "\"\"")
 	return commands
 end
 
