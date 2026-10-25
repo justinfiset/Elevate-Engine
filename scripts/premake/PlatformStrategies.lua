@@ -17,7 +17,10 @@ WindowsStrategy = {
 LinuxStrategy = {
     ConfigureWorkspace = function()
         architecture "x64"
+
+        filter {"language:C++"}
         buildoptions {"-fmodules-ts"}
+        filter {}
     end,
 
     SetPlatformDefines = function()
