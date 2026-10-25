@@ -4,6 +4,91 @@ local function values(t)
     return res
 end
 
+local function orderedModuleFiles()
+	local moduleFiles = os.matchfiles(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Source/**/*.ixx")
+	local modules = {}
+	local dependencies = {}
+
+	for _, filename in ipairs(moduleFiles) do
+		local file = io.open(filename, "r")
+		if file then
+			local content = file:read("*all")
+			file:close()
+
+			local moduleName = content:match("export%s+module%s+([%w%.]+)%s*;")
+			if moduleName then
+				modules[moduleName] = filename
+				dependencies[moduleName] = {}
+				for importedModule in content:gmatch("import%s+([%w%.]+)%s*;") do
+					table.insert(dependencies[moduleName], importedModule)
+				end
+			end
+		end
+	end
+
+	local ordered = {}
+	local visiting = {}
+	local visited = {}
+	local function visit(moduleName)
+		if visited[moduleName] or visiting[moduleName] then
+			return
+		end
+
+		visiting[moduleName] = true
+		for _, dependency in ipairs(dependencies[moduleName] or {}) do
+			if modules[dependency] then
+				visit(dependency)
+			end
+		end
+		visiting[moduleName] = nil
+		visited[moduleName] = true
+		table.insert(ordered, modules[moduleName])
+	end
+
+	for moduleName in pairs(modules) do
+		visit(moduleName)
+	end
+
+	return ordered
+end
+
+local function moduleBuildCommands()
+	local commands = {}
+	for _, filename in ipairs(orderedModuleFiles()) do
+		local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
+		table.insert(commands, "$(CXX) $(ALL_CXXFLAGS) -fmodules-ts -fmodule-only -x c++ -c " .. relativePath)
+	end
+	return commands
+end
+
+local function webModuleBuildCommands()
+	local commands = {}
+	local moduleDirectory = "%{cfg.objdir}/modules"
+	local includeFlags = "-I../Source -I../Vendor -I../Vendor/glm -I../Vendor/spdlog/include "
+		.. "-I../Vendor/rapidjson/include -I../Vendor/entt/include -I../Vendor/stduuid/include "
+		.. "-I../Vendor/assimp/include -I../Vendor/JoltPhysics"
+
+	table.insert(commands, "cmd /c if not exist " .. moduleDirectory .. " mkdir " .. moduleDirectory)
+	for _, filename in ipairs(orderedModuleFiles()) do
+		local file = io.open(filename, "r")
+		local moduleName = nil
+		if file then
+			moduleName = file:read("*all"):match("export%s+module%s+([%w%.]+)%s*;")
+			file:close()
+		end
+
+		if moduleName then
+			local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
+			local moduleOutput = moduleDirectory .. "/" .. moduleName .. ".pcm"
+			table.insert(commands,
+				"em++ -std=c++20 -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD "
+				.. includeFlags .. " -x c++ -fmodule-output=" .. moduleOutput
+				.. " -fprebuilt-module-path=" .. moduleDirectory .. " -c " .. relativePath)
+		end
+	end
+	return commands
+end
+
 project "ElevateEngine"
 	location "./Build"
 	kind "StaticLib"
@@ -72,8 +157,18 @@ project "ElevateEngine"
 		links { "GL", "X11", "pthread", "dl" }
 		buildoptions { "-fmodules-ts" }
 
+	filter "system:linux"
+		prebuildcommands(moduleBuildCommands())
+
+	filter "system:emscripten"
+		prebuildcommands(webModuleBuildCommands())
+
 	filter { "system:emscripten", "files:**.ixx" }
-		buildoptions { "-x", "c++" }
+		buildoptions
+		{
+			"-x", "c++",
+			"-fprebuilt-module-path=%{cfg.objdir}/modules"
+		}
 
 	filter "configurations:Editor_Debug"
 		defines { "EE_DEBUG", "EE_EDITOR_BUILD" }
