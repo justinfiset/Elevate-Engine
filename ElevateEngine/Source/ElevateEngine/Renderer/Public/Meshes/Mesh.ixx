@@ -9,13 +9,10 @@ export module Elevate.Renderer.Meshes.Mesh;
 import Elevate.Renderer.Texture;
 import Elevate.Renderer.Vertex;
 import Elevate.Renderer.VertexArray;
+import Elevate.Renderer.Buffers;
 
 export namespace Elevate
 {
-	class VertexBuffer;
-	class IndexBuffer;
-	class VertexArray;
-
 	struct MeshData
 	{
 		std::vector<Vertex> Vertices;
