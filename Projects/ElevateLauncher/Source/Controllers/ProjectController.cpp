@@ -2,7 +2,8 @@
 #include "../Managers/ProjectManager.h"
 
 #include <algorithm>
-#include <ElevateEngine.h>
+
+import Elevate;
 
 namespace EL
 {
@@ -77,7 +78,7 @@ namespace EL
 		m_isCreating = true;
 		m_creationFuture = std::async(std::launch::async, [this, props]() {
 			return m_manager.CreateNewProject(props);
-		});
+			});
 
 		return true;
 	}
@@ -121,7 +122,7 @@ namespace EL
 	{
 		auto it = std::find_if(m_notifications.begin(), m_notifications.end(), [id](const Notification& n) {
 			return n.Id == id;
-		});
+			});
 
 		if (it != m_notifications.end())
 		{

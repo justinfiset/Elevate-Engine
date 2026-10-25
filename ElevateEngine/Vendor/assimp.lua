@@ -124,6 +124,10 @@ project 'assimp'
 
 	filter "system:emscripten"
 		defines { "HAVE_UNISTD_H" }
+
+	filter { "system:linux", "files:assimp/contrib/zlib/**" }
+		buildoptions { "-include", "unistd.h" }
+
 	filter {}
 	
 	filter "configurations:Debug or configurations:Editor_Debug"

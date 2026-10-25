@@ -1,8 +1,9 @@
 #include "ProjectManager.h"
 #include <fstream>
 
-#include <ElevateEngine.h>
 #include <filesystem>
+
+import Elevate;
 
 namespace fs = std::filesystem;
 
@@ -23,7 +24,7 @@ namespace EL
 		Project project;
 		project.Name = props.Name;
 		project.Path = props.Path;
-		project.Id = (uint32_t) m_projectList.Projects.size();
+		project.Id = (uint32_t)m_projectList.Projects.size();
 		project.UsesWwise = props.bUsesWwise;
 		std::string projectDir = project.Path + "/" + project.Name;
 
@@ -188,7 +189,7 @@ namespace EL
 		Elevate::ByteBuffer bytes;
 
 		serializer.Serialize(m_projectList.GetProperties(), bytes);
-		
+
 		Elevate::Logger::Info("Saving all of the following projects : ");
 		std::string fileContent = Elevate::ByteUtils::ToString(bytes);
 		Elevate::Logger::Trace("{}", fileContent);
@@ -237,7 +238,7 @@ namespace EL
 	{
 		auto it = std::find_if(m_projectList.Projects.begin(), m_projectList.Projects.end(), [projectId](const Project& project) {
 			return project.Id == projectId;
-		});
+			});
 
 		if (it != m_projectList.Projects.end())
 		{

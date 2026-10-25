@@ -57,7 +57,6 @@ local function moduleBuildCommands()
 	local moduleDirectory = "%{cfg.objdir}/modules"
 	table.insert(commands, "mkdir -p " .. moduleDirectory)
 	for _, filename in ipairs(orderedModuleFiles()) do
-		local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
 		local moduleName = nil
 		local file = io.open(filename, "r")
 		if file then
@@ -80,8 +79,16 @@ local function webModuleBuildCommands()
 	local includeFlags = "-I../Source -I../Vendor -I../Vendor/glm -I../Vendor/spdlog/include "
 		.. "-I../Vendor/rapidjson/include -I../Vendor/entt/include -I../Vendor/stduuid/include "
 		.. "-I../Vendor/assimp/include -I../Vendor/JoltPhysics"
+	local scriptPath = _MAIN_SCRIPT_DIR .. "/Build/precompile_web_modules.bat"
+	local script = io.open(scriptPath, "w")
 
-	table.insert(commands, "cmd /c if not exist " .. moduleDirectory .. " mkdir " .. moduleDirectory)
+	if not script then
+		error("Unable to create Emscripten module prebuild script: " .. scriptPath)
+	end
+
+	script:write("@echo off\r\n")
+	script:write("set MODULE_DIR=%~1\r\n")
+	script:write("if not exist \"%MODULE_DIR%\" mkdir \"%MODULE_DIR%\"\r\n")
 	for _, filename in ipairs(orderedModuleFiles()) do
 		local file = io.open(filename, "r")
 		local moduleName = nil
@@ -91,15 +98,16 @@ local function webModuleBuildCommands()
 		end
 
 		if moduleName then
-			local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
-			local moduleOutput = moduleDirectory .. "/" .. moduleName .. ".pcm"
-			table.insert(commands,
-				"em++ -std=c++20 -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD "
-				.. includeFlags .. " -x c++-module "
-				.. " -fprebuilt-module-path=" .. moduleDirectory .. " --precompile "
-				.. relativePath .. " -o " .. moduleOutput)
+			local scriptOutput = "%MODULE_DIR%/" .. moduleName .. ".pcm"
+			script:write("em++ -std=c++20 -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD "
+				.. includeFlags .. " -x c++-module -fprebuilt-module-path=\"%MODULE_DIR%\" "
+				.. "--precompile \"" .. filename .. "\" -o \"" .. scriptOutput .. "\"\r\n")
 		end
 	end
+	script:write("exit /b 0\r\n")
+	script:close()
+
+	table.insert(commands, "call \"" .. scriptPath .. "\" \"" .. moduleDirectory .. "\"")
 	return commands
 end
 
