@@ -15,12 +15,18 @@ local function orderedModuleFiles()
 			local content = file:read("*all")
 			file:close()
 
-			local moduleName = content:match("export%s+module%s+([%w%.]+)%s*;")
+			local moduleName = content:match("export%s+module%s+([%w%._:]+)%s*;")
 			if moduleName then
 				modules[moduleName] = filename
 				dependencies[moduleName] = {}
 				for importedModule in content:gmatch("import%s+([%w%.]+)%s*;") do
 					table.insert(dependencies[moduleName], importedModule)
+				end
+				local moduleBase = moduleName:match("^([^:]+)")
+				for partition in content:gmatch("import%s+:([%w_]+)%s*;") do
+					if moduleBase then
+						table.insert(dependencies[moduleName], moduleBase .. ":" .. partition)
+					end
 				end
 			end
 		end
@@ -60,15 +66,16 @@ local function moduleBuildCommands()
 		local moduleName = nil
 		local file = io.open(filename, "r")
 		if file then
-			moduleName = file:read("*all"):match("export%s+module%s+([%w%.]+)%s*;")
+			moduleName = file:read("*all"):match("export%s+module%s+([%w%._:]+)%s*;")
 			file:close()
 		end
 
 		if moduleName then
 			local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
+			local moduleOutputName = moduleName:gsub(":", "-")
 			table.insert(commands,
 				"$(CXX) $(ALL_CXXFLAGS) --precompile -x c++-module "
-				.. relativePath .. " -o " .. moduleDirectory .. "/" .. moduleName .. ".pcm")
+				.. relativePath .. " -o " .. moduleDirectory .. "/" .. moduleOutputName .. ".pcm")
 		end
 	end
 	return commands
@@ -94,13 +101,14 @@ local function webModuleBuildCommands()
 		local file = io.open(filename, "r")
 		local moduleName = nil
 		if file then
-			moduleName = file:read("*all"):match("export%s+module%s+([%w%.]+)%s*;")
+			moduleName = file:read("*all"):match("export%s+module%s+([%w%._:]+)%s*;")
 			file:close()
 		end
 
 		if moduleName then
 			local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
-			local scriptOutput = "%MODULE_DIR%/" .. moduleName .. ".pcm"
+			local moduleOutputName = moduleName:gsub(":", "-")
+			local scriptOutput = "%MODULE_DIR%/" .. moduleOutputName .. ".pcm"
 			script:write("em++ -std=c++20 -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD "
 				.. includeFlags .. " -x c++-module -fprebuilt-module-path=\"%MODULE_DIR%\" "
 				.. "--precompile \"" .. relativePath .. "\" -o \"" .. scriptOutput .. "\"\r\n")
