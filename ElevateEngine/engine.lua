@@ -152,6 +152,8 @@ local function webModuleBuildCommands()
 	script:write("@echo off\r\n")
 	script:write("set MODULE_DIR=%~1\r\n")
 	script:write("if not exist \"%MODULE_DIR%\" mkdir \"%MODULE_DIR%\"\r\n")
+	script:write("set MODULE_FLAGS=%MODULE_DIR%\\module-flags.rsp\r\n")
+	script:write("if exist \"%MODULE_FLAGS%\" del /q \"%MODULE_FLAGS%\"\r\n")
 	for _, filename in ipairs(orderedModuleFiles()) do
 		local file = io.open(filename, "r")
 		local moduleName = nil
@@ -164,10 +166,12 @@ local function webModuleBuildCommands()
 			local moduleOutputName = moduleName:gsub(":", "-")
 			local scriptOutput = "%MODULE_DIR%/" .. moduleOutputName .. ".pcm"
 			local scriptSource = normalizePath(filename):gsub("/", "\\")
-			script:write("em++ -std=c++20 -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD "
+			script:write("em++ @\"%MODULE_FLAGS%\" -std=c++20 -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD "
 				.. includeFlags .. " -x c++-module -fprebuilt-module-path=\"%MODULE_DIR%\" "
 				.. "--precompile \"" .. scriptSource .. "\" -o \"" .. scriptOutput .. "\"\r\n")
 			script:write("if errorlevel 1 exit /b %errorlevel%\r\n")
+			script:write(">>\"%MODULE_FLAGS%\" echo -fmodule-file=" .. moduleName
+				.. "=%MODULE_DIR%/" .. moduleOutputName .. ".pcm\r\n")
 		end
 	end
 	script:write("exit /b 0\r\n")
@@ -252,7 +256,10 @@ project "ElevateEngine"
 
 	filter "system:emscripten"
 		prebuildcommands(webModuleBuildCommands())
-		buildoptions { "-fprebuilt-module-path=%{cfg.objdir}/modules" }
+		buildoptions {
+			"-fprebuilt-module-path=%{cfg.objdir}/modules",
+			"@%{cfg.objdir}/modules/module-flags.rsp"
+		}
 
 	filter { "system:emscripten", "files:**.ixx" }
 		buildoptions { "-x", "c++-module" }
