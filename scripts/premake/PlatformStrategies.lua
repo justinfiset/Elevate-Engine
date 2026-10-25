@@ -19,7 +19,7 @@ LinuxStrategy = {
         architecture "x64"
 
         filter {"language:C++"}
-        buildoptions {"-fmodules-ts"}
+        buildoptions {"-fno-lto"}
         filter {}
     end,
 

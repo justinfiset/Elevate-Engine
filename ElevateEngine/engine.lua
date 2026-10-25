@@ -34,7 +34,10 @@ project "ElevateEngine"
 
 	files
 	{
-		"Source/**",
+		"Source/**.ixx",
+		"Source/**.cpp",
+		"Source/**.h",
+		"Source/**.inl",
 
 		"Vendor/ImGuizmo/ImGuizmo.cpp",
 		"Vendor/ImGuiFileDialog/**.cpp",
@@ -65,8 +68,12 @@ project "ElevateEngine"
 	filter "system:windows"
 		links { "opengl32.lib" }
 		
-	filter "system:linux"
+	filter { "system:linux", "language:C++" }
 		links { "GL", "X11", "pthread", "dl" }
+		buildoptions { "-fmodules-ts" }
+
+	filter { "system:emscripten", "files:**.ixx" }
+		buildoptions { "-x", "c++" }
 
 	filter "configurations:Editor_Debug"
 		defines { "EE_DEBUG", "EE_EDITOR_BUILD" }

@@ -1,7 +1,7 @@
 #include "WebWindow.h"
 
 #ifdef EE_PLATFORM_WEB
-#include <ElevateEngine/Core/Log.h>
+import Elevate.Foundations;
 #include <emscripten/html5.h>
 #include <GLFW/glfw3.h>
 

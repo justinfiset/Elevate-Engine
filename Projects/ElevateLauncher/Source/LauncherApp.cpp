@@ -1,6 +1,4 @@
 #include <ElevateEngine.h>
-#include <ElevateEngine/Core/PathResolver.h>
-#include <ElevateEngine/Files/FileDialog.h>
 
 #include <imgui.h>
 #include <ElevateEngine/ImGui/ImGuiLoadingIndicator.h>

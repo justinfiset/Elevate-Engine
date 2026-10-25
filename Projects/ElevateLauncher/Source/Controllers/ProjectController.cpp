@@ -2,7 +2,7 @@
 #include "../Managers/ProjectManager.h"
 
 #include <algorithm>
-#include <ElevateEngine/Core/Platform.h>
+#include <ElevateEngine.h>
 
 namespace EL
 {
@@ -94,17 +94,17 @@ namespace EL
 
 	void ProjectController::OpenDocumentation() const
 	{
-		Elevate::Platform::OpenURL(std::string(DocumentationURL));
+		Elevate::Shell::OpenURL(DocumentationURL);
 	}
 
 	void ProjectController::ReportIssue() const
 	{
-		Elevate::Platform::OpenURL(std::string(IssueReportURL));
+		Elevate::Shell::OpenURL(IssueReportURL);
 	}
 
 	void ProjectController::RateEngine() const
 	{
-		Elevate::Platform::OpenURL(std::string(RateEngineURL));
+		Elevate::Shell::OpenURL(RateEngineURL);
 	}
 
 	void ProjectController::PushNotification(const std::string& msg, Notification::MsgType type)

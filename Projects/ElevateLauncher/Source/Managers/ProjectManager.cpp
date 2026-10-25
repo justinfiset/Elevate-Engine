@@ -1,10 +1,7 @@
 #include "ProjectManager.h"
 #include <fstream>
 
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Files/FileUtility.h>
-#include <ElevateEngine/Renderer/Texture/Texture.h>
-#include <ElevateEngine/Serialization/JsonSerializer.h>
+#include <ElevateEngine.h>
 #include <filesystem>
 
 namespace fs = std::filesystem;
@@ -130,7 +127,7 @@ namespace EL
 
 			if (fs::exists(descriptionFile))
 			{
-				projTemplate.Desription = Elevate::File::GetFileContent(descriptionFile);
+				projTemplate.Desription = Elevate::Files::GetFileContent(descriptionFile);
 			}
 			if (fs::exists(thumbnailFile))
 			{
@@ -150,13 +147,13 @@ namespace EL
 		// todo get info from local files
 		m_projectList.Projects.clear();
 
-		std::string filePath = std::string(EE_CONTENT_ROOT) + "/projects.json";
+		std::string filePath = (Elevate::Paths::Content() / "projects.json").string();
 		if (!fs::exists(filePath))
 		{
 			return;
 		}
 
-		std::string fileContent = Elevate::File::GetFileContent(filePath);
+		std::string fileContent = Elevate::Files::GetFileContent(filePath);
 		if (fileContent.empty())
 		{
 			return;
@@ -196,7 +193,7 @@ namespace EL
 		std::string fileContent = Elevate::ByteUtils::ToString(bytes);
 		EE_TRACE("{}", fileContent);
 
-		std::string filePath = std::string(EE_CONTENT_ROOT) + "/projects.json";
+		std::string filePath = (Elevate::Paths::Content() / "projects.json").string();
 		std::ofstream outFile(filePath);
 
 		if (outFile.is_open())
