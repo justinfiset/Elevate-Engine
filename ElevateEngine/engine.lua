@@ -165,7 +165,6 @@ local function webModuleBuildCommands()
 	script:write("@echo off\r\n")
 	script:write("set MODULE_DIR=%~1\r\n")
 	script:write("if not exist \"%MODULE_DIR%\" mkdir \"%MODULE_DIR%\"\r\n")
-	local prebuiltModuleFlags = ""
 	for _, filename in ipairs(orderedModuleFiles()) do
 		local file = io.open(filename, "r")
 		local moduleName = nil
@@ -180,11 +179,8 @@ local function webModuleBuildCommands()
 			local scriptSource = normalizePath(filename):gsub("/", "\\")
 			script:write("em++ -std=c++20 -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD "
 				.. includeFlags .. " -x c++-module -fprebuilt-module-path=\"%MODULE_DIR%\" "
-				.. prebuiltModuleFlags
 				.. "--precompile \"" .. scriptSource .. "\" -o \"" .. scriptOutput .. "\"\r\n")
 			script:write("if errorlevel 1 exit /b %errorlevel%\r\n")
-			prebuiltModuleFlags = prebuiltModuleFlags
-				.. "-fmodule-file=" .. moduleName .. "=\"%MODULE_DIR%/" .. moduleOutputName .. ".pcm\" "
 		end
 	end
 	script:write("exit /b 0\r\n")

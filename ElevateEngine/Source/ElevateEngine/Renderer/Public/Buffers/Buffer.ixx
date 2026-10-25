@@ -3,6 +3,7 @@ module;
 #include <vector>
 #include <iterator>
 #include <string>
+#include <cstdint>
 
 export module Elevate.Renderer.Buffers;
 
