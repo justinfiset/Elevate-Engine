@@ -4,10 +4,37 @@ local function values(t)
     return res
 end
 
+local function normalizePath(filename)
+	return filename:gsub("\\", "/")
+end
+
 local function orderedModuleFiles()
 	local moduleFiles = os.matchfiles(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Source/**/*.ixx")
 	local modules = {}
 	local dependencies = {}
+	local headerImports = {}
+	local sourceRoot = _MAIN_SCRIPT_DIR .. "/ElevateEngine/Source/"
+
+	local function collectImports(content)
+		local imports = {}
+		for importedModule in content:gmatch("import%s+([%w%._:]+)%s*;") do
+			table.insert(imports, importedModule)
+		end
+		for partition in content:gmatch("import%s+:([%w_]+)%s*;") do
+			table.insert(imports, ":" .. partition)
+		end
+		return imports
+	end
+
+	for _, pattern in ipairs({ "**/*.h", "**/*.hpp", "**/*.inl" }) do
+		for _, filename in ipairs(os.matchfiles(sourceRoot .. pattern)) do
+			local file = io.open(filename, "r")
+			if file then
+				headerImports[normalizePath(filename)] = collectImports(file:read("*all"))
+				file:close()
+			end
+		end
+	end
 
 	for _, filename in ipairs(moduleFiles) do
 		local file = io.open(filename, "r")
@@ -19,13 +46,26 @@ local function orderedModuleFiles()
 			if moduleName then
 				modules[moduleName] = filename
 				dependencies[moduleName] = {}
-				for importedModule in content:gmatch("import%s+([%w%.]+)%s*;") do
-					table.insert(dependencies[moduleName], importedModule)
-				end
 				local moduleBase = moduleName:match("^([^:]+)")
-				for partition in content:gmatch("import%s+:([%w_]+)%s*;") do
-					if moduleBase then
-						table.insert(dependencies[moduleName], moduleBase .. ":" .. partition)
+				for _, importedModule in ipairs(collectImports(content)) do
+					if importedModule:sub(1, 1) == ":" then
+						table.insert(dependencies[moduleName], moduleBase .. importedModule)
+					else
+						table.insert(dependencies[moduleName], importedModule)
+					end
+				end
+
+				for includePath in content:gmatch("#include%s+[<\"]([^>\"]+)[>\"]") do
+					for headerFilename, imports in pairs(headerImports) do
+						if headerFilename:sub(-#includePath) == includePath then
+							for _, importedModule in ipairs(imports) do
+								if importedModule:sub(1, 1) == ":" then
+									table.insert(dependencies[moduleName], moduleBase .. importedModule)
+								else
+									table.insert(dependencies[moduleName], importedModule)
+								end
+							end
+						end
 					end
 				end
 			end
@@ -84,9 +124,13 @@ end
 local function webModuleBuildCommands()
 	local commands = {}
 	local moduleDirectory = "%{cfg.objdir}/modules"
-	local includeFlags = "-I../Source -I../Vendor -I../Vendor/glm -I../Vendor/spdlog/include "
-		.. "-I../Vendor/rapidjson/include -I../Vendor/entt/include -I../Vendor/stduuid/include "
-		.. "-I../Vendor/assimp/include -I../Vendor/JoltPhysics"
+	local includeFlags = "-I\"%~dp0..\\ElevateEngine\\Source\" -I\"%~dp0..\\ElevateEngine\\Vendor\" "
+		.. "-I\"%~dp0..\\ElevateEngine\\Vendor\\glm\" -I\"%~dp0..\\ElevateEngine\\Vendor\\spdlog\\include\" "
+		.. "-I\"%~dp0..\\ElevateEngine\\Vendor\\rapidjson\\include\" "
+		.. "-I\"%~dp0..\\ElevateEngine\\Vendor\\entt\\include\" "
+		.. "-I\"%~dp0..\\ElevateEngine\\Vendor\\stduuid\\include\" "
+		.. "-I\"%~dp0..\\ElevateEngine\\Vendor\\assimp\\include\" "
+		.. "-I\"%~dp0..\\ElevateEngine\\Vendor\\JoltPhysics\""
 	local scriptPath = _MAIN_SCRIPT_DIR .. "/Build/precompile_web_modules.bat"
 	local script = io.open(scriptPath, "w")
 
@@ -106,12 +150,13 @@ local function webModuleBuildCommands()
 		end
 
 		if moduleName then
-			local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
 			local moduleOutputName = moduleName:gsub(":", "-")
 			local scriptOutput = "%MODULE_DIR%/" .. moduleOutputName .. ".pcm"
+			local scriptSource = normalizePath(filename):gsub("/", "\\")
 			script:write("em++ -std=c++20 -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD "
 				.. includeFlags .. " -x c++-module -fprebuilt-module-path=\"%MODULE_DIR%\" "
-				.. "--precompile \"" .. relativePath .. "\" -o \"" .. scriptOutput .. "\"\r\n")
+				.. "--precompile \"" .. scriptSource .. "\" -o \"" .. scriptOutput .. "\"\r\n")
+			script:write("if errorlevel 1 exit /b %errorlevel%\r\n")
 		end
 	end
 	script:write("exit /b 0\r\n")
