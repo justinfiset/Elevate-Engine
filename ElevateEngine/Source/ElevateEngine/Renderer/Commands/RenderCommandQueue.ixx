@@ -1,6 +1,7 @@
 module;
 
 #include <cstdint>
+#include <cstddef>
 #include <array>
 
 export module Elevate.Renderer.Commands.RenderCommandQueue;
