@@ -24,24 +24,24 @@ export namespace Elevate
 
 		void UpdateAspectRatio(float aspectRatio);
 
-		inline const glm::mat4& GetProjectionMatrix() const { return m_projectionMatrix; }
+		const glm::mat4& GetProjectionMatrix() const { return m_projectionMatrix; }
 		glm::mat4 GenViewMatrix() const;
 
 		glm::vec3 GetFrontVec() const;
 		glm::vec3 GetRightVec() const;
 		glm::vec3 GetUpVec() const;
 
-		inline float GetFOV() const { return m_FOV; }
-		inline void SetFOV(float fov);
+		float GetFOV() const { return m_FOV; }
+		void SetFOV(float fov);
 
 		// Near and Far planes
-		inline float GetNear() const { return m_near; }
-		inline void SetNear(float nearPlane);
+		float GetNear() const { return m_near; }
+		void SetNear(float nearPlane);
 
-		inline float GetFar() const { return m_far; }
-		inline void SetFar(float farPlane);
+		float GetFar() const { return m_far; }
+		void SetFar(float farPlane);
 
-		inline float GetAspectRatio() const { return m_aspectRatio; }
+		float GetAspectRatio() const { return m_aspectRatio; }
 
 		glm::mat4 GenViewProjectionMatrix() const;
 
