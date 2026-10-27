@@ -12,8 +12,6 @@ import :TextureMetadata;
 
 export namespace Elevate
 {
-	class Renderer;
-
 	class Texture
 	{
 	public:
