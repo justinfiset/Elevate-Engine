@@ -4,7 +4,7 @@
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <GLFW/glfw3.h>
 
-#include <ElevateEngine/Renderer/GLDebug.h>
+#include <ElevateEngine/Platform/OpenGL/GLDebug.h>
 
 import Elevate.Renderer.Renderer;
 
@@ -14,19 +14,27 @@ namespace Elevate
 	{
 		switch (type)
 		{
-		case DrawPrimitiveType::Points:        return GL_POINTS;
-		case DrawPrimitiveType::Lines:         return GL_LINES;
-		case DrawPrimitiveType::LineStrip:     return GL_LINE_STRIP;
-		case DrawPrimitiveType::Triangles:     return GL_TRIANGLES;
-		case DrawPrimitiveType::TriangleStrip: return GL_TRIANGLE_STRIP;
-		case DrawPrimitiveType::TriangleFan:   return GL_TRIANGLE_FAN;
-		case DrawPrimitiveType::Patches:       return GL_PATCHES;
-		default:							   return GL_TRIANGLES;
+		case DrawPrimitiveType::Points:
+			return GL_POINTS;
+		case DrawPrimitiveType::Lines:
+			return GL_LINES;
+		case DrawPrimitiveType::LineStrip:
+			return GL_LINE_STRIP;
+		case DrawPrimitiveType::Triangles:
+			return GL_TRIANGLES;
+		case DrawPrimitiveType::TriangleStrip:
+			return GL_TRIANGLE_STRIP;
+		case DrawPrimitiveType::TriangleFan:
+			return GL_TRIANGLE_FAN;
+		case DrawPrimitiveType::Patches:
+			return GL_PATCHES;
+		default:
+			return GL_TRIANGLES;
 		}
 		return GL_TRIANGLES;
 	}
 
-	void OpenGLRendererAPI::SetClearColor(const glm::vec4& color) const
+	void OpenGLRendererAPI::SetClearColor(const glm::vec4 &color) const
 	{
 		glClearColor(color.r, color.g, color.b, color.a);
 	}
@@ -70,9 +78,10 @@ namespace Elevate
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	void OpenGLRendererAPI::DrawArray(const VertexArray* vao, DrawPrimitiveType primitive) const
+	void OpenGLRendererAPI::DrawArray(const VertexArray *vao, DrawPrimitiveType primitive) const
 	{
-		if (!glfwGetCurrentContext()) {
+		if (!glfwGetCurrentContext())
+		{
 			CoreLogger::Error("No OpenGL context active!");
 			return;
 		}
@@ -97,7 +106,7 @@ namespace Elevate
 		}
 		else
 		{
-			for (const auto& vbo : vao->GetVertexBuffers())
+			for (const auto &vbo : vao->GetVertexBuffers())
 			{
 				uint32_t vertexCount = vbo->GetSize() / vbo->GetLayout().GetStride();
 				GLCheck(glDrawArrays(DrawPrimitiveTypeToOpenGL(primitive), 0, vertexCount));
@@ -134,8 +143,10 @@ namespace Elevate
 
 	void OpenGLRendererAPI::SetDepthTestingState(bool enabled) const
 	{
-		if (enabled)	glEnable(GL_DEPTH_TEST);
-		else			glDisable(GL_DEPTH_TEST);
+		if (enabled)
+			glEnable(GL_DEPTH_TEST);
+		else
+			glDisable(GL_DEPTH_TEST);
 	}
 
 	void OpenGLRendererAPI::SetBlendingState(BlendModeType mode) const
@@ -160,14 +171,30 @@ namespace Elevate
 	{
 		switch (depthFunc)
 		{
-		case DepthFunction::Less:         GLCheck(glDepthFunc(GL_LESS));	break;
-		case DepthFunction::LessEqual:    GLCheck(glDepthFunc(GL_LEQUAL));	break;
-		case DepthFunction::Equal:        GLCheck(glDepthFunc(GL_EQUAL));	break;
-		case DepthFunction::Always:       GLCheck(glDepthFunc(GL_ALWAYS));	break;
-		case DepthFunction::Never:        GLCheck(glDepthFunc(GL_NEVER));	break;
-		case DepthFunction::Greater:      GLCheck(glDepthFunc(GL_GREATER)); break;
-		case DepthFunction::GreaterEqual: GLCheck(glDepthFunc(GL_GEQUAL));	break;
-		default:                          GLCheck(glDepthFunc(GL_LESS));	break;
+		case DepthFunction::Less:
+			GLCheck(glDepthFunc(GL_LESS));
+			break;
+		case DepthFunction::LessEqual:
+			GLCheck(glDepthFunc(GL_LEQUAL));
+			break;
+		case DepthFunction::Equal:
+			GLCheck(glDepthFunc(GL_EQUAL));
+			break;
+		case DepthFunction::Always:
+			GLCheck(glDepthFunc(GL_ALWAYS));
+			break;
+		case DepthFunction::Never:
+			GLCheck(glDepthFunc(GL_NEVER));
+			break;
+		case DepthFunction::Greater:
+			GLCheck(glDepthFunc(GL_GREATER));
+			break;
+		case DepthFunction::GreaterEqual:
+			GLCheck(glDepthFunc(GL_GEQUAL));
+			break;
+		default:
+			GLCheck(glDepthFunc(GL_LESS));
+			break;
 		}
 	}
 }

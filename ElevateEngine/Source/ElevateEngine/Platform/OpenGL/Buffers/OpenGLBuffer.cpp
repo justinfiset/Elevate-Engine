@@ -2,7 +2,7 @@
 
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <GLFW/glfw3.h>
-#include <ElevateEngine/Renderer/GLDebug.h>
+#include <ElevateEngine/Platform/OpenGL/GLDebug.h>
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Renderer.Vertex;
@@ -10,7 +10,7 @@ import Elevate.Renderer.GraphicsContext;
 
 namespace Elevate
 {
-	inline void CreateBuffers(int32_t n, uint32_t* ids)
+	inline void CreateBuffers(int32_t n, uint32_t *ids)
 	{
 #ifdef EE_SUPPORTS_DSA
 		glCreateBuffers(n, ids);
@@ -19,7 +19,8 @@ namespace Elevate
 #endif
 	}
 
-	inline void NamedBufferData(uint32_t buffer, uint32_t target, size_t size, const void* data, uint32_t usage) {
+	inline void NamedBufferData(uint32_t buffer, uint32_t target, size_t size, const void *data, uint32_t usage)
+	{
 #ifdef EE_SUPPORTS_DSA
 		glNamedBufferData(buffer, size, data, usage);
 #else
@@ -31,7 +32,7 @@ namespace Elevate
 	///////////////////////////////////////////////////////////////////////////////////////
 	// VertexBuffer ///////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////
-	OpenGLVertexBuffer::OpenGLVertexBuffer(const void* vertices, uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(const void *vertices, uint32_t size)
 		: VertexBuffer(vertices, size)
 	{
 		GLCheck(CreateBuffers(1, &m_rendererID));
@@ -57,7 +58,7 @@ namespace Elevate
 		GLCheck(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	}
 
-	void OpenGLVertexBuffer::SetData(const void* newData, uint32_t size)
+	void OpenGLVertexBuffer::SetData(const void *newData, uint32_t size)
 	{
 		if (m_rendererID != 0)
 		{
@@ -91,7 +92,7 @@ namespace Elevate
 	///////////////////////////////////////////////////////////////////////////////////////
 	// IndexBuffer ////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////
-	OpenGLIndexBuffer::OpenGLIndexBuffer(const void* indices, uint32_t count)
+	OpenGLIndexBuffer::OpenGLIndexBuffer(const void *indices, uint32_t count)
 		: m_count(count)
 	{
 		GLCheck(CreateBuffers(1, &m_rendererID));

@@ -7,6 +7,7 @@
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Objects.Category;
 import Elevate.Core.Objects.Object;
+import Elevate.Core.Objects.ObjectPtr;
 import Elevate.Core.Types.TypeLayout;
 import Elevate.Core.Types.TypeRegistry;
 import Elevate.Core.Reflection.ReflectionTags;
