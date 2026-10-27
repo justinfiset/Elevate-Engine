@@ -40,10 +40,10 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 
 	// Shaders
 	std::string vert = std::string(EE_SHADER_HEADER) +
-#include "ElevateEngine/Renderer/Public/Environment/Cubemap/skybox.vert"
+#include "ElevateEngine/Renderer/Environment/Cubemap/skybox.vert"
 		;
 	std::string frag = std::string(EE_SHADER_HEADER) +
-#include "ElevateEngine/Renderer/Public/Environment/Cubemap/skybox.frag"
+#include "ElevateEngine/Renderer/Environment/Cubemap/skybox.frag"
 		;
 	m_cubemapShader = Elevate::Shader::Create(vert, frag);
 
