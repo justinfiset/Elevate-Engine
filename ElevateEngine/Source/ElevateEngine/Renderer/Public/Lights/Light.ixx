@@ -8,8 +8,6 @@ export module Elevate.Renderer.Lights.Light;
 // Core
 import Elevate.Core.Scene;
 import Elevate.Core.Types.TypeRegistry;
-// Renderer
-import Elevate.Renderer.Shaders;
 
 export namespace Elevate
 {

@@ -1,9 +1,9 @@
 module;
 
+#include <memory>
+#include <string>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "ElevateEngine/Renderer/Light/Light.h"
-#include "ElevateEngine/Renderer/Light/DirectionalLight.h"
 #include <ElevateEngine/Platform/OpenGL/Shaders/OpenGLShader.h>
 
 #include <ElevateEngine/Foundations/Core.h> // todo remove this
@@ -16,6 +16,8 @@ import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Files;
 // Renderer
 import Elevate.Renderer.Renderer;
+import Elevate.Renderer.Lights.Light;
+import Elevate.Renderer.Lights.DirectionalLight;
 
 namespace Elevate
 {
@@ -53,7 +55,7 @@ namespace Elevate
 		return Create(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetErrorShader()));
 	}
 
-	EEObjectPtr<Shader> Shader::Create(const std::string &vertexSource, const std::string &fragmentSouce)
+	EEObjectPtr<Shader> Shader::Create(const std::string& vertexSource, const std::string& fragmentSouce)
 	{
 		EEObjectPtr<Shader> shader = nullptr;
 
@@ -87,14 +89,14 @@ namespace Elevate
 		return shader;
 	}
 
-	EEObjectPtr<Shader> Shader::CreateFromFiles(const std::string &vertexSrcPath, const std::string &fragSrcPath)
+	EEObjectPtr<Shader> Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath)
 	{
 		std::string vertexSource = Files::GetFileContent(vertexSrcPath);
 		std::string fragmentSource = Files::GetFileContent(fragSrcPath);
 		return Create(vertexSource, fragmentSource);
 	}
 
-	EEObjectPtr<Shader> Shader::CreateFromFiles(const std::string &vertexSrcPath, const std::string &fragSrcPath, const std::string &customVertCode, const std::string &customFragCode)
+	EEObjectPtr<Shader> Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode)
 	{
 		std::string vertexContent = Files::GetFileContent(vertexSrcPath);
 		std::string fragmentContent = Files::GetFileContent(fragSrcPath);
@@ -112,13 +114,13 @@ namespace Elevate
 		}
 	}
 
-	void Shader::UseLight(const Light *newLightSetting, const std::string &lightName) const
+	void Shader::UseLight(const Light* newLightSetting, const std::string& lightName) const
 	{
 		SetUniform3f(lightName + ".color", newLightSetting->GetColor());
 		SetUniform1f(lightName + ".intensity", newLightSetting->GetIntensity());
 	}
 
-	void Shader::UseDirLight(DirectionalLight *newDirLight)
+	void Shader::UseDirLight(DirectionalLight* newDirLight)
 	{
 		UseLight(newDirLight, "dirLight");
 		SetUniform3f("dirLight.direction", newDirLight->CalculateDirection());
@@ -129,12 +131,12 @@ namespace Elevate
 		SetUniform3f(ShaderUniforms::CamPos, cameraPosition);
 	}
 
-	void Shader::SetModelMatrix(const glm::mat4 &modelMatrix)
+	void Shader::SetModelMatrix(const glm::mat4& modelMatrix)
 	{
 		SetUniformMatrix4fv(ShaderUniforms::Model, modelMatrix); // set the model matrix
 	}
 
-	void Shader::SetModelMatrix(const ITransformable &object)
+	void Shader::SetModelMatrix(const ITransformable& object)
 	{
 		SetUniformMatrix4fv(ShaderUniforms::Model, object.GetModelMatrix()); // set the model matrix
 	}
@@ -144,53 +146,53 @@ namespace Elevate
 		SetUniformMatrix4fv(ShaderUniforms::ViewProj, viewProjMatrix);
 	}
 
-	void Elevate::Shader::SetUniformMatrix2fv(const std::string &location, glm::mat2 data) const
+	void Elevate::Shader::SetUniformMatrix2fv(const std::string& location, glm::mat2 data) const
 	{
 		SetUniformMatrix2fv(location, glm::value_ptr(data));
 	}
 
-	void Elevate::Shader::SetUniformMatrix3fv(const std::string &location, glm::mat3 data) const
+	void Elevate::Shader::SetUniformMatrix3fv(const std::string& location, glm::mat3 data) const
 	{
 		SetUniformMatrix3fv(location, glm::value_ptr(data));
 	}
 
-	void Elevate::Shader::SetUniformMatrix4fv(const std::string &location, glm::mat4 data) const
+	void Elevate::Shader::SetUniformMatrix4fv(const std::string& location, glm::mat4 data) const
 	{
 		SetUniformMatrix4fv(location, glm::value_ptr(data));
 	}
 
-	void Shader::SetUniform(const std::string &location, ShaderDataType type, void *value)
+	void Shader::SetUniform(const std::string& location, ShaderDataType type, void* value)
 	{
 		switch (type)
 		{
 			// todo impl all of the types here based on the functions we have in the shader part
 			// todo remove the need to cast to float* and directly use the SetUniform2fv functions (create them if necessary)
 		case ShaderDataType::Float:
-			SetUniform1f(location, *(float *)value);
+			SetUniform1f(location, *(float*)value);
 			break;
 		case ShaderDataType::Float2:
 		{
-			float *data = (float *)value;
+			float* data = (float*)value;
 			SetUniform2f(location, data[0], data[1]);
 			break;
 		}
 		case ShaderDataType::Float3:
 		{
-			float *data = (float *)value;
+			float* data = (float*)value;
 			SetUniform3f(location, data[0], data[1], data[2]);
 			break;
 		}
 		case ShaderDataType::Float4:
 		{
-			float *data = (float *)value;
+			float* data = (float*)value;
 			SetUniform4f(location, data[0], data[1], data[2], data[3]);
 			break;
 		}
 		case ShaderDataType::Int:
-			SetUniform1i(location, *(int *)value);
+			SetUniform1i(location, *(int*)value);
 			break;
 		case ShaderDataType::Mat4:
-			SetUniformMatrix4fv(location, (float *)value);
+			SetUniformMatrix4fv(location, (float*)value);
 			break;
 		default:
 			Assert::That(false, "(Shader::SetUniform()) : Unsupported datatype provided.");
