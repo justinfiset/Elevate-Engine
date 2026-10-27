@@ -20,7 +20,7 @@ namespace Elevate
 {
 	void SceneLayer::OnAttach()
 	{
-		m_sceneManager->LoadScene(m_scene);
+
 	}
 
 	void SceneLayer::OnDetach()
