@@ -113,7 +113,7 @@ namespace Elevate::Editor
 		gridState.DepthTest = true;
 		gridState.DepthWrite = false;
 		gridMaterial->SetRenderState(gridState);
-		gridMaterial->SetBucket(RenderBucket::Type::Editor);
+		gridMaterial->SetBucket(RenderBucketType::Editor);
 		gridModel.SetMaterial(gridMaterial);
 		m_GridObject->SetScale({ 50, 50, 50 });
 	}
@@ -134,7 +134,7 @@ namespace Elevate::Editor
 		glm::vec3 camPos = m_CameraObject->GetPosition();
 		// todo use materials instead
 		Renderer::BindShader(m_GridShader);
-		m_GridShader->SetProjectionViewMatrix(*GetCamera());
+		m_GridShader->SetProjectionViewMatrix(GetCamera()->GenViewProjectionMatrix());
 		m_GridObject->SetPosition({ camPos.x, 0, camPos.z });
 
 		m_EditorScene->RenderScene();

@@ -3,10 +3,6 @@ module;
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
-#if EE_EDITOR_BUILD
-#include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
-#endif
-
 module Elevate.Renderer.Camera;
 
 import Elevate.Core.Window;
@@ -14,9 +10,10 @@ import Elevate.Core.Application;
 import Elevate.Core.Scene;
 import Elevate.Audio.SoundEngine;
 
-#if EE_EDITOR_BUILD
+#ifdef EE_EDITOR_BUILD
 import Elevate.Editor.Renderer;
 import Elevate.Editor.Selection;
+import Elevate.Renderer.Debug.DebugRenderer;
 #endif
 
 Elevate::Camera::Camera(float fov, bool overrideCurrent)

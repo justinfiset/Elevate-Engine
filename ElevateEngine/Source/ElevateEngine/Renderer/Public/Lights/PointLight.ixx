@@ -1,11 +1,15 @@
-#pragma once
-#include "Light.h"
+module;
 
+#include <glm/glm.hpp>
 #include "Reflection.h"
 
-import Elevate.Core.Scene;
+export module Elevate.Renderer.Lights.PointLight;
 
-namespace Elevate
+import Elevate.Core.Scene;
+import Elevate.Renderer.Shaders;
+import Elevate.Renderer.Lights.Light;
+
+export namespace Elevate
 {
 	class PointLight : public Light
 	{

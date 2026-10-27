@@ -11,8 +11,6 @@ import Elevate.Foundations.CoreLogger;
 // Core
 import Elevate.Core.Application;
 import Elevate.Core.Objects.ObjectPtr;
-import Elevate.Renderer.Cubemap;
-import Elevate.Renderer.SceneLighting;
 
 namespace Elevate
 {
@@ -28,8 +26,6 @@ namespace Elevate
 		m_registryId = s_nextRegistryId;
 		s_nextRegistryId++;
 		m_sceneManager->GetComponentRegistry().CreateRegistry(m_registryId);
-
-		m_sceneLighting = std::make_unique<SceneLighting>();
 
 		CoreLogger::Trace("Created scene '{}' with registry id: {}", m_name.c_str(), m_registryId);
 	}
@@ -135,21 +131,6 @@ namespace Elevate
 	{
 		Assert::That(m_sceneManager != nullptr, "SceneManager is null.");
 		return m_sceneManager->GetComponentRegistry();
-	}
-
-	void Scene::SetSkybox(const std::string& skyboxFilePath)
-	{
-		m_cubemap.reset(Cubemap::CreateFromFile(skyboxFilePath));
-	}
-
-	std::weak_ptr<Cubemap> Scene::GetSkybox()
-	{
-		return m_cubemap;
-	}
-
-	SceneLighting* Scene::GetSceneLighting()
-	{
-		return m_sceneLighting.get();
 	}
 
 	uint32_t Scene::GetRegistryId()

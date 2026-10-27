@@ -6,12 +6,8 @@ module;
 
 export module Elevate.Renderer.Shaders:ShaderManager;
 
+import :Fwd;
 import Elevate.Core.Objects.ObjectPtr;
-
-namespace Elevate
-{
-	class Shader;
-}
 
 export namespace Elevate
 {

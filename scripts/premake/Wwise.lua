@@ -8,6 +8,9 @@ end
 wwiseIncludePath = nil
 if wwiseSDK then
     wwiseIncludePath = wwiseSDK .. "/include"
+    if os.host() == "windows" then
+        wwiseIncludePath = wwiseIncludePath:gsub("/", "\\")
+    end
 end
 
 Wwise = {}

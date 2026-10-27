@@ -1,9 +1,14 @@
-#pragma once
-#include "Light.h"
+module;
 
+#include <glm/glm.hpp>
 #include "Reflection.h"
 
-namespace Elevate
+export module Elevate.Renderer.Lights.DirectionalLight;
+
+import Elevate.Core.Scene;
+import Elevate.Renderer.Lights.Light;
+
+export namespace Elevate
 {
 	class DirectionalLight : public Light
 	{

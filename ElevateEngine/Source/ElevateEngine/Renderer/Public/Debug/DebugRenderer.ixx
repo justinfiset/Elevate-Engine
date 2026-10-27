@@ -1,15 +1,21 @@
-#pragma once
+module;
 
 #ifdef EE_EDITOR_BUILD
 #include <vector>
 #include <memory>
-#include "DebugTypes.h"
+#include <glm/glm.hpp>
+#endif
+
+export module Elevate.Renderer.Debug.DebugRenderer;
+
+#ifdef EE_EDITOR_BUILD
 import Elevate.Renderer.Shaders;
 import Elevate.Renderer.VertexArray;
 import Elevate.Renderer.Buffers;
+export import Elevate.Renderer.Debug.Types;
 #endif
 
-namespace Elevate
+export namespace Elevate
 {
 	struct DebugVertex
 	{

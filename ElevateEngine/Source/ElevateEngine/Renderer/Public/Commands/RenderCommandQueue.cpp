@@ -2,7 +2,7 @@ module Elevate.Renderer.Commands.RenderCommandQueue;
 
 namespace Elevate
 {
-	void RenderCommandQueue::Submit(RenderBucket::Type type, const RenderCommand& command)
+	void RenderCommandQueue::Submit(RenderBucketType type, const RenderCommand& command)
 	{
 		m_buckets.at((size_t)type).Submit(command);
 		m_count++;
@@ -17,10 +17,10 @@ namespace Elevate
 		m_count = 0;
 	}
 
-	void RenderCommandQueue::Flush(RenderBucket::Type type)
+	void RenderCommandQueue::Flush(RenderBucketType type)
 	{
-		m_buckets.at(type).Sort();
-		m_buckets.at(type).Flush();
+		m_buckets.at(static_cast<size_t>(type)).Sort();
+		m_buckets.at(static_cast<size_t>(type)).Flush();
 	}
 
 	void RenderCommandQueue::FlushAll()
@@ -37,7 +37,7 @@ namespace Elevate
 		return m_count;
 	}
 
-	const RenderBucket& RenderCommandQueue::GetBucket(RenderBucket::Type bucketType) const
+	const RenderBucket& RenderCommandQueue::GetBucket(RenderBucketType bucketType) const
 	{
 		return m_buckets.at((size_t)bucketType);
 	}

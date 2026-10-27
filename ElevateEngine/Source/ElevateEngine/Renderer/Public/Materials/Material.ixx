@@ -23,7 +23,7 @@ import Elevate.Core.Types.TypeLayout;
 import Elevate.Renderer.Texture;
 import Elevate.Renderer.Shaders;
 import Elevate.Renderer.Buffers;
-import Elevate.Renderer.Commands.RenderBucket;
+import Elevate.Renderer.Commands.RenderBucketType;
 import Elevate.Renderer.RenderState;
 
 export namespace Elevate
@@ -72,8 +72,8 @@ export namespace Elevate
 		const RenderState& GetRenderState() const { return m_state; }
 		void SetRenderState(const RenderState& state) { m_state = state; }
 
-		RenderBucket::Type GetBucket() const { return m_bucket; }
-		void SetBucket(RenderBucket::Type bucket) { m_bucket = bucket; }
+		RenderBucketType GetBucket() const { return m_bucket; }
+		void SetBucket(RenderBucketType bucket) { m_bucket = bucket; }
 
 		size_t GetTextureCount() const { return m_textures.size(); }
 
@@ -95,7 +95,7 @@ export namespace Elevate
 		static MaterialID s_nextId;
 
 		RenderState m_state;
-		RenderBucket::Type m_bucket = RenderBucket::GBuffer;
+		RenderBucketType m_bucket = RenderBucketType::GBuffer;
 
 		friend class MaterialFactory;
 

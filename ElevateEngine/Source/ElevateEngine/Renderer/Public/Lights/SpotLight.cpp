@@ -1,16 +1,14 @@
-#include <ElevateEngine/Renderer/Light/SceneLighting.h>
+module;
 
+#include <string>
+#include <glm/glm.hpp>
 
-#ifdef EE_EDITOR_BUILD
-#include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
-#endif
+module Elevate.Renderer.Lights.SpotLight;
 
-#include "SpotLight.h"
-
-import Elevate.Core.Scene;
-import Elevate.Renderer.Shaders;
+import Elevate.Renderer.Scene.Lighting;
 
 #ifdef EE_EDITOR_BUILD
+import Elevate.Renderer.Debug.DebugRenderer;
 import Elevate.Editor.Renderer;
 import Elevate.Editor.Selection;
 #endif
@@ -19,12 +17,12 @@ namespace Elevate
 {
 	void SpotLight::Init()
 	{
-		gameObject->GetScene()->GetSceneLighting()->AddSpotLight(this);
+		GetSceneLighting(gameObject->GetScene())->AddSpotLight(this);
 	}
 
 	void SpotLight::Destroy()
 	{
-		gameObject->GetScene()->GetSceneLighting()->RemoveSpotLight(this);
+		GetSceneLighting(gameObject->GetScene())->RemoveSpotLight(this);
 	}
 
 	void SpotLight::UploadToShader(Shader* shader, uint32_t index) const

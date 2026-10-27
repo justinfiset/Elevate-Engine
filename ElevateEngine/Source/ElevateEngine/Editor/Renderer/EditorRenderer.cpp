@@ -37,7 +37,7 @@ namespace Elevate
 		state.DepthFunc = DepthFunction::LessEqual;
 
 		instanceMaterial->SetRenderState(state);
-		instanceMaterial->SetBucket(RenderBucket::Type::Editor);
+		instanceMaterial->SetBucket(RenderBucketType::Editor);
 
 		instanceMaterial->SetTexture("billboardTexture", icon);
 		instanceMaterial->Set("colorModifier", colorModifier);

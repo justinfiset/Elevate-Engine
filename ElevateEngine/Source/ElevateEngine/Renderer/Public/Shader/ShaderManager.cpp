@@ -4,17 +4,16 @@ module;
 
 #include <ElevateEngine/Foundations/Core.h> // todo remove this and switch
 
-#include <ElevateEngine/Renderer/Light/SceneLighting.h>
-
 module Elevate.Renderer.Shaders;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Renderer.Scene.Lighting;
 import :Shader;
 
 namespace Elevate
 {
-	EEObjectPtr<Shader> ShaderManager::LoadShader(const std::string &name, EEObjectPtr<Shader> shader)
+	EEObjectPtr<Shader> ShaderManager::LoadShader(const std::string& name, EEObjectPtr<Shader> shader)
 	{
 		if (name == EE_DEFAULT_SHADER && GetShader(EE_DEFAULT_SHADER))
 		{
@@ -33,17 +32,17 @@ namespace Elevate
 		}
 	}
 
-	EEObjectPtr<Shader> ShaderManager::LoadShader(const std::string &name, const std::string &vertexSrcPath, const std::string &fragSrcPath)
+	EEObjectPtr<Shader> ShaderManager::LoadShader(const std::string& name, const std::string& vertexSrcPath, const std::string& fragSrcPath)
 	{
 		return LoadShader(name, Shader::CreateFromFiles(vertexSrcPath, fragSrcPath));
 	}
 
-	EEObjectPtr<Shader> ShaderManager::LoadShader(const std::string &name, const std::string &vertexSrcPath, const std::string &fragSrcPath, const std::string &customVertCode, const std::string &customFragCode)
+	EEObjectPtr<Shader> ShaderManager::LoadShader(const std::string& name, const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode)
 	{
 		return LoadShader(name, Shader::CreateFromFiles(vertexSrcPath, fragSrcPath, customVertCode, customFragCode));
 	}
 
-	EEObjectPtr<Shader> ShaderManager::GetShader(const std::string &name)
+	EEObjectPtr<Shader> ShaderManager::GetShader(const std::string& name)
 	{
 		return (instance().m_Shaders.count(name) > 0) ? instance().m_Shaders[name] : nullptr;
 	}
@@ -54,8 +53,8 @@ namespace Elevate
 		// Create a default shader.
 		CoreLogger::Trace("(ShaderManager) : Creating default shader.");
 
-		std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(MAX_POINTLIGHT) + "\n";
-		std::string glslSpotLightCountDefine = "#define NR_SPOT_LIGHTS " + std::to_string(MAX_SPOTLIGHT) + "\n";
+		std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(SceneLightingLimits::MaxPointLights) + "\n";
+		std::string glslSpotLightCountDefine = "#define NR_SPOT_LIGHTS " + std::to_string(SceneLightingLimits::MaxSpotLights) + "\n";
 		EEObjectPtr<Shader> defaultShader = Elevate::Shader::CreateFromFiles(
 			"engine://Shaders/DefaultLitShader.vert",
 			"engine://Shaders/DefaultLitShader.frag",
@@ -78,7 +77,7 @@ namespace Elevate
 		CoreLogger::Info("Initialized ShaderManager.");
 	}
 
-	ShaderManager &ShaderManager::instance()
+	ShaderManager& ShaderManager::instance()
 	{
 		static ShaderManager instance;
 		if (!instance.m_initialized)

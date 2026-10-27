@@ -1,9 +1,12 @@
-#pragma once
+module;
 
-#if defined(EE_EDITOR_BUILD) || defined(EE_DEBUG)
 #include <glm/glm.hpp>
 
-namespace Elevate
+export module Elevate.Renderer.Debug.Types;
+
+#if defined(EE_EDITOR_BUILD) || defined(EE_DEBUG)
+
+export namespace Elevate
 {
 	struct DebugPoint
 	{

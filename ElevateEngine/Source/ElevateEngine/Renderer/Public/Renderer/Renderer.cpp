@@ -1,18 +1,19 @@
 module;
 
+#include <string>
 #include <random>
+
 #include <ElevateEngine/Foundations/Core.h>
-
-#include <ElevateEngine/Renderer/Light/Light.h>
-#include <ElevateEngine/Renderer/Light/DirectionalLight.h>
-
-#include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
 #include <ElevateEngine/Platform/OpenGL/Renderer/OpenGLRendererAPI.h>
 
 module Elevate.Renderer.Renderer;
 
+import Elevate.Foundations.CoreLogger;
 import Elevate.Renderer.Cubemap;
-import Elevate.Renderer.SceneLighting;
+import Elevate.Renderer.Scene.Lighting;
+import Elevate.Renderer.Lights.Light;
+import Elevate.Renderer.Lights.DirectionalLight;
+import Elevate.Renderer.Debug.DebugRenderer;
 
 constexpr uint32_t DEFAULT_SHADOW_RESOLUTION = 2048;
 constexpr uint16_t AO_KERNER_SAMPLE_COUNT = 64;
@@ -260,8 +261,8 @@ namespace Elevate
 		s_data.View = cam.GenViewMatrix();
 		s_data.Projection = cam.GetProjectionMatrix();
 		s_data.ViewProj = s_data.Projection * s_data.View;
-		s_data.ActiveLighting = scene->GetSceneLighting();
-		auto skybox = scene->GetSkybox().lock();
+		s_data.ActiveLighting = GetSceneLighting(scene.get());
+		auto environment = GetSceneEnvironment(scene.get());
 
 		constexpr std::array<float, SHADOW_CASCADE_COUNT + 1> cascadeSplits = { 0.0f, 0.05f, 0.15f, 0.40f, 1.0f };
 		float clipRange = cam.GetFar() - cam.GetNear();
@@ -272,11 +273,11 @@ namespace Elevate
 			float currentFar = cascadeSplits[i + 1];
 
 			auto corners = cam.CalculateFrustumCorners(currentNear, currentFar);
-			s_data.LightSpaceMatrices[i] = scene->GetSceneLighting()->GetDirectionalLightSpaceMatrix(corners);
+			s_data.LightSpaceMatrices[i] = GetSceneLighting(scene.get())->GetDirectionalLightSpaceMatrix(corners);
 			s_data.CascadeSplitDepths[i] = cam.GetNear() + (currentFar * clipRange);
 		}
 
-		s_data.ActiveCubemap = skybox.get();
+		s_data.ActiveCubemap = environment->cubemap.get();
 	}
 
 	void Renderer::RenderFrame()
@@ -456,7 +457,7 @@ namespace Elevate
 		Renderer::DrawArray(command.m_VertexArray);
 	}
 
-	void Renderer::Submit(RenderBucket::Type type, const RenderCommand& command)
+	void Renderer::Submit(RenderBucketType type, const RenderCommand& command)
 	{
 		s_commands.Submit(type, command);
 	}
@@ -465,7 +466,7 @@ namespace Elevate
 	{
 		RenderCommand command;
 		RenderState state = material ? material->GetRenderState() : RenderState();
-		RenderBucket::Type bucket = material ? material->GetBucket() : RenderBucket::GBuffer;
+		RenderBucketType bucket = material ? material->GetBucket() : RenderBucketType::GBuffer;
 
 		command.m_VertexArray = vao.get();
 		command.m_MaterialInstance = material.get();
@@ -538,7 +539,7 @@ namespace Elevate
 				PushRenderState(shadowState);
 			}
 
-			const auto& bucket = s_commands.GetBucket(RenderBucket::GBuffer);
+			const auto& bucket = s_commands.GetBucket(RenderBucketType::GBuffer);
 
 			for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
 			{
@@ -579,8 +580,8 @@ namespace Elevate
 			s_geometryFramebuffer->ClearAndUse();
 
 			RenderSkybox();
-			s_commands.Flush(RenderBucket::GBuffer);
-			s_commands.Flush(RenderBucket::Transparent);
+			s_commands.Flush(RenderBucketType::GBuffer);
+			s_commands.Flush(RenderBucketType::Transparent);
 
 			s_geometryFramebuffer->Unbind();
 		}
@@ -792,7 +793,7 @@ namespace Elevate
 
 		PushRenderState(editorState);
 
-		s_commands.Flush(RenderBucket::Editor);
+		s_commands.Flush(RenderBucketType::Editor);
 		DebugRenderer::Render();
 
 		s_mainFramebuffer->Unbind();

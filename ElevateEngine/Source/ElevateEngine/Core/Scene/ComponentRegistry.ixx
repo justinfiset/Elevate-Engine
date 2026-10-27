@@ -63,6 +63,30 @@ export namespace Elevate
 			}
 		}
 
+		/////////////////////////////////////////////
+		// Context
+		/////////////////////////////////////////////
+
+		template<typename T, typename... Args>
+		T& EmplaceContext(uint32_t registryId, Args&&... args)
+		{
+			return Native(registryId)->ctx().emplace<T>(std::forward<Args>(args)...);
+		}
+
+		template<typename T>
+		T* TryGetContext(uint32_t registryId)
+		{
+			auto* reg = Native(registryId);
+			return reg ? reg->ctx().find<T>() : nullptr;
+		}
+
+		template<typename T>
+		bool HasContext(uint32_t registryId)
+		{
+			auto* reg = Native(registryId);
+			return reg && reg->ctx().contains<T>();
+		}
+
 	private:
 		entt::registry* Native(uint32_t registryId);
 

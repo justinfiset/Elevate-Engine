@@ -12,11 +12,10 @@ export module Elevate.Renderer.Cubemap;
 import Elevate.Renderer.Buffers;
 import Elevate.Renderer.RenderState;
 import Elevate.Renderer.VertexArray;
+import Elevate.Renderer.Shaders;
 
 export namespace Elevate
 {
-	class Shader;
-
 	class Cubemap
 	{
 	public:

@@ -7,23 +7,24 @@ export module Elevate.Renderer.Commands.RenderCommandQueue;
 import Elevate.Renderer.Materials.Material;
 import Elevate.Renderer.Commands.RenderBucket;
 import Elevate.Renderer.Commands.RenderCommand;
+import Elevate.Renderer.Commands.RenderBucketType;
 
 export namespace Elevate
 {
 	class RenderCommandQueue
 	{
 	public:
-		void Submit(RenderBucket::Type type, const RenderCommand& command);
+		void Submit(RenderBucketType type, const RenderCommand &command);
 		void Clear();
 
-		void Flush(RenderBucket::Type type);
+		void Flush(RenderBucketType type);
 		void FlushAll();
 
 		uint64_t GetCount();
-		const RenderBucket& GetBucket(RenderBucket::Type bucketType) const;
+		const RenderBucket &GetBucket(RenderBucketType bucketType) const;
 
 	protected:
-		std::array<RenderBucket, static_cast<size_t>(RenderBucket::Type::Count)> m_buckets;
+		std::array<RenderBucket, static_cast<size_t>(RenderBucketType::Count)> m_buckets;
 		uint64_t m_count = 0;
 	};
 }

@@ -1,7 +1,7 @@
 #include "BoxCollider.h"
 
 #ifdef EE_EDITOR_BUILD
-#include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
+import Elevate.Renderer.Debug.DebugRenderer;
 #endif
 
 namespace Elevate

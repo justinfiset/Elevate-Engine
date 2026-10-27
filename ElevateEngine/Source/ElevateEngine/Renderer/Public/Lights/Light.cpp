@@ -1,5 +1,9 @@
+module;
 
-#include "Light.h"
+#include <cfloat>
+#include <cmath>
+
+module Elevate.Renderer.Lights.Light;
 
 namespace Elevate
 {

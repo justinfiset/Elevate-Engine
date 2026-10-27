@@ -1,7 +1,9 @@
-#pragma once
+module;
 
 #include <glm/vec3.hpp>
 #include "Reflection.h"
+
+export module Elevate.Renderer.Lights.Light;
 
 // Core
 import Elevate.Core.Scene;
@@ -9,7 +11,7 @@ import Elevate.Core.Types.TypeRegistry;
 // Renderer
 import Elevate.Renderer.Shaders;
 
-namespace Elevate
+export namespace Elevate
 {
 	struct ShadowSettings
 	{

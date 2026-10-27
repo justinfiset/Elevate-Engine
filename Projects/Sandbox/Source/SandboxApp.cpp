@@ -5,11 +5,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <ElevateEngine/Foundations/Core.h> // todo : remove asap
-#include <ElevateEngine/Renderer/Environment/Cubemap/Cubemap.h>
-
-#include <ElevateEngine/Renderer/Light/DirectionalLight.h>
-#include <ElevateEngine/Renderer/Light/PointLight.h>
-#include <ElevateEngine/Renderer/Light/SpotLight.h>
 
 #include <ElevateEngine.h>
 
@@ -33,8 +28,9 @@ public:
 
 		Elevate::MaterialPtr material = Elevate::MaterialRegistry::LoadMaterial(m_shader);
 
-		m_scene->SetSkybox("engine://Cubemap/default.sky");
-
+		auto lighting = m_scene->EmplaceContext<Elevate::SceneLighting>();
+		auto env = m_scene->EmplaceContext<Elevate::SceneEnvironment>();
+		env.SetCubemap("engine://Cubemap/default.sky");
 		// TODO impl dans un API a part entiere
 		//tinyfd_messageBox(
 		//    "Erreur",

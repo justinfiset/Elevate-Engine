@@ -2,14 +2,18 @@ module;
 
 #include <array>
 #include <memory>
-#include <glm/glm.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
 
 export module Elevate.Renderer.Renderer;
 
 import Elevate.Core.Scene;
 import Elevate.Renderer.Cubemap;
 import Elevate.Renderer.RendererAPI;
-import Elevate.Renderer.SceneLighting;
+import Elevate.Renderer.Scene.Lighting;
+import Elevate.Renderer.Scene.Environment;
+import Elevate.Renderer.Shaders;
 export import Elevate.Renderer.RenderState;
 import Elevate.Renderer.Camera;
 import Elevate.Renderer.Texture;
@@ -81,7 +85,7 @@ export namespace Elevate
 		/// <param name="command">The RenderCommand to process at this exact instant.</param>
 		static void Dispatch(const RenderCommand& command);
 		// todo doc here
-		static void Submit(RenderBucket::Type type, const RenderCommand& command);
+		static void Submit(RenderBucketType type, const RenderCommand& command);
 		static void SubmitMesh(const std::shared_ptr<VertexArray>& vao, const MaterialPtr& material, const glm::mat4& transform);
 
 		// Textures

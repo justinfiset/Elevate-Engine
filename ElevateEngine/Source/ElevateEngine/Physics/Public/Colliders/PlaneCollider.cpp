@@ -1,7 +1,7 @@
 #include "PlaneCollider.h"
 
 #ifdef EE_EDITOR_BUILD
-#include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
+import Elevate.Renderer.Debug.DebugRenderer;
 #endif
 
 namespace Elevate
@@ -17,7 +17,7 @@ namespace Elevate
 		glm::vec3 lowerLeft = origin + left - front;
 		glm::vec3 upperRight = origin - left + front;
 		glm::vec3 lowerRight = origin - left - front;
-		
+
 		DebugRenderer::AddDebugLine({ upperLeft, upperRight, s_OutlineColor });
 		DebugRenderer::AddDebugLine({ upperRight, lowerRight, s_OutlineColor });
 		DebugRenderer::AddDebugLine({ lowerRight, lowerLeft, s_OutlineColor });

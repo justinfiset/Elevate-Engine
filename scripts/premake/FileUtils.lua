@@ -11,7 +11,12 @@ function FileUtils.SafeDelete(path)
 end
 
 function FileUtils.SafeCopy(src, dest)
-    if not os.isdir(src) then 
+    local checkPath = src
+    if os.host() == "windows" then
+        checkPath = src:gsub("/", "\\")
+    end
+
+    if not os.isdir(checkPath) then
         print("Warning: Source directory does not exist: " .. src)
         return 
     end

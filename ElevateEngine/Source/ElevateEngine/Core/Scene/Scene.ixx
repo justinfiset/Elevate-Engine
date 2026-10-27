@@ -9,8 +9,6 @@ export module Elevate.Core.Scene:Scene;
 import Elevate.Core.Events.Event;
 import Elevate.Core.Objects.Object;
 import Elevate.Core.Objects.ObjectPtr;
-import Elevate.Renderer.Cubemap;
-import Elevate.Renderer.SceneLighting;
 
 import :Fwd;
 import :ComponentRegistry;
@@ -46,15 +44,26 @@ export namespace Elevate
 
 		inline SceneType GetType() { return m_type; }
 
-		// Cubemap -> todo : move in a more specific struct
-		void SetSkybox(const std::string& skyboxFilePath);
-		std::weak_ptr<Cubemap> GetSkybox();
-
-		SceneLighting* GetSceneLighting();
-
 		uint32_t GetRegistryId();
-
 		ComponentRegistry& GetComponentRegistry();
+
+		template<typename T, typename... Args>
+		T& EmplaceContext(Args&&... args)
+		{
+			return GetComponentRegistry().EmplaceContext<T>(m_registryId, std::forward<Args>(args)...);
+		}
+
+		template<typename T>
+		T* TryGetContext()
+		{
+			return GetComponentRegistry().TryGetContext<T>(m_registryId);
+		}
+
+		template<typename T>
+		bool HasContext()
+		{
+			return GetComponentRegistry().HasContext<T>(m_registryId);
+		}
 
 		void RemoveFromRoot(const EEObjectPtr<GameObject>& object);
 		void AddRootObject(const EEObjectPtr<GameObject>& newRootObject);
@@ -75,9 +84,6 @@ export namespace Elevate
 		// Root objects of the scene hierarchy.
 		std::vector<EEObjectPtr<GameObject>> m_rootObjects;
 		PROPERTY(m_rootObjects);
-
-		std::shared_ptr<Cubemap> m_cubemap;
-		std::unique_ptr<SceneLighting> m_sceneLighting = nullptr;
 
 		END_OBJECT_CUSTOM();
 		DECLARE_AUTO_OBJECT_LAYOUT();

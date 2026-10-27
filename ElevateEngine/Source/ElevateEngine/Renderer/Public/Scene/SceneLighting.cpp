@@ -3,11 +3,7 @@ module;
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <ElevateEngine/Renderer/Light/DirectionalLight.h>
-#include <ElevateEngine/Renderer/Light/PointLight.h>
-#include <ElevateEngine/Renderer/Light/SpotLight.h>
-
-module Elevate.Renderer.SceneLighting;
+module Elevate.Renderer.Scene.Lighting;
 
 import Elevate.Renderer.Renderer;
 import Elevate.Renderer.Camera;
@@ -15,7 +11,7 @@ import Elevate.Renderer.Shaders;
 
 namespace Elevate
 {
-	void SceneLighting::UploadToShader(const std::shared_ptr<Shader>& shader) const
+	void SceneLighting::UploadToShader(const std::shared_ptr<Shader> &shader) const
 	{
 		if (shader)
 		{
@@ -42,7 +38,7 @@ namespace Elevate
 		}
 	}
 
-	const DirectionalLight* SceneLighting::GetDirLight() const
+	const DirectionalLight *SceneLighting::GetDirLight() const
 	{
 		return m_dirLight;
 	}
@@ -57,7 +53,7 @@ namespace Elevate
 		glm::mat4 lightWorld = m_dirLight->gameObject->GenGlobalMatrix();
 
 		glm::vec3 center(0.0f);
-		for (const auto& corner : cameraCorners)
+		for (const auto &corner : cameraCorners)
 		{
 			center += corner;
 		}
@@ -77,19 +73,19 @@ namespace Elevate
 		return lightProjection * lightView;
 	}
 
-	glm::mat4 SceneLighting::GetDirectionalLightProjection(const std::span<const glm::vec3> corners, const glm::mat4& lightView) const
+	glm::mat4 SceneLighting::GetDirectionalLightProjection(const std::span<const glm::vec3> corners, const glm::mat4 &lightView) const
 	{
-		const DirectionalShadowSettings& settings = m_dirLight->m_shadowSettings;
+		const DirectionalShadowSettings &settings = m_dirLight->m_shadowSettings;
 
 		glm::vec3 center(0.0f);
-		for (const glm::vec3& corner : corners)
+		for (const glm::vec3 &corner : corners)
 		{
 			center += corner;
 		}
 		center /= static_cast<float>(corners.size());
 
 		float radius = 0.0f;
-		for (const glm::vec3& corner : corners)
+		for (const glm::vec3 &corner : corners)
 		{
 			radius = std::max(radius, glm::distance(center, corner));
 		}
@@ -113,7 +109,7 @@ namespace Elevate
 		float minZ = std::numeric_limits<float>::max();
 		float maxZ = std::numeric_limits<float>::lowest();
 
-		for (const glm::vec3& corner : corners)
+		for (const glm::vec3 &corner : corners)
 		{
 			glm::vec3 lightSpaceCorner = glm::vec3(lightView * glm::vec4(corner, 1.0f));
 			minZ = std::min(minZ, lightSpaceCorner.z);
@@ -129,7 +125,7 @@ namespace Elevate
 		return glm::ortho(minX, maxX, minY, maxY, nearPlane, farPlane);
 	}
 
-	void SceneLighting::AddDirectionalLight(DirectionalLight* light)
+	void SceneLighting::AddDirectionalLight(DirectionalLight *light)
 	{
 		if (!light)
 		{
@@ -138,7 +134,7 @@ namespace Elevate
 		m_dirLight = light;
 	}
 
-	void SceneLighting::AddPointLight(PointLight* light)
+	void SceneLighting::AddPointLight(PointLight *light)
 	{
 		if (!light)
 		{
@@ -151,7 +147,7 @@ namespace Elevate
 		}
 	}
 
-	void SceneLighting::AddSpotLight(SpotLight* light)
+	void SceneLighting::AddSpotLight(SpotLight *light)
 	{
 		if (!light)
 		{
@@ -164,7 +160,7 @@ namespace Elevate
 		}
 	}
 
-	void SceneLighting::RemoveDirectionalLight(DirectionalLight* light)
+	void SceneLighting::RemoveDirectionalLight(DirectionalLight *light)
 	{
 		if (!light || m_dirLight != light)
 		{
@@ -174,7 +170,7 @@ namespace Elevate
 		m_dirLight = nullptr;
 	}
 
-	void SceneLighting::RemovePointLight(PointLight* light)
+	void SceneLighting::RemovePointLight(PointLight *light)
 	{
 		if (!light)
 		{
@@ -188,7 +184,7 @@ namespace Elevate
 		}
 	}
 
-	void SceneLighting::RemoveSpotLight(SpotLight* light)
+	void SceneLighting::RemoveSpotLight(SpotLight *light)
 	{
 		if (!light)
 		{

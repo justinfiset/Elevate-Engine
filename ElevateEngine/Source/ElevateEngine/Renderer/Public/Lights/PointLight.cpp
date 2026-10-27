@@ -1,6 +1,11 @@
-#include <ElevateEngine/Renderer/Light/SceneLighting.h>
+module;
 
-#include "PointLight.h"
+#include <glm/vec4.hpp>
+#include <string>
+
+module Elevate.Renderer.Lights.PointLight;
+
+import Elevate.Renderer.Scene.Lighting;
 
 #ifdef EE_EDITOR_BUILD
 import Elevate.Editor.Renderer;
@@ -8,17 +13,18 @@ import Elevate.Editor.Selection;
 #endif
 
 import Elevate.Renderer.Shaders;
+import Elevate.Renderer.Scene.Lighting;
 
 namespace Elevate
 {
 	void PointLight::Init()
 	{
-		gameObject->GetScene()->GetSceneLighting()->AddPointLight(this);
+		GetSceneLighting(gameObject->GetScene())->AddPointLight(this);
 	}
 
 	void PointLight::Destroy()
 	{
-		gameObject->GetScene()->GetSceneLighting()->RemovePointLight(this);
+		GetSceneLighting(gameObject->GetScene())->RemovePointLight(this);
 	}
 
 	void PointLight::UploadToShader(Shader* shader, uint32_t index) const

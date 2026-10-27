@@ -7,14 +7,23 @@ module;
 
 #include <glm/mat4x4.hpp>
 
-export module Elevate.Renderer.SceneLighting;
+export module Elevate.Renderer.Scene.Lighting;
 
-namespace Elevate
+// Foundations
+import Elevate.Foundations.CoreLogger;
+// Core
+import Elevate.Core.Scene;
+// Renderer
+import Elevate.Renderer.Shaders;
+import Elevate.Renderer.Lights.DirectionalLight;
+import Elevate.Renderer.Lights.PointLight;
+import Elevate.Renderer.Lights.SpotLight;
+
+export namespace Elevate::SceneLightingLimits
 {
-	class Shader;
-	class DirectionalLight;
-	class PointLight;
-	class SpotLight;
+	inline constexpr int MaxDirectionalLights = 1;
+	inline constexpr int MaxPointLights = 32;
+	inline constexpr int MaxSpotLights = 32;
 }
 
 export namespace Elevate
@@ -24,10 +33,12 @@ export namespace Elevate
 	public:
 		SceneLighting() = default;
 		SceneLighting(DirectionalLight* dirLight, std::initializer_list<PointLight*> pointLights, std::initializer_list<SpotLight*> spotLights)
-			: m_dirLight(dirLight), m_pointLights(pointLights), m_spotLights(spotLights) {
+			: m_dirLight(dirLight), m_pointLights(pointLights), m_spotLights(spotLights)
+		{
 		}
 		SceneLighting(DirectionalLight* dirLight, const std::vector<PointLight*>& pointLights, const std::vector<SpotLight*>& spotLights)
-			: m_dirLight(dirLight), m_pointLights(pointLights), m_spotLights(spotLights) {
+			: m_dirLight(dirLight), m_pointLights(pointLights), m_spotLights(spotLights)
+		{
 		}
 
 		void UploadToShader(const std::shared_ptr<Shader>& shader) const;
@@ -51,4 +62,18 @@ export namespace Elevate
 		std::vector<PointLight*> m_pointLights;
 		std::vector<SpotLight*> m_spotLights;
 	};
+}
+
+export namespace Elevate
+{
+	SceneLighting* GetSceneLighting(Scene* scene)
+	{
+		if (!scene)
+		{
+			CoreLogger::Warn("GetSceneLighting: Scene is null.");
+			return nullptr;
+		}
+
+		return scene->TryGetContext<SceneLighting>();
+	}
 }

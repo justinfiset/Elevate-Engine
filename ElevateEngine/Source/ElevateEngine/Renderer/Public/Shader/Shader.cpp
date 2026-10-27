@@ -15,7 +15,6 @@ import Elevate.Foundations.Assert;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Files;
 // Renderer
-import Elevate.Renderer.Camera;
 import Elevate.Renderer.Renderer;
 
 namespace Elevate
@@ -143,11 +142,6 @@ namespace Elevate
 	void Shader::SetProjectionViewMatrix(const glm::mat4 viewProjMatrix)
 	{
 		SetUniformMatrix4fv(ShaderUniforms::ViewProj, viewProjMatrix);
-	}
-
-	void Shader::SetProjectionViewMatrix(const Camera &cam)
-	{
-		SetUniformMatrix4fv(ShaderUniforms::ViewProj, cam.GenViewProjectionMatrix());
 	}
 
 	void Elevate::Shader::SetUniformMatrix2fv(const std::string &location, glm::mat2 data) const

@@ -1,17 +1,16 @@
-#include <string_view>
+module;
 
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
 #include <glm/gtc/constants.hpp>
 #include <glm/geometric.hpp>
 
-#include <ElevateEngine/Renderer/Light/SceneLighting.h>
+module Elevate.Renderer.Lights.DirectionalLight;
+
+import Elevate.Renderer.Scene.Lighting;
 
 #ifdef EE_EDITOR_BUILD
-#include <ElevateEngine/Renderer/Debug/DebugRenderer.h>
-#endif
-
-#include "DirectionalLight.h"
-
-#ifdef EE_EDITOR_BUILD
+import Elevate.Renderer.Debug.DebugRenderer;
 import Elevate.Editor.Renderer;
 import Elevate.Editor.Selection;
 #endif
@@ -20,12 +19,12 @@ namespace Elevate
 {
 	void DirectionalLight::Init()
 	{
-		gameObject->GetScene()->GetSceneLighting()->AddDirectionalLight(this);
+		GetSceneLighting(gameObject->GetScene())->AddDirectionalLight(this);
 	}
 
 	void DirectionalLight::Destroy()
 	{
-		gameObject->GetScene()->GetSceneLighting()->RemoveDirectionalLight(this);
+		GetSceneLighting(gameObject->GetScene())->RemoveDirectionalLight(this);
 	}
 
 	const glm::vec3 DirectionalLight::CalculateDirection() const
