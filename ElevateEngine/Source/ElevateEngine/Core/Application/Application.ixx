@@ -21,8 +21,6 @@ export namespace Elevate {
 	class Application;
 	using ApplicationFactory = Application * (*)();
 
-	class ImGuiLayer;
-
 	namespace Editor
 	{
 		class EditorLayer;
