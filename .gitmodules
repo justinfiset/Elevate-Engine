@@ -44,3 +44,6 @@
 [submodule "ElevateEngine/Vendor/JoltPhysics"]
 	path = ElevateEngine/Vendor/JoltPhysics
 	url = https://github.com/jrouwe/JoltPhysics/
+[submodule "ElevateEngine/Vendor/ImGuizmo"]
+	path = ElevateEngine/Vendor/ImGuizmo
+	url = https://github.com/CedricGuillemet/ImGuizmo.git
