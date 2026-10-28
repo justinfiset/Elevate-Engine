@@ -163,6 +163,7 @@ namespace Elevate
 			}
 
 			if (ImGui::ImageButton("file_item", (ImTextureID)m_currentTextures[item.iconPath]->GetNativeHandle(), buttonSize)) {}
+			const float itemWidth = ImGui::GetItemRectSize().x;
 
 			if (isSelected)
 			{
@@ -208,7 +209,7 @@ namespace Elevate
 				ImGui::SetKeyboardFocusHere();
 				std::string inputId = "##rename_" + std::to_string(itemIndex);
 
-				ImGui::SetNextItemWidth(buttonSize.x);
+				ImGui::SetNextItemWidth(itemWidth);
 				if (ImGui::InputText(inputId.c_str(), m_renameBuffer, sizeof(m_renameBuffer),
 					ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 				{
@@ -439,6 +440,8 @@ namespace Elevate
 					auto assetPtr = std::static_pointer_cast<Asset>(asset);
 					AssetRegistry::RegisterAssetOnDisk(assetPtr, filePath);
 					SelectAsset(assetPtr.get());
+					std::strcpy(m_renameBuffer, assetPtr->GetName().c_str());
+					m_isRenaming = true;
 				}
 			}
 			ImGui::EndMenu();

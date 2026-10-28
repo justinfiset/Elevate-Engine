@@ -17,7 +17,8 @@ export namespace Elevate
 	public:
 		virtual ~Texture() = default;
 
-		inline void SetData(unsigned char* data, TextureMetadata& meta) {
+		inline void SetData(unsigned char* data, TextureMetadata& meta)
+		{
 			m_meta = meta;
 			SetDataImpl(data);
 		}
