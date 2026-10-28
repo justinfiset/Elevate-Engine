@@ -16,6 +16,7 @@ import Elevate.Renderer.Renderer;
 import Elevate.Renderer.Buffers;
 import Elevate.Renderer.Shaders;
 import Elevate.Renderer.RenderState;
+import Elevate.Renderer.RendererAPI;
 
 void Elevate::DebugRenderer::Init()
 {
@@ -30,7 +31,7 @@ void Elevate::DebugRenderer::Render()
 	}
 }
 
-void Elevate::DebugRenderer::AddDebugCone(const glm::vec3 &origin, const glm::vec3 &direction, float radius, float range, uint16_t segmentCount, const glm::vec4 &color)
+void Elevate::DebugRenderer::AddDebugCone(const glm::vec3& origin, const glm::vec3& direction, float radius, float range, uint16_t segmentCount, const glm::vec4& color)
 {
 	constexpr float TWO_PI = glm::two_pi<float>();
 
@@ -48,12 +49,12 @@ void Elevate::DebugRenderer::AddDebugCone(const glm::vec3 &origin, const glm::ve
 		glm::vec3 p0 = center + (right * std::cos(angle0) + up * std::sin(angle0)) * radius;
 		glm::vec3 p1 = center + (right * std::cos(angle1) + up * std::sin(angle1)) * radius;
 
-		AddDebugLine({p0, p1, color});
-		AddDebugLine({p0, origin, color});
+		AddDebugLine({ p0, p1, color });
+		AddDebugLine({ p0, origin, color });
 	}
 }
 
-void Elevate::DebugRenderer::AddDebugCube(const glm::vec3 &origin, const glm::vec3 &extent, const glm::vec4 &color, glm::vec3 up, const glm::vec3 &left)
+void Elevate::DebugRenderer::AddDebugCube(const glm::vec3& origin, const glm::vec3& extent, const glm::vec4& color, glm::vec3 up, const glm::vec3& left)
 {
 	glm::vec3 right = glm::normalize(-left);
 	glm::vec3 normalizedUp = glm::normalize(up);
@@ -64,33 +65,33 @@ void Elevate::DebugRenderer::AddDebugCube(const glm::vec3 &origin, const glm::ve
 	const glm::vec3 z = forward * extent.z;
 
 	glm::vec3 corners[8] =
-		{
-			origin - x - y - z,
-			origin + x - y - z,
-			origin + x + y - z,
-			origin - x + y - z,
-			origin - x - y + z,
-			origin + x - y + z,
-			origin + x + y + z,
-			origin - x + y + z};
+	{
+		origin - x - y - z,
+		origin + x - y - z,
+		origin + x + y - z,
+		origin - x + y - z,
+		origin - x - y + z,
+		origin + x - y + z,
+		origin + x + y + z,
+		origin - x + y + z };
 
 	// Bottom
-	AddDebugLine({corners[0], corners[1], color});
-	AddDebugLine({corners[1], corners[5], color});
-	AddDebugLine({corners[5], corners[4], color});
-	AddDebugLine({corners[4], corners[0], color});
+	AddDebugLine({ corners[0], corners[1], color });
+	AddDebugLine({ corners[1], corners[5], color });
+	AddDebugLine({ corners[5], corners[4], color });
+	AddDebugLine({ corners[4], corners[0], color });
 
 	// Top
-	AddDebugLine({corners[3], corners[2], color});
-	AddDebugLine({corners[2], corners[6], color});
-	AddDebugLine({corners[6], corners[7], color});
-	AddDebugLine({corners[7], corners[3], color});
+	AddDebugLine({ corners[3], corners[2], color });
+	AddDebugLine({ corners[2], corners[6], color });
+	AddDebugLine({ corners[6], corners[7], color });
+	AddDebugLine({ corners[7], corners[3], color });
 
 	// Vertical
-	AddDebugLine({corners[0], corners[3], color});
-	AddDebugLine({corners[1], corners[2], color});
-	AddDebugLine({corners[5], corners[6], color});
-	AddDebugLine({corners[4], corners[7], color});
+	AddDebugLine({ corners[0], corners[3], color });
+	AddDebugLine({ corners[1], corners[2], color });
+	AddDebugLine({ corners[5], corners[6], color });
+	AddDebugLine({ corners[4], corners[7], color });
 }
 
 void Elevate::DebugRenderer::InternalInit()
@@ -125,7 +126,7 @@ void Elevate::DebugRenderer::InitLineRender()
 	m_lineBuffer->SetLayout({
 		{ShaderDataType::Float3, "a_Position"},
 		{ShaderDataType::Float4, "a_Color"},
-	});
+		});
 
 	m_lineArray.reset(VertexArray::Create());
 	m_lineArray->AddVertexBuffer(m_lineBuffer);
@@ -147,9 +148,9 @@ void Elevate::DebugRenderer::ClearDebugLines()
 
 void Elevate::DebugRenderer::AddDebugLine(DebugLineData line)
 {
-	DebugRenderer &instance = Get();
-	instance.m_debugLineArray.push_back({line.Start, line.Color});
-	instance.m_debugLineArray.push_back({line.End, line.Color});
+	DebugRenderer& instance = Get();
+	instance.m_debugLineArray.push_back({ line.Start, line.Color });
+	instance.m_debugLineArray.push_back({ line.End, line.Color });
 
 	if (instance.m_lineBuffer)
 	{
