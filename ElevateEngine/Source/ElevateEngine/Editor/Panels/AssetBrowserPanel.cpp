@@ -1,5 +1,6 @@
 module;
 
+#include <cstring>
 #include <algorithm>
 #include <cmath>
 #include <fstream>
@@ -23,10 +24,13 @@ import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Paths;
 import Elevate.Foundations.Files;
 import Elevate.Foundations.Shell;
+import Elevate.Foundations.Guid;
+import Elevate.Foundations.Bytes;
 // Core
 import Elevate.Core.Types.TypeRegistry;
 import Elevate.Core.Assets.AssetRegistry;
 import Elevate.Core.Assets.Asset;
+import Elevate.Core.Assets.AssetMetadata;
 // Renderer
 import Elevate.Renderer.Texture;
 // Serialization

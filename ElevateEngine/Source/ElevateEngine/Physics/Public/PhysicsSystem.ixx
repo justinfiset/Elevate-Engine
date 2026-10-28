@@ -18,8 +18,7 @@ export namespace Elevate
 	{
 	public:
 		static PhysicsSystem& Get();
-
-		~PhysicsSystem() = default;
+		virtual ~PhysicsSystem() = default;
 
 		static bool IsInitialized();
 
