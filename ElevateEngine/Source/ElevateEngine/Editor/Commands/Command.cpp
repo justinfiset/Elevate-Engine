@@ -1,3 +1,9 @@
+module;
+
+#include <memory>
+#include <stack>
+#include <utility>
+
 module Elevate.Editor.Commands.Command;
 
 import Elevate.Foundations;
