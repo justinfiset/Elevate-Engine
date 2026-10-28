@@ -39,7 +39,7 @@ export namespace Elevate
 
 	class Material : public Asset
 	{
-		BEGIN_OBJECT(Material, EE_Asset("Material", ".mat", EE_CreateAssetMenu, EE_AssetColor(0.8f, 0.2f, 0.2f)))
+		BEGIN_OBJECT(Material, EE_Asset("Material", ".mat", EE_CreateAssetMenu, EE_AssetColor(0.8f, 0.2f, 0.2f)));
 
 	public:
 		virtual TypeLayout GetLayout() const override;
@@ -99,7 +99,7 @@ export namespace Elevate
 
 		friend class MaterialFactory;
 
-		END_OBJECT_CUSTOM()
+		END_OBJECT_CUSTOM();
 	};
 
 	class MaterialFactory

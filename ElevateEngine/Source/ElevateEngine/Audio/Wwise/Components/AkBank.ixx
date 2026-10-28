@@ -11,16 +11,17 @@ export namespace Elevate
 {
 	class AkBank : public Component
 	{
-		BEGIN_COMPONENT(AkBank)
+		BEGIN_COMPONENT(AkBank);
 
 	public:
 		//WwiseSoundbankPtr m_soundBank;
 		//PROPERTY(m_soundBank);
 
 		std::string m_soundBankName;
-		PROPERTY(m_soundBankName)
+		PROPERTY(m_soundBankName);
 
-	protected:
 		void Init() override;
+
+		END_COMPONENT();
 	};
 }

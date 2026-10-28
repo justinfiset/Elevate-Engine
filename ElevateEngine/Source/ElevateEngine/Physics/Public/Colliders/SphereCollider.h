@@ -8,9 +8,9 @@ namespace Elevate
 {
 	class SphereCollider : public Collider
 	{
-		BEGIN_COMPONENT(SphereCollider)
-			DECLARE_BASE(Collider)
-		EECATEGORY("Physics")
+		BEGIN_COMPONENT(SphereCollider);
+		DECLARE_BASE(Collider);
+		EECATEGORY("Physics");
 
 	public:
 		SphereCollider() = default;
@@ -23,8 +23,8 @@ namespace Elevate
 
 	private:
 		SphereShape m_Shape;
-		PROPERTY(m_Shape, FlattenTag())
+		PROPERTY(m_Shape, FlattenTag());
 
-			END_COMPONENT()
+		END_COMPONENT();
 	};
 }

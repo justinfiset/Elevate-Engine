@@ -18,6 +18,8 @@ import Elevate.Editor.Types.EditorTypeTrait;
 import Elevate.Editor.Icons;
 #endif
 
+#define EE_REQUIRE_SEMICOLON static_assert(true, "")
+
 // todo : do not use macro in the future
 #ifdef EE_EDITOR_BUILD
 #define EE_EditorTag(x) x
@@ -61,7 +63,8 @@ private: \
         } \
     } generated_categoryRegistrar; \
 public: \
-    virtual ::Elevate::EECategory GetCategory() const override { return ThisType::generated_classEntry.Category; }
+    virtual ::Elevate::EECategory GetCategory() const override { return ThisType::generated_classEntry.Category; } \
+    EE_REQUIRE_SEMICOLON
 
 // =======================================================
 // DECLARE_AUTO_OBJECT_NAME / DECLARE_AUTO_OBJECT_LAYOUT
@@ -69,7 +72,8 @@ public: \
 
 #define DECLARE_AUTO_OBJECT_NAME() \
 public: \
-    inline virtual std::string GetName() const override { return generated_classEntry.ClassName; }
+    inline virtual std::string GetName() const override { return generated_classEntry.ClassName; } \
+    EE_REQUIRE_SEMICOLON
 
 #define DECLARE_AUTO_OBJECT_LAYOUT() \
 public: \
@@ -99,7 +103,8 @@ public: \
             instanceFields.push_back(instField); \
         } \
         return ::Elevate::TypeLayout(this, generated_classEntry.ClassName, instanceFields); \
-    }
+    } \
+    EE_REQUIRE_SEMICOLON
 
 // =======================================================
 // BEGIN_OBJECT / DECLARE_BASE / PROPERTY / END_OBJECT
@@ -120,7 +125,8 @@ public: \
         std::string ClassName; \
         std::vector<::Elevate::TypeField> ClassFieldStack; \
         bool HasBaseClass = false; \
-    } generated_classEntry;
+    } generated_classEntry; \
+    EE_REQUIRE_SEMICOLON
 
 #define DECLARE_BASE(BaseType) \
 private: \
@@ -130,7 +136,8 @@ private: \
             generated_classEntry.HasBaseClass = true; \
         } \
     } generated_baseDeclaration; \
-public:
+public: \
+    EE_REQUIRE_SEMICOLON
 
 #define PROPERTY(param, ...) \
 private: \
@@ -146,7 +153,8 @@ private: \
             ); \
         } \
     } generated_##param##PropertyEntry; \
-public:
+public: \
+    EE_REQUIRE_SEMICOLON
 
 #define END_OBJECT_CUSTOM() \
 private: \
@@ -161,18 +169,19 @@ private: \
         } \
     } generated_classEntryEnd; \
 public: \
-    virtual std::type_index GetTypeIndex() const override { return typeid(ThisType); }
+    virtual std::type_index GetTypeIndex() const override { return typeid(ThisType); } \
+    EE_REQUIRE_SEMICOLON
 
 #define END_OBJECT() \
-    END_OBJECT_CUSTOM() \
-    DECLARE_AUTO_OBJECT_LAYOUT() \
-    DECLARE_AUTO_OBJECT_NAME()
+    END_OBJECT_CUSTOM(); \
+    DECLARE_AUTO_OBJECT_LAYOUT(); \
+    DECLARE_AUTO_OBJECT_NAME();
 
 // =======================================================
 // BEGIN_COMPONENT / END_COMPONENT
 // =======================================================
 #define BEGIN_COMPONENT(T, ...) \
-BEGIN_OBJECT(T, __VA_ARGS__) \
+BEGIN_OBJECT(T, __VA_ARGS__); \
 public: \
     virtual bool RemoveFromGameObject() override { \
         if (gameObject) { \
@@ -180,7 +189,8 @@ public: \
             return true; \
         } \
         return false; \
-    }
+    } \
+    EE_REQUIRE_SEMICOLON
 
 #ifdef EE_EDITOR_BUILD
 #define EDITOR_ONLY_COMPONENT_END_CODE(T) \
@@ -207,7 +217,7 @@ public: \
 #endif
 
 #define END_COMPONENT() \
-END_OBJECT() \
+END_OBJECT(); \
 public: \
     inline static struct ComponentEntryEnd { \
         ComponentEntryEnd() { \
@@ -278,7 +288,8 @@ public: \
     void SetFromProperties(const ::Elevate::PropertySet& props) override { \
         GetLayout().ApplyState(props); \
     } \
-    EDITOR_ONLY_COMPONENT_END_CODE(ThisType)
+    EDITOR_ONLY_COMPONENT_END_CODE(ThisType) \
+    EE_REQUIRE_SEMICOLON
 
 // =======================================================
 // BEGIN_STRUCT / END_STRUCT
@@ -295,7 +306,8 @@ public: \
         std::string StructName; \
         std::string StructTypeName; \
         std::vector<::Elevate::TypeField> StructFieldStack; \
-    } generated_structEntry;
+    } generated_structEntry; \
+    EE_REQUIRE_SEMICOLON
 
 #define END_STRUCT() \
 private: \
@@ -325,4 +337,5 @@ public: \
     } \
     inline void SetFromProperties(const ::Elevate::PropertySet& props) { \
         GetLayout().ApplyState(props); \
-    }
+    } \
+    EE_REQUIRE_SEMICOLON

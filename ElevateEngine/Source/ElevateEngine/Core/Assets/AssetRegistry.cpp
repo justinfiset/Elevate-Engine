@@ -4,6 +4,11 @@ module;
 #include <cctype>
 #include <system_error>
 #include <filesystem>
+#include <algorithm>
+#include <string>
+#include <typeindex>
+#include <unordered_map>
+#include <vector>
 
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
@@ -14,6 +19,7 @@ module Elevate.Core.Assets.AssetRegistry;
 // Foundations
 import Elevate.Foundations.Paths;
 import Elevate.Foundations.Files;
+import Elevate.Foundations.Bytes;
 
 // Core
 import Elevate.Core.Assets.Asset;
