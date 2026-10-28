@@ -116,19 +116,16 @@ export namespace Elevate
 
 		inline const BufferLayout& GetLayout() { return m_layout; }
 
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
+
 	protected:
 		virtual BufferLayout ExtractReflectionData() const = 0;
 		inline void SetInitializationStatus(bool initialized) { m_isInitialized = initialized; }
 
 	private:
-		virtual void Bind() const = 0;
-		virtual void Unbind() const = 0;
-
-	private:
 		BufferLayout m_layout;
 		bool m_isInitialized = false;
-
-		friend class Renderer;
 	};
 
 	class DefaultShader
