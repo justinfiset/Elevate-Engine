@@ -6,6 +6,7 @@ export module Elevate.Core.SceneLayer;
 
 import Elevate.Core.Scene;
 import Elevate.Core.Layers.Layer;
+import Elevate.Core.Events.Event;
 import Elevate.Renderer.Camera;
 
 export namespace Elevate
