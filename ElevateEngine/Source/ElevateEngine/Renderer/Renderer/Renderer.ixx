@@ -9,6 +9,7 @@ module;
 export module Elevate.Renderer.Renderer;
 
 import Elevate.Core.Scene;
+import Elevate.Renderer.VertexArray;
 import Elevate.Renderer.Cubemap;
 import Elevate.Renderer.RendererAPI;
 import Elevate.Renderer.Scene.Lighting;
