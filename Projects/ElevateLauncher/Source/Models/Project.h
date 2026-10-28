@@ -15,26 +15,26 @@ namespace EL
 {
 	struct Project
 	{
-		BEGIN_STRUCT(Project)
+		BEGIN_STRUCT(Project);
 		bool IsValid = false;
 		uint32_t Id = 0;
 		std::string Name = "";
-		PROPERTY(Name)
+		PROPERTY(Name);
 		std::string Path = "";
-		PROPERTY(Path)
+		PROPERTY(Path);
 		std::time_t LastOpened = 0;
-		PROPERTY(LastOpened)
+		PROPERTY(LastOpened);
 		bool UsesWwise = false;
-		PROPERTY(UsesWwise)
-		END_STRUCT()
+		PROPERTY(UsesWwise);
+		END_STRUCT();
 	};
 
 	struct ProjectList
 	{
-		BEGIN_STRUCT(ProjectList)
+		BEGIN_STRUCT(ProjectList);
 		std::vector<Project> Projects;
 		PROPERTY(Projects);
-		END_STRUCT()
+		END_STRUCT();
 	};
 
 	struct ProjectTemplate
