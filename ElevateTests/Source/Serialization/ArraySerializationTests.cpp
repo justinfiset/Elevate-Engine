@@ -1,41 +1,13 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 
-#include "Reflection.h"
+#include "../Mocks/MockArrayEEObject.h"
 
 import Elevate;
 using namespace Elevate;
 
-struct MockSubStruct
+TEST_CASE("EEObject Array of Structs JSON Roundtrip", "[Serialization][PropertySet][JsonSerializer][Array]")
 {
-	BEGIN_STRUCT(MockSubStruct);
-	std::string itemName = "DefaultItem";
-	PROPERTY(itemName);
-	int itemID = 42;
-	PROPERTY(itemID);
-	END_STRUCT();
-
-	MockSubStruct() = default;
-	MockSubStruct(std::string name, int id) : itemName(std::move(name)), itemID(id) {}
-};
-
-class MockArrayEEObject : public EEObject
-{
-public:
-	using Super = EEObject;
-
-	BEGIN_OBJECT(MockArrayEEObject);
-
-	std::vector<MockSubStruct> projectList;
-	PROPERTY(projectList);
-
-	END_OBJECT();
-
-	MockArrayEEObject() = default;
-	virtual ~MockArrayEEObject() = default;
-};
-
-TEST_CASE("EEObject Array of Structs JSON Roundtrip", "[Serialization][PropertySet][JSONSerializer][Array]") {
 	auto originalObj = std::make_shared<MockArrayEEObject>();
 
 	originalObj->projectList.emplace_back("ElevateLauncher", 101);
