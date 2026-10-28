@@ -2,10 +2,6 @@
 	path = ElevateEngine/Vendor/rapidjson
 	url = https://github.com/Tencent/rapidjson
 	ignore = all
-[submodule "ElevateEngine/vendor/ImGuizmo"]
-	path = ElevateEngine/Vendor/ImGuizmo
-	url = https://github.com/justinfiset/ImGuizmo
-	ignore = all
 [submodule "ElevateEngine/vendor/ImGui"]
 	path = ElevateEngine/Vendor/ImGui
 	url = https://github.com/ocornut/imgui
