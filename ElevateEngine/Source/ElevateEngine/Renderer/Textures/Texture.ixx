@@ -42,19 +42,16 @@ export namespace Elevate
 
 		inline const TextureMetadata& GetMetadata() const { return m_meta; }
 
+		virtual void Bind(uint32_t index = 0) = 0;
+		virtual void Unbind() = 0;
+
 	protected:
 		Texture() = default;
 		Texture(TextureMetadata meta) : m_meta(meta) {}
 
 		virtual void SetDataImpl(const void* data) = 0;
 
-	private:
-		virtual void Bind(uint32_t index = 0) = 0;
-		virtual void Unbind() = 0;
-
 	protected:
 		TextureMetadata m_meta;
-
-		friend class Renderer;
 	};
 }
