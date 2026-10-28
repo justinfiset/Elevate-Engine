@@ -8,6 +8,7 @@ module Elevate.Renderer.Buffers;
 
 import Elevate.Foundations.Assert;
 import Elevate.Renderer.Renderer;
+import Elevate.Renderer.RendererAPI;
 
 namespace Elevate
 {
