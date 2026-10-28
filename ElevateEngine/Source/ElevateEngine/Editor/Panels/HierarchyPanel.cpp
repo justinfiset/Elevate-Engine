@@ -17,6 +17,7 @@ import Elevate.Core.Scene;
 import Elevate.Core.Objects.ObjectPtr;
 // Editor
 import Elevate.Editor.Layer;
+import Elevate.Editor.Widgets.ContextMenu;
 
 namespace Elevate::Editor
 {
@@ -78,7 +79,7 @@ namespace Elevate::Editor
 
 			open = ImGui::TreeNodeEx((object->GetName() + "##" + std::to_string((uintptr_t)object.get())).c_str(), nodeFlags);
 
-			if (ImGui::BeginPopupContextItem())
+			if (Widgets::ContextMenu::BeginOnItem("HierarchyPanelContextMenu"))
 			{
 				if (ImGui::MenuItem("Delete")) { object->Destroy(); }
 				if (ImGui::MenuItem("Rename"))
@@ -89,7 +90,7 @@ namespace Elevate::Editor
 					m_renameBuffer[sizeof(m_renameBuffer) - 1] = '\0';
 				}
 
-				ImGui::EndPopup();
+				Widgets::ContextMenu::End();
 			}
 		}
 

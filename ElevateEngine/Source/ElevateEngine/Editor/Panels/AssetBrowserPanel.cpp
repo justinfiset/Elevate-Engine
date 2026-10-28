@@ -35,6 +35,7 @@ import Elevate.Serialization.JsonSerializer;
 import Elevate.Input;
 // Editor
 import Elevate.Editor.Layer;
+import Elevate.Editor.Widgets.ContextMenu;
 
 namespace fs = std::filesystem;
 
@@ -321,10 +322,10 @@ namespace Elevate
 			m_selected.clear();
 		}
 
-		if (ImGui::BeginPopup("AssetContextMenu"))
+		if (Widgets::ContextMenu::Begin("AssetContextMenu"))
 		{
 			DrawContextMenu();
-			ImGui::EndPopup();
+			Widgets::ContextMenu::End();
 		}
 
 		ImGui::End();

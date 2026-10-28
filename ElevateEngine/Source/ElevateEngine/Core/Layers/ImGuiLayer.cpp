@@ -11,6 +11,7 @@ module;
 
 module Elevate.Core.Layers.ImGuiLayer;
 
+import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Application;
 
 Elevate::ImGuiLayer::ImGuiLayer()
@@ -26,6 +27,8 @@ void Elevate::ImGuiLayer::OnAttach()
 {
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
+	CoreLogger::Info("ImGui {} (version num: {})", IMGUI_VERSION, IMGUI_VERSION_NUM);
+
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	(void)io;
