@@ -4,6 +4,7 @@
 
 // Core
 import Elevate.Core.Window;
+import Elevate.Core.Events.Event;
 // Renderer
 import Elevate.Renderer.GraphicsContext;
 
