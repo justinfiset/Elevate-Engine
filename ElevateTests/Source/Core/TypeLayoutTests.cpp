@@ -65,3 +65,32 @@ TEST_CASE("TypeLayout::CaptureState with mock object", "[Serialization][TypeLayo
 		}
 	}
 }
+
+TEST_CASE("Nested struct round trip changes every field", "[Serialization][TypeLayout]")
+{
+	// Arrange
+	auto original = std::make_shared<MockEEObject>();
+	original->testInt = 1;
+	original->testFloat = 2.5f;
+	original->testStruct.testStructInt = 456;
+	original->testStruct.testStructString = "changed";
+
+	// Act
+	PropertySet props = original->GetLayout().CaptureState();
+	JsonSerializer serializer;
+	ByteBuffer buffer;
+	REQUIRE(serializer.Serialize(props, buffer));
+	CAPTURE(ByteUtils::ToString(buffer));
+
+	PropertySet loaded;
+	REQUIRE(serializer.Deserialize(buffer, loaded));
+
+	auto restored = std::make_shared<MockEEObject>();
+	restored->GetLayout().ApplyState(loaded);
+
+	// Assert
+	CHECK(restored->testInt == 1);
+	CHECK(restored->testFloat == 2.5f);
+	CHECK(restored->testStruct.testStructInt == 456);
+	CHECK(restored->testStruct.testStructString == "changed");
+}

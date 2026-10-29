@@ -6,11 +6,14 @@ module;
 #include <variant>
 #include <string>
 
+#include <glm/glm.hpp>
+
 module Elevate.Core.Types.TypeLayout;
 
 import Elevate.Foundations.Data;
 import Elevate.Foundations.Enums;
 import Elevate.Foundations.Guid;
+import Elevate.Foundations.CoreLogger;
 
 import Elevate.Core.Objects.ObjectPtr;
 
@@ -103,6 +106,25 @@ namespace Elevate
 			prop.Value = guidPtr->ToString();
 			break;
 		}
+		case EngineDataType::Float4:
+		{
+			const auto* v = reinterpret_cast<const glm::vec4*>(field.data);
+			static constexpr const char* names[4] = { "x", "y", "z", "w" };
+
+			PropertySet comps;
+			for (int i = 0; i < 4; ++i)
+			{
+				PropertyField c;
+				c.Name = names[i];
+				c.Path = prop.Path + "/" + names[i];
+				c.Type = EngineDataType::Float;
+				c.Depth = currentDepth + 1;
+				c.Value = static_cast<double>((*v)[i]);
+				comps.push_back(c);
+			}
+			prop.Value = PropertyContainer{ comps };
+			break;
+		}
 		case EngineDataType::ObjectPtr:
 		{
 			const auto* objPtr = reinterpret_cast<const IEEObjectPtr*>(field.data);
@@ -111,6 +133,7 @@ namespace Elevate
 		}
 		default:
 		{
+			CoreLogger::Warn("CaptureState: type not suported for '{}' ({})", prop.Path, static_cast<int>(field.type));
 			prop.Value = "Unknown value type.";
 			break;
 		}
@@ -384,7 +407,27 @@ namespace Elevate
 						if (std::holds_alternative<EnumType>(it->Value))
 							*reinterpret_cast<EnumType*>(mutableData) = std::get<EnumType>(it->Value);
 						break;
+					case EngineDataType::Float4:
+					{
+						auto propsIt = std::find_if(props.begin(), props.end(),
+							[&](const PropertyField& p) { return p.Path == currentPath; });
+
+						if (propsIt != props.end() && std::holds_alternative<PropertyContainer>(propsIt->Value))
+						{
+							auto* v = const_cast<glm::vec4*>(reinterpret_cast<const glm::vec4*>(field.data));
+							const auto& c = std::get<PropertyContainer>(propsIt->Value).Children;
+							for (size_t i = 0; i < 4 && i < c.size(); ++i)
+							{
+								if (std::holds_alternative<double>(c[i].Value))
+								{
+									(*v)[i] = static_cast<float>(std::get<double>(c[i].Value));
+								}
+							}
+						}
+						break;
+					}
 					default:
+						CoreLogger::Warn("ApplyState: unsported type for '{}' ({})", currentPath, static_cast<int>(field.type));
 						break;
 					}
 				}

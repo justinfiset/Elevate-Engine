@@ -9,6 +9,8 @@ import Elevate.Foundations.CoreLogger;
 // Core
 import Elevate.Core.Scene;
 import Elevate.Core.Types.TypeRegistry;
+// Serialization
+import Elevate.Serialization.PropertyField;
 // Editor
 import Elevate.Editor.Commands.Command;
 
@@ -17,26 +19,23 @@ export namespace Elevate
 	class RemoveComponentCommand : public Command
 	{
 	public:
-		RemoveComponentCommand(Component* comp) : m_component(comp)
+		RemoveComponentCommand(Component* comp)
 		{
-			if (m_component)
+			if (!comp)
 			{
-				try {
-					m_obj = comp->gameObject->GetShared();
-				}
-				catch (...) {}
-
-				m_backup.reset(m_component->Clone());
-				m_factory = m_component->GetFactory();
-				m_destructor = m_component->GetDestructor();
+				return;
 			}
+
+			m_obj = comp->gameObject->GetShared();
+			m_factory = comp->GetFactory();
+			m_destructor = comp->GetDestructor();
+			m_properties = comp->GetProperties();
 		}
 	private:
 		std::weak_ptr<GameObject> m_obj;
-		Component* m_component = nullptr;
-		std::unique_ptr<Component> m_backup;
 		GameObjectComponentFactory m_factory;
 		GameObjectComponentDestructor m_destructor;
+		PropertySet m_properties;
 
 		virtual void Execute() override
 		{
@@ -48,14 +47,14 @@ export namespace Elevate
 
 		virtual void Undo() override
 		{
-			if (m_backup && m_factory)
+			if (m_factory)
 			{
 				if (auto go = m_obj.lock())
 				{
 					Component* created = static_cast<Component*>(m_factory(go.get()));
 					if (created)
 					{
-						created->CopyFrom(m_backup.get());
+						created->SetFromProperties(m_properties);
 					}
 				}
 			}
@@ -78,7 +77,6 @@ export namespace Elevate
 
 		virtual void Execute() override
 		{
-			CoreLogger::Trace("AddComponentCommand");
 			if (auto go = m_obj.lock(); go && m_factory)
 			{
 				m_factory(go.get());
