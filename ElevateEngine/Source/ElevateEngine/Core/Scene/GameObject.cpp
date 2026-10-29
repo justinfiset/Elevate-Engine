@@ -13,8 +13,10 @@ module Elevate.Core.Scene;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
 
+import Elevate.Core.Types.TypeLayout;
 import Elevate.Core.Types.TypeRegistry;
 import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Core.Events.Event;
 
 import Elevate.Audio.SoundEngine;
 

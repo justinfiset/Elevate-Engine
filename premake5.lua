@@ -1,5 +1,11 @@
 require "vendor/premake-export-compile-commands/export-compile-commands"
 
+newoption {
+	trigger = "compiler",
+	value = "COMPILER",
+	description = "Select the Linux compiler toolset (gcc or clang)."
+}
+
 outputdir = "%{cfg.buildcfg:gsub(' ', '-')}-%{cfg.system}-%{cfg.architecture}"
 ElevateConfigs = { "Editor_Debug", "Editor_Release", "Debug", "Release", "Dist" }
 

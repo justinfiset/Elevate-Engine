@@ -157,6 +157,7 @@ local function webModuleBuildCommands()
     script:write("set MODULE_FLAGS=%MODULE_DIR%\\module-flags.rsp\r\n")
     script:write("if exist \"%MODULE_FLAGS%\" del /q \"%MODULE_FLAGS%\"\r\n")
     script:write("type nul > \"%MODULE_FLAGS%\"\r\n")
+    script:write("if not exist \"%MODULE_FLAGS%\" exit /b 1\r\n")
     for _, filename in ipairs(orderedModuleFiles()) do
         local file = io.open(filename, "r")
         local moduleName = nil
@@ -242,7 +243,7 @@ filter "system:linux"
 prebuildcommands(moduleBuildCommands())
 
 filter "system:emscripten"
-local webModuleDirectory = "Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
+local webModuleDirectory = _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
 prebuildcommands(webModuleBuildCommands())
 buildoptions {"-fprebuilt-module-path=" .. webModuleDirectory,
               "@" .. webModuleDirectory .. "/module-flags.rsp"}

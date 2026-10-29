@@ -12,6 +12,7 @@
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
 // Core
+import Elevate.Core.Events.Event;
 import Elevate.Core.Events.KeyEvent;
 import Elevate.Core.Events.MouseEvent;
 import Elevate.Core.Events.ApplicationEvent;

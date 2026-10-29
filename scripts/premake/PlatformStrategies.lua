@@ -17,7 +17,7 @@ WindowsStrategy = {
 LinuxStrategy = {
     ConfigureWorkspace = function()
         architecture "x64"
-        toolset "clang"
+        toolset ((_OPTIONS and _OPTIONS["compiler"]) == "gcc" and "gcc" or "clang")
 
         filter {"language:C++"}
         buildoptions {"-fno-lto"}
