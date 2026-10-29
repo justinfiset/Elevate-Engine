@@ -1,5 +1,6 @@
 module;
 
+#include <memory>
 #include <glm/glm.hpp>
 
 module Elevate.Editor.Renderer;
