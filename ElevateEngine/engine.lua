@@ -134,6 +134,16 @@ local function moduleBuildCommands()
     return commands
 end
 
+local function gccModuleBuildCommands()
+    local commands = {}
+    for _, filename in ipairs(orderedModuleFiles()) do
+        local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
+        table.insert(commands,
+            "$(CXX) $(ALL_CXXFLAGS) -std=c++20 -fmodules-ts -fmodule-only -x c++ -c " .. relativePath)
+    end
+    return commands
+end
+
 local function webModuleBuildCommands()
     local commands = {}
     local moduleDirectory = _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
@@ -237,10 +247,18 @@ links {"opengl32.lib"}
 
 filter {"system:linux", "language:C++"}
 links {"GL", "X11", "pthread", "dl"}
-buildoptions {"-fprebuilt-module-path=%{cfg.objdir}/modules"}
+if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
+    buildoptions {"-fmodules-ts"}
+else
+    buildoptions {"-fprebuilt-module-path=%{cfg.objdir}/modules"}
+end
 
 filter "system:linux"
-prebuildcommands(moduleBuildCommands())
+if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
+    prebuildcommands(gccModuleBuildCommands())
+else
+    prebuildcommands(moduleBuildCommands())
+end
 
 filter "system:emscripten"
 local webModuleDirectory = _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
