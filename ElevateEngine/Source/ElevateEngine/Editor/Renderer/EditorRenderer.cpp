@@ -12,7 +12,7 @@ import Elevate.Renderer.Meshes.Mesh;
 import Elevate.Renderer.Materials.Material;
 import Elevate.Renderer.Renderer;
 import Elevate.Renderer.RenderState;
-import Elevate.Renderer.Commands;
+import Elevate.Renderer.Commands.RenderBucketType;
 
 namespace Elevate
 {

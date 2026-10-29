@@ -1,5 +1,9 @@
 #pragma once
 
+#include <cstdint>
+#include <vector>
+#include <memory>
+
 import Elevate.Renderer.Framebuffers;
 import Elevate.Renderer.Texture;
 
