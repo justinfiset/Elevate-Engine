@@ -1,21 +1,18 @@
 module;
 
 #include <algorithm>
+#include <cstddef>
 #include <cstdint>
-#include <functional>
-#include <variant>
 #include <string>
-
-#include <glm/glm.hpp>
+#include <variant>
+#include <vector>
 
 module Elevate.Core.Types.TypeLayout;
 
 import Elevate.Foundations.Data;
-import Elevate.Foundations.Enums;
-import Elevate.Foundations.Guid;
 import Elevate.Foundations.CoreLogger;
 
-import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Core.Types.ValueCodec;
 
 import Elevate.Serialization.PropertyField;
 
@@ -66,173 +63,199 @@ namespace Elevate
 		return PropertyFlag::None;
 	}
 
-	PropertySet CreateContainer(const TypeField& parent, const std::string& parentPath, uint16_t currentDepth);
-	PropertySet CreateArrayPropertySet(const TypeField& parent, const std::string& parentPath, uint16_t currentDepth);
-
-	void SetPropertyRawValue(const TypeField& field, PropertyField& prop, uint16_t currentDepth)
+	namespace
 	{
-		if (field.type == EngineDataType::Array)
+		TypeField MakeArrayElementField(const TypeField& array, const std::string& name, const void* elementData)
 		{
-			prop.Value = PropertyContainer{ CreateArrayPropertySet(field, prop.Path, currentDepth + 1) };
-			return;
+			TypeField element;
+			element.name = name;
+			element.type = array.elementType;
+			element.data = elementData;
+			element.children = array.elementChildren;
+			return element;
 		}
 
-		if (!field.data)
-			return;
+		// ------------------------------------------------------------------
+		// Capture : memory -> PropertySet
+		// ------------------------------------------------------------------
+		PropertyField CaptureField(const TypeField& field, const std::string& path, uint16_t depth);
 
-		switch (field.type)
+		PropertySet CaptureChildren(const TypeField& parent, const std::string& parentPath, uint16_t depth)
 		{
-		case EngineDataType::Bool:
-			prop.Value = *reinterpret_cast<const bool*>(field.data);
-			break;
-		case EngineDataType::Int:
-			prop.Value = static_cast<int64_t>(*reinterpret_cast<const int32_t*>(field.data));
-			break;
-		case EngineDataType::Float:
-			prop.Value = static_cast<double>(*reinterpret_cast<const float*>(field.data));
-			break;
-		case EngineDataType::Double:
-			prop.Value = *reinterpret_cast<const double*>(field.data);
-			break;
-		case EngineDataType::String:
-			prop.Value = *reinterpret_cast<const std::string*>(field.data);
-			break;
-		case EngineDataType::Enum:
-			prop.Value = *static_cast<const EnumType*>(field.data);
-			break;
-		case EngineDataType::GUID:
-		{
-			const auto* guidPtr = reinterpret_cast<const Guid*>(field.data);
-			prop.Value = guidPtr->ToString();
-			break;
-		}
-		case EngineDataType::Float4:
-		{
-			const auto* v = reinterpret_cast<const glm::vec4*>(field.data);
-			static constexpr const char* names[4] = { "x", "y", "z", "w" };
+			PropertySet set;
 
-			PropertySet comps;
-			for (int i = 0; i < 4; ++i)
+			for (const TypeField& child : parent.children)
 			{
-				PropertyField c;
-				c.Name = names[i];
-				c.Path = prop.Path + "/" + names[i];
-				c.Type = EngineDataType::Float;
-				c.Depth = currentDepth + 1;
-				c.Value = static_cast<double>((*v)[i]);
-				comps.push_back(c);
-			}
-			prop.Value = PropertyContainer{ comps };
-			break;
-		}
-		case EngineDataType::ObjectPtr:
-		{
-			const auto* objPtr = reinterpret_cast<const IEEObjectPtr*>(field.data);
-			prop.Value = objPtr->GetGuid().ToString();
-			break;
-		}
-		default:
-		{
-			CoreLogger::Warn("CaptureState: type not suported for '{}' ({})", prop.Path, static_cast<int>(field.type));
-			prop.Value = "Unknown value type.";
-			break;
-		}
-		}
-	}
+				TypeField instance = child;
+				if (!instance.data && parent.data)
+				{
+					instance.data = static_cast<const char*>(parent.data) + child.offset;
+				}
 
-	PropertySet CreateArrayPropertySet(const TypeField& parent, const std::string& parentPath, uint16_t currentDepth)
-	{
-		PropertySet arraySet;
+				if (!instance.data && instance.type != EngineDataType::Array && instance.children.empty())
+				{
+					continue;
+				}
 
-		if (!parent.data || !parent.GetArraySize || !parent.GetElementAddress)
-			return arraySet;
-
-		size_t count = parent.GetArraySize(parent.data);
-
-		for (size_t i = 0; i < count; ++i)
-		{
-			PropertyField elemProp;
-			std::string indexStr = "[" + std::to_string(i) + "]";
-
-			elemProp.Name = indexStr;
-			elemProp.Path = parentPath + indexStr;
-			elemProp.Depth = currentDepth;
-			elemProp.Type = parent.elementType;
-
-			const void* elementDataPtr = parent.GetElementAddress(parent.data, i);
-			if (!elementDataPtr)
-				continue;
-
-			if (!parent.elementChildren.empty())
-			{
-				TypeField virtualChildField;
-				virtualChildField.name = indexStr;
-				virtualChildField.type = EngineDataType::Custom;
-				virtualChildField.data = elementDataPtr;
-				virtualChildField.children = parent.elementChildren;
-
-				elemProp.Value = PropertyContainer{ CreateContainer(virtualChildField, elemProp.Path, currentDepth + 1) };
-			}
-			else
-			{
-				TypeField virtualPrimitiveField;
-				virtualPrimitiveField.name = indexStr;
-				virtualPrimitiveField.type = parent.elementType;
-				virtualPrimitiveField.data = elementDataPtr;
-
-				SetPropertyRawValue(virtualPrimitiveField, elemProp, currentDepth);
+				const std::string path = parentPath.empty() ? child.name : parentPath + "/" + child.name;
+				set.push_back(CaptureField(instance, path, depth));
 			}
 
-			arraySet.push_back(elemProp);
+			return set;
 		}
 
-		return arraySet;
-	}
+		PropertySet CaptureArray(const TypeField& array, const std::string& path, uint16_t depth)
+		{
+			PropertySet set;
 
-	PropertySet CreateContainer(const TypeField& parent, const std::string& parentPath, uint16_t currentDepth)
-	{
-		PropertySet set;
+			if (!array.data || !array.GetArraySize || !array.GetElementAddress)
+			{
+				return set;
+			}
 
-		for (const TypeField& field : parent.children)
+			const size_t count = array.GetArraySize(array.data);
+			for (size_t i = 0; i < count; ++i)
+			{
+				const void* elementData = array.GetElementAddress(array.data, i);
+				if (!elementData)
+				{
+					continue;
+				}
+
+				const std::string indexName = "[" + std::to_string(i) + "]";
+				const TypeField element = MakeArrayElementField(array, indexName, elementData);
+
+				set.push_back(CaptureField(element, path + indexName, depth));
+			}
+
+			return set;
+		}
+
+		PropertyField CaptureField(const TypeField& field, const std::string& path, uint16_t depth)
 		{
 			PropertyField prop;
 			prop.Name = field.name;
 			prop.Type = field.type;
-			prop.Path = parentPath.empty() ? field.name : parentPath + "/" + field.name;
-			prop.Depth = currentDepth;
+			prop.Path = path;
+			prop.Depth = depth;
 			prop.Flags = GetFieldFlags(field);
-
-			const void* fieldDataPtr = field.data;
-			if (fieldDataPtr == nullptr && parent.data != nullptr)
-			{
-				fieldDataPtr = reinterpret_cast<const char*>(parent.data) + field.offset;
-			}
-
-			if (fieldDataPtr == nullptr && field.type != EngineDataType::Array && field.children.empty())
-			{
-				continue;
-			}
-
-			TypeField instantiatedField = field;
-			instantiatedField.data = fieldDataPtr;
 
 			if (field.type == EngineDataType::Array)
 			{
-				prop.Value = PropertyContainer{ CreateArrayPropertySet(instantiatedField, prop.Path, currentDepth + 1) };
+				prop.Value = PropertyContainer{ CaptureArray(field, path, depth + 1) };
 			}
 			else if (!field.children.empty())
 			{
-				prop.Value = PropertyContainer{ CreateContainer(instantiatedField, prop.Path, currentDepth + 1) };
+				prop.Value = PropertyContainer{ CaptureChildren(field, path, depth + 1) };
+			}
+			else if (const ValueCodec* codec = ValueCodecRegistry::Find(field.type); codec && field.data)
+			{
+				codec->Capture(field.data, prop);
 			}
 			else
 			{
-				SetPropertyRawValue(instantiatedField, prop, currentDepth);
+				CoreLogger::Warn("CaptureState: no codec for '{}' (type {}, children {})",
+					path, static_cast<int>(field.type), field.children.size());
 			}
 
-			set.push_back(prop);
+			return prop;
 		}
 
-		return set;
+		// ------------------------------------------------------------------
+		// Apply : PropertySet -> memory
+		// ------------------------------------------------------------------
+		const PropertyField* FindByPath(const PropertySet& set, const std::string& path)
+		{
+			auto it = std::find_if(set.begin(), set.end(),
+				[&path](const PropertyField& p) { return p.Path == path; });
+
+			return it != set.end() ? &*it : nullptr;
+		}
+
+		void ApplyField(const TypeField& field, const PropertyField& prop, const std::string& path);
+
+		void ApplyFields(const std::vector<TypeField>& fields, const void* parentData,
+			const PropertySet& props, const std::string& parentPath)
+		{
+			for (const TypeField& field : fields)
+			{
+				const std::string path = parentPath.empty() ? field.name : parentPath + "/" + field.name;
+
+				const PropertyField* prop = FindByPath(props, path);
+				if (!prop)
+				{
+					continue;
+				}
+
+				TypeField instance = field;
+				if (!instance.data && parentData)
+				{
+					instance.data = static_cast<const char*>(parentData) + field.offset;
+				}
+
+				ApplyField(instance, *prop, path);
+			}
+		}
+
+		void ApplyArray(const TypeField& array, const PropertyField& prop)
+		{
+			const auto* container = std::get_if<PropertyContainer>(&prop.Value);
+			if (!container || !array.data)
+			{
+				return;
+			}
+
+			if (array.ResizeArray)
+			{
+				array.ResizeArray(const_cast<void*>(array.data), container->Children.size());
+			}
+
+			const size_t count = array.GetArraySize ? array.GetArraySize(array.data) : 0;
+			for (size_t i = 0; i < container->Children.size() && i < count; ++i)
+			{
+				const PropertyField& elementProp = container->Children[i];
+
+				const void* elementData = array.GetElementAddress ? array.GetElementAddress(array.data, i) : nullptr;
+				if (!elementData)
+				{
+					continue;
+				}
+
+				const TypeField element = MakeArrayElementField(array, elementProp.Name, elementData);
+				ApplyField(element, elementProp, elementProp.Path);
+			}
+		}
+
+		void ApplyField(const TypeField& field, const PropertyField& prop, const std::string& path)
+		{
+			if (field.type == EngineDataType::Array)
+			{
+				ApplyArray(field, prop);
+			}
+			else if (!field.children.empty())
+			{
+				if (const auto* container = std::get_if<PropertyContainer>(&prop.Value))
+				{
+					ApplyFields(field.children, field.data, container->Children, path);
+				}
+				else
+				{
+					CoreLogger::Warn("ApplyState: '{}' should hold a container", path);
+				}
+			}
+			else if (const ValueCodec* codec = ValueCodecRegistry::Find(field.type); codec && field.data)
+			{
+				if (!codec->Apply(const_cast<void*>(field.data), prop))
+				{
+					CoreLogger::Warn("ApplyState: failed to restore '{}' (type {})", path, static_cast<int>(field.type));
+				}
+			}
+			else
+			{
+				CoreLogger::Warn("ApplyState: no codec for '{}' (type {}, children {})",
+					path, static_cast<int>(field.type), field.children.size());
+			}
+		}
 	}
 
 	PropertySet TypeLayout::CaptureState() const
@@ -241,210 +264,19 @@ namespace Elevate
 
 		for (const TypeField& field : m_fields)
 		{
-			if (field.data == nullptr && field.type != EngineDataType::Array && field.children.empty())
+			if (!field.data && field.type != EngineDataType::Array && field.children.empty())
 			{
 				continue;
 			}
 
-			PropertyField prop;
-			prop.Name = field.name;
-			prop.Path = field.name;
-			prop.Type = field.type;
-			prop.Depth = 0;
-			prop.Flags = GetFieldFlags(field);
-
-			if (field.type == EngineDataType::Array)
-			{
-				prop.Value = PropertyContainer{ CreateArrayPropertySet(field, prop.Path, 1) };
-			}
-			else if (!field.children.empty())
-			{
-				prop.Value = PropertyContainer{ CreateContainer(field, prop.Path, 1) };
-			}
-			else
-			{
-				SetPropertyRawValue(field, prop, 0);
-			}
-
-			set.push_back(prop);
+			set.push_back(CaptureField(field, field.name, 0));
 		}
 
 		return set;
 	}
 
-	void ApplyPropertyValues(const std::vector<TypeField>& fields, const PropertySet& props, const std::string& parentPath)
-	{
-		for (const auto& field : fields)
-		{
-			std::string currentPath = parentPath.empty() ? field.name : parentPath + "/" + field.name;
-
-			if (field.type == EngineDataType::Array)
-			{
-				auto it = std::find_if(props.begin(), props.end(), [&currentPath](const PropertyField& p)
-					{ return p.Path == currentPath; });
-
-				if (it != props.end() && std::holds_alternative<PropertyContainer>(it->Value))
-				{
-					const auto& arraySet = std::get<PropertyContainer>(it->Value).Children;
-
-					if (field.ResizeArray)
-					{
-						field.ResizeArray(const_cast<void*>(field.data), arraySet.size());
-					}
-
-					size_t count = field.GetArraySize ? field.GetArraySize(field.data) : 0;
-
-					for (size_t i = 0; i < arraySet.size() && i < count; ++i)
-					{
-						const auto& elemProp = arraySet[i];
-						const void* elementDataPtr = field.GetElementAddress ? field.GetElementAddress(field.data, i) : nullptr;
-						if (!elementDataPtr)
-							continue;
-
-						if (!field.elementChildren.empty())
-						{
-							std::vector<TypeField> instantiatedChildren;
-							for (const auto& childField : field.elementChildren)
-							{
-								const void* childDataPtr = reinterpret_cast<const char*>(elementDataPtr) + childField.offset;
-								TypeField instChild = childField;
-								instChild.data = childDataPtr;
-								instantiatedChildren.push_back(instChild);
-							}
-
-							ApplyPropertyValues(instantiatedChildren, std::get<PropertyContainer>(elemProp.Value).Children, elemProp.Path);
-						}
-						else
-						{
-							void* mutableElementPtr = const_cast<void*>(elementDataPtr);
-
-							if (field.elementType == EngineDataType::Bool && std::holds_alternative<bool>(elemProp.Value))
-							{
-								*reinterpret_cast<bool*>(mutableElementPtr) = std::get<bool>(elemProp.Value);
-							}
-							else if (field.elementType == EngineDataType::Int && std::holds_alternative<int64_t>(elemProp.Value))
-							{
-								*reinterpret_cast<int32_t*>(mutableElementPtr) = static_cast<int32_t>(std::get<int64_t>(elemProp.Value));
-							}
-							else if (field.elementType == EngineDataType::Float && std::holds_alternative<double>(elemProp.Value))
-							{
-								*reinterpret_cast<float*>(mutableElementPtr) = static_cast<float>(std::get<double>(elemProp.Value));
-							}
-							else if (field.elementType == EngineDataType::Double && std::holds_alternative<double>(elemProp.Value))
-							{
-								*reinterpret_cast<double*>(mutableElementPtr) = std::get<double>(elemProp.Value);
-							}
-							else if (field.elementType == EngineDataType::String && std::holds_alternative<std::string>(elemProp.Value))
-							{
-								*reinterpret_cast<std::string*>(mutableElementPtr) = std::get<std::string>(elemProp.Value);
-							}
-							else if (field.elementType == EngineDataType::Enum)
-							{
-								*reinterpret_cast<EnumType*>(mutableElementPtr) = static_cast<EnumType>(std::get<EnumType>(elemProp.Value));
-							}
-						}
-					}
-				}
-			}
-			else if (!field.children.empty())
-			{
-				auto it = std::find_if(props.begin(), props.end(), [&currentPath](const PropertyField& p)
-					{ return p.Path == currentPath; });
-
-				if (it != props.end() && std::holds_alternative<PropertyContainer>(it->Value))
-				{
-					const auto& container = std::get<PropertyContainer>(it->Value);
-					const void* subStructDataPtr = field.data;
-
-					std::vector<TypeField> instantiatedChildren;
-					for (const auto& childField : field.children)
-					{
-						const void* childDataPtr = subStructDataPtr ? reinterpret_cast<const char*>(subStructDataPtr) + childField.offset : nullptr;
-						TypeField instChild = childField;
-						instChild.data = childDataPtr;
-						instantiatedChildren.push_back(instChild);
-					}
-
-					ApplyPropertyValues(instantiatedChildren, container.Children, currentPath);
-				}
-			}
-			else
-			{
-				auto it = std::find_if(props.begin(), props.end(), [&currentPath](const PropertyField& p)
-					{ return p.Path == currentPath; });
-
-				if (it != props.end() && field.data != nullptr)
-				{
-					void* mutableData = const_cast<void*>(field.data);
-
-					switch (field.type)
-					{
-					case EngineDataType::Bool:
-						if (std::holds_alternative<bool>(it->Value))
-							*reinterpret_cast<bool*>(mutableData) = std::get<bool>(it->Value);
-						break;
-					case EngineDataType::Int:
-						if (std::holds_alternative<int64_t>(it->Value))
-							*reinterpret_cast<int32_t*>(mutableData) = static_cast<int32_t>(std::get<int64_t>(it->Value));
-						break;
-					case EngineDataType::Float:
-						if (std::holds_alternative<double>(it->Value))
-							*reinterpret_cast<float*>(mutableData) = static_cast<float>(std::get<double>(it->Value));
-						break;
-					case EngineDataType::Double:
-						if (std::holds_alternative<double>(it->Value))
-							*reinterpret_cast<double*>(mutableData) = std::get<double>(it->Value);
-						break;
-					case EngineDataType::String:
-						if (std::holds_alternative<std::string>(it->Value))
-							*reinterpret_cast<std::string*>(mutableData) = std::get<std::string>(it->Value);
-						break;
-					case EngineDataType::GUID:
-						if (std::holds_alternative<std::string>(it->Value))
-							*reinterpret_cast<Guid*>(mutableData) = Guid::FromString(std::get<std::string>(it->Value));
-						break;
-					case EngineDataType::Enum:
-						if (std::holds_alternative<EnumType>(it->Value))
-							*reinterpret_cast<EnumType*>(mutableData) = std::get<EnumType>(it->Value);
-						break;
-					case EngineDataType::Float4:
-					{
-						auto propsIt = std::find_if(props.begin(), props.end(),
-							[&](const PropertyField& p) { return p.Path == currentPath; });
-
-						if (propsIt != props.end() && std::holds_alternative<PropertyContainer>(propsIt->Value))
-						{
-							auto* v = const_cast<glm::vec4*>(reinterpret_cast<const glm::vec4*>(field.data));
-							const auto& c = std::get<PropertyContainer>(propsIt->Value).Children;
-							for (size_t i = 0; i < 4 && i < c.size(); ++i)
-							{
-								if (std::holds_alternative<double>(c[i].Value))
-								{
-									(*v)[i] = static_cast<float>(std::get<double>(c[i].Value));
-								}
-							}
-						}
-						break;
-					}
-					default:
-						CoreLogger::Warn("ApplyState: unsported type for '{}' ({})", currentPath, static_cast<int>(field.type));
-						break;
-					}
-				}
-			}
-		}
-	}
-
 	void TypeLayout::ApplyState(const PropertySet& props)
 	{
-		std::vector<TypeField> instantiatedFields;
-		for (const auto& field : m_fields)
-		{
-			const void* resolvedData = field.data != nullptr ? field.data : (m_objectInstance != nullptr ? (reinterpret_cast<const char*>(m_objectInstance) + field.offset) : nullptr);
-			TypeField instField = field;
-			instField.data = resolvedData;
-			instantiatedFields.push_back(instField);
-		}
-		ApplyPropertyValues(instantiatedFields, props, "");
+		ApplyFields(m_fields, m_objectInstance, props, "");
 	}
 }

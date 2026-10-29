@@ -11,6 +11,7 @@ import Elevate.Core.Objects.ObjectPtr;
 import Elevate.Core.Types.TypeLayout;
 import Elevate.Core.Types.TypeRegistry;
 import Elevate.Core.Reflection.ReflectionTags;
+import Elevate.Serialization.PropertyField;
 
 #ifdef EE_EDITOR_BUILD
 import Elevate.Renderer.Texture;

@@ -2,6 +2,8 @@ module;
 
 #include <variant>
 #include <string>
+#include <cmath>
+#include <limits>
 
 #include <rapidjson/document.h>
 #include <rapidjson/stringbuffer.h>
@@ -54,7 +56,19 @@ namespace Elevate
 								   [&](int64_t v)
 								   { return rapidjson::Value(v); },
 								   [&](double v)
-								   { return rapidjson::Value(v); },
+								   {
+									   if (std::isfinite(v))
+									   {
+										   return rapidjson::Value(v);
+									   }
+
+									   if (std::isnan(v))
+									   {
+										   return rapidjson::Value("NaN", allocator);
+									   }
+
+									   return rapidjson::Value(v > 0 ? "Infinity" : "-Infinity", allocator);
+								   },
 								   [&](const std::string& v)
 								   {
 									   return rapidjson::Value(v.c_str(), allocator);
@@ -167,8 +181,28 @@ namespace Elevate
 		}
 		else if (val.IsString())
 		{
-			prop.Type = EngineDataType::String;
-			prop.Value = std::string(val.GetString());
+			const std::string s = val.GetString();
+
+			if (s == "NaN")
+			{
+				prop.Type = EngineDataType::Double;
+				prop.Value = std::numeric_limits<double>::quiet_NaN();
+			}
+			else if (s == "Infinity")
+			{
+				prop.Type = EngineDataType::Double;
+				prop.Value = std::numeric_limits<double>::infinity();
+			}
+			else if (s == "-Infinity")
+			{
+				prop.Type = EngineDataType::Double;
+				prop.Value = -std::numeric_limits<double>::infinity();
+			}
+			else
+			{
+				prop.Type = EngineDataType::String;
+				prop.Value = s;
+			}
 		}
 		else if (val.IsObject())
 		{

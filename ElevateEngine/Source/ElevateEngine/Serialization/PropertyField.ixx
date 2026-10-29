@@ -22,12 +22,12 @@ export namespace Elevate
 
 	using PropertyValue = std::variant<
 		bool,
-		int64_t,            // Covers all int.
-		double,             // Covers float and double
+		int64_t, // Covers all int.
+		double,	 // Covers float and double
 		std::string,
-		ByteBuffer,         // Raw data for custom types
-		PropertyContainer  // For recusrive structs
-	>;
+		ByteBuffer,		  // Raw data for custom types
+		PropertyContainer // For recusrive structs
+		>;
 
 	enum PropertyFlag
 	{
@@ -57,7 +57,7 @@ export namespace Elevate
 			return !IsContainer() && !std::holds_alternative<ByteBuffer>(Value);
 		}
 
-		const PropertySet& GetChildren() const
+		const PropertySet &GetChildren() const
 		{
 			return std::get<PropertyContainer>(Value).Children;
 		}

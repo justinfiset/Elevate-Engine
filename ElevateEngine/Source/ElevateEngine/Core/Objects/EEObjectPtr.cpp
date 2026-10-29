@@ -4,15 +4,10 @@ module;
 
 module Elevate.Core.Objects.ObjectPtr;
 
+import Elevate.Foundations.Guid;
 import Elevate.Core.Objects.Object;
 import Elevate.Core.Assets.Asset;
 import Elevate.Core.Assets.AssetRegistry;
-
-// Forwards
-namespace Elevate
-{
-	class Guid;
-}
 
 namespace Elevate
 {
