@@ -241,10 +241,10 @@ filter "system:linux"
 prebuildcommands(moduleBuildCommands())
 
 filter "system:emscripten"
+local webModuleDirectory = "Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
 prebuildcommands(webModuleBuildCommands())
-buildoptions {"-fprebuilt-module-path=" .. _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir ..
-    "/ElevateEngine/modules",
-              "@" .. _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules/module-flags.rsp"}
+buildoptions {"-fprebuilt-module-path=" .. webModuleDirectory,
+              "@" .. webModuleDirectory .. "/module-flags.rsp"}
 
 filter {"system:emscripten", "files:**.ixx"}
 buildoptions {"-x", "c++-module"}
