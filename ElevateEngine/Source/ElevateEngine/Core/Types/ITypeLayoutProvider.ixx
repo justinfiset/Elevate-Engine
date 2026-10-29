@@ -1,9 +1,9 @@
 export module Elevate.Core.Types.ITypeLayoutProvider;
 
+import Elevate.Core.Types.TypeLayout;
+
 export namespace Elevate
 {
-    class TypeLayout;
-
     class ITypeLayoutProvider
     {
     public:
