@@ -4,7 +4,7 @@ module;
 
 #include <ElevateEngine/Platform/OpenGL/Framebuffer/OpenGLFramebuffer.h>
 
-module Elevate.Renderer.Framebuffers:Framebuffer;
+module Elevate.Renderer.Framebuffers;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
