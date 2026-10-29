@@ -156,6 +156,7 @@ local function webModuleBuildCommands()
     script:write("if not exist \"%MODULE_DIR%\" mkdir \"%MODULE_DIR%\"\r\n")
     script:write("set MODULE_FLAGS=%MODULE_DIR%\\module-flags.rsp\r\n")
     script:write("if exist \"%MODULE_FLAGS%\" del /q \"%MODULE_FLAGS%\"\r\n")
+    script:write("type nul > \"%MODULE_FLAGS%\"\r\n")
     for _, filename in ipairs(orderedModuleFiles()) do
         local file = io.open(filename, "r")
         local moduleName = nil

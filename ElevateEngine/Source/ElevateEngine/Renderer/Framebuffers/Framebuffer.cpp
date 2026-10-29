@@ -9,6 +9,7 @@ module Elevate.Renderer.Framebuffers;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
 import Elevate.Renderer.Renderer;
+import Elevate.Renderer.RendererAPI;
 
 namespace Elevate
 {

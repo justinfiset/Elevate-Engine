@@ -11,7 +11,7 @@ export module Elevate.Renderer.Renderer;
 import Elevate.Core.Scene;
 import Elevate.Renderer.VertexArray;
 import Elevate.Renderer.Cubemap;
-import Elevate.Renderer.RendererAPI;
+export import Elevate.Renderer.RendererAPI;
 import Elevate.Renderer.Scene.Lighting;
 import Elevate.Renderer.Scene.Environment;
 import Elevate.Renderer.Shaders;
