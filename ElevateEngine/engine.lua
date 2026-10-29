@@ -196,19 +196,6 @@ local function webModuleBuildCommands()
     return commands
 end
 
-local function webModuleBuildFlags(moduleDirectory)
-    local flags = {}
-    for _, filename in ipairs(orderedModuleFiles()) do
-        local moduleName = moduleNameForFile(filename)
-        if moduleName then
-            local moduleOutputName = moduleName:gsub(":", "-")
-            table.insert(flags, "-fmodule-file=" .. moduleName .. "=" .. moduleDirectory .. "/" ..
-                moduleOutputName .. ".pcm")
-        end
-    end
-    return flags
-end
-
 project "ElevateEngine"
 location "./Build"
 kind "StaticLib"
@@ -276,11 +263,8 @@ end
 filter "system:emscripten"
 local webModuleDirectory = _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
 prebuildcommands(webModuleBuildCommands())
-local webModuleFlags = {"-fprebuilt-module-path=" .. webModuleDirectory}
-for _, flag in ipairs(webModuleBuildFlags(webModuleDirectory)) do
-    table.insert(webModuleFlags, flag)
-end
-buildoptions(webModuleFlags)
+buildoptions {"-fprebuilt-module-path=" .. webModuleDirectory,
+              "@\"" .. webModuleDirectory .. "/module-flags.rsp\""}
 
 filter {"system:emscripten", "files:**.ixx"}
 buildoptions {"-x", "c++-module"}
