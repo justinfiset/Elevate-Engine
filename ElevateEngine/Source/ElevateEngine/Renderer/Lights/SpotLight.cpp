@@ -5,6 +5,7 @@ module;
 
 module Elevate.Renderer.Lights.SpotLight;
 
+import Elevate.Core.Transform.Transform;
 import Elevate.Renderer.Scene.Lighting;
 
 #ifdef EE_EDITOR_BUILD

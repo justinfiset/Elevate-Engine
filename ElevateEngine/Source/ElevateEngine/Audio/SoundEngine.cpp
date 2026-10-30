@@ -1,3 +1,7 @@
+module;
+
+#include <cstdint>
+
 module Elevate.Audio.SoundEngine;
 
 import Elevate.Foundations.CoreLogger;

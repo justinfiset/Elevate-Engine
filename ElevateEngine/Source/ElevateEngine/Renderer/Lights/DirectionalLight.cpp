@@ -7,6 +7,7 @@ module;
 
 module Elevate.Renderer.Lights.DirectionalLight;
 
+import Elevate.Core.Transform.Transform;
 import Elevate.Renderer.Scene.Lighting;
 
 #ifdef EE_EDITOR_BUILD
