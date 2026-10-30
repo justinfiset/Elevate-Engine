@@ -259,7 +259,7 @@ links {"opengl32.lib"}
 filter {"system:linux", "language:C++"}
 links {"GL", "X11", "pthread", "dl"}
 if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
-    buildoptions {"-fmodules-ts", "-fno-module-lazy"}
+    buildoptions {"-fmodules-ts"}
 else
     buildoptions {"-fprebuilt-module-path=%{cfg.objdir}/modules"}
 end
