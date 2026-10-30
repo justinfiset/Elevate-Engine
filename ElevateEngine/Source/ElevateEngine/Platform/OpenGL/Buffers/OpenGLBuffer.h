@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 import Elevate.Renderer.Buffers;
 
 namespace Elevate

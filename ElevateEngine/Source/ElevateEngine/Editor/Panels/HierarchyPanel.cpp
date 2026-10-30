@@ -1,4 +1,4 @@
-﻿module;
+module;
 
 #include <cstdint>
 #include <cstring>

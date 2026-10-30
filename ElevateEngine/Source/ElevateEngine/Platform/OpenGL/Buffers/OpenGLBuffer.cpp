@@ -1,7 +1,5 @@
 #include "OpenGLBuffer.h"
 
-#include <cstdint>
-
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <GLFW/glfw3.h>
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
