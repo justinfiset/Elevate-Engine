@@ -2,6 +2,12 @@ module;
 
 #include <string>
 #include <random>
+#include <memory>
+#include <vector>
+#include <cstdint>
+#include <array>
+
+#include <glm/glm.hpp>
 
 #include <ElevateEngine/Foundations/Core.h>
 #include <ElevateEngine/Platform/OpenGL/Renderer/OpenGLRendererAPI.h>
@@ -66,30 +72,27 @@ namespace Elevate
 		s_fullscreenQuad = Mesh::GenerateQuad(2.0f);
 
 		// Create the gbuffer
-		s_geometryFramebuffer.reset(Framebuffer::Create
-		(
+		s_geometryFramebuffer.reset(Framebuffer::Create(
 			width,
 			height,
 			{
-				TextureFormat::RGBA16F,     // Color : Albedo (RGBA)
-				TextureFormat::RGBA16F,     // Normals (RGB)
-				TextureFormat::RGBA16F      // Material : Roughness (R) + Metallic (G) + AO (B) + Extra (A)
+				TextureFormat::RGBA16F, // Color : Albedo (RGBA)
+				TextureFormat::RGBA16F, // Normals (RGB)
+				TextureFormat::RGBA16F	// Material : Roughness (R) + Metallic (G) + AO (B) + Extra (A)
 			},
 			false,
-			TextureType::Depth
-		));
+			TextureType::Depth));
 
-		s_geometryFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
-		s_mainFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGB }, false, TextureType::Depth));
-		s_mainFramebuffer->SetClearColor({ 0.8f, 0.4f, 0.7f, 1.0f }); // Pink / purple for debug purposes
+		s_geometryFramebuffer->SetClearColor({0.8f, 0.4f, 0.7f, 1.0f}); // Pink / purple for debug purposes
+		s_mainFramebuffer.reset(Framebuffer::Create(width, height, {TextureFormat::RGB}, false, TextureType::Depth));
+		s_mainFramebuffer->SetClearColor({0.8f, 0.4f, 0.7f, 1.0f}); // Pink / purple for debug purposes
 
 		s_compositionShader = ShaderManager::LoadShader(
 			"composition",
 			"engine://Shaders/Composition.vert",
 			"engine://Shaders/Composition.frag",
 			EE_SHADER_HEADER,
-			EE_SHADER_HEADER
-		);
+			EE_SHADER_HEADER);
 
 		DebugRenderer::Init();
 		InitShadowRenderer();
@@ -116,16 +119,14 @@ namespace Elevate
 			"engine://Shaders/SSAO.vert",
 			"engine://Shaders/SSAO.frag",
 			EE_SHADER_HEADER,
-			EE_SHADER_HEADER
-		);
+			EE_SHADER_HEADER);
 
 		s_ssaoBlurShader = ShaderManager::LoadShader(
 			"ssaoBlur",
 			"engine://Shaders/SSAOBlur.vert",
 			"engine://Shaders/SSAOBlur.frag",
 			EE_SHADER_HEADER,
-			EE_SHADER_HEADER
-		);
+			EE_SHADER_HEADER);
 
 		std::vector<glm::vec3> ssaoNoise;
 		std::uniform_real_distribution<float> randomFloats(0.0f, 1.0f);
@@ -136,22 +137,21 @@ namespace Elevate
 			glm::vec3 noise(
 				randomFloats(generator) * 2.0f - 1.0f,
 				randomFloats(generator) * 2.0f - 1.0f,
-				0.0f
-			);
+				0.0f);
 			ssaoNoise.push_back(glm::normalize(noise));
 		}
 
 		TextureMetadata noiseMeta = TextureMetadataBuilder()
-			.Name("AONoiseTexture")
-			.size(4, 4)
-			.Format(TextureFormat::RGB32F)
-			.Usage(TextureType::Diffuse)
-			.Source(TextureSource::Generated)
-			.State(TextureState::Ready)
-			.Filter(TextureFilter::Nearest, TextureFilter::Nearest)
-			.Wrap(TextureWrap::Repeat, TextureWrap::Repeat)
-			.Mipmaps(false)
-			.Build();
+										.Name("AONoiseTexture")
+										.size(4, 4)
+										.Format(TextureFormat::RGB32F)
+										.Usage(TextureType::Diffuse)
+										.Source(TextureSource::Generated)
+										.State(TextureState::Ready)
+										.Filter(TextureFilter::Nearest, TextureFilter::Nearest)
+										.Wrap(TextureWrap::Repeat, TextureWrap::Repeat)
+										.Mipmaps(false)
+										.Build();
 
 		s_ssaoNoiseTexture = Texture::CreateFromData(ssaoNoise.data(), noiseMeta);
 
@@ -161,25 +161,23 @@ namespace Elevate
 			glm::vec3 sample(
 				RandomFloat(-1.0f, 1.0f),
 				RandomFloat(-1.0f, 1.0f),
-				RandomFloat(0.0f, 1.0f)
-			);
+				RandomFloat(0.0f, 1.0f));
 
 			float scale = static_cast<float>(i) / static_cast<float>(AO_KERNER_SAMPLE_COUNT);
 
 			scale = glm::mix(
 				0.1f,
 				1.0f,
-				scale * scale
-			);
+				scale * scale);
 
 			sample *= scale;
 
 			s_ssaoKernel.push_back(sample);
 		}
 
-		// Create the Framebuffer   
-		s_ssaoFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGBA })); // todo R8 (red)
-		s_ssaoBlurFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGBA })); // todo R8 (red)
+		// Create the Framebuffer
+		s_ssaoFramebuffer.reset(Framebuffer::Create(width, height, {TextureFormat::RGBA}));		// todo R8 (red)
+		s_ssaoBlurFramebuffer.reset(Framebuffer::Create(width, height, {TextureFormat::RGBA})); // todo R8 (red)
 	}
 
 	void Renderer::InitBloomRenderer(uint32_t width, uint32_t height)
@@ -191,15 +189,13 @@ namespace Elevate
 			"engine://Shaders/BloomDownscale.vert",
 			"engine://Shaders/BloomDownscale.frag",
 			EE_SHADER_HEADER,
-			EE_SHADER_HEADER
-		);
+			EE_SHADER_HEADER);
 		s_bloomUpsampleShader = ShaderManager::LoadShader(
 			"BloomUpscale",
 			"engine://Shaders/BloomUpscale.vert",
 			"engine://Shaders/BloomUpscale.frag",
 			EE_SHADER_HEADER,
-			EE_SHADER_HEADER
-		);
+			EE_SHADER_HEADER);
 
 		uint32_t currentWidth = width / 2;
 		uint32_t currentHeight = height / 2;
@@ -212,7 +208,7 @@ namespace Elevate
 				break;
 			}
 
-			auto fb = Framebuffer::Create(currentWidth, currentHeight, { TextureFormat::RGBA16F });
+			auto fb = Framebuffer::Create(currentWidth, currentHeight, {TextureFormat::RGBA16F});
 			s_bloomMipChain.push_back(std::unique_ptr<Framebuffer>(fb));
 
 			currentWidth /= 2;
@@ -228,8 +224,7 @@ namespace Elevate
 			"engine://Shaders/Shadow.vert",
 			"engine://Shaders/Shadow.frag",
 			EE_SHADER_HEADER,
-			EE_SHADER_HEADER
-		);
+			EE_SHADER_HEADER);
 
 		// Create the Framebuffers
 		for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
@@ -240,17 +235,16 @@ namespace Elevate
 
 	void Renderer::InitLightingRenderer(uint32_t width, uint32_t height)
 	{
-		s_lightPassFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGBA16F }));
+		s_lightPassFramebuffer.reset(Framebuffer::Create(width, height, {TextureFormat::RGBA16F}));
 		s_lightPassShader = ShaderManager::LoadShader(
 			"lighting",
 			"engine://Shaders/Lighting.vert",
 			"engine://Shaders/Lighting.frag",
 			EE_SHADER_HEADER,
-			EE_SHADER_HEADER
-		);
+			EE_SHADER_HEADER);
 	}
 
-	void Renderer::BeginFrame(const std::shared_ptr<Scene> scene, const Camera& cam)
+	void Renderer::BeginFrame(const std::shared_ptr<Scene> scene, const Camera &cam)
 	{
 		InvalidateStateCache();
 
@@ -264,7 +258,7 @@ namespace Elevate
 		s_data.ActiveLighting = GetSceneLighting(scene.get());
 		auto environment = GetSceneEnvironment(scene.get());
 
-		constexpr std::array<float, SHADOW_CASCADE_COUNT + 1> cascadeSplits = { 0.0f, 0.05f, 0.15f, 0.40f, 1.0f };
+		constexpr std::array<float, SHADOW_CASCADE_COUNT + 1> cascadeSplits = {0.0f, 0.05f, 0.15f, 0.40f, 1.0f};
 		float clipRange = cam.GetFar() - cam.GetNear();
 
 		for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
@@ -305,9 +299,10 @@ namespace Elevate
 		s_mainFramebuffer->BlitFramebufferToScreen(width, height);
 	}
 
-	bool Renderer::BindShader(const std::shared_ptr<Shader>& shader)
+	bool Renderer::BindShader(const std::shared_ptr<Shader> &shader)
 	{
-		if (!shader) return false;
+		if (!shader)
+			return false;
 
 		uint32_t id = shader->GetID();
 		if (s_currentShaderID != id)
@@ -319,7 +314,7 @@ namespace Elevate
 		return false;
 	}
 
-	void Renderer::ApplySystemUniforms(const std::shared_ptr<Shader>& shader)
+	void Renderer::ApplySystemUniforms(const std::shared_ptr<Shader> &shader)
 	{
 		BindShader(shader);
 
@@ -332,19 +327,17 @@ namespace Elevate
 
 		shader->SetUniformMatrix4fv(
 			"lightSpaceMatrices[0]",
-			reinterpret_cast<float*>(s_data.LightSpaceMatrices.data()),
-			SHADOW_CASCADE_COUNT
-		);
+			reinterpret_cast<float *>(s_data.LightSpaceMatrices.data()),
+			SHADOW_CASCADE_COUNT);
 
 		shader->SetUniform1fv(
 			"cascadeSplitDepths[0]",
 			SHADOW_CASCADE_COUNT,
-			s_data.CascadeSplitDepths.data()
-		);
+			s_data.CascadeSplitDepths.data());
 	}
 
 	// RENDER API STATIC WRAPPER
-	void Renderer::SetClearColor(const glm::vec4& color)
+	void Renderer::SetClearColor(const glm::vec4 &color)
 	{
 		s_API->SetClearColor(color);
 	}
@@ -369,7 +362,7 @@ namespace Elevate
 		s_API->SetViewport(x, y, width, height);
 	}
 
-	void Renderer::DrawArray(const VertexArray* vao, DrawPrimitiveType primitive)
+	void Renderer::DrawArray(const VertexArray *vao, DrawPrimitiveType primitive)
 	{
 		if (vao)
 		{
@@ -377,7 +370,7 @@ namespace Elevate
 		}
 	}
 
-	void Renderer::DrawArray(const std::shared_ptr<VertexArray>& vao, DrawPrimitiveType primitive)
+	void Renderer::DrawArray(const std::shared_ptr<VertexArray> &vao, DrawPrimitiveType primitive)
 	{
 		DrawArray(vao.get(), primitive);
 	}
@@ -392,7 +385,7 @@ namespace Elevate
 		s_commands.Clear();
 	}
 
-	void Renderer::PushRenderState(const RenderState& newState)
+	void Renderer::PushRenderState(const RenderState &newState)
 	{
 		if (!s_isStateCacheValid || newState.CullMode != s_currentState.CullMode)
 		{
@@ -423,22 +416,22 @@ namespace Elevate
 		s_isStateCacheValid = true;
 	}
 
-	const RendererStorage& Renderer::GetFrameData()
+	const RendererStorage &Renderer::GetFrameData()
 	{
 		return s_data;
 	}
 
-	Framebuffer& Renderer::GetMainFramebuffer()
+	Framebuffer &Renderer::GetMainFramebuffer()
 	{
 		return *s_mainFramebuffer;
 	}
 
-	Framebuffer& Renderer::GetDirectionalFrameBuffer(uint32_t index)
+	Framebuffer &Renderer::GetDirectionalFrameBuffer(uint32_t index)
 	{
 		return *s_directionalShadowMaps[index]; // todo correct this
 	}
 
-	void Renderer::Dispatch(const RenderCommand& command)
+	void Renderer::Dispatch(const RenderCommand &command)
 	{
 		PushRenderState(command.m_State);
 
@@ -457,12 +450,12 @@ namespace Elevate
 		Renderer::DrawArray(command.m_VertexArray);
 	}
 
-	void Renderer::Submit(RenderBucketType type, const RenderCommand& command)
+	void Renderer::Submit(RenderBucketType type, const RenderCommand &command)
 	{
 		s_commands.Submit(type, command);
 	}
 
-	void Renderer::SubmitMesh(const std::shared_ptr<VertexArray>& vao, const MaterialPtr& material, const glm::mat4& transform)
+	void Renderer::SubmitMesh(const std::shared_ptr<VertexArray> &vao, const MaterialPtr &material, const glm::mat4 &transform)
 	{
 		RenderCommand command;
 		RenderState state = material ? material->GetRenderState() : RenderState();
@@ -476,9 +469,10 @@ namespace Elevate
 		Submit(bucket, command);
 	}
 
-	void Renderer::BindTexture(const std::shared_ptr<Texture>& texture, uint8_t slot)
+	void Renderer::BindTexture(const std::shared_ptr<Texture> &texture, uint8_t slot)
 	{
-		if (slot >= 16) return;
+		if (slot >= 16)
+			return;
 
 		bool isLoaded = texture && texture->IsTextureLoaded() && texture->GetWidth() > 0;
 		uintptr_t textureID = isLoaded ? reinterpret_cast<uintptr_t>(texture->GetNativeHandle()) : 0;
@@ -499,7 +493,8 @@ namespace Elevate
 
 	void Renderer::InvalidateStateCache()
 	{
-		for (size_t i = 0; i < std::size(s_textures); i++) {
+		for (size_t i = 0; i < std::size(s_textures); i++)
+		{
 			s_textures[i] = static_cast<uintptr_t>(-1);
 		}
 		s_currentShaderID = 0;
@@ -513,7 +508,7 @@ namespace Elevate
 			return;
 		}
 
-		auto* dirLight = s_data.ActiveLighting->GetDirLight();
+		auto *dirLight = s_data.ActiveLighting->GetDirLight();
 		if (dirLight)
 		{
 			DirectionalShadowSettings settings = dirLight->m_shadowSettings;
@@ -539,7 +534,7 @@ namespace Elevate
 				PushRenderState(shadowState);
 			}
 
-			const auto& bucket = s_commands.GetBucket(RenderBucketType::GBuffer);
+			const auto &bucket = s_commands.GetBucket(RenderBucketType::GBuffer);
 
 			for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
 			{
@@ -550,7 +545,7 @@ namespace Elevate
 				{
 					s_shadowShader->SetUniformMatrix4fv("lightSpaceMatrix", s_data.LightSpaceMatrices[i]);
 
-					for (const auto& command : bucket)
+					for (const auto &command : bucket)
 					{
 						s_shadowShader->SetModelMatrix(command.Transform);
 						DrawArray(command.m_VertexArray);
@@ -659,10 +654,8 @@ namespace Elevate
 
 			glm::vec2 noiseScale(
 				static_cast<float>(s_ssaoFramebuffer->GetWidth()) / 4.0f,
-				static_cast<float>(s_ssaoFramebuffer->GetHeight()) / 4.0f
-			);
+				static_cast<float>(s_ssaoFramebuffer->GetHeight()) / 4.0f);
 			s_ssaoShader->SetUniform2f("noiseScale", noiseScale);
-
 
 			s_ssaoShader->SetUniformMatrix4fv("inverseProjection", glm::inverse(s_data.Projection));
 			s_ssaoShader->SetUniformMatrix4fv("projection", s_data.Projection);
@@ -676,7 +669,6 @@ namespace Elevate
 			DrawArray(s_fullscreenQuad.GetVertexArray());
 			s_ssaoFramebuffer->Unbind();
 
-
 			// Second pass to blur
 			s_ssaoBlurFramebuffer->ClearAndUse();
 
@@ -685,7 +677,6 @@ namespace Elevate
 			s_ssaoBlurShader->SetUniform1i("aoTexture", 0);
 			BindTexture(s_geometryFramebuffer->GetDepthTexture(), 1);
 			s_ssaoBlurShader->SetUniform1i("gDepth", 1);
-
 
 			DrawArray(s_fullscreenQuad.GetVertexArray());
 			s_ssaoBlurFramebuffer->Unbind();
@@ -709,7 +700,7 @@ namespace Elevate
 		// Downsample trought the bloom mip chain
 		for (size_t i = 0; i < s_bloomMipChain.size(); i++)
 		{
-			auto& targetFramebuffer = s_bloomMipChain[i];
+			auto &targetFramebuffer = s_bloomMipChain[i];
 			targetFramebuffer->ClearAndUse();
 
 			s_bloomDownsampleShader->SetUniform2f("u_ScreenRes", glm::vec2(currentSource->GetWidth(), currentSource->GetHeight()));
@@ -735,7 +726,7 @@ namespace Elevate
 		for (int i = static_cast<int>(s_bloomMipChain.size()) - 1; i > 0; i--)
 		{
 			currentSource = s_bloomMipChain[i]->GetColorTexture();
-			auto& targetFramebuffer = s_bloomMipChain[i - 1];
+			auto &targetFramebuffer = s_bloomMipChain[i - 1];
 
 			targetFramebuffer->Use();
 
