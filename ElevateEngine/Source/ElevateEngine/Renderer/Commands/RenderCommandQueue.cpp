@@ -1,4 +1,12 @@
+module;
+
+#include <cstddef>
+#include <cstdint>
+#include <array>
+
 module Elevate.Renderer.Commands.RenderCommandQueue;
+
+import Elevate.Renderer.Commands.RenderBucketType;
 
 namespace Elevate
 {
