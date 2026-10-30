@@ -1,8 +1,4 @@
-
-
-#include "OpenGLTexture.h"
-
-import Elevate.Foundations;
+#include <cstdint>
 
 // todo put in Elevate.Foundations.Image
 #define STB_IMAGE_IMPLEMENTATION
@@ -10,6 +6,10 @@ import Elevate.Foundations;
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
+
+#include "OpenGLTexture.h"
+
+import Elevate.Foundations;
 
 namespace Elevate
 {
@@ -169,13 +169,13 @@ namespace Elevate
 		return (filter == TextureFilter::Nearest) ? GL_NEAREST_MIPMAP_NEAREST : GL_LINEAR_MIPMAP_LINEAR;
 	}
 
-	OpenGLTexture::OpenGLTexture(const TextureMetadata &meta)
+	OpenGLTexture::OpenGLTexture(const TextureMetadata& meta)
 		: Texture(meta)
 	{
 		GLCheck(glGenTextures(1, &m_textureID));
 	}
 
-	OpenGLTexture::OpenGLTexture(const void *data, const TextureMetadata &meta)
+	OpenGLTexture::OpenGLTexture(const void* data, const TextureMetadata& meta)
 		: OpenGLTexture(meta)
 	{
 		Bind();
@@ -193,7 +193,7 @@ namespace Elevate
 		GLCheck(glBindTexture(ToOpenGL(m_meta.Usage), 0));
 	}
 
-	void OpenGLTexture::SetDataImpl(const void *data)
+	void OpenGLTexture::SetDataImpl(const void* data)
 	{
 		Bind();
 
@@ -213,7 +213,7 @@ namespace Elevate
 			GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 			GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 #else
-			constexpr float borderColor[] = {1.0f, 1.0f, 1.0f, 1.0f};
+			constexpr float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 			GLCheck(glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor));
 #endif
 		}
@@ -227,7 +227,7 @@ namespace Elevate
 #ifdef EE_SUPPORTS_DSA
 		if (m_meta.Format == TextureFormat::GRAYSCALE)
 		{
-			GLint swizzleMask[] = {GL_RED, GL_RED, GL_RED, GL_ONE};
+			GLint swizzleMask[] = { GL_RED, GL_RED, GL_RED, GL_ONE };
 			GLCheck(glTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_RGBA, swizzleMask));
 		}
 #endif
@@ -237,7 +237,7 @@ namespace Elevate
 		uint32_t width = m_meta.Width > 0 ? m_meta.Width : 1;
 		uint32_t height = m_meta.Height > 0 ? m_meta.Height : 1;
 
-		const void *pixelsToUpload = data;
+		const void* pixelsToUpload = data;
 
 		GLCheck(glTexImage2D(
 			GL_TEXTURE_2D,
@@ -256,8 +256,8 @@ namespace Elevate
 		}
 	}
 
-	void *OpenGLTexture::GetNativeHandle() const
+	void* OpenGLTexture::GetNativeHandle() const
 	{
-		return reinterpret_cast<void *>((intptr_t)m_textureID);
+		return reinterpret_cast<void*>((intptr_t)m_textureID);
 	}
 }
