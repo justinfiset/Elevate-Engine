@@ -1,7 +1,10 @@
 module;
 
-#include <chrono>
-#include <thread>
+#include <cstddef>
+#include <cstdint>
+#include <stack>
+#include <vector>
+#include <functional>
 
 module Elevate.Core.Profiling;
 
