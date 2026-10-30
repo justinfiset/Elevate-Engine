@@ -30,15 +30,13 @@ local function orderedModuleFiles()
 
     local function collectImports(content)
         local imports = {}
-        for importedModule in content:gmatch("import%s+([%w%._:]+)%s*;") do
+        for importedModule in content:gmatch("import%s+([:%w%._]+)%s*;") do
             table.insert(imports, importedModule)
-        end
-        for partition in content:gmatch("import%s+:([%w_]+)%s*;") do
-            table.insert(imports, ":" .. partition)
         end
         return imports
     end
 
+    table.sort(moduleFiles)
     for _, pattern in ipairs({"**/*.h", "**/*.hpp", "**/*.inl"}) do
         for _, filename in ipairs(os.matchfiles(sourceRoot .. pattern)) do
             local file = io.open(filename, "r")
@@ -89,8 +87,11 @@ local function orderedModuleFiles()
     local visiting = {}
     local visited = {}
     local function visit(moduleName)
-        if visited[moduleName] or visiting[moduleName] then
+        if visited[moduleName] then
             return
+        end
+        if visiting[moduleName] then
+            error("Circular C++ module dependency involving " .. moduleName)
         end
 
         visiting[moduleName] = true
@@ -104,7 +105,12 @@ local function orderedModuleFiles()
         table.insert(ordered, modules[moduleName])
     end
 
+    local moduleNames = {}
     for moduleName in pairs(modules) do
+        table.insert(moduleNames, moduleName)
+    end
+    table.sort(moduleNames)
+    for _, moduleName in ipairs(moduleNames) do
         visit(moduleName)
     end
 
@@ -138,10 +144,11 @@ local function gccModuleBuildCommands()
     local commands = {}
     table.insert(commands, "rm -rf gcm.cache")
     table.insert(commands, "mkdir -p gcm.cache")
+    -- GCC validates imported CMIs against the flags used to create them.
     for _, filename in ipairs(orderedModuleFiles()) do
         local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
         table.insert(commands,
-            "$(CXX) $(ALL_CXXFLAGS) -g0 -fmodule-only -x c++ -c " .. relativePath)
+            "$(CXX) $(ALL_CXXFLAGS) -fmodule-only -x c++ -c " .. relativePath)
     end
     return commands
 end
