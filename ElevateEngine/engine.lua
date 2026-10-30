@@ -136,6 +136,8 @@ end
 
 local function gccModuleBuildCommands()
     local commands = {}
+    table.insert(commands, "rm -rf gcm.cache")
+    table.insert(commands, "mkdir -p gcm.cache")
     for _, filename in ipairs(orderedModuleFiles()) do
         local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
         table.insert(commands,
