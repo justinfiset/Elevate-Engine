@@ -1,6 +1,7 @@
 module;
 
 #include <cstdint>
+#include <stack>
 
 module Elevate.Renderer.Commands.RenderCommand;
 
