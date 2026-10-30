@@ -8,7 +8,7 @@ module;
 
 #include <ElevateEngine/Platform/OpenGL/Textures/OpenGLTexture.h>
 
-module Elevate.Renderer.Texture:Texture;
+module Elevate.Renderer.Texture;
 
 import Elevate.Foundations.Assert;
 import Elevate.Renderer.Renderer;
