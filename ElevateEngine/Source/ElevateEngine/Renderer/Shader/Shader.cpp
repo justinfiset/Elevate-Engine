@@ -14,6 +14,9 @@ module Elevate.Renderer.Shaders;
 import Elevate.Foundations.Assert;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Files;
+// Core
+import Elevate.Core.Transform.ITransformable;
+import Elevate.Core.Objects.ObjectPtr;
 // Renderer
 import Elevate.Renderer.Renderer;
 import Elevate.Renderer.Lights.Light;

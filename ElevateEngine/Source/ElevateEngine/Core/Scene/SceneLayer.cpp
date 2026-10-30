@@ -8,6 +8,8 @@ module;
 module Elevate.Core.SceneLayer;
 
 import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Bytes;
+import Elevate.Core.Application.GameContext;
 import Elevate.Renderer.Renderer;
 
 // todo : remove

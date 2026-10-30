@@ -3,6 +3,7 @@ module;
 #include <glm/glm.hpp>          // iwyu: keep
 #include <glm/gtc/type_ptr.hpp> // iwyu: keep
 
+#include <memory>
 #include <format>
 
 #include <imgui.h>
