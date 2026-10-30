@@ -5,6 +5,8 @@ module;
 #include <stack>
 #include <vector>
 #include <functional>
+#include <thread>
+#include <chrono>
 
 module Elevate.Core.Profiling;
 
@@ -29,7 +31,7 @@ namespace Elevate
 	void Profiler::EndFrame()
 	{
 		m_CurrentFrame.totalTimeMilliseconds = 0.0f;
-		for (const auto& sample : m_CurrentFrame.Samples)
+		for (const auto &sample : m_CurrentFrame.Samples)
 		{
 			m_CurrentFrame.totalTimeMilliseconds += sample.GetDurationMilliseconds();
 		}
@@ -42,7 +44,7 @@ namespace Elevate
 		}
 	}
 
-	void Profiler::BeginSample(const char* name)
+	void Profiler::BeginSample(const char *name)
 	{
 		ProfilerSample sample;
 		sample.Name = name;
