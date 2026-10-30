@@ -1,4 +1,4 @@
-module Elevate.Physics;
+module Elevate.Physics.PhysicsSystem;
 
 import Elevate.Foundations.Assert;
 
