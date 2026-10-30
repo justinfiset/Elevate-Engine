@@ -1,8 +1,7 @@
-
-#include "OpenGLRendererAPI.h"
-
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <GLFW/glfw3.h>
+
+#include "OpenGLRendererAPI.h"
 
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
 
@@ -34,7 +33,7 @@ namespace Elevate
 		return GL_TRIANGLES;
 	}
 
-	void OpenGLRendererAPI::SetClearColor(const glm::vec4 &color) const
+	void OpenGLRendererAPI::SetClearColor(const glm::vec4& color) const
 	{
 		glClearColor(color.r, color.g, color.b, color.a);
 	}
@@ -78,7 +77,7 @@ namespace Elevate
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	void OpenGLRendererAPI::DrawArray(const VertexArray *vao, DrawPrimitiveType primitive) const
+	void OpenGLRendererAPI::DrawArray(const VertexArray* vao, DrawPrimitiveType primitive) const
 	{
 		if (!glfwGetCurrentContext())
 		{
@@ -106,7 +105,7 @@ namespace Elevate
 		}
 		else
 		{
-			for (const auto &vbo : vao->GetVertexBuffers())
+			for (const auto& vbo : vao->GetVertexBuffers())
 			{
 				uint32_t vertexCount = vbo->GetSize() / vbo->GetLayout().GetStride();
 				GLCheck(glDrawArrays(DrawPrimitiveTypeToOpenGL(primitive), 0, vertexCount));
