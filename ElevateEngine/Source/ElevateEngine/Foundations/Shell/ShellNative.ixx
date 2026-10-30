@@ -2,7 +2,7 @@ module;
 
 #include <string>
 
-module Elevate.Foundations.Shell:Native;
+export module Elevate.Foundations.Shell:Native;
 
 namespace Elevate::Shell::Native
 {
