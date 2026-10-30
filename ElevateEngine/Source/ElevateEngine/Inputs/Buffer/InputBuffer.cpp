@@ -1,6 +1,7 @@
 module;
 
 #include <cstdint>
+#include <cstddef>
 
 module Elevate.Input.Buffer;
 
@@ -90,7 +91,7 @@ namespace Elevate::Internal
 	void InputBuffer::ManageMidSates()
 	{
 		// Keyboard
-		for (size_t i = 0; i < keyStates.size() / 2; i++)
+		for (std::size_t i = 0; i < keyStates.size() / 2; i++)
 		{
 			auto state = GetKeyState(i);
 			switch (state)
@@ -105,7 +106,7 @@ namespace Elevate::Internal
 		}
 
 		// Mouse
-		for (size_t i = 0; i < mouseButtonStates.size() / 2; i++)
+		for (std::size_t i = 0; i < mouseButtonStates.size() / 2; i++)
 		{
 			auto state = GetMouseButtonState(i);
 			switch (state)
@@ -124,26 +125,26 @@ namespace Elevate::Internal
 
 	InputState InputBuffer::GetKeyState(KeyCode keyCode) const
 	{
-		return GetKeyState(static_cast<size_t>(keyCode));
+		return GetKeyState(static_cast<std::size_t>(keyCode));
 	}
 
 	void InputBuffer::SetKeyState(KeyCode keyCode, InputState value)
 	{
-		SetKeyState(static_cast<size_t>(keyCode), value);
+		SetKeyState(static_cast<std::size_t>(keyCode), value);
 	}
 
-	InputState InputBuffer::GetKeyState(size_t index) const
+	InputState InputBuffer::GetKeyState(std::size_t index) const
 	{
-		size_t bitPos = index * 2;
+		std::size_t bitPos = index * 2;
 		Assert::That(bitPos + 1 < keyStates.size(), "InputBuffer::GetKeyState() : Invalid key index.");
 
 		return static_cast<InputState>((keyStates[bitPos] ? 2 : 0) | (keyStates[bitPos + 1] ? 1 : 0));
 	}
 
-	void InputBuffer::SetKeyState(size_t index, InputState value)
+	void InputBuffer::SetKeyState(std::size_t index, InputState value)
 	{
 		uint8_t intValue = (uint8_t)value;
-		size_t bitPos = index * 2;
+		std::size_t bitPos = index * 2;
 		Assert::That(index >= 0 && bitPos < keyStates.size(), "InputBuffer::SetKeyState() : Invalid key index.");
 
 		keyStates[bitPos] = (intValue & 0x02) != 0;
@@ -152,26 +153,26 @@ namespace Elevate::Internal
 
 	InputState InputBuffer::GetMouseButtonState(MouseButton button) const
 	{
-		return GetMouseButtonState(static_cast<size_t>(button));
+		return GetMouseButtonState(static_cast<std::size_t>(button));
 	}
 
 	void InputBuffer::SetMouseButtonState(MouseButton button, InputState value)
 	{
-		SetMouseButtonState(static_cast<size_t>(button), value);
+		SetMouseButtonState(static_cast<std::size_t>(button), value);
 	}
 
-	InputState InputBuffer::GetMouseButtonState(size_t index) const
+	InputState InputBuffer::GetMouseButtonState(std::size_t index) const
 	{
-		size_t bitPos = index * 2;
+		std::size_t bitPos = index * 2;
 		Assert::That(bitPos + 1 < mouseButtonStates.size(), "InputBuffer::GetMouseButtonState() : Invalid button index.");
 
 		return static_cast<InputState>((mouseButtonStates[bitPos] ? 2 : 0) | (mouseButtonStates[bitPos + 1] ? 1 : 0));
 	}
 
-	void InputBuffer::SetMouseButtonState(size_t index, InputState value)
+	void InputBuffer::SetMouseButtonState(std::size_t index, InputState value)
 	{
 		uint8_t intValue = (uint8_t)value;
-		size_t bitPos = index * 2;
+		std::size_t bitPos = index * 2;
 		Assert::That(index >= 0 && bitPos < keyStates.size(), "InputBuffer::SetMouseButtonState() : Invalid buton index.");
 
 		mouseButtonStates[bitPos] = (intValue & 0x02) != 0;

@@ -162,11 +162,11 @@ local function webModuleBuildCommands()
     end
 
     script:write("@echo off\r\n")
-    script:write("set MODULE_DIR=%~f1\r\n")
+    script:write("set \"MODULE_DIR=%~f1\"\r\n")
     script:write("if not exist \"%MODULE_DIR%\" mkdir \"%MODULE_DIR%\"\r\n")
-    script:write("set MODULE_FLAGS=%MODULE_DIR%\\module-flags.rsp\r\n")
+    script:write("set \"MODULE_FLAGS=%MODULE_DIR%\\module-flags.rsp\"\r\n")
     script:write("if exist \"%MODULE_FLAGS%\" del /q \"%MODULE_FLAGS%\"\r\n")
-    script:write("type nul > \"%MODULE_FLAGS%\"\r\n")
+    script:write("copy /y NUL \"%MODULE_FLAGS%\" >NUL\r\n")
     script:write("if not exist \"%MODULE_FLAGS%\" exit /b 1\r\n")
     for _, filename in ipairs(orderedModuleFiles()) do
         local file = io.open(filename, "r")
@@ -188,6 +188,7 @@ local function webModuleBuildCommands()
                              moduleOutputName .. ".pcm\r\n")
         end
     end
+    script:write("if not exist \"%MODULE_FLAGS%\" exit /b 1\r\n")
     script:write("exit /b 0\r\n")
     script:close()
 

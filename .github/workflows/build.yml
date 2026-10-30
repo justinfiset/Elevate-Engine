@@ -44,8 +44,8 @@ jobs:
   build-linux-gcc:
     runs-on: ubuntu-latest
     env:
-      CC: gcc-14
-      CXX: g++-14
+      CC: gcc-15
+      CXX: g++-15
     steps:
       - name : Checkout code
         uses: actions/checkout@v4
@@ -55,7 +55,15 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc-14 g++-14 libgl1-mesa-dev libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+          sudo apt-get update
+          sudo apt-get install -y gcc-15 g++-15 libgl1-mesa-dev libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev
+      - name: Verify GCC version
+        run: |
+          "$CC" --version
+          "$CXX" --version
+          test "$("$CXX" -dumpversion | cut -d. -f1)" = "15"
       - name: Cleanup Project
         run: |
           rm -rf Build/ bin/ bin-int/

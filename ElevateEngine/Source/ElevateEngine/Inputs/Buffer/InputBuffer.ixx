@@ -1,6 +1,7 @@
 module;
 
 #include <bitset>
+#include <cstddef>
 
 export module Elevate.Input.Buffer;
 
@@ -43,13 +44,13 @@ export namespace Elevate::Internal
 		// Bit packing helper
 		InputState GetKeyState(KeyCode keyCode) const;
 		void SetKeyState(KeyCode keyCode, InputState value);
-		InputState GetKeyState(size_t index) const;
-		void SetKeyState(size_t index, InputState value);
+		InputState GetKeyState(std::size_t index) const;
+		void SetKeyState(std::size_t index, InputState value);
 
 		InputState GetMouseButtonState(MouseButton button) const;
 		void SetMouseButtonState(MouseButton button, InputState value);
-		InputState GetMouseButtonState(size_t index) const;
-		void SetMouseButtonState(size_t index, InputState value);
+		InputState GetMouseButtonState(std::size_t index) const;
+		void SetMouseButtonState(std::size_t index, InputState value);
 	};
 }
 
