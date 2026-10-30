@@ -11,6 +11,12 @@ module;
 
 module Elevate.Renderer.Materials.Material;
 
+import Elevate.Foundations.Data;
+
+import Elevate.Core.Types.TypeField;
+import Elevate.Core.Types.TypeLayout;
+import Elevate.Core.Types.TypeRegistry;
+
 import Elevate.Renderer.Texture;
 import Elevate.Renderer.Shaders;
 import Elevate.Renderer.Renderer;

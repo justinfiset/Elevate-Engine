@@ -1,8 +1,6 @@
 #include "JoltPhysicsSystem.h"
 #include "JoltShapeFactory.h"
 
-import Elevate.Foundations;
-
 #include <cstdarg>
 #include <cstdio>
 
@@ -18,6 +16,7 @@ import Elevate.Foundations;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Application;
+import Elevate.Core.Transform.Transform;
 
 namespace Elevate::Jolt
 {

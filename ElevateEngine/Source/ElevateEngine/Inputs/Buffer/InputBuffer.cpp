@@ -102,6 +102,8 @@ namespace Elevate::Internal
 			case InputState::Up:
 				SetKeyState(i, InputState::Released);
 				break;
+			default:
+				break;
 			}
 		}
 
@@ -116,6 +118,8 @@ namespace Elevate::Internal
 				break;
 			case InputState::Up:
 				SetMouseButtonState(i, InputState::Released);
+				break;
+			default:
 				break;
 			}
 		}
