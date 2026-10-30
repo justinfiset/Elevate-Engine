@@ -1,8 +1,11 @@
 #pragma once
 
+#include <string>
+#include <cstdint>
 #include "glm/glm.hpp"
 
 import Elevate.Renderer.Shaders;
+import Elevate.Renderer.Buffers;
 
 namespace Elevate
 {
