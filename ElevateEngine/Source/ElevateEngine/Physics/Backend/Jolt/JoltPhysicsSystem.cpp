@@ -14,7 +14,7 @@ import Elevate.Foundations;
 #include <Jolt/Physics/Body/BodyCreationSettings.h>
 
 #include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
-#include <ElevateEngine/Physics/public/Colliders/Collider.h>
+#include <ElevateEngine/Physics/Public/Colliders/Collider.h>
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Application;

@@ -11,6 +11,8 @@ module;
 
 module Elevate.Serialization.JsonSerializer;
 
+import Elevate.Foundations.Data;
+
 namespace Elevate
 {
 	template <class... Ts>

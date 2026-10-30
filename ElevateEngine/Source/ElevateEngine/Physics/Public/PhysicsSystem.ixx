@@ -1,16 +1,11 @@
-export module Elevate.Physics.PhysicsSystem;
+module;
 
-// Physics Forwards
-export namespace Elevate
+namespace Elevate
 {
 	class Rigidbody;
-	class BoxCollider;
-	class CapsuleCollider;
-	class Collider;
-	class MeshCollider;
-	class SphereCollider;
-	class PlaneCollider;
 }
+
+export module Elevate.Physics.PhysicsSystem;
 
 export namespace Elevate
 {

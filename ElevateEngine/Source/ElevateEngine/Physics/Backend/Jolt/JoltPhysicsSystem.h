@@ -1,5 +1,10 @@
 #pragma once
 
+namespace Elevate
+{
+	class Rigidbody;
+}
+
 import Elevate.Physics.PhysicsSystem;
 
 #ifdef EE_DEBUG
