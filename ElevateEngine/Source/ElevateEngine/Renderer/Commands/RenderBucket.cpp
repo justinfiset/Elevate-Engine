@@ -3,6 +3,8 @@ module;
 #include <cstdint>
 #include <algorithm>
 #include <vector>
+#include <stack>
+#include <cstddef>
 
 module Elevate.Renderer.Commands.RenderBucket;
 
