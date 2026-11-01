@@ -1,5 +1,6 @@
 module;
 
+#include <entt/entt.hpp>
 #include <cstdint>
 
 #include <ElevateEngine/Platform/OpenGL/Buffers/OpenGLBuffer.h>

@@ -1,5 +1,7 @@
 module;
 
+#include <entt/entt.hpp>
+
 #include <string>
 #include <memory>
 #include <filesystem>

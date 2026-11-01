@@ -326,6 +326,17 @@ export namespace Elevate
 				using TargetT = ee_ptr_target_t<CleanedFieldT>;
 				field.targetTypeKey = GetTypeKey<TargetT>();
 			}
+			else if constexpr (is_unique_ptr<CleanedFieldT>)
+			{
+				using TargetT = unique_ptr_target_t<CleanedFieldT>;
+				field = TypeField(name, EngineDataType::Custom, offset, meta.displayName);
+				field.targetTypeKey = GetTypeKey<TargetT>();
+
+				field.GetPointee = [](const void* ptr) -> const void*
+					{
+						return static_cast<const CleanedFieldT*>(ptr)->get();
+					};
+			}
 			else if (type == EngineDataType::Enum)
 			{
 				field = TypeField(name, type, offset, meta.displayName);

@@ -1,5 +1,7 @@
 module;
 
+#include <entt/entt.hpp>
+
 #include <memory>
 #include <string>
 #include <glm/gtc/type_ptr.hpp>

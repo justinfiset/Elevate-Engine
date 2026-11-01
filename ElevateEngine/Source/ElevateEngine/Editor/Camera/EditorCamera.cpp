@@ -10,6 +10,7 @@ module Elevate.Editor.Camera;
 // Foundations
 import Elevate.Foundations.Time;
 // Core
+import Elevate.Core.Transform;
 import Elevate.Core.Scene;
 // Renderer
 import Elevate.Renderer.Camera;
@@ -18,12 +19,14 @@ import Elevate.Input;
 
 namespace Elevate
 {
-	EditorCamera::EditorCamera(float fov)
-		: Camera(fov, false) {
+	EditorCamera::EditorCamera(float fov) : Camera(CameraProjectionMode::Perspective, false)
+	{
 	}
 
 	void EditorCamera::Update()
 	{
+		Transform& transform = gameObject->GetTransform();
+
 		float baseCamSpeed = 0.5f;
 
 		if (Input::IsKeyPressed(KeyCode::LeftShift))
@@ -34,16 +37,16 @@ namespace Elevate
 		glm::vec3 offset(0.0f);
 
 		if (Input::IsKeyPressed(KeyCode::W))
-			offset += cameraSpeed * GetFrontVec();
+			offset += cameraSpeed * transform.GetForward();
 
 		if (Input::IsKeyPressed(KeyCode::S))
-			offset -= cameraSpeed * GetFrontVec();
+			offset -= cameraSpeed * transform.GetForward();
 
 		if (Input::IsKeyPressed(KeyCode::D))
-			offset += cameraSpeed * GetRightVec();
+			offset += cameraSpeed * transform.GetRight();
 
 		if (Input::IsKeyPressed(KeyCode::A))
-			offset -= cameraSpeed * GetRightVec();
+			offset -= cameraSpeed * transform.GetRight();
 
 		gameObject->SetPosition(gameObject->GetPosition() + offset);
 

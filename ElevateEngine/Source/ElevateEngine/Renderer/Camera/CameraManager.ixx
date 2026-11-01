@@ -1,5 +1,6 @@
 module;
 
+#include <entt/entt.hpp>
 #include <memory>
 
 export module Elevate.Renderer.Camera:CameraManager;

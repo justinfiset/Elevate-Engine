@@ -36,6 +36,8 @@ export namespace Elevate
 
 		std::function<void(void* instance, size_t newSize)> ResizeArray;
 
+		std::function<const void* (const void*)> GetPointee;
+
 		TypeField() = default;
 
 		TypeField(

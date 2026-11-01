@@ -20,7 +20,6 @@ export namespace Elevate::Editor
 		void OnImGuiRender() override;
 
 	private:
-		void UpdateViewportAspectRatio();
 		std::string GetAspectRatioText(glm::ivec2 ar);
 
 	private:

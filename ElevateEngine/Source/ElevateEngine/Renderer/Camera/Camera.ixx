@@ -1,5 +1,7 @@
 module;
 
+#include <memory>
+#include <array>
 #include "glm/glm.hpp"
 
 #include "Reflection.h"
@@ -9,7 +11,9 @@ export module Elevate.Renderer.Camera:Camera;
 import Elevate.Foundations;
 import Elevate.Core.Scene;
 
-// TODO add ortographic or projection settings (bool value or constructors)
+import :CameraProjectionMode;
+import :CameraProjection;
+
 export namespace Elevate
 {
 	class Camera : public Component
@@ -19,30 +23,14 @@ export namespace Elevate
 		EECATEGORY("Rendering");
 
 		// All possible constructors
-		Camera(float fov = 60.0f, bool overrideCurrent = true);
-		Camera(float fov, float aspectRatio, bool overrideCurrent = true);
+		Camera(CameraProjectionMode projection = CameraProjectionMode::Perspective, bool overrideCurrent = true);
 
-		void UpdateAspectRatio(float aspectRatio);
+		CameraProjection* GetProjection() const
+		{
+			return m_projection.get();
+		}
 
-		const glm::mat4& GetProjectionMatrix() const { return m_projectionMatrix; }
 		glm::mat4 GenViewMatrix() const;
-
-		glm::vec3 GetFrontVec() const;
-		glm::vec3 GetRightVec() const;
-		glm::vec3 GetUpVec() const;
-
-		float GetFOV() const { return m_FOV; }
-		void SetFOV(float fov);
-
-		// Near and Far planes
-		float GetNear() const { return m_near; }
-		void SetNear(float nearPlane);
-
-		float GetFar() const { return m_far; }
-		void SetFar(float farPlane);
-
-		float GetAspectRatio() const { return m_aspectRatio; }
-
 		glm::mat4 GenViewProjectionMatrix() const;
 
 		void Init() override;
@@ -58,24 +46,16 @@ export namespace Elevate
 #endif
 
 	private:
-		glm::mat4 GenProjectionMatrix();
-		void UpdateProjectionMatrix();
+		void CreateProjection();
 
 	private:
-		float m_aspectRatio;
-
-		float m_FOV;
-		PROPERTY(m_FOV);
-
-		glm::mat4 m_projectionMatrix;
-
 		bool m_canBeMainCamera = true;
 
-		float m_near = 0.1f;
-		PROPERTY(m_near);
+		CameraProjectionMode m_projectionMode = CameraProjectionMode::Perspective;
+		CameraProjectionMode m_previousMode; // Used to check if dirty
 
-		float m_far = 50.0f;
-		PROPERTY(m_far);
+		std::unique_ptr<CameraProjection> m_projection;
+		PROPERTY(m_projection);
 
 		END_COMPONENT();
 	};

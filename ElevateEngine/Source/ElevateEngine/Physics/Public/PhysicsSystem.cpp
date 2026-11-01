@@ -1,3 +1,7 @@
+module;
+
+#include <entt/entt.hpp>
+
 module Elevate.Physics.PhysicsSystem;
 
 import Elevate.Foundations.Assert;

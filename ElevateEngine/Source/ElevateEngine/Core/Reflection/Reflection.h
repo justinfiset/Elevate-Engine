@@ -294,7 +294,7 @@ public: \
     EE_REQUIRE_SEMICOLON
 
 // =======================================================
-// BEGIN_STRUCT / END_STRUCT
+// BEGIN_STRUCT / END_STRUCT / DECLARE_STRUCT_BASE
 // =======================================================
 #define BEGIN_STRUCT(T) \
 public: \
@@ -305,11 +305,13 @@ public: \
             StructName = ::Elevate::TypeRegistry::GetCleanedName(#T); \
             StructTypeName = typeid(T).name(); \
         } \
-        std::string StructName; \
-        std::string StructTypeName; \
-        std::vector<::Elevate::TypeField> StructFieldStack; \
-    } generated_structEntry; \
-    EE_REQUIRE_SEMICOLON
+		bool HasBaseStruct; \
+		std::type_index BaseStructIndex { typeid(void) }; \
+		std::string StructName; \
+		std::string StructTypeName; \
+		std::vector<::Elevate::TypeField> StructFieldStack; \
+	} generated_structEntry; \
+	EE_REQUIRE_SEMICOLON
 
 #define END_STRUCT() \
 private: \
@@ -325,8 +327,21 @@ private: \
     } generated_structEntryEnd; \
 public: \
     inline ::Elevate::TypeLayout GetLayout() const { \
-        std::vector<::Elevate::TypeField> instanceFields; \
+        std::vector<::Elevate::TypeField> allFields; \
+        if (generated_structEntry.HasBaseStruct) { \
+            auto& registryMap = ::Elevate::TypeRegistry::GetReflectedTypes(); \
+            auto it = registryMap.find(generated_structEntry.BaseStructIndex); \
+            if (it != registryMap.end()) { \
+		        for (const auto& field : it->second) { \
+                    allFields.push_back(field); \
+                } \
+            } \
+		} \
         for (const ::Elevate::TypeField& field : generated_structEntry.StructFieldStack) { \
+            allFields.push_back(field); \
+         } \
+        std::vector<::Elevate::TypeField> instanceFields; \
+        for (const ::Elevate::TypeField& field : allFields) { \
             ::Elevate::TypeField instField = field; \
             instField.data = reinterpret_cast<const char*>(this) + field.offset; \
             instanceFields.push_back(instField); \
@@ -340,4 +355,16 @@ public: \
     inline void SetFromProperties(const ::Elevate::PropertySet& props) { \
         GetLayout().ApplyState(props); \
     } \
+    EE_REQUIRE_SEMICOLON
+
+#define DECLARE_STRUCT_BASE(BaseType) \
+private: \
+    using Super = BaseType; \
+    inline static struct BaseType##BaseClassDeclaration { \
+        BaseType##BaseClassDeclaration() { \
+            generated_structEntry.HasBaseStruct = true; \
+            generated_structEntry.BaseStructIndex = typeid(BaseType); \
+        } \
+    } generated_baseDeclaration; \
+public: \
     EE_REQUIRE_SEMICOLON

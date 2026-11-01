@@ -1,10 +1,12 @@
 module;
 
+#include <memory>
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
 module Elevate.Renderer.Camera;
 
+import Elevate.Core.Transform;
 import Elevate.Core.Window;
 import Elevate.Core.Application;
 import Elevate.Core.Scene;
@@ -16,27 +18,18 @@ import Elevate.Editor.Selection;
 import Elevate.Renderer.Debug.DebugRenderer;
 #endif
 
-Elevate::Camera::Camera(float fov, bool overrideCurrent)
+import :CameraProjectionMode;
+import :PerspectiveProjection;
+import :OrthographicProjection;
+
+Elevate::Camera::Camera(CameraProjectionMode projection, bool overrideCurrent)
+	: m_projectionMode(projection), m_canBeMainCamera(overrideCurrent)
 {
-	m_FOV = fov;
-	Window& window = Application::Get().GetWindow();
-	m_aspectRatio = (float)window.GetWidth() / (float)window.GetHeight();
-
-	m_canBeMainCamera = overrideCurrent;
-}
-
-Elevate::Camera::Camera(float fov, float aspectRatio, bool overrideCurrent)
-{
-	m_FOV = fov;
-	Window& window = Application::Get().GetWindow();
-	m_aspectRatio = aspectRatio;
-
-	m_canBeMainCamera = overrideCurrent;
 }
 
 void Elevate::Camera::Init()
 {
-	UpdateProjectionMatrix();
+	CreateProjection();
 
 	if (m_canBeMainCamera)
 	{
@@ -44,6 +37,7 @@ void Elevate::Camera::Init()
 	}
 
 	// todo : change this bit of code to be in the camera manager
+	// or let the scene manager handle it
 	SoundEngine::SetDefaultListener(gameObject);
 }
 
@@ -52,112 +46,72 @@ void Elevate::Camera::Destroy()
 	CameraManager::NotifyDestruction(this);
 }
 
-void Elevate::Camera::UpdateAspectRatio(float aspectRatio)
+glm::mat4 Elevate::Camera::GenViewMatrix() const
 {
-	if (m_aspectRatio != aspectRatio)
-	{
-		m_aspectRatio = aspectRatio;
-		UpdateProjectionMatrix();
-	}
+	Transform& transform = gameObject->GetTransform();
+	return glm::lookAt(transform.GetPosition(), transform.GetPosition() + transform.GetForward(), transform.GetUp());
 }
 
 glm::mat4 Elevate::Camera::GenViewProjectionMatrix() const
 {
-	return m_projectionMatrix * GenViewMatrix();
+	return m_projection->GetProjectionMatrix() * GenViewMatrix();
 }
 
-glm::mat4 Elevate::Camera::GenViewMatrix() const
+void Elevate::Camera::CreateProjection()
 {
-	return glm::lookAt(gameObject->GetPosition(), gameObject->GetPosition() + GetFrontVec(), GetUpVec());
-}
-
-glm::vec3 Elevate::Camera::GetFrontVec() const
-{
-	return gameObject->GetTransform().GetForward();
-}
-
-glm::vec3 Elevate::Camera::GetRightVec() const
-{
-	return gameObject->GetTransform().GetRight();
-}
-
-glm::vec3 Elevate::Camera::GetUpVec() const
-{
-	return gameObject->GetTransform().GetUp();
-}
-
-inline void Elevate::Camera::SetFOV(float fov)
-{
-	if (m_FOV != fov)
+	// Create the new projection object
+	switch (m_projectionMode)
 	{
-		m_FOV = fov;
-		UpdateProjectionMatrix();
+	case CameraProjectionMode::Perspective:
+		m_projection = std::make_unique<PerspectiveProjection>();
+		break;
+	case CameraProjectionMode::Orthographic:
+		m_projection = std::make_unique<OrthographicProjection>();
+		break;
+	default:
+		CoreLogger::Warn("Cannot create a camera without a valid projection.");
+		return;
 	}
-}
 
-inline void Elevate::Camera::SetNear(float nearPlane)
-{
-	if (m_near != nearPlane)
-	{
-		m_near = nearPlane;
-		UpdateProjectionMatrix();
-	}
-}
-
-inline void Elevate::Camera::SetFar(float farPlane)
-{
-	if (m_far != farPlane)
-	{
-		m_far = farPlane;
-		UpdateProjectionMatrix();
-	}
-}
-
-glm::mat4 Elevate::Camera::GenProjectionMatrix()
-{
-	return glm::perspective(glm::radians(m_FOV), m_aspectRatio, m_near, m_far);
-}
-
-void Elevate::Camera::UpdateProjectionMatrix()
-{
-	m_projectionMatrix = GenProjectionMatrix();
+	// Set the width and height the new object
+	Window& window = Application::Get().GetWindow();
+	m_projection->SetSize(window.GetWidth(), window.GetHeight());
 }
 
 std::array<glm::vec3, 8> Elevate::Camera::CalculateFrustumCorners(float nearScale, float farScale) const
 {
 	std::array<glm::vec3, 8> corners;
 
-	glm::vec3 position = gameObject->GetGlobalPosition();
-	glm::vec3 front = GetFrontVec();
-	glm::vec3 right = GetRightVec();
-	glm::vec3 up = GetUpVec();
+	const glm::mat4 inverseViewProj = glm::inverse(GenViewProjectionMatrix());
 
-	float tanHalfFOV = tan(glm::radians(m_FOV * 0.5f));
+	std::array<glm::vec3, 8> ndcCorners;
+	ndcCorners[0] = { -1.f, -1.f, -1.f };
+	ndcCorners[1] = { 1.f, -1.f, -1.f };
+	ndcCorners[2] = { 1.f,  1.f, -1.f };
+	ndcCorners[3] = { -1.f,  1.f, -1.f };
+	ndcCorners[4] = { -1.f, -1.f,  1.f };
+	ndcCorners[5] = { 1.f, -1.f,  1.f };
+	ndcCorners[6] = { 1.f,  1.f,  1.f };
+	ndcCorners[7] = { -1.f,  1.f,  1.f };
 
-	float dir = m_far - m_near;
-	float calcNear = m_near + dir * nearScale;
-	float calcFar = m_near + dir * farScale;
+	for (std::size_t i = 0; i < ndcCorners.size(); ++i)
+	{
+		glm::vec4 worldCorner = inverseViewProj * glm::vec4(ndcCorners[i], 1.0f);
+		worldCorner /= worldCorner.w;
 
-	float nearHeight = 2.0f * tanHalfFOV * calcNear;
-	float nearWidth = nearHeight * m_aspectRatio;
+		corners[i] = glm::vec3(worldCorner);
+	}
 
-	float farHeight = 2.0f * tanHalfFOV * calcFar;
-	float farWidth = farHeight * m_aspectRatio;
+	for (std::size_t i = 0; i < 4; ++i)
+	{
+		const glm::vec3 nearCorner = corners[i];
+		const glm::vec3 farCorner = corners[i + 4];
 
-	glm::vec3 nearCenter = position + front * calcNear;
-	glm::vec3 farCenter = position + front * calcFar;
+		const glm::vec3 direction = farCorner - nearCorner;
 
-	// Near Plane Corners
-	corners[0] = nearCenter - (up * (nearHeight * 0.5f)) - (right * (nearWidth * 0.5f)); // near-bottom-left
-	corners[1] = nearCenter - (up * (nearHeight * 0.5f)) + (right * (nearWidth * 0.5f)); // near-bottom-right
-	corners[2] = nearCenter + (up * (nearHeight * 0.5f)) + (right * (nearWidth * 0.5f)); // near-top-right
-	corners[3] = nearCenter + (up * (nearHeight * 0.5f)) - (right * (nearWidth * 0.5f)); // near-top-left
-
-	// Far Plane Corners
-	corners[4] = farCenter - (up * (farHeight * 0.5f)) - (right * (farWidth * 0.5f)); // far-bottom-left
-	corners[5] = farCenter - (up * (farHeight * 0.5f)) + (right * (farWidth * 0.5f)); // far-bottom-right
-	corners[6] = farCenter + (up * (farHeight * 0.5f)) + (right * (farWidth * 0.5f)); // far-top-right
-	corners[7] = farCenter + (up * (farHeight * 0.5f)) - (right * (farWidth * 0.5f)); // far-top-left
+		corners[i] = nearCorner + direction * nearScale;
+		corners[i + 4] = nearCorner + direction * farScale;
+	}
 
 	return corners;
 }

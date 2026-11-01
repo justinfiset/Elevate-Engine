@@ -58,7 +58,7 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 		{
 			for (int i = 0; i < sizeof(s_AspectRatioSettings) / sizeof(s_AspectRatioSettings[0]); i++)
 			{
-				if (ImGui::RadioButton(GetAspectRatioText(s_AspectRatioSettings[i]).c_str(), &m_AspectRatioValue, i)) { UpdateViewportAspectRatio(); }
+				ImGui::RadioButton(GetAspectRatioText(s_AspectRatioSettings[i]).c_str(), &m_AspectRatioValue, i);
 			}
 			ImGui::EndMenu();
 		}
@@ -93,6 +93,12 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 	framebuffer.Rescale(window_width, window_height);
 	Renderer::SetViewport(0, 0, window_width, window_height);
 
+	Camera* cam = EditorLayer::Get().GetCamera();
+	if (cam != nullptr && cam->GetProjection() != nullptr)
+	{
+		cam->GetProjection()->SetSize(window_width, window_height);
+	}
+
 	// we get the screen position of the window
 	ImVec2 pos = ImGui::GetCursorScreenPos();
 	ImGui::Image((ImTextureID)framebuffer.GetColorAttachmentHandle(), ImVec2((float)window_width, (float)window_height), ImVec2(0, 1), ImVec2(1, 0));
@@ -114,7 +120,7 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 			ImGuizmo::SetOrthographic(false); // TODO SET DINAMICLY FROM THE EDITOR AND SETUP THE CAMERA ACCORDINGLY
 			ImGuizmo::SetRect(pos.x, pos.y, (float)window_width, (float)window_height);
 
-			glm::mat4 cameraProjection = cam->GetProjectionMatrix();
+			glm::mat4 cameraProjection = cam->GetProjection()->GetProjectionMatrix();
 			glm::mat4 cameraView = cam->GenViewMatrix();
 			glm::mat4 entityMatrix = selectedShared->GenGlobalMatrix();
 
@@ -135,14 +141,6 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 	}
 
 	ImGui::End();
-}
-
-void Elevate::Editor::ScenePanel::UpdateViewportAspectRatio()
-{
-	Camera* cam = EditorLayer::Get().GetCamera();
-	const glm::ivec2 values = s_AspectRatioSettings[m_AspectRatioValue];
-	const float ratio = (float)values.x / (float)values.y;
-	cam->UpdateAspectRatio(ratio);
 }
 
 std::string Elevate::Editor::ScenePanel::GetAspectRatioText(glm::ivec2 ar)
