@@ -1,11 +1,6 @@
 #pragma once
 
-namespace Elevate
-{
-	class Rigidbody;
-}
-
-import Elevate.Physics.PhysicsSystem;
+#include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
 
 #ifdef EE_DEBUG
 #define JPH_ENABLE_ASSERTS
@@ -18,6 +13,8 @@ import Elevate.Physics.PhysicsSystem;
 #include <Jolt/Physics/PhysicsSystem.h>
 #include <Jolt/Core/TempAllocator.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
+
+import Elevate.Physics.PhysicsSystem;
 
 namespace Elevate::Jolt
 {
