@@ -1,11 +1,11 @@
 module;
 
+export module Elevate.Physics.PhysicsSystem;
+
 namespace Elevate
 {
 	class Rigidbody;
 }
-
-export module Elevate.Physics.PhysicsSystem;
 
 export namespace Elevate
 {

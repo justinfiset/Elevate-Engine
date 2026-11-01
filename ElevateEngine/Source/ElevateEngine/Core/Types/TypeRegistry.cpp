@@ -3,6 +3,9 @@ module;
 #include <cctype>
 #include <string>
 #include <typeinfo>
+#include <typeindex>
+#include <vector>
+#include <unordered_map>
 
 module Elevate.Core.Types.TypeRegistry;
 
