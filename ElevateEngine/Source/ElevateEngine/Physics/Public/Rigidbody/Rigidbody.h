@@ -21,17 +21,14 @@ namespace Elevate
 		Static
 	};
 
-	namespace
-	{
-		BEGIN_ENUM(RigidbodyType)
-			ENUM_VALUE(Dynamic)
-			ENUM_VALUE(Kinematic)
-			ENUM_VALUE(Static)
-			END_ENUM(RigidbodyType)
-	}
+	BEGIN_ENUM(RigidbodyType)
+		ENUM_VALUE(Dynamic)
+		ENUM_VALUE(Kinematic)
+		ENUM_VALUE(Static)
+		END_ENUM(RigidbodyType)
 
 
-	struct SurfaceMaterial
+		struct SurfaceMaterial
 	{
 		BEGIN_STRUCT(SurfaceMaterial);
 

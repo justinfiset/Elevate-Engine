@@ -38,21 +38,25 @@ import Elevate.Editor.Icons;
 // =======================================================
 
 #define BEGIN_ENUM(EnumName) \
-    inline static struct EnumName##EnumEntry { \
+    template<> \
+    struct EnumRegistrar<EnumName> { \
         using EnumType = EnumName; \
-        EnumName##EnumEntry() { \
-            ::Elevate::TypeRegistry::RegisterEnum<EnumType>( \
-                #EnumName, \
-                {
+        static void Ensure() { \
+            static const bool registered = [] { \
+                ::Elevate::TypeRegistry::RegisterEnum<EnumType>( \
+                    #EnumName, \
+                    {
 
 #define ENUM_VALUE(name) \
-                    { #name, static_cast<int64_t>(EnumType::name) },
+                        { #name, static_cast<int64_t>(EnumType::name) },
 
 #define END_ENUM(EnumName) \
-                } \
-            ); \
+                    }); \
+                return true; \
+            }(); \
+            (void)registered; \
         } \
-    } generated_##EnumName##EnumEntryInstance;
+    };
 
 #include "ReflectionInternal.h"
 

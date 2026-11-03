@@ -5,6 +5,7 @@ module;
 export module Elevate.Renderer.Camera:CameraProjectionMode;
 
 import Elevate.Foundations.Enums;
+import Elevate.Core.Types.TypeRegistry;
 
 export namespace Elevate
 {
@@ -13,11 +14,7 @@ export namespace Elevate
 		Perspective = 0,
 		Orthographic = 1
 	};
-}
 
-// Register the enum with the reflection system
-namespace Elevate
-{
 	BEGIN_ENUM(CameraProjectionMode)
 		ENUM_VALUE(Perspective)
 		ENUM_VALUE(Orthographic)

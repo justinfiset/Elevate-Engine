@@ -143,6 +143,12 @@ export namespace Elevate
 
 	using ObjectFactory = std::function<std::shared_ptr<EEObject>()>;
 
+	template<typename T>
+	struct EnumRegistrar
+	{
+		static void Ensure() {}
+	};
+
 	class TypeRegistry {
 	public:
 		template<typename T>
@@ -379,6 +385,8 @@ export namespace Elevate
 			}
 			else if (type == EngineDataType::Enum)
 			{
+				EnumRegistrar<CleanedFieldT>::Ensure();
+
 				field = TypeField(name, type, offset, meta.displayName);
 				field.targetTypeKey = GetTypeKey<CleanedFieldT>();
 			}

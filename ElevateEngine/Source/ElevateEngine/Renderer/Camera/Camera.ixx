@@ -53,6 +53,8 @@ export namespace Elevate
 		bool m_canBeMainCamera = true;
 
 		CameraProjectionMode m_projectionMode = CameraProjectionMode::Perspective;
+		PROPERTY(m_projectionMode);
+
 		CameraProjectionMode m_previousMode; // Used to check if dirty
 
 		std::unique_ptr<CameraProjection> m_projection;
