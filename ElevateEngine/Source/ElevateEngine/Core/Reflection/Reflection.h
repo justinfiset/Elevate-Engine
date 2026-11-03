@@ -304,8 +304,10 @@ public: \
             ::Elevate::TypeRegistry::AddClassToStack(#T); \
             StructName = ::Elevate::TypeRegistry::GetCleanedName(#T); \
             StructTypeName = typeid(T).name(); \
-        } \
-		bool HasBaseStruct; \
+            TypeIndex = typeid(T); \
+		} \
+		std::type_index TypeIndex{ typeid(void) }; \
+		bool HasBaseStruct = false; \
 		std::type_index BaseStructIndex { typeid(void) }; \
 		std::string StructName; \
 		std::string StructTypeName; \
@@ -348,7 +350,7 @@ public: \
         } \
         return ::Elevate::TypeLayout(this, generated_structEntry.StructName, instanceFields); \
     } \
-    std::type_index GetTypeIndex() const { return typeid(ThisType); } \
+    virtual std::type_index GetTypeIndex() const { return generated_structEntry.TypeIndex; } \
     inline ::Elevate::PropertySet GetProperties() const { \
         return GetLayout().CaptureState(); \
     } \
@@ -363,7 +365,7 @@ private: \
     inline static struct BaseType##BaseClassDeclaration { \
         BaseType##BaseClassDeclaration() { \
             generated_structEntry.HasBaseStruct = true; \
-            generated_structEntry.BaseStructIndex = typeid(BaseType); \
+            generated_structEntry.BaseStructIndex = BaseType::generated_structEntry.TypeIndex; \
         } \
     } generated_baseDeclaration; \
 public: \

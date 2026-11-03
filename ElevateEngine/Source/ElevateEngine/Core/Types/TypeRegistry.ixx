@@ -364,6 +364,18 @@ export namespace Elevate
 					{
 						return static_cast<const CleanedFieldT*>(ptr)->get();
 					};
+
+				field.GetPointeeTypeIndex = [](const void* ptr) -> std::type_index
+					{
+						const auto* pointee = static_cast<const CleanedFieldT*>(ptr)->get();
+
+						if (!pointee)
+						{
+							return typeid(void);
+						}
+
+						return pointee->GetTypeIndex();
+					};
 			}
 			else if (type == EngineDataType::Enum)
 			{

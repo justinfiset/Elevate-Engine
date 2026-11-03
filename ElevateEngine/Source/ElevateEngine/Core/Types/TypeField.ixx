@@ -37,6 +37,7 @@ export namespace Elevate
 		std::function<void(void* instance, size_t newSize)> ResizeArray;
 
 		const void* (*GetPointee)(const void*) = nullptr;
+		std::function<std::type_index(const void*)> GetPointeeTypeIndex;
 
 		TypeField() = default;
 
@@ -116,33 +117,7 @@ export namespace Elevate
 
 		std::type_index GetTargetType() const;
 
-		void UseInstance(const void* instancePtr)
-		{
-			data = reinterpret_cast<const char*>(instancePtr) + offset;
-
-			if (!GetPointee)
-			{
-				return;
-			}
-
-			const void* pointeeData = GetPointee(data);
-
-			std::vector<TypeField> instChildren;
-			children.reserve(children.size());
-
-			for (const auto& child : children)
-			{
-				const void* childData = static_cast<const void*>(static_cast<const char*>(pointeeData) + child.offset);
-				instChildren.emplace_back(child, childData);
-			}
-
-			children.clear();
-
-			for (const auto& child : instChildren)
-			{
-				children.push_back(child);
-			}
-		}
+		void UseInstance(const void* instancePtr);
 
 		inline const std::string& GetDisplayName() const
 		{
