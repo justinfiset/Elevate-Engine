@@ -24,6 +24,7 @@ export namespace Elevate
 
 		// All possible constructors
 		Camera(CameraProjectionMode projection = CameraProjectionMode::Perspective, bool overrideCurrent = true);
+		~Camera() = default;
 
 		CameraProjection* GetProjection() const
 		{

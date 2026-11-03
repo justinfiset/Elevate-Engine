@@ -36,9 +36,15 @@ export namespace Elevate
 
 		std::function<void(void* instance, size_t newSize)> ResizeArray;
 
-		std::function<const void* (const void*)> GetPointee;
+		const void* (*GetPointee)(const void*) = nullptr;
 
 		TypeField() = default;
+
+		TypeField(const TypeField&) = default;
+		TypeField& operator=(const TypeField&) = default;
+
+		TypeField(TypeField&&) noexcept = default;
+		TypeField& operator=(TypeField&&) noexcept = default;
 
 		TypeField(
 			const std::string& name,
@@ -82,21 +88,61 @@ export namespace Elevate
 		}
 
 		TypeField(const TypeField& original, const void* dataPtr)
-			: name(original.name), type(original.type), offset(original.offset), size(original.size),
-			displayName(original.displayName), flatten(original.flatten), readOnly(original.readOnly),
-			isColor(original.isColor), data(const_cast<void*>(dataPtr)),
-			elementType(original.elementType), elementChildren(original.elementChildren),
-			GetArraySize(original.GetArraySize), GetElementAddress(original.GetElementAddress),
-			ResizeArray(original.ResizeArray)
+			: name(original.name),
+			displayName(original.displayName),
+			tooltip(original.tooltip),
+			type(original.type),
+			data(dataPtr),
+			offset(original.offset),
+			size(original.size),
+			flatten(original.flatten),
+			readOnly(original.readOnly),
+			isColor(original.isColor),
+			targetTypeKey(original.targetTypeKey),
+			elementType(original.elementType),
+			elementChildren(original.elementChildren),
+			GetArraySize(original.GetArraySize),
+			GetElementAddress(original.GetElementAddress),
+			ResizeArray(original.ResizeArray),
+			GetPointee(original.GetPointee)
 		{
 			for (const auto& child : original.children)
 			{
 				const void* childDataPtr = reinterpret_cast<const char*>(dataPtr) + child.offset;
+
 				children.emplace_back(child, childDataPtr);
 			}
 		}
 
 		std::type_index GetTargetType() const;
+
+		void UseInstance(const void* instancePtr)
+		{
+			data = reinterpret_cast<const char*>(instancePtr) + offset;
+
+			if (!GetPointee)
+			{
+				return;
+			}
+
+			const void* pointeeData = GetPointee(data);
+
+			std::vector<TypeField> instChildren;
+			children.reserve(children.size());
+
+			for (const auto& child : children)
+			{
+				const void* childData = static_cast<const void*>(static_cast<const char*>(pointeeData) + child.offset);
+				instChildren.emplace_back(child, childData);
+			}
+
+			children.clear();
+
+			for (const auto& child : instChildren)
+			{
+				children.push_back(child);
+			}
+		}
 
 		inline const std::string& GetDisplayName() const
 		{

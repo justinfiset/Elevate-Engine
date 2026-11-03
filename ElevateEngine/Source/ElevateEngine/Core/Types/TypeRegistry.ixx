@@ -82,6 +82,12 @@ export namespace Elevate
 	inline constexpr bool is_engine_array_v = is_engine_array<T>::value;
 
 	template<typename T>
+	struct is_ee_object_ptr : std::false_type {};
+	template<typename T>
+	struct is_ee_object_ptr<EEObjectPtr<T>> : std::true_type {};
+	template<typename T>
+	inline constexpr bool is_ee_object_ptr_v = is_ee_object_ptr<T>::value;
+	template<typename T>
 	struct ee_ptr_target { using type = void; };
 	template<typename T>
 	struct ee_ptr_target<EEObjectPtr<T>> { using type = T; };
@@ -89,11 +95,17 @@ export namespace Elevate
 	using ee_ptr_target_t = typename ee_ptr_target<T>::type;
 
 	template<typename T>
-	struct is_ee_object_ptr : std::false_type {};
+	struct is_unique_ptr : std::false_type {};
 	template<typename T>
-	struct is_ee_object_ptr<EEObjectPtr<T>> : std::true_type {};
+	struct is_unique_ptr<std::unique_ptr<T>> : std::true_type {};
 	template<typename T>
-	inline constexpr bool is_ee_object_ptr_v = is_ee_object_ptr<T>::value;
+	inline constexpr bool is_unique_ptr_v = is_unique_ptr<T>::value;
+	template<typename T>
+	struct unique_ptr_target { using type = void; };
+	template<typename T>
+	struct unique_ptr_target<std::unique_ptr<T>> { using type = T; };
+	template<typename T>
+	using unique_ptr_target_t = typename unique_ptr_target<T>::type;
 
 	template<typename T, typename = void>
 	struct EngineDataTypeTrait
@@ -101,10 +113,10 @@ export namespace Elevate
 		static constexpr EngineDataType value = EngineDataType::Custom;
 	};
 
+	template<> struct EngineDataTypeTrait<bool> { static constexpr EngineDataType value = EngineDataType::Bool; };
 	template<> struct EngineDataTypeTrait<float> { static constexpr EngineDataType value = EngineDataType::Float; };
 	template<> struct EngineDataTypeTrait<double> { static constexpr EngineDataType value = EngineDataType::Double; };
 	template<> struct EngineDataTypeTrait<int> { static constexpr EngineDataType value = EngineDataType::Int; };
-	template<> struct EngineDataTypeTrait<bool> { static constexpr EngineDataType value = EngineDataType::Bool; };
 	template<> struct EngineDataTypeTrait<glm::vec2> { static constexpr EngineDataType value = EngineDataType::Float2; };
 	template<> struct EngineDataTypeTrait<glm::vec3> { static constexpr EngineDataType value = EngineDataType::Float3; };
 	template<> struct EngineDataTypeTrait<glm::vec4> { static constexpr EngineDataType value = EngineDataType::Float4; };
@@ -122,6 +134,11 @@ export namespace Elevate
 	struct EngineDataTypeTrait<T, std::enable_if_t<std::is_enum_v<T>>>
 	{
 		static constexpr EngineDataType value = EngineDataType::Enum;
+	};
+	template<typename T>
+	struct EngineDataTypeTrait<T, std::enable_if_t<is_unique_ptr_v<T>>>
+	{
+		static constexpr EngineDataType value = EngineDataType::Custom;
 	};
 
 	using ObjectFactory = std::function<std::shared_ptr<EEObject>()>;
@@ -296,7 +313,8 @@ export namespace Elevate
 					auto& customFields = GetReflectedTypes();
 					std::type_index ti = typeid(ElementType);
 					auto it = customFields.find(ti);
-					if (it != customFields.end()) {
+					if (it != customFields.end())
+					{
 						field.elementChildren = it->second;
 					}
 				}
@@ -326,10 +344,20 @@ export namespace Elevate
 				using TargetT = ee_ptr_target_t<CleanedFieldT>;
 				field.targetTypeKey = GetTypeKey<TargetT>();
 			}
-			else if constexpr (is_unique_ptr<CleanedFieldT>)
+			else if constexpr (is_unique_ptr_v<CleanedFieldT>)
 			{
 				using TargetT = unique_ptr_target_t<CleanedFieldT>;
-				field = TypeField(name, EngineDataType::Custom, offset, meta.displayName);
+
+				std::vector<TypeField> subFields;
+				auto& customFields = GetReflectedTypes();
+
+				auto it = customFields.find(typeid(TargetT));
+				if (it != customFields.end())
+				{
+					subFields = it->second;
+				}
+
+				field = TypeField(name, EngineDataType::Custom, offset, meta.displayName, subFields);
 				field.targetTypeKey = GetTypeKey<TargetT>();
 
 				field.GetPointee = [](const void* ptr) -> const void*

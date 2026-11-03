@@ -343,22 +343,38 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 		break;
 	}
 	case EngineDataType::Custom:
+	{
+		const void* customData = field.data;
+
+		if (!customData)
+		{
+			ImGui::TextDisabled("%s: [None]", field.GetDisplayName().c_str());
+			break;
+		}
+
 		if (!field.flatten)
 		{
-			if (ImGui::TreeNodeEx(field.GetDisplayName().c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_FramePadding))
+			if (ImGui::TreeNodeEx(field.GetDisplayName().c_str(),
+				ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_FramePadding))
 			{
 				for (const auto& child : field.children)
+				{
 					RenderField(child);
+				}
+
 				ImGui::TreePop();
 			}
 		}
 		else
 		{
 			for (const auto& child : field.children)
+			{
 				RenderField(child);
+			}
 		}
-		break;
 
+		break;
+	}
 	case EngineDataType::GUID: // We do not display the guid
 		break;
 

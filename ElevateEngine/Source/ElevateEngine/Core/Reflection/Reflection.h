@@ -101,7 +101,7 @@ public: \
         std::vector<::Elevate::TypeField> instanceFields; \
         for (const ::Elevate::TypeField& field : allFields) { \
             ::Elevate::TypeField instField = field; \
-            instField.data = reinterpret_cast<const char*>(this) + field.offset; \
+            instField.UseInstance(this); \
             instanceFields.push_back(instField); \
         } \
         return ::Elevate::TypeLayout(this, generated_classEntry.ClassName, instanceFields); \
@@ -343,7 +343,7 @@ public: \
         std::vector<::Elevate::TypeField> instanceFields; \
         for (const ::Elevate::TypeField& field : allFields) { \
             ::Elevate::TypeField instField = field; \
-            instField.data = reinterpret_cast<const char*>(this) + field.offset; \
+            instField.UseInstance(this); \
             instanceFields.push_back(instField); \
         } \
         return ::Elevate::TypeLayout(this, generated_structEntry.StructName, instanceFields); \
