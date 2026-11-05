@@ -55,7 +55,7 @@ export namespace Elevate
 		CameraProjectionMode m_projectionMode = CameraProjectionMode::Perspective;
 		PROPERTY(m_projectionMode);
 
-		CameraProjectionMode m_previousMode; // Used to check if dirty
+		ChangeWatcher<CameraProjectionMode> m_projectionWatcher;
 
 		std::unique_ptr<CameraProjection> m_projection;
 		PROPERTY(m_projection);

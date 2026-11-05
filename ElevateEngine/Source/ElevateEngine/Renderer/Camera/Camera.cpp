@@ -23,7 +23,7 @@ import :PerspectiveProjection;
 import :OrthographicProjection;
 
 Elevate::Camera::Camera(CameraProjectionMode projection, bool overrideCurrent)
-	: m_projectionMode(projection), m_canBeMainCamera(overrideCurrent)
+	: m_projectionMode(projection), m_canBeMainCamera(overrideCurrent), m_projectionWatcher(m_projectionMode)
 {
 }
 
@@ -131,6 +131,11 @@ void Elevate::Camera::RenderWhenSelected()
 
 void Elevate::Camera::Render()
 {
+	m_projectionWatcher.HasChanged(m_projectionMode, [this](auto, auto)
+		{
+			CreateProjection();
+		});
+
 	bool isSelected = Editor::Selection::IsSelected(gameObject);
 	glm::vec4 colorMod = isSelected ? glm::vec4(1.5f, 1.5f, 0.5f, 1.0f)
 		: glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);

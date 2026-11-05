@@ -18,5 +18,5 @@ export namespace Elevate
 	BEGIN_ENUM(CameraProjectionMode)
 		ENUM_VALUE(Perspective)
 		ENUM_VALUE(Orthographic)
-		END_ENUM(CameraProjectionMode)
+		END_ENUM(CameraProjectionMode);
 }

@@ -33,7 +33,7 @@ export namespace Elevate
 		}
 
 	private:
-		float m_size;
+		float m_size = 5.0f;
 		PROPERTY(m_size);
 
 		END_STRUCT();

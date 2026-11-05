@@ -56,7 +56,8 @@ import Elevate.Editor.Icons;
             }(); \
             (void)registered; \
         } \
-    };
+    }; \
+    EE_REQUIRE_SEMICOLON
 
 #include "ReflectionInternal.h"
 

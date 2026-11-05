@@ -25,10 +25,10 @@ namespace Elevate
 		ENUM_VALUE(Dynamic)
 		ENUM_VALUE(Kinematic)
 		ENUM_VALUE(Static)
-		END_ENUM(RigidbodyType)
+		END_ENUM(RigidbodyType);
 
 
-		struct SurfaceMaterial
+	struct SurfaceMaterial
 	{
 		BEGIN_STRUCT(SurfaceMaterial);
 

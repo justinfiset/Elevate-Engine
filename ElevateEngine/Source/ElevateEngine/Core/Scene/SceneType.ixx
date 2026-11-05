@@ -22,5 +22,5 @@ namespace Elevate
 		ENUM_VALUE(RuntimeScene)
 		ENUM_VALUE(EditorScene)
 		ENUM_VALUE(DebugScene)
-		END_ENUM(SceneType)
+		END_ENUM(SceneType);
 }
