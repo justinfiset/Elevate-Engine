@@ -1,6 +1,8 @@
 module;
 
 #include <typeindex>
+#include <typeinfo>
+#include <vector>
 
 module Elevate.Core.Types.TypeField;
 
