@@ -92,6 +92,7 @@ function CommonProject.SetupProject(directory, customCallback)
 	}
 
 	links { "ElevateEngine" }
+	UseEngineModules()
 
 	-- Config sound engine if needed
 	defines { "EE_NO_SOUNDENGINE=" .. (infos.usesSoundEngine and "0" or "1") }

@@ -140,6 +140,14 @@ local function moduleBuildCommands()
     return commands
 end
 
+function UseEngineModules()
+    filter "system:linux"
+    buildoptions {
+        "-fprebuilt-module-path=%{wks.location}/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
+    }
+    filter {}
+end
+
 local function gccModuleBuildCommands()
     local commands = {}
     table.insert(commands, "rm -rf gcm.cache")
