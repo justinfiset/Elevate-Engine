@@ -160,13 +160,13 @@ local function gccModuleBuildCommands()
     table.insert(commands, "rm -rf gcm.cache")
     table.insert(commands, "mkdir -p gcm.cache")
     table.insert(commands, "rm -f module.map")
-    table.insert(commands, "printf '$root " .. gcmDirectory .. "\\n' > module.map")
+    table.insert(commands, "printf '' > module.map")
     for _, filename in ipairs(orderedModuleFiles()) do
         local moduleName = moduleNameForFile(filename)
         if moduleName then
             local moduleOutputName = moduleName:gsub(":", "-")
             table.insert(commands,
-                "printf '" .. moduleName .. " " .. moduleOutputName .. ".gcm\\n' >> module.map")
+                "printf '" .. moduleName .. " " .. gcmDirectory .. "/" .. moduleOutputName .. ".gcm\\n' >> module.map")
         end
     end
     -- GCC validates imported CMIs against the flags used to create them.
