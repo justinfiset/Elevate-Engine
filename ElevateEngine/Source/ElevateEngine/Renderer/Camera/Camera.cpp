@@ -6,7 +6,7 @@ module;
 
 module Elevate.Renderer.Camera;
 
-import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.CoreLogger;	
 
 import Elevate.Core.Transform;
 import Elevate.Core.Window;

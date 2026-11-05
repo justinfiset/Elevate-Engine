@@ -118,6 +118,7 @@ function CommonProject.SetupProject(directory, customCallback)
 			"ElevateEngine",
 			"ImGui",
 			"assimp",
+			"Jolt",
 			"GLFW",
 			"GL",
 			"X11",

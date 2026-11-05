@@ -1,11 +1,11 @@
 module;
 
-#include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
-
 export module Elevate.Physics.PhysicsSystem;
 
 export namespace Elevate
 {
+	class Rigidbody;
+
 	class PhysicsSystem
 	{
 	public:
