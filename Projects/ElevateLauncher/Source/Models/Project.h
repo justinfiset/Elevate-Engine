@@ -6,10 +6,7 @@
 
 #include "Reflection.h"
 
-namespace Elevate
-{
-	class Texture;
-}
+import Elevate.Renderer.Texture;
 
 namespace EL
 {
