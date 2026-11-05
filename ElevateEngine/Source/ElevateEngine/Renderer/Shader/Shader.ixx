@@ -13,6 +13,8 @@ import Elevate.Core.Objects.Object;
 import Elevate.Core.Objects.ObjectPtr;
 
 import Elevate.Renderer.Buffers;
+import Elevate.Renderer.Lights.Light;
+import Elevate.Renderer.Lights.DirectionalLight;
 
 export namespace Elevate::ShaderUniforms
 {
@@ -24,9 +26,6 @@ export namespace Elevate::ShaderUniforms
 
 export namespace Elevate
 {
-	class Light;
-	class DirectionalLight;
-
 	class Shader : public EEObject
 	{
 	public:

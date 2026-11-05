@@ -151,6 +151,10 @@ function UseEngineModules()
             "-fprebuilt-module-path=%{wks.location}/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
         }
     end
+    filter "system:emscripten"
+    buildoptions {
+        "-fprebuilt-module-path=" .. _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
+    }
     filter {}
 end
 
@@ -182,6 +186,9 @@ local function webModuleBuildCommands()
     local commands = {}
     local moduleDirectory = _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
     local includeFlags = "-I\"%~dp0..\\ElevateEngine\\Source\" -I\"%~dp0..\\ElevateEngine\\Vendor\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\_config_headers\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\_config_headers\\assimp\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\ImGui\" " ..
                              "-I\"%~dp0..\\ElevateEngine\\Vendor\\glm\" -I\"%~dp0..\\ElevateEngine\\Vendor\\spdlog\\include\" " ..
                              "-I\"%~dp0..\\ElevateEngine\\Vendor\\rapidjson\\include\" " ..
                              "-I\"%~dp0..\\ElevateEngine\\Vendor\\entt\\include\" " ..
@@ -197,6 +204,7 @@ local function webModuleBuildCommands()
 
     script:write("@echo off\r\n")
     script:write("set \"MODULE_DIR=%~f1\"\r\n")
+    script:write("set \"MODULE_DIR=%MODULE_DIR:\\=/%\"\r\n")
     script:write("if not exist \"%MODULE_DIR%\" mkdir \"%MODULE_DIR%\"\r\n")
     script:write("set \"MODULE_FLAGS=%MODULE_DIR%\\module-flags.rsp\"\r\n")
     script:write("if exist \"%MODULE_FLAGS%\" del /q \"%MODULE_FLAGS%\"\r\n")
@@ -214,7 +222,8 @@ local function webModuleBuildCommands()
             local moduleOutputName = moduleName:gsub(":", "-")
             local scriptOutput = "%MODULE_DIR%/" .. moduleOutputName .. ".pcm"
             local scriptSource = normalizePath(filename):gsub("/", "\\")
-            script:write("em++ @\"%MODULE_FLAGS%\" -std=c++20 -DSPDLOG_COMPILED_LIB -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD " ..
+            script:write("call em++ @\"%MODULE_FLAGS%\" -std=c++20 -DSPDLOG_COMPILED_LIB -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD " ..
+                             "-pthread -matomics -mbulk-memory " ..
                              includeFlags .. " -x c++-module -fprebuilt-module-path=\"%MODULE_DIR%\" " ..
                              "--precompile \"" .. scriptSource .. "\" -o \"" .. scriptOutput .. "\"\r\n")
             script:write("if errorlevel 1 exit /b %errorlevel%\r\n")
@@ -226,8 +235,10 @@ local function webModuleBuildCommands()
     script:write("exit /b 0\r\n")
     script:close()
 
-    local windowsScriptPath = scriptPath:gsub("/", "\\")
-    table.insert(commands, "cmd.exe /d /c \"\"" .. windowsScriptPath .. "\" \"" .. moduleDirectory .. "\"\"")
+    local buildScriptPath = "Build/precompile_web_modules.bat"
+    local buildModuleDirectory = "Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
+    table.insert(commands,
+        "cmd.exe //d //c \"call " .. buildScriptPath .. " " .. buildModuleDirectory .. "\"")
     return commands
 end
 
@@ -307,10 +318,9 @@ end
 filter {}
 
 filter "system:emscripten"
-local webModuleDirectory = _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
+local webModuleBuildDirectory = "Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
 prebuildcommands(webModuleBuildCommands())
-buildoptions {"-fprebuilt-module-path=" .. webModuleDirectory,
-              "@\"" .. webModuleDirectory .. "/module-flags.rsp\""}
+buildoptions {"-fprebuilt-module-path=" .. webModuleBuildDirectory}
 
 filter {"system:emscripten", "files:**.ixx"}
 buildoptions {"-x", "c++-module"}

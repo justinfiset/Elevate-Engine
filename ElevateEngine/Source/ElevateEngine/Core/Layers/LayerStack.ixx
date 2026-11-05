@@ -4,10 +4,10 @@ module;
 
 export module Elevate.Core.Layers.LayerStack;
 
+import Elevate.Core.Layers.Layer;
+
 export namespace Elevate
 {
-	class Layer;
-
 	class LayerStack
 	{
 	public:
@@ -27,4 +27,3 @@ export namespace Elevate
 		unsigned int m_LayerInsertIndex = 0;
 	};
 }
-

@@ -12,12 +12,11 @@ export module Elevate.Core.Assets.AssetRegistry;
 
 import Elevate.Foundations.Guid;
 import Elevate.Foundations.CoreLogger;
+import Elevate.Core.Assets.Asset;
 import Elevate.Core.Assets.AssetMetadata;
 
 export namespace Elevate
 {
-	class Asset;
-
 	/// ////////////////////////////////////////////
 	/// Asset Entry
 	/// ////////////////////////////////////////////
