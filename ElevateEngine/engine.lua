@@ -173,7 +173,7 @@ local function gccModuleBuildCommands()
     for _, filename in ipairs(orderedModuleFiles()) do
         local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
         table.insert(commands,
-            "$(CXX) $(ALL_CXXFLAGS) -fmodule-only -fmodule-mapper=module.map -x c++ -c " .. relativePath)
+            "$(CXX) $(ALL_CXXFLAGS) -fmodule-only -x c++ -c " .. relativePath)
     end
     return commands
 end
