@@ -142,21 +142,38 @@ end
 
 function UseEngineModules()
     filter "system:linux"
-    buildoptions {
-        "-fprebuilt-module-path=%{wks.location}/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
-    }
+    if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
+        buildoptions {
+            "-fmodule-mapper=%{wks.location}/ElevateEngine/Build/module.map"
+        }
+    else
+        buildoptions {
+            "-fprebuilt-module-path=%{wks.location}/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
+        }
+    end
     filter {}
 end
 
 local function gccModuleBuildCommands()
     local commands = {}
+    local gcmDirectory = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/gcm.cache")
     table.insert(commands, "rm -rf gcm.cache")
     table.insert(commands, "mkdir -p gcm.cache")
+    table.insert(commands, "rm -f module.map")
+    table.insert(commands, "printf '$root " .. gcmDirectory .. "\\n' > module.map")
+    for _, filename in ipairs(orderedModuleFiles()) do
+        local moduleName = moduleNameForFile(filename)
+        if moduleName then
+            local moduleOutputName = moduleName:gsub(":", "-")
+            table.insert(commands,
+                "printf '" .. moduleName .. " " .. moduleOutputName .. ".gcm\\n' >> module.map")
+        end
+    end
     -- GCC validates imported CMIs against the flags used to create them.
     for _, filename in ipairs(orderedModuleFiles()) do
         local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
         table.insert(commands,
-            "$(CXX) $(ALL_CXXFLAGS) -fmodule-only -x c++ -c " .. relativePath)
+            "$(CXX) $(ALL_CXXFLAGS) -fmodule-only -fmodule-mapper=module.map -x c++ -c " .. relativePath)
     end
     return commands
 end
@@ -267,7 +284,7 @@ links {"opengl32.lib"}
 filter {"system:linux", "language:C++"}
 links {"GL", "X11", "pthread", "dl"}
 if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
-    buildoptions {"-fmodules-ts"}
+    buildoptions {"-fmodules-ts", "-fmodule-mapper=%{wks.location}/ElevateEngine/Build/module.map"}
 else
     buildoptions {"-fprebuilt-module-path=%{cfg.objdir}/modules"}
 end
