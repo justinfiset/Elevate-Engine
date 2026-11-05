@@ -279,6 +279,16 @@ else
     prebuildcommands(moduleBuildCommands())
 end
 
+filter {"system:linux", "files:**.ixx"}
+buildaction "Compile"
+compileas "C++"
+if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
+    buildoptions {"-x", "c++"}
+else
+    buildoptions {"-x", "c++-module"}
+end
+filter {}
+
 filter "system:emscripten"
 local webModuleDirectory = _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
 prebuildcommands(webModuleBuildCommands())
