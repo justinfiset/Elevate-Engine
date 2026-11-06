@@ -206,10 +206,6 @@ local function webModuleBuildCommands()
     script:write("set \"MODULE_DIR=%~f1\"\r\n")
     script:write("set \"MODULE_DIR=%MODULE_DIR:\\=/%\"\r\n")
     script:write("if not exist \"%MODULE_DIR%\" mkdir \"%MODULE_DIR%\"\r\n")
-    script:write("set \"MODULE_FLAGS=%MODULE_DIR%\\module-flags.rsp\"\r\n")
-    script:write("if exist \"%MODULE_FLAGS%\" del /q \"%MODULE_FLAGS%\"\r\n")
-    script:write("copy /y NUL \"%MODULE_FLAGS%\" >NUL\r\n")
-    script:write("if not exist \"%MODULE_FLAGS%\" exit /b 1\r\n")
     for _, filename in ipairs(orderedModuleFiles()) do
         local file = io.open(filename, "r")
         local moduleName = nil
@@ -222,16 +218,13 @@ local function webModuleBuildCommands()
             local moduleOutputName = moduleName:gsub(":", "-")
             local scriptOutput = "%MODULE_DIR%/" .. moduleOutputName .. ".pcm"
             local scriptSource = normalizePath(filename):gsub("/", "\\")
-            script:write("call em++ @\"%MODULE_FLAGS%\" -std=c++20 -DSPDLOG_COMPILED_LIB -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD " ..
+            script:write("call em++ -std=c++20 -DSPDLOG_COMPILED_LIB -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD " ..
                              "-pthread -matomics -mbulk-memory " ..
                              includeFlags .. " -x c++-module -fprebuilt-module-path=\"%MODULE_DIR%\" " ..
                              "--precompile \"" .. scriptSource .. "\" -o \"" .. scriptOutput .. "\"\r\n")
             script:write("if errorlevel 1 exit /b %errorlevel%\r\n")
-            script:write(">>\"%MODULE_FLAGS%\" echo -fmodule-file=" .. moduleName .. "=%MODULE_DIR%/" ..
-                             moduleOutputName .. ".pcm\r\n")
         end
     end
-    script:write("if not exist \"%MODULE_FLAGS%\" exit /b 1\r\n")
     script:write("exit /b 0\r\n")
     script:close()
 
