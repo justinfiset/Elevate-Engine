@@ -21,11 +21,6 @@ export namespace Elevate {
 	class Application;
 	using ApplicationFactory = Application * (*)();
 
-	namespace Editor
-	{
-		class EditorLayer;
-	}
-
 	struct ApplicationArguments
 	{
 		int argc;
@@ -40,8 +35,6 @@ export namespace Elevate {
 	class Application
 	{
 	public:
-		friend class Elevate::Editor::EditorLayer;
-
 		Application();
 		virtual ~Application() = default;
 

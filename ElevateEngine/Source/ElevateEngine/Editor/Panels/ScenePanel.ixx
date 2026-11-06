@@ -9,12 +9,11 @@ export module Elevate.Editor.Panels.ScenePanel;
 #ifdef EE_EDITOR_BUILD
 
 import Elevate.Editor.Widgets.Widget;
+import Elevate.Editor.Layer;
 
-export namespace Elevate::Editor
+namespace Elevate::Editor
 {
-	class EditorLayer;
-
-	class ScenePanel : public Widget
+	export class ScenePanel : public Widget
 	{
 	public:
 		void OnImGuiRender() override;

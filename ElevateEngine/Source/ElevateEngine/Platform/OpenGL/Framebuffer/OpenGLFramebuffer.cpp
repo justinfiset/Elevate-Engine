@@ -1,8 +1,6 @@
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 
-#include "glm/glm.hpp"
-
 #include <memory>
 #include <optional>
 #include <vector>

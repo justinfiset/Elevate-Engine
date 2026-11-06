@@ -1,6 +1,9 @@
 #pragma once
 
 #ifdef EE_PLATFORM_WEB
+#include <string>
+#include <vector>
+
 import Elevate.Foundations.Files.FileDialog;
 
 namespace Elevate

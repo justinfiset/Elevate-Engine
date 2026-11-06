@@ -9,6 +9,7 @@ module Elevate.Editor.Panels.Audio.WwiseBrowser;
 #ifdef EE_EDITOR_BUILD
 
 import Elevate.Audio.Wwise.SoundEngine;
+import Elevate.Audio.SoundEngine;
 import Elevate.Audio.Wwise.WAAPI.Client;
 import Elevate.Editor.Message;
 

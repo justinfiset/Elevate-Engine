@@ -7,6 +7,10 @@ module;
 
 #ifdef EE_USES_WWISE
 #include <ElevateEngine/Audio/Ak/Common/AkFilePackageLowLevelIODeferred.h>
+#include <ElevateEngine/Audio/Wwise/DataSources/WwiseDataSource.h>
+#ifdef EE_EDITOR_BUILD
+#include <ElevateEngine/Audio/Wwise/DataSources/WwiseMergedDataSource.h>
+#endif
 // Sound Engine
 #include <AK/SoundEngine/Common/AkSoundEngine.h>
 #include <AK/SoundEngine/Common/AkMemoryMgr.h>
@@ -40,6 +44,9 @@ module;
 module Elevate.Audio.Wwise.SoundEngine;
 
 import Elevate.Core.Scene;
+import Elevate.Core.Transform.Transform;
+import Elevate.Foundations.Assert;
+import Elevate.Foundations.CoreLogger;
 import Elevate.Audio.Wwise.WAAPI.Client;
 
 #ifdef EE_USES_WWISE

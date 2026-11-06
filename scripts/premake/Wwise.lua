@@ -101,7 +101,7 @@ end
 
 function Wwise.SetupBuildOption()
     filter "system:emscripten"
-        buildoptions { "-msimd128", "-msse2" }
+        buildoptions { "-msimd128", "-msse4.1" }
     filter {}
 end
 

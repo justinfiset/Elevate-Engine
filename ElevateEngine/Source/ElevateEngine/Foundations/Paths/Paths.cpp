@@ -11,11 +11,7 @@ namespace Elevate
 {
 	const std::filesystem::path Paths::Engine()
 	{
-#ifndef EE_PLATFORM_WEB
 		return EE_RESOURCE_DIR "/Engine/";
-#else
-		return EE_ENGINE_DIR "/Engine/";
-#endif
 	}
 
 	const std::filesystem::path Paths::Content()
@@ -26,11 +22,7 @@ namespace Elevate
 #ifdef EE_EDITOR_BUILD
 	const std::filesystem::path Paths::Editor()
 	{
-#ifndef EE_PLATFORM_WEB
 		return EE_RESOURCE_DIR "/Editor/";
-#else
-		return EE_EDITOR_DIR "/Editor/";
-#endif
 	}
 #endif
 

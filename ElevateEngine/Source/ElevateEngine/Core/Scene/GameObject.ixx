@@ -127,8 +127,10 @@ export namespace Elevate
 
 		// Editor Rendering
 		void RenderInEditor();
+	public:
 		void RenderWhenSelected();
 
+	protected:
 		// Parent management
 		void AddChild(const EEObjectPtr<GameObject>& child);
 

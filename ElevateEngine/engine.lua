@@ -185,16 +185,28 @@ end
 local function webModuleBuildCommands()
     local commands = {}
     local moduleDirectory = _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
+    local wwiseDefine = Wwise.IsInstalled() and " -DEE_USES_WWISE" or ""
+    local wwiseIncludeFlags = ""
+    if Wwise.IsInstalled() then
+        wwiseIncludeFlags = " -I\"" .. wwiseSDK .. "/include\" " ..
+                                "-I\"" .. wwiseSDK .. "/samples\" " ..
+                                "-I\"" .. wwiseSDK .. "/samples/SoundEngine/Common\" " ..
+                                "-I\"" .. wwiseSDK .. "/samples/SoundEngine/POSIX\" " ..
+                                "-I\"" .. wwiseSDK .. "/samples/3rdParty/subprojects/rapidjson/include\" " ..
+                                "-I\"" .. wwiseSDK .. "/samples/WwiseProjectDatabase/WwiseProjectDatabase\""
+    end
     local includeFlags = "-I\"%~dp0..\\ElevateEngine\\Source\" -I\"%~dp0..\\ElevateEngine\\Vendor\" " ..
                              "-I\"%~dp0..\\ElevateEngine\\Vendor\\_config_headers\" " ..
                              "-I\"%~dp0..\\ElevateEngine\\Vendor\\_config_headers\\assimp\" " ..
                              "-I\"%~dp0..\\ElevateEngine\\Vendor\\ImGui\" " ..
-                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\glm\" -I\"%~dp0..\\ElevateEngine\\Vendor\\spdlog\\include\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\glm\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\spdlog\\include\" " ..
                              "-I\"%~dp0..\\ElevateEngine\\Vendor\\rapidjson\\include\" " ..
                              "-I\"%~dp0..\\ElevateEngine\\Vendor\\entt\\include\" " ..
                              "-I\"%~dp0..\\ElevateEngine\\Vendor\\stduuid\\include\" " ..
                              "-I\"%~dp0..\\ElevateEngine\\Vendor\\assimp\\include\" " ..
-                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\JoltPhysics\""
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\JoltPhysics\"" ..
+                             wwiseIncludeFlags
     local scriptPath = _MAIN_SCRIPT_DIR .. "/Build/precompile_web_modules.bat"
     local script = io.open(scriptPath, "w")
 
@@ -218,8 +230,9 @@ local function webModuleBuildCommands()
             local moduleOutputName = moduleName:gsub(":", "-")
             local scriptOutput = "%MODULE_DIR%/" .. moduleOutputName .. ".pcm"
             local scriptSource = normalizePath(filename):gsub("/", "\\")
-            script:write("call em++ -std=c++20 -DSPDLOG_COMPILED_LIB -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD " ..
-                             "-pthread -matomics -mbulk-memory " ..
+            script:write("call em++ -std=c++20 -DSPDLOG_COMPILED_LIB -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD" ..
+                             wwiseDefine .. " " ..
+                             "-pthread -matomics -mbulk-memory -msimd128 -msse4.1 " ..
                              includeFlags .. " -x c++-module -fprebuilt-module-path=\"%MODULE_DIR%\" " ..
                              "--precompile \"" .. scriptSource .. "\" -o \"" .. scriptOutput .. "\"\r\n")
             script:write("if errorlevel 1 exit /b %errorlevel%\r\n")
