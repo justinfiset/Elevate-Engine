@@ -1,11 +1,7 @@
+#include "OpenGLFramebuffer.h"
+
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
-
-#include <memory>
-#include <optional>
-#include <vector>
-
-#include "OpenGLFramebuffer.h"
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;

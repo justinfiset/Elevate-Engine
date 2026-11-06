@@ -153,7 +153,9 @@ function UseEngineModules()
     end
     filter "system:emscripten"
     buildoptions {
-        "-fprebuilt-module-path=" .. _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
+        "-fprebuilt-module-path=" .. _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules",
+        "-msimd128",
+        "-msse4.1"
     }
     filter {}
 end
@@ -326,7 +328,7 @@ filter {}
 filter "system:emscripten"
 local webModuleBuildDirectory = "Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
 prebuildcommands(webModuleBuildCommands())
-buildoptions {"-fprebuilt-module-path=" .. webModuleBuildDirectory}
+buildoptions {"-fprebuilt-module-path=" .. webModuleBuildDirectory, "-msimd128", "-msse4.1"}
 
 filter {"system:emscripten", "files:**.ixx"}
 buildoptions {"-x", "c++-module"}

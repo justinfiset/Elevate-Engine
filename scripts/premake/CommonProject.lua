@@ -132,7 +132,7 @@ function CommonProject.SetupProject(directory, customCallback)
 		}
 
 	filter "system:emscripten"
-		links { "ElevateEngine", "ImGui","assimp" }
+		links { "ElevateEngine", "ImGui", "assimp", "Jolt" }
 		linkoptions
         {
 			"--preload-file ".._MAIN_SCRIPT_DIR.."/ElevateEngine/Resources/Engine@/Engine",
