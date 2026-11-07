@@ -89,14 +89,19 @@ On Linux, build with all available CPU cores to avoid a serialized build:
 make config=editor_debug -j"$(nproc)"
 ```
 
+### GCC build status
+
+The GCC 15 Linux CI job is temporarily disabled. Re-enabling once GCC module support is stable.
+
 ### Build Status
 
-| Platform                                                                                                    | OS                          | Compiler      | Status                                                                                                                                                                                               |
-| :---------------------------------------------------------------------------------------------------------- | :-------------------------- | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![Windows](https://img.shields.io/badge/Windows-0078D4?style=flat&logo=windows&logoColor=white)             | `windows-latest`            | MSVC (vs2022) | [![Windows Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-windows&label=)](https://github.com/justinfiset/Elevate-Engine/actions)       |
+| Platform                                                                                                    | OS                          | Compiler      | Status                                                                                                                                                                                                |
+| :---------------------------------------------------------------------------------------------------------- | :-------------------------- | :------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Windows](https://img.shields.io/badge/Windows-0078D4?style=flat&logo=windows&logoColor=white)             | `windows-latest`            | MSVC (vs2022) | [![Windows Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-windows&label=)](https://github.com/justinfiset/Elevate-Engine/actions)        |
 | ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)                   | `ubuntu-latest`             | Clang (gmake) | [![Linux Clang Build](https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml/badge.svg?branch=main&job=build-linux&label=)](https://github.com/justinfiset/Elevate-Engine/actions) |
-| ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)                   | `ubuntu-latest`             | GCC (gmake)   | [![Linux GCC Build](https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml/badge.svg?branch=main&job=build-linux-gcc&label=)](https://github.com/justinfiset/Elevate-Engine/actions) |
-| ![WebAssembly](https://img.shields.io/badge/WebAssembly-654FF0?style=flat&logo=webassembly&logoColor=white) | `emscripten` (Windows Host) | Clang (Ninja) | [![Web Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-web-windows-ninja&label=)](https://github.com/justinfiset/Elevate-Engine/actions) |
+| ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)                   | `ubuntu-latest`             | GCC (gmake)   | Temporarily disabled: GCC 15 reports `Bad import dependency` for C++20 modules                                                                                                                        |
+| ![WebAssembly](https://img.shields.io/badge/WebAssembly-654FF0?style=flat&logo=webassembly&logoColor=white) | `emscripten` (Windows Host) | Clang (Ninja) | [![Web Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-web-windows-ninja&label=)](https://github.com/justinfiset/Elevate-Engine/actions)  |
 
 ### Tests Report
+
 [![Tests Report](https://img.shields.io/badge/Allure_Report-Tests-green?style=flat&logo=allure)](https://justinfiset.github.io/Elevate-Engine/tests/)
