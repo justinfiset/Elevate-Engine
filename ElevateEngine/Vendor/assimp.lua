@@ -4,8 +4,8 @@ warnings 'Off'
 cppdialect "C++17"
 staticruntime "on"
 
-targetdir("assimp/bin/" .. outputdir .. "/%{prj.name}")
-objdir("assimp/bin-int/" .. outputdir .. "/%{prj.name}")
+targetdir("bin/" .. outputdir .. "/%{prj.name}")
+objdir("bin-int/" .. outputdir .. "/%{prj.name}")
 
 files { -- Dependencies
 'assimp/contrib/unzip/**', 'assimp/contrib/irrXML/**', 'assimp/contrib/zlib/*', -- Common
