@@ -2,8 +2,6 @@ module;
 
 #include <string>
 
-#include <ElevateEngine/Foundations/Core.h> // todo remove this and switch
-
 module Elevate.Renderer.Shaders;
 
 import Elevate.Foundations.CoreLogger;
@@ -58,8 +56,10 @@ namespace Elevate
 		EEObjectPtr<Shader> defaultShader = Elevate::Shader::CreateFromFiles(
 			"engine://Shaders/DefaultLitShader.vert",
 			"engine://Shaders/DefaultLitShader.frag",
-			EE_SHADER_HEADER,
-			EE_SHADER_HEADER + glslPointLightCountDefine + glslSpotLightCountDefine);
+			"",
+			glslPointLightCountDefine + glslSpotLightCountDefine
+		);
+
 		if (!defaultShader)
 		{
 			defaultShader = Shader::CreateDefault();

@@ -1,12 +1,12 @@
 module;
 
 #if defined(EE_USES_WWISE) && !defined(EE_PLATFORM_WEB)
-	#include <AK/WwiseAuthoringAPI/AkAutobahn/Client.h>
-	#include <AK/WwiseAuthoringAPI/AkAutobahn/Logger.h>
-	#include <AK/WwiseAuthoringAPI/waapi.h>
-	#define EE_WAAPI_AVAILABLE 1
+#include <AK/WwiseAuthoringAPI/AkAutobahn/Client.h>
+#include <AK/WwiseAuthoringAPI/AkAutobahn/Logger.h>
+#include <AK/WwiseAuthoringAPI/waapi.h>
+#define EE_WAAPI_AVAILABLE 1
 #else
-    #define EE_WAAPI_AVAILABLE 0
+#define EE_WAAPI_AVAILABLE 0
 #endif
 
 module Elevate.Audio.Wwise.WAAPI.Client;
@@ -21,15 +21,7 @@ namespace Elevate
 		m_isConnected = m_client->Connect(m_ip.c_str(), m_port);
 		if (!m_isConnected)
 		{
-			CoreLogger::Error("Could not connect to WAAPI.");
-		}
-
-		// todo remove this test
-		using namespace AK::WwiseAuthoringAPI;
-		AkJson wwiseInfoJson;
-		if (!m_client->Call(ak::wwise::core::getInfo, AkJson(AkJson::Type::Map), AkJson(AkJson::Type::Map), wwiseInfoJson, 10))
-		{
-			CoreLogger::Error("Failed to obtain Wwise Info within 10ms: {}", std::string(wwiseInfoJson["message"].GetVariant()));
+			CoreLogger::Error("Could not connect to WAAPI ({}:{}).", m_ip, m_port);
 		}
 		return m_isConnected;
 #else
@@ -55,8 +47,6 @@ namespace Elevate
 		AK::WwiseAuthoringAPI::Logger::Get()->SetLoggerFunction(LoggerCallback);
 
 		Connect();
-		// todo create an async system to try and reconnect if not working
-		// 1s -> 2s -> 4s -> 8s -> 16s mult. tiime by 2 each time.
 #endif
 	}
 

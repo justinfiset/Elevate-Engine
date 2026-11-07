@@ -9,7 +9,6 @@ module;
 
 #include <glm/glm.hpp>
 
-#include <ElevateEngine/Foundations/Core.h>
 #include <ElevateEngine/Platform/OpenGL/Renderer/OpenGLRendererAPI.h>
 
 module Elevate.Renderer.Renderer;
@@ -90,9 +89,8 @@ namespace Elevate
 		s_compositionShader = ShaderManager::LoadShader(
 			"composition",
 			"engine://Shaders/Composition.vert",
-			"engine://Shaders/Composition.frag",
-			EE_SHADER_HEADER,
-			EE_SHADER_HEADER);
+			"engine://Shaders/Composition.frag"
+		);
 
 		DebugRenderer::Init();
 		InitShadowRenderer();
@@ -117,16 +115,14 @@ namespace Elevate
 		s_ssaoShader = ShaderManager::LoadShader(
 			"ssao",
 			"engine://Shaders/SSAO.vert",
-			"engine://Shaders/SSAO.frag",
-			EE_SHADER_HEADER,
-			EE_SHADER_HEADER);
+			"engine://Shaders/SSAO.frag"
+		);
 
 		s_ssaoBlurShader = ShaderManager::LoadShader(
 			"ssaoBlur",
 			"engine://Shaders/SSAOBlur.vert",
-			"engine://Shaders/SSAOBlur.frag",
-			EE_SHADER_HEADER,
-			EE_SHADER_HEADER);
+			"engine://Shaders/SSAOBlur.frag"
+		);
 
 		std::vector<glm::vec3> ssaoNoise;
 		std::uniform_real_distribution<float> randomFloats(0.0f, 1.0f);
@@ -187,15 +183,14 @@ namespace Elevate
 		s_bloomDownsampleShader = ShaderManager::LoadShader(
 			"BloomDownscale",
 			"engine://Shaders/BloomDownscale.vert",
-			"engine://Shaders/BloomDownscale.frag",
-			EE_SHADER_HEADER,
-			EE_SHADER_HEADER);
+			"engine://Shaders/BloomDownscale.frag"
+		);
+
 		s_bloomUpsampleShader = ShaderManager::LoadShader(
 			"BloomUpscale",
 			"engine://Shaders/BloomUpscale.vert",
-			"engine://Shaders/BloomUpscale.frag",
-			EE_SHADER_HEADER,
-			EE_SHADER_HEADER);
+			"engine://Shaders/BloomUpscale.frag"
+		);
 
 		uint32_t currentWidth = width / 2;
 		uint32_t currentHeight = height / 2;
@@ -222,9 +217,8 @@ namespace Elevate
 		s_shadowShader = ShaderManager::LoadShader(
 			"shadow",
 			"engine://Shaders/Shadow.vert",
-			"engine://Shaders/Shadow.frag",
-			EE_SHADER_HEADER,
-			EE_SHADER_HEADER);
+			"engine://Shaders/Shadow.frag"
+		);
 
 		// Create the Framebuffers
 		for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
@@ -239,9 +233,8 @@ namespace Elevate
 		s_lightPassShader = ShaderManager::LoadShader(
 			"lighting",
 			"engine://Shaders/Lighting.vert",
-			"engine://Shaders/Lighting.frag",
-			EE_SHADER_HEADER,
-			EE_SHADER_HEADER);
+			"engine://Shaders/Lighting.frag"
+		);
 	}
 
 	void Renderer::BeginFrame(const std::shared_ptr<Scene> scene, const Camera& cam)
@@ -430,7 +423,7 @@ namespace Elevate
 
 	Framebuffer& Renderer::GetDirectionalFrameBuffer(uint32_t index)
 	{
-		return *s_directionalShadowMaps[index]; // todo correct this
+		return *s_directionalShadowMaps[index];
 	}
 
 	void Renderer::Dispatch(const RenderCommand& command)

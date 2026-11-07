@@ -37,10 +37,6 @@ module;
 
 #endif // #ifdef EE_USES_WWISE
 
-// TODO REMOVE
-// For Wwise integration testing
-#define BANKNAME_INIT L"Init.bnk"
-
 module Elevate.Audio.Wwise.SoundEngine;
 
 import Elevate.Core.Scene;
@@ -199,9 +195,9 @@ namespace Elevate
 	void WwiseSoundEngine::PrepareAudio()
 	{
 		m_lowLevelIO->SetBasePath(AKTEXT("./WwiseProject/GeneratedSoundBanks/Windows/"));
-		AK::StreamMgr::SetCurrentLanguage(AKTEXT("English(US)"));
+		AK::StreamMgr::SetCurrentLanguage(AKTEXT("English(US)")); // Remove hardcoded langage
 
-		LoadBank(BANKNAME_INIT);
+		// todo : remove the hardcoded part here
 		LoadBank(L"Sandbox.bnk");
 	}
 

@@ -4,8 +4,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <ElevateEngine/Foundations/Core.h> // todo : remove asap
-
 #include <ElevateEngine.h>
 
 class DebugLayer : public Elevate::SceneLayer
@@ -42,9 +40,7 @@ public:
 
 		Elevate::EEObjectPtr<Elevate::Shader> colorShader = Elevate::Shader::CreateFromFiles(
 			"engine://Shaders/DefaultLitShader.vert",
-			"content://Shaders/ColorTest.frag",
-			EE_SHADER_HEADER,
-			EE_SHADER_HEADER
+			"content://Shaders/ColorTest.frag"
 		);
 		Elevate::MaterialPtr orangeEmissiveMat = Elevate::MaterialRegistry::LoadMaterial(colorShader);
 		orangeEmissiveMat->Set("u_Color", glm::vec3(5.0f, 1.0f, 0.1f));
@@ -88,8 +84,8 @@ public:
 		SceneLayer::OnAttach();
 	}
 
-	// TODO ajouter un icon de point light qui suit avec imgui la point light
-	void OnRender() override {
+	void OnRender() override
+	{
 		Elevate::Camera* cam = Elevate::CameraManager::GetCurrent();
 		SceneLayer::OnRender(cam);
 	}

@@ -8,8 +8,6 @@ module;
 #include <glm/glm.hpp>
 #include <entt/entt.hpp>
 
-#include <ElevateEngine/Foundations/Core.h>
-
 module Elevate.Editor.Layer;
 
 #ifdef EE_EDITOR_BUILD
@@ -59,9 +57,7 @@ namespace Elevate::Editor
 		ShaderManager::LoadShader(
 			"editor/billboard",
 			"editor://Shaders/Billboard.vert",
-			"editor://Shaders/Billboard.frag",
-			EE_SHADER_HEADER,
-			EE_SHADER_HEADER
+			"editor://Shaders/Billboard.frag"
 		);
 
 		InitUI();
@@ -95,10 +91,9 @@ namespace Elevate::Editor
 		// Setup the grid shader ///////////////////////////
 		m_GridShader = Shader::CreateFromFiles(
 			"editor://Shaders/grid.vert",
-			"editor://Shaders/grid.frag",
-			EE_SHADER_HEADER,
-			EE_SHADER_HEADER
+			"editor://Shaders/grid.frag"
 		);
+
 		MaterialPtr gridMaterial = MaterialRegistry::LoadMaterial(m_GridShader);
 		gridMaterial->Set<glm::vec4>("lineColor", { 0.9, 0.9, 0.9, 0.5 });
 		gridMaterial->Set<glm::vec4>("backgroundColor", { 0.6, 0.6, 0.6, 0.025 });

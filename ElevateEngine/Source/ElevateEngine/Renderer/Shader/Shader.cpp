@@ -8,8 +8,6 @@ module;
 
 #include <ElevateEngine/Platform/OpenGL/Shaders/OpenGLShader.h>
 
-#include <ElevateEngine/Foundations/Core.h> // todo remove this
-
 module Elevate.Renderer.Shaders;
 
 // Foundations
@@ -33,7 +31,7 @@ namespace Elevate
 		case RendererAPI::GraphicAPI::None:
 			Assert::That(false, "Renderer none is not supported");
 		case RendererAPI::GraphicAPI::OpenGL:
-			return std::make_shared<OpenGLShader>(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetFragmentShader()));
+			return std::make_shared<OpenGLShader>(std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetVertexShader()), std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetFragmentShader()));
 		}
 		return nullptr;
 	}
@@ -45,19 +43,22 @@ namespace Elevate
 		case RendererAPI::GraphicAPI::None:
 			Assert::That(false, "Renderer none is not supported");
 		case RendererAPI::GraphicAPI::OpenGL:
-			return std::make_shared<OpenGLShader>(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetErrorShader()));
+			return std::make_shared<OpenGLShader>(
+				std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetVertexShader()),
+				std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetErrorShader())
+			);
 		}
 		return nullptr;
 	}
 
 	EEObjectPtr<Shader> Shader::CreateDefault()
 	{
-		return Create(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetFragmentShader()));
+		return Create(std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetVertexShader()), std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetFragmentShader()));
 	}
 
 	EEObjectPtr<Shader> Shader::CreateDefaultError()
 	{
-		return Create(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetErrorShader()));
+		return Create(std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetVertexShader()), std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetErrorShader()));
 	}
 
 	EEObjectPtr<Shader> Shader::Create(const std::string& vertexSource, const std::string& fragmentSouce)
@@ -96,8 +97,8 @@ namespace Elevate
 
 	EEObjectPtr<Shader> Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath)
 	{
-		std::string vertexSource = Files::GetFileContent(vertexSrcPath);
-		std::string fragmentSource = Files::GetFileContent(fragSrcPath);
+		std::string vertexSource = std::string(Internal::ShaderHeader) + Files::GetFileContent(vertexSrcPath);
+		std::string fragmentSource = std::string(Internal::ShaderHeader) + Files::GetFileContent(fragSrcPath);
 		return Create(vertexSource, fragmentSource);
 	}
 
@@ -108,8 +109,8 @@ namespace Elevate
 
 		if (!vertexContent.empty() && !fragmentContent.empty())
 		{
-			std::string vertexSource = customVertCode + "\n" + vertexContent;
-			std::string fragmentSource = customFragCode + "\n" + fragmentContent;
+			std::string vertexSource = std::string(Internal::ShaderHeader) + customVertCode + "\n" + vertexContent;
+			std::string fragmentSource = std::string(Internal::ShaderHeader) + customFragCode + "\n" + fragmentContent;
 			return Create(vertexSource, fragmentSource);
 		}
 		else

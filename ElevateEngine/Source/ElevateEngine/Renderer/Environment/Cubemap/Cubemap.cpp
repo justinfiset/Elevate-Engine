@@ -3,8 +3,6 @@ module;
 #include <string>
 #include <glm/mat4x4.hpp>
 
-#include <ElevateEngine/Foundations/Core.h> // todo remove asap
-
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
 
@@ -30,7 +28,7 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	m_VertexBuffer.reset(Elevate::VertexBuffer::Create(&s_skyboxVertices[0], sizeof(s_skyboxVertices)));
 	m_VertexBuffer->SetLayout({
 		{Elevate::ShaderDataType::Float3, "a_Position"},
-	});
+		});
 
 	m_IndexBuffer.reset(Elevate::IndexBuffer::Create(&s_skyboxIndices[0], sizeof(s_skyboxIndices) / sizeof(unsigned int)));
 	m_VertexArray.reset(VertexArray::Create());
@@ -39,10 +37,10 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	m_VertexArray->Unbind();
 
 	// Shaders
-	std::string vert = std::string(EE_SHADER_HEADER) +
+	std::string vert = std::string(Internal::ShaderHeader) +
 #include "ElevateEngine/Renderer/Environment/Cubemap/skybox.vert"
 		;
-	std::string frag = std::string(EE_SHADER_HEADER) +
+	std::string frag = std::string(Internal::ShaderHeader) +
 #include "ElevateEngine/Renderer/Environment/Cubemap/skybox.frag"
 		;
 	m_cubemapShader = Elevate::Shader::Create(vert, frag);
@@ -54,7 +52,7 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	int width, height, nrChannels;
 	for (int i = 0; i < 6; i++)
 	{
-		unsigned char *data = stbi_load(paths[i].c_str(), &width, &height, &nrChannels, 0);
+		unsigned char* data = stbi_load(paths[i].c_str(), &width, &height, &nrChannels, 0);
 		if (data)
 		{
 			GLCheck(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data));
@@ -75,11 +73,11 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE));
 }
 
-Elevate::Cubemap *Elevate::Cubemap::CreateFromFile(const std::string &filePath)
+Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(const std::string& filePath)
 {
 	auto resolvedPath = PathResolver::Resolve(filePath);
 
-	FILE *fp = fopen(resolvedPath.string().c_str(), "r");
+	FILE* fp = fopen(resolvedPath.string().c_str(), "r");
 	if (!fp)
 	{
 		CoreLogger::Error("Error : Cannot open cubemap config file ({})", resolvedPath.string());
@@ -94,13 +92,14 @@ Elevate::Cubemap *Elevate::Cubemap::CreateFromFile(const std::string &filePath)
 
 	// todo add more error catching, check if member exists or return
 	std::string paths[6] =
-		{
-			PathResolver::Resolve(doc["right"].GetString()).string(),
-			PathResolver::Resolve(doc["left"].GetString()).string(),
-			PathResolver::Resolve(doc["up"].GetString()).string(),
-			PathResolver::Resolve(doc["down"].GetString()).string(),
-			PathResolver::Resolve(doc["front"].GetString()).string(),
-			PathResolver::Resolve(doc["back"].GetString()).string()};
+	{
+		PathResolver::Resolve(doc["right"].GetString()).string(),
+		PathResolver::Resolve(doc["left"].GetString()).string(),
+		PathResolver::Resolve(doc["up"].GetString()).string(),
+		PathResolver::Resolve(doc["down"].GetString()).string(),
+		PathResolver::Resolve(doc["front"].GetString()).string(),
+		PathResolver::Resolve(doc["back"].GetString()).string()
+	};
 
 	return new Cubemap(paths, resolvedPath.string());
 }

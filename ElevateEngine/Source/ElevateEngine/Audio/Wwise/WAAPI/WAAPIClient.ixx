@@ -43,7 +43,6 @@ export namespace Elevate
 	protected:
 		bool m_isConnected = false;
 
-		// todo move in a setting file somehwere
 		std::string m_ip = "127.0.0.1";
 		uint16_t m_port = 8080;
 

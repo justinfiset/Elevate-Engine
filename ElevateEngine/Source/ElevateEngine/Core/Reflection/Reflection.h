@@ -4,6 +4,8 @@
 #include <string>
 #include <typeindex>
 
+#include <ElevateEngine/Foundations/Compilation/CompilerDiagnostics.h>
+
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Objects.Category;
 import Elevate.Core.Objects.Object;
@@ -355,10 +357,10 @@ public: \
         } \
         return ::Elevate::TypeLayout(this, generated_structEntry.StructName, instanceFields); \
     } \
-    _Pragma("clang diagnostic push") \
-    _Pragma("clang diagnostic ignored \"-Winconsistent-missing-override\"") \
+    EE_CLANG_DIAG_PUSH \
+    EE_CLANG_DIAG_IGNORE_OVERRIDE \
     virtual std::type_index GetTypeIndex() const { return generated_structEntry.TypeIndex; } \
-    _Pragma("clang diagnostic pop") \
+    EE_CLANG_DIAG_POP \
     inline ::Elevate::PropertySet GetProperties() const { \
         return GetLayout().CaptureState(); \
     } \

@@ -145,7 +145,6 @@ namespace EL
 	{
 		Elevate::Logger::Info("Fetching local projects...");
 
-		// todo get info from local files
 		m_projectList.Projects.clear();
 
 		std::string filePath = (Elevate::Paths::Content() / "projects.json").string();

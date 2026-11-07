@@ -1,6 +1,6 @@
 module;
 
-#include <ElevateEngine/Foundations/Core.h> // todo : remove asap
+#include <string>
 
 #include "imgui.h"
 #include "backends/imgui_impl_opengl3.h"
@@ -13,6 +13,7 @@ module Elevate.Core.Layers.ImGuiLayer;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Application;
+import Elevate.Renderer.Shaders;
 
 Elevate::ImGuiLayer::ImGuiLayer()
 	: Layer("ImGuiLayer")
@@ -53,7 +54,7 @@ void Elevate::ImGuiLayer::OnAttach()
 
 	// Setup Platform/Renderer bindings#
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init(EE_SHADER_VERSION_HEADER);
+	ImGui_ImplOpenGL3_Init(std::string(Internal::ShaderHeader).c_str());
 }
 
 void Elevate::ImGuiLayer::OnDetach()

@@ -81,12 +81,28 @@ export namespace Elevate
 		static Framebuffer& GetDirectionalFrameBuffer(uint32_t index);
 
 		/// <summary>
-		/// Immediatly process a RenderCommand. Do not use directly unless you know what you are donig.
+		/// Immediately processes a RenderCommand, bypassing the render buckets.
+		/// Do not use directly unless you know what you are doing: prefer Submit or SubmitMesh,
+		/// which queue the command so it is sorted and executed at the right point in the frame.
 		/// </summary>
 		/// <param name="command">The RenderCommand to process at this exact instant.</param>
 		static void Dispatch(const RenderCommand& command);
-		// todo doc here
+
+		/// <summary>
+		/// Queues a RenderCommand in the given bucket. The command is not executed here;
+		/// it runs later when the bucket is flushed during the frame's render pass.
+		/// </summary>
+		/// <param name="type">The bucket the command is queued in (e.g. opaque, transparent). It determines the draw order and the render state the command is executed with.</param>
+		/// <param name="command">The RenderCommand to queue into the bucket.</param>
 		static void Submit(RenderBucketType type, const RenderCommand& command);
+
+		/// <summary>
+		/// Queues a draw of a mesh with a material and a transform. Builds the RenderCommand
+		/// and submits it to the bucket matching the material.
+		/// </summary>
+		/// <param name="vao">The vertex array of the mesh to draw.</param>
+		/// <param name="material">The material used to draw the mesh (shader, textures and uniforms).</param>
+		/// <param name="transform">The model-to-world matrix applied to the mesh.</param>
 		static void SubmitMesh(const std::shared_ptr<VertexArray>& vao, const MaterialPtr& material, const glm::mat4& transform);
 
 		// Textures

@@ -276,7 +276,10 @@ namespace Elevate
 
 			for (std::shared_ptr<Texture> tex : mesh.m_data.Textures)
 			{
-				if (!tex) continue; // TODO FIND IF AND WHY A TEXTURE COULD BE NULL
+				if (!tex)
+				{
+					continue;
+				}
 
 				bool found = false;
 				for (std::shared_ptr<Texture> insertedTex : textures)

@@ -3,8 +3,6 @@ module;
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
 
-#include <ElevateEngine/Foundations/Core.h> // todo remove
-
 module Elevate.Renderer.Debug.DebugRenderer;
 
 #ifdef EE_EDITOR_BUILD
@@ -118,9 +116,8 @@ void Elevate::DebugRenderer::InitLineRender()
 	m_lineShader = ShaderManager::LoadShader(
 		"Debug",
 		"editor://Shaders/debug.vert",
-		"editor://Shaders/debug.frag",
-		EE_SHADER_HEADER,
-		EE_SHADER_HEADER);
+		"editor://Shaders/debug.frag"
+	);
 
 	m_lineBuffer.reset(VertexBuffer::Create(m_debugLineArray.data(), (uint32_t)m_debugLineArray.size() * sizeof(DebugVertex)));
 	m_lineBuffer->SetLayout({

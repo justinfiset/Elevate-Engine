@@ -108,7 +108,6 @@ export namespace Elevate
 		virtual void SetUniformMatrix4fv(const std::string& location, float* data, uint32_t count = 1) const = 0;
 		void SetUniformMatrix4fv(const std::string& location, glm::mat4 data) const;
 
-		// TODO CHECK IF NEEDED FOR OTHER APIS
 		virtual unsigned int GetRendererID() const = 0;
 
 		inline bool IsInitialized() { return m_isInitialized; }
