@@ -48,7 +48,9 @@ defines {'ASSIMP_BUILD_NO_COLLADA_EXPORTER', 'ASSIMP_BUILD_NO_X_EXPORTER', 'ASSI
 
 filter "system:emscripten"
 defines {"HAVE_UNISTD_H"}
-buildoptions {"-include", "emscripten_compat.h"}
+
+filter {"system:emscripten", "files:**/poly2tri/**.cc"}
+buildoptions {"-include", "ostream"}
 
 filter {"system:linux", "files:assimp/contrib/zlib/**"}
 buildoptions {"-include", "unistd.h"}
