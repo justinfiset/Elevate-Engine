@@ -120,6 +120,7 @@ end
 local function moduleBuildCommands()
     local commands = {}
     local moduleDirectory = "%{cfg.objdir}/modules"
+    local moduleFlags = "$cxxflags_ElevateEngine_%{cfg.buildcfg}"
     table.insert(commands, "mkdir -p " .. moduleDirectory)
     for _, filename in ipairs(orderedModuleFiles()) do
         local moduleName = nil
@@ -133,7 +134,7 @@ local function moduleBuildCommands()
             local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
             local moduleOutputName = moduleName:gsub(":", "-")
             table.insert(commands,
-                "$(CXX) $(ALL_CXXFLAGS) --precompile -x c++-module " .. relativePath .. " -o " .. moduleDirectory .. "/" ..
+                "clang++ " .. moduleFlags .. " --precompile -x c++-module " .. relativePath .. " -o " .. moduleDirectory .. "/" ..
                     moduleOutputName .. ".pcm")
         end
     end
@@ -144,7 +145,7 @@ function UseEngineModules()
     filter "system:linux"
     if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
         buildoptions {
-            "-fmodule-mapper=%{wks.location}/ElevateEngine/Build/module.map"
+            "-fmodule-mapper=" .. normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/module.map")
         }
     else
         buildoptions {
@@ -163,16 +164,17 @@ end
 local function gccModuleBuildCommands()
     local commands = {}
     local gcmDirectory = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/gcm.cache")
-    table.insert(commands, "rm -rf gcm.cache")
-    table.insert(commands, "mkdir -p gcm.cache")
-    table.insert(commands, "rm -f module.map")
-    table.insert(commands, "printf '' > module.map")
+    local moduleMap = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/module.map")
+    table.insert(commands, "rm -rf " .. gcmDirectory)
+    table.insert(commands, "mkdir -p " .. gcmDirectory)
+    table.insert(commands, "rm -f " .. moduleMap)
+    table.insert(commands, "printf '' > " .. moduleMap)
     for _, filename in ipairs(orderedModuleFiles()) do
         local moduleName = moduleNameForFile(filename)
         if moduleName then
             local moduleOutputName = moduleName:gsub(":", "-")
             table.insert(commands,
-                "printf '" .. moduleName .. " " .. gcmDirectory .. "/" .. moduleOutputName .. ".gcm\\n' >> module.map")
+                "printf '" .. moduleName .. " " .. gcmDirectory .. "/" .. moduleOutputName .. ".gcm\\n' >> " .. moduleMap)
         end
     end
     -- GCC validates imported CMIs against the flags used to create them.
