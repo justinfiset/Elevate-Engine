@@ -320,7 +320,10 @@ links {"opengl32.lib"}
 filter {"system:linux", "language:C++"}
 links {"GL", "X11", "pthread", "dl"}
 if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
-    buildoptions {"-fmodules-ts", "-fmodule-mapper=%{wks.location}/ElevateEngine/Build/module.map"}
+    buildoptions {
+        "-fmodules-ts",
+        "-fmodule-mapper=" .. normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/module.map")
+    }
 else
     buildoptions {"-fprebuilt-module-path=%{cfg.objdir}/modules"}
 end
