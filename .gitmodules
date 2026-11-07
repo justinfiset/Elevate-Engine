@@ -1,16 +1,13 @@
 [submodule "ElevateEngine/vendor/rapidjson"]
 	path = ElevateEngine/Vendor/rapidjson
 	url = https://github.com/Tencent/rapidjson
-	ignore = all
 [submodule "ElevateEngine/vendor/ImGui"]
 	path = ElevateEngine/Vendor/ImGui
 	url = https://github.com/ocornut/imgui
-	ignore = all
 	branch = docking
 [submodule "ElevateEngine/vendor/assimp"]
 	path = ElevateEngine/Vendor/assimp
 	url = https://github.com/assimp/assimp
-	ignore = all
 [submodule "ElevateEngine/vendor/rapidxml"]
 	path = ElevateEngine/Vendor/rapidxml
 	url = https://github.com/dwd/rapidxml.git
