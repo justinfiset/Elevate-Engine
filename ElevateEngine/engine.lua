@@ -120,7 +120,15 @@ end
 local function moduleBuildCommands()
     local commands = {}
     local moduleDirectory = "%{cfg.objdir}/modules"
-    local moduleFlags = "$cxxflags_ElevateEngine_%{cfg.buildcfg}"
+    local compiler
+    local moduleFlags
+    if _ACTION == "gmake" then
+        compiler = "$(CXX)"
+        moduleFlags = "$(ALL_CXXFLAGS)"
+    else
+        compiler = "clang++"
+        moduleFlags = "$cxxflags_ElevateEngine_%{cfg.buildcfg}"
+    end
     local moduleListPath = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/clang-modules.list")
     local moduleList = io.open(moduleListPath, "w")
     if not moduleList then
@@ -138,7 +146,7 @@ local function moduleBuildCommands()
 
     table.insert(commands, "mkdir -p " .. moduleDirectory)
     table.insert(commands,
-        "while IFS=\"|\" read -r moduleSource moduleOutput; do clang++ " .. moduleFlags ..
+        "while IFS=\"|\" read -r moduleSource moduleOutput; do " .. compiler .. " " .. moduleFlags ..
             " --precompile -x c++-module \"$$moduleSource\" -o \"" .. moduleDirectory ..
             "/$$moduleOutput.pcm\" || exit 1; done < \"" .. moduleListPath .. "\"")
     return commands
