@@ -159,4 +159,4 @@ jobs:
 
                   $env:PATH = "$emscriptenDir;" + $env:PATH
 
-                  ninja -j2 Editor_Debug
+                  ninja -j"$(nproc)" Editor_Debug
