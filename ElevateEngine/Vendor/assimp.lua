@@ -124,6 +124,7 @@ project 'assimp'
 
 	filter "system:emscripten"
 		defines { "HAVE_UNISTD_H" }
+		buildoptions { "-include", "ostream" }
 
 	filter { "system:linux", "files:assimp/contrib/zlib/**" }
 		buildoptions { "-include", "unistd.h" }
