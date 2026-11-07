@@ -1,35 +1,36 @@
-#include <ElevateEngine.h>
-
 // MATHS
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "ElevateEngine/Renderer/Cubemap.h"
-#include "ElevateEngine/Renderer/Shader/ShaderManager.h"
-#include "ElevateEngine/Renderer/Shader/Shader.h"
-#include <ElevateEngine/Renderer/Camera/CameraManager.h>
+#include <ElevateEngine/Foundations/Core.h> // todo : remove asap
+
+#include <ElevateEngine.h>
 
 class DebugLayer : public Elevate::SceneLayer
 {
 public:
-	Elevate::ShaderPtr m_shader;
+	Elevate::EEObjectPtr<Elevate::Shader> m_shader;
 private:
 	std::shared_ptr<Elevate::GameObject> m_DemoObject;
 	std::shared_ptr<Elevate::GameObject> m_demoCube;
 	std::shared_ptr<Elevate::GameObject> m_PointLightObject;
 public:
-	DebugLayer() : SceneLayer(Elevate::Scene::Create("Demo Scene")) {}
+	explicit DebugLayer(std::shared_ptr<Elevate::SceneManager> sceneManager)
+		: SceneLayer(std::move(sceneManager), sceneManager->CreateScene("Demo Scene"))
+	{
+	}
 
 	void OnAttach() override
 	{
-		m_shader = Elevate::ShaderManager::GetShader(EE_DEFAULT_SHADER);
+		m_shader = Elevate::ShaderManager::GetShader(Elevate::EE_DEFAULT_SHADER);
 
 		Elevate::MaterialPtr material = Elevate::MaterialRegistry::LoadMaterial(m_shader);
 
-		m_scene->SetSkybox("engine://Cubemap/default.sky");
-
+		auto lighting = m_scene->EmplaceContext<Elevate::SceneLighting>();
+		auto env = m_scene->EmplaceContext<Elevate::SceneEnvironment>();
+		env.SetCubemap("engine://Cubemap/default.sky");
 		// TODO impl dans un API a part entiere
 		//tinyfd_messageBox(
 		//    "Erreur",
@@ -39,7 +40,7 @@ public:
 		//    1
 		//);
 
-		Elevate::ShaderPtr colorShader = Elevate::Shader::CreateFromFiles(
+		Elevate::EEObjectPtr<Elevate::Shader> colorShader = Elevate::Shader::CreateFromFiles(
 			"engine://Shaders/DefaultLitShader.vert",
 			"content://Shaders/ColorTest.frag",
 			EE_SHADER_HEADER,
@@ -83,6 +84,8 @@ public:
 		plane->AddComponent<Elevate::Model>(Elevate::PrimitiveType::Plane);
 		plane->SetScale({ 30.0f, 1.0f, 30.0f });
 		plane->SetPosition({ 0.0f, 0.1f, 0.0f });
+
+		SceneLayer::OnAttach();
 	}
 
 	// TODO ajouter un icon de point light qui suit avec imgui la point light
@@ -103,7 +106,7 @@ public:
 		case Elevate::EventType::KeyTyped:
 		{
 			Elevate::KeyPressedEvent kp = (Elevate::KeyPressedEvent&)event;
-			if (kp.GetKeyCode() == EE_KEY_SPACE)
+			if (kp.GetKeyCode() == Elevate::KeyCode::Space)
 			{
 				// Do something here...
 			}
@@ -126,7 +129,8 @@ public:
 #endif
 		Init();
 
-		PushLayer(new DebugLayer());
+		auto sceneManager = GetServices().Resolve<Elevate::SceneManager>();
+		PushLayer(new DebugLayer(sceneManager));
 	}
 	~Sandbox() = default;
 };

@@ -1,26 +1,39 @@
-#include "eepch.h"
-#include "Shader.h"
+module;
 
+#include <entt/entt.hpp>
+
+#include <memory>
+#include <string>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <ElevateEngine/Renderer/Renderer.h>
-
-#include "ElevateEngine/Renderer/Light/Light.h"
-#include "ElevateEngine/Renderer/Light/DirectionalLight.h"
 #include <ElevateEngine/Platform/OpenGL/Shaders/OpenGLShader.h>
-#include "ElevateEngine/Files/FileUtility.h"
-#include "ElevateEngine/Core/GameObject.h"
-#include <ElevateEngine/Renderer/Camera.h>
-#include <ElevateEngine/Renderer/Camera/CameraManager.h>
 
-namespace Elevate 
+#include <ElevateEngine/Foundations/Core.h> // todo remove this
+
+module Elevate.Renderer.Shaders;
+
+// Foundations
+import Elevate.Foundations.Assert;
+import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Files;
+// Core
+import Elevate.Core.Transform.ITransformable;
+import Elevate.Core.Objects.ObjectPtr;
+// Renderer
+import Elevate.Renderer.Renderer;
+import Elevate.Renderer.Lights.Light;
+import Elevate.Renderer.Lights.DirectionalLight;
+
+namespace Elevate
 {
 	std::shared_ptr<Shader> Shader::CreateDefaultNative()
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::GraphicAPI::None: EE_CORE_ASSERT(false, "Renderer none is not supported");
-		case RendererAPI::GraphicAPI::OpenGL: return std::make_shared<OpenGLShader>(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetFragmentShader()));
+		case RendererAPI::GraphicAPI::None:
+			Assert::That(false, "Renderer none is not supported");
+		case RendererAPI::GraphicAPI::OpenGL:
+			return std::make_shared<OpenGLShader>(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetFragmentShader()));
 		}
 		return nullptr;
 	}
@@ -29,64 +42,69 @@ namespace Elevate
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::GraphicAPI::None: EE_CORE_ASSERT(false, "Renderer none is not supported");
-		case RendererAPI::GraphicAPI::OpenGL: return std::make_shared<OpenGLShader>(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetErrorShader()));
+		case RendererAPI::GraphicAPI::None:
+			Assert::That(false, "Renderer none is not supported");
+		case RendererAPI::GraphicAPI::OpenGL:
+			return std::make_shared<OpenGLShader>(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetErrorShader()));
 		}
 		return nullptr;
 	}
 
-	ShaderPtr Shader::CreateDefault()
+	EEObjectPtr<Shader> Shader::CreateDefault()
 	{
 		return Create(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetFragmentShader()));
 	}
 
-	ShaderPtr Shader::CreateDefaultError()
+	EEObjectPtr<Shader> Shader::CreateDefaultError()
 	{
 		return Create(EE_SHADER_HEADER + std::string(DefaultShader::GetVertexShader()), EE_SHADER_HEADER + std::string(DefaultShader::GetErrorShader()));
 	}
 
-	ShaderPtr Shader::Create(const std::string& vertexSource, const std::string& fragmentSouce)
+	EEObjectPtr<Shader> Shader::Create(const std::string& vertexSource, const std::string& fragmentSouce)
 	{
-		ShaderPtr shader = nullptr;
-		
+		EEObjectPtr<Shader> shader = nullptr;
+
 		if (!vertexSource.empty() && !fragmentSouce.empty())
 		{
 			switch (Renderer::GetAPI())
 			{
-			case RendererAPI::GraphicAPI::None: EE_CORE_ASSERT(false, "Renderer none is not supported"); break;
-			case RendererAPI::GraphicAPI::OpenGL: shader = std::make_shared<OpenGLShader>(vertexSource, fragmentSouce);
+			case RendererAPI::GraphicAPI::None:
+				Assert::That(false, "Renderer none is not supported");
+				break;
+			case RendererAPI::GraphicAPI::OpenGL:
+				shader = std::make_shared<OpenGLShader>(vertexSource, fragmentSouce);
 			}
 		}
 		else
 		{
-			EE_CORE_ERROR("Error : Tried to create a shader with an empty vertex or fragment source -> Vertex : {} And Fragment : {}", vertexSource, fragmentSouce);
+			CoreLogger::Error("Error : Tried to create a shader with an empty vertex or fragment source -> Vertex : {} And Fragment : {}", vertexSource, fragmentSouce);
 			return CreateDefaultErrorNative();
 		}
 
 		if (!shader->IsInitialized())
 		{
 			shader.reset(); // Free the memory of that unused shader and reset to nullptr
-			EE_CORE_ERROR("Error : Could not create a valid shader. Fallback to default shader.");
+			CoreLogger::Error("Error : Could not create a valid shader. Fallback to default shader.");
 			return CreateDefaultErrorNative();
 		}
 
 		shader->m_layout = shader->ExtractReflectionData();
 
-		EE_CORE_TRACE("Shader layout has {} elements.", shader->m_layout.GetElements().size());
+		CoreLogger::Trace("Shader layout has {} elements.", shader->m_layout.GetElements().size());
 		return shader;
 	}
 
-	ShaderPtr Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath)
+	EEObjectPtr<Shader> Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath)
 	{
-		std::string vertexSource = File::GetFileContent(vertexSrcPath);
-		std::string fragmentSource = File::GetFileContent(fragSrcPath);
+		std::string vertexSource = Files::GetFileContent(vertexSrcPath);
+		std::string fragmentSource = Files::GetFileContent(fragSrcPath);
 		return Create(vertexSource, fragmentSource);
 	}
 
-	ShaderPtr Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode)
+	EEObjectPtr<Shader> Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath, const std::string& customVertCode, const std::string& customFragCode)
 	{
-		std::string vertexContent = File::GetFileContent(vertexSrcPath);
-		std::string fragmentContent = File::GetFileContent(fragSrcPath);
+		std::string vertexContent = Files::GetFileContent(vertexSrcPath);
+		std::string fragmentContent = Files::GetFileContent(fragSrcPath);
 
 		if (!vertexContent.empty() && !fragmentContent.empty())
 		{
@@ -96,7 +114,7 @@ namespace Elevate
 		}
 		else
 		{
-			EE_CORE_ERROR("Error : Tried to create a shader with an empty vertex or fragment source -> Vertex : {} And Fragment : {}", vertexContent, fragmentContent);
+			CoreLogger::Error("Error : Tried to create a shader with an empty vertex or fragment source -> Vertex : {} And Fragment : {}", vertexContent, fragmentContent);
 			return CreateDefaultError();
 		}
 	}
@@ -115,27 +133,22 @@ namespace Elevate
 
 	void Shader::SetCameraPosition(const glm::vec3 cameraPosition) const
 	{
-		SetUniform3f(EE_SHADER_CAMPOS, cameraPosition);
+		SetUniform3f(ShaderUniforms::CamPos, cameraPosition);
 	}
 
 	void Shader::SetModelMatrix(const glm::mat4& modelMatrix)
 	{
-		SetUniformMatrix4fv(EE_SHADER_MODEL, modelMatrix); // set the model matrix
+		SetUniformMatrix4fv(ShaderUniforms::Model, modelMatrix); // set the model matrix
 	}
 
-	void Shader::SetModelMatrix(const GameObject& object)
+	void Shader::SetModelMatrix(const ITransformable& object)
 	{
-		SetUniformMatrix4fv(EE_SHADER_MODEL, object.GetModelMatrix()); // set the model matrix
+		SetUniformMatrix4fv(ShaderUniforms::Model, object.GetModelMatrix()); // set the model matrix
 	}
 
 	void Shader::SetProjectionViewMatrix(const glm::mat4 viewProjMatrix)
 	{
-		SetUniformMatrix4fv(EE_SHADER_VIEWPROJ, viewProjMatrix);
-	}
-
-	void Shader::SetProjectionViewMatrix(const Camera& cam)
-	{
-		SetUniformMatrix4fv(EE_SHADER_VIEWPROJ, cam.GenViewProjectionMatrix());
+		SetUniformMatrix4fv(ShaderUniforms::ViewProj, viewProjMatrix);
 	}
 
 	void Elevate::Shader::SetUniformMatrix2fv(const std::string& location, glm::mat2 data) const
@@ -159,8 +172,10 @@ namespace Elevate
 		{
 			// todo impl all of the types here based on the functions we have in the shader part
 			// todo remove the need to cast to float* and directly use the SetUniform2fv functions (create them if necessary)
-		case ShaderDataType::Float:  SetUniform1f(location, *(float*)value); break;
-		case ShaderDataType::Float2: 
+		case ShaderDataType::Float:
+			SetUniform1f(location, *(float*)value);
+			break;
+		case ShaderDataType::Float2:
 		{
 			float* data = (float*)value;
 			SetUniform2f(location, data[0], data[1]);
@@ -182,10 +197,10 @@ namespace Elevate
 			SetUniform1i(location, *(int*)value);
 			break;
 		case ShaderDataType::Mat4:
-			SetUniformMatrix4fv(location, (float*) value);
+			SetUniformMatrix4fv(location, (float*)value);
 			break;
 		default:
-			EE_CORE_ASSERT(false, "(Shader::SetUniform()) : Unsupported datatype provided.");
+			Assert::That(false, "(Shader::SetUniform()) : Unsupported datatype provided.");
 			break;
 		}
 	}

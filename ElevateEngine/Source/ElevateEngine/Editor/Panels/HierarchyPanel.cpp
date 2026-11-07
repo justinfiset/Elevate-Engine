@@ -1,10 +1,23 @@
-﻿#include "HierarchyPanel.h"
+module;
+
+#include <cstdint>
+#include <cstring>
+#include <memory>
+#include <string>
+
+#include "imgui.h"
+
+module Elevate.Editor.Panels.HierarchyPanel;
 
 #ifdef EE_EDITOR_BUILD
 
-#include "imgui.h"
-#include <ElevateEngine/Editor/EditorLayer.h>
-#include <ElevateEngine/Scene/SceneManager.h>
+// Core
+import Elevate.Core.Application;
+import Elevate.Core.Scene;
+import Elevate.Core.Objects.ObjectPtr;
+// Editor
+import Elevate.Editor.Layer;
+import Elevate.Editor.Widgets.ContextMenu;
 
 namespace Elevate::Editor
 {
@@ -23,7 +36,7 @@ namespace Elevate::Editor
 		}
 
 		bool open = false;
-		if (m_renaming && object == m_renamedObject) 
+		if (m_renaming && object == m_renamedObject)
 		{
 			ImGui::Image((ImTextureID)m_objectTexture->GetNativeHandle(), ImVec2(16, 16));
 			ImGui::SameLine();
@@ -66,10 +79,10 @@ namespace Elevate::Editor
 
 			open = ImGui::TreeNodeEx((object->GetName() + "##" + std::to_string((uintptr_t)object.get())).c_str(), nodeFlags);
 
-			if (ImGui::BeginPopupContextItem())
+			if (Widgets::ContextMenu::BeginOnItem("HierarchyPanelContextMenu"))
 			{
 				if (ImGui::MenuItem("Delete")) { object->Destroy(); }
-				if (ImGui::MenuItem("Rename")) 
+				if (ImGui::MenuItem("Rename"))
 				{
 					m_renaming = true;
 					m_renamedObject = object;
@@ -77,7 +90,7 @@ namespace Elevate::Editor
 					m_renameBuffer[sizeof(m_renameBuffer) - 1] = '\0';
 				}
 
-				ImGui::EndPopup();
+				Widgets::ContextMenu::End();
 			}
 		}
 
@@ -113,9 +126,11 @@ namespace Elevate::Editor
 	{
 		ImGui::Begin("Hierarchy");
 
-		for (auto it = SceneManager::begin(); it != SceneManager::end(); it++)
+		// todo retreive with dependency injection in the future
+		auto sceneManager = Application::Get().GetServices().Resolve<SceneManager>();
+		for (auto it = sceneManager->begin(); it != sceneManager->end(); it++)
 		{
-			ScenePtr scene = *it;
+			auto scene = *it;
 			if (scene->GetType() == SceneType::RuntimeScene && !scene->GetRootObjects().empty())
 			{
 				ImGui::Image((ImTextureID)m_sceneTexture->GetNativeHandle(), ImVec2(16, 16));

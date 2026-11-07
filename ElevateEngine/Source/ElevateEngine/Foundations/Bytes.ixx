@@ -1,0 +1,64 @@
+module;
+
+#include <cstddef>
+#include <vector>
+#include <span>
+#include <string>
+#include <sstream>
+#include <iomanip>
+
+export module Elevate.Foundations.Bytes;
+
+export namespace Elevate
+{
+    using Byte = std::byte;
+    using ByteBuffer = std::vector<Byte>;
+    using ByteSpan = std::span<const Byte>;
+    
+    /**
+     * Namespace that contians function to ease the use of ByteBuffers and ByteSpans.
+     */
+    namespace ByteUtils
+    {
+        /**
+         * Converts any combination of bytes to a string.
+         * 
+         * \param bytes Any type of byte array.
+         * \return A string built from the content of the given byte array.
+         */
+        inline std::string ToString(ByteSpan bytes)
+        {
+            return std::string(reinterpret_cast<const char*>(bytes.data()), bytes.size());
+        }
+
+        /**
+         * Converts any combination of bytes into a string in the hexadecimal format with
+         * with the given chars range : [0,f].
+         * 
+         * \param bytes Any type of byte array.
+         * \return A string built from the content of the given byte array.
+         */
+        inline std::string ToHexString(ByteSpan bytes)
+        {
+            std::stringstream ss;
+            ss << std::hex << std::setfill('0');
+            for (auto byte : bytes)
+            {
+                ss << std::setw(2) << static_cast<int>(byte);
+            }
+            return ss.str();
+        }
+
+        /**
+         * Converts a string into a ByteBuffer.
+         *
+         * \param str The string to convert into bytes.
+         * \return A ByteBuffer containing the raw bytes of the string.
+         */
+        inline ByteBuffer FromString(const std::string& str)
+        {
+            const auto* dataPtr = reinterpret_cast<const std::byte*>(str.data());
+            return ByteBuffer(dataPtr, dataPtr + str.size());
+        }
+    }
+}

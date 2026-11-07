@@ -1,13 +1,13 @@
-#include "eepch.h"
+module Elevate.Renderer.Camera;
 
-#include "CameraManager.h"
-#include "ElevateEngine/Core/Application.h"
-
-#include <ElevateEngine/Core/Assert.h>
+// Foundations
+import Elevate.Foundations.Assert;
+// Core
+import Elevate.Core.Application;
 
 #ifdef EE_EDITOR_BUILD
-#include "ElevateEngine/Editor/EditorLayer.h"
-#include "ElevateEngine/Editor/Camera/EditorCamera.h"
+import Elevate.Editor.Camera;
+import Elevate.Editor.Layer;
 #endif
 
 namespace Elevate
@@ -26,7 +26,7 @@ namespace Elevate
 		Camera* runtime = GetRuntime();
 		if (!runtime)
 		{
-			EE_CORE_ASSERT(false, "ERROR : There is no active camera! - CameraManager::GetCurrent()");
+			Assert::That(false, "ERROR : There is no active camera! - CameraManager::GetCurrent()");
 		}
 
 		return runtime;

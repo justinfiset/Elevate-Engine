@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ElevateEngine/Renderer/Texture/Texture.h>
+import Elevate.Renderer.Texture;
 
 namespace Elevate
 {

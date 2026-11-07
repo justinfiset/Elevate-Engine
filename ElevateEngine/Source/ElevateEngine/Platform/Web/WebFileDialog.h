@@ -1,7 +1,10 @@
 #pragma once
 
 #ifdef EE_PLATFORM_WEB
-#include <ElevateEngine/Files/FileDialog.h>
+#include <string>
+#include <vector>
+
+import Elevate.Foundations.Files.FileDialog;
 
 namespace Elevate
 {

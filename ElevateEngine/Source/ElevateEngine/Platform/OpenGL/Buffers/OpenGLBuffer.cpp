@@ -1,12 +1,12 @@
-#include "eepch.h"
 #include "OpenGLBuffer.h"
 
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
-#include "ElevateEngine/Renderer/Vertex.h"
 #include <GLFW/glfw3.h>
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Renderer/GLDebug.h>
-#include <ElevateEngine/Renderer/GraphicsContext.h>
+#include <ElevateEngine/Platform/OpenGL/GLDebug.h>
+
+import Elevate.Foundations.CoreLogger;
+import Elevate.Renderer.Vertex;
+import Elevate.Renderer.GraphicsContext;
 
 namespace Elevate
 {
@@ -17,16 +17,17 @@ namespace Elevate
 #else
 		glGenBuffers(n, ids);
 #endif
-    }
+	}
 
-	inline void NamedBufferData(uint32_t buffer, uint32_t target, size_t size, const void* data, uint32_t usage) {
+	inline void NamedBufferData(uint32_t buffer, uint32_t target, size_t size, const void* data, uint32_t usage)
+	{
 #ifdef EE_SUPPORTS_DSA
 		glNamedBufferData(buffer, size, data, usage);
 #else
-        glBindBuffer(target, buffer);
-        glBufferData(target, size, data, usage);
+		glBindBuffer(target, buffer);
+		glBufferData(target, size, data, usage);
 #endif
-    }
+	}
 
 	///////////////////////////////////////////////////////////////////////////////////////
 	// VertexBuffer ///////////////////////////////////////////////////////////////////////
@@ -71,7 +72,7 @@ namespace Elevate
 		}
 		else
 		{
-			EE_CORE_ERROR("ERROR : (OpenGLVertexBuffer::SetData) Buffer is not initialized yet.");
+			CoreLogger::Error("ERROR : (OpenGLVertexBuffer::SetData) Buffer is not initialized yet.");
 		}
 	}
 
@@ -84,7 +85,7 @@ namespace Elevate
 		}
 		else
 		{
-			EE_CORE_ERROR("ERROR : (OpenGLVertexBuffer::Resize) You must initialize the VertexBuffer before resizing it.");
+			CoreLogger::Error("ERROR : (OpenGLVertexBuffer::Resize) You must initialize the VertexBuffer before resizing it.");
 		}
 	}
 

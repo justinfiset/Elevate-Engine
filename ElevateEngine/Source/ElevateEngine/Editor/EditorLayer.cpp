@@ -1,36 +1,48 @@
-﻿#include "eepch.h"
-#include "EditorLayer.h"
+module;
+
+#include <cstdlib>
+#include <memory>
+#include <format>
+
+#include "imgui.h"
+#include <glm/glm.hpp>
+#include <entt/entt.hpp>
+
+#include <ElevateEngine/Foundations/Core.h>
+
+module Elevate.Editor.Layer;
 
 #ifdef EE_EDITOR_BUILD
 
-#include "imgui.h"
-
-#include <ElevateEngine/Core/Application.h>
-
-#include <ElevateEngine/Scene/SceneManager.h>
-
-#include <ElevateEngine/Renderer/Model.h>
-#include <ElevateEngine/Renderer/Shader/Shader.h>
-#include "ElevateEngine/Renderer/Shader/ShaderManager.h"
-
-#include <ElevateEngine/Editor/Camera/EditorCamera.h>
-
-#include <ElevateEngine/Editor/Widgets/SkyboxEditorWidget.h>
-
-#include <ElevateEngine/ImGui/ImGuiTheme.h>
-#include <ElevateEngine/Inputs/Input.h>
-
-#include <ElevateEngine/Editor/Commands/GameobjectCommands.h>
-#include <ElevateEngine/Scene/Scene.h>
-
-#include <ElevateEngine/Renderer/Camera/CameraManager.h>
-#include <ElevateEngine/Renderer/Framebuffer.h>
-
-// TODO : CHECK ESSENTIAL INCLUDES KNOW ESSENTIAL BELLOW
 // Core
-#include <ElevateEngine/Core/GameObject.h>
-// Rendering
-#include <ElevateEngine/Renderer/Renderer.h>
+import Elevate.Core.Application;
+import Elevate.Core.Scene;
+import Elevate.Core.Objects.Object;
+import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Core.Events.KeyEvent;
+// Renderer
+import Elevate.Renderer.Texture;
+import Elevate.Renderer.Meshes.Mesh;
+import Elevate.Renderer.Models.Model;
+import Elevate.Renderer.Camera;
+import Elevate.Renderer.Framebuffers;
+import Elevate.Renderer.Shaders;
+import Elevate.Renderer.Commands;
+import Elevate.Renderer.Renderer;
+import Elevate.Renderer.Materials.Material;
+// Input
+import Elevate.Input;
+// Editor
+import Elevate.Editor.Camera;
+import Elevate.Editor.Commands.GameobjectCommand;
+import Elevate.Editor.Theme;
+// Panels
+import Elevate.Editor.Panels.AnalyserPanel;
+import Elevate.Editor.Panels.ScenePanel;
+import Elevate.Editor.Panels.HierarchyPanel;
+import Elevate.Editor.Panels.StatisticsPanel;
+import Elevate.Editor.Panels.AssetBrowserPanel;
+import Elevate.Editor.Panels.ConsolePanel;
 
 namespace Elevate::Editor
 {
@@ -55,9 +67,26 @@ namespace Elevate::Editor
 		InitUI();
 	}
 
+	void EditorLayer::InitUI()
+	{
+		CreateWidget<ConsolePanel>();
+		CreateWidget<HierarchyPanel>();
+		CreateWidget<ScenePanel>();
+		CreateWidget<AnalyserPanel>();
+		CreateWidget<AssetBrowserPanel>();
+		CreateWidget<StatisticsPanel>();
+
+#ifdef EE_USES_WWISE
+		CreateWidget<WwiseBrowserPanel>();
+#endif // #ifdef EE_USES_WWISE
+	}
+
 	void EditorLayer::OnAttach()
 	{
-		m_EditorScene = Scene::Create("Editor", SceneType::EditorScene);
+		SetDarkTheme();
+
+		m_sceneManager = Application::Get().GetServices().Resolve<SceneManager>();
+		m_EditorScene = m_sceneManager->CreateScene("Editor", SceneType::EditorScene);
 
 		// Editor Camera
 		m_CameraObject = GameObject::Create("Editor Camera", m_EditorScene);
@@ -78,18 +107,16 @@ namespace Elevate::Editor
 		// Grid
 		m_GridObject = GameObject::Create("Editor Grid", m_EditorScene);
 		Model& gridModel = m_GridObject->AddComponent<Model>(PrimitiveType::Plane);
-		
+
 		RenderState gridState;
 		gridState.BlendMode = BlendModeType::Alpha;
 		gridState.CullMode = CullFace::None;
 		gridState.DepthTest = true;
 		gridState.DepthWrite = false;
 		gridMaterial->SetRenderState(gridState);
-		gridMaterial->SetBucket(RenderBucket::Type::Editor);
+		gridMaterial->SetBucket(RenderBucketType::Editor);
 		gridModel.SetMaterial(gridMaterial);
 		m_GridObject->SetScale({ 50, 50, 50 });
-
-		CreateWidget<SkyboxEditorWidget>();
 	}
 
 	void EditorLayer::OnUpdate()
@@ -108,10 +135,10 @@ namespace Elevate::Editor
 		glm::vec3 camPos = m_CameraObject->GetPosition();
 		// todo use materials instead
 		Renderer::BindShader(m_GridShader);
-		m_GridShader->SetProjectionViewMatrix(*GetCamera());
+		m_GridShader->SetProjectionViewMatrix(GetCamera()->GenViewProjectionMatrix());
 		m_GridObject->SetPosition({ camPos.x, 0, camPos.z });
 
-		m_EditorScene->RenderScene(GetCamera());
+		m_EditorScene->RenderScene();
 
 		std::shared_ptr<EEObject> lockedObj = m_SelectedObject.lock();
 		if (lockedObj)
@@ -153,22 +180,22 @@ namespace Elevate::Editor
 			{
 				// TODO: CONVERT TO COMMANDS
 				if (ImGui::MenuItem("Cube")) {
-					ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
+					std::shared_ptr<Scene> scene = m_sceneManager->GetCurrentScene(SceneType::RuntimeScene);
 					std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Cube", scene);
 					obj->AddComponent<Elevate::Model>(PrimitiveType::Cube);
 				}
 				if (ImGui::MenuItem("Plane")) {
-					ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
+					std::shared_ptr<Scene> scene = m_sceneManager->GetCurrentScene(SceneType::RuntimeScene);
 					std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Plane", scene);
 					obj->AddComponent<Elevate::Model>(PrimitiveType::Plane);
 				}
 				if (ImGui::MenuItem("Quad")) {
-					ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
+					std::shared_ptr<Scene> scene = m_sceneManager->GetCurrentScene(SceneType::RuntimeScene);
 					std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Quad", scene);
 					obj->AddComponent<Elevate::Model>(PrimitiveType::Quad);
 				}
 				if (ImGui::MenuItem("UV Sphere")) {
-					ScenePtr scene = SceneManager::GetCurrentScene(SceneType::RuntimeScene);
+					std::shared_ptr<Scene> scene = m_sceneManager->GetCurrentScene(SceneType::RuntimeScene);
 					std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("UV Sphere", scene);
 					obj->AddComponent<Elevate::Model>(PrimitiveType::UVSphere);
 				}
@@ -180,13 +207,13 @@ namespace Elevate::Editor
 			{
 				if (ImGui::BeginMenu("Theme"))
 				{
-					if (ImGui::MenuItem("Dark", NULL, UI::GetCurrentTheme() == UI::UITheme::Dark))
+					if (ImGui::MenuItem("Dark", NULL, GetCurrentTheme() == Theme::Dark))
 					{
-						UI::SetDarkTheme();
+						SetDarkTheme();
 					}
-					if (ImGui::MenuItem("Light", NULL, UI::GetCurrentTheme() == UI::UITheme::Light))
+					if (ImGui::MenuItem("Light", NULL, GetCurrentTheme() == Theme::Light))
 					{
-						UI::SetLightTheme();
+						SetLightTheme();
 					}
 					ImGui::EndMenu();
 				}
@@ -265,7 +292,7 @@ namespace Elevate::Editor
 		{
 			KeyEvent& ke = (KeyEvent&)event;
 
-			if (ke.GetKeyCode() == EE_KEY_DELETE)
+			if (ke.GetKeyCode() == KeyCode::Delete)
 			{
 				if (auto lockedObj = m_SelectedObject.lock())
 				{
@@ -276,13 +303,13 @@ namespace Elevate::Editor
 				}
 			}
 
-			if (Input::IsKeyPressed(EE_KEY_LEFT_CONTROL))
+			if (Input::IsKeyPressed(KeyCode::LeftControl))
 			{
-				if (ke.GetKeyCode() == EE_KEY_Z)
+				if (ke.GetKeyCode() == KeyCode::Z)
 				{
 					Undo();
 				}
-				else if (ke.GetKeyCode() == EE_KEY_Y)
+				else if (ke.GetKeyCode() == KeyCode::Y)
 				{
 					Redo();
 				}
@@ -293,7 +320,10 @@ namespace Elevate::Editor
 			break;
 		}
 
-		m_EditorScene->Notify(event);
+		if (m_EditorScene)
+		{
+			m_EditorScene->Notify(event);
+		}
 	}
 
 	EditorCamera* EditorLayer::GetCamera()

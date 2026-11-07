@@ -1,0 +1,21 @@
+export module Elevate.Serialization.ISerializable;
+
+import Elevate.Foundations.Bytes;
+
+export namespace Elevate
+{
+	/**
+	 * Simple interface used to serialize and deserialize using the Engine's common serialization system for custom types.
+	 */
+	class ISerializable
+	{
+	public:
+		virtual ~ISerializable() = default;
+
+		virtual ByteBuffer Serialize() const
+		{
+			return ByteBuffer();
+		}
+		virtual void Deserialize(const ByteBuffer& data) {}
+	};
+}

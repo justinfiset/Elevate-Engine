@@ -1,20 +1,35 @@
-#include "SoundEngine.h"
+module;
 
-#include <format>
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Core.h>
+#include <cstdint>
+
+module Elevate.Audio.SoundEngine;
+
+import Elevate.Foundations.CoreLogger;
 
 Elevate::SoundEngine* Elevate::SoundEngine::Impl = nullptr;
 
 // Return given arguments if no soundengine is used or no valid implementation is provided.
-#define EE_CHECK_SOUNDENGINE(...) if(EE_NO_SOUNDENGINE == 1 || !Impl) { return __VA_ARGS__; }
+#if defined(EE_NO_SOUNDENGINE) && (EE_NO_SOUNDENGINE == 1)
+#   define EE_CHECK_SOUNDENGINE(...) \
+        do { \
+            CoreLogger::CWarning(true, "SoundEngine call ignored: EE_NO_SOUNDENGINE is active."); \
+            return __VA_ARGS__; \
+        } while(0)
+#else
+#   define EE_CHECK_SOUNDENGINE(...) \
+        do { \
+            if (!Impl) { \
+                CoreLogger::CError(true, "SoundEngine call failed: Impl is nullptr."); \
+                return __VA_ARGS__; \
+            } \
+        } while(0)
+#endif
 
 bool Elevate::SoundEngine::Init()
 {
-	EE_CORE_CWARN(!Impl, "Error : No valid SoundEngine impl. found. Using a null SoundEngine.");
 	EE_CHECK_SOUNDENGINE(false);
 	bool result = Impl->InitImpl();
-	EE_CERROR(!result, "Error (SoundEngine::Init) : Could not initialize the sound engine.");
+	CoreLogger::CError(!result, "Error (SoundEngine::Init) : Could not initialize the sound engine.");
 	return result;
 	// todo register to native window callbacks
 }

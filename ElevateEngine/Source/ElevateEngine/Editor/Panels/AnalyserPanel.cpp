@@ -1,23 +1,48 @@
-﻿#include "eepch.h"
+module;
 
-#include "./AnalyserPanel.h"
-
-#ifdef EE_EDITOR_BUILD
-
-#include "imgui.h"
+#include <cstring>
+#include <functional>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+#include <string_view>
+#include <typeindex>
+#include <unordered_map>
+#include <vector>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/ext/matrix_float4x4.hpp>
+#include <glm/ext/vector_float3.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
 
-#include <ElevateEngine/ImGui/CustomImGuiCommand.h>
-#include <ElevateEngine/Renderer/Texture/TextureManager.h>
+#include "imgui.h"
 
-#include <ElevateEngine/Editor/Commands/ComponentCommand.h>
-#include <ElevateEngine/Editor/EditorLayer.h>
+module Elevate.Editor.Panels.AnalyserPanel;
 
-#include <ElevateEngine/Core/AssetRegistry.h>
-#include <ElevateEngine/Core/TypeRegistry.h>
-#include <ElevateEngine/Core/Component.h>
+#ifdef EE_EDITOR_BUILD
+
+// Foundations
+import Elevate.Foundations.Enums;
+// Core
+import Elevate.Core.Scene;
+import Elevate.Core.Objects.Object;
+import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Core.Types.TypeRegistry;
+import Elevate.Core.Types.TypeField;
+import Elevate.Core.Assets.Asset;
+import Elevate.Core.Assets.AssetRegistry;
+// Renderer
+import Elevate.Renderer.Texture;
+// Editor
+import Elevate.Editor.Layer;
+import Elevate.Editor.Types.EditorTypeTrait;
+import Elevate.Editor.Commands.ComponentCommand;
+import Elevate.Editor.Panels.AssetBrowserPanel;
+// Widgets
+import Elevate.Editor.Widgets.CollapsingHeader;
+import Elevate.Editor.Widgets.InputField;
 
 Elevate::Editor::AnalyserPanel::AnalyserPanel()
 {
@@ -40,7 +65,7 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 
 	if (obj)
 	{
-		Elevate::UI::InputField("Name: ", obj->GetName());
+		Widgets::InputField("Name: ", obj->GetName());
 
 		// Serialisation of the tranform and all other components
 		glm::vec4 color = EECategory("Transform").GetCategoryColor() * 0.6f;
@@ -54,7 +79,7 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 		RenderComponentLayout(obj->GetTransform().GetLayout());
 
 		ImGui::PopStyleVar();
-		
+
 		// TODO REMOVE AND / OR CHECK IF THE GAMEOBJECT IS DIFFERENT, THIS IS A COSTLY OPERATION FOR EACH FRAME
 		m_alredyAddedComponents.clear();
 
@@ -88,7 +113,7 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 					}
 				}
 			}
-			else 
+			else
 			{
 				ImGui::PopStyleColor(4);
 				ImGui::PopStyleVar();
@@ -164,7 +189,7 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const TypeLayout& lay
 		texHandle = m_textureCache.at(component);
 	}
 
-	if (UI::EECollapsingHeader((layout.GetName()).c_str(),
+	if (Widgets::CollapsingHeader((layout.GetName()).c_str(),
 		layout.GetFieldCount() > 0,
 		texHandle,
 		[&layout, &component]()
@@ -263,23 +288,93 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 		ImGui::Checkbox(field.GetDisplayName().c_str(), (bool*)(field.data));
 		break;
 
+	case EngineDataType::Enum:
+	{
+		const auto* enumInfo = TypeRegistry::GetEnum(field.GetTargetType());
+
+		if (!enumInfo)
+		{
+			ImGui::TextColored(
+				ImVec4(1, 0, 0, 1),
+				"[Unknown Enum] %s",
+				field.GetDisplayName().c_str()
+			);
+			break;
+		}
+
+		const EnumType currentValue = *static_cast<const EnumType*>(field.data);
+		const char* currentName = "Unknown";
+
+		for (const auto& value : enumInfo->Values)
+		{
+			if (value.Value == currentValue)
+			{
+				currentName = value.Name.c_str();
+				break;
+			}
+		}
+
+		float totalWidth = ImGui::CalcItemWidth();
+		ImGui::SetNextItemWidth(totalWidth);
+
+		std::string inputID = "##" + field.name;
+
+		if (ImGui::BeginCombo(inputID.c_str(), currentName))
+		{
+			for (const auto& value : enumInfo->Values)
+			{
+				const bool selected = value.Value == currentValue;
+
+				if (ImGui::Selectable(value.Name.c_str(), selected))
+				{
+					*const_cast<EnumType*>(static_cast<const EnumType*>(field.data)) = value.Value;
+				}
+
+				if (selected)
+					ImGui::SetItemDefaultFocus();
+			}
+
+			ImGui::EndCombo();
+		}
+
+		ImGui::SameLine(0, ImGui::GetStyle().ItemInnerSpacing.x);
+		ImGui::TextUnformatted(field.GetDisplayName().c_str());
+
+		break;
+	}
 	case EngineDataType::Custom:
+	{
+		const void* customData = field.data;
+
+		if (!customData)
+		{
+			ImGui::TextDisabled("%s: [None]", field.GetDisplayName().c_str());
+			break;
+		}
+
 		if (!field.flatten)
 		{
-			if (ImGui::TreeNodeEx(field.GetDisplayName().c_str(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_FramePadding))
+			if (ImGui::TreeNodeEx(field.GetDisplayName().c_str(),
+				ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_FramePadding))
 			{
 				for (const auto& child : field.children)
+				{
 					RenderField(child);
+				}
+
 				ImGui::TreePop();
 			}
 		}
 		else
 		{
 			for (const auto& child : field.children)
+			{
 				RenderField(child);
+			}
 		}
-		break;
 
+		break;
+	}
 	case EngineDataType::GUID: // We do not display the guid
 		break;
 
@@ -323,8 +418,8 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 			}
 
 			ImGui::SameLine(0, ImGui::GetStyle().ItemSpacing.x);
-			
-			
+
+
 			ImGui::BeginDisabled(!assetEntry || !assetEntry->isOnDisk);
 			if (ImGui::ImageButton("##navigateto", (ImTextureID)navigateToIcon->GetNativeHandle(), ImVec2(buttonSize, buttonSize)))
 			{
@@ -347,8 +442,8 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 				ImGui::Image((ImTextureID)noneIcon->GetNativeHandle(), ImVec2(buttonSize, buttonSize));
 				ImGui::SameLine();
 				ImGui::Text("None");
-				
-				for (auto& guid : AssetRegistry::GetAssetsOfType(field.targetType))
+
+				for (auto& guid : AssetRegistry::GetAssetsOfType(field.GetTargetType()))
 				{
 					auto* entry = AssetRegistry::GetEntry(guid);
 					if (entry)

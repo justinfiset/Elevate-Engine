@@ -1,6 +1,10 @@
 #pragma once
-#include "ElevateEngine/Renderer/Buffer.h"
-#include "ElevateEngine/Renderer/VertexArray.h"
+
+#include <cstdint>
+#include <memory>
+
+import Elevate.Renderer.Buffers;
+import Elevate.Renderer.VertexArray;
 
 namespace Elevate
 {

@@ -2,7 +2,8 @@
 #include "../Managers/ProjectManager.h"
 
 #include <algorithm>
-#include <ElevateEngine/Core/Platform.h>
+
+import Elevate;
 
 namespace EL
 {
@@ -77,7 +78,7 @@ namespace EL
 		m_isCreating = true;
 		m_creationFuture = std::async(std::launch::async, [this, props]() {
 			return m_manager.CreateNewProject(props);
-		});
+			});
 
 		return true;
 	}
@@ -94,17 +95,17 @@ namespace EL
 
 	void ProjectController::OpenDocumentation() const
 	{
-		Elevate::Platform::OpenURL(std::string(DocumentationURL));
+		Elevate::Shell::OpenURL(DocumentationURL);
 	}
 
 	void ProjectController::ReportIssue() const
 	{
-		Elevate::Platform::OpenURL(std::string(IssueReportURL));
+		Elevate::Shell::OpenURL(IssueReportURL);
 	}
 
 	void ProjectController::RateEngine() const
 	{
-		Elevate::Platform::OpenURL(std::string(RateEngineURL));
+		Elevate::Shell::OpenURL(RateEngineURL);
 	}
 
 	void ProjectController::PushNotification(const std::string& msg, Notification::MsgType type)
@@ -121,7 +122,7 @@ namespace EL
 	{
 		auto it = std::find_if(m_notifications.begin(), m_notifications.end(), [id](const Notification& n) {
 			return n.Id == id;
-		});
+			});
 
 		if (it != m_notifications.end())
 		{

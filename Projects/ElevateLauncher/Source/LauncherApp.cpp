@@ -1,9 +1,5 @@
-#include <ElevateEngine.h>
-#include <ElevateEngine/Core/PathResolver.h>
-#include <ElevateEngine/Files/FileDialog.h>
 
 #include <imgui.h>
-#include <ElevateEngine/ImGui/ImGuiLoadingIndicator.h>
 #include <misc/cpp/imgui_stdlib.h>
 
 #include <span>
@@ -13,6 +9,10 @@
 #include "Managers/ProjectManager.h"
 #include "Controllers/ProjectController.h"
 #include "Models/Project.h"
+
+#include <ElevateEngine/Editor/Widgets/ImGuiLoadingIndicator.h>
+
+#include <ElevateEngine.h>
 
 using namespace EL;
 
@@ -49,22 +49,22 @@ private:
 	ImFont* m_subHeaderFont = nullptr;
 	ImFont* m_bigFont = nullptr;
 
-	std::array<LauncherButton, 2> m_projectOptions = {{
+	std::array<LauncherButton, 2> m_projectOptions = { {
 		{ "New Project", [this]() { m_controller.SetActiveTab(LauncherTab::ProjectCreation); } },
 		{ "Open Project", [this]() { m_controller.SetActiveTab(LauncherTab::ProjectList); } }
-	}};
+	} };
 
-	std::array<LauncherButton, 1> m_learningOptions = {{
+	std::array<LauncherButton, 1> m_learningOptions = { {
 		{ "Documentation", [this]() { m_controller.OpenDocumentation(); } }
-	}};
+	} };
 
-	std::array<LauncherButton, 2> m_communityOptions = {{
+	std::array<LauncherButton, 2> m_communityOptions = { {
 		{ "Report an Issue", [this]() { m_controller.ReportIssue(); } },
 		{ "Rate the Engine", [this]() { m_controller.RateEngine(); } }
-	}};
+	} };
 
 public:
-	LauncherLayer(ProjectController& controller) : Layer("Launcher"), m_controller(controller) { }
+	LauncherLayer(ProjectController& controller) : Layer("Launcher"), m_controller(controller) {}
 
 	void OnAttach() override
 	{
@@ -73,10 +73,11 @@ public:
 		m_voidTexture = Elevate::Texture::CreateFromFile("content://Textures/void.png");
 
 		ImGuiIO& io = ImGui::GetIO();
-		m_defaultFont = io.Fonts->AddFontFromFileTTF(Elevate::PathResolver::Resolve("content://Fonts/OpenSans_SemiCondensed-SemiBold.ttf").c_str(), 18.0f);
-		m_headerFont = io.Fonts->AddFontFromFileTTF(Elevate::PathResolver::Resolve("content://Fonts/OpenSans_SemiCondensed-SemiBold.ttf").c_str(), 28.0f);
-		m_subHeaderFont = io.Fonts->AddFontFromFileTTF(Elevate::PathResolver::Resolve("content://Fonts/OpenSans_SemiCondensed-SemiBold.ttf").c_str(), 23.0f);
-		m_bigFont = io.Fonts->AddFontFromFileTTF(Elevate::PathResolver::Resolve("content://Fonts/OpenSans_SemiCondensed-SemiBold.ttf").c_str(), 40.0f);
+		const std::string fontPath = Elevate::PathResolver::Resolve("content://Fonts/OpenSans_SemiCondensed-SemiBold.ttf").string();
+		m_defaultFont = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 18.0f);
+		m_headerFont = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 28.0f);
+		m_subHeaderFont = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 23.0f);
+		m_bigFont = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 40.0f);
 	}
 
 	void OnUpdate() override
@@ -326,7 +327,7 @@ public:
 
 			return;
 		}
-		
+
 		LauncherButton cancelButton = { "Cancel", [this]() { m_controller.SetActiveTab(LauncherTab::ProjectList); } };
 
 		LauncherButton createButton = { "Create", [this]() {
@@ -367,7 +368,7 @@ public:
 			ImGui::InputText("##ProjectPath", &props.Path);
 			ImGui::PopItemWidth();
 			ImGui::EndDisabled();
-			ImGui::SetCursorPos(ImVec2(btnPos.x + ImGui::GetContentRegionAvail().x - buttonSize  - spacing, btnPos.y));
+			ImGui::SetCursorPos(ImVec2(btnPos.x + ImGui::GetContentRegionAvail().x - buttonSize - spacing, btnPos.y));
 			if (ImGui::Button("..."))
 			{
 				Elevate::FileDialog::RequestSelectFolder("Select a directory", ".");
@@ -387,7 +388,7 @@ public:
 				ImGui::SameLine();
 				ImGui::TextWrapped("Full path : %s", std::string(props.Path + "/" + props.Name).c_str());
 				ImGui::EndDisabled();
-			}			
+			}
 
 			const char* templateLabel = templates[selectedTemplate].Name.c_str();
 			ImGui::NewLine();
@@ -492,7 +493,7 @@ public:
 		float maxTextWidth = maxWidth - closeButtonSize - padding;
 		ImVec4 textColor = project.IsValid ? Color::White : Color::Orange;
 
-		ImGui::PushID(std::string("project" + project.Id).c_str());
+		ImGui::PushID(std::string("project" + std::to_string(project.Id)).c_str());
 		ImGui::GetWindowDrawList()->AddRectFilled(pos, ImVec2(pos.x + maxWidth, pos.y + height), ImGui::GetColorU32(ImGuiCol_FrameBg), 5.0f);
 		ImGui::GetWindowDrawList()->AddRect(pos, ImVec2(pos.x + maxWidth, pos.y + height), ImGui::GetColorU32(ImGuiCol_Border), 5.0f);
 
@@ -549,7 +550,7 @@ public:
 			ImVec2 pos = ImGui::GetCursorPos();
 			ImGui::SetCursorPos(ImVec2(pos.x + (availWidth - textureSize) / 2.0f, pos.y + padding * 4));
 			ImGui::Image((ImTextureID)m_voidTexture->GetNativeHandle(), ImVec2(textureSize, textureSize));
-			
+
 			const char* emptyListText = "No project yet.";
 			ImGui::PushFont(m_bigFont);
 			ImVec2 textSize = ImGui::CalcTextSize(emptyListText);
@@ -588,8 +589,8 @@ public:
 		}
 	}
 
-	void DrawSettings() { }
-	
+	void DrawSettings() {}
+
 	void DrawNotifications()
 	{
 		auto& notifications = m_controller.GetNotifications();
@@ -598,7 +599,7 @@ public:
 		{
 			ImVec2 pos = ImGui::GetCursorScreenPos();
 			std::string text = "- " + notification.Message;
-			
+
 			ImVec4 color;
 			switch (notification.Type)
 			{
@@ -625,7 +626,7 @@ public:
 			float rectHeight = size.y + 2 * padding;
 			ImGui::GetWindowDrawList()->AddRectFilled(pos, ImVec2(pos.x + maxWidth, pos.y + rectHeight), ImGui::GetColorU32(backgroundColor), 5.0f);
 			ImGui::GetWindowDrawList()->AddRect(pos, ImVec2(pos.x + maxWidth, pos.y + rectHeight), ImGui::GetColorU32(color), 5.0f);
-			
+
 			// Draw the close button
 			float closeButtonY = pos.y + (rectHeight - closeButtonSize) / 2.0f;
 			ImGui::SetCursorScreenPos(ImVec2(pos.x + maxWidth - closeButtonSize - padding, closeButtonY));
@@ -674,7 +675,7 @@ private:
 	ProjectController m_controller;
 };
 
-Elevate::Application* Elevate::CreateApplication() 
+Elevate::Application* Elevate::CreateApplication()
 {
 	return new LauncherApp();
 }

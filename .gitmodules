@@ -2,10 +2,6 @@
 	path = ElevateEngine/Vendor/rapidjson
 	url = https://github.com/Tencent/rapidjson
 	ignore = all
-[submodule "ElevateEngine/vendor/ImGuizmo"]
-	path = ElevateEngine/Vendor/ImGuizmo
-	url = https://github.com/justinfiset/ImGuizmo
-	ignore = all
 [submodule "ElevateEngine/vendor/ImGui"]
 	path = ElevateEngine/Vendor/ImGui
 	url = https://github.com/ocornut/imgui
@@ -45,3 +41,9 @@
 [submodule "ElevateTests/Vendor/Catch2"]
 	path = ElevateTests/Vendor/Catch2
 	url = https://github.com/catchorg/Catch2/
+[submodule "ElevateEngine/Vendor/JoltPhysics"]
+	path = ElevateEngine/Vendor/JoltPhysics
+	url = https://github.com/jrouwe/JoltPhysics/
+[submodule "ElevateEngine/Vendor/ImGuizmo"]
+	path = ElevateEngine/Vendor/ImGuizmo
+	url = https://github.com/CedricGuillemet/ImGuizmo.git

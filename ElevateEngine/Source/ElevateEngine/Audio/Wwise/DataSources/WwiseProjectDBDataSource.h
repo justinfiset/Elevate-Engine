@@ -2,10 +2,12 @@
 
 #ifdef EE_USES_WWISE
 
+import Elevate.Foundations;
+
 #define WWISE_DB_STANDARD_TYPES
+
 #include <WwiseProjectDatabase/WwiseProjectDatabase.h>
 
-#include <ElevateEngine/Core/Log.h>
 #include <ElevateEngine/Audio/Wwise/DataSources/WwiseDataSource.h>
 #include <ElevateEngine/Audio/Wwise/WwiseItem.h>
 

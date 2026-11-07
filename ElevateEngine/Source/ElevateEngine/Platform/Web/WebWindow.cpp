@@ -1,7 +1,7 @@
 #include "WebWindow.h"
 
 #ifdef EE_PLATFORM_WEB
-#include <ElevateEngine/Core/Log.h>
+import Elevate.Foundations;
 #include <emscripten/html5.h>
 #include <GLFW/glfw3.h>
 
@@ -26,7 +26,7 @@ namespace Elevate
         unsigned int width, height;
         GetCanvasSize(width, height);
         WindowProps webProps(props.Title, width, height, props.VSync);
-        EE_CORE_INFO("Initializing WebWindow with canvas size: {}x{}", width, height);
+        CoreLogger::Info("Initializing WebWindow with canvas size: {}x{}", width, height);
         GlfwWindow::Init(webProps);
 
         emscripten_set_resize_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, this, EM_TRUE, 

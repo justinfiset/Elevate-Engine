@@ -20,15 +20,12 @@ project 'assimp'
         'assimp/code/Geometry/**',
         -- Importers
         'assimp/code/AssetLib/IQM/**',
-        'assimp/code/AssetLib/Assbin/**',
-    
         'assimp/code/AssetLib/Collada/**',
         'assimp/code/AssetLib/Obj/**',
         'assimp/code/AssetLib/Blender/**', 'assimp/contrib/poly2tri/poly2tri/**',
         'assimp/code/AssetLib/FBX/**',
         'assimp/code/glTF2/**',
         'assimp/code/glTF/**',
-        'assimp/code/Assbin/**' -- For caching
     }
     
     includedirs {
@@ -127,6 +124,10 @@ project 'assimp'
 
 	filter "system:emscripten"
 		defines { "HAVE_UNISTD_H" }
+
+	filter { "system:linux", "files:assimp/contrib/zlib/**" }
+		buildoptions { "-include", "unistd.h" }
+
 	filter {}
 	
 	filter "configurations:Debug or configurations:Editor_Debug"

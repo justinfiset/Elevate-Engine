@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 
-namespace Elevate::Editor {
+namespace Elevate::Editor
+{
 	std::string GuizmoOperationToString(int tool)
 	{
 		switch (tool)

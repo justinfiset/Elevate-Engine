@@ -1,14 +1,13 @@
-#include "eepch.h"
-
 #include "OpenGLVertexArray.h"
 
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 
-#include <ElevateEngine/Core/Log.h>
-#include <ElevateEngine/Core/Assert.h>
-#include <ElevateEngine/Renderer/GLDebug.h>
-#include <ElevateEngine/Renderer/Buffer.h>
-#include <ElevateEngine/Renderer/GraphicsContext.h>
+#include <ElevateEngine/Platform/OpenGL/GLDebug.h>
+
+import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Assert;
+import Elevate.Renderer.GraphicsContext;
+import Elevate.Renderer.Buffers;
 
 Elevate::OpenGLVertexArray::OpenGLVertexArray()
 {
@@ -37,45 +36,44 @@ void Elevate::OpenGLVertexArray::Unbind() const
 	GLCheck(glBindVertexArray(0));
 }
 
-void Elevate::OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
+void Elevate::OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer> &vertexBuffer)
 {
 	VertexArray::AddVertexBuffer(vertexBuffer);
 
-	EE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex buffer layout is empty, assertion failed");
+	Assert::That(vertexBuffer->GetLayout().GetElements().size(), "Vertex buffer layout is empty, assertion failed");
 
-	Bind();               // bind VAO
+	Bind();				  // bind VAO
 	vertexBuffer->Bind(); // bind VBO
 
 	uint32_t index = 0;
-	const auto& layout = vertexBuffer->GetLayout();
+	const auto &layout = vertexBuffer->GetLayout();
 
-	EE_CORE_TRACE("Adding Vertex Buffer :");
-	for (const auto& element : layout)
+	CoreLogger::Trace("Adding Vertex Buffer :");
+	for (const auto &element : layout)
 	{
 		// TODO REMOVES THE LOGS FROM HERE
-		EE_CORE_TRACE(" -> Attrib {} : {} | Count={} | Type={} | Stride={} | Offset={}",
-			element.Name.c_str(), index, element.Count, GetDataAPIType(element.Type), layout.GetStride(), element.Offset);
+		CoreLogger::Trace(" -> Attrib {} : {} | Count={} | Type={} | Stride={} | Offset={}",
+						  element.Name.c_str(), index, element.Count, GetDataAPIType(element.Type), layout.GetStride(), element.Offset);
 
 		LinkAttribute(
-			index, 
+			index,
 			element.Count, GetDataAPIType(element.Type),
-			element.Normalized, 
-			layout.GetStride(), 
-			(const void*)(uintptr_t)element.Offset
-		);
-		
+			element.Normalized,
+			layout.GetStride(),
+			(const void *)(uintptr_t)element.Offset);
+
 		index++;
 	}
 }
 
-void Elevate::OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
+void Elevate::OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer> &indexBuffer)
 {
 	VertexArray::SetIndexBuffer(indexBuffer);
 	Bind();
 	indexBuffer->Bind();
 }
 
-void Elevate::OpenGLVertexArray::LinkAttribute(uint32_t layout, uint32_t size, uint32_t type, bool normalized, uint32_t stride, const void* offset) const
+void Elevate::OpenGLVertexArray::LinkAttribute(uint32_t layout, uint32_t size, uint32_t type, bool normalized, uint32_t stride, const void *offset) const
 {
 	GLCheck(glEnableVertexAttribArray(layout));
 	GLCheck(glVertexAttribPointer(layout, size, type, normalized ? GL_TRUE : GL_FALSE, stride, offset));

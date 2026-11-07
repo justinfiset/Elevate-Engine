@@ -1,84 +1,100 @@
-#include "EditorCamera.h"
+module;
 
-#include <ElevateEngine/Inputs/Input.h>
-#include <ElevateEngine/Core/Time.h>
-#include <ElevateEngine/Core/GameObject.h>
+#include <glm/glm.hpp>
+#include <glm/ext/quaternion_trigonometric.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+module Elevate.Editor.Camera;
+
+// Foundations
+import Elevate.Foundations.Time;
+// Core
+import Elevate.Core.Transform;
+import Elevate.Core.Scene;
+// Renderer
+import Elevate.Renderer.Camera;
+// Input
+import Elevate.Input;
 
 namespace Elevate
 {
-	EditorCamera::EditorCamera(float fov)
-		: Camera(fov, false) { }
+	EditorCamera::EditorCamera(float fov) : Camera(CameraProjectionMode::Perspective, false)
+	{
+	}
 
-    void EditorCamera::Update()
-    {
-        float baseCamSpeed = 0.5f;
+	void EditorCamera::Update()
+	{
+		Transform& transform = gameObject->GetTransform();
 
-        if (Input::IsKeyPressed(EE_KEY_LEFT_SHIFT))
-            baseCamSpeed = 2.5f;
+		float baseCamSpeed = 0.5f;
 
-        float cameraSpeed = baseCamSpeed * Time::GetDeltaTime();
+		if (Input::IsKeyPressed(KeyCode::LeftShift))
+			baseCamSpeed = 2.5f;
 
-        glm::vec3 offset(0.0f);
+		float cameraSpeed = baseCamSpeed * Time::GetDeltaTime();
 
-        if (Input::IsKeyPressed(EE_KEY_W))
-            offset += cameraSpeed * GetFrontVec();
+		glm::vec3 offset(0.0f);
 
-        if (Input::IsKeyPressed(EE_KEY_S))
-            offset -= cameraSpeed * GetFrontVec();
+		if (Input::IsKeyPressed(KeyCode::W))
+			offset += cameraSpeed * transform.GetForward();
 
-        if (Input::IsKeyPressed(EE_KEY_D))
-            offset += cameraSpeed * GetRightVec();
+		if (Input::IsKeyPressed(KeyCode::S))
+			offset -= cameraSpeed * transform.GetForward();
 
-        if (Input::IsKeyPressed(EE_KEY_A))
-            offset -= cameraSpeed * GetRightVec();
+		if (Input::IsKeyPressed(KeyCode::D))
+			offset += cameraSpeed * transform.GetRight();
 
-        gameObject->SetPosition(gameObject->GetPosition() + offset);
+		if (Input::IsKeyPressed(KeyCode::A))
+			offset -= cameraSpeed * transform.GetRight();
 
-        if (!m_followCursor)
-            return;
+		gameObject->SetPosition(gameObject->GetPosition() + offset);
 
-        float xpos = Input::GetMouseX();
-        float ypos = Input::GetMouseY();
+		if (!m_followCursor)
+			return;
 
-        float xoffset = (xpos - m_lastX) * m_sensitivity;
-        float yoffset = (m_lastY - ypos) * m_sensitivity;
+		float xpos = Input::GetMouseX();
+		float ypos = Input::GetMouseY();
 
-        m_lastX = xpos;
-        m_lastY = ypos;
+		float xoffset = (xpos - m_lastX) * m_sensitivity;
+		float yoffset = (m_lastY - ypos) * m_sensitivity;
 
-        m_yaw -= xoffset;
-        m_pitch += yoffset;
+		m_lastX = xpos;
+		m_lastY = ypos;
 
-        m_pitch = glm::clamp(m_pitch, -89.0f, 89.0f);
+		m_yaw -= xoffset;
+		m_pitch += yoffset;
 
-        glm::quat yawRotation =
-            glm::angleAxis(
-                glm::radians(m_yaw),
-                glm::vec3(0.0f, 1.0f, 0.0f)
-            );
+		m_pitch = glm::clamp(m_pitch, -89.0f, 89.0f);
 
-        glm::quat pitchRotation =
-            glm::angleAxis(
-                glm::radians(m_pitch),
-                glm::vec3(1.0f, 0.0f, 0.0f)
-            );
+		glm::quat yawRotation =
+			glm::angleAxis(
+				glm::radians(m_yaw),
+				glm::vec3(0.0f, 1.0f, 0.0f)
+			);
 
-        gameObject->GetTransform().SetRotationQuaternion(
-            yawRotation * pitchRotation
-        );
-    }
+		glm::quat pitchRotation =
+			glm::angleAxis(
+				glm::radians(m_pitch),
+				glm::vec3(1.0f, 0.0f, 0.0f)
+			);
+
+		gameObject->GetTransform().SetRotationQuaternion(
+			yawRotation * pitchRotation
+		);
+	}
 
 	void EditorCamera::OnNotify(Event& event)
 	{
 		if (event.IsInCategory(EventCategoryMouseButton))
 		{
-			if (Input::IsMouseButtonDown(EE_MOUSE_BUTTON_RIGHT))
+			if (Input::IsMouseButtonDown(MouseButton::Right))
 			{
 				m_followCursor = true;
 				m_lastX = Input::GetMouseX();
 				m_lastY = Input::GetMouseY();
 			}
-			else if (Input::IsMouseButtonUp(EE_MOUSE_BUTTON_RIGHT))
+			else if (Input::IsMouseButtonUp(MouseButton::Right))
 			{
 				m_followCursor = false;
 			}
@@ -87,15 +103,15 @@ namespace Elevate
 
 	void EditorCamera::Init()
 	{
-        m_yaw = -90.0f;
-        m_pitch = 0.0f;
+		m_yaw = -90.0f;
+		m_pitch = 0.0f;
 
-        gameObject->GetTransform().SetRotationQuaternion(
-            glm::angleAxis(
-                glm::radians(m_yaw),
-                glm::vec3(0.0f, 1.0f, 0.0f)
-            )
-        );
+		gameObject->GetTransform().SetRotationQuaternion(
+			glm::angleAxis(
+				glm::radians(m_yaw),
+				glm::vec3(0.0f, 1.0f, 0.0f)
+			)
+		);
 
 		Camera::Init();
 	}

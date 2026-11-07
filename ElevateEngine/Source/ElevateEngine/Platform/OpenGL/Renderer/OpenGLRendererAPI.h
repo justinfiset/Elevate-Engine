@@ -1,6 +1,11 @@
 #pragma once
 
-#include <ElevateEngine/Renderer/RendererAPI.h>
+#include <glm/glm.hpp>
+#include <cstdint>
+
+import Elevate.Renderer.RendererAPI;
+import Elevate.Renderer.VertexArray;
+import Elevate.Renderer.RenderState;
 
 namespace Elevate
 {

@@ -5,29 +5,28 @@ local currentPlatform = nil
 WindowsStrategy = {
     ConfigureWorkspace = function(prj)
         architecture "x64"
-        buildoptions
-		{
-			"/Zc:wchar_t",
-			"/Zc:preprocessor",
-			"/Zc:__cplusplus",
-			"/utf-8",
-            "/MP" -- Enable multi-processor compilation
-		}
+        buildoptions {"/Zc:wchar_t", "/Zc:preprocessor", "/Zc:__cplusplus", "/utf-8", "/MP" -- Enable multi-processor compilation
+        }
     end,
 
     SetPlatformDefines = function()
-        defines { "EE_PLATFORM_WINDOWS" }
-    end,
+        defines {"EE_PLATFORM_WINDOWS"}
+    end
 }
 
 LinuxStrategy = {
     ConfigureWorkspace = function()
         architecture "x64"
+        toolset ((_OPTIONS and _OPTIONS["compiler"]) == "gcc" and "gcc" or "clang")
+
+        filter {"language:C++"}
+        buildoptions {"-fno-lto"}
+        filter {}
     end,
 
     SetPlatformDefines = function()
-        defines { "EE_PLATFORM_LINUX", "STBI_NO_SIMD" }
-    end,
+        defines {"EE_PLATFORM_LINUX", "STBI_NO_SIMD"}
+    end
 }
 
 WebStrategy = {
@@ -42,17 +41,18 @@ WebStrategy = {
     end,
 
     SetPlatformDefines = function()
-        defines { "EE_PLATFORM_WEB" }
+        defines {"EE_PLATFORM_WEB"}
     end,
 
     ConfigureProject = function(directory, project)
         for _, configName in ipairs(ElevateConfigs) do
             local projectSafeName = CommonProject.GetSafeProjectName(project.name)
-            local targetPath = _MAIN_SCRIPT_DIR .. "/Build/bin/" .. configName .. "-emscripten-wasm32/" .. projectSafeName
+            local targetPath = _MAIN_SCRIPT_DIR .. "/Build/bin/" .. configName .. "-emscripten-wasm32/" ..
+                                   projectSafeName
             os.mkdir(targetPath)
             WebBuild.GenerateHTML(project, targetPath)
         end
-    end,
+    end
 }
 
 BuildPlatform = {}

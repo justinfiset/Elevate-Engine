@@ -1,7 +1,10 @@
+module;
+
 #include <algorithm>
 
-#include <ElevateEngine/Core/Layers/LayerStack.h>
-#include <ElevateEngine/Core/Layers/Layer.h>
+module Elevate.Core.Layers.LayerStack;
+
+import Elevate.Core.Layers.Layer;
 
 Elevate::LayerStack::LayerStack()
 {
@@ -14,7 +17,7 @@ Elevate::LayerStack::~LayerStack()
 }
 
 void Elevate::LayerStack::PushLayer(Layer* layer)
-{	
+{
 	m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);
 	m_LayerInsertIndex++;
 }

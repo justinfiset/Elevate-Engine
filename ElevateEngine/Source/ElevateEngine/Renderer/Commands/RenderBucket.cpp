@@ -1,5 +1,14 @@
-#include "RenderBucket.h"
-#include <ElevateEngine/Renderer/Renderer.h>
+module;
+
+#include <cstdint>
+#include <algorithm>
+#include <vector>
+#include <stack>
+#include <cstddef>
+
+module Elevate.Renderer.Commands.RenderBucket;
+
+import Elevate.Renderer.Renderer;
 
 namespace Elevate
 {

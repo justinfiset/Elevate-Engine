@@ -1,29 +1,44 @@
+#include <memory>
+#include <ctype.h>
+#include <bitset>
+#include <glm/glm.hpp>
+
+#include <GLFW/glfw3.h>
+#include <ElevateEngine/Platform/OpenGL/Context/OpenGLContext.h>
+
 #include "GlfwWindow.h"
 
-#include <ElevateEngine/Core/Assert.h>
-#include <ElevateEngine/Events/ApplicationEvent.h>
-#include <ElevateEngine/Events/MouseEvent.h>
-#include <ElevateEngine/Events/KeyEvent.h>
-#include <ElevateEngine/Inputs/Input.h>
-#include <ElevateEngine/Renderer/Renderer.h>
-
-#include <ElevateEngine/Platform/OpenGL/Context/OpenGLContext.h>
-#include <GLFW/glfw3.h>
+// Foundations
+import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Assert;
+// Core
+import Elevate.Core.Events.Event;
+import Elevate.Core.Events.KeyEvent;
+import Elevate.Core.Events.MouseEvent;
+import Elevate.Core.Events.ApplicationEvent;
+// Input
+import Elevate.Input;
+// Renderer
+import Elevate.Renderer.Renderer;
 
 static void Elevate_MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
 	auto* dataPtr = static_cast<Elevate::WindowData*>(glfwGetWindowUserPointer(window));
 	if (!dataPtr)
+	{
 		return;
+	}
+
+	const auto mouseButton = static_cast<Elevate::MouseButton>(button);
 
 	if (action == GLFW_PRESS)
 	{
-		Elevate::MouseButtonPressedEvent event(button);
+		Elevate::MouseButtonPressedEvent event(mouseButton);
 		dataPtr->EventCallback(event);
 	}
 	else if (action == GLFW_RELEASE)
 	{
-		Elevate::MouseButtonReleasedEvent event(button);
+		Elevate::MouseButtonReleasedEvent event(mouseButton);
 		dataPtr->EventCallback(event);
 	}
 }
@@ -34,7 +49,7 @@ namespace Elevate
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
-		EE_CORE_ERROR("GLFW Error: ({0}): {1}", error, description);
+		CoreLogger::Error("GLFW Error: ({0}): {1}", error, description);
 	}
 
 	GlfwWindow::GlfwWindow(const WindowProps& props)
@@ -59,11 +74,11 @@ namespace Elevate
 		if (!s_GLFWInitialized)
 		{
 			int success = glfwInit();
-			EE_CORE_ASSERT(success, "Could not initialize GLFW.");
+			Assert::That(success, "Could not initialize GLFW.");
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
-		
+
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -74,91 +89,94 @@ namespace Elevate
 		m_Context = new OpenGLContext(m_Window);
 		m_Context->Init();
 
-		
+
 		SetVSync(props.VSync);
 
 		// Set GLFW callbacks
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
-		{
-			void* userPtr = glfwGetWindowUserPointer(window);
-			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-			dataPtr->Width = width;
-			dataPtr->Height = height;
-			WindowResizeEvent event(width, height);
-			dataPtr->EventCallback(event);
-		});
+			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+				dataPtr->Width = width;
+				dataPtr->Height = height;
+				WindowResizeEvent event(width, height);
+				dataPtr->EventCallback(event);
+			});
 
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
-		{
-			void* userPtr = glfwGetWindowUserPointer(window);
-			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-			WindowCloseEvent event;
-			dataPtr->EventCallback(event);
-		});
+			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+				WindowCloseEvent event;
+				dataPtr->EventCallback(event);
+			});
 
 		glfwSetWindowFocusCallback(m_Window, [](GLFWwindow* window, int focused)
-		{
-			void* userPtr = glfwGetWindowUserPointer(window);
-			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-			WindowFocusEvent event(focused);
-			dataPtr->EventCallback(event);
-		});
+			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+				WindowFocusEvent event(focused);
+				dataPtr->EventCallback(event);
+			});
 
 		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
-		{
-			void* userPtr = glfwGetWindowUserPointer(window);
-			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-
-			switch(action)
 			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+
+				const auto keyCode = static_cast<Elevate::KeyCode>(key);
+
+				switch (action)
+				{
 				case GLFW_PRESS:
 				{
-					KeyPressedEvent event(key, 0);
+					KeyPressedEvent event(keyCode, 0);
 					dataPtr->EventCallback(event);
 					break;
 				}
 				case GLFW_RELEASE:
 				{
-					KeyReleasedEvent event(key);
+					KeyReleasedEvent event(keyCode);
 					dataPtr->EventCallback(event);
 					break;
 				}
 				case GLFW_REPEAT:
 				{
-					KeyPressedEvent event(key, 1);
+					KeyPressedEvent event(keyCode, 1);
 					dataPtr->EventCallback(event);
 					break;
 				}
-			}
-		});
+				}
+			});
 
-		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
-		{
-			void* userPtr = glfwGetWindowUserPointer(window);
-			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-			KeyTypedEvent event(keycode);
-			dataPtr->EventCallback(event);
-		});
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int key)
+			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+				const auto keyCode = static_cast<Elevate::KeyCode>(key);
+				KeyTypedEvent event(keyCode);
+				dataPtr->EventCallback(event);
+			});
 
 		glfwSetMouseButtonCallback(m_Window, Elevate_MouseButtonCallback);
 
 		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset)
-		{
-			void* userPtr = glfwGetWindowUserPointer(window);
-			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-			MouseScrolledEvent event((float)xOffset, (float)yOffset);
-			dataPtr->EventCallback(event);
-		});
+			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+				MouseScrolledEvent event((float)xOffset, (float)yOffset);
+				dataPtr->EventCallback(event);
+			});
 
 		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xPos, double yPos)
-		{
-			void* userPtr = glfwGetWindowUserPointer(window);
-			WindowData* dataPtr = static_cast<WindowData*>(userPtr);
-			MouseMovedEvent event((float)xPos, (float)yPos);
-			dataPtr->EventCallback(event);
-		});
+			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+				MouseMovedEvent event((float)xPos, (float)yPos);
+				dataPtr->EventCallback(event);
+			});
 	}
 
 	void GlfwWindow::Shutdown()
@@ -180,7 +198,7 @@ namespace Elevate
 			glfwSwapInterval(0);
 
 		m_Data.VSync = enabled;
-	}	
+	}
 
 	bool GlfwWindow::IsVSync() const
 	{

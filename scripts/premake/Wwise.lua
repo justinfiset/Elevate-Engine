@@ -8,6 +8,9 @@ end
 wwiseIncludePath = nil
 if wwiseSDK then
     wwiseIncludePath = wwiseSDK .. "/include"
+    if os.host() == "windows" then
+        wwiseIncludePath = wwiseIncludePath:gsub("/", "\\")
+    end
 end
 
 Wwise = {}
@@ -98,7 +101,7 @@ end
 
 function Wwise.SetupBuildOption()
     filter "system:emscripten"
-        buildoptions { "-msimd128", "-msse2" }
+        buildoptions { "-msimd128", "-msse4.1" }
     filter {}
 end
 
