@@ -41,7 +41,7 @@ jobs:
 
       - name: Compile
         run: |
-            ninja -j"$(nproc)" Editor_Debug
+            ninja -j2 Editor_Debug
 
       - name: Run tests
         run: ./Build/bin/Editor_Debug-linux-x86_64/ElevateEngine-Tests/ElevateEngine-Tests -r junit -o junit-results.xml
