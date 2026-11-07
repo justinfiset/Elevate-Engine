@@ -22,13 +22,14 @@ jobs:
       - name: Generate Projects (Premake)
         run: |
           chmod +x vendor/premake/premake5-linux
-          ./vendor/premake/premake5-linux --os=linux ninja
-      - name: Print Ninja targets
-        run: ninja -t targets all | head -40
+          ./vendor/premake/premake5-linux --os=linux gmake
+      - name: Print Makefile
+        run: cat Makefile
 
       - name: Compile
         run: |
-            ninja -j2 Editor_Debug
+            grep '^[^#[:space:]].*:' Makefile
+            make config=editor_debug -j2
 
       - name: Run tests
         run: ./Build/bin/Editor_Debug-linux-x86_64/ElevateEngine-Tests/ElevateEngine-Tests -r junit -o junit-results.xml
