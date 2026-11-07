@@ -2,21 +2,19 @@ module;
 
 #include <format>
 
-#include "Core.h"
-
 #ifdef EE_DEBUG
-	#define EE_ASSERTS_ENABLED 1
+#define EE_ASSERTS_ENABLED 1
 #else 
-	#define EE_ASSERTS_ENABLED 0
-	#define NDEBUG
+#define EE_ASSERTS_ENABLED 0
+#define NDEBUG
 #endif
 
 #ifdef _MSC_VER
-	#include <intrin.h>
-	#define DEBUG_BREAK() __debugbreak()
+#include <intrin.h>
+#define DEBUG_BREAK() __debugbreak()
 #else
-	#include <csignal>
-	#define DEBUG_BREAK() raise(SIGTRAP)
+#include <csignal>
+#define DEBUG_BREAK() raise(SIGTRAP)
 #endif
 
 export module Elevate.Foundations.Assert;
