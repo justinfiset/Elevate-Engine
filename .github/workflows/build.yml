@@ -19,19 +19,6 @@ jobs:
         run: |
           rm -rf Build/ bin/ bin-int/
 
-      - name: Setup compiler cache
-        uses: hendrikmuhs/ccache-action@v1
-        with:
-          key: linux-clang
-          max-size: 2G
-
-      - name: Activate compiler cache links
-        run: |
-          mkdir -p "$HOME/.local/ccache"
-          ln -sf "$(command -v ccache)" "$HOME/.local/ccache/clang"
-          ln -sf "$(command -v ccache)" "$HOME/.local/ccache/clang++"
-          echo "$HOME/.local/ccache" >> "$GITHUB_PATH"
-
       - name: Generate Projects (Premake)
         run: |
           chmod +x vendor/premake/premake5-linux
