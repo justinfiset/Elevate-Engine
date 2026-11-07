@@ -355,7 +355,10 @@ public: \
         } \
         return ::Elevate::TypeLayout(this, generated_structEntry.StructName, instanceFields); \
     } \
+    _Pragma("clang diagnostic push") \
+    _Pragma("clang diagnostic ignored \"-Winconsistent-missing-override\"") \
     virtual std::type_index GetTypeIndex() const { return generated_structEntry.TypeIndex; } \
+    _Pragma("clang diagnostic pop") \
     inline ::Elevate::PropertySet GetProperties() const { \
         return GetLayout().CaptureState(); \
     } \

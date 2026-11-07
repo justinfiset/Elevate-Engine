@@ -138,8 +138,11 @@ function CommonProject.SetupProject(directory, customCallback)
 			"--preload-file ".._MAIN_SCRIPT_DIR.."/ElevateEngine/Resources/Engine@/Engine",
 			"--preload-file "..directory.."/Content@/Content",
 			"--preload-file "..directory.."/app.config@/app.config",
-			"--preload-file "..directory.."/imgui.ini@/imgui.ini",
 		}
+
+		if os.isfile(directory.."/imgui.ini") then
+		linkoptions { "--preload-file "..directory.."/imgui.ini@/imgui.ini" }
+		end
 
 	filter { "system:emscripten", "configurations:Editor_*" }
 		linkoptions

@@ -493,7 +493,7 @@ public:
 		float maxTextWidth = maxWidth - closeButtonSize - padding;
 		ImVec4 textColor = project.IsValid ? Color::White : Color::Orange;
 
-		ImGui::PushID(std::string("project" + project.Id).c_str());
+		ImGui::PushID(std::string("project" + std::to_string(project.Id)).c_str());
 		ImGui::GetWindowDrawList()->AddRectFilled(pos, ImVec2(pos.x + maxWidth, pos.y + height), ImGui::GetColorU32(ImGuiCol_FrameBg), 5.0f);
 		ImGui::GetWindowDrawList()->AddRect(pos, ImVec2(pos.x + maxWidth, pos.y + height), ImGui::GetColorU32(ImGuiCol_Border), 5.0f);
 

@@ -27,7 +27,6 @@ Elevate::SoundEngine* Elevate::SoundEngine::Impl = nullptr;
 
 bool Elevate::SoundEngine::Init()
 {
-	(!Impl, "Error : No valid SoundEngine impl. found. Using a null SoundEngine.");
 	EE_CHECK_SOUNDENGINE(false);
 	bool result = Impl->InitImpl();
 	CoreLogger::CError(!result, "Error (SoundEngine::Init) : Could not initialize the sound engine.");

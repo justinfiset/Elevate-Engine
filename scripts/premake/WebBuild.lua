@@ -33,7 +33,6 @@ function WebBuild.ApplyCompilerSettings()
         "-matomics",
         "-mbulk-memory",
         "-s STACK_SIZE=5MB",
-        "-s USE_PTHREADS=1",
         "-s PTHREAD_POOL_SIZE=16",
         "-s USE_GLFW=3",
         "-s FULL_ES3=1",
@@ -43,6 +42,7 @@ function WebBuild.ApplyCompilerSettings()
         "-s DISABLE_DEPRECATED_FIND_EVENT_TARGET_BEHAVIOR=0",
         "-s EXPORTED_RUNTIME_METHODS=['FS','wasmTable','ccall','cwrap']",
         "-s ALLOW_MEMORY_GROWTH=1",
+        "-s GROWABLE_ARRAYBUFFERS=2",
         "-s INITIAL_MEMORY=512MB",
         "-s FORCE_FILESYSTEM=1",
         "-s ERROR_ON_UNDEFINED_SYMBOLS=0",
@@ -60,6 +60,11 @@ function WebBuild.ApplyCompilerSettings()
         "-Wno-invalid-offsetof",
         "-Wno-deprecated-pragma"
     }
+
+    filter "files:**.c"
+        buildoptions { "-Wno-unused-command-line-argument" }
+
+    filter {}
 end
 
 local function isWebBuild()
