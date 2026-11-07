@@ -37,6 +37,8 @@ void Elevate::Editor::ConsolePanel::OnImGuiRender()
 	{
 		m_logs.clear();
 	}
+	ImGui::SameLine();
+	ImGui::Checkbox("Auto-scroll", &m_autoScroll);
 	ImGui::EndGroup();
 
 	if (ImGui::BeginTable("elevate_console", 2, ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_ScrollY, ImVec2(0.0f, 0.0f)))
@@ -47,19 +49,28 @@ void Elevate::Editor::ConsolePanel::OnImGuiRender()
 		ImGui::TableSetupScrollFreeze(0, 1);
 		ImGui::TableHeadersRow();
 
-		for (const auto& msg : m_logs)
+		ImGuiListClipper clipper;
+		clipper.Begin(static_cast<int>(m_logs.size()));
+		while (clipper.Step())
 		{
-			ImGui::TableNextRow();
+			for (int i = clipper.DisplayStart; i < clipper.DisplayEnd; ++i)
+			{
+				const auto msg = m_logs[i];
+				ImGui::TableNextRow();
 
-			ImGui::TableNextColumn();
-			std::string time = std::format("{:%H:%M:%S}", msg.timestamp);
-			ImGui::Text("[%s]", time.c_str());
+				ImGui::TableNextColumn();
+				ImGui::Text("[%s]", msg.timeText.c_str());
 
-			ImGui::TableNextColumn();
-			glm::vec4 color = msg.GetColor();
-			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(color.r, color.g, color.b, color.a));
-			ImGui::TextWrapped("%s", msg.message.c_str());
-			ImGui::PopStyleColor();
+				ImGui::TableNextColumn();
+				ImGui::PushStyleColor(ImGuiCol_Text, msg.color);
+				ImGui::TextWrapped("%s", msg.message.c_str());
+				ImGui::PopStyleColor();
+			}
+		}
+
+		if (m_autoScroll && ImGui::GetScrollY() > ImGui::GetScrollMaxY())
+		{
+			ImGui::SetScrollHereY(1.0f);
 		}
 
 		ImGui::EndTable();
