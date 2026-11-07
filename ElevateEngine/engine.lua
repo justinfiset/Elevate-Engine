@@ -191,8 +191,11 @@ local function gccModuleBuildCommands()
     -- GCC validates imported CMIs against the flags used to create them.
     for _, filename in ipairs(orderedModuleFiles()) do
         local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
+        local moduleName = moduleNameForFile(filename)
+        local moduleOutputName = moduleName and moduleName:gsub(":", "-")
         table.insert(commands,
-            "$(CXX) $(ALL_CXXFLAGS) -fmodule-only -x c++ -c " .. relativePath)
+            "$(CXX) $(ALL_CXXFLAGS) -fmodule-only -x c++ -c " .. relativePath ..
+                " -o " .. gcmDirectory .. "/" .. moduleOutputName .. ".gcm")
     end
     return commands
 end
