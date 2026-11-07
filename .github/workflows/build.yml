@@ -28,7 +28,8 @@ jobs:
       - name: Activate compiler cache links
         run: |
           mkdir -p "$HOME/.local/ccache"
-          ccache --install-links "$HOME/.local/ccache"
+          ln -sf "$(command -v ccache)" "$HOME/.local/ccache/clang"
+          ln -sf "$(command -v ccache)" "$HOME/.local/ccache/clang++"
           echo "$HOME/.local/ccache" >> "$GITHUB_PATH"
 
       - name: Generate Projects (Premake)
@@ -89,7 +90,7 @@ jobs:
       - name: Compile
         run: |
             grep '^[^#[:space:]].*:' Makefile
-            make config=editor_debug -j1
+            make config=editor_debug -j2
 
       - name: Run tests
         run: ./Build/bin/Editor_Debug-linux-x86_64/ElevateEngine-Tests/ElevateEngine-Tests -r junit -o junit-results.xml
