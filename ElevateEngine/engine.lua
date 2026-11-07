@@ -121,23 +121,26 @@ local function moduleBuildCommands()
     local commands = {}
     local moduleDirectory = "%{cfg.objdir}/modules"
     local moduleFlags = "$cxxflags_ElevateEngine_%{cfg.buildcfg}"
-    table.insert(commands, "mkdir -p " .. moduleDirectory)
-    for _, filename in ipairs(orderedModuleFiles()) do
-        local moduleName = nil
-        local file = io.open(filename, "r")
-        if file then
-            moduleName = file:read("*all"):match("export%s+module%s+([%w%._:]+)%s*;")
-            file:close()
-        end
+    local moduleListPath = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/clang-modules.list")
+    local moduleList = io.open(moduleListPath, "w")
+    if not moduleList then
+        error("Unable to create Clang module list at " .. moduleListPath)
+    end
 
+    for _, filename in ipairs(orderedModuleFiles()) do
+        local moduleName = moduleNameForFile(filename)
         if moduleName then
-            local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
             local moduleOutputName = moduleName:gsub(":", "-")
-            table.insert(commands,
-                "clang++ " .. moduleFlags .. " --precompile -x c++-module " .. relativePath .. " -o " .. moduleDirectory .. "/" ..
-                    moduleOutputName .. ".pcm")
+            moduleList:write(normalizePath(filename) .. "|" .. moduleOutputName .. "\n")
         end
     end
+    moduleList:close()
+
+    table.insert(commands, "mkdir -p " .. moduleDirectory)
+    table.insert(commands,
+        "while IFS=\"|\" read -r moduleSource moduleOutput; do clang++ " .. moduleFlags ..
+            " --precompile -x c++-module \"$$moduleSource\" -o \"" .. moduleDirectory ..
+            "/$$moduleOutput.pcm\" || exit 1; done < \"" .. moduleListPath .. "\"")
     return commands
 end
 
