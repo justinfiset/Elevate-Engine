@@ -240,6 +240,7 @@ local function webModuleBuildCommands()
             script:write("call em++ -std=c++20 -DSPDLOG_COMPILED_LIB -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD" ..
                              wwiseDefine .. " " ..
                              "-pthread -matomics -mbulk-memory -msimd128 -msse4.1 " ..
+                             "-Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma " ..
                              includeFlags .. " -x c++-module -fprebuilt-module-path=\"%MODULE_DIR%\" " ..
                              "--precompile \"" .. scriptSource .. "\" -o \"" .. scriptOutput .. "\"\r\n")
             script:write("if errorlevel 1 exit /b %errorlevel%\r\n")

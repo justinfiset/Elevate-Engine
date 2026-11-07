@@ -92,6 +92,7 @@ function CommonProject.SetupProject(directory, customCallback)
 	}
 
 	links { "ElevateEngine" }
+	dependson { "ElevateEngine" }
 	UseEngineModules()
 
 	-- Config sound engine if needed
