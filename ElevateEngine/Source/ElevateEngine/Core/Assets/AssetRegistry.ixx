@@ -69,7 +69,7 @@ export namespace Elevate
 				return nullptr;
 			}
 
-			const auto& entry = m_assets.at(guid);
+			auto& entry = s_indexedAssets.at(guid);
 			if (entry.isLoaded && entry.Instance)
 			{
 				return std::dynamic_pointer_cast<T>(entry.Instance);
