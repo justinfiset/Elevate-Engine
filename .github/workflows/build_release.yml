@@ -44,6 +44,9 @@ jobs:
                   ld --version
 
             - name: Compile
+              env:
+                  CC: clang
+                  CXX: clang++
               run: |
                   make config=${{ matrix.make_config }} -j"$(nproc)"
 
