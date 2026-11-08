@@ -72,15 +72,16 @@ function Wwise.SetupWorkspace()
 
     defines {"WIN32_LEAN_AND_MEAN", "WWISE_DB_STANDARD_TYPES"}
 
-    filter "configurations:Debug*"
+    filter "configurations:Debug or Editor_Debug"
     defines {"_DEBUG"}
     runtime "Debug"
     symbols "on"
 
-    filter "configurations:Release*"
+    filter "configurations:Release or Editor_Release or Dist"
     defines {"NDEBUG"}
     runtime "Release"
     optimize "on"
+    defines {"AK_OPTIMIZED"} -- Enable AK_OPTIMIZED for Release builds
 
     group ""
 
@@ -109,14 +110,14 @@ function Wwise.SetupLinks()
     links {"WwiseProjectDatabase", "AkSoundEngine", "AkMemoryMgr", "AkStreamMgr", "AkSpatialAudio", "AkVorbisDecoder",
            "AkOpusDecoder"}
 
-    filter {"configurations:*Debug*"}
+    filter "configurations:Debug or Editor_Debug"
     links {"CommunicationCentral"}
 
-    filter {"configurations:*Debug*", "system:windows"}
-    links {"ws2_32"}
-
+    -- Use WAAPI synmbols for all Editor builds
     filter {"configurations:Editor_Debug", "not system:emscripten"}
-    links {"AkAutobahn"}
+    links {"AkAutobahn", "ws2_32"}
+    filter {"configurations:Editor_Release", "not system:emscripten"}
+    links {"AkAutobahn", "ws2_32"}
 
     filter {}
 end
@@ -159,17 +160,22 @@ function Wwise.SetupEngine()
         wwiseSDKSoundEngineSampleDest .. "/" .. samplesPlatform)
     print("    > DONE")
 
-    filter {"configurations:Editor_Debug", "not system:emscripten"}
-    links {"AkAutobahn", "ws2_32"}
-    filter {"configurations:Editor_Release", "not system:emscripten"}
-    links {"AkAutobahn", "ws2_32"}
+    filter "configurations:Release or Editor_Release or Dist"
+    defines {"AK_OPTIMIZED"}
     filter {}
 
     Wwise.SetupLibDirs()
     Wwise.SetupLinks()
     Wwise.SetupBuildOption()
+    Wwise.RemoveWarnings()
 
     print("Finished setting up Wwise in Engine.\n")
+end
+
+function Wwise.RemoveWarnings()
+    filter "system:windows"
+    linkoptions {"/IGNORE:4006"} -- Suppress warning LNK4006: "symbol" already defined in "object"; second definition ignored
+    filter {}
 end
 
 function Wwise.SetupLibDirs()
@@ -180,23 +186,21 @@ function Wwise.SetupLibDirs()
     print("Setting up Wwise library directories...")
 
     -- WINDOWS
-    filter {"system:windows", "configurations:*Debug*"}
+    filter {"system:windows", "configurations:Debug or Editor_Debug"}
     libdirs {wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib", wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/bin"}
-    filter {"system:windows", "configurations:Release*"}
-    libdirs {wwiseSDK .. "/x64_vc170/Release(StaticCRT)/lib", wwiseSDK .. "/x64_vc170/Release(StaticCRT)/bin"}
-    filter {"system:windows", "configurations:Editor_Release*"}
+    filter {"system:windows", "configurations:Release or Editor_Release or Dist"}
     libdirs {wwiseSDK .. "/x64_vc170/Release(StaticCRT)/lib", wwiseSDK .. "/x64_vc170/Release(StaticCRT)/bin"}
 
     -- LINUX
-    filter {"system:linux", "configurations:*Debug*"}
+    filter {"system:linux", "configurations:Debug or Editor_Debug"}
     libdirs {wwiseSDK .. "/Linux_x64/Debug/lib", wwiseSDK .. "/Linux_x64/Debug/bin"}
-    filter {"system:linux", "configurations:*Release*"}
+    filter {"system:linux", "configurations:Release or Editor_Release or Dist"}
     libdirs {wwiseSDK .. "/Linux_x64/Release/lib", wwiseSDK .. "/Linux_x64/Release/bin"}
 
     -- EMSCRIPTEN (WEB)
-    filter {"system:emscripten", "configurations:*Debug*"}
+    filter {"system:emscripten", "configurations:Debug or Editor_Debug"}
     libdirs {wwiseSDK .. "/Emscripten_mt/Debug/lib", wwiseSDK .. "/Emscripten_mt/Debug/bin"}
-    filter {"system:emscripten", "configurations:*Release*"}
+    filter {"system:emscripten", "configurations:Release or Editor_Release or Dist"}
     libdirs {wwiseSDK .. "/Emscripten_mt/Release/lib", wwiseSDK .. "/Emscripten_mt/Release/bin"}
 
     filter {}
