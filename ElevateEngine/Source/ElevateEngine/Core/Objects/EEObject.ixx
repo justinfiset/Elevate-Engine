@@ -45,9 +45,6 @@ export namespace Elevate
 		virtual void SetFromProperties(const ::Elevate::PropertySet& props) {}
 		virtual std::type_index GetTypeIndex() const { return typeid(EEObject); }
 
-	private:
 		void SetGuid(const Guid& guid);
-
-		friend class AssetRegistry;
 	};
 }
