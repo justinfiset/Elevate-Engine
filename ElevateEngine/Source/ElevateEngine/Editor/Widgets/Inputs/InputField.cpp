@@ -1,9 +1,9 @@
 module;
 
 #include <string>
+#include <algorithm>
 
 #include <imgui.h>
-#include <imgui_internal.h>
 
 module Elevate.Editor.Widgets.InputField;
 
@@ -14,11 +14,10 @@ namespace Elevate::Editor::Widgets
 		ImGui::Text("%s", label);
 		ImGui::SameLine();
 
-		char buffer[255];
-		strncpy(buffer, data.c_str(), sizeof(buffer));
-		buffer[sizeof(buffer) - 1] = '\0';
+		char buffer[255]{};
+		std::copy_n(data.c_str(), std::min(data.size(), sizeof(buffer) - 1), buffer);
 
-		if (ImGui::InputText("##InputField", buffer, sizeof(buffer)))
+		if (ImGui::InputText(label, buffer, sizeof(buffer)))
 		{
 			data = buffer;
 		}
@@ -29,10 +28,9 @@ namespace Elevate::Editor::Widgets
 		ImGui::Text("%s", label);
 		ImGui::SameLine();
 
-		char buffer[255];
-		strncpy(buffer, data.c_str(), sizeof(buffer));
-		buffer[sizeof(buffer) - 1] = '\0';
+		char buffer[255]{};
+		std::copy_n(data.c_str(), std::min(data.size(), sizeof(buffer) - 1), buffer);
 
-		ImGui::InputText("##InputField", buffer, sizeof(buffer));
+		ImGui::InputText(label, buffer, sizeof(buffer));
 	}
 }

@@ -77,7 +77,7 @@ namespace EL
 				return false;
 			}
 		}
-		catch (fs::filesystem_error e)
+		catch (fs::filesystem_error& e)
 		{
 			Elevate::Logger::Error("Error Filesystem: {0}", e.what());
 			Elevate::Logger::Error("Error code: {0}", e.code().value());
