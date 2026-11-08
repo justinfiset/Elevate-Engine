@@ -1,0 +1,199 @@
+#include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <GLFW/glfw3.h>
+
+#include "OpenGLRendererAPI.h"
+
+#include <ElevateEngine/Platform/OpenGL/GLDebug.h>
+
+import Elevate.Renderer.Renderer;
+
+namespace Elevate
+{
+	inline GLenum OpenGLRendererAPI::DrawPrimitiveTypeToOpenGL(DrawPrimitiveType type) const
+	{
+		switch (type)
+		{
+		case DrawPrimitiveType::Points:
+			return GL_POINTS;
+		case DrawPrimitiveType::Lines:
+			return GL_LINES;
+		case DrawPrimitiveType::LineStrip:
+			return GL_LINE_STRIP;
+		case DrawPrimitiveType::Triangles:
+			return GL_TRIANGLES;
+		case DrawPrimitiveType::TriangleStrip:
+			return GL_TRIANGLE_STRIP;
+		case DrawPrimitiveType::TriangleFan:
+			return GL_TRIANGLE_FAN;
+		case DrawPrimitiveType::Patches:
+			return GL_PATCHES;
+		default:
+			return GL_TRIANGLES;
+		}
+		return GL_TRIANGLES;
+	}
+
+	void OpenGLRendererAPI::SetClearColor(const glm::vec4& color) const
+	{
+		glClearColor(color.r, color.g, color.b, color.a);
+	}
+
+	void OpenGLRendererAPI::SetViewport(int x, int y, int width, int height) const
+	{
+		glViewport(x, y, width, height);
+	}
+
+	void OpenGLRendererAPI::Clear() const
+	{
+		glDepthMask(GL_TRUE);
+		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void OpenGLRendererAPI::ClearDepth() const
+	{
+		glDepthMask(GL_TRUE);
+		glClear(GL_DEPTH_BUFFER_BIT);
+	}
+
+	void OpenGLRendererAPI::FlushBuffers() const
+	{
+		glFlush();
+	}
+
+	void OpenGLRendererAPI::ClearTextureBindings() const
+	{
+		for (uint8_t i = 0; i < 16; ++i)
+		{
+			UnbindTexture(i);
+		}
+		glActiveTexture(GL_TEXTURE0);
+	}
+
+	void OpenGLRendererAPI::UnbindTexture(uint8_t slot) const
+	{
+		glActiveTexture(GL_TEXTURE0 + slot);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	void OpenGLRendererAPI::DrawArray(const VertexArray* vao, DrawPrimitiveType primitive) const
+	{
+		if (!glfwGetCurrentContext())
+		{
+			CoreLogger::Error("No OpenGL context active!");
+			return;
+		}
+
+		if (!vao)
+		{
+			CoreLogger::Error("VAO or IndexBuffer is null!");
+			return;
+		}
+
+		vao->Bind();
+
+		if (vao->GetIndexBuffer())
+		{
+			if (vao->GetIndexBuffer()->GetCount() == 0)
+			{
+				CoreLogger::Error("IndexBuffer has 0 indices!");
+				return;
+			}
+
+			GLCheck(glDrawElements(DrawPrimitiveTypeToOpenGL(primitive), vao->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr));
+		}
+		else
+		{
+			for (const auto& vbo : vao->GetVertexBuffers())
+			{
+				uint32_t vertexCount = vbo->GetSize() / vbo->GetLayout().GetStride();
+				GLCheck(glDrawArrays(DrawPrimitiveTypeToOpenGL(primitive), 0, vertexCount));
+			}
+		}
+	}
+
+	void OpenGLRendererAPI::SetCullingState(CullFace cullSetting) const
+	{
+		switch (cullSetting)
+		{
+		case CullFace::None:
+			glDisable(GL_CULL_FACE);
+			return;
+		case CullFace::Front:
+			glEnable(GL_CULL_FACE);
+			glCullFace(GL_FRONT);
+			break;
+		case CullFace::Back:
+			glEnable(GL_CULL_FACE);
+			glCullFace(GL_BACK);
+			break;
+		case CullFace::FrontAndBack:
+			glEnable(GL_CULL_FACE);
+			glCullFace(GL_FRONT_AND_BACK);
+			break;
+		}
+	}
+
+	void OpenGLRendererAPI::SetDepthWrittingState(bool enabled) const
+	{
+		glDepthMask(enabled ? GL_TRUE : GL_FALSE);
+	}
+
+	void OpenGLRendererAPI::SetDepthTestingState(bool enabled) const
+	{
+		if (enabled)
+			glEnable(GL_DEPTH_TEST);
+		else
+			glDisable(GL_DEPTH_TEST);
+	}
+
+	void OpenGLRendererAPI::SetBlendingState(BlendModeType mode) const
+	{
+		switch (mode)
+		{
+		case BlendModeType::Alpha:
+			glEnable(GL_BLEND);
+			glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ZERO, GL_ONE);
+			break;
+		case BlendModeType::Additive:
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_ONE, GL_ONE); // Addition pure des couleurs HDR
+			break;
+		case BlendModeType::None:
+			glDisable(GL_BLEND);
+			break;
+		}
+	}
+
+	void OpenGLRendererAPI::SetDepthFunction(DepthFunction depthFunc) const
+	{
+		switch (depthFunc)
+		{
+		case DepthFunction::Less:
+			GLCheck(glDepthFunc(GL_LESS));
+			break;
+		case DepthFunction::LessEqual:
+			GLCheck(glDepthFunc(GL_LEQUAL));
+			break;
+		case DepthFunction::Equal:
+			GLCheck(glDepthFunc(GL_EQUAL));
+			break;
+		case DepthFunction::Always:
+			GLCheck(glDepthFunc(GL_ALWAYS));
+			break;
+		case DepthFunction::Never:
+			GLCheck(glDepthFunc(GL_NEVER));
+			break;
+		case DepthFunction::Greater:
+			GLCheck(glDepthFunc(GL_GREATER));
+			break;
+		case DepthFunction::GreaterEqual:
+			GLCheck(glDepthFunc(GL_GEQUAL));
+			break;
+		default:
+			GLCheck(glDepthFunc(GL_LESS));
+			break;
+		}
+	}
+}

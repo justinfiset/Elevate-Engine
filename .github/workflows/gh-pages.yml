@@ -77,7 +77,7 @@ jobs:
 
           $env:PATH = "$emscriptenDir;" + $env:PATH
 
-          ninja Editor_Release
+          ninja -j2 Editor_Release
 
       - name: Upload Editor Artifact
         uses: actions/upload-artifact@v4
@@ -129,7 +129,7 @@ jobs:
 
           $env:PATH = "$emscriptenDir;" + $env:PATH
           
-          ninja Release
+          ninja -j2 Release
 
       - name: Upload Runtime Artifact
         uses: actions/upload-artifact@v4

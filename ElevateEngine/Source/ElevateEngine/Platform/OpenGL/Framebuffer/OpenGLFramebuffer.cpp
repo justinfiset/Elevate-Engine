@@ -1,0 +1,263 @@
+#include "OpenGLFramebuffer.h"
+
+#include <ElevateEngine/Platform/OpenGL/GLDebug.h>
+#include <ElevateEngine/Renderer/GraphicsAPI.h>
+
+import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Assert;
+import Elevate.Renderer.Renderer;
+
+namespace Elevate
+{
+	constexpr GLenum ToOpenGL(TextureFilter filter)
+	{
+		switch (filter)
+		{
+		case TextureFilter::Nearest:
+			return GL_NEAREST;
+		case TextureFilter::Linear:
+			return GL_LINEAR;
+		default:
+			return GL_NEAREST;
+		}
+	}
+
+	OpenGLFramebuffer::OpenGLFramebuffer(const std::vector<std::shared_ptr<Texture>> &colorTextures, std::shared_ptr<Texture> depthTexture, bool depthAsRenderbuffer)
+	{
+		GLCheck(glGenFramebuffers(1, &m_frameBufferId));
+		Bind();
+
+		if (!colorTextures.empty())
+		{
+			std::vector<GLenum> drawBuffers;
+
+			for (size_t i = 0; i < colorTextures.size(); ++i)
+			{
+				auto &tex = colorTextures[i];
+				Assert::That(tex->GetWidth() > 0 && tex->GetHeight() > 0, "Framebuffer texture dimensions must be positive");
+
+				GLuint texId = static_cast<GLuint>(reinterpret_cast<intptr_t>(tex->GetNativeHandle()));
+				GLenum attachmentPoint = GL_COLOR_ATTACHMENT0 + static_cast<GLenum>(i);
+
+				GLCheck(glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentPoint, GL_TEXTURE_2D, texId, 0));
+
+				m_colorAttachments.emplace_back(tex, static_cast<uint32_t>(i));
+				drawBuffers.push_back(attachmentPoint);
+			}
+
+			GLCheck(glDrawBuffers(static_cast<GLsizei>(drawBuffers.size()), drawBuffers.data()));
+		}
+		else
+		{
+#if defined(EE_PLATFORM_WEB)
+			GLenum drawBuffers[1] = {GL_NONE};
+			GLCheck(glDrawBuffers(1, drawBuffers));
+#else
+			GLCheck(glDrawBuffer(GL_NONE));
+#endif
+			GLCheck(glReadBuffer(GL_NONE));
+		}
+
+		if (depthTexture)
+		{
+			GLuint depthId = static_cast<GLuint>(reinterpret_cast<intptr_t>(depthTexture->GetNativeHandle()));
+			GLenum attachmentType = (depthTexture->GetMetadata().Format == TextureFormat::DEPTH24_STENCIL8)
+										? GL_DEPTH_STENCIL_ATTACHMENT
+										: GL_DEPTH_ATTACHMENT;
+
+			GLCheck(glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, GL_TEXTURE_2D, depthId, 0));
+			if (depthTexture->GetMetadata().WrapS == TextureWrap::ClampToBorder)
+			{
+				GLCheck(glBindTexture(GL_TEXTURE_2D, depthId));
+#if defined(EE_PLATFORM_WEB)
+				GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+				GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+#else
+				float borderColor[] = {1.0f, 1.0f, 1.0f, 1.0f};
+				GLCheck(glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor));
+#endif
+				GLCheck(glBindTexture(GL_TEXTURE_2D, 0));
+			}
+
+			m_depthAttachment = FramebufferDepthAttachment{depthTexture, false};
+		}
+		else if (depthAsRenderbuffer)
+		{
+			uint32_t w = colorTextures.empty() ? 1280 : colorTextures[0]->GetWidth();
+			uint32_t h = colorTextures.empty() ? 720 : colorTextures[0]->GetHeight();
+
+			GLCheck(glGenRenderbuffers(1, &m_renderBufferId));
+			GLCheck(glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId));
+			GLCheck(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, w, h));
+			GLCheck(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_renderBufferId));
+			GLCheck(glBindRenderbuffer(GL_RENDERBUFFER, 0));
+
+			m_depthAttachment = FramebufferDepthAttachment{nullptr, true};
+		}
+
+		CheckCompleteness();
+		Unbind();
+	}
+
+	OpenGLFramebuffer::~OpenGLFramebuffer()
+	{
+		// todo use this
+		// GLCheck(glDeleteFramebuffers(1, &m_frameBufferId));
+		// if (m_renderBufferId != 0)
+		//{
+		//	GLCheck(glDeleteRenderbuffers(1, &m_renderBufferId));
+		//}
+	}
+
+	void OpenGLFramebuffer::Bind() const
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferId);
+	}
+
+	void OpenGLFramebuffer::Unbind() const
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	void OpenGLFramebuffer::BlitFramebufferToScreen(uint32_t screenWidth, uint32_t screenHeight) const
+	{
+		if (m_colorAttachments.empty())
+		{
+			CoreLogger::Warn("Cannot blit a framebuffer without color attachments to screen!");
+			return;
+		}
+
+		GLCheck(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBufferId));
+		GLCheck(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0));
+
+		uint32_t srcW = !m_colorAttachments.empty() ? m_colorAttachments[0].Tex->GetWidth() : 1280;
+		uint32_t srcH = !m_colorAttachments.empty() ? m_colorAttachments[0].Tex->GetHeight() : 720;
+
+		bool isMagnifying = (screenWidth >= srcW) && (screenHeight >= srcH);
+		auto filterType = isMagnifying
+							  ? m_colorAttachments[0].Tex->GetMetadata().MagFilter
+							  : m_colorAttachments[0].Tex->GetMetadata().MinFilter;
+		GLenum filter = ToOpenGL(filterType);
+		if (filter != GL_NEAREST && filter != GL_LINEAR)
+		{
+			filter = GL_LINEAR;
+		}
+
+		GLCheck(glBlitFramebuffer(
+			0, 0, srcW, srcH,
+			0, 0, screenWidth, screenHeight,
+			GL_COLOR_BUFFER_BIT,
+			filter));
+
+		GLCheck(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+	}
+
+	void OpenGLFramebuffer::Rescale(uint32_t width, uint32_t height)
+	{
+		if (width == m_width && height == m_height)
+			return;
+
+		m_width = width;
+		m_height = height;
+
+		if (width == 0 || height == 0)
+			return;
+
+		Bind();
+
+		for (auto &attachment : m_colorAttachments)
+		{
+			if (auto &tex = attachment.Tex)
+			{
+				if (tex->GetWidth() == width && tex->GetHeight() == height)
+					continue;
+
+				TextureMetadata meta = tex->GetMetadata();
+				meta.Width = width;
+				meta.Height = height;
+				tex->SetData(nullptr, meta);
+
+				GLuint texId = static_cast<GLuint>(reinterpret_cast<intptr_t>(tex->GetNativeHandle()));
+				GLCheck(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + attachment.Index, GL_TEXTURE_2D, texId, 0));
+			}
+		}
+
+		if (m_depthAttachment.has_value())
+		{
+			if (m_depthAttachment->Tex)
+			{
+				auto &depthTex = m_depthAttachment->Tex;
+				TextureMetadata meta = depthTex->GetMetadata();
+				meta.Width = width;
+				meta.Height = height;
+				depthTex->SetData(nullptr, meta);
+
+				GLuint depthId = static_cast<GLuint>(reinterpret_cast<intptr_t>(depthTex->GetNativeHandle()));
+				GLenum attachmentType = (meta.Format == TextureFormat::DEPTH24_STENCIL8)
+											? GL_DEPTH_STENCIL_ATTACHMENT
+											: GL_DEPTH_ATTACHMENT;
+
+				GLCheck(glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, GL_TEXTURE_2D, depthId, 0));
+			}
+			else if (m_depthAttachment->IsRenderbuffer && m_renderBufferId != 0)
+			{
+				GLCheck(glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId));
+				GLCheck(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height));
+				GLCheck(glBindRenderbuffer(GL_RENDERBUFFER, 0));
+			}
+		}
+
+		CheckCompleteness();
+		Unbind();
+	}
+
+	void OpenGLFramebuffer::BlitDepthTo(const Framebuffer &target) const
+	{
+		const OpenGLFramebuffer &glFB = dynamic_cast<const OpenGLFramebuffer &>(target);
+		GLuint targetID = glFB.m_frameBufferId;
+
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBufferId);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, targetID);
+
+		glBlitFramebuffer(
+			0, 0, m_width, m_height,
+			0, 0, target.GetWidth(), target.GetHeight(),
+			GL_DEPTH_BUFFER_BIT,
+			GL_NEAREST);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	bool OpenGLFramebuffer::CheckCompleteness() const
+	{
+		uint32_t status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+		if (status != GL_FRAMEBUFFER_COMPLETE)
+		{
+			const char *msg = GetFramebufferStatusString(status);
+			CoreLogger::Error("Framebuffer error: {}", msg);
+			return false;
+		}
+		return true;
+	}
+
+	const char *OpenGLFramebuffer::GetFramebufferStatusString(uint32_t status) const
+	{
+		switch (status)
+		{
+		case GL_FRAMEBUFFER_COMPLETE:
+			return "COMPLETE";
+		case GL_FRAMEBUFFER_UNDEFINED:
+			return "UNDEFINED";
+		case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
+			return "INCOMPLETE_ATTACHMENT";
+		case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
+			return "MISSING_ATTACHMENT";
+		case GL_FRAMEBUFFER_UNSUPPORTED:
+			return "UNSUPPORTED_FORMAT";
+		case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE:
+			return "INCOMPLETE_MULTISAMPLE";
+		default:
+			return "UNKNOWN_ERROR";
+		}
+	}
+}

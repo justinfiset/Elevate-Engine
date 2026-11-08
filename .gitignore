@@ -1,6 +1,6 @@
 PREMAKE_CONFIG
 
-ElevateEngine/src/ElevateEngine/Audio/Ak
+ElevateEngine/Source/ElevateEngine/Audio/Ak
 
 compile_commands
 
@@ -121,3 +121,4 @@ compile_commands.json
 *.ninja
 
 *.make
+Projects/Sandbox/imgui.ini

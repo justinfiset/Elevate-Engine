@@ -81,17 +81,19 @@ function CommonProject.SetupProject(directory, customCallback)
 	}
 
 	local enginePath = path.getabsolute(_MAIN_SCRIPT_DIR.."/ElevateEngine")
-	local vendorPath = path.getabsolute(_MAIN_SCRIPT_DIR).."/ElevateEngine/vendor"
+	local vendorPath = path.getabsolute(_MAIN_SCRIPT_DIR).."/ElevateEngine/Vendor"
 	includedirs
 	{
 		vendorPath.."/entt/include",
 		vendorPath.."/ImGui/",
 		vendorPath.."/glm/",
 		vendorPath.."/spdlog/include",
-		enginePath.."/src",
+		enginePath.."/Source",
 	}
 
 	links { "ElevateEngine" }
+	dependson { "ElevateEngine" }
+	UseEngineModules()
 
 	-- Config sound engine if needed
 	defines { "EE_NO_SOUNDENGINE=" .. (infos.usesSoundEngine and "0" or "1") }
@@ -117,6 +119,7 @@ function CommonProject.SetupProject(directory, customCallback)
 			"ElevateEngine",
 			"ImGui",
 			"assimp",
+			"Jolt",
 			"GLFW",
 			"GL",
 			"X11",
@@ -130,15 +133,17 @@ function CommonProject.SetupProject(directory, customCallback)
 		}
 
 	filter "system:emscripten"
-		links { "ElevateEngine", "ImGui","assimp" }
-
+		links { "ElevateEngine", "ImGui", "assimp", "Jolt" }
 		linkoptions
         {
 			"--preload-file ".._MAIN_SCRIPT_DIR.."/ElevateEngine/Resources/Engine@/Engine",
 			"--preload-file "..directory.."/Content@/Content",
 			"--preload-file "..directory.."/app.config@/app.config",
-			"--preload-file "..directory.."/imgui.ini@/imgui.ini",
 		}
+
+		if os.isfile(directory.."/imgui.ini") then
+		linkoptions { "--preload-file "..directory.."/imgui.ini@/imgui.ini" }
+		end
 
 	filter { "system:emscripten", "configurations:Editor_*" }
 		linkoptions

@@ -1,0 +1,52 @@
+module;
+
+#include <cstddef>
+#include <cstdint>
+#include <array>
+
+module Elevate.Renderer.Commands.RenderCommandQueue;
+
+import Elevate.Renderer.Commands.RenderBucketType;
+
+namespace Elevate
+{
+	void RenderCommandQueue::Submit(RenderBucketType type, const RenderCommand& command)
+	{
+		m_buckets.at((size_t)type).Submit(command);
+		m_count++;
+	}
+
+	void RenderCommandQueue::Clear()
+	{
+		for (size_t i = 0; i < m_buckets.size(); i++)
+		{
+			m_buckets.at(i).Clear();
+		}
+		m_count = 0;
+	}
+
+	void RenderCommandQueue::Flush(RenderBucketType type)
+	{
+		m_buckets.at(static_cast<size_t>(type)).Sort();
+		m_buckets.at(static_cast<size_t>(type)).Flush();
+	}
+
+	void RenderCommandQueue::FlushAll()
+	{
+		for (size_t i = 0; i < m_buckets.size(); i++)
+		{
+			m_buckets.at(i).Sort();
+			m_buckets.at(i).Flush();
+		}
+	}
+
+	uint64_t RenderCommandQueue::GetCount()
+	{
+		return m_count;
+	}
+
+	const RenderBucket& RenderCommandQueue::GetBucket(RenderBucketType bucketType) const
+	{
+		return m_buckets.at((size_t)bucketType);
+	}
+}

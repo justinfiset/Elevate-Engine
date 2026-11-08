@@ -1,0 +1,151 @@
+module;
+
+#include <glm/glm.hpp>          // iwyu: keep
+#include <glm/gtc/type_ptr.hpp> // iwyu: keep
+
+#include <memory>
+#include <format>
+
+#include <imgui.h>
+#include <ImGuizmo.h>
+
+#include <ElevateEngine/Editor/GizmoUtility.h>
+
+module Elevate.Editor.Panels.ScenePanel;
+
+#ifdef EE_EDITOR_BUILD
+
+// Core
+import Elevate.Core.Application;
+import Elevate.Core.Objects.Object;
+import Elevate.Core.Scene;
+// Renderer
+import Elevate.Renderer.Renderer;
+import Elevate.Renderer.Camera;
+import Elevate.Renderer.Framebuffers;
+// Editor
+import Elevate.Editor.Camera;
+import Elevate.Editor.Layer;
+
+void Elevate::Editor::ScenePanel::OnImGuiRender()
+{
+	ImGui::Begin("Scene View", nullptr, ImGuiWindowFlags_MenuBar);
+
+	if (ImGui::BeginMenuBar())
+	{
+		// Aspect Ratio Selection
+		if (ImGui::BeginMenu(GuizmoOperationToString(m_CurrentEditorTool).c_str()))
+		{
+			// The numbers are matching ImGuizmo enums values
+			ImGui::RadioButton("Translate", &m_CurrentEditorTool, 7);
+			ImGui::RadioButton("Rotate", &m_CurrentEditorTool, 120);
+			ImGui::RadioButton("Scale", &m_CurrentEditorTool, 896);
+			ImGui::RadioButton("Universal", &m_CurrentEditorTool, 14463);
+			ImGui::EndMenu();
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Button("Edit"))
+		{
+			// Ouvre un autre menu custom
+		}
+
+		// Permet d'aligner le prochain menu � gauche en fonction de la taille du texte
+		ImGui::Dummy(ImVec2(ImGui::GetWindowSize().x - ImGui::CalcTextSize("XXX:XXX").x - ImGui::GetCursorPos().x - 10.0f, 0.0f));
+
+		// Aspect Ratio Selection
+		if (ImGui::BeginMenu(GetAspectRatioText(s_AspectRatioSettings[m_AspectRatioValue]).c_str()))
+		{
+			for (int i = 0; i < sizeof(s_AspectRatioSettings) / sizeof(s_AspectRatioSettings[0]); i++)
+			{
+				ImGui::RadioButton(GetAspectRatioText(s_AspectRatioSettings[i]).c_str(), &m_AspectRatioValue, i);
+			}
+			ImGui::EndMenu();
+		}
+		ImGui::EndMenuBar();
+	}
+
+	ImVec2 contentRegion = ImGui::GetContentRegionAvail();
+
+	if (contentRegion.x <= 0.0f || contentRegion.y <= 0.0f)
+	{
+		ImGui::End();
+		return;
+	}
+
+	// we access the ImGui window size
+	uint32_t window_width = static_cast<uint32_t>(contentRegion.x);
+	uint32_t window_height = static_cast<uint32_t>(contentRegion.y);
+
+	// Keeping the aspect ratio for the scene view
+	const glm::ivec2 aspect = s_AspectRatioSettings[m_AspectRatioValue];
+	const float arX = (float)aspect.x;
+	const float arY = (float)aspect.y;
+	const float qtX = window_width / arX;
+	const float qtY = window_height / arY;
+	if (qtX < qtY)
+		window_height = (uint32_t)(qtX * arY);
+	else
+		window_width = (uint32_t)(qtY * arX);
+
+	// we rescale the framebuffer to the actual window size here and reset the glViewport 
+	auto& framebuffer = Renderer::GetMainFramebuffer();
+	framebuffer.Rescale(window_width, window_height);
+	Renderer::SetViewport(0, 0, window_width, window_height);
+
+	Camera* cam = EditorLayer::Get().GetCamera();
+	if (cam != nullptr && cam->GetProjection() != nullptr)
+	{
+		cam->GetProjection()->SetSize(window_width, window_height);
+	}
+
+	// we get the screen position of the window
+	ImVec2 pos = ImGui::GetCursorScreenPos();
+	ImGui::Image((ImTextureID)framebuffer.GetColorAttachmentHandle(), ImVec2((float)window_width, (float)window_height), ImVec2(0, 1), ImVec2(1, 0));
+
+	// ImGuizmo //////////////////////////////////////////
+	if (Application::GetGameState() == EditorMode)
+	{
+		std::weak_ptr<EEObject> selectedObject = EditorLayer::Get().GetSelectedObject();
+		std::shared_ptr<GameObject> selectedShared = nullptr;
+		if (selectedObject.lock())
+		{
+			selectedShared = std::dynamic_pointer_cast<GameObject>(selectedObject.lock());
+		}
+
+		Camera* cam = EditorLayer::Get().GetCamera();
+		if (selectedShared)
+		{
+			ImGuizmo::SetDrawlist(ImGui::GetWindowDrawList());
+			ImGuizmo::SetOrthographic(false); // TODO SET DINAMICLY FROM THE EDITOR AND SETUP THE CAMERA ACCORDINGLY
+			ImGuizmo::SetRect(pos.x, pos.y, (float)window_width, (float)window_height);
+
+			glm::mat4 cameraProjection = cam->GetProjection()->GetProjectionMatrix();
+			glm::mat4 cameraView = cam->GenViewMatrix();
+			glm::mat4 entityMatrix = selectedShared->GenGlobalMatrix();
+
+			// TODO SET VIA BUTTONS
+			ImGuizmo::Manipulate(
+				glm::value_ptr(cameraView),
+				glm::value_ptr(cameraProjection),
+				(ImGuizmo::OPERATION)m_CurrentEditorTool,
+				ImGuizmo::WORLD,
+				glm::value_ptr(entityMatrix)
+			);
+
+			if (ImGuizmo::IsUsingAny())
+			{
+				selectedShared->SetFromGlobalMatrix(entityMatrix);
+			}
+		}
+	}
+
+	ImGui::End();
+}
+
+std::string Elevate::Editor::ScenePanel::GetAspectRatioText(glm::ivec2 ar)
+{
+	return (std::to_string(ar.x) + ":" + std::to_string(ar.y));
+}
+
+#endif // EE_EDITOR_BUILD

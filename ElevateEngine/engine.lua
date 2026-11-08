@@ -1,103 +1,384 @@
 local function values(t)
     local res = {}
-    for _, v in pairs(t) do table.insert(res, v) end
+    for _, v in pairs(t) do
+        table.insert(res, v)
+    end
     return res
 end
 
-project "ElevateEngine"
-	location "./Build"
-	kind "StaticLib"
-	language "C++"
-	cppdialect "C++20"
-	staticruntime "on"
-	systemversion "latest"
-	
-	targetdir ("%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("%{wks.location}/Build/bin-int/" .. outputdir .. "/%{prj.name}")
+local function normalizePath(filename)
+    return filename:gsub("\\", "/")
+end
 
-	IncludeDir = {}
-	IncludeDir["Vendors"] = "vendor"
-	IncludeDir["GLFW"] = "vendor/GLFW/include" 
-	IncludeDir["Glad"] = "vendor/Glad/include"
-	IncludeDir["ImGui"] = "vendor/ImGui/"
-	IncludeDir["glm"] = "vendor/glm/"
-	IncludeDir["rapidjson"] = "vendor/rapidjson/include"
-	IncludeDir["rapidxml"] = "vendor/rapidxml/include"
-	IncludeDir["stb"] = "vendor/stb/"
-	IncludeDir["spdlog"] = "vendor/spdlog/include"
-	IncludeDir["assimp"] = "vendor/assimp/include"
-	IncludeDir["tinyfiledialogs"] = "vendor/tinyfiledialogs"
-	IncludeDir["ImGuizmo"] = "vendor/ImGuizmo"
-	IncludeDir["entt"] = "vendor/entt/include"
-	IncludeDir["stduuid"] = "vendor/stduuid/include"
+local function moduleNameForFile(filename)
+    local file = io.open(filename, "r")
+    if not file then
+        return nil
+    end
 
-	files
-	{
-		"src/**.h",
-		"src/**.inl",
-		"src/**.cpp",
+    local moduleName = file:read("*all"):match("export%s+module%s+([%w%._:]+)%s*;")
+    file:close()
+    return moduleName
+end
 
-		"src/**.vert",
-		"src/**.frag",
+local function orderedModuleFiles()
+    local moduleFiles = os.matchfiles(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Source/**/*.ixx")
+    local modules = {}
+    local dependencies = {}
+    local headerImports = {}
+    local sourceRoot = _MAIN_SCRIPT_DIR .. "/ElevateEngine/Source/"
 
-		"vendor/ImGuizmo/ImGuizmo.cpp",
-		"vendor/ImGuiFileDialog/**.cpp",
-		"vendor/tinyfiledialogs/tinyfiledialogs.c",
-	}
+    local function collectImports(content)
+        local imports = {}
+        for importedModule in content:gmatch("import%s+([:%w%._]+)%s*;") do
+            table.insert(imports, importedModule)
+        end
+        return imports
+    end
 
-	defines 
-	{
-		"EE_RESOURCE_DIR=\""..path.getabsolute("./Resources/").."\"",
-		"EE_ENGINE_BUILD",
-		"_CRT_SECURE_NO_WARNINGS",
-		"IMGUI_DEFINE_MATH_OPERATORS",
-		"GLM_ENABLE_EXPERIMENTAL",
-	}
+    table.sort(moduleFiles)
+    for _, pattern in ipairs({"**/*.h", "**/*.hpp", "**/*.inl"}) do
+        for _, filename in ipairs(os.matchfiles(sourceRoot .. pattern)) do
+            local file = io.open(filename, "r")
+            if file then
+                headerImports[normalizePath(filename)] = collectImports(file:read("*all"))
+                file:close()
+            end
+        end
+    end
 
-	includedirs { "src", values(IncludeDir) }
+    for _, filename in ipairs(moduleFiles) do
+        local file = io.open(filename, "r")
+        if file then
+            local content = file:read("*all")
+            file:close()
 
-	links { "ImGui", "assimp" }
+            local moduleName = content:match("export%s+module%s+([%w%._:]+)%s*;")
+            if moduleName then
+                modules[moduleName] = filename
+                dependencies[moduleName] = {}
+                local moduleBase = moduleName:match("^([^:]+)")
+                for _, importedModule in ipairs(collectImports(content)) do
+                    if importedModule:sub(1, 1) == ":" then
+                        table.insert(dependencies[moduleName], moduleBase .. importedModule)
+                    else
+                        table.insert(dependencies[moduleName], importedModule)
+                    end
+                end
 
-	Wwise.SetupEngine()
-	filter "not system:emscripten"
-		links { "GLFW" }
-        files { "vendor/Glad/src/glad.c" }
+                for includePath in content:gmatch("#include%s+[<\"]([^>\"]+)[>\"]") do
+                    for headerFilename, imports in pairs(headerImports) do
+                        if headerFilename:sub(-#includePath) == includePath then
+                            for _, importedModule in ipairs(imports) do
+                                if importedModule:sub(1, 1) == ":" then
+                                    table.insert(dependencies[moduleName], moduleBase .. importedModule)
+                                else
+                                    table.insert(dependencies[moduleName], importedModule)
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    local ordered = {}
+    local visiting = {}
+    local visited = {}
+    local function visit(moduleName)
+        if visited[moduleName] then
+            return
+        end
+        if visiting[moduleName] then
+            error("Circular C++ module dependency involving " .. moduleName)
+        end
+
+        visiting[moduleName] = true
+        for _, dependency in ipairs(dependencies[moduleName] or {}) do
+            if modules[dependency] then
+                visit(dependency)
+            end
+        end
+        visiting[moduleName] = nil
+        visited[moduleName] = true
+        table.insert(ordered, modules[moduleName])
+    end
+
+    local moduleNames = {}
+    for moduleName in pairs(modules) do
+        table.insert(moduleNames, moduleName)
+    end
+    table.sort(moduleNames)
+    for _, moduleName in ipairs(moduleNames) do
+        visit(moduleName)
+    end
+
+    return ordered
+end
+
+local function moduleBuildCommands()
+    local commands = {}
+    local moduleDirectory = "%{cfg.objdir}/modules"
+    local compiler
+    local moduleFlags
+    if _ACTION == "gmake" then
+        compiler = "$(CXX)"
+        moduleFlags = "$(ALL_CXXFLAGS)"
+    else
+        compiler = "clang++"
+        moduleFlags = "$cxxflags_ElevateEngine_%{cfg.buildcfg}"
+    end
+    local moduleListPath = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/clang-modules.list")
+    local moduleList = io.open(moduleListPath, "w")
+    if not moduleList then
+        error("Unable to create Clang module list at " .. moduleListPath)
+    end
+
+    for _, filename in ipairs(orderedModuleFiles()) do
+        local moduleName = moduleNameForFile(filename)
+        if moduleName then
+            local moduleOutputName = moduleName:gsub(":", "-")
+            moduleList:write(normalizePath(filename) .. "|" .. moduleOutputName .. "\n")
+        end
+    end
+    moduleList:close()
+
+    table.insert(commands, "mkdir -p " .. moduleDirectory)
+    table.insert(commands,
+        "while IFS=\"|\" read -r moduleSource moduleOutput; do " .. compiler .. " " .. moduleFlags ..
+            " --precompile -x c++-module \"$$moduleSource\" -o \"" .. moduleDirectory ..
+            "/$$moduleOutput.pcm\" || exit 1; done < \"" .. moduleListPath .. "\"")
+    return commands
+end
+
+function UseEngineModules()
+    filter "system:linux"
+    if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
+        buildoptions {
+            "-fmodule-mapper=" .. normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/module.map")
+        }
+    else
+        buildoptions {
+            "-fprebuilt-module-path=%{wks.location}/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
+        }
+    end
+    filter "system:emscripten"
+    buildoptions {
+        "-fprebuilt-module-path=" .. _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules",
+        "-msimd128",
+        "-msse4.1"
+    }
     filter {}
+end
 
-	BuildPlatform.SetPlatformDefines()
+local function gccModuleBuildCommands()
+    local commands = {}
+    local gcmDirectory = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/gcm.cache")
+    local moduleMap = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/module.map")
+    table.insert(commands, "rm -rf " .. gcmDirectory)
+    table.insert(commands, "mkdir -p " .. gcmDirectory)
+    table.insert(commands, "rm -f " .. moduleMap)
+    table.insert(commands, "printf '' > " .. moduleMap)
+    for _, filename in ipairs(orderedModuleFiles()) do
+        local moduleName = moduleNameForFile(filename)
+        if moduleName then
+            local moduleOutputName = moduleName:gsub(":", "-")
+            table.insert(commands,
+                "printf '" .. moduleName .. " " .. gcmDirectory .. "/" .. moduleOutputName .. ".gcm\\n' >> " .. moduleMap)
+        end
+    end
+    -- GCC validates imported CMIs against the flags used to create them.
+    for _, filename in ipairs(orderedModuleFiles()) do
+        local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
+        local moduleName = moduleNameForFile(filename)
+        local moduleOutputName = moduleName and moduleName:gsub(":", "-")
+        table.insert(commands,
+            "$(CXX) $(ALL_CXXFLAGS) -fmodule-only -x c++ -c " .. relativePath ..
+                " -o " .. gcmDirectory .. "/" .. moduleOutputName .. ".gcm")
+    end
+    return commands
+end
 
-	filter "system:windows"
-		links { "opengl32.lib" }
-		
-	filter "system:linux"
-		links { "GL", "X11", "pthread", "dl" }
+local function webModuleBuildCommands()
+    local commands = {}
+    local moduleDirectory = _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
+    local wwiseDefine = Wwise.IsInstalled() and " -DEE_USES_WWISE" or ""
+    local wwiseIncludeFlags = ""
+    if Wwise.IsInstalled() then
+        wwiseIncludeFlags = " -I\"" .. wwiseSDK .. "/include\" " ..
+                                "-I\"" .. wwiseSDK .. "/samples\" " ..
+                                "-I\"" .. wwiseSDK .. "/samples/SoundEngine/Common\" " ..
+                                "-I\"" .. wwiseSDK .. "/samples/SoundEngine/POSIX\" " ..
+                                "-I\"" .. wwiseSDK .. "/samples/3rdParty/subprojects/rapidjson/include\" " ..
+                                "-I\"" .. wwiseSDK .. "/samples/WwiseProjectDatabase/WwiseProjectDatabase\""
+    end
+    local includeFlags = "-I\"%~dp0..\\ElevateEngine\\Source\" -I\"%~dp0..\\ElevateEngine\\Vendor\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\_config_headers\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\_config_headers\\assimp\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\ImGui\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\glm\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\spdlog\\include\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\rapidjson\\include\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\entt\\include\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\stduuid\\include\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\assimp\\include\" " ..
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\JoltPhysics\"" ..
+                             wwiseIncludeFlags
+    local scriptPath = _MAIN_SCRIPT_DIR .. "/Build/precompile_web_modules.bat"
+    local script = io.open(scriptPath, "w")
 
-	filter "configurations:Editor_Debug"
-		defines { "EE_DEBUG", "EE_EDITOR_BUILD" }
-		runtime "Debug"
-		symbols "on"
+    if not script then
+        error("Unable to create Emscripten module prebuild script: " .. scriptPath)
+    end
 
-	 filter "configurations:Editor_Release"
-		defines { "EE_RELEASE", "EE_EDITOR_BUILD" }
-		runtime "Release"
-		optimize "on"
+    script:write("@echo off\r\n")
+    script:write("set \"MODULE_DIR=%~f1\"\r\n")
+    script:write("set \"MODULE_DIR=%MODULE_DIR:\\=/%\"\r\n")
+    script:write("if not exist \"%MODULE_DIR%\" mkdir \"%MODULE_DIR%\"\r\n")
+    for _, filename in ipairs(orderedModuleFiles()) do
+        local file = io.open(filename, "r")
+        local moduleName = nil
+        if file then
+            moduleName = file:read("*all"):match("export%s+module%s+([%w%._:]+)%s*;")
+            file:close()
+        end
 
-	filter "configurations:Debug"
-		defines "EE_DEBUG"
-		runtime "Debug"
-		symbols "on"
-		links { "ws2_32" }
+        if moduleName then
+            local moduleOutputName = moduleName:gsub(":", "-")
+            local scriptOutput = "%MODULE_DIR%/" .. moduleOutputName .. ".pcm"
+            local scriptSource = normalizePath(filename):gsub("/", "\\")
+            script:write("call em++ -std=c++20 -DSPDLOG_COMPILED_LIB -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD" ..
+                             wwiseDefine .. " " ..
+                             "-pthread -matomics -mbulk-memory -msimd128 -msse4.1 " ..
+                             "-Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma " ..
+                             includeFlags .. " -x c++-module -fprebuilt-module-path=\"%MODULE_DIR%\" " ..
+                             "--precompile \"" .. scriptSource .. "\" -o \"" .. scriptOutput .. "\"\r\n")
+            script:write("if errorlevel 1 exit /b %errorlevel%\r\n")
+        end
+    end
+    script:write("exit /b 0\r\n")
+    script:close()
 
-	filter "configurations:Release"
-		defines "EE_RELEASE"
-		runtime "Release"
-		optimize "on"
+    local buildScriptPath = "Build/precompile_web_modules.bat"
+    local buildModuleDirectory = "Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
+    table.insert(commands,
+        "cmd.exe //d //c \"call " .. buildScriptPath .. " " .. buildModuleDirectory .. "\"")
+    return commands
+end
 
-	filter "configurations:Dist"
-		defines "EE_DIST"
-		runtime "Release"
-		optimize "on"
+project "ElevateEngine"
+location "./Build"
+kind "StaticLib"
+language "C++"
+cppdialect "C++20"
+staticruntime "on"
+systemversion "latest"
 
-	filter {}
-	
+targetdir("%{wks.location}/Build/bin/" .. outputdir .. "/%{prj.name}")
+objdir("%{wks.location}/Build/bin-int/" .. outputdir .. "/%{prj.name}")
+
+IncludeDir = {}
+IncludeDir["Vendors"] = "Vendor"
+IncludeDir["GLFW"] = "Vendor/GLFW/include"
+IncludeDir["Glad"] = "Vendor/Glad/include"
+IncludeDir["ImGui"] = "Vendor/ImGui/"
+IncludeDir["glm"] = "Vendor/glm/"
+IncludeDir["rapidjson"] = "Vendor/rapidjson/include"
+IncludeDir["rapidxml"] = "Vendor/rapidxml/include"
+IncludeDir["stb"] = "Vendor/stb/"
+IncludeDir["spdlog"] = "Vendor/spdlog/include"
+IncludeDir["assimp"] = "Vendor/assimp/include"
+IncludeDir["tinyfiledialogs"] = "Vendor/tinyfiledialogs"
+IncludeDir["ImGuizmo"] = "Vendor/ImGuizmo/src"
+IncludeDir["entt"] = "Vendor/entt/include"
+IncludeDir["stduuid"] = "Vendor/stduuid/include"
+IncludeDir["Jolt"] = "Vendor/JoltPhysics"
+
+files {"Source/**.ixx", "Source/**.cpp", "Source/**.h", "Source/**.inl", "Vendor/ImGuizmo/src/ImGuizmo.cpp",
+       "Vendor/ImGuiFileDialog/**.cpp", "Vendor/tinyfiledialogs/tinyfiledialogs.c",
+       "Vendor/spdlog/src/*.cpp"}
+
+defines {"EE_RESOURCE_DIR=\"" .. path.getabsolute("./Resources/") .. "\"", "EE_ENGINE_BUILD", "_CRT_SECURE_NO_WARNINGS",
+         "IMGUI_DEFINE_MATH_OPERATORS", "GLM_ENABLE_EXPERIMENTAL", "SPDLOG_COMPILED_LIB"}
+
+includedirs {"Source", values(IncludeDir)}
+
+links {"ImGui", "assimp", "Jolt"}
+
+Wwise.SetupEngine()
+filter "not system:emscripten"
+links {"GLFW"}
+files {"Vendor/Glad/src/glad.c"}
+filter {}
+
+BuildPlatform.SetPlatformDefines()
+
+filter "system:windows"
+links {"opengl32.lib"}
+
+filter {"system:linux", "language:C++"}
+links {"GL", "X11", "pthread", "dl"}
+if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
+    buildoptions {
+        "-fmodules-ts",
+        "-fmodule-mapper=" .. normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/module.map")
+    }
+else
+    buildoptions {"-fprebuilt-module-path=%{cfg.objdir}/modules"}
+end
+
+filter "system:linux"
+if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
+    prebuildcommands(gccModuleBuildCommands())
+else
+    prebuildcommands(moduleBuildCommands())
+end
+
+filter {"system:linux", "files:**.ixx"}
+buildaction "Compile"
+compileas "C++"
+if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
+    buildoptions {"-x", "c++"}
+else
+    buildoptions {"-x", "c++-module"}
+end
+filter {}
+
+filter "system:emscripten"
+local webModuleBuildDirectory = "Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
+prebuildcommands(webModuleBuildCommands())
+buildoptions {"-fprebuilt-module-path=" .. webModuleBuildDirectory, "-msimd128", "-msse4.1"}
+
+filter {"system:emscripten", "files:**.ixx"}
+buildoptions {"-x", "c++-module"}
+
+filter "configurations:Editor_Debug"
+defines {"EE_DEBUG", "EE_EDITOR_BUILD"}
+runtime "Debug"
+symbols "on"
+
+filter "configurations:Editor_Release"
+defines {"EE_RELEASE", "EE_EDITOR_BUILD"}
+runtime "Release"
+optimize "on"
+
+filter "configurations:Debug"
+defines "EE_DEBUG"
+runtime "Debug"
+symbols "on"
+links {"ws2_32"}
+
+filter "configurations:Release"
+defines "EE_RELEASE"
+runtime "Release"
+optimize "on"
+
+filter "configurations:Dist"
+defines "EE_DIST"
+runtime "Release"
+optimize "on"
+
+filter {}
+
 print("Finished Generating Engine Solution.\n")

@@ -1,5 +1,11 @@
 require "vendor/premake-export-compile-commands/export-compile-commands"
 
+newoption {
+	trigger = "compiler",
+	value = "COMPILER",
+	description = "Select the Linux compiler toolset (gcc or clang)."
+}
+
 outputdir = "%{cfg.buildcfg:gsub(' ', '-')}-%{cfg.system}-%{cfg.architecture}"
 ElevateConfigs = { "Editor_Debug", "Editor_Release", "Debug", "Release", "Dist" }
 
@@ -21,9 +27,10 @@ workspace "ElevateEngine"
 	include "ElevateEngine/engine.lua"
 
 	group "Dependencies"
-		include "ElevateEngine/vendor/glfw.lua"
-		include "ElevateEngine/vendor/imgui.lua"
-		include "ElevateEngine/vendor/assimp.lua"
+		include "ElevateEngine/Vendor/glfw.lua"
+		include "ElevateEngine/Vendor/imgui.lua"
+		include "ElevateEngine/Vendor/Jolt.lua"
+		include "ElevateEngine/Vendor/assimp.lua"
 
 	if os.target() ~= "emscripten" then
 		group "Tests"

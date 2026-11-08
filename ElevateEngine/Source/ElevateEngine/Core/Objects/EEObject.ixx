@@ -1,0 +1,53 @@
+module;
+
+#include <memory>
+#include <string>
+#include <typeindex>
+
+export module Elevate.Core.Objects.Object;
+
+import Elevate.Foundations.Guid;
+import Elevate.Serialization.PropertyField;
+import Elevate.Core.Types.ITypeLayoutProvider;
+import Elevate.Core.Types.TypeLayout;
+import Elevate.Core.Objects.Category;
+
+export namespace Elevate
+{
+	class EEObject : public ITypeLayoutProvider, public std::enable_shared_from_this<EEObject>
+	{
+	protected:
+		EECategory m_category;
+		Guid m_guid;
+
+	public:
+		static constexpr const char* GuidFieldName = "m_guid";
+
+		EEObject() : m_guid(Guid::New()) {}
+		EEObject(EECategory category)
+			: m_category(category), m_guid(Guid::New()) {
+		}
+		virtual ~EEObject() = default;
+
+		virtual EECategory GetCategory() const { return m_category; }
+		const Guid& GetGuid() const { return m_guid; }
+
+		static size_t GetGuidOffset()
+		{
+			return reinterpret_cast<size_t>(&(static_cast<EEObject*>(nullptr)->m_guid));
+		}
+		const void* GetGuidAddress() const { return &m_guid; }
+
+		// If no overrode, an empty layout is generated and nothing is shown in the inspector
+		virtual std::string GetName() const { return "EEObject"; }
+		virtual TypeLayout GetLayout() const { return TypeLayout(nullptr, GetName(), {}); }
+		PropertySet GetProperties() const { return GetLayout().CaptureState(); }
+		virtual void SetFromProperties(const ::Elevate::PropertySet& props) {}
+		virtual std::type_index GetTypeIndex() const { return typeid(EEObject); }
+
+	private:
+		void SetGuid(const Guid& guid);
+
+		friend class AssetRegistry;
+	};
+}

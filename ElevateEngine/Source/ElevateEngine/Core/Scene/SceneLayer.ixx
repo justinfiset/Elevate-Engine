@@ -1,0 +1,38 @@
+module;
+
+#include <memory>
+
+export module Elevate.Core.SceneLayer;
+
+import Elevate.Core.Scene;
+import Elevate.Core.Layers.Layer;
+import Elevate.Core.Events.Event;
+import Elevate.Renderer.Camera;
+
+export namespace Elevate
+{
+	/// <summary>
+	/// Simple layer thats contains a single scene and take care of all loading/unloading update and rendering.
+	/// This is a good starting point if your are looking to create your own scene logic.
+	/// </summary>
+	class SceneLayer : public Layer
+	{
+	public:
+		SceneLayer(std::shared_ptr<SceneManager> sceneManager, std::shared_ptr<Scene> scene)
+			: m_sceneManager(std::move(sceneManager)), m_scene(std::move(scene))
+		{
+		}
+
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
+		virtual void OnUpdate() override;
+		virtual void OnRender() override;
+		void OnRender(Camera* cam);
+		//virtual void OnImGuiRender() override;
+		virtual void OnEvent(Event& event) override;
+
+	protected:
+		std::shared_ptr<SceneManager> m_sceneManager;
+		std::shared_ptr<Scene> m_scene;
+	};
+}
