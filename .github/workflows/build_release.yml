@@ -33,6 +33,16 @@ jobs:
                   chmod +x vendor/premake/premake5-linux
                   ./vendor/premake/premake5-linux --os=linux gmake
 
+            - name: Display compiler environment
+              run: |
+                  echo "CXX=${CXX:-not set}"
+                  which clang++
+                  clang++ --version
+                  clang++ -v -E -x c++ /dev/null
+                  clang++ -print-file-name=libstdc++.so
+                  g++ --version
+                  ld --version
+
             - name: Compile
               run: |
                   make config=${{ matrix.make_config }} -j"$(nproc)"
