@@ -37,7 +37,6 @@ namespace Elevate::Jolt
 		CoreLogger::Trace("[Jolt Physics] {}", buffer);
 	}
 
-	// Connect the Jolt assertion with our assertion
 #ifdef JPH_ENABLE_ASSERTS
 	// Callback for asserts, connect this to your own assert handler if you have one
 	static bool AssertFailedImpl(const char* inExpression, const char* inMessage, const char* inFile, JPH::uint inLine)
@@ -47,7 +46,7 @@ namespace Elevate::Jolt
 		// Breakpoint
 		return true;
 	};
-#endif // JPH_ENABLE_ASSERTS
+#endif
 
 	JoltPhysicsSystem::JoltPhysicsSystem()
 	{
@@ -65,9 +64,10 @@ namespace Elevate::Jolt
 
 		// Connect the logger and assertions to our logging system
 		JPH::Trace = TraceImpl;
-		JPH_IF_ENABLE_ASSERTS(JPH::AssertFailed = AssertFailedImpl;)
 
-			JPH::Factory::sInstance = new JPH::Factory();
+		JPH_IF_ENABLE_ASSERTS(JPH::AssertFailed = AssertFailedImpl;);
+
+		JPH::Factory::sInstance = new JPH::Factory();
 		JPH::RegisterTypes();
 
 		constexpr JPH::uint maxBodies = 10240;

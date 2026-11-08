@@ -1,5 +1,8 @@
 module;
 
+#include <string>
+#include <memory>
+
 #ifdef EE_USES_WWISE
 
 #define EE_AUDIO_VORBIS 1

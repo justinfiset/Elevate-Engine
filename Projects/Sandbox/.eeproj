@@ -1,5 +1,5 @@
 {
-    "name":"Sandbox",
-    "usesSoundEngine":false,
-    "usesWaapi":false
+    "name": "Sandbox",
+    "usesSoundEngine": false,
+    "usesWaapi": false
 }

@@ -1,5 +1,7 @@
 module Elevate.Editor.Selection;
 
+#ifdef EE_EDITOR_BUILD
+
 import Elevate.Editor.Layer;
 
 namespace Elevate::Editor
@@ -9,3 +11,5 @@ namespace Elevate::Editor
 		return EditorLayer::Get().GetSelectedObject().lock().get() == gameObject;
 	}
 }
+
+#endif

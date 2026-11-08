@@ -50,7 +50,7 @@ function Wwise.SetupWorkspace()
     project "WwiseProjectDatabase"
     kind "StaticLib"
     language "C++"
-    cppdialect "C++20"      
+    cppdialect "C++20"
     staticruntime "on"
 
     configmap {
@@ -101,30 +101,22 @@ end
 
 function Wwise.SetupBuildOption()
     filter "system:emscripten"
-        buildoptions { "-msimd128", "-msse4.1" }
+    buildoptions {"-msimd128", "-msse4.1"}
     filter {}
 end
 
 function Wwise.SetupLinks()
-    links 
-    { 
-        "WwiseProjectDatabase",
-        "AkSoundEngine",
-        "AkMemoryMgr",
-        "AkStreamMgr",
-        "AkSpatialAudio",
-        "AkVorbisDecoder",
-        "AkOpusDecoder"
-    }
+    links {"WwiseProjectDatabase", "AkSoundEngine", "AkMemoryMgr", "AkStreamMgr", "AkSpatialAudio", "AkVorbisDecoder",
+           "AkOpusDecoder"}
 
-    filter { "configurations:*Debug*" }
-        links {"CommunicationCentral"}
+    filter {"configurations:*Debug*"}
+    links {"CommunicationCentral"}
 
-    filter { "configurations:*Debug*", "system:windows" }
-        links {"ws2_32"}
+    filter {"configurations:*Debug*", "system:windows"}
+    links {"ws2_32"}
 
-    filter { "configurations:Editor_Debug", "not system:emscripten" }
-        links {"AkAutobahn"}
+    filter {"configurations:Editor_Debug", "not system:emscripten"}
+    links {"AkAutobahn"}
 
     filter {}
 end
@@ -147,16 +139,13 @@ function Wwise.SetupEngine()
         error("Unsupported platform for Wwise SoundEngine samples.")
     end
 
-    includedirs
-    {
-        wwiseIncludePath, -- include the Ak include path
-        wwiseSDKSoundEngineSampleDest .. "/" .. samplesPlatform, -- include the Ak sample/SoundEngine include path
-        wwiseSDK .. "/samples", wwiseSDK .. "/samples/3rdParty/subprojects",
-        wwiseSDK .. "/samples/WwiseProjectDatabase/WwiseProjectDatabase",
+    includedirs {wwiseIncludePath, -- include the Ak include path
+    wwiseSDKSoundEngineSampleDest .. "/" .. samplesPlatform, -- include the Ak sample/SoundEngine include path
+    wwiseSDK .. "/samples", wwiseSDK .. "/samples/3rdParty/subprojects",
+                 wwiseSDK .. "/samples/WwiseProjectDatabase/WwiseProjectDatabase",
 
-        wwiseSDK .. "/samples/SoundEngine/Common/",
-        wwiseSDK .. "/samples/SoundEngine/"..samplesPlatform.."/",
-    }
+                 wwiseSDK .. "/samples/SoundEngine/Common/",
+                 wwiseSDK .. "/samples/SoundEngine/" .. samplesPlatform .. "/"}
 
     print("Build Commands Summary :")
     FileUtils.SafeDelete(wwiseSDKSoundEngineSampleDest)
@@ -166,13 +155,14 @@ function Wwise.SetupEngine()
     FileUtils.SafeCopy(wwiseSDKSoundEngineSamplesSrc .. "/Common", wwiseSDKSoundEngineSampleDest .. "/Common")
     print("    > DONE")
     print("    + Copying /" .. samplesPlatform)
-    FileUtils.SafeCopy(wwiseSDKSoundEngineSamplesSrc .. "/" .. samplesPlatform, wwiseSDKSoundEngineSampleDest .. "/" .. samplesPlatform)
+    FileUtils.SafeCopy(wwiseSDKSoundEngineSamplesSrc .. "/" .. samplesPlatform,
+        wwiseSDKSoundEngineSampleDest .. "/" .. samplesPlatform)
     print("    > DONE")
 
-    filter { "configurations:Editor_Debug", "not system:emscripten" }
-        links {"AkAutobahn", "ws2_32"}
-    filter { "configurations:Editor_Release", "not system:emscripten" }
-        links {"AkAutobahn", "ws2_32"}
+    filter {"configurations:Editor_Debug", "not system:emscripten"}
+    links {"AkAutobahn", "ws2_32"}
+    filter {"configurations:Editor_Release", "not system:emscripten"}
+    links {"AkAutobahn", "ws2_32"}
     filter {}
 
     Wwise.SetupLibDirs()
@@ -183,27 +173,31 @@ function Wwise.SetupEngine()
 end
 
 function Wwise.SetupLibDirs()
-    if not Wwise.IsInstalled() then return end
+    if not Wwise.IsInstalled() then
+        return
+    end
 
     print("Setting up Wwise library directories...")
 
     -- WINDOWS
-    filter { "system:windows", "configurations:*Debug*" }
-        libdirs { wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib", wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/bin" } 
-    filter { "system:windows", "configurations:*Release*" }
-        libdirs { wwiseSDK .. "/x64_vc170/Release(StaticCRT)/lib", wwiseSDK .. "/x64_vc170/Release(StaticCRT)/bin" }
+    filter {"system:windows", "configurations:*Debug*"}
+    libdirs {wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/lib", wwiseSDK .. "/x64_vc170/Debug(StaticCRT)/bin"}
+    filter {"system:windows", "configurations:Release*"}
+    libdirs {wwiseSDK .. "/x64_vc170/Release(StaticCRT)/lib", wwiseSDK .. "/x64_vc170/Release(StaticCRT)/bin"}
+    filter {"system:windows", "configurations:Editor_Release*"}
+    libdirs {wwiseSDK .. "/x64_vc170/Release(StaticCRT)/lib", wwiseSDK .. "/x64_vc170/Release(StaticCRT)/bin"}
 
     -- LINUX
-    filter { "system:linux", "configurations:*Debug*" }
-        libdirs { wwiseSDK .. "/Linux_x64/Debug/lib", wwiseSDK .. "/Linux_x64/Debug/bin" }
-    filter { "system:linux", "configurations:*Release*" }
-        libdirs { wwiseSDK .. "/Linux_x64/Release/lib", wwiseSDK .. "/Linux_x64/Release/bin" }
+    filter {"system:linux", "configurations:*Debug*"}
+    libdirs {wwiseSDK .. "/Linux_x64/Debug/lib", wwiseSDK .. "/Linux_x64/Debug/bin"}
+    filter {"system:linux", "configurations:*Release*"}
+    libdirs {wwiseSDK .. "/Linux_x64/Release/lib", wwiseSDK .. "/Linux_x64/Release/bin"}
 
     -- EMSCRIPTEN (WEB)
-    filter { "system:emscripten", "configurations:*Debug*" }
-        libdirs { wwiseSDK .. "/Emscripten_mt/Debug/lib", wwiseSDK .. "/Emscripten_mt/Debug/bin" }
-    filter { "system:emscripten", "configurations:*Release*" }
-        libdirs { wwiseSDK .. "/Emscripten_mt/Release/lib", wwiseSDK .. "/Emscripten_mt/Release/bin" }
+    filter {"system:emscripten", "configurations:*Debug*"}
+    libdirs {wwiseSDK .. "/Emscripten_mt/Debug/lib", wwiseSDK .. "/Emscripten_mt/Debug/bin"}
+    filter {"system:emscripten", "configurations:*Release*"}
+    libdirs {wwiseSDK .. "/Emscripten_mt/Release/lib", wwiseSDK .. "/Emscripten_mt/Release/bin"}
 
     filter {}
 
@@ -226,15 +220,10 @@ function Wwise.SetupProject()
         error("Unsupported platform for Wwise SoundEngine samples.")
     end
 
-    includedirs 
-    {
-        wwiseIncludePath,
-        wwiseSDK .. "/samples",
-        wwiseSDK .. "/samples/SoundEngine/Common/",
-        wwiseSDK .. "/samples/SoundEngine/"..samplesPlatform.."/",
-        wwiseSDK .. "/samples/3rdParty/subprojects/rapidjson/include",
-        wwiseSDK .. "/samples/WwiseProjectDatabase/WwiseProjectDatabase/"
-    }
+    includedirs {wwiseIncludePath, wwiseSDK .. "/samples", wwiseSDK .. "/samples/SoundEngine/Common/",
+                 wwiseSDK .. "/samples/SoundEngine/" .. samplesPlatform .. "/",
+                 wwiseSDK .. "/samples/3rdParty/subprojects/rapidjson/include",
+                 wwiseSDK .. "/samples/WwiseProjectDatabase/WwiseProjectDatabase/"}
 
     defines {"EE_USES_WWISE"}
 

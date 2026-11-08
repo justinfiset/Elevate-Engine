@@ -2,10 +2,6 @@
 
 #include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
 
-#ifdef EE_DEBUG
-#define JPH_ENABLE_ASSERTS
-#endif
-
 #include <cstdint>
 #include <vector>
 

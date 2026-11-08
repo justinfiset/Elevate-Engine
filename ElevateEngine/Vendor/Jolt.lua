@@ -1,100 +1,80 @@
 project "Jolt"
-    kind "StaticLib"
-    language "C++"
-    cppdialect "C++17"
+kind "StaticLib"
+language "C++"
+cppdialect "C++17"
 
-    staticruntime "on"
+staticruntime "on"
 
-    targetdir ("%{wks.location}/bin/%{cfg.buildcfg}/%{prj.name}")
-    objdir ("%{wks.location}/bin-int/%{cfg.buildcfg}/%{prj.name}")
+targetdir("bin/" .. outputdir .. "/%{prj.name}")
+objdir("bin-int/" .. outputdir .. "/%{prj.name}")
 
-    -- =========================================================================
-    -- Source files
-    -- =========================================================================
+-- =========================================================================
+-- Source files
+-- =========================================================================
 
-    files
-    {
-        "JoltPhysics/Jolt/**.cpp",
-        "JoltPhysics/Jolt/**.h",
-        "JoltPhysics/Jolt/**.inl"
-    }
+files {"JoltPhysics/Jolt/**.cpp", "JoltPhysics/Jolt/**.h", "JoltPhysics/Jolt/**.inl"}
 
-    -- =========================================================================
-    -- Exclude optional compute backends
-    -- =========================================================================
+-- =========================================================================
+-- Exclude optional compute backends
+-- =========================================================================
 
-    removefiles
-    {
-        "JoltPhysics/Jolt/Compute/CPU/**",
-        "JoltPhysics/Jolt/Compute/DX12/**",
-        "JoltPhysics/Jolt/Compute/VK/**",
-        "JoltPhysics/Jolt/Compute/MTL/**"
-    }
+removefiles {"JoltPhysics/Jolt/Compute/CPU/**", "JoltPhysics/Jolt/Compute/DX12/**", "JoltPhysics/Jolt/Compute/VK/**",
+             "JoltPhysics/Jolt/Compute/MTL/**"}
 
-    -- =========================================================================
-    -- ObjectStream
-    -- =========================================================================
+-- =========================================================================
+-- ObjectStream
+-- =========================================================================
 
-    removefiles
-    {
-        "JoltPhysics/Jolt/ObjectStream/**.cpp"
-    }
+removefiles {"JoltPhysics/Jolt/ObjectStream/**.cpp"}
 
-    files
-    {
-        "JoltPhysics/Jolt/ObjectStream/SerializableObject.cpp"
-    }
+files {"JoltPhysics/Jolt/ObjectStream/SerializableObject.cpp"}
 
-    -- =========================================================================
-    -- Include directories
-    -- =========================================================================
+-- =========================================================================
+-- Include directories
+-- =========================================================================
 
-    includedirs
-    {
-        "JoltPhysics"
-    }
+includedirs {"JoltPhysics"}
 
-    -- =========================================================================
-    -- Debug
-    -- =========================================================================
+-- =========================================================================
+-- Debug
+-- =========================================================================
 
-    filter "configurations:Debug or Editor_Debug"
-        runtime "Debug"
-        symbols "On"
+filter "configurations:Debug"
+runtime "Debug"
+symbols "On"
+defines {"JPH_ENABLE_ASSERTS"}
 
-        defines
-        {
-            "JPH_ENABLE_ASSERTS"
-        }
-        
-    -- =========================================================================
-    -- Release
-    -- =========================================================================
+filter "configurations:Editor_Debug"
+runtime "Debug"
+symbols "on"
+defines {"JPH_ENABLE_ASSERTS"}
 
-    filter "configurations:Release or Editor_Release"
-        runtime "Release"
-        optimize "On"
+-- =========================================================================
+-- Release
+-- =========================================================================
 
-        defines
-        {
-            "NDEBUG"
-        }
+filter "configurations:Release"
+runtime "Release"
+optimize "On"
+defines {"NDEBUG"}
 
-    -- =========================================================================
-    -- Distribution
-    -- =========================================================================
+filter "configurations:Editor_Release"
+runtime "Release"
+optimize "On"
+defines {"NDEBUG"}
 
-    filter "configurations:Dist"
-        runtime "Release"
-        optimize "Full"
+-- =========================================================================
+-- Distribution
+-- =========================================================================
 
-        defines
-        {
-            "NDEBUG"
-        }
+filter "configurations:Dist"
+runtime "Release"
+optimize "Full"
 
-    -- =========================================================================
-    -- Reset filters
-    -- =========================================================================
+defines {"NDEBUG"}
 
-    filter {}
+-- =========================================================================
+-- Reset filters
+-- =========================================================================
+
+filter {}
