@@ -20,5 +20,9 @@ export namespace Elevate
 			: Affinity(affinity), Priority(priority), Name(std::move(name))
 		{
 		}
+
+		TaskDescriptor() : TaskDescriptor(TaskAffinity::Any, TaskPriority::Normal, "Task")
+		{
+		}
 	};
 }
