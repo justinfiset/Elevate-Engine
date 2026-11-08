@@ -1,0 +1,239 @@
+name: Build Elevate Engine
+
+on:
+    push:
+        branches: [main, dev]
+    pull_request:
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    # Never cancel a run on main: it may be the one that deploys.
+    cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+    build-linux:
+        name: Linux ${{ matrix.configuration }}
+        runs-on: ubuntu-latest
+        env:
+            CC: clang-19
+            CXX: clang++-19
+        strategy:
+            fail-fast: false
+            matrix:
+                configuration: [Editor_Debug, Editor_Release, Release]
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  submodules: recursive
+
+            - name: Install Dependencies
+              run: |
+                  wget https://apt.llvm.org/llvm.sh
+                  chmod +x llvm.sh
+                  sudo ./llvm.sh 19
+                  sudo apt-get install -y libc++-19-dev libc++abi-19-dev libgl1-mesa-dev libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev
+
+            - name: Generate Projects (Premake)
+              run: |
+                  chmod +x vendor/premake/premake5-linux
+                  ./vendor/premake/premake5-linux --os=linux gmake
+
+            - name: Compile
+              env:
+                  CONFIG: ${{ matrix.configuration }}
+              run: |
+                  echo "cores: $(nproc)"
+                  make config="${CONFIG,,}" -j"$(nproc)"
+
+            - name: Run tests
+              run: |
+                  ./Build/bin/${{ matrix.configuration }}-linux-x86_64/ElevateEngine-Tests/ElevateEngine-Tests -r junit -o junit-results-linux-${{ matrix.configuration }}.xml
+
+            - name: Upload Test Results
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: allure-results-linux-${{ matrix.configuration }}
+                  path: junit-results-linux-${{ matrix.configuration }}.xml
+                  if-no-files-found: ignore
+
+    build-windows:
+        name: Windows ${{ matrix.configuration }}
+        runs-on: windows-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                configuration: [Editor_Debug, Editor_Release, Release]
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  submodules: recursive
+
+            - name: Setup MSBuild
+              uses: microsoft/setup-msbuild@v2
+
+            - name: Generate Projects (Premake)
+              run: ./vendor/premake/premake5.exe --os=windows vs2022
+
+            - name: Compile
+              run: msbuild ElevateEngine.sln /p:Configuration="${{ matrix.configuration }}"
+
+            - name: Run tests
+              run: |
+                  .\Build\bin\${{ matrix.configuration }}-windows-x86_64\ElevateEngine-Tests\ElevateEngine-Tests -r junit -o junit-results-windows-${{ matrix.configuration }}.xml
+
+            - name: Upload Test Results
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: allure-results-windows-${{ matrix.configuration }}
+                  path: junit-results-windows-${{ matrix.configuration }}.xml
+                  if-no-files-found: ignore
+
+    build-web:
+        name: Web ${{ matrix.configuration }}
+        runs-on: windows-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                configuration: [Editor_Debug, Editor_Release, Release]
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  submodules: recursive
+
+            - name: Setup Ninja
+              uses: ashutoshvarma/setup-ninja@master
+              with:
+                  version: 1.12.1
+
+            - name: Setup emsdk
+              uses: emscripten-core/setup-emsdk@v15
+              with:
+                  version: "latest"
+                  actions-cache-folder: "emsdk-cache"
+
+            - name: Verify
+              run: emcc -v
+
+            - name: Generate Projects (Premake)
+              run: ./vendor/premake/premake5.exe --os=emscripten ninja
+
+            - name: Create Wrappers and Compile
+              shell: pwsh
+              run: |
+                  if (Test-Path "$env:EMSDK\emsdk_env.ps1") {
+                      & "$env:EMSDK\emsdk_env.ps1"
+                  }
+
+                  Add-Content -Path $env:GITHUB_PATH -Value "$env:EMSDK"
+                  Add-Content -Path $env:GITHUB_PATH -Value "$env:EMSDK\upstream\emscripten"
+
+                  $emscriptenDir = "$env:EMSDK\upstream\emscripten"
+
+                  Set-Content -Path "$emscriptenDir\em++.bat" -Value "@echo off`npython `"$emscriptenDir\em++.py`" %*"
+                  Set-Content -Path "$emscriptenDir\emcc.bat" -Value "@echo off`npython `"$emscriptenDir\emcc.py`" %*"
+                  Set-Content -Path "$emscriptenDir\emar.bat" -Value "@echo off`npython `"$emscriptenDir\emar.py`" %*"
+                  Set-Content -Path "$emscriptenDir\emranlib.bat" -Value "@echo off`npython `"$emscriptenDir\emranlib.py`" %*"
+
+                  $env:PATH = "$emscriptenDir;" + $env:PATH
+
+                  ninja -j $env:NUMBER_OF_PROCESSORS ${{ matrix.configuration }}
+
+            # Only the two release web builds are deployed.
+            - name: Upload web build
+              if: matrix.configuration != 'Editor_Debug'
+              uses: actions/upload-artifact@v4
+              with:
+                  name: web-${{ matrix.configuration }}
+                  path: Build/bin/${{ matrix.configuration }}-emscripten-wasm32/
+
+    docs:
+        name: Doxygen
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  submodules: recursive
+
+            - name: Install Doxygen
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y doxygen
+
+            - name: Generate Doxygen Docs
+              run: doxygen Docs/Doxyfile
+
+            - name: Upload Docs Artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: docs-site
+                  path: Docs/html/
+
+    deploy:
+        name: Deploy to GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        needs: [build-linux, build-windows, build-web, docs]
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Download Docs Artifact
+              uses: actions/download-artifact@v4
+              with:
+                  name: docs-site
+                  path: public
+
+            - name: Download Web Editor Build
+              uses: actions/download-artifact@v4
+              with:
+                  name: web-Editor_Release
+                  path: public/editor
+
+            - name: Download Web Runtime Build
+              uses: actions/download-artifact@v4
+              with:
+                  name: web-Release
+                  path: public/runtime
+
+            - name: Download Allure Results
+              uses: actions/download-artifact@v4
+              with:
+                  path: allure-results
+                  merge-multiple: true
+                  pattern: allure-results-*
+
+            - name: Clean JUnit XML
+              run: |
+                  # Delete everything after </testsuites> to prevent parsing errors
+                  for f in allure-results/*.xml; do
+                      sed -i 's/<\/testsuites>.*/<\/testsuites>/' "$f"
+                  done
+                  ls -l allure-results
+
+            - name: Generate Allure Test Report
+              uses: simple-elf/allure-report-action@master
+              if: always()
+              id: allure-report
+              with:
+                  allure_results: allure-results
+                  allure_report: public/tests
+                  allure_history: allure-history
+
+            - name: Deploy to GitHub Pages
+              uses: JamesIves/github-pages-deploy-action@v4
+              with:
+                  folder: public
+                  branch: gh-pages
+                  clean: true
