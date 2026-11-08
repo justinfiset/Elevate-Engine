@@ -5,6 +5,9 @@ on: [push]
 jobs:
     build-linux:
         runs-on: ubuntu-latest
+        env:
+            CC: clang-19
+            CXX: clang++-19
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
@@ -13,8 +16,10 @@ jobs:
 
             - name: Install Dependencies
               run: |
-                  sudo apt-get update
-                  sudo apt-get install -y libgl1-mesa-dev libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev libstdc++-13-dev
+                  wget https://apt.llvm.org/llvm.sh
+                  chmod +x llvm.sh
+                  sudo ./llvm.sh 19
+                  sudo apt-get install -y libc++-19-dev libc++abi-19-dev libgl1-mesa-dev libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev
 
             - name: Cleanup Project
               run: |
