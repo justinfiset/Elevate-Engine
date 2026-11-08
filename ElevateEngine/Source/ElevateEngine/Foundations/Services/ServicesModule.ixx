@@ -9,3 +9,5 @@ export import :ServiceDescriptor;
 export import :ServiceCollection;
 export import :ServiceProvider;
 export import :IServiceModule;
+export import :ServiceModuleRegistry;
+

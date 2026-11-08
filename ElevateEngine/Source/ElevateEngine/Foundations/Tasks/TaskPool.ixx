@@ -4,6 +4,7 @@ module;
 #include <atomic>
 #include <deque>
 #include <vector>
+#include <utility>
 
 export module Elevate.Foundations.Tasks.TaskPool;
 
@@ -30,19 +31,19 @@ export namespace Elevate
 			{
 				index = m_freeSlots.back();
 				m_freeSlots.pop_back();
+
+				Task& task = m_slots[index];
+				task.Descriptor = std::move(descriptor);
+				task.Function = std::move(function);
+				task.PendingDependencies.store(0, std::memory_order_relaxed);
+				task.Dependents.clear();
 			}
 			else
 			{
 				index = static_cast<std::uint32_t>(m_slots.size());
-				m_slots.emplace_back();
+				m_slots.emplace_back(std::move(descriptor), std::move(function));
 				m_generations.push_back(1);
 			}
-
-			Task& task = m_slots[index];
-			task.Descriptor = descriptor;
-			task.Function = function;
-			task.PendingDependencies.store(0, std::memory_order_relaxed);
-			task.Dependents.clear();
 
 			return TaskHandle{ index, m_generations[index] };
 		}
@@ -67,11 +68,11 @@ export namespace Elevate
 				return;
 			}
 
-			// Release the task slot
 			task->Function = {};
-			task->Descriptor = {};
+			task->Dependents.clear();
+			task->PendingDependencies.store(0, std::memory_order_relaxed);
 
-			// Invalide the handle by incrementing the generation
+			// Invalide the handle by increm	enting the generation
 			std::uint32_t& gen = m_generations[handle.Index];
 			if (++gen == 0)
 			{
