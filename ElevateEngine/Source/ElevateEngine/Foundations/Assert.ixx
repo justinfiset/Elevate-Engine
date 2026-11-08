@@ -2,13 +2,6 @@ module;
 
 #include <format>
 
-#ifdef EE_DEBUG
-#define EE_ASSERTS_ENABLED 1
-#else 
-#define EE_ASSERTS_ENABLED 0
-#define NDEBUG
-#endif
-
 #ifdef _MSC_VER
 #include <intrin.h>
 #define DEBUG_BREAK() __debugbreak()

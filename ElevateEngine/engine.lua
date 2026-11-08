@@ -345,7 +345,7 @@ runtime "Debug"
 symbols "on"
 
 filter "configurations:Editor_Release"
-defines {"EE_RELEASE", "EE_EDITOR_BUILD"}
+defines {"EE_RELEASE", "EE_EDITOR_BUILD", "NDEBUG"}
 runtime "Release"
 optimize "on"
 
@@ -356,12 +356,12 @@ symbols "on"
 links {"ws2_32"}
 
 filter "configurations:Release"
-defines {"EE_RELEASE"}
+defines {"EE_RELEASE", "NDEBUG"}
 runtime "Release"
 optimize "on"
 
 filter "configurations:Dist"
-defines {"EE_DIST"}
+defines {"EE_DIST", "NDEBUG"}
 runtime "Release"
 optimize "on"
 
