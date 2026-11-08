@@ -1,6 +1,13 @@
-name: Build Elevate Engine
+name: Build | DEBUG
 
-on: [push]
+on:
+    push:
+        branches: [main, dev]
+    pull_request:
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
 
 jobs:
     build-linux:
