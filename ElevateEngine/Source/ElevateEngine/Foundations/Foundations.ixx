@@ -16,8 +16,11 @@ export import Elevate.Foundations.Data;
 export import Elevate.Foundations.Bytes;
 export import Elevate.Foundations.Guid;
 export import Elevate.Foundations.Enums;
+
+// Watchers + Multithreadings
 export import Elevate.Foundations.Callbacks;
 export import Elevate.Foundations.Observation;
+export import Elevate.Foundations.Tasks;
 
 // Path + Files
 export import Elevate.Foundations.Paths;

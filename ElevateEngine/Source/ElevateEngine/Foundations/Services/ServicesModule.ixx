@@ -1,6 +1,7 @@
 export module Elevate.Foundations.Services;
 
 export import :Fwd;
+export import :SharedService;
 export import :ServiceInstance;
 export import :ServiceLifetime;
 export import :ServiceFactory;

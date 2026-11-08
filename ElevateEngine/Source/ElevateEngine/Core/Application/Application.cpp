@@ -17,6 +17,7 @@ module Elevate.Core.Application;
 import Elevate.Foundations.Time;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
+import Elevate.Foundations.DI;
 // Core
 import Elevate.Core.Assets.AssetRegistry;
 import Elevate.Core.Layers.Layer;
@@ -24,7 +25,7 @@ import Elevate.Core.Layers.ImGuiLayer;
 import Elevate.Core.Layers.LayerStack;
 import Elevate.Core.Window;
 import Elevate.Core.Events;
-import Elevate.Core.ServiceModule;
+import Elevate.Core.DI;
 // Audio
 import Elevate.Audio.SoundEngine;
 // Renderer

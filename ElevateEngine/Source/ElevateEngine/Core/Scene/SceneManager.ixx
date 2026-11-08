@@ -7,6 +7,8 @@ module;
 
 export module Elevate.Core.Scene:SceneManager;
 
+import Elevate.Foundations.Services;
+
 import :Fwd;
 import :Scene;
 import :SceneType;
@@ -17,7 +19,7 @@ export namespace Elevate
 	class SceneManager
 	{
 	public:
-		SceneManager(std::shared_ptr<ComponentRegistry> componentRegistry)
+		SceneManager(SharedService<ComponentRegistry> componentRegistry)
 			: m_componentRegistry(componentRegistry)
 		{
 		}

@@ -24,10 +24,10 @@ export namespace Elevate
 
 		~ServiceProvider() = default;
 
-		ServiceProvider(const ServiceProvider&) = delete;
-		ServiceProvider& operator=(const ServiceProvider&) = delete;
-		ServiceProvider(ServiceProvider&&) = default;
-		ServiceProvider& operator=(ServiceProvider&&) = default;
+		ServiceProvider(const ServiceProvider &) = delete;
+		ServiceProvider &operator=(const ServiceProvider &) = delete;
+		ServiceProvider(ServiceProvider &&) = default;
+		ServiceProvider &operator=(ServiceProvider &&) = default;
 
 		template <typename TService>
 		std::shared_ptr<TService> Resolve()
@@ -40,7 +40,7 @@ export namespace Elevate
 				return nullptr;
 			}
 
-			const Internal::ServiceDescriptor& descriptor = descriptorIt->second;
+			const Internal::ServiceDescriptor &descriptor = descriptorIt->second;
 			switch (descriptor.GetLifetime())
 			{
 			case Internal::ServiceLifetime::Singleton:
