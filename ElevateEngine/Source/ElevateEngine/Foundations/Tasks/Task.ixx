@@ -19,5 +19,10 @@ export namespace Elevate
 
 		std::atomic<std::uint32_t> PendingDependencies{ 0 };
 		std::vector<TaskHandle> Dependents;
+
+		Task(TaskDescriptor descriptor, TaskFunction function)
+			: Descriptor(std::move(descriptor)), Function(std::move(function))
+		{
+		}
 	};
 }

@@ -57,8 +57,12 @@ namespace Elevate {
 
 		// Dependency Injection
 		ServiceCollection collection;
-		CoreServiceModule coreServices;
-		coreServices.Register(collection);
+
+		ServiceModuleRegistry::Create()
+			.Register< FoundationsServiceModule>()
+			.Register< CoreServiceModule>()
+			.Build(collection);
+
 		m_Provider = std::make_unique<ServiceProvider>(std::move(collection).Build());
 
 		m_ImGuiLayer = new ImGuiLayer();

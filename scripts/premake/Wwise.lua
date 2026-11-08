@@ -62,8 +62,8 @@ function Wwise.SetupWorkspace()
     local basePath = wwiseSDK .. "/samples/WwiseProjectDatabase"
     local sourcePath = basePath .. "/WwiseProjectDatabase"
 
-    targetdir("./Build/bin/" .. outputdir .. "/%{prj.name}")
-    objdir("./Build/bin-int/" .. outputdir .. "/%{prj.name}")
+    targetdir("./Build/bin/" .. outputdir .. "/%{cfg.buildcfg}/%{prj.name}")
+    objdir("./Build/bin-int/" .. outputdir .. "/%{cfg.buildcfg}/%{prj.name}")
 
     files {basePath .. "/*.h", basePath .. "/*.cpp", basePath .. "/WwiseProjectDatabase/**.h",
            basePath .. "/WwiseProjectDatabase/**.cpp"}
@@ -72,14 +72,16 @@ function Wwise.SetupWorkspace()
 
     defines {"WIN32_LEAN_AND_MEAN", "WWISE_DB_STANDARD_TYPES"}
 
-    filter "configurations:Debug or Editor_Debug"
+    filter "configurations:DebugStaticCRT"
     defines {"_DEBUG"}
     runtime "Debug"
+    staticruntime "on"
     symbols "on"
 
-    filter "configurations:Release or Editor_Release or Dist"
+    filter "configurations:ReleaseStaticCRT"
     defines {"NDEBUG"}
     runtime "Release"
+    staticruntime "on"
     optimize "on"
     defines {"AK_OPTIMIZED"} -- Enable AK_OPTIMIZED for Release builds
 
