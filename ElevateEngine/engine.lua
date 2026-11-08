@@ -143,82 +143,6 @@ local function orderedModuleFiles()
     return ordered, levelByFile
 end
 
-local function moduleBuildCommands()
-    local commands = {}
-    local moduleDirectory = "%{cfg.objdir}/modules"
-    local compiler
-    local moduleFlags
-
-    if _ACTION == "gmake" then
-        compiler = "$(CXX)"
-        moduleFlags = "$(ALL_CXXFLAGS)"
-    else
-        compiler = "clang++"
-        moduleFlags = "$cxxflags_ElevateEngine_%{cfg.buildcfg}"
-    end
-
-    local buildDirectory = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build")
-
-    os.mkdir(buildDirectory)
-
-    -- Group modules by dependency level.
-    local ordered, levelByFile = orderedModuleFiles()
-
-    local levels = {}
-    local maxLevel = -1
-
-    for _, filename in ipairs(ordered) do
-        local moduleName = moduleNameForFile(filename)
-
-        if moduleName then
-            local level = levelByFile[filename] or 0
-            local moduleOutputName = moduleName:gsub(":", "-")
-
-            levels[level] = levels[level] or {}
-
-            table.insert(levels[level], {
-                source = normalizePath(filename),
-                output = moduleOutputName
-            })
-
-            maxLevel = math.max(maxLevel, level)
-        end
-    end
-
-    table.insert(commands, "mkdir -p " .. moduleDirectory)
-
-    -- Compile each dependency level in parallel.
-    for level = 0, maxLevel do
-        local modulesAtLevel = levels[level]
-
-        if modulesAtLevel then
-            local listPath = buildDirectory .. "/clang-modules-level" .. level .. ".list"
-
-            local listFile = io.open(listPath, "w")
-
-            if not listFile then
-                error("Unable to create Clang module list at " .. listPath)
-            end
-
-            -- Write source/output pairs.
-            for _, entry in ipairs(modulesAtLevel) do
-                listFile:write(entry.source, "\n")
-                listFile:write(entry.output, "\n")
-            end
-
-            listFile:close()
-
-            local compileCommand = "xargs -d '\\n' -n 2 -P \"$$(nproc)\" sh -c '" .. compiler .. " " .. moduleFlags ..
-                                       " --precompile -x c++-module \"$$1\" -o \"" .. moduleDirectory ..
-                                       "/$$2.pcm\"' _ < \"" .. listPath .. "\" || exit 1"
-
-            table.insert(commands, compileCommand)
-        end
-    end
-
-    return commands
-end
-
 function UseEngineModules()
     filter "system:linux"
     if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
@@ -232,31 +156,70 @@ function UseEngineModules()
     filter {}
 end
 
-local function gccModuleBuildCommands()
+local function moduleBuildCommands()
     local commands = {}
-    local gcmDirectory = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/gcm.cache")
-    local moduleMap = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/module.map")
-    table.insert(commands, "rm -rf " .. gcmDirectory)
-    table.insert(commands, "mkdir -p " .. gcmDirectory)
-    table.insert(commands, "rm -f " .. moduleMap)
-    table.insert(commands, "printf '' > " .. moduleMap)
-    for _, filename in ipairs(orderedModuleFiles()) do
+    local moduleDirectory = "%{cfg.objdir}/modules"
+    local compiler = "$(CXX)"
+    local moduleFlags = "$(ALL_CXXFLAGS)"
+
+    local buildDirectory = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build")
+
+    os.mkdir(buildDirectory)
+
+    local ordered, levelByFile = orderedModuleFiles()
+    local levels = {}
+    local maxLevel = -1
+
+    -- Group modules by dependency level.
+    for _, filename in ipairs(ordered) do
         local moduleName = moduleNameForFile(filename)
+
         if moduleName then
-            local moduleOutputName = moduleName:gsub(":", "-")
-            table.insert(commands, "printf '" .. moduleName .. " " .. gcmDirectory .. "/" .. moduleOutputName ..
-                ".gcm\\n' >> " .. moduleMap)
+            local level = levelByFile[filename] or 0
+            local outputName = moduleName:gsub(":", "-")
+
+            levels[level] = levels[level] or {}
+
+            table.insert(levels[level], {
+                source = normalizePath(filename),
+                output = outputName
+            })
+
+            maxLevel = math.max(maxLevel, level)
         end
     end
-    -- GCC validates imported CMIs against the flags used to create them.
-    for _, filename in ipairs(orderedModuleFiles()) do
-        local relativePath = filename:gsub("^" .. _MAIN_SCRIPT_DIR .. "/", "../")
-        local moduleName = moduleNameForFile(filename)
-        local moduleOutputName = moduleName and moduleName:gsub(":", "-")
-        table.insert(commands,
-            "$(CXX) $(ALL_CXXFLAGS) -fmodule-only -x c++ -c " .. relativePath .. " -o " .. gcmDirectory .. "/" ..
-                moduleOutputName .. ".gcm")
+
+    table.insert(commands, 'mkdir -p "' .. moduleDirectory .. '"')
+
+    -- Precompile modules in parallel, then compile their PCM into object files.
+    for level = 0, maxLevel do
+        local modulesAtLevel = levels[level]
+
+        if modulesAtLevel then
+            local listPath = buildDirectory .. "/clang-modules-level" .. level .. ".list"
+            local listFile = io.open(listPath, "w")
+
+            if not listFile then
+                error("Unable to create Clang module list at " .. listPath)
+            end
+
+            for _, entry in ipairs(modulesAtLevel) do
+                listFile:write(entry.source, "\n")
+                listFile:write(entry.output, "\n")
+            end
+
+            listFile:close()
+
+            local compileCommand = "xargs -d '\\n' -n 2 -P \"$$(nproc)\" sh -c '" .. compiler .. " " .. moduleFlags ..
+                                       " --precompile -x c++-module \"$$1\" " .. "-o \"" .. moduleDirectory ..
+                                       "/$$2.pcm\" " .. "&& " .. compiler .. " " .. moduleFlags .. " -c \"" ..
+                                       moduleDirectory .. "/$$2.pcm\" " .. "-o \"" .. moduleDirectory .. "/$$2.o\"' _ " ..
+                                       "< \"" .. listPath .. "\" || exit 1"
+
+            table.insert(commands, compileCommand)
+        end
     end
+
     return commands
 end
 
@@ -324,6 +287,23 @@ local function webModuleBuildCommands()
     return commands
 end
 
+local function moduleObjectFiles()
+    local objectFiles = {}
+    local ordered = orderedModuleFiles()
+
+    for _, filename in ipairs(ordered) do
+        local moduleName = moduleNameForFile(filename)
+
+        if moduleName then
+            local outputName = moduleName:gsub(":", "-")
+
+            table.insert(objectFiles, "%{cfg.objdir}/modules/" .. outputName .. ".o")
+        end
+    end
+
+    return objectFiles
+end
+
 project "ElevateEngine"
 location "./Build"
 kind "StaticLib"
@@ -383,6 +363,12 @@ else
 end
 
 filter "system:linux"
+linkoptions {"-fuse-ld=lld"}
+
+if (_OPTIONS and _OPTIONS["compiler"]) ~= "gcc" then
+    files(moduleObjectFiles())
+end
+
 if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
     prebuildcommands(gccModuleBuildCommands())
 else
@@ -390,13 +376,16 @@ else
 end
 
 filter {"system:linux", "files:**.ixx"}
-buildaction "Compile"
-compileas "C++"
+
 if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
+    buildaction "Compile"
+    compileas "C++"
     buildoptions {"-x", "c++"}
 else
-    buildoptions {"-x", "c++-module"}
+    -- Clang compiles the generated PCM files into object files.
+    buildaction "None"
 end
+
 filter {}
 
 filter "system:emscripten"
