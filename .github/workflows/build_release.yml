@@ -5,6 +5,9 @@ on: [pull_request]
 jobs:
     build-linux:
         runs-on: ubuntu-latest
+        env:
+            CC: clang-19
+            CXX: clang++-19
         strategy:
             fail-fast: false
             matrix:
@@ -38,17 +41,12 @@ jobs:
             - name: Display compiler environment
               run: |
                   echo "CXX=${CXX:-not set}"
-                  which clang++
-                  clang++ --version
-                  clang++ -v -E -x c++ /dev/null
-                  clang++ -print-file-name=libstdc++.so
-                  g++ --version
-                  ld --version
+                  which clang++-19
+                  clang++-19 --version
+                  clang++-19 -v -E -x c++ /dev/null
+                  clang++-19 -print-file-name=libstdc++.so
 
             - name: Compile
-              env:
-                  CC: clang-19
-                  CXX: clang++-19
               run: |
                   make config=${{ matrix.make_config }} -j"$(nproc)"
 
