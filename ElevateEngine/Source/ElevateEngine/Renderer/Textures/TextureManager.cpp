@@ -2,6 +2,7 @@ module;
 
 #include <mutex>
 #include <memory>
+#include <vector>
 #include <filesystem>
 #include <stb/stb_image.h>
 
