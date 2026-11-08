@@ -37,6 +37,7 @@ local function orderedModuleFiles()
     end
 
     table.sort(moduleFiles)
+
     for _, pattern in ipairs({"**/*.h", "**/*.hpp", "**/*.inl"}) do
         for _, filename in ipairs(os.matchfiles(sourceRoot .. pattern)) do
             local file = io.open(filename, "r")
@@ -54,27 +55,30 @@ local function orderedModuleFiles()
             file:close()
 
             local moduleName = content:match("export%s+module%s+([%w%._:]+)%s*;")
+
             if moduleName then
                 modules[moduleName] = filename
                 dependencies[moduleName] = {}
+
                 local moduleBase = moduleName:match("^([^:]+)")
-                for _, importedModule in ipairs(collectImports(content)) do
+
+                local function addDependency(importedModule)
                     if importedModule:sub(1, 1) == ":" then
-                        table.insert(dependencies[moduleName], moduleBase .. importedModule)
-                    else
-                        table.insert(dependencies[moduleName], importedModule)
+                        importedModule = moduleBase .. importedModule
                     end
+
+                    table.insert(dependencies[moduleName], importedModule)
                 end
 
-                for includePath in content:gmatch("#include%s+[<\"]([^>\"]+)[>\"]") do
+                for _, importedModule in ipairs(collectImports(content)) do
+                    addDependency(importedModule)
+                end
+
+                for includePath in content:gmatch('#include%s+[<"]([^>"]+)[>"]') do
                     for headerFilename, imports in pairs(headerImports) do
                         if headerFilename:sub(-#includePath) == includePath then
                             for _, importedModule in ipairs(imports) do
-                                if importedModule:sub(1, 1) == ":" then
-                                    table.insert(dependencies[moduleName], moduleBase .. importedModule)
-                                else
-                                    table.insert(dependencies[moduleName], importedModule)
-                                end
+                                addDependency(importedModule)
                             end
                         end
                     end
@@ -83,38 +87,60 @@ local function orderedModuleFiles()
         end
     end
 
+    -- Topological sorting and dependency level calculation.
     local ordered = {}
     local visiting = {}
     local visited = {}
+    local levels = {}
+
     local function visit(moduleName)
         if visited[moduleName] then
-            return
+            return levels[moduleName]
         end
+
         if visiting[moduleName] then
             error("Circular C++ module dependency involving " .. moduleName)
         end
 
         visiting[moduleName] = true
+
+        local level = 0
+
         for _, dependency in ipairs(dependencies[moduleName] or {}) do
             if modules[dependency] then
-                visit(dependency)
+                level = math.max(level, visit(dependency) + 1)
             end
         end
+
         visiting[moduleName] = nil
         visited[moduleName] = true
+
+        levels[moduleName] = level
         table.insert(ordered, modules[moduleName])
+
+        return level
     end
 
     local moduleNames = {}
+
     for moduleName in pairs(modules) do
         table.insert(moduleNames, moduleName)
     end
+
     table.sort(moduleNames)
+
     for _, moduleName in ipairs(moduleNames) do
         visit(moduleName)
     end
 
-    return ordered
+    -- Map source files to their dependency levels.
+    local levelByFile = {}
+
+    for moduleName, filename in pairs(modules) do
+        levelByFile[filename] = levels[moduleName]
+    end
+
+    return ordered, levelByFile
 end
 
 local function moduleBuildCommands()
@@ -122,6 +148,7 @@ local function moduleBuildCommands()
     local moduleDirectory = "%{cfg.objdir}/modules"
     local compiler
     local moduleFlags
+
     if _ACTION == "gmake" then
         compiler = "$(CXX)"
         moduleFlags = "$(ALL_CXXFLAGS)"
@@ -129,25 +156,66 @@ local function moduleBuildCommands()
         compiler = "clang++"
         moduleFlags = "$cxxflags_ElevateEngine_%{cfg.buildcfg}"
     end
-    local moduleListPath = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/clang-modules.list")
-    local moduleList = io.open(moduleListPath, "w")
-    if not moduleList then
-        error("Unable to create Clang module list at " .. moduleListPath)
-    end
 
-    for _, filename in ipairs(orderedModuleFiles()) do
+    local buildDirectory = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build")
+
+    os.mkdir(buildDirectory)
+
+    -- Group modules by dependency level.
+    local ordered, levelByFile = orderedModuleFiles()
+
+    local levels = {}
+    local maxLevel = -1
+
+    for _, filename in ipairs(ordered) do
         local moduleName = moduleNameForFile(filename)
+
         if moduleName then
+            local level = levelByFile[filename] or 0
             local moduleOutputName = moduleName:gsub(":", "-")
-            moduleList:write(normalizePath(filename) .. "|" .. moduleOutputName .. "\n")
+
+            levels[level] = levels[level] or {}
+
+            table.insert(levels[level], {
+                source = normalizePath(filename),
+                output = moduleOutputName
+            })
+
+            maxLevel = math.max(maxLevel, level)
         end
     end
-    moduleList:close()
 
     table.insert(commands, "mkdir -p " .. moduleDirectory)
-    table.insert(commands, "while IFS=\"|\" read -r moduleSource moduleOutput; do " .. compiler .. " " .. moduleFlags ..
-        " --precompile -x c++-module \"$$moduleSource\" -o \"" .. moduleDirectory ..
-        "/$$moduleOutput.pcm\" || exit 1; done < \"" .. moduleListPath .. "\"")
+
+    -- Compile each dependency level in parallel.
+    for level = 0, maxLevel do
+        local modulesAtLevel = levels[level]
+
+        if modulesAtLevel then
+            local listPath = buildDirectory .. "/clang-modules-level" .. level .. ".list"
+
+            local listFile = io.open(listPath, "w")
+
+            if not listFile then
+                error("Unable to create Clang module list at " .. listPath)
+            end
+
+            -- Write source/output pairs.
+            for _, entry in ipairs(modulesAtLevel) do
+                listFile:write(entry.source, "\n")
+                listFile:write(entry.output, "\n")
+            end
+
+            listFile:close()
+
+            local compileCommand = "xargs -d '\\n' -n 2 -P \"$$(nproc)\" sh -c '" .. compiler .. " " .. moduleFlags ..
+                                       " --precompile -x c++-module \"$$1\" -o \"" .. moduleDirectory ..
+                                       "/$$2.pcm\"' _ < \"" .. listPath .. "\" || exit 1"
+
+            table.insert(commands, compileCommand)
+        end
+    end
+
     return commands
 end
 
