@@ -172,14 +172,25 @@ namespace Elevate
 	OpenGLTexture::OpenGLTexture(const TextureMetadata& meta)
 		: Texture(meta)
 	{
-		GLCheck(glGenTextures(1, &m_textureID));
 	}
 
 	OpenGLTexture::OpenGLTexture(const void* data, const TextureMetadata& meta)
 		: OpenGLTexture(meta)
 	{
-		Bind();
+		if (data == nullptr && meta.Source == TextureSource::File && meta.State == TextureState::Unloaded)
+		{
+			return;
+		}
+
 		SetDataImpl(data);
+	}
+
+	void OpenGLTexture::EnsureCreated()
+	{
+		if (m_textureID == 0)
+		{
+			GLCheck(glGenTextures(1, &m_textureID));
+		}
 	}
 
 	void OpenGLTexture::Bind(uint32_t index)
@@ -195,6 +206,7 @@ namespace Elevate
 
 	void OpenGLTexture::SetDataImpl(const void* data)
 	{
+		EnsureCreated();
 		Bind();
 
 		GLCheck(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));

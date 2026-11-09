@@ -10,6 +10,8 @@ namespace Elevate
 		OpenGLTexture(const TextureMetadata& meta);
 		OpenGLTexture(const void*, const TextureMetadata& meta);
 
+		void EnsureCreated();
+
 		virtual void SetDataImpl(const void*) override;
 		virtual void* GetNativeHandle() const override;
 
@@ -18,6 +20,6 @@ namespace Elevate
 		virtual void Unbind() override;
 
 	private:
-		uint32_t m_textureID;
+		uint32_t m_textureID = 0;
 	};
 }
