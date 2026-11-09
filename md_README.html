@@ -164,8 +164,12 @@ Edit Configuration</h3>
 </ul>
 <h3><a class="anchor" id="autotoc_md7"></a>
 Run the Build</h3>
-<p>Once the configuration is set, the script will automatically run <code>premake5</code> with the selected option.</p>
-<h3><a class="anchor" id="autotoc_md8"></a>
+<p>Once the configuration is set, the script will automatically run <code>premake5</code> with the selected option. On Linux, build with all available CPU cores to avoid a serialized build:</p>
+<div class="fragment"><div class="line">make config=editor_debug -j&quot;$(nproc)&quot;</div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md8"></a>
+GCC build status</h3>
+<p>The GCC 15 Linux CI job is temporarily disabled. Re-enabling once GCC module support is stable.</p>
+<h3><a class="anchor" id="autotoc_md9"></a>
 Build Status</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -173,11 +177,13 @@ Build Status</h3>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft"><img src="https://img.shields.io/badge/Windows-0078D4?style=flat&amp;logo=windows&amp;logoColor=white" alt="Windows" class="inline"/>   </td><td class="markdownTableBodyLeft"><code>windows-latest</code>   </td><td class="markdownTableBodyLeft">MSVC (vs2022)   </td><td class="markdownTableBodyLeft"><a href="https://github.com/justinfiset/Elevate-Engine/actions"><img src="https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-windows&amp;label=" alt="Windows Build" class="inline"/></a>    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft"><img src="https://img.shields.io/badge/Linux-FCC624?style=flat&amp;logo=linux&amp;logoColor=black" alt="Linux" class="inline"/>   </td><td class="markdownTableBodyLeft"><code>ubuntu-latest</code>   </td><td class="markdownTableBodyLeft">GCC (gmake2)   </td><td class="markdownTableBodyLeft"><a href="https://github.com/justinfiset/Elevate-Engine/actions"><img src="https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-linux&amp;label=" alt="Linux Build" class="inline"/></a>    </td></tr>
+<td class="markdownTableBodyLeft"><img src="https://img.shields.io/badge/Linux-FCC624?style=flat&amp;logo=linux&amp;logoColor=black" alt="Linux" class="inline"/>   </td><td class="markdownTableBodyLeft"><code>ubuntu-latest</code>   </td><td class="markdownTableBodyLeft">Clang (gmake)   </td><td class="markdownTableBodyLeft"><a href="https://github.com/justinfiset/Elevate-Engine/actions"><img src="https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml/badge.svg?branch=main&amp;job=build-linux&amp;label=" alt="Linux Clang Build" style="pointer-events: none;" class="inline"/></a>    </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft"><img src="https://img.shields.io/badge/Linux-FCC624?style=flat&amp;logo=linux&amp;logoColor=black" alt="Linux" class="inline"/>   </td><td class="markdownTableBodyLeft"><code>ubuntu-latest</code>   </td><td class="markdownTableBodyLeft">GCC (gmake)   </td><td class="markdownTableBodyLeft">Temporarily disabled: GCC 15 reports <code>Bad import dependency</code> for C++20 modules    </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft"><img src="https://img.shields.io/badge/WebAssembly-654FF0?style=flat&amp;logo=webassembly&amp;logoColor=white" alt="WebAssembly" class="inline"/>   </td><td class="markdownTableBodyLeft"><code>emscripten</code> (Windows Host)   </td><td class="markdownTableBodyLeft">Clang (Ninja)   </td><td class="markdownTableBodyLeft"><a href="https://github.com/justinfiset/Elevate-Engine/actions"><img src="https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-web-windows-ninja&amp;label=" alt="Web Build" class="inline"/></a>   </td></tr>
 </table>
-<h3><a class="anchor" id="autotoc_md9"></a>
+<h3><a class="anchor" id="autotoc_md10"></a>
 Tests Report</h3>
 <p><a href="https://justinfiset.github.io/Elevate-Engine/tests/"><img src="https://img.shields.io/badge/Allure_Report-Tests-green?style=flat&amp;logo=allure" alt="Tests Report" class="inline"/></a> </p>
 </div></div><!-- contents -->

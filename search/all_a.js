@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['joystick_2eh_0',['Joystick.h',['../Joystick_8h.html',1,'']]],
-  ['jsonserializer_1',['jsonserializer',['../classElevate_1_1JsonSerializer.html',1,'Elevate::JsonSerializer'],['../classElevate_1_1JsonSerializer.html#ac7128a6a1f38497c0cc4d2ce70f4cf1b',1,'Elevate::JsonSerializer::JsonSerializer()']]],
-  ['jsonserializer_2ecpp_2',['JsonSerializer.cpp',['../JsonSerializer_8cpp.html',1,'']]],
-  ['jsonserializer_2eh_3',['JsonSerializer.h',['../JsonSerializer_8h.html',1,'']]]
+  ['setup_0',['First Time Setup',['../md_README.html#autotoc_md5',1,'']]],
+  ['setup_20and_20usage_20guide_1',['Project Setup and Usage Guide',['../md_README.html#autotoc_md1',1,'']]],
+  ['status_2',['status',['../md_README.html#autotoc_md9',1,'Build Status'],['../md_README.html#autotoc_md8',1,'GCC build status']]],
+  ['structure_3',['Directory Structure',['../md_README.html#autotoc_md2',1,'']]]
 ];

@@ -1,19 +1,4 @@
 var searchData=
 [
-  ['camera_2ecpp_0',['Camera.cpp',['../Camera_8cpp.html',1,'']]],
-  ['camera_2eh_1',['Camera.h',['../Camera_8h.html',1,'']]],
-  ['cameramanager_2ecpp_2',['CameraManager.cpp',['../CameraManager_8cpp.html',1,'']]],
-  ['cameramanager_2eh_3',['CameraManager.h',['../CameraManager_8h.html',1,'']]],
-  ['command_2ecpp_4',['Command.cpp',['../Command_8cpp.html',1,'']]],
-  ['command_2eh_5',['Command.h',['../Command_8h.html',1,'']]],
-  ['component_2eh_6',['Component.h',['../Component_8h.html',1,'']]],
-  ['componentcommand_2eh_7',['ComponentCommand.h',['../ComponentCommand_8h.html',1,'']]],
-  ['componentsicon_2eh_8',['ComponentsIcon.h',['../ComponentsIcon_8h.html',1,'']]],
-  ['consolepanel_2ecpp_9',['ConsolePanel.cpp',['../ConsolePanel_8cpp.html',1,'']]],
-  ['consolepanel_2eh_10',['ConsolePanel.h',['../ConsolePanel_8h.html',1,'']]],
-  ['core_2eh_11',['Core.h',['../Core_8h.html',1,'']]],
-  ['cubemap_2ecpp_12',['Cubemap.cpp',['../Cubemap_8cpp.html',1,'']]],
-  ['cubemap_2eh_13',['Cubemap.h',['../Cubemap_8h.html',1,'']]],
-  ['customimguicommand_2ecpp_14',['CustomImGuiCommand.cpp',['../CustomImGuiCommand_8cpp.html',1,'']]],
-  ['customimguicommand_2eh_15',['CustomImGuiCommand.h',['../CustomImGuiCommand_8h.html',1,'']]]
+  ['readme_2emd_0',['README.md',['../README_8md.html',1,'']]]
 ];

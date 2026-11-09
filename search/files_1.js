@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['buffer_2ecpp_0',['Buffer.cpp',['../Buffer_8cpp.html',1,'']]],
-  ['buffer_2eh_1',['Buffer.h',['../Buffer_8h.html',1,'']]],
-  ['byte_2eh_2',['Byte.h',['../Byte_8h.html',1,'']]]
+  ['pointer_5fpatching_2edox_0',['Pointer_Patching.dox',['../Pointer__Patching_8dox.html',1,'']]]
 ];
