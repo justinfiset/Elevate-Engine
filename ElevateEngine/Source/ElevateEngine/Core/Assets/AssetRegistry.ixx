@@ -46,7 +46,7 @@ export namespace Elevate
 			static AssetRegistry instance;
 			return instance;
 		}
-	
+
 		static void Init();
 
 		static std::vector<Guid> GetAssetsOfType(std::type_index typeIndex);
@@ -63,19 +63,18 @@ export namespace Elevate
 				return nullptr;
 			}
 
-			auto it = s_indexedAssets.find(guid);
-			if (it == s_indexedAssets.end())
+			if (!s_indexedAssets.contains(guid))
 			{
 				CoreLogger::Error("Asset with GUID {} is not indexed in AssetRegistry.", guid.ToString());
 				return nullptr;
 			}
-			
-			AssetEntry& entry = it->second;
+
+			auto& entry = s_indexedAssets.at(guid);
 			if (entry.isLoaded && entry.Instance)
 			{
 				return std::dynamic_pointer_cast<T>(entry.Instance);
 			}
-			
+
 			if (entry.isOnDisk) // Lazy loading
 			{
 				std::shared_ptr<Asset> loadedAsset = LoadAssetFromDisk(entry);

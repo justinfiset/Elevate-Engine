@@ -14,12 +14,6 @@ import :Fwd;
 import :ComponentRegistry;
 import :SceneType;
 
-// Forward declarations
-namespace Elevate
-{
-	class RendererAPI;
-}
-
 export namespace Elevate
 {
 	class Scene : public EEObject

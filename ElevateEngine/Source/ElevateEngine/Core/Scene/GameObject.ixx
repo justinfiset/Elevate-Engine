@@ -30,15 +30,6 @@ import :Fwd;
 import :Component;
 import :ComponentRegistry;
 
-// Forwards
-namespace Elevate
-{
-	namespace Editor
-	{
-		class EditorLayer;
-	}
-}
-
 export namespace Elevate
 {
 	constexpr uint32_t INVALID_ENTITY_ID = ComponentRegistry::InvalidEntity;
@@ -159,7 +150,6 @@ export namespace Elevate
 
 		friend class Scene;
 		friend class TypeRegistry;
-		friend class Editor::EditorLayer;
 	};
 }
 

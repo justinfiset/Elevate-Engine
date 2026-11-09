@@ -37,9 +37,6 @@ export namespace Elevate
 
 		inline static bool IsAllLoaded() { return instance().m_loadingTextures.empty(); }
 
-		friend class Application;
-
-	protected:
 		static void UpdateLoadingTextures();
 
 	private:
