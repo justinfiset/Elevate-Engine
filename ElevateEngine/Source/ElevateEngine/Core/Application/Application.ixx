@@ -6,8 +6,10 @@ export module Elevate.Core.Application;
 
 export import Elevate.Core.Application.GameContext;
 
+// Foundations
 import Elevate.Foundations.Services;
-
+import Elevate.Foundations.Tasks;
+// Core
 import Elevate.Core.Window;
 import Elevate.Core.Events;
 import Elevate.Core.Layers;
@@ -87,6 +89,7 @@ export namespace Elevate {
 		ApplicationArguments m_args;
 
 		std::unique_ptr<ServiceProvider> m_Provider;
+		SharedService<ITaskScheduler> m_Scheduler;
 
 		static Application* s_Instance;
 	};
