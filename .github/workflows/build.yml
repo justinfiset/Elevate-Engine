@@ -30,26 +30,10 @@ jobs:
 
             - name: Install Dependencies
               run: |
-                  sudo apt-get update
-                  sudo apt-get install -y \
-                      clang-19 \
-                      lld-19 \
-                      libc++-19-dev \
-                      libc++abi-19-dev \
-                      libgl1-mesa-dev \
-                      libx11-dev \
-                      libxcursor-dev \
-                      libxrandr-dev \
-                      libxinerama-dev \
-                      libxi-dev
-
-            - name: Verify LLVM Toolchain
-              run: |
-                  clang-19 --version
-                  clang++-19 --version
-                  ld.lld-19 --version
-                  clang++-19 -print-resource-dir
-                  clang++-19 -fuse-ld=lld -Wl,--version
+                  wget https://apt.llvm.org/llvm.sh
+                  chmod +x llvm.sh
+                  sudo ./llvm.sh 19
+                  sudo apt-get install -y libc++-19-dev libc++abi-19-dev libgl1-mesa-dev libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev
 
             - name: Generate Projects (Premake)
               run: |
