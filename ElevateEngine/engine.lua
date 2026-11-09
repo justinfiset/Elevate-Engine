@@ -191,14 +191,7 @@ local function moduleBuildCommands()
 
     table.insert(commands, 'mkdir -p "' .. moduleDirectory .. '"')
 
-    -- Precompile modules in parallel, respecting dependency levels.
-    local objectListPath = buildDirectory .. "/clang-module-objects.list"
-    local objectListFile = io.open(objectListPath, "w")
-
-    if not objectListFile then
-        error("Unable to create Clang module object list at " .. objectListPath)
-    end
-
+    -- Precompile modules in parallel, then compile their PCM into object files.
     for level = 0, maxLevel do
         local modulesAtLevel = levels[level]
 
@@ -213,29 +206,19 @@ local function moduleBuildCommands()
             for _, entry in ipairs(modulesAtLevel) do
                 listFile:write(entry.source, "\n")
                 listFile:write(entry.output, "\n")
-
-                objectListFile:write(entry.output, "\n")
-                objectListFile:write(entry.output, "\n")
             end
 
             listFile:close()
 
             local compileCommand = "xargs -d '\\n' -n 2 -P \"$$(nproc)\" sh -c '" .. compiler .. " " .. moduleFlags ..
                                        " --precompile -x c++-module \"$$1\" " .. "-o \"" .. moduleDirectory ..
-                                       "/$$2.pcm\"' _ " .. "< \"" .. listPath .. "\" || exit 1"
+                                       "/$$2.pcm\" " .. "&& " .. compiler .. " " .. moduleFlags .. " -c \"" ..
+                                       moduleDirectory .. "/$$2.pcm\" " .. "-o \"" .. moduleDirectory .. "/$$2.o\"' _ " ..
+                                       "< \"" .. listPath .. "\" || exit 1"
 
             table.insert(commands, compileCommand)
         end
     end
-
-    objectListFile:close()
-
-    -- Compile all generated PCMs into object files in parallel.
-    local objectCommand =
-        "xargs -d '\\n' -n 2 -P \"$$(nproc)\" sh -c '" .. compiler .. " " .. moduleFlags .. " -c \"" .. moduleDirectory ..
-            "/$$1.pcm\" " .. "-o \"" .. moduleDirectory .. "/$$2.o\"' _ " .. "< \"" .. objectListPath .. "\" || exit 1"
-
-    table.insert(commands, objectCommand)
 
     return commands
 end
