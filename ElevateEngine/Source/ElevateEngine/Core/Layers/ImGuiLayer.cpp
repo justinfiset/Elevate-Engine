@@ -54,7 +54,12 @@ void Elevate::ImGuiLayer::OnAttach()
 
 	// Setup Platform/Renderer bindings#
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init(std::string(Internal::ShaderHeader).c_str());
+
+#ifdef EE_PLATFORM_WEB
+	ImGui_ImplOpenGL3_Init("#version 300 es");
+#else
+	ImGui_ImplOpenGL3_Init("#version 410 core");
+#endif
 }
 
 void Elevate::ImGuiLayer::OnDetach()
