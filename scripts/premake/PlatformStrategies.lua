@@ -50,6 +50,10 @@ WebStrategy = {
         defines {"EE_PLATFORM_WEB"}
     end,
 
+    GetResourceDir = function(nativePath)
+        return "/"
+    end,
+
     ConfigureProject = function(directory, project)
         for _, configName in ipairs(ElevateConfigs) do
             local projectSafeName = CommonProject.GetSafeProjectName(project.name)
@@ -89,6 +93,13 @@ function BuildPlatform.SetPlatformDefines()
     if currentPlatform and currentPlatform.SetPlatformDefines then
         currentPlatform.SetPlatformDefines()
     end
+end
+
+function BuildPlatform.GetResourceDir(nativePath)
+    if currentPlatform and currentPlatform.GetResourceDir then
+        return currentPlatform.GetResourceDir(nativePath)
+    end
+    return path.getabsolute(nativePath)
 end
 
 function BuildPlatform.ConfigureProject(directory, project)
