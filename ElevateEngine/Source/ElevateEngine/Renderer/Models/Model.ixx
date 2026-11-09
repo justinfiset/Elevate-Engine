@@ -1,7 +1,9 @@
 module;
 
+#include <mutex>
 #include <vector>
 #include <string>
+#include <filesystem>
 
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -11,7 +13,12 @@ module;
 
 export module Elevate.Renderer.Models.Model;
 
+// Foundations
+import Elevate.Foundations.Services;
+import Elevate.Foundations.Tasks;
+// Core
 import Elevate.Core.Scene;
+// Renderer
 import Elevate.Renderer.Texture;
 import Elevate.Renderer.Buffers;
 import Elevate.Renderer.Materials.Material;
@@ -30,18 +37,25 @@ export namespace Elevate
 		Model(PrimitiveType type, MaterialPtr material = nullptr);
 		Model(std::string path, MaterialPtr material = nullptr);
 
+		~Model();
+
 		void SetMaterial(MaterialPtr material);
 
 		void Render() override;
 
 	private:
-		void LoadModel(std::string path);
-		void ProcessNode(std::string basePath, aiNode* node, const aiScene* scene, MeshData& data);
-		void ProcessMesh(std::string basePath, aiMesh* mesh, const aiScene* scene, MeshData& data);
-		void ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int index);
-		void LoadMaterialTextures(std::string basePath, aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data);
+		void LoadModel(const std::string& path);
+		static bool ParseModel(const std::filesystem::path& path, MeshData& data);
+		static void ProcessNode(std::string basePath, aiNode* node, const aiScene* scene, MeshData& data);
+		static void ProcessMesh(std::string basePath, aiMesh* mesh, const aiScene* scene, MeshData& data);
+		static void ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int index);
+		static void LoadMaterialTextures(std::string basePath, aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data);
+
+		void PublishModel(std::string directory, const MeshData& data);
 
 	private:
+		std::shared_ptr<bool> m_alive = std::make_shared<bool>(true);
+
 		EEObjectPtr<Material> m_material;
 		PROPERTY(m_material);
 
