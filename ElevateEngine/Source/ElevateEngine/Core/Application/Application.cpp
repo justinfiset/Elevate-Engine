@@ -57,9 +57,16 @@ namespace Elevate {
 
 		// Dependency Injection
 		ServiceCollection collection;
-		CoreServiceModule coreServices;
-		coreServices.Register(collection);
+
+		ServiceModuleRegistry::Create()
+			.Register< FoundationsServiceModule>()
+			.Register< CoreServiceModule>()
+			.Build(collection);
+
 		m_Provider = std::make_unique<ServiceProvider>(std::move(collection).Build());
+
+		// We need to update it each frame
+		m_Scheduler = m_Provider->Resolve<ITaskScheduler>();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -163,6 +170,8 @@ namespace Elevate {
 			Time::Update((float)m_Window->GetTime(), deltaTime);
 			lastTime = currentTime;
 			/////////////////////////////////
+
+			m_Scheduler->Update();
 
 			SoundEngine::RenderAudio();
 			m_PhysicsSystem->Update(Time::GetDeltaTime());

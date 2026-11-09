@@ -10,6 +10,9 @@ module;
 
 export module Elevate.Renderer.Texture:TextureManager;
 
+import Elevate.Foundations.Services;
+import Elevate.Foundations.Tasks;
+
 import :TextureMetadata;
 import :Texture;
 
@@ -34,11 +37,11 @@ export namespace Elevate
 
 		inline static bool IsAllLoaded() { return instance().m_loadingTextures.empty(); }
 
-		friend class Application;
-	protected:
 		static void UpdateLoadingTextures();
 
 	private:
+		static std::shared_ptr<Texture> LoadTextureAsyncInternal(const std::string& path, TextureMetadata metadata);
+
 		struct TextureLoadTask {
 			std::string path;
 			TextureMetadata meta;
@@ -47,7 +50,7 @@ export namespace Elevate
 		TextureManager();
 		~TextureManager();
 
-		void WorkerLoop();
+		void LoadTextureTask(TextureMetadata meta);
 
 		static TextureManager& instance()
 		{
@@ -60,12 +63,6 @@ export namespace Elevate
 		// Async loading & Thread Pool
 		std::vector<TextureLoadResult> m_loadingTextures;
 		std::mutex m_textureMutex;
-
-		std::queue<TextureLoadTask> m_loadQueue;
-		std::mutex m_queueMutex;
-		std::condition_variable m_queueCV;
-		std::vector<std::thread> m_workerThreads;
-		std::atomic<bool> m_isWorkerRunning{ true };
 
 		std::unordered_map<std::string, std::shared_ptr<Texture>> m_Textures;
 	};

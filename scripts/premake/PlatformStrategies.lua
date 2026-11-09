@@ -17,7 +17,13 @@ WindowsStrategy = {
 LinuxStrategy = {
     ConfigureWorkspace = function()
         architecture "x64"
-        toolset ((_OPTIONS and _OPTIONS["compiler"]) == "gcc" and "gcc" or "clang")
+        local useGcc = (_OPTIONS and _OPTIONS["compiler"]) == "gcc"
+        toolset(useGcc and "gcc" or "clang")
+
+        if not useGcc then
+            buildoptions {"-stdlib=libc++"}
+            linkoptions {"-stdlib=libc++"}
+        end
 
         filter {"language:C++"}
         buildoptions {"-fno-lto"}

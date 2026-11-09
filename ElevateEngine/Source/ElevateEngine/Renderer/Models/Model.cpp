@@ -2,6 +2,7 @@ module;
 
 #include <entt/entt.hpp>
 
+#include <mutex>
 #include <string>
 #include <memory>
 #include <filesystem>
@@ -17,6 +18,10 @@ module Elevate.Renderer.Models.Model;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
 import Elevate.Foundations.Paths;
+import Elevate.Foundations.Services;
+import Elevate.Foundations.Tasks;
+// Core
+import Elevate.Core.Application; // Used to get the DI services
 // Renderer
 import Elevate.Renderer.Renderer;
 import Elevate.Renderer.Texture;
@@ -77,6 +82,11 @@ namespace Elevate
 		}
 	}
 
+	Model::~Model()
+	{
+		*m_alive = false;
+	}
+
 	void Model::SetMaterial(MaterialPtr material)
 	{
 		m_material = material ? material : MaterialRegistry::GetMaterial(EE_DEFAULT_MATERIAL);
@@ -89,38 +99,59 @@ namespace Elevate
 		}
 	}
 
-	void Model::LoadModel(std::string path)
+	void Model::LoadModel(const std::string& path)
 	{
 		auto resolvedPath = PathResolver::Resolve(path);
-		// Importing the scene
-		Assimp::Importer import;
-		const aiScene* scene = import.ReadFile(resolvedPath.string(),
-			aiProcess_Triangulate |
-			aiProcess_GenNormals |
-			aiProcess_OptimizeMeshes |
-			aiProcess_ImproveCacheLocality |
-			aiProcess_CalcTangentSpace
-		);
+		auto scheduler = Application::Get().GetServices().Resolve<ITaskScheduler>();
+		std::weak_ptr<ITaskScheduler> weakScheduler = scheduler;
 
-		// checking and exception catcher
+		scheduler->Submit(
+			TaskDescriptor(TaskAffinity::Any, TaskPriority::Normal, "Model Loading"),
+			[this, resolvedPath, weakScheduler, alive = m_alive]() mutable
+			{
+				MeshData data;
+				if (!ParseModel(resolvedPath, data))
+				{
+					return;
+				}
+
+				auto scheduler = weakScheduler.lock();
+				scheduler->Submit(
+					TaskDescriptor(TaskAffinity::MainThread, TaskPriority::Normal, "Model Publish"),
+					[this, alive, directory = resolvedPath.parent_path().string(), data = std::move(data)]() mutable
+					{
+						if (!*alive)
+						{
+							return;
+						}
+
+						PublishModel(std::move(directory), data);
+					});
+			}
+		);
+	}
+
+	bool Model::ParseModel(const std::filesystem::path& path, MeshData& data)
+	{
+		Assimp::Importer import;
+		const aiScene* scene = import.ReadFile(path.string(),
+			aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_OptimizeMeshes |
+			aiProcess_ImproveCacheLocality | aiProcess_CalcTangentSpace);
+
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
 			CoreLogger::Error("ASSIMP LOADING ERROR : {}", import.GetErrorString());
-			return;
+			return false;
 		}
-		m_Directory = resolvedPath.string().substr(0, resolvedPath.string().find_last_of('/')); // Used to get the textures afterward
 
-		// Recursive method to process all the nodes in the model
-		MeshData data;
-		std::vector<Mesh> meshes;
-		std::filesystem::path fsPath(resolvedPath);
-		ProcessNode(fsPath.parent_path().string(), scene->mRootNode, scene, data);
+		ProcessNode(path.parent_path().string(), scene->mRootNode, scene, data);
 
-		m_batchedMesh = Mesh(data);
-		for (auto& tex : m_batchedMesh.GetTextures())
+		if (data.Vertices.empty() || data.Indices.empty())
 		{
-			m_material->SetTexture(GetUniformNameByType(tex), tex);
+			CoreLogger::Error("Model '{}' contains no geometry.", path.string());
+			return false;
 		}
+		return true;
 	}
 
 	void Model::ProcessNode(std::string basePath, aiNode* node, const aiScene* scene, MeshData& data)
@@ -249,11 +280,26 @@ namespace Elevate
 		}
 	}
 
-	void Model::Render()
+	void Model::PublishModel(std::string directory, const MeshData& data)
 	{
+		m_Directory = std::move(directory);
+		m_batchedMesh = Mesh(data);
 		if (m_material)
 		{
-			Renderer::SubmitMesh(m_batchedMesh.GetVertexArray(), m_material, gameObject->GetModelMatrix());
+			for (auto& tex : m_batchedMesh.GetTextures())
+			{
+				m_material->SetTexture(GetUniformNameByType(tex), tex);
+			}
 		}
+	}
+
+	void Model::Render()
+	{
+		if (!m_material || !m_batchedMesh.GetVertexArray())
+		{
+			return; // Nothing to draw
+		}
+
+		Renderer::SubmitMesh(m_batchedMesh.GetVertexArray(), m_material, gameObject->GetModelMatrix());
 	}
 }

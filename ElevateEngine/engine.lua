@@ -37,6 +37,7 @@ local function orderedModuleFiles()
     end
 
     table.sort(moduleFiles)
+
     for _, pattern in ipairs({"**/*.h", "**/*.hpp", "**/*.inl"}) do
         for _, filename in ipairs(os.matchfiles(sourceRoot .. pattern)) do
             local file = io.open(filename, "r")
@@ -54,27 +55,30 @@ local function orderedModuleFiles()
             file:close()
 
             local moduleName = content:match("export%s+module%s+([%w%._:]+)%s*;")
+
             if moduleName then
                 modules[moduleName] = filename
                 dependencies[moduleName] = {}
+
                 local moduleBase = moduleName:match("^([^:]+)")
-                for _, importedModule in ipairs(collectImports(content)) do
+
+                local function addDependency(importedModule)
                     if importedModule:sub(1, 1) == ":" then
-                        table.insert(dependencies[moduleName], moduleBase .. importedModule)
-                    else
-                        table.insert(dependencies[moduleName], importedModule)
+                        importedModule = moduleBase .. importedModule
                     end
+
+                    table.insert(dependencies[moduleName], importedModule)
                 end
 
-                for includePath in content:gmatch("#include%s+[<\"]([^>\"]+)[>\"]") do
+                for _, importedModule in ipairs(collectImports(content)) do
+                    addDependency(importedModule)
+                end
+
+                for includePath in content:gmatch('#include%s+[<"]([^>"]+)[>"]') do
                     for headerFilename, imports in pairs(headerImports) do
                         if headerFilename:sub(-#includePath) == includePath then
                             for _, importedModule in ipairs(imports) do
-                                if importedModule:sub(1, 1) == ":" then
-                                    table.insert(dependencies[moduleName], moduleBase .. importedModule)
-                                else
-                                    table.insert(dependencies[moduleName], importedModule)
-                                end
+                                addDependency(importedModule)
                             end
                         end
                     end
@@ -83,38 +87,60 @@ local function orderedModuleFiles()
         end
     end
 
+    -- Topological sorting and dependency level calculation.
     local ordered = {}
     local visiting = {}
     local visited = {}
+    local levels = {}
+
     local function visit(moduleName)
         if visited[moduleName] then
-            return
+            return levels[moduleName]
         end
+
         if visiting[moduleName] then
             error("Circular C++ module dependency involving " .. moduleName)
         end
 
         visiting[moduleName] = true
+
+        local level = 0
+
         for _, dependency in ipairs(dependencies[moduleName] or {}) do
             if modules[dependency] then
-                visit(dependency)
+                level = math.max(level, visit(dependency) + 1)
             end
         end
+
         visiting[moduleName] = nil
         visited[moduleName] = true
+
+        levels[moduleName] = level
         table.insert(ordered, modules[moduleName])
+
+        return level
     end
 
     local moduleNames = {}
+
     for moduleName in pairs(modules) do
         table.insert(moduleNames, moduleName)
     end
+
     table.sort(moduleNames)
+
     for _, moduleName in ipairs(moduleNames) do
         visit(moduleName)
     end
 
-    return ordered
+    -- Map source files to their dependency levels.
+    local levelByFile = {}
+
+    for moduleName, filename in pairs(modules) do
+        levelByFile[filename] = levels[moduleName]
+    end
+
+    return ordered, levelByFile
 end
 
 local function moduleBuildCommands()
@@ -122,6 +148,7 @@ local function moduleBuildCommands()
     local moduleDirectory = "%{cfg.objdir}/modules"
     local compiler
     local moduleFlags
+
     if _ACTION == "gmake" then
         compiler = "$(CXX)"
         moduleFlags = "$(ALL_CXXFLAGS)"
@@ -129,46 +156,79 @@ local function moduleBuildCommands()
         compiler = "clang++"
         moduleFlags = "$cxxflags_ElevateEngine_%{cfg.buildcfg}"
     end
-    local moduleListPath = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/clang-modules.list")
-    local moduleList = io.open(moduleListPath, "w")
-    if not moduleList then
-        error("Unable to create Clang module list at " .. moduleListPath)
-    end
 
-    for _, filename in ipairs(orderedModuleFiles()) do
+    local buildDirectory = normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build")
+
+    os.mkdir(buildDirectory)
+
+    -- Group modules by dependency level.
+    local ordered, levelByFile = orderedModuleFiles()
+
+    local levels = {}
+    local maxLevel = -1
+
+    for _, filename in ipairs(ordered) do
         local moduleName = moduleNameForFile(filename)
+
         if moduleName then
+            local level = levelByFile[filename] or 0
             local moduleOutputName = moduleName:gsub(":", "-")
-            moduleList:write(normalizePath(filename) .. "|" .. moduleOutputName .. "\n")
+
+            levels[level] = levels[level] or {}
+
+            table.insert(levels[level], {
+                source = normalizePath(filename),
+                output = moduleOutputName
+            })
+
+            maxLevel = math.max(maxLevel, level)
         end
     end
-    moduleList:close()
 
     table.insert(commands, "mkdir -p " .. moduleDirectory)
-    table.insert(commands,
-        "while IFS=\"|\" read -r moduleSource moduleOutput; do " .. compiler .. " " .. moduleFlags ..
-            " --precompile -x c++-module \"$$moduleSource\" -o \"" .. moduleDirectory ..
-            "/$$moduleOutput.pcm\" || exit 1; done < \"" .. moduleListPath .. "\"")
+
+    -- Compile each dependency level in parallel.
+    for level = 0, maxLevel do
+        local modulesAtLevel = levels[level]
+
+        if modulesAtLevel then
+            local listPath = buildDirectory .. "/clang-modules-level" .. level .. ".list"
+
+            local listFile = io.open(listPath, "w")
+
+            if not listFile then
+                error("Unable to create Clang module list at " .. listPath)
+            end
+
+            -- Write source/output pairs.
+            for _, entry in ipairs(modulesAtLevel) do
+                listFile:write(entry.source, "\n")
+                listFile:write(entry.output, "\n")
+            end
+
+            listFile:close()
+
+            local compileCommand = "xargs -d '\\n' -n 2 -P \"$$(nproc)\" sh -c '" .. compiler .. " " .. moduleFlags ..
+                                       " --precompile -x c++-module \"$$1\" -o \"" .. moduleDirectory ..
+                                       "/$$2.pcm\"' _ < \"" .. listPath .. "\" || exit 1"
+
+            table.insert(commands, compileCommand)
+        end
+    end
+
     return commands
 end
 
 function UseEngineModules()
     filter "system:linux"
     if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
-        buildoptions {
-            "-fmodule-mapper=" .. normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/module.map")
-        }
+        buildoptions {"-fmodule-mapper=" .. normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/module.map")}
     else
-        buildoptions {
-            "-fprebuilt-module-path=%{wks.location}/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
-        }
+        buildoptions {"-fprebuilt-module-path=%{wks.location}/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"}
     end
     filter "system:emscripten"
-    buildoptions {
-        "-fprebuilt-module-path=" .. _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir .. "/ElevateEngine/modules",
-        "-msimd128",
-        "-msse4.1"
-    }
+    buildoptions {"-fprebuilt-module-path=" .. _MAIN_SCRIPT_DIR .. "/Build/bin-int/" .. outputdir ..
+        "/ElevateEngine/modules", "-msimd128", "-msse4.1"}
     filter {}
 end
 
@@ -184,8 +244,8 @@ local function gccModuleBuildCommands()
         local moduleName = moduleNameForFile(filename)
         if moduleName then
             local moduleOutputName = moduleName:gsub(":", "-")
-            table.insert(commands,
-                "printf '" .. moduleName .. " " .. gcmDirectory .. "/" .. moduleOutputName .. ".gcm\\n' >> " .. moduleMap)
+            table.insert(commands, "printf '" .. moduleName .. " " .. gcmDirectory .. "/" .. moduleOutputName ..
+                ".gcm\\n' >> " .. moduleMap)
         end
     end
     -- GCC validates imported CMIs against the flags used to create them.
@@ -194,8 +254,8 @@ local function gccModuleBuildCommands()
         local moduleName = moduleNameForFile(filename)
         local moduleOutputName = moduleName and moduleName:gsub(":", "-")
         table.insert(commands,
-            "$(CXX) $(ALL_CXXFLAGS) -fmodule-only -x c++ -c " .. relativePath ..
-                " -o " .. gcmDirectory .. "/" .. moduleOutputName .. ".gcm")
+            "$(CXX) $(ALL_CXXFLAGS) -fmodule-only -x c++ -c " .. relativePath .. " -o " .. gcmDirectory .. "/" ..
+                moduleOutputName .. ".gcm")
     end
     return commands
 end
@@ -206,12 +266,11 @@ local function webModuleBuildCommands()
     local wwiseDefine = Wwise.IsInstalled() and " -DEE_USES_WWISE" or ""
     local wwiseIncludeFlags = ""
     if Wwise.IsInstalled() then
-        wwiseIncludeFlags = " -I\"" .. wwiseSDK .. "/include\" " ..
-                                "-I\"" .. wwiseSDK .. "/samples\" " ..
-                                "-I\"" .. wwiseSDK .. "/samples/SoundEngine/Common\" " ..
-                                "-I\"" .. wwiseSDK .. "/samples/SoundEngine/POSIX\" " ..
-                                "-I\"" .. wwiseSDK .. "/samples/3rdParty/subprojects/rapidjson/include\" " ..
-                                "-I\"" .. wwiseSDK .. "/samples/WwiseProjectDatabase/WwiseProjectDatabase\""
+        wwiseIncludeFlags = " -I\"" .. wwiseSDK .. "/include\" " .. "-I\"" .. wwiseSDK .. "/samples\" " .. "-I\"" ..
+                                wwiseSDK .. "/samples/SoundEngine/Common\" " .. "-I\"" .. wwiseSDK ..
+                                "/samples/SoundEngine/POSIX\" " .. "-I\"" .. wwiseSDK ..
+                                "/samples/3rdParty/subprojects/rapidjson/include\" " .. "-I\"" .. wwiseSDK ..
+                                "/samples/WwiseProjectDatabase/WwiseProjectDatabase\""
     end
     local includeFlags = "-I\"%~dp0..\\ElevateEngine\\Source\" -I\"%~dp0..\\ElevateEngine\\Vendor\" " ..
                              "-I\"%~dp0..\\ElevateEngine\\Vendor\\_config_headers\" " ..
@@ -223,8 +282,7 @@ local function webModuleBuildCommands()
                              "-I\"%~dp0..\\ElevateEngine\\Vendor\\entt\\include\" " ..
                              "-I\"%~dp0..\\ElevateEngine\\Vendor\\stduuid\\include\" " ..
                              "-I\"%~dp0..\\ElevateEngine\\Vendor\\assimp\\include\" " ..
-                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\JoltPhysics\"" ..
-                             wwiseIncludeFlags
+                             "-I\"%~dp0..\\ElevateEngine\\Vendor\\JoltPhysics\"" .. wwiseIncludeFlags
     local scriptPath = _MAIN_SCRIPT_DIR .. "/Build/precompile_web_modules.bat"
     local script = io.open(scriptPath, "w")
 
@@ -248,12 +306,12 @@ local function webModuleBuildCommands()
             local moduleOutputName = moduleName:gsub(":", "-")
             local scriptOutput = "%MODULE_DIR%/" .. moduleOutputName .. ".pcm"
             local scriptSource = normalizePath(filename):gsub("/", "\\")
-            script:write("call em++ -std=c++20 -DSPDLOG_COMPILED_LIB -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD" ..
-                             wwiseDefine .. " " ..
-                             "-pthread -matomics -mbulk-memory -msimd128 -msse4.1 " ..
-                             "-Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma " ..
-                             includeFlags .. " -x c++-module -fprebuilt-module-path=\"%MODULE_DIR%\" " ..
-                             "--precompile \"" .. scriptSource .. "\" -o \"" .. scriptOutput .. "\"\r\n")
+            script:write(
+                "call em++ -std=c++20 -DSPDLOG_COMPILED_LIB -DEE_ENGINE_BUILD -DEE_PLATFORM_WEB -DEE_EDITOR_BUILD" ..
+                    wwiseDefine .. " " .. "-pthread -matomics -mbulk-memory -msimd128 -msse4.1 " ..
+                    "-Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma " .. includeFlags ..
+                    " -x c++-module -fprebuilt-module-path=\"%MODULE_DIR%\" " .. "--precompile \"" .. scriptSource ..
+                    "\" -o \"" .. scriptOutput .. "\"\r\n")
             script:write("if errorlevel 1 exit /b %errorlevel%\r\n")
         end
     end
@@ -262,8 +320,7 @@ local function webModuleBuildCommands()
 
     local buildScriptPath = "Build/precompile_web_modules.bat"
     local buildModuleDirectory = "Build/bin-int/" .. outputdir .. "/ElevateEngine/modules"
-    table.insert(commands,
-        "cmd.exe //d //c \"call " .. buildScriptPath .. " " .. buildModuleDirectory .. "\"")
+    table.insert(commands, "cmd.exe //d //c \"call " .. buildScriptPath .. " " .. buildModuleDirectory .. "\"")
     return commands
 end
 
@@ -296,8 +353,7 @@ IncludeDir["stduuid"] = "Vendor/stduuid/include"
 IncludeDir["Jolt"] = "Vendor/JoltPhysics"
 
 files {"Source/**.ixx", "Source/**.cpp", "Source/**.h", "Source/**.inl", "Vendor/ImGuizmo/src/ImGuizmo.cpp",
-       "Vendor/ImGuiFileDialog/**.cpp", "Vendor/tinyfiledialogs/tinyfiledialogs.c",
-       "Vendor/spdlog/src/*.cpp"}
+       "Vendor/ImGuiFileDialog/**.cpp", "Vendor/tinyfiledialogs/tinyfiledialogs.c", "Vendor/spdlog/src/*.cpp"}
 
 defines {"EE_RESOURCE_DIR=\"" .. path.getabsolute("./Resources/") .. "\"", "EE_ENGINE_BUILD", "_CRT_SECURE_NO_WARNINGS",
          "IMGUI_DEFINE_MATH_OPERATORS", "GLM_ENABLE_EXPERIMENTAL", "SPDLOG_COMPILED_LIB"}
@@ -320,10 +376,8 @@ links {"opengl32.lib"}
 filter {"system:linux", "language:C++"}
 links {"GL", "X11", "pthread", "dl"}
 if (_OPTIONS and _OPTIONS["compiler"]) == "gcc" then
-    buildoptions {
-        "-fmodules-ts",
-        "-fmodule-mapper=" .. normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/module.map")
-    }
+    buildoptions {"-fmodules-ts",
+                  "-fmodule-mapper=" .. normalizePath(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Build/module.map")}
 else
     buildoptions {"-fprebuilt-module-path=%{cfg.objdir}/modules"}
 end
@@ -354,28 +408,28 @@ filter {"system:emscripten", "files:**.ixx"}
 buildoptions {"-x", "c++-module"}
 
 filter "configurations:Editor_Debug"
-defines {"EE_DEBUG", "EE_EDITOR_BUILD"}
+defines {"EE_DEBUG", "EE_EDITOR_BUILD", "JPH_ENABLE_ASSERTS"}
 runtime "Debug"
 symbols "on"
 
 filter "configurations:Editor_Release"
-defines {"EE_RELEASE", "EE_EDITOR_BUILD"}
+defines {"EE_RELEASE", "EE_EDITOR_BUILD", "NDEBUG"}
 runtime "Release"
 optimize "on"
 
 filter "configurations:Debug"
-defines "EE_DEBUG"
+defines {"EE_DEBUG", "JPH_ENABLE_ASSERTS"}
 runtime "Debug"
 symbols "on"
 links {"ws2_32"}
 
 filter "configurations:Release"
-defines "EE_RELEASE"
+defines {"EE_RELEASE", "NDEBUG"}
 runtime "Release"
 optimize "on"
 
 filter "configurations:Dist"
-defines "EE_DIST"
+defines {"EE_DIST", "NDEBUG"}
 runtime "Release"
 optimize "on"
 

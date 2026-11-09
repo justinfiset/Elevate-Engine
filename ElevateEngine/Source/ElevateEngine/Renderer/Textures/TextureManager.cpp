@@ -2,6 +2,7 @@ module;
 
 #include <mutex>
 #include <memory>
+#include <vector>
 #include <filesystem>
 #include <stb/stb_image.h>
 
@@ -11,222 +12,186 @@ module Elevate.Renderer.Texture;
 
 import Elevate.Foundations.Paths;
 import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Services;
+import Elevate.Foundations.Tasks;
+
+import Elevate.Core.Application; // Used to resolve services
 
 namespace Elevate {
 	TextureManager::TextureManager()
 	{
 		m_defaultTexture = Texture::CreateFromColor({ 1.0, 1.0, 1.0, 1.0 }, "default");
 
-		const size_t workerCount = 2;
-		m_workerThreads.reserve(workerCount);
-		for (size_t i = 0; i < workerCount; ++i) {
-			m_workerThreads.emplace_back(&TextureManager::WorkerLoop, this);
-		}
-
-		CoreLogger::Info("Texture Manager Initialized with {} worker thread(s).", workerCount);
+		CoreLogger::Info("Texture Manager Initialized.");
 	}
 
 	TextureManager::~TextureManager()
 	{
-		m_isWorkerRunning = false;
-		m_queueCV.notify_all();
-		for (auto& t : m_workerThreads) {
-			if (t.joinable()) {
-				t.join();
-			}
-		}
 	}
 
-	void TextureManager::WorkerLoop()
+	void TextureManager::LoadTextureTask(TextureMetadata meta)
 	{
-		while (m_isWorkerRunning) {
-			TextureLoadTask task;
-			{
-				std::unique_lock<std::mutex> lock(m_queueMutex);
-				m_queueCV.wait(lock, [this] {
-					return !m_loadQueue.empty() || !m_isWorkerRunning;
-					});
+		int width = 0;
+		int height = 0;
+		int channels = 0;
 
-				if (!m_isWorkerRunning && m_loadQueue.empty()) {
-					return;
-				}
+		unsigned char* data = stbi_load(
+			meta.Path.c_str(),
+			&width,
+			&height,
+			&channels,
+			0
+		);
 
-				task = std::move(m_loadQueue.front());
-				m_loadQueue.pop();
-			}
+		TextureFormat format = TextureFormat::RGBA;
 
-			int width = 0;
-			int height = 0;
-			int channels = 0;
-			unsigned char* data = stbi_load(task.meta.Path.c_str(), &width, &height, &channels, 0);
-
-			TextureFormat format = TextureFormat::RGBA;
-			switch (channels)
-			{
-			case 1: format = TextureFormat::GRAYSCALE; break;
-			case 3: format = TextureFormat::RGB;       break;
-			case 4: format = TextureFormat::RGBA;      break;
-			}
-
-			TextureLoadResult res;
-			res.meta = TextureMetadataBuilder(task.meta)
-				.size(static_cast<uint32_t>(width), static_cast<uint32_t>(height))
-				.Format(format)
-				.State((data) ? TextureState::Loaded : TextureState::Failed)
-				.Build();
-			res.data = data;
-
-			{
-				std::lock_guard<std::mutex> lock(instance().m_textureMutex);
-				instance().m_loadingTextures.push_back(res);
-			}
-		}
-	}
-
-	std::shared_ptr<Texture> Elevate::TextureManager::RegisterTexture(std::shared_ptr<Texture> texture)
-	{
-		std::string key;
-
-		if (texture->GetMetadata().Source == TextureSource::File)
+		switch (channels)
 		{
-			if (instance().m_Textures.count(texture->GetPath()) > 0)
-			{
-				return instance().m_Textures[texture->GetPath()];
-			}
-			else
-			{
-				instance().m_Textures[texture->GetPath()] = texture;
-				return texture;
-			}
+		case 1: format = TextureFormat::GRAYSCALE; break;
+		case 3: format = TextureFormat::RGB; break;
+		case 4: format = TextureFormat::RGBA; break;
 		}
-		else return texture;
+
+		TextureLoadResult result;
+		result.meta = TextureMetadataBuilder(meta)
+			.size(width, height)
+			.Format(format)
+			.State(data ? TextureState::Loaded : TextureState::Failed)
+			.Build();
+
+		result.data = data;
+		TextureManager& manager = instance();
+
+		{
+			std::lock_guard lock(manager.m_textureMutex);
+			manager.m_loadingTextures.push_back(std::move(result));
+		}
+	}
+
+	std::shared_ptr<Texture> TextureManager::RegisterTexture(std::shared_ptr<Texture> texture)
+	{
+		if (texture->GetMetadata().Source != TextureSource::File)
+		{
+			return texture;
+		}
+
+		TextureManager& manager = instance();
+		std::lock_guard lock(manager.m_textureMutex);
+
+		auto [it, inserted] = manager.m_Textures.try_emplace(texture->GetPath(), texture);
+		return it->second;
 	}
 
 	std::shared_ptr<Texture> TextureManager::GetTexture(const std::string& path)
 	{
+		TextureManager& manager = instance();
+		std::lock_guard lock(manager.m_textureMutex);
+
 		std::filesystem::path fsPath = std::filesystem::absolute(path);
-		return (instance().m_Textures.count(fsPath.string()) > 0) ? instance().m_Textures[fsPath.string()] : nullptr;
+		auto it = manager.m_Textures.find(fsPath.string());
+
+		return it != manager.m_Textures.end() ? it->second : nullptr;
 	}
 
 	std::shared_ptr<Texture> TextureManager::LoadTextureAsync(const std::string& path, TextureType usage)
 	{
-		auto resolvedPath = PathResolver::Resolve(path);
-		std::filesystem::path fsPath = std::filesystem::absolute(resolvedPath);
-		std::string absPath = fsPath.string();
-
-		std::shared_ptr<Texture> tex = GetTexture(absPath);
-		if (!tex)
-		{
-			for (TextureLoadResult& res : instance().m_loadingTextures) {
-				if (res.meta.Path == absPath)
-				{
-					return nullptr;
-				}
-			}
-		}
-		else
-		{
-			return tex;
-		}
-
 		TextureMetadata meta = TextureMetadataBuilder()
-			.Name(fsPath.filename().string())
-			.Path(absPath)
-			.size(0, 0)
-			.Format(TextureFormat::EMPTY)
+			.Name(std::filesystem::path(path).filename().string())
 			.Usage(usage)
 			.Source(TextureSource::File)
-			.State(TextureState::Unloaded)
 			.Build();
 
-		tex = Texture::CreateFromData(nullptr, meta);
-		instance().m_Textures[absPath] = tex;
-
-		{
-			std::lock_guard<std::mutex> lock(instance().m_queueMutex);
-			instance().m_loadQueue.push({ absPath, meta });
-		}
-
-		instance().m_queueCV.notify_one();
-
-		return tex;
+		return LoadTextureAsyncInternal(path, std::move(meta));
 	}
 
 	std::shared_ptr<Texture> TextureManager::LoadTextureAsync(const std::string& path, const TextureMetadata& metadata)
 	{
+		return LoadTextureAsyncInternal(path, TextureMetadata(metadata));
+	}
+
+	std::shared_ptr<Texture> TextureManager::LoadTextureAsyncInternal(const std::string& path, TextureMetadata meta)
+	{
 		auto resolvedPath = PathResolver::Resolve(path);
 		std::filesystem::path fsPath = std::filesystem::absolute(resolvedPath);
 		std::string absPath = fsPath.string();
 
-		std::shared_ptr<Texture> tex = GetTexture(absPath);
-		if (!tex)
+		meta.Name = fsPath.filename().string();
+		meta.Path = absPath;
+		meta.State = TextureState::Unloaded;
+
+		TextureManager& manager = instance();
+
 		{
-			for (TextureLoadResult& res : instance().m_loadingTextures) {
-				if (res.meta.Path == absPath)
-				{
-					return nullptr;
-				}
+			std::lock_guard lock(manager.m_textureMutex);
+
+			auto it = manager.m_Textures.find(absPath);
+			if (it != manager.m_Textures.end())
+			{
+				return it->second;
 			}
 		}
-		else
-		{
-			return tex;
-		}
 
-		TextureMetadata _meta = metadata;
-		_meta.Name = fsPath.filename().string();
-		_meta.Path = absPath;
-		_meta.State = TextureState::Unloaded;
+		auto texture = Texture::CreateFromData(nullptr, meta);
 
-		tex = Texture::CreateFromData(nullptr, _meta);
-		instance().m_Textures[absPath] = tex;
+		Application::Get().GetServices().Resolve<ITaskScheduler>()->Submit(
+			TaskDescriptor(TaskAffinity::Any, TaskPriority::Normal, "LoadTexture" + path),
+			[meta = std::move(meta)]() mutable
+			{
+				instance().LoadTextureTask(std::move(meta));
+			});
 
-		{
-			std::lock_guard<std::mutex> lock(instance().m_queueMutex);
-			instance().m_loadQueue.push({ absPath, _meta });
-		}
-
-		instance().m_queueCV.notify_one();
-
-		return tex;
+		return texture;
 	}
 
 	void TextureManager::UpdateLoadingTextures()
 	{
+		std::vector<TextureLoadResult> results;
 		TextureManager& manager = instance();
-		std::lock_guard<std::mutex> lock(manager.m_textureMutex);
 
-		auto it = manager.m_loadingTextures.begin();
-		while (it != manager.m_loadingTextures.end())
 		{
-			switch (it->meta.State)
+			std::lock_guard lock(manager.m_textureMutex);
+			results.swap(manager.m_loadingTextures);
+		}
+
+		for (auto& result : results)
+		{
+			std::shared_ptr<Texture> texture;
+
 			{
-			case TextureState::Loaded:
-				if (manager.m_Textures.count(it->meta.Path))
+				std::lock_guard lock(manager.m_textureMutex);
+
+				auto it = manager.m_Textures.find(result.meta.Path);
+				if (it != manager.m_Textures.end())
 				{
-					CoreLogger::Info("Loaded texture : {}, {}x{}", it->meta.Path, it->meta.Width, it->meta.Height);
-					manager.m_Textures[it->meta.Path]->SetData(it->data, it->meta);
-					stbi_image_free(it->data);
-					it->data = nullptr;
+					texture = it->second;
 				}
-				it = manager.m_loadingTextures.erase(it);
-				break;
-			case TextureState::Failed:
-				if (manager.m_Textures.count(it->meta.Path))
+			}
+
+			if (texture)
+			{
+				if (result.meta.State == TextureState::Loaded)
 				{
-					CoreLogger::Error("Failed to load texture : {}", it->meta.Path);
-					manager.m_Textures[it->meta.Path]->SetData(it->data, it->meta);
-					if (it->data)
-					{
-						stbi_image_free(it->data);
-					}
-					it->data = nullptr;
+					CoreLogger::Info(
+						"Loaded texture : {}, {}x{}",
+						result.meta.Path,
+						result.meta.Width,
+						result.meta.Height
+					);
 				}
-				it = manager.m_loadingTextures.erase(it);
-				break;
-			default:
-				++it;
-				break;
+				else
+				{
+					CoreLogger::Error(
+						"Failed to load texture : {}",
+						result.meta.Path
+					);
+				}
+
+				texture->SetData(result.data, result.meta);
+			}
+
+			if (result.data)
+			{
+				stbi_image_free(result.data);
 			}
 		}
 	}
