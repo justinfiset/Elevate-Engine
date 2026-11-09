@@ -45,12 +45,7 @@ jobs:
                   CONFIG: ${{ matrix.configuration }}
               run: make config="${CONFIG,,}" Dependencies -j"$(nproc)"
 
-            - name: Compile engine
-              env:
-                  CONFIG: ${{ matrix.configuration }}
-              run: make config="${CONFIG,,}" ElevateEngine -j"$(nproc)"
-
-            - name: Compile tests and apps
+            - name: Compile engine and tests
               env:
                   CONFIG: ${{ matrix.configuration }}
               run: make config="${CONFIG,,}" -j"$(nproc)"
