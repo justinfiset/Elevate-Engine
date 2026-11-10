@@ -42,7 +42,7 @@ export namespace Elevate {
 
 		static void Start(int argc, char** argv, ApplicationFactory factory);
 		void Init();
-		void EngineFrame();
+		void EngineFrame(bool skipEventPolling = false);
 		void Run();
 		void Exit();
 
@@ -74,8 +74,8 @@ export namespace Elevate {
 		bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
 		//Window
 		bool OnWindowClose(WindowCloseEvent& e);
-		bool OnWindowResize(WindowResizeEvent& e);
 		bool OnWindowFocusEvent(WindowFocusEvent& e);
+		bool OnFramebufferResize(FramebufferResizeEvent& e);
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;

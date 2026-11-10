@@ -44,7 +44,7 @@ export namespace Elevate
 		virtual ~Window() {}
 
 		virtual void Init(const WindowProps& props);
-		virtual void OnUpdate() = 0;
+		virtual void OnUpdate(bool skipEventPolling = false) = 0;
 
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;

@@ -19,7 +19,7 @@ namespace Elevate
 		GlfwWindow(const WindowProps&);
 		virtual ~GlfwWindow();
 
-		void OnUpdate() override;
+		void OnUpdate(bool skipEventPolling) override;
 
 		inline unsigned int GetWidth() const override { return m_Data.Width; }
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
