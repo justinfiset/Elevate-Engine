@@ -17,7 +17,7 @@ module Elevate.Core.Application;
 import Elevate.Foundations.Time;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
-import Elevate.Foundations.DI;
+import Elevate.Foundations.Paths;
 // Core
 import Elevate.Core.Assets.AssetRegistry;
 import Elevate.Core.Layers.Layer;
@@ -25,7 +25,6 @@ import Elevate.Core.Layers.ImGuiLayer;
 import Elevate.Core.Layers.LayerStack;
 import Elevate.Core.Window;
 import Elevate.Core.Events;
-import Elevate.Core.DI;
 // Audio
 import Elevate.Audio.SoundEngine;
 // Renderer
@@ -33,6 +32,9 @@ import Elevate.Renderer.Texture;
 import Elevate.Renderer.Renderer;
 // Input
 import Elevate.Input;
+// DI
+import Elevate.Foundations.DI;
+import Elevate.Core.DI;
 
 // Editor
 #ifdef EE_EDITOR_BUILD
@@ -51,6 +53,10 @@ namespace Elevate {
 		s_Instance = this;
 
 		CoreLogger::Trace("Current working directory : {}", std::filesystem::current_path().string().c_str());
+		CoreLogger::Trace("Resource dir: {}", std::string(EE_RESOURCE_DIR));
+		CoreLogger::Trace("Engine dir: {}", Paths::Engine().string());
+		CoreLogger::Trace("Editor dir: {}", Paths::Editor().string());
+		CoreLogger::Trace("Content dir: {}", Paths::Content().string());
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
@@ -59,8 +65,8 @@ namespace Elevate {
 		ServiceCollection collection;
 
 		ServiceModuleRegistry::Create()
-			.Register< FoundationsServiceModule>()
-			.Register< CoreServiceModule>()
+			.Register<FoundationsServiceModule>()
+			.Register<CoreServiceModule>()
 			.Build(collection);
 
 		m_Provider = std::make_unique<ServiceProvider>(std::move(collection).Build());
@@ -99,8 +105,8 @@ namespace Elevate {
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 		dispatcher.Dispatch<WindowFocusEvent>(BIND_EVENT_FN(OnWindowFocusEvent));
+		dispatcher.Dispatch<FramebufferResizeEvent>(BIND_EVENT_FN(OnFramebufferResize));
 
 		// Keyboard
 		dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(OnKeyPressedEvent));
@@ -155,7 +161,7 @@ namespace Elevate {
 		SoundEngine::Init();
 	}
 
-	void Application::EngineFrame() // Each frame
+	void Application::EngineFrame(bool skipEventPolling) // Each frame
 	{
 		static float lastTime = 0.0f;
 
@@ -206,7 +212,7 @@ namespace Elevate {
 
 			Renderer::FlushBuffers();
 			// Poll events and swap buffers
-			m_Window->OnUpdate();
+			m_Window->OnUpdate(skipEventPolling);
 
 #ifdef EE_PLATFORM_WEB
 			if (!m_Running)
@@ -313,9 +319,10 @@ namespace Elevate {
 		return true;
 	}
 
-	bool Application::OnWindowResize(WindowResizeEvent& e)
+	bool Application::OnFramebufferResize(FramebufferResizeEvent& e)
 	{
 		Renderer::SetViewport(0, 0, e.GetWidth(), e.GetHeight());
+		EngineFrame(true);
 		return true;
 	}
 

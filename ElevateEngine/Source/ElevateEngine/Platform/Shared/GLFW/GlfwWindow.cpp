@@ -105,6 +105,14 @@ namespace Elevate
 				dataPtr->EventCallback(event);
 			});
 
+		glfwSetFramebufferSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+			{
+				void* userPtr = glfwGetWindowUserPointer(window);
+				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+				FramebufferResizeEvent event(width, height);
+				dataPtr->EventCallback(event);
+			});
+
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
 			{
 				void* userPtr = glfwGetWindowUserPointer(window);
@@ -184,9 +192,13 @@ namespace Elevate
 		glfwDestroyWindow(m_Window);
 	}
 
-	void GlfwWindow::OnUpdate()
+	void GlfwWindow::OnUpdate(bool skipEventPolling)
 	{
-		glfwPollEvents();
+		if (!skipEventPolling)
+		{
+			glfwPollEvents();
+		}
+
 		m_Context->SwapBuffers();
 	}
 

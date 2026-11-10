@@ -14,6 +14,7 @@ export namespace Elevate
 		None = 0,
 		GameContextChanged,
 		WindowClose, WindowResize, WindowFocus,
+		FramebufferResize,
 		AppTick, AppUpdate, AppRender,
 		KeyPressed, KeyReleased, KeyTyped,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled

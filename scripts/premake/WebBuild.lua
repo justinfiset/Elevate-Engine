@@ -31,7 +31,7 @@ function WebBuild.ApplyCompilerSettings()
                  "-s USE_GLFW=3", "-s FULL_ES3=1", "-s ASSERTIONS=1", "-s EMULATE_FUNCTION_POINTER_CASTS=1",
                  "-s NO_EXIT_RUNTIME=1", "-s DISABLE_DEPRECATED_FIND_EVENT_TARGET_BEHAVIOR=0",
                  "-s EXPORTED_RUNTIME_METHODS=['FS','wasmTable','ccall','cwrap']", "-s ALLOW_MEMORY_GROWTH=1",
-                 "-s GROWABLE_ARRAYBUFFERS=2", "-s INITIAL_MEMORY=512MB", "-s FORCE_FILESYSTEM=1",
+                 "-s GROWABLE_ARRAYBUFFERS=0", "-s INITIAL_MEMORY=512MB", "-s FORCE_FILESYSTEM=1",
                  "-s ERROR_ON_UNDEFINED_SYMBOLS=0", "-qext"}
 
     buildoptions {"-pthread", "-matomics", "-mbulk-memory", -- Mute third party lib warning we can't do anything about
