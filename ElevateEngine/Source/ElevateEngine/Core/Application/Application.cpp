@@ -55,7 +55,9 @@ namespace Elevate {
 		CoreLogger::Trace("Current working directory : {}", std::filesystem::current_path().string().c_str());
 		CoreLogger::Trace("Resource dir: {}", std::string(EE_RESOURCE_DIR));
 		CoreLogger::Trace("Engine dir: {}", Paths::Engine().string());
+#ifdef EE_EDITOR_BUILD
 		CoreLogger::Trace("Editor dir: {}", Paths::Editor().string());
+#endif
 		CoreLogger::Trace("Content dir: {}", Paths::Content().string());
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
