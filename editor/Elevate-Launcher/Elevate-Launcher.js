@@ -95,7 +95,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmprnjidyb_.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp2fv8m_ye.js
 
   if (!Module['expectedDataFileDownloads']) Module['expectedDataFileDownloads'] = 0;
   Module['expectedDataFileDownloads']++;
@@ -241,21 +241,21 @@ Module['FS_createPath']("/Engine/Textures/Skybox", "Default", true, true);
 
   })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmprnjidyb_.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmph1l9xzrq.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp2fv8m_ye.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpb3tvv7of.js
 
     // All the pre-js content up to here must remain later on, we need to run
     // it.
     if ((typeof ENVIRONMENT_IS_WASM_WORKER !== 'undefined' && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD !== 'undefined' && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET !== 'undefined' && ENVIRONMENT_IS_AUDIO_WORKLET)) Module['preRun'] = [];
     var necessaryPreJSTasks = Module['preRun'].slice();
-  // end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmph1l9xzrq.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpdofw3fge.js
+  // end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpb3tvv7of.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpa03pxpq3.js
 
     if (!Module['preRun']) throw 'Module.preRun should exist because file support used it; did a pre-js delete it?';
     necessaryPreJSTasks.forEach((task) => {
       if (!Module['preRun'].includes(task)) throw 'All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?';
     });
-  // end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpdofw3fge.js
+  // end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpa03pxpq3.js
 
 
 var programArgs = [];
@@ -10401,7 +10401,7 @@ function checkIncomingModuleAPI() {
   ignoredModuleProp('wasmBinary');
 }
 var ASM_CONSTS = {
-  5710864: ($0) => { window.open(UTF8ToString($0), '_blank'); }
+  5710752: ($0) => { window.open(UTF8ToString($0), '_blank'); }
 };
 function ImGui_ImplGlfw_EmscriptenOpenURL(url) { url = url ? UTF8ToString(url) : null; if (url) window.open(url, '_blank'); }
 
