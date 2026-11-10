@@ -27,42 +27,18 @@ function WebBuild.GenerateHTML(project, outputDir)
 end
 
 function WebBuild.ApplyCompilerSettings()
-    linkoptions 
-    { 
-        "-pthread",
-        "-matomics",
-        "-mbulk-memory",
-        "-s STACK_SIZE=5MB",
-        "-s PTHREAD_POOL_SIZE=16",
-        "-s USE_GLFW=3",
-        "-s FULL_ES3=1",
-        "-s ASSERTIONS=1",
-        "-s EMULATE_FUNCTION_POINTER_CASTS=1",
-        "-s NO_EXIT_RUNTIME=1",
-        "-s DISABLE_DEPRECATED_FIND_EVENT_TARGET_BEHAVIOR=0",
-        "-s EXPORTED_RUNTIME_METHODS=['FS','wasmTable','ccall','cwrap']",
-        "-s ALLOW_MEMORY_GROWTH=1",
-        "-s GROWABLE_ARRAYBUFFERS=2",
-        "-s INITIAL_MEMORY=512MB",
-        "-s FORCE_FILESYSTEM=1",
-        "-s ERROR_ON_UNDEFINED_SYMBOLS=0",
-        "-qext"
-    }
+    linkoptions {"-pthread", "-matomics", "-mbulk-memory", "-s STACK_SIZE=5MB", "-s PTHREAD_POOL_SIZE=32",
+                 "-s USE_GLFW=3", "-s FULL_ES3=1", "-s ASSERTIONS=1", "-s EMULATE_FUNCTION_POINTER_CASTS=1",
+                 "-s NO_EXIT_RUNTIME=1", "-s DISABLE_DEPRECATED_FIND_EVENT_TARGET_BEHAVIOR=0",
+                 "-s EXPORTED_RUNTIME_METHODS=['FS','wasmTable','ccall','cwrap']", "-s ALLOW_MEMORY_GROWTH=1",
+                 "-s GROWABLE_ARRAYBUFFERS=2", "-s INITIAL_MEMORY=512MB", "-s FORCE_FILESYSTEM=1",
+                 "-s ERROR_ON_UNDEFINED_SYMBOLS=0", "-qext"}
 
-    buildoptions
-    {
-        "-pthread",
-        "-matomics", 
-        "-mbulk-memory" ,
-
-        -- Mute third party lib warning we can't do anything about
-        "-Wno-deprecated-literal-operator", 
-        "-Wno-invalid-offsetof",
-        "-Wno-deprecated-pragma"
-    }
+    buildoptions {"-pthread", "-matomics", "-mbulk-memory", -- Mute third party lib warning we can't do anything about
+    "-Wno-deprecated-literal-operator", "-Wno-invalid-offsetof", "-Wno-deprecated-pragma"}
 
     filter "files:**.c"
-        buildoptions { "-Wno-unused-command-line-argument" }
+    buildoptions {"-Wno-unused-command-line-argument"}
 
     filter {}
 end
@@ -76,9 +52,8 @@ local function detectNewline(content)
 end
 
 local function makeArchiveRuleBlock(emar_cmd, nl)
-    return "  command = " .. emar_cmd .. " -rcs $out @$out.rsp" .. nl
-        .. "  rspfile = $out.rsp" .. nl
-        .. "  rspfile_content = $in"
+    return "  command = " .. emar_cmd .. " -rcs $out @$out.rsp" .. nl .. "  rspfile = $out.rsp" .. nl ..
+               "  rspfile_content = $in"
 end
 
 local function normalizeArchiveRules(content, ar_rule_block, nl)
@@ -90,12 +65,10 @@ local function normalizeArchiveRules(content, ar_rule_block, nl)
         end
         return rule_and_command
     end)
-    
+
     -- In case there are any rules we missed, also directly replace any command lines for archiving
-    content = content:gsub(
-        "(rule%s+ar_[%w_]+)\r?\n%s*description%s*=%s*Archiving static library %$out",
-        "%1" .. nl .. ar_rule_block .. nl .. "  description = Archiving static library $out"
-    )
+    content = content:gsub("(rule%s+ar_[%w_]+)\r?\n%s*description%s*=%s*Archiving static library %$out",
+        "%1" .. nl .. ar_rule_block .. nl .. "  description = Archiving static library $out")
 
     return content
 end
