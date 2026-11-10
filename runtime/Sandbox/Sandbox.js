@@ -95,7 +95,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp_mqenhjf.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpfu0vf3uj.js
 
   if (!Module['expectedDataFileDownloads']) Module['expectedDataFileDownloads'] = 0;
   Module['expectedDataFileDownloads']++;
@@ -268,21 +268,21 @@ Module['FS_createPath']("/Engine/Textures/Skybox", "Default", true, true);
 
   })();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp_mqenhjf.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpuezcr2bb.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpfu0vf3uj.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmptfkgzhxt.js
 
     // All the pre-js content up to here must remain later on, we need to run
     // it.
     if ((typeof ENVIRONMENT_IS_WASM_WORKER !== 'undefined' && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD !== 'undefined' && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET !== 'undefined' && ENVIRONMENT_IS_AUDIO_WORKLET)) Module['preRun'] = [];
     var necessaryPreJSTasks = Module['preRun'].slice();
-  // end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpuezcr2bb.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp7ay3ehqn.js
+  // end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmptfkgzhxt.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpzo7wwq95.js
 
     if (!Module['preRun']) throw 'Module.preRun should exist because file support used it; did a pre-js delete it?';
     necessaryPreJSTasks.forEach((task) => {
       if (!Module['preRun'].includes(task)) throw 'All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?';
     });
-  // end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp7ay3ehqn.js
+  // end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpzo7wwq95.js
 
 
 var programArgs = [];
@@ -1406,7 +1406,7 @@ async function createWasm() {
         }
       },
   initMainThread() {
-        var pthreadPoolSize = 16;
+        var pthreadPoolSize = 32;
         // Start loading up the Worker pool, if requested.
         while (pthreadPoolSize--) {
           PThread.allocateUnusedWorker();
