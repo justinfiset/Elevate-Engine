@@ -355,8 +355,9 @@ IncludeDir["Jolt"] = "Vendor/JoltPhysics"
 files {"Source/**.ixx", "Source/**.cpp", "Source/**.h", "Source/**.inl", "Vendor/ImGuizmo/src/ImGuizmo.cpp",
        "Vendor/ImGuiFileDialog/**.cpp", "Vendor/tinyfiledialogs/tinyfiledialogs.c", "Vendor/spdlog/src/*.cpp"}
 
-defines {"EE_RESOURCE_DIR=\"" .. path.getabsolute("./Resources/") .. "\"", "EE_ENGINE_BUILD", "_CRT_SECURE_NO_WARNINGS",
-         "IMGUI_DEFINE_MATH_OPERATORS", "GLM_ENABLE_EXPERIMENTAL", "SPDLOG_COMPILED_LIB"}
+defines {"EE_RESOURCE_DIR=\"" .. BuildPlatform.GetResourceDir(_MAIN_SCRIPT_DIR .. "/ElevateEngine/Resources/") .. "\"",
+         "EE_ENGINE_BUILD", "_CRT_SECURE_NO_WARNINGS", "IMGUI_DEFINE_MATH_OPERATORS", "GLM_ENABLE_EXPERIMENTAL",
+         "SPDLOG_COMPILED_LIB"}
 
 includedirs {"Source", values(IncludeDir)}
 
