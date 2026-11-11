@@ -209,6 +209,8 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const TypeLayout& lay
 				if (ImGui::Button("...", ImVec2(customButtonWidth, customButtonHeight)))
 					ImGui::OpenPopup("HeaderMenu");
 
+				ImGui::Dummy(ImVec2(0.0f, 0.0f));
+
 				if (ImGui::BeginPopup("HeaderMenu"))
 				{
 					if (ImGui::MenuItem("Remove Component"))
