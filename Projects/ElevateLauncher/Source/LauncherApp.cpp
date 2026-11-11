@@ -523,7 +523,9 @@ public:
 		ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, ImGui::GetCursorScreenPos().y));
 		ImGui::TextDisabled("%s", project.Path.c_str());
 		ImGui::PopTextWrapPos();
+
 		ImGui::SetCursorScreenPos(ImVec2(pos.x, pos.y + height + padding));
+		ImGui::Dummy(ImVec2(0.0f, 0.0f));
 		ImGui::PopID();
 	}
 
@@ -644,7 +646,9 @@ public:
 			ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + maxWidth - padding * 4 - closeButtonSize);
 			ImGui::TextUnformatted(text.c_str());
 			ImGui::PopTextWrapPos();
+
 			ImGui::SetCursorScreenPos(ImVec2(pos.x, pos.y + rectHeight + padding));
+			ImGui::Dummy(ImVec2(0.0f, 0.0f));
 			ImGui::PopID();
 		}
 	}
