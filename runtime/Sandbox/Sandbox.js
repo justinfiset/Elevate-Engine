@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpll6ln8rg.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpkxx69hp0.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -822,23 +822,23 @@ Module["expectedDataFileDownloads"]++;
   });
 }))();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpll6ln8rg.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpkct6fo4q.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpkxx69hp0.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmprjw98y__.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER !== "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD !== "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET !== "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpkct6fo4q.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpzacqewcw.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmprjw98y__.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpu5aeyl3z.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (!Module["preRun"].includes(task)) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpzacqewcw.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpu5aeyl3z.js
 var programArgs = [];
 
 var thisProgram = "./this.program";
@@ -10341,6 +10341,32 @@ var _glfwSwapInterval = interval => {
   if (interval == 0) _emscripten_set_main_loop_timing(0, 0); else _emscripten_set_main_loop_timing(1, interval);
 };
 
+var _glfwTerminate = () => {
+  window.removeEventListener("gamepadconnected", GLFW.onGamepadConnected, true);
+  window.removeEventListener("gamepaddisconnected", GLFW.onGamepadDisconnected, true);
+  window.removeEventListener("keydown", GLFW.onKeydown, true);
+  window.removeEventListener("keypress", GLFW.onKeyPress, true);
+  window.removeEventListener("keyup", GLFW.onKeyup, true);
+  window.removeEventListener("blur", GLFW.onBlur, true);
+  var canvas = Browser.getCanvas();
+  canvas.removeEventListener("touchmove", GLFW.onMousemove, true);
+  canvas.removeEventListener("touchstart", GLFW.onMouseButtonDown, true);
+  canvas.removeEventListener("touchcancel", GLFW.onMouseButtonUp, true);
+  canvas.removeEventListener("touchend", GLFW.onMouseButtonUp, true);
+  canvas.removeEventListener("mousemove", GLFW.onMousemove, true);
+  canvas.removeEventListener("mousedown", GLFW.onMouseButtonDown, true);
+  canvas.removeEventListener("mouseup", GLFW.onMouseButtonUp, true);
+  canvas.removeEventListener("wheel", GLFW.onMouseWheel, true);
+  canvas.removeEventListener("mousewheel", GLFW.onMouseWheel, true);
+  canvas.removeEventListener("mouseenter", GLFW.onMouseenter, true);
+  canvas.removeEventListener("mouseleave", GLFW.onMouseleave, true);
+  canvas.removeEventListener("drop", GLFW.onDrop, true);
+  canvas.removeEventListener("dragover", GLFW.onDragover, true);
+  if (GLFW.devicePixelRatioMQL) GLFW.devicePixelRatioMQL.removeEventListener("change", GLFW.onDevicePixelRatioChange);
+  GLFW.windows = null;
+  GLFW.active = null;
+};
+
 var _glfwWindowHint = (target, hint) => {
   GLFW.hints[target] = hint;
 };
@@ -11281,6 +11307,7 @@ function assignWasmImports() {
     /** @export */ glfwSetWindowUserPointer: _glfwSetWindowUserPointer,
     /** @export */ glfwSwapBuffers: _glfwSwapBuffers,
     /** @export */ glfwSwapInterval: _glfwSwapInterval,
+    /** @export */ glfwTerminate: _glfwTerminate,
     /** @export */ glfwWindowHint: _glfwWindowHint,
     /** @export */ memory: wasmMemory,
     /** @export */ random_get: _random_get
