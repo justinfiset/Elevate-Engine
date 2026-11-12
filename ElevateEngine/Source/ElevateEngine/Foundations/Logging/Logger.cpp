@@ -8,18 +8,22 @@ module;
 
 module Elevate.Foundations.Logger;
 
+namespace
+{
+	std::shared_ptr<spdlog::logger> CreateSpdLogger()
+	{
+		auto spdlogger = spdlog::stdout_color_mt("APP");
+		spdlogger->set_level(spdlog::level::trace);
+		spdlogger->set_pattern("%^[%T] [%n] %v%$");
+		return spdlogger;
+	}
+}
 
 namespace Elevate
 {
 	Internal::LogImpl* Logger::GetImpl()
 	{
-		static Internal::LogImpl* logger = new Internal::LogImpl([]()
-			{
-				auto spdlogger = spdlog::stdout_color_mt("APP");
-				spdlogger->set_level(spdlog::level::trace);
-				spdlogger->set_pattern("%^[%T] [%n] %v%$");
-				return spdlogger;
-			}());
-		return logger;
+		static Internal::LogImpl logger(CreateSpdLogger());
+		return &logger;
 	}
 }

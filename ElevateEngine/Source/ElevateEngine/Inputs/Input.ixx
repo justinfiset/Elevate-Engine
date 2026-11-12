@@ -2,6 +2,7 @@ module;
 
 #include <glm/glm.hpp>
 #include <ctype.h>
+#include <memory>
 
 export module Elevate.Input;
 
@@ -68,6 +69,6 @@ export namespace Elevate
 
 	private:
 		Internal::InputBuffer inputBuffer;
-		static Input* s_Instance;
+		static std::unique_ptr<Input> s_Instance;
 	};
 }

@@ -40,6 +40,7 @@ import Elevate.Input;
 // Editor
 import Elevate.Editor.Layer;
 import Elevate.Editor.Widgets.ContextMenu;
+import Elevate.Editor.Widgets.IconMenuItem;
 
 namespace fs = std::filesystem;
 
@@ -386,15 +387,9 @@ namespace Elevate
 
 	void Editor::AssetBrowserPanel::DrawContextMenu()
 	{
-		static float iconSize = ImGui::GetFontSize();
-
 		if (ImGui::BeginMenu("Create"))
 		{
-			ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 3.0f);
-			ImGui::Image((ImTextureID)m_newFolderTexture->GetNativeHandle(), ImVec2(iconSize, iconSize));
-			ImGui::SameLine(0.0f, 8.0f);
-
-			if (ImGui::MenuItem("Create Folder"))
+			if (Widgets::IconMenuItem("Create Folder", (ImTextureID)m_newFolderTexture->GetNativeHandle()))
 			{
 				fs::path path = m_CurrentPath / "New_Folder";
 
@@ -468,28 +463,16 @@ namespace Elevate
 			}
 		}
 
-		ImGui::BeginDisabled(!hasSeleected);
-
-		ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 3.0f);
-		ImGui::Image((ImTextureID)m_renameTexture->GetNativeHandle(), ImVec2(iconSize, iconSize));
-		ImGui::SameLine(0.0f, 8.0f);
-
-		if (ImGui::MenuItem("Rename"))
+		if (Widgets::IconMenuItem("Rename", (ImTextureID)m_renameTexture->GetNativeHandle(), hasSeleected))
 		{
 			std::strcpy(m_renameBuffer, selected.name.c_str());
 			m_isRenaming = true;
 		}
 
-		ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 3.0f);
-		ImGui::Image((ImTextureID)m_deleteTexture->GetNativeHandle(), ImVec2(iconSize, iconSize));
-		ImGui::SameLine(0.0f, 8.0f);
-
-		if (ImGui::MenuItem("Delete"))
+		if (Widgets::IconMenuItem("Delete", (ImTextureID)m_deleteTexture->GetNativeHandle()))
 		{
 			RemoveItem(selected);
 		}
-
-		ImGui::EndDisabled();
 	}
 
 	void Editor::AssetBrowserPanel::UpdateRelatedPaths()

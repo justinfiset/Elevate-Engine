@@ -41,7 +41,7 @@ export namespace Elevate
 	{
 	public:
 		Window() = default;
-		virtual ~Window() {}
+		virtual ~Window() = default;
 
 		virtual void Init(const WindowProps& props);
 		virtual void OnUpdate(bool skipEventPolling = false) = 0;

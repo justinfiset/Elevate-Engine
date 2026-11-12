@@ -78,18 +78,15 @@ export namespace Elevate {
 		bool OnFramebufferResize(FramebufferResizeEvent& e);
 
 		std::unique_ptr<Window> m_Window;
-		ImGuiLayer* m_ImGuiLayer;
-		bool m_Running = true;
-		LayerStack m_LayerStack;
-
-		// Phyisc
-		std::unique_ptr<PhysicsSystem> m_PhysicsSystem;
-
-		GameContextState m_state = Initializing;
-		ApplicationArguments m_args;
-
 		std::unique_ptr<ServiceProvider> m_Provider;
 		SharedService<ITaskScheduler> m_Scheduler;
+		std::unique_ptr<PhysicsSystem> m_PhysicsSystem;
+		LayerStack m_LayerStack;
+		ImGuiLayer* m_ImGuiLayer = nullptr;
+
+		bool m_Running = true;
+		GameContextState m_state = Initializing;
+		ApplicationArguments m_args;
 
 		static Application* s_Instance;
 	};

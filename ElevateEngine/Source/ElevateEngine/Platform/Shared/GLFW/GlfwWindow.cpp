@@ -190,6 +190,11 @@ namespace Elevate
 	void GlfwWindow::Shutdown()
 	{
 		glfwDestroyWindow(m_Window);
+		m_Window = nullptr;
+
+		glfwTerminate();
+
+		delete m_Context;
 	}
 
 	void GlfwWindow::OnUpdate(bool skipEventPolling)

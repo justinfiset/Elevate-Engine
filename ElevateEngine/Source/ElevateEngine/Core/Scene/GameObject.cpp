@@ -36,9 +36,8 @@ namespace Elevate
 
 	void GameObject::SetFromGlobalMatrix(const glm::mat4& newWorld)
 	{
-		glm::mat4 newLocal =
-			m_parent
-			? glm::inverse(m_parent->GenGlobalMatrix()) * newWorld
+		glm::mat4 newLocal = m_parent.lock()
+			? glm::inverse(m_parent.lock()->GenGlobalMatrix()) * newWorld
 			: newWorld;
 
 		glm::vec3 scale;
@@ -239,9 +238,9 @@ namespace Elevate
 			return;
 		}
 
-		if (m_parent)
+		if (m_parent.lock())
 		{
-			m_parent->AddChild(GetShared());
+			m_parent.lock()->AddChild(GetShared());
 		}
 		else
 		{
@@ -375,21 +374,25 @@ namespace Elevate
 		}
 	}
 
-	void GameObject::SetParent(const EEObjectPtr<GameObject>& newParent)
+	void GameObject::SetParent(const std::weak_ptr<GameObject>& newParent)
 	{
-		if (newParent == m_parent)
-			return;
-
-		if (m_parent)
+		if (newParent.lock() == m_parent.lock())
 		{
-			m_parent->RemoveChild(GetShared());
+			return;
+		}
+
+		if (m_parent.lock())
+		{
+			m_parent.lock()->RemoveChild(GetShared());
 		}
 
 		this->m_parent = newParent;
 
-		if (newParent)
+		auto lockedParent = newParent.lock();
+
+		if (lockedParent)
 		{
-			newParent->AddChild(GetShared());
+			lockedParent->AddChild(GetShared());
 			if (m_scene)
 			{
 				m_scene->RemoveFromRoot(GetShared());
@@ -402,10 +405,12 @@ namespace Elevate
 
 	void GameObject::Destroy()
 	{
-		if (m_parent) {
-			m_parent->RemoveChild(GetShared());
+		if (m_parent.lock())
+		{
+			m_parent.lock()->RemoveChild(GetShared());
 		}
-		else {
+		else
+		{
 			m_scene->RemoveFromRoot(GetShared());
 		}
 
@@ -447,9 +452,9 @@ namespace Elevate
 	// TODO MOVE SOMEWHERE ELSE
 	glm::mat4 GameObject::GenGlobalMatrix() const
 	{
-		if (m_parent)
+		if (m_parent.lock())
 		{
-			return m_parent->GenGlobalMatrix() * GetModelMatrix();
+			return m_parent.lock()->GenGlobalMatrix() * GetModelMatrix();
 		}
 		else
 		{

@@ -41,6 +41,7 @@ import Elevate.Editor.Panels.HierarchyPanel;
 import Elevate.Editor.Panels.StatisticsPanel;
 import Elevate.Editor.Panels.AssetBrowserPanel;
 import Elevate.Editor.Panels.ConsolePanel;
+import Elevate.Editor.Panels.ProfilerPanel;
 
 namespace Elevate::Editor
 {
@@ -71,6 +72,7 @@ namespace Elevate::Editor
 		CreateWidget<AnalyserPanel>();
 		CreateWidget<AssetBrowserPanel>();
 		CreateWidget<StatisticsPanel>();
+		CreateWidget<ProfilerPanel>();
 
 #ifdef EE_USES_WWISE
 		CreateWidget<WwiseBrowserPanel>();
