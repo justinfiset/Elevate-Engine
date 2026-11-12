@@ -6,6 +6,7 @@ module;
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 module Elevate.Core.Scene;
 
