@@ -249,6 +249,7 @@ namespace Elevate {
 	void Application::Exit()
 	{
 		m_ImGuiLayer->Cleanup();
+
 		SoundEngine::Terminate();
 		m_PhysicsSystem->Shutdown();
 	}

@@ -63,7 +63,7 @@ export namespace Elevate
 		std::string GetName() const override;
 		virtual TypeLayout GetLayout() const override;
 
-		void SetParent(const EEObjectPtr<GameObject>& newParent);
+		void SetParent(const std::weak_ptr<GameObject>& parent);
 		void Destroy();
 		void RemoveChild(const EEObjectPtr<GameObject>& child);
 
@@ -135,7 +135,7 @@ export namespace Elevate
 		std::string m_name;
 		PROPERTY(m_name);
 
-		EEObjectPtr<GameObject> m_parent;
+		std::weak_ptr<GameObject> m_parent;
 		std::set<EEObjectPtr<GameObject>> m_childs;
 
 		uint32_t m_entityId = INVALID_ENTITY_ID;

@@ -15,9 +15,9 @@ export namespace Elevate
 	class ServiceModuleRegistry
 	{
 	public:
-		static ServiceModuleRegistry& Create()
+		static ServiceModuleRegistry Create()
 		{
-			return *new ServiceModuleRegistry();
+			return ServiceModuleRegistry();
 		}
 
 		template <typename T>

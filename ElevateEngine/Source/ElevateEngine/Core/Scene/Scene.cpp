@@ -6,6 +6,7 @@ module;
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 module Elevate.Core.Scene;
 
@@ -23,7 +24,7 @@ namespace Elevate
 
 	Scene::Scene() : Scene(nullptr, "DefaultScene", SceneType::RuntimeScene) {}
 
-	Scene::Scene(SceneManager *sceneManager, std::string name, SceneType type) : m_name(name), m_type(type)
+	Scene::Scene(SceneManager* sceneManager, std::string name, SceneType type) : m_name(name), m_type(type)
 	{
 		Assert::That(sceneManager != nullptr, "Scene Manager is null.");
 		m_sceneManager = sceneManager;
@@ -41,7 +42,7 @@ namespace Elevate
 
 	void Scene::OnAwake()
 	{
-		for (const auto &obj : m_rootObjects)
+		for (const auto& obj : m_rootObjects)
 		{
 			obj->Awake();
 		}
@@ -49,7 +50,7 @@ namespace Elevate
 
 	void Scene::OnStart()
 	{
-		for (const auto &obj : m_rootObjects)
+		for (const auto& obj : m_rootObjects)
 		{
 			obj->Start();
 		}
@@ -67,7 +68,7 @@ namespace Elevate
 			return;
 		}
 
-		for (const auto &obj : m_rootObjects)
+		for (const auto& obj : m_rootObjects)
 		{
 			obj->Update();
 		}
@@ -102,7 +103,7 @@ namespace Elevate
 		}
 	}
 
-	void Scene::Notify(Event &e)
+	void Scene::Notify(Event& e)
 	{
 		for (EEObjectPtr<GameObject> obj : m_rootObjects)
 		{
@@ -110,18 +111,18 @@ namespace Elevate
 		}
 	}
 
-	void Scene::AddObject(const EEObjectPtr<GameObject> &newObject, const EEObjectPtr<GameObject> &parent)
+	void Scene::AddObject(const EEObjectPtr<GameObject>& newObject, const std::weak_ptr<GameObject>& parent)
 	{
 		if (!newObject)
 			return;
 
-		if (!parent)
+		if (!parent.lock())
 		{
 			AddRootObject(newObject);
 		}
 		else
 		{
-			if (newObject->GetScene() == parent->GetScene())
+			if (newObject->GetScene() == parent.lock()->GetScene())
 			{
 				newObject->SetParent(parent);
 			}
@@ -132,7 +133,7 @@ namespace Elevate
 		}
 	}
 
-	ComponentRegistry &Scene::GetComponentRegistry()
+	ComponentRegistry& Scene::GetComponentRegistry()
 	{
 		Assert::That(m_sceneManager != nullptr, "SceneManager is null.");
 		return m_sceneManager->GetComponentRegistry();
@@ -143,7 +144,7 @@ namespace Elevate
 		return m_registryId;
 	}
 
-	void Scene::RemoveFromRoot(const EEObjectPtr<GameObject> &object)
+	void Scene::RemoveFromRoot(const EEObjectPtr<GameObject>& object)
 	{
 		auto it = std::find(m_rootObjects.begin(), m_rootObjects.end(), object);
 		if (it != m_rootObjects.end())
@@ -152,7 +153,7 @@ namespace Elevate
 		}
 	}
 
-	void Scene::AddRootObject(const EEObjectPtr<GameObject> &newRootObject)
+	void Scene::AddRootObject(const EEObjectPtr<GameObject>& newRootObject)
 	{
 		newRootObject->m_parent.reset();
 		newRootObject->m_scene = this;
