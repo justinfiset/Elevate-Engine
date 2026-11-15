@@ -19,12 +19,10 @@ namespace Elevate
 		return "./Content/";
 	}
 
-#ifdef EE_EDITOR_BUILD
 	const std::filesystem::path Paths::Editor()
 	{
 		return EE_RESOURCE_DIR "/Editor/";
 	}
-#endif
 
 	std::filesystem::path PathResolver::Resolve(std::string_view virtualPath)
 	{
@@ -38,12 +36,7 @@ namespace Elevate
 		}
 		else if (virtualPath.starts_with("editor://"))
 		{
-#ifndef EE_EDITOR_BUILD
-			CoreLogger::Error("You cannot use editor:// path while building without the editor.");
-			return virtualPath;
-#else
 			return Paths::Editor() / virtualPath.substr(9);
-#endif
 		}
 		return virtualPath;
 	}

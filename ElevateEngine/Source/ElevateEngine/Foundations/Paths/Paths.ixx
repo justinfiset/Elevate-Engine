@@ -12,9 +12,7 @@ export namespace Elevate
 	public:
 		static const std::filesystem::path Engine();
 		static const std::filesystem::path Content();
-#ifdef EE_EDITOR_BUILD
 		static const std::filesystem::path Editor();
-#endif
 	};
 
 	class PathResolver

@@ -14,6 +14,8 @@
 
 #include <ElevateEngine.h>
 
+import Elevate.Editor.Theme;
+
 using namespace EL;
 
 using ButtonAction = std::function<void()>;
@@ -68,6 +70,8 @@ public:
 
 	void OnAttach() override
 	{
+		Elevate::Editor::SetDarkTheme();
+
 		m_elevateIcon = Elevate::Texture::CreateFromFile("content://Textures/Elevate.png");
 		m_createTexture = Elevate::Texture::CreateFromFile("content://Textures/add-files.png");
 		m_voidTexture = Elevate::Texture::CreateFromFile("content://Textures/void.png");
