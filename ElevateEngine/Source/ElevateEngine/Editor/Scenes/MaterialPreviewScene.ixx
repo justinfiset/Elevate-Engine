@@ -5,6 +5,7 @@ module;
 #include <memory>
 #include <string_view>
 #include <string>
+#include <cmath>
 
 export module Elevate.Editor.Scenes.MaterialPreviewScene;
 
@@ -23,20 +24,22 @@ export namespace Elevate
 	class MaterialPreviewScene : public Scene
 	{
 	public:
-		MaterialPreviewScene() = default;
 		MaterialPreviewScene(SceneManager* sceneManager, std::string name, SceneType type = SceneType::RuntimeScene)
-			: Scene(sceneManager, name, type)
+			: Scene(sceneManager, std::move(name), type)
 		{
 		}
 
-		~MaterialPreviewScene() = default;
+		~MaterialPreviewScene() override = default;
 
 		virtual void Init() override
 		{
 			EmplaceContext<Elevate::SceneLighting>();
-			auto env = EmplaceContext<Elevate::SceneEnvironment>();
+			auto& env = EmplaceContext<Elevate::SceneEnvironment>();
 
 			env.SetCubemap("engine://Cubemap/default.sky");
+
+			const float distance = (k_radius / std::sin(glm::radians(k_fovDeg * 0.5f))) * k_margin;
+			const float pitch = glm::radians(k_pitchDeg);
 
 			auto sharedThis = std::static_pointer_cast<Scene>(shared_from_this());
 
@@ -45,21 +48,45 @@ export namespace Elevate
 
 			auto materialPreviewCamera = GameObject::Create(std::string(k_cameraName), sharedThis);
 			materialPreviewCamera->AddComponent<Camera>();
-			materialPreviewCamera->SetPosition({ 0.0f, 3.0f, 5.0f });
-			materialPreviewCamera->SetRotation({ -37.0f, 0.0f, 0.0f });
+			materialPreviewCamera->SetPosition({ 0.0f, distance * std::sin(pitch), distance * std::cos(pitch) });
+			materialPreviewCamera->SetRotation({ -k_pitchDeg, 0.0f, 0.0f });
 
-			auto dirLightObj = Elevate::GameObject::Create(std::string(k_dirLightName), sharedThis);
+			const float lp = glm::radians(k_lightPitchDeg);
+			const float ly = glm::radians(k_lightYawDeg);
+
+			const glm::vec3 lightPos = glm::vec3(
+				std::cos(lp) * std::sin(ly),
+				-std::sin(lp),
+				std::cos(lp) * std::cos(ly)
+			) * k_lightDistance;
+
+			auto dirLightObj = GameObject::Create(std::string(k_dirLightName), sharedThis);
 			auto& dirLight = dirLightObj->AddComponent<DirectionalLight>(glm::vec3(1.0f, 1.0f, 1.0f));
 			dirLight.SetIntensity(0.5f);
-			dirLightObj->SetPosition({ 7.0f, 4.0f, 6.0f });
-			dirLightObj->SetRotation({ 0.0f, 45.0f, 45.0f });
+			dirLightObj->SetPosition(lightPos);
+			dirLightObj->SetRotation({ k_lightPitchDeg, k_lightYawDeg, 0.0f });
 
-			Scene::OnAwake();
+			auto ground = GameObject::Create(std::string(k_groundName), sharedThis);
+			ground->AddComponent<Model>(PrimitiveType::Plane);
+			ground->SetPosition({ 0.0f, -k_radius, 0.0f });
+			ground->SetScale({ k_groundSize, 1.0f, k_groundSize });
 		}
 
 	private:
 		static constexpr std::string_view k_sphereName = "MaterialPreview_Sphere";
 		static constexpr std::string_view k_cameraName = "MaterialPreview_Camera";
 		static constexpr std::string_view k_dirLightName = "MaterialPreview_DirLight";
+		static constexpr std::string_view k_groundName = "MaterialPreview_Ground";
+
+		static constexpr float k_groundSize = 50.0f;
+
+		static constexpr float k_fovDeg = 60.0f;
+		static constexpr float k_radius = 1.0f;
+		static constexpr float k_margin = 1.25f;
+		static constexpr float k_pitchDeg = 15.0f;
+
+		static constexpr float k_lightPitchDeg = -40.0f;
+		static constexpr float k_lightYawDeg = -30.0f;
+		static constexpr float k_lightDistance = 6.0f;
 	};
 }

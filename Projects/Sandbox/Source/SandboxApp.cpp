@@ -16,7 +16,7 @@ private:
 	std::shared_ptr<Elevate::GameObject> m_PointLightObject;
 public:
 	explicit DebugLayer(std::shared_ptr<Elevate::SceneManager> sceneManager)
-		: SceneLayer(std::move(sceneManager), sceneManager->CreateScene("Demo Scene"))
+		: SceneLayer(sceneManager, sceneManager->CreateScene("Demo Scene"))
 	{
 	}
 
@@ -123,7 +123,6 @@ public:
 #ifdef EE_USES_WWISE
 		Elevate::SoundEngine::SetImplementation(new Elevate::WwiseSoundEngine());
 #endif
-		Init();
 
 		auto sceneManager = GetServices().Resolve<Elevate::SceneManager>();
 		PushLayer(new DebugLayer(sceneManager));
