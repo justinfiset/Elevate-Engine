@@ -8,6 +8,8 @@ module;
 
 export module Elevate.Foundations.Services:ServiceProvider;
 
+import Elevate.Foundations.CoreLogger;
+
 import :Fwd;
 import :ServiceDescriptor;
 import :ServiceInstance;
@@ -24,10 +26,10 @@ export namespace Elevate
 
 		~ServiceProvider() = default;
 
-		ServiceProvider(const ServiceProvider &) = delete;
-		ServiceProvider &operator=(const ServiceProvider &) = delete;
-		ServiceProvider(ServiceProvider &&) = default;
-		ServiceProvider &operator=(ServiceProvider &&) = default;
+		ServiceProvider(const ServiceProvider&) = delete;
+		ServiceProvider& operator=(const ServiceProvider&) = delete;
+		ServiceProvider(ServiceProvider&&) = default;
+		ServiceProvider& operator=(ServiceProvider&&) = default;
 
 		template <typename TService>
 		std::shared_ptr<TService> Resolve()
@@ -37,10 +39,11 @@ export namespace Elevate
 			auto descriptorIt = m_descriptors.find(type);
 			if (descriptorIt == m_descriptors.end())
 			{
+				CoreLogger::Error("Service not registered: {}", typeid(TService).name());
 				return nullptr;
 			}
 
-			const Internal::ServiceDescriptor &descriptor = descriptorIt->second;
+			const Internal::ServiceDescriptor& descriptor = descriptorIt->second;
 			switch (descriptor.GetLifetime())
 			{
 			case Internal::ServiceLifetime::Singleton:

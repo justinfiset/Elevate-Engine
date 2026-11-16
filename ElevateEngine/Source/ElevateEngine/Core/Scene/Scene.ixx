@@ -26,11 +26,16 @@ export namespace Elevate
 		Scene(SceneManager* sceneManager, std::string name, SceneType type = SceneType::RuntimeScene);
 		virtual ~Scene();
 
-		void OnAwake();
-		void OnStart();
-		void UpdateScene();
-		void RenderScene();
-		void Notify(Event& event); // Dispatch an event to gameobjects
+		virtual void Init()
+		{
+			// To implement in custom scene declaration if needed
+		};
+
+		virtual void OnAwake();
+		virtual void OnStart();
+		virtual void UpdateScene();
+		virtual void RenderScene();
+		virtual void Notify(Event& event); // Dispatch an event to gameobjects
 		virtual std::string GetName() const override;
 
 		void AddObject(const EEObjectPtr<GameObject>& newObject, const std::weak_ptr<GameObject>& parent);
