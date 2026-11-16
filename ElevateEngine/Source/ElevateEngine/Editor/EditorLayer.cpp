@@ -178,23 +178,35 @@ namespace Elevate::Editor
 				// TODO: CONVERT TO COMMANDS
 				if (ImGui::MenuItem("Cube")) {
 					std::shared_ptr<Scene> scene = m_sceneManager->GetCurrentScene(SceneType::RuntimeScene);
-					std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Cube", scene);
-					obj->AddComponent<Elevate::Model>(PrimitiveType::Cube);
+					if (scene)
+					{
+						std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Cube", scene);
+						obj->AddComponent<Elevate::Model>(PrimitiveType::Cube);
+					}
 				}
 				if (ImGui::MenuItem("Plane")) {
 					std::shared_ptr<Scene> scene = m_sceneManager->GetCurrentScene(SceneType::RuntimeScene);
-					std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Plane", scene);
-					obj->AddComponent<Elevate::Model>(PrimitiveType::Plane);
+					if (scene)
+					{
+						std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Plane", scene);
+						obj->AddComponent<Elevate::Model>(PrimitiveType::Plane);
+					}
 				}
 				if (ImGui::MenuItem("Quad")) {
 					std::shared_ptr<Scene> scene = m_sceneManager->GetCurrentScene(SceneType::RuntimeScene);
-					std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Quad", scene);
-					obj->AddComponent<Elevate::Model>(PrimitiveType::Quad);
+					if (scene)
+					{
+						std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("Quad", scene);
+						obj->AddComponent<Elevate::Model>(PrimitiveType::Quad);
+					}
 				}
 				if (ImGui::MenuItem("UV Sphere")) {
 					std::shared_ptr<Scene> scene = m_sceneManager->GetCurrentScene(SceneType::RuntimeScene);
-					std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("UV Sphere", scene);
-					obj->AddComponent<Elevate::Model>(PrimitiveType::UVSphere);
+					if (scene)
+					{
+						std::shared_ptr<Elevate::GameObject> obj = Elevate::GameObject::Create("UV Sphere", scene);
+						obj->AddComponent<Elevate::Model>(PrimitiveType::UVSphere);
+					}
 				}
 				// TODO ADD OTHER MODELS
 				ImGui::EndMenu();

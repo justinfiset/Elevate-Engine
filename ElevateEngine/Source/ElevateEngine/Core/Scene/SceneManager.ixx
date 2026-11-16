@@ -26,8 +26,15 @@ export namespace Elevate
 
 		std::shared_ptr<Scene> CreateScene(std::string name, SceneType type = SceneType::RuntimeScene)
 		{
-			auto scene = std::make_shared<Scene>(this, std::move(name), type);
+			return CreateScene<Scene>(name, type);
+		}
+
+		template<typename T> requires std::derived_from<T, Scene>
+		std::shared_ptr<T> CreateScene(std::string name, SceneType type = SceneType::RuntimeScene)
+		{
+			auto scene = std::make_shared<T>(this, std::move(name), type);
 			LoadScene(scene);
+			scene->Init();
 			return scene;
 		}
 

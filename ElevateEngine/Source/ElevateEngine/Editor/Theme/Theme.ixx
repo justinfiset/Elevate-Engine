@@ -11,7 +11,6 @@ export namespace Elevate::Editor
 	Theme GetCurrentTheme();
 
 	void ApplyFont();
-	void ApplyContextMenuStyle();
 	void SetDarkTheme();
 	void SetLightTheme();
 }

@@ -1,10 +1,12 @@
 module;
 
 #include <imgui.h>
+#include <vector>
 
 export module Elevate.Editor.Panels.ProfilerPanel;
 
 import Elevate.Editor.Widgets.Widget;
+import Elevate.Core.Profiling;
 
 export namespace Elevate::Editor
 {
@@ -19,26 +21,55 @@ export namespace Elevate::Editor
 		{
 		}
 
-		void OnImGuiRender() override
+		void ToggleRecording()
 		{
-			DrawToolbar();
+			// todo : impl
 		}
 
-		void DrawToolbar()
+		void CaptureFrame()
+		{
+			m_frames.push_back(Profiler::GetLastFrame());
+		}
+
+		void Clear()
+		{
+
+		}
+
+		void OnImGuiRender() override
 		{
 			ImGui::Begin("Profiler");
 
-			ImGui::Button(m_isRecording ? "Pause" : "Start");
-			ImGui::SameLine();
-			ImGui::Button("Capture Frame");
-			ImGui::SameLine();
-			ImGui::Button("Clear");
-			ImGui::Separator();
+			DrawToolbar();
 
 			ImGui::End();
 		}
 
+		void DrawToolbar()
+		{
+			if (ImGui::Button(m_isRecording ? "Pause" : "Start"))
+			{
+				ToggleRecording();
+			}
+
+			ImGui::SameLine();
+			if (ImGui::Button("Capture Frame"))
+			{
+				CaptureFrame();
+			}
+
+			ImGui::SameLine();
+			if (ImGui::Button("Clear"))
+			{
+				Clear();
+			}
+
+			ImGui::Separator();
+		}
+
 	private:
+		std::vector<const ProfilerFrame*> m_frames;
+
 		bool m_isRecording = false;
 	};
 }
