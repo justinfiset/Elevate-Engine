@@ -89,7 +89,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp5gqg217l.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmppoqzsuvn.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -473,29 +473,29 @@ Module["expectedDataFileDownloads"]++;
     }, {
       "filename": "/imgui.ini",
       "start": 2484095,
-      "end": 2484998
+      "end": 2484934
     } ],
-    "remote_package_size": 2484998
+    "remote_package_size": 2484934
   });
 }))();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp5gqg217l.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp9uefta44.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmppoqzsuvn.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp1dr_nu0a.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER !== "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD !== "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET !== "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp9uefta44.js
-// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpsfyq5sm1.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmp1dr_nu0a.js
+// include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpscwpwizn.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (!Module["preRun"].includes(task)) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpsfyq5sm1.js
+// end include: C:\Users\RUNNER~1\AppData\Local\Temp\tmpscwpwizn.js
 var programArgs = [];
 
 var thisProgram = "./this.program";
@@ -10565,7 +10565,7 @@ function checkIncomingModuleAPI() {
 }
 
 var ASM_CONSTS = {
-  5711120: $0 => {
+  5711248: $0 => {
     window.open(UTF8ToString($0), "_blank");
   }
 };
@@ -10582,9 +10582,9 @@ var _malloc = makeInvalidEarlyAccess("_malloc");
 
 var _free = makeInvalidEarlyAccess("_free");
 
-var _fflush = makeInvalidEarlyAccess("_fflush");
-
 var _pthread_self = makeInvalidEarlyAccess("_pthread_self");
+
+var _fflush = makeInvalidEarlyAccess("_fflush");
 
 var __emscripten_tls_init = makeInvalidEarlyAccess("__emscripten_tls_init");
 
@@ -10732,8 +10732,8 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports["__main_argc_argv"] !== "undefined", "missing Wasm export: __main_argc_argv");
   assert(typeof wasmExports["malloc"] !== "undefined", "missing Wasm export: malloc");
   assert(typeof wasmExports["free"] !== "undefined", "missing Wasm export: free");
-  assert(typeof wasmExports["fflush"] !== "undefined", "missing Wasm export: fflush");
   assert(typeof wasmExports["pthread_self"] !== "undefined", "missing Wasm export: pthread_self");
+  assert(typeof wasmExports["fflush"] !== "undefined", "missing Wasm export: fflush");
   assert(typeof wasmExports["_emscripten_tls_init"] !== "undefined", "missing Wasm export: _emscripten_tls_init");
   assert(typeof wasmExports["_emscripten_run_callback_on_thread"] !== "undefined", "missing Wasm export: _emscripten_run_callback_on_thread");
   assert(typeof wasmExports["_emscripten_thread_init"] !== "undefined", "missing Wasm export: _emscripten_thread_init");
@@ -10807,8 +10807,8 @@ function assignWasmExports(wasmExports) {
   _main = Module["_main"] = createExportWrapper("__main_argc_argv", wasmExports["__main_argc_argv"], 2);
   _malloc = createExportWrapper("malloc", wasmExports["malloc"], 1);
   _free = createExportWrapper("free", wasmExports["free"], 1);
-  _fflush = createExportWrapper("fflush", wasmExports["fflush"], 1);
   _pthread_self = wasmExports["pthread_self"];
+  _fflush = createExportWrapper("fflush", wasmExports["fflush"], 1);
   __emscripten_tls_init = createExportWrapper("_emscripten_tls_init", wasmExports["_emscripten_tls_init"], 0);
   __emscripten_run_callback_on_thread = createExportWrapper("_emscripten_run_callback_on_thread", wasmExports["_emscripten_run_callback_on_thread"], 6);
   __emscripten_thread_init = createExportWrapper("_emscripten_thread_init", wasmExports["_emscripten_thread_init"], 6);
