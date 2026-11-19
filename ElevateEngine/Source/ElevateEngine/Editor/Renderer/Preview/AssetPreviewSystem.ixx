@@ -13,6 +13,7 @@ export module Elevate.Editor.Renderer.AssetPreviewSystem;
 import Elevate.Foundations.Guid;
 // Core
 import Elevate.Core.Assets.Asset;
+import Elevate.Core.Assets.AssetRegistry;
 // Renderer
 import Elevate.Renderer.Framebuffers;
 // Editor
@@ -42,6 +43,21 @@ export namespace Elevate
 			{
 				it->second.Dirty = true;
 			}
+		}
+
+		void* GetPreview(const Guid& guid, std::uint32_t size = 256)
+		{
+			auto entry = AssetRegistry::GetEntry(guid);
+			if (!entry || !m_renderers.contains(entry->TypeIndex))
+			{
+				return nullptr;
+			}
+
+			std::shared_ptr<Asset> asset = (entry->isLoaded && entry->Instance)
+				? std::static_pointer_cast<Asset>(entry->Instance)
+				: AssetRegistry::GetAsset<Asset>(entry->AssetGuid);
+
+			return asset ? GetPreview(asset) : nullptr;
 		}
 
 		void* GetPreview(const std::shared_ptr<Asset>& asset, std::uint32_t size = 256)

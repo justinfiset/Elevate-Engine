@@ -176,9 +176,9 @@ namespace Elevate
 			// todo : inject directly instead of resolving every frame
 			auto previewSystem = Application::Get().GetServices().Resolve<AssetPreviewSystem>();
 
-			if (auto asset = GetLoadedAsset(item))
+			if (AssetRegistry::IsPathRegistered(item.path))
 			{
-				if (void* preview = previewSystem->GetPreview(asset))
+				if (void* preview = previewSystem->GetPreview(AssetRegistry::GetPathGuid(item.path)))
 				{
 					icon = (ImTextureID)preview;
 					uv0 = ImVec2(0, 1);
