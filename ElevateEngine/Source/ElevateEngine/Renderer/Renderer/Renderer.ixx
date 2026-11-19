@@ -59,7 +59,7 @@ export namespace Elevate
 
 	public:
 		// RENDER API STATIC WRAPPER
-		static void BeginFrame(const std::shared_ptr<Scene> scene, const Camera& cam);
+		static void BeginFrame(const std::shared_ptr<Scene> scene, Camera& cam, Framebuffer* target = nullptr);
 		static void RenderFrame();
 		static void Present(uint32_t width, uint32_t height);
 
@@ -140,6 +140,7 @@ export namespace Elevate
 		// Framebuffer
 		static std::unique_ptr<Framebuffer> s_geometryFramebuffer;
 		static std::unique_ptr<Framebuffer> s_mainFramebuffer;
+		static Framebuffer* s_renderTarget;
 
 		// Shadow Mapping
 		static std::shared_ptr<Shader> s_shadowShader;

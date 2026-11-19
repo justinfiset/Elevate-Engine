@@ -1,0 +1,87 @@
+module;
+
+#include <memory>
+#include <unordered_map>
+#include <typeindex>
+#include <cstdint>
+#include <type_traits>
+#include <typeinfo>
+
+export module Elevate.Editor.Renderer.AssetPreviewSystem;
+
+// Foundations
+import Elevate.Foundations.Guid;
+// Core
+import Elevate.Core.Assets.Asset;
+// Renderer
+import Elevate.Renderer.Framebuffers;
+// Editor
+import Elevate.Editor.Renderer.AssetPreviewRenderer;
+
+export namespace Elevate
+{
+	class AssetPreviewSystem
+	{
+	public:
+		template <typename AssetType, typename RendererType>
+		void Register()
+		{
+			static_assert(std::is_base_of_v<AssetPreviewRenderer, RendererType>, "RendererType must derive from AssetPreviewRenderer");
+			m_renderers[std::type_index(typeid(AssetType))] = std::make_unique<RendererType>();
+		}
+
+		AssetPreviewRenderer* FindRenderer(std::type_index type) const
+		{
+			auto it = m_renderers.find(type);
+			return it != m_renderers.end() ? it->second.get() : nullptr;
+		}
+
+		void Invalidate(const Guid& id)
+		{
+			if (auto it = m_cache.find(id); it != m_cache.end())
+			{
+				it->second.Dirty = true;
+			}
+		}
+
+		void* GetPreview(const std::shared_ptr<Asset>& asset, std::uint32_t size = 256)
+		{
+			if (!asset)
+			{
+				return nullptr;
+			}
+
+			AssetPreviewRenderer* renderer = FindRenderer(asset->GetTypeIndex());
+			if (!renderer)
+			{
+				return nullptr;
+			}
+
+			auto [it, created] = m_cache.try_emplace(asset->GetGuid());
+			Entry& entry = it->second;
+
+			if (created)
+			{
+				entry.Target = renderer->CreatePreviewTarget(size);
+			}
+
+			if (entry.Dirty)
+			{
+				renderer->Render(asset, *entry.Target);
+				entry.Dirty = false;
+			}
+
+			return entry.Target->GetColorAttachmentHandle();
+		}
+
+	private:
+		struct Entry
+		{
+			std::unique_ptr<Framebuffer> Target;
+			bool Dirty = true;
+		};
+
+		std::unordered_map<std::type_index, std::unique_ptr<AssetPreviewRenderer>> m_renderers;
+		std::unordered_map<Guid, Entry> m_cache;
+	};
+}

@@ -36,6 +36,8 @@ export namespace Elevate
 	using MaterialID = uint32_t;
 
 	inline constexpr MaterialID EE_DEFAULT_MATERIAL = 0;
+	inline constexpr MaterialID EE_ERROR_MATERIAL = 1;
+	inline constexpr MaterialID EE_FIRST_MATERIAL_ID = 2;
 
 	class Material : public Asset
 	{

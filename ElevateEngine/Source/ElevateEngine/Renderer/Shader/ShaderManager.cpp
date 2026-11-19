@@ -15,7 +15,13 @@ namespace Elevate
 	{
 		if (name == EE_DEFAULT_SHADER && GetShader(EE_DEFAULT_SHADER))
 		{
-			CoreLogger::Error("(ShaderManager::LoadShader) : You cannot create a shader with the name : default. This is reservez for the default shader for the whole engine.");
+			CoreLogger::Error("(ShaderManager::LoadShader) : You cannot create a shader with the name : default. This is reserved for the default shader for the whole engine.");
+			return nullptr;
+		}
+
+		if (name == EE_ERROR_SHADER && GetShader(EE_ERROR_SHADER))
+		{
+			CoreLogger::Error("(ShaderManager::LoadShader) : You cannot create a shader with the name : error. This is reserved for the default error shader for the whole engine.");
 			return nullptr;
 		}
 
@@ -73,6 +79,8 @@ namespace Elevate
 		{
 			CoreLogger::Error("(ShaderManager) : Failed to create the default shader.");
 		}
+
+		LoadShader(EE_ERROR_SHADER, Shader::CreateDefaultErrorNative());
 
 		CoreLogger::Info("Initialized ShaderManager.");
 	}

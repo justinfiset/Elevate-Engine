@@ -84,12 +84,6 @@ public:
 		SceneLayer::OnAttach();
 	}
 
-	void OnRender() override
-	{
-		Elevate::Camera* cam = Elevate::CameraManager::GetCurrent();
-		SceneLayer::OnRender(cam);
-	}
-
 	void OnUpdate() override
 	{
 		SceneLayer::OnUpdate();

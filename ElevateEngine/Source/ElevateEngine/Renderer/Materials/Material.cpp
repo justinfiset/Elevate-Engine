@@ -23,7 +23,7 @@ import Elevate.Renderer.Renderer;
 
 namespace Elevate
 {
-	MaterialID Material::s_nextId = EE_DEFAULT_MATERIAL + 1;
+	MaterialID Material::s_nextId = EE_FIRST_MATERIAL_ID;
 
 	Material::Material()
 		: m_id(s_nextId++)
@@ -209,6 +209,7 @@ namespace Elevate
 	MaterialRegistry::MaterialRegistry()
 	{
 		m_materials[EE_DEFAULT_MATERIAL] = MaterialFactory::Create(ShaderManager::GetShader(EE_DEFAULT_SHADER));
+		m_materials[EE_ERROR_MATERIAL] = MaterialFactory::Create(ShaderManager::GetShader(EE_ERROR_SHADER));
 	}
 
 	MaterialRegistry& MaterialRegistry::instance()

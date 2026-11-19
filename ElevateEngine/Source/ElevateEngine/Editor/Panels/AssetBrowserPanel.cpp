@@ -27,6 +27,7 @@ import Elevate.Foundations.Shell;
 import Elevate.Foundations.Guid;
 import Elevate.Foundations.Bytes;
 // Core
+import Elevate.Core.Application;
 import Elevate.Core.Types.TypeRegistry;
 import Elevate.Core.Assets.AssetRegistry;
 import Elevate.Core.Assets.Asset;
@@ -41,6 +42,8 @@ import Elevate.Input;
 import Elevate.Editor.Layer;
 import Elevate.Editor.Widgets.ContextMenu;
 import Elevate.Editor.Widgets.IconMenuItem;
+import Elevate.Editor.Renderer;
+import Elevate.Editor.Renderer.AssetPreviewSystem;
 
 namespace fs = std::filesystem;
 
@@ -167,7 +170,23 @@ namespace Elevate
 				ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
 			}
 
-			if (ImGui::ImageButton("file_item", (ImTextureID)m_currentTextures[item.iconPath]->GetNativeHandle(), buttonSize)) {}
+			ImTextureID icon = (ImTextureID)m_currentTextures[item.iconPath]->GetNativeHandle();
+			ImVec2 uv0(0, 0), uv1(1, 1);
+
+			// todo : inject directly instead of resolving every frame
+			auto previewSystem = Application::Get().GetServices().Resolve<AssetPreviewSystem>();
+
+			if (auto asset = GetLoadedAsset(item))
+			{
+				if (void* preview = previewSystem->GetPreview(asset))
+				{
+					icon = (ImTextureID)preview;
+					uv0 = ImVec2(0, 1);
+					uv1 = ImVec2(1, 0);
+				}
+			}
+
+			if (ImGui::ImageButton("file_item", icon, buttonSize, uv0, uv1)) {}
 			const float itemWidth = ImGui::GetItemRectSize().x;
 
 			if (isSelected)
@@ -706,7 +725,8 @@ namespace Elevate
 			FileType type = FileMetadata::ParseFileType(typeStr);
 			FileMetadata meta(type, iconPath);
 
-			if (asset.HasMember("r") && asset.HasMember("g") && asset.HasMember("b") && asset.HasMember("a")) {
+			if (asset.HasMember("r") && asset.HasMember("g") && asset.HasMember("b") && asset.HasMember("a"))
+			{
 				int r = asset["r"].GetInt();
 				int g = asset["g"].GetInt();
 				int b = asset["b"].GetInt();
@@ -718,6 +738,23 @@ namespace Elevate
 		}
 	}
 
+	std::shared_ptr<Asset> Editor::AssetBrowserPanel::GetLoadedAsset(const FileItem& item)
+	{
+		if (!AssetRegistry::IsPathRegistered(item.path))
+		{
+			return nullptr;
+		}
+
+		Guid guid = AssetRegistry::GetPathGuid(item.path);
+		auto entry = AssetRegistry::GetEntry(guid);
+
+		if (!entry || !entry->isLoaded || !entry->Instance)
+		{
+			return nullptr;
+		}
+
+		return std::static_pointer_cast<Asset>(entry->Instance);
+	}
 }
 
 #endif
