@@ -34,11 +34,9 @@ namespace Elevate
 		: Material()
 	{
 		m_shader = shader;
-		if (m_shader)
-		{
-			m_buffer.resize(m_shader->GetLayout().GetStride());
-			m_definedUniforms.resize(m_shader->GetLayout().GetElements().size());
-		}
+		m_hasExplicitShader = true;
+
+		BuildUniformStorage();
 	}
 
 	TypeLayout Material::GetLayout() const
@@ -127,7 +125,12 @@ namespace Elevate
 
 	void Material::Apply()
 	{
-		if (!m_shader) return;
+		ResolveShader();
+
+		if (!m_shader)
+		{
+			return;
+		}
 
 		Renderer::BindShader(m_shader);
 
@@ -182,6 +185,7 @@ namespace Elevate
 
 	std::shared_ptr<Shader> Material::GetShader() const
 	{
+		ResolveShader();
 		return m_shader;
 	}
 

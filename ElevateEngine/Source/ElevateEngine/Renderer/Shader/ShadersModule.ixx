@@ -4,3 +4,4 @@ export import :Fwd;
 export import :Shader;
 export import :ShaderManager;
 export import :ShaderHeader;
+export import :ShaderAsset;

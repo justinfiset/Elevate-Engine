@@ -17,6 +17,8 @@ export namespace Elevate
 	class ShaderManager
 	{
 	public:
+		ShaderManager() = default;
+
 		static EEObjectPtr<Shader> LoadShader(const std::string& name, EEObjectPtr<Shader> shader);
 		static EEObjectPtr<Shader> LoadShader(const std::string& name, const std::string& vertexSrcPath, const std::string& fragSrcPath);
 		static EEObjectPtr<Shader> LoadShader(const std::string& name, const std::string& vertexSrcPath, const std::string&, const std::string& customVertCode, const std::string& customFragCode);
@@ -24,9 +26,8 @@ export namespace Elevate
 		static EEObjectPtr<Shader> GetShader(const std::string& name);
 
 	private:
-		ShaderManager() = default;
 		void Init();
-		static ShaderManager& instance();
+		static ShaderManager& instance(); // Temporary : remove once passed to the dependency injection
 
 		std::unordered_map<std::string, EEObjectPtr<Shader>> m_Shaders;
 

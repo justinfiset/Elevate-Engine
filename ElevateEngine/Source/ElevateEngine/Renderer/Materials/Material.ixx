@@ -49,6 +49,8 @@ export namespace Elevate
 		template<typename T>
 		void Set(const std::string& name, const T& value)
 		{
+			ResolveShader();
+
 			for (const auto& uniform : m_shader->GetLayout())
 			{
 				if (uniform.Name == name)
@@ -80,16 +82,51 @@ export namespace Elevate
 		size_t GetTextureCount() const { return m_textures.size(); }
 
 		Material();
+
 	private:
 		Material(const std::shared_ptr<Shader>& shader);
 
+		void BuildUniformStorage() const
+		{
+			if (!m_shader)
+			{
+				return;
+			}
+
+			m_buffer.assign(m_shader->GetLayout().GetStride(), 0);
+			m_definedUniforms.assign(m_shader->GetLayout().GetElements().size(), false);
+		}
+
+		void ResolveShader() const
+		{
+			if (m_hasExplicitShader)
+			{
+				return;
+			}
+
+			std::shared_ptr<Shader> resolved = m_shaderAsset
+				? m_shaderAsset->GetShader()
+				: ShaderManager::GetShader(EE_DEFAULT_SHADER);
+
+			if (resolved == m_shader)
+			{
+				return;
+			}
+
+			m_shader = resolved;
+			BuildUniformStorage();
+		}
+
 		std::shared_ptr<Texture> GetTextureForUniform(const std::string& uniformName) const;
 
-		EEObjectPtr<Shader> m_shader{ nullptr };
-		PROPERTY(m_shader);
+		bool m_hasExplicitShader = false;
+		mutable EEObjectPtr<Shader> m_shader{ nullptr };
 
-		std::vector<uint8_t> m_buffer;
-		std::vector<bool> m_definedUniforms;
+		EEObjectPtr<ShaderAsset> m_shaderAsset{ nullptr };
+		PROPERTY(m_shaderAsset);
+
+		mutable std::vector<uint8_t> m_buffer;
+		mutable std::vector<bool> m_definedUniforms;
 
 		std::unordered_map<std::string, std::shared_ptr<Texture>> m_textures;
 

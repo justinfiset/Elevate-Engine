@@ -6,8 +6,11 @@ module Elevate.Renderer.Shaders;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Core.Assets.AssetRegistry;
 import Elevate.Renderer.Scene.Lighting;
+
 import :Shader;
+import :ShaderAsset;
 
 namespace Elevate
 {
@@ -81,6 +84,10 @@ namespace Elevate
 		}
 
 		LoadShader(EE_ERROR_SHADER, Shader::CreateDefaultErrorNative());
+
+		// Create the asset corresponsing to the default shader
+		auto shaderAsset = ShaderAsset::CreateBuiltIn("Default", defaultShader);
+		AssetRegistry::RegisterAsset(shaderAsset);
 
 		CoreLogger::Info("Initialized ShaderManager.");
 	}
