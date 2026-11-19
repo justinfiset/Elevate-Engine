@@ -18,6 +18,7 @@ module;
 #include <glm/gtx/matrix_decompose.hpp>
 
 #include "imgui.h"
+#include "misc/cpp/imgui_stdlib.h"
 
 module Elevate.Editor.Panels.AnalyserPanel;
 
@@ -289,6 +290,14 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 	case EngineDataType::Bool:
 		ImGui::Checkbox(field.GetDisplayName().c_str(), (bool*)(field.data));
 		break;
+
+	case EngineDataType::String:
+	{
+		std::string* value = static_cast<std::string*>(const_cast<void*>(field.data));
+
+		ImGui::InputText(field.GetDisplayName().c_str(), value);
+		break;
+	}
 
 	case EngineDataType::Enum:
 	{
