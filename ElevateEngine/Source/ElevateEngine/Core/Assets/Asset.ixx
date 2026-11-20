@@ -1,5 +1,7 @@
 module;
 
+#include <string>
+
 #include <ElevateEngine/Core/Reflection/Reflection.h>
 
 export module Elevate.Core.Assets.Asset;
@@ -19,9 +21,13 @@ export namespace Elevate
 		virtual ~Asset() = default;
 
 		virtual std::string GetName() const override;
+		virtual void SetName(const std::string& name) override;
 
 		virtual void OnLoad() {}
 		virtual void OnUnbind() {}
+
+	private:
+		std::string m_name;
 
 		END_OBJECT_CUSTOM();
 		DECLARE_AUTO_OBJECT_LAYOUT();

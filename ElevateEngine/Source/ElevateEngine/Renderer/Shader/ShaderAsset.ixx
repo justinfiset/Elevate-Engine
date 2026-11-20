@@ -33,18 +33,30 @@ export namespace Elevate
 		bool IsBuiltIn() const { return m_isBuiltIn; }
 
 		/// @brief Creates a new built-in shader asset.
-		static std::shared_ptr<ShaderAsset> CreateBuiltIn(const std::string& name, EEObjectPtr<Shader> compiled)
+		static std::shared_ptr<ShaderAsset> CreateBuiltIn(const std::string& name, const Guid& guid, EEObjectPtr<Shader> compiled)
 		{
 			auto asset = std::make_shared<ShaderAsset>();
+			asset->SetName(name);
+			asset->SetGuid(guid);
 			asset->m_compiled = compiled;
 			asset->m_isBuiltIn = true;
 			return asset;
+		}
+
+		bool IsComplete()
+		{
+			return !m_vertexPath.empty() && !m_fragmentPath.empty();
 		}
 
 	private:
 		/// @brief Compiles the shader asset into a Shader object.
 		void Compile()
 		{
+			if (!IsComplete())
+			{
+				return;
+			}
+
 			m_compiled = ShaderManager::LoadShader(GetName(), m_vertexPath, m_fragmentPath);
 		}
 

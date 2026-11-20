@@ -63,6 +63,7 @@ export namespace Elevate
 					return;
 				}
 			}
+
 			CoreLogger::Warn("Uniform '{0}' not found in the shader : {1}", name, m_shader->GetID());
 		}
 
@@ -104,17 +105,11 @@ export namespace Elevate
 				return;
 			}
 
-			std::shared_ptr<Shader> resolved = m_shaderAsset
-				? m_shaderAsset->GetShader()
-				: ShaderManager::GetShader(EE_DEFAULT_SHADER);
-
-			if (resolved == m_shader)
+			if (m_shaderAsset)
 			{
-				return;
+				m_shader = m_shaderAsset->GetShader();
+				BuildUniformStorage();
 			}
-
-			m_shader = resolved;
-			BuildUniformStorage();
 		}
 
 		std::shared_ptr<Texture> GetTextureForUniform(const std::string& uniformName) const;
@@ -154,9 +149,16 @@ export namespace Elevate
 		static MaterialPtr LoadMaterial(const std::shared_ptr<Shader>& shader);
 		static MaterialPtr GetMaterial(MaterialID id);
 
+		static void Init()
+		{
+			instance()._Init();
+		}
+
 	private:
-		MaterialRegistry();
+		MaterialRegistry() = default;
+
 		static MaterialRegistry& instance();
+		void _Init();
 
 		std::unordered_map<MaterialID, MaterialPtr> m_materials;
 	};

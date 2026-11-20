@@ -41,30 +41,20 @@ namespace Elevate
 
 	TypeLayout Material::GetLayout() const
 	{
+		ResolveShader();
+
 		std::vector<TypeField> allFields;
 
-		TypeField guidField(
-			"m_guid",
-			EngineDataType::GUID,
-			GetGuidOffset()
-		);
+		TypeField guidField("m_guid", EngineDataType::GUID, GetGuidOffset());
 		guidField.data = reinterpret_cast<const char*>(this) + GetGuidOffset();
 		allFields.push_back(guidField);
 
-		alignas(Material) char dummyBuffer[sizeof(Material)];
-		Material* dummyObj = reinterpret_cast<Material*>(dummyBuffer);
-		size_t shaderOffset = static_cast<size_t>(
-			reinterpret_cast<const char*>(&(dummyObj->m_shader)) - dummyBuffer
-			);
+		const size_t shaderAssetOffset = reinterpret_cast<const char*>(&m_shaderAsset) - reinterpret_cast<const char*>(this);
+		TypeField shaderAssetField("m_shaderAsset", EngineDataType::ObjectPtr, shaderAssetOffset, "ShaderAsset");
+		shaderAssetField.targetTypeKey = TypeRegistry::GetTypeKey<ShaderAsset>();
+		shaderAssetField.data = reinterpret_cast<const char*>(this) + shaderAssetOffset;
 
-		TypeField shaderField(
-			"Shader",
-			EngineDataType::ObjectPtr,
-			shaderOffset
-		);
-		shaderField.targetTypeKey = TypeRegistry::GetTypeKey<Shader>();
-		shaderField.data = reinterpret_cast<const char*>(this) + shaderOffset;
-		allFields.push_back(shaderField);
+		allFields.push_back(shaderAssetField);
 
 		if (m_shader)
 		{
@@ -72,7 +62,8 @@ namespace Elevate
 
 			for (const auto& uniform : layout)
 			{
-				if (uniform.Type == ShaderDataType::Sampler2D) continue;
+				if (uniform.Type == ShaderDataType::Sampler2D)
+					continue;
 
 				if (uniform.Name == ShaderUniforms::ViewProj ||
 					uniform.Name == ShaderUniforms::CamPos ||
@@ -81,11 +72,14 @@ namespace Elevate
 					continue;
 				}
 
-				if (m_definedUniforms[uniform.Index])
+				if (uniform.Index >= m_definedUniforms.size() ||
+					!m_definedUniforms[uniform.Index])
 				{
-					TypeField field(uniform.Name, uniform.Type, m_buffer.data() + uniform.Offset);
-					allFields.push_back(field);
+					continue;
 				}
+
+				TypeField field(uniform.Name, uniform.Type, m_buffer.data() + uniform.Offset);
+				allFields.push_back(field);
 			}
 		}
 
@@ -210,7 +204,7 @@ namespace Elevate
 		return (it != materials.end()) ? it->second : nullptr;
 	}
 
-	MaterialRegistry::MaterialRegistry()
+	void MaterialRegistry::_Init()
 	{
 		m_materials[EE_DEFAULT_MATERIAL] = MaterialFactory::Create(ShaderManager::GetShader(EE_DEFAULT_SHADER));
 		m_materials[EE_ERROR_MATERIAL] = MaterialFactory::Create(ShaderManager::GetShader(EE_ERROR_SHADER));

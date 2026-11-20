@@ -54,7 +54,7 @@ namespace Elevate
 		return (instance().m_Shaders.count(name) > 0) ? instance().m_Shaders[name] : nullptr;
 	}
 
-	void ShaderManager::Init()
+	void ShaderManager::_Init()
 	{
 		CoreLogger::Info("Initializing ShaderManager.");
 		// Create a default shader.
@@ -86,7 +86,7 @@ namespace Elevate
 		LoadShader(EE_ERROR_SHADER, Shader::CreateDefaultErrorNative());
 
 		// Create the asset corresponsing to the default shader
-		auto shaderAsset = ShaderAsset::CreateBuiltIn("Default", defaultShader);
+		auto shaderAsset = ShaderAsset::CreateBuiltIn("Default", EE_DEFAULT_SHADER_GUID, defaultShader);
 		AssetRegistry::RegisterAsset(shaderAsset);
 
 		CoreLogger::Info("Initialized ShaderManager.");
