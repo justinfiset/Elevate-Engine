@@ -45,6 +45,10 @@ export namespace Elevate
 
 		static void Start(int argc, char** argv, ApplicationFactory factory);
 		void Init();
+
+		void CreateLayers();
+		virtual void OnCreateLayers() = 0;
+
 		void CreateServiceProvider();
 		void EngineFrame(bool skipEventPolling = false);
 		void Run();

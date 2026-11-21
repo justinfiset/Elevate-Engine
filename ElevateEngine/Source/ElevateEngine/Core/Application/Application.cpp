@@ -72,16 +72,6 @@ namespace Elevate
 		// We need to update it each frame
 		m_Scheduler = m_Provider->Resolve<ITaskScheduler>();
 
-		m_ImGuiLayer = new ImGuiLayer();
-		PushOverlay(m_ImGuiLayer);
-
-#ifdef EE_EDITOR_BUILD
-		PushOverlay(new Elevate::Editor::EditorLayer());
-		SetGameState(GameContextState::EditorMode);
-#else
-		SetGameState(GameContextState::Runtime);
-#endif
-
 		m_PhysicsSystem = std::make_unique<Jolt::JoltPhysicsSystem>();
 		m_PhysicsSystem->Init();
 	}
@@ -175,6 +165,23 @@ namespace Elevate
 
 		Renderer::Init(m_Window->GetWidth(), m_Window->GetHeight());
 		SoundEngine::Init(); // todo move to audio module DI config
+
+		CreateLayers();
+	}
+
+	void Application::CreateLayers()
+	{
+		OnCreateLayers();
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
+
+#ifdef EE_EDITOR_BUILD
+		PushOverlay(new Editor::EditorLayer());
+		SetGameState(GameContextState::EditorMode);
+#else
+		SetGameState(GameContextState::Runtime);
+#endif
 	}
 
 	void Application::EngineFrame(bool skipEventPolling) // Each frame
@@ -200,11 +207,15 @@ namespace Elevate
 			TextureManager::UpdateLoadingTextures();
 
 			for (Layer* layer : m_LayerStack)
+			{
 				layer->OnUpdate();
+			}
 
 			// Draw Layers and Scenes
 			for (Layer* layer : m_LayerStack)
+			{
 				layer->OnRender();
+			}
 
 			Renderer::RenderFrame();
 
@@ -218,7 +229,9 @@ namespace Elevate
 			m_ImGuiLayer->Begin();
 
 			for (Layer* layer : m_LayerStack)
+			{
 				layer->OnImGuiRender();
+			}
 
 			m_ImGuiLayer->Render(); // render imgui
 			m_ImGuiLayer->End();	// finish the imgui rendering
