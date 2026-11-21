@@ -219,8 +219,9 @@ namespace Elevate
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBufferId);
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, targetID);
 
+		const GLenum drawBuffers[] = { GL_COLOR_ATTACHMENT0 };
 		glReadBuffer(GL_COLOR_ATTACHMENT0);
-		glDrawBuffer(GL_COLOR_ATTACHMENT0);
+		glDrawBuffers(1, drawBuffers);
 
 		glBlitFramebuffer(
 			0, 0, m_width, m_height,
