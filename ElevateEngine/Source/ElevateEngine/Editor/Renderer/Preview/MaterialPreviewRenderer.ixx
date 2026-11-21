@@ -13,6 +13,7 @@ import Elevate.Core.Assets.Asset;
 // Renderer
 import Elevate.Renderer.Materials.Material;
 import Elevate.Renderer.Framebuffers;
+import Elevate.Renderer.Camera;
 // Editor
 import Elevate.Editor.Renderer.ScenePreviewRenderer;
 import Elevate.Editor.Scenes.MaterialPreviewScene;
