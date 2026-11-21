@@ -213,7 +213,7 @@ namespace Elevate
 
 	void OpenGLFramebuffer::BlitColorTo(const Framebuffer& target) const
 	{
-		const OpenGLFramebuffer& glFB = dynamic_cast<const OpenGLFramebuffer&>(target);
+		const auto& glFB = dynamic_cast<const OpenGLFramebuffer&>(target);
 		GLuint targetID = glFB.m_frameBufferId;
 
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBufferId);
@@ -233,7 +233,7 @@ namespace Elevate
 
 	void OpenGLFramebuffer::BlitDepthTo(const Framebuffer& target) const
 	{
-		const OpenGLFramebuffer& glFB = dynamic_cast<const OpenGLFramebuffer&>(target);
+		const auto& glFB = dynamic_cast<const OpenGLFramebuffer&>(target);
 		GLuint targetID = glFB.m_frameBufferId;
 
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBufferId);

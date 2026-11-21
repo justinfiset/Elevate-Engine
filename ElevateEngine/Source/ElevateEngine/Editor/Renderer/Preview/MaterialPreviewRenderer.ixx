@@ -24,16 +24,16 @@ export namespace Elevate
 	public:
 		virtual ~MaterialPreviewRenderer() = default;
 
-	protected:
+	private:
 		std::shared_ptr<MaterialPreviewScene> m_previewScene = nullptr;
 
-		virtual void InitScene(SharedService<SceneManager> sceneManager) override
+		void InitScene(SharedService<SceneManager> sceneManager) override
 		{
 			m_scene = sceneManager->CreateScene<MaterialPreviewScene>("Material Preview Scene", SceneType::EditorScene);
 			m_previewScene = std::static_pointer_cast<MaterialPreviewScene>(m_scene);
 		}
 
-		virtual void UseAsset(const std::shared_ptr<Asset>& asset) override
+		void UseAsset(const std::shared_ptr<Asset>& asset) override
 		{
 			auto material = std::static_pointer_cast<Material>(asset);
 			m_previewScene->SetPreviewMaterial(material);

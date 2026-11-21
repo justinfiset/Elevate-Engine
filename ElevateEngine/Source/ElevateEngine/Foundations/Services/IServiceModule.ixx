@@ -11,7 +11,16 @@ export namespace Elevate
 		virtual ~IServiceModule() = default;
 
 		virtual void Register(ServiceCollection& services) = 0;
-		virtual void Configure(ServiceProvider& provider) {}
-		virtual void Shutdown() {}
+
+		virtual void Configure(ServiceProvider& provider)
+		{
+			// Overriden by custom modules after all modules are registered
+		}
+
+		virtual void Shutdown()
+		{
+			// Overriden by custom modules before all modules are deleted.
+			// This should be used to cleanup and break circular deps.
+		}
 	};
 }

@@ -47,7 +47,10 @@ export namespace Elevate
 		void Init();
 
 		void CreateLayers();
-		virtual void OnCreateLayers() {} // Overriden to add layers for the client's app
+		virtual void OnCreateLayers()
+		{
+			// Overriden to add layers for the client's app
+		}
 
 		void CreateServiceProvider();
 		void EngineFrame(bool skipEventPolling = false);

@@ -39,7 +39,7 @@ export namespace Elevate
 			m_cache.erase(assetGuid);
 		}
 
-		virtual void Shutdown() override
+		void Shutdown() override
 		{
 			m_cache.clear();
 			m_renderers.clear();

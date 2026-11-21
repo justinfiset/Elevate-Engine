@@ -120,7 +120,7 @@ public:
 	}
 	~Sandbox() = default;
 
-	virtual void OnCreateLayers() override
+	void OnCreateLayers() override
 	{
 		auto sceneManager = GetServices().Resolve<Elevate::SceneManager>();
 		PushLayer(new DebugLayer(sceneManager));

@@ -677,7 +677,7 @@ public:
 	}
 	~LauncherApp() = default;
 
-	virtual void OnCreateLayers() override
+	void OnCreateLayers() override
 	{
 		PushLayer(new LauncherLayer(m_controller));
 	}

@@ -45,7 +45,10 @@ export namespace Elevate
 		virtual void SetFromProperties(const ::Elevate::PropertySet& props) {}
 		virtual std::type_index GetTypeIndex() const { return typeid(EEObject); }
 
-		virtual void SetName(const std::string& name) {}
+		virtual void SetName(const std::string& name)
+		{
+			// Default impl. does nothing, overriden by specific classes
+		}
 		void SetGuid(const Guid& guid);
 	};
 }
