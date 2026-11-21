@@ -123,6 +123,7 @@ namespace Elevate
 		glDetachShader(m_RendererID, vertexShader);
 		glDetachShader(m_RendererID, fragmentShader);
 
+		CacheUniformLocations();
 		SetInitializationStatus(true);
 	}
 
@@ -151,99 +152,115 @@ namespace Elevate
 		return m_RendererID;
 	}
 
+	void OpenGLShader::CacheUniformLocations()
+	{
+		GLint count = 0, maxLen = 0;
+		glGetProgramiv(m_RendererID, GL_ACTIVE_UNIFORMS, &count);
+		glGetProgramiv(m_RendererID, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxLen);
+		std::vector<GLchar> name(maxLen);
+
+		for (GLint i = 0; i < count; i++)
+		{
+			GLsizei length; GLint size; GLenum type;
+			glGetActiveUniform(m_RendererID, i, maxLen, &length, &size, &type, name.data());
+			std::string n(name.data(), length);
+			m_uniformLocations[n] = glGetUniformLocation(m_RendererID, n.c_str());
+		}
+	}
+
 	void OpenGLShader::SetUniform1f(const std::string& location, float value) const
 	{
-		GLCheck(glUniform1f(glGetUniformLocation(m_RendererID, location.c_str()), value));
+		GLCheck(glUniform1f(Loc(location), value));
 	}
 
 	void OpenGLShader::SetUniform2f(const std::string& location, float x, float y) const
 	{
-		GLCheck(glUniform2f(glGetUniformLocation(m_RendererID, location.c_str()), x, y));
+		GLCheck(glUniform2f(Loc(location), x, y));
 	}
 
 	void OpenGLShader::SetUniform3f(const std::string& location, float x, float y, float z) const
 	{
-		GLCheck(glUniform3f(glGetUniformLocation(m_RendererID, location.c_str()), x, y, z));
+		GLCheck(glUniform3f(Loc(location), x, y, z));
 	}
 
 	void OpenGLShader::SetUniform4f(const std::string& location, float x, float y, float z, float w) const
 	{
-		GLCheck(glUniform4f(glGetUniformLocation(m_RendererID, location.c_str()), x, y, z, w));
+		GLCheck(glUniform4f(Loc(location), x, y, z, w));
 	}
 
 	void OpenGLShader::SetUniform1i(const std::string& location, int value) const
 	{
-		GLCheck(glUniform1i(glGetUniformLocation(m_RendererID, location.c_str()), value));
+		GLCheck(glUniform1i(Loc(location), value));
 	}
 
 	void OpenGLShader::SetUniform2i(const std::string& location, int x, int y) const
 	{
-		GLCheck(glUniform2i(glGetUniformLocation(m_RendererID, location.c_str()), x, y));
+		GLCheck(glUniform2i(Loc(location), x, y));
 	}
 
 	void OpenGLShader::SetUniform3i(const std::string& location, int x, int y, int z) const
 	{
-		GLCheck(glUniform3i(glGetUniformLocation(m_RendererID, location.c_str()), x, y, z));
+		GLCheck(glUniform3i(Loc(location), x, y, z));
 	}
 
 	void OpenGLShader::SetUniform4i(const std::string& location, int x, int y, int z, int w) const
 	{
-		GLCheck(glUniform4i(glGetUniformLocation(m_RendererID, location.c_str()), x, y, z, w));
+		GLCheck(glUniform4i(Loc(location), x, y, z, w));
 	}
 
 	void OpenGLShader::SetUniform1fv(const std::string& location, int count, float* value) const
 	{
-		GLCheck(glUniform1fv(glGetUniformLocation(m_RendererID, location.c_str()), count, value));
+		GLCheck(glUniform1fv(Loc(location), count, value));
 	}
 
 	void OpenGLShader::SetUniform2fv(const std::string& location, int count, float* value) const
 	{
-		GLCheck(glUniform2fv(glGetUniformLocation(m_RendererID, location.c_str()), count, value));
+		GLCheck(glUniform2fv(Loc(location), count, value));
 	}
 
 	void OpenGLShader::SetUniform3fv(const std::string& location, int count, float* value) const
 	{
-		GLCheck(glUniform3fv(glGetUniformLocation(m_RendererID, location.c_str()), count, value));
+		GLCheck(glUniform3fv(Loc(location), count, value));
 	}
 
 	void OpenGLShader::SetUniform4fv(const std::string& location, int count, float* value) const
 	{
-		GLCheck(glUniform4fv(glGetUniformLocation(m_RendererID, location.c_str()), count, value));
+		GLCheck(glUniform4fv(Loc(location), count, value));
 	}
 
 	void OpenGLShader::SetUniform1iv(const std::string& location, int count, int* value) const
 	{
-		GLCheck(glUniform1iv(glGetUniformLocation(m_RendererID, location.c_str()), count, value));
+		GLCheck(glUniform1iv(Loc(location), count, value));
 	}
 
 	void OpenGLShader::SetUniform2iv(const std::string& location, int count, int* value) const
 	{
-		GLCheck(glUniform2iv(glGetUniformLocation(m_RendererID, location.c_str()), count, value));
+		GLCheck(glUniform2iv(Loc(location), count, value));
 	}
 
 	void OpenGLShader::SetUniform3iv(const std::string& location, int count, int* value) const
 	{
-		GLCheck(glUniform3iv(glGetUniformLocation(m_RendererID, location.c_str()), count, value));
+		GLCheck(glUniform3iv(Loc(location), count, value));
 	}
 
 	void OpenGLShader::SetUniform4iv(const std::string& location, int count, int* value) const
 	{
-		GLCheck(glUniform4iv(glGetUniformLocation(m_RendererID, location.c_str()), count, value));
+		GLCheck(glUniform4iv(Loc(location), count, value));
 	}
 
 	void OpenGLShader::SetUniformMatrix2fv(const std::string& location, float* data, uint32_t count) const
 	{
-		GLCheck(glUniformMatrix2fv(glGetUniformLocation(m_RendererID, location.c_str()), count, GL_FALSE, data));
+		GLCheck(glUniformMatrix2fv(Loc(location), count, GL_FALSE, data));
 	}
 
 	void OpenGLShader::SetUniformMatrix3fv(const std::string& location, float* data, uint32_t count) const
 	{
-		GLCheck(glUniformMatrix3fv(glGetUniformLocation(m_RendererID, location.c_str()), count, GL_FALSE, data));
+		GLCheck(glUniformMatrix3fv(Loc(location), count, GL_FALSE, data));
 	}
 
 	void OpenGLShader::SetUniformMatrix4fv(const std::string& location, float* data, uint32_t count) const
 	{
-		GLCheck(glUniformMatrix4fv(glGetUniformLocation(m_RendererID, location.c_str()), count, GL_FALSE, data));
+		GLCheck(glUniformMatrix4fv(Loc(location), count, GL_FALSE, data));
 		;
 	}
 
@@ -302,5 +319,11 @@ namespace Elevate
 		}
 
 		return BufferLayout(elements);
+	}
+
+	int32_t OpenGLShader::Loc(const std::string& name) const
+	{
+		auto it = m_uniformLocations.find(name);
+		return it != m_uniformLocations.end() ? it->second : -1;
 	}
 }
