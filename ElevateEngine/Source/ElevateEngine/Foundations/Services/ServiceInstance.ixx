@@ -5,12 +5,15 @@ module;
 
 export module Elevate.Foundations.Services:ServiceInstance;
 
+import Elevate.Foundations.Cleanups;
+
 export namespace Elevate::Internal
 {
 	class IServiceInstance
 	{
 	public:
 		virtual ~IServiceInstance() = default;
+		virtual void Shutdown() = 0;
 	};
 
 	template <typename TService>
@@ -22,6 +25,14 @@ export namespace Elevate::Internal
 		}
 
 		~ServiceInstance() override = default;
+
+		void Shutdown() override
+		{
+			if constexpr (std::is_base_of_v<IShutdownable, TService>)
+			{
+				m_instance->Shutdown();
+			}
+		}
 
 		std::shared_ptr<TService> Get() const
 		{

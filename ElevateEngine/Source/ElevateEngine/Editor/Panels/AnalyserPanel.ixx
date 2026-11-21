@@ -30,7 +30,7 @@ export namespace Elevate::Editor
 	private:
 		void RenderComponent(Component* component);
 		void RenderComponentLayout(const TypeLayout& layout, Component* component = nullptr);
-		void RenderField(const TypeField& field);
+		bool RenderField(const TypeField& field);
 
 		// TODO MOVE SOMEWHERE ELSE !!!! (ALL THE FOLLOWING UNDERNEATH)
 		struct CategoryMenu

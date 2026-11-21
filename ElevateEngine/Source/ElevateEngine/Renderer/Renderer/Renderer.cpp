@@ -14,6 +14,9 @@ module;
 module Elevate.Renderer.Renderer;
 
 import Elevate.Foundations.CoreLogger;
+
+import Elevate.Core.Scene;
+
 import Elevate.Renderer.Cubemap;
 import Elevate.Renderer.Scene.Lighting;
 import Elevate.Renderer.Lights.Light;
@@ -58,6 +61,7 @@ namespace Elevate
 	std::shared_ptr<Shader> Renderer::s_bloomUpsampleShader;
 
 	// Composition
+	Framebuffer* Renderer::s_renderTarget = nullptr;
 	std::unique_ptr<Framebuffer> Renderer::s_mainFramebuffer;
 	std::shared_ptr<Shader> Renderer::s_compositionShader;
 
@@ -237,16 +241,21 @@ namespace Elevate
 		);
 	}
 
-	void Renderer::BeginFrame(const std::shared_ptr<Scene> scene, const Camera& cam)
+	void Renderer::BeginFrame(const std::shared_ptr<Scene> scene, Camera& cam, Framebuffer* target)
 	{
 		InvalidateStateCache();
-
 		s_API->ClearTextureBindings();
 
-		s_data.CameraPosition = cam.gameObject->GetPosition();
+		s_renderTarget = target;
+
+		if (s_renderTarget)
+		{
+			cam.GetProjection()->SetSize(s_renderTarget->GetWidth(), s_renderTarget->GetHeight());
+		}
 
 		auto camProjection = cam.GetProjection();
 
+		s_data.CameraPosition = cam.gameObject->GetPosition();
 		s_data.View = cam.GenViewMatrix();
 		s_data.Projection = camProjection->GetProjectionMatrix();
 		s_data.ViewProj = s_data.Projection * s_data.View;
@@ -277,6 +286,13 @@ namespace Elevate
 		RenderLighting();
 		RenderBloom();
 		RenderComposition();
+
+		if (s_renderTarget)
+		{
+			s_renderTarget = nullptr;
+			ClearStack();
+			return;
+		}
 
 #ifdef EE_EDITOR_BUILD
 		RenderEditor();
@@ -742,7 +758,8 @@ namespace Elevate
 		state.DepthWrite = false;
 		PushRenderState(state);
 
-		s_mainFramebuffer->ClearAndUse();
+		Framebuffer& output = s_renderTarget ? *s_renderTarget : *s_mainFramebuffer;
+		output.ClearAndUse();
 
 		BindShader(s_compositionShader);
 
@@ -760,7 +777,7 @@ namespace Elevate
 
 		DrawArray(s_fullscreenQuad.GetVertexArray());
 
-		s_mainFramebuffer->Unbind();
+		output.Unbind();
 	}
 
 #ifdef EE_EDITOR_BUILD

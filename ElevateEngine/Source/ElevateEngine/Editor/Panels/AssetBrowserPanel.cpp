@@ -27,6 +27,7 @@ import Elevate.Foundations.Shell;
 import Elevate.Foundations.Guid;
 import Elevate.Foundations.Bytes;
 // Core
+import Elevate.Core.Application;
 import Elevate.Core.Types.TypeRegistry;
 import Elevate.Core.Assets.AssetRegistry;
 import Elevate.Core.Assets.Asset;
@@ -41,6 +42,8 @@ import Elevate.Input;
 import Elevate.Editor.Layer;
 import Elevate.Editor.Widgets.ContextMenu;
 import Elevate.Editor.Widgets.IconMenuItem;
+import Elevate.Editor.Renderer;
+import Elevate.Editor.Renderer.AssetPreviewSystem;
 
 namespace fs = std::filesystem;
 
@@ -72,7 +75,8 @@ namespace Elevate
 
 	void Editor::AssetBrowserPanel::OnUpdate()
 	{
-		if (m_shouldUpdate) {
+		if (m_shouldUpdate)
+		{
 			UpdateRelatedPaths();
 			LoadFileItemsList();
 			m_selected.clear();
@@ -167,7 +171,23 @@ namespace Elevate
 				ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
 			}
 
-			if (ImGui::ImageButton("file_item", (ImTextureID)m_currentTextures[item.iconPath]->GetNativeHandle(), buttonSize)) {}
+			ImTextureID icon = (ImTextureID)m_currentTextures[item.iconPath]->GetNativeHandle();
+			ImVec2 uv0(0, 0), uv1(1, 1);
+
+			// todo : inject directly instead of resolving every frame
+			auto previewSystem = Application::Get().GetServices().Resolve<AssetPreviewSystem>();
+
+			if (AssetRegistry::IsPathRegistered(item.path))
+			{
+				if (void* preview = previewSystem->GetPreview(AssetRegistry::GetPathGuid(item.path)))
+				{
+					icon = (ImTextureID)preview;
+					uv0 = ImVec2(0, 1);
+					uv1 = ImVec2(1, 0);
+				}
+			}
+
+			if (ImGui::ImageButton("file_item", icon, buttonSize, uv0, uv1)) {}
 			const float itemWidth = ImGui::GetItemRectSize().x;
 
 			if (isSelected)
@@ -231,39 +251,25 @@ namespace Elevate
 			}
 
 			ImGui::PopTextWrapPos();
-
 			ImGui::EndGroup();
+
+			if (ImGui::IsItemClicked(ImGuiMouseButton_Right) && !isSelected)
+			{
+				if (!isSelected)
+				{
+					m_selected.clear();
+					m_selected.insert(itemIndex);
+					m_lastSelected = itemIndex;
+					SelectItemInEditor(item);
+				}
+			}
 
 			if (ImGui::IsItemClicked())
 			{
 				if (!ImGui::GetIO().KeyCtrl)
 				{
 					m_selected.clear();
-
-					if (AssetRegistry::IsPathRegistered(item.path))
-					{
-						Guid guid = AssetRegistry::GetPathGuid(item.path);
-						auto entry = AssetRegistry::GetEntry(guid);
-
-						if (entry)
-						{
-							if (!entry->isLoaded || !entry->Instance)
-							{
-								auto loadedAsset = AssetRegistry::GetAsset<Asset>(entry->AssetGuid);
-								if (loadedAsset)
-								{
-									AssetRegistry::RegisterAsset(loadedAsset);
-									entry = AssetRegistry::GetEntry(guid); // Update the entry
-								}
-							}
-
-							if (entry && entry->Instance)
-							{
-								EEObjectPtr<EEObject> eeObject(entry->Instance);
-								EditorLayer::Get().SelectObject(eeObject);
-							}
-						}
-					}
+					SelectItemInEditor(item);
 				}
 
 				if (ImGui::GetIO().KeyShift)
@@ -439,7 +445,10 @@ namespace Elevate
 					auto assetPtr = std::static_pointer_cast<Asset>(asset);
 					AssetRegistry::RegisterAssetOnDisk(assetPtr, filePath);
 					SelectAsset(assetPtr.get());
-					std::strcpy(m_renameBuffer, assetPtr->GetName().c_str());
+
+					const std::string fileName = fs::path(filePath).filename().string();
+					std::strncpy(m_renameBuffer, fileName.c_str(), sizeof(m_renameBuffer) - 1);
+					m_renameBuffer[sizeof(m_renameBuffer) - 1] = '\0';
 					m_isRenaming = true;
 				}
 			}
@@ -514,14 +523,54 @@ namespace Elevate
 		}
 	}
 
+	void Editor::AssetBrowserPanel::SelectItemInEditor(const FileItem& item)
+	{
+		if (!AssetRegistry::IsPathRegistered(item.path))
+		{
+			return;
+		}
+
+		Guid guid = AssetRegistry::GetPathGuid(item.path);
+		auto entry = AssetRegistry::GetEntry(guid);
+		if (!entry)
+		{
+			return;
+		}
+
+		if (!entry->isLoaded || !entry->Instance)
+		{
+			auto loadedAsset = AssetRegistry::GetAsset<Asset>(entry->AssetGuid);
+			if (loadedAsset)
+			{
+				AssetRegistry::RegisterAsset(loadedAsset);
+				entry = AssetRegistry::GetEntry(guid);
+			}
+		}
+
+		if (entry && entry->Instance)
+		{
+			EEObjectPtr<EEObject> eeObject(entry->Instance);
+			EditorLayer::Get().SelectObject(eeObject);
+		}
+	}
+
 	void Editor::AssetBrowserPanel::RemoveItem(const FileItem& item)
 	{
 		fs::path fsPath = item.path;
 
 		try
 		{
+			Guid guid = AssetRegistry::GetPathGuid(fsPath);
+
 			fs::remove(fsPath);
-			// todo : remove asset from
+
+			AssetRegistry::UnregisterAssetByPath(fsPath);
+
+			if (guid.IsValid())
+			{
+				Application::Get().GetServices().Resolve<AssetPreviewSystem>()->Remove(guid);
+			}
+
 			m_shouldUpdate = true;
 		}
 		catch (const fs::filesystem_error& e)
@@ -544,7 +593,7 @@ namespace Elevate
 		try
 		{
 			fs::rename(oldPath, newPath);
-			// todo update the asset registry
+			AssetRegistry::UpdateAssetPath(oldPath, newPath);
 			m_shouldUpdate = true;
 			CoreLogger::Info("Renamed '{}' to '{}'", item.name, newPath.filename().string());
 		}
@@ -706,7 +755,8 @@ namespace Elevate
 			FileType type = FileMetadata::ParseFileType(typeStr);
 			FileMetadata meta(type, iconPath);
 
-			if (asset.HasMember("r") && asset.HasMember("g") && asset.HasMember("b") && asset.HasMember("a")) {
+			if (asset.HasMember("r") && asset.HasMember("g") && asset.HasMember("b") && asset.HasMember("a"))
+			{
 				int r = asset["r"].GetInt();
 				int g = asset["g"].GetInt();
 				int b = asset["b"].GetInt();
@@ -718,6 +768,23 @@ namespace Elevate
 		}
 	}
 
+	std::shared_ptr<Asset> Editor::AssetBrowserPanel::GetLoadedAsset(const FileItem& item)
+	{
+		if (!AssetRegistry::IsPathRegistered(item.path))
+		{
+			return nullptr;
+		}
+
+		Guid guid = AssetRegistry::GetPathGuid(item.path);
+		auto entry = AssetRegistry::GetEntry(guid);
+
+		if (!entry || !entry->isLoaded || !entry->Instance)
+		{
+			return nullptr;
+		}
+
+		return std::static_pointer_cast<Asset>(entry->Instance);
+	}
 }
 
 #endif

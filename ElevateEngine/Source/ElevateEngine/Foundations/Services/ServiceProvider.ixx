@@ -5,6 +5,7 @@ module;
 #include <typeinfo>
 #include <unordered_map>
 #include <utility>
+#include <vector>
 
 export module Elevate.Foundations.Services:ServiceProvider;
 
@@ -24,7 +25,10 @@ export namespace Elevate
 		{
 		}
 
-		~ServiceProvider() = default;
+		~ServiceProvider()
+		{
+			Shutdown();
+		}
 
 		ServiceProvider(const ServiceProvider&) = delete;
 		ServiceProvider& operator=(const ServiceProvider&) = delete;
@@ -53,6 +57,7 @@ export namespace Elevate
 				{
 					auto instance = descriptor.Create(*this);
 					it = m_singletons.emplace(type, std::move(instance)).first;
+					m_singletonCreationOrder.push_back(type);
 				}
 				return static_cast<Internal::ServiceInstance<TService> &>(*it->second).Get();
 			}
@@ -77,8 +82,31 @@ export namespace Elevate
 			return m_descriptors.find(std::type_index(typeid(TService))) != m_descriptors.end();
 		}
 
+		void Shutdown()
+		{
+			if (m_isShutdown)
+			{
+				return;
+			}
+
+			m_isShutdown = true;
+
+			for (auto it = m_singletonCreationOrder.rbegin(); it != m_singletonCreationOrder.rend(); ++it)
+			{
+				if (auto found = m_singletons.find(*it); found != m_singletons.end())
+				{
+					found->second->Shutdown();
+					m_singletons.erase(found);
+				}
+			}
+		}
+
 	private:
+		bool m_isShutdown = false;
+
 		std::unordered_map<std::type_index, Internal::ServiceDescriptor> m_descriptors;
+
 		std::unordered_map<std::type_index, std::unique_ptr<Internal::IServiceInstance>> m_singletons;
+		std::vector<std::type_index> m_singletonCreationOrder;
 	};
 }

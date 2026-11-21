@@ -18,6 +18,7 @@ import Elevate.Core.Objects.ObjectPtr;
 import Elevate.Core.Assets.Asset;
 // Renderer
 import Elevate.Renderer.Texture;
+import Elevate.Renderer.Framebuffers;
 // Editor
 import Elevate.Editor.Widgets.Widget;
 
@@ -114,11 +115,15 @@ export namespace Elevate::Editor
 		void UpdateRelatedPaths();
 		void AddParentPaths(std::filesystem::path path);
 
+		void SelectItemInEditor(const FileItem& item);
+
 		void RemoveItem(const FileItem& item);
 		void RenameItem(const FileItem& item);
 
 		void LoadFileItemsList();
 		void LoadExtensionsMeta(std::string filepath = "editor://Config/file_browser.json");
+
+		std::shared_ptr<Asset> GetLoadedAsset(const FileItem& item);
 
 		std::filesystem::path m_CurrentPath;
 		std::vector<BrowserPath> m_relatedPaths;
@@ -144,6 +149,9 @@ export namespace Elevate::Editor
 		std::shared_ptr<Texture> m_newFolderTexture;
 		std::shared_ptr<Texture> m_renameTexture;
 		std::shared_ptr<Texture> m_deleteTexture;
+
+		bool m_previewDirty = true;
+		std::unique_ptr<Framebuffer> m_preview;
 	};
 }
 

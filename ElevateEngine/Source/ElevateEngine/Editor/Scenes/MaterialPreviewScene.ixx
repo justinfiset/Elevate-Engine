@@ -9,9 +9,12 @@ module;
 
 export module Elevate.Editor.Scenes.MaterialPreviewScene;
 
+// Foundations
+import Elevate.Foundations.CoreLogger;
 // Core
 import Elevate.Core.Scene;
 // Renderer
+import Elevate.Renderer.Materials.Material;
 import Elevate.Renderer.Models;
 import Elevate.Renderer.Meshes;
 import Elevate.Renderer.Camera;
@@ -44,10 +47,10 @@ export namespace Elevate
 			auto sharedThis = std::static_pointer_cast<Scene>(shared_from_this());
 
 			auto materialPreviewSphere = GameObject::Create(std::string(k_sphereName), sharedThis);
-			materialPreviewSphere->AddComponent<Model>(PrimitiveType::UVSphere);
+			m_previewModel = &materialPreviewSphere->AddComponent<Model>(PrimitiveType::UVSphere);
 
 			auto materialPreviewCamera = GameObject::Create(std::string(k_cameraName), sharedThis);
-			materialPreviewCamera->AddComponent<Camera>();
+			m_camera = &materialPreviewCamera->AddComponent<Camera>();
 			materialPreviewCamera->SetPosition({ 0.0f, distance * std::sin(pitch), distance * std::cos(pitch) });
 			materialPreviewCamera->SetRotation({ -k_pitchDeg, 0.0f, 0.0f });
 
@@ -72,7 +75,26 @@ export namespace Elevate
 			ground->SetScale({ k_groundSize, 1.0f, k_groundSize });
 		}
 
+		void SetPreviewMaterial(const std::shared_ptr<Material>& material)
+		{
+			if (!m_previewModel)
+			{
+				CoreLogger::Warn("Cannot set a material to preview with a non initialized preview scene.");
+				return;
+			}
+
+			m_previewModel->SetMaterial(material);
+		}
+
+		Camera* GetCamera()
+		{
+			return m_camera;
+		}
+
 	private:
+		Camera* m_camera = nullptr;
+		Model* m_previewModel = nullptr;
+
 		static constexpr std::string_view k_sphereName = "MaterialPreview_Sphere";
 		static constexpr std::string_view k_cameraName = "MaterialPreview_Camera";
 		static constexpr std::string_view k_dirLightName = "MaterialPreview_DirLight";

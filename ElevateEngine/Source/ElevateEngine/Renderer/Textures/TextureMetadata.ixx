@@ -7,14 +7,14 @@ export module Elevate.Renderer.Texture:TextureMetadata;
 
 export namespace Elevate
 {
-	enum class TextureSource : uint8_t
+	enum class TextureSource : std::uint8_t
 	{
 		File,		 // Loaded from disk
 		Generated,	 // Created from color or procedural
 		RenderTarget // Created as framebuffer texture
 	};
 
-	enum class TextureFormat : uint8_t
+	enum class TextureFormat : std::uint8_t
 	{
 		EMPTY = 0,
 		GRAYSCALE,
@@ -37,7 +37,7 @@ export namespace Elevate
 		DEPTH24_STENCIL8 // To use depth and stencil at the same time
 	};
 
-	enum class TextureType : uint8_t
+	enum class TextureType : std::uint8_t
 	{
 		Diffuse,
 		Specular,
@@ -51,7 +51,7 @@ export namespace Elevate
 		Count
 	};
 
-	enum class TextureState : uint8_t
+	enum class TextureState : std::uint8_t
 	{
 		Empty,
 		Unloaded = Empty, // Same as empty but for files
@@ -61,13 +61,13 @@ export namespace Elevate
 		Failed
 	};
 
-	enum class TextureFilter : uint8_t
+	enum class TextureFilter : std::uint8_t
 	{
 		Nearest,
 		Linear
 	};
 
-	enum class TextureWrap : uint8_t
+	enum class TextureWrap : std::uint8_t
 	{
 		Repeat,
 		MirrorRepeat,
@@ -78,7 +78,7 @@ export namespace Elevate
 
 namespace Elevate
 {
-	uint8_t GetTextureFormatChannels(TextureFormat format)
+	std::uint8_t GetTextureFormatChannels(TextureFormat format)
 	{
 		switch (format)
 		{
@@ -123,14 +123,14 @@ export namespace Elevate
 	{
 		std::string Name;							 // Logical name -> for display purposes
 		std::string Path;							 // The absolute file path
-		uint32_t Width = 0;							 // Width in px
-		uint32_t Height = 0;						 // Height in px
-		uint8_t Channels = 0;						 // 3 for rgb, 4 for rgba
+		std::uint32_t Width = 0;					 // Width in px
+		std::uint32_t Height = 0;					 // Height in px
+		std::uint8_t Channels = 0;					 // 3 for rgb, 4 for rgba
 		TextureFormat Format = TextureFormat::RGB;	 // ex: EE_RGB, EE_RGBA
 		TextureType Usage = TextureType::Diffuse;	 // ex: Diffuse, Specular...
 		TextureSource Source = TextureSource::File;	 // Loaded from a file, generated or from a framebuffer
 		TextureState State = TextureState::Unloaded; // General state of the texxture, unloaded, loaded, failed etc.
-		uint32_t Layer = 0;							 // Default: 0 -> Used for cubemap faces, texture arrays, etc.
+		std::uint32_t Layer = 0;					 // Default: 0 -> Used for cubemap faces, texture arrays, etc.
 
 		TextureFilter MinFilter = TextureFilter::Linear;
 		TextureFilter MagFilter = TextureFilter::Linear;
