@@ -164,7 +164,12 @@ namespace Elevate
 			GLsizei length; GLint size; GLenum type;
 			glGetActiveUniform(m_RendererID, i, maxLen, &length, &size, &type, name.data());
 			std::string n(name.data(), length);
-			m_uniformLocations[n] = glGetUniformLocation(m_RendererID, n.c_str());
+			const GLint loc = glGetUniformLocation(m_RendererID, n.c_str());
+			m_uniformLocations[n] = loc;
+			if (n.size() > 3 && n.compare(n.size() - 3, 3, "[0]") == 0)
+			{
+				m_uniformLocations[n.substr(0, n.size() - 3)] = loc;
+			}
 		}
 	}
 
@@ -324,6 +329,13 @@ namespace Elevate
 	int32_t OpenGLShader::Loc(const std::string& name) const
 	{
 		auto it = m_uniformLocations.find(name);
-		return it != m_uniformLocations.end() ? it->second : -1;
+		if (it != m_uniformLocations.end())
+		{
+			return it->second;
+		}
+
+		const GLint loc = glGetUniformLocation(m_RendererID, name.c_str());
+		m_uniformLocations.emplace(name, loc);
+		return loc;
 	}
 }

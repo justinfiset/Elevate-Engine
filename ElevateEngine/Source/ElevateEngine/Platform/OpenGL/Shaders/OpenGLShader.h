@@ -22,8 +22,6 @@ namespace Elevate
 		virtual void Unbind() const override;
 		virtual uint32_t GetHashCode() const override;
 
-		void CacheUniformLocations();
-
 		virtual unsigned int GetRendererID() const override { return m_RendererID; }
 
 		/// UNIFORMS
@@ -58,10 +56,11 @@ namespace Elevate
 
 	private:
 		virtual BufferLayout ExtractReflectionData() const override;
-		int32_t Loc(const std::string& name) const;
 
-	private:
+		int32_t Loc(const std::string& name) const;
+		void CacheUniformLocations();
 		mutable std::unordered_map<std::string, std::int32_t> m_uniformLocations;
+
 		uint32_t m_RendererID = 0;
 	};
 }
