@@ -10,15 +10,15 @@ namespace Elevate
 {
 	std::string Asset::GetName() const
 	{
+		if (!m_explicitName.empty())
+		{
+			return m_explicitName;
+		}
+
 		auto entry = AssetRegistry::GetEntry(m_guid);
 		if (entry)
 		{
 			return entry->AssetName;
-		}
-
-		if (!m_name.empty())
-		{
-			return m_name;
 		}
 
 		return generated_classEntry.ClassName;
@@ -26,6 +26,6 @@ namespace Elevate
 
 	void Asset::SetName(const std::string& name)
 	{
-		m_name = name;
+		m_explicitName = name;
 	}
 }

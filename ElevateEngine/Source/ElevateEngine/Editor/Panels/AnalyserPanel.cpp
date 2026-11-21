@@ -25,6 +25,7 @@ module Elevate.Editor.Panels.AnalyserPanel;
 #ifdef EE_EDITOR_BUILD
 
 // Foundations
+import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Enums;
 // Core
 import Elevate.Core.Scene;

@@ -56,9 +56,14 @@ namespace Elevate
 
 	void ShaderManager::_Init()
 	{
+		if (m_initialized)
+		{
+			return;
+		}
+
+		m_initialized = true;
+
 		CoreLogger::Info("Initializing ShaderManager.");
-		// Create a default shader.
-		CoreLogger::Trace("(ShaderManager) : Creating default shader.");
 
 		std::string glslPointLightCountDefine = "#define NR_POINT_LIGHTS " + std::to_string(SceneLightingLimits::MaxPointLights) + "\n";
 		std::string glslSpotLightCountDefine = "#define NR_SPOT_LIGHTS " + std::to_string(SceneLightingLimits::MaxSpotLights) + "\n";
@@ -77,6 +82,12 @@ namespace Elevate
 		if (defaultShader)
 		{
 			LoadShader(EE_DEFAULT_SHADER, defaultShader);
+
+			// Create the asset corresponsing to the default shader
+			auto shaderAsset = ShaderAsset::CreateBuiltIn("Default", EE_DEFAULT_SHADER_GUID, defaultShader);
+			AssetRegistry::RegisterAsset(shaderAsset);
+
+			CoreLogger::Trace("(ShaderManager) : Created the default shader.");
 		}
 		else
 		{
@@ -85,21 +96,12 @@ namespace Elevate
 
 		LoadShader(EE_ERROR_SHADER, Shader::CreateDefaultErrorNative());
 
-		// Create the asset corresponsing to the default shader
-		auto shaderAsset = ShaderAsset::CreateBuiltIn("Default", EE_DEFAULT_SHADER_GUID, defaultShader);
-		AssetRegistry::RegisterAsset(shaderAsset);
-
 		CoreLogger::Info("Initialized ShaderManager.");
 	}
 
 	ShaderManager& ShaderManager::instance()
 	{
 		static ShaderManager instance;
-		if (!instance.m_initialized)
-		{
-			instance.m_initialized = true;
-			instance.Init();
-		}
 		return instance;
 	}
 }

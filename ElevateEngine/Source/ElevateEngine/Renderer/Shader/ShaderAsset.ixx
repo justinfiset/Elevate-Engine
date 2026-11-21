@@ -72,6 +72,7 @@ export namespace Elevate
 
 		EEObjectPtr<Shader> m_compiled{ nullptr };
 
-		END_OBJECT();
+		END_OBJECT_CUSTOM();
+		DECLARE_AUTO_OBJECT_LAYOUT();
 	};
 }

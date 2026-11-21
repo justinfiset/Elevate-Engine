@@ -35,7 +35,6 @@ export namespace Elevate
 		void RegisterPreviewRenderers(AssetPreviewSystem& previewSystem)
 		{
 			previewSystem.Register<Material, MaterialPreviewRenderer>();
-			// Todo : Register preview renderers here
 		}
 	};
 }

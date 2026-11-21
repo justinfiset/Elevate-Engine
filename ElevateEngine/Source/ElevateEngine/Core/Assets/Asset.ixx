@@ -27,7 +27,7 @@ export namespace Elevate
 		virtual void OnUnbind() {}
 
 	private:
-		std::string m_name;
+		std::string m_explicitName = "";
 
 		END_OBJECT_CUSTOM();
 		DECLARE_AUTO_OBJECT_LAYOUT();

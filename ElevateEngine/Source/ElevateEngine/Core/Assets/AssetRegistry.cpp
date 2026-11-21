@@ -72,6 +72,7 @@ namespace Elevate
 	void AssetRegistry::Init()
 	{
 		Get()._Init();
+		CoreLogger::Info("Initialized Asset Registry.");
 	}
 
 	void AssetRegistry::RefreshFromDisk()
@@ -142,7 +143,6 @@ namespace Elevate
 
 	void AssetRegistry::_Init()
 	{
-		CoreLogger::Info("Initializing Asset Registry...");
 		RefreshFromDisk();
 	}
 

@@ -63,7 +63,9 @@ namespace Elevate
 			for (const auto& uniform : layout)
 			{
 				if (uniform.Type == ShaderDataType::Sampler2D)
+				{
 					continue;
+				}
 
 				if (uniform.Name == ShaderUniforms::ViewProj ||
 					uniform.Name == ShaderUniforms::CamPos ||
@@ -208,6 +210,7 @@ namespace Elevate
 	{
 		m_materials[EE_DEFAULT_MATERIAL] = MaterialFactory::Create(ShaderManager::GetShader(EE_DEFAULT_SHADER));
 		m_materials[EE_ERROR_MATERIAL] = MaterialFactory::Create(ShaderManager::GetShader(EE_ERROR_SHADER));
+		CoreLogger::Info("Initialized MaterialRegistry.");
 	}
 
 	MaterialRegistry& MaterialRegistry::instance()

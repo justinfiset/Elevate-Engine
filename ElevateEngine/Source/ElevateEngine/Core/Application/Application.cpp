@@ -35,6 +35,7 @@ import Elevate.Input;
 // DI
 import Elevate.Foundations.DI;
 import Elevate.Core.DI;
+import Elevate.Renderer.DI;
 
 // Editor
 #ifdef EE_EDITOR_BUILD
@@ -47,7 +48,7 @@ namespace Elevate
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
-	Application *Application::s_Instance = nullptr;
+	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
 	{
@@ -89,9 +90,10 @@ namespace Elevate
 	{
 		ServiceCollection collection;
 
-		ServiceModuleRegistry::Create()
+		m_modules = ServiceModuleRegistry::Create()
 			.Register<FoundationsServiceModule>()
 			.Register<CoreServiceModule>()
+			.Register<RendererServiceModule>()
 #ifdef EE_EDITOR_BUILD
 			.Register<EditorServiceModule>()
 #endif
@@ -100,20 +102,20 @@ namespace Elevate
 		m_Provider = std::make_unique<ServiceProvider>(std::move(collection).Build());
 	}
 
-	void Application::PushLayer(Layer *layer)
+	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
 	}
 
-	void Application::PushOverlay(Layer *overlay)
+	void Application::PushOverlay(Layer* overlay)
 	{
 		m_LayerStack.PushOverlay(overlay);
 		overlay->OnAttach();
 	}
 
 	// Event Dispatcher
-	void Application::OnEvent(Event &e)
+	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
@@ -138,13 +140,13 @@ namespace Elevate
 
 #ifdef EE_PLATFORM_WEB
 	// Intermediate function to call the main loop in web builds
-	void WebMainLoop(void *arg)
+	void WebMainLoop(void* arg)
 	{
-		static_cast<Application *>(arg)->EngineFrame();
+		static_cast<Application*>(arg)->EngineFrame();
 	}
 #endif
 
-	void Application::Start(int argc, char **argv, ApplicationFactory factory)
+	void Application::Start(int argc, char** argv, ApplicationFactory factory)
 	{
 		CoreLogger::Info("Initializing ElevateEngine...");
 
@@ -168,9 +170,11 @@ namespace Elevate
 
 	void Application::Init()
 	{
-		AssetRegistry::Init();
+		AssetRegistry::Init(); // todo : move to the core config
+		m_modules->Configure(*m_Provider);
+
 		Renderer::Init(m_Window->GetWidth(), m_Window->GetHeight());
-		SoundEngine::Init();
+		SoundEngine::Init(); // todo move to audio module DI config
 	}
 
 	void Application::EngineFrame(bool skipEventPolling) // Each frame
@@ -181,7 +185,7 @@ namespace Elevate
 		try
 		{
 #endif // #if EE_ASSERTS_ENABLED
-	   // TIME UPDATE //////////////////
+			// TIME UPDATE //////////////////
 			float currentTime = Time::GetCurrentTime();
 			float rawDeltaTime = currentTime - lastTime;
 			float deltaTime = std::min(rawDeltaTime, 0.25f); // Clamping to prevent weird behaviours
@@ -195,11 +199,11 @@ namespace Elevate
 			m_PhysicsSystem->Update(Time::GetDeltaTime());
 			TextureManager::UpdateLoadingTextures();
 
-			for (Layer *layer : m_LayerStack)
+			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
 			// Draw Layers and Scenes
-			for (Layer *layer : m_LayerStack)
+			for (Layer* layer : m_LayerStack)
 				layer->OnRender();
 
 			Renderer::RenderFrame();
@@ -213,7 +217,7 @@ namespace Elevate
 			m_ImGuiLayer->PreRender();
 			m_ImGuiLayer->Begin();
 
-			for (Layer *layer : m_LayerStack)
+			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
 
 			m_ImGuiLayer->Render(); // render imgui
@@ -236,7 +240,7 @@ namespace Elevate
 
 #if !EE_ASSERTS_ENABLED
 		}
-		catch (const std::exception &exc)
+		catch (const std::exception& exc)
 		{
 			CoreLogger::Error("{}", exc.what());
 		}
@@ -264,7 +268,7 @@ namespace Elevate
 		m_PhysicsSystem->Shutdown();
 	}
 
-	const GameContextState &Application::GetGameState()
+	const GameContextState& Application::GetGameState()
 	{
 		return s_Instance->m_state;
 	}
@@ -277,8 +281,8 @@ namespace Elevate
 			s_Instance->m_state = newState;
 
 			CoreLogger::Info("GameContext state changed from {} to {}",
-							 GetGameContextStateName(oldState),
-							 GetGameContextStateName(newState));
+				GetGameContextStateName(oldState),
+				GetGameContextStateName(newState));
 
 			s_Instance->OnStateChange(oldState, newState);
 		}
@@ -302,44 +306,44 @@ namespace Elevate
 		OnEvent(e);
 	}
 
-	bool Application::OnKeyPressedEvent(KeyPressedEvent &e)
+	bool Application::OnKeyPressedEvent(KeyPressedEvent& e)
 	{
 		Input::OnKeyPressedEvent(e);
 		return true;
 	}
 
-	bool Application::OnKeyReleasedEvent(KeyReleasedEvent &e)
+	bool Application::OnKeyReleasedEvent(KeyReleasedEvent& e)
 	{
 		Input::OnKeyReleasedEvent(e);
 		return true;
 	}
 
-	bool Application::OnMouseButtonPressedEvent(MouseButtonPressedEvent &e)
+	bool Application::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)
 	{
 		Input::OnMouseButtonPressedEvent(e);
 		return true;
 	}
 
-	bool Application::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent &e)
+	bool Application::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e)
 	{
 		Input::OnMouseButtonReleasedEvent(e);
 		return true;
 	}
 
-	bool Application::OnWindowClose(WindowCloseEvent &e)
+	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Running = false;
 		return true;
 	}
 
-	bool Application::OnFramebufferResize(FramebufferResizeEvent &e)
+	bool Application::OnFramebufferResize(FramebufferResizeEvent& e)
 	{
 		Renderer::SetViewport(0, 0, e.GetWidth(), e.GetHeight());
 		EngineFrame(true);
 		return true;
 	}
 
-	bool Application::OnWindowFocusEvent(WindowFocusEvent &e)
+	bool Application::OnWindowFocusEvent(WindowFocusEvent& e)
 	{
 		Input::ResetAllStates();
 

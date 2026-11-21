@@ -11,6 +11,7 @@ export module Elevate.Editor.Renderer.AssetPreviewSystem;
 
 // Foundations
 import Elevate.Foundations.Guid;
+import Elevate.Foundations.Cleanups;
 // Core
 import Elevate.Core.Assets.Asset;
 import Elevate.Core.Assets.AssetRegistry;
@@ -21,14 +22,22 @@ import Elevate.Editor.Renderer.AssetPreviewRenderer;
 
 export namespace Elevate
 {
-	class AssetPreviewSystem
+	class AssetPreviewSystem : public IShutdownable
 	{
 	public:
+		virtual ~AssetPreviewSystem() = default;
+
 		template <typename AssetType, typename RendererType>
 		void Register()
 		{
 			static_assert(std::is_base_of_v<AssetPreviewRenderer, RendererType>, "RendererType must derive from AssetPreviewRenderer");
 			m_renderers[std::type_index(typeid(AssetType))] = std::make_unique<RendererType>();
+		}
+
+		virtual void Shutdown() override
+		{
+			m_cache.clear();
+			m_renderers.clear();
 		}
 
 		AssetPreviewRenderer* FindRenderer(std::type_index type) const
@@ -57,7 +66,7 @@ export namespace Elevate
 				? std::static_pointer_cast<Asset>(entry->Instance)
 				: AssetRegistry::GetAsset<Asset>(entry->AssetGuid);
 
-			return asset ? GetPreview(asset) : nullptr;
+			return asset ? GetPreview(asset, size) : nullptr;
 		}
 
 		void* GetPreview(const std::shared_ptr<Asset>& asset, std::uint32_t size = 256)
