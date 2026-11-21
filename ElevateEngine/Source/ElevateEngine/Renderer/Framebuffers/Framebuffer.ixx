@@ -8,7 +8,7 @@ module;
 
 export module Elevate.Renderer.Framebuffers:Framebuffer;
 
-import Elevate.Renderer.Texture;
+export import Elevate.Renderer.Texture;
 
 export namespace Elevate
 {

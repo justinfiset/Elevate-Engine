@@ -5,6 +5,7 @@ module;
 #include <typeinfo>
 #include <unordered_map>
 #include <utility>
+#include <vector>
 
 export module Elevate.Foundations.Services:ServiceProvider;
 
