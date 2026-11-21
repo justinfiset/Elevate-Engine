@@ -11,6 +11,7 @@ module;
 
 module Elevate.Renderer.Materials.Material;
 
+import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Data;
 
 import Elevate.Core.Types.TypeField;
