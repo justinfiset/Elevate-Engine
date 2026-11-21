@@ -75,7 +75,8 @@ namespace Elevate
 
 	void Editor::AssetBrowserPanel::OnUpdate()
 	{
-		if (m_shouldUpdate) {
+		if (m_shouldUpdate)
+		{
 			UpdateRelatedPaths();
 			LoadFileItemsList();
 			m_selected.clear();
@@ -250,39 +251,25 @@ namespace Elevate
 			}
 
 			ImGui::PopTextWrapPos();
-
 			ImGui::EndGroup();
+
+			if (ImGui::IsItemClicked(ImGuiMouseButton_Right) && !isSelected)
+			{
+				if (!isSelected)
+				{
+					m_selected.clear();
+					m_selected.insert(itemIndex);
+					m_lastSelected = itemIndex;
+					SelectItemInEditor(item);
+				}
+			}
 
 			if (ImGui::IsItemClicked())
 			{
 				if (!ImGui::GetIO().KeyCtrl)
 				{
 					m_selected.clear();
-
-					if (AssetRegistry::IsPathRegistered(item.path))
-					{
-						Guid guid = AssetRegistry::GetPathGuid(item.path);
-						auto entry = AssetRegistry::GetEntry(guid);
-
-						if (entry)
-						{
-							if (!entry->isLoaded || !entry->Instance)
-							{
-								auto loadedAsset = AssetRegistry::GetAsset<Asset>(entry->AssetGuid);
-								if (loadedAsset)
-								{
-									AssetRegistry::RegisterAsset(loadedAsset);
-									entry = AssetRegistry::GetEntry(guid); // Update the entry
-								}
-							}
-
-							if (entry && entry->Instance)
-							{
-								EEObjectPtr<EEObject> eeObject(entry->Instance);
-								EditorLayer::Get().SelectObject(eeObject);
-							}
-						}
-					}
+					SelectItemInEditor(item);
 				}
 
 				if (ImGui::GetIO().KeyShift)
@@ -533,14 +520,54 @@ namespace Elevate
 		}
 	}
 
+	void Editor::AssetBrowserPanel::SelectItemInEditor(const FileItem& item)
+	{
+		if (!AssetRegistry::IsPathRegistered(item.path))
+		{
+			return;
+		}
+
+		Guid guid = AssetRegistry::GetPathGuid(item.path);
+		auto entry = AssetRegistry::GetEntry(guid);
+		if (!entry)
+		{
+			return;
+		}
+
+		if (!entry->isLoaded || !entry->Instance)
+		{
+			auto loadedAsset = AssetRegistry::GetAsset<Asset>(entry->AssetGuid);
+			if (loadedAsset)
+			{
+				AssetRegistry::RegisterAsset(loadedAsset);
+				entry = AssetRegistry::GetEntry(guid);
+			}
+		}
+
+		if (entry && entry->Instance)
+		{
+			EEObjectPtr<EEObject> eeObject(entry->Instance);
+			EditorLayer::Get().SelectObject(eeObject);
+		}
+	}
+
 	void Editor::AssetBrowserPanel::RemoveItem(const FileItem& item)
 	{
 		fs::path fsPath = item.path;
 
 		try
 		{
+			Guid guid = AssetRegistry::GetPathGuid(fsPath);
+
 			fs::remove(fsPath);
-			// todo : remove asset from
+
+			AssetRegistry::UnregisterAssetByPath(fsPath);
+
+			if (guid.IsValid())
+			{
+				Application::Get().GetServices().Resolve<AssetPreviewSystem>()->Remove(guid);
+			}
+
 			m_shouldUpdate = true;
 		}
 		catch (const fs::filesystem_error& e)
@@ -563,7 +590,7 @@ namespace Elevate
 		try
 		{
 			fs::rename(oldPath, newPath);
-			// todo update the asset registry
+			AssetRegistry::UpdateAssetPath(oldPath, newPath);
 			m_shouldUpdate = true;
 			CoreLogger::Info("Renamed '{}' to '{}'", item.name, newPath.filename().string());
 		}

@@ -34,6 +34,11 @@ export namespace Elevate
 			m_renderers[std::type_index(typeid(AssetType))] = std::make_unique<RendererType>();
 		}
 
+		void Remove(Guid assetGuid)
+		{
+			m_cache.erase(assetGuid);
+		}
+
 		virtual void Shutdown() override
 		{
 			m_cache.clear();
@@ -50,7 +55,7 @@ export namespace Elevate
 		{
 			if (auto it = m_cache.find(id); it != m_cache.end())
 			{
-				it->second.Dirty = true;
+				it->second.Revision = Entry::Invalid;
 			}
 		}
 
@@ -90,10 +95,10 @@ export namespace Elevate
 				entry.Target = renderer->CreatePreviewTarget(size);
 			}
 
-			if (entry.Dirty)
+			if (entry.Revision != asset->GetRevision())
 			{
 				renderer->Render(asset, *entry.Target);
-				entry.Dirty = false;
+				entry.Revision = asset->GetRevision();
 			}
 
 			return entry.Target->GetColorAttachmentHandle();
@@ -102,8 +107,10 @@ export namespace Elevate
 	private:
 		struct Entry
 		{
+			static constexpr std::uint64_t Invalid = std::numeric_limits<std::uint64_t>::max();
+
 			std::unique_ptr<Framebuffer> Target;
-			bool Dirty = true;
+			std::uint64_t Revision = Invalid;
 		};
 
 		std::unordered_map<std::type_index, std::unique_ptr<AssetPreviewRenderer>> m_renderers;

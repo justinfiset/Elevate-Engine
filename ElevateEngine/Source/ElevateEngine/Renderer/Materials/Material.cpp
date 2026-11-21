@@ -28,6 +28,8 @@ namespace Elevate
 	Material::Material()
 		: m_id(s_nextId++)
 	{
+		// Use the default shader asset and resolve it when used
+		m_shaderAsset.SetGuid(EE_DEFAULT_SHADER_GUID);
 	}
 
 	Material::Material(const std::shared_ptr<Shader>& shader)

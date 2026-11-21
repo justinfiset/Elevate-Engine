@@ -154,10 +154,21 @@ void Elevate::Editor::AnalyserPanel::OnImGuiRender()
 	{
 		ImGui::Text("%s", selected->GetName().c_str());
 		ImGui::Separator();
+
+		bool changed = false;
 		const auto layout = selected->GetLayout();
+
 		for (const auto& field : layout)
 		{
-			RenderField(field);
+			changed |= RenderField(field);
+		}
+
+		if (changed)
+		{
+			if (auto asset = std::dynamic_pointer_cast<Asset>(selected))
+			{
+				asset->MarkModified();
+			}
 		}
 	}
 	ImGui::End();
@@ -242,61 +253,62 @@ void Elevate::Editor::AnalyserPanel::RenderComponentLayout(const TypeLayout& lay
 	}
 }
 
-void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
+bool Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 {
 	if (!field.data && field.type != EngineDataType::Custom)
 	{
 		ImGui::TextColored(ImVec4(1, 0, 0, 1), "[Null Data Pointer] %s", field.GetDisplayName().c_str());
-		return;
+		return false;
 	}
 
-	ImGui::BeginDisabled(field.readOnly);
+	bool changed = false;
 
+	ImGui::BeginDisabled(field.readOnly);
 	ImGui::PushID(field.data);
 
 	switch (field.type)
 	{
 	case EngineDataType::Int:
-		ImGui::InputInt(field.GetDisplayName().c_str(), (int*)(field.data));
+		changed = ImGui::InputInt(field.GetDisplayName().c_str(), (int*)(field.data));
 		break;
 	case EngineDataType::Int2:
-		ImGui::InputInt2(field.GetDisplayName().c_str(), (int*)(field.data));
+		changed = ImGui::InputInt2(field.GetDisplayName().c_str(), (int*)(field.data));
 		break;
 	case EngineDataType::Int3:
-		ImGui::InputInt3(field.GetDisplayName().c_str(), (int*)(field.data));
+		changed = ImGui::InputInt3(field.GetDisplayName().c_str(), (int*)(field.data));
 		break;
 	case EngineDataType::Int4:
-		ImGui::InputInt4(field.GetDisplayName().c_str(), (int*)(field.data));
+		changed = ImGui::InputInt4(field.GetDisplayName().c_str(), (int*)(field.data));
 		break;
 
 	case EngineDataType::Float:
-		ImGui::InputFloat(field.GetDisplayName().c_str(), (float*)(field.data));
+		changed = ImGui::InputFloat(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
 	case EngineDataType::Float2:
-		ImGui::InputFloat2(field.GetDisplayName().c_str(), (float*)(field.data));
+		changed = ImGui::InputFloat2(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
 	case EngineDataType::Float3:
 		if (field.isColor)
-			ImGui::ColorEdit3(field.GetDisplayName().c_str(), (float*)(field.data));
+			changed = ImGui::ColorEdit3(field.GetDisplayName().c_str(), (float*)(field.data));
 		else
-			ImGui::InputFloat3(field.GetDisplayName().c_str(), (float*)(field.data));
+			changed = ImGui::InputFloat3(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
 	case EngineDataType::Float4:
 		if (field.isColor)
-			ImGui::ColorEdit4(field.GetDisplayName().c_str(), (float*)(field.data));
+			changed = ImGui::ColorEdit4(field.GetDisplayName().c_str(), (float*)(field.data));
 		else
-			ImGui::InputFloat4(field.GetDisplayName().c_str(), (float*)(field.data));
+			changed = ImGui::InputFloat4(field.GetDisplayName().c_str(), (float*)(field.data));
 		break;
 
 	case EngineDataType::Bool:
-		ImGui::Checkbox(field.GetDisplayName().c_str(), (bool*)(field.data));
+		changed = ImGui::Checkbox(field.GetDisplayName().c_str(), (bool*)(field.data));
 		break;
 
 	case EngineDataType::String:
 	{
 		std::string* value = static_cast<std::string*>(const_cast<void*>(field.data));
 
-		ImGui::InputText(field.GetDisplayName().c_str(), value);
+		changed = ImGui::InputText(field.GetDisplayName().c_str(), value);
 		break;
 	}
 
@@ -340,10 +352,13 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 				if (ImGui::Selectable(value.Name.c_str(), selected))
 				{
 					*const_cast<EnumType*>(static_cast<const EnumType*>(field.data)) = value.Value;
+					changed = true;
 				}
 
 				if (selected)
+				{
 					ImGui::SetItemDefaultFocus();
+				}
 			}
 
 			ImGui::EndCombo();
@@ -371,7 +386,7 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 			{
 				for (const auto& child : field.children)
 				{
-					RenderField(child);
+					changed |= RenderField(child);
 				}
 
 				ImGui::TreePop();
@@ -449,7 +464,9 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 				if (ImGui::Selectable("##"))
 				{
 					eePtr->reset();
+					changed = true;
 				}
+
 				ImGui::SameLine(ImGui::GetStyle().ItemSpacing.x);
 				ImGui::Image((ImTextureID)noneIcon->GetNativeHandle(), ImVec2(buttonSize, buttonSize));
 				ImGui::SameLine();
@@ -463,6 +480,7 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 						if (ImGui::Selectable(entry->AssetName.c_str()))
 						{
 							eePtr->SetGuid(guid);
+							changed = true;
 						}
 					}
 				}
@@ -489,6 +507,8 @@ void Elevate::Editor::AnalyserPanel::RenderField(const TypeField& field)
 	{
 		ImGui::SetItemTooltip("%s", field.tooltip.c_str());
 	}
+
+	return changed;
 }
 
 void Elevate::Editor::AnalyserPanel::InsertCategory(CategoryMenu& root, const TypeRegistry::Entry& entry)
