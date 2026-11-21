@@ -445,7 +445,10 @@ namespace Elevate
 					auto assetPtr = std::static_pointer_cast<Asset>(asset);
 					AssetRegistry::RegisterAssetOnDisk(assetPtr, filePath);
 					SelectAsset(assetPtr.get());
-					std::strcpy(m_renameBuffer, assetPtr->GetName().c_str());
+
+					const std::string fileName = fs::path(filePath).filename().string();
+					std::strncpy(m_renameBuffer, fileName.c_str(), sizeof(m_renameBuffer) - 1);
+					m_renameBuffer[sizeof(m_renameBuffer) - 1] = '\0';
 					m_isRenaming = true;
 				}
 			}
