@@ -91,7 +91,6 @@ namespace Elevate
 
 		shader->m_layout = shader->ExtractReflectionData();
 
-		CoreLogger::Trace("Shader layout has {} elements.", shader->m_layout.GetElements().size());
 		return shader;
 	}
 

@@ -1,6 +1,7 @@
 module;
 
 #include <memory>
+#include <optional>
 
 export module Elevate.Core.Application;
 
@@ -19,7 +20,8 @@ import Elevate.Physics;
 import Elevate.Audio.Wwise.SoundEngine;
 #endif
 
-export namespace Elevate {
+export namespace Elevate
+{
 	class Application;
 	using ApplicationFactory = Application * (*)();
 
@@ -30,7 +32,8 @@ export namespace Elevate {
 
 		ApplicationArguments() = default;
 		ApplicationArguments(int argc, char** argv)
-			: argc(argc), argv(argv) {
+			: argc(argc), argv(argv)
+		{
 		}
 	};
 
@@ -42,6 +45,14 @@ export namespace Elevate {
 
 		static void Start(int argc, char** argv, ApplicationFactory factory);
 		void Init();
+
+		void CreateLayers();
+		virtual void OnCreateLayers()
+		{
+			// Overriden to add layers for the client's app
+		}
+
+		void CreateServiceProvider();
 		void EngineFrame(bool skipEventPolling = false);
 		void Run();
 		void Exit();
@@ -66,19 +77,22 @@ export namespace Elevate {
 
 	private:
 		/// Events Callback / Handler
-		//Keyboard
+		// Keyboard
 		bool OnKeyPressedEvent(KeyPressedEvent& e);
 		bool OnKeyReleasedEvent(KeyReleasedEvent& e);
-		//Mouse
+		// Mouse
 		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
 		bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
-		//Window
+		// Window
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowFocusEvent(WindowFocusEvent& e);
 		bool OnFramebufferResize(FramebufferResizeEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+
+		std::optional<ServiceModuleRegistry> m_modules;
 		std::unique_ptr<ServiceProvider> m_Provider;
+
 		SharedService<ITaskScheduler> m_Scheduler;
 		std::unique_ptr<PhysicsSystem> m_PhysicsSystem;
 		LayerStack m_LayerStack;

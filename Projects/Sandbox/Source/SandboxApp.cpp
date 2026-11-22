@@ -84,12 +84,6 @@ public:
 		SceneLayer::OnAttach();
 	}
 
-	void OnRender() override
-	{
-		Elevate::Camera* cam = Elevate::CameraManager::GetCurrent();
-		SceneLayer::OnRender(cam);
-	}
-
 	void OnUpdate() override
 	{
 		SceneLayer::OnUpdate();
@@ -123,11 +117,14 @@ public:
 #ifdef EE_USES_WWISE
 		Elevate::SoundEngine::SetImplementation(new Elevate::WwiseSoundEngine());
 #endif
+	}
+	~Sandbox() = default;
 
+	void OnCreateLayers() override
+	{
 		auto sceneManager = GetServices().Resolve<Elevate::SceneManager>();
 		PushLayer(new DebugLayer(sceneManager));
 	}
-	~Sandbox() = default;
 };
 
 Elevate::Application* Elevate::CreateApplication()

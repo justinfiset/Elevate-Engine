@@ -6,13 +6,18 @@ module;
 
 export module Elevate.Editor.Renderer;
 
+// Core
+import Elevate.Core.Scene;
+// Renderer
 import Elevate.Renderer.Texture;
+import Elevate.Renderer.Framebuffers;
+import Elevate.Renderer.Materials.Material;
 
 export namespace Elevate
 {
 	class EditorRenderer
 	{
 	public:
-		static void DrawBillboard(const glm::vec3 &position, std::shared_ptr<Texture> icon, float scale = 0.5f, glm::vec4 colorModifier = glm::vec4(1.0f));
+		static void DrawBillboard(const glm::vec3& position, std::shared_ptr<Texture> icon, float scale = 0.5f, glm::vec4 colorModifier = glm::vec4(1.0f));
 	};
 }

@@ -37,7 +37,8 @@ namespace Elevate
 
 	void SceneLayer::OnRender()
 	{
-		OnRender(nullptr);
+		auto cam = Elevate::CameraManager::GetCurrent();
+		OnRender(cam);
 	}
 
 	void SceneLayer::OnRender(Camera* cam)

@@ -22,7 +22,7 @@ namespace Elevate
 		}
 	}
 
-	OpenGLFramebuffer::OpenGLFramebuffer(const std::vector<std::shared_ptr<Texture>> &colorTextures, std::shared_ptr<Texture> depthTexture, bool depthAsRenderbuffer)
+	OpenGLFramebuffer::OpenGLFramebuffer(const std::vector<std::shared_ptr<Texture>>& colorTextures, std::shared_ptr<Texture> depthTexture, bool depthAsRenderbuffer)
 	{
 		GLCheck(glGenFramebuffers(1, &m_frameBufferId));
 		Bind();
@@ -33,7 +33,7 @@ namespace Elevate
 
 			for (size_t i = 0; i < colorTextures.size(); ++i)
 			{
-				auto &tex = colorTextures[i];
+				auto& tex = colorTextures[i];
 				Assert::That(tex->GetWidth() > 0 && tex->GetHeight() > 0, "Framebuffer texture dimensions must be positive");
 
 				GLuint texId = static_cast<GLuint>(reinterpret_cast<intptr_t>(tex->GetNativeHandle()));
@@ -50,7 +50,7 @@ namespace Elevate
 		else
 		{
 #if defined(EE_PLATFORM_WEB)
-			GLenum drawBuffers[1] = {GL_NONE};
+			GLenum drawBuffers[1] = { GL_NONE };
 			GLCheck(glDrawBuffers(1, drawBuffers));
 #else
 			GLCheck(glDrawBuffer(GL_NONE));
@@ -62,8 +62,8 @@ namespace Elevate
 		{
 			GLuint depthId = static_cast<GLuint>(reinterpret_cast<intptr_t>(depthTexture->GetNativeHandle()));
 			GLenum attachmentType = (depthTexture->GetMetadata().Format == TextureFormat::DEPTH24_STENCIL8)
-										? GL_DEPTH_STENCIL_ATTACHMENT
-										: GL_DEPTH_ATTACHMENT;
+				? GL_DEPTH_STENCIL_ATTACHMENT
+				: GL_DEPTH_ATTACHMENT;
 
 			GLCheck(glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, GL_TEXTURE_2D, depthId, 0));
 			if (depthTexture->GetMetadata().WrapS == TextureWrap::ClampToBorder)
@@ -73,13 +73,13 @@ namespace Elevate
 				GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 				GLCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 #else
-				float borderColor[] = {1.0f, 1.0f, 1.0f, 1.0f};
+				float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 				GLCheck(glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor));
 #endif
 				GLCheck(glBindTexture(GL_TEXTURE_2D, 0));
 			}
 
-			m_depthAttachment = FramebufferDepthAttachment{depthTexture, false};
+			m_depthAttachment = FramebufferDepthAttachment{ depthTexture, false };
 		}
 		else if (depthAsRenderbuffer)
 		{
@@ -92,7 +92,7 @@ namespace Elevate
 			GLCheck(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_renderBufferId));
 			GLCheck(glBindRenderbuffer(GL_RENDERBUFFER, 0));
 
-			m_depthAttachment = FramebufferDepthAttachment{nullptr, true};
+			m_depthAttachment = FramebufferDepthAttachment{ nullptr, true };
 		}
 
 		CheckCompleteness();
@@ -135,8 +135,8 @@ namespace Elevate
 
 		bool isMagnifying = (screenWidth >= srcW) && (screenHeight >= srcH);
 		auto filterType = isMagnifying
-							  ? m_colorAttachments[0].Tex->GetMetadata().MagFilter
-							  : m_colorAttachments[0].Tex->GetMetadata().MinFilter;
+			? m_colorAttachments[0].Tex->GetMetadata().MagFilter
+			: m_colorAttachments[0].Tex->GetMetadata().MinFilter;
 		GLenum filter = ToOpenGL(filterType);
 		if (filter != GL_NEAREST && filter != GL_LINEAR)
 		{
@@ -165,9 +165,9 @@ namespace Elevate
 
 		Bind();
 
-		for (auto &attachment : m_colorAttachments)
+		for (auto& attachment : m_colorAttachments)
 		{
-			if (auto &tex = attachment.Tex)
+			if (auto& tex = attachment.Tex)
 			{
 				if (tex->GetWidth() == width && tex->GetHeight() == height)
 					continue;
@@ -186,7 +186,7 @@ namespace Elevate
 		{
 			if (m_depthAttachment->Tex)
 			{
-				auto &depthTex = m_depthAttachment->Tex;
+				auto& depthTex = m_depthAttachment->Tex;
 				TextureMetadata meta = depthTex->GetMetadata();
 				meta.Width = width;
 				meta.Height = height;
@@ -194,8 +194,8 @@ namespace Elevate
 
 				GLuint depthId = static_cast<GLuint>(reinterpret_cast<intptr_t>(depthTex->GetNativeHandle()));
 				GLenum attachmentType = (meta.Format == TextureFormat::DEPTH24_STENCIL8)
-											? GL_DEPTH_STENCIL_ATTACHMENT
-											: GL_DEPTH_ATTACHMENT;
+					? GL_DEPTH_STENCIL_ATTACHMENT
+					: GL_DEPTH_ATTACHMENT;
 
 				GLCheck(glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, GL_TEXTURE_2D, depthId, 0));
 			}
@@ -211,9 +211,30 @@ namespace Elevate
 		Unbind();
 	}
 
-	void OpenGLFramebuffer::BlitDepthTo(const Framebuffer &target) const
+	void OpenGLFramebuffer::BlitColorTo(const Framebuffer& target) const
 	{
-		const OpenGLFramebuffer &glFB = dynamic_cast<const OpenGLFramebuffer &>(target);
+		const auto& glFB = dynamic_cast<const OpenGLFramebuffer&>(target);
+		GLuint targetID = glFB.m_frameBufferId;
+
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBufferId);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, targetID);
+
+		const GLenum drawBuffers[] = { GL_COLOR_ATTACHMENT0 };
+		glReadBuffer(GL_COLOR_ATTACHMENT0);
+		glDrawBuffers(1, drawBuffers);
+
+		glBlitFramebuffer(
+			0, 0, m_width, m_height,
+			0, 0, target.GetWidth(), target.GetHeight(),
+			GL_COLOR_BUFFER_BIT,
+			GL_LINEAR);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	void OpenGLFramebuffer::BlitDepthTo(const Framebuffer& target) const
+	{
+		const auto& glFB = dynamic_cast<const OpenGLFramebuffer&>(target);
 		GLuint targetID = glFB.m_frameBufferId;
 
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBufferId);
@@ -233,14 +254,14 @@ namespace Elevate
 		uint32_t status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 		if (status != GL_FRAMEBUFFER_COMPLETE)
 		{
-			const char *msg = GetFramebufferStatusString(status);
+			const char* msg = GetFramebufferStatusString(status);
 			CoreLogger::Error("Framebuffer error: {}", msg);
 			return false;
 		}
 		return true;
 	}
 
-	const char *OpenGLFramebuffer::GetFramebufferStatusString(uint32_t status) const
+	const char* OpenGLFramebuffer::GetFramebufferStatusString(uint32_t status) const
 	{
 		switch (status)
 		{

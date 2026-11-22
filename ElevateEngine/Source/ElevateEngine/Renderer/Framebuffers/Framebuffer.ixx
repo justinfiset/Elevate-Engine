@@ -8,7 +8,7 @@ module;
 
 export module Elevate.Renderer.Framebuffers:Framebuffer;
 
-import Elevate.Renderer.Texture;
+export import Elevate.Renderer.Texture;
 
 export namespace Elevate
 {
@@ -55,6 +55,7 @@ export namespace Elevate
 		inline void SetClearColor(glm::vec4 color) { m_clearColor = color; }
 
 		virtual void BlitDepthTo(const Framebuffer& target) const = 0;
+		virtual void BlitColorTo(const Framebuffer& target) const = 0;
 
 		// Color + Depth + Stencil (most used case)
 		static Framebuffer* Create(uint32_t width, uint32_t height, std::vector<TextureFormat> colorFormats, bool depthAsRenderbuffer = true, TextureType depthUsage = TextureType::Depth);

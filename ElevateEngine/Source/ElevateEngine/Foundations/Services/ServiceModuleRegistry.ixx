@@ -4,6 +4,7 @@ module;
 #include <vector>
 #include <type_traits>
 #include <utility>
+#include <ranges>
 
 export module Elevate.Foundations.Services:ServiceModuleRegistry;
 
@@ -31,11 +32,28 @@ export namespace Elevate
 			return *this;
 		}
 
-		void Build(ServiceCollection& services)
+		/** @brief Builds the service module registry by registering all modules with the provided service collection.
+		 *  @param services The service collection to register the modules with.
+		 *  @return The built service module registry.
+		 */
+		ServiceModuleRegistry Build(ServiceCollection& services)
 		{
-			for (const auto& module : m_modules)
+			for (auto& module : m_modules)
 			{
 				module->Register(services);
+			}
+
+			return std::move(*this);
+		}
+
+		/** @brief Configures all registered service modules.
+		 *  @param provider The service provider to configure the modules with.
+		 */
+		void Configure(ServiceProvider& provider)
+		{
+			for (auto& module : m_modules)
+			{
+				module->Configure(provider);
 			}
 		}
 

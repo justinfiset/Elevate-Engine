@@ -35,13 +35,16 @@ import Elevate.Input;
 // DI
 import Elevate.Foundations.DI;
 import Elevate.Core.DI;
+import Elevate.Renderer.DI;
 
 // Editor
 #ifdef EE_EDITOR_BUILD
 import Elevate.Editor.Layer;
+import Elevate.Editor.DI;
 #endif
 
-namespace Elevate {
+namespace Elevate
+{
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
@@ -64,30 +67,29 @@ namespace Elevate {
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		// Dependency Injection
-		ServiceCollection collection;
-
-		ServiceModuleRegistry::Create()
-			.Register<FoundationsServiceModule>()
-			.Register<CoreServiceModule>()
-			.Build(collection);
-
-		m_Provider = std::make_unique<ServiceProvider>(std::move(collection).Build());
+		CreateServiceProvider();
 
 		// We need to update it each frame
 		m_Scheduler = m_Provider->Resolve<ITaskScheduler>();
 
-		m_ImGuiLayer = new ImGuiLayer();
-		PushOverlay(m_ImGuiLayer);
-
-#ifdef EE_EDITOR_BUILD
-		PushOverlay(new Elevate::Editor::EditorLayer());
-		SetGameState(GameContextState::EditorMode);
-#else
-		SetGameState(GameContextState::Runtime);
-#endif
-
 		m_PhysicsSystem = std::make_unique<Jolt::JoltPhysicsSystem>();
 		m_PhysicsSystem->Init();
+	}
+
+	void Application::CreateServiceProvider()
+	{
+		ServiceCollection collection;
+
+		m_modules = ServiceModuleRegistry::Create()
+			.Register<FoundationsServiceModule>()
+			.Register<CoreServiceModule>()
+			.Register<RendererServiceModule>()
+#ifdef EE_EDITOR_BUILD
+			.Register<EditorServiceModule>()
+#endif
+			.Build(collection);
+
+		m_Provider = std::make_unique<ServiceProvider>(std::move(collection).Build());
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -158,9 +160,28 @@ namespace Elevate {
 
 	void Application::Init()
 	{
-		AssetRegistry::Init();
+		AssetRegistry::Init(); // todo : move to the core config
+		m_modules->Configure(*m_Provider);
+
 		Renderer::Init(m_Window->GetWidth(), m_Window->GetHeight());
-		SoundEngine::Init();
+		SoundEngine::Init(); // todo move to audio module DI config
+
+		CreateLayers();
+	}
+
+	void Application::CreateLayers()
+	{
+		OnCreateLayers();
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
+
+#ifdef EE_EDITOR_BUILD
+		PushOverlay(new Editor::EditorLayer());
+		SetGameState(GameContextState::EditorMode);
+#else
+		SetGameState(GameContextState::Runtime);
+#endif
 	}
 
 	void Application::EngineFrame(bool skipEventPolling) // Each frame
@@ -186,11 +207,15 @@ namespace Elevate {
 			TextureManager::UpdateLoadingTextures();
 
 			for (Layer* layer : m_LayerStack)
+			{
 				layer->OnUpdate();
+			}
 
 			// Draw Layers and Scenes
 			for (Layer* layer : m_LayerStack)
+			{
 				layer->OnRender();
+			}
 
 			Renderer::RenderFrame();
 
@@ -199,18 +224,20 @@ namespace Elevate {
 			Renderer::Present(m_Window->GetWidth(), m_Window->GetHeight());
 #endif
 
-			//imgui
+			// imgui
 			m_ImGuiLayer->PreRender();
 			m_ImGuiLayer->Begin();
 
 			for (Layer* layer : m_LayerStack)
+			{
 				layer->OnImGuiRender();
+			}
 
 			m_ImGuiLayer->Render(); // render imgui
-			m_ImGuiLayer->End(); // finish the imgui rendering
+			m_ImGuiLayer->End();	// finish the imgui rendering
 
 			Renderer::InvalidateStateCache(); // Clear the renderer state after ImGui rendering
-			Input::ManageMidStates(); // Manage Key/Button up and down state
+			Input::ManageMidStates();		  // Manage Key/Button up and down state
 
 			Renderer::FlushBuffers();
 			// Poll events and swap buffers
@@ -279,7 +306,7 @@ namespace Elevate {
 		return s_Instance->m_args;
 	}
 
-#pragma region Events	
+#pragma region Events
 	void Application::OnStateChange(GameContextState oldState, GameContextState newState)
 	{
 		GameContextEvent e(oldState, newState);

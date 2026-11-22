@@ -18,6 +18,7 @@ import Elevate.Core.Objects.ObjectPtr;
 import Elevate.Core.Assets.Asset;
 // Renderer
 import Elevate.Renderer.Texture;
+import Elevate.Renderer.Framebuffers;
 // Editor
 import Elevate.Editor.Widgets.Widget;
 
@@ -35,7 +36,7 @@ export namespace Elevate::Editor
 	{
 		FileType type;
 		std::string iconPath;
-		glm::vec4 color{ 1.0f, 1.0f, 1.0f, 0.0f };
+		glm::vec4 color{1.0f, 1.0f, 1.0f, 0.0f};
 
 		FileMetadata() = default;
 		FileMetadata(FileType type, std::string iconPath)
@@ -44,7 +45,8 @@ export namespace Elevate::Editor
 			this->iconPath = iconPath;
 		}
 
-		static FileType ParseFileType(std::string typeStr) {
+		static FileType ParseFileType(std::string typeStr)
+		{
 			if (typeStr == "DIRECTORY")
 			{
 				return FileType::Directory;
@@ -75,8 +77,8 @@ export namespace Elevate::Editor
 		FileType type = File;
 
 		FileItem() = default;
-		FileItem(std::string filePath, std::string fileName, std::string fileExtension, std::string icon, FileType type) :
-			path(filePath), name(fileName), extension(fileExtension), iconPath(icon), type(type) {
+		FileItem(std::string filePath, std::string fileName, std::string fileExtension, std::string icon, FileType type) : path(filePath), name(fileName), extension(fileExtension), iconPath(icon), type(type)
+		{
 		}
 	};
 
@@ -94,15 +96,15 @@ export namespace Elevate::Editor
 		void OnUpdate() override;
 		void OnImGuiRender() override;
 
-		static void SelectAsset(const Asset* asset);
+		static void SelectAsset(const Asset *asset);
 
 	private:
-		inline static AssetBrowserPanel* s_instance;
+		inline static AssetBrowserPanel *s_instance;
 
 		struct AssetCreationNode
 		{
-			const char* Name;
-			const char* Extension;
+			const char *Name;
+			const char *Extension;
 			std::function<std::shared_ptr<EEObject>()> Factory = nullptr;
 		};
 		void BuildAssetNodeCache();
@@ -114,13 +116,17 @@ export namespace Elevate::Editor
 		void UpdateRelatedPaths();
 		void AddParentPaths(std::filesystem::path path);
 
-		void RemoveItem(const FileItem& item);
-		void RenameItem(const FileItem& item);
+		void SelectItemInEditor(const FileItem &item);
+
+		void RemoveItem(const FileItem &item);
+		void RenameItem(const FileItem &item);
 
 		void LoadFileItemsList();
 		void LoadExtensionsMeta(std::string filepath = "editor://Config/file_browser.json");
 
-		const FileItem* GetItemFromIndex(uint32_t index) const;
+		std::shared_ptr<Asset> GetLoadedAsset(const FileItem &item);
+
+		const FileItem *GetItemFromIndex(uint32_t index) const;
 		void StartRenameSelected();
 		void DeleteSelected();
 
@@ -148,6 +154,9 @@ export namespace Elevate::Editor
 		std::shared_ptr<Texture> m_newFolderTexture;
 		std::shared_ptr<Texture> m_renameTexture;
 		std::shared_ptr<Texture> m_deleteTexture;
+
+		bool m_previewDirty = true;
+		std::unique_ptr<Framebuffer> m_preview;
 	};
 }
 
