@@ -674,9 +674,13 @@ class LauncherApp : public Elevate::Application
 public:
 	LauncherApp() : m_controller(m_manager)
 	{
-		PushLayer(new LauncherLayer(m_controller));
 	}
 	~LauncherApp() = default;
+
+	void OnCreateLayers() override
+	{
+		PushLayer(new LauncherLayer(m_controller));
+	}
 
 private:
 	ProjectManager m_manager;

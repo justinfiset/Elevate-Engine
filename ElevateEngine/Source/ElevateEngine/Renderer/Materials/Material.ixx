@@ -36,6 +36,8 @@ export namespace Elevate
 	using MaterialID = uint32_t;
 
 	inline constexpr MaterialID EE_DEFAULT_MATERIAL = 0;
+	inline constexpr MaterialID EE_ERROR_MATERIAL = 1;
+	inline constexpr MaterialID EE_FIRST_MATERIAL_ID = 2;
 
 	class Material : public Asset
 	{
@@ -47,6 +49,8 @@ export namespace Elevate
 		template<typename T>
 		void Set(const std::string& name, const T& value)
 		{
+			ResolveShader();
+
 			for (const auto& uniform : m_shader->GetLayout())
 			{
 				if (uniform.Name == name)
@@ -59,6 +63,7 @@ export namespace Elevate
 					return;
 				}
 			}
+
 			CoreLogger::Warn("Uniform '{0}' not found in the shader : {1}", name, m_shader->GetID());
 		}
 
@@ -78,16 +83,45 @@ export namespace Elevate
 		size_t GetTextureCount() const { return m_textures.size(); }
 
 		Material();
+
 	private:
 		Material(const std::shared_ptr<Shader>& shader);
 
+		void BuildUniformStorage() const
+		{
+			if (!m_shader)
+			{
+				return;
+			}
+
+			m_buffer.assign(m_shader->GetLayout().GetStride(), 0);
+			m_definedUniforms.assign(m_shader->GetLayout().GetElements().size(), false);
+		}
+
+		void ResolveShader() const
+		{
+			if (m_hasExplicitShader)
+			{
+				return;
+			}
+
+			if (m_shaderAsset)
+			{
+				m_shader = m_shaderAsset->GetShader();
+				BuildUniformStorage();
+			}
+		}
+
 		std::shared_ptr<Texture> GetTextureForUniform(const std::string& uniformName) const;
 
-		EEObjectPtr<Shader> m_shader{ nullptr };
-		PROPERTY(m_shader);
+		bool m_hasExplicitShader = false;
+		mutable EEObjectPtr<Shader> m_shader{ nullptr };
 
-		std::vector<uint8_t> m_buffer;
-		std::vector<bool> m_definedUniforms;
+		EEObjectPtr<ShaderAsset> m_shaderAsset{ nullptr };
+		PROPERTY(m_shaderAsset);
+
+		mutable std::vector<uint8_t> m_buffer;
+		mutable std::vector<bool> m_definedUniforms;
 
 		std::unordered_map<std::string, std::shared_ptr<Texture>> m_textures;
 
@@ -115,9 +149,16 @@ export namespace Elevate
 		static MaterialPtr LoadMaterial(const std::shared_ptr<Shader>& shader);
 		static MaterialPtr GetMaterial(MaterialID id);
 
+		static void Init()
+		{
+			instance()._Init();
+		}
+
 	private:
-		MaterialRegistry();
+		MaterialRegistry() = default;
+
 		static MaterialRegistry& instance();
+		void _Init();
 
 		std::unordered_map<MaterialID, MaterialPtr> m_materials;
 	};

@@ -2,6 +2,8 @@
 
 #include <string>
 #include <cstdint>
+#include <unordered_map>
+
 #include "glm/glm.hpp"
 
 import Elevate.Renderer.Shaders;
@@ -52,10 +54,13 @@ namespace Elevate
 		virtual void SetUniformMatrix3fv(const std::string& location, float* data, uint32_t count = 1) const override;
 		virtual void SetUniformMatrix4fv(const std::string& location, float* data, uint32_t count = 1) const override;
 
-	protected:
+	private:
 		virtual BufferLayout ExtractReflectionData() const override;
 
-	private:
+		int32_t Loc(const std::string& name) const;
+		void CacheUniformLocations();
+		mutable std::unordered_map<std::string, std::int32_t> m_uniformLocations;
+
 		uint32_t m_RendererID = 0;
 	};
 }

@@ -1,5 +1,8 @@
 module;
 
+#include <string>
+#include <cstdint>
+
 #include <ElevateEngine/Core/Reflection/Reflection.h>
 
 export module Elevate.Core.Assets.Asset;
@@ -19,9 +22,24 @@ export namespace Elevate
 		virtual ~Asset() = default;
 
 		virtual std::string GetName() const override;
+		void SetName(const std::string& name) override;
 
 		virtual void OnLoad() {}
 		virtual void OnUnbind() {}
+
+		std::uint64_t GetRevision() const
+		{
+			return m_revision;
+		}
+
+		void MarkModified()
+		{
+			m_revision++;
+		}
+
+	private:
+		std::string m_explicitName = "";
+		std::uint64_t m_revision = 0;
 
 		END_OBJECT_CUSTOM();
 		DECLARE_AUTO_OBJECT_LAYOUT();

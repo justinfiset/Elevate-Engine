@@ -11,6 +11,7 @@ module;
 
 module Elevate.Renderer.Materials.Material;
 
+import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Data;
 
 import Elevate.Core.Types.TypeField;
@@ -23,50 +24,40 @@ import Elevate.Renderer.Renderer;
 
 namespace Elevate
 {
-	MaterialID Material::s_nextId = EE_DEFAULT_MATERIAL + 1;
+	MaterialID Material::s_nextId = EE_FIRST_MATERIAL_ID;
 
 	Material::Material()
 		: m_id(s_nextId++)
 	{
+		// Use the default shader asset and resolve it when used
+		m_shaderAsset.SetGuid(EE_DEFAULT_SHADER_GUID);
 	}
 
 	Material::Material(const std::shared_ptr<Shader>& shader)
 		: Material()
 	{
 		m_shader = shader;
-		if (m_shader)
-		{
-			m_buffer.resize(m_shader->GetLayout().GetStride());
-			m_definedUniforms.resize(m_shader->GetLayout().GetElements().size());
-		}
+		m_hasExplicitShader = true;
+
+		BuildUniformStorage();
 	}
 
 	TypeLayout Material::GetLayout() const
 	{
+		ResolveShader();
+
 		std::vector<TypeField> allFields;
 
-		TypeField guidField(
-			"m_guid",
-			EngineDataType::GUID,
-			GetGuidOffset()
-		);
+		TypeField guidField("m_guid", EngineDataType::GUID, GetGuidOffset());
 		guidField.data = reinterpret_cast<const char*>(this) + GetGuidOffset();
 		allFields.push_back(guidField);
 
-		alignas(Material) char dummyBuffer[sizeof(Material)];
-		Material* dummyObj = reinterpret_cast<Material*>(dummyBuffer);
-		size_t shaderOffset = static_cast<size_t>(
-			reinterpret_cast<const char*>(&(dummyObj->m_shader)) - dummyBuffer
-			);
+		const size_t shaderAssetOffset = reinterpret_cast<const char*>(&m_shaderAsset) - reinterpret_cast<const char*>(this);
+		TypeField shaderAssetField("m_shaderAsset", EngineDataType::ObjectPtr, shaderAssetOffset, "ShaderAsset");
+		shaderAssetField.targetTypeKey = TypeRegistry::GetTypeKey<ShaderAsset>();
+		shaderAssetField.data = reinterpret_cast<const char*>(this) + shaderAssetOffset;
 
-		TypeField shaderField(
-			"Shader",
-			EngineDataType::ObjectPtr,
-			shaderOffset
-		);
-		shaderField.targetTypeKey = TypeRegistry::GetTypeKey<Shader>();
-		shaderField.data = reinterpret_cast<const char*>(this) + shaderOffset;
-		allFields.push_back(shaderField);
+		allFields.push_back(shaderAssetField);
 
 		if (m_shader)
 		{
@@ -74,7 +65,10 @@ namespace Elevate
 
 			for (const auto& uniform : layout)
 			{
-				if (uniform.Type == ShaderDataType::Sampler2D) continue;
+				if (uniform.Type == ShaderDataType::Sampler2D)
+				{
+					continue;
+				}
 
 				if (uniform.Name == ShaderUniforms::ViewProj ||
 					uniform.Name == ShaderUniforms::CamPos ||
@@ -83,11 +77,14 @@ namespace Elevate
 					continue;
 				}
 
-				if (m_definedUniforms[uniform.Index])
+				if (uniform.Index >= m_definedUniforms.size() ||
+					!m_definedUniforms[uniform.Index])
 				{
-					TypeField field(uniform.Name, uniform.Type, m_buffer.data() + uniform.Offset);
-					allFields.push_back(field);
+					continue;
 				}
+
+				TypeField field(uniform.Name, uniform.Type, m_buffer.data() + uniform.Offset);
+				allFields.push_back(field);
 			}
 		}
 
@@ -127,7 +124,12 @@ namespace Elevate
 
 	void Material::Apply()
 	{
-		if (!m_shader) return;
+		ResolveShader();
+
+		if (!m_shader)
+		{
+			return;
+		}
 
 		Renderer::BindShader(m_shader);
 
@@ -182,6 +184,7 @@ namespace Elevate
 
 	std::shared_ptr<Shader> Material::GetShader() const
 	{
+		ResolveShader();
 		return m_shader;
 	}
 
@@ -206,9 +209,11 @@ namespace Elevate
 		return (it != materials.end()) ? it->second : nullptr;
 	}
 
-	MaterialRegistry::MaterialRegistry()
+	void MaterialRegistry::_Init()
 	{
 		m_materials[EE_DEFAULT_MATERIAL] = MaterialFactory::Create(ShaderManager::GetShader(EE_DEFAULT_SHADER));
+		m_materials[EE_ERROR_MATERIAL] = MaterialFactory::Create(ShaderManager::GetShader(EE_ERROR_SHADER));
+		CoreLogger::Info("Initialized MaterialRegistry.");
 	}
 
 	MaterialRegistry& MaterialRegistry::instance()

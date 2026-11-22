@@ -104,6 +104,11 @@ export namespace Elevate
 		static void RegisterAsset(const std::shared_ptr<Asset>& asset);
 		static void RegisterAssetOnDisk(const std::shared_ptr<Asset>& asset, const std::filesystem::path& filePath);
 
+		static void UpdateAssetPath(std::filesystem::path oldPath, std::filesystem::path newPath);
+
+		static void UnregisterAsset(const Guid& guid);
+		static void UnregisterAssetByPath(const std::filesystem::path& path);
+
 	protected:
 		void _Init();
 		void RefreshFromDisk();

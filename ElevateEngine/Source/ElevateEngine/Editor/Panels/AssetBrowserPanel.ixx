@@ -18,6 +18,7 @@ import Elevate.Core.Objects.ObjectPtr;
 import Elevate.Core.Assets.Asset;
 // Renderer
 import Elevate.Renderer.Texture;
+import Elevate.Renderer.Framebuffers;
 // Editor
 import Elevate.Editor.Widgets.Widget;
 
@@ -44,7 +45,8 @@ export namespace Elevate::Editor
 			this->iconPath = iconPath;
 		}
 
-		static FileType ParseFileType(std::string typeStr) {
+		static FileType ParseFileType(std::string typeStr)
+		{
 			if (typeStr == "DIRECTORY")
 			{
 				return FileType::Directory;
@@ -75,8 +77,8 @@ export namespace Elevate::Editor
 		FileType type = File;
 
 		FileItem() = default;
-		FileItem(std::string filePath, std::string fileName, std::string fileExtension, std::string icon, FileType type) :
-			path(filePath), name(fileName), extension(fileExtension), iconPath(icon), type(type) {
+		FileItem(std::string filePath, std::string fileName, std::string fileExtension, std::string icon, FileType type) : path(filePath), name(fileName), extension(fileExtension), iconPath(icon), type(type)
+		{
 		}
 	};
 
@@ -114,11 +116,20 @@ export namespace Elevate::Editor
 		void UpdateRelatedPaths();
 		void AddParentPaths(std::filesystem::path path);
 
+		void SelectItemInEditor(const FileItem& item);
+
 		void RemoveItem(const FileItem& item);
 		void RenameItem(const FileItem& item);
 
 		void LoadFileItemsList();
 		void LoadExtensionsMeta(std::string filepath = "editor://Config/file_browser.json");
+
+		std::shared_ptr<Asset> GetLoadedAsset(const FileItem& item);
+
+		const FileItem* GetItemFromIndex(uint32_t index) const;
+		void StartRenameSelected();
+		void RequestDeleteSelected();
+		void DrawDeleteConfirmation();
 
 		std::filesystem::path m_CurrentPath;
 		std::vector<BrowserPath> m_relatedPaths;
@@ -137,6 +148,10 @@ export namespace Elevate::Editor
 		bool m_isRenaming;
 		char m_renameBuffer[256] = "";
 
+		// Deletion
+		std::vector<FileItem> m_pendingDelete;
+		bool m_openDeletePopup = false;
+
 		std::set<uint32_t> m_selected;
 		uint32_t m_lastSelected = 0;
 		uint32_t m_nextId = 0;
@@ -144,6 +159,9 @@ export namespace Elevate::Editor
 		std::shared_ptr<Texture> m_newFolderTexture;
 		std::shared_ptr<Texture> m_renameTexture;
 		std::shared_ptr<Texture> m_deleteTexture;
+
+		bool m_previewDirty = true;
+		std::unique_ptr<Framebuffer> m_preview;
 	};
 }
 

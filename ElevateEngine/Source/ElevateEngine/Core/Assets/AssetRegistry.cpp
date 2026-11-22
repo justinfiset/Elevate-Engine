@@ -72,6 +72,7 @@ namespace Elevate
 	void AssetRegistry::Init()
 	{
 		Get()._Init();
+		CoreLogger::Info("Initialized Asset Registry.");
 	}
 
 	void AssetRegistry::RefreshFromDisk()
@@ -140,9 +141,34 @@ namespace Elevate
 		return nullptr;
 	}
 
+	void AssetRegistry::UnregisterAsset(const Guid& guid)
+	{
+		auto it = s_indexedAssets.find(guid);
+		if (it == s_indexedAssets.end())
+		{
+			return;
+		}
+
+		if (it->second.isOnDisk)
+		{
+			s_pathRegistry.erase(fs::absolute(it->second.FilePath).lexically_normal());
+		}
+
+		s_indexedAssets.erase(it);
+	}
+
+	void AssetRegistry::UnregisterAssetByPath(const std::filesystem::path& path)
+	{
+		fs::path norm = fs::absolute(path).lexically_normal();
+
+		if (auto it = s_pathRegistry.find(norm); it != s_pathRegistry.end())
+		{
+			UnregisterAsset(it->second);
+		}
+	}
+
 	void AssetRegistry::_Init()
 	{
-		CoreLogger::Info("Initializing Asset Registry...");
 		RefreshFromDisk();
 	}
 
@@ -334,5 +360,27 @@ namespace Elevate
 
 		fs::path normalizedPath = fs::absolute(filePath).lexically_normal();
 		s_pathRegistry[normalizedPath] = assetGuid;
+	}
+
+	void AssetRegistry::UpdateAssetPath(std::filesystem::path oldPath, std::filesystem::path newPath)
+	{
+		fs::path oldNorm = fs::absolute(oldPath).lexically_normal();
+		fs::path newNorm = fs::absolute(newPath).lexically_normal();
+
+		auto it = s_pathRegistry.find(oldNorm);
+		if (it == s_pathRegistry.end())
+		{
+			return;
+		}
+
+		Guid guid = it->second;
+		s_pathRegistry.erase(it);
+		s_pathRegistry[newNorm] = guid;
+
+		if (auto entryIt = s_indexedAssets.find(guid); entryIt != s_indexedAssets.end())
+		{
+			entryIt->second.FilePath = newPath;
+			entryIt->second.AssetName = FormatAssetNameForUI(newPath);
+		}
 	}
 }
