@@ -45,7 +45,8 @@ export namespace Elevate::Editor
 			this->iconPath = iconPath;
 		}
 
-		static FileType ParseFileType(std::string typeStr) {
+		static FileType ParseFileType(std::string typeStr)
+		{
 			if (typeStr == "DIRECTORY")
 			{
 				return FileType::Directory;
@@ -76,8 +77,8 @@ export namespace Elevate::Editor
 		FileType type = File;
 
 		FileItem() = default;
-		FileItem(std::string filePath, std::string fileName, std::string fileExtension, std::string icon, FileType type) :
-			path(filePath), name(fileName), extension(fileExtension), iconPath(icon), type(type) {
+		FileItem(std::string filePath, std::string fileName, std::string fileExtension, std::string icon, FileType type) : path(filePath), name(fileName), extension(fileExtension), iconPath(icon), type(type)
+		{
 		}
 	};
 
@@ -125,6 +126,11 @@ export namespace Elevate::Editor
 
 		std::shared_ptr<Asset> GetLoadedAsset(const FileItem& item);
 
+		const FileItem* GetItemFromIndex(uint32_t index) const;
+		void StartRenameSelected();
+		void RequestDeleteSelected();
+		void DrawDeleteConfirmation();
+
 		std::filesystem::path m_CurrentPath;
 		std::vector<BrowserPath> m_relatedPaths;
 
@@ -141,6 +147,10 @@ export namespace Elevate::Editor
 		// Object rename
 		bool m_isRenaming;
 		char m_renameBuffer[256] = "";
+
+		// Deletion
+		std::vector<FileItem> m_pendingDelete;
+		bool m_openDeletePopup = false;
 
 		std::set<uint32_t> m_selected;
 		uint32_t m_lastSelected = 0;
