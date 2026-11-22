@@ -44,3 +44,6 @@
 [submodule "ElevateEngine/Vendor/ImGuizmo"]
 	path = ElevateEngine/Vendor/ImGuizmo
 	url = https://github.com/CedricGuillemet/ImGuizmo.git
+[submodule "scripts/premake/ResourceGen"]
+	path = scripts/premake/ResourceGen
+	url = https://github.com/justinfiset/Premake-ResourceGen.git
