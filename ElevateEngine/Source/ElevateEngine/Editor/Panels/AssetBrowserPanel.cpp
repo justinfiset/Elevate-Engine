@@ -44,9 +44,9 @@ import Elevate.Editor.Widgets.IconMenuItem;
 
 namespace fs = std::filesystem;
 
-namespace Elevate
+namespace Elevate::Editor
 {
-	Editor::AssetBrowserPanel::AssetBrowserPanel()
+	AssetBrowserPanel::AssetBrowserPanel()
 	{
 		s_instance = this;
 		m_isRenaming = false;
@@ -70,7 +70,16 @@ namespace Elevate
 		CoreLogger::Info("Editor Assets Browser Initiated.");
 	}
 
-	void Editor::AssetBrowserPanel::OnUpdate()
+	const FileItem* AssetBrowserPanel::GetItemFromIndex(uint32_t index) const
+	{
+		if (index == 0 || index > m_FileItems.size())
+		{
+			return nullptr;
+		}
+		return &m_FileItems[index - 1];
+	}
+
+	void AssetBrowserPanel::OnUpdate()
 	{
 		if (m_shouldUpdate) {
 			UpdateRelatedPaths();
@@ -81,7 +90,7 @@ namespace Elevate
 		}
 	}
 
-	void Editor::AssetBrowserPanel::OnImGuiRender()
+	void AssetBrowserPanel::OnImGuiRender()
 	{
 		if (m_assetCreationList.empty())
 		{
@@ -89,6 +98,19 @@ namespace Elevate
 		}
 
 		ImGui::Begin("Asset Browser");
+
+		if (ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) && !m_isRenaming && !ImGui::GetIO().WantTextInput)
+		{
+			if (ImGui::IsKeyPressed(ImGuiKey_F2) && !m_selected.empty())
+			{
+				StartRenameSelected();
+			}
+
+			if (ImGui::IsKeyPressed(ImGuiKey_Delete) && !m_selected.empty())
+			{
+				DeleteSelected();
+			}
+		}
 
 		if (ImGui::IsWindowHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Right))
 		{
@@ -204,6 +226,12 @@ namespace Elevate
 			ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + buttonSize.x);
 
 			bool isThisItemRenaming = m_isRenaming && isSelected;
+
+			if (isThisItemRenaming && ImGui::IsKeyPressed(ImGuiKey_Escape, false))
+			{
+				m_isRenaming = false;
+				isThisItemRenaming = false;
+			}
 
 			if (!isThisItemRenaming)
 			{
@@ -337,7 +365,47 @@ namespace Elevate
 		ImGui::End();
 	}
 
-	void Editor::AssetBrowserPanel::SelectAsset(const Asset* asset)
+	void AssetBrowserPanel::StartRenameSelected()
+	{
+		if (m_selected.empty())
+		{
+			return;
+		}
+
+		const uint32_t index = *m_selected.begin();
+		const FileItem* item = GetItemFromIndex(index);
+		if (!item)
+		{
+			return;
+		}
+
+		m_selected.clear();
+		m_selected.insert(index);
+		m_lastSelected = index;
+
+		std::strncpy(m_renameBuffer, item->name.c_str(), sizeof(m_renameBuffer) - 1);
+		m_renameBuffer[sizeof(m_renameBuffer) - 1] = '\0';
+		m_isRenaming = true;
+	}
+
+	void AssetBrowserPanel::DeleteSelected()
+	{
+		std::vector<FileItem> toDelete;
+		for (uint32_t index : m_selected)
+		{
+			if (const FileItem* item = GetItemFromIndex(index))
+			{
+				toDelete.push_back(*item);
+			}
+		}
+
+		for (const FileItem& item : toDelete)
+		{
+			RemoveItem(item);
+		}
+	}
+
+	void AssetBrowserPanel::SelectAsset(const Asset* asset)
 	{
 		auto* entry = AssetRegistry::GetEntry(asset->GetGuid());
 
@@ -370,7 +438,7 @@ namespace Elevate
 		}
 	}
 
-	void Editor::AssetBrowserPanel::BuildAssetNodeCache()
+	void AssetBrowserPanel::BuildAssetNodeCache()
 	{
 		for (const auto& [name, meta] : AssetRegistry::GetNameMetas())
 		{
@@ -385,7 +453,7 @@ namespace Elevate
 		}
 	}
 
-	void Editor::AssetBrowserPanel::DrawContextMenu()
+	void AssetBrowserPanel::DrawContextMenu()
 	{
 		if (ImGui::BeginMenu("Create"))
 		{
@@ -475,7 +543,7 @@ namespace Elevate
 		}
 	}
 
-	void Editor::AssetBrowserPanel::UpdateRelatedPaths()
+	void AssetBrowserPanel::UpdateRelatedPaths()
 	{
 		m_relatedPaths.clear();
 
@@ -491,7 +559,7 @@ namespace Elevate
 		}
 	}
 
-	void Editor::AssetBrowserPanel::AddParentPaths(std::filesystem::path path)
+	void AssetBrowserPanel::AddParentPaths(std::filesystem::path path)
 	{
 		if (!path.has_parent_path())
 			return;
@@ -514,7 +582,7 @@ namespace Elevate
 		}
 	}
 
-	void Editor::AssetBrowserPanel::RemoveItem(const FileItem& item)
+	void AssetBrowserPanel::RemoveItem(const FileItem& item)
 	{
 		fs::path fsPath = item.path;
 
@@ -530,7 +598,7 @@ namespace Elevate
 		}
 	}
 
-	void Editor::AssetBrowserPanel::RenameItem(const FileItem& item)
+	void AssetBrowserPanel::RenameItem(const FileItem& item)
 	{
 		std::string newName = std::string(m_renameBuffer);
 		fs::path oldPath = item.path;
@@ -556,7 +624,7 @@ namespace Elevate
 		m_isRenaming = false;
 	}
 
-	void Editor::AssetBrowserPanel::LoadFileItemsList()
+	void AssetBrowserPanel::LoadFileItemsList()
 	{
 		m_FileItems.clear();
 		m_currentTextures.clear();
@@ -649,7 +717,7 @@ namespace Elevate
 			});
 	}
 
-	void Editor::AssetBrowserPanel::LoadExtensionsMeta(std::string filepath)
+	void AssetBrowserPanel::LoadExtensionsMeta(std::string filepath)
 	{
 		auto resolvedPath = PathResolver::Resolve(filepath);
 		FILE* fp = fopen(resolvedPath.string().c_str(), "r");

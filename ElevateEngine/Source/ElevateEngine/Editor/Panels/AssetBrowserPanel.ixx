@@ -120,6 +120,10 @@ export namespace Elevate::Editor
 		void LoadFileItemsList();
 		void LoadExtensionsMeta(std::string filepath = "editor://Config/file_browser.json");
 
+		const FileItem* GetItemFromIndex(uint32_t index) const;
+		void StartRenameSelected();
+		void DeleteSelected();
+
 		std::filesystem::path m_CurrentPath;
 		std::vector<BrowserPath> m_relatedPaths;
 
