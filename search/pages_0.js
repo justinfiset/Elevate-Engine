@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['building_20with_20emscripten_0',['Building with Emscripten',['../md_Docs_2Source_2WebAssembly.html',1,'']]]
+  ['and_20usage_20guide_0',['Project Setup and Usage Guide',['../md_README.html#autotoc_md1',1,'']]]
 ];
