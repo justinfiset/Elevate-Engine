@@ -36,7 +36,7 @@ export namespace Elevate::Editor
 	{
 		FileType type;
 		std::string iconPath;
-		glm::vec4 color{1.0f, 1.0f, 1.0f, 0.0f};
+		glm::vec4 color{ 1.0f, 1.0f, 1.0f, 0.0f };
 
 		FileMetadata() = default;
 		FileMetadata(FileType type, std::string iconPath)
@@ -96,15 +96,15 @@ export namespace Elevate::Editor
 		void OnUpdate() override;
 		void OnImGuiRender() override;
 
-		static void SelectAsset(const Asset *asset);
+		static void SelectAsset(const Asset* asset);
 
 	private:
-		inline static AssetBrowserPanel *s_instance;
+		inline static AssetBrowserPanel* s_instance;
 
 		struct AssetCreationNode
 		{
-			const char *Name;
-			const char *Extension;
+			const char* Name;
+			const char* Extension;
 			std::function<std::shared_ptr<EEObject>()> Factory = nullptr;
 		};
 		void BuildAssetNodeCache();
@@ -116,19 +116,20 @@ export namespace Elevate::Editor
 		void UpdateRelatedPaths();
 		void AddParentPaths(std::filesystem::path path);
 
-		void SelectItemInEditor(const FileItem &item);
+		void SelectItemInEditor(const FileItem& item);
 
-		void RemoveItem(const FileItem &item);
-		void RenameItem(const FileItem &item);
+		void RemoveItem(const FileItem& item);
+		void RenameItem(const FileItem& item);
 
 		void LoadFileItemsList();
 		void LoadExtensionsMeta(std::string filepath = "editor://Config/file_browser.json");
 
-		std::shared_ptr<Asset> GetLoadedAsset(const FileItem &item);
+		std::shared_ptr<Asset> GetLoadedAsset(const FileItem& item);
 
-		const FileItem *GetItemFromIndex(uint32_t index) const;
+		const FileItem* GetItemFromIndex(uint32_t index) const;
 		void StartRenameSelected();
-		void DeleteSelected();
+		void RequestDeleteSelected();
+		void DrawDeleteConfirmation();
 
 		std::filesystem::path m_CurrentPath;
 		std::vector<BrowserPath> m_relatedPaths;
@@ -146,6 +147,10 @@ export namespace Elevate::Editor
 		// Object rename
 		bool m_isRenaming;
 		char m_renameBuffer[256] = "";
+
+		// Deletion
+		std::vector<FileItem> m_pendingDelete;
+		bool m_openDeletePopup = false;
 
 		std::set<uint32_t> m_selected;
 		uint32_t m_lastSelected = 0;
