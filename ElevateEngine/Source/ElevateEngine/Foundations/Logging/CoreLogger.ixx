@@ -1,7 +1,7 @@
 module;
 
-// GCC 14 cannot instantiate std::format's friend-based argument store across
-// module BMI boundaries; use the bundled fmt library (same syntax) instead.
+// Use bundled fmt (same syntax as std::format) so module interfaces do not
+// depend on standard-library header-unit support.
 #include <spdlog/fmt/fmt.h>
 #include <string_view>
 #include <utility>

@@ -9,6 +9,7 @@ export module Elevate.Renderer.Shaders:ShaderAsset;
 
 import Elevate.Core.Assets.Asset;
 import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Foundations.Guid;
 
 import :Shader;
 import :ShaderManager;

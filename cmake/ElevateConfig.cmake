@@ -73,6 +73,14 @@ function(ee_common_settings target)
     )
   else()
     target_compile_options(${target} PRIVATE -fno-lto)
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+      # GCC cannot stream OPTIMIZATION_NODEs into a module BMI at -O0, and
+      # bundled fmt emits #pragma GCC optimize("Og") in debug builds (PR 108080).
+      # -Og keeps full debug info while avoiding the ICE.
+      target_compile_options(${target} PRIVATE
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<OR:$<CONFIG:Editor_Debug>,$<CONFIG:Debug>>>:-Og>
+      )
+    endif()
     if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
       target_compile_options(${target} PRIVATE -stdlib=libc++)
       target_link_options(${target} PRIVATE -stdlib=libc++)

@@ -90,8 +90,10 @@ jobs:
               with:
                   version: 1.12.1
 
+            # Ninja is only the build driver. The compiler is MSVC (cl.exe),
+            # put on PATH by the msvc-dev-cmd step above.
             - name: Configure
-              run: cmake --preset windows-msvc -DEE_ENABLE_WWISE=OFF
+              run: cmake --preset windows-msvc -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DEE_ENABLE_WWISE=OFF
 
             - name: Compile
               run: cmake --build Build/windows-msvc --config ${{ matrix.configuration }} -j $env:NUMBER_OF_PROCESSORS
