@@ -72,7 +72,7 @@ namespace Elevate
 		friend class Collider;
 
 	public:
-		BEGIN_COMPONENT(Rigidbody, EditorIconTag(Editor::Icons::COMPONENT_ICON_RIGIDBODY));
+		BEGIN_COMPONENT(Rigidbody, EditorIconTag(Editor::Resources::Icons::Light::Components::Rigidbody));
 		EECATEGORY("Physics");
 
 		Rigidbody() = default;

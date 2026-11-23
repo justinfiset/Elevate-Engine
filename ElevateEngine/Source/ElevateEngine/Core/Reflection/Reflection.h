@@ -21,7 +21,7 @@ import Elevate.Renderer.Texture;
 import Elevate.Editor.Types.EditorTypeTrait;
 #endif
 // Necessary even for non editor builds as the variable is still used
-import Elevate.Editor.Icons;
+import Elevate.Editor.Resources;
 
 #define EE_REQUIRE_SEMICOLON static_assert(true, "")
 

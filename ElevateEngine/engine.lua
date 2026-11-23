@@ -3,7 +3,7 @@ local resourcegen = dofile(path.join(_MAIN_SCRIPT_DIR, "scripts/premake/Resource
 resourcegen.RegisterAction({
     rootDir = "ElevateEngine/Resources/Editor",
     uriPrefix = "editor://",
-    outFile = "ElevateEngine/Source/Editor/Generated/EditorResources_generated.ixx",
+    outFile = "ElevateEngine/Source/ElevateEngine/Editor/Generated/EditorResources_generated.ixx",
     namespace = "Elevate::Editor::Resources",
     moduleName = "Elevate.Editor.Resources"
 })
@@ -11,7 +11,7 @@ resourcegen.RegisterAction({
 resourcegen.RegisterAction({
     rootDir = "ElevateEngine/Resources/Engine",
     uriPrefix = "engine://",
-    outFile = "ElevateEngine/Source/Core/Generated/EngineResources_generated.ixx",
+    outFile = "ElevateEngine/Source/ElevateEngine/Core/Generated/EngineResources_generated.ixx",
     namespace = "Elevate::Resources",
     moduleName = "Elevate.Resources"
 })

@@ -58,15 +58,30 @@ if not defined ACTION (
     goto config
 )
 
-echo !ACTION! > PREMAKE_CONFIG
+echo !ACTION! > "%~dp0PREMAKE_CONFIG"
 echo Configuration saved in PREMAKE_CONFIG file.
-goto run
 
+:: Generate resources before generating the solution.
+pushd "%~dp0"
+call vendor\premake\premake5.exe resourcegen
+
+if errorlevel 1 (
+    echo Resource generation failed.
+    popd
+    exit /b 1
+)
+
+popd
+
+goto run
 
 :run
 echo Running with the selected option: !ACTION!
-call vendor\premake\premake5.exe !ACTION!
+
+pushd "%~dp0"
+call "%~dp0vendor\premake\premake5.exe" !ACTION!
 set "RESULT=!ERRORLEVEL!"
+popd
 
 if "!PAUSE_AFTER!"=="1" pause
 

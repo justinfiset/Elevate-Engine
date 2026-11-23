@@ -13,7 +13,7 @@ export namespace Elevate
 {
 	class PointLight : public Light
 	{
-		BEGIN_COMPONENT(PointLight, EditorIconTag(Editor::Icons::COMPONENT_ICON_POINTLIGHT));
+		BEGIN_COMPONENT(PointLight, EditorIconTag(Editor::Resources::Icons::Light::Lightbulb));
 		DECLARE_BASE(Light);
 		EECATEGORY("Lighting");
 	public:

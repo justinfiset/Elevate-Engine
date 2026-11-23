@@ -16,6 +16,7 @@ import Elevate.Core.Application;
 import Elevate.Core.Scene;
 import Elevate.Core.Objects.ObjectPtr;
 // Editor
+import Elevate.Editor.Resources;
 import Elevate.Editor.Layer;
 import Elevate.Editor.Widgets.ContextMenu;
 
@@ -118,8 +119,8 @@ namespace Elevate::Editor
 
 	HierarchyPanel::HierarchyPanel()
 	{
-		m_sceneTexture = Texture::CreateFromFile("editor://Icons/Light/scene.png");
-		m_objectTexture = Texture::CreateFromFile("editor://Icons/Light/object.png");
+		m_sceneTexture = Texture::CreateFromFile(Resources::Icons::Light::Scene);
+		m_objectTexture = Texture::CreateFromFile(Resources::Icons::Light::Object);
 	}
 
 	void HierarchyPanel::OnImGuiRender()
