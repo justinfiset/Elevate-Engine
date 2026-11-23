@@ -132,4 +132,9 @@ namespace Elevate
     }
 }
 
+extern "C" Elevate::FileDialogImpl* EE_CreateDesktopFileDialog()
+{
+    return new Elevate::DesktropFileDialog();
+}
+
 #endif

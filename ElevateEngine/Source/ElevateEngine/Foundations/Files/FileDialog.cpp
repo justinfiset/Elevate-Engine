@@ -6,25 +6,24 @@ module;
 #include <string>
 #include <vector>
 
-#define EE_FILEDIALOG_IMPLEMENTATION
-
 module Elevate.Foundations.Files.FileDialog;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Paths;
 
-#ifndef EE_PLATFORM_WEB
-#include <ElevateEngine/Platform/Desktop/DesktopFileDialog.h>
-#else
-#include <ElevateEngine/Platform/Web/WebFileDialog.h>
-#endif
-
 namespace Elevate
 {
+	// C-linkage factories keep the platform implementation classes out of this
+	// module's purview.  Otherwise Clang attaches their vtables to this module
+	// here but emits them in the global module in the platform .cpp files,
+	// leaving undefined module-qualified vtable symbols at link time.
+	extern "C" FileDialogImpl* EE_CreateDesktopFileDialog();
+	extern "C" FileDialogImpl* EE_CreateWebFileDialog();
+
 #ifndef EE_PLATFORM_WEB
-	FileDialogImpl* FileDialog::s_impl = new DesktropFileDialog();
+	FileDialogImpl* FileDialog::s_impl = EE_CreateDesktopFileDialog();
 #else
-	FileDialogImpl* FileDialog::s_impl = new WebFileDialog();
+	FileDialogImpl* FileDialog::s_impl = EE_CreateWebFileDialog();
 #endif
 
 	bool FileDialogImpl::DisplayAndGetResult(std::string& outPath)

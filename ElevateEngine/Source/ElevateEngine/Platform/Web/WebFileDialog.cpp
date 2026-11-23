@@ -103,4 +103,9 @@ namespace Elevate
 	}
 }
 
+extern "C" Elevate::FileDialogImpl* EE_CreateWebFileDialog()
+{
+    return new Elevate::WebFileDialog();
+}
+
 #endif

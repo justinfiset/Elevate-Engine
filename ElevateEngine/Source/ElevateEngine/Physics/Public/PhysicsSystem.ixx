@@ -1,11 +1,19 @@
 module;
 
+// Keep the forward declaration in the global module fragment so it names the
+// same entity as the definition in Rigidbody.h.  A declaration in the module
+// purview would create a second, module-attached Elevate::Rigidbody and make
+// references ambiguous in translation units that import this module and
+// include the header.
+namespace Elevate
+{
+	class Rigidbody;
+}
+
 export module Elevate.Physics.PhysicsSystem;
 
 export namespace Elevate
 {
-	class Rigidbody;
-
 	class PhysicsSystem
 	{
 	public:

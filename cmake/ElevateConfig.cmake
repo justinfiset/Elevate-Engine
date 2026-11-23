@@ -102,6 +102,12 @@ function(ee_common_settings target)
       target_compile_options(${target} PRIVATE
         $<$<COMPILE_LANGUAGE:CXX>:-fdisable-ipa-comdats>
       )
+      # GCC's lazy BMI loading recurses on this project's template graph
+      # ("recursive lazy load" / "failed to load pendings").  Eager loading is
+      # the only reliable workaround; drop this once the compiler is fixed.
+      target_compile_options(${target} PRIVATE
+        $<$<COMPILE_LANGUAGE:CXX>:-fno-module-lazy>
+      )
     endif()
   endif()
 
