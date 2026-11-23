@@ -1,13 +1,13 @@
 require "vendor/premake-export-compile-commands/export-compile-commands"
 
 newoption {
-	trigger = "compiler",
-	value = "COMPILER",
-	description = "Select the Linux compiler toolset (gcc or clang)."
+    trigger = "compiler",
+    value = "COMPILER",
+    description = "Select the Linux compiler toolset (gcc or clang)."
 }
 
 outputdir = "%{cfg.buildcfg:gsub(' ', '-')}-%{cfg.system}-%{cfg.architecture}"
-ElevateConfigs = { "Editor_Debug", "Editor_Release", "Debug", "Release", "Dist" }
+ElevateConfigs = {"Editor_Debug", "Editor_Release", "Debug", "Release", "Dist"}
 
 include "scripts/premake/Logs.lua"
 include "scripts/premake/FileUtils.lua"
@@ -16,43 +16,43 @@ include "scripts/premake/CommonProject.lua"
 include "scripts/premake/PlatformStrategies.lua"
 
 workspace "ElevateEngine"
-	architecture "x64"
-	startproject "Sandbox"
-	configurations (ElevateConfigs)
+architecture "x64"
+startproject "Sandbox"
+configurations(ElevateConfigs)
 
-    BuildPlatform.ConfigureWorkspace()
-	Wwise.SetupWorkspace()
-    BuildPlatform.ConfigureWorkspaceAction()
+BuildPlatform.ConfigureWorkspace()
+Wwise.SetupWorkspace()
+BuildPlatform.ConfigureWorkspaceAction()
 
-	include "ElevateEngine/engine.lua"
+include "ElevateEngine/engine.lua"
 
-	group "Dependencies"
-		include "ElevateEngine/Vendor/glfw.lua"
-		include "ElevateEngine/Vendor/imgui.lua"
-		include "ElevateEngine/Vendor/Jolt.lua"
-		include "ElevateEngine/Vendor/assimp.lua"
+group "Dependencies"
+include "ElevateEngine/Vendor/glfw.lua"
+include "ElevateEngine/Vendor/imgui.lua"
+include "ElevateEngine/Vendor/Jolt.lua"
+include "ElevateEngine/Vendor/assimp.lua"
 
-	if os.target() ~= "emscripten" then
-		group "Tests"
-			CommonProject.SetupProject("ElevateTests", function(d, i)
-				directory = d or "ElevateTests"
-				infos = i or CommonProject.GetProjectInfos(directory)
-				include "ElevateTests/tests.lua"
-			end)
-	end
+if os.target() ~= "emscripten" then
+    group "Tests"
+    CommonProject.SetupProject("ElevateTests", function(d, i)
+        directory = d or "ElevateTests"
+        infos = i or CommonProject.GetProjectInfos(directory)
+        include "ElevateTests/tests.lua"
+    end)
+end
 
-	-- Setup the Wwise SoundEngine if the SDK is found
-	Wwise.Initialize()
+-- Setup the Wwise SoundEngine if the SDK is found
+Wwise.Initialize()
 
-	group "User Projects"
-		local userProjects = os.matchdirs("Projects/*")
+group "User Projects"
+local userProjects = os.matchdirs("Projects/*")
 
-		for _, projectPath in ipairs(userProjects) do
-			includePath = projectPath .. "/project.lua"
-			Logger.Info("Loading User Project: " .. projectPath)
-			if os.isfile(includePath) then
-				include(includePath)
-			else -- If there is no custom config, try to set up a default project
-				CommonProject.SetupProject(projectPath)
-			end
-		end
+for _, projectPath in ipairs(userProjects) do
+    includePath = projectPath .. "/project.lua"
+    Logger.Info("Loading User Project: " .. projectPath)
+    if os.isfile(includePath) then
+        include(includePath)
+    else -- If there is no custom config, try to set up a default project
+        CommonProject.SetupProject(projectPath)
+    end
+end

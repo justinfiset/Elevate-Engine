@@ -34,6 +34,12 @@ jobs:
                   apt-cache search --names-only '^clang-[0-9]+$'
                   sudo apt-get install -y clang-21 clang-tools-21 lld-21 libc++-21-dev libc++abi-21-dev libgl1-mesa-dev libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev
 
+            - name: Generate Resources
+              run: |
+                  chmod +x bootstrap.sh
+                  chmod +x vendor/premake/premake5-linux
+                  ./bootstrap.sh resourcegen
+
             - name: Generate Projects (Premake)
               run: |
                   chmod +x vendor/premake/premake5-linux
@@ -72,6 +78,9 @@ jobs:
 
             - name: Setup MSBuild
               uses: microsoft/setup-msbuild@v2
+
+            - name: Generate Resources
+              run: ./bootstrap.bat resourcegen
 
             - name: Generate Projects (Premake)
               run: ./vendor/premake/premake5.exe --os=windows vs2022

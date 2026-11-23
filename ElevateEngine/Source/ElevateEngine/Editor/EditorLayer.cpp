@@ -34,6 +34,7 @@ import Elevate.Input;
 import Elevate.Editor.Camera;
 import Elevate.Editor.Commands.GameobjectCommand;
 import Elevate.Editor.Theme;
+import Elevate.Editor.Resources;
 // Panels
 import Elevate.Editor.Panels.AnalyserPanel;
 import Elevate.Editor.Panels.ScenePanel;
@@ -50,10 +51,10 @@ namespace Elevate::Editor
 	EditorLayer::EditorLayer()
 	{
 		s_Instance = this;
-		m_playTexture = Texture::CreateFromFile("editor://Icons/Light/Colored/play.png");
-		m_pauseTexture = Texture::CreateFromFile("editor://Icons/Light/pause.png");
-		m_stopTexture = Texture::CreateFromFile("editor://Icons/Light/stop.png");
-		m_coloredStopTexture = Texture::CreateFromFile("editor://Icons/Light/Colored/stop.png");
+		m_playTexture = Texture::CreateFromFile(Resources::Icons::Light::Colored::Play);
+		m_pauseTexture = Texture::CreateFromFile(Resources::Icons::Light::Pause);
+		m_stopTexture = Texture::CreateFromFile(Resources::Icons::Light::Stop);
+		m_coloredStopTexture = Texture::CreateFromFile(Resources::Icons::Light::Colored::Stop);
 
 		ShaderManager::LoadShader(
 			"editor/billboard",

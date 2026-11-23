@@ -1,3 +1,21 @@
+local resourcegen = dofile(path.join(_MAIN_SCRIPT_DIR, "scripts/premake/ResourceGen/Init.lua"))
+
+resourcegen.RegisterAction({
+    rootDir = "ElevateEngine/Resources/Editor",
+    uriPrefix = "editor://",
+    outFile = "ElevateEngine/Source/ElevateEngine/Editor/Generated/EditorResources_generated.ixx",
+    namespace = "Elevate::Editor::Resources",
+    moduleName = "Elevate.Editor.Resources"
+})
+
+resourcegen.RegisterAction({
+    rootDir = "ElevateEngine/Resources/Engine",
+    uriPrefix = "engine://",
+    outFile = "ElevateEngine/Source/ElevateEngine/Core/Generated/EngineResources_generated.ixx",
+    namespace = "Elevate::Resources",
+    moduleName = "Elevate.Resources"
+})
+
 local function values(t)
     local res = {}
     for _, v in pairs(t) do

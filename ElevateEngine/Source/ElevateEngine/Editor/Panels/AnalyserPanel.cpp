@@ -38,6 +38,7 @@ import Elevate.Core.Assets.AssetRegistry;
 // Renderer
 import Elevate.Renderer.Texture;
 // Editor
+import Elevate.Editor.Resources;
 import Elevate.Editor.Layer;
 import Elevate.Editor.Types.EditorTypeTrait;
 import Elevate.Editor.Commands.ComponentCommand;
@@ -48,9 +49,9 @@ import Elevate.Editor.Widgets.InputField;
 
 Elevate::Editor::AnalyserPanel::AnalyserPanel()
 {
-	pickerIcon = Texture::CreateFromFile("editor://Icons/Light/adjust.png");
-	noneIcon = Texture::CreateFromFile("editor://Icons/Light/block.png");
-	navigateToIcon = Texture::CreateFromFile("editor://Icons/Light/arrow_top_right.png");
+	pickerIcon = Texture::CreateFromFile(Resources::Icons::Light::Adjust);
+	noneIcon = Texture::CreateFromFile(Resources::Icons::Light::Block);
+	navigateToIcon = Texture::CreateFromFile(Resources::Icons::Light::ArrowTopRight);
 }
 
 void Elevate::Editor::AnalyserPanel::OnImGuiRender()

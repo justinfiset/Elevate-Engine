@@ -1,4 +1,23 @@
-#!/bin/bash
+
+#!/bin/sh
+
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+OS_TYPE=$(uname -s)
+
+CONFIG_FILE="$SCRIPT_DIR/PREMAKE_CONFIG"
+
+case "$OS_TYPE" in
+  Darwin)
+    PREMAKE_CMD="$SCRIPT_DIR/vendor/premake/premake5-macos"
+    ;;
+  Linux)
+    PREMAKE_CMD="$SCRIPT_DIR/vendor/premake/premake5-linux"
+    ;;
+  *)
+    echo "Unsupported OS: $OS_TYPE"
+    exit 1
+    ;;
+esac
 
 config() {
   echo "Please choose a build option:"
@@ -9,73 +28,74 @@ config() {
   echo "5 - Exit"
   echo ""
 
-  read -p "Option : " choice
-
-  choice=$(echo "$choice" | tr -d '[:space:]')
+  printf "Option : "
+  read -r choice
 
   case "$choice" in
-	"1")
-	  ACTION="vs2022"
-	  ;;
-	"2")
-	  ACTION="vs2019"
-	  ;;
-	"3")
-	  ACTION="gmake"
-	  ;;
-	"4")
-	  ACTION="xcode4"
-	  ;;
-	"5")
-	  exit 0
-	  ;;
-	*)
-	  echo "Invalid option, please try again."
-	  exit 1
-	  ;;
+    1) ACTION="vs2022" ;;
+    2) ACTION="vs2019" ;;
+    3) ACTION="gmake2" ;;
+    4) ACTION="xcode4" ;;
+    5) exit 0 ;;
+    *)
+      echo "Invalid option, please try again."
+      config
+      return
+      ;;
   esac
 
-  echo "$ACTION" > PREMAKE_CONFIG
-  echo "Configuration saved in 'PREMAKE_CONFIG' file."
+  echo "$ACTION" > "$CONFIG_FILE"
+  echo "Configuration saved in PREMAKE_CONFIG."
+
+  echo "Generating resources..."
+
+  (
+    cd "$SCRIPT_DIR" || exit 1
+    "$PREMAKE_CMD" resourcegen
+  ) || {
+    echo "Resource generation failed."
+    exit 1
+  }
 }
 
 run() {
-  echo "Running with the selected option: $ACTION"
+  echo "Running with the selected option: $*"
 
-  if [ "$OS_TYPE" == "Darwin" ]; then
-	PREMAKE_CMD="./vendor/premake/premake5-macos"
-  elif [ "$OS_TYPE" == "Linux" ]; then
-	PREMAKE_CMD="./vendor/premake/premake5-linux"
-  else
-	echo "Unsupported OS: $OS_TYPE"
-	exit 1
+  if [ ! -x "$PREMAKE_CMD" ]; then
+    echo "Premake executable not found or not executable:"
+    echo "$PREMAKE_CMD"
+    exit 1
   fi
 
-  $PREMAKE_CMD $ACTION
-  exit 0
+  cd "$SCRIPT_DIR" || exit 1
+
+  "$PREMAKE_CMD" "$@"
+  exit $?
 }
 
-# --- Début du script principal ---
+# --- Main ---
 
-OS_TYPE=$(uname)
+# Direct arguments: skip configuration.
+if [ "$#" -gt 0 ] && [ "$1" != "edit" ]; then
+  run "$@"
+fi
 
-if [ ! -f PREMAKE_CONFIG ]; then
-  echo "First time config detected."
+# Configuration mode.
+if [ ! -f "$CONFIG_FILE" ] || [ "$1" = "edit" ]; then
+  if [ ! -f "$CONFIG_FILE" ]; then
+    echo "First time config detected."
+  else
+    echo "Editing configuration."
+  fi
+
   config
 else
-  if [ "$1" == "edit" ]; then
-	echo "Editing configuration."
-	config
-  else
-	contenu=$(<PREMAKE_CONFIG)
+  ACTION=$(cat "$CONFIG_FILE")
 
-	if [ -z "$contenu" ]; then
-	  echo "Error: PREMAKE_CONFIG file is empty."
-	  exit 1
-	fi
-
-	ACTION=$contenu
+  if [ -z "$ACTION" ]; then
+    echo "Error: PREMAKE_CONFIG file is empty."
+    exit 1
   fi
 fi
 
-run
+run "$ACTION"

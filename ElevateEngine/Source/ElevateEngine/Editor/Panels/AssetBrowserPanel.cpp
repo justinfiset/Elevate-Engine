@@ -40,6 +40,7 @@ import Elevate.Serialization.JsonSerializer;
 // Input
 import Elevate.Input;
 // Editor
+import Elevate.Editor.Resources;
 import Elevate.Editor.Layer;
 import Elevate.Editor.Widgets.ContextMenu;
 import Elevate.Editor.Widgets.IconMenuItem;
@@ -98,9 +99,9 @@ namespace Elevate::Editor
 			.Usage(TextureType::Diffuse)
 			.Build();
 
-		m_newFolderTexture = Texture::CreateFromFile("editor://Icons/Light/new_folder.png", texMeta);
-		m_deleteTexture = Texture::CreateFromFile("editor://Icons/Light/delete.png", texMeta);
-		m_renameTexture = Texture::CreateFromFile("editor://Icons/Light/rename.png", texMeta);
+		m_newFolderTexture = Texture::CreateFromFile(Resources::Icons::Light::NewFolder, texMeta);
+		m_deleteTexture = Texture::CreateFromFile(Resources::Icons::Light::Delete, texMeta);
+		m_renameTexture = Texture::CreateFromFile(Resources::Icons::Light::Rename, texMeta);
 
 		CoreLogger::Info("Editor Assets Browser Initiated.");
 	}
