@@ -1,6 +1,7 @@
 module;
 
-#include <format>
+// Keep the format string type compatible with CoreLogger's exported API.
+#include <spdlog/fmt/fmt.h>
 
 #ifdef _MSC_VER
 #include <intrin.h>
@@ -20,11 +21,11 @@ export namespace Elevate
 	{
 	public:
 		template<typename T, typename... Args>
-		static void That(T&& condition, std::format_string<Args...> fmt, Args&&... args)
+		static void That(T&& condition, fmt::format_string<Args...> format, Args&&... args)
 		{
 			if (!static_cast<bool>(std::forward<T>(condition)))
 			{
-				CoreLogger::Error(fmt, std::forward<Args>(args)...);
+				CoreLogger::Error(format, std::forward<Args>(args)...);
 #ifdef EE_ASSERTS_ENABLED
 				DEBUG_BREAK();
 #endif

@@ -10,6 +10,7 @@ export module Elevate.Foundations.Services:ServiceModuleRegistry;
 
 import :IServiceModule;
 import :ServiceCollection;
+import :ServiceProvider;
 
 export namespace Elevate
 {

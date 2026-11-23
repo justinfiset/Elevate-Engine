@@ -1,5 +1,9 @@
-#include "JoltPhysicsSystem.h"
-#include "JoltShapeFactory.h"
+// Keep every textual include before the first module import. Some headers in
+// this project import modules themselves, and newer MSVC versions diagnose
+// standard-library headers included after an import. Jolt.h must come first
+// because it defines the platform and compiler macros used by every other
+// Jolt header.
+#include <Jolt/Jolt.h>
 
 #include <cstdarg>
 #include <cstdio>
@@ -11,8 +15,11 @@
 #include <Jolt/Physics/Collision/Shape/StaticCompoundShape.h>
 #include <Jolt/Physics/Body/BodyCreationSettings.h>
 
+#include "JoltShapeFactory.h"
+
 #include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
 #include <ElevateEngine/Physics/Public/Colliders/Collider.h>
+#include "JoltPhysicsSystem.h"
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Application;

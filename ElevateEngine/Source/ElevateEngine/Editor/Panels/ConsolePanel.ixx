@@ -4,11 +4,11 @@ module;
 #include <deque>
 #include <mutex>
 #include <chrono>
-#include <format>
+#include <spdlog/fmt/fmt.h>
+#include <spdlog/fmt/chrono.h>
 
 #include <imgui.h>
 #include <glm/ext/vector_float4.hpp>
-#include <format>
 
 export module Elevate.Editor.Panels.ConsolePanel;
 
@@ -29,7 +29,7 @@ export namespace Elevate::Editor
 		ConsoleMessage(std::string message, Type type)
 			: EditorMessage(message, type)
 		{
-			timeText = std::format("{:%H:%M:%S}", timestamp);
+			timeText = fmt::format("{:%H:%M:%S}", timestamp);
 
 			glm::vec4 glmColor = GetColor();
 			color = ImVec4(glmColor.r, glmColor.g, glmColor.b, glmColor.a);

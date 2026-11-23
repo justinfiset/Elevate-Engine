@@ -20,23 +20,35 @@ function(ee_web_link_settings target projectDir isEditorCapable)
 
   set(engineResources "${CMAKE_SOURCE_DIR}/ElevateEngine/Resources/Engine")
   set(editorResources "${CMAKE_SOURCE_DIR}/ElevateEngine/Resources/Editor")
-  foreach(item IN ITEMS
-      "${engineResources}@/Engine"
-      "${projectDir}/Content@/Content"
-      "${projectDir}/app.config@/app.config"
+  set(projectContent "${projectDir}/Content")
+  set(projectConfig "${projectDir}/app.config")
+
+  # Each preload must stay in a single SHELL: group. CMake deduplicates
+  # repeated bare "--preload-file" entries, which turns later paths into
+  # linker inputs instead of Emscripten preload arguments.
+  foreach(pair IN ITEMS
+      "${engineResources}|/Engine"
+      "${projectContent}|/Content"
+      "${projectConfig}|/app.config"
     )
-    target_link_options(${target} PRIVATE "--preload-file" "${item}")
+    string(REPLACE "|" ";" pair "${pair}")
+    list(GET pair 0 sourcePath)
+    list(GET pair 1 mountPath)
+    if(EXISTS "${sourcePath}")
+      target_link_options(${target} PRIVATE "SHELL:--preload-file ${sourcePath}@${mountPath}")
+    endif()
   endforeach()
+
   if(EXISTS "${projectDir}/imgui.ini")
     target_link_options(${target} PRIVATE
-      "--preload-file" "${projectDir}/imgui.ini@/imgui.ini"
+      "SHELL:--preload-file ${projectDir}/imgui.ini@/imgui.ini"
     )
   endif()
-  if(isEditorCapable)
+
+  if(isEditorCapable AND EXISTS "${editorResources}")
     foreach(cfg Editor_Debug Editor_Release)
       target_link_options(${target} PRIVATE
-        "$<$<CONFIG:${cfg}>:--preload-file>"
-        "$<$<CONFIG:${cfg}>:${editorResources}@/Editor>"
+        "SHELL:$<$<CONFIG:${cfg}>:--preload-file ${editorResources}@/Editor>"
       )
     endforeach()
   endif()
