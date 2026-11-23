@@ -3,19 +3,21 @@ module;
 #include <cstdlib>
 #include <iterator>
 #include <new>
+#include <string>
+#include <vector>
 
 #define EE_FILEDIALOG_IMPLEMENTATION
+
+module Elevate.Foundations.Files.FileDialog;
+
+import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Paths;
 
 #ifndef EE_PLATFORM_WEB
 #include <ElevateEngine/Platform/Desktop/DesktopFileDialog.h>
 #else
 #include <ElevateEngine/Platform/Web/WebFileDialog.h>
 #endif
-
-module Elevate.Foundations.Files.FileDialog;
-
-import Elevate.Foundations.CoreLogger;
-import Elevate.Foundations.Paths;
 
 namespace Elevate
 {

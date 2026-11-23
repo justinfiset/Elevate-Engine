@@ -1,10 +1,10 @@
 #pragma once
 #ifndef EE_PLATFORM_WEB
 
+#ifndef EE_FILEDIALOG_IMPLEMENTATION
 #include <string>
 #include <vector>
 
-#ifndef EE_FILEDIALOG_IMPLEMENTATION
 import Elevate.Foundations.Files.FileDialog;
 #endif
 
