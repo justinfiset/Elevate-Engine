@@ -104,6 +104,9 @@ elseif(NOT EMSCRIPTEN)
   target_compile_definitions(ImGui PRIVATE _IMGUI_X11)
   set_target_properties(ImGui PROPERTIES POSITION_INDEPENDENT_CODE ON)
 endif()
+if(EMSCRIPTEN)
+  ee_web_compile_settings(ImGui)
+endif()
 ee_setup_outputs(ImGui)
 
 # ---------------------------------------------------------------------------
@@ -122,6 +125,9 @@ target_compile_definitions(Jolt PUBLIC
   $<$<CONFIG:Dist>:NDEBUG>
 )
 set_target_properties(Jolt PROPERTIES CXX_STANDARD 17 POSITION_INDEPENDENT_CODE ON)
+if(EMSCRIPTEN)
+  ee_web_compile_settings(Jolt)
+endif()
 ee_setup_outputs(Jolt)
 
 # ---------------------------------------------------------------------------
@@ -189,6 +195,7 @@ target_compile_definitions(assimp PRIVATE
 )
 if(EMSCRIPTEN)
   target_compile_definitions(assimp PRIVATE HAVE_UNISTD_H)
+  ee_web_compile_settings(assimp)
   foreach(source IN LISTS assimp_sources)
     if(source MATCHES "/poly2tri/.*\\.cc$")
       set_property(SOURCE "${source}" APPEND PROPERTY COMPILE_OPTIONS "-include" "ostream")

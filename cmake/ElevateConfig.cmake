@@ -40,6 +40,14 @@ function(ee_setup_outputs target)
   endforeach()
 endfunction()
 
+function(ee_web_compile_settings target)
+  # All objects linked into a pthreaded Wasm binary must agree on atomics,
+  # bulk-memory and SIMD target features, including vendored static libraries.
+  target_compile_options(${target} PRIVATE
+    -pthread -matomics -mbulk-memory -msimd128 -msse4.1
+  )
+endfunction()
+
 function(ee_common_settings target)
   target_compile_features(${target} PUBLIC cxx_std_20)
   target_compile_definitions(${target} PUBLIC
@@ -67,8 +75,8 @@ function(ee_common_settings target)
     target_compile_options(${target} PRIVATE /Zc:wchar_t /Zc:preprocessor /Zc:__cplusplus /utf-8 /MP)
     target_compile_definitions(${target} PRIVATE _CRT_SECURE_NO_WARNINGS)
   elseif(EMSCRIPTEN)
+    ee_web_compile_settings(${target})
     target_compile_options(${target} PRIVATE
-      -pthread -matomics -mbulk-memory -msimd128 -msse4.1
       -Wno-deprecated-literal-operator -Wno-invalid-offsetof -Wno-deprecated-pragma
     )
   else()
@@ -79,6 +87,13 @@ function(ee_common_settings target)
       # -Og keeps full debug info while avoiding the ICE.
       target_compile_options(${target} PRIVATE
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<OR:$<CONFIG:Editor_Debug>,$<CONFIG:Debug>>>:-Og>
+      )
+      # GCC 14 can exhaust location_t space while streaming module BMIs that
+      # transitively include fmt/glm headers (PR 105443).  Disabling macro
+      # expansion tracking keeps the location maps small enough to avoid the
+      # write_location ICE; diagnostics lose macro expansion detail only.
+      target_compile_options(${target} PRIVATE
+        $<$<COMPILE_LANGUAGE:CXX>:-ftrack-macro-expansion=0>
       )
     endif()
     if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")

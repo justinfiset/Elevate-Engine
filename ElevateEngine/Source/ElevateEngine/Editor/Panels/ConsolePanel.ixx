@@ -3,12 +3,8 @@ module;
 #include <string>
 #include <deque>
 #include <mutex>
-#include <chrono>
-
-#include <ElevateEngine/Editor/Panels/ConsolePanelTime.h>
 
 #include <imgui.h>
-#include <glm/ext/vector_float4.hpp>
 
 export module Elevate.Editor.Panels.ConsolePanel;
 
@@ -26,14 +22,7 @@ export namespace Elevate::Editor
 		std::string timeText;	// Contains the timestamp already formatted
 		ImVec4 color;			// Resolve the color once
 
-		ConsoleMessage(std::string message, Type type)
-			: EditorMessage(message, type)
-		{
-			timeText = FormatConsoleTimestamp(timestamp);
-
-			glm::vec4 glmColor = GetColor();
-			color = ImVec4(glmColor.r, glmColor.g, glmColor.b, glmColor.a);
-		}
+		ConsoleMessage(std::string message, Type type);
 	};
 
 	class ConsolePanel : public Widget

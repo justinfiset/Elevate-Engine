@@ -81,8 +81,8 @@ namespace Elevate {
 		TextureManager& manager = instance();
 		std::lock_guard lock(manager.m_textureMutex);
 
-		auto [it, inserted] = manager.m_Textures.try_emplace(texture->GetPath(), texture);
-		return it->second;
+		auto result = manager.m_Textures.try_emplace(texture->GetPath(), texture);
+		return result.first->second;
 	}
 
 	std::shared_ptr<Texture> TextureManager::GetTexture(const std::string& path)

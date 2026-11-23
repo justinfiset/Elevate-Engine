@@ -13,7 +13,7 @@ export namespace Elevate
 	{
 	public:
 		GraphicsContext();
-		~GraphicsContext();
+		virtual ~GraphicsContext();
 
 		virtual void Init()
 		{

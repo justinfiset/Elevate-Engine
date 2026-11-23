@@ -91,11 +91,11 @@ export namespace Elevate
 			// Create a service descriptor and add it to the collection
 			Internal::ServiceDescriptor descriptor(typeid(TService), lifetime, std::move(factory));
 
-			auto [it, inserted] = m_serviceDescriptors.try_emplace(
+			auto result = m_serviceDescriptors.try_emplace(
 				std::type_index(typeid(TService)),
 				std::move(descriptor));
 
-			if (!inserted)
+			if (!result.second)
 			{
 				CoreLogger::Warn("ServiceCollection : Service type already registered: {}. While trying to register {}", std::string(typeid(TService).name()), std::string(typeid(TImplementation).name()));
 			}
