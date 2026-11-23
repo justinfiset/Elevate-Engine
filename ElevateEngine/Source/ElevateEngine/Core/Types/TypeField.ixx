@@ -24,7 +24,7 @@ export namespace Elevate
 		bool flatten = false;
 		bool readOnly = false;
 		bool isColor = false;
-		const void* targetTypeKey = nullptr;
+		const char* targetTypeKey = nullptr;
 		std::vector<TypeField> children;
 
 		EngineDataType elementType = EngineDataType::Custom;

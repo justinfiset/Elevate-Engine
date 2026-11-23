@@ -5,7 +5,7 @@ import Elevate.Core.Types.TypeRegistry;
 
 namespace Elevate::Internal
 {
-	const std::type_index* FindTypeIndex(const void* key)
+	const std::type_index* FindTypeIndex(const char* key)
 	{
 		auto& types = TypeRegistry::GetTypeIndexes();
 		const auto it = types.find(key);
@@ -18,18 +18,17 @@ namespace Elevate::Internal
 		return &it->second;
 	}
 
-	const void* GetReflectedFieldData(const std::type_index& type, std::size_t& count)
+	std::span<const std::byte> GetReflectedFieldData(const std::type_index& type)
 	{
 		auto& reflectedTypes = TypeRegistry::GetReflectedTypes();
 		const auto it = reflectedTypes.find(type);
 
 		if (it == reflectedTypes.end())
 		{
-			count = 0;
-			return nullptr;
+			return {};
 		}
 
-		count = it->second.size();
-		return it->second.data();
+		const auto& fields = it->second;
+		return {reinterpret_cast<const std::byte*>(fields.data()), fields.size()};
 	}
 }

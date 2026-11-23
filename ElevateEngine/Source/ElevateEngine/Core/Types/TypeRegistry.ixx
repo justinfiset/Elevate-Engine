@@ -194,9 +194,9 @@ export namespace Elevate
 			return entries;
 		}
 
-		static std::unordered_map<const void*, std::type_index>& GetTypeIndexes()
+		static std::unordered_map<const char*, std::type_index>& GetTypeIndexes()
 		{
-			static std::unordered_map<const void*, std::type_index> entries;
+			static std::unordered_map<const char*, std::type_index> entries;
 			return entries;
 		}
 
@@ -429,7 +429,7 @@ export namespace Elevate
 		};
 
 		template<typename T>
-		static const void* GetTypeKey()
+		static const char* GetTypeKey()
 		{
 			static const char key{};
 			return &key;

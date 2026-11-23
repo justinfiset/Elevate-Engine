@@ -46,6 +46,9 @@ if(ee_wwise_enabled)
     "${EE_WWISE_SDK}/samples/WwiseProjectDatabase/*.cpp"
     "${EE_WWISE_SDK}/samples/WwiseProjectDatabase/*.h"
   )
+  # The SDK sample tree also contains Catch2-based test programs. They are not
+  # part of the library and would pull in headers we do not provide.
+  list(FILTER wwiseDbSources EXCLUDE REGEX "WwiseProjectDatabaseTests|WwiseProjectDatabaseIntegrationTests")
   add_library(WwiseProjectDatabase STATIC ${wwiseDbSources})
   target_include_directories(WwiseProjectDatabase PUBLIC
     "${EE_WWISE_SDK}/samples/WwiseProjectDatabase/WwiseProjectDatabase"

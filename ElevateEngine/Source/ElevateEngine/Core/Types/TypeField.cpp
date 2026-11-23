@@ -1,5 +1,7 @@
 module;
 
+#include <cstddef>
+#include <span>
 #include <typeindex>
 #include <typeinfo>
 #include <vector>
@@ -37,13 +39,12 @@ namespace Elevate
 			allFields.push_back(child);
 		}
 
-		std::size_t reflectedFieldCount = 0;
-		const auto* reflectedFields = static_cast<const TypeField*>(
-			Internal::GetReflectedFieldData(pointeeType, reflectedFieldCount));
+		const auto reflectedFields = Internal::GetReflectedFieldData(pointeeType);
 
-		if (reflectedFields)
+		if (!reflectedFields.empty())
 		{
-			pointeeTypeField.assign(reflectedFields, reflectedFields + reflectedFieldCount);
+			const auto* fields = reinterpret_cast<const TypeField*>(reflectedFields.data());
+			pointeeTypeField.assign(fields, fields + reflectedFields.size());
 		}
 
 		for (const auto& pointeeField : pointeeTypeField)
