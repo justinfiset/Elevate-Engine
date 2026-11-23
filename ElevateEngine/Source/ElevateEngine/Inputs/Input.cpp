@@ -1,7 +1,11 @@
 module;
 
+#include <glm/glm.hpp>
 #include <memory>
 
+module Elevate.Input;
+
+#define ELEVATE_INPUT_IMPLEMENTATION
 #if defined(EE_PLATFORM_WINDOWS)
 #include <ElevateEngine/Platform/Windows/WindowsInput.h>
 #elif defined(EE_PLATFORM_WEB)
@@ -9,8 +13,6 @@ module;
 #elif defined(EE_PLATFORM_LINUX)
 #include <ElevateEngine/Platform/Linux/LinuxInput.h>
 #endif
-
-module Elevate.Input;
 
 namespace Elevate
 {

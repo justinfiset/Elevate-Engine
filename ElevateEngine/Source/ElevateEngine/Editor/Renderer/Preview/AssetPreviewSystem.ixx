@@ -4,8 +4,10 @@ module;
 #include <unordered_map>
 #include <typeindex>
 #include <cstdint>
+#include <tuple>
 #include <type_traits>
 #include <typeinfo>
+#include <utility>
 
 export module Elevate.Editor.Renderer.AssetPreviewSystem;
 

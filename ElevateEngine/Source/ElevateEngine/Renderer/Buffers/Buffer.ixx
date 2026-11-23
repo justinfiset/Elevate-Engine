@@ -1,9 +1,12 @@
 module;
 
-#include <vector>
-#include <iterator>
-#include <string>
 #include <cstdint>
+#include <cstdlib>
+#include <initializer_list>
+#include <iterator>
+#include <new>
+#include <string>
+#include <vector>
 
 export module Elevate.Renderer.Buffers;
 

@@ -4,8 +4,10 @@ module;
 #include <typeindex>
 #include <type_traits>
 #include <memory>
+#include <new>
 #include <utility>
 #include <typeinfo>
+#include <tuple>
 #include <string>
 
 export module Elevate.Foundations.Services:ServiceCollection;

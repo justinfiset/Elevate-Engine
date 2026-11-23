@@ -8,6 +8,8 @@ module;
 #include <string>
 #include <typeindex>
 #include <unordered_map>
+#include <tuple>
+#include <utility>
 #include <vector>
 
 #include <rapidjson/filereadstream.h>

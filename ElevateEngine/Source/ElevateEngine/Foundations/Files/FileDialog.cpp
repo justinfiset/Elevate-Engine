@@ -1,5 +1,11 @@
 module;
 
+#include <cstdlib>
+#include <iterator>
+#include <new>
+
+#define EE_FILEDIALOG_IMPLEMENTATION
+
 #ifndef EE_PLATFORM_WEB
 #include <ElevateEngine/Platform/Desktop/DesktopFileDialog.h>
 #else
@@ -8,7 +14,8 @@ module;
 
 module Elevate.Foundations.Files.FileDialog;
 
-import Elevate.Foundations;
+import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Paths;
 
 namespace Elevate
 {

@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 #include "GlfwInput.h"
 
 #include <GLFW/glfw3.h>

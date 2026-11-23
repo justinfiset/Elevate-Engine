@@ -1,13 +1,12 @@
 module;
 
+#include <cstdint>
+#include <memory>
 #include <string>
 #include <string_view>
 #include <vector>
-#include <memory>
-#include <cstdint>
 
-#include <spdlog/fmt/bundled/base.h>
-#include <spdlog/logger.h>
+#include <spdlog/fwd.h>
 
 export module Elevate.Foundations.Logger.Internal;
 
@@ -20,6 +19,8 @@ export namespace Elevate
 	{
 		CallbackID Id;
 		LogCallback Callback;
+
+		~LogCallbackEntry() = default;
 	};
 
 	namespace Internal

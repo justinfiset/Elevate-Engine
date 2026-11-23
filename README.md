@@ -6,7 +6,7 @@
 
 # Web Build Demo
 
-Editor and Runtime emscripten builds are automaticly deployed on the gh-page branch. Here is a list of deployed projects :
+Editor and Runtime emscripten builds are automatically deployed on the gh-page branch. Here is a list of deployed projects :
 
 | Project  | Configuration  | Link                                                                               |
 | :------- | :------------- | :--------------------------------------------------------------------------------- |
@@ -16,92 +16,129 @@ Editor and Runtime emscripten builds are automaticly deployed on the gh-page bra
 
 # Project Setup and Usage Guide
 
-This project includes scripts to configure and build your project. Below is a quick guide on how to use them.
+## Requirements
 
-## Directory Structure
+- CMake 3.28 or newer
+- Ninja 1.11 or newer
+- A C++20 compiler with native module scanning:
+  - Clang 16 or newer
+  - GCC 14 or newer
+  - MSVC 14.34 or newer
+  - Emscripten with `emscan-deps`
 
+## Download the Project
+
+```cmd
+git clone --recurse-submodules https://github.com/justinfiset/Elevate-Engine
+cd Elevate-Engine
 ```
-ElevateEngine/
-│
-├── bootstrap.bat        (Windows)
-├── bootstrap.sh         (macOS/Linux)
-│
-├── scripts/
-│   ├── edit.bat         (Windows)
-│   └── edit.sh          (macOS/Linux)
-│
-└── PREMAKE_CONFIG       (configuration file)
+
+If the repository was cloned without submodules:
+
+```cmd
+git submodule update --init --recursive
 ```
 
-## Usage
+## Configure and Build
 
-### Download the Project
+CMake Presets configure Ninja Multi-Config builds for every supported platform.
 
-1. Clone the Repo
-    ```cmd
-    git clone https://github.com/justinfiset/Elevate-Engine
-    ```
-2. Open the Downloaded Folder
-    ```cmd
-    cd Elevate-Engine
-    ```
-3. Activate Submodules
-    ```cmd
-    git submodule update --init --recursive --remote
-    ```
+### Windows / MSVC
 
-### First Time Setup
+```cmd
+cmake --preset windows-msvc
+cmake --build Build/windows-msvc --config Editor_Debug
+ctest --test-dir Build/windows-msvc -C Editor_Debug --output-on-failure
+```
 
-1. Run the `bootstrap` script:
-    - For **Windows**:
+### Visual Studio solution
 
-    ```cmd
-    bootstrap.bat
-    ```
+If you prefer the Visual Studio IDE, generate a solution with one of the optional solution presets:
 
-    - For **macOS/Linux**:
+```cmd
+cmake --preset visual-studio-2022
+```
 
-    ```bash
-    ./bootstrap.sh
-    ```
+Use `visual-studio-2026` instead if you only have Visual Studio 2026 installed; that preset requires CMake 4.2 or newer. The solution is written to `Build/visual-studio-2022/ElevateEngine.sln` (or the matching `visual-studio-2026` directory). These presets are only for IDE use; CI continues to use the Ninja Multi-Config presets.
 
-2. Select a build option (e.g., Visual Studio, GNU Make, etc.) when prompted.
-
-### Edit Configuration
-
-To change the configuration later, run the `edit` script:
-
-- For **Windows**:
-    ```cmd
-    edit.bat
-    ```
-- For **macOS/Linux**:
-    ```bash
-    ./edit.sh
-    ```
-
-### Run the Build
-
-Once the configuration is set, the script will automatically run `premake5` with the selected option.
-On Linux, build with all available CPU cores to avoid a serialized build:
+### Linux / Clang
 
 ```bash
-make config=editor_debug -j"$(nproc)"
+cmake --preset linux-clang
+cmake --build Build/linux-clang --config Editor_Debug -j"$(nproc)"
+ctest --test-dir Build/linux-clang -C Editor_Debug --output-on-failure
 ```
 
-### GCC build status
+### Linux / GCC
 
-The GCC 15 Linux CI job is temporarily disabled. Re-enabling once GCC module support is stable.
+```bash
+cmake --preset linux-gcc
+cmake --build Build/linux-gcc --config Editor_Debug -j"$(nproc)"
+ctest --test-dir Build/linux-gcc -C Editor_Debug --output-on-failure
+```
 
-### Build Status
+### Web / Emscripten
 
-| Platform                                                                                                    | OS                          | Compiler      | Status                                                                                                                                                                                                |
-| :---------------------------------------------------------------------------------------------------------- | :-------------------------- | :------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![Windows](https://img.shields.io/badge/Windows-0078D4?style=flat&logo=windows&logoColor=white)             | `windows-latest`            | MSVC (vs2022) | [![Windows Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-windows&label=)](https://github.com/justinfiset/Elevate-Engine/actions)        |
-| ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)                   | `ubuntu-latest`             | Clang (gmake) | [![Linux Clang Build](https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml/badge.svg?branch=main&job=build-linux&label=)](https://github.com/justinfiset/Elevate-Engine/actions) |
-| ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)                   | `ubuntu-latest`             | GCC (gmake)   | Temporarily disabled: GCC 15 reports `Bad import dependency` for C++20 modules                                                                                                                        |
-| ![WebAssembly](https://img.shields.io/badge/WebAssembly-654FF0?style=flat&logo=webassembly&logoColor=white) | `emscripten` (Windows Host) | Clang (Ninja) | [![Web Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-web-windows-ninja&label=)](https://github.com/justinfiset/Elevate-Engine/actions)  |
+Set up the [emsdk](https://emscripten.org/docs/getting_started/downloads.html) first, then:
 
-### Tests Report
+```bash
+cmake --preset web
+cmake --build Build/web --config Release
+```
+
+The preset uses the Emscripten toolchain directly, so `emcmake` is not required and can override the generated build system.
+
+## Configurations
+
+The available configurations are:
+
+- `Editor_Debug`
+- `Editor_Release`
+- `Debug`
+- `Release`
+- `Dist`
+
+Executables and libraries are written to:
+
+```text
+Build/bin/<Configuration>-<Platform>-<Architecture>/<Target>
+```
+
+For example:
+
+```text
+Build/bin/Editor_Debug-windows-x86_64/ElevateEngine-Tests/ElevateEngine-Tests.exe
+```
+
+## Wwise
+
+Wwise integration is optional. It is enabled automatically when `WWISESDK` points to a valid SDK, or explicitly with:
+
+```bash
+cmake --preset linux-clang -DEE_ENABLE_WWISE=ON
+```
+
+Disable it with `-DEE_ENABLE_WWISE=OFF`.
+
+## Resources
+
+Embedded resource modules are generated during CMake configuration. Run the `resourcegen` target to force regeneration:
+
+```bash
+cmake --build Build/linux-clang --target resourcegen
+```
+
+## Build Status
+
+CI builds and tests every supported compiler: Clang and GCC on Linux, MSVC on Windows, and Emscripten for WebAssembly. The Windows job uses the MSVC toolchain with Ninja Multi-Config; the Visual Studio generator presets remain optional for local IDE use.
+
+| Platform                                                                                                    | OS                          | Compiler              | Status                                                                                                                                                                                         |
+| :---------------------------------------------------------------------------------------------------------- | :-------------------------- | :-------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Windows](https://img.shields.io/badge/Windows-0078D4?style=flat&logo=windows&logoColor=white)             | `windows-latest`            | MSVC (Ninja)          | [![Windows Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-windows&label=)](https://github.com/justinfiset/Elevate-Engine/actions)   |
+| ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)                   | `ubuntu-24.04`              | Clang 18 (Ninja)      | [![Linux Clang Build](https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml/badge.svg?branch=main&job=build-linux&label=)](https://github.com/justinfiset/Elevate-Engine/actions) |
+| ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)                   | `ubuntu-24.04`              | GCC 14 (Ninja)        | [![Linux GCC Build](https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml/badge.svg?branch=main&job=build-linux&label=)](https://github.com/justinfiset/Elevate-Engine/actions) |
+| ![WebAssembly](https://img.shields.io/badge/WebAssembly-654FF0?style=flat&logo=webassembly&logoColor=white) | `emscripten` (Windows Host) | Emscripten (Ninja)    | [![Web Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-web&label=)](https://github.com/justinfiset/Elevate-Engine/actions)             |
+
+## Tests Report
 
 [![Tests Report](https://img.shields.io/badge/Allure_Report-Tests-green?style=flat&logo=allure)](https://justinfiset.github.io/Elevate-Engine/tests/)

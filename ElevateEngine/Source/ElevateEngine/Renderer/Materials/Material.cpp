@@ -8,6 +8,8 @@ module;
 #include <unordered_map>
 #include <cstring>
 #include <cctype>
+#include <tuple>
+#include <utility>
 
 module Elevate.Renderer.Materials.Material;
 

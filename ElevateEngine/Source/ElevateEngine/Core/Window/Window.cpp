@@ -2,6 +2,8 @@ module;
 
 #include <stdio.h>
 #include <format>
+#include <functional>
+#include <string>
 
 #include <rapidjson/document.h>
 #include <rapidjson/allocators.h>
@@ -9,6 +11,14 @@ module;
 #include <rapidjson/encodings.h>
 #include <rapidjson/rapidjson.h>
 
+module Elevate.Core.Window;
+
+import Elevate.Foundations.CoreLogger;
+import Elevate.Core.Events.ApplicationEvent;
+import Elevate.Core.Events.Event;
+import Elevate.Renderer.GraphicsContext;
+
+#define ELEVATE_WINDOW_IMPLEMENTATION
 #if defined(EE_PLATFORM_WINDOWS)
 #include <ElevateEngine/Platform/Windows/WindowsWindow.h>
 #elif defined(EE_PLATFORM_WEB)
@@ -18,11 +28,6 @@ module;
 #else
 #error "Unknown platform! Cannot create window on this platform."
 #endif
-
-module Elevate.Core.Window;
-
-import Elevate.Foundations.CoreLogger;
-import Elevate.Core.Events.ApplicationEvent;
 
 namespace Elevate
 {

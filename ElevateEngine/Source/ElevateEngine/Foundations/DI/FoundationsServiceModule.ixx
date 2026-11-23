@@ -1,3 +1,9 @@
+module;
+
+#include <memory>
+#include <new>
+#include <typeinfo>
+
 export module Elevate.Foundations.DI;
 
 import Elevate.Foundations.CoreLogger;

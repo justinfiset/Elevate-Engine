@@ -2,11 +2,13 @@
 
 #include <string>
 
+#ifndef ELEVATE_WINDOW_IMPLEMENTATION
 // Core
 import Elevate.Core.Window;
 import Elevate.Core.Events.Event;
 // Renderer
 import Elevate.Renderer.GraphicsContext;
+#endif
 
 struct GLFWwindow;
 

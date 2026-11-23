@@ -1,12 +1,10 @@
-PREMAKE_CONFIG
-
 ElevateEngine/Source/ElevateEngine/Audio/Ak
 
 compile_commands
 
 # Generated resource modules
-/ElevateEngine/Source/Editor/Generated/EditorResources_generated.ixx
-/ElevateEngine/Source/Core/Generated/EngineResources_generated.ixx
+/ElevateEngine/Source/ElevateEngine/Editor/Generated/EditorResources_generated.ixx
+/ElevateEngine/Source/ElevateEngine/Core/Generated/EngineResources_generated.ixx
 
 # Object files
 *.obj
@@ -24,7 +22,8 @@ Sandbox/WwiseProject/GeneratedSoundbanks
 # Binaries / remove compiled libs and projects
 bin/
 bin-int/
-build/
+/Build/
+/build/
 
 # User-specific files
 *.rsuser

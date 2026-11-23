@@ -4,6 +4,8 @@ module;
 #include <memory>
 #include <set>
 #include <string>
+#include <tuple>
+#include <utility>
 #include <vector>
 
 #include <glm/gtx/matrix_decompose.hpp> // iwyu: keep

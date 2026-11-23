@@ -7,6 +7,8 @@ module;
 #include <string>
 #include <vector>
 #include <filesystem>
+#include <tuple>
+#include <utility>
 
 #include <imgui.h>
 

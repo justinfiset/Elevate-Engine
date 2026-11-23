@@ -1,6 +1,7 @@
-\section pointer_patching Pointer Patching
+/**
+\page pointer_patching Pointer Patching
 
-Here is a diagram pointer patching usre for pointer patching using EEObjectPtr :
+Here is the PlantUML source for the diagram used for pointer patching with EEObjectPtr:
 
-\startuml Pointer_Patching.puml
-\enduml
+\verbinclude Pointer_Patching.puml
+*/

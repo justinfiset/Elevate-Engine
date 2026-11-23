@@ -1,3 +1,8 @@
+#include <cstdlib>
+#include <format>
+#include <functional>
+#include <string>
+
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
 #include <GLFW/glfw3.h>
 

@@ -4,23 +4,16 @@ module;
 #include <typeinfo>
 #include <vector>
 
-module Elevate.Core.Types.TypeField;
+#include <ElevateEngine/Core/Types/TypeRegistryBridge.h>
 
-import Elevate.Core.Types.TypeRegistry;
+module Elevate.Core.Types.TypeField;
 
 namespace Elevate
 {
 	std::type_index Elevate::TypeField::GetTargetType() const
 	{
-		auto& types = TypeRegistry::GetTypeIndexes();
-		auto it = types.find(targetTypeKey);
-
-		if (it == types.end())
-		{
-			return typeid(void);
-		}
-
-		return it->second;
+		const auto* typeIndex = Internal::FindTypeIndex(targetTypeKey);
+		return typeIndex ? *typeIndex : typeid(void);
 	}
 
 	void TypeField::UseInstance(const void* instancePtr)
@@ -44,12 +37,13 @@ namespace Elevate
 			allFields.push_back(child);
 		}
 
-		const auto& customFields = TypeRegistry::GetReflectedTypes();
-		auto it = customFields.find(pointeeType);
+		std::size_t reflectedFieldCount = 0;
+		const auto* reflectedFields = static_cast<const TypeField*>(
+			Internal::GetReflectedFieldData(pointeeType, reflectedFieldCount));
 
-		if (it != customFields.end())
+		if (reflectedFields)
 		{
-			pointeeTypeField = it->second;
+			pointeeTypeField.assign(reflectedFields, reflectedFields + reflectedFieldCount);
 		}
 
 		for (const auto& pointeeField : pointeeTypeField)

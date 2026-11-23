@@ -4,6 +4,9 @@ module;
 #include <memory>
 #include <vector>
 #include <filesystem>
+#include <tuple>
+#include <utility>
+
 #include <stb/stb_image.h>
 
 #include <ElevateEngine/Renderer/GraphicsAPI.h>

@@ -1,3 +1,7 @@
+#include <cstdlib>
+#include <iterator>
+#include <new>
+
 #include "OpenGLBuffer.h"
 
 #include <ElevateEngine/Renderer/GraphicsAPI.h>
