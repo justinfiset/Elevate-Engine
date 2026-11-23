@@ -33,6 +33,16 @@ set(CMAKE_C_FLAGS_DIST "${CMAKE_C_FLAGS_RELEASE}")
 set(CMAKE_CXX_FLAGS_DIST "${CMAKE_CXX_FLAGS_RELEASE}")
 set(CMAKE_EXE_LINKER_FLAGS_DIST "${CMAKE_EXE_LINKER_FLAGS_RELEASE}")
 
+# Catch2 and the vendored libraries are configured by their own CMake projects,
+# so target-local flags cannot keep their standard library in sync with the
+# engine. Set libc++ globally for native Clang builds; Emscripten already uses
+# libc++ and does not accept -stdlib.
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT EMSCRIPTEN)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -stdlib=libc++")
+endif()
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 include(ElevateConfig)

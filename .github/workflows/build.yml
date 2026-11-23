@@ -73,7 +73,10 @@ jobs:
 
     build-windows:
         name: Windows / MSVC / ${{ matrix.configuration }}
-        runs-on: windows-latest
+        # MSVC 14.52 has a C++20 modules regression (C2572 on STL declarations
+        # shared through global module fragments). windows-2022 provides the
+        # validated MSVC 14.44 toolset; cl.exe is still selected explicitly.
+        runs-on: windows-2022
         strategy:
             fail-fast: false
             matrix:
