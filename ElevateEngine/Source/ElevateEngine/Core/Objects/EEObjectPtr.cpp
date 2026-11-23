@@ -6,13 +6,12 @@ module Elevate.Core.Objects.ObjectPtr;
 
 import Elevate.Foundations.Guid;
 import Elevate.Core.Objects.Object;
-import Elevate.Core.Assets.Asset;
-import Elevate.Core.Assets.AssetRegistry;
+import Elevate.Core.Assets.AssetReferenceResolver;
 
 namespace Elevate
 {
 	std::shared_ptr<EEObject> Detail::ResolveAssetHelper(const Guid& guid)
 	{
-		return std::dynamic_pointer_cast<EEObject>(AssetRegistry::GetAsset<Asset>(guid));
+		return Detail::ResolveAssetReference(guid);
 	}
 }

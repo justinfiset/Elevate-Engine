@@ -9,6 +9,8 @@ module;
 
 export module Elevate.Renderer.Scene.Lighting;
 
+export import Elevate.Renderer.Scene.Lighting.Limits;
+
 // Foundations
 import Elevate.Foundations.CoreLogger;
 // Core
@@ -18,13 +20,6 @@ import Elevate.Renderer.Shaders;
 import Elevate.Renderer.Lights.DirectionalLight;
 import Elevate.Renderer.Lights.PointLight;
 import Elevate.Renderer.Lights.SpotLight;
-
-export namespace Elevate::SceneLightingLimits
-{
-	inline constexpr int MaxDirectionalLights = 1;
-	inline constexpr int MaxPointLights = 32;
-	inline constexpr int MaxSpotLights = 32;
-}
 
 export namespace Elevate
 {

@@ -4,24 +4,13 @@ module;
 
 module Elevate.Core.Assets.Asset;
 
-import Elevate.Core.Assets.AssetRegistry;
+import Elevate.Core.Assets.AssetNameResolver;
 
 namespace Elevate
 {
 	std::string Asset::GetName() const
 	{
-		if (!m_explicitName.empty())
-		{
-			return m_explicitName;
-		}
-
-		auto entry = AssetRegistry::GetEntry(m_guid);
-		if (entry)
-		{
-			return entry->AssetName;
-		}
-
-		return generated_classEntry.ClassName;
+		return Detail::ResolveAssetName(m_guid, m_explicitName, generated_classEntry.ClassName);
 	}
 
 	void Asset::SetName(const std::string& name)
