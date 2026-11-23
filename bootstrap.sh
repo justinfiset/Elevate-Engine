@@ -1,8 +1,23 @@
 
-#!/bin/bash
+#!/bin/sh
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-OS_TYPE=$(uname)
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+OS_TYPE=$(uname -s)
+
+CONFIG_FILE="$SCRIPT_DIR/PREMAKE_CONFIG"
+
+case "$OS_TYPE" in
+  Darwin)
+    PREMAKE_CMD="$SCRIPT_DIR/vendor/premake/premake5-macos"
+    ;;
+  Linux)
+    PREMAKE_CMD="$SCRIPT_DIR/vendor/premake/premake5-linux"
+    ;;
+  *)
+    echo "Unsupported OS: $OS_TYPE"
+    exit 1
+    ;;
+esac
 
 config() {
   echo "Please choose a build option:"
@@ -13,15 +28,15 @@ config() {
   echo "5 - Exit"
   echo ""
 
-  read -r -p "Option : " choice
-  choice=$(echo "$choice" | tr -d '[:space:]')
+  printf "Option : "
+  read -r choice
 
   case "$choice" in
-    "1") ACTION="vs2022" ;;
-    "2") ACTION="vs2019" ;;
-    "3") ACTION="gmake2" ;;
-    "4") ACTION="xcode4" ;;
-    "5") exit 0 ;;
+    1) ACTION="vs2022" ;;
+    2) ACTION="vs2019" ;;
+    3) ACTION="gmake2" ;;
+    4) ACTION="xcode4" ;;
+    5) exit 0 ;;
     *)
       echo "Invalid option, please try again."
       config
@@ -29,39 +44,26 @@ config() {
       ;;
   esac
 
-  echo "$ACTION" > "$SCRIPT_DIR/PREMAKE_CONFIG"
-  echo "Configuration saved in 'PREMAKE_CONFIG' file."
+  echo "$ACTION" > "$CONFIG_FILE"
+  echo "Configuration saved in PREMAKE_CONFIG."
 
   echo "Generating resources..."
 
   (
     cd "$SCRIPT_DIR" || exit 1
-
-    if [ "$OS_TYPE" = "Darwin" ]; then
-      ./vendor/premake/premake5-macos resourcegen
-    elif [ "$OS_TYPE" = "Linux" ]; then
-      ./vendor/premake/premake5-linux resourcegen
-    else
-      echo "Unsupported OS: $OS_TYPE"
-      exit 1
-    fi
-  )
-
-  if [ $? -ne 0 ]; then
+    "$PREMAKE_CMD" resourcegen
+  ) || {
     echo "Resource generation failed."
     exit 1
-  fi
+  }
 }
 
 run() {
   echo "Running with the selected option: $*"
 
-  if [ "$OS_TYPE" = "Darwin" ]; then
-    PREMAKE_CMD="$SCRIPT_DIR/vendor/premake/premake5-macos"
-  elif [ "$OS_TYPE" = "Linux" ]; then
-    PREMAKE_CMD="$SCRIPT_DIR/vendor/premake/premake5-linux"
-  else
-    echo "Unsupported OS: $OS_TYPE"
+  if [ ! -x "$PREMAKE_CMD" ]; then
+    echo "Premake executable not found or not executable:"
+    echo "$PREMAKE_CMD"
     exit 1
   fi
 
@@ -73,14 +75,14 @@ run() {
 
 # --- Main ---
 
-# Direct action argument: skip config and execute without any pause.
+# Direct arguments: skip configuration.
 if [ "$#" -gt 0 ] && [ "$1" != "edit" ]; then
   run "$@"
 fi
 
 # Configuration mode.
-if [ ! -f "$SCRIPT_DIR/PREMAKE_CONFIG" ] || [ "$1" = "edit" ]; then
-  if [ ! -f "$SCRIPT_DIR/PREMAKE_CONFIG" ]; then
+if [ ! -f "$CONFIG_FILE" ] || [ "$1" = "edit" ]; then
+  if [ ! -f "$CONFIG_FILE" ]; then
     echo "First time config detected."
   else
     echo "Editing configuration."
@@ -88,14 +90,12 @@ if [ ! -f "$SCRIPT_DIR/PREMAKE_CONFIG" ] || [ "$1" = "edit" ]; then
 
   config
 else
-  contenu=$(<"$SCRIPT_DIR/PREMAKE_CONFIG")
+  ACTION=$(cat "$CONFIG_FILE")
 
-  if [ -z "$contenu" ]; then
+  if [ -z "$ACTION" ]; then
     echo "Error: PREMAKE_CONFIG file is empty."
     exit 1
   fi
-
-  ACTION="$contenu"
 fi
 
 run "$ACTION"
