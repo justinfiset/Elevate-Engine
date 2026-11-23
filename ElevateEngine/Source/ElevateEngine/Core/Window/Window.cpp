@@ -1,5 +1,6 @@
 module;
 
+#define ELEVATE_GLFW_FORWARD_DECLARED
 #include <stdio.h>
 #include <format>
 #include <functional>
@@ -10,6 +11,7 @@ module;
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/encodings.h>
 #include <rapidjson/rapidjson.h>
+#include <GLFW/glfw3.h>
 
 module Elevate.Core.Window;
 

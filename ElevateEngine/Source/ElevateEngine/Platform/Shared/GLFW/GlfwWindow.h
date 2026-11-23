@@ -1,8 +1,8 @@
 #pragma once
 
+#ifndef ELEVATE_WINDOW_IMPLEMENTATION
 #include <string>
 
-#ifndef ELEVATE_WINDOW_IMPLEMENTATION
 // Core
 import Elevate.Core.Window;
 import Elevate.Core.Events.Event;
@@ -10,7 +10,9 @@ import Elevate.Core.Events.Event;
 import Elevate.Renderer.GraphicsContext;
 #endif
 
+#ifndef ELEVATE_GLFW_FORWARD_DECLARED
 struct GLFWwindow;
+#endif
 
 namespace Elevate
 {
