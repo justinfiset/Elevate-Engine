@@ -4,6 +4,10 @@ ElevateEngine/Source/ElevateEngine/Audio/Ak
 
 compile_commands
 
+# Generated resource modules
+/ElevateEngine/Source/Editor/Generated/EditorResources_generated.ixx
+/ElevateEngine/Source/Core/Generated/EngineResources_generated.ixx
+
 # Object files
 *.obj
 # But keep 3D object files

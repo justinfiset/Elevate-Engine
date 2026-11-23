@@ -7,6 +7,8 @@ WindowsStrategy = {
         architecture "x64"
         buildoptions {"/Zc:wchar_t", "/Zc:preprocessor", "/Zc:__cplusplus", "/utf-8", "/MP" -- Enable multi-processor compilation
         }
+
+        prebuildcommands {'call "' .. _MAIN_SCRIPT_DIR .. '/bootstrap.bat" resourcegen'}
     end,
 
     SetPlatformDefines = function()
@@ -28,6 +30,8 @@ LinuxStrategy = {
         filter {"language:C++"}
         buildoptions {"-fno-lto"}
         filter {}
+
+        prebuildcommands {'"' .. _MAIN_SCRIPT_DIR .. '/bootstrap.sh" resourcegen'}
     end,
 
     SetPlatformDefines = function()
