@@ -22,7 +22,7 @@ Editor and Runtime emscripten builds are automatically deployed on the gh-page b
 - Ninja 1.11 or newer
 - A C++20 compiler with native module scanning:
   - Clang 16 or newer
-  - GCC 14 or newer
+  - GCC 15 or newer
   - MSVC 14.34 or newer
   - Emscripten with `emscan-deps`
 
@@ -136,7 +136,7 @@ CI builds and tests every supported compiler: Clang and GCC on Linux, MSVC on Wi
 | :---------------------------------------------------------------------------------------------------------- | :-------------------------- | :-------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ![Windows](https://img.shields.io/badge/Windows-0078D4?style=flat&logo=windows&logoColor=white)             | `windows-latest`            | MSVC (Ninja)          | [![Windows Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-windows&label=)](https://github.com/justinfiset/Elevate-Engine/actions)   |
 | ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)                   | `ubuntu-24.04`              | Clang 18 (Ninja)      | [![Linux Clang Build](https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml/badge.svg?branch=main&job=build-linux&label=)](https://github.com/justinfiset/Elevate-Engine/actions) |
-| ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)                   | `ubuntu-24.04`              | GCC 14 (Ninja)        | [![Linux GCC Build](https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml/badge.svg?branch=main&job=build-linux&label=)](https://github.com/justinfiset/Elevate-Engine/actions) |
+| ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)                   | `ubuntu-24.04`              | GCC 15 (Ninja)        | [![Linux GCC Build](https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml/badge.svg?branch=main&job=build-linux&label=)](https://github.com/justinfiset/Elevate-Engine/actions) |
 | ![WebAssembly](https://img.shields.io/badge/WebAssembly-654FF0?style=flat&logo=webassembly&logoColor=white) | `emscripten` (Windows Host) | Emscripten (Ninja)    | [![Web Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-web&label=)](https://github.com/justinfiset/Elevate-Engine/actions)             |
 
 ## Tests Report

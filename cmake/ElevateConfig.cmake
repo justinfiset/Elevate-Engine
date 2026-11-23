@@ -88,12 +88,19 @@ function(ee_common_settings target)
       target_compile_options(${target} PRIVATE
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<OR:$<CONFIG:Editor_Debug>,$<CONFIG:Debug>>>:-Og>
       )
-      # GCC 14 can exhaust location_t space while streaming module BMIs that
+      # GCC can exhaust location_t space while streaming module BMIs that
       # transitively include fmt/glm headers (PR 105443).  Disabling macro
-      # expansion tracking keeps the location maps small enough to avoid the
-      # write_location ICE; diagnostics lose macro expansion detail only.
+      # expansion tracking keeps the location maps smaller; GCC 15 contains
+      # the write_location fix, and diagnostics lose macro detail only.
       target_compile_options(${target} PRIVATE
         $<$<COMPILE_LANGUAGE:CXX>:-ftrack-macro-expansion=0>
+      )
+      # GCC's IPA comdat pass ICEs when a declaration imported from a module
+      # appears late in the symbol table (ipa_comdats.cc:355).  This is an
+      # optimization-only pass; disabling it affects symbol section grouping,
+      # not program behavior.
+      target_compile_options(${target} PRIVATE
+        $<$<COMPILE_LANGUAGE:CXX>:-fdisable-ipa-comdats>
       )
     endif()
     if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
