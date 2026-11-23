@@ -1,6 +1,9 @@
 
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+OS_TYPE=$(uname)
+
 config() {
   echo "Please choose a build option:"
   echo "1 - Visual Studio 2022"
@@ -10,7 +13,7 @@ config() {
   echo "5 - Exit"
   echo ""
 
-  read -p "Option : " choice
+  read -r -p "Option : " choice
   choice=$(echo "$choice" | tr -d '[:space:]')
 
   case "$choice" in
@@ -26,39 +29,58 @@ config() {
       ;;
   esac
 
-  echo "$ACTION" > PREMAKE_CONFIG
+  echo "$ACTION" > "$SCRIPT_DIR/PREMAKE_CONFIG"
   echo "Configuration saved in 'PREMAKE_CONFIG' file."
+
+  echo "Generating resources..."
+
+  (
+    cd "$SCRIPT_DIR" || exit 1
+
+    if [ "$OS_TYPE" = "Darwin" ]; then
+      ./vendor/premake/premake5-macos resourcegen
+    elif [ "$OS_TYPE" = "Linux" ]; then
+      ./vendor/premake/premake5-linux resourcegen
+    else
+      echo "Unsupported OS: $OS_TYPE"
+      exit 1
+    fi
+  )
+
+  if [ $? -ne 0 ]; then
+    echo "Resource generation failed."
+    exit 1
+  fi
 }
 
 run() {
-  echo "Running with the selected option: $ACTION"
+  echo "Running with the selected option: $*"
 
-  if [ "$OS_TYPE" == "Darwin" ]; then
-    PREMAKE_CMD="./vendor/premake/premake5-macos"
-  elif [ "$OS_TYPE" == "Linux" ]; then
-    PREMAKE_CMD="./vendor/premake/premake5-linux"
+  if [ "$OS_TYPE" = "Darwin" ]; then
+    PREMAKE_CMD="$SCRIPT_DIR/vendor/premake/premake5-macos"
+  elif [ "$OS_TYPE" = "Linux" ]; then
+    PREMAKE_CMD="$SCRIPT_DIR/vendor/premake/premake5-linux"
   else
     echo "Unsupported OS: $OS_TYPE"
     exit 1
   fi
 
-  "$PREMAKE_CMD" "$ACTION"
+  cd "$SCRIPT_DIR" || exit 1
+
+  "$PREMAKE_CMD" "$@"
   exit $?
 }
 
 # --- Main ---
 
-OS_TYPE=$(uname)
-
 # Direct action argument: skip config and execute without any pause.
-if [ -n "$1" ] && [ "$1" != "edit" ]; then
-  ACTION="$1"
-  run
+if [ "$#" -gt 0 ] && [ "$1" != "edit" ]; then
+  run "$@"
 fi
 
 # Configuration mode.
-if [ ! -f PREMAKE_CONFIG ] || [ "$1" == "edit" ]; then
-  if [ ! -f PREMAKE_CONFIG ]; then
+if [ ! -f "$SCRIPT_DIR/PREMAKE_CONFIG" ] || [ "$1" = "edit" ]; then
+  if [ ! -f "$SCRIPT_DIR/PREMAKE_CONFIG" ]; then
     echo "First time config detected."
   else
     echo "Editing configuration."
@@ -66,7 +88,7 @@ if [ ! -f PREMAKE_CONFIG ] || [ "$1" == "edit" ]; then
 
   config
 else
-  contenu=$(<PREMAKE_CONFIG)
+  contenu=$(<"$SCRIPT_DIR/PREMAKE_CONFIG")
 
   if [ -z "$contenu" ]; then
     echo "Error: PREMAKE_CONFIG file is empty."
@@ -76,4 +98,4 @@ else
   ACTION="$contenu"
 fi
 
-run
+run "$ACTION"
