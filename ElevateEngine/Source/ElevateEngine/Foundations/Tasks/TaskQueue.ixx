@@ -14,8 +14,8 @@ export namespace Elevate
 	class TaskQueue
 	{
 	public:
-		TaskQueue() = default;
-		~TaskQueue() = default;
+		TaskQueue();
+		~TaskQueue();
 
 		void Push(TaskHandle handle, TaskPriority priority)
 		{
