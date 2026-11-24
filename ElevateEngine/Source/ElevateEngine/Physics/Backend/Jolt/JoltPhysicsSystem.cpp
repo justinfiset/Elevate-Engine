@@ -1,4 +1,3 @@
-#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 
 // Keep every textual include before the first module import. Some headers in
 // this project import modules themselves, and newer MSVC versions diagnose

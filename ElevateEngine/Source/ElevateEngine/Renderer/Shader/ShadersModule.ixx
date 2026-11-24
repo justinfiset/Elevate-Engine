@@ -1,6 +1,5 @@
 module;
 
-#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 
 export module Elevate.Renderer.Shaders;
 

@@ -2,7 +2,6 @@ module;
 
 #include <cstdint>
 
-#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 
 #include <glm/vec4.hpp>
 #include <string>

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 
 #include <typeindex>
 

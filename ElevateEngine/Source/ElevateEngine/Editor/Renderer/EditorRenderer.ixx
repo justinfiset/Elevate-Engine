@@ -1,6 +1,5 @@
 module;
 
-#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 
 #include <memory>
 #include <glm/vec3.hpp>

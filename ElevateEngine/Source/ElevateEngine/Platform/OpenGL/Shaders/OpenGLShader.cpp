@@ -1,4 +1,3 @@
-#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 
 #include <vector>
 #include <string>

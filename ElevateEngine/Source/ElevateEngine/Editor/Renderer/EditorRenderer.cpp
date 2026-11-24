@@ -3,7 +3,6 @@ module;
 // GCC 15's module early-alias pass ICEs on implicit memcpy declarations
 // streamed from imported BMIs unless <cstring> is visible first.
 #include <cstring>
-#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <memory>
 #include <glm/glm.hpp>
 

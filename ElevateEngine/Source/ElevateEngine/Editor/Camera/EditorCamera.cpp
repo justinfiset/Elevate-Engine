@@ -1,6 +1,5 @@
 module;
 
-#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 #include <glm/glm.hpp>
 #include <glm/ext/quaternion_trigonometric.hpp>
 #include <glm/gtc/quaternion.hpp>

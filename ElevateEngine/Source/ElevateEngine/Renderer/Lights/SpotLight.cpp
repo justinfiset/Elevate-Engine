@@ -2,7 +2,6 @@ module;
 
 #include <cstdint>
 
-#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 
 #include <string>
 #include <glm/glm.hpp>

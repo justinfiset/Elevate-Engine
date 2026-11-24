@@ -1,4 +1,3 @@
-#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 #include <ElevateEngine/Platform/OpenGL/Buffers/OpenGLVertexArray.h>
 #include <ElevateEngine/Renderer/RendererBackend.h>
 

@@ -1,6 +1,5 @@
 module;
 
-#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 #include <memory>
 #include <string>
 #include <glm/gtc/type_ptr.hpp>

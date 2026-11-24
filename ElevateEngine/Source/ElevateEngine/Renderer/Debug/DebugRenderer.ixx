@@ -1,6 +1,5 @@
 module;
 
-#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 
 #ifdef EE_EDITOR_BUILD
 #include <vector>
