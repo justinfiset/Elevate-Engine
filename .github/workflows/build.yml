@@ -160,6 +160,32 @@ jobs:
                   name: web-${{ matrix.configuration }}
                   path: Build/bin/${{ matrix.configuration }}-emscripten-wasm32/
 
+    build-validation:
+        name: Build Validation
+        if: always()
+        needs: [build-linux, build-windows, build-web]
+        runs-on: ubuntu-24.04
+        steps:
+            - name: Verify all build jobs passed
+              shell: bash
+              env:
+                  LINUX_RESULT: ${{ needs.build-linux.result }}
+                  WINDOWS_RESULT: ${{ needs.build-windows.result }}
+                  WEB_RESULT: ${{ needs.build-web.result }}
+              run: |
+                  echo "Linux:   $LINUX_RESULT"
+                  echo "Windows: $WINDOWS_RESULT"
+                  echo "Web:     $WEB_RESULT"
+                  if [ "$LINUX_RESULT" = "success" ] &&
+                     [ "$WINDOWS_RESULT" = "success" ] &&
+                     [ "$WEB_RESULT" = "success" ]; then
+                      echo "PR can merge (build checks): YES"
+                  else
+                      echo "PR can merge (build checks): NO"
+                      echo "Build validation failed; every build matrix job must pass."
+                      exit 1
+                  fi
+
     docs:
         name: Docs / Doxygen
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
