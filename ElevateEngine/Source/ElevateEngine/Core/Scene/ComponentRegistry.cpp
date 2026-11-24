@@ -4,7 +4,6 @@ module;
 #include <cstdint>
 #include <memory>
 #include <unordered_map>
-#include <entt/entity/registry.hpp>
 
 module Elevate.Core.Scene;
 

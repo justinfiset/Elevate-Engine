@@ -3,9 +3,16 @@ module;
 
 #include <cstdint>
 #include <memory>
-#include <entt/entity/registry.hpp>
 
 export module Elevate.Core.Scene:ComponentRegistry;
+
+// Keep EnTT's declarations attached to the global module, but export them so
+// dependent ADL can find its iterator operators when importers instantiate the
+// ComponentRegistry templates below.
+export extern "C++"
+{
+#include <entt/entity/registry.hpp>
+}
 
 export namespace Elevate
 {
