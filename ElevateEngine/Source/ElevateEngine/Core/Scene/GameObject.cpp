@@ -10,6 +10,8 @@ module;
 
 #include <glm/gtx/matrix_decompose.hpp> // iwyu: keep
 
+#include <ElevateEngine/Core/Scene/SoundEngineBridge.h>
+
 module Elevate.Core.Scene;
 
 import Elevate.Foundations.CoreLogger;
@@ -21,8 +23,6 @@ import Elevate.Core.Types.TypeField;
 import Elevate.Core.Types.TypeRegistry;
 import Elevate.Core.Objects.ObjectPtr;
 import Elevate.Core.Events.Event;
-
-import Elevate.Audio.SoundEngine;
 
 namespace Elevate
 {
@@ -151,7 +151,7 @@ namespace Elevate
 	{
 		if (m_entityId != INVALID_ENTITY_ID && m_isInitialized)
 		{
-			SoundEngine::UpdatePosition(this);
+			Internal::UpdateSoundObjectPosition(reinterpret_cast<std::uintptr_t>(this));
 		}
 
 		for (Component* comp : GetComponents())
@@ -252,7 +252,7 @@ namespace Elevate
 		m_entityId = Registry().CreateEntity(m_scene->GetRegistryId());
 		Assert::That(m_entityId != INVALID_ENTITY_ID, "Could not create a valid entity for GameObject : {}", m_name);
 
-		SoundEngine::RegisterGameObject(this);
+		Internal::RegisterSoundObject(reinterpret_cast<std::uintptr_t>(this));
 		m_isInitialized = true;
 	}
 
@@ -268,7 +268,7 @@ namespace Elevate
 
 	GameObject::~GameObject()
 	{
-		SoundEngine::UnregisterGameObject(this);
+		Internal::UnregisterSoundObject(reinterpret_cast<std::uintptr_t>(this));
 
 		if (m_scene && m_entityId != INVALID_ENTITY_ID)
 		{

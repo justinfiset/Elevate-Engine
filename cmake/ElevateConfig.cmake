@@ -102,6 +102,12 @@ function(ee_common_settings target)
       target_compile_options(${target} PRIVATE
         $<$<COMPILE_LANGUAGE:CXX>:-fdisable-ipa-comdats>
       )
+      # GCC's lazy BMI loading recurses while instantiating
+      # EEObjectPtr<GameObject>::Serialize ("recursive lazy load" /
+      # "failed to load pendings").  Eager loading avoids the compiler bug.
+      target_compile_options(${target} PRIVATE
+        $<$<COMPILE_LANGUAGE:CXX>:-fno-module-lazy>
+      )
     endif()
   endif()
 
