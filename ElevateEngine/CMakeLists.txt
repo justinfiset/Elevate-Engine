@@ -17,6 +17,18 @@ endif()
 
 set_source_files_properties(${engineModules} PROPERTIES LANGUAGE CXX)
 
+# GCC 15 recurses in lazy BMI loading for these two translation units
+# ("recursive lazy load" / "failed to load pendings for Elevate::EEObjectPtr").
+# Eager loading is needed only here; applying it globally makes GCC reject
+# GameObject.cpp because SoundEngine imports the Scene module back.
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  set_source_files_properties(
+    "${CMAKE_CURRENT_SOURCE_DIR}/Source/ElevateEngine/Audio/Wwise/WwiseSoundEngine.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Source/ElevateEngine/Editor/Panels/Audio/Wwise/WwiseBrowser/WwiseBrowserPanel.cpp"
+    PROPERTIES COMPILE_OPTIONS "-fno-module-lazy"
+  )
+endif()
+
 add_library(ElevateEngine STATIC ${engineSources} ${vendoredSources})
 target_sources(ElevateEngine PUBLIC
   FILE_SET CXX_MODULES
