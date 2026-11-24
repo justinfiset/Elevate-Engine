@@ -81,6 +81,15 @@ function(ee_common_settings target)
     )
   else()
     target_compile_options(${target} PRIVATE -fno-lto)
+    if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+      # C++20 module BMIs carry the full type/debug graph of every imported
+      # module. Full -g makes Clang serialize that graph repeatedly into every
+      # PCM and object, roughly doubling compile time on large interface units.
+      # Line tables keep usable stack traces without the duplicate debug types.
+      target_compile_options(${target} PRIVATE
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<OR:$<CONFIG:Editor_Debug>,$<CONFIG:Debug>>>:-gline-tables-only>
+      )
+    endif()
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
       # GCC cannot stream OPTIMIZATION_NODEs into a module BMI at -O0, and
       # bundled fmt emits #pragma GCC optimize("Og") in debug builds (PR 108080).
