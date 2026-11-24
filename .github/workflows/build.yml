@@ -163,32 +163,34 @@ jobs:
     build-validation:
         name: Build Validation
         if: always()
-        needs: [build-linux, build-windows, build-web]
+        needs: [build-linux, build-windows, build-web, docs]
         runs-on: ubuntu-24.04
         steps:
-            - name: Verify all build jobs passed
+            - name: Verify all validation jobs passed
               shell: bash
               env:
                   LINUX_RESULT: ${{ needs.build-linux.result }}
                   WINDOWS_RESULT: ${{ needs.build-windows.result }}
                   WEB_RESULT: ${{ needs.build-web.result }}
+                  DOCS_RESULT: ${{ needs.docs.result }}
               run: |
                   echo "Linux:   $LINUX_RESULT"
                   echo "Windows: $WINDOWS_RESULT"
                   echo "Web:     $WEB_RESULT"
+                  echo "Docs:    $DOCS_RESULT"
                   if [ "$LINUX_RESULT" = "success" ] &&
                      [ "$WINDOWS_RESULT" = "success" ] &&
-                     [ "$WEB_RESULT" = "success" ]; then
-                      echo "PR can merge (build checks): YES"
+                     [ "$WEB_RESULT" = "success" ] &&
+                     [ "$DOCS_RESULT" = "success" ]; then
+                      echo "PR can merge (validation checks): YES"
                   else
-                      echo "PR can merge (build checks): NO"
-                      echo "Build validation failed; every build matrix job must pass."
+                      echo "PR can merge (validation checks): NO"
+                      echo "Validation failed; every build and docs job must pass."
                       exit 1
                   fi
 
     docs:
         name: Docs / Doxygen
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -204,7 +206,14 @@ jobs:
             - name: Generate Doxygen Docs
               run: doxygen Docs/Doxyfile
 
+            - name: Verify Doxygen pages
+              run: |
+                  test -s Docs/html/index.html
+                  grep -q 'Pointer Patching' Docs/html/pages.html
+                  grep -q 'Building with Emscripten' Docs/html/pages.html
+
             - name: Upload Docs Artifact
+              if: github.event_name == 'push' && github.ref == 'refs/heads/main'
               uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
               with:
                   name: docs-site
