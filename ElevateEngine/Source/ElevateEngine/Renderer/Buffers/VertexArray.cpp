@@ -1,5 +1,6 @@
 module;
 
+#include <memory>
 
 module Elevate.Renderer.VertexArray;
 

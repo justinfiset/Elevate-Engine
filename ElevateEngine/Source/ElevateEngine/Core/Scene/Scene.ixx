@@ -2,6 +2,8 @@ module;
 
 
 #include <memory>
+#include <string>
+#include <utility>
 #include <vector>
 
 #include <ElevateEngine/Core/Reflection/Reflection.h>

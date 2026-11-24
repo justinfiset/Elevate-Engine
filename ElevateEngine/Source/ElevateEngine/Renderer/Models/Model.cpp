@@ -4,6 +4,7 @@ module;
 #include <string>
 #include <memory>
 #include <filesystem>
+#include <utility>
 #include <glm/glm.hpp>
 
 #include <assimp/scene.h>

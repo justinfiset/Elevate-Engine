@@ -2,6 +2,7 @@ module;
 
 #include <ElevateEngine/Renderer/RendererBackend.h>
 #include <string>
+#include <string_view>
 #include <memory>
 #include <glm/glm.hpp>
 

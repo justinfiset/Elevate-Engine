@@ -3,6 +3,7 @@
 #include <ctime>
 #include <cstdint>
 #include <memory>
+#include <vector>
 
 #include "Reflection.h"
 

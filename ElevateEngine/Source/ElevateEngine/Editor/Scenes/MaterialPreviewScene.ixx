@@ -2,6 +2,7 @@ module;
 
 #include <glm/glm.hpp>
 #include <memory>
+#include <utility>
 #include <string_view>
 #include <string>
 #include <cmath>

@@ -1,6 +1,10 @@
 module;
 
+#include <functional>
 #include <initializer_list>
+#include <memory>
+#include <unordered_map>
+#include <utility>
 #include <vector>
 #include <string>
 #include <type_traits>
