@@ -1,3 +1,7 @@
+module;
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 module Elevate.Core.Reflection.ReflectionTags;
 
 import Elevate.Core.Assets.AssetMetadata;

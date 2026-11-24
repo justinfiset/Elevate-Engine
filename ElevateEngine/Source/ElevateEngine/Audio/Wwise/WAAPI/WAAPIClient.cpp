@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #if defined(EE_USES_WWISE) && !defined(EE_PLATFORM_WEB)
 #include <AK/WwiseAuthoringAPI/AkAutobahn/Client.h>
 #include <AK/WwiseAuthoringAPI/AkAutobahn/Logger.h>

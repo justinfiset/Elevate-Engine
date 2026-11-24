@@ -1,5 +1,8 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+#include <ElevateEngine/Renderer/RendererBackend.h>
 #include <vector>
 #include <memory>
 
@@ -26,8 +29,21 @@ export namespace Elevate
 		const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const { return m_vertexBuffers; }
 		const std::shared_ptr<IndexBuffer> GetIndexBuffer() const { return m_indexBuffer; }
 
-		static VertexArray* Create();
+		using Factory = VertexArray* (*)();
+
+		static void SetFactory(Factory factory)
+		{
+			s_factory = factory;
+		}
+
+		static VertexArray* Create()
+		{
+			RendererBackend::RegisterVertexArrayFactory();
+			return s_factory ? s_factory() : nullptr;
+		}
+
 	private:
+		inline static Factory s_factory = nullptr;
 		std::vector<std::shared_ptr<VertexBuffer>> m_vertexBuffers;
 		std::shared_ptr<IndexBuffer> m_indexBuffer;
 	};

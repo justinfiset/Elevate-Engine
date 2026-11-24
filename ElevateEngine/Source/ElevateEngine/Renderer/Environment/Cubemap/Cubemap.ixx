@@ -1,5 +1,7 @@
 module;
 
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
+
 #include <cstdint>
 #include <filesystem>
 #include <memory>
@@ -11,6 +13,7 @@ export module Elevate.Renderer.Cubemap;
 
 import Elevate.Renderer.Buffers;
 import Elevate.Renderer.RenderState;
+import Elevate.Renderer.RendererAPI;
 import Elevate.Renderer.VertexArray;
 import Elevate.Renderer.Shaders;
 
@@ -19,6 +22,12 @@ export namespace Elevate
 	class Cubemap
 	{
 	public:
+		using RenderStatePusher = void (*)(const RenderState&);
+		using ShaderBinder = bool (*)(const std::shared_ptr<Shader>&);
+		using ArrayDrawer = void (*)(const VertexArray*, DrawPrimitiveType);
+
+		static void SetRendererFunctions(RenderStatePusher pushRenderState, ShaderBinder bindShader, ArrayDrawer drawArray);
+
 		Cubemap(std::string paths[6], std::string skyboxFilePath = "");
 
 		static Cubemap* CreateFromFile(const std::string& filePath);
@@ -31,6 +40,10 @@ export namespace Elevate
 		std::string GetFilePath();
 
 	private:
+		static RenderStatePusher s_pushRenderState;
+		static ShaderBinder s_bindShader;
+		static ArrayDrawer s_drawArray;
+
 		RenderState m_renderState;
 		std::shared_ptr<Shader> m_cubemapShader;
 

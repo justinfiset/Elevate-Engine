@@ -1,5 +1,7 @@
 module;
 
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
+
 #include <cstring>
 #include <functional>
 #include <map>

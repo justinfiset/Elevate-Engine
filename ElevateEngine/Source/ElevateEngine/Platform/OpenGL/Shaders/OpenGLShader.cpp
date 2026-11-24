@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
+
 #include <vector>
 #include <string>
 #define GLFW_INCLUDE_NONE

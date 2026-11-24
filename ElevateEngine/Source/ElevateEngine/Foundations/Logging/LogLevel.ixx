@@ -1,3 +1,7 @@
+module;
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 export module Elevate.Foundations.Logger.LogLevel;
 
 export namespace Elevate

@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <stdint.h>
 #include <memory>
 #include <vector>
@@ -19,7 +21,7 @@ export namespace Elevate
 		std::vector<uint32_t> Indices;
 		std::vector<std::shared_ptr<Texture>> Textures;
 
-		MeshData() = default;
+		MeshData() {}
 		MeshData(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices, const std::vector<std::shared_ptr<Texture>>& textures)
 			: Vertices(vertices), Indices(indices), Textures(textures) {
 		}
@@ -40,7 +42,7 @@ export namespace Elevate
 
 	class Mesh {
 	public:
-		Mesh() = default;
+		Mesh() {}
 		Mesh(const MeshData& data);
 		Mesh(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices, const std::vector<std::shared_ptr<Texture>>& textures);
 

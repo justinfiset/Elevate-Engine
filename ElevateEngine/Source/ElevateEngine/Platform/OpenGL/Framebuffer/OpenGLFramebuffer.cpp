@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 #include "OpenGLFramebuffer.h"
 
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>

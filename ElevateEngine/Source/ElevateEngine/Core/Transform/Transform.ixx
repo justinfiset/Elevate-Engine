@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <memory>
 
 #include <glm/mat4x4.hpp>		  // iwyu: keep
@@ -42,7 +44,7 @@ export namespace Elevate
 		const glm::mat4& GetModelMatrix() const;
 		void UpdateModelMatrix();
 
-		virtual TypeLayout GetLayout() const override
+		TypeLayout GetLayout() const override
 		{
 			return TypeLayout(
 				this,

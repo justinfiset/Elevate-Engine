@@ -1,5 +1,8 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+#include <ElevateEngine/Renderer/RendererBackend.h>
 #include <cstdint>
 #include <cstdlib>
 #include <initializer_list>
@@ -96,12 +99,24 @@ export namespace Elevate
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 
-		static VertexBuffer* Create(const void* vertices, const uint32_t size);
+		using Factory = VertexBuffer* (*)(const void*, uint32_t);
+
+		static void SetFactory(Factory factory)
+		{
+			s_factory = factory;
+		}
+
+		static VertexBuffer* Create(const void* vertices, const uint32_t size)
+		{
+			RendererBackend::RegisterBufferFactories();
+			return s_factory ? s_factory(vertices, size) : nullptr;
+		}
 
 		uint32_t GetSize() { return m_size; }
 	protected:
 		void SetSize(uint32_t newSize) { m_size = newSize; }
 	private:
+		inline static Factory s_factory = nullptr;
 		uint32_t m_size;
 		const void* m_data;
 	};
@@ -116,6 +131,20 @@ export namespace Elevate
 
 		virtual uint32_t GetCount() const = 0;
 
-		static IndexBuffer* Create(const void* vertices, uint32_t count);
+		using Factory = IndexBuffer* (*)(const void*, uint32_t);
+
+		static void SetFactory(Factory factory)
+		{
+			s_factory = factory;
+		}
+
+		static IndexBuffer* Create(const void* vertices, uint32_t count)
+		{
+			RendererBackend::RegisterBufferFactories();
+			return s_factory ? s_factory(vertices, count) : nullptr;
+		}
+
+	private:
+		inline static Factory s_factory = nullptr;
 	};
 }

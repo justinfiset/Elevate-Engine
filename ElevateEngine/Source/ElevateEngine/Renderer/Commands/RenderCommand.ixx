@@ -1,5 +1,7 @@
 module;
 
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
+
 #include <memory>
 #include <glm/mat4x4.hpp>
 

@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 #include "WebWindow.h"
 
 #ifdef EE_PLATFORM_WEB

@@ -15,7 +15,7 @@ set(ee_vendor_include_dirs
   "${VENDOR_DIR}/assimp/include"
   "${VENDOR_DIR}/tinyfiledialogs"
   "${VENDOR_DIR}/ImGuizmo/src"
-  "${VENDOR_DIR}/entt/include"
+  "${VENDOR_DIR}/entt/src"
   "${VENDOR_DIR}/stduuid/include"
   "${VENDOR_DIR}/JoltPhysics"
   "${VENDOR_DIR}/_config_headers"

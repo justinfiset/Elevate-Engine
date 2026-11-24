@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <memory>
 
 export module Elevate.Editor.Commands.GameobjectCommand;
@@ -20,8 +22,8 @@ export namespace Elevate
 		{
 		}
 
-		virtual void Execute() override { /* TODO IMPLEMENT */ }
-		virtual void Undo() override { /* TODO IMPLEMENT */ }
+		void Execute() override { /* TODO IMPLEMENT */ }
+		void Undo() override { /* TODO IMPLEMENT */ }
 	};
 
 	class DeleteGameobjectCommand : public Command
@@ -33,7 +35,7 @@ export namespace Elevate
 		{
 		}
 
-		virtual void Execute() override { m_object.lock()->Destroy(); }
-		virtual void Undo() override { /* TODO IMPLEMENT */ }
+		void Execute() override { m_object.lock()->Destroy(); }
+		void Undo() override { /* TODO IMPLEMENT */ }
 	};
 }

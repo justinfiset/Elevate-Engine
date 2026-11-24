@@ -1,5 +1,7 @@
 module;
 
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
+
 #include <cstdint>
 #include <stack>
 

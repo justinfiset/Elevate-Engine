@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 #include <ElevateEngine/Editor/Panels/ConsolePanelTime.h>
 
 #include <spdlog/fmt/fmt.h>

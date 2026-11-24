@@ -1,11 +1,24 @@
 module;
 
-// EnTT iterator operators must be visible in the global module when inline
-// Scene code is instantiated here; they otherwise stay attached to a module
-// BMI and are not found by ADL.
-#include <entt/entt.hpp>
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 
 export module Elevate.Renderer.Camera;
+
+import Elevate.Core.Objects.Category;
+import Elevate.Core.Objects.Object;
+import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Core.Reflection.ReflectionTags;
+import Elevate.Core.Scene;
+import Elevate.Core.Types.TypeField;
+import Elevate.Core.Types.TypeLayout;
+import Elevate.Core.Types.TypeRegistry;
+import Elevate.Editor.Resources;
+import Elevate.Editor.Types.EditorTypeTrait;
+import Elevate.Foundations;
+import Elevate.Foundations.CoreLogger;
+import Elevate.Foundations.Enums;
+import Elevate.Renderer.Texture;
+import Elevate.Serialization.PropertyField;
 
 export import :Fwd;
 

@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <memory>
 
 module Elevate.Core.Assets.AssetReferenceResolver;

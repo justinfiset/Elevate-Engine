@@ -1,29 +1,42 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <memory>
 #include <span>
 #include <algorithm>
+#include <limits>
 
 #include <glm/gtc/matrix_transform.hpp>
 
 module Elevate.Renderer.Scene.Lighting;
 
 import Elevate.Renderer.Lights.Light;
-import Elevate.Renderer.Renderer;
+import Elevate.Renderer.Lights.Contract;
 import Elevate.Renderer.Camera;
 import Elevate.Renderer.Shaders;
 
 namespace Elevate
 {
+	SceneLighting::ShaderBinder SceneLighting::s_shaderBinder = nullptr;
+
+	void SceneLighting::SetShaderBinder(ShaderBinder binder)
+	{
+		s_shaderBinder = binder;
+	}
+
 	void SceneLighting::UploadToShader(const std::shared_ptr<Shader>& shader) const
 	{
 		if (shader)
 		{
-			Renderer::BindShader(shader);
+			if (s_shaderBinder)
+			{
+				s_shaderBinder(shader);
+			}
 
 			if (m_dirLight)
 			{
-				shader->UseDirLight(m_dirLight);
+				shader->UseDirLight(&m_dirLight->GetLight(), m_dirLight->CalculateDirection());
 			}
 
 			size_t pointLightsCount = m_pointLights.size();
@@ -42,7 +55,7 @@ namespace Elevate
 		}
 	}
 
-	const DirectionalLight* SceneLighting::GetDirLight() const
+	const IDirectionalLight* SceneLighting::GetDirLight() const
 	{
 		return m_dirLight;
 	}
@@ -54,7 +67,7 @@ namespace Elevate
 			return glm::mat4(1.0f);
 		}
 
-		glm::mat4 lightWorld = m_dirLight->gameObject->GenGlobalMatrix();
+		glm::mat4 lightWorld = m_dirLight->GetWorldMatrix();
 
 		glm::vec3 center(0.0f);
 		for (const auto& corner : cameraCorners)
@@ -79,7 +92,7 @@ namespace Elevate
 
 	glm::mat4 SceneLighting::GetDirectionalLightProjection(const std::span<const glm::vec3> corners, const glm::mat4& lightView) const
 	{
-		const DirectionalShadowSettings& settings = m_dirLight->m_shadowSettings;
+		const DirectionalShadowSettings& settings = m_dirLight->GetShadowSettings();
 
 		glm::vec3 center(0.0f);
 		for (const glm::vec3& corner : corners)
@@ -129,7 +142,7 @@ namespace Elevate
 		return glm::ortho(minX, maxX, minY, maxY, nearPlane, farPlane);
 	}
 
-	void SceneLighting::AddDirectionalLight(DirectionalLight* light)
+	void SceneLighting::AddDirectionalLight(IDirectionalLight* light)
 	{
 		if (!light)
 		{
@@ -138,7 +151,7 @@ namespace Elevate
 		m_dirLight = light;
 	}
 
-	void SceneLighting::AddPointLight(PointLight* light)
+	void SceneLighting::AddPointLight(IPointLight* light)
 	{
 		if (!light)
 		{
@@ -151,7 +164,7 @@ namespace Elevate
 		}
 	}
 
-	void SceneLighting::AddSpotLight(SpotLight* light)
+	void SceneLighting::AddSpotLight(ISpotLight* light)
 	{
 		if (!light)
 		{
@@ -164,7 +177,7 @@ namespace Elevate
 		}
 	}
 
-	void SceneLighting::RemoveDirectionalLight(DirectionalLight* light)
+	void SceneLighting::RemoveDirectionalLight(IDirectionalLight* light)
 	{
 		if (!light || m_dirLight != light)
 		{
@@ -174,7 +187,7 @@ namespace Elevate
 		m_dirLight = nullptr;
 	}
 
-	void SceneLighting::RemovePointLight(PointLight* light)
+	void SceneLighting::RemovePointLight(IPointLight* light)
 	{
 		if (!light)
 		{
@@ -188,7 +201,7 @@ namespace Elevate
 		}
 	}
 
-	void SceneLighting::RemoveSpotLight(SpotLight* light)
+	void SceneLighting::RemoveSpotLight(ISpotLight* light)
 	{
 		if (!light)
 		{

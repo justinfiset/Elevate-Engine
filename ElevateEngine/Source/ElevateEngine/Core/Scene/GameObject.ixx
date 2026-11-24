@@ -1,5 +1,6 @@
 module;
 
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 #include <vector>
 #include <set>
 #include <memory>
@@ -8,7 +9,6 @@ module;
 #include <type_traits>
 #include <utility>
 
-#include <entt/entt.hpp>
 #include <glm/ext/matrix_float4x4.hpp>
 #include <glm/ext/vector_float3.hpp>
 #include <ElevateEngine/Core/Reflection/Reflection.h>
@@ -26,6 +26,8 @@ import Elevate.Core.Objects.Category;
 import Elevate.Core.Transform.ITransformable;
 import Elevate.Core.Types.TypeRegistry;
 
+import Elevate.Audio.Object;
+
 import :Fwd;
 import :Component;
 import :ComponentRegistry;
@@ -34,7 +36,7 @@ export namespace Elevate
 {
 	constexpr uint32_t INVALID_ENTITY_ID = ComponentRegistry::InvalidEntity;
 
-	class GameObject : public ITransformable, public EEObject
+	class GameObject : public ITransformable, public EEObject, public IAudioObject
 	{
 	public:
 		BEGIN_OBJECT(GameObject);
@@ -61,14 +63,18 @@ export namespace Elevate
 		}
 
 		std::string GetName() const override;
-		virtual TypeLayout GetLayout() const override;
+		TypeLayout GetLayout() const override;
 
 		void SetParent(const std::weak_ptr<GameObject>& parent);
 		void Destroy();
 		void RemoveChild(const EEObjectPtr<GameObject>& child);
 
 		inline uint32_t GetEntityId() { return m_entityId; }
-		inline uint32_t GetObjectId() { return m_goId; }
+		inline uint32_t GetObjectId() override { return m_goId; }
+
+		glm::vec3& GetPosition() override { return ITransformable::GetPosition(); }
+		glm::vec3 GetUp() const override { return GetTransform().GetUp(); }
+		glm::vec3 GetForward() const override { return GetTransform().GetForward(); }
 
 		inline const bool HasChild() const { return m_childs.empty(); }
 		inline std::set<EEObjectPtr<GameObject>> GetChilds() const

@@ -1,5 +1,6 @@
 module;
 
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 #include <initializer_list>
 #include <vector>
 #include <string>
@@ -11,7 +12,6 @@ module;
 #include <map>
 #include <variant>
 
-#include <entt/entt.hpp>
 #include <glm/fwd.hpp>
 
 export module Elevate.Core.Types.TypeRegistry;
@@ -70,7 +70,6 @@ export namespace Elevate
 		bool isColor = false;
 		std::string IconPath;
 	};
-
 
 	template<typename T>
 	struct is_engine_array : std::false_type {};

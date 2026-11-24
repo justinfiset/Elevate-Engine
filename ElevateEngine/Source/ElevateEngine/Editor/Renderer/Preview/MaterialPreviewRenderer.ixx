@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <memory>
 
 export module Elevate.Editor.Renderer.MaterialPreviewRenderer;
@@ -40,7 +42,7 @@ export namespace Elevate
 			m_previewScene->SetPreviewMaterial(material);
 		}
 
-		virtual Camera& GetCamera() override
+		Camera& GetCamera() override
 		{
 			return *m_previewScene->GetCamera();
 		}

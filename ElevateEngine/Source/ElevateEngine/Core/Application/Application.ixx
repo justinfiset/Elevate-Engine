@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <memory>
 #include <optional>
 
@@ -13,7 +15,8 @@ import Elevate.Foundations.Tasks;
 // Core
 import Elevate.Core.Window;
 import Elevate.Core.Events;
-import Elevate.Core.Layers;
+import Elevate.Core.Layers.Layer;
+import Elevate.Core.Layers.LayerStack;
 import Elevate.Physics;
 
 #ifdef EE_USES_WWISE
@@ -96,7 +99,7 @@ export namespace Elevate
 		SharedService<ITaskScheduler> m_Scheduler;
 		std::unique_ptr<PhysicsSystem> m_PhysicsSystem;
 		LayerStack m_LayerStack;
-		ImGuiLayer* m_ImGuiLayer = nullptr;
+		Layer* m_ImGuiLayer = nullptr;
 
 		bool m_Running = true;
 		GameContextState m_state = Initializing;

@@ -1,5 +1,7 @@
 module;
 
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
+
 #include <string>
 
 #include "imgui.h"
@@ -49,8 +51,7 @@ void Elevate::ImGuiLayer::OnAttach()
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
 
-	Application& app = Application::Get();
-	GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
+	GLFWwindow* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 
 	// Setup Platform/Renderer bindings#
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -95,8 +96,9 @@ void Elevate::ImGuiLayer::Render()
 void Elevate::ImGuiLayer::End()
 {
 	ImGuiIO& io = ImGui::GetIO();
-	Application& app = Application::Get();
-	io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
+	io.DisplaySize = ImVec2(
+		(float)Application::Get().GetWindow().GetWidth(),
+		(float)Application::Get().GetWindow().GetHeight());
 
 	// Rendering
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

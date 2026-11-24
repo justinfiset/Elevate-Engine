@@ -1,11 +1,10 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <filesystem>
 #include <format>
 #include <functional>
-
-// Physics
-#include <ElevateEngine/Physics/Backend/Jolt/JoltPhysicsSystem.h>
 
 #ifdef EE_PLATFORM_WEB
 #include <emscripten.h>
@@ -32,6 +31,8 @@ import Elevate.Renderer.Texture;
 import Elevate.Renderer.Renderer;
 // Input
 import Elevate.Input;
+// Physics
+import Elevate.Physics.PhysicsSystem;
 // DI
 import Elevate.Foundations.DI;
 import Elevate.Core.DI;
@@ -45,6 +46,13 @@ import Elevate.Editor.DI;
 
 namespace Elevate
 {
+	namespace
+	{
+		ImGuiLayer* GetImGuiLayer(Layer* layer)
+		{
+			return static_cast<ImGuiLayer*>(layer);
+		}
+	}
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
@@ -54,6 +62,7 @@ namespace Elevate
 	{
 		Assert::That(!s_Instance, "Application already exists!");
 		s_Instance = this;
+		SetGameStateProvider([]() { return Application::GetGameState(); });
 
 		CoreLogger::Trace("Current working directory : {}", std::filesystem::current_path().string().c_str());
 		CoreLogger::Trace("Resource dir: {}", std::string(EE_RESOURCE_DIR));
@@ -72,7 +81,7 @@ namespace Elevate
 		// We need to update it each frame
 		m_Scheduler = m_Provider->Resolve<ITaskScheduler>();
 
-		m_PhysicsSystem = std::make_unique<Jolt::JoltPhysicsSystem>();
+		m_PhysicsSystem = PhysicsSystem::Create();
 		m_PhysicsSystem->Init();
 	}
 
@@ -225,16 +234,16 @@ namespace Elevate
 #endif
 
 			// imgui
-			m_ImGuiLayer->PreRender();
-			m_ImGuiLayer->Begin();
+			GetImGuiLayer(m_ImGuiLayer)->PreRender();
+			GetImGuiLayer(m_ImGuiLayer)->Begin();
 
 			for (Layer* layer : m_LayerStack)
 			{
 				layer->OnImGuiRender();
 			}
 
-			m_ImGuiLayer->Render(); // render imgui
-			m_ImGuiLayer->End();	// finish the imgui rendering
+			GetImGuiLayer(m_ImGuiLayer)->Render(); // render imgui
+			GetImGuiLayer(m_ImGuiLayer)->End();	// finish the imgui rendering
 
 			Renderer::InvalidateStateCache(); // Clear the renderer state after ImGui rendering
 			Input::ManageMidStates();		  // Manage Key/Button up and down state
@@ -275,7 +284,7 @@ namespace Elevate
 
 	void Application::Exit()
 	{
-		m_ImGuiLayer->Cleanup();
+		GetImGuiLayer(m_ImGuiLayer)->Cleanup();
 
 		SoundEngine::Terminate();
 		m_PhysicsSystem->Shutdown();

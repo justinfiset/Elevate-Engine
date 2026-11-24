@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 #include "WebFileDialog.h"
 
 #ifdef EE_PLATFORM_WEB

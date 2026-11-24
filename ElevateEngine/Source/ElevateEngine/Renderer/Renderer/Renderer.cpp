@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <string>
 #include <random>
 #include <memory>
@@ -18,9 +20,12 @@ import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Scene;
 
 import Elevate.Renderer.Cubemap;
+import Elevate.Renderer.Commands.RenderBucket;
+import Elevate.Renderer.Framebuffers;
+import Elevate.Renderer.Materials.Material;
 import Elevate.Renderer.Scene.Lighting;
 import Elevate.Renderer.Lights.Light;
-import Elevate.Renderer.Lights.DirectionalLight;
+import Elevate.Renderer.Lights.Contract;
 import Elevate.Renderer.Debug.DebugRenderer;
 
 constexpr uint32_t DEFAULT_SHADOW_RESOLUTION = 2048;
@@ -69,6 +74,12 @@ namespace Elevate
 
 	void Renderer::Init(uint32_t width, uint32_t height)
 	{
+		RenderBucket::SetDispatcher(&Renderer::Dispatch);
+		Material::SetRendererBindings(&Renderer::BindShader, &Renderer::BindTexture);
+		Framebuffer::SetRendererFunctions(&Renderer::SetViewport, &Renderer::SetClearColor, &Renderer::Clear);
+		SceneLighting::SetShaderBinder(&Renderer::BindShader);
+		Cubemap::SetRendererFunctions(&Renderer::PushRenderState, &Renderer::BindShader, &Renderer::DrawArray);
+
 		s_API = std::make_unique<OpenGLRendererAPI>();
 
 		// Create the quad to render to the screen
@@ -522,7 +533,7 @@ namespace Elevate
 		auto* dirLight = s_data.ActiveLighting->GetDirLight();
 		if (dirLight)
 		{
-			DirectionalShadowSettings settings = dirLight->m_shadowSettings;
+			const DirectionalShadowSettings& settings = dirLight->GetShadowSettings();
 
 			BindShader(s_shadowShader);
 

@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <string>
 #include <memory>
 
@@ -20,7 +22,7 @@ export module Elevate.Audio.Wwise.SoundEngine;
 
 #ifdef EE_USES_WWISE
 
-import Elevate.Core.Scene;
+import Elevate.Audio.Object;
 import Elevate.Audio.SoundEngine;
 
 export namespace Elevate
@@ -40,24 +42,24 @@ export namespace Elevate
 #endif
 
 	protected:
-		virtual bool InitImpl() override;
-		virtual void RenderAudioImpl() override;
-		virtual void TerminateImpl() override;
-		virtual void WakeUpImpl() override;
-		virtual void SuspendImpl(bool renderAnyway, bool fadeOut) override;
+		bool InitImpl() override;
+		void RenderAudioImpl() override;
+		void TerminateImpl() override;
+		void WakeUpImpl() override;
+		void SuspendImpl(bool renderAnyway, bool fadeOut) override;
 
-		virtual void SetDefaultListenerImpl(GameObject* obj) override;
-		virtual void SetDistanceProbeImpl(GameObject* obj) override;
-		virtual void UnsetDistanceProbeImpl() override;
+		void SetDefaultListenerImpl(IAudioObject* obj) override;
+		void SetDistanceProbeImpl(IAudioObject* obj) override;
+		void UnsetDistanceProbeImpl() override;
 
-		virtual void RegisterGameObjectImpl(GameObject* obj) override;
-		virtual void UnregisterGameObjectImpl(GameObject* obj) override;
-		virtual void UpdateObjectPositionImpl(GameObject* obj) override;
+		void RegisterGameObjectImpl(IAudioObject* obj) override;
+		void UnregisterGameObjectImpl(IAudioObject* obj) override;
+		void UpdateObjectPositionImpl(IAudioObject* obj) override;
 
-		virtual void PostEventImpl(const char* eventName, GameObject* object) override;
-		virtual void PostEventImpl(uint32_t eventId, GameObject* object) override;
-		virtual void PostEventImpl(const char* eventName) override;
-		virtual void PostEventImpl(uint32_t eventId) override;
+		void PostEventImpl(const char* eventName, IAudioObject* object) override;
+		void PostEventImpl(uint32_t eventId, IAudioObject* object) override;
+		void PostEventImpl(const char* eventName) override;
+		void PostEventImpl(uint32_t eventId) override;
 	private:
 		void PrepareAudio();
 

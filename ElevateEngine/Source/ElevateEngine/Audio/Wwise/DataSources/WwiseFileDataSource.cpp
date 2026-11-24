@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 #include "WwiseFileDataSource.h"
 
 #include <ElevateEngine/Audio/Wwise/WwiseItem.h>

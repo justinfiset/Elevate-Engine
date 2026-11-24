@@ -1,6 +1,6 @@
 module;
 
-#include <entt/entt.hpp>
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 
 module Elevate.Physics.PhysicsSystem;
 

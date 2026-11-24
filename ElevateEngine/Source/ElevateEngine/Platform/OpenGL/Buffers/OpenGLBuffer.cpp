@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 #include <cstdlib>
 #include <iterator>
 #include <new>

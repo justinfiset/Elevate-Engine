@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #ifdef EE_PLATFORM_MACOS
 #include <string>
 #include <sys/types.h>

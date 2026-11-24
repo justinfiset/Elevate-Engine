@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 #include "DesktopFileDialog.h"
 
 #ifndef EE_PLATFORM_WEB

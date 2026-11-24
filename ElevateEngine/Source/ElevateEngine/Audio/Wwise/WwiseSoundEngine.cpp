@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <filesystem>
 
 #include <glm/vec3.hpp>
@@ -39,8 +41,7 @@ module;
 
 module Elevate.Audio.Wwise.SoundEngine;
 
-import Elevate.Core.Scene;
-import Elevate.Core.Transform.Transform;
+import Elevate.Audio.Object;
 import Elevate.Foundations.Assert;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Audio.Wwise.WAAPI.Client;
@@ -236,7 +237,7 @@ namespace Elevate
 		AK::SoundEngine::Suspend(renderAnyway, fadeOut);
 	}
 
-	void WwiseSoundEngine::SetDefaultListenerImpl(GameObject* obj)
+	void WwiseSoundEngine::SetDefaultListenerImpl(IAudioObject* obj)
 	{
 		if (obj)
 		{
@@ -245,7 +246,7 @@ namespace Elevate
 		}
 	}
 
-	void WwiseSoundEngine::SetDistanceProbeImpl(GameObject* obj)
+	void WwiseSoundEngine::SetDistanceProbeImpl(IAudioObject* obj)
 	{
 		if (obj)
 		{
@@ -258,7 +259,7 @@ namespace Elevate
 		AK::SoundEngine::SetDistanceProbe(m_currentListenerID, m_currentListenerID);
 	}
 
-	void WwiseSoundEngine::RegisterGameObjectImpl(GameObject* obj)
+	void WwiseSoundEngine::RegisterGameObjectImpl(IAudioObject* obj)
 	{
 		if (obj)
 		{
@@ -274,7 +275,7 @@ namespace Elevate
 		}
 	}
 
-	void WwiseSoundEngine::UnregisterGameObjectImpl(GameObject* obj)
+	void WwiseSoundEngine::UnregisterGameObjectImpl(IAudioObject* obj)
 	{
 		if (obj)
 		{
@@ -283,16 +284,15 @@ namespace Elevate
 		}
 	}
 
-	void WwiseSoundEngine::UpdateObjectPositionImpl(GameObject* obj)
+	void WwiseSoundEngine::UpdateObjectPositionImpl(IAudioObject* obj)
 	{
 		if (obj)
 		{
 			const glm::vec3 objectPosition = obj->GetPosition();
 			AkGameObjectID id = obj->GetObjectId();
 
-			const Transform& transform = obj->GetTransform();
-			glm::vec3 top = glm::normalize(transform.GetUp());
-			glm::vec3 front = glm::normalize(transform.GetForward());
+			glm::vec3 top = glm::normalize(obj->GetUp());
+			glm::vec3 front = glm::normalize(obj->GetForward());
 
 			AkSoundPosition soundPosition;
 			soundPosition.SetPosition(objectPosition.x, objectPosition.y, objectPosition.z);
@@ -305,7 +305,7 @@ namespace Elevate
 		}
 	}
 
-	void WwiseSoundEngine::PostEventImpl(const char* eventName, GameObject* obj)
+	void WwiseSoundEngine::PostEventImpl(const char* eventName, IAudioObject* obj)
 	{
 		if (obj)
 		{
@@ -314,11 +314,11 @@ namespace Elevate
 		}
 		else
 		{
-			CoreLogger::Error("Error (WwiseSoundEngine::PostEventImpl) : Cannot play an event on a null GameObject.");
+			CoreLogger::Error("Error (WwiseSoundEngine::PostEventImpl) : Cannot play an event on a null IAudioObject.");
 		}
 	}
 
-	void WwiseSoundEngine::PostEventImpl(uint32_t eventId, GameObject* obj)
+	void WwiseSoundEngine::PostEventImpl(uint32_t eventId, IAudioObject* obj)
 	{
 		if (obj)
 		{
@@ -327,7 +327,7 @@ namespace Elevate
 		}
 		else
 		{
-			CoreLogger::Error("Error (WwiseSoundEngine::PostEventImpl) : Cannot play an event on a null GameObject.");
+			CoreLogger::Error("Error (WwiseSoundEngine::PostEventImpl) : Cannot play an event on a null IAudioObject.");
 		}
 	}
 

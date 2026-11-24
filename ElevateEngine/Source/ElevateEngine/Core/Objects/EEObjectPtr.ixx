@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <memory>
 #include <type_traits>
 
@@ -41,17 +43,20 @@ export namespace Elevate
 		std::shared_ptr<EEObject> ResolveAssetHelper(const Guid& guid);
 	}
 
-	class IEEObjectPtr
+	class IEEObjectPtr : public ISerializable
 	{
 	public:
-		virtual ~IEEObjectPtr() = default;
+		~IEEObjectPtr() override = default;
 
 		virtual const Guid& GetGuid() const = 0;
 		virtual void SetGuid(const Guid& guid) = 0;
 	};
 
 	template<typename T>
-	class EEObjectPtr : public IEEObjectPtr, public ISerializable
+	// Keep the object-pointer hierarchy single-chain. GCC 15 can omit
+	// non-virtual thunks for overrides in a class template instantiated from a
+	// module BMI when the overridden interface is a secondary direct base.
+	class EEObjectPtr : public IEEObjectPtr
 	{
 	private:
 		// Allow other type to interact with other's private members
@@ -106,7 +111,7 @@ export namespace Elevate
 			return m_guid;
 		}
 
-		virtual ByteBuffer Serialize() const override;
+		ByteBuffer Serialize() const override;
 		// todo : virtual void Deserialize(const ByteBuffer& data);
 
 		T* get() const

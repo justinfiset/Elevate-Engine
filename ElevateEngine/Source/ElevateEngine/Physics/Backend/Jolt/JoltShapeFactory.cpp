@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 #include "JoltShapeFactory.h"
 
 #include <Jolt/Physics/Collision/Shape/BoxShape.h>

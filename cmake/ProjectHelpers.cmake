@@ -35,7 +35,7 @@ function(ee_add_project target projectDir useSoundEngine useWaapi isTests projec
   target_link_libraries(${target} PRIVATE ElevateEngine)
   target_include_directories(${target} PRIVATE
     "${CMAKE_SOURCE_DIR}/ElevateEngine/Source"
-    "${CMAKE_SOURCE_DIR}/ElevateEngine/Vendor/entt/include"
+    "${CMAKE_SOURCE_DIR}/ElevateEngine/Vendor/entt/src"
     "${CMAKE_SOURCE_DIR}/ElevateEngine/Vendor/ImGui"
     "${CMAKE_SOURCE_DIR}/ElevateEngine/Vendor/glm"
     "${CMAKE_SOURCE_DIR}/ElevateEngine/Vendor/spdlog/include"

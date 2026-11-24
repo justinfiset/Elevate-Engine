@@ -1,3 +1,7 @@
+module;
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 export module Elevate.Foundations.Tasks;
 
 export import Elevate.Foundations.Tasks.TaskAffinity;

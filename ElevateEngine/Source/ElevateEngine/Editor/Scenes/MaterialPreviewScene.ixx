@@ -1,6 +1,6 @@
 module;
 
-#include <entt/entt.hpp>
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 #include <glm/glm.hpp>
 #include <memory>
 #include <string_view>

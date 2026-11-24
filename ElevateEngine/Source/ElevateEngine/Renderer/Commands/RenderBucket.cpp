@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <cstdint>
 #include <algorithm>
 #include <vector>
@@ -8,10 +10,15 @@ module;
 
 module Elevate.Renderer.Commands.RenderBucket;
 
-import Elevate.Renderer.Renderer;
-
 namespace Elevate
 {
+	RenderBucket::Dispatcher RenderBucket::s_dispatcher = nullptr;
+
+	void RenderBucket::SetDispatcher(Dispatcher dispatcher)
+	{
+		s_dispatcher = dispatcher;
+	}
+
 	void RenderBucket::Submit(const RenderCommand& command)
 	{
 		m_commands.push_back(command);
@@ -23,9 +30,12 @@ namespace Elevate
 		if (m_commands.empty()) return;
 
 		// Sends each command to be executed by the renderer
-		for (const auto& command : m_commands)
+		if (s_dispatcher)
 		{
-			Renderer::Dispatch(command);
+			for (const auto& command : m_commands)
+			{
+				s_dispatcher(command);
+			}
 		}
 	}
 

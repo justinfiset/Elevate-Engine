@@ -1,20 +1,32 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <string>
 #include <glm/mat4x4.hpp>
-
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
-#include <ElevateEngine/Platform/OpenGL/GLDebug.h>
 
 #include <stb/stb_image.h>
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
 
+#include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <ElevateEngine/Platform/OpenGL/GLDebug.h>
+
 module Elevate.Renderer.Cubemap;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Paths;
-import Elevate.Renderer.Renderer;
+
+Elevate::Cubemap::RenderStatePusher Elevate::Cubemap::s_pushRenderState = nullptr;
+Elevate::Cubemap::ShaderBinder Elevate::Cubemap::s_bindShader = nullptr;
+Elevate::Cubemap::ArrayDrawer Elevate::Cubemap::s_drawArray = nullptr;
+
+void Elevate::Cubemap::SetRendererFunctions(RenderStatePusher pushRenderState, ShaderBinder bindShader, ArrayDrawer drawArray)
+{
+	s_pushRenderState = pushRenderState;
+	s_bindShader = bindShader;
+	s_drawArray = drawArray;
+}
 
 Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 {
@@ -109,24 +121,29 @@ void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader) const
 	if (!shader)
 		shader = m_cubemapShader;
 
-	Renderer::PushRenderState(m_renderState);
-	Renderer::BindShader(shader);
+	if (s_pushRenderState)
+		s_pushRenderState(m_renderState);
+	if (s_bindShader)
+		s_bindShader(shader);
 
 	GLCheck(glActiveTexture(GL_TEXTURE0));
 	GLCheck(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));
 	shader->SetUniform1i("skybox", 0);
-	Renderer::DrawArray(m_VertexArray);
+	if (s_drawArray)
+		s_drawArray(m_VertexArray.get(), DrawPrimitiveType::Triangles);
 }
 
 void Elevate::Cubemap::SetProjectionMatrix(glm::mat4 proj) const
 {
-	Renderer::BindShader(m_cubemapShader);
+	if (s_bindShader)
+		s_bindShader(m_cubemapShader);
 	m_cubemapShader->SetUniformMatrix4fv("projection", proj);
 }
 
 void Elevate::Cubemap::SetViewMatrix(glm::mat4 view) const
 {
-	Renderer::BindShader(m_cubemapShader);
+	if (s_bindShader)
+		s_bindShader(m_cubemapShader);
 	m_cubemapShader->SetUniformMatrix4fv("view", view);
 }
 

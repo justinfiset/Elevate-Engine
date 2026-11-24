@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <algorithm>
 
 #define _SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING

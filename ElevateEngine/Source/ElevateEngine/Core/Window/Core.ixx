@@ -1,3 +1,7 @@
+module;
+
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
+
 export module Elevate.Core;
 
 // Dependencies

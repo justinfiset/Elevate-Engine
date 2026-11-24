@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <vector>
 #include <stack>
 #include <memory>
@@ -24,14 +26,14 @@ export namespace Elevate
 	public:
 		MacroCommand(std::vector<std::unique_ptr<Command>> &&commands) : m_commands(std::move(commands)) {}
 
-		inline virtual void Execute() override
+		inline void Execute() override
 		{
 			for (auto it = m_commands.begin(); it != m_commands.end(); ++it)
 			{
 				(*it)->Execute();
 			}
 		}
-		inline virtual void Undo() override
+		inline void Undo() override
 		{
 			for (auto it = m_commands.rbegin(); it != m_commands.rend(); ++it)
 			{

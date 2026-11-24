@@ -1,3 +1,7 @@
+module;
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 export module Elevate.Renderer.Scene.Lighting.Limits;
 
 export namespace Elevate::SceneLightingLimits

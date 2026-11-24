@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <functional>
 #include <memory>
 #include <string>
@@ -30,7 +32,9 @@ export namespace Elevate
 
 		std::function<bool()> RemoveFromGOFunc;
 
-		Component() = default;
+		// GCC 15 emits a duplicate declaration when a defaulted constructor in a
+		// module partition is read through the primary module interface.
+		Component() {}
 		virtual ~Component() = default;
 
 		// Reflection methods

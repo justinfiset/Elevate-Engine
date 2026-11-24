@@ -1,9 +1,11 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <cstdint>
 #include <memory>
 #include <unordered_map>
-#include <entt/entt.hpp>
+#include <entt/entity/registry.hpp>
 
 module Elevate.Core.Scene;
 

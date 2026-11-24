@@ -1,5 +1,7 @@
 module;
 
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
+
 #include <string>
 
 #include <glm/glm.hpp> // iwyu: keep
@@ -9,7 +11,6 @@ export module Elevate.Editor.Panels.ScenePanel;
 #ifdef EE_EDITOR_BUILD
 
 import Elevate.Editor.Widgets.Widget;
-import Elevate.Editor.Layer;
 
 namespace Elevate::Editor
 {

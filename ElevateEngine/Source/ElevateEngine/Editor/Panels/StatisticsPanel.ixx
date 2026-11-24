@@ -1,3 +1,7 @@
+module;
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 export module Elevate.Editor.Panels.StatisticsPanel;
 
 import Elevate.Editor.Widgets.Widget;

@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <memory>
 #include <cmath>
 #include <stddef.h>
@@ -10,7 +12,6 @@ module;
 module Elevate.Renderer.Meshes.Mesh;
 
 import Elevate.Renderer.Texture;
-import Elevate.Renderer.Renderer;
 import Elevate.Renderer.Buffers;
 
 namespace Elevate

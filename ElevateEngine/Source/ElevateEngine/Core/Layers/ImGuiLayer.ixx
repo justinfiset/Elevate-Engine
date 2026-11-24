@@ -1,3 +1,7 @@
+module;
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 export module Elevate.Core.Layers.ImGuiLayer;
 
 import Elevate.Core.Layers.Layer;
@@ -10,9 +14,9 @@ export namespace Elevate
 		ImGuiLayer();
 		~ImGuiLayer();
 
-		virtual void OnAttach() override;
-		virtual void OnDetach() override;
-		virtual void OnImGuiRender() override;
+		void OnAttach() override;
+		void OnDetach() override;
+		void OnImGuiRender() override;
 
 		void PreRender();
 		void Begin();

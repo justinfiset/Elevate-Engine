@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 #ifdef EE_USES_WWISE
 
 #include "WwiseMergedDataSource.h"

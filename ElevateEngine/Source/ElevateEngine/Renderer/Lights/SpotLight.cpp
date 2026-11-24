@@ -1,10 +1,15 @@
 module;
 
+#include <cstdint>
+
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
+
 #include <string>
 #include <glm/glm.hpp>
 
 module Elevate.Renderer.Lights.SpotLight;
 
+import Elevate.Core.Scene;
 import Elevate.Core.Transform.Transform;
 import Elevate.Renderer.Scene.Lighting;
 
@@ -18,12 +23,18 @@ namespace Elevate
 {
 	void SpotLight::Init()
 	{
-		GetSceneLighting(gameObject->GetScene())->AddSpotLight(this);
+		if (auto* lighting = GetSceneLighting(gameObject->GetScene()))
+		{
+			lighting->AddSpotLight(this);
+		}
 	}
 
 	void SpotLight::Destroy()
 	{
-		GetSceneLighting(gameObject->GetScene())->RemoveSpotLight(this);
+		if (auto* lighting = GetSceneLighting(gameObject->GetScene()))
+		{
+			lighting->RemoveSpotLight(this);
+		}
 	}
 
 	void SpotLight::UploadToShader(Shader* shader, uint32_t index) const

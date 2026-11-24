@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 #include "BoxCollider.h"
 
 #ifdef EE_EDITOR_BUILD

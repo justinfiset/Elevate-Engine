@@ -1,3 +1,7 @@
+module;
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 export module Elevate.Core.Assets;
 
 export import Elevate.Core.Assets.AssetMetadata;

@@ -1,6 +1,6 @@
 module;
 
-#include <entt/entt.hpp>
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 #include <memory>
 
 export module Elevate.Renderer.Camera:CameraManager;
@@ -15,7 +15,10 @@ export namespace Elevate
 		static Camera* GetCurrent();
 
 #ifdef EE_EDITOR_BUILD
+		using EditorCameraProvider = Camera* (*)();
+
 		static Camera* GetEditor();
+		static void SetEditorCameraProvider(EditorCameraProvider provider);
 #endif
 
 		static Camera* GetRuntime();
@@ -25,6 +28,9 @@ export namespace Elevate
 		static void NotifyDestruction(Camera* camera);
 
 	private:
+#ifdef EE_EDITOR_BUILD
+		static EditorCameraProvider s_editorCameraProvider;
+#endif
 		static Camera* s_currentCamera;
 	};
 }

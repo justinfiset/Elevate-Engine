@@ -1,5 +1,9 @@
 module;
 
+// GCC 15's module early-alias pass ICEs on implicit memcpy declarations
+// streamed from imported BMIs unless <cstring> is visible first.
+#include <cstring>
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <memory>
 #include <glm/glm.hpp>
 
@@ -17,7 +21,6 @@ import Elevate.Renderer.Shaders;
 import Elevate.Renderer.Texture;
 import Elevate.Renderer.Meshes.Mesh;
 import Elevate.Renderer.Materials.Material;
-import Elevate.Renderer.Renderer;
 import Elevate.Renderer.RenderState;
 import Elevate.Renderer.Commands.RenderBucketType;
 

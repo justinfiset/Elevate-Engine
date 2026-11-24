@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <glm/glm.hpp>
 #include "Reflection.h"
 
@@ -7,10 +9,11 @@ export module Elevate.Renderer.Lights.DirectionalLight;
 
 import Elevate.Core.Scene;
 import Elevate.Renderer.Lights.Light;
+import Elevate.Renderer.Lights.Contract;
 
 export namespace Elevate
 {
-	class DirectionalLight : public Light
+	class DirectionalLight : public Light, public IDirectionalLight
 	{
 	public:
 		BEGIN_COMPONENT(DirectionalLight, EditorIconTag(Editor::Resources::Icons::Light::Sun));
@@ -20,14 +23,17 @@ export namespace Elevate
 		DirectionalLight() = default;
 		DirectionalLight(const glm::vec3& color) : Light(color) {}
 
-		virtual void Init() override;
-		virtual void Destroy() override;
+		void Init() override;
+		void Destroy() override;
 
-		const glm::vec3 CalculateDirection() const;
+		const Light& GetLight() const override { return *this; }
+		glm::vec3 CalculateDirection() const override;
+		const DirectionalShadowSettings& GetShadowSettings() const override { return m_shadowSettings; }
+		glm::mat4 GetWorldMatrix() const override;
 
 #ifdef EE_EDITOR_BUILD
-		virtual void Render() override;
-		virtual void RenderWhenSelected() override;
+		void Render() override;
+		void RenderWhenSelected() override;
 		void DrawDebugDirection();
 #endif
 

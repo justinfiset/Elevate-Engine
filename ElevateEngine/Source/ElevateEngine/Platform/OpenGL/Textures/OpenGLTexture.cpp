@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 #include <cstdint>
 
 // todo put in Elevate.Foundations.Image

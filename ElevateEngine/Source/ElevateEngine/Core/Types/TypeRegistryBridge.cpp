@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 #include <ElevateEngine/Core/Types/TypeRegistryBridge.h>
 
 import Elevate.Core.Types.TypeField;

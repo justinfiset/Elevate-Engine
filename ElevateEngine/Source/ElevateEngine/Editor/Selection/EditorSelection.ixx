@@ -1,5 +1,12 @@
+module;
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+#include <memory>
+
 export module Elevate.Editor.Selection;
 
+import Elevate.Core.Objects.Object;
+import Elevate.Core.Objects.ObjectPtr;
 import Elevate.Core.Scene;
 
 export namespace Elevate::Editor
@@ -8,5 +15,6 @@ export namespace Elevate::Editor
     {
     public:
         static bool IsSelected(const GameObject *gameObject);
+        static std::weak_ptr<EEObject> GetSelectedObject();
     };
 }

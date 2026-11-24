@@ -41,3 +41,6 @@
 [submodule "ElevateEngine/Vendor/ImGuizmo"]
 	path = ElevateEngine/Vendor/ImGuizmo
 	url = https://github.com/CedricGuillemet/ImGuizmo.git
+[submodule "ElevateEngine/Vendor/entt"]
+	path = ElevateEngine/Vendor/entt
+	url = https://github.com/skypjack/entt.git

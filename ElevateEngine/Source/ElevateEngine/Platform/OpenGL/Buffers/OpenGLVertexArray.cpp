@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 #include "OpenGLVertexArray.h"
 
 #include <ElevateEngine/Renderer/GraphicsAPI.h>

@@ -1,5 +1,7 @@
 module;
 
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
+
 #include <cstdint>
 #include <vector>
 
@@ -13,6 +15,10 @@ export namespace Elevate
 	class RenderBucket
 	{
 	public:
+		using Dispatcher = void (*)(const RenderCommand&);
+
+		static void SetDispatcher(Dispatcher dispatcher);
+
 		void Submit(const RenderCommand& command);
 		void Sort();
 		void Flush() const;
@@ -26,6 +32,9 @@ export namespace Elevate
 
 		std::vector<RenderCommand>::const_iterator begin() const { return m_commands.begin(); }
 		std::vector<RenderCommand>::const_iterator end() const { return m_commands.end(); }
+
+	private:
+		static Dispatcher s_dispatcher;
 
 	protected:
 		std::vector<RenderCommand> m_commands;

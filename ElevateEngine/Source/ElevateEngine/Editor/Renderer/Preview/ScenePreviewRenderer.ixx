@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <memory>
 
 export module Elevate.Editor.Renderer.ScenePreviewRenderer;
@@ -8,7 +10,6 @@ export module Elevate.Editor.Renderer.ScenePreviewRenderer;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Services;
 // Core
-import Elevate.Core.Application;
 import Elevate.Core.Scene;
 import Elevate.Core.Assets.Asset;
 // Renderer
@@ -23,14 +24,26 @@ export namespace Elevate
 	class ScenePreviewRenderer : public AssetPreviewRenderer
 	{
 	public:
+		using SceneManagerProvider = std::shared_ptr<SceneManager> (*)();
+
 		virtual ~ScenePreviewRenderer() = default;
+
+		static void SetSceneManagerProvider(SceneManagerProvider provider)
+		{
+			s_sceneManagerProvider = provider;
+		}
 
 		virtual void Render(const std::shared_ptr<Asset>& asset, Framebuffer& target)
 		{
 			if (!m_isSceneInitialized)
 			{
-				auto sceneManager = Application::Get().GetServices().Resolve<SceneManager>();
-				InitScene(sceneManager);
+				if (!s_sceneManagerProvider)
+				{
+					CoreLogger::Error("ScenePreviewRenderer: SceneManager provider is not set.");
+					return;
+				}
+
+				InitScene(s_sceneManagerProvider());
 				m_isSceneInitialized = true;
 			}
 
@@ -55,6 +68,7 @@ export namespace Elevate
 		std::shared_ptr<Scene> m_scene;
 
 	private:
+		inline static SceneManagerProvider s_sceneManagerProvider = nullptr;
 		bool m_isSceneInitialized = false;
 	};
 }

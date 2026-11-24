@@ -1,12 +1,12 @@
 module;
 
+#include <ElevateEngine/Core/Scene/SceneEnTTOperators.h>
 #include <cstdlib>
 #include <memory>
 #include <format>
 
 #include "imgui.h"
 #include <glm/glm.hpp>
-#include <entt/entt.hpp>
 
 module Elevate.Editor.Layer;
 
@@ -33,6 +33,7 @@ import Elevate.Input;
 // Editor
 import Elevate.Editor.Camera;
 import Elevate.Editor.Commands.GameobjectCommand;
+import Elevate.Editor.Renderer.ScenePreviewRenderer;
 import Elevate.Editor.Theme;
 import Elevate.Editor.Resources;
 // Panels
@@ -51,6 +52,10 @@ namespace Elevate::Editor
 	EditorLayer::EditorLayer()
 	{
 		s_Instance = this;
+		CameraManager::SetEditorCameraProvider([]() -> Camera* { return EditorLayer::Get().GetCamera(); });
+		ScenePreviewRenderer::SetSceneManagerProvider([]() -> std::shared_ptr<SceneManager> {
+			return Application::Get().GetServices().Resolve<SceneManager>();
+		});
 		m_playTexture = Texture::CreateFromFile(Resources::Icons::Light::Colored::Play);
 		m_pauseTexture = Texture::CreateFromFile(Resources::Icons::Light::Pause);
 		m_stopTexture = Texture::CreateFromFile(Resources::Icons::Light::Stop);

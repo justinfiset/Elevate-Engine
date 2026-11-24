@@ -1,3 +1,5 @@
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
+
 // Keep every textual include before the first module import. Some headers in
 // this project import modules themselves, and newer MSVC versions diagnose
 // standard-library headers included after an import. Jolt.h must come first
@@ -7,6 +9,7 @@
 
 #include <cstdarg>
 #include <cstdio>
+#include <memory>
 
 #include <Jolt/Core/Factory.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
@@ -19,11 +22,23 @@
 
 #include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
 #include <ElevateEngine/Physics/Public/Colliders/Collider.h>
+#include <ElevateEngine/Physics/Public/PhysicsBackend.h>
 #include "JoltPhysicsSystem.h"
 
 import Elevate.Foundations.CoreLogger;
-import Elevate.Core.Application;
+import Elevate.Core.Application.GameContext;
 import Elevate.Core.Transform.Transform;
+import Elevate.Physics.PhysicsSystem;
+
+namespace Elevate
+{
+	void RegisterPhysicsSystemBackend()
+	{
+		PhysicsSystem::SetFactory([]() -> std::unique_ptr<PhysicsSystem> {
+			return std::make_unique<Jolt::JoltPhysicsSystem>();
+		});
+	}
+}
 
 namespace Elevate::Jolt
 {
@@ -123,7 +138,7 @@ namespace Elevate::Jolt
 
 	void JoltPhysicsSystem::Update(float deltaTime)
 	{
-		if (Application::GetGameState() == GameContextState::Runtime)
+		if (GetGameState() == GameContextState::Runtime)
 		{
 			constexpr float PHYSICS_TIMESTEP = 1.0f / 30.0f;
 

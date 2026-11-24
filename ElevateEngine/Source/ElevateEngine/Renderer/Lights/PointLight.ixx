@@ -1,5 +1,7 @@
 module;
 
+
+#include <ElevateEngine/Core/Scene/SceneEnTTADL.h>
 #include <glm/glm.hpp>
 #include "Reflection.h"
 
@@ -8,10 +10,11 @@ export module Elevate.Renderer.Lights.PointLight;
 import Elevate.Core.Scene;
 import Elevate.Renderer.Shaders;
 import Elevate.Renderer.Lights.Light;
+import Elevate.Renderer.Lights.Contract;
 
 export namespace Elevate
 {
-	class PointLight : public Light
+	class PointLight : public Light, public IPointLight
 	{
 		BEGIN_COMPONENT(PointLight, EditorIconTag(Editor::Resources::Icons::Light::Lightbulb));
 		DECLARE_BASE(Light);
@@ -20,13 +23,13 @@ export namespace Elevate
 		PointLight() = default;
 		PointLight(const glm::vec3& color) : Light(color) {}
 
-		virtual void Init() override;
-		virtual void Destroy() override;
+		void Init() override;
+		void Destroy() override;
 
-		void UploadToShader(Shader* shader, uint32_t index) const;
+		void UploadToShader(Shader* shader, uint32_t index) const override;
 
 #ifdef EE_EDITOR_BUILD
-		virtual void Render() override;
+		void Render() override;
 #endif
 
 		LightAttenuation m_attenuation;
