@@ -3,6 +3,11 @@ module;
 #include <cfloat>
 #include <cmath>
 
+// EnTT iterator operators must be visible in the global module when inline
+// Scene code is instantiated here; they otherwise stay attached to a module
+// BMI and are not found by ADL.
+#include <entt/entt.hpp>
+
 module Elevate.Renderer.Lights.Light;
 
 namespace Elevate
