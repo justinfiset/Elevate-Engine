@@ -5,7 +5,8 @@ module;
 
 export module Elevate.Renderer.Lights.PointLight;
 
-import Elevate.Core.Scene;
+// Light already imports Elevate.Core.Scene.  Importing it here as well makes
+// GCC 15 load the Scene BMI twice and duplicate Component's declarations.
 import Elevate.Renderer.Shaders;
 import Elevate.Renderer.Lights.Light;
 
