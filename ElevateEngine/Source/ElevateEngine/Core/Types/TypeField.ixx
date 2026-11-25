@@ -2,8 +2,10 @@ module;
 
 #include <cstdint>
 #include <functional>
+#include <map>
 #include <string>
 #include <typeindex>
+#include <unordered_map>
 #include <vector>
 
 export module Elevate.Core.Types.TypeField;
@@ -133,4 +135,9 @@ export namespace Elevate
 			return !children.empty() || type == EngineDataType::Array;
 		}
 	};
+
+	// Reflection storage lives here so TypeField implementation units never have
+	// to import TypeRegistry, which already imports TypeField.
+	std::unordered_map<const char*, std::type_index>& GetTypeIndexes();
+	std::map<std::type_index, std::vector<TypeField>>& GetReflectedTypes();
 }

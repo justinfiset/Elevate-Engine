@@ -198,8 +198,7 @@ export namespace Elevate
 
 		static std::unordered_map<const char*, std::type_index>& GetTypeIndexes()
 		{
-			static std::unordered_map<const char*, std::type_index> entries;
-			return entries;
+			return Elevate::GetTypeIndexes();
 		}
 
 		static Entry& GetEntry(std::type_index id)
@@ -245,8 +244,7 @@ export namespace Elevate
 
 		static std::map<std::type_index, std::vector<TypeField>>& GetReflectedTypes()
 		{
-			static std::map<std::type_index, std::vector<TypeField>> m_customComponentFields;
-			return m_customComponentFields;
+			return Elevate::GetReflectedTypes();
 		}
 
 		template<typename T>

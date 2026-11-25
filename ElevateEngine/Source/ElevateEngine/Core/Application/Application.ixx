@@ -97,7 +97,6 @@ export namespace Elevate
 		SharedService<ITaskScheduler> m_Scheduler;
 		std::unique_ptr<PhysicsSystem> m_PhysicsSystem;
 		LayerStack m_LayerStack;
-		Layer* m_ImGuiLayer = nullptr;
 
 		bool m_Running = true;
 		GameContextState m_state = Initializing;

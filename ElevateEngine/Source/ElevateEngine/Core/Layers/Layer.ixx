@@ -20,8 +20,11 @@ export namespace Elevate
 		virtual void OnUpdate() {}
 		virtual void OnRender() {}
 		virtual void OnImGuiRender() {}
+		virtual void OnImGuiRenderBegin() {}
+		virtual void OnImGuiRenderEnd() {}
 
 		virtual void OnEvent(Event& event) {}
+		virtual void Cleanup() {}
 
 		inline const std::string& GetName() const { return m_DebugName; }
 

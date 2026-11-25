@@ -15,12 +15,9 @@ export namespace Elevate
 		void OnAttach() override;
 		void OnDetach() override;
 		void OnImGuiRender() override;
-
-		void PreRender();
-		void Begin();
-		void Render();
-		void End();
-		void Cleanup();
+		void OnImGuiRenderBegin() override;
+		void OnImGuiRenderEnd() override;
+		void Cleanup() override;
 
 	private:
 		float m_Time = 0.0f;

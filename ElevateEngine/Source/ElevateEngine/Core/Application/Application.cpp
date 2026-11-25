@@ -36,14 +36,6 @@ import Elevate.Editor.DI;
 
 namespace Elevate
 {
-	namespace
-	{
-		ImGuiLayer* GetImGuiLayer(Layer* layer)
-		{
-			return static_cast<ImGuiLayer*>(layer);
-		}
-	}
-
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 	Application* Application::s_Instance = nullptr;
@@ -172,8 +164,7 @@ namespace Elevate
 	{
 		OnCreateLayers();
 
-		m_ImGuiLayer = new ImGuiLayer();
-		PushOverlay(m_ImGuiLayer);
+		PushOverlay(new ImGuiLayer());
 
 #ifdef EE_EDITOR_BUILD
 		PushOverlay(new Editor::EditorLayer());
@@ -224,16 +215,20 @@ namespace Elevate
 #endif
 
 			// imgui
-			GetImGuiLayer(m_ImGuiLayer)->PreRender();
-			GetImGuiLayer(m_ImGuiLayer)->Begin();
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnImGuiRenderBegin();
+			}
 
 			for (Layer* layer : m_LayerStack)
 			{
 				layer->OnImGuiRender();
 			}
 
-			GetImGuiLayer(m_ImGuiLayer)->Render();
-			GetImGuiLayer(m_ImGuiLayer)->End();
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnImGuiRenderEnd();
+			}
 
 			Renderer::InvalidateStateCache(); // Clear the renderer state after ImGui rendering
 			Input::ManageMidStates();		  // Manage Key/Button up and down state
@@ -274,7 +269,10 @@ namespace Elevate
 
 	void Application::Exit()
 	{
-		GetImGuiLayer(m_ImGuiLayer)->Cleanup();
+		for (Layer* layer : m_LayerStack)
+		{
+			layer->Cleanup();
+		}
 
 		SoundEngine::Terminate();
 		m_PhysicsSystem->Shutdown();

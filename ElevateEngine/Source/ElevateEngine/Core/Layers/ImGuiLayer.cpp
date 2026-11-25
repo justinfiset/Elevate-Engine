@@ -72,27 +72,19 @@ void Elevate::ImGuiLayer::OnImGuiRender()
 {
 }
 
-void Elevate::ImGuiLayer::PreRender()
+void Elevate::ImGuiLayer::OnImGuiRenderBegin()
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
-}
 
-void Elevate::ImGuiLayer::Begin()
-{
-	// ImGui
 	ImGui::NewFrame();
-	// ImGuizmo
 	ImGuizmo::BeginFrame();
 }
 
-void Elevate::ImGuiLayer::Render()
+void Elevate::ImGuiLayer::OnImGuiRenderEnd()
 {
 	ImGui::Render();
-}
 
-void Elevate::ImGuiLayer::End()
-{
 	ImGuiIO& io = ImGui::GetIO();
 	io.DisplaySize = ImVec2(
 		(float)Application::Get().GetWindow().GetWidth(),
