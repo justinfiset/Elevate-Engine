@@ -6,7 +6,12 @@ module;
 #include <string>
 #include <filesystem>
 
-#include <ElevateEngine/Renderer/Models/AssimpFwd.h>
+// Opaque Assimp declarations for this module interface. Including the real
+// Assimp headers here exposes TU-local inline helpers on GCC.
+struct aiMaterial;
+struct aiMesh;
+struct aiNode;
+struct aiScene;
 
 #include "Reflection.h"
 

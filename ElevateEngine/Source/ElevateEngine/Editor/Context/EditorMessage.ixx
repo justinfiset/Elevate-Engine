@@ -3,10 +3,13 @@ module;
 #include <chrono>
 #include <cstdint>
 #include <string>
+#include <utility>
 
 #include <glm/vec4.hpp>
 
 export module Elevate.Editor.Message;
+
+import Elevate.Editor.Colors;
 
 export namespace Elevate
 {
@@ -30,8 +33,22 @@ export namespace Elevate
 			/** The message type for this message */
 			Type type;
 
-			EditorMessage(std::string message, Type type);
-			glm::vec4 GetColor() const;
+			EditorMessage(std::string message, Type type)
+				: message(std::move(message)), timestamp(std::chrono::system_clock::now()), type(type) {
+			}
+
+			glm::vec4 GetColor() const
+			{
+				switch (type)
+				{
+				case Error:       return Colors::Error();
+				case Warning:     return Colors::Warning();
+				case Message:     return Colors::Message();
+				case Success:     return Colors::Success();
+				case Information: return Colors::Information();
+				}
+				return Colors::Information();
+			}
 		};
 	}
 }
