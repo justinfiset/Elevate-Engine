@@ -14,6 +14,10 @@ import Elevate.Renderer.Buffers;
 
 namespace Elevate
 {
+	MeshData::MeshData() = default;
+
+	Mesh::Mesh() = default;
+
 	Mesh::Mesh(const MeshData& data)
 		: m_data(data)
 	{

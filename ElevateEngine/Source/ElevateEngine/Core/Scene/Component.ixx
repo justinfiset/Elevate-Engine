@@ -30,9 +30,7 @@ export namespace Elevate
 
 		std::function<bool()> RemoveFromGOFunc;
 
-		// GCC 15 emits a duplicate declaration when a defaulted constructor in a
-		// module partition is read through the primary module interface.
-		Component() {}
+		Component();
 		virtual ~Component() = default;
 
 		// Reflection methods

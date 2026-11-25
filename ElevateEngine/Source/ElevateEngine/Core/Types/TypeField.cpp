@@ -1,21 +1,25 @@
 module;
 
-#include <cstddef>
-#include <span>
 #include <typeindex>
 #include <typeinfo>
 #include <vector>
 
-#include <ElevateEngine/Core/Types/TypeRegistryBridge.h>
-
-module Elevate.Core.Types.TypeField;
+import Elevate.Core.Types.TypeField;
+import Elevate.Core.Types.TypeRegistry;
 
 namespace Elevate
 {
-	std::type_index Elevate::TypeField::GetTargetType() const
+	std::type_index TypeField::GetTargetType() const
 	{
-		const auto* typeIndex = Internal::FindTypeIndex(targetTypeKey);
-		return typeIndex ? *typeIndex : typeid(void);
+		auto& types = TypeRegistry::GetTypeIndexes();
+		const auto it = types.find(targetTypeKey);
+
+		if (it == types.end())
+		{
+			return typeid(void);
+		}
+
+		return it->second;
 	}
 
 	void TypeField::UseInstance(const void* instancePtr)
@@ -27,7 +31,6 @@ namespace Elevate
 			return;
 		}
 
-		// If we are in the presence of a pointer, adjust the child fields with the right adress
 		const void* pointeeData = GetPointee(data);
 		const auto pointeeType = GetPointeeTypeIndex(data);
 
@@ -39,12 +42,14 @@ namespace Elevate
 			allFields.push_back(child);
 		}
 
-		const auto reflectedFields = Internal::GetReflectedFieldData(pointeeType);
+		auto& reflectedTypes = TypeRegistry::GetReflectedTypes();
+		const auto reflectedIt = reflectedTypes.find(pointeeType);
 
-		if (!reflectedFields.empty())
+		if (reflectedIt != reflectedTypes.end())
 		{
-			const auto* fields = reinterpret_cast<const TypeField*>(reflectedFields.data());
-			pointeeTypeField.assign(fields, fields + reflectedFields.size());
+			const auto& fields = reflectedIt->second;
+			const auto* fieldData = reinterpret_cast<const TypeField*>(fields.data());
+			pointeeTypeField.assign(fieldData, fieldData + fields.size());
 		}
 
 		for (const auto& pointeeField : pointeeTypeField)

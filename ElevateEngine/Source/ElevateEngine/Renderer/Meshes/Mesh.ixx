@@ -19,7 +19,7 @@ export namespace Elevate
 		std::vector<uint32_t> Indices;
 		std::vector<std::shared_ptr<Texture>> Textures;
 
-		MeshData() {}
+		MeshData();
 		MeshData(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices, const std::vector<std::shared_ptr<Texture>>& textures)
 			: Vertices(vertices), Indices(indices), Textures(textures) {
 		}
@@ -40,7 +40,7 @@ export namespace Elevate
 
 	class Mesh {
 	public:
-		Mesh() {}
+		Mesh();
 		Mesh(const MeshData& data);
 		Mesh(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices, const std::vector<std::shared_ptr<Texture>>& textures);
 

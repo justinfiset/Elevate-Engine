@@ -1,0 +1,83 @@
+file(GLOB_RECURSE assimp_sources LIST_DIRECTORIES false
+  "${VENDOR_DIR}/assimp/contrib/unzip/*"
+  "${VENDOR_DIR}/assimp/contrib/irrXML/*"
+  "${VENDOR_DIR}/assimp/code/Common/*"
+  "${VENDOR_DIR}/assimp/code/PostProcessing/*"
+  "${VENDOR_DIR}/assimp/code/Material/*"
+  "${VENDOR_DIR}/assimp/code/CApi/*"
+  "${VENDOR_DIR}/assimp/code/Geometry/*"
+  "${VENDOR_DIR}/assimp/code/AssetLib/IQM/*"
+  "${VENDOR_DIR}/assimp/code/AssetLib/Collada/*"
+  "${VENDOR_DIR}/assimp/code/AssetLib/Obj/*"
+  "${VENDOR_DIR}/assimp/code/AssetLib/Blender/*"
+  "${VENDOR_DIR}/assimp/contrib/poly2tri/poly2tri/*"
+  "${VENDOR_DIR}/assimp/code/AssetLib/FBX/*"
+  "${VENDOR_DIR}/assimp/code/glTF2/*"
+  "${VENDOR_DIR}/assimp/code/glTF/*"
+)
+file(GLOB assimp_zlib_sources LIST_DIRECTORIES false "${VENDOR_DIR}/assimp/contrib/zlib/*")
+list(APPEND assimp_sources ${assimp_zlib_sources})
+list(FILTER assimp_sources INCLUDE REGEX "\\.(c|cc|cpp|h|hpp|inl)$")
+add_library(assimp STATIC ${assimp_sources})
+target_include_directories(assimp PUBLIC
+  "${VENDOR_DIR}/_config_headers"
+  "${VENDOR_DIR}/_config_headers/assimp"
+  "${VENDOR_DIR}/assimp/include"
+  "${VENDOR_DIR}/assimp"
+  "${VENDOR_DIR}/assimp/contrib"
+  "${VENDOR_DIR}/assimp/contrib/irrXML"
+  "${VENDOR_DIR}/assimp/contrib/unzip"
+  "${VENDOR_DIR}/assimp/contrib/rapidjson/include"
+  "${VENDOR_DIR}/assimp/contrib/pugixml/src"
+  "${VENDOR_DIR}/assimp/contrib/zlib"
+  "${VENDOR_DIR}/assimp/contrib/utf8cpp/source"
+  "${VENDOR_DIR}/assimp/code"
+)
+target_compile_definitions(assimp PUBLIC ASSIMP_BUILD_STATIC RAPIDJSON_HAS_STDSTRING=1)
+# Only the importers used by the engine are compiled.
+target_compile_definitions(assimp PRIVATE
+  ASSIMP_BUILD_NO_3D_IMPORTER ASSIMP_BUILD_NO_3DS_IMPORTER ASSIMP_BUILD_NO_3MF_IMPORTER
+  ASSIMP_BUILD_NO_AC_IMPORTER ASSIMP_BUILD_NO_AMF_IMPORTER ASSIMP_BUILD_NO_ASE_IMPORTER
+  ASSIMP_BUILD_NO_USD_IMPORTER ASSIMP_BUILD_NO_PBRT_IMPORTER ASSIMP_BUILD_NO_ASSBIN_IMPORTER
+  ASSIMP_BUILD_NO_B3D_IMPORTER ASSIMP_BUILD_NO_BLEND_IMPORTER ASSIMP_BUILD_NO_BVH_IMPORTER
+  ASSIMP_BUILD_NO_C4D_IMPORTER ASSIMP_BUILD_NO_COB_IMPORTER ASSIMP_BUILD_NO_COLLADA_IMPORTER
+  ASSIMP_BUILD_NO_CSM_IMPORTER ASSIMP_BUILD_NO_DXF_IMPORTER ASSIMP_BUILD_NO_GLTF_IMPORTER
+  ASSIMP_BUILD_NO_HMP_IMPORTER ASSIMP_BUILD_NO_IFC_IMPORTER ASSIMP_BUILD_NO_IRR_IMPORTER
+  ASSIMP_BUILD_NO_IRRMESH_IMPORTER ASSIMP_BUILD_NO_LWO_IMPORTER ASSIMP_BUILD_NO_LWS_IMPORTER
+  ASSIMP_BUILD_NO_M3D_IMPORTER ASSIMP_BUILD_NO_MD2_IMPORTER ASSIMP_BUILD_NO_MD3_IMPORTER
+  ASSIMP_BUILD_NO_MD5_IMPORTER ASSIMP_BUILD_NO_MDC_IMPORTER ASSIMP_BUILD_NO_MDL_IMPORTER
+  ASSIMP_BUILD_NO_MMD_IMPORTER ASSIMP_BUILD_NO_MS3D_IMPORTER ASSIMP_BUILD_NO_NDO_IMPORTER
+  ASSIMP_BUILD_NO_NFF_IMPORTER ASSIMP_BUILD_NO_OFF_IMPORTER ASSIMP_BUILD_NO_OGRE_IMPORTER
+  ASSIMP_BUILD_NO_OPENGEX_IMPORTER ASSIMP_BUILD_NO_PLY_IMPORTER ASSIMP_BUILD_NO_Q3BSP_IMPORTER
+  ASSIMP_BUILD_NO_Q3D_IMPORTER ASSIMP_BUILD_NO_RAW_IMPORTER ASSIMP_BUILD_NO_SIB_IMPORTER ASSIMP_BUILD_NO_SMD_IMPORTER
+  ASSIMP_BUILD_NO_STEP_IMPORTER ASSIMP_BUILD_NO_STL_IMPORTER ASSIMP_BUILD_NO_TERRAGEN_IMPORTER
+  ASSIMP_BUILD_NO_X_IMPORTER ASSIMP_BUILD_NO_X3D_IMPORTER ASSIMP_BUILD_NO_XGL_IMPORTER
+  ASSIMP_BUILD_NO_COLLADA_EXPORTER ASSIMP_BUILD_NO_X_EXPORTER ASSIMP_BUILD_NO_STEP_EXPORTER
+  ASSIMP_BUILD_NO_OBJ_EXPORTER ASSIMP_BUILD_NO_STL_EXPORTER ASSIMP_BUILD_NO_PLY_EXPORTER
+  ASSIMP_BUILD_NO_3DS_EXPORTER ASSIMP_BUILD_NO_GLTF_EXPORTER ASSIMP_BUILD_NO_ASSBIN_EXPORTER
+  ASSIMP_BUILD_NO_ASSXML_EXPORTER ASSIMP_BUILD_NO_X3D_EXPORTER ASSIMP_BUILD_NO_FBX_EXPORTER
+  ASSIMP_BUILD_NO_M3D_EXPORTER ASSIMP_BUILD_NO_3MF_EXPORTER ASSIMP_BUILD_NO_ASSJSON_EXPORTER
+  ASSIMP_BUILD_NO_USD_EXPORTER ASSIMP_BUILD_NO_PBRT_EXPORTER
+)
+if(EMSCRIPTEN)
+  target_compile_definitions(assimp PRIVATE HAVE_UNISTD_H)
+  ee_web_compile_settings(assimp)
+  foreach(source IN LISTS assimp_sources)
+    if(source MATCHES "/poly2tri/.*\\.cc$")
+      set_property(SOURCE "${source}" APPEND PROPERTY COMPILE_OPTIONS "-include" "ostream")
+    endif()
+  endforeach()
+elseif(UNIX)
+  foreach(source IN LISTS assimp_sources)
+    if(source MATCHES "/contrib/zlib/")
+      set_property(SOURCE "${source}" APPEND PROPERTY COMPILE_OPTIONS "-include" "unistd.h")
+    endif()
+  endforeach()
+endif()
+set_target_properties(assimp PROPERTIES CXX_STANDARD 17 POSITION_INDEPENDENT_CODE ON)
+if(MSVC)
+  target_compile_options(assimp PRIVATE /W0)
+else()
+  target_compile_options(assimp PRIVATE -w)
+endif()
+ee_setup_outputs(assimp)

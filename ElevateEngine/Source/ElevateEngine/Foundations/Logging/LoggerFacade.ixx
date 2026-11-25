@@ -75,8 +75,6 @@ export namespace Elevate
 				}
 			}
 
-			// Conditional Logging
-
 			template<typename... Args>
 			static void CTrace(bool condition, fmt::format_string<Args...> format, Args&&... args)
 			{

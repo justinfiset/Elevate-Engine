@@ -2,7 +2,6 @@ ElevateEngine/Source/ElevateEngine/Audio/Ak
 
 compile_commands
 
-# Generated resource modules
 /ElevateEngine/Source/ElevateEngine/Editor/Generated/EditorResources_generated.ixx
 /ElevateEngine/Source/ElevateEngine/Core/Generated/EngineResources_generated.ixx
 

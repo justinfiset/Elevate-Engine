@@ -18,7 +18,7 @@ import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Services;
 import Elevate.Foundations.Tasks;
 
-import Elevate.Core.Application; // Used to resolve services
+import Elevate.Core.Application;
 
 namespace Elevate {
 	TextureManager::TextureManager()

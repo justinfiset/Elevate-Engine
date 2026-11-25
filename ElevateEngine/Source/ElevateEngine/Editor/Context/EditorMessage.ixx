@@ -26,11 +26,8 @@ export namespace Elevate
 				Information
 			};
 
-			/** The message content */
 			std::string message;
-			/** The time at wich this EditorMessage was created */
 			std::chrono::system_clock::time_point timestamp;
-			/** The message type for this message */
 			Type type;
 
 			EditorMessage(std::string message, Type type)

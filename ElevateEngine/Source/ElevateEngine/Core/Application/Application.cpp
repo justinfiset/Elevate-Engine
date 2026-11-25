@@ -10,33 +10,25 @@ module;
 
 module Elevate.Core.Application;
 
-// Foundations
 import Elevate.Foundations.Time;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
 import Elevate.Foundations.Paths;
-// Core
 import Elevate.Core.Assets.AssetRegistry;
 import Elevate.Core.Layers.Layer;
 import Elevate.Core.Layers.ImGuiLayer;
 import Elevate.Core.Layers.LayerStack;
 import Elevate.Core.Window;
 import Elevate.Core.Events;
-// Audio
 import Elevate.Audio.SoundEngine;
-// Renderer
 import Elevate.Renderer.Texture;
 import Elevate.Renderer.Renderer;
-// Input
 import Elevate.Input;
-// Physics
 import Elevate.Physics.PhysicsSystem;
-// DI
 import Elevate.Foundations.DI;
 import Elevate.Core.DI;
 import Elevate.Renderer.DI;
 
-// Editor
 #ifdef EE_EDITOR_BUILD
 import Elevate.Editor.Layer;
 import Elevate.Editor.DI;
@@ -240,8 +232,8 @@ namespace Elevate
 				layer->OnImGuiRender();
 			}
 
-			GetImGuiLayer(m_ImGuiLayer)->Render(); // render imgui
-			GetImGuiLayer(m_ImGuiLayer)->End();	// finish the imgui rendering
+			GetImGuiLayer(m_ImGuiLayer)->Render();
+			GetImGuiLayer(m_ImGuiLayer)->End();
 
 			Renderer::InvalidateStateCache(); // Clear the renderer state after ImGui rendering
 			Input::ManageMidStates();		  // Manage Key/Button up and down state
