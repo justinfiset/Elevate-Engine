@@ -1,8 +1,11 @@
 #pragma once
-#include "Collider.h"
 
-#include <ElevateEngine/Physics/Public/Shapes/SphereShape.h>
+// Keep every textual include before Collider.h: Collider.h imports modules,
+// and GCC reprocesses standard headers included after an import.
 #include "Reflection.h"
+#include <ElevateEngine/Physics/Public/Shapes/SphereShape.h>
+
+#include "Collider.h"
 
 namespace Elevate
 {

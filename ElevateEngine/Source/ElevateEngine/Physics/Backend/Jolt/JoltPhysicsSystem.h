@@ -1,7 +1,5 @@
 #pragma once
 
-#include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
-
 #include <cstdint>
 #include <vector>
 
@@ -10,6 +8,10 @@
 #include <Jolt/Core/TempAllocator.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
 
+// Rigidbody.h imports a module, so it stays after every textual include.
+#include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
+
+import Elevate.Core.Scene;
 import Elevate.Physics.PhysicsSystem;
 
 namespace Elevate::Jolt
@@ -88,9 +90,9 @@ namespace Elevate::Jolt
 		void Update(float deltaTime) override;
 
 		virtual void FlushAllBodies() override;
-		virtual void AddRigidbody(const Rigidbody* rigidbody) override;
-		virtual void RemoveRigidbody(const Rigidbody* rigidbody) override;
-		virtual void RebuildRigidbody(const Rigidbody* rigidbody) override;
+		virtual void AddRigidbody(const Component* rigidbody) override;
+		virtual void RemoveRigidbody(const Component* rigidbody) override;
+		virtual void RebuildRigidbody(const Component* rigidbody) override;
 
 	private:
 		/// <summary>

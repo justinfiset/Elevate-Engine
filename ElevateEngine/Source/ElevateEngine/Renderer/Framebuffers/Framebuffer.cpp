@@ -3,8 +3,6 @@ module;
 #include <memory>
 #include <vector>
 
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
-
 module Elevate.Renderer.Framebuffers;
 
 import Elevate.Foundations.CoreLogger;

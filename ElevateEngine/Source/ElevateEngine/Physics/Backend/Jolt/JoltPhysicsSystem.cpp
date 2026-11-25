@@ -1,33 +1,43 @@
 
-// Keep every textual include before the first module import. Some headers in
-// this project import modules themselves, and newer MSVC versions diagnose
-// standard-library headers included after an import. Jolt.h must come first
-// because it defines the platform and compiler macros used by every other
-// Jolt header.
+// Keep every textual include before the first module import. Project headers
+// that import modules are grouped last; their own textual dependencies are
+// included above, so GCC does not reprocess standard/Jolt headers after an
+// import. Jolt.h must come first because it defines the platform and compiler
+// macros used by every other Jolt header.
 #include <Jolt/Jolt.h>
 
+#include <algorithm>
 #include <cstdarg>
+#include <cstdint>
 #include <cstdio>
 #include <memory>
+#include <vector>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 #include <Jolt/Core/Factory.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
 #include <Jolt/Core/Memory.h>
+#include <Jolt/Core/TempAllocator.h>
 #include <Jolt/RegisterTypes.h>
 #include <Jolt/Physics/Collision/Shape/StaticCompoundShape.h>
 #include <Jolt/Physics/Body/BodyCreationSettings.h>
 
-#include "JoltShapeFactory.h"
+#include <ElevateEngine/Physics/Public/PhysicsBackend.h>
 
+// Import-bearing headers last.
+#include "JoltShapeFactory.h"
 #include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
 #include <ElevateEngine/Physics/Public/Colliders/Collider.h>
-#include <ElevateEngine/Physics/Public/PhysicsBackend.h>
 #include "JoltPhysicsSystem.h"
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Application.GameContext;
 import Elevate.Core.Transform.Transform;
+import Elevate.Physics.Collider;
 import Elevate.Physics.PhysicsSystem;
+import Elevate.Physics.Rigidbody;
 
 namespace Elevate
 {
@@ -200,8 +210,10 @@ namespace Elevate::Jolt
 		m_Bodies.clear();
 	}
 
-	void JoltPhysicsSystem::AddRigidbody(const Rigidbody* rigidbody)
+	void JoltPhysicsSystem::AddRigidbody(const Component* rigidbodyComponent)
 	{
+		const auto* rigidbody = static_cast<const Rigidbody*>(rigidbodyComponent);
+
 		JPH::StaticCompoundShapeSettings compoundSettings;
 		const auto& position = rigidbody->gameObject->GetPosition();
 		const auto& quat = rigidbody->gameObject->GetTransform().GetRotationQuat();
@@ -212,8 +224,9 @@ namespace Elevate::Jolt
 			return;
 		}
 
-		for (const auto& collider : colliders)
+		for (const auto* colliderComponent : colliders)
 		{
+			const auto* collider = static_cast<const Collider*>(colliderComponent);
 			auto shapeResult = JoltShapeFactory::Create(collider);
 
 			if (!shapeResult)
@@ -261,8 +274,10 @@ namespace Elevate::Jolt
 		m_Bodies.push_back(joltBody);
 	}
 
-	void JoltPhysicsSystem::RemoveRigidbody(const Rigidbody* rigidbody)
+	void JoltPhysicsSystem::RemoveRigidbody(const Component* rigidbodyComponent)
 	{
+		const auto* rigidbody = static_cast<const Rigidbody*>(rigidbodyComponent);
+
 		auto it = std::find_if(m_Bodies.begin(), m_Bodies.end(), [rigidbody](const auto& body)
 			{
 				return body.rigidbody == rigidbody;
@@ -279,10 +294,10 @@ namespace Elevate::Jolt
 		m_Bodies.erase(it);
 	}
 
-	void JoltPhysicsSystem::RebuildRigidbody(const Rigidbody* rigidbody)
+	void JoltPhysicsSystem::RebuildRigidbody(const Component* rigidbodyComponent)
 	{
-		RemoveRigidbody(rigidbody);
-		AddRigidbody(rigidbody);
+		RemoveRigidbody(rigidbodyComponent);
+		AddRigidbody(rigidbodyComponent);
 	}
 
 	void JoltPhysicsSystem::SyncDynamicBodies()

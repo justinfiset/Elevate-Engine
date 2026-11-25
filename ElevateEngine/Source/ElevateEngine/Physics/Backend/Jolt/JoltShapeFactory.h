@@ -3,9 +3,10 @@
 #include <Jolt/Jolt.h>
 #include <Jolt/Physics/PhysicsSystem.h>
 
+import Elevate.Physics.Collider;
+
 namespace Elevate
 {
-	class Collider;
 	class BoxCollider;
 	class CapsuleCollider;
 	class SphereCollider;

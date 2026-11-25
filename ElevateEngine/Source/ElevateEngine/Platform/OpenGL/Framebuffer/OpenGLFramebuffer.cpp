@@ -1,12 +1,19 @@
 
+#include <cstddef>
+#include <cstdint>
+#include <memory>
+#include <vector>
+
 #include "OpenGLFramebuffer.h"
 
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <ElevateEngine/Platform/OpenGL/GraphicsAPI.h>
+#include <ElevateEngine/Renderer/RendererBackend.h>
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
 import Elevate.Renderer.Renderer;
+import Elevate.Renderer.RendererAPI;
 
 namespace Elevate
 {
@@ -281,5 +288,29 @@ namespace Elevate
 		default:
 			return "UNKNOWN_ERROR";
 		}
+	}
+}
+
+namespace Elevate::RendererBackend
+{
+	void RegisterFramebufferFactory()
+	{
+		Framebuffer::SetTextureFactory([](
+			const std::vector<std::shared_ptr<Texture>>& colorTextures,
+			std::shared_ptr<Texture> depthTexture,
+			bool depthAsRenderbuffer) -> Framebuffer* {
+				switch (Renderer::GetAPI())
+				{
+				case RendererAPI::GraphicAPI::None:
+					Assert::That(false, "GraphicsAPI::None is not supported!");
+					return nullptr;
+
+				case RendererAPI::GraphicAPI::OpenGL:
+					return new OpenGLFramebuffer(colorTextures, depthTexture, depthAsRenderbuffer);
+				}
+
+				Assert::That(false, "Unknown GraphicsAPI!");
+				return nullptr;
+		});
 	}
 }

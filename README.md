@@ -51,15 +51,37 @@ cmake --build Build/windows-msvc --config Editor_Debug
 ctest --test-dir Build/windows-msvc -C Editor_Debug --output-on-failure
 ```
 
-### Visual Studio solution
+### Visual Studio 2022
 
-If you prefer the Visual Studio IDE, generate a solution with one of the optional solution presets:
+The Visual Studio 2022 generator is a supported local development path:
 
 ```cmd
 cmake --preset visual-studio-2022
 ```
 
-Use `visual-studio-2026` instead if you only have Visual Studio 2026 installed; that preset requires CMake 4.2 or newer. The solution is written to `Build/visual-studio-2022/ElevateEngine.sln` (or the matching `visual-studio-2026` directory). These presets are only for IDE use; CI continues to use the Ninja Multi-Config presets.
+Open `Build/visual-studio-2022/ElevateEngine.sln` and build the `Sandbox` startup project. `visual-studio-2026` is also available when Visual Studio 2026 is installed; that preset requires CMake 4.2 or newer. CI uses the Ninja Multi-Config presets and explicitly selects `cl.exe` for the Windows jobs.
+
+### VS Code
+
+For VS Code with CMake Tools and the Microsoft C/C++ extension, use the Ninja preset:
+
+```cmd
+cmake --preset windows-msvc
+```
+
+CMake writes `Build/windows-msvc/compile_commands.json` during configure. CMake Tools can feed its IntelliSense configuration directly from the CMake project, so a compilation database is not strictly required for that setup.
+
+If you use clangd, point it at the generated database:
+
+```json
+{
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/Build/windows-msvc"
+  ]
+}
+```
+
+The Visual Studio generator does not emit `compile_commands.json`; CMake only supports that with Makefile and Ninja generators.
 
 ### Linux / Clang
 
@@ -130,7 +152,7 @@ cmake --build Build/linux-clang --target resourcegen
 
 ## Build Status
 
-CI builds and tests every supported compiler: Clang and GCC on Linux, MSVC on Windows, and Emscripten for WebAssembly. The Windows job uses the MSVC toolchain with Ninja Multi-Config; the Visual Studio generator presets remain optional for local IDE use.
+CI builds and tests every supported compiler: Clang and GCC on Linux, MSVC on Windows, and Emscripten for WebAssembly. The Windows CI job uses the MSVC toolchain with Ninja Multi-Config; the Visual Studio 2022 generator is supported for local development.
 
 | Platform                                                                                                    | OS                          | Compiler              | Status                                                                                                                                                                                         |
 | :---------------------------------------------------------------------------------------------------------- | :-------------------------- | :-------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

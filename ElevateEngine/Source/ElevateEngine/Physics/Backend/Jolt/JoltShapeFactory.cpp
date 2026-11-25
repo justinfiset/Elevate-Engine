@@ -1,16 +1,21 @@
 
-#include "JoltShapeFactory.h"
+// Jolt.h must come first because it defines the platform and compiler macros
+// used by the other Jolt headers. Every textual include stays ahead of
+// JoltShapeFactory.h, which imports a module.
+#include <Jolt/Jolt.h>
+#include <Jolt/Physics/PhysicsSystem.h>
 
 #include <Jolt/Physics/Collision/Shape/BoxShape.h>
 #include <Jolt/Physics/Collision/Shape/PlaneShape.h>
 #include <Jolt/Physics/Collision/Shape/SphereShape.h>
 #include <Jolt/Physics/Collision/Shape/CapsuleShape.h>
 
-#include <ElevateEngine/Physics/Public/Colliders/Collider.h>
 #include <ElevateEngine/Physics/Public/Colliders/BoxCollider.h>
 #include <ElevateEngine/Physics/Public/Colliders/CapsuleCollider.h>
 #include <ElevateEngine/Physics/Public/Colliders/SphereCollider.h>
 #include <ElevateEngine/Physics/Public/Colliders/PlaneCollider.h>
+
+#include "JoltShapeFactory.h"
 
 import Elevate.Foundations.CoreLogger;
 

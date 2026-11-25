@@ -9,7 +9,7 @@ module;
 
 #include <glm/glm.hpp>
 
-#include <ElevateEngine/Platform/OpenGL/Renderer/OpenGLRendererAPI.h>
+#include <ElevateEngine/Renderer/RendererBackend.h>
 
 module Elevate.Renderer.Renderer;
 
@@ -31,6 +31,7 @@ constexpr uint16_t AO_KERNER_SAMPLE_COUNT = 64;
 
 namespace Elevate
 {
+	Renderer::APIFactory Renderer::s_apiFactory = nullptr;
 	RendererStorage Renderer::s_data = RendererStorage();
 	RenderState Renderer::s_currentState = RenderState();
 	std::unique_ptr<RendererAPI> Renderer::s_API;
@@ -70,6 +71,12 @@ namespace Elevate
 
 	static bool s_isStateCacheValid = false;
 
+	std::unique_ptr<RendererAPI> Renderer::CreateAPI()
+	{
+		RendererBackend::RegisterRendererAPIFactory();
+		return s_apiFactory ? s_apiFactory() : nullptr;
+	}
+
 	void Renderer::Init(uint32_t width, uint32_t height)
 	{
 		RenderBucket::SetDispatcher(&Renderer::Dispatch);
@@ -78,7 +85,7 @@ namespace Elevate
 		SceneLighting::SetShaderBinder(&Renderer::BindShader);
 		Cubemap::SetRendererFunctions(&Renderer::PushRenderState, &Renderer::BindShader, &Renderer::DrawArray);
 
-		s_API = std::make_unique<OpenGLRendererAPI>();
+		s_API = Renderer::CreateAPI();
 
 		// Create the quad to render to the screen
 		s_fullscreenQuad = Mesh::GenerateQuad(2.0f);

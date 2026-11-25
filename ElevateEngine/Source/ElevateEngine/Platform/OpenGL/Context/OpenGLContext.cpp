@@ -4,7 +4,7 @@
 #include <functional>
 #include <string>
 
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <ElevateEngine/Platform/OpenGL/GraphicsAPI.h>
 #include <GLFW/glfw3.h>
 
 #include "OpenGLContext.h"

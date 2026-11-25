@@ -5,7 +5,6 @@ module;
 #include <stddef.h>
 #include <cstdint>
 #include <glm/glm.hpp>
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
 
 module Elevate.Renderer.Meshes.Mesh;
 

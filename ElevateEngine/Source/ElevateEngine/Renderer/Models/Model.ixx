@@ -6,13 +6,10 @@ module;
 #include <string>
 #include <filesystem>
 
-// Opaque Assimp declarations for this module interface. Including the real
-// Assimp headers here exposes TU-local inline helpers on GCC.
-struct aiMaterial;
-struct aiMesh;
-struct aiNode;
-struct aiScene;
-
+// Opaque Assimp declarations live in a header so the global module fragment
+// contains only preprocessor directives. Including the real Assimp headers
+// here would expose TU-local inline helpers on GCC.
+#include "AssimpForward.h"
 #include "Reflection.h"
 
 export module Elevate.Renderer.Models.Model;

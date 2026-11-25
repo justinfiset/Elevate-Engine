@@ -1,5 +1,8 @@
 
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <memory>
+
+#include <ElevateEngine/Platform/OpenGL/GraphicsAPI.h>
+#include <ElevateEngine/Renderer/RendererBackend.h>
 #include <GLFW/glfw3.h>
 
 #include "OpenGLRendererAPI.h"
@@ -7,6 +10,16 @@
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
 
 import Elevate.Renderer.Renderer;
+
+namespace Elevate::RendererBackend
+{
+	void RegisterRendererAPIFactory()
+	{
+		Renderer::SetAPIFactory([]() -> std::unique_ptr<RendererAPI> {
+			return std::make_unique<OpenGLRendererAPI>();
+		});
+	}
+}
 
 namespace Elevate
 {

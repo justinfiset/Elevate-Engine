@@ -1,13 +1,11 @@
+module;
+
 #include <vector>
 
-#include "Rigidbody.h"
+module Elevate.Physics.Rigidbody;
 
-// Core
-import Elevate.Core.Scene;
-// Physics
+import :Types;
 import Elevate.Physics.PhysicsSystem;
-// Input
-import Elevate.Input;
 
 namespace Elevate
 {
@@ -26,18 +24,18 @@ namespace Elevate
 		return m_data.m_type;
 	}
 
-	const std::vector<const Collider*>& Rigidbody::GetColliders() const
+	const std::vector<const Component*>& Rigidbody::GetColliders() const
 	{
 		return m_Colliders;
 	}
 
-	void Rigidbody::AddCollider(const Collider* collider)
+	void Rigidbody::AddCollider(const Component* collider)
 	{
 		m_Colliders.push_back(collider);
 		PhysicsSystem::Get().RebuildRigidbody(this);
 	}
 
-	void Rigidbody::RemoveCollider(const Collider* collider)
+	void Rigidbody::RemoveCollider(const Component* collider)
 	{
 		m_Colliders.push_back(collider);
 		PhysicsSystem::Get().RebuildRigidbody(this);

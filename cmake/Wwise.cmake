@@ -58,7 +58,13 @@ if(ee_wwise_enabled)
   target_compile_definitions(WwiseProjectDatabase PUBLIC
     WIN32_LEAN_AND_MEAN
     WWISE_DB_STANDARD_TYPES
+    TESTING_WWISE_PROJECT_DATABASE
   )
+  if(WIN32)
+    # Wwise's AkOSChar is wchar_t on Windows. Select the wide Win32 aliases so
+    # the SDK samples compile with the same API set under Ninja and MSBuild.
+    target_compile_definitions(WwiseProjectDatabase PRIVATE UNICODE _UNICODE)
+  endif()
   target_compile_definitions(WwiseProjectDatabase PUBLIC
     $<$<OR:$<CONFIG:Debug>,$<CONFIG:Editor_Debug>>:_DEBUG>
   )
@@ -92,9 +98,14 @@ function(ee_wwise_configure_engine target)
     return()
   endif()
 
+  if(WIN32)
+    # Wwise's AkOSChar is wchar_t on Windows. The VS generator otherwise uses
+    # the ANSI Win32 aliases, which do not accept AkOSChar paths.
+    target_compile_definitions(${target} PUBLIC UNICODE _UNICODE)
+  endif()
+
   target_compile_definitions(${target} PUBLIC
     EE_USES_WWISE
-    TESTING_WWISE_PROJECT_DATABASE
     EE_USES_WWISEPROJECTDATABASE
   )
   target_compile_definitions(${target} PUBLIC

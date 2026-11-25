@@ -1,6 +1,7 @@
 module;
 
 #include <ElevateEngine/Renderer/RendererBackend.h>
+#include <cstdint>
 #include <memory>
 #include <optional>
 #include <vector>

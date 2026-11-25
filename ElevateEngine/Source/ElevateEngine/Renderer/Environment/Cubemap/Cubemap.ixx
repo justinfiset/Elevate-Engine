@@ -49,7 +49,7 @@ export namespace Elevate
 		std::shared_ptr<VertexBuffer> m_VertexBuffer;
 		std::shared_ptr<IndexBuffer> m_IndexBuffer;
 
-		uint32_t m_textureID;
+		uint32_t m_textureID = 0;
 		std::string m_filePath;
 
 		float s_skyboxVertices[3 * 8] = {

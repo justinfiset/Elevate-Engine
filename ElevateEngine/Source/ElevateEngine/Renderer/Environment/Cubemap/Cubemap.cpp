@@ -3,12 +3,10 @@ module;
 #include <string>
 #include <glm/mat4x4.hpp>
 
-#include <stb/stb_image.h>
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
 
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
-#include <ElevateEngine/Platform/OpenGL/GLDebug.h>
+#include <ElevateEngine/Renderer/RendererBackend.h>
 
 module Elevate.Renderer.Cubemap;
 
@@ -56,31 +54,14 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	m_cubemapShader = Elevate::Shader::Create(vert, frag);
 
 	// Texture
-	GLCheck(glGenTextures(1, &m_textureID));
-	GLCheck(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));
-
-	int width, height, nrChannels;
-	for (int i = 0; i < 6; i++)
+	const char* cubemapPaths[6] = {
+		paths[0].c_str(), paths[1].c_str(), paths[2].c_str(),
+		paths[3].c_str(), paths[4].c_str(), paths[5].c_str()
+	};
+	if (!RendererBackend::CreateCubemapTexture(cubemapPaths, m_textureID, skyboxFilePath.c_str()))
 	{
-		unsigned char* data = stbi_load(paths[i].c_str(), &width, &height, &nrChannels, 0);
-		if (data)
-		{
-			GLCheck(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data));
-			stbi_image_free(data);
-		}
-		else
-		{
-			CoreLogger::Error("Error : Unable to load cubemap texture [{}] : {} with the following skybox file : {}", i, paths[i].c_str(), skyboxFilePath);
-			return;
-		}
+		return;
 	}
-	GLCheck(glGenerateMipmap(GL_TEXTURE_CUBE_MAP));
-
-	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE));
 }
 
 Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(const std::string& filePath)
@@ -124,8 +105,7 @@ void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader) const
 	if (s_bindShader)
 		s_bindShader(shader);
 
-	GLCheck(glActiveTexture(GL_TEXTURE0));
-	GLCheck(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));
+	RendererBackend::BindCubemapTexture(m_textureID, 0);
 	shader->SetUniform1i("skybox", 0);
 	if (s_drawArray)
 		s_drawArray(m_VertexArray.get(), DrawPrimitiveType::Triangles);

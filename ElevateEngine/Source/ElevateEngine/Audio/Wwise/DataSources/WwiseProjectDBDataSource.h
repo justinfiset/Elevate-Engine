@@ -4,7 +4,9 @@
 
 import Elevate.Foundations;
 
+#ifndef WWISE_DB_STANDARD_TYPES
 #define WWISE_DB_STANDARD_TYPES
+#endif
 
 #include <WwiseProjectDatabase/WwiseProjectDatabase.h>
 

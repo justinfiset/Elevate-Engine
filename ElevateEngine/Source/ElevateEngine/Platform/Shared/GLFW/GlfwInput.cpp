@@ -9,6 +9,12 @@ module Elevate.Input;
 import Elevate.Core.Application;
 
 #define ELEVATE_INPUT_IMPLEMENTATION
+// These implementation headers derive from types owned by this module, so they
+// must stay in the module purview. MSVC warns about textual inclusion there.
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable : 5244)
+#endif
 #if defined(EE_PLATFORM_WINDOWS)
 #include <ElevateEngine/Platform/Windows/WindowsInput.h>
 #elif defined(EE_PLATFORM_WEB)
@@ -17,6 +23,9 @@ import Elevate.Core.Application;
 #include <ElevateEngine/Platform/Linux/LinuxInput.h>
 #else
 #error "Unknown platform! Cannot create input manager definition on this platform."
+#endif
+#if defined(_MSC_VER)
+#pragma warning(pop)
 #endif
 
 namespace Elevate

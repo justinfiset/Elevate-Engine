@@ -1,39 +1,46 @@
+module;
 
-#include "Collider.h"
+#include <glm/glm.hpp>
 
-#include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
+module Elevate.Physics.Collider;
 
-const glm::vec3 Elevate::Collider::GetWorldCenter() const
+import Elevate.Core.Scene;
+import Elevate.Physics.Rigidbody;
+
+namespace Elevate
 {
-	return gameObject->GetPosition() + m_Center;
-}
-
-void Elevate::Collider::Init()
-{
-	OnInitCollider();
-}
-
-void Elevate::Collider::Destroy()
-{
-	OnRemoveCollider();
-}
-
-void Elevate::Collider::OnInitCollider()
-{
-	if (!gameObject->HasComponent<Rigidbody>())
+	const glm::vec3 Collider::GetWorldCenter() const
 	{
-		gameObject->AddComponent<Rigidbody>();
+		return gameObject->GetPosition() + m_Center;
 	}
 
-	Rigidbody* rb = gameObject->GetComponent<Rigidbody>();
-	rb->AddCollider(this);
-}
-
-void Elevate::Collider::OnRemoveCollider()
-{
-	if (gameObject->HasComponent<Rigidbody>())
+	void Collider::Init()
 	{
+		OnInitCollider();
+	}
+
+	void Collider::Destroy()
+	{
+		OnRemoveCollider();
+	}
+
+	void Collider::OnInitCollider()
+	{
+		if (!gameObject->HasComponent<Rigidbody>())
+		{
+			gameObject->AddComponent<Rigidbody>();
+		}
+
 		Rigidbody* rb = gameObject->GetComponent<Rigidbody>();
-		rb->RemoveCollider(this);
+		rb->AddCollider(this);
+	}
+
+	void Collider::OnRemoveCollider()
+	{
+		if (gameObject->HasComponent<Rigidbody>())
+		{
+			Rigidbody* rb = gameObject->GetComponent<Rigidbody>();
+			rb->RemoveCollider(this);
+		}
 	}
 }

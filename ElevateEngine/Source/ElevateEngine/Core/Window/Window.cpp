@@ -21,6 +21,12 @@ import Elevate.Core.Events.Event;
 import Elevate.Renderer.GraphicsContext;
 
 #define ELEVATE_WINDOW_IMPLEMENTATION
+// These implementation headers derive from types owned by this module, so they
+// must stay in the module purview. MSVC warns about textual inclusion there.
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable : 5244)
+#endif
 #if defined(EE_PLATFORM_WINDOWS)
 #include <ElevateEngine/Platform/Windows/WindowsWindow.h>
 #elif defined(EE_PLATFORM_WEB)
@@ -29,6 +35,9 @@ import Elevate.Renderer.GraphicsContext;
 #include <ElevateEngine/Platform/Linux/LinuxWindow.h>
 #else
 #error "Unknown platform! Cannot create window on this platform."
+#endif
+#if defined(_MSC_VER)
+#pragma warning(pop)
 #endif
 
 namespace Elevate

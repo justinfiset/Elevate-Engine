@@ -1,16 +1,21 @@
 
 #include <cstdint>
+#include <memory>
 
 // todo put in Elevate.Foundations.Image
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <ElevateEngine/Platform/OpenGL/GraphicsAPI.h>
+#include <ElevateEngine/Renderer/RendererBackend.h>
 
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
 
 #include "OpenGLTexture.h"
 
-import Elevate.Foundations;
+import Elevate.Foundations.Assert;
+import Elevate.Foundations.CoreLogger;
+import Elevate.Renderer.Renderer;
+import Elevate.Renderer.RendererAPI;
 
 namespace Elevate
 {
@@ -272,5 +277,29 @@ namespace Elevate
 	void* OpenGLTexture::GetNativeHandle() const
 	{
 		return reinterpret_cast<void*>((intptr_t)m_textureID);
+	}
+}
+
+namespace Elevate::RendererBackend
+{
+	void RegisterTextureFactory()
+	{
+		Texture::SetDataFactory([](const void* data, TextureMetadata& metadata) -> std::shared_ptr<Texture> {
+			std::shared_ptr<Texture> texture;
+			switch (Renderer::GetAPI())
+			{
+			case RendererAPI::GraphicAPI::None:
+				texture = nullptr;
+				break;
+			case RendererAPI::GraphicAPI::OpenGL:
+				texture = std::make_shared<OpenGLTexture>(data, metadata);
+				break;
+			default:
+				Assert::That(false, "A supported RendererAPI needs to be supported!");
+				return nullptr;
+			}
+
+			return TextureManager::RegisterTexture(texture);
+		});
 	}
 }

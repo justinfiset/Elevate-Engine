@@ -27,6 +27,8 @@ export namespace Elevate
 	class TextureManager
 	{
 	public:
+		static void SetScheduler(SharedService<ITaskScheduler> scheduler) { s_scheduler = scheduler; }
+
 		static std::shared_ptr<Texture> RegisterTexture(std::shared_ptr<Texture> texture);
 
 		static std::shared_ptr<Texture> GetTexture(const std::string& path);
@@ -57,6 +59,8 @@ export namespace Elevate
 			static TextureManager instance;
 			return instance;
 		}
+
+		inline static SharedService<ITaskScheduler> s_scheduler;
 
 		std::shared_ptr<Texture> m_defaultTexture;
 

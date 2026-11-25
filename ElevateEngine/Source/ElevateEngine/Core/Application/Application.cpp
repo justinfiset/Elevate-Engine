@@ -62,6 +62,7 @@ namespace Elevate
 
 		// We need to update it each frame
 		m_Scheduler = m_Provider->Resolve<ITaskScheduler>();
+		TextureManager::SetScheduler(m_Scheduler);
 
 		m_PhysicsSystem = PhysicsSystem::Create();
 		m_PhysicsSystem->Init();
