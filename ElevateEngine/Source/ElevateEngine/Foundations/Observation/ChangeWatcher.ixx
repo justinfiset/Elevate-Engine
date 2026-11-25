@@ -1,6 +1,5 @@
 module;
 
-
 #include <optional>
 #include <utility>
 

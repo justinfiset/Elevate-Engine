@@ -1,6 +1,5 @@
 module;
 
-
 #include <functional>
 
 export module Elevate.Foundations.Tasks.TaskFunction;

@@ -1,6 +1,5 @@
 module;
 
-
 #include "Reflection.h"
 
 export module Elevate.Renderer.Camera:CameraProjectionMode;

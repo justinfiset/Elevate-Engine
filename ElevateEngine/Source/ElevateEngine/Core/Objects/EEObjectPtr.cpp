@@ -1,6 +1,5 @@
 module;
 
-
 #include <memory>
 
 module Elevate.Core.Objects.ObjectPtr;

@@ -1,6 +1,5 @@
 module;
 
-
 #include <string>
 #include <random>
 #include <memory>

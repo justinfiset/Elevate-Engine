@@ -1,6 +1,5 @@
 module;
 
-
 #include <array>
 #include <cstddef>
 #include <memory>

@@ -1,6 +1,5 @@
 module;
 
-
 #include <algorithm>
 
 #define _SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING

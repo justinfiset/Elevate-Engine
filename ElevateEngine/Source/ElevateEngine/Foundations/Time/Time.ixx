@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Foundations.Time;
 
 export namespace Elevate

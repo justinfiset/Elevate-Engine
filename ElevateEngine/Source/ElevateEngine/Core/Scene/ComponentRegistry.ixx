@@ -1,6 +1,5 @@
 module;
 
-
 #include <cstdint>
 #include <memory>
 #include <entt/entity/registry.hpp>

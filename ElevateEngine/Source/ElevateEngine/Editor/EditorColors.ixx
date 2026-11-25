@@ -1,6 +1,5 @@
 module;
 
-
 #include <glm/vec4.hpp>
 
 export module Elevate.Editor.Colors;

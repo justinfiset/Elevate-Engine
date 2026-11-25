@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Renderer.Camera;
 
 import Elevate.Core.Objects.Category;

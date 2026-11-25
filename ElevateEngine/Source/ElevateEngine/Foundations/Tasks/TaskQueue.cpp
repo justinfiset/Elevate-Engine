@@ -1,6 +1,5 @@
 module;
 
-
 module Elevate.Foundations.Tasks.TaskQueue;
 
 Elevate::TaskQueue::TaskQueue() = default;

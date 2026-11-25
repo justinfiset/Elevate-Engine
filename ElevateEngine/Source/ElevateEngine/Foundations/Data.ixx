@@ -1,6 +1,5 @@
 module;
 
-
 #include <cstdint>
 
 export module Elevate.Foundations.Data;

@@ -1,6 +1,5 @@
 module;
 
-
 #include <memory>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>

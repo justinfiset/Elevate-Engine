@@ -1,6 +1,5 @@
 module;
 
-
 #include "Core.h"
 
 export module Elevate.Foundations;

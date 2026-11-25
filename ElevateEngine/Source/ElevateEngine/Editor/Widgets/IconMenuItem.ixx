@@ -1,6 +1,5 @@
 module;
 
-
 #include <imgui.h>
 
 export module Elevate.Editor.Widgets.IconMenuItem;

@@ -1,6 +1,5 @@
 module;
 
-
 #include <string>
 
 export module Elevate.Core.Assets.AssetNameResolver;

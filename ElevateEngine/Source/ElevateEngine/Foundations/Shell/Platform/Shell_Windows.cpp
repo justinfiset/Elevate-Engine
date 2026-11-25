@@ -1,6 +1,5 @@
 module;
 
-
 #include <string>
 
 #ifdef EE_PLATFORM_WINDOWS

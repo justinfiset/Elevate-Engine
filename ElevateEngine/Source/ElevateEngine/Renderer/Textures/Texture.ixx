@@ -1,6 +1,5 @@
 module;
 
-
 #include <ElevateEngine/Renderer/RendererBackend.h>
 #include <string>
 #include <memory>

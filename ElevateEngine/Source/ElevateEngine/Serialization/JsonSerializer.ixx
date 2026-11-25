@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Serialization.JsonSerializer;
 
 import Elevate.Serialization.ISerializer;

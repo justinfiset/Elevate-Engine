@@ -1,6 +1,5 @@
 module;
 
-
 module Elevate.Renderer.Camera;
 
 // Foundations

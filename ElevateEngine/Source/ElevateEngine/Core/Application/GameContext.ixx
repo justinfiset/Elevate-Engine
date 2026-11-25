@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Core.Application.GameContext;
 
 export namespace Elevate

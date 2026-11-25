@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Foundations.Logger;
 
 export import Elevate.Foundations.Logger.Facade;

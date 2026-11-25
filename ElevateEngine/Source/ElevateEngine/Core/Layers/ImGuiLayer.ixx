@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Core.Layers.ImGuiLayer;
 
 import Elevate.Core.Layers.Layer;

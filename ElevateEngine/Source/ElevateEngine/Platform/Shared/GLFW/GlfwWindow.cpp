@@ -1,6 +1,5 @@
 module;
 
-
 #define ELEVATE_GLFW_FORWARD_DECLARED
 #include <memory>
 #include <ctype.h>

@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Core.Layers;
 
 export import Elevate.Core.Layers.Layer;

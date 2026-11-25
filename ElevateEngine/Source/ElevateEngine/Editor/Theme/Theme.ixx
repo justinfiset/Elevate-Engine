@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Editor.Theme;
 
 export namespace Elevate::Editor

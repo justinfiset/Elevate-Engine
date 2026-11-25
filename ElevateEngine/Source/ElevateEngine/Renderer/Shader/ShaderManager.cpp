@@ -1,6 +1,5 @@
 module;
 
-
 #include <string>
 
 module Elevate.Renderer.Shaders;

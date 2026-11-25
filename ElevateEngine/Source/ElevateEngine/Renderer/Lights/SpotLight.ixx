@@ -1,6 +1,5 @@
 module;
 
-
 #include <glm/glm.hpp>
 #include "Reflection.h"
 

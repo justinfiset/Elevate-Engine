@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Renderer.Scene.Lighting.Limits;
 
 export namespace Elevate::SceneLightingLimits

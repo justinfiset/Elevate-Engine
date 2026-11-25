@@ -1,6 +1,5 @@
 module;
 
-
 #include <uuid.h>
 #include <algorithm>
 #include <cstring>

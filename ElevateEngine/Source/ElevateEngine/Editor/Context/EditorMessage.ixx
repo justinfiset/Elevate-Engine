@@ -1,6 +1,5 @@
 module;
 
-
 #include <chrono>
 #include <cstdint>
 #include <string>

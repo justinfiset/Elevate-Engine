@@ -1,6 +1,5 @@
 module;
 
-
 #include <functional>
 
 export module Elevate.Editor.Widgets.CollapsingHeader;

@@ -1,6 +1,5 @@
 module;
 
-
 module Elevate.Core.Objects.Object;
 
 namespace Elevate

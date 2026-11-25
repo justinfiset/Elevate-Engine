@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Core.Scene;
 
 // GCC 15 workaround for PR c++/124309: the primary interface must directly

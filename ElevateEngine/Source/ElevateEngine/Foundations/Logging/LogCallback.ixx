@@ -1,6 +1,5 @@
 module;
 
-
 #include <functional>
 #include <string_view>
 

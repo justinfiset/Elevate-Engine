@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Editor.Commands;
 
 export import Elevate.Editor.Commands.Command;

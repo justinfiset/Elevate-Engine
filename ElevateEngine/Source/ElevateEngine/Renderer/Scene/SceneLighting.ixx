@@ -1,6 +1,5 @@
 module;
 
-
 #include <initializer_list>
 #include <memory>
 #include <span>

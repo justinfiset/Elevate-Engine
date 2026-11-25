@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Renderer.Scene;
 
 export import Elevate.Renderer.Scene.Lighting;

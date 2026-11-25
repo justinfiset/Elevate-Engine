@@ -1,6 +1,5 @@
 module;
 
-
 #ifdef EE_EDITOR_BUILD
 #include <vector>
 #include <memory>

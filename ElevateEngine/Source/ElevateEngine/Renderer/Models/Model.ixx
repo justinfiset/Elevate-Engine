@@ -1,6 +1,5 @@
 module;
 
-
 #include <memory>
 #include <mutex>
 #include <vector>

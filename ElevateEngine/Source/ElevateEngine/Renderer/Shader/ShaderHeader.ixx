@@ -1,6 +1,5 @@
 module;
 
-
 #include <string_view>
 
 export module Elevate.Renderer.Shaders:ShaderHeader;

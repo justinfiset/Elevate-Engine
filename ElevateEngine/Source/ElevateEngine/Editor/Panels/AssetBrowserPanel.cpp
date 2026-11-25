@@ -1,6 +1,5 @@
 module;
 
-
 #include <cstring>
 #include <algorithm>
 #include <cmath>

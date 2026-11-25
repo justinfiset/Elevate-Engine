@@ -1,6 +1,5 @@
 module;
 
-
 #include <atomic>
 #include <vector>
 #include <cstdint>

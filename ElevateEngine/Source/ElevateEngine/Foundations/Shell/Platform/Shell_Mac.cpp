@@ -1,6 +1,5 @@
 module;
 
-
 #ifdef EE_PLATFORM_MACOS
 #include <string>
 #include <sys/types.h>

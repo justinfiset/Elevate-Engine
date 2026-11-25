@@ -1,6 +1,5 @@
 module;
 
-
 #ifdef EE_PLATFORM_LINUX
 #include <string>
 #include <sys/types.h>

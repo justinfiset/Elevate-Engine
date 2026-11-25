@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Renderer.GraphicsContext;
 
 export namespace Elevate

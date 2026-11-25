@@ -1,6 +1,5 @@
 module;
 
-
 #include <bitset>
 #include <cstddef>
 

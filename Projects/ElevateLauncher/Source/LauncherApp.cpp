@@ -21,8 +21,6 @@
 #include "Controllers/ProjectController.h"
 #include "Models/Project.h"
 
-#include <ElevateEngine/Editor/Widgets/ImGuiLoadingIndicator.h>
-
 #include <ElevateEngine.h>
 
 import Elevate.Editor.Theme;
@@ -138,11 +136,11 @@ public:
 			ImVec2 pos = ImGui::GetCursorScreenPos();
 			static constexpr float spinnerRadius = 15.0f;
 
-			// Simple hack to make sure the windows is big enought for the spinner
+			// Simple hack to make sure the windows is big enought for the loading indicator
 			ImGui::Dummy(ImVec2(spinnerRadius * 3, spinnerRadius * 3));
 
 			ImGui::SetCursorScreenPos(ImVec2(pos.x + avail.x / 2 - spinnerRadius, pos.y + avail.y / 2 - spinnerRadius));
-			ImGui::Spinner("##launcher_loading_spinner", spinnerRadius, 4, ImGui::GetColorU32(Color::Accent));
+			ImGui::ProgressBar(-1.0f, ImVec2(spinnerRadius * 2.0f, spinnerRadius * 2.0f), "");
 
 			if (!m_controller.IsLoading())
 			{

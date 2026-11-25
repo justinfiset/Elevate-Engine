@@ -1,6 +1,5 @@
 module;
 
-
 module Elevate.Core.Assets.AssetTagRegistration;
 
 import Elevate.Core.Assets.AssetMetadata;

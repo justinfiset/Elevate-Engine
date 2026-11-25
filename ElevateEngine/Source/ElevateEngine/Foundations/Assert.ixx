@@ -1,6 +1,5 @@
 module;
 
-
 // Keep the format string type compatible with CoreLogger's exported API.
 #include <spdlog/fmt/fmt.h>
 

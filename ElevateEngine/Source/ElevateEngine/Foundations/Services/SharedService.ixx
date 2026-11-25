@@ -1,6 +1,5 @@
 module;
 
-
 #include <memory>
 
 export module Elevate.Foundations.Services:SharedService;

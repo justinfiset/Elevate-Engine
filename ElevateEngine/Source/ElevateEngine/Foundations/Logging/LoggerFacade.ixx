@@ -1,6 +1,5 @@
 module;
 
-
 // Use bundled fmt (same syntax as std::format) so module interfaces do not
 // depend on standard-library header-unit support.
 #include <spdlog/fmt/fmt.h>

@@ -1,6 +1,5 @@
 module;
 
-
 #include <memory>
 #include <array>
 #include "glm/glm.hpp"

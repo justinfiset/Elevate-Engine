@@ -1,6 +1,5 @@
 module;
 
-
 #ifdef EE_PLATFORM_WEB
 #include <string>
 #include <emscripten.h>

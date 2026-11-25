@@ -1,6 +1,5 @@
 module;
 
-
 #include <memory>
 #include <typeindex>
 #include <typeinfo>

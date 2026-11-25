@@ -1,6 +1,5 @@
 module;
 
-
 #include <algorithm>
 
 module Elevate.Core.Layers.LayerStack;

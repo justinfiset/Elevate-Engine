@@ -1,6 +1,5 @@
 module;
 
-
 module Elevate.Audio.AudioDistanceProbe;
 
 import Elevate.Audio.SoundEngine;

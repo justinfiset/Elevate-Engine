@@ -1,6 +1,5 @@
 module;
 
-
 #include <format>
 #include <type_traits>
 #include <cstdint>

@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Input.Gamepad.Hat;
 
 export namespace Elevate

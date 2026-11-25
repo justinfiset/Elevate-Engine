@@ -1,6 +1,5 @@
 module;
 
-
 #include <cstdio>
 #include <cctype>
 #include <system_error>

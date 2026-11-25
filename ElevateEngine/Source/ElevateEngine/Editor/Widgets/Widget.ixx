@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Editor.Widgets.Widget;
 
 export namespace Elevate::Editor

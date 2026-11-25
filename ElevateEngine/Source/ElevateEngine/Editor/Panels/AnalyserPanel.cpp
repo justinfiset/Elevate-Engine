@@ -1,6 +1,5 @@
 module;
 
-
 #include <cstring>
 #include <functional>
 #include <map>

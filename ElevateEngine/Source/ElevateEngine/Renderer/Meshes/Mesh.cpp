@@ -1,6 +1,5 @@
 module;
 
-
 #include <memory>
 #include <cmath>
 #include <stddef.h>

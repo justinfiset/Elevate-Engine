@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Core.Events;
 
 // Foundations

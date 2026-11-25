@@ -1,6 +1,9 @@
 #pragma once
 
 #include <cstdint>
+#include <iterator>
+#include <new>
+#include <vector>
 
 import Elevate.Renderer.Buffers;
 

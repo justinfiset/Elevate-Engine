@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Renderer.Texture;
 
 import Elevate.Foundations.Services;

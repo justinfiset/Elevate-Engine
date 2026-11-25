@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Input.Gamepad.Button;
 
 export namespace Elevate

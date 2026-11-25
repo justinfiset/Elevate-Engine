@@ -1,6 +1,5 @@
 module;
 
-
 #include "glm/glm.hpp"
 
 export module Elevate.Renderer.Vertex;

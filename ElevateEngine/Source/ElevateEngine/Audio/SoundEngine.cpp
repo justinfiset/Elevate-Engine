@@ -1,6 +1,5 @@
 module;
 
-
 #include <cstdint>
 
 module Elevate.Audio.SoundEngine;

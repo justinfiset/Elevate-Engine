@@ -1,6 +1,5 @@
 module;
 
-
 module Elevate.Core.Reflection.ReflectionTags;
 
 import Elevate.Core.Assets.AssetMetadata;

@@ -1,6 +1,5 @@
 module;
 
-
 #include <glm/vec3.hpp>
 #include "Reflection.h"
 

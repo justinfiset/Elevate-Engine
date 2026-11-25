@@ -1,6 +1,5 @@
 module;
 
-
 #include <string>
 
 #include <glm/glm.hpp> // iwyu: keep

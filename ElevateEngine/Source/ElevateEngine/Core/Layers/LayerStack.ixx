@@ -1,6 +1,5 @@
 module;
 
-
 #include <vector>
 
 export module Elevate.Core.Layers.LayerStack;

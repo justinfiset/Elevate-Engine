@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Renderer.Shaders;
 
 // GCC 15 PR c++/124309: the primary interface must also import the modules

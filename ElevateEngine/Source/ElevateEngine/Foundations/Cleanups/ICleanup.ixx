@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Foundations.Cleanups.ICleanup;
 
 export namespace Elevate

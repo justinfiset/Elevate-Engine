@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Renderer.Lights;
 
 export import Elevate.Renderer.Lights.Contract;

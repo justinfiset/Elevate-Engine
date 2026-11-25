@@ -1,6 +1,5 @@
 module;
 
-
 #include <variant>
 #include <string>
 #include <cmath>

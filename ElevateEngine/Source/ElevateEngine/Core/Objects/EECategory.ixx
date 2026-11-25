@@ -1,6 +1,5 @@
 module;
 
-
 #include <glm/vec4.hpp>
 #include <string>
 

@@ -1,6 +1,5 @@
 module;
 
-
 #include <imgui.h>
 
 module Elevate.Editor.Panels.StatisticsPanel;

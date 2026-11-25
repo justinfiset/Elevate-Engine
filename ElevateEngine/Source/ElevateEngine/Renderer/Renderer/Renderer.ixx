@@ -1,6 +1,5 @@
 module;
 
-
 #include <array>
 #include <memory>
 #include <glm/mat4x4.hpp>

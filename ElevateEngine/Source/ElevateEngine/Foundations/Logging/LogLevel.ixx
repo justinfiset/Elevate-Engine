@@ -1,6 +1,5 @@
 module;
 
-
 export module Elevate.Foundations.Logger.LogLevel;
 
 export namespace Elevate

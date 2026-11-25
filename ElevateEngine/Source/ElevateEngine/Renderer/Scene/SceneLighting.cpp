@@ -1,6 +1,5 @@
 module;
 
-
 #include <memory>
 #include <span>
 #include <algorithm>

@@ -1,6 +1,5 @@
 module;
 
-
 #include "Reflection.h"
 
 #include <memory>
