@@ -23,8 +23,8 @@ export namespace Elevate
 		void SetCenter(const glm::vec3& center) { m_Center = center; }
 		const glm::vec3 GetWorldCenter() const;
 
-		virtual void Init() override;
-		virtual void Destroy() override;
+		void Init() override;
+		void Destroy() override;
 
 	protected:
 #ifdef EE_EDITOR_BUILD

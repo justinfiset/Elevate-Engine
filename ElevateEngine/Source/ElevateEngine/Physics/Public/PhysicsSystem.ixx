@@ -1,6 +1,7 @@
 module;
 
 #include <ElevateEngine/Physics/Public/PhysicsBackend.h>
+#include <functional>
 #include <memory>
 
 export module Elevate.Physics.PhysicsSystem;
@@ -15,7 +16,7 @@ export namespace Elevate
 	class PhysicsSystem
 	{
 	public:
-		using Factory = std::unique_ptr<PhysicsSystem> (*)();
+		using Factory = std::function<std::unique_ptr<PhysicsSystem>()>;
 
 		static void SetFactory(Factory factory)
 		{

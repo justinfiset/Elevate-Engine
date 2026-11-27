@@ -1,6 +1,7 @@
 module;
 
 #include <string>
+#include <cstddef>
 #include <random>
 #include <memory>
 #include <vector>
@@ -169,7 +170,7 @@ namespace Elevate
 			.Mipmaps(false)
 			.Build();
 
-		s_ssaoNoiseTexture = Texture::CreateFromData(ssaoNoise.data(), noiseMeta);
+		s_ssaoNoiseTexture = Texture::CreateFromData(reinterpret_cast<const std::byte*>(ssaoNoise.data()), noiseMeta);
 
 		s_ssaoKernel.reserve(AO_KERNER_SAMPLE_COUNT);
 		for (int i = 0; i < AO_KERNER_SAMPLE_COUNT; i++)

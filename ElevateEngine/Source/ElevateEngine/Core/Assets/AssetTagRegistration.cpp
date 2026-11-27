@@ -7,8 +7,8 @@ import Elevate.Core.Assets.AssetRegistry;
 
 namespace Elevate::Detail
 {
-	void RegisterAssetTypeForTag(const AssetMetadata& meta)
+	void RegisterAssetTypeForTag(const AssetMetadata& metadata)
 	{
-		AssetRegistry::RegisterAssetType(meta);
+		AssetRegistry::RegisterAssetType(metadata);
 	}
 }

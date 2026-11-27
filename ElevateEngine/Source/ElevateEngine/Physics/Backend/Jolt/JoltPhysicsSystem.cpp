@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <cstdarg>
+#include <functional>
 #include <cstdint>
 #include <cstdio>
 #include <memory>

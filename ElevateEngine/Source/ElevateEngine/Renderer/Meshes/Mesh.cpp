@@ -2,6 +2,7 @@ module;
 
 #include <memory>
 #include <cmath>
+#include <cstddef>
 #include <stddef.h>
 #include <cstdint>
 #include <glm/glm.hpp>
@@ -21,7 +22,7 @@ namespace Elevate
 		: m_data(data)
 	{
 		// Creating the Layout and the VertexBuffer
-		m_VertexBuffer.reset(VertexBuffer::Create(&data.Vertices[0], (uint32_t)data.Vertices.size() * sizeof(Vertex)));
+		m_VertexBuffer.reset(VertexBuffer::Create(reinterpret_cast<const std::byte*>(data.Vertices.data()), (uint32_t)data.Vertices.size() * sizeof(Vertex)));
 		// Creating the layout sent to the shader and the layout of the buffer
 		m_VertexBuffer->SetLayout({ // The layout is based on the Vertex struct (see Vertex.h)
 			{ ShaderDataType::Float3, "a_Position" },
@@ -32,7 +33,7 @@ namespace Elevate
 			});
 
 		//Creating the IndexBuffer (containing indices)
-		m_IndexBuffer.reset(IndexBuffer::Create(&data.Indices[0], (uint32_t)data.Indices.size()));
+		m_IndexBuffer.reset(IndexBuffer::Create(reinterpret_cast<const std::byte*>(data.Indices.data()), (uint32_t)data.Indices.size()));
 
 		m_VertexArray.reset(VertexArray::Create());
 		m_VertexArray->AddVertexBuffer(m_VertexBuffer);

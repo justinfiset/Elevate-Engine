@@ -1,5 +1,6 @@
 module;
 
+#include <cstddef>
 #include <memory>
 #include <string>
 #include <vector>
@@ -57,7 +58,7 @@ namespace Elevate
 			.State(TextureState::Loaded)
 			.Build();
 
-		return CreateFromData(pixels.data(), meta);
+		return CreateFromData(reinterpret_cast<const std::byte*>(pixels.data()), meta);
 	}
 
 	std::shared_ptr<Texture> Texture::CreateFromColor(const glm::vec4& color, const std::string& name, uint32_t width, uint32_t height)
@@ -88,6 +89,6 @@ namespace Elevate
 			.State(TextureState::Loaded)
 			.Build();
 
-		return CreateFromData(pixels.data(), meta);
+		return CreateFromData(reinterpret_cast<const std::byte*>(pixels.data()), meta);
 	}
 }

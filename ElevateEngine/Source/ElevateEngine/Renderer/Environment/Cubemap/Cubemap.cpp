@@ -1,5 +1,6 @@
 module;
 
+#include <cstddef>
 #include <string>
 #include <glm/mat4x4.hpp>
 
@@ -33,12 +34,12 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	m_filePath = skyboxFilePath;
 
 	// Vertex & Index Buffers
-	m_VertexBuffer.reset(Elevate::VertexBuffer::Create(&s_skyboxVertices[0], sizeof(s_skyboxVertices)));
+	m_VertexBuffer.reset(Elevate::VertexBuffer::Create(reinterpret_cast<const std::byte*>(s_skyboxVertices), sizeof(s_skyboxVertices)));
 	m_VertexBuffer->SetLayout({
 		{Elevate::ShaderDataType::Float3, "a_Position"},
 		});
 
-	m_IndexBuffer.reset(Elevate::IndexBuffer::Create(&s_skyboxIndices[0], sizeof(s_skyboxIndices) / sizeof(unsigned int)));
+	m_IndexBuffer.reset(Elevate::IndexBuffer::Create(reinterpret_cast<const std::byte*>(s_skyboxIndices), sizeof(s_skyboxIndices) / sizeof(unsigned int)));
 	m_VertexArray.reset(VertexArray::Create());
 	m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 	m_VertexArray->SetIndexBuffer(m_IndexBuffer);

@@ -2,6 +2,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstdlib>
+#include <functional>
 #include <iterator>
 #include <new>
 
@@ -145,7 +146,7 @@ namespace Elevate::RendererBackend
 {
 	void RegisterBufferFactories()
 	{
-		VertexBuffer::SetFactory([](const void* vertices, uint32_t size) -> VertexBuffer* {
+		VertexBuffer::SetFactory([](const std::byte* vertices, uint32_t size) -> VertexBuffer* {
 			switch (Renderer::GetAPI())
 			{
 			case RendererAPI::GraphicAPI::None: return nullptr;
@@ -156,7 +157,7 @@ namespace Elevate::RendererBackend
 			return nullptr;
 		});
 
-		IndexBuffer::SetFactory([](const void* indices, uint32_t count) -> IndexBuffer* {
+		IndexBuffer::SetFactory([](const std::byte* indices, uint32_t count) -> IndexBuffer* {
 			switch (Renderer::GetAPI())
 			{
 			case RendererAPI::GraphicAPI::None: return nullptr;

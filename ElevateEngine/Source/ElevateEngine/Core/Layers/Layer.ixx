@@ -14,17 +14,50 @@ export namespace Elevate
 		Layer(const std::string& name = "Layer");
 		virtual ~Layer() = default;
 
-		virtual void OnAttach() {}
-		virtual void OnDetach() {}
+		virtual void OnAttach()
+		{
+			// No per-layer work by default.
+		}
 
-		virtual void OnUpdate() {}
-		virtual void OnRender() {}
-		virtual void OnImGuiRender() {}
-		virtual void OnImGuiRenderBegin() {}
-		virtual void OnImGuiRenderEnd() {}
+		virtual void OnDetach()
+		{
+			// No per-layer work by default.
+		}
 
-		virtual void OnEvent(Event& event) {}
-		virtual void Cleanup() {}
+		virtual void OnUpdate()
+		{
+			// No per-layer work by default.
+		}
+
+		virtual void OnRender()
+		{
+			// No per-layer work by default.
+		}
+
+		virtual void OnImGuiRender()
+		{
+			// No per-layer work by default.
+		}
+
+		virtual void OnImGuiRenderBegin()
+		{
+			// No per-layer work by default.
+		}
+
+		virtual void OnImGuiRenderEnd()
+		{
+			// No per-layer work by default.
+		}
+
+		virtual void OnEvent(Event& event)
+		{
+			// No per-layer event handling by default.
+		}
+
+		virtual void Cleanup()
+		{
+			// No per-layer resources to release by default.
+		}
 
 		inline const std::string& GetName() const { return m_DebugName; }
 

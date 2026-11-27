@@ -1,6 +1,8 @@
 
 #include "DesktopFileDialog.h"
 
+#include <memory>
+
 #ifndef EE_PLATFORM_WEB
 #include <tinyfiledialogs.h>
 
@@ -135,7 +137,7 @@ namespace Elevate
 
 extern "C" Elevate::FileDialogImpl* EE_CreateDesktopFileDialog()
 {
-    return new Elevate::DesktropFileDialog();
+    return std::make_unique<Elevate::DesktropFileDialog>().release();
 }
 
 #endif

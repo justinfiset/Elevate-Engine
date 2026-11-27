@@ -1,8 +1,10 @@
 module;
 
 #include <ElevateEngine/Renderer/RendererBackend.h>
+#include <cstddef>
 #include <cstdint>
 #include <cstdlib>
+#include <functional>
 #include <initializer_list>
 #include <iterator>
 #include <new>
@@ -97,14 +99,14 @@ export namespace Elevate
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 
-		using Factory = VertexBuffer* (*)(const void*, uint32_t);
+		using Factory = std::function<VertexBuffer*(const std::byte*, uint32_t)>;
 
 		static void SetFactory(Factory factory)
 		{
 			s_factory = factory;
 		}
 
-		static VertexBuffer* Create(const void* vertices, const uint32_t size)
+		static VertexBuffer* Create(const std::byte* vertices, const uint32_t size)
 		{
 			RendererBackend::RegisterBufferFactories();
 			return s_factory ? s_factory(vertices, size) : nullptr;
@@ -129,17 +131,17 @@ export namespace Elevate
 
 		virtual uint32_t GetCount() const = 0;
 
-		using Factory = IndexBuffer* (*)(const void*, uint32_t);
+		using Factory = std::function<IndexBuffer*(const std::byte*, uint32_t)>;
 
 		static void SetFactory(Factory factory)
 		{
 			s_factory = factory;
 		}
 
-		static IndexBuffer* Create(const void* vertices, uint32_t count)
+		static IndexBuffer* Create(const std::byte* indices, uint32_t count)
 		{
 			RendererBackend::RegisterBufferFactories();
-			return s_factory ? s_factory(vertices, count) : nullptr;
+			return s_factory ? s_factory(indices, count) : nullptr;
 		}
 
 	private:

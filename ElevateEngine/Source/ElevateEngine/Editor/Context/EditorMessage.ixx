@@ -27,11 +27,11 @@ export namespace Elevate
 			};
 
 			std::string message;
-			std::chrono::system_clock::time_point timestamp;
+			std::chrono::system_clock::time_point timestamp = std::chrono::system_clock::now();
 			Type type;
 
 			EditorMessage(std::string message, Type type)
-				: message(std::move(message)), timestamp(std::chrono::system_clock::now()), type(type) {
+				: message(std::move(message)), type(type) {
 			}
 
 			glm::vec4 GetColor() const

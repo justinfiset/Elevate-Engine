@@ -2,6 +2,7 @@ module;
 
 #include <ElevateEngine/Renderer/RendererBackend.h>
 #include <cstdint>
+#include <functional>
 #include <memory>
 #include <optional>
 #include <vector>
@@ -73,11 +74,11 @@ export namespace Elevate
 		// 0 Color and only 1 Depth texture
 		static Framebuffer* CreateDepthOnly(uint32_t width = 2048, uint32_t height = 2048, TextureFormat depthFormat = TextureFormat::DEPTH, TextureType depthUsage = TextureType::Depth);
 		// Pass custom config for the FrameBuffer
-		using TextureFactory = Framebuffer* (*)(
+		using TextureFactory = std::function<Framebuffer*(
 			const std::vector<std::shared_ptr<Texture>>&,
 			std::shared_ptr<Texture>,
 			bool
-		);
+		)>;
 
 		static void SetTextureFactory(TextureFactory factory)
 		{

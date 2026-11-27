@@ -2,6 +2,7 @@ module;
 
 #include <ElevateEngine/Renderer/RendererBackend.h>
 #include <cstdint>
+#include <functional>
 #include <string>
 #include <string_view>
 #include <memory>
@@ -38,8 +39,8 @@ export namespace Elevate
 		virtual uint32_t GetID() const = 0;
 		virtual uint32_t GetHashCode() const = 0;
 
-		using NativeFactory = std::shared_ptr<Shader> (*)();
-		using Factory = std::shared_ptr<Shader> (*)(const std::string&, const std::string&);
+		using NativeFactory = std::function<std::shared_ptr<Shader>()>;
+		using Factory = std::function<std::shared_ptr<Shader>(const std::string&, const std::string&)>;
 
 		static void SetNativeFactories(NativeFactory defaultFactory, NativeFactory errorFactory)
 		{

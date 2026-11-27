@@ -11,15 +11,15 @@ module Elevate.Foundations.Files.FileDialog;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Paths;
 
+// C-linkage factories keep the platform implementation classes out of this
+// module's purview.  Otherwise Clang attaches their vtables to this module
+// here but emits them in the global module in the platform .cpp files,
+// leaving undefined module-qualified vtable symbols at link time.
+extern "C" Elevate::FileDialogImpl* EE_CreateDesktopFileDialog();
+extern "C" Elevate::FileDialogImpl* EE_CreateWebFileDialog();
+
 namespace Elevate
 {
-	// C-linkage factories keep the platform implementation classes out of this
-	// module's purview.  Otherwise Clang attaches their vtables to this module
-	// here but emits them in the global module in the platform .cpp files,
-	// leaving undefined module-qualified vtable symbols at link time.
-	extern "C" FileDialogImpl* EE_CreateDesktopFileDialog();
-	extern "C" FileDialogImpl* EE_CreateWebFileDialog();
-
 #ifndef EE_PLATFORM_WEB
 	FileDialogImpl* FileDialog::s_impl = EE_CreateDesktopFileDialog();
 #else

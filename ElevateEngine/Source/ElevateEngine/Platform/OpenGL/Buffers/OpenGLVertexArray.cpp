@@ -1,4 +1,5 @@
 #include <cstdint>
+#include <functional>
 
 #include "OpenGLVertexArray.h"
 

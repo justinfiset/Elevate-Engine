@@ -1,5 +1,7 @@
 
+#include <cstddef>
 #include <cstdint>
+#include <functional>
 #include <memory>
 
 // todo put in Elevate.Foundations.Image
@@ -284,7 +286,7 @@ namespace Elevate::RendererBackend
 {
 	void RegisterTextureFactory()
 	{
-		Texture::SetDataFactory([](const void* data, TextureMetadata& metadata) -> std::shared_ptr<Texture> {
+		Texture::SetDataFactory([](const std::byte* data, TextureMetadata& metadata) -> std::shared_ptr<Texture> {
 			std::shared_ptr<Texture> texture;
 			switch (Renderer::GetAPI())
 			{
