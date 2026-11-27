@@ -1,3 +1,5 @@
+option(EE_CI_SCCACHE "Cache vendored dependency compiles with sccache in CI" OFF)
+
 set(ELEVATE_CONFIGS Editor_Debug Editor_Release Debug Release Dist)
 
 set(ELEVATE_ROOT "${CMAKE_SOURCE_DIR}")

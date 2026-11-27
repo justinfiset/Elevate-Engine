@@ -14,6 +14,10 @@ jobs:
     build-linux:
         name: Linux / ${{ matrix.compiler.name }} / ${{ matrix.configuration }}
         runs-on: ubuntu-24.04
+        env:
+            SCCACHE_GHA_ENABLED: "true"
+            SCCACHE_GHA_CACHE_TO: "sccache-${{ matrix.compiler.name }}-${{ matrix.configuration }}-${{ github.sha }}"
+            SCCACHE_GHA_CACHE_FROM: "sccache-${{ matrix.compiler.name }}-${{ matrix.configuration }}-"
         strategy:
             fail-fast: false
             matrix:
@@ -56,15 +60,25 @@ jobs:
                     retry sudo apt-get install -y gcc-15 g++-15
                   fi
 
+            - name: Setup sccache
+              uses: mozilla-actions/sccache-action@fc920bf0ec8de6ee65d409111f7ec508035751ba # v0.0.11
+              with:
+                  version: "v0.20.1"
+
             - name: Configure
               run: |
                   cmake --preset ${{ matrix.compiler.preset }} \
                     -DCMAKE_C_COMPILER=${{ matrix.compiler.cc }} \
                     -DCMAKE_CXX_COMPILER=${{ matrix.compiler.cxx }} \
-                    -DEE_ENABLE_WWISE=OFF
+                    -DEE_ENABLE_WWISE=OFF \
+                    -DEE_CI_SCCACHE=ON
 
             - name: Compile
               run: cmake --build Build/${{ matrix.compiler.preset }} --config ${{ matrix.configuration }} -j "$(nproc)"
+
+            - name: Show sccache stats
+              if: always()
+              run: ${SCCACHE_PATH} --show-stats
 
             - name: Run tests
               run: |

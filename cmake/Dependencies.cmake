@@ -11,3 +11,16 @@ foreach(target IN ITEMS ElevateVendorHeaders GLFW ImGui Jolt assimp)
     ee_target_folder(${target} "Dependencies")
   endif()
 endforeach()
+
+if(EE_CI_SCCACHE)
+  # Only vendored C/C++ code is wrapped. Module interface units are excluded
+  # because their BMIs are not safe to reuse through a compiler launcher.
+  foreach(target IN ITEMS GLFW ImGui Jolt assimp)
+    if(TARGET ${target})
+      set_target_properties(${target} PROPERTIES
+        C_COMPILER_LAUNCHER sccache
+        CXX_COMPILER_LAUNCHER sccache
+      )
+    endif()
+  endforeach()
+endif()
