@@ -21,7 +21,7 @@ export namespace Elevate
 
 	public:
 		BoxCollider() = default;
-		BoxCollider(const glm::vec3& size) : m_Shape(size * 0.5f) {}
+		explicit BoxCollider(const glm::vec3& size) : m_Shape(size * 0.5f) {}
 
 		const BoxShape& GetShape() const
 		{

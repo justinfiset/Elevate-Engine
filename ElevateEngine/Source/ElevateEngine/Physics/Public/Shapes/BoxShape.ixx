@@ -15,7 +15,7 @@ export namespace Elevate
 		BEGIN_STRUCT(BoxShape);
 	public:
 		BoxShape() : m_HalfExtents(0.5f, 0.5f, 0.5f) {}
-		BoxShape(const glm::vec3& halfExtents) : m_HalfExtents(halfExtents) {}
+		explicit BoxShape(const glm::vec3& halfExtents) : m_HalfExtents(halfExtents) {}
 		~BoxShape() = default;
 
 		const glm::vec3& GetHalfExtents() const { return m_HalfExtents; }

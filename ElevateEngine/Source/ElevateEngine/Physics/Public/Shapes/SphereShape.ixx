@@ -15,7 +15,7 @@ export namespace Elevate
 		BEGIN_STRUCT(SphereShape);
 	public:
 		SphereShape() : m_Radius(0.5f) {}
-		SphereShape(float radius) : m_Radius(radius) {}
+		explicit SphereShape(float radius) : m_Radius(radius) {}
 		~SphereShape() = default;
 
 		float GetRadius() const { return m_Radius; }

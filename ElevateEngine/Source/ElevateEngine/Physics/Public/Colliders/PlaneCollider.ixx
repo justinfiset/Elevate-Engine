@@ -21,7 +21,7 @@ export namespace Elevate
 
 	public:
 		PlaneCollider() = default;
-		PlaneCollider(const glm::vec3& size) : m_Shape(size * 0.5f) {}
+		explicit PlaneCollider(const glm::vec3& size) : m_Shape(size * 0.5f) {}
 
 		const PlaneShape& GetShape() const
 		{

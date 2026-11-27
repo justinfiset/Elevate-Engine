@@ -19,7 +19,7 @@ export namespace Elevate
 
 	public:
 		SphereCollider() = default;
-		SphereCollider(float radius) : m_Shape(radius) {}
+		explicit SphereCollider(float radius) : m_Shape(radius) {}
 
 		const SphereShape& GetShape() const
 		{
