@@ -1,15 +1,18 @@
-#pragma once
+module;
 
-#include "PhysicsShape.h"
+#include <glm/glm.hpp>
 
 #include "Reflection.h"
 
-namespace Elevate
+export module Elevate.Physics.CapsuleShape;
+
+import Elevate.Physics.PhysicsShape;
+
+export namespace Elevate
 {
 	struct CapsuleShape : public PhysicsShape
 	{
 		BEGIN_STRUCT(CapsuleShape);
-
 	public:
 		CapsuleShape() : m_Radius(0.5f), m_HalfHeight(0.5f) {}
 		CapsuleShape(float radius, float halfHeight) : m_Radius(radius), m_HalfHeight(halfHeight) {}

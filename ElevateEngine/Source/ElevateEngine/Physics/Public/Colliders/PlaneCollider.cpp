@@ -1,5 +1,6 @@
+#include <glm/glm.hpp>
 
-#include "PlaneCollider.h"
+import Elevate.Physics.PlaneCollider;
 
 #ifdef EE_EDITOR_BUILD
 import Elevate.Renderer.Debug.DebugRenderer;

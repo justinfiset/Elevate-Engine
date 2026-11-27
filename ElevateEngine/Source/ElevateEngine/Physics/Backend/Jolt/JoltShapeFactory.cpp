@@ -10,14 +10,13 @@
 #include <Jolt/Physics/Collision/Shape/SphereShape.h>
 #include <Jolt/Physics/Collision/Shape/CapsuleShape.h>
 
-#include <ElevateEngine/Physics/Public/Colliders/BoxCollider.h>
-#include <ElevateEngine/Physics/Public/Colliders/CapsuleCollider.h>
-#include <ElevateEngine/Physics/Public/Colliders/SphereCollider.h>
-#include <ElevateEngine/Physics/Public/Colliders/PlaneCollider.h>
-
 #include "JoltShapeFactory.h"
 
 import Elevate.Foundations.CoreLogger;
+import Elevate.Physics.BoxCollider;
+import Elevate.Physics.CapsuleCollider;
+import Elevate.Physics.SphereCollider;
+import Elevate.Physics.PlaneCollider;
 
 namespace Elevate::Jolt
 {

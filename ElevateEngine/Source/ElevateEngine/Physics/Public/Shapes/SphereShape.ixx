@@ -1,9 +1,14 @@
-#pragma once
+module;
 
-#include "PhysicsShape.h"
+#include <glm/glm.hpp>
+
 #include "Reflection.h"
 
-namespace Elevate
+export module Elevate.Physics.SphereShape;
+
+import Elevate.Physics.PhysicsShape;
+
+export namespace Elevate
 {
 	struct SphereShape : public PhysicsShape
 	{

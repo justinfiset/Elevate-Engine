@@ -27,7 +27,6 @@
 
 // Import-bearing headers last.
 #include "JoltShapeFactory.h"
-#include <ElevateEngine/Physics/Public/Colliders/Collider.h>
 #include "JoltPhysicsSystem.h"
 
 import Elevate.Foundations.CoreLogger;
