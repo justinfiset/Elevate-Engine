@@ -1,4 +1,3 @@
-
 // Keep every textual include before the first module import. Project headers
 // that import modules are grouped last; their own textual dependencies are
 // included above, so GCC does not reprocess standard/Jolt headers after an
@@ -28,7 +27,6 @@
 
 // Import-bearing headers last.
 #include "JoltShapeFactory.h"
-#include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
 #include <ElevateEngine/Physics/Public/Colliders/Collider.h>
 #include "JoltPhysicsSystem.h"
 

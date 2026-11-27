@@ -8,11 +8,9 @@
 #include <Jolt/Core/TempAllocator.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
 
-// Rigidbody.h imports a module, so it stays after every textual include.
-#include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
-
 import Elevate.Core.Scene;
 import Elevate.Physics.PhysicsSystem;
+import Elevate.Physics.Rigidbody;
 
 namespace Elevate::Jolt
 {
