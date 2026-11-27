@@ -10,13 +10,13 @@
 #include <Jolt/Physics/Collision/Shape/SphereShape.h>
 #include <Jolt/Physics/Collision/Shape/CapsuleShape.h>
 
+// Shape modules expose glm types from their global module fragment, so importers
+// that use those accessors need the textual include as well.
+#include <glm/glm.hpp>
+
 #include "JoltShapeFactory.h"
 
 import Elevate.Foundations.CoreLogger;
-import Elevate.Physics.BoxCollider;
-import Elevate.Physics.CapsuleCollider;
-import Elevate.Physics.SphereCollider;
-import Elevate.Physics.PlaneCollider;
 
 namespace Elevate::Jolt
 {

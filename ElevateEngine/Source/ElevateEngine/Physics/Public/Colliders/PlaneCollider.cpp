@@ -1,8 +1,11 @@
+module;
+
 #include <glm/glm.hpp>
 
-import Elevate.Physics.PlaneCollider;
+module Elevate.Physics.PlaneCollider;
 
 #ifdef EE_EDITOR_BUILD
+import Elevate.Core.Scene;
 import Elevate.Renderer.Debug.DebugRenderer;
 #endif
 

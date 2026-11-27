@@ -4,14 +4,10 @@
 #include <Jolt/Physics/PhysicsSystem.h>
 
 import Elevate.Physics.Collider;
-
-namespace Elevate
-{
-	class BoxCollider;
-	class CapsuleCollider;
-	class SphereCollider;
-	class PlaneCollider;
-}
+import Elevate.Physics.BoxCollider;
+import Elevate.Physics.CapsuleCollider;
+import Elevate.Physics.SphereCollider;
+import Elevate.Physics.PlaneCollider;
 
 namespace Elevate::Jolt
 {

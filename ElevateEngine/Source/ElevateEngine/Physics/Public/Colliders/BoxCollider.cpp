@@ -1,6 +1,11 @@
-import Elevate.Physics.BoxCollider;
+module;
+
+#include <glm/glm.hpp>
+
+module Elevate.Physics.BoxCollider;
 
 #ifdef EE_EDITOR_BUILD
+import Elevate.Core.Scene;
 import Elevate.Renderer.Debug.DebugRenderer;
 #endif
 
