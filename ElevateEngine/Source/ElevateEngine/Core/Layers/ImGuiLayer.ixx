@@ -21,5 +21,6 @@ export namespace Elevate
 
 	private:
 		float m_Time = 0.0f;
+		bool m_showFpsOverlay = false;
 	};
 }
