@@ -1,5 +1,4 @@
-
-#include "BoxCollider.h"
+import Elevate.Physics.BoxCollider;
 
 #ifdef EE_EDITOR_BUILD
 import Elevate.Renderer.Debug.DebugRenderer;
