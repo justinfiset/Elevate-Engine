@@ -7,10 +7,11 @@ module;
 export module Elevate.Physics.Collider;
 
 import Elevate.Core.Scene;
+export import Elevate.Physics.IPhysicsCollider;
 
 export namespace Elevate
 {
-	class Collider : public Component
+	class Collider : public Component, public IPhysicsCollider
 	{
 		BEGIN_COMPONENT(Collider, HideInInspectorTag());
 		EECATEGORY("Physics");
@@ -18,7 +19,7 @@ export namespace Elevate
 	public:
 		virtual ~Collider() = default;
 
-		const glm::vec3& GetCenter() const { return m_Center; }
+		const glm::vec3& GetCenter() const override { return m_Center; }
 		void SetCenter(const glm::vec3& center) { m_Center = center; }
 		const glm::vec3 GetWorldCenter() const;
 

@@ -58,7 +58,14 @@ function(ee_add_project target projectDir useSoundEngine useWaapi isTests projec
   endif()
 
   if(useSoundEngine)
-    target_compile_definitions(${target} PRIVATE EE_USES_WWISE)
+    if(ee_wwise_enabled)
+      target_compile_definitions(${target} PRIVATE EE_USES_WWISE)
+    else()
+      message(FATAL_ERROR
+        "Project '${projectName}' requests usesSoundEngine, but Wwise is disabled. "
+        "Set EE_ENABLE_WWISE=ON with a valid WWISESDK, or disable usesSoundEngine in the .eeproj."
+      )
+    endif()
   endif()
 
   if(isTests)

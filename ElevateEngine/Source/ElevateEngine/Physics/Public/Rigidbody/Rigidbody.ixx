@@ -6,6 +6,8 @@ export module Elevate.Physics.Rigidbody;
 // partition must be imported here before a module that imports it indirectly.
 // Reflection.h imports Renderer.Texture and Editor.Types.EditorTypeTrait in
 // editor builds, and Scene reaches both indirectly, so they must come first.
+export import Elevate.Physics.IPhysicsCollider;
+export import Elevate.Physics.IPhysicsRigidbody;
 import Elevate.Core.Objects.Category;
 import Elevate.Core.Objects.Object;
 import Elevate.Core.Objects.ObjectPtr;

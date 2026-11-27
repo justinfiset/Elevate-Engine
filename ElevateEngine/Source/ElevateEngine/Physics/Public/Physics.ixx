@@ -2,6 +2,8 @@ module;
 
 export module Elevate.Physics;
 
+export import Elevate.Physics.IPhysicsCollider;
+export import Elevate.Physics.IPhysicsRigidbody;
 export import Elevate.Physics.PhysicsSystem;
 export import Elevate.Physics.PhysicsShape;
 export import Elevate.Physics.BoxShape;

@@ -31,10 +31,9 @@
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Application.GameContext;
-import Elevate.Core.Transform.Transform;
-import Elevate.Physics.Collider;
+import Elevate.Physics.IPhysicsCollider;
+import Elevate.Physics.IPhysicsRigidbody;
 import Elevate.Physics.PhysicsSystem;
-import Elevate.Physics.Rigidbody;
 
 namespace Elevate
 {
@@ -160,41 +159,23 @@ namespace Elevate::Jolt
 		}
 	}
 
-	JPH::EMotionType GetBodyMotionType(const Rigidbody* rigidbody)
+	JPH::EMotionType GetBodyMotionType(const IPhysicsRigidbody* rigidbody)
 	{
-		switch (rigidbody->GetType())
+		if (rigidbody->IsStatic())
 		{
-		case RigidbodyType::Dynamic:
-			return JPH::EMotionType::Dynamic;
-		case RigidbodyType::Kinematic:
-			return JPH::EMotionType::Kinematic;
-		case RigidbodyType::Static:
 			return JPH::EMotionType::Static;
-		default:
-			CoreLogger::Error("Unknown RigidbodyType.");
-			break;
 		}
-		return JPH::EMotionType::Static;
+		return rigidbody->IsKinematic() ? JPH::EMotionType::Kinematic : JPH::EMotionType::Dynamic;
 	}
 
-	JPH::ObjectLayer GetObjectLayer(const Rigidbody* rigidbody)
+	JPH::ObjectLayer GetObjectLayer(const IPhysicsRigidbody* rigidbody)
 	{
-		switch (rigidbody->GetType())
-		{
-		case RigidbodyType::Static:
-			return PhysicsLayers::NON_MOVING;
-		case RigidbodyType::Dynamic:
-		case RigidbodyType::Kinematic:
-			return PhysicsLayers::MOVING;
-		default:
-			CoreLogger::Error("Unknown RigidbodyType.");
-			return PhysicsLayers::NON_MOVING;
-		}
+		return rigidbody->IsStatic() ? PhysicsLayers::NON_MOVING : PhysicsLayers::MOVING;
 	}
 
-	JPH::EActivation GetBodyActivation(const Rigidbody* rigidbody)
+	JPH::EActivation GetBodyActivation(const IPhysicsRigidbody* rigidbody)
 	{
-		return rigidbody->GetType() == RigidbodyType::Static ? JPH::EActivation::DontActivate : JPH::EActivation::Activate;
+		return rigidbody->IsStatic() ? JPH::EActivation::DontActivate : JPH::EActivation::Activate;
 	}
 
 	void JoltPhysicsSystem::FlushAllBodies()
@@ -207,23 +188,20 @@ namespace Elevate::Jolt
 		m_Bodies.clear();
 	}
 
-	void JoltPhysicsSystem::AddRigidbody(const Component* rigidbodyComponent)
+	void JoltPhysicsSystem::AddRigidbody(IPhysicsRigidbody* rigidbody)
 	{
-		const auto* rigidbody = static_cast<const Rigidbody*>(rigidbodyComponent);
-
 		JPH::StaticCompoundShapeSettings compoundSettings;
-		const auto& position = rigidbody->gameObject->GetPosition();
-		const auto& quat = rigidbody->gameObject->GetTransform().GetRotationQuat();
-		const auto& colliders = rigidbody->GetColliders();
+		const glm::vec3 position = rigidbody->GetPosition();
+		const glm::quat quat = rigidbody->GetRotation();
+		const auto& colliders = rigidbody->GetPhysicsColliders();
 
 		if (colliders.empty())
 		{
 			return;
 		}
 
-		for (const auto* colliderComponent : colliders)
+		for (const IPhysicsCollider* collider : colliders)
 		{
-			const auto* collider = static_cast<const Collider*>(colliderComponent);
 			auto shapeResult = JoltShapeFactory::Create(collider);
 
 			if (!shapeResult)
@@ -271,10 +249,8 @@ namespace Elevate::Jolt
 		m_Bodies.push_back(joltBody);
 	}
 
-	void JoltPhysicsSystem::RemoveRigidbody(const Component* rigidbodyComponent)
+	void JoltPhysicsSystem::RemoveRigidbody(IPhysicsRigidbody* rigidbody)
 	{
-		const auto* rigidbody = static_cast<const Rigidbody*>(rigidbodyComponent);
-
 		auto it = std::find_if(m_Bodies.begin(), m_Bodies.end(), [rigidbody](const auto& body)
 			{
 				return body.rigidbody == rigidbody;
@@ -291,19 +267,19 @@ namespace Elevate::Jolt
 		m_Bodies.erase(it);
 	}
 
-	void JoltPhysicsSystem::RebuildRigidbody(const Component* rigidbodyComponent)
+	void JoltPhysicsSystem::RebuildRigidbody(IPhysicsRigidbody* rigidbody)
 	{
-		RemoveRigidbody(rigidbodyComponent);
-		AddRigidbody(rigidbodyComponent);
+		RemoveRigidbody(rigidbody);
+		AddRigidbody(rigidbody);
 	}
 
 	void JoltPhysicsSystem::SyncDynamicBodies()
 	{
 		for (auto& body : m_Bodies)
 		{
-			const Rigidbody* rigidbody = body.rigidbody;
+			IPhysicsRigidbody* rigidbody = body.rigidbody;
 
-			if (rigidbody->GetType() != RigidbodyType::Dynamic)
+			if (!rigidbody->IsDynamic())
 			{
 				continue;
 			}
@@ -313,10 +289,9 @@ namespace Elevate::Jolt
 			JPH::Quat rotation;
 			m_BodyInterface->GetPositionAndRotation(body.bodyID, position, rotation);
 
-			// Apply the data to the world object
-			Transform& transform = rigidbody->gameObject->GetTransform();
-			transform.SetPosition(glm::vec3{ position.GetX(), position.GetY(), position.GetZ() });
-			transform.SetRotationQuaternion(glm::quat{ rotation.GetX(), rotation.GetY(), rotation.GetZ(), rotation.GetW() });
+			// Apply the data to the world object through the physics interface.
+			rigidbody->SetPosition(glm::vec3{ position.GetX(), position.GetY(), position.GetZ() });
+			rigidbody->SetRotation(glm::quat{ rotation.GetX(), rotation.GetY(), rotation.GetZ(), rotation.GetW() });
 		}
 	}
 

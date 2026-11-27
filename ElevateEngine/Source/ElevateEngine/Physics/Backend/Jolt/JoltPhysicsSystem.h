@@ -8,16 +8,15 @@
 #include <Jolt/Core/TempAllocator.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
 
-import Elevate.Core.Scene;
+import Elevate.Physics.IPhysicsRigidbody;
 import Elevate.Physics.PhysicsSystem;
-import Elevate.Physics.Rigidbody;
 
 namespace Elevate::Jolt
 {
-	// Small struct to link ElevateEngine's Rigidbody with jols's system
+	// Small struct to link an Elevate physics body with Jolt's system.
 	struct JoltPhysicsBody
 	{
-		const Rigidbody* rigidbody = nullptr;
+		IPhysicsRigidbody* rigidbody = nullptr;
 		JPH::BodyID bodyID;
 	};
 
@@ -87,10 +86,10 @@ namespace Elevate::Jolt
 		void Shutdown() override;
 		void Update(float deltaTime) override;
 
-		virtual void FlushAllBodies() override;
-		virtual void AddRigidbody(const Component* rigidbody) override;
-		virtual void RemoveRigidbody(const Component* rigidbody) override;
-		virtual void RebuildRigidbody(const Component* rigidbody) override;
+		void FlushAllBodies() override;
+		void AddRigidbody(IPhysicsRigidbody* rigidbody) override;
+		void RemoveRigidbody(IPhysicsRigidbody* rigidbody) override;
+		void RebuildRigidbody(IPhysicsRigidbody* rigidbody) override;
 
 	private:
 		/// <summary>

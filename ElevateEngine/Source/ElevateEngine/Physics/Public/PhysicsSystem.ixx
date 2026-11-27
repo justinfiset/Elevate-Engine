@@ -5,10 +5,10 @@ module;
 
 export module Elevate.Physics.PhysicsSystem;
 
-// Keep this interface independent of Elevate.Physics.Rigidbody: Rigidbody's
-// implementation needs PhysicsSystem, so importing it here would create a
-// module dependency cycle. Component is the common typed handle instead.
-import Elevate.Core.Scene;
+// The backend depends on this narrow interface instead of the Rigidbody
+// component: Rigidbody's implementation needs PhysicsSystem, so importing
+// Rigidbody here would create a module purview cycle under GCC.
+import Elevate.Physics.IPhysicsRigidbody;
 
 export namespace Elevate
 {
@@ -38,9 +38,9 @@ export namespace Elevate
 		virtual void Update(float deltaTime) = 0;
 
 		virtual void FlushAllBodies() = 0;
-		virtual void AddRigidbody(const Component* rigidbody) = 0;
-		virtual void RemoveRigidbody(const Component* rigidbody) = 0;
-		virtual void RebuildRigidbody(const Component* rigidbody) = 0;
+		virtual void AddRigidbody(IPhysicsRigidbody* rigidbody) = 0;
+		virtual void RemoveRigidbody(IPhysicsRigidbody* rigidbody) = 0;
+		virtual void RebuildRigidbody(IPhysicsRigidbody* rigidbody) = 0;
 
 	protected:
 		static PhysicsSystem* s_Instance;

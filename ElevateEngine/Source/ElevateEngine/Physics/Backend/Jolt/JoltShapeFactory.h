@@ -3,24 +3,24 @@
 #include <Jolt/Jolt.h>
 #include <Jolt/Physics/PhysicsSystem.h>
 
-import Elevate.Physics.Collider;
-import Elevate.Physics.BoxCollider;
-import Elevate.Physics.CapsuleCollider;
-import Elevate.Physics.SphereCollider;
-import Elevate.Physics.PlaneCollider;
+import Elevate.Physics.IPhysicsCollider;
+import Elevate.Physics.BoxShape;
+import Elevate.Physics.CapsuleShape;
+import Elevate.Physics.SphereShape;
+import Elevate.Physics.PlaneShape;
 
 namespace Elevate::Jolt
 {
 	class JoltShapeFactory
 	{
 	public:
-		static JPH::ShapeRefC Create(const Collider* collider);
+		static JPH::ShapeRefC Create(const IPhysicsCollider* collider);
 
 	private:
 		static bool ValidateShapeResult(const JPH::ShapeSettings::ShapeResult& result);
-		static JPH::ShapeRefC CreateBoxShape(const BoxCollider& collider);
-		static JPH::ShapeRefC CreateCapsuleShape(const CapsuleCollider& collider);
-		static JPH::ShapeRefC CreateSphereShape(const SphereCollider& collider);
-		static JPH::ShapeRefC CreatePlaneShape(const PlaneCollider& collider);
+		static JPH::ShapeRefC CreateBoxShape(const BoxShape& shape);
+		static JPH::ShapeRefC CreateCapsuleShape(const CapsuleShape& shape);
+		static JPH::ShapeRefC CreateSphereShape(const SphereShape& shape);
+		static JPH::ShapeRefC CreatePlaneShape(const PlaneShape& shape);
 	};
 }

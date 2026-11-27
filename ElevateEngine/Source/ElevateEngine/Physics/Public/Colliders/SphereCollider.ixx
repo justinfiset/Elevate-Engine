@@ -5,6 +5,7 @@ module;
 export module Elevate.Physics.SphereCollider;
 
 import Elevate.Core.Scene;
+import Elevate.Physics.PhysicsShape;
 export import Elevate.Physics.SphereShape;
 export import Elevate.Physics.Collider;
 
@@ -24,6 +25,8 @@ export namespace Elevate
 		{
 			return m_Shape;
 		}
+
+		const PhysicsShape* GetPhysicsShape() const override { return &m_Shape; }
 
 	private:
 		SphereShape m_Shape;

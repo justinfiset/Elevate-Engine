@@ -7,6 +7,7 @@ module;
 export module Elevate.Physics.BoxCollider;
 
 import Elevate.Core.Scene;
+import Elevate.Physics.PhysicsShape;
 export import Elevate.Physics.BoxShape;
 export import Elevate.Physics.Collider;
 
@@ -26,6 +27,8 @@ export namespace Elevate
 		{
 			return m_Shape;
 		}
+
+		const PhysicsShape* GetPhysicsShape() const override { return &m_Shape; }
 
 #ifdef EE_EDITOR_BUILD
 		void RenderWhenSelected() override;
