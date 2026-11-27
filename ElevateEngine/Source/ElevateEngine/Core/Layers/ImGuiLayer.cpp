@@ -1,7 +1,6 @@
 module;
 
 #include <cstdio>
-#include <string>
 
 #include "imgui.h"
 #include "backends/imgui_impl_opengl3.h"
@@ -119,14 +118,9 @@ void Elevate::ImGuiLayer::OnImGuiRenderEnd()
 
 	ImGui::Render();
 
-	ImGuiIO& io = ImGui::GetIO();
-	io.DisplaySize = ImVec2(
-		(float)Application::Get().GetWindow().GetWidth(),
-		(float)Application::Get().GetWindow().GetHeight());
-
 	// Rendering
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 	{
 		GLFWwindow* backup_current_context = glfwGetCurrentContext();
 		ImGui::UpdatePlatformWindows();
@@ -137,7 +131,5 @@ void Elevate::ImGuiLayer::OnImGuiRenderEnd()
 
 void Elevate::ImGuiLayer::Cleanup()
 {
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
+	OnDetach();
 }

@@ -6,6 +6,7 @@ foreach(projectDir IN LISTS projectDirs)
     continue()
   endif()
   if(NOT EXISTS "${projectDir}/.eeproj")
+    message(WARNING "Skipping user project directory without .eeproj: ${projectDir}")
     continue()
   endif()
 

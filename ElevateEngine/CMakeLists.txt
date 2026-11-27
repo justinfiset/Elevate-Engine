@@ -5,6 +5,11 @@ file(GLOB_RECURSE engineSources CONFIGURE_DEPENDS
   "${CMAKE_CURRENT_SOURCE_DIR}/Source/*.inl"
 )
 
+# Older configure runs copied Wwise samples under Source/ElevateEngine/Audio/Ak.
+# Generated copies now live in the build tree; never compile stale leftovers.
+list(FILTER engineModules EXCLUDE REGEX "/ElevateEngine/Audio/Ak/")
+list(FILTER engineSources EXCLUDE REGEX "/ElevateEngine/Audio/Ak/")
+
 file(GLOB vendoredSources
   "${CMAKE_CURRENT_SOURCE_DIR}/Vendor/ImGuizmo/src/ImGuizmo.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/Vendor/ImGuiFileDialog/*.cpp"

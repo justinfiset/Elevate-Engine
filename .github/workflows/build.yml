@@ -205,8 +205,15 @@ jobs:
 
             - name: Install Doxygen
               run: |
-                  sudo apt-get update
-                  sudo apt-get install -y doxygen graphviz
+                  retry() {
+                    for attempt in 1 2 3; do
+                      "$@" && return 0
+                      sleep 5
+                    done
+                    return 1
+                  }
+                  retry sudo apt-get update
+                  retry sudo apt-get install -y doxygen graphviz
 
             - name: Generate Doxygen Docs
               run: doxygen Docs/Doxyfile
@@ -216,7 +223,10 @@ jobs:
                   test -s Docs/html/index.html
                   grep -q 'Pointer Patching' Docs/html/pages.html
                   grep -q 'Building with Emscripten' Docs/html/pages.html
-                  grep -Eq 'dotgraph|<svg' Docs/html/pointer_patching.html
+                  grep -q 'dot_inline_dotgraph_' Docs/html/pointer_patching.html
+                  graph_svg="$(find Docs/html -maxdepth 1 -name 'dot_inline_dotgraph_*.svg' -size +0c -print -quit)"
+                  test -n "$graph_svg"
+                  grep -Eq 'EEObjectPtrResolution|Resolved' "$graph_svg"
 
             - name: Upload Docs Artifact
               if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')

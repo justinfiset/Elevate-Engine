@@ -6,7 +6,7 @@
 
 # Web Build Demo
 
-Editor and Runtime emscripten builds are automatically deployed on the gh-page branch. Here is a list of deployed projects :
+Editor and Runtime emscripten builds are automatically deployed on the gh-pages branch. Here is a list of deployed projects :
 
 | Project  | Configuration  | Link                                                                               |
 | :------- | :------------- | :--------------------------------------------------------------------------------- |
@@ -46,7 +46,7 @@ CMake Presets configure Ninja Multi-Config builds for every supported platform.
 ### Windows / MSVC
 
 ```cmd
-cmake --preset windows-msvc
+cmake --preset windows-msvc -DEE_ENABLE_WWISE=OFF
 cmake --build Build/windows-msvc --config Editor_Debug
 ctest --test-dir Build/windows-msvc -C Editor_Debug --output-on-failure
 ```
@@ -56,17 +56,25 @@ ctest --test-dir Build/windows-msvc -C Editor_Debug --output-on-failure
 The Visual Studio 2022 generator is a supported local development path:
 
 ```cmd
-cmake --preset visual-studio-2022
+cmake --preset visual-studio-2022 -DEE_ENABLE_WWISE=OFF
 ```
 
-Open `Build/visual-studio-2022/ElevateEngine.sln` and build the `Sandbox` startup project. `visual-studio-2026` is also available when Visual Studio 2026 is installed; that preset requires CMake 4.2 or newer. CI uses the Ninja Multi-Config presets and explicitly selects `cl.exe` for the Windows jobs.
+Open `Build/visual-studio-2022/ElevateEngine.sln` and build the `Sandbox` startup project.
+
+`visual-studio-2026` is also available when Visual Studio 2026 is installed. That preset requires CMake 4.2 or newer:
+
+```cmd
+cmake --preset visual-studio-2026 -DEE_ENABLE_WWISE=OFF
+```
+
+CI uses the Ninja Multi-Config presets and explicitly selects `cl.exe` for the Windows jobs.
 
 ### VS Code
 
 For VS Code with CMake Tools and the Microsoft C/C++ extension, use the Ninja preset:
 
 ```cmd
-cmake --preset windows-msvc
+cmake --preset windows-msvc -DEE_ENABLE_WWISE=OFF
 ```
 
 CMake writes `Build/windows-msvc/compile_commands.json` during configure. CMake Tools can feed its IntelliSense configuration directly from the CMake project, so a compilation database is not strictly required for that setup.
@@ -86,7 +94,7 @@ The Visual Studio generator does not emit `compile_commands.json`; CMake only su
 ### Linux / Clang
 
 ```bash
-cmake --preset linux-clang
+cmake --preset linux-clang -DEE_ENABLE_WWISE=OFF
 cmake --build Build/linux-clang --config Editor_Debug -j"$(nproc)"
 ctest --test-dir Build/linux-clang -C Editor_Debug --output-on-failure
 ```
@@ -94,7 +102,7 @@ ctest --test-dir Build/linux-clang -C Editor_Debug --output-on-failure
 ### Linux / GCC
 
 ```bash
-cmake --preset linux-gcc
+cmake --preset linux-gcc -DEE_ENABLE_WWISE=OFF
 cmake --build Build/linux-gcc --config Editor_Debug -j"$(nproc)"
 ctest --test-dir Build/linux-gcc -C Editor_Debug --output-on-failure
 ```
@@ -104,7 +112,7 @@ ctest --test-dir Build/linux-gcc -C Editor_Debug --output-on-failure
 Set up the [emsdk](https://emscripten.org/docs/getting_started/downloads.html) first, then:
 
 ```bash
-cmake --preset web
+cmake --preset web -DEE_ENABLE_WWISE=OFF
 cmake --build Build/web --config Release
 ```
 
@@ -140,7 +148,7 @@ Wwise integration is optional. It is enabled automatically when `WWISESDK` point
 cmake --preset linux-clang -DEE_ENABLE_WWISE=ON
 ```
 
-Disable it with `-DEE_ENABLE_WWISE=OFF`.
+Disable it with `-DEE_ENABLE_WWISE=OFF`. The validation commands above force it off so local builds match CI.
 
 ## Resources
 
@@ -156,7 +164,7 @@ CI builds and tests every supported compiler: Clang and GCC on Linux, MSVC on Wi
 
 | Platform                                                                                                    | OS                          | Compiler              | Status                                                                                                                                                                                         |
 | :---------------------------------------------------------------------------------------------------------- | :-------------------------- | :-------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![Windows](https://img.shields.io/badge/Windows-0078D4?style=flat&logo=windows&logoColor=white)             | `windows-latest`            | MSVC (Ninja)          | [![Windows Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-windows&label=)](https://github.com/justinfiset/Elevate-Engine/actions)   |
+| ![Windows](https://img.shields.io/badge/Windows-0078D4?style=flat&logo=windows&logoColor=white)             | `windows-2022`              | MSVC 14.44 / cl.exe (Ninja) | [![Windows Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-windows&label=)](https://github.com/justinfiset/Elevate-Engine/actions)   |
 | ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)                   | `ubuntu-24.04`              | Clang 18 (Ninja)      | [![Linux Clang Build](https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml/badge.svg?branch=main&job=build-linux&label=)](https://github.com/justinfiset/Elevate-Engine/actions) |
 | ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)                   | `ubuntu-24.04`              | GCC 15 (Ninja)        | [![Linux GCC Build](https://github.com/justinfiset/Elevate-Engine/actions/workflows/build.yml/badge.svg?branch=main&job=build-linux&label=)](https://github.com/justinfiset/Elevate-Engine/actions) |
 | ![WebAssembly](https://img.shields.io/badge/WebAssembly-654FF0?style=flat&logo=webassembly&logoColor=white) | `emscripten` (Windows Host) | Emscripten (Ninja)    | [![Web Build](https://img.shields.io/github/actions/workflow/status/justinfiset/Elevate-Engine/build.yml?job=build-web&label=)](https://github.com/justinfiset/Elevate-Engine/actions)             |

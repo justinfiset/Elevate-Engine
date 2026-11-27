@@ -15,7 +15,9 @@ elseif(NOT EE_ENABLE_WWISE STREQUAL "OFF")
   message(FATAL_ERROR "Invalid EE_ENABLE_WWISE value: ${EE_ENABLE_WWISE}")
 endif()
 
-set(ee_wwise_dest "${CMAKE_SOURCE_DIR}/ElevateEngine/Source/ElevateEngine/Audio/Ak")
+# Keep SDK sample copies in the build tree. Multiple build trees can then have
+# different Wwise settings without deleting each other's generated sources.
+set(ee_wwise_dest "${CMAKE_BINARY_DIR}/wwise/ElevateEngine/Audio/Ak")
 
 if(ee_wwise_enabled)
   set(EE_WWISE_SDK "$ENV{WWISESDK}")
@@ -85,7 +87,6 @@ endif()
 
 function(ee_wwise_prepare)
   if(NOT ee_wwise_enabled)
-    file(REMOVE_RECURSE "${ee_wwise_dest}")
     return()
   endif()
 
@@ -106,7 +107,9 @@ function(ee_wwise_configure_engine target)
     target_compile_definitions(${target} PUBLIC UNICODE _UNICODE)
   endif()
 
-  target_compile_definitions(${target} PUBLIC
+  # These select Wwise code paths inside the engine. User projects opt in via
+  # ee_add_project()'s useSoundEngine flag instead of inheriting them from here.
+  target_compile_definitions(${target} PRIVATE
     EE_USES_WWISE
     EE_USES_WWISEPROJECTDATABASE
   )
@@ -116,6 +119,7 @@ function(ee_wwise_configure_engine target)
 
   target_include_directories(${target} PUBLIC
     "${EE_WWISE_SDK}/include"
+    "${CMAKE_BINARY_DIR}/wwise"
     "${ee_wwise_dest}/${ee_wwise_sample_platform}"
     "${EE_WWISE_SDK}/samples"
     "${EE_WWISE_SDK}/samples/3rdParty/subprojects"
@@ -123,6 +127,19 @@ function(ee_wwise_configure_engine target)
     "${EE_WWISE_SDK}/samples/SoundEngine/Common"
     "${EE_WWISE_SDK}/samples/SoundEngine/${ee_wwise_sample_platform}"
   )
+
+  # These used to be copied into the source tree and picked up by its source
+  # glob. Build them explicitly from the generated location instead.
+  file(GLOB_RECURSE wwiseSampleSources CONFIGURE_DEPENDS
+    "${ee_wwise_dest}/*.cpp"
+    "${ee_wwise_dest}/*.c"
+  )
+  file(GLOB_RECURSE wwiseSampleHeaders CONFIGURE_DEPENDS
+    "${ee_wwise_dest}/*.h"
+  )
+  target_sources(${target} PRIVATE ${wwiseSampleSources} ${wwiseSampleHeaders})
+  ee_source_group_tree("${ee_wwise_dest}" "Dependencies/Wwise/SoundEngine"
+    ${wwiseSampleSources} ${wwiseSampleHeaders})
 
   foreach(cfg Debug Editor_Debug)
     target_link_directories(${target} PUBLIC

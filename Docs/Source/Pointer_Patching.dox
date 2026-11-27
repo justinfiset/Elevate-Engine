@@ -71,8 +71,10 @@ digraph EEObjectPtrResolution {
     load [label="isOnDisk\nLoadAssetFromDisk()\nfactory + JSON + SetGuid + OnLoad"];
   }
 
-  assign [label="shared_ptr / reset()"] -> resolved;
-  guidset [label="Guid ctor / SetGuid()"] -> deferred;
+  assign [label="shared_ptr / reset()"];
+  guidset [label="Guid ctor / SetGuid()"];
+  assign -> resolved;
+  guidset -> deferred;
 
   resolved -> capture;
   capture -> guidvalue;
