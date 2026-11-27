@@ -50,6 +50,7 @@ if(ee_wwise_enabled)
   # part of the library and would pull in headers we do not provide.
   list(FILTER wwiseDbSources EXCLUDE REGEX "WwiseProjectDatabaseTests|WwiseProjectDatabaseIntegrationTests")
   add_library(WwiseProjectDatabase STATIC ${wwiseDbSources})
+  ee_source_group_tree("${EE_WWISE_SDK}/samples/WwiseProjectDatabase" "Dependencies/Wwise" ${wwiseDbSources})
   target_include_directories(WwiseProjectDatabase PUBLIC
     "${EE_WWISE_SDK}/samples/WwiseProjectDatabase/WwiseProjectDatabase"
     "${EE_WWISE_SDK}/include"
@@ -75,6 +76,7 @@ if(ee_wwise_enabled)
   set_target_properties(WwiseProjectDatabase PROPERTIES
     CXX_STANDARD 20
     POSITION_INDEPENDENT_CODE ON
+    FOLDER "Dependencies/Wwise"
   )
   ee_setup_outputs(WwiseProjectDatabase)
 else()

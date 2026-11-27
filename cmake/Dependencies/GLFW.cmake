@@ -44,6 +44,7 @@ if(NOT EMSCRIPTEN)
   endif()
 
   add_library(GLFW STATIC ${glfw_sources})
+  ee_source_group_tree("${VENDOR_DIR}/GLFW" "Vendor/GLFW" ${glfw_sources})
   target_include_directories(GLFW PUBLIC "${VENDOR_DIR}/GLFW/include" PRIVATE "${VENDOR_DIR}/GLFW/src")
   if(WIN32)
     target_compile_definitions(GLFW PRIVATE _GLFW_WIN32 _CRT_SECURE_NO_WARNINGS)

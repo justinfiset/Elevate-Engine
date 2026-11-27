@@ -134,3 +134,13 @@ function(ee_safe_project_name name output)
   string(REPLACE " " "-" safe "${name}")
   set(${output} "${safe}" PARENT_SCOPE)
 endfunction()
+
+function(ee_target_folder target folder)
+  set_target_properties(${target} PROPERTIES FOLDER "${folder}")
+endfunction()
+
+function(ee_source_group_tree root prefix)
+  if(ARGC GREATER 2)
+    source_group(TREE "${root}" PREFIX "${prefix}" FILES ${ARGN})
+  endif()
+endfunction()

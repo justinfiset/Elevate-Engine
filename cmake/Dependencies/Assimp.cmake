@@ -19,6 +19,7 @@ file(GLOB assimp_zlib_sources LIST_DIRECTORIES false "${VENDOR_DIR}/assimp/contr
 list(APPEND assimp_sources ${assimp_zlib_sources})
 list(FILTER assimp_sources INCLUDE REGEX "\\.(c|cc|cpp|h|hpp|inl)$")
 add_library(assimp STATIC ${assimp_sources})
+ee_source_group_tree("${VENDOR_DIR}/assimp" "Vendor/assimp" ${assimp_sources})
 target_include_directories(assimp PUBLIC
   "${VENDOR_DIR}/_config_headers"
   "${VENDOR_DIR}/_config_headers/assimp"

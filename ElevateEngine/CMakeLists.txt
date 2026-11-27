@@ -17,6 +17,9 @@ endif()
 
 set_source_files_properties(${engineModules} PROPERTIES LANGUAGE CXX)
 
+ee_source_group_tree("${CMAKE_CURRENT_SOURCE_DIR}/Source" "Source" ${engineModules} ${engineSources})
+ee_source_group_tree("${CMAKE_CURRENT_SOURCE_DIR}/Vendor" "Vendor" ${vendoredSources})
+
 add_library(ElevateEngine STATIC ${engineSources} ${vendoredSources})
 target_sources(ElevateEngine PUBLIC
   FILE_SET CXX_MODULES

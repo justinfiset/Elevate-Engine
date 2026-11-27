@@ -23,12 +23,22 @@ function(ee_add_project target projectDir useSoundEngine useWaapi isTests projec
     "${projectDir}/Source/*.frag"
   )
 
+  ee_source_group_tree("${projectDir}/Source" "Source" ${projectSources})
+
   add_executable(${target} ${projectSources})
   ee_common_settings(${target})
+
+  if(isTests)
+    set(eeProjectFolder "Tests")
+  else()
+    set(eeProjectFolder "User Projects")
+  endif()
+
   set_target_properties(${target} PROPERTIES
     WIN32_EXECUTABLE "$<$<CONFIG:Dist>:ON>"
     VS_DEBUGGER_WORKING_DIRECTORY "${projectDir}"
     DEBUGGER_WORKING_DIRECTORY "${projectDir}"
+    FOLDER "${eeProjectFolder}"
   )
 
   target_compile_definitions(${target} PRIVATE EE_NO_SOUNDENGINE)

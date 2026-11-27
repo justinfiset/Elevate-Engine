@@ -2,6 +2,7 @@ file(GLOB_RECURSE jolt_sources CONFIGURE_DEPENDS "${VENDOR_DIR}/JoltPhysics/Jolt
 list(FILTER jolt_sources EXCLUDE REGEX "/(Compute/(CPU|DX12|VK|MTL)|ObjectStream)/")
 list(APPEND jolt_sources "${VENDOR_DIR}/JoltPhysics/Jolt/ObjectStream/SerializableObject.cpp")
 add_library(Jolt STATIC ${jolt_sources})
+ee_source_group_tree("${VENDOR_DIR}/JoltPhysics" "Vendor/JoltPhysics" ${jolt_sources})
 target_include_directories(Jolt PUBLIC "${VENDOR_DIR}/JoltPhysics")
 target_compile_definitions(Jolt PUBLIC
   $<$<CONFIG:Debug>:JPH_ENABLE_ASSERTS>

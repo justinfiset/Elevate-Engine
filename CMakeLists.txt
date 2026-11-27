@@ -71,6 +71,7 @@ add_custom_target(resourcegen
   COMMAND "${CMAKE_COMMAND}" -S "${CMAKE_CURRENT_SOURCE_DIR}" -B "${CMAKE_CURRENT_BINARY_DIR}"
   COMMENT "Regenerating embedded resource modules"
 )
+ee_target_folder(resourcegen "CMakePredefinedTargets")
 
 ee_wwise_prepare()
 

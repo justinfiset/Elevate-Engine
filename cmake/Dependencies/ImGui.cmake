@@ -5,6 +5,7 @@ file(GLOB imgui_sources
   "${VENDOR_DIR}/ImGui/misc/cpp/imgui_stdlib.cpp"
 )
 add_library(ImGui STATIC ${imgui_sources})
+ee_source_group_tree("${VENDOR_DIR}/ImGui" "Vendor/ImGui" ${imgui_sources})
 target_include_directories(ImGui PUBLIC "${VENDOR_DIR}/ImGui" PRIVATE "${VENDOR_DIR}/Glad/include" "${VENDOR_DIR}/GLFW/include")
 target_compile_definitions(ImGui PUBLIC IMGUI_IMPL_OPENGL_LOADER_GLAD)
 if(WIN32)
