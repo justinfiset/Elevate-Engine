@@ -18,7 +18,7 @@ export namespace Elevate
 	class Rigidbody : public Component, public IPhysicsRigidbody
 	{
 	public:
-		BEGIN_COMPONENT(Rigidbody, EditorIconTag(Editor::Resources::Icons::Light::Components::Rigidbody));
+		BEGIN_COMPONENT(Rigidbody, EE_EditorTag(EditorIconTag(Editor::Resources::Icons::Light::Components::Rigidbody)));
 		EECATEGORY("Physics");
 
 		Rigidbody() = default;

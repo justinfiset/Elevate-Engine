@@ -166,9 +166,12 @@ namespace Elevate
 
 	void Application::CreateLayers()
 	{
-		OnCreateLayers();
-
+		// ImGuiLayer::OnAttach() creates the ImGui context. Attach it first so
+		// user and editor layers can safely use ImGui from their OnAttach().
+		// PushLayer still inserts before overlays, so render order is unchanged.
 		PushOverlay(new ImGuiLayer());
+
+		OnCreateLayers();
 
 #ifdef EE_EDITOR_BUILD
 		PushOverlay(new Editor::EditorLayer());

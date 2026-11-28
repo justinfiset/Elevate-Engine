@@ -3,11 +3,11 @@ module;
 #include <string>
 #include "imgui.h"
 
-module Elevate.Editor.Theme;
+module Elevate.Theme;
 
 import Elevate.Foundations.Paths;
 
-namespace Elevate::Editor
+namespace Elevate
 {
 	static Theme currentTheme = Theme::Dark;
 
@@ -18,10 +18,12 @@ namespace Elevate::Editor
 
 	void ApplyFont()
 	{
+#ifdef EE_EDITOR_BUILD
 		static std::string fontPath = "editor://Fonts/FiraCode/FiraCode-Regular.ttf";
 		ImGuiIO& io = ImGui::GetIO();
 		ImFont* font = io.Fonts->AddFontFromFileTTF(PathResolver::Resolve(fontPath).string().c_str(), 14.0f);
 		io.FontDefault = font;
+#endif
 	}
 
 	void SetDarkTheme()

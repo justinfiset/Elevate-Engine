@@ -14,7 +14,7 @@ export namespace Elevate
 {
 	class PointLight : public Light, public IPointLight
 	{
-		BEGIN_COMPONENT(PointLight, EditorIconTag(Editor::Resources::Icons::Light::Lightbulb));
+		BEGIN_COMPONENT(PointLight, EE_EditorTag(EditorIconTag(Editor::Resources::Icons::Light::Lightbulb)));
 		DECLARE_BASE(Light);
 		EECATEGORY("Lighting");
 	public:

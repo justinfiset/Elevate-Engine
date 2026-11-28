@@ -130,6 +130,8 @@ The available configurations are:
 - `Release`
 - `Dist`
 
+Only `Editor_Debug` and `Editor_Release` compile the engine's `Editor/` sources. Runtime configurations exclude them; shared UI code such as `Elevate.Theme` stays available to runtime targets like the launcher.
+
 Executables and libraries are written to:
 
 ```text

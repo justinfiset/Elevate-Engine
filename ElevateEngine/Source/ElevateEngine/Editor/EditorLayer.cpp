@@ -33,7 +33,7 @@ import Elevate.Input;
 import Elevate.Editor.Camera;
 import Elevate.Editor.Commands.GameobjectCommand;
 import Elevate.Editor.Renderer.ScenePreviewRenderer;
-import Elevate.Editor.Theme;
+import Elevate.Theme;
 import Elevate.Editor.Resources;
 // Panels
 import Elevate.Editor.Panels.AnalyserPanel;

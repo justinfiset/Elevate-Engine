@@ -13,8 +13,10 @@ import Elevate.Core.Transform.ITransformable;
 import Elevate.Core.Types.TypeField;
 import Elevate.Core.Types.TypeLayout;
 import Elevate.Core.Types.TypeRegistry;
+#ifdef EE_EDITOR_BUILD
 import Elevate.Editor.Resources;
 import Elevate.Editor.Types.EditorTypeTrait;
+#endif
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Guid;
 import Elevate.Renderer.Buffers;

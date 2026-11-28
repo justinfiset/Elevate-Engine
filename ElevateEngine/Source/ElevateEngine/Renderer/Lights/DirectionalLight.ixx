@@ -14,7 +14,7 @@ export namespace Elevate
 	class DirectionalLight : public Light, public IDirectionalLight
 	{
 	public:
-		BEGIN_COMPONENT(DirectionalLight, EditorIconTag(Editor::Resources::Icons::Light::Sun));
+		BEGIN_COMPONENT(DirectionalLight, EE_EditorTag(EditorIconTag(Editor::Resources::Icons::Light::Sun)));
 		DECLARE_BASE(Light);
 		EECATEGORY("Lighting");
 

@@ -21,9 +21,8 @@ import Elevate.Serialization.PropertyField;
 #ifdef EE_EDITOR_BUILD
 import Elevate.Renderer.Texture;
 import Elevate.Editor.Types.EditorTypeTrait;
-#endif
-// Necessary even for non editor builds as the variable is still used
 import Elevate.Editor.Resources;
+#endif
 
 #define EE_REQUIRE_SEMICOLON static_assert(true, "")
 

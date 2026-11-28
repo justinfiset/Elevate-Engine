@@ -1,8 +1,8 @@
 module;
 
-export module Elevate.Editor.Theme;
+export module Elevate.Theme;
 
-export namespace Elevate::Editor
+export namespace Elevate
 {
 	enum class Theme
 	{

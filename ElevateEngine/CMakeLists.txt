@@ -10,6 +10,32 @@ file(GLOB_RECURSE engineSources CONFIGURE_DEPENDS
 list(FILTER engineModules EXCLUDE REGEX "/ElevateEngine/Audio/Ak/")
 list(FILTER engineSources EXCLUDE REGEX "/ElevateEngine/Audio/Ak/")
 
+# The old Premake filter removed Editor/UI files from non-editor configs. Keep
+# one target for every configuration, but compile these files only in Editor_*.
+set(editorOnlySourceRegex "/ElevateEngine/(Editor|UI)/")
+set(runtimeModules "")
+set(editorOnlyModules "")
+foreach(module IN LISTS engineModules)
+  if(module MATCHES "${editorOnlySourceRegex}")
+    list(APPEND editorOnlyModules "${module}")
+  else()
+    list(APPEND runtimeModules "${module}")
+  endif()
+endforeach()
+
+set(runtimeSources "")
+set(editorOnlySources "")
+foreach(source IN LISTS engineSources)
+  if(source MATCHES "${editorOnlySourceRegex}")
+    list(APPEND editorOnlySources "${source}")
+  else()
+    list(APPEND runtimeSources "${source}")
+  endif()
+endforeach()
+
+ee_editor_only_files("${editorOnlySources}" editorOnlySourceGenex)
+ee_editor_only_files("${editorOnlyModules}" editorOnlyModuleGenex)
+
 file(GLOB vendoredSources
   "${CMAKE_CURRENT_SOURCE_DIR}/Vendor/ImGuizmo/src/ImGuizmo.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/Vendor/ImGuiFileDialog/*.cpp"
@@ -25,12 +51,21 @@ set_source_files_properties(${engineModules} PROPERTIES LANGUAGE CXX)
 ee_source_group_tree("${CMAKE_CURRENT_SOURCE_DIR}/Source" "Source" ${engineModules} ${engineSources})
 ee_source_group_tree("${CMAKE_CURRENT_SOURCE_DIR}/Vendor" "Vendor" ${vendoredSources})
 
-add_library(ElevateEngine STATIC ${engineSources} ${vendoredSources})
+add_library(ElevateEngine STATIC ${runtimeSources} ${vendoredSources})
+if(editorOnlySourceGenex)
+  target_sources(ElevateEngine PRIVATE ${editorOnlySourceGenex})
+endif()
 target_sources(ElevateEngine PUBLIC
   FILE_SET CXX_MODULES
   BASE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/Source"
-  FILES ${engineModules}
+  FILES ${runtimeModules}
 )
+if(editorOnlyModuleGenex)
+  target_sources(ElevateEngine PUBLIC
+    FILE_SET CXX_MODULES
+    FILES ${editorOnlyModuleGenex}
+  )
+endif()
 
 ee_common_settings(ElevateEngine)
 
