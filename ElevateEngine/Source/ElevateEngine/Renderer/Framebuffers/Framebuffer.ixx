@@ -1,6 +1,5 @@
 module;
 
-#include <ElevateEngine/Renderer/RendererBackend.h>
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -91,7 +90,6 @@ export namespace Elevate
 			bool depthAsRenderbuffer = true
 		)
 		{
-			RendererBackend::RegisterFramebufferFactory();
 			return s_textureFactory ? s_textureFactory(colorTextures, depthTexture, depthAsRenderbuffer) : nullptr;
 		}
 

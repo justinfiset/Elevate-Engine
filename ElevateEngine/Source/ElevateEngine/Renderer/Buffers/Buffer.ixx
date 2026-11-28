@@ -1,6 +1,5 @@
 module;
 
-#include <ElevateEngine/Renderer/RendererBackend.h>
 #include <cstddef>
 #include <cstdint>
 #include <cstdlib>
@@ -108,7 +107,6 @@ export namespace Elevate
 
 		static VertexBuffer* Create(const std::byte* vertices, const uint32_t size)
 		{
-			RendererBackend::RegisterBufferFactories();
 			return s_factory ? s_factory(vertices, size) : nullptr;
 		}
 
@@ -140,7 +138,6 @@ export namespace Elevate
 
 		static IndexBuffer* Create(const std::byte* indices, uint32_t count)
 		{
-			RendererBackend::RegisterBufferFactories();
 			return s_factory ? s_factory(indices, count) : nullptr;
 		}
 

@@ -1,10 +1,8 @@
 #include <cstdint>
-#include <functional>
 
 #include "OpenGLVertexArray.h"
 
 #include <ElevateEngine/Platform/OpenGL/GraphicsAPI.h>
-#include <ElevateEngine/Renderer/RendererBackend.h>
 
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
 
@@ -12,7 +10,6 @@ import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
 import Elevate.Renderer.GraphicsContext;
 import Elevate.Renderer.Buffers;
-import Elevate.Renderer.RendererAPI;
 
 Elevate::OpenGLVertexArray::OpenGLVertexArray()
 {
@@ -82,21 +79,4 @@ void Elevate::OpenGLVertexArray::LinkAttribute(uint32_t layout, uint32_t size, u
 {
 	GLCheck(glEnableVertexAttribArray(layout));
 	GLCheck(glVertexAttribPointer(layout, size, type, normalized ? GL_TRUE : GL_FALSE, stride, offset));
-}
-
-namespace Elevate::RendererBackend
-{
-	void RegisterVertexArrayFactory()
-	{
-		VertexArray::SetFactory([]() -> VertexArray* {
-			switch (RendererAPI::GetAPI())
-			{
-			case RendererAPI::GraphicAPI::None: return nullptr;
-			case RendererAPI::GraphicAPI::OpenGL: return new OpenGLVertexArray();
-			}
-
-			Assert::That(false, "A supported RendererAPI needs to be supported!");
-			return nullptr;
-		});
-	}
 }

@@ -1,6 +1,5 @@
 module;
 
-#include <ElevateEngine/Renderer/RendererBackend.h>
 #include <cstdint>
 #include <functional>
 #include <string>
@@ -55,13 +54,11 @@ export namespace Elevate
 
 		static std::shared_ptr<Shader> CreateDefaultNative()
 		{
-			RendererBackend::RegisterShaderFactories();
 			return s_defaultNativeFactory ? s_defaultNativeFactory() : nullptr;
 		}
 
 		static std::shared_ptr<Shader> CreateDefaultErrorNative()
 		{
-			RendererBackend::RegisterShaderFactories();
 			return s_defaultErrorNativeFactory ? s_defaultErrorNativeFactory() : nullptr;
 		}
 
@@ -208,8 +205,6 @@ void main()
 
 	inline EEObjectPtr<Shader> Shader::Create(const std::string& vertexSource, const std::string& fragmentSouce)
 	{
-		RendererBackend::RegisterShaderFactories();
-
 		std::shared_ptr<Shader> shader = nullptr;
 		if (!vertexSource.empty() && !fragmentSouce.empty())
 		{

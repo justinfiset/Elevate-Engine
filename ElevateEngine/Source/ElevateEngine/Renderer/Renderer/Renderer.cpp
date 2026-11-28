@@ -74,17 +74,17 @@ namespace Elevate
 
 	std::unique_ptr<RendererAPI> Renderer::CreateAPI()
 	{
-		RendererBackend::RegisterRendererAPIFactory();
 		return s_apiFactory ? s_apiFactory() : nullptr;
 	}
 
 	void Renderer::Init(uint32_t width, uint32_t height)
 	{
+		RendererBackend::Register();
+
 		RenderBucket::SetDispatcher(&Renderer::Dispatch);
 		Material::SetRendererBindings(&Renderer::BindShader, &Renderer::BindTexture);
 		Framebuffer::SetRendererFunctions(&Renderer::SetViewport, &Renderer::SetClearColor, &Renderer::Clear);
 		SceneLighting::SetShaderBinder(&Renderer::BindShader);
-		Cubemap::SetRendererFunctions(&Renderer::PushRenderState, &Renderer::BindShader, &Renderer::DrawArray);
 
 		s_API = Renderer::CreateAPI();
 
@@ -587,13 +587,27 @@ namespace Elevate
 
 	void Renderer::RenderSkybox()
 	{
-		if (s_data.ActiveCubemap)
+		const Cubemap* cubemap = s_data.ActiveCubemap;
+		if (!cubemap)
 		{
-			glm::mat4 view = glm::mat4(glm::mat3(s_data.View));
-			s_data.ActiveCubemap->SetProjectionMatrix(s_data.Projection);
-			s_data.ActiveCubemap->SetViewMatrix(view);
-			s_data.ActiveCubemap->Draw();
+			return;
 		}
+
+		const std::shared_ptr<Shader>& shader = cubemap->GetShader();
+		if (!shader)
+		{
+			return;
+		}
+
+		glm::mat4 view = glm::mat4(glm::mat3(s_data.View));
+		shader->SetUniformMatrix4fv("projection", s_data.Projection);
+		shader->SetUniformMatrix4fv("view", view);
+
+		PushRenderState(cubemap->GetRenderState());
+		BindShader(shader);
+		RendererBackend::BindCubemapTexture(cubemap->GetTextureID(), 0);
+		shader->SetUniform1i("skybox", 0);
+		DrawArray(cubemap->GetVertexArray().get(), DrawPrimitiveType::Triangles);
 	}
 
 	void Renderer::RenderGeometry()

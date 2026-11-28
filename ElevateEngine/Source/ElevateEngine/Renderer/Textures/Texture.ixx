@@ -1,6 +1,5 @@
 module;
 
-#include <ElevateEngine/Renderer/RendererBackend.h>
 #include <cstddef>
 #include <cstdint>
 #include <functional>
@@ -45,7 +44,6 @@ export namespace Elevate
 
 		static std::shared_ptr<Texture> CreateFromData(const std::byte* data, TextureMetadata& metadata)
 		{
-			RendererBackend::RegisterTextureFactory();
 			return s_dataFactory ? s_dataFactory(data, metadata) : nullptr;
 		}
 

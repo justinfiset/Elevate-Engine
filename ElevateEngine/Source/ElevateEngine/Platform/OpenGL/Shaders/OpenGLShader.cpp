@@ -1,12 +1,10 @@
 
 #include <cstdint>
-#include <functional>
 #include <memory>
 #include <string>
 #include <vector>
 #define GLFW_INCLUDE_NONE
 #include <ElevateEngine/Platform/OpenGL/GraphicsAPI.h>
-#include <ElevateEngine/Renderer/RendererBackend.h>
 #include <GLFW/glfw3.h>
 
 #include "glm/gtc/type_ptr.hpp"
@@ -17,8 +15,6 @@
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
 import Elevate.Core.Objects.ObjectPtr;
-import Elevate.Renderer.Renderer;
-import Elevate.Renderer.RendererAPI;
 import Elevate.Renderer.Shaders;
 
 namespace Elevate
@@ -346,38 +342,5 @@ namespace Elevate
 		const GLint loc = glGetUniformLocation(m_RendererID, name.c_str());
 		m_uniformLocations.emplace(name, loc);
 		return loc;
-	}
-}
-
-namespace Elevate::RendererBackend
-{
-	void RegisterShaderFactories()
-	{
-		Shader::SetNativeFactories(
-			[]() -> std::shared_ptr<Shader> {
-				return std::make_shared<OpenGLShader>(
-					std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetVertexShader()),
-					std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetFragmentShader())
-				);
-			},
-			[]() -> std::shared_ptr<Shader> {
-				return std::make_shared<OpenGLShader>(
-					std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetVertexShader()),
-					std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetErrorShader())
-				);
-			}
-		);
-
-		Shader::SetFactory([](const std::string& vertexSource, const std::string& fragmentSource) -> std::shared_ptr<Shader> {
-			switch (Renderer::GetAPI())
-			{
-			case RendererAPI::GraphicAPI::None:
-				Assert::That(false, "Renderer none is not supported");
-				return nullptr;
-			case RendererAPI::GraphicAPI::OpenGL:
-				return std::make_shared<OpenGLShader>(vertexSource, fragmentSource);
-			}
-			return nullptr;
-		});
 	}
 }

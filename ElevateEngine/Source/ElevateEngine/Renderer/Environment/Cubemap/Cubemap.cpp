@@ -2,7 +2,6 @@ module;
 
 #include <cstddef>
 #include <string>
-#include <glm/mat4x4.hpp>
 
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
@@ -13,17 +12,6 @@ module Elevate.Renderer.Cubemap;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Paths;
-
-Elevate::Cubemap::RenderStatePusher Elevate::Cubemap::s_pushRenderState = nullptr;
-Elevate::Cubemap::ShaderBinder Elevate::Cubemap::s_bindShader = nullptr;
-Elevate::Cubemap::ArrayDrawer Elevate::Cubemap::s_drawArray = nullptr;
-
-void Elevate::Cubemap::SetRendererFunctions(RenderStatePusher pushRenderState, ShaderBinder bindShader, ArrayDrawer drawArray)
-{
-	s_pushRenderState = pushRenderState;
-	s_bindShader = bindShader;
-	s_drawArray = drawArray;
-}
 
 Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 {
@@ -96,37 +84,7 @@ Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(const std::string& filePath)
 	return new Cubemap(paths, resolvedPath.string());
 }
 
-void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader) const
-{
-	if (!shader)
-		shader = m_cubemapShader;
-
-	if (s_pushRenderState)
-		s_pushRenderState(m_renderState);
-	if (s_bindShader)
-		s_bindShader(shader);
-
-	RendererBackend::BindCubemapTexture(m_textureID, 0);
-	shader->SetUniform1i("skybox", 0);
-	if (s_drawArray)
-		s_drawArray(m_VertexArray.get(), DrawPrimitiveType::Triangles);
-}
-
-void Elevate::Cubemap::SetProjectionMatrix(glm::mat4 proj) const
-{
-	if (s_bindShader)
-		s_bindShader(m_cubemapShader);
-	m_cubemapShader->SetUniformMatrix4fv("projection", proj);
-}
-
-void Elevate::Cubemap::SetViewMatrix(glm::mat4 view) const
-{
-	if (s_bindShader)
-		s_bindShader(m_cubemapShader);
-	m_cubemapShader->SetUniformMatrix4fv("view", view);
-}
-
-std::string Elevate::Cubemap::GetFilePath()
+std::string Elevate::Cubemap::GetFilePath() const
 {
 	return m_filePath;
 }

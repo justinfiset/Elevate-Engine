@@ -2,23 +2,17 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstdlib>
-#include <functional>
 #include <iterator>
 #include <new>
 
 #include "OpenGLBuffer.h"
 
 #include <ElevateEngine/Platform/OpenGL/GraphicsAPI.h>
-#include <ElevateEngine/Renderer/RendererBackend.h>
 #include <GLFW/glfw3.h>
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
 
-import Elevate.Foundations.Assert;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Renderer.Buffers;
-import Elevate.Renderer.Renderer;
-import Elevate.Renderer.RendererAPI;
-import Elevate.Renderer.Vertex;
 import Elevate.Renderer.GraphicsContext;
 
 namespace Elevate
@@ -139,33 +133,5 @@ namespace Elevate
 	void OpenGLIndexBuffer::Unbind() const
 	{
 		GLCheck(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	}
-}
-
-namespace Elevate::RendererBackend
-{
-	void RegisterBufferFactories()
-	{
-		VertexBuffer::SetFactory([](const std::byte* vertices, uint32_t size) -> VertexBuffer* {
-			switch (Renderer::GetAPI())
-			{
-			case RendererAPI::GraphicAPI::None: return nullptr;
-			case RendererAPI::GraphicAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
-			}
-
-			Assert::That(false, "A supported RendererAPI needs to be supported!");
-			return nullptr;
-		});
-
-		IndexBuffer::SetFactory([](const std::byte* indices, uint32_t count) -> IndexBuffer* {
-			switch (Renderer::GetAPI())
-			{
-			case RendererAPI::GraphicAPI::None: return nullptr;
-			case RendererAPI::GraphicAPI::OpenGL: return new OpenGLIndexBuffer(indices, count);
-			}
-
-			Assert::That(false, "A supported RendererAPI needs to be supported!");
-			return nullptr;
-		});
 	}
 }

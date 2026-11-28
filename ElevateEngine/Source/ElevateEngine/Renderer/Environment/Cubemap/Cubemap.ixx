@@ -5,13 +5,10 @@ module;
 #include <memory>
 #include <string>
 
-#include <glm/glm.hpp>
-
 export module Elevate.Renderer.Cubemap;
 
 import Elevate.Renderer.Buffers;
 import Elevate.Renderer.RenderState;
-import Elevate.Renderer.RendererAPI;
 import Elevate.Renderer.VertexArray;
 import Elevate.Renderer.Shaders;
 
@@ -20,28 +17,18 @@ export namespace Elevate
 	class Cubemap
 	{
 	public:
-		using RenderStatePusher = void (*)(const RenderState&);
-		using ShaderBinder = bool (*)(const std::shared_ptr<Shader>&);
-		using ArrayDrawer = void (*)(const VertexArray*, DrawPrimitiveType);
-
-		static void SetRendererFunctions(RenderStatePusher pushRenderState, ShaderBinder bindShader, ArrayDrawer drawArray);
-
 		Cubemap(std::string paths[6], std::string skyboxFilePath = "");
 
 		static Cubemap* CreateFromFile(const std::string& filePath);
 
-		void Draw(std::shared_ptr<Shader> shader = nullptr) const;
+		const RenderState& GetRenderState() const { return m_renderState; }
+		const std::shared_ptr<Shader>& GetShader() const { return m_cubemapShader; }
+		const std::shared_ptr<VertexArray>& GetVertexArray() const { return m_VertexArray; }
+		uint32_t GetTextureID() const { return m_textureID; }
 
-		void SetProjectionMatrix(glm::mat4 data) const;
-		void SetViewMatrix(glm::mat4 data) const;
-
-		std::string GetFilePath();
+		std::string GetFilePath() const;
 
 	private:
-		static RenderStatePusher s_pushRenderState;
-		static ShaderBinder s_bindShader;
-		static ArrayDrawer s_drawArray;
-
 		RenderState m_renderState;
 		std::shared_ptr<Shader> m_cubemapShader;
 

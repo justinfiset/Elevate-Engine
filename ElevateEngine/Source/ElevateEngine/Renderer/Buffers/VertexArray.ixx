@@ -1,6 +1,5 @@
 module;
 
-#include <ElevateEngine/Renderer/RendererBackend.h>
 #include <functional>
 #include <memory>
 #include <vector>
@@ -37,7 +36,6 @@ export namespace Elevate
 
 		static VertexArray* Create()
 		{
-			RendererBackend::RegisterVertexArrayFactory();
 			return s_factory ? s_factory() : nullptr;
 		}
 
