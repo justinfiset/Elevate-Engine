@@ -67,6 +67,8 @@ Open `Build/visual-studio-2022/ElevateEngine.sln` and build the `Sandbox` startu
 cmake --preset visual-studio-2026 -DEE_ENABLE_WWISE=OFF
 ```
 
+Both Visual Studio presets also create a `Web` subfolder inside each user project's solution folder (for example, `User Projects/Sandbox/Web`) with one-click `<Project>_WebRun` targets, such as `Sandbox_WebRun`. Building that target runs the existing Ninja `web` preset and starts `emrun` in its own console window from `Build/bin/<Configuration>-emscripten-wasm32/<Project>/` on `http://localhost:6931/`. Close that console or press Ctrl+C in it to stop the server. The configuration selected in the Visual Studio toolbar is forwarded to the web build; `EE_WEB_CONFIG` is only a fallback and defaults to `Editor_Debug`. Set the `EMSDK` environment variable before configuring the solution, or pass `-DEE_EMSDK_ROOT=<emsdk root>`. If Ninja is not on `PATH`, pass `-DEE_NINJA_EXECUTABLE=<path to ninja.exe>`. Build the target explicitly from Solution Explorer; it is not checked in Configuration Manager by default. These targets are wrappers because the Visual Studio generator cannot use the Emscripten toolchain directly.
+
 CI uses the Ninja Multi-Config presets and explicitly selects `cl.exe` for the Windows jobs.
 
 ### VS Code

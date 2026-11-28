@@ -3,6 +3,8 @@ module;
 #include <glm/glm.hpp>          // iwyu: keep
 #include <glm/gtc/type_ptr.hpp> // iwyu: keep
 
+#include <algorithm>
+#include <cmath>
 #include <memory>
 #include <format>
 
@@ -88,10 +90,15 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 	else
 		window_width = (uint32_t)(qtY * arX);
 
-	// we rescale the framebuffer to the actual window size here and reset the glViewport 
+	const ImGuiIO& io = ImGui::GetIO();
+	const float scaleX = io.DisplayFramebufferScale.x > 0.0f ? io.DisplayFramebufferScale.x : 1.0f;
+	const float scaleY = io.DisplayFramebufferScale.y > 0.0f ? io.DisplayFramebufferScale.y : 1.0f;
+	const uint32_t framebufferWidth = std::max(1u, static_cast<uint32_t>(std::lround(window_width * scaleX)));
+	const uint32_t framebufferHeight = std::max(1u, static_cast<uint32_t>(std::lround(window_height * scaleY)));
+
 	auto& framebuffer = Renderer::GetMainFramebuffer();
-	framebuffer.Rescale(window_width, window_height);
-	Renderer::SetViewport(0, 0, window_width, window_height);
+	framebuffer.Rescale(framebufferWidth, framebufferHeight);
+	Renderer::SetViewport(0, 0, framebufferWidth, framebufferHeight);
 
 	Camera* cam = CameraManager::GetEditor();
 	if (cam != nullptr && cam->GetProjection() != nullptr)
@@ -99,7 +106,6 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 		cam->GetProjection()->SetSize(window_width, window_height);
 	}
 
-	// we get the screen position of the window
 	ImVec2 pos = ImGui::GetCursorScreenPos();
 	ImGui::Image((ImTextureID)framebuffer.GetColorAttachmentHandle(), ImVec2((float)window_width, (float)window_height), ImVec2(0, 1), ImVec2(1, 0));
 

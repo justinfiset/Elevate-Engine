@@ -259,9 +259,17 @@ namespace Elevate
 			aiString str;
 			mat->GetTexture(textureType, i, &str);
 
-			std::filesystem::path directory(basePath);
-			directory.append(str.C_Str());
-			std::string path = directory.string();
+			std::filesystem::path texturePath(str.C_Str());
+			std::error_code existsError;
+			std::string path;
+			if (texturePath.is_absolute() || std::filesystem::exists(texturePath, existsError))
+			{
+				path = texturePath.lexically_normal().string();
+			}
+			else
+			{
+				path = (std::filesystem::path(basePath) / texturePath).lexically_normal().string();
+			}
 
 			bool skip = false;
 			for (std::shared_ptr<Texture> tex : data.Textures)

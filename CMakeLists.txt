@@ -50,6 +50,7 @@ include(ResourceGen)
 include(Dependencies)
 include(ProjectHelpers)
 include(Wwise)
+include(WebLaunch)
 
 # Module sources must exist when CMake generates the build graph.
 ee_generate_resources(

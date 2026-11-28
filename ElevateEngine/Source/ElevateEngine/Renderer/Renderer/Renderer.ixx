@@ -61,6 +61,7 @@ export namespace Elevate
 		static void InitLightingRenderer(uint32_t width, uint32_t height);
 		static void InitSSAORenderer(uint32_t width, uint32_t height);
 		static void InitBloomRenderer(uint32_t width, uint32_t height);
+		static void InitBloomFramebuffers(uint32_t width, uint32_t height);
 
 	public:
 		// RENDER API STATIC WRAPPER

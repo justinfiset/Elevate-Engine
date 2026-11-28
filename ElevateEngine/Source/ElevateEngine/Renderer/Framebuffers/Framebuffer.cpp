@@ -117,8 +117,12 @@ namespace Elevate
 	std::shared_ptr<Texture> Framebuffer::CreateDepthTexture(uint32_t width, uint32_t height, TextureFormat depthFormat, TextureType depthUsage)
 	{
 #if defined(EE_PLATFORM_WEB)
-		// Linear is not supported in web
-		TextureFilter filter = TextureFilter::Nearest;
+		// Plain depth textures cannot be linearly filtered in WebGL, but shadow
+		// maps use TEXTURE_COMPARE_MODE and WebGL2 supports hardware PCF with
+		// LINEAR. Keep Nearest for GBuffer depth and Linear for shadow maps.
+		TextureFilter filter = depthUsage == TextureType::ShadowMap
+			? TextureFilter::Linear
+			: TextureFilter::Nearest;
 		TextureWrap depthWrap = TextureWrap::ClampToEdge;
 #else
 		TextureFilter filter = TextureFilter::Linear;

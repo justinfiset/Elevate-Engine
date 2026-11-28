@@ -1,0 +1,72 @@
+@echo off
+setlocal
+
+set "EE_SOURCE_DIR=@EE_SOURCE_DIR@"
+set "EE_WEB_TARGET=@EE_WEB_TARGET@"
+set "EE_WEB_OUTPUT_ROOT=@EE_WEB_OUTPUT_ROOT@"
+set "EE_WEB_OUTPUT_TAGS=@EE_WEB_OUTPUT_TAGS@"
+set "EE_EMSDK_ROOT=@EE_EMSDK_ROOT@"
+set "EE_CMAKE_EXECUTABLE=@EE_CMAKE_EXECUTABLE@"
+set "EE_NINJA_EXECUTABLE=@EE_NINJA_EXECUTABLE@"
+set "EE_NINJA_DIR=@EE_NINJA_DIR@"
+
+set "EE_WEB_CONFIG=%~1"
+if not defined EE_WEB_CONFIG set "EE_WEB_CONFIG=@EE_WEB_CONFIG@"
+set "EE_WEB_OUTPUT=%EE_WEB_OUTPUT_ROOT%\%EE_WEB_CONFIG%-%EE_WEB_OUTPUT_TAGS%\%EE_WEB_TARGET%"
+
+if defined EMSDK for %%I in ("%EMSDK%") do set "EE_EMSDK_FROM_ENV=%%~fI"
+if defined EE_EMSDK_FROM_ENV if exist "%EE_EMSDK_FROM_ENV%\emsdk_env.bat" set "EE_EMSDK_ROOT=%EE_EMSDK_FROM_ENV%"
+if not exist "%EE_EMSDK_ROOT%\emsdk_env.bat" goto :no_sdk
+call "%EE_EMSDK_ROOT%\emsdk_env.bat"
+if errorlevel 1 goto :sdk_failed
+
+if defined EE_NINJA_DIR set "PATH=%EE_NINJA_DIR%;%PATH%"
+where emrun >nul 2>nul
+if errorlevel 1 goto :no_emrun
+
+pushd "%EE_SOURCE_DIR%" || goto :failed
+if not defined EE_NINJA_EXECUTABLE goto :configure_without_ninja
+"%EE_CMAKE_EXECUTABLE%" --preset web -DEE_ENABLE_WWISE=OFF -DCMAKE_MAKE_PROGRAM="%EE_NINJA_EXECUTABLE%"
+if errorlevel 1 goto :build_failed
+goto :configured
+
+:configure_without_ninja
+"%EE_CMAKE_EXECUTABLE%" --preset web -DEE_ENABLE_WWISE=OFF
+if errorlevel 1 goto :build_failed
+
+:configured
+"%EE_CMAKE_EXECUTABLE%" --build --preset web --config %EE_WEB_CONFIG% --target %EE_WEB_TARGET%
+if errorlevel 1 goto :build_failed
+popd
+
+if not exist "%EE_WEB_OUTPUT%\index.html" goto :no_output
+
+echo [WebRun] Starting emrun in a separate console for %EE_WEB_OUTPUT%
+start "Elevate Web - %EE_WEB_TARGET% (%EE_WEB_CONFIG%)" /D "%EE_WEB_OUTPUT%" cmd /k "emrun --port 6931 index.html"
+set "EE_RC=%ERRORLEVEL%"
+if not "%EE_RC%"=="0" goto :failed
+echo [WebRun] Build complete. Close the "Elevate Web" console or press Ctrl+C there to stop the server.
+endlocal & exit /b 0
+
+:build_failed
+popd
+goto :failed
+
+:no_sdk
+echo [WebRun] Emscripten SDK not found. Set the EMSDK environment variable or configure with -DEE_EMSDK_ROOT=^<emsdk root^>.
+goto :failed
+
+:sdk_failed
+echo [WebRun] Failed to initialize the Emscripten SDK environment.
+goto :failed
+
+:no_emrun
+echo [WebRun] emrun is not available after initializing the Emscripten SDK.
+goto :failed
+
+:no_output
+echo [WebRun] Expected web output not found: %EE_WEB_OUTPUT%\index.html
+goto :failed
+
+:failed
+endlocal & exit /b 1

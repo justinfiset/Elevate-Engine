@@ -1,5 +1,6 @@
 module;
 
+#include <algorithm>
 #include <mutex>
 #include <memory>
 #include <vector>
@@ -8,6 +9,19 @@ module;
 #include <utility>
 
 #include <stb/stb_image.h>
+
+#ifdef EE_PLATFORM_WEB
+#define STB_IMAGE_RESIZE_STATIC
+#define STB_IMAGE_RESIZE_IMPLEMENTATION
+// Jolt needs Emscripten's SSE emulation flags, which also define __SSE2__ and
+// make stb_image_resize2 choose its x86 path. Hide that macro for this header
+// so the native WASM SIMD path is used instead of the scalar fallback.
+#ifdef __SSE2__
+#undef __SSE2__
+#endif
+#define STBIR_WASM
+#include "../../../../Vendor/ImGuiFileDialog/stb/stb_image_resize2.h"
+#endif
 
 module Elevate.Renderer.Texture;
 
@@ -41,6 +55,47 @@ namespace Elevate {
 			&channels,
 			0
 		);
+
+#ifdef EE_PLATFORM_WEB
+		// Large source textures make glGenerateMipmap the dominant upload cost on Web.
+		// Downscale on the worker thread before the texture reaches the render thread.
+		constexpr int maxTextureDimension = 1024;
+		if (data && (width > maxTextureDimension || height > maxTextureDimension))
+		{
+			const float scale = static_cast<float>(maxTextureDimension) /
+				static_cast<float>(std::max(width, height));
+			const int resizedWidth = std::max(1, static_cast<int>(static_cast<float>(width) * scale));
+			const int resizedHeight = std::max(1, static_cast<int>(static_cast<float>(height) * scale));
+
+			stbir_pixel_layout layout = STBIR_RGBA;
+			if (channels == 1)
+			{
+				layout = STBIR_1CHANNEL;
+			}
+			else if (channels == 3)
+			{
+				layout = STBIR_RGB;
+			}
+
+			unsigned char* resized = stbir_resize_uint8_linear(
+				data, width, height, 0,
+				nullptr, resizedWidth, resizedHeight, 0,
+				layout);
+
+			if (resized)
+			{
+				stbi_image_free(data);
+				data = resized;
+				width = resizedWidth;
+				height = resizedHeight;
+				CoreLogger::Info("Downscaled Web texture to {}x{} for faster upload.", width, height);
+			}
+			else
+			{
+				CoreLogger::Warn("Failed to downscale Web texture; uploading original {}x{}.", width, height);
+			}
+		}
+#endif
 
 		TextureFormat format = TextureFormat::RGBA;
 
