@@ -1,0 +1,13 @@
+<map id="ElevateEngine/Source/ElevateEngine/Inputs/Buffer" name="ElevateEngine/Source/ElevateEngine/Inputs/Buffer">
+<area shape="rect" id="node1" href="dir_029be3f4b65e2c22246703705eb34d70.html" title="Keyboard" alt="" coords="27,130,109,158"/>
+<area shape="rect" id="node2" href="dir_9256f88dbc9d2e19a565a9f9d29f3d18.html" title="Mouse" alt="" coords="133,130,198,158"/>
+<area shape="rect" id="node3" href="dir_d96d0dbcd1780146371ce0bc9f9bf3ef.html" title="Buffer" alt="" coords="135,54,196,82"/>
+<area shape="poly" id="edge1" href="dir_000005_000048.html" alt="" coords="150,81,99,123,95,119,146,84"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000005_000048.html" title="1" alt="" coords="101,117,109,134"/>
+<area shape="poly" id="edge2" href="dir_000005_000056.html" alt="" coords="167,80,168,115,163,113,164,85"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000005_000056.html" title="1" alt="" coords="170,103,178,120"/>
+<area shape="rect" id="node4" href="dir_d62e76c0d86e9b3187ff9460429c42f2.html" title="Foundations" alt="" coords="222,130,322,158"/>
+<area shape="poly" id="edge3" href="dir_000005_000038.html" alt="" coords="185,80,243,121,238,121,184,85"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000005_000038.html" title="1" alt="" coords="239,104,247,121"/>
+<area shape="rect" id="clust1" href="dir_6fe9c3bcc1faa97a59559f61e536913c.html" title="Inputs" alt="" coords="16,16,208,168"/>
+</map>

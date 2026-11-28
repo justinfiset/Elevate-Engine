@@ -1,0 +1,12 @@
+<map id="ElevateEngine/Source/ElevateEngine/Physics/Public/RigidbodyTypes.ixx" name="ElevateEngine/Source/ElevateEngine/Physics/Public/RigidbodyTypes.ixx">
+<area shape="rect" id="Node000001" title=" " alt="" coords="42,5,236,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="148,191,213,218"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="58,70,35,85,16,103,8,121,9,131,14,141,38,165,69,181,101,192,135,200,130,201,100,197,66,186,35,169,10,144,4,132,3,121,12,99,32,81,61,65"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="25,115,128,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="120,65,96,104,92,101,116,70"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="152,115,251,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="161,65,187,102,181,102,159,70"/>
+<area shape="rect" id="Node000005" href="$Enums_8ixx.html" title=" " alt="" coords="274,115,476,143"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="218,65,329,108,324,110,217,70"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="343,143,228,188,227,183,337,144"/>
+</map>

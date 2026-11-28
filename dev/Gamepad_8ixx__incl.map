@@ -1,0 +1,9 @@
+<map id="ElevateEngine/Source/ElevateEngine/Inputs/Gamepad/Gamepad.ixx" name="ElevateEngine/Source/ElevateEngine/Inputs/Gamepad/Gamepad.ixx">
+<area shape="rect" id="Node000001" title=" " alt="" coords="244,5,424,67"/>
+<area shape="rect" id="Node000002" href="$GamepadHat_8ixx.html" title=" " alt="" coords="5,115,207,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,67,154,111,152,106,255,68"/>
+<area shape="rect" id="Node000003" href="$GamepadAxis_8ixx.html" title=" " alt="" coords="231,115,437,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="336,66,336,101,332,98,332,69"/>
+<area shape="rect" id="Node000004" href="$GamepadButton_8ixx.html" title=" " alt="" coords="461,115,682,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="414,65,526,109,520,109,413,70"/>
+</map>

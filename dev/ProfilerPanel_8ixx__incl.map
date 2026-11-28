@@ -1,0 +1,12 @@
+<map id="ElevateEngine/Source/ElevateEngine/Editor/Panels/ProfilerPanel.ixx" name="ElevateEngine/Source/ElevateEngine/Editor/Panels/ProfilerPanel.ixx">
+<area shape="rect" id="Node000001" title=" " alt="" coords="111,5,287,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,115,76,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,66,78,109,75,105,144,68"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="100,115,162,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="179,66,152,104,148,100,174,69"/>
+<area shape="rect" id="Node000004" href="$Profiling_8ixx.html" title=" " alt="" coords="186,115,348,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="223,65,251,103,246,102,221,70"/>
+<area shape="rect" id="Node000005" href="$Widget_8ixx.html" title=" " alt="" coords="395,115,614,143"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="288,61,448,109,443,111,287,66"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="304,112,329,109,351,110,368,117,374,129,369,140,357,146,319,148,319,143,355,141,366,136,369,129,364,121,350,116,329,114,304,117"/>
+</map>

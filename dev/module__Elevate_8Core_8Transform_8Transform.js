@@ -1,0 +1,25 @@
+var module__Elevate_8Core_8Transform_8Transform =
+[
+    [ "Transform", "classElevate_1_1Transform.html", "classElevate_1_1Transform" ],
+    [ "Elevate::Transform::Transform", "module__Elevate_8Core_8Transform_8Transform.html#aa5379a5bfc40f1cf16ad437a2e194b33", null ],
+    [ "Elevate::Transform::SetPosition", "module__Elevate_8Core_8Transform_8Transform.html#a0fb6dc44d1accb48c4d5d9415ba8157b", null ],
+    [ "Elevate::Transform::SetRotation", "module__Elevate_8Core_8Transform_8Transform.html#aaa152e7e73ffe2588a95040457589c46", null ],
+    [ "Elevate::Transform::SetRotationQuaternion", "module__Elevate_8Core_8Transform_8Transform.html#a423a3ffcdbb570d5ba7fe55430d6d191", null ],
+    [ "Elevate::Transform::SetScale", "module__Elevate_8Core_8Transform_8Transform.html#a41599c4cdb1a17eebb3a6f4b4eb425a3", null ],
+    [ "Elevate::Transform::GetPosition", "module__Elevate_8Core_8Transform_8Transform.html#a32c0663d673cee04e7f57c82cc7683ac", null ],
+    [ "Elevate::Transform::GetPosition", "module__Elevate_8Core_8Transform_8Transform.html#adcb676aa33f9b3e5495a39fa11d83719", null ],
+    [ "Elevate::Transform::GetRotation", "module__Elevate_8Core_8Transform_8Transform.html#ac2e2e73918db8af1f71c832a428ca72a", null ],
+    [ "Elevate::Transform::GetRotationQuat", "module__Elevate_8Core_8Transform_8Transform.html#ac2791f021e38eaadab9a1196eece3bf7", null ],
+    [ "Elevate::Transform::GetScale", "module__Elevate_8Core_8Transform_8Transform.html#a5af74825ad63bd63218b5213047a2172", null ],
+    [ "Elevate::Transform::GetScale", "module__Elevate_8Core_8Transform_8Transform.html#ac2f6b03ae4086617aaad53d695e5f14c", null ],
+    [ "Elevate::Transform::GetRight", "module__Elevate_8Core_8Transform_8Transform.html#aefc9f2c3957ff40a6f6f7ebab106ea05", null ],
+    [ "Elevate::Transform::GetLeft", "module__Elevate_8Core_8Transform_8Transform.html#aa060a3c25eee7cb96af21a7a46bf2d2f", null ],
+    [ "Elevate::Transform::GetUp", "module__Elevate_8Core_8Transform_8Transform.html#abb41860e13248bca18bce3b20011262b", null ],
+    [ "Elevate::Transform::GetDown", "module__Elevate_8Core_8Transform_8Transform.html#a4644fcfb142dbf2f728f5623baa7c6dd", null ],
+    [ "Elevate::Transform::GetBackward", "module__Elevate_8Core_8Transform_8Transform.html#a32665d8312e519d7dc0034f2b6081bf2", null ],
+    [ "Elevate::Transform::GetForward", "module__Elevate_8Core_8Transform_8Transform.html#a616fc18ec58093aee499444ed4a38d14", null ],
+    [ "Elevate::Transform::GetGlobalScale", "module__Elevate_8Core_8Transform_8Transform.html#a7dea9b8e669fbcf5e2ce77bfb7fbc5af", null ],
+    [ "Elevate::Transform::GetModelMatrix", "module__Elevate_8Core_8Transform_8Transform.html#a4c0064a635ca58561d456a94dabdcb78", null ],
+    [ "Elevate::Transform::UpdateModelMatrix", "module__Elevate_8Core_8Transform_8Transform.html#a197875da8f326cb6361bd22fd858ff7f", null ],
+    [ "Elevate::Transform::GetLayout", "module__Elevate_8Core_8Transform_8Transform.html#a38da0328ff71b1cb316254ea8c323dd8", null ]
+];

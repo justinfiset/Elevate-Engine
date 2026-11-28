@@ -1,0 +1,11 @@
+<map id="ElevateEngine/Source/ElevateEngine/Platform/Desktop/DesktopFileDialog.h" name="ElevateEngine/Source/ElevateEngine/Platform/Desktop/DesktopFileDialog.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="12,5,227,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="36,208,94,235"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="56,70,34,90,14,116,8,137,14,159,25,178,40,196,35,198,21,181,9,161,3,137,9,114,30,86,59,65"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="142,208,204,235"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="182,65,210,86,230,114,236,137,230,161,218,182,202,200,199,195,214,179,225,159,231,137,225,116,206,90,181,70"/>
+<area shape="rect" id="Node000004" href="$FileDialog_8ixx.html" title=" " alt="" coords="24,115,215,160"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="121,65,122,100,117,99,119,70"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="108,159,84,196,80,193,103,161"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="135,158,159,195,153,194,132,162"/>
+</map>

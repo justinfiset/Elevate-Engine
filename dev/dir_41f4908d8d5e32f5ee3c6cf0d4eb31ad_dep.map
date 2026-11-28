@@ -1,0 +1,32 @@
+<map id="ElevateEngine/Source/ElevateEngine/Platform" name="ElevateEngine/Source/ElevateEngine/Platform">
+<area shape="rect" id="node1" href="dir_2fb4f99d3cc0bca8c2a6a00cbf69de3a.html" title="Renderer" alt="" coords="314,216,395,244"/>
+<area shape="rect" id="node2" href="dir_6fe9c3bcc1faa97a59559f61e536913c.html" title="Inputs" alt="" coords="583,141,644,168"/>
+<area shape="rect" id="node3" href="dir_8da6647db9584a8f13ded450386f84f0.html" title="Core" alt="" coords="597,216,648,244"/>
+<area shape="rect" id="node4" href="dir_d62e76c0d86e9b3187ff9460429c42f2.html" title="Foundations" alt="" coords="423,216,524,244"/>
+<area shape="rect" id="node6" href="dir_1d6afc77bc51168561a3c658f723099e.html" title="Desktop" alt="" coords="138,65,214,93"/>
+<area shape="poly" id="edge1" href="dir_000025_000038.html" alt="" coords="214,87,226,90,262,96,295,97,354,94,381,95,408,101,435,115,462,139,471,153,477,169,479,202,475,199,472,170,467,155,458,142,432,120,406,106,381,100,354,99,295,102,262,101,225,95,215,93"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000025_000038.html" title="1" alt="" coords="481,190,489,207"/>
+<area shape="rect" id="node7" href="dir_70ce57fcb0c26bbe779c1f8d8876b858.html" title="Linux" alt="" coords="237,65,294,93"/>
+<area shape="rect" id="node8" href="dir_726be21ea95961a9d28697c93d71d712.html" title="OpenGL" alt="" coords="376,141,448,168"/>
+<area shape="poly" id="edge2" href="dir_000059_000072.html" alt="" coords="404,168,376,206,373,202,399,170"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000059_000072.html" title="25" alt="" coords="375,198,391,215"/>
+<area shape="poly" id="edge4" href="dir_000059_000020.html" alt="" coords="433,166,454,177,521,200,585,220,579,219,520,205,452,181,433,171"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000059_000020.html" title="1" alt="" coords="577,202,585,219"/>
+<area shape="poly" id="edge3" href="dir_000059_000038.html" alt="" coords="424,166,455,205,450,204,422,171"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000059_000038.html" title="12" alt="" coords="449,188,465,205"/>
+<area shape="rect" id="node9" href="dir_076564c145be3b420b669a19bde281fd.html" title="Shared" alt="" coords="318,65,384,93"/>
+<area shape="poly" id="edge5" href="dir_000083_000072.html" alt="" coords="353,91,356,202,351,199,349,95"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000083_000072.html" title="2" alt="" coords="358,189,366,206"/>
+<area shape="poly" id="edge6" href="dir_000083_000045.html" alt="" coords="384,87,397,90,571,137,566,139,395,95,385,92"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000083_000045.html" title="2" alt="" coords="563,120,571,137"/>
+<area shape="poly" id="edge8" href="dir_000083_000020.html" alt="" coords="384,87,396,90,458,97,539,102,617,113,647,123,669,139,676,156,673,174,663,191,650,207,647,203,659,188,668,172,670,157,665,142,645,128,616,118,539,107,458,102,396,95,384,92"/>
+<area shape="rect" id="edge8-headlabel" href="dir_000083_000020.html" title="7" alt="" coords="653,200,661,217"/>
+<area shape="poly" id="edge9" href="dir_000083_000038.html" alt="" coords="384,87,396,90,456,97,534,102,608,113,638,124,658,139,667,156,665,172,655,185,638,196,591,212,539,223,539,218,590,207,635,191,651,181,660,170,662,157,654,142,635,129,607,119,533,107,455,102,396,95,384,92"/>
+<area shape="rect" id="edge9-headlabel" href="dir_000083_000038.html" title="2" alt="" coords="539,220,547,237"/>
+<area shape="poly" id="edge7" href="dir_000083_000059.html" alt="" coords="362,91,394,129,389,128,361,96"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000083_000059.html" title="1" alt="" coords="392,112,400,129"/>
+<area shape="rect" id="node10" href="dir_8fcf1a9e23de0b1029f08458f84d05ba.html" title="Web" alt="" coords="407,65,457,93"/>
+<area shape="rect" id="node11" href="dir_b1bddea9cd2e6be8b87d43d1c3dd359b.html" title="Windows" alt="" coords="481,65,562,93"/>
+<area shape="rect" id="clust2" href="dir_41f4908d8d5e32f5ee3c6cf0d4eb31ad.html" alt="" coords="27,54,572,179"/>
+<area shape="rect" id="clust1" href="dir_6ea98a26acc173547edbfbdd6ac77e09.html" title="ElevateEngine" alt="" coords="16,16,708,255"/>
+</map>

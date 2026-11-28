@@ -1,0 +1,28 @@
+<map id="ElevateEngine/Source/ElevateEngine/Foundations/Tasks/ITaskScheduler.ixx" name="ElevateEngine/Source/ElevateEngine/Foundations/Tasks/ITaskScheduler.ixx">
+<area shape="rect" id="Node000001" title=" " alt="" coords="101,5,302,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="390,300,456,328"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,65,59,82,26,104,15,116,9,129,9,143,16,158,50,199,93,232,140,258,191,278,243,291,292,301,378,312,372,312,292,306,242,297,190,283,138,263,90,237,46,203,11,161,4,144,4,128,10,113,22,100,57,77,102,60"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="26,124,78,151"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,70,86,117,83,113,157,65"/>
+<area shape="rect" id="Node000004" href="$TaskHandle_8ixx.html" title=" " alt="" coords="103,115,300,160"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="203,65,204,100,199,99,201,70"/>
+<area shape="rect" id="Node000005" href="$TaskFunction_8ixx.html" title=" " alt="" coords="324,115,522,160"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="269,65,363,107,358,109,269,70"/>
+<area shape="rect" id="Node000007" href="$TaskDescriptor_8ixx.html" title=" " alt="" coords="546,115,743,160"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="303,57,535,110,530,113,303,63"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="208,158,228,205,242,229,261,250,287,269,317,284,377,305,372,305,315,289,284,274,257,254,238,232,223,207,206,162"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="270,216,357,244"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="399,159,342,208,340,204,395,161"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="380,216,439,244"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="580,159,452,210,448,212,446,207,450,205,575,161"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="463,216,522,244"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="610,159,529,210,526,205,605,161"/>
+<area shape="rect" id="Node000010" href="$TaskPriority_8ixx.html" title=" " alt="" coords="546,208,743,252"/>
+<area shape="poly" id="edge10_Node000007_Node000010" title=" " alt="" coords="646,158,646,194,642,191,643,162"/>
+<area shape="rect" id="Node000011" href="$TaskAffinity_8ixx.html" title=" " alt="" coords="767,208,964,252"/>
+<area shape="poly" id="edge12_Node000007_Node000011" title=" " alt="" coords="698,158,801,202,796,201,697,163"/>
+<area shape="poly" id="edge11_Node000010_Node000002" title=" " alt="" coords="588,253,471,298,469,293,583,253"/>
+<area shape="poly" id="edge13_Node000011_Node000002" title=" " alt="" coords="769,250,755,255,471,307,470,302,754,250,764,251"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="817,300,914,328"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="867,251,868,286,864,283,864,255"/>
+</map>

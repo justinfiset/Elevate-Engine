@@ -1,0 +1,15 @@
+<map id="Elevate::IEEObjectPtr" name="Elevate::IEEObjectPtr">
+<area shape="rect" id="Node000001" title=" " alt="" coords="212,152,370,180"/>
+<area shape="rect" id="Node000003" href="$classElevate_1_1EEObjectPtr.html" title=" " alt="" coords="437,5,591,50"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="315,140,360,100,417,60,444,49,439,52,419,65,363,104,318,144"/>
+<area shape="rect" id="Node000004" href="$classElevate_1_1EEObjectPtr.html" title=" " alt="" coords="437,75,591,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="351,145,442,119,437,121,353,150"/>
+<area shape="rect" id="Node000005" href="$classElevate_1_1EEObjectPtr.html" title=" " alt="" coords="420,144,609,189"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="385,164,422,166,417,167,386,169"/>
+<area shape="rect" id="Node000006" href="$classElevate_1_1EEObjectPtr.html" title=" " alt="" coords="433,213,595,258"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="353,183,442,212,437,213,352,188"/>
+<area shape="rect" id="Node000007" href="$classElevate_1_1EEObjectPtr.html" title=" " alt="" coords="418,282,610,310"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="317,189,363,230,419,268,447,282,442,281,417,273,359,234,315,194"/>
+<area shape="rect" id="Node000002" href="$classElevate_1_1ISerializable.html" title=" " alt="" coords="5,152,164,180"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,164,214,165,209,167,180,169"/>
+</map>

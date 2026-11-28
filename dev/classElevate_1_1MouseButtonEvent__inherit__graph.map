@@ -1,0 +1,9 @@
+<map id="Elevate::MouseButtonEvent" name="Elevate::MouseButtonEvent">
+<area shape="rect" id="Node000001" title=" " alt="" coords="134,81,335,109"/>
+<area shape="rect" id="Node000003" href="$classElevate_1_1MouseButtonPressedEvent.html" title=" " alt="" coords="5,157,221,201"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="205,117,147,158,144,154,200,119"/>
+<area shape="rect" id="Node000004" href="$classElevate_1_1MouseButtonReleasedEvent.html" title=" " alt="" coords="245,157,469,201"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="267,115,327,156,322,156,266,120"/>
+<area shape="rect" id="Node000002" href="$classElevate_1_1Event.html" title=" " alt="" coords="177,5,292,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,47,237,82,232,79,233,51"/>
+</map>

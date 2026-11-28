@@ -1,0 +1,17 @@
+<map id="ElevateEngine/Source/ElevateEngine/Core/Objects/EEObjectPtr.ixx" name="ElevateEngine/Source/ElevateEngine/Core/Objects/EEObjectPtr.ixx">
+<area shape="rect" id="Node000001" title=" " alt="" coords="576,5,781,67"/>
+<area shape="rect" id="Node000002" href="$ElevateEngine_2Core_2Reflection_2Reflection_8h.html" title=" " alt="" coords="436,115,657,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="632,76,584,117,582,112,627,78"/>
+<area shape="rect" id="Node000008" href="$OpenGLShader_8cpp.html" title=" " alt="" coords="681,115,940,177"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="728,75,776,115,771,114,727,80"/>
+<area shape="rect" id="Node000003" href="$Asset_8ixx.html" title=" " alt="" coords="5,225,205,286"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="418,178,218,227,206,230,204,225,216,222,423,174"/>
+<area shape="rect" id="Node000004" href="$GameObject_8ixx.html" title=" " alt="" coords="229,225,424,286"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="473,183,389,227,387,222,468,185"/>
+<area shape="rect" id="Node000005" href="$Scene_8ixx.html" title=" " alt="" coords="449,225,644,286"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="548,190,548,226,544,222,545,194"/>
+<area shape="rect" id="Node000006" href="$SceneType_8ixx.html" title=" " alt="" coords="669,225,864,286"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="623,181,707,224,702,224,621,187"/>
+<area shape="rect" id="Node000007" href="$Reflection_8h.html" title=" " alt="" coords="888,233,1050,278"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="672,175,776,197,876,222,906,233,900,232,875,227,775,203,672,180"/>
+</map>

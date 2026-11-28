@@ -1,0 +1,23 @@
+<map id="Elevate::Collider" name="Elevate::Collider">
+<area shape="rect" id="Node000001" title=" " alt="" coords="677,109,806,137"/>
+<area shape="rect" id="Node000007" href="$classElevate_1_1BoxCollider.html" title=" " alt="" coords="867,5,1020,33"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="770,97,808,70,853,43,882,34,887,33,855,48,811,74,772,102"/>
+<area shape="rect" id="Node000008" href="$classElevate_1_1CapsuleCollider.html" title=" " alt="" coords="854,57,1034,85"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="813,102,884,86,889,85,814,107"/>
+<area shape="rect" id="Node000009" href="$classElevate_1_1MeshCollider.html" title=" " alt="" coords="862,109,1026,137"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="821,121,864,123,859,123,821,126"/>
+<area shape="rect" id="Node000010" href="$classElevate_1_1PlaneCollider.html" title=" " alt="" coords="862,161,1026,189"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="813,139,889,161,884,161,813,144"/>
+<area shape="rect" id="Node000011" href="$classElevate_1_1SphereCollider.html" title=" " alt="" coords="857,213,1030,241"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="772,144,811,172,855,198,887,213,882,212,853,203,808,177,771,149"/>
+<area shape="rect" id="Node000002" href="$classElevate_1_1Component.html" title=" " alt="" coords="462,83,615,110"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="630,106,679,115,674,115,631,111"/>
+<area shape="rect" id="Node000003" href="$classElevate_1_1EEObject.html" title=" " alt="" coords="264,83,400,110"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="415,94,464,96,459,97,416,99"/>
+<area shape="rect" id="Node000004" href="$classElevate_1_1ITypeLayoutProvider.html" title=" " alt="" coords="5,52,216,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="229,80,266,86,260,88,230,85"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="21,104,200,148"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="214,109,266,105,261,107,216,115"/>
+<area shape="rect" id="Node000006" href="$classElevate_1_1IPhysicsCollider.html" title=" " alt="" coords="448,135,629,162"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="644,133,680,131,674,132,645,138"/>
+</map>

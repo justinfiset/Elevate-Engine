@@ -1,0 +1,15 @@
+<map id="ElevateEngine/Source/ElevateEngine/Audio/Audio.ixx" name="ElevateEngine/Source/ElevateEngine/Audio/Audio.ixx">
+<area shape="rect" id="Node000001" title=" " alt="" coords="92,5,254,67"/>
+<area shape="rect" id="Node000002" href="$SoundEngine_8ixx.html" title=" " alt="" coords="5,115,205,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,70,126,104,122,101,152,65"/>
+<area shape="rect" id="Node000004" href="$AudioObject_8ixx.html" title=" " alt="" coords="142,191,300,218"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="195,65,210,89,220,114,225,146,225,176,221,174,220,146,214,116,205,91,194,70"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="87,266,152,294"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="108,141,120,251,114,251,104,144"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="126,141,190,181,185,183,125,146"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="205,218,151,259,149,255,200,220"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="184,266,242,294"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="222,217,218,252,214,249,218,221"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="266,266,376,294"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="240,216,294,257,288,257,238,221"/>
+</map>

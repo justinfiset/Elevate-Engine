@@ -1,0 +1,5 @@
+<map id="Elevate::PlaneShape" name="Elevate::PlaneShape">
+<area shape="rect" id="Node000001" title=" " alt="" coords="12,81,166,109"/>
+<area shape="rect" id="Node000002" href="$structElevate_1_1PhysicsShape.html" title=" " alt="" coords="5,5,173,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,47,91,82,87,80,87,51"/>
+</map>

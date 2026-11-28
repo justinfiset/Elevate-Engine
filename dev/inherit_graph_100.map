@@ -1,0 +1,11 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$structElevate_1_1PhysicsShape.html" title=" " alt="" coords="5,84,173,112"/>
+<area shape="rect" id="Node000001" href="$structElevate_1_1BoxShape.html" title=" " alt="" coords="234,5,378,33"/>
+<area shape="poly" id="edge57_Node000000_Node000001" title=" " alt="" coords="137,75,220,43,260,32,255,35,222,48,140,80"/>
+<area shape="rect" id="Node000002" href="$structElevate_1_1CapsuleShape.html" title=" " alt="" coords="221,57,391,85"/>
+<area shape="poly" id="edge58_Node000000_Node000002" title=" " alt="" coords="187,83,223,81,218,83,189,88"/>
+<area shape="rect" id="Node000003" href="$structElevate_1_1PlaneShape.html" title=" " alt="" coords="229,109,383,137"/>
+<area shape="poly" id="edge59_Node000000_Node000003" title=" " alt="" coords="188,107,231,114,226,115,188,112"/>
+<area shape="rect" id="Node000004" href="$structElevate_1_1SphereShape.html" title=" " alt="" coords="224,161,388,189"/>
+<area shape="poly" id="edge60_Node000000_Node000004" title=" " alt="" coords="140,115,222,146,260,161,255,161,220,151,139,120"/>
+</map>

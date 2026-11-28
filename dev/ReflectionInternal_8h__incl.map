@@ -1,0 +1,25 @@
+<map id="ElevateEngine/Source/ElevateEngine/Core/Reflection/ReflectionInternal.h" name="ElevateEngine/Source/ElevateEngine/Core/Reflection/ReflectionInternal.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="23,5,244,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,115,97,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,70,75,105,71,102,107,65"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="53,191,116,218"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="129,65,111,143,98,177,94,175,106,142,126,70"/>
+<area shape="rect" id="Node000004" href="$TypeField_8ixx.html" title=" " alt="" coords="219,115,430,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="197,65,285,107,280,109,197,70"/>
+<area shape="poly" id="edge10_Node000004_Node000003" title=" " alt="" coords="280,146,132,192,130,187,283,141"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="448,266,513,294"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="260,144,224,158,191,175,180,184,174,194,173,205,180,217,196,229,221,240,288,257,365,268,435,276,429,276,364,273,287,263,219,245,193,234,176,220,168,206,169,193,176,181,188,170,222,153,265,142"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="189,191,276,218"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="310,142,262,183,259,179,306,145"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="299,191,350,218"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="326,141,327,176,322,174,323,145"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="374,191,432,218"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="339,141,381,180,375,180,338,146"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="456,191,542,218"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="356,141,457,184,452,185,355,146"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="567,191,690,218"/>
+<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="379,141,561,186,556,187,379,146"/>
+<area shape="rect" id="Node000011" href="$Data_8ixx.html" title=" " alt="" coords="714,191,902,218"/>
+<area shape="poly" id="edge11_Node000004_Node000011" title=" " alt="" coords="412,141,709,187,704,189,411,146"/>
+<area shape="poly" id="edge12_Node000011_Node000005" title=" " alt="" coords="752,219,529,271,528,266,747,219"/>
+</map>

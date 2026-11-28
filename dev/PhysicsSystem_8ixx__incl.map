@@ -1,0 +1,22 @@
+<map id="ElevateEngine/Source/ElevateEngine/Physics/Public/PhysicsSystem.ixx" name="ElevateEngine/Source/ElevateEngine/Physics/Public/PhysicsSystem.ixx">
+<area shape="rect" id="Node000001" title=" " alt="" coords="214,5,405,67"/>
+<area shape="rect" id="Node000002" href="$PhysicsBackend_8h.html" title=" " alt="" coords="5,115,190,160"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="243,70,159,110,156,106,247,66"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="214,124,301,151"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="295,66,273,111,269,108,292,70"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="325,124,401,151"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="327,65,351,110,346,109,325,70"/>
+<area shape="rect" id="Node000005" href="$IPhysicsRigidbody_8ixx.html" title=" " alt="" coords="425,115,605,160"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="372,65,459,107,454,108,372,70"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="382,300,485,328"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="437,161,383,185,361,197,348,209,341,230,348,251,365,273,390,293,384,292,362,277,343,254,335,230,343,206,358,193,381,180,442,159"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="358,216,530,244"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="500,159,465,206,462,201,496,161"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="554,216,617,244"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="533,158,568,204,563,203,531,162"/>
+<area shape="rect" id="Node000009" href="$IPhysicsCollider_8ixx.html" title=" " alt="" coords="641,208,821,252"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="567,158,668,201,662,201,566,163"/>
+<area shape="poly" id="edge9_Node000009_Node000006" title=" " alt="" coords="655,253,496,298,495,293,649,253"/>
+<area shape="rect" id="Node000010" href="$PhysicsShape_8ixx.html" title=" " alt="" coords="623,300,839,328"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="733,251,733,286,729,283,729,255"/>
+</map>

@@ -1,0 +1,15 @@
+<map id="ElevateEngine/Source/ElevateEngine/Editor/Panels/AssetBrowserPanel.ixx" name="ElevateEngine/Source/ElevateEngine/Editor/Panels/AssetBrowserPanel.ixx">
+<area shape="rect" id="Node000001" title=" " alt="" coords="235,5,454,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,115,95,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="247,70,108,113,106,107,245,65"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="119,115,242,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="293,67,219,110,216,105,287,68"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="267,115,329,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="331,66,313,103,310,99,327,69"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="353,115,430,143"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="362,65,380,102,375,100,359,70"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="453,115,495,143"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="389,65,446,106,440,106,387,70"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="519,115,629,143"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="422,65,529,109,524,109,421,70"/>
+</map>

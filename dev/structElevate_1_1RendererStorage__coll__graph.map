@@ -1,0 +1,7 @@
+<map id="Elevate::RendererStorage" name="Elevate::RendererStorage">
+<area shape="rect" id="Node000001" title=" " alt="" coords="86,106,273,134"/>
+<area shape="rect" id="Node000002" href="$classElevate_1_1SceneLighting.html" title=" " alt="" coords="5,5,175,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,43,140,80,166,106,161,105,136,84,107,48"/>
+<area shape="rect" id="Node000003" href="$classElevate_1_1Cubemap.html" title=" " alt="" coords="198,5,339,33"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="262,46,241,84,209,108,207,103,237,80,257,49"/>
+</map>

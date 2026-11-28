@@ -1,0 +1,15 @@
+<map id="ElevateEngine/Source/ElevateEngine/Core/Scene/ComponentTypeTrait.ixx" name="ElevateEngine/Source/ElevateEngine/Core/Scene/ComponentTypeTrait.ixx">
+<area shape="rect" id="Node000001" title=" " alt="" coords="132,5,328,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,124,92,151"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,70,87,118,84,114,176,65"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="116,124,192,151"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="209,66,175,113,171,109,205,69"/>
+<area shape="rect" id="Node000004" href="$ITypeTrait_8ixx.html" title=" " alt="" coords="216,115,399,160"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="254,65,284,103,278,103,253,70"/>
+<area shape="rect" id="Node000005" href="$EECategory_8ixx.html" title=" " alt="" coords="422,124,643,151"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="323,65,480,117,475,119,322,70"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="423,208,532,235"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="526,151,496,197,493,193,521,153"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="557,208,615,235"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="542,149,572,196,567,194,540,154"/>
+</map>

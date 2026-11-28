@@ -1,0 +1,16 @@
+<map id="ElevateEngine/Source/ElevateEngine/Audio" name="ElevateEngine/Source/ElevateEngine/Audio">
+<area shape="rect" id="node1" href="dir_d62e76c0d86e9b3187ff9460429c42f2.html" title="Foundations" alt="" coords="64,141,165,168"/>
+<area shape="rect" id="node2" href="dir_8da6647db9584a8f13ded450386f84f0.html" title="Core" alt="" coords="212,141,263,168"/>
+<area shape="poly" id="edge1" href="dir_000002_000038.html" alt="" coords="76,90,101,127,95,128,74,95"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000002_000038.html" title="5" alt="" coords="99,112,107,129"/>
+<area shape="rect" id="node4" href="dir_a5369fe198c049c715d520d9be64a78e.html" title="Components" alt="" coords="208,65,312,93"/>
+<area shape="poly" id="edge2" href="dir_000014_000020.html" alt="" coords="258,91,248,127,244,124,254,95"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000014_000020.html" title="1" alt="" coords="251,117,259,134"/>
+<area shape="rect" id="node5" href="dir_71ace95edbbfc098368163be861429dc.html" title="Wwise" alt="" coords="120,65,184,93"/>
+<area shape="poly" id="edge4" href="dir_000102_000038.html" alt="" coords="147,92,130,129,126,125,143,95"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000102_000038.html" title="4" alt="" coords="133,119,141,136"/>
+<area shape="poly" id="edge3" href="dir_000102_000020.html" alt="" coords="168,91,213,130,208,130,166,96"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000102_000020.html" title="1" alt="" coords="210,114,218,131"/>
+<area shape="rect" id="clust2" href="dir_7dc522dc3d00cd85b8ccb24ba12c4b91.html" alt="" coords="27,54,323,103"/>
+<area shape="rect" id="clust1" href="dir_6ea98a26acc173547edbfbdd6ac77e09.html" title="ElevateEngine" alt="" coords="16,16,333,179"/>
+</map>

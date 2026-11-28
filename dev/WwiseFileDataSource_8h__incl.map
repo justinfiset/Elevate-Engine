@@ -1,0 +1,21 @@
+<map id="ElevateEngine/Source/ElevateEngine/Audio/Wwise/DataSources/WwiseFileDataSource.h" name="ElevateEngine/Source/ElevateEngine/Audio/Wwise/DataSources/WwiseFileDataSource.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="141,5,365,84"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="7,242,65,269"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,60,106,72,73,87,43,107,18,133,9,156,9,180,15,205,24,227,19,228,10,206,4,181,4,155,14,131,39,103,70,82,104,67,142,57"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="466,149,555,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="347,82,454,130,475,142,470,141,452,134,346,87"/>
+<area shape="rect" id="Node000004" href="$WwiseDataSource_8h.html" title=" " alt="" coords="28,132,260,194"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="219,83,184,123,181,119,215,86"/>
+<area shape="rect" id="Node000006" href="$WwiseItem_8h.html" title=" " alt="" coords="284,140,441,185"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="290,82,335,129,330,129,289,87"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="120,242,197,269"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="150,192,157,227,152,225,147,196"/>
+<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="300,185,273,196,81,246,79,241,271,191,295,187"/>
+<area shape="poly" id="edge9_Node000006_Node000005" title=" " alt="" coords="316,185,203,238,201,233,311,186"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="237,242,307,269"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="344,185,297,233,295,228,339,186"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="331,242,394,269"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="365,184,365,228,360,225,361,187"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="417,242,527,269"/>
+<area shape="poly" id="edge10_Node000006_Node000009" title=" " alt="" coords="389,183,447,232,442,231,388,188"/>
+</map>

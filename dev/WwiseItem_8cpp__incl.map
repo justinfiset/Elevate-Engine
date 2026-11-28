@@ -1,0 +1,15 @@
+<map id="ElevateEngine/Source/ElevateEngine/Audio/Wwise/WwiseItem.cpp" name="ElevateEngine/Source/ElevateEngine/Audio/Wwise/WwiseItem.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="126,5,299,67"/>
+<area shape="rect" id="Node000002" href="$WwiseItem_8h.html" title=" " alt="" coords="159,115,266,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,65,215,100,210,98,211,70"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,191,76,218"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="183,146,86,187,84,182,181,141"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="99,191,158,218"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="200,142,156,183,153,178,195,144"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="181,191,244,218"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="214,141,215,176,210,174,211,145"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="268,191,344,218"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="230,141,280,181,275,181,228,146"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="368,191,478,218"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="251,141,374,185,369,186,250,146"/>
+</map>

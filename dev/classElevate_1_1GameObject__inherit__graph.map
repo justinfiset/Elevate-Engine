@@ -1,0 +1,13 @@
+<map id="Elevate::GameObject" name="Elevate::GameObject">
+<area shape="rect" id="Node000001" title=" " alt="" coords="193,174,353,201"/>
+<area shape="rect" id="Node000002" href="$classElevate_1_1ITransformable.html" title="An interface to add all of the methods needed to have a working transform wrapped by getter and sette..." alt="" coords="5,98,181,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,129,243,172,239,174,139,134"/>
+<area shape="rect" id="Node000003" href="$classElevate_1_1EEObject.html" title=" " alt="" coords="205,98,341,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="275,140,275,175,271,172,271,143"/>
+<area shape="rect" id="Node000004" href="$classElevate_1_1ITypeLayoutProvider.html" title=" " alt="" coords="58,14,269,42"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="194,49,258,97,253,98,193,54"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="293,5,472,50"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="344,58,292,100,289,95,339,61"/>
+<area shape="rect" id="Node000006" href="$classElevate_1_1IAudioObject.html" title=" " alt="" coords="366,98,527,126"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="404,132,305,176,303,171,399,132"/>
+</map>

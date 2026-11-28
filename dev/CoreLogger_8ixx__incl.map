@@ -1,0 +1,37 @@
+<map id="ElevateEngine/Source/ElevateEngine/Foundations/Logging/CoreLogger.ixx" name="ElevateEngine/Source/ElevateEngine/Foundations/Logging/CoreLogger.ixx">
+<area shape="rect" id="Node000001" title=" " alt="" coords="468,5,670,67"/>
+<area shape="rect" id="Node000002" href="$LogInternal_8ixx.html" title=" " alt="" coords="371,208,575,252"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="556,66,492,196,488,192,552,69"/>
+<area shape="rect" id="Node000013" href="$LoggerFacade_8ixx.html" title=" " alt="" coords="563,115,767,160"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="599,65,636,104,631,104,598,70"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="220,402,286,429"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="458,251,418,299,367,347,329,374,292,396,290,391,326,369,363,343,414,295,453,254"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="428,309,504,336"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="473,251,470,295,466,292,470,255"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="529,309,587,336"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="494,250,538,298,533,297,492,255"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="662,402,758,429"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="570,250,640,272,668,285,687,298,700,319,708,342,713,387,709,384,703,343,695,321,683,302,665,289,638,277,570,256"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="611,309,673,336"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="514,250,607,301,602,301,513,256"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="249,309,352,336"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="434,252,340,304,338,299,429,254"/>
+<area shape="rect" id="Node000009" href="$LogCallback_8ixx.html" title=" " alt="" coords="748,300,952,345"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="563,250,748,296,743,297,563,256"/>
+<area shape="rect" id="Node000012" href="$Callbacks_8ixx.html" title=" " alt="" coords="5,309,226,336"/>
+<area shape="poly" id="edge12_Node000002_Node000012" title=" " alt="" coords="386,255,183,307,182,302,389,251"/>
+<area shape="poly" id="edge10_Node000009_Node000006" title=" " alt="" coords="819,345,744,395,742,390,814,346"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="783,402,869,429"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="847,344,835,388,832,384,842,347"/>
+<area shape="rect" id="Node000011" href="$LogLevel_8ixx.html" title=" " alt="" coords="893,393,1098,438"/>
+<area shape="poly" id="edge11_Node000009_Node000011" title=" " alt="" coords="886,343,951,385,945,384,884,348"/>
+<area shape="poly" id="edge13_Node000012_Node000003" title=" " alt="" coords="136,334,222,392,217,393,134,339"/>
+<area shape="poly" id="edge17_Node000013_Node000002" title=" " alt="" coords="621,159,533,203,531,198,616,161"/>
+<area shape="poly" id="edge18_Node000013_Node000009" title=" " alt="" coords="754,158,794,177,827,206,838,224,846,244,853,286,848,283,841,246,834,227,823,209,791,182,754,163"/>
+<area shape="poly" id="edge19_Node000013_Node000011" title=" " alt="" coords="752,158,809,179,868,208,923,248,947,272,967,299,985,338,994,379,989,376,980,340,963,302,943,275,919,252,865,213,807,184,751,163"/>
+<area shape="poly" id="edge20_Node000013_Node000012" title=" " alt="" coords="560,157,463,180,359,210,245,257,153,303,151,299,243,252,357,205,462,175,565,155"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="600,216,730,244"/>
+<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="666,158,667,202,663,199,663,162"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="754,216,813,244"/>
+<area shape="poly" id="edge16_Node000013_Node000015" title=" " alt="" coords="694,157,757,207,752,206,692,163"/>
+</map>

@@ -1,0 +1,26 @@
+var module__Elevate_8Renderer_8Materials_8Material =
+[
+    [ "Material", "classElevate_1_1Material.html", "classElevate_1_1Material" ],
+    [ "MaterialFactory", "classElevate_1_1MaterialFactory.html", "classElevate_1_1MaterialFactory" ],
+    [ "MaterialRegistry", "classElevate_1_1MaterialRegistry.html", null ],
+    [ "Elevate::MaterialPtr", "module__Elevate_8Renderer_8Materials_8Material.html#a79d73c107f6b47816809978826048ba4", null ],
+    [ "Elevate::MaterialID", "module__Elevate_8Renderer_8Materials_8Material.html#aa2b5a99c6e1b9ad9897b837a1ae468c2", null ],
+    [ "Elevate::Material::ShaderBinder", "module__Elevate_8Renderer_8Materials_8Material.html#ac4bcaebe1e1920beaaec845853632b31", null ],
+    [ "Elevate::Material::TextureBinder", "module__Elevate_8Renderer_8Materials_8Material.html#acf6c351078b609127a17d98a7a54190a", null ],
+    [ "Elevate::Material::GetLayout", "module__Elevate_8Renderer_8Materials_8Material.html#a599f29ee487a87cb4e516aa8b0fed3a3", null ],
+    [ "Elevate::Material::Set", "module__Elevate_8Renderer_8Materials_8Material.html#a8bcc82304d0de251536df4824ac695dc", null ],
+    [ "Elevate::Material::SetTexture", "module__Elevate_8Renderer_8Materials_8Material.html#a58b4f127e9d188615a53a843b3d53212", null ],
+    [ "Elevate::Material::Apply", "module__Elevate_8Renderer_8Materials_8Material.html#ac1e5516cb71a14e7efd9e7b4bb5b4010", null ],
+    [ "Elevate::Material::GetShader", "module__Elevate_8Renderer_8Materials_8Material.html#a3a42f017edcb28c413bf6d58a54648e6", null ],
+    [ "Elevate::Material::GetID", "module__Elevate_8Renderer_8Materials_8Material.html#a788b6b870996d171051a1467faf768c5", null ],
+    [ "Elevate::Material::GetRenderState", "module__Elevate_8Renderer_8Materials_8Material.html#a2f0f3815079fd6bd7d88e46f8eb9d365", null ],
+    [ "Elevate::Material::GetRenderState", "module__Elevate_8Renderer_8Materials_8Material.html#afab1981e14412840f2ac2a75cf2ae97b", null ],
+    [ "Elevate::Material::SetRenderState", "module__Elevate_8Renderer_8Materials_8Material.html#add234408b148668467ff3e722c21dc8a", null ],
+    [ "Elevate::Material::GetBucket", "module__Elevate_8Renderer_8Materials_8Material.html#a67094eeefff2613b24256ba880beadbc", null ],
+    [ "Elevate::Material::SetBucket", "module__Elevate_8Renderer_8Materials_8Material.html#a25a81b265cc03c8816798999afa816a2", null ],
+    [ "Elevate::Material::GetTextureCount", "module__Elevate_8Renderer_8Materials_8Material.html#a8abde3d76559666c28e4209e6e2de12e", null ],
+    [ "Elevate::Material::Material", "module__Elevate_8Renderer_8Materials_8Material.html#af62c8a3f497cdc5b70a96ccbf00b9689", null ],
+    [ "Elevate::EE_DEFAULT_MATERIAL", "module__Elevate_8Renderer_8Materials_8Material.html#abfbd2869fd67a65b59f7a4236deeae35", null ],
+    [ "Elevate::EE_ERROR_MATERIAL", "module__Elevate_8Renderer_8Materials_8Material.html#aa22aa91853a0ae7051d227c19d8c6b70", null ],
+    [ "Elevate::EE_FIRST_MATERIAL_ID", "module__Elevate_8Renderer_8Materials_8Material.html#ae1f8e09f46571706c5cec2938d58f312", null ]
+];

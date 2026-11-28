@@ -1,0 +1,7 @@
+<map id="Elevate::ITransformable" name="Elevate::ITransformable">
+<area shape="rect" id="Node000001" title="An interface to add all of the methods needed to have a working transform wrapped by getter and sette..." alt="" coords="23,183,198,211"/>
+<area shape="rect" id="Node000002" href="$classElevate_1_1Transform.html" title=" " alt="" coords="39,82,182,110"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,124,113,183,108,182,108,127"/>
+<area shape="rect" id="Node000003" href="$classElevate_1_1ITypeLayoutProvider.html" title=" " alt="" coords="5,5,216,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="112,46,113,83,108,81,109,51"/>
+</map>

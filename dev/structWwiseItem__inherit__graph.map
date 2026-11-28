@@ -1,0 +1,21 @@
+<map id="WwiseItem" name="WwiseItem">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,213,100,241"/>
+<area shape="rect" id="Node000002" href="$structWwiseAuxBus.html" title=" " alt="" coords="176,5,290,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,198,70,163,88,121,113,80,146,44,177,28,174,32,149,48,118,83,93,124,75,165,64,199"/>
+<area shape="rect" id="Node000003" href="$structWwiseBus.html" title=" " alt="" coords="189,57,277,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="65,198,97,146,120,119,146,96,166,84,190,77,186,81,168,89,149,100,124,123,102,149,70,200"/>
+<area shape="rect" id="Node000004" href="$structWwiseEvent.html" title=" " alt="" coords="182,109,284,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="76,201,108,173,146,147,184,134,180,137,149,152,111,178,80,205"/>
+<area shape="rect" id="Node000005" href="$structWwiseGameParameter.html" title=" " alt="" coords="148,161,318,189"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="113,207,184,188,181,192,116,212"/>
+<area shape="rect" id="Node000006" href="$structWwiseSoundbank.html" title=" " alt="" coords="165,213,301,241"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="114,225,166,226,162,229,116,230"/>
+<area shape="rect" id="Node000007" href="$structWwiseState.html" title=" " alt="" coords="184,265,282,293"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="114,242,185,264,181,266,115,248"/>
+<area shape="rect" id="Node000008" href="$structWwiseStateGroup.html" title=" " alt="" coords="164,317,302,345"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="78,249,111,277,149,302,178,316,173,317,146,307,108,281,78,254"/>
+<area shape="rect" id="Node000009" href="$structWwiseSwitch.html" title=" " alt="" coords="179,369,286,397"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="68,253,102,305,124,332,149,354,181,372,176,372,146,359,120,335,97,308,67,258"/>
+<area shape="rect" id="Node000010" href="$structWwiseSwitchGroup.html" title=" " alt="" coords="160,421,306,449"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="61,253,75,290,93,331,118,371,149,406,170,421,165,421,146,411,113,375,88,333,70,292,61,258"/>
+</map>

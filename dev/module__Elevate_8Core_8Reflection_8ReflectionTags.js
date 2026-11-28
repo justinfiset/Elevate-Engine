@@ -1,0 +1,28 @@
+var module__Elevate_8Core_8Reflection_8ReflectionTags =
+[
+    [ "EmptyTag", "structElevate_1_1EmptyTag.html", null ],
+    [ "AssetTag", "structElevate_1_1AssetTag.html", "structElevate_1_1AssetTag" ],
+    [ "CreateAssetMenuTag", "structElevate_1_1CreateAssetMenuTag.html", "structElevate_1_1CreateAssetMenuTag" ],
+    [ "AssetColorTag", "structElevate_1_1AssetColorTag.html", "structElevate_1_1AssetColorTag" ],
+    [ "HideInInspectorTag", "structElevate_1_1HideInInspectorTag.html", null ],
+    [ "FlattenTag", "structElevate_1_1FlattenTag.html", null ],
+    [ "DisplayNameTag", "structElevate_1_1DisplayNameTag.html", "structElevate_1_1DisplayNameTag" ],
+    [ "TooltipTag", "structElevate_1_1TooltipTag.html", "structElevate_1_1TooltipTag" ],
+    [ "ReadOnlyTag", "structElevate_1_1ReadOnlyTag.html", null ],
+    [ "ColorTag", "structElevate_1_1ColorTag.html", null ],
+    [ "EditorIconTag", "structElevate_1_1EditorIconTag.html", "structElevate_1_1EditorIconTag" ],
+    [ "NoSerializeTag", "structElevate_1_1NoSerializeTag.html", null ],
+    [ "Elevate::AssetOption", "module__Elevate_8Core_8Reflection_8ReflectionTags.html#a1722b8cb4483ef2f074e3f58593efe76", null ],
+    [ "Elevate::FieldOption", "module__Elevate_8Core_8Reflection_8ReflectionTags.html#afa62bd59b5aad63ad864f9997363185c", null ],
+    [ "Elevate::AssetTag::AssetTag", "module__Elevate_8Core_8Reflection_8ReflectionTags.html#a4399606db6b76b16469bace2cb9c9146", null ],
+    [ "Elevate::BuildAssetMetadata", "module__Elevate_8Core_8Reflection_8ReflectionTags.html#a42a39ce36eecdb4bf41e392859c8ed8e", null ],
+    [ "Elevate::AssetTag::Meta", "module__Elevate_8Core_8Reflection_8ReflectionTags.html#aececf7117d3a2d2c75780d6773b83420", null ],
+    [ "Elevate::CreateAssetMenuTag::Path", "module__Elevate_8Core_8Reflection_8ReflectionTags.html#a981c54be05753964a393e1c0c0895935", null ],
+    [ "Elevate::CreateAssetMenuTag::Ext", "module__Elevate_8Core_8Reflection_8ReflectionTags.html#a049e37b1fa9196807eb9b772cd2b8fc7", null ],
+    [ "Elevate::AssetColorTag::r", "module__Elevate_8Core_8Reflection_8ReflectionTags.html#a160818b831bf1ab0998d4ec6f2233792", null ],
+    [ "Elevate::AssetColorTag::g", "module__Elevate_8Core_8Reflection_8ReflectionTags.html#af002a7bca8d324a0a3e82d50f132f017", null ],
+    [ "Elevate::AssetColorTag::b", "module__Elevate_8Core_8Reflection_8ReflectionTags.html#a7ce5850f99190411c11f1d00048b8ca5", null ],
+    [ "Elevate::DisplayNameTag::value", "module__Elevate_8Core_8Reflection_8ReflectionTags.html#a677a1e2c4040706293f1043c9a1c687c", null ],
+    [ "Elevate::TooltipTag::text", "module__Elevate_8Core_8Reflection_8ReflectionTags.html#a51cb0f5fafdf2f49fdb1bef56bc2c351", null ],
+    [ "Elevate::EditorIconTag::Path", "module__Elevate_8Core_8Reflection_8ReflectionTags.html#a8e2eed698ff3d352e9406a4578a25386", null ]
+];

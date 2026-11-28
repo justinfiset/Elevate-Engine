@@ -1,0 +1,20 @@
+<map id="Elevate::GameObject" name="Elevate::GameObject">
+<area shape="rect" id="Node000001" title=" " alt="" coords="858,73,1017,100"/>
+<area shape="rect" id="Node000002" href="$classElevate_1_1ITransformable.html" title="An interface to add all of the methods needed to have a working transform wrapped by getter and sette..." alt="" coords="633,22,808,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="798,51,878,72,872,72,797,56"/>
+<area shape="rect" id="Node000003" href="$classElevate_1_1Transform.html" title=" " alt="" coords="349,14,492,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="508,27,635,33,630,34,508,33"/>
+<area shape="rect" id="Node000004" href="$classElevate_1_1ITypeLayoutProvider.html" title=" " alt="" coords="5,7,216,35"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="231,21,351,25,346,28,232,26"/>
+<area shape="rect" id="Node000005" href="$classElevate_1_1EEObject.html" title=" " alt="" coords="352,73,488,100"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="195,36,354,71,349,74,195,41"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="504,84,860,85,855,87,504,89"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="21,61,200,106"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="215,82,354,85,349,87,216,87"/>
+<area shape="rect" id="Node000007" href="$classElevate_1_1EECategory.html" title=" " alt="" coords="34,130,187,158"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="202,132,324,113,380,100,375,102,325,118,203,138"/>
+<area shape="rect" id="Node000008" href="$classElevate_1_1Guid.html" title=" " alt="" coords="56,183,165,211"/>
+<area shape="poly" id="edge8_Node000005_Node000008" title=" " alt="" coords="180,191,251,180,288,170,323,157,369,129,403,102,408,100,372,133,326,162,290,175,252,185,181,196"/>
+<area shape="rect" id="Node000009" href="$classElevate_1_1IAudioObject.html" title=" " alt="" coords="640,123,801,151"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="797,117,872,101,878,100,798,122"/>
+</map>

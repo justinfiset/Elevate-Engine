@@ -1,0 +1,25 @@
+var module__Elevate_8Core_8Application =
+[
+    [ "ApplicationArguments", "structElevate_1_1ApplicationArguments.html", "structElevate_1_1ApplicationArguments" ],
+    [ "Application", "classElevate_1_1Application.html", "classElevate_1_1Application" ],
+    [ "Elevate::ApplicationFactory", "module__Elevate_8Core_8Application.html#ac439ce1bb86c1c4db595612879c37b95", null ],
+    [ "Elevate::ApplicationArguments::ApplicationArguments", "module__Elevate_8Core_8Application.html#af8dca09374552f14efc0e4bbc4365bfd", null ],
+    [ "Elevate::ApplicationArguments::ApplicationArguments", "module__Elevate_8Core_8Application.html#ad3cce45c82364176645f8ca5250a40df", null ],
+    [ "Elevate::Application::Application", "module__Elevate_8Core_8Application.html#a36cdafcf896d128b9385d7232c45eb8b", null ],
+    [ "Elevate::Application::~Application", "module__Elevate_8Core_8Application.html#a53484e4781da8b26974058f2de2ad599", null ],
+    [ "Elevate::Application::Init", "module__Elevate_8Core_8Application.html#a4c9da7f60f67242f732a6445023111d2", null ],
+    [ "Elevate::Application::CreateLayers", "module__Elevate_8Core_8Application.html#ae1a7eddcef53c7eb4bf74300317e6c56", null ],
+    [ "Elevate::Application::OnCreateLayers", "module__Elevate_8Core_8Application.html#af10a851567e0be754a6def84b227e6eb", null ],
+    [ "Elevate::Application::CreateServiceProvider", "module__Elevate_8Core_8Application.html#a0131ed4b34d2ffc7d776822ea765e504", null ],
+    [ "Elevate::Application::EngineFrame", "module__Elevate_8Core_8Application.html#a9ba5d4cbc6efc070b914799e9e599baa", null ],
+    [ "Elevate::Application::Run", "module__Elevate_8Core_8Application.html#abc88552c66339d2aee991eee71681bed", null ],
+    [ "Elevate::Application::Exit", "module__Elevate_8Core_8Application.html#ad747e7f9492296cc567503202400e7e3", null ],
+    [ "Elevate::Application::OnEvent", "module__Elevate_8Core_8Application.html#a718bde7add1f023ecb6f9547c6e6de88", null ],
+    [ "Elevate::Application::PushLayer", "module__Elevate_8Core_8Application.html#a0f7e349113d0750b61c7a776b991f4cf", null ],
+    [ "Elevate::Application::PushOverlay", "module__Elevate_8Core_8Application.html#aacbb8a9174ea0c18fdfb403c13c684a2", null ],
+    [ "Elevate::Application::GetWindow", "module__Elevate_8Core_8Application.html#a40e89e611348fde47d0e9364adbac7f4", null ],
+    [ "Elevate::Application::GetServices", "module__Elevate_8Core_8Application.html#a87db66e5b318f3dd9ca77092376413f0", null ],
+    [ "Elevate::Application::OnStateChange", "module__Elevate_8Core_8Application.html#aad6b7689f0baa931a61363980fc9ac09", null ],
+    [ "Elevate::ApplicationArguments::argc", "module__Elevate_8Core_8Application.html#affe937f9bfd499dbe9cb50b2221d4bb0", null ],
+    [ "Elevate::ApplicationArguments::argv", "module__Elevate_8Core_8Application.html#ab339f98049b0e38f7029beebb4db830b", null ]
+];

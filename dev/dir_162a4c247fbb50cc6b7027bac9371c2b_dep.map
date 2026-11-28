@@ -1,0 +1,22 @@
+<map id="ElevateEngine/Source/ElevateEngine/Renderer/Scene" name="ElevateEngine/Source/ElevateEngine/Renderer/Scene">
+<area shape="rect" id="node1" href="dir_3d6915889d642a8d3ce20f6ffd24d54d.html" title="Environment" alt="" coords="26,130,131,158"/>
+<area shape="rect" id="node2" href="dir_9af349a18c2027971825354342c44de3.html" title="Lights" alt="" coords="155,130,216,158"/>
+<area shape="rect" id="node3" href="dir_c0b463284ed461013e2ff5dd58fe0b52.html" title="Shader" alt="" coords="240,130,306,158"/>
+<area shape="rect" id="node4" href="dir_cb0229cfd17d0c0da109b672234dc397.html" title="Camera" alt="" coords="330,130,403,158"/>
+<area shape="rect" id="node5" href="dir_162a4c247fbb50cc6b7027bac9371c2b.html" title="Scene" alt="" coords="290,54,350,82"/>
+<area shape="poly" id="edge1" href="dir_000076_000034.html" alt="" coords="289,81,137,128,135,123,289,76"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000076_000034.html" title="1" alt="" coords="138,124,146,141"/>
+<area shape="poly" id="edge3" href="dir_000076_000050.html" alt="" coords="298,82,223,125,221,120,293,83"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000076_000050.html" title="3" alt="" coords="225,120,233,137"/>
+<area shape="poly" id="edge4" href="dir_000076_000081.html" alt="" coords="314,81,291,119,288,115,309,84"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000076_000081.html" title="2" alt="" coords="294,110,302,127"/>
+<area shape="poly" id="edge5" href="dir_000076_000009.html" alt="" coords="330,80,353,118,348,116,327,85"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000076_000009.html" title="1" alt="" coords="352,101,360,118"/>
+<area shape="rect" id="node6" href="dir_8da6647db9584a8f13ded450386f84f0.html" title="Core" alt="" coords="426,130,478,158"/>
+<area shape="poly" id="edge2" href="dir_000076_000020.html" alt="" coords="344,80,418,122,413,122,343,85"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000076_000020.html" title="2" alt="" coords="413,105,421,122"/>
+<area shape="rect" id="node7" href="dir_d62e76c0d86e9b3187ff9460429c42f2.html" title="Foundations" alt="" coords="502,130,602,158"/>
+<area shape="poly" id="edge6" href="dir_000076_000038.html" alt="" coords="351,77,499,125,494,125,350,82"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000076_000038.html" title="2" alt="" coords="492,107,500,124"/>
+<area shape="rect" id="clust1" href="dir_2fb4f99d3cc0bca8c2a6a00cbf69de3a.html" title="Renderer" alt="" coords="16,16,413,168"/>
+</map>

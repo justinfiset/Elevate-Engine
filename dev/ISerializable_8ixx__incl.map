@@ -1,0 +1,17 @@
+<map id="ElevateEngine/Source/ElevateEngine/Serialization/ISerializable.ixx" name="ElevateEngine/Source/ElevateEngine/Serialization/ISerializable.ixx">
+<area shape="rect" id="Node000001" title=" " alt="" coords="149,5,352,67"/>
+<area shape="rect" id="Node000002" href="$Bytes_8ixx.html" title=" " alt="" coords="154,115,348,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="252,65,253,100,248,98,249,70"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,191,75,218"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="214,146,90,189,89,183,212,141"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="98,191,160,218"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="232,143,165,185,163,180,226,144"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="184,191,237,218"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="246,142,227,179,223,175,241,145"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="262,191,320,218"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="259,141,279,178,274,176,256,146"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="344,191,418,218"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="275,141,348,183,342,183,273,146"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="443,191,517,218"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="292,141,431,186,425,187,291,146"/>
+</map>

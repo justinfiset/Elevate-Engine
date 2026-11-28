@@ -1,0 +1,57 @@
+<map id="Elevate::ITypeLayoutProvider" name="Elevate::ITypeLayoutProvider">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,412,216,440"/>
+<area shape="rect" id="Node000002" href="$classElevate_1_1EEObject.html" title=" " alt="" coords="267,385,404,413"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="230,409,269,406,264,408,232,414"/>
+<area shape="rect" id="Node000028" href="$classElevate_1_1Transform.html" title=" " alt="" coords="264,437,407,465"/>
+<area shape="poly" id="edge27_Node000001_Node000028" title=" " alt="" coords="230,437,266,442,261,444,231,442"/>
+<area shape="rect" id="Node000003" href="$classElevate_1_1Asset.html" title=" " alt="" coords="478,57,592,85"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="351,371,522,86,527,85,355,374"/>
+<area shape="rect" id="Node000006" href="$classElevate_1_1Component.html" title=" " alt="" coords="458,292,611,320"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="379,376,506,319,501,321,382,381"/>
+<area shape="rect" id="Node000023" href="$classElevate_1_1GameObject.html" title=" " alt="" coords="455,385,614,413"/>
+<area shape="poly" id="edge22_Node000002_Node000023" title=" " alt="" coords="419,397,457,399,452,400,419,402"/>
+<area shape="rect" id="Node000024" href="$classElevate_1_1Scene.html" title=" " alt="" coords="476,467,593,494"/>
+<area shape="poly" id="edge23_Node000002_Node000024" title=" " alt="" coords="390,416,408,423,504,466,499,466,406,428,390,422"/>
+<area shape="rect" id="Node000026" href="$classElevate_1_1Shader.html" title=" " alt="" coords="473,523,596,550"/>
+<area shape="poly" id="edge25_Node000002_Node000026" title=" " alt="" coords="401,418,409,424,426,444,434,465,441,484,457,504,485,523,480,522,453,508,436,487,429,467,421,447,405,428,400,424"/>
+<area shape="rect" id="Node000004" href="$classElevate_1_1Material.html" title=" " alt="" coords="701,5,833,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="606,53,704,32,700,35,608,58"/>
+<area shape="rect" id="Node000005" href="$classElevate_1_1ShaderAsset.html" title=" " alt="" coords="687,57,847,85"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="607,69,690,70,685,72,608,74"/>
+<area shape="rect" id="Node000007" href="$classElevate_1_1AkBank.html" title=" " alt="" coords="703,109,831,137"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="549,277,593,212,624,177,661,148,705,131,700,134,664,152,628,181,597,215,552,281"/>
+<area shape="rect" id="Node000008" href="$classElevate_1_1AudioDistanceProbe.html" title=" " alt="" coords="662,161,872,189"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="558,279,603,238,661,199,695,188,691,191,664,204,607,242,561,283"/>
+<area shape="rect" id="Node000009" href="$classElevate_1_1Camera.html" title=" " alt="" coords="702,213,832,241"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="581,283,661,251,707,241,702,243,663,256,583,288"/>
+<area shape="rect" id="Node000011" href="$classElevate_1_1Collider.html" title=" " alt="" coords="703,265,831,293"/>
+<area shape="poly" id="edge10_Node000006_Node000011" title=" " alt="" coords="626,293,705,286,700,287,627,298"/>
+<area shape="rect" id="Node000017" href="$classElevate_1_1Light.html" title=" " alt="" coords="712,317,822,345"/>
+<area shape="poly" id="edge16_Node000006_Node000017" title=" " alt="" coords="627,313,714,325,709,326,627,319"/>
+<area shape="rect" id="Node000021" href="$classElevate_1_1Model.html" title=" " alt="" coords="708,369,826,397"/>
+<area shape="poly" id="edge20_Node000006_Node000021" title=" " alt="" coords="582,323,663,354,710,369,705,370,661,359,582,329"/>
+<area shape="rect" id="Node000022" href="$classElevate_1_1Rigidbody.html" title=" " alt="" coords="695,421,839,449"/>
+<area shape="poly" id="edge21_Node000006_Node000022" title=" " alt="" coords="565,327,664,406,697,421,692,421,661,411,564,333"/>
+<area shape="rect" id="Node000010" href="$classElevate_1_1EditorCamera.html" title=" " alt="" coords="927,57,1094,85"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="845,213,870,198,881,187,888,175,893,149,899,122,906,109,918,96,937,87,941,84,921,100,910,112,904,124,899,150,893,176,885,190,873,203,848,217"/>
+<area shape="rect" id="Node000012" href="$classElevate_1_1BoxCollider.html" title=" " alt="" coords="934,109,1087,137"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="844,265,870,250,881,239,888,227,893,201,899,174,906,161,918,148,937,139,941,136,921,152,910,164,904,176,899,202,893,228,885,242,873,255,847,270"/>
+<area shape="rect" id="Node000013" href="$classElevate_1_1CapsuleCollider.html" title=" " alt="" coords="920,161,1100,189"/>
+<area shape="poly" id="edge12_Node000011_Node000013" title=" " alt="" coords="845,262,870,250,885,238,894,226,903,213,918,200,943,191,948,188,921,204,907,216,898,229,889,242,873,255,847,267"/>
+<area shape="rect" id="Node000014" href="$classElevate_1_1MeshCollider.html" title=" " alt="" coords="929,213,1092,241"/>
+<area shape="poly" id="edge13_Node000011_Node000014" title=" " alt="" coords="846,260,945,241,939,242,847,265"/>
+<area shape="rect" id="Node000015" href="$classElevate_1_1PlaneCollider.html" title=" " alt="" coords="928,265,1092,293"/>
+<area shape="poly" id="edge14_Node000011_Node000015" title=" " alt="" coords="846,277,930,279,925,280,847,282"/>
+<area shape="rect" id="Node000016" href="$classElevate_1_1SphereCollider.html" title=" " alt="" coords="924,317,1097,345"/>
+<area shape="poly" id="edge15_Node000011_Node000016" title=" " alt="" coords="846,293,945,316,939,317,846,299"/>
+<area shape="rect" id="Node000018" href="$classElevate_1_1DirectionalLight.html" title=" " alt="" coords="920,369,1101,397"/>
+<area shape="poly" id="edge17_Node000017_Node000018" title=" " alt="" coords="837,343,945,369,940,369,837,349"/>
+<area shape="rect" id="Node000019" href="$classElevate_1_1PointLight.html" title=" " alt="" coords="939,421,1082,449"/>
+<area shape="poly" id="edge18_Node000017_Node000019" title=" " alt="" coords="837,340,873,356,889,368,898,381,907,394,921,406,948,421,943,420,918,411,903,398,894,385,885,372,870,360,837,346"/>
+<area shape="rect" id="Node000020" href="$classElevate_1_1SpotLight.html" title=" " alt="" coords="941,473,1080,501"/>
+<area shape="poly" id="edge19_Node000017_Node000020" title=" " alt="" coords="837,337,857,345,873,356,885,369,893,382,899,408,904,434,910,446,921,458,943,474,937,473,918,463,906,449,899,436,893,409,888,384,881,372,870,360,854,350,837,343"/>
+<area shape="rect" id="Node000025" href="$classElevate_1_1MaterialPreviewScene.html" title=" " alt="" coords="675,473,859,518"/>
+<area shape="poly" id="edge24_Node000024_Node000025" title=" " alt="" coords="609,482,677,489,672,489,609,488"/>
+<area shape="rect" id="Node000027" href="$classElevate_1_1OpenGLShader.html" title=" " alt="" coords="680,541,854,569"/>
+<area shape="poly" id="edge26_Node000026_Node000027" title=" " alt="" coords="612,540,682,548,677,548,612,545"/>
+</map>

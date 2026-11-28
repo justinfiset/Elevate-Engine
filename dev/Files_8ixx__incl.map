@@ -1,0 +1,10 @@
+<map id="ElevateEngine/Source/ElevateEngine/Foundations/Files/Files.ixx" name="ElevateEngine/Source/ElevateEngine/Foundations/Files/Files.ixx">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,207,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="36,208,94,235"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,70,76,91,67,116,62,155,64,193,58,192,57,155,62,114,71,89,87,65"/>
+<area shape="rect" id="Node000003" href="$FileDialog_8ixx.html" title=" " alt="" coords="77,115,268,160"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="127,65,152,102,147,102,126,70"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="147,159,96,200,93,196,142,161"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="142,208,204,235"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="174,158,175,193,170,191,171,162"/>
+</map>

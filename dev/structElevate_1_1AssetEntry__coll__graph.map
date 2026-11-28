@@ -1,0 +1,7 @@
+<map id="Elevate::AssetEntry" name="Elevate::AssetEntry">
+<area shape="rect" id="Node000001" title=" " alt="" coords="68,106,216,134"/>
+<area shape="rect" id="Node000002" href="$classElevate_1_1Guid.html" title=" " alt="" coords="5,5,114,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,42,134,105,129,106,79,47"/>
+<area shape="rect" id="Node000003" href="$structElevate_1_1AssetMetadata.html" title=" " alt="" coords="138,5,314,33"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="216,45,192,84,164,108,161,103,188,80,212,48"/>
+</map>

@@ -1,0 +1,31 @@
+<map id="ElevateEngine/Source/ElevateEngine/Editor/Types/EditorTypeTrait.ixx" name="ElevateEngine/Source/ElevateEngine/Editor/Types/EditorTypeTrait.ixx">
+<area shape="rect" id="Node000001" title=" " alt="" coords="241,5,427,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,124,82,151"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="240,70,102,118,95,120,91,116,100,112,243,65"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="228,300,286,328"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="272,69,242,91,211,117,171,158,158,179,147,208,141,231,147,251,160,267,177,281,216,301,211,301,174,285,156,271,142,254,136,231,142,207,154,177,167,155,207,113,239,87,277,66"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="156,216,248,244"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="281,69,259,91,236,116,217,159,207,202,203,199,212,157,232,114,255,87,285,66"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="639,216,706,244"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="375,65,437,113,462,137,488,157,548,183,627,213,622,213,546,188,485,162,458,141,434,117,374,70"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="498,124,560,151"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="394,65,492,116,487,117,393,70"/>
+<area shape="rect" id="Node000007" href="$ReflectionTags_8ixx.html" title=" " alt="" coords="246,115,423,160"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="335,65,337,101,332,98,333,70"/>
+<area shape="rect" id="Node000012" href="$ITypeTrait_8ixx.html" title=" " alt="" coords="584,115,767,160"/>
+<area shape="poly" id="edge17_Node000001_Node000012" title=" " alt="" coords="428,62,589,109,584,111,428,67"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="327,159,271,287,267,284,322,161"/>
+<area shape="poly" id="edge10_Node000007_Node000004" title=" " alt="" coords="305,159,235,209,232,205,300,162"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="423,154,519,176,622,205,631,211,626,210,620,210,518,181,423,159"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="550,300,636,328"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="423,156,521,182,558,195,579,206,590,224,597,245,598,286,594,283,591,246,585,226,575,210,556,200,519,187,423,162"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="310,300,420,328"/>
+<area shape="poly" id="edge11_Node000007_Node000009" title=" " alt="" coords="340,158,362,286,357,284,336,162"/>
+<area shape="rect" id="Node000010" href="$AssetMetadata_8ixx.html" title=" " alt="" coords="373,208,564,252"/>
+<area shape="poly" id="edge12_Node000007_Node000010" title=" " alt="" coords="367,158,427,199,422,199,366,163"/>
+<area shape="poly" id="edge13_Node000010_Node000003" title=" " alt="" coords="415,253,301,299,300,293,410,253"/>
+<area shape="poly" id="edge15_Node000010_Node000008" title=" " alt="" coords="502,250,563,292,558,291,501,255"/>
+<area shape="poly" id="edge16_Node000010_Node000009" title=" " alt="" coords="444,252,394,293,392,288,439,254"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="444,300,510,328"/>
+<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="473,251,476,286,472,283,469,255"/>
+</map>

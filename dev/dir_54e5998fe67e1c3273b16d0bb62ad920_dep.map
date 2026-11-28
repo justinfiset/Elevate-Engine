@@ -1,0 +1,16 @@
+<map id="ElevateEngine/Source/ElevateEngine/Core/Objects" name="ElevateEngine/Source/ElevateEngine/Core/Objects">
+<area shape="rect" id="node1" href="dir_509bcdc9a154d7cee5de0d23f26a2844.html" title="Assets" alt="" coords="26,130,91,158"/>
+<area shape="rect" id="node2" href="dir_7e1e1b95a785ec5e4be0c8650a6922b6.html" title="Types" alt="" coords="115,130,173,158"/>
+<area shape="rect" id="node3" href="dir_54e5998fe67e1c3273b16d0bb62ad920.html" title="Objects" alt="" coords="104,54,174,82"/>
+<area shape="poly" id="edge2" href="dir_000057_000001.html" alt="" coords="127,81,86,121,82,117,122,84"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000057_000001.html" title="1" alt="" coords="88,115,96,132"/>
+<area shape="poly" id="edge3" href="dir_000057_000093.html" alt="" coords="141,80,144,115,139,113,138,85"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000057_000093.html" title="2" alt="" coords="146,102,154,119"/>
+<area shape="rect" id="node4" href="dir_37cf82348c2b623808082de71a671301.html" title="Serialization" alt="" coords="197,130,299,158"/>
+<area shape="poly" id="edge1" href="dir_000057_000079.html" alt="" coords="159,80,219,121,213,122,158,85"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000057_000079.html" title="2" alt="" coords="214,104,222,121"/>
+<area shape="rect" id="node5" href="dir_d62e76c0d86e9b3187ff9460429c42f2.html" title="Foundations" alt="" coords="323,130,424,158"/>
+<area shape="poly" id="edge4" href="dir_000057_000038.html" alt="" coords="175,78,319,124,315,126,174,83"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000057_000038.html" title="4" alt="" coords="313,107,321,124"/>
+<area shape="rect" id="clust1" href="dir_8da6647db9584a8f13ded450386f84f0.html" title="Core" alt="" coords="16,16,184,168"/>
+</map>

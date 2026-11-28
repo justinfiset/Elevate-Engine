@@ -1,0 +1,13 @@
+<map id="ElevateEngine/Source/ElevateEngine/Core/Assets/AssetTagRegistration.ixx" name="ElevateEngine/Source/ElevateEngine/Core/Assets/AssetTagRegistration.ixx">
+<area shape="rect" id="Node000001" title=" " alt="" coords="70,5,269,67"/>
+<area shape="rect" id="Node000002" href="$AssetMetadata_8ixx.html" title=" " alt="" coords="74,115,265,160"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,65,172,100,167,99,168,70"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,208,64,235"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="136,162,70,202,67,197,131,159"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="87,208,152,235"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="158,159,137,196,134,192,154,161"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="177,208,263,235"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="184,158,206,195,201,194,181,162"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="286,208,396,235"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="215,158,302,200,297,201,214,163"/>
+</map>
