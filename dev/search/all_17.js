@@ -23,6 +23,7 @@ var searchData=
   ['virtualfolder_20',['VirtualFolder',['../WwiseItem_8h.html#a293bc3e540223762b7a17e3c890f8c4aab582824881ff6b3fe6efd1e15f34f7fd',1,'WwiseItem.h']]],
   ['visible_21',['visible',['../structElevate_1_1EditorTypeTrait.html#a5a29e9706962c6afbc88d6a5fcae57a1',1,'Elevate::EditorTypeTrait']]],
   ['visual_20studio_202022_22',['Visual Studio 2022',['../md_README.html#autotoc_md6',1,'']]],
-  ['vs_20code_23',['VS Code',['../md_README.html#autotoc_md7',1,'']]],
-  ['vsync_24',['VSync',['../structElevate_1_1WindowData.html#a969a7f9752e9e061a49136cd166c2381',1,'Elevate::WindowData::VSync'],['../structElevate_1_1WindowProps.html#add5a672a2ac6781f12b8a957654e04d5',1,'Elevate::WindowProps::VSync']]]
+  ['visual_20studio_20shortcut_23',['Visual Studio shortcut',['../webassembly.html#autotoc_md20',1,'']]],
+  ['vs_20code_24',['VS Code',['../md_README.html#autotoc_md7',1,'']]],
+  ['vsync_25',['VSync',['../structElevate_1_1WindowData.html#a969a7f9752e9e061a49136cd166c2381',1,'Elevate::WindowData::VSync'],['../structElevate_1_1WindowProps.html#add5a672a2ac6781f12b8a957654e04d5',1,'Elevate::WindowProps::VSync']]]
 ];

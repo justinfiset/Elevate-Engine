@@ -1,5 +1,15 @@
 var NAVTREEINDEX26 =
 {
+"module__Elevate_8Renderer_8Scene_8Lighting_8Limits.html#a550f06f11090dbee409865a1d2d2e41a":[4,0,180,2],
+"module__Elevate_8Renderer_8Scene_8Lighting_8Limits.html#a55fd4bd579de573cc5fd62c3f21bc622":[4,0,180,0],
+"module__Elevate_8Renderer_8Scene_8Lighting_8Limits.html#ab1fd6afc14a01b2e17f3819ba1f1c254":[4,0,180,1],
+"module__Elevate_8Renderer_8Shaders.html":[4,0,182],
+"module__Elevate_8Renderer_8Shaders.html#a00f1598620a3b6ab4630bf46c186524e":[4,0,182,52],
+"module__Elevate_8Renderer_8Shaders.html#a014c012257e24e9e36d14460423e6503":[4,0,182,4],
+"module__Elevate_8Renderer_8Shaders.html#a0793bae622fb98cc78f599da4fc2e5f9":[4,0,182,20],
+"module__Elevate_8Renderer_8Shaders.html#a09d5dbd111060c2e4c20bac3b848146b":[4,0,182,9],
+"module__Elevate_8Renderer_8Shaders.html#a09db6cb685e1fe53d57fa1a07bb8cb8a":[4,0,182,19],
+"module__Elevate_8Renderer_8Shaders.html#a09f6ade2f41bb3bbbdc50bca934d13a8":[4,0,182,50],
 "module__Elevate_8Renderer_8Shaders.html#a0c1549b00ce864a0e3b33551e5a44868":[4,0,182,51],
 "module__Elevate_8Renderer_8Shaders.html#a19768c23773b663047562fc35a280a9c":[4,0,182,30],
 "module__Elevate_8Renderer_8Shaders.html#a1a0776f3ae7e8339d4d18197773d58b5":[4,0,182,48],
@@ -239,15 +249,5 @@ var NAVTREEINDEX26 =
 "modulemembers_n.html":[4,1,0,14],
 "modulemembers_o.html":[4,1,0,15],
 "modulemembers_p.html":[4,1,0,16],
-"modulemembers_q.html":[4,1,0,17],
-"modulemembers_r.html":[4,1,0,18],
-"modulemembers_s.html":[4,1,0,19],
-"modulemembers_t.html":[4,1,0,20],
-"modulemembers_type.html":[4,1,3],
-"modulemembers_u.html":[4,1,0,21],
-"modulemembers_v.html":[4,1,0,22],
-"modulemembers_vars.html":[4,1,2],
-"modulemembers_w.html":[4,1,0,23],
-"modulemembers_z.html":[4,1,0,24],
-"modulemembers_~.html":[4,1,0,25]
+"modulemembers_q.html":[4,1,0,17]
 };

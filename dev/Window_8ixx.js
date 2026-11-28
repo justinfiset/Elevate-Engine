@@ -2,5 +2,6 @@ var Window_8ixx =
 [
     [ "Elevate::WindowData", "structElevate_1_1WindowData.html", "structElevate_1_1WindowData" ],
     [ "Elevate::WindowProps", "structElevate_1_1WindowProps.html", "structElevate_1_1WindowProps" ],
-    [ "Elevate::Window", "classElevate_1_1Window.html", "classElevate_1_1Window" ]
+    [ "Elevate::Window", "classElevate_1_1Window.html", "classElevate_1_1Window" ],
+    [ "Elevate::CreatePlatformWindow", "namespaceElevate.html#a60090b94400b804fe98b4630c6792cc4", null ]
 ];

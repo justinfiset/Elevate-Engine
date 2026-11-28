@@ -433,17 +433,17 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_IsActive</b> = true
 
 <p>Reimplemented from <a class="el" href="classElevate_1_1Component.html#ad406f3e52963b93f37e3f5c773dacf62">Elevate::Component</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Model_8cpp_source.html#l00296">296</a> of file <a class="el" href="Model_8cpp_source.html">Model.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  297</span>    {</div>
-<div class="line"><span class="lineno">  298</span>        <span class="keywordflow">if</span> (!m_material || !m_batchedMesh.GetVertexArray())</div>
-<div class="line"><span class="lineno">  299</span>        {</div>
-<div class="line"><span class="lineno">  300</span>            <span class="keywordflow">return</span>; <span class="comment">// Nothing to draw</span></div>
-<div class="line"><span class="lineno">  301</span>        }</div>
-<div class="line"><span class="lineno">  302</span> </div>
-<div class="line"><span class="lineno">  303</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a75b6b926ae673d78503caf57dd6dd40d">Renderer::SubmitMesh</a>(m_batchedMesh.GetVertexArray(), m_material, <a class="code hl_variable" href="classElevate_1_1Component.html#a43e0110b9bd752db08c4035ee01e3573">gameObject</a>-&gt;GetModelMatrix());</div>
-<div class="line"><span class="lineno">  304</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Model_8cpp_source.html#l00304">304</a> of file <a class="el" href="Model_8cpp_source.html">Model.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  305</span>    {</div>
+<div class="line"><span class="lineno">  306</span>        <span class="keywordflow">if</span> (!m_material || !m_batchedMesh.GetVertexArray())</div>
+<div class="line"><span class="lineno">  307</span>        {</div>
+<div class="line"><span class="lineno">  308</span>            <span class="keywordflow">return</span>; <span class="comment">// Nothing to draw</span></div>
+<div class="line"><span class="lineno">  309</span>        }</div>
+<div class="line"><span class="lineno">  310</span> </div>
+<div class="line"><span class="lineno">  311</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a75b6b926ae673d78503caf57dd6dd40d">Renderer::SubmitMesh</a>(m_batchedMesh.GetVertexArray(), m_material, <a class="code hl_variable" href="classElevate_1_1Component.html#a43e0110b9bd752db08c4035ee01e3573">gameObject</a>-&gt;GetModelMatrix());</div>
+<div class="line"><span class="lineno">  312</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1Component_html_a43e0110b9bd752db08c4035ee01e3573"><div class="ttname"><a href="classElevate_1_1Component.html#a43e0110b9bd752db08c4035ee01e3573">Elevate::Component::gameObject</a></div><div class="ttdeci">GameObject * gameObject</div><div class="ttdef"><b>Definition</b> <a href="Component_8ixx_source.html#l00077">Component.ixx:77</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a75b6b926ae673d78503caf57dd6dd40d"><div class="ttname"><a href="classElevate_1_1Renderer.html#a75b6b926ae673d78503caf57dd6dd40d">Elevate::Renderer::SubmitMesh</a></div><div class="ttdeci">static void SubmitMesh(const std::shared_ptr&lt; VertexArray &gt; &amp;vao, const MaterialPtr &amp;material, const glm::mat4 &amp;transform)</div><div class="ttdoc">Queues a draw of a mesh with a material and a transform. Builds the RenderCommand and submits it to t...</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00486">Renderer.cpp:486</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a75b6b926ae673d78503caf57dd6dd40d"><div class="ttname"><a href="classElevate_1_1Renderer.html#a75b6b926ae673d78503caf57dd6dd40d">Elevate::Renderer::SubmitMesh</a></div><div class="ttdeci">static void SubmitMesh(const std::shared_ptr&lt; VertexArray &gt; &amp;vao, const MaterialPtr &amp;material, const glm::mat4 &amp;transform)</div><div class="ttdoc">Queues a draw of a mesh with a material and a transform. Builds the RenderCommand and submits it to t...</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00517">Renderer.cpp:517</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -716,6 +716,7 @@ var namespaceElevate =
     [ "ComponentName", "namespaceElevate.html#a6321daebce23bc783771dba2121f14d4", null ],
     [ "CreateApplication", "namespaceElevate.html#a30bfa588cb799a1e331563c7bcdd06f8", null ],
     [ "CreateBuffers", "namespaceElevate.html#a39a4828ecbc5697c5bb04abfe62b1124", null ],
+    [ "CreatePlatformWindow", "namespaceElevate.html#a60090b94400b804fe98b4630c6792cc4", null ],
     [ "DeserializeRecursive", "namespaceElevate.html#a38d7bbe023550ab3ce4c896c06441eed", null ],
     [ "END_ENUM", "namespaceElevate.html#ad746228cea3be20c6b4cd115f1b7be47", null ],
     [ "END_ENUM", "namespaceElevate.html#a2b04087cafccb4d2fd500345a207356c", null ],

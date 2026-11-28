@@ -101,14 +101,17 @@ $(function(){initNavTree('GLDebug_8h_source.html','',''); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Foundations.html">Elevate.Foundations</a>;</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#ifdef EE_DEBUG</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#if defined(EE_DEBUG) &amp;&amp; !defined(EE_PLATFORM_WEB)</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#define GLCheck(x) \</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">        x; \</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">        { GLenum err = glGetError(); \</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">          if (err != GL_NO_ERROR) CoreLogger::Error(&quot;OpenGL Error {} at {}:{}&quot;, err, __FILE__, __LINE__); }</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">   11</a></span><span class="preprocessor">#define GLCheck(x) x</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">// glGetError forces a GPU sync on Emscripten. Running it after every GL call</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">// drops the Web build to ~30 FPS and stalls texture uploads/mipmap generation.</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">// Native debug builds keep the checks.</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="GLDebug_8h.html#adf70631301afb22944d6d461e8e9b5a7">   14</a></span><span class="preprocessor">#define GLCheck(x) x</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="amodule__Elevate_8Foundations_html"><div class="ttname"><a href="module__Elevate_8Foundations.html">Elevate.Foundations</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

@@ -105,6 +105,7 @@ Inheritance diagram for Elevate::Input:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a3d27fb6569b032b6c8b38becbfac5e07" id="r_a3d27fb6569b032b6c8b38becbfac5e07"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d27fb6569b032b6c8b38becbfac5e07">~Input</a> ()=default</td></tr>
 <tr class="memitem:a4946f98fd7c97146df5302b15bbe7b7b" id="r_a4946f98fd7c97146df5302b15bbe7b7b"><td class="memItemLeft" align="right" valign="top">virtual glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4946f98fd7c97146df5302b15bbe7b7b">GetMousePositionImpl</a> ()=0</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
@@ -132,7 +133,33 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00021">21</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3d27fb6569b032b6c8b38becbfac5e07" name="a3d27fb6569b032b6c8b38becbfac5e07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d27fb6569b032b6c8b38becbfac5e07">&#9670;&#160;</a></span>~Input()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Elevate::Input::~Input </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel export">export</span><span class="mlabel virtual">virtual</span><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a4ff89b3a6b533559d7979a1ffdf00703" name="a4ff89b3a6b533559d7979a1ffdf00703"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4ff89b3a6b533559d7979a1ffdf00703">&#9670;&#160;</a></span>GetMousePosition()</h2>
 
@@ -156,8 +183,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00039">39</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   39</span>{ <span class="keywordflow">return</span> s_Instance-&gt;GetMousePositionImpl(); }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00041">41</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   41</span>{ <span class="keywordflow">return</span> s_Instance-&gt;GetMousePositionImpl(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -211,9 +238,9 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00040">40</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   40</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="#a4ff89b3a6b533559d7979a1ffdf00703">GetMousePosition</a>().x; }</div>
-<div class="ttc" id="aclassElevate_1_1Input_html_a4ff89b3a6b533559d7979a1ffdf00703"><div class="ttname"><a href="#a4ff89b3a6b533559d7979a1ffdf00703">Elevate::Input::GetMousePosition</a></div><div class="ttdeci">static glm::vec2 GetMousePosition()</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00039">Input.ixx:39</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00042">42</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   42</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="#a4ff89b3a6b533559d7979a1ffdf00703">GetMousePosition</a>().x; }</div>
+<div class="ttc" id="aclassElevate_1_1Input_html_a4ff89b3a6b533559d7979a1ffdf00703"><div class="ttname"><a href="#a4ff89b3a6b533559d7979a1ffdf00703">Elevate::Input::GetMousePosition</a></div><div class="ttdeci">static glm::vec2 GetMousePosition()</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00041">Input.ixx:41</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -240,8 +267,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00041">41</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   41</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="#a4ff89b3a6b533559d7979a1ffdf00703">GetMousePosition</a>().y; }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00043">43</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   43</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="#a4ff89b3a6b533559d7979a1ffdf00703">GetMousePosition</a>().y; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -268,9 +295,9 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00026">26</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   26</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="#a02951ce906d3347e08f7da1e19ca7c03">IsKeyDown</a>((<span class="keywordtype">int</span>)toupper(key)); }</div>
-<div class="ttc" id="aclassElevate_1_1Input_html_a02951ce906d3347e08f7da1e19ca7c03"><div class="ttname"><a href="#a02951ce906d3347e08f7da1e19ca7c03">Elevate::Input::IsKeyDown</a></div><div class="ttdeci">static bool IsKeyDown(KeyCode keycode)</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00025">Input.ixx:25</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00028">28</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   28</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="#a02951ce906d3347e08f7da1e19ca7c03">IsKeyDown</a>((<span class="keywordtype">int</span>)toupper(key)); }</div>
+<div class="ttc" id="aclassElevate_1_1Input_html_a02951ce906d3347e08f7da1e19ca7c03"><div class="ttname"><a href="#a02951ce906d3347e08f7da1e19ca7c03">Elevate::Input::IsKeyDown</a></div><div class="ttdeci">static bool IsKeyDown(KeyCode keycode)</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00027">Input.ixx:27</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -297,8 +324,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00025">25</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   25</span>{ <span class="keywordflow">return</span> s_Instance-&gt;inputBuffer.IsKeyDown(keycode); }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00027">27</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   27</span>{ <span class="keywordflow">return</span> s_Instance-&gt;inputBuffer.IsKeyDown(keycode); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -325,9 +352,9 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00032">32</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   32</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="#a27313ce27c20480fbb8bcd3af3564b39">IsKeyPressed</a>((<span class="keywordtype">int</span>)toupper(key)); }</div>
-<div class="ttc" id="aclassElevate_1_1Input_html_a27313ce27c20480fbb8bcd3af3564b39"><div class="ttname"><a href="#a27313ce27c20480fbb8bcd3af3564b39">Elevate::Input::IsKeyPressed</a></div><div class="ttdeci">static bool IsKeyPressed(KeyCode keycode)</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00031">Input.ixx:31</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00034">34</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   34</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="#a27313ce27c20480fbb8bcd3af3564b39">IsKeyPressed</a>((<span class="keywordtype">int</span>)toupper(key)); }</div>
+<div class="ttc" id="aclassElevate_1_1Input_html_a27313ce27c20480fbb8bcd3af3564b39"><div class="ttname"><a href="#a27313ce27c20480fbb8bcd3af3564b39">Elevate::Input::IsKeyPressed</a></div><div class="ttdeci">static bool IsKeyPressed(KeyCode keycode)</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00033">Input.ixx:33</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -354,8 +381,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00031">31</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   31</span>{ <span class="keywordflow">return</span> s_Instance-&gt;inputBuffer.IsKeyPressed(keycode); }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00033">33</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   33</span>{ <span class="keywordflow">return</span> s_Instance-&gt;inputBuffer.IsKeyPressed(keycode); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -382,9 +409,9 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00029">29</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   29</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="#a79598b589335275daf711572f59aaa18">IsKeyUp</a>((<span class="keywordtype">int</span>)toupper(key)); }</div>
-<div class="ttc" id="aclassElevate_1_1Input_html_a79598b589335275daf711572f59aaa18"><div class="ttname"><a href="#a79598b589335275daf711572f59aaa18">Elevate::Input::IsKeyUp</a></div><div class="ttdeci">static bool IsKeyUp(KeyCode keycode)</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00028">Input.ixx:28</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00031">31</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   31</span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="#a79598b589335275daf711572f59aaa18">IsKeyUp</a>((<span class="keywordtype">int</span>)toupper(key)); }</div>
+<div class="ttc" id="aclassElevate_1_1Input_html_a79598b589335275daf711572f59aaa18"><div class="ttname"><a href="#a79598b589335275daf711572f59aaa18">Elevate::Input::IsKeyUp</a></div><div class="ttdeci">static bool IsKeyUp(KeyCode keycode)</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00030">Input.ixx:30</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -411,8 +438,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00028">28</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   28</span>{ <span class="keywordflow">return</span> s_Instance-&gt;inputBuffer.IsKeyUp(keycode); }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00030">30</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   30</span>{ <span class="keywordflow">return</span> s_Instance-&gt;inputBuffer.IsKeyUp(keycode); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -439,8 +466,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00035">35</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   35</span>{ <span class="keywordflow">return</span> s_Instance-&gt;inputBuffer.IsMouseButtonDown(button); }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00037">37</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   37</span>{ <span class="keywordflow">return</span> s_Instance-&gt;inputBuffer.IsMouseButtonDown(button); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -467,8 +494,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00036">36</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   36</span>{ <span class="keywordflow">return</span> s_Instance-&gt;inputBuffer.IsMouseButtonPressed(button); }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00038">38</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   38</span>{ <span class="keywordflow">return</span> s_Instance-&gt;inputBuffer.IsMouseButtonPressed(button); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -495,8 +522,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00037">37</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   37</span>{ <span class="keywordflow">return</span> s_Instance-&gt;inputBuffer.IsMouseButtonUp(button); }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00039">39</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>{ <span class="keywordflow">return</span> s_Instance-&gt;inputBuffer.IsMouseButtonUp(button); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -523,8 +550,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00047">47</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   47</span>{ s_Instance-&gt;inputBuffer.ManageMidSates(); }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00049">49</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   49</span>{ s_Instance-&gt;inputBuffer.ManageMidSates(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -553,10 +580,10 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Managed Callbacks // Could be used to simulate inputs to an app by sending events. </p>
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00052">52</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   53</span>        {</div>
-<div class="line"><span class="lineno">   54</span>            s_Instance-&gt;inputBuffer.SetKeyPressed(e.GetKeyCode(), e.GetRepeatCount());</div>
-<div class="line"><span class="lineno">   55</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00054">54</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   55</span>        {</div>
+<div class="line"><span class="lineno">   56</span>            s_Instance-&gt;inputBuffer.SetKeyPressed(e.GetKeyCode(), e.GetRepeatCount());</div>
+<div class="line"><span class="lineno">   57</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -583,10 +610,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00056">56</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   57</span>        {</div>
-<div class="line"><span class="lineno">   58</span>            s_Instance-&gt;inputBuffer.SetKeyReleased(e.GetKeyCode());</div>
-<div class="line"><span class="lineno">   59</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00058">58</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   59</span>        {</div>
+<div class="line"><span class="lineno">   60</span>            s_Instance-&gt;inputBuffer.SetKeyReleased(e.GetKeyCode());</div>
+<div class="line"><span class="lineno">   61</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -613,10 +640,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00061">61</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   62</span>        {</div>
-<div class="line"><span class="lineno">   63</span>            s_Instance-&gt;inputBuffer.SetMouseButtonPressed(e.GetMouseButton());</div>
-<div class="line"><span class="lineno">   64</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00063">63</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   64</span>        {</div>
+<div class="line"><span class="lineno">   65</span>            s_Instance-&gt;inputBuffer.SetMouseButtonPressed(e.GetMouseButton());</div>
+<div class="line"><span class="lineno">   66</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -643,10 +670,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00065">65</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   66</span>        {</div>
-<div class="line"><span class="lineno">   67</span>            s_Instance-&gt;inputBuffer.SetMouseButtonReleased(e.GetMouseButton());</div>
-<div class="line"><span class="lineno">   68</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00067">67</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   68</span>        {</div>
+<div class="line"><span class="lineno">   69</span>            s_Instance-&gt;inputBuffer.SetMouseButtonReleased(e.GetMouseButton());</div>
+<div class="line"><span class="lineno">   70</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -673,8 +700,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00048">48</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   48</span>{ s_Instance-&gt;inputBuffer.ResetAllStates(); }</div>
+<p class="definition">Definition at line <a class="el" href="Input_8ixx_source.html#l00050">50</a> of file <a class="el" href="Input_8ixx_source.html">Input.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   50</span>{ s_Instance-&gt;inputBuffer.ResetAllStates(); }</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -100,28 +100,29 @@ $(function(){initNavTree('Application_8cpp.html','',''); });
 <div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;format&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
-<code>import <a class="el" href="RendererServiceModule_8ixx_source.html">Elevate.Renderer.DI</a>;</code><br />
+<code>#include &lt;<a class="el" href="RendererBackend_8h_source.html">ElevateEngine/Renderer/RendererBackend.h</a>&gt;</code><br />
 <code>import <a class="el" href="FoundationsServiceModule_8ixx_source.html">Elevate.Foundations.DI</a>;</code><br />
+<code>import <a class="el" href="RendererServiceModule_8ixx_source.html">Elevate.Renderer.DI</a>;</code><br />
 <code>import <a class="el" href="Input_8ixx_source.html">Elevate.Input</a>;</code><br />
-<code>import <a class="el" href="Window_8ixx_source.html">Elevate.Core.Window</a>;</code><br />
-<code>import <a class="el" href="PhysicsSystem_8ixx_source.html">Elevate.Physics.PhysicsSystem</a>;</code><br />
-<code>import <a class="el" href="Renderer_8ixx_source.html">Elevate.Renderer.Renderer</a>;</code><br />
-<code>import <a class="el" href="TextureModule_8ixx_source.html">Elevate.Renderer.Texture</a>;</code><br />
-<code>import <a class="el" href="Assert_8ixx_source.html">Elevate.Foundations.Assert</a>;</code><br />
-<code>import <a class="el" href="AssetRegistry_8ixx_source.html">Elevate.Core.Assets.AssetRegistry</a>;</code><br />
 <code>import <a class="el" href="CoreServiceModule_8ixx_source.html">Elevate.Core.DI</a>;</code><br />
-<code>import <a class="el" href="ImGuiLayer_8ixx_source.html">Elevate.Core.Layers.ImGuiLayer</a>;</code><br />
+<code>import <a class="el" href="Time_8ixx_source.html">Elevate.Foundations.Time</a>;</code><br />
+<code>import <a class="el" href="Assert_8ixx_source.html">Elevate.Foundations.Assert</a>;</code><br />
+<code>import <a class="el" href="PhysicsSystem_8ixx_source.html">Elevate.Physics.PhysicsSystem</a>;</code><br />
+<code>import <a class="el" href="AssetRegistry_8ixx_source.html">Elevate.Core.Assets.AssetRegistry</a>;</code><br />
+<code>import <a class="el" href="CoreLogger_8ixx_source.html">Elevate.Foundations.CoreLogger</a>;</code><br />
 <code>import <a class="el" href="Paths_8ixx_source.html">Elevate.Foundations.Paths</a>;</code><br />
 <code>import <a class="el" href="Layer_8ixx_source.html">Elevate.Core.Layers.Layer</a>;</code><br />
+<code>import <a class="el" href="ImGuiLayer_8ixx_source.html">Elevate.Core.Layers.ImGuiLayer</a>;</code><br />
+<code>import <a class="el" href="Window_8ixx_source.html">Elevate.Core.Window</a>;</code><br />
 <code>import <a class="el" href="LayerStack_8ixx_source.html">Elevate.Core.Layers.LayerStack</a>;</code><br />
-<code>import <a class="el" href="Time_8ixx_source.html">Elevate.Foundations.Time</a>;</code><br />
-<code>import <a class="el" href="Events_8ixx_source.html">Elevate.Core.Events</a>;</code><br />
-<code>import <a class="el" href="CoreLogger_8ixx_source.html">Elevate.Foundations.CoreLogger</a>;</code><br />
+<code>import <a class="el" href="TextureModule_8ixx_source.html">Elevate.Renderer.Texture</a>;</code><br />
+<code>import <a class="el" href="Renderer_8ixx_source.html">Elevate.Renderer.Renderer</a>;</code><br />
 <code>import <a class="el" href="SoundEngine_8ixx_source.html">Elevate.Audio.SoundEngine</a>;</code><br />
+<code>import <a class="el" href="Events_8ixx_source.html">Elevate.Core.Events</a>;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Application.cpp:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="Application_8cpp__incl.svg" width="4946" height="687"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="Application_8cpp__incl.svg" width="4855" height="519"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="Application_8cpp_source.html">Go to the source code of this file.</a></p>
@@ -151,7 +152,7 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">std::bind(&amp;Application::x, <span class="keyword">this</span>, std::placeholders::_1)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00039">39</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Application_8cpp_source.html#l00041">41</a> of file <a class="el" href="Application_8cpp_source.html">Application.cpp</a>.</p>
 
 </div>
 </div>

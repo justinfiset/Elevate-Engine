@@ -903,6 +903,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ad7770cc3e9b1eeac2261afe8c22d8dad" id="r_ad7770cc3e9b1eeac2261afe8c22d8dad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structElevate_1_1ValueCodec.html">ValueCodec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7770cc3e9b1eeac2261afe8c22d8dad">MakeEnumCodec</a> ()</td></tr>
 <tr class="memitem:a488b664c1ea9b5dfd3a18bf7d5424462" id="r_a488b664c1ea9b5dfd3a18bf7d5424462"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structElevate_1_1ValueCodec.html">ValueCodec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a488b664c1ea9b5dfd3a18bf7d5424462">MakeObjectPtrCodec</a> ()</td></tr>
 <tr class="memitem:a9dc4ac45baad6462ea62b865231fcdbb" id="r_a9dc4ac45baad6462ea62b865231fcdbb"><td class="memItemLeft" align="right" valign="top">std::array&lt; <a class="el" href="structElevate_1_1ValueCodec.html">ValueCodec</a>, <a class="el" href="#a8797b89ca3425c547711cb6fffc23715">EngineDataTypeCount</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9dc4ac45baad6462ea62b865231fcdbb">BuildTable</a> ()</td></tr>
+<tr class="memitem:a60090b94400b804fe98b4630c6792cc4" id="r_a60090b94400b804fe98b4630c6792cc4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classElevate_1_1Window.html">Window</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60090b94400b804fe98b4630c6792cc4">CreatePlatformWindow</a> (const <a class="el" href="structElevate_1_1WindowProps.html">WindowProps</a> &amp;props)</td></tr>
 <tr class="memitem:aa579c3ec0db34eaa309e53c8ad46e33d" id="r_aa579c3ec0db34eaa309e53c8ad46e33d"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa579c3ec0db34eaa309e53c8ad46e33d">Elevate::GetDataTypeCount</a> (<a class="el" href="#a084798f901873cb9a7cb959b62006324">EngineDataType</a> type)</td></tr>
 <tr class="memitem:a4794a41df6a80b4dd8e42de14692b9d8" id="r_a4794a41df6a80b4dd8e42de14692b9d8"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4794a41df6a80b4dd8e42de14692b9d8">Elevate::GetDataTypeSize</a> (<a class="el" href="#a084798f901873cb9a7cb959b62006324">EngineDataType</a> type)</td></tr>
 <tr class="memitem:af5a38a4b356e2b30f17e2cf472956263" id="r_af5a38a4b356e2b30f17e2cf472956263"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5a38a4b356e2b30f17e2cf472956263">Elevate::GetDataAPIType</a> (<a class="el" href="#a084798f901873cb9a7cb959b62006324">EngineDataType</a> type)</td></tr>
@@ -3761,6 +3762,36 @@ template&lt;typename T, typename... Args&gt; </div>
 <div class="line"><span class="lineno">   25</span>        glGenBuffers(n, ids);</div>
 <div class="line"><span class="lineno">   26</span><span class="preprocessor">#endif</span></div>
 <div class="line"><span class="lineno">   27</span>    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a60090b94400b804fe98b4630c6792cc4" name="a60090b94400b804fe98b4630c6792cc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60090b94400b804fe98b4630c6792cc4">&#9670;&#160;</a></span>CreatePlatformWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classElevate_1_1Window.html">Window</a> * Elevate::CreatePlatformWindow </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structElevate_1_1WindowProps.html">WindowProps</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>props</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="GlfwWindow_8cpp_source.html#l00257">257</a> of file <a class="el" href="GlfwWindow_8cpp_source.html">GlfwWindow.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  258</span>    {</div>
+<div class="line"><span class="lineno">  259</span><span class="preprocessor">#if defined(EE_PLATFORM_WINDOWS)</span></div>
+<div class="line"><span class="lineno">  260</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> WindowsWindow(props);</div>
+<div class="line"><span class="lineno">  261</span><span class="preprocessor">#elif defined(EE_PLATFORM_WEB)</span></div>
+<div class="line"><span class="lineno">  262</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> WebWindow(props);</div>
+<div class="line"><span class="lineno">  263</span><span class="preprocessor">#elif defined(EE_PLATFORM_LINUX)</span></div>
+<div class="line"><span class="lineno">  264</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> LinuxWindow(props);</div>
+<div class="line"><span class="lineno">  265</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  266</span><span class="preprocessor">#error &quot;Unknown platform! Cannot create window on this platform.&quot;</span></div>
+<div class="line"><span class="lineno">  267</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  268</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

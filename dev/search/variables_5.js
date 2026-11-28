@@ -8,6 +8,8 @@ var searchData=
   ['flatten_5',['flatten',['../structElevate_1_1TypeField.html#acc22ce0058544c1f8b767bd8ab27fa48',1,'Elevate::TypeField::flatten'],['../structElevate_1_1FieldMeta.html#a9023e10b7665de1627ccee04227b2650',1,'Elevate::FieldMeta::flatten']]],
   ['focused_6',['Focused',['../structElevate_1_1WindowData.html#ac643750e9b9759346915bedb8b392d9d',1,'Elevate::WindowData']]],
   ['format_7',['Format',['../structElevate_1_1TextureMetadata.html#adbd2c1a133db445d399e0c51349c2cfc',1,'Elevate::TextureMetadata']]],
-  ['framenumber_8',['FrameNumber',['../structElevate_1_1ProfilerFrame.html#a3700fe5c40099b7e8b187b41d995d340',1,'Elevate::ProfilerFrame']]],
-  ['function_9',['Function',['../structElevate_1_1Task.html#adb1690a7bd194a204b749c30d1581090',1,'Elevate::Task']]]
+  ['framebufferheight_8',['FramebufferHeight',['../structElevate_1_1WindowData.html#a236fb336d814b0f596155904a7c7bb37',1,'Elevate::WindowData']]],
+  ['framebufferwidth_9',['FramebufferWidth',['../structElevate_1_1WindowData.html#a845fbdb22b88b9259911d46d8394539e',1,'Elevate::WindowData']]],
+  ['framenumber_10',['FrameNumber',['../structElevate_1_1ProfilerFrame.html#a3700fe5c40099b7e8b187b41d995d340',1,'Elevate::ProfilerFrame']]],
+  ['function_11',['Function',['../structElevate_1_1Task.html#adb1690a7bd194a204b749c30d1581090',1,'Elevate::Task']]]
 ];

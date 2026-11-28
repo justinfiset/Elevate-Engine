@@ -55,11 +55,12 @@ var searchData=
   ['createfromfile_52',['CreateFromFile',['../classElevate_1_1Cubemap.html#a2aaf42e6ce5563fc6a5065b9c9d8207b',1,'Elevate::Cubemap::CreateFromFile()'],['../classElevate_1_1Texture.html#a519978da485961b2192bdf01c4ca0390',1,'Elevate::Texture::CreateFromFile(const std::string &amp;path, TextureType usage=TextureType::Diffuse)'],['../classElevate_1_1Texture.html#a705a3f9de7936317780f794ce7ee3940',1,'Elevate::Texture::CreateFromFile(const std::string &amp;path, const TextureMetadata &amp;metadata)']]],
   ['createfromfiles_53',['CreateFromFiles',['../classElevate_1_1Shader.html#ac936e59779085cbc893638a6efb5b430',1,'Elevate::Shader::CreateFromFiles(const std::string &amp;vertexSrcPath, const std::string &amp;fragSrcPath)'],['../classElevate_1_1Shader.html#a48a29875fba64a5dd701b762141ec87f',1,'Elevate::Shader::CreateFromFiles(const std::string &amp;vertexSrcPath, const std::string &amp;fragSrcPath, const std::string &amp;customVertCode, const std::string &amp;customFragCode)']]],
   ['createlayers_54',['CreateLayers',['../classElevate_1_1Application.html#ae1a7eddcef53c7eb4bf74300317e6c56',1,'Elevate::Application']]],
-  ['createpreviewtarget_55',['CreatePreviewTarget',['../classElevate_1_1AssetPreviewRenderer.html#a93471a29bfa2854abbc08b7173b47ebd',1,'Elevate::AssetPreviewRenderer']]],
-  ['createregistry_56',['CreateRegistry',['../classElevate_1_1ComponentRegistry.html#ac7259994a926c3ee16f8086b257e2211',1,'Elevate::ComponentRegistry']]],
-  ['createscene_57',['CreateScene',['../classElevate_1_1SceneManager.html#a326068cac97f93b050abe75a7e0172f8',1,'Elevate::SceneManager::CreateScene(std::string name, SceneType type=SceneType::RuntimeScene)'],['../classElevate_1_1SceneManager.html#abbc839c053a3ca201542501b665ae776',1,'Elevate::SceneManager::CreateScene(std::string name, SceneType type=SceneType::RuntimeScene)']]],
-  ['createserviceprovider_58',['CreateServiceProvider',['../classElevate_1_1Application.html#a0131ed4b34d2ffc7d776822ea765e504',1,'Elevate::Application']]],
-  ['ctrace_59',['CTrace',['../classElevate_1_1Internal_1_1LoggerFacade.html#a07043079078a361b9abe96898a1e70e4',1,'Elevate::Internal::LoggerFacade']]],
-  ['cubemap_60',['Cubemap',['../classElevate_1_1Cubemap.html#ac8c6718d7c0b76f2a121e800bc640cec',1,'Elevate::Cubemap']]],
-  ['cwarn_61',['CWarn',['../classElevate_1_1Internal_1_1LoggerFacade.html#aeb5803857c2f7f55cd86d6cc19d6ffba',1,'Elevate::Internal::LoggerFacade']]]
+  ['createplatformwindow_55',['CreatePlatformWindow',['../namespaceElevate.html#a60090b94400b804fe98b4630c6792cc4',1,'Elevate']]],
+  ['createpreviewtarget_56',['CreatePreviewTarget',['../classElevate_1_1AssetPreviewRenderer.html#a93471a29bfa2854abbc08b7173b47ebd',1,'Elevate::AssetPreviewRenderer']]],
+  ['createregistry_57',['CreateRegistry',['../classElevate_1_1ComponentRegistry.html#ac7259994a926c3ee16f8086b257e2211',1,'Elevate::ComponentRegistry']]],
+  ['createscene_58',['CreateScene',['../classElevate_1_1SceneManager.html#a326068cac97f93b050abe75a7e0172f8',1,'Elevate::SceneManager::CreateScene(std::string name, SceneType type=SceneType::RuntimeScene)'],['../classElevate_1_1SceneManager.html#abbc839c053a3ca201542501b665ae776',1,'Elevate::SceneManager::CreateScene(std::string name, SceneType type=SceneType::RuntimeScene)']]],
+  ['createserviceprovider_59',['CreateServiceProvider',['../classElevate_1_1Application.html#a0131ed4b34d2ffc7d776822ea765e504',1,'Elevate::Application']]],
+  ['ctrace_60',['CTrace',['../classElevate_1_1Internal_1_1LoggerFacade.html#a07043079078a361b9abe96898a1e70e4',1,'Elevate::Internal::LoggerFacade']]],
+  ['cubemap_61',['Cubemap',['../classElevate_1_1Cubemap.html#ac8c6718d7c0b76f2a121e800bc640cec',1,'Elevate::Cubemap']]],
+  ['cwarn_62',['CWarn',['../classElevate_1_1Internal_1_1LoggerFacade.html#aeb5803857c2f7f55cd86d6cc19d6ffba',1,'Elevate::Internal::LoggerFacade']]]
 ];

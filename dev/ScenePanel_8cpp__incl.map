@@ -1,19 +1,23 @@
 <map id="ElevateEngine/Source/ElevateEngine/Editor/Panels/ScenePanel.cpp" name="ElevateEngine/Source/ElevateEngine/Editor/Panels/ScenePanel.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="359,5,531,67"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="459,5,631,67"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,124,109,151"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="356,58,246,85,122,118,111,121,108,116,120,112,244,80,361,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="456,51,301,79,122,118,110,121,107,116,120,112,300,74,461,49"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="133,124,288,151"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="371,69,256,120,254,115,376,66"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="312,124,388,151"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="418,66,375,114,372,110,414,69"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="412,124,478,151"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="447,66,447,109,443,106,443,70"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="502,124,572,151"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="474,65,517,112,512,111,472,70"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="596,124,696,151"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="507,65,609,116,604,116,506,70"/>
-<area shape="rect" id="Node000008" href="$GizmoUtility_8h.html" title=" " alt="" coords="720,115,876,160"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="532,59,709,110,703,111,531,64"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="769,208,828,235"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="800,158,800,194,796,190,796,162"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="456,64,270,121,269,116,461,62"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="312,124,396,151"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="489,67,394,118,392,114,484,69"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="420,124,483,151"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="519,66,476,115,473,110,514,69"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="507,124,583,151"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="547,66,547,109,543,106,543,70"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="607,124,672,151"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="575,65,619,113,614,112,573,70"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="696,124,767,151"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="603,65,697,116,691,116,601,70"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="791,124,891,151"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="632,64,779,112,790,118,785,118,777,118,631,69"/>
+<area shape="rect" id="Node000010" href="$GizmoUtility_8h.html" title=" " alt="" coords="915,115,1071,160"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="632,53,903,114,897,115,631,58"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="964,208,1022,235"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="995,158,995,194,991,190,991,162"/>
 </map>

@@ -1,6 +1,5 @@
 var NAVTREEINDEX11 =
 {
-"classElevate_1_1LayerStack.html#a4f4eff4a983f6cf163a2fe00c1b8cdec":[6,0,0,37,7],
 "classElevate_1_1LayerStack.html#aa1bf4ac9abb9e621cd893c46c4113de9":[4,0,25,0,0],
 "classElevate_1_1LayerStack.html#aa1bf4ac9abb9e621cd893c46c4113de9":[5,0,1,44,0],
 "classElevate_1_1LayerStack.html#aa1bf4ac9abb9e621cd893c46c4113de9":[6,0,0,37,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX11 =
 "classElevate_1_1MouseButtonReleasedEvent.html#a1ce807bbd5666c689233a58959415a9a":[6,0,0,34,1],
 "classElevate_1_1MouseButtonReleasedEvent.html#abf386568561da170f8f3ccf856f03b41":[4,0,21,4,0],
 "classElevate_1_1MouseButtonReleasedEvent.html#abf386568561da170f8f3ccf856f03b41":[5,0,1,41,0],
-"classElevate_1_1MouseButtonReleasedEvent.html#abf386568561da170f8f3ccf856f03b41":[6,0,0,34,0]
+"classElevate_1_1MouseButtonReleasedEvent.html#abf386568561da170f8f3ccf856f03b41":[6,0,0,34,0],
+"classElevate_1_1MouseButtonReleasedEvent.html#ad22f97b6d60f2436452092544bda078f":[4,0,21,4,2]
 };

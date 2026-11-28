@@ -107,417 +107,421 @@ $(function(){initNavTree('Application_8cpp_source.html','',''); });
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;emscripten.h&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">module</span> <a class="code" href="module__Elevate_8Core_8Application.html">Elevate.Core.Application</a>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="RendererBackend_8h.html">ElevateEngine/Renderer/RendererBackend.h</a>&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Foundations_8Time.html">Elevate.Foundations.Time</a>;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Foundations_8CoreLogger.html">Elevate.Foundations.CoreLogger</a>;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Foundations_8Assert.html">Elevate.Foundations.Assert</a>;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Foundations_8Paths.html">Elevate.Foundations.Paths</a>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Core_8Assets_8AssetRegistry.html">Elevate.Core.Assets.AssetRegistry</a>;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Core_8Layers_8Layer.html">Elevate.Core.Layers.Layer</a>;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Core_8Layers_8ImGuiLayer.html">Elevate.Core.Layers.ImGuiLayer</a>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Core_8Layers_8LayerStack.html">Elevate.Core.Layers.LayerStack</a>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Core_8Window.html">Elevate.Core.Window</a>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Core_8Events.html">Elevate.Core.Events</a>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Audio_8SoundEngine.html">Elevate.Audio.SoundEngine</a>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Renderer_8Texture.html">Elevate.Renderer.Texture</a>;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Renderer_8Renderer.html">Elevate.Renderer.Renderer</a>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Input.html">Elevate.Input</a>;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Physics_8PhysicsSystem.html">Elevate.Physics.PhysicsSystem</a>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Foundations_8DI.html">Elevate.Foundations.DI</a>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Core_8DI.html">Elevate.Core.DI</a>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Renderer_8DI.html">Elevate.Renderer.DI</a>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#ifdef EE_EDITOR_BUILD</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Editor_8Layer.html">Elevate.Editor.Layer</a>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Editor_8DI.html">Elevate.Editor.DI</a>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceElevate.html">Elevate</a></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>{</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">   39</a></span><span class="preprocessor">#define BIND_EVENT_FN(x) std::bind(&amp;Application::x, this, std::placeholders::_1)</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    Application* Application::s_Instance = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">module</span> <a class="code" href="module__Elevate_8Core_8Application.html">Elevate.Core.Application</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Foundations_8Time.html">Elevate.Foundations.Time</a>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Foundations_8CoreLogger.html">Elevate.Foundations.CoreLogger</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Foundations_8Assert.html">Elevate.Foundations.Assert</a>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Foundations_8Paths.html">Elevate.Foundations.Paths</a>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Core_8Assets_8AssetRegistry.html">Elevate.Core.Assets.AssetRegistry</a>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Core_8Layers_8Layer.html">Elevate.Core.Layers.Layer</a>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Core_8Layers_8ImGuiLayer.html">Elevate.Core.Layers.ImGuiLayer</a>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Core_8Layers_8LayerStack.html">Elevate.Core.Layers.LayerStack</a>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Core_8Window.html">Elevate.Core.Window</a>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Core_8Events.html">Elevate.Core.Events</a>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Audio_8SoundEngine.html">Elevate.Audio.SoundEngine</a>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Renderer_8Texture.html">Elevate.Renderer.Texture</a>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Renderer_8Renderer.html">Elevate.Renderer.Renderer</a>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Input.html">Elevate.Input</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Physics_8PhysicsSystem.html">Elevate.Physics.PhysicsSystem</a>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Foundations_8DI.html">Elevate.Foundations.DI</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Core_8DI.html">Elevate.Core.DI</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Renderer_8DI.html">Elevate.Renderer.DI</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#ifdef EE_EDITOR_BUILD</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Editor_8Layer.html">Elevate.Editor.Layer</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">import</span> <a class="code" href="module__Elevate_8Editor_8DI.html">Elevate.Editor.DI</a>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceElevate.html">Elevate</a></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">   41</a></span><span class="preprocessor">#define BIND_EVENT_FN(x) std::bind(&amp;Application::x, this, std::placeholders::_1)</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a36cdafcf896d128b9385d7232c45eb8b">   43</a></span>    <a class="code hl_function" href="classElevate_1_1Application.html#a36cdafcf896d128b9385d7232c45eb8b">Application::Application</a>()</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    {</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <a class="code hl_function" href="classElevate_1_1Assert.html#a9e5c4470e44a9daae19b991027f4c41f">Assert::That</a>(!s_Instance, <span class="stringliteral">&quot;Application already exists!&quot;</span>);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        s_Instance = <span class="keyword">this</span>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_function" href="namespaceElevate.html#ab5abc7351ae36f935acc05ed4d056be9">SetGameStateProvider</a>([]() { <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1Application.html#a30e25b0a4d18f5f780a79475edfa8da8">Application::GetGameState</a>(); });</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">CoreLogger::Trace</a>(<span class="stringliteral">&quot;Current working directory : {}&quot;</span>, std::filesystem::current_path().<span class="keywordtype">string</span>().c_str());</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">CoreLogger::Trace</a>(<span class="stringliteral">&quot;Resource dir: {}&quot;</span>, std::string(EE_RESOURCE_DIR));</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">CoreLogger::Trace</a>(<span class="stringliteral">&quot;Engine dir: {}&quot;</span>, <a class="code hl_function" href="classElevate_1_1Paths.html#abc5d3d34b322b11dd8e94aa1e454c40f">Paths::Engine</a>().<span class="keywordtype">string</span>());</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#ifdef EE_EDITOR_BUILD</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">CoreLogger::Trace</a>(<span class="stringliteral">&quot;Editor dir: {}&quot;</span>, <a class="code hl_function" href="classElevate_1_1Paths.html#afdb351336641c4546d149721886df54d">Paths::Editor</a>().<span class="keywordtype">string</span>());</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">CoreLogger::Trace</a>(<span class="stringliteral">&quot;Content dir: {}&quot;</span>, <a class="code hl_function" href="classElevate_1_1Paths.html#a93374008a9966c5ef52a0a6733f8ca84">Paths::Content</a>().<span class="keywordtype">string</span>());</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        m_Window = std::unique_ptr&lt;Window&gt;(<a class="code hl_function" href="classElevate_1_1Window.html#adab57419e9f9fbc1a9d8c8f019dbf04b">Window::Create</a>());</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        m_Window-&gt;SetEventCallback(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(<a class="code hl_function" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">OnEvent</a>));</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="comment">// Dependency Injection</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <a class="code hl_function" href="classElevate_1_1Application.html#a0131ed4b34d2ffc7d776822ea765e504">CreateServiceProvider</a>();</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="comment">// We need to update it each frame</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        m_Scheduler = m_Provider-&gt;Resolve&lt;<a class="code hl_class" href="classElevate_1_1ITaskScheduler.html">ITaskScheduler</a>&gt;();</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <a class="code hl_function" href="classElevate_1_1TextureManager.html#a36dea2cd383f10a31cc90ee83f6f5a0e">TextureManager::SetScheduler</a>(m_Scheduler);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        m_PhysicsSystem = <a class="code hl_function" href="classElevate_1_1PhysicsSystem.html#a566865cda284d325e4244690ff07bd71">PhysicsSystem::Create</a>();</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        m_PhysicsSystem-&gt;Init();</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    Application* Application::s_Instance = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a36cdafcf896d128b9385d7232c45eb8b">   45</a></span>    <a class="code hl_function" href="classElevate_1_1Application.html#a36cdafcf896d128b9385d7232c45eb8b">Application::Application</a>()</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_function" href="classElevate_1_1Assert.html#a9e5c4470e44a9daae19b991027f4c41f">Assert::That</a>(!s_Instance, <span class="stringliteral">&quot;Application already exists!&quot;</span>);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        s_Instance = <span class="keyword">this</span>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <a class="code hl_function" href="namespaceElevate.html#ab5abc7351ae36f935acc05ed4d056be9">SetGameStateProvider</a>([]() { <span class="keywordflow">return</span> <a class="code hl_function" href="classElevate_1_1Application.html#a30e25b0a4d18f5f780a79475edfa8da8">Application::GetGameState</a>(); });</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">CoreLogger::Trace</a>(<span class="stringliteral">&quot;Current working directory : {}&quot;</span>, std::filesystem::current_path().<span class="keywordtype">string</span>().c_str());</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">CoreLogger::Trace</a>(<span class="stringliteral">&quot;Resource dir: {}&quot;</span>, std::string(EE_RESOURCE_DIR));</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">CoreLogger::Trace</a>(<span class="stringliteral">&quot;Engine dir: {}&quot;</span>, <a class="code hl_function" href="classElevate_1_1Paths.html#abc5d3d34b322b11dd8e94aa1e454c40f">Paths::Engine</a>().<span class="keywordtype">string</span>());</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#ifdef EE_EDITOR_BUILD</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">CoreLogger::Trace</a>(<span class="stringliteral">&quot;Editor dir: {}&quot;</span>, <a class="code hl_function" href="classElevate_1_1Paths.html#afdb351336641c4546d149721886df54d">Paths::Editor</a>().<span class="keywordtype">string</span>());</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">CoreLogger::Trace</a>(<span class="stringliteral">&quot;Content dir: {}&quot;</span>, <a class="code hl_function" href="classElevate_1_1Paths.html#a93374008a9966c5ef52a0a6733f8ca84">Paths::Content</a>().<span class="keywordtype">string</span>());</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        m_Window = std::unique_ptr&lt;Window&gt;(<a class="code hl_function" href="classElevate_1_1Window.html#adab57419e9f9fbc1a9d8c8f019dbf04b">Window::Create</a>());</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        m_Window-&gt;SetEventCallback(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(<a class="code hl_function" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">OnEvent</a>));</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="comment">// Dependency Injection</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <a class="code hl_function" href="classElevate_1_1Application.html#a0131ed4b34d2ffc7d776822ea765e504">CreateServiceProvider</a>();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="comment">// We need to update it each frame</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        m_Scheduler = m_Provider-&gt;Resolve&lt;<a class="code hl_class" href="classElevate_1_1ITaskScheduler.html">ITaskScheduler</a>&gt;();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <a class="code hl_function" href="classElevate_1_1TextureManager.html#a36dea2cd383f10a31cc90ee83f6f5a0e">TextureManager::SetScheduler</a>(m_Scheduler);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        m_PhysicsSystem = <a class="code hl_function" href="classElevate_1_1PhysicsSystem.html#a566865cda284d325e4244690ff07bd71">PhysicsSystem::Create</a>();</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        m_PhysicsSystem-&gt;Init();</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
 </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="foldopen" id="foldopen00071" data-start="{" data-end="}">
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a0131ed4b34d2ffc7d776822ea765e504">   71</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#a0131ed4b34d2ffc7d776822ea765e504">Application::CreateServiceProvider</a>()</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    {</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_class" href="classElevate_1_1ServiceCollection.html">ServiceCollection</a> collection;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        m_modules = <a class="code hl_function" href="classElevate_1_1ServiceModuleRegistry.html#accbda2dbe58d061b643cf8adab4f69ca">ServiceModuleRegistry::Create</a>()</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            .<a class="code hl_function" href="classElevate_1_1ServiceModuleRegistry.html#a0af30dffdf9dd070fe54c6e57e8994b0">Register</a>&lt;<a class="code hl_class" href="classElevate_1_1FoundationsServiceModule.html">FoundationsServiceModule</a>&gt;()</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            .Register&lt;CoreServiceModule&gt;()</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            .<a class="code hl_function" href="classElevate_1_1FoundationsServiceModule.html#aabceaa27a8d865f3b43ea5fa54d0afcc">Register</a>&lt;<a class="code hl_class" href="classElevate_1_1RendererServiceModule.html">RendererServiceModule</a>&gt;()</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>#ifdef EE_EDITOR_BUILD</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            .Register&lt;EditorServiceModule&gt;()</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            .Build(collection);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        m_Provider = std::make_unique&lt;ServiceProvider&gt;(std::move(collection).Build());</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a0131ed4b34d2ffc7d776822ea765e504">   73</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#a0131ed4b34d2ffc7d776822ea765e504">Application::CreateServiceProvider</a>()</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <a class="code hl_class" href="classElevate_1_1ServiceCollection.html">ServiceCollection</a> collection;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        m_modules = <a class="code hl_function" href="classElevate_1_1ServiceModuleRegistry.html#accbda2dbe58d061b643cf8adab4f69ca">ServiceModuleRegistry::Create</a>()</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            .<a class="code hl_function" href="classElevate_1_1ServiceModuleRegistry.html#a0af30dffdf9dd070fe54c6e57e8994b0">Register</a>&lt;<a class="code hl_class" href="classElevate_1_1FoundationsServiceModule.html">FoundationsServiceModule</a>&gt;()</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            .Register&lt;CoreServiceModule&gt;()</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            .<a class="code hl_function" href="classElevate_1_1FoundationsServiceModule.html#aabceaa27a8d865f3b43ea5fa54d0afcc">Register</a>&lt;<a class="code hl_class" href="classElevate_1_1RendererServiceModule.html">RendererServiceModule</a>&gt;()</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>#ifdef EE_EDITOR_BUILD</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            .Register&lt;EditorServiceModule&gt;()</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            .Build(collection);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        m_Provider = std::make_unique&lt;ServiceProvider&gt;(std::move(collection).Build());</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
 </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="foldopen" id="foldopen00087" data-start="{" data-end="}">
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a0f7e349113d0750b61c7a776b991f4cf">   87</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#a0f7e349113d0750b61c7a776b991f4cf">Application::PushLayer</a>(<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* layer)</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    {</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        m_LayerStack.PushLayer(layer);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        layer-&gt;<a class="code hl_function" href="classElevate_1_1Layer.html#a48edafdf96bf8c968ec64c87a9471bb6">OnAttach</a>();</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="foldopen" id="foldopen00089" data-start="{" data-end="}">
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a0f7e349113d0750b61c7a776b991f4cf">   89</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#a0f7e349113d0750b61c7a776b991f4cf">Application::PushLayer</a>(<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* layer)</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        m_LayerStack.PushLayer(layer);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        layer-&gt;<a class="code hl_function" href="classElevate_1_1Layer.html#a48edafdf96bf8c968ec64c87a9471bb6">OnAttach</a>();</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
 </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">   93</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">Application::PushOverlay</a>(<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* overlay)</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    {</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        m_LayerStack.PushOverlay(overlay);</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        overlay-&gt;<a class="code hl_function" href="classElevate_1_1Layer.html#a48edafdf96bf8c968ec64c87a9471bb6">OnAttach</a>();</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">   95</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">Application::PushOverlay</a>(<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* overlay)</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        m_LayerStack.PushOverlay(overlay);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        overlay-&gt;<a class="code hl_function" href="classElevate_1_1Layer.html#a48edafdf96bf8c968ec64c87a9471bb6">OnAttach</a>();</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    }</div>
 </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="comment">// Event Dispatcher</span></div>
-<div class="foldopen" id="foldopen00100" data-start="{" data-end="}">
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">  100</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">Application::OnEvent</a>(<a class="code hl_class" href="classElevate_1_1Event.html">Event</a>&amp; e)</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    {</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <a class="code hl_class" href="classElevate_1_1EventDispatcher.html">EventDispatcher</a> dispatcher(e);</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        dispatcher.<a class="code hl_function" href="classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6">Dispatch</a>&lt;<a class="code hl_class" href="classElevate_1_1WindowCloseEvent.html">WindowCloseEvent</a>&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnWindowClose));</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        dispatcher.<a class="code hl_function" href="classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6">Dispatch</a>&lt;<a class="code hl_class" href="classElevate_1_1WindowFocusEvent.html">WindowFocusEvent</a>&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnWindowFocusEvent));</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        dispatcher.<a class="code hl_function" href="classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6">Dispatch</a>&lt;<a class="code hl_class" href="classElevate_1_1FramebufferResizeEvent.html">FramebufferResizeEvent</a>&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnFramebufferResize));</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="comment">// Keyboard</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        dispatcher.<a class="code hl_function" href="classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6">Dispatch</a>&lt;<a class="code hl_class" href="classElevate_1_1KeyPressedEvent.html">KeyPressedEvent</a>&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnKeyPressedEvent));</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        dispatcher.<a class="code hl_function" href="classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6">Dispatch</a>&lt;<a class="code hl_class" href="classElevate_1_1KeyReleasedEvent.html">KeyReleasedEvent</a>&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnKeyReleasedEvent));</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="comment">// Mousse</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        dispatcher.<a class="code hl_function" href="classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6">Dispatch</a>&lt;<a class="code hl_class" href="classElevate_1_1MouseButtonPressedEvent.html">MouseButtonPressedEvent</a>&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnMouseButtonPressedEvent));</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        dispatcher.<a class="code hl_function" href="classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6">Dispatch</a>&lt;<a class="code hl_class" href="classElevate_1_1MouseButtonReleasedEvent.html">MouseButtonReleasedEvent</a>&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnMouseButtonReleasedEvent));</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_LayerStack.end(); it != m_LayerStack.begin();)</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            (*--it)-&gt;<a class="code hl_function" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">OnEvent</a>(e);</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="keywordflow">if</span> (e.<a class="code hl_variable" href="classElevate_1_1Event.html#ad47df8ffc185fe80e264e9642f78494f">Handled</a>)</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        }</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    }</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="comment">// Event Dispatcher</span></div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">  102</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">Application::OnEvent</a>(<a class="code hl_class" href="classElevate_1_1Event.html">Event</a>&amp; e)</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <a class="code hl_class" href="classElevate_1_1EventDispatcher.html">EventDispatcher</a> dispatcher(e);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        dispatcher.<a class="code hl_function" href="classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6">Dispatch</a>&lt;<a class="code hl_class" href="classElevate_1_1WindowCloseEvent.html">WindowCloseEvent</a>&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnWindowClose));</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        dispatcher.<a class="code hl_function" href="classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6">Dispatch</a>&lt;<a class="code hl_class" href="classElevate_1_1WindowFocusEvent.html">WindowFocusEvent</a>&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnWindowFocusEvent));</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        dispatcher.<a class="code hl_function" href="classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6">Dispatch</a>&lt;<a class="code hl_class" href="classElevate_1_1FramebufferResizeEvent.html">FramebufferResizeEvent</a>&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnFramebufferResize));</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="comment">// Keyboard</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        dispatcher.<a class="code hl_function" href="classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6">Dispatch</a>&lt;<a class="code hl_class" href="classElevate_1_1KeyPressedEvent.html">KeyPressedEvent</a>&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnKeyPressedEvent));</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        dispatcher.<a class="code hl_function" href="classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6">Dispatch</a>&lt;<a class="code hl_class" href="classElevate_1_1KeyReleasedEvent.html">KeyReleasedEvent</a>&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnKeyReleasedEvent));</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="comment">// Mousse</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        dispatcher.<a class="code hl_function" href="classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6">Dispatch</a>&lt;<a class="code hl_class" href="classElevate_1_1MouseButtonPressedEvent.html">MouseButtonPressedEvent</a>&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnMouseButtonPressedEvent));</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        dispatcher.<a class="code hl_function" href="classElevate_1_1EventDispatcher.html#a6fc304574bba357a078ef01421f031d6">Dispatch</a>&lt;<a class="code hl_class" href="classElevate_1_1MouseButtonReleasedEvent.html">MouseButtonReleasedEvent</a>&gt;(<a class="code hl_define" href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a>(OnMouseButtonReleasedEvent));</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_LayerStack.end(); it != m_LayerStack.begin();)</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            (*--it)-&gt;<a class="code hl_function" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">OnEvent</a>(e);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <span class="keywordflow">if</span> (e.<a class="code hl_variable" href="classElevate_1_1Event.html#ad47df8ffc185fe80e264e9642f78494f">Handled</a>)</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        }</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    }</div>
 </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">#ifdef EE_PLATFORM_WEB</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="comment">// Intermediate function to call the main loop in web builds</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordtype">void</span> WebMainLoop(<span class="keywordtype">void</span>* arg)</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    {</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keyword">static_cast&lt;</span><a class="code hl_class" href="classElevate_1_1Application.html">Application</a>*<span class="keyword">&gt;</span>(arg)-&gt;EngineFrame();</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    }</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="foldopen" id="foldopen00131" data-start="{" data-end="}">
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a74aabc07b701c32447299af2e8f3aaec">  131</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#a74aabc07b701c32447299af2e8f3aaec">Application::Start</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv, <a class="code hl_typedef" href="namespaceElevate.html#ac439ce1bb86c1c4db595612879c37b95">ApplicationFactory</a> factory)</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    {</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#ab70bbb674b97f373a4ed49b1b22ee281">CoreLogger::Info</a>(<span class="stringliteral">&quot;Initializing ElevateEngine...&quot;</span>);</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">if</span> (!factory)</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        {</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#ac56a85f21c2bb65fa9f0dac1023f153d">CoreLogger::Error</a>(<span class="stringliteral">&quot;No application factory provided.&quot;</span>);</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        }</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="keyword">auto</span> app = factory();</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="preprocessor">#ifdef EE_PLATFORM_WEB</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="comment">// Intermediate function to call the main loop in web builds</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordtype">void</span> WebMainLoop(<span class="keywordtype">void</span>* arg)</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keyword">static_cast&lt;</span><a class="code hl_class" href="classElevate_1_1Application.html">Application</a>*<span class="keyword">&gt;</span>(arg)-&gt;EngineFrame();</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    }</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="foldopen" id="foldopen00133" data-start="{" data-end="}">
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a74aabc07b701c32447299af2e8f3aaec">  133</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#a74aabc07b701c32447299af2e8f3aaec">Application::Start</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv, <a class="code hl_typedef" href="namespaceElevate.html#ac439ce1bb86c1c4db595612879c37b95">ApplicationFactory</a> factory)</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    {</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#ab70bbb674b97f373a4ed49b1b22ee281">CoreLogger::Info</a>(<span class="stringliteral">&quot;Initializing ElevateEngine...&quot;</span>);</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keywordflow">if</span> (!factory)</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        {</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#ac56a85f21c2bb65fa9f0dac1023f153d">CoreLogger::Error</a>(<span class="stringliteral">&quot;No application factory provided.&quot;</span>);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        }</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        app-&gt;m_args = <a class="code hl_struct" href="structElevate_1_1ApplicationArguments.html">ApplicationArguments</a>(argc, argv);</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        app-&gt;Init();</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">CoreLogger::Trace</a>(<span class="stringliteral">&quot;Application Initialized.&quot;</span>);</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        app-&gt;Run();</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="preprocessor">#ifndef EE_PLATFORM_WEB</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keyword">delete</span> app;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    }</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keyword">auto</span> app = factory();</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        app-&gt;m_args = <a class="code hl_struct" href="structElevate_1_1ApplicationArguments.html">ApplicationArguments</a>(argc, argv);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        app-&gt;Init();</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">CoreLogger::Trace</a>(<span class="stringliteral">&quot;Application Initialized.&quot;</span>);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        app-&gt;Run();</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="preprocessor">#ifndef EE_PLATFORM_WEB</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        <span class="keyword">delete</span> app;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    }</div>
 </div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
-<div class="foldopen" id="foldopen00153" data-start="{" data-end="}">
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a4c9da7f60f67242f732a6445023111d2">  153</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#a4c9da7f60f67242f732a6445023111d2">Application::Init</a>()</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    {</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <a class="code hl_function" href="classElevate_1_1AssetRegistry.html#a37a5206722a294a02c6a6a3c881b5d2c">AssetRegistry::Init</a>(); <span class="comment">// todo : move to the core config</span></div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        m_modules-&gt;Configure(*m_Provider);</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#ab154d900f9dd4a098e4fcee15bae284e">Renderer::Init</a>(m_Window-&gt;GetWidth(), m_Window-&gt;GetHeight());</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <a class="code hl_function" href="classElevate_1_1SoundEngine.html#a459edc585c5d6925fbd95dc1fa97140d">SoundEngine::Init</a>(); <span class="comment">// todo move to audio module DI config</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="foldopen" id="foldopen00155" data-start="{" data-end="}">
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a4c9da7f60f67242f732a6445023111d2">  155</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#a4c9da7f60f67242f732a6445023111d2">Application::Init</a>()</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <a class="code hl_function" href="classElevate_1_1AssetRegistry.html#a37a5206722a294a02c6a6a3c881b5d2c">AssetRegistry::Init</a>(); <span class="comment">// todo : move to the core config</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <a class="code hl_function" href="namespaceElevate_1_1RendererBackend.html#a0131ef955570393a5ffbb7ff35fea985">RendererBackend::Register</a>();</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        m_modules-&gt;Configure(*m_Provider);</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <a class="code hl_function" href="classElevate_1_1Application.html#ae1a7eddcef53c7eb4bf74300317e6c56">CreateLayers</a>();</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    }</div>
-</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#ab154d900f9dd4a098e4fcee15bae284e">Renderer::Init</a>(m_Window-&gt;GetWidth(), m_Window-&gt;GetHeight());</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <a class="code hl_function" href="classElevate_1_1SoundEngine.html#a459edc585c5d6925fbd95dc1fa97140d">SoundEngine::Init</a>(); <span class="comment">// todo move to audio module DI config</span></div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="foldopen" id="foldopen00164" data-start="{" data-end="}">
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#ae1a7eddcef53c7eb4bf74300317e6c56">  164</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#ae1a7eddcef53c7eb4bf74300317e6c56">Application::CreateLayers</a>()</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    {</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <a class="code hl_function" href="classElevate_1_1Application.html#af10a851567e0be754a6def84b227e6eb">OnCreateLayers</a>();</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <a class="code hl_function" href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">PushOverlay</a>(<span class="keyword">new</span> <a class="code hl_class" href="classElevate_1_1ImGuiLayer.html">ImGuiLayer</a>());</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="preprocessor">#ifdef EE_EDITOR_BUILD</span></div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <a class="code hl_function" href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">PushOverlay</a>(<span class="keyword">new</span> Editor::EditorLayer());</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        <a class="code hl_function" href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">SetGameState</a>(<a class="code hl_enumvalue" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3aae6c2ed48a530ad4cb8d885091236e617">GameContextState::EditorMode</a>);</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <a class="code hl_function" href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">SetGameState</a>(<a class="code hl_enumvalue" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3aa09d1f32e99057000ce7197ae39f8e87e">GameContextState::Runtime</a>);</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    }</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <a class="code hl_function" href="classElevate_1_1Application.html#ae1a7eddcef53c7eb4bf74300317e6c56">CreateLayers</a>();</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    }</div>
 </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
-<div class="foldopen" id="foldopen00178" data-start="{" data-end="}">
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a9ba5d4cbc6efc070b914799e9e599baa">  178</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#a9ba5d4cbc6efc070b914799e9e599baa">Application::EngineFrame</a>(<span class="keywordtype">bool</span> skipEventPolling) <span class="comment">// Each frame</span></div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    {</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <span class="keyword">static</span> <span class="keywordtype">float</span> lastTime = 0.0f;</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="preprocessor">#if !EE_ASSERTS_ENABLED</span></div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        <span class="keywordflow">try</span></div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        {</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="preprocessor">#endif </span><span class="comment">// #if EE_ASSERTS_ENABLED</span></div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            <span class="comment">// TIME UPDATE //////////////////</span></div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            <span class="keywordtype">float</span> currentTime = <a class="code hl_function" href="classElevate_1_1Time.html#ab2c84a0a69e223039e7fa4a3797191a1">Time::GetCurrentTime</a>();</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            <span class="keywordtype">float</span> rawDeltaTime = currentTime - lastTime;</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keywordtype">float</span> deltaTime = std::min(rawDeltaTime, 0.25f); <span class="comment">// Clamping to prevent weird behaviours</span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            <a class="code hl_function" href="classElevate_1_1Time.html#a2373b82691970d908082a0c478e3114d">Time::Update</a>((<span class="keywordtype">float</span>)m_Window-&gt;GetTime(), deltaTime);</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            lastTime = currentTime;</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            m_Scheduler-&gt;Update();</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>            <a class="code hl_function" href="classElevate_1_1SoundEngine.html#ab41d72c921536de6a4c18993ef6e6f99">SoundEngine::RenderAudio</a>();</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            m_PhysicsSystem-&gt;Update(<a class="code hl_function" href="classElevate_1_1Time.html#af8bb45cd3c709d6cda92fa1e9f4a6df5">Time::GetDeltaTime</a>());</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>            <a class="code hl_function" href="classElevate_1_1TextureManager.html#ad83628c7ee56217d5c29999bdcc0da0f">TextureManager::UpdateLoadingTextures</a>();</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* layer : m_LayerStack)</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            {</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                layer-&gt;OnUpdate();</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            }</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>            <span class="comment">// Draw Layers and Scenes</span></div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>            <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* layer : m_LayerStack)</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            {</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>                layer-&gt;OnRender();</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            }</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#ac363d8973115296b066801eba8b24009">Renderer::RenderFrame</a>();</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>            <span class="comment">// If not in the editor, dump the content of the main color buffer to the main buffer</span></div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="preprocessor">#ifndef EE_EDITOR_BUILD</span></div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#a9dc0ad337274dfb4fa273eeb33535cee">Renderer::Present</a>(m_Window-&gt;GetWidth(), m_Window-&gt;GetHeight());</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            <span class="comment">// imgui</span></div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* layer : m_LayerStack)</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>            {</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>                layer-&gt;OnImGuiRenderBegin();</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            }</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>            <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* layer : m_LayerStack)</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>            {</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                layer-&gt;OnImGuiRender();</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            }</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* layer : m_LayerStack)</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>            {</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                layer-&gt;OnImGuiRenderEnd();</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>            }</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#a87ad2947f16f20c073bafde61b987574">Renderer::InvalidateStateCache</a>(); <span class="comment">// Clear the renderer state after ImGui rendering</span></div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>            <a class="code hl_function" href="classElevate_1_1Input.html#a248336b6c0e4a2812fb8559d0c0f4fa6">Input::ManageMidStates</a>();         <span class="comment">// Manage Key/Button up and down state</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="foldopen" id="foldopen00167" data-start="{" data-end="}">
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#ae1a7eddcef53c7eb4bf74300317e6c56">  167</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#ae1a7eddcef53c7eb4bf74300317e6c56">Application::CreateLayers</a>()</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    {</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <a class="code hl_function" href="classElevate_1_1Application.html#af10a851567e0be754a6def84b227e6eb">OnCreateLayers</a>();</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <a class="code hl_function" href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">PushOverlay</a>(<span class="keyword">new</span> <a class="code hl_class" href="classElevate_1_1ImGuiLayer.html">ImGuiLayer</a>());</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="preprocessor">#ifdef EE_EDITOR_BUILD</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <a class="code hl_function" href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">PushOverlay</a>(<span class="keyword">new</span> Editor::EditorLayer());</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <a class="code hl_function" href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">SetGameState</a>(<a class="code hl_enumvalue" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3aae6c2ed48a530ad4cb8d885091236e617">GameContextState::EditorMode</a>);</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <a class="code hl_function" href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">SetGameState</a>(<a class="code hl_enumvalue" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3aa09d1f32e99057000ce7197ae39f8e87e">GameContextState::Runtime</a>);</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    }</div>
+</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="foldopen" id="foldopen00181" data-start="{" data-end="}">
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a9ba5d4cbc6efc070b914799e9e599baa">  181</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#a9ba5d4cbc6efc070b914799e9e599baa">Application::EngineFrame</a>(<span class="keywordtype">bool</span> skipEventPolling) <span class="comment">// Each frame</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    {</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        <span class="keyword">static</span> <span class="keywordtype">float</span> lastTime = 0.0f;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="preprocessor">#if !EE_ASSERTS_ENABLED</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        <span class="keywordflow">try</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        {</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="preprocessor">#endif </span><span class="comment">// #if EE_ASSERTS_ENABLED</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="comment">// TIME UPDATE //////////////////</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            <span class="keywordtype">float</span> currentTime = <a class="code hl_function" href="classElevate_1_1Time.html#ab2c84a0a69e223039e7fa4a3797191a1">Time::GetCurrentTime</a>();</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            <span class="keywordtype">float</span> rawDeltaTime = currentTime - lastTime;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            <span class="keywordtype">float</span> deltaTime = std::min(rawDeltaTime, 0.25f); <span class="comment">// Clamping to prevent weird behaviours</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            <a class="code hl_function" href="classElevate_1_1Time.html#a2373b82691970d908082a0c478e3114d">Time::Update</a>((<span class="keywordtype">float</span>)m_Window-&gt;GetTime(), deltaTime);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            lastTime = currentTime;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            m_Scheduler-&gt;Update();</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>            <a class="code hl_function" href="classElevate_1_1SoundEngine.html#ab41d72c921536de6a4c18993ef6e6f99">SoundEngine::RenderAudio</a>();</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            m_PhysicsSystem-&gt;Update(<a class="code hl_function" href="classElevate_1_1Time.html#af8bb45cd3c709d6cda92fa1e9f4a6df5">Time::GetDeltaTime</a>());</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            <a class="code hl_function" href="classElevate_1_1TextureManager.html#ad83628c7ee56217d5c29999bdcc0da0f">TextureManager::UpdateLoadingTextures</a>();</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* layer : m_LayerStack)</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            {</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                layer-&gt;OnUpdate();</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>            }</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            <span class="comment">// Draw Layers and Scenes</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* layer : m_LayerStack)</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            {</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>                layer-&gt;OnRender();</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            }</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#ac363d8973115296b066801eba8b24009">Renderer::RenderFrame</a>();</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>            <span class="comment">// If not in the editor, dump the content of the main color buffer to the main buffer</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="preprocessor">#ifndef EE_EDITOR_BUILD</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#a9dc0ad337274dfb4fa273eeb33535cee">Renderer::Present</a>(m_Window-&gt;GetWidth(), m_Window-&gt;GetHeight());</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>            <span class="comment">// imgui</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* layer : m_LayerStack)</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            {</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                layer-&gt;OnImGuiRenderBegin();</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>            }</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* layer : m_LayerStack)</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>            {</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>                layer-&gt;OnImGuiRender();</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>            }</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>            <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* layer : m_LayerStack)</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>            {</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>                layer-&gt;OnImGuiRenderEnd();</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>            }</div>
 <div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#a16519688fb3e0f350b480ecf7a1cbfc1">Renderer::FlushBuffers</a>();</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>            <span class="comment">// Poll events and swap buffers</span></div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>            m_Window-&gt;OnUpdate(skipEventPolling);</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="preprocessor">#ifdef EE_PLATFORM_WEB</span></div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            <span class="keywordflow">if</span> (!m_Running)</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            {</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                emscripten_cancel_main_loop();</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>                <a class="code hl_function" href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">Exit</a>();</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            }</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="preprocessor">#if !EE_ASSERTS_ENABLED</span></div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        }</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; exc)</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>        {</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>            <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#ac56a85f21c2bb65fa9f0dac1023f153d">CoreLogger::Error</a>(<span class="stringliteral">&quot;{}&quot;</span>, exc.what());</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        }</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="preprocessor">#endif </span><span class="comment">// #if EE_ASSERTS_ENABLED</span></div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    }</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#a87ad2947f16f20c073bafde61b987574">Renderer::InvalidateStateCache</a>(); <span class="comment">// Clear the renderer state after ImGui rendering</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>            <a class="code hl_function" href="classElevate_1_1Input.html#a248336b6c0e4a2812fb8559d0c0f4fa6">Input::ManageMidStates</a>();         <span class="comment">// Manage Key/Button up and down state</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>            <a class="code hl_function" href="classElevate_1_1Renderer.html#a16519688fb3e0f350b480ecf7a1cbfc1">Renderer::FlushBuffers</a>();</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            <span class="comment">// Poll events and swap buffers</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            m_Window-&gt;OnUpdate(skipEventPolling);</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="preprocessor">#ifdef EE_PLATFORM_WEB</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            <span class="keywordflow">if</span> (!m_Running)</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            {</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>                emscripten_cancel_main_loop();</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>                <a class="code hl_function" href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">Exit</a>();</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>            }</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="preprocessor">#if !EE_ASSERTS_ENABLED</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        }</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; exc)</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        {</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>            <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#ac56a85f21c2bb65fa9f0dac1023f153d">CoreLogger::Error</a>(<span class="stringliteral">&quot;{}&quot;</span>, exc.what());</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        }</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="preprocessor">#endif </span><span class="comment">// #if EE_ASSERTS_ENABLED</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    }</div>
 </div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="foldopen" id="foldopen00258" data-start="{" data-end="}">
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#abc88552c66339d2aee991eee71681bed">  258</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#abc88552c66339d2aee991eee71681bed">Application::Run</a>()</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    {</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="preprocessor">#ifdef EE_PLATFORM_WEB</span></div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        emscripten_set_main_loop_arg(WebMainLoop, <span class="keyword">this</span>, 0, <span class="keyword">true</span>);</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        <span class="keywordflow">while</span> (m_Running)</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        {</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>            <a class="code hl_function" href="classElevate_1_1Application.html#a9ba5d4cbc6efc070b914799e9e599baa">EngineFrame</a>();</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        }</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        <a class="code hl_function" href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">Exit</a>();</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    }</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
+<div class="foldopen" id="foldopen00261" data-start="{" data-end="}">
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#abc88552c66339d2aee991eee71681bed">  261</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#abc88552c66339d2aee991eee71681bed">Application::Run</a>()</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    {</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="preprocessor">#ifdef EE_PLATFORM_WEB</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        emscripten_set_main_loop_arg(WebMainLoop, <span class="keyword">this</span>, 0, <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        <span class="keywordflow">while</span> (m_Running)</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        {</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            <a class="code hl_function" href="classElevate_1_1Application.html#a9ba5d4cbc6efc070b914799e9e599baa">EngineFrame</a>();</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        }</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <a class="code hl_function" href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">Exit</a>();</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    }</div>
 </div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
-<div class="foldopen" id="foldopen00271" data-start="{" data-end="}">
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">  271</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">Application::Exit</a>()</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    {</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* layer : m_LayerStack)</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        {</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            layer-&gt;Cleanup();</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        }</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        <a class="code hl_function" href="classElevate_1_1SoundEngine.html#a27f89cfed26100f929193364c0ed9a1b">SoundEngine::Terminate</a>();</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        m_PhysicsSystem-&gt;Shutdown();</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    }</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="foldopen" id="foldopen00274" data-start="{" data-end="}">
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">  274</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">Application::Exit</a>()</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    {</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        <span class="keywordflow">for</span> (<a class="code hl_class" href="classElevate_1_1Layer.html">Layer</a>* layer : m_LayerStack)</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        {</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>            layer-&gt;Cleanup();</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        }</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <a class="code hl_function" href="classElevate_1_1SoundEngine.html#a27f89cfed26100f929193364c0ed9a1b">SoundEngine::Terminate</a>();</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        m_PhysicsSystem-&gt;Shutdown();</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    }</div>
 </div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
-<div class="foldopen" id="foldopen00282" data-start="{" data-end="}">
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a30e25b0a4d18f5f780a79475edfa8da8">  282</a></span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3a">GameContextState</a>&amp; <a class="code hl_function" href="classElevate_1_1Application.html#a30e25b0a4d18f5f780a79475edfa8da8">Application::GetGameState</a>()</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    {</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        <span class="keywordflow">return</span> s_Instance-&gt;m_state;</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    }</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
+<div class="foldopen" id="foldopen00285" data-start="{" data-end="}">
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a30e25b0a4d18f5f780a79475edfa8da8">  285</a></span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3a">GameContextState</a>&amp; <a class="code hl_function" href="classElevate_1_1Application.html#a30e25b0a4d18f5f780a79475edfa8da8">Application::GetGameState</a>()</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    {</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        <span class="keywordflow">return</span> s_Instance-&gt;m_state;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    }</div>
 </div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span> </div>
-<div class="foldopen" id="foldopen00287" data-start="{" data-end="}">
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">  287</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">Application::SetGameState</a>(<a class="code hl_enumeration" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3a">GameContextState</a> newState)</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    {</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        <span class="keywordflow">if</span> (s_Instance-&gt;m_state != newState)</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        {</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>            <a class="code hl_enumeration" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3a">GameContextState</a> oldState = s_Instance-&gt;m_state;</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>            s_Instance-&gt;m_state = newState;</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>            <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#ab70bbb674b97f373a4ed49b1b22ee281">CoreLogger::Info</a>(<span class="stringliteral">&quot;GameContext state changed from {} to {}&quot;</span>,</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>                <a class="code hl_function" href="namespaceElevate.html#a3334896a162702230b934d59cb3bbe83">GetGameContextStateName</a>(oldState),</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>                <a class="code hl_function" href="namespaceElevate.html#a3334896a162702230b934d59cb3bbe83">GetGameContextStateName</a>(newState));</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>            s_Instance-&gt;OnStateChange(oldState, newState);</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        }</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    }</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="foldopen" id="foldopen00290" data-start="{" data-end="}">
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">  290</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">Application::SetGameState</a>(<a class="code hl_enumeration" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3a">GameContextState</a> newState)</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    {</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        <span class="keywordflow">if</span> (s_Instance-&gt;m_state != newState)</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        {</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>            <a class="code hl_enumeration" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3a">GameContextState</a> oldState = s_Instance-&gt;m_state;</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>            s_Instance-&gt;m_state = newState;</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span> </div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>            <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#ab70bbb674b97f373a4ed49b1b22ee281">CoreLogger::Info</a>(<span class="stringliteral">&quot;GameContext state changed from {} to {}&quot;</span>,</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>                <a class="code hl_function" href="namespaceElevate.html#a3334896a162702230b934d59cb3bbe83">GetGameContextStateName</a>(oldState),</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>                <a class="code hl_function" href="namespaceElevate.html#a3334896a162702230b934d59cb3bbe83">GetGameContextStateName</a>(newState));</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>            s_Instance-&gt;OnStateChange(oldState, newState);</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        }</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    }</div>
 </div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
-<div class="foldopen" id="foldopen00302" data-start="{" data-end="}">
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#ad34cc9a38ffe0b98cf0d3b30d771132f">  302</a></span>    <a class="code hl_struct" href="structElevate_1_1ApplicationArguments.html">ApplicationArguments</a> <a class="code hl_function" href="classElevate_1_1Application.html#ad34cc9a38ffe0b98cf0d3b30d771132f">Application::GetArguments</a>()</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    {</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        <span class="keywordflow">return</span> s_Instance-&gt;m_args;</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    }</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
+<div class="foldopen" id="foldopen00305" data-start="{" data-end="}">
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#ad34cc9a38ffe0b98cf0d3b30d771132f">  305</a></span>    <a class="code hl_struct" href="structElevate_1_1ApplicationArguments.html">ApplicationArguments</a> <a class="code hl_function" href="classElevate_1_1Application.html#ad34cc9a38ffe0b98cf0d3b30d771132f">Application::GetArguments</a>()</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    {</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        <span class="keywordflow">return</span> s_Instance-&gt;m_args;</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    }</div>
 </div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="preprocessor">#pragma region Events</span></div>
-<div class="foldopen" id="foldopen00308" data-start="{" data-end="}">
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#aad6b7689f0baa931a61363980fc9ac09">  308</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#aad6b7689f0baa931a61363980fc9ac09">Application::OnStateChange</a>(<a class="code hl_enumeration" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3a">GameContextState</a> oldState, <a class="code hl_enumeration" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3a">GameContextState</a> newState)</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    {</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        <a class="code hl_class" href="classElevate_1_1GameContextEvent.html">GameContextEvent</a> e(oldState, newState);</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classElevate_1_1PhysicsSystem.html#a225ceccb9e1e7762900483195cd23d93">PhysicsSystem::IsInitialized</a>())</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        {</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>            <a class="code hl_function" href="classElevate_1_1PhysicsSystem.html#a07d1c36b8c67b70befa844f74f8fdfdb">PhysicsSystem::Get</a>().<a class="code hl_function" href="classElevate_1_1PhysicsSystem.html#afb25acf2be5352e709e0b352f7916d86">FlushAllBodies</a>(); <span class="comment">// Reset the physic system</span></div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        }</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        <a class="code hl_function" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">OnEvent</a>(e);</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    }</div>
-</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="preprocessor">#pragma region Events</span></div>
+<div class="foldopen" id="foldopen00311" data-start="{" data-end="}">
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno"><a class="line" href="classElevate_1_1Application.html#aad6b7689f0baa931a61363980fc9ac09">  311</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classElevate_1_1Application.html#aad6b7689f0baa931a61363980fc9ac09">Application::OnStateChange</a>(<a class="code hl_enumeration" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3a">GameContextState</a> oldState, <a class="code hl_enumeration" href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3a">GameContextState</a> newState)</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    {</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        <a class="code hl_class" href="classElevate_1_1GameContextEvent.html">GameContextEvent</a> e(oldState, newState);</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classElevate_1_1PhysicsSystem.html#a225ceccb9e1e7762900483195cd23d93">PhysicsSystem::IsInitialized</a>())</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>        {</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>            <a class="code hl_function" href="classElevate_1_1PhysicsSystem.html#a07d1c36b8c67b70befa844f74f8fdfdb">PhysicsSystem::Get</a>().<a class="code hl_function" href="classElevate_1_1PhysicsSystem.html#afb25acf2be5352e709e0b352f7916d86">FlushAllBodies</a>(); <span class="comment">// Reset the physic system</span></div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        }</div>
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <span class="keywordtype">bool</span> Application::OnKeyPressedEvent(<a class="code hl_class" href="classElevate_1_1KeyPressedEvent.html">KeyPressedEvent</a>&amp; e)</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    {</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        <a class="code hl_function" href="classElevate_1_1Input.html#a0406ffb401963012630d03e95ad07b30">Input::OnKeyPressedEvent</a>(e);</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    }</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    <span class="keywordtype">bool</span> Application::OnKeyReleasedEvent(KeyReleasedEvent&amp; e)</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    {</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        <a class="code hl_function" href="classElevate_1_1Input.html#a1f34fa555cb5bbcbd1e70743583ec7e7">Input::OnKeyReleasedEvent</a>(e);</div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    }</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <span class="keywordtype">bool</span> Application::OnMouseButtonPressedEvent(<a class="code hl_class" href="classElevate_1_1MouseButtonPressedEvent.html">MouseButtonPressedEvent</a>&amp; e)</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>    {</div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        <a class="code hl_function" href="classElevate_1_1Input.html#aecf8e484f3f1e668ab9fdfdbe539425a">Input::OnMouseButtonPressedEvent</a>(e);</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    }</div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="keywordtype">bool</span> Application::OnMouseButtonReleasedEvent(<a class="code hl_class" href="classElevate_1_1MouseButtonReleasedEvent.html">MouseButtonReleasedEvent</a>&amp; e)</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    {</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        <a class="code hl_function" href="classElevate_1_1Input.html#a087a11a22aa935340e4fed568f415c76">Input::OnMouseButtonReleasedEvent</a>(e);</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    }</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span> </div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    <span class="keywordtype">bool</span> Application::OnWindowClose(<a class="code hl_class" href="classElevate_1_1WindowCloseEvent.html">WindowCloseEvent</a>&amp; e)</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    {</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        m_Running = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    }</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span> </div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    <span class="keywordtype">bool</span> Application::OnFramebufferResize(<a class="code hl_class" href="classElevate_1_1FramebufferResizeEvent.html">FramebufferResizeEvent</a>&amp; e)</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>    {</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a2356117b047f7d951c083bee461f1b14">Renderer::SetViewport</a>(0, 0, e.GetWidth(), e.GetHeight());</div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        <a class="code hl_function" href="classElevate_1_1Application.html#a9ba5d4cbc6efc070b914799e9e599baa">EngineFrame</a>(<span class="keyword">true</span>);</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    }</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span> </div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <span class="keywordtype">bool</span> Application::OnWindowFocusEvent(<a class="code hl_class" href="classElevate_1_1WindowFocusEvent.html">WindowFocusEvent</a>&amp; e)</div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    {</div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>        <a class="code hl_function" href="classElevate_1_1Input.html#a9b0ce43dda45ae9adfffda1ed9d3f056">Input::ResetAllStates</a>();</div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span> </div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>        <span class="keywordflow">if</span> (e.GetFocusState())</div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        {</div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>            <span class="comment">// todo add a setting to check the type of suspend to impl.</span></div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>            <a class="code hl_function" href="classElevate_1_1SoundEngine.html#a82a17a18a9c49f057dfd4d50e851209b">SoundEngine::Suspend</a>(<span class="keyword">true</span>);</div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>        }</div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>        {</div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>            <a class="code hl_function" href="classElevate_1_1SoundEngine.html#aa22c6574f0a645da973dee2081a5cda5">SoundEngine::Wakeup</a>();</div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        }</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span> </div>
-<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    }</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        <a class="code hl_function" href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">OnEvent</a>(e);</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    }</div>
+</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordtype">bool</span> Application::OnKeyPressedEvent(<a class="code hl_class" href="classElevate_1_1KeyPressedEvent.html">KeyPressedEvent</a>&amp; e)</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    {</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        <a class="code hl_function" href="classElevate_1_1Input.html#a0406ffb401963012630d03e95ad07b30">Input::OnKeyPressedEvent</a>(e);</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    }</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    <span class="keywordtype">bool</span> Application::OnKeyReleasedEvent(KeyReleasedEvent&amp; e)</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    {</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>        <a class="code hl_function" href="classElevate_1_1Input.html#a1f34fa555cb5bbcbd1e70743583ec7e7">Input::OnKeyReleasedEvent</a>(e);</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>    }</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span> </div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    <span class="keywordtype">bool</span> Application::OnMouseButtonPressedEvent(<a class="code hl_class" href="classElevate_1_1MouseButtonPressedEvent.html">MouseButtonPressedEvent</a>&amp; e)</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    {</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        <a class="code hl_function" href="classElevate_1_1Input.html#aecf8e484f3f1e668ab9fdfdbe539425a">Input::OnMouseButtonPressedEvent</a>(e);</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    }</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span> </div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    <span class="keywordtype">bool</span> Application::OnMouseButtonReleasedEvent(<a class="code hl_class" href="classElevate_1_1MouseButtonReleasedEvent.html">MouseButtonReleasedEvent</a>&amp; e)</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    {</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        <a class="code hl_function" href="classElevate_1_1Input.html#a087a11a22aa935340e4fed568f415c76">Input::OnMouseButtonReleasedEvent</a>(e);</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    }</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    <span class="keywordtype">bool</span> Application::OnWindowClose(<a class="code hl_class" href="classElevate_1_1WindowCloseEvent.html">WindowCloseEvent</a>&amp; e)</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    {</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>        m_Running = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>    }</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span> </div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    <span class="keywordtype">bool</span> Application::OnFramebufferResize(<a class="code hl_class" href="classElevate_1_1FramebufferResizeEvent.html">FramebufferResizeEvent</a>&amp; e)</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    {</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>        <a class="code hl_function" href="classElevate_1_1Renderer.html#a2356117b047f7d951c083bee461f1b14">Renderer::SetViewport</a>(0, 0, e.GetWidth(), e.GetHeight());</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>        <a class="code hl_function" href="classElevate_1_1Application.html#a9ba5d4cbc6efc070b914799e9e599baa">EngineFrame</a>(<span class="keyword">true</span>);</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    }</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span> </div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <span class="keywordtype">bool</span> Application::OnWindowFocusEvent(<a class="code hl_class" href="classElevate_1_1WindowFocusEvent.html">WindowFocusEvent</a>&amp; e)</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    {</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        <a class="code hl_function" href="classElevate_1_1Input.html#a9b0ce43dda45ae9adfffda1ed9d3f056">Input::ResetAllStates</a>();</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span> </div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>        <span class="keywordflow">if</span> (e.GetFocusState())</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>        {</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>            <span class="comment">// todo add a setting to check the type of suspend to impl.</span></div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>            <a class="code hl_function" href="classElevate_1_1SoundEngine.html#a82a17a18a9c49f057dfd4d50e851209b">SoundEngine::Suspend</a>(<span class="keyword">true</span>);</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>        }</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>        {</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>            <a class="code hl_function" href="classElevate_1_1SoundEngine.html#aa22c6574f0a645da973dee2081a5cda5">SoundEngine::Wakeup</a>();</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>        }</div>
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span> </div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span><span class="preprocessor">#pragma endregion</span></div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>}</div>
-<div class="ttc" id="aApplication_8cpp_html_a2290aac021a7119e86af0aa6d962a226"><div class="ttname"><a href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a></div><div class="ttdeci">#define BIND_EVENT_FN(x)</div><div class="ttdef"><b>Definition</b> <a href="#l00039">Application.cpp:39</a></div></div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    }</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span> </div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span><span class="preprocessor">#pragma endregion</span></div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>}</div>
+<div class="ttc" id="aApplication_8cpp_html_a2290aac021a7119e86af0aa6d962a226"><div class="ttname"><a href="Application_8cpp.html#a2290aac021a7119e86af0aa6d962a226">BIND_EVENT_FN</a></div><div class="ttdeci">#define BIND_EVENT_FN(x)</div><div class="ttdef"><b>Definition</b> <a href="#l00041">Application.cpp:41</a></div></div>
+<div class="ttc" id="aRendererBackend_8h_html"><div class="ttname"><a href="RendererBackend_8h.html">RendererBackend.h</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Application_html"><div class="ttname"><a href="classElevate_1_1Application.html">Elevate::Application</a></div><div class="ttdef"><b>Definition</b> <a href="Application_8ixx_source.html#l00041">Application.ixx:42</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_a0131ed4b34d2ffc7d776822ea765e504"><div class="ttname"><a href="classElevate_1_1Application.html#a0131ed4b34d2ffc7d776822ea765e504">Elevate::Application::CreateServiceProvider</a></div><div class="ttdeci">void CreateServiceProvider()</div><div class="ttdef"><b>Definition</b> <a href="#l00071">Application.cpp:71</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_a0f7e349113d0750b61c7a776b991f4cf"><div class="ttname"><a href="classElevate_1_1Application.html#a0f7e349113d0750b61c7a776b991f4cf">Elevate::Application::PushLayer</a></div><div class="ttdeci">void PushLayer(Layer *layer)</div><div class="ttdef"><b>Definition</b> <a href="#l00087">Application.cpp:87</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_a1dd78859e8268d44a61ea74816932734"><div class="ttname"><a href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">Elevate::Application::SetGameState</a></div><div class="ttdeci">static void SetGameState(GameContextState newState)</div><div class="ttdef"><b>Definition</b> <a href="#l00287">Application.cpp:287</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_a30e25b0a4d18f5f780a79475edfa8da8"><div class="ttname"><a href="classElevate_1_1Application.html#a30e25b0a4d18f5f780a79475edfa8da8">Elevate::Application::GetGameState</a></div><div class="ttdeci">static const GameContextState &amp; GetGameState()</div><div class="ttdef"><b>Definition</b> <a href="#l00282">Application.cpp:282</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_a36cdafcf896d128b9385d7232c45eb8b"><div class="ttname"><a href="classElevate_1_1Application.html#a36cdafcf896d128b9385d7232c45eb8b">Elevate::Application::Application</a></div><div class="ttdeci">Application()</div><div class="ttdef"><b>Definition</b> <a href="#l00043">Application.cpp:43</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_a4c9da7f60f67242f732a6445023111d2"><div class="ttname"><a href="classElevate_1_1Application.html#a4c9da7f60f67242f732a6445023111d2">Elevate::Application::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdef"><b>Definition</b> <a href="#l00153">Application.cpp:153</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_a718bde7add1f023ecb6f9547c6e6de88"><div class="ttname"><a href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">Elevate::Application::OnEvent</a></div><div class="ttdeci">void OnEvent(Event &amp;e)</div><div class="ttdef"><b>Definition</b> <a href="#l00100">Application.cpp:100</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_a74aabc07b701c32447299af2e8f3aaec"><div class="ttname"><a href="classElevate_1_1Application.html#a74aabc07b701c32447299af2e8f3aaec">Elevate::Application::Start</a></div><div class="ttdeci">static void Start(int argc, char **argv, ApplicationFactory factory)</div><div class="ttdef"><b>Definition</b> <a href="#l00131">Application.cpp:131</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_a9ba5d4cbc6efc070b914799e9e599baa"><div class="ttname"><a href="classElevate_1_1Application.html#a9ba5d4cbc6efc070b914799e9e599baa">Elevate::Application::EngineFrame</a></div><div class="ttdeci">void EngineFrame(bool skipEventPolling=false)</div><div class="ttdef"><b>Definition</b> <a href="#l00178">Application.cpp:178</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_aacbb8a9174ea0c18fdfb403c13c684a2"><div class="ttname"><a href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">Elevate::Application::PushOverlay</a></div><div class="ttdeci">void PushOverlay(Layer *overlay)</div><div class="ttdef"><b>Definition</b> <a href="#l00093">Application.cpp:93</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_aad6b7689f0baa931a61363980fc9ac09"><div class="ttname"><a href="classElevate_1_1Application.html#aad6b7689f0baa931a61363980fc9ac09">Elevate::Application::OnStateChange</a></div><div class="ttdeci">void OnStateChange(GameContextState oldState, GameContextState newState)</div><div class="ttdef"><b>Definition</b> <a href="#l00308">Application.cpp:308</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_abc88552c66339d2aee991eee71681bed"><div class="ttname"><a href="classElevate_1_1Application.html#abc88552c66339d2aee991eee71681bed">Elevate::Application::Run</a></div><div class="ttdeci">void Run()</div><div class="ttdef"><b>Definition</b> <a href="#l00258">Application.cpp:258</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_ad34cc9a38ffe0b98cf0d3b30d771132f"><div class="ttname"><a href="classElevate_1_1Application.html#ad34cc9a38ffe0b98cf0d3b30d771132f">Elevate::Application::GetArguments</a></div><div class="ttdeci">static ApplicationArguments GetArguments()</div><div class="ttdef"><b>Definition</b> <a href="#l00302">Application.cpp:302</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_ad747e7f9492296cc567503202400e7e3"><div class="ttname"><a href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">Elevate::Application::Exit</a></div><div class="ttdeci">void Exit()</div><div class="ttdef"><b>Definition</b> <a href="#l00271">Application.cpp:271</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Application_html_ae1a7eddcef53c7eb4bf74300317e6c56"><div class="ttname"><a href="classElevate_1_1Application.html#ae1a7eddcef53c7eb4bf74300317e6c56">Elevate::Application::CreateLayers</a></div><div class="ttdeci">void CreateLayers()</div><div class="ttdef"><b>Definition</b> <a href="#l00164">Application.cpp:164</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a0131ed4b34d2ffc7d776822ea765e504"><div class="ttname"><a href="classElevate_1_1Application.html#a0131ed4b34d2ffc7d776822ea765e504">Elevate::Application::CreateServiceProvider</a></div><div class="ttdeci">void CreateServiceProvider()</div><div class="ttdef"><b>Definition</b> <a href="#l00073">Application.cpp:73</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a0f7e349113d0750b61c7a776b991f4cf"><div class="ttname"><a href="classElevate_1_1Application.html#a0f7e349113d0750b61c7a776b991f4cf">Elevate::Application::PushLayer</a></div><div class="ttdeci">void PushLayer(Layer *layer)</div><div class="ttdef"><b>Definition</b> <a href="#l00089">Application.cpp:89</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a1dd78859e8268d44a61ea74816932734"><div class="ttname"><a href="classElevate_1_1Application.html#a1dd78859e8268d44a61ea74816932734">Elevate::Application::SetGameState</a></div><div class="ttdeci">static void SetGameState(GameContextState newState)</div><div class="ttdef"><b>Definition</b> <a href="#l00290">Application.cpp:290</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a30e25b0a4d18f5f780a79475edfa8da8"><div class="ttname"><a href="classElevate_1_1Application.html#a30e25b0a4d18f5f780a79475edfa8da8">Elevate::Application::GetGameState</a></div><div class="ttdeci">static const GameContextState &amp; GetGameState()</div><div class="ttdef"><b>Definition</b> <a href="#l00285">Application.cpp:285</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a36cdafcf896d128b9385d7232c45eb8b"><div class="ttname"><a href="classElevate_1_1Application.html#a36cdafcf896d128b9385d7232c45eb8b">Elevate::Application::Application</a></div><div class="ttdeci">Application()</div><div class="ttdef"><b>Definition</b> <a href="#l00045">Application.cpp:45</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a4c9da7f60f67242f732a6445023111d2"><div class="ttname"><a href="classElevate_1_1Application.html#a4c9da7f60f67242f732a6445023111d2">Elevate::Application::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdef"><b>Definition</b> <a href="#l00155">Application.cpp:155</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a718bde7add1f023ecb6f9547c6e6de88"><div class="ttname"><a href="classElevate_1_1Application.html#a718bde7add1f023ecb6f9547c6e6de88">Elevate::Application::OnEvent</a></div><div class="ttdeci">void OnEvent(Event &amp;e)</div><div class="ttdef"><b>Definition</b> <a href="#l00102">Application.cpp:102</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a74aabc07b701c32447299af2e8f3aaec"><div class="ttname"><a href="classElevate_1_1Application.html#a74aabc07b701c32447299af2e8f3aaec">Elevate::Application::Start</a></div><div class="ttdeci">static void Start(int argc, char **argv, ApplicationFactory factory)</div><div class="ttdef"><b>Definition</b> <a href="#l00133">Application.cpp:133</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_a9ba5d4cbc6efc070b914799e9e599baa"><div class="ttname"><a href="classElevate_1_1Application.html#a9ba5d4cbc6efc070b914799e9e599baa">Elevate::Application::EngineFrame</a></div><div class="ttdeci">void EngineFrame(bool skipEventPolling=false)</div><div class="ttdef"><b>Definition</b> <a href="#l00181">Application.cpp:181</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_aacbb8a9174ea0c18fdfb403c13c684a2"><div class="ttname"><a href="classElevate_1_1Application.html#aacbb8a9174ea0c18fdfb403c13c684a2">Elevate::Application::PushOverlay</a></div><div class="ttdeci">void PushOverlay(Layer *overlay)</div><div class="ttdef"><b>Definition</b> <a href="#l00095">Application.cpp:95</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_aad6b7689f0baa931a61363980fc9ac09"><div class="ttname"><a href="classElevate_1_1Application.html#aad6b7689f0baa931a61363980fc9ac09">Elevate::Application::OnStateChange</a></div><div class="ttdeci">void OnStateChange(GameContextState oldState, GameContextState newState)</div><div class="ttdef"><b>Definition</b> <a href="#l00311">Application.cpp:311</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_abc88552c66339d2aee991eee71681bed"><div class="ttname"><a href="classElevate_1_1Application.html#abc88552c66339d2aee991eee71681bed">Elevate::Application::Run</a></div><div class="ttdeci">void Run()</div><div class="ttdef"><b>Definition</b> <a href="#l00261">Application.cpp:261</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_ad34cc9a38ffe0b98cf0d3b30d771132f"><div class="ttname"><a href="classElevate_1_1Application.html#ad34cc9a38ffe0b98cf0d3b30d771132f">Elevate::Application::GetArguments</a></div><div class="ttdeci">static ApplicationArguments GetArguments()</div><div class="ttdef"><b>Definition</b> <a href="#l00305">Application.cpp:305</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_ad747e7f9492296cc567503202400e7e3"><div class="ttname"><a href="classElevate_1_1Application.html#ad747e7f9492296cc567503202400e7e3">Elevate::Application::Exit</a></div><div class="ttdeci">void Exit()</div><div class="ttdef"><b>Definition</b> <a href="#l00274">Application.cpp:274</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Application_html_ae1a7eddcef53c7eb4bf74300317e6c56"><div class="ttname"><a href="classElevate_1_1Application.html#ae1a7eddcef53c7eb4bf74300317e6c56">Elevate::Application::CreateLayers</a></div><div class="ttdeci">void CreateLayers()</div><div class="ttdef"><b>Definition</b> <a href="#l00167">Application.cpp:167</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Application_html_af10a851567e0be754a6def84b227e6eb"><div class="ttname"><a href="classElevate_1_1Application.html#af10a851567e0be754a6def84b227e6eb">Elevate::Application::OnCreateLayers</a></div><div class="ttdeci">virtual void OnCreateLayers()</div><div class="ttdef"><b>Definition</b> <a href="Application_8ixx_source.html#l00051">Application.ixx:51</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Assert_html_a9e5c4470e44a9daae19b991027f4c41f"><div class="ttname"><a href="classElevate_1_1Assert.html#a9e5c4470e44a9daae19b991027f4c41f">Elevate::Assert::That</a></div><div class="ttdeci">static void That(T &amp;&amp;condition, fmt::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="Assert_8ixx_source.html#l00024">Assert.ixx:24</a></div></div>
 <div class="ttc" id="aclassElevate_1_1AssetRegistry_html_a37a5206722a294a02c6a6a3c881b5d2c"><div class="ttname"><a href="classElevate_1_1AssetRegistry.html#a37a5206722a294a02c6a6a3c881b5d2c">Elevate::AssetRegistry::Init</a></div><div class="ttdeci">static void Init()</div><div class="ttdef"><b>Definition</b> <a href="AssetRegistry_8cpp_source.html#l00074">AssetRegistry.cpp:74</a></div></div>
@@ -531,12 +535,12 @@ $(function(){initNavTree('Application_8cpp_source.html','',''); });
 <div class="ttc" id="aclassElevate_1_1GameContextEvent_html"><div class="ttname"><a href="classElevate_1_1GameContextEvent.html">Elevate::GameContextEvent</a></div><div class="ttdef"><b>Definition</b> <a href="ApplicationEvent_8ixx_source.html#l00015">ApplicationEvent.ixx:16</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ITaskScheduler_html"><div class="ttname"><a href="classElevate_1_1ITaskScheduler.html">Elevate::ITaskScheduler</a></div><div class="ttdef"><b>Definition</b> <a href="ITaskScheduler_8ixx_source.html#l00014">ITaskScheduler.ixx:15</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ImGuiLayer_html"><div class="ttname"><a href="classElevate_1_1ImGuiLayer.html">Elevate::ImGuiLayer</a></div><div class="ttdef"><b>Definition</b> <a href="ImGuiLayer_8ixx_source.html#l00009">ImGuiLayer.ixx:10</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Input_html_a0406ffb401963012630d03e95ad07b30"><div class="ttname"><a href="classElevate_1_1Input.html#a0406ffb401963012630d03e95ad07b30">Elevate::Input::OnKeyPressedEvent</a></div><div class="ttdeci">static void OnKeyPressedEvent(KeyPressedEvent &amp;e)</div><div class="ttdoc">Managed Callbacks // Could be used to simulate inputs to an app by sending events.</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00052">Input.ixx:52</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Input_html_a087a11a22aa935340e4fed568f415c76"><div class="ttname"><a href="classElevate_1_1Input.html#a087a11a22aa935340e4fed568f415c76">Elevate::Input::OnMouseButtonReleasedEvent</a></div><div class="ttdeci">static void OnMouseButtonReleasedEvent(MouseButtonReleasedEvent &amp;e)</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00065">Input.ixx:65</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Input_html_a1f34fa555cb5bbcbd1e70743583ec7e7"><div class="ttname"><a href="classElevate_1_1Input.html#a1f34fa555cb5bbcbd1e70743583ec7e7">Elevate::Input::OnKeyReleasedEvent</a></div><div class="ttdeci">static void OnKeyReleasedEvent(KeyReleasedEvent &amp;e)</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00056">Input.ixx:56</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Input_html_a248336b6c0e4a2812fb8559d0c0f4fa6"><div class="ttname"><a href="classElevate_1_1Input.html#a248336b6c0e4a2812fb8559d0c0f4fa6">Elevate::Input::ManageMidStates</a></div><div class="ttdeci">static void ManageMidStates()</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00047">Input.ixx:47</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Input_html_a9b0ce43dda45ae9adfffda1ed9d3f056"><div class="ttname"><a href="classElevate_1_1Input.html#a9b0ce43dda45ae9adfffda1ed9d3f056">Elevate::Input::ResetAllStates</a></div><div class="ttdeci">static void ResetAllStates()</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00048">Input.ixx:48</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Input_html_aecf8e484f3f1e668ab9fdfdbe539425a"><div class="ttname"><a href="classElevate_1_1Input.html#aecf8e484f3f1e668ab9fdfdbe539425a">Elevate::Input::OnMouseButtonPressedEvent</a></div><div class="ttdeci">static void OnMouseButtonPressedEvent(MouseButtonPressedEvent &amp;e)</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00061">Input.ixx:61</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Input_html_a0406ffb401963012630d03e95ad07b30"><div class="ttname"><a href="classElevate_1_1Input.html#a0406ffb401963012630d03e95ad07b30">Elevate::Input::OnKeyPressedEvent</a></div><div class="ttdeci">static void OnKeyPressedEvent(KeyPressedEvent &amp;e)</div><div class="ttdoc">Managed Callbacks // Could be used to simulate inputs to an app by sending events.</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00054">Input.ixx:54</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Input_html_a087a11a22aa935340e4fed568f415c76"><div class="ttname"><a href="classElevate_1_1Input.html#a087a11a22aa935340e4fed568f415c76">Elevate::Input::OnMouseButtonReleasedEvent</a></div><div class="ttdeci">static void OnMouseButtonReleasedEvent(MouseButtonReleasedEvent &amp;e)</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00067">Input.ixx:67</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Input_html_a1f34fa555cb5bbcbd1e70743583ec7e7"><div class="ttname"><a href="classElevate_1_1Input.html#a1f34fa555cb5bbcbd1e70743583ec7e7">Elevate::Input::OnKeyReleasedEvent</a></div><div class="ttdeci">static void OnKeyReleasedEvent(KeyReleasedEvent &amp;e)</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00058">Input.ixx:58</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Input_html_a248336b6c0e4a2812fb8559d0c0f4fa6"><div class="ttname"><a href="classElevate_1_1Input.html#a248336b6c0e4a2812fb8559d0c0f4fa6">Elevate::Input::ManageMidStates</a></div><div class="ttdeci">static void ManageMidStates()</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00049">Input.ixx:49</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Input_html_a9b0ce43dda45ae9adfffda1ed9d3f056"><div class="ttname"><a href="classElevate_1_1Input.html#a9b0ce43dda45ae9adfffda1ed9d3f056">Elevate::Input::ResetAllStates</a></div><div class="ttdeci">static void ResetAllStates()</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00050">Input.ixx:50</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Input_html_aecf8e484f3f1e668ab9fdfdbe539425a"><div class="ttname"><a href="classElevate_1_1Input.html#aecf8e484f3f1e668ab9fdfdbe539425a">Elevate::Input::OnMouseButtonPressedEvent</a></div><div class="ttdeci">static void OnMouseButtonPressedEvent(MouseButtonPressedEvent &amp;e)</div><div class="ttdef"><b>Definition</b> <a href="Input_8ixx_source.html#l00063">Input.ixx:63</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Internal_1_1LoggerFacade_html_a40d3a7402fcd5dbf7ab7537c33fd9bee"><div class="ttname"><a href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">Elevate::Internal::LoggerFacade&lt; CoreLogger &gt;::Trace</a></div><div class="ttdeci">static void Trace(fmt::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="LoggerFacade_8ixx_source.html#l00034">LoggerFacade.ixx:34</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Internal_1_1LoggerFacade_html_ab70bbb674b97f373a4ed49b1b22ee281"><div class="ttname"><a href="classElevate_1_1Internal_1_1LoggerFacade.html#ab70bbb674b97f373a4ed49b1b22ee281">Elevate::Internal::LoggerFacade&lt; CoreLogger &gt;::Info</a></div><div class="ttdeci">static void Info(fmt::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="LoggerFacade_8ixx_source.html#l00043">LoggerFacade.ixx:43</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Internal_1_1LoggerFacade_html_ac56a85f21c2bb65fa9f0dac1023f153d"><div class="ttname"><a href="classElevate_1_1Internal_1_1LoggerFacade.html#ac56a85f21c2bb65fa9f0dac1023f153d">Elevate::Internal::LoggerFacade&lt; CoreLogger &gt;::Error</a></div><div class="ttdeci">static void Error(fmt::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="LoggerFacade_8ixx_source.html#l00061">LoggerFacade.ixx:61</a></div></div>
@@ -554,12 +558,12 @@ $(function(){initNavTree('Application_8cpp_source.html','',''); });
 <div class="ttc" id="aclassElevate_1_1PhysicsSystem_html_a566865cda284d325e4244690ff07bd71"><div class="ttname"><a href="classElevate_1_1PhysicsSystem.html#a566865cda284d325e4244690ff07bd71">Elevate::PhysicsSystem::Create</a></div><div class="ttdeci">static std::unique_ptr&lt; PhysicsSystem &gt; Create()</div><div class="ttdef"><b>Definition</b> <a href="PhysicsSystem_8ixx_source.html#l00026">PhysicsSystem.ixx:26</a></div></div>
 <div class="ttc" id="aclassElevate_1_1PhysicsSystem_html_afb25acf2be5352e709e0b352f7916d86"><div class="ttname"><a href="classElevate_1_1PhysicsSystem.html#afb25acf2be5352e709e0b352f7916d86">Elevate::PhysicsSystem::FlushAllBodies</a></div><div class="ttdeci">virtual void FlushAllBodies()=0</div></div>
 <div class="ttc" id="aclassElevate_1_1RendererServiceModule_html"><div class="ttname"><a href="classElevate_1_1RendererServiceModule.html">Elevate::RendererServiceModule</a></div><div class="ttdef"><b>Definition</b> <a href="RendererServiceModule_8ixx_source.html#l00014">RendererServiceModule.ixx:15</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a16519688fb3e0f350b480ecf7a1cbfc1"><div class="ttname"><a href="classElevate_1_1Renderer.html#a16519688fb3e0f350b480ecf7a1cbfc1">Elevate::Renderer::FlushBuffers</a></div><div class="ttdeci">static void FlushBuffers()</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00383">Renderer.cpp:383</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a2356117b047f7d951c083bee461f1b14"><div class="ttname"><a href="classElevate_1_1Renderer.html#a2356117b047f7d951c083bee461f1b14">Elevate::Renderer::SetViewport</a></div><div class="ttdeci">static void SetViewport(int x, int y, int width, int height)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00388">Renderer.cpp:388</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a87ad2947f16f20c073bafde61b987574"><div class="ttname"><a href="classElevate_1_1Renderer.html#a87ad2947f16f20c073bafde61b987574">Elevate::Renderer::InvalidateStateCache</a></div><div class="ttdeci">static void InvalidateStateCache()</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00522">Renderer.cpp:522</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_a9dc0ad337274dfb4fa273eeb33535cee"><div class="ttname"><a href="classElevate_1_1Renderer.html#a9dc0ad337274dfb4fa273eeb33535cee">Elevate::Renderer::Present</a></div><div class="ttdeci">static void Present(uint32_t width, uint32_t height)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00325">Renderer.cpp:325</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_ab154d900f9dd4a098e4fcee15bae284e"><div class="ttname"><a href="classElevate_1_1Renderer.html#ab154d900f9dd4a098e4fcee15bae284e">Elevate::Renderer::Init</a></div><div class="ttdeci">static void Init(uint32_t width, uint32_t height)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00080">Renderer.cpp:80</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Renderer_html_ac363d8973115296b066801eba8b24009"><div class="ttname"><a href="classElevate_1_1Renderer.html#ac363d8973115296b066801eba8b24009">Elevate::Renderer::RenderFrame</a></div><div class="ttdeci">static void RenderFrame()</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00298">Renderer.cpp:298</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a16519688fb3e0f350b480ecf7a1cbfc1"><div class="ttname"><a href="classElevate_1_1Renderer.html#a16519688fb3e0f350b480ecf7a1cbfc1">Elevate::Renderer::FlushBuffers</a></div><div class="ttdeci">static void FlushBuffers()</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00414">Renderer.cpp:414</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a2356117b047f7d951c083bee461f1b14"><div class="ttname"><a href="classElevate_1_1Renderer.html#a2356117b047f7d951c083bee461f1b14">Elevate::Renderer::SetViewport</a></div><div class="ttdeci">static void SetViewport(int x, int y, int width, int height)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00419">Renderer.cpp:419</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a87ad2947f16f20c073bafde61b987574"><div class="ttname"><a href="classElevate_1_1Renderer.html#a87ad2947f16f20c073bafde61b987574">Elevate::Renderer::InvalidateStateCache</a></div><div class="ttdeci">static void InvalidateStateCache()</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00553">Renderer.cpp:553</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_a9dc0ad337274dfb4fa273eeb33535cee"><div class="ttname"><a href="classElevate_1_1Renderer.html#a9dc0ad337274dfb4fa273eeb33535cee">Elevate::Renderer::Present</a></div><div class="ttdeci">static void Present(uint32_t width, uint32_t height)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00356">Renderer.cpp:356</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_ab154d900f9dd4a098e4fcee15bae284e"><div class="ttname"><a href="classElevate_1_1Renderer.html#ab154d900f9dd4a098e4fcee15bae284e">Elevate::Renderer::Init</a></div><div class="ttdeci">static void Init(uint32_t width, uint32_t height)</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00084">Renderer.cpp:84</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Renderer_html_ac363d8973115296b066801eba8b24009"><div class="ttname"><a href="classElevate_1_1Renderer.html#ac363d8973115296b066801eba8b24009">Elevate::Renderer::RenderFrame</a></div><div class="ttdeci">static void RenderFrame()</div><div class="ttdef"><b>Definition</b> <a href="Renderer_8cpp_source.html#l00329">Renderer.cpp:329</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ServiceCollection_html"><div class="ttname"><a href="classElevate_1_1ServiceCollection.html">Elevate::ServiceCollection</a></div><div class="ttdef"><b>Definition</b> <a href="ServiceCollection_8ixx_source.html#l00024">ServiceCollection.ixx:25</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ServiceModuleRegistry_html_a0af30dffdf9dd070fe54c6e57e8994b0"><div class="ttname"><a href="classElevate_1_1ServiceModuleRegistry.html#a0af30dffdf9dd070fe54c6e57e8994b0">Elevate::ServiceModuleRegistry::Register</a></div><div class="ttdeci">ServiceModuleRegistry &amp; Register()</div><div class="ttdef"><b>Definition</b> <a href="ServiceModuleRegistry_8ixx_source.html#l00026">ServiceModuleRegistry.ixx:26</a></div></div>
 <div class="ttc" id="aclassElevate_1_1ServiceModuleRegistry_html_accbda2dbe58d061b643cf8adab4f69ca"><div class="ttname"><a href="classElevate_1_1ServiceModuleRegistry.html#accbda2dbe58d061b643cf8adab4f69ca">Elevate::ServiceModuleRegistry::Create</a></div><div class="ttdeci">static ServiceModuleRegistry Create()</div><div class="ttdef"><b>Definition</b> <a href="ServiceModuleRegistry_8ixx_source.html#l00020">ServiceModuleRegistry.ixx:20</a></div></div>
@@ -569,13 +573,13 @@ $(function(){initNavTree('Application_8cpp_source.html','',''); });
 <div class="ttc" id="aclassElevate_1_1SoundEngine_html_aa22c6574f0a645da973dee2081a5cda5"><div class="ttname"><a href="classElevate_1_1SoundEngine.html#aa22c6574f0a645da973dee2081a5cda5">Elevate::SoundEngine::Wakeup</a></div><div class="ttdeci">static void Wakeup()</div><div class="ttdef"><b>Definition</b> <a href="SoundEngine_8cpp_source.html#l00110">SoundEngine.cpp:110</a></div></div>
 <div class="ttc" id="aclassElevate_1_1SoundEngine_html_ab41d72c921536de6a4c18993ef6e6f99"><div class="ttname"><a href="classElevate_1_1SoundEngine.html#ab41d72c921536de6a4c18993ef6e6f99">Elevate::SoundEngine::RenderAudio</a></div><div class="ttdeci">static void RenderAudio()</div><div class="ttdef"><b>Definition</b> <a href="SoundEngine_8cpp_source.html#l00038">SoundEngine.cpp:38</a></div></div>
 <div class="ttc" id="aclassElevate_1_1TextureManager_html_a36dea2cd383f10a31cc90ee83f6f5a0e"><div class="ttname"><a href="classElevate_1_1TextureManager.html#a36dea2cd383f10a31cc90ee83f6f5a0e">Elevate::TextureManager::SetScheduler</a></div><div class="ttdeci">static void SetScheduler(SharedService&lt; ITaskScheduler &gt; scheduler)</div><div class="ttdef"><b>Definition</b> <a href="TextureManager_8ixx_source.html#l00030">TextureManager.ixx:30</a></div></div>
-<div class="ttc" id="aclassElevate_1_1TextureManager_html_ad83628c7ee56217d5c29999bdcc0da0f"><div class="ttname"><a href="classElevate_1_1TextureManager.html#ad83628c7ee56217d5c29999bdcc0da0f">Elevate::TextureManager::UpdateLoadingTextures</a></div><div class="ttdeci">static void UpdateLoadingTextures()</div><div class="ttdef"><b>Definition</b> <a href="TextureManager_8cpp_source.html#l00145">TextureManager.cpp:145</a></div></div>
+<div class="ttc" id="aclassElevate_1_1TextureManager_html_ad83628c7ee56217d5c29999bdcc0da0f"><div class="ttname"><a href="classElevate_1_1TextureManager.html#ad83628c7ee56217d5c29999bdcc0da0f">Elevate::TextureManager::UpdateLoadingTextures</a></div><div class="ttdeci">static void UpdateLoadingTextures()</div><div class="ttdef"><b>Definition</b> <a href="TextureManager_8cpp_source.html#l00200">TextureManager.cpp:200</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Time_html_a2373b82691970d908082a0c478e3114d"><div class="ttname"><a href="classElevate_1_1Time.html#a2373b82691970d908082a0c478e3114d">Elevate::Time::Update</a></div><div class="ttdeci">static void Update(float currentTime, float deltaTime)</div><div class="ttdoc">Update the current clock parameters. Should only be called by the main loop.</div><div class="ttdef"><b>Definition</b> <a href="Time_8ixx_source.html#l00018">Time.ixx:18</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Time_html_ab2c84a0a69e223039e7fa4a3797191a1"><div class="ttname"><a href="classElevate_1_1Time.html#ab2c84a0a69e223039e7fa4a3797191a1">Elevate::Time::GetCurrentTime</a></div><div class="ttdeci">static float GetCurrentTime()</div><div class="ttdef"><b>Definition</b> <a href="Time_8ixx_source.html#l00010">Time.ixx:10</a></div></div>
 <div class="ttc" id="aclassElevate_1_1Time_html_af8bb45cd3c709d6cda92fa1e9f4a6df5"><div class="ttname"><a href="classElevate_1_1Time.html#af8bb45cd3c709d6cda92fa1e9f4a6df5">Elevate::Time::GetDeltaTime</a></div><div class="ttdeci">static float GetDeltaTime()</div><div class="ttdef"><b>Definition</b> <a href="Time_8ixx_source.html#l00011">Time.ixx:11</a></div></div>
 <div class="ttc" id="aclassElevate_1_1WindowCloseEvent_html"><div class="ttname"><a href="classElevate_1_1WindowCloseEvent.html">Elevate::WindowCloseEvent</a></div><div class="ttdef"><b>Definition</b> <a href="ApplicationEvent_8ixx_source.html#l00086">ApplicationEvent.ixx:87</a></div></div>
 <div class="ttc" id="aclassElevate_1_1WindowFocusEvent_html"><div class="ttname"><a href="classElevate_1_1WindowFocusEvent.html">Elevate::WindowFocusEvent</a></div><div class="ttdef"><b>Definition</b> <a href="ApplicationEvent_8ixx_source.html#l00095">ApplicationEvent.ixx:96</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Window_html_adab57419e9f9fbc1a9d8c8f019dbf04b"><div class="ttname"><a href="classElevate_1_1Window.html#adab57419e9f9fbc1a9d8c8f019dbf04b">Elevate::Window::Create</a></div><div class="ttdeci">static Window * Create(const WindowProps &amp;props=WindowProps(&quot;app.config&quot;))</div><div class="ttdef"><b>Definition</b> <a href="Window_8cpp_source.html#l00099">Window.cpp:99</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Window_html_adab57419e9f9fbc1a9d8c8f019dbf04b"><div class="ttname"><a href="classElevate_1_1Window.html#adab57419e9f9fbc1a9d8c8f019dbf04b">Elevate::Window::Create</a></div><div class="ttdeci">static Window * Create(const WindowProps &amp;props=WindowProps(&quot;app.config&quot;))</div><div class="ttdef"><b>Definition</b> <a href="Window_8cpp_source.html#l00066">Window.cpp:66</a></div></div>
 <div class="ttc" id="amodule__Elevate_8Audio_8SoundEngine_html"><div class="ttname"><a href="module__Elevate_8Audio_8SoundEngine.html">Elevate.Audio.SoundEngine</a></div></div>
 <div class="ttc" id="amodule__Elevate_8Core_8Application_html"><div class="ttname"><a href="module__Elevate_8Core_8Application.html">Elevate.Core.Application</a></div></div>
 <div class="ttc" id="amodule__Elevate_8Core_8Assets_8AssetRegistry_html"><div class="ttname"><a href="module__Elevate_8Core_8Assets_8AssetRegistry.html">Elevate.Core.Assets.AssetRegistry</a></div></div>
@@ -597,6 +601,7 @@ $(function(){initNavTree('Application_8cpp_source.html','',''); });
 <div class="ttc" id="amodule__Elevate_8Renderer_8DI_html"><div class="ttname"><a href="module__Elevate_8Renderer_8DI.html">Elevate.Renderer.DI</a></div></div>
 <div class="ttc" id="amodule__Elevate_8Renderer_8Renderer_html"><div class="ttname"><a href="module__Elevate_8Renderer_8Renderer.html">Elevate.Renderer.Renderer</a></div></div>
 <div class="ttc" id="amodule__Elevate_8Renderer_8Texture_html"><div class="ttname"><a href="module__Elevate_8Renderer_8Texture.html">Elevate.Renderer.Texture</a></div></div>
+<div class="ttc" id="anamespaceElevate_1_1RendererBackend_html_a0131ef955570393a5ffbb7ff35fea985"><div class="ttname"><a href="namespaceElevate_1_1RendererBackend.html#a0131ef955570393a5ffbb7ff35fea985">Elevate::RendererBackend::Register</a></div><div class="ttdeci">void Register()</div><div class="ttdef"><b>Definition</b> <a href="OpenGLRendererBackend_8cpp_source.html#l00099">OpenGLRendererBackend.cpp:99</a></div></div>
 <div class="ttc" id="anamespaceElevate_html"><div class="ttname"><a href="namespaceElevate.html">Elevate</a></div><div class="ttdef"><b>Definition</b> <a href="AudioObject_8ixx_source.html#l00010">AudioObject.ixx:11</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_a3334896a162702230b934d59cb3bbe83"><div class="ttname"><a href="namespaceElevate.html#a3334896a162702230b934d59cb3bbe83">Elevate::GetGameContextStateName</a></div><div class="ttdeci">const char * GetGameContextStateName(GameContextState state)</div><div class="ttdef"><b>Definition</b> <a href="GameContext_8cpp_source.html#l00022">GameContext.cpp:22</a></div></div>
 <div class="ttc" id="anamespaceElevate_html_aaca313f9381f3f38cd912f89f63b6b3a"><div class="ttname"><a href="namespaceElevate.html#aaca313f9381f3f38cd912f89f63b6b3a">Elevate::GameContextState</a></div><div class="ttdeci">GameContextState</div><div class="ttdef"><b>Definition</b> <a href="GameContext_8ixx_source.html#l00007">GameContext.ixx:8</a></div></div>

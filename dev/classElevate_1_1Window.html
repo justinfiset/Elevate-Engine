@@ -116,6 +116,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a787e334dd64c31632448a18b73e9b2dc" id="r_a787e334dd64c31632448a18b73e9b2dc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a787e334dd64c31632448a18b73e9b2dc">OnUpdate</a> (bool skipEventPolling=false)=0</td></tr>
 <tr class="memitem:a20a76d27824993d91ad832e9aafc2c92" id="r_a20a76d27824993d91ad832e9aafc2c92"><td class="memItemLeft" align="right" valign="top">virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20a76d27824993d91ad832e9aafc2c92">GetWidth</a> () const =0</td></tr>
 <tr class="memitem:a287f3f6af399818e3e39d36c4364e125" id="r_a287f3f6af399818e3e39d36c4364e125"><td class="memItemLeft" align="right" valign="top">virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a287f3f6af399818e3e39d36c4364e125">GetHeight</a> () const =0</td></tr>
+<tr class="memitem:ae1f9438f30ea4671a8002b226ef3a712" id="r_ae1f9438f30ea4671a8002b226ef3a712"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae1f9438f30ea4671a8002b226ef3a712">GetFramebufferWidth</a> () const</td></tr>
+<tr class="memitem:a0f3d2f42246e135ded97d4fde341a19e" id="r_a0f3d2f42246e135ded97d4fde341a19e"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f3d2f42246e135ded97d4fde341a19e">GetFramebufferHeight</a> () const</td></tr>
 <tr class="memitem:a64e44be787a0a6e94fea37eef9410f7c" id="r_a64e44be787a0a6e94fea37eef9410f7c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64e44be787a0a6e94fea37eef9410f7c">GetFocus</a> () const =0</td></tr>
 <tr class="memitem:a587678d90e6f6952bcd200333460bcd5" id="r_a587678d90e6f6952bcd200333460bcd5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a587678d90e6f6952bcd200333460bcd5">SetEventCallback</a> (const <a class="el" href="namespaceElevate.html#a8a72c1f4273b5c83ae8542bcdf63e7c5">EventCallbackFn</a> &amp;callback)=0</td></tr>
 <tr class="memitem:a9cd7825d874094c4785cd0037b6745a5" id="r_a9cd7825d874094c4785cd0037b6745a5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cd7825d874094c4785cd0037b6745a5">SetVSync</a> (bool enabled)=0</td></tr>
@@ -137,7 +139,7 @@ Protected Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Window_8ixx_source.html#l00040">40</a> of file <a class="el" href="Window_8ixx_source.html">Window.ixx</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Window_8ixx_source.html#l00041">41</a> of file <a class="el" href="Window_8ixx_source.html">Window.ixx</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a006469daf0e7deb04d729bd4dd3dfcf8" name="a006469daf0e7deb04d729bd4dd3dfcf8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a006469daf0e7deb04d729bd4dd3dfcf8">&#9670;&#160;</a></span>Window()</h2>
@@ -213,10 +215,11 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Window_8cpp_source.html#l00099">99</a> of file <a class="el" href="Window_8cpp_source.html">Window.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  100</span>    {</div>
-<div class="line"><span class="lineno">  101</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> PlatformWindow(props);</div>
-<div class="line"><span class="lineno">  102</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Window_8cpp_source.html#l00066">66</a> of file <a class="el" href="Window_8cpp_source.html">Window.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   67</span>    {</div>
+<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceElevate.html#a60090b94400b804fe98b4630c6792cc4">CreatePlatformWindow</a>(props);</div>
+<div class="line"><span class="lineno">   69</span>    }</div>
+<div class="ttc" id="anamespaceElevate_html_a60090b94400b804fe98b4630c6792cc4"><div class="ttname"><a href="namespaceElevate.html#a60090b94400b804fe98b4630c6792cc4">Elevate::CreatePlatformWindow</a></div><div class="ttdeci">Window * CreatePlatformWindow(const WindowProps &amp;props)</div><div class="ttdef"><b>Definition</b> <a href="GlfwWindow_8cpp_source.html#l00257">GlfwWindow.cpp:257</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -243,9 +246,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Window_8ixx_source.html#l00068">68</a> of file <a class="el" href="Window_8ixx_source.html">Window.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   68</span>{ <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.EventCallback(event); }</div>
-<div class="ttc" id="aclassElevate_1_1Window_html_a35eeda63cc04234f1337f616372de663"><div class="ttname"><a href="#a35eeda63cc04234f1337f616372de663">Elevate::Window::m_Data</a></div><div class="ttdeci">WindowData m_Data</div><div class="ttdef"><b>Definition</b> <a href="Window_8ixx_source.html#l00071">Window.ixx:71</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Window_8ixx_source.html#l00071">71</a> of file <a class="el" href="Window_8ixx_source.html">Window.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   71</span>{ <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.EventCallback(event); }</div>
+<div class="ttc" id="aclassElevate_1_1Window_html_a35eeda63cc04234f1337f616372de663"><div class="ttname"><a href="#a35eeda63cc04234f1337f616372de663">Elevate::Window::m_Data</a></div><div class="ttdeci">WindowData m_Data</div><div class="ttdef"><b>Definition</b> <a href="Window_8ixx_source.html#l00074">Window.ixx:74</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -274,6 +277,62 @@ Protected Attributes</h2></td></tr>
 
 <p>Implemented in <a class="el" href="classElevate_1_1GlfwWindow.html#af0da8dbd4195df4e777e0dd95c4d2431">Elevate::GlfwWindow</a>.</p>
 
+</div>
+</div>
+<a id="a0f3d2f42246e135ded97d4fde341a19e" name="a0f3d2f42246e135ded97d4fde341a19e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f3d2f42246e135ded97d4fde341a19e">&#9670;&#160;</a></span>GetFramebufferHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Elevate::Window::GetFramebufferHeight </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel export">export</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Window_8ixx_source.html#l00053">53</a> of file <a class="el" href="Window_8ixx_source.html">Window.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   53</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.FramebufferHeight; }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae1f9438f30ea4671a8002b226ef3a712" name="ae1f9438f30ea4671a8002b226ef3a712"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1f9438f30ea4671a8002b226ef3a712">&#9670;&#160;</a></span>GetFramebufferWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Elevate::Window::GetFramebufferWidth </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel export">export</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Window_8ixx_source.html#l00052">52</a> of file <a class="el" href="Window_8ixx_source.html">Window.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   52</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.FramebufferWidth; }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a287f3f6af399818e3e39d36c4364e125" name="a287f3f6af399818e3e39d36c4364e125"></a>
@@ -407,8 +466,8 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Window_8ixx_source.html#l00065">65</a> of file <a class="el" href="Window_8ixx_source.html">Window.ixx</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   65</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="Window_8ixx_source.html#l00068">68</a> of file <a class="el" href="Window_8ixx_source.html">Window.ixx</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   68</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -437,13 +496,15 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classElevate_1_1GlfwWindow.html#a4f28e13ddac7be36683425c97e725e52">Elevate::GlfwWindow</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Window_8cpp_source.html#l00104">104</a> of file <a class="el" href="Window_8cpp_source.html">Window.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  105</span>    {</div>
-<div class="line"><span class="lineno">  106</span>        <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.Title = props.Title;</div>
-<div class="line"><span class="lineno">  107</span>        <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.Width = props.Width;</div>
-<div class="line"><span class="lineno">  108</span>        <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.Height = props.Height;</div>
-<div class="line"><span class="lineno">  109</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">CoreLogger::Trace</a>(<span class="stringliteral">&quot;Creating window: {} ({}x{})&quot;</span>, props.Title.c_str(), props.Width, props.Height);</div>
-<div class="line"><span class="lineno">  110</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Window_8cpp_source.html#l00071">71</a> of file <a class="el" href="Window_8cpp_source.html">Window.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   72</span>    {</div>
+<div class="line"><span class="lineno">   73</span>        <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.Title = props.Title;</div>
+<div class="line"><span class="lineno">   74</span>        <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.Width = props.Width;</div>
+<div class="line"><span class="lineno">   75</span>        <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.Height = props.Height;</div>
+<div class="line"><span class="lineno">   76</span>        <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.FramebufferWidth = props.Width;</div>
+<div class="line"><span class="lineno">   77</span>        <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.FramebufferHeight = props.Height;</div>
+<div class="line"><span class="lineno">   78</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">CoreLogger::Trace</a>(<span class="stringliteral">&quot;Creating window: {} ({}x{})&quot;</span>, props.Title.c_str(), props.Width, props.Height);</div>
+<div class="line"><span class="lineno">   79</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1Internal_1_1LoggerFacade_html_a40d3a7402fcd5dbf7ab7537c33fd9bee"><div class="ttname"><a href="classElevate_1_1Internal_1_1LoggerFacade.html#a40d3a7402fcd5dbf7ab7537c33fd9bee">Elevate::Internal::LoggerFacade&lt; CoreLogger &gt;::Trace</a></div><div class="ttdeci">static void Trace(fmt::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="LoggerFacade_8ixx_source.html#l00034">LoggerFacade.ixx:34</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -583,16 +644,16 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Window_8cpp_source.html#l00112">112</a> of file <a class="el" href="Window_8cpp_source.html">Window.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  113</span>    {</div>
-<div class="line"><span class="lineno">  114</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#ab70bbb674b97f373a4ed49b1b22ee281">CoreLogger::Info</a>(<span class="stringliteral">&quot;Setting window size to {}x{}&quot;</span>, width, height);</div>
-<div class="line"><span class="lineno">  115</span>        <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.Width = width;</div>
-<div class="line"><span class="lineno">  116</span>        <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.Height = height;</div>
-<div class="line"><span class="lineno">  117</span>        WindowResizeEvent event(width, height);</div>
-<div class="line"><span class="lineno">  118</span>        <a class="code hl_function" href="#a496cfaf800cffe5296dcfae399c30a05">EventCallback</a>(event);</div>
-<div class="line"><span class="lineno">  119</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Window_8cpp_source.html#l00081">81</a> of file <a class="el" href="Window_8cpp_source.html">Window.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   82</span>    {</div>
+<div class="line"><span class="lineno">   83</span>        <a class="code hl_function" href="classElevate_1_1Internal_1_1LoggerFacade.html#ab70bbb674b97f373a4ed49b1b22ee281">CoreLogger::Info</a>(<span class="stringliteral">&quot;Setting window size to {}x{}&quot;</span>, width, height);</div>
+<div class="line"><span class="lineno">   84</span>        <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.Width = width;</div>
+<div class="line"><span class="lineno">   85</span>        <a class="code hl_variable" href="#a35eeda63cc04234f1337f616372de663">m_Data</a>.Height = height;</div>
+<div class="line"><span class="lineno">   86</span>        WindowResizeEvent event(width, height);</div>
+<div class="line"><span class="lineno">   87</span>        <a class="code hl_function" href="#a496cfaf800cffe5296dcfae399c30a05">EventCallback</a>(event);</div>
+<div class="line"><span class="lineno">   88</span>    }</div>
 <div class="ttc" id="aclassElevate_1_1Internal_1_1LoggerFacade_html_ab70bbb674b97f373a4ed49b1b22ee281"><div class="ttname"><a href="classElevate_1_1Internal_1_1LoggerFacade.html#ab70bbb674b97f373a4ed49b1b22ee281">Elevate::Internal::LoggerFacade&lt; CoreLogger &gt;::Info</a></div><div class="ttdeci">static void Info(fmt::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="LoggerFacade_8ixx_source.html#l00043">LoggerFacade.ixx:43</a></div></div>
-<div class="ttc" id="aclassElevate_1_1Window_html_a496cfaf800cffe5296dcfae399c30a05"><div class="ttname"><a href="#a496cfaf800cffe5296dcfae399c30a05">Elevate::Window::EventCallback</a></div><div class="ttdeci">void EventCallback(Event &amp;event)</div><div class="ttdef"><b>Definition</b> <a href="Window_8ixx_source.html#l00068">Window.ixx:68</a></div></div>
+<div class="ttc" id="aclassElevate_1_1Window_html_a496cfaf800cffe5296dcfae399c30a05"><div class="ttname"><a href="#a496cfaf800cffe5296dcfae399c30a05">Elevate::Window::EventCallback</a></div><div class="ttdeci">void EventCallback(Event &amp;event)</div><div class="ttdef"><b>Definition</b> <a href="Window_8ixx_source.html#l00071">Window.ixx:71</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

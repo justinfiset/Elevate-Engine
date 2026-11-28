@@ -4,6 +4,8 @@ var classElevate_1_1Window =
     [ "~Window", "classElevate_1_1Window.html#a644b7dfd8c9cdaa33f09febc3274d385", null ],
     [ "EventCallback", "classElevate_1_1Window.html#a496cfaf800cffe5296dcfae399c30a05", null ],
     [ "GetFocus", "classElevate_1_1Window.html#a64e44be787a0a6e94fea37eef9410f7c", null ],
+    [ "GetFramebufferHeight", "classElevate_1_1Window.html#a0f3d2f42246e135ded97d4fde341a19e", null ],
+    [ "GetFramebufferWidth", "classElevate_1_1Window.html#ae1f9438f30ea4671a8002b226ef3a712", null ],
     [ "GetHeight", "classElevate_1_1Window.html#a287f3f6af399818e3e39d36c4364e125", null ],
     [ "GetNativeWindow", "classElevate_1_1Window.html#a550820a23cdf8631430796b661845673", null ],
     [ "GetTime", "classElevate_1_1Window.html#a3ebcec9c69ef0e69fc9298010af56709", null ],
