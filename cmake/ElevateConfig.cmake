@@ -138,6 +138,17 @@ function(ee_safe_project_name name output)
   set(${output} "${safe}" PARENT_SCOPE)
 endfunction()
 
+# Wrap editor-only source paths so multi-config generators compile them only
+# for Editor_* configurations. Paths must already be absolute: CMake leaves
+# generator-expression sources untouched relative to the target source dir.
+function(ee_editor_only_files files output)
+  set(result "")
+  foreach(file IN LISTS files)
+    list(APPEND result "$<$<OR:$<CONFIG:Editor_Debug>,$<CONFIG:Editor_Release>>:${file}>")
+  endforeach()
+  set(${output} "${result}" PARENT_SCOPE)
+endfunction()
+
 function(ee_target_folder target folder)
   set_target_properties(${target} PROPERTIES FOLDER "${folder}")
 endfunction()

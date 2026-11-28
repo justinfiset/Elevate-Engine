@@ -16,8 +16,10 @@ import Elevate.Core.Types.ITypeTrait;
 import Elevate.Core.Types.TypeField;
 import Elevate.Core.Types.TypeLayout;
 import Elevate.Core.Types.TypeRegistry;
+#ifdef EE_EDITOR_BUILD
 import Elevate.Editor.Resources;
 import Elevate.Editor.Types.EditorTypeTrait;
+#endif
 import Elevate.Foundations.Assert;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Enums;

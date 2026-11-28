@@ -10,7 +10,9 @@ export module Elevate.Renderer.Camera:Camera;
 
 import Elevate.Foundations;
 import Elevate.Core.Scene;
+#ifdef EE_EDITOR_BUILD
 import Elevate.Editor.Resources;
+#endif
 
 import :CameraProjectionMode;
 import :CameraProjection;
@@ -20,7 +22,7 @@ export namespace Elevate
 	class Camera : public Component
 	{
 	public:
-		BEGIN_COMPONENT(Camera, EditorIconTag(Editor::Resources::Icons::Light::Components::Camera));
+		BEGIN_COMPONENT(Camera, EE_EditorTag(EditorIconTag(Editor::Resources::Icons::Light::Components::Camera)));
 		EECATEGORY("Rendering");
 
 		// All possible constructors

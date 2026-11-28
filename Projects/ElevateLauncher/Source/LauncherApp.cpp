@@ -23,7 +23,7 @@
 
 #include <ElevateEngine.h>
 
-import Elevate.Editor.Theme;
+import Elevate.Theme;
 
 using namespace EL;
 
@@ -79,7 +79,7 @@ public:
 
 	void OnAttach() override
 	{
-		Elevate::Editor::SetDarkTheme();
+		Elevate::SetDarkTheme();
 
 		m_elevateIcon = Elevate::Texture::CreateFromFile("content://Textures/Elevate.png");
 		m_createTexture = Elevate::Texture::CreateFromFile("content://Textures/add-files.png");
@@ -269,6 +269,49 @@ public:
 		ImGui::PopStyleVar(3);
 	}
 
+	static ImVec4 WithAlpha(ImVec4 color, float alpha)
+	{
+		color.w = alpha;
+		return color;
+	}
+
+	void PushPopupStyle()
+	{
+		// Make popups feel like the input surface they open from.
+		ImGui::PushStyleColor(ImGuiCol_PopupBg, ImGui::GetStyleColorVec4(ImGuiCol_FrameBg));
+		ImGui::PushStyleColor(ImGuiCol_Header, WithAlpha(Color::Accent, 0.35f));
+		ImGui::PushStyleColor(ImGuiCol_HeaderHovered, WithAlpha(Color::Accent, 0.55f));
+		ImGui::PushStyleColor(ImGuiCol_HeaderActive, WithAlpha(Color::Accent, 0.75f));
+
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(padding, padding));
+		ImGui::PushStyleVar(ImGuiStyleVar_PopupRounding, 5.0f);
+		ImGui::PushStyleVar(ImGuiStyleVar_PopupBorderSize, 1.0f);
+	}
+
+	void PopPopupStyle()
+	{
+		ImGui::PopStyleVar(3);
+		ImGui::PopStyleColor(4);
+	}
+
+	void PushComboStyle()
+	{
+		// BeginCombo paints the arrow area with Button colors, while InputText
+		// uses FrameBg. Mirror FrameBg onto the button colors so the whole combo
+		// reads as the same input surface.
+		ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyleColorVec4(ImGuiCol_FrameBg));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::GetStyleColorVec4(ImGuiCol_FrameBgHovered));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::GetStyleColorVec4(ImGuiCol_FrameBgActive));
+
+		PushPopupStyle();
+	}
+
+	void PopComboStyle()
+	{
+		PopPopupStyle();
+		ImGui::PopStyleColor(3);
+	}
+
 	// Content panel drawing
 	void DrawProjectCreationMenu()
 	{
@@ -381,10 +424,12 @@ public:
 			ImGui::PopItemWidth();
 			ImGui::EndDisabled();
 			ImGui::SetCursorPos(ImVec2(btnPos.x + ImGui::GetContentRegionAvail().x - buttonSize - spacing, btnPos.y));
+			ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 5.0f);
 			if (ImGui::Button("..."))
 			{
 				Elevate::FileDialog::RequestSelectFolder("Select a directory", ".");
 			}
+			ImGui::PopStyleVar();
 
 			std::string selectedPath;
 			if (Elevate::FileDialog::DisplayAndGetResult(selectedPath))
@@ -412,6 +457,7 @@ public:
 			}
 
 			ImGui::Text("Template");
+			PushComboStyle();
 			if (ImGui::BeginCombo("##templateSelection", templateLabel))
 			{
 				for (int i = 0; i < templates.size(); i++)
@@ -430,6 +476,7 @@ public:
 				}
 				ImGui::EndCombo();
 			}
+			PopComboStyle();
 			ImGui::PopItemWidth();
 
 			ImGui::Dummy(ImVec2(ImGui::GetColumnWidth(), ImGui::GetContentRegionAvail().y - footerHeight - padding));
@@ -520,6 +567,7 @@ public:
 		ImGui::PopStyleVar();
 		ImGui::GetWindowDrawList()->AddRect(optionsButtonPos, ImVec2(optionsButtonPos.x + optionButtonSize, optionsButtonPos.y + optionButtonSize), ImGui::GetColorU32(ImGuiCol_Border), 5.0f);
 
+		PushPopupStyle();
 		if (ImGui::BeginPopupContextItem("ProjectContextMenu"))
 		{
 			if (ImGui::MenuItem("Remove From List"))
@@ -528,6 +576,7 @@ public:
 			}
 			ImGui::EndPopup();
 		}
+		PopPopupStyle();
 
 		ImGui::SetCursorScreenPos(ImVec2(pos.x + padding, pos.y + padding));
 		ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + maxWidth - padding * 4 - optionButtonSize);
