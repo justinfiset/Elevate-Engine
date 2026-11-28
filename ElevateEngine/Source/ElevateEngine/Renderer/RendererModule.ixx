@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Renderer;
 
 export import Elevate.Renderer.Buffers;

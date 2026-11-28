@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Input.Mouse.Button;
 
 export namespace Elevate

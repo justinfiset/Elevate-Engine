@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 import Elevate.Renderer.Texture;
 
 namespace Elevate
@@ -12,12 +14,12 @@ namespace Elevate
 
 		void EnsureCreated();
 
-		virtual void SetDataImpl(const void*) override;
-		virtual void* GetNativeHandle() const override;
+		void SetDataImpl(const void*) override;
+		void* GetNativeHandle() const override;
 
 	private:
-		virtual void Bind(uint32_t index = 0) override;
-		virtual void Unbind() override;
+		void Bind(uint32_t index = 0) override;
+		void Unbind() override;
 
 	private:
 		uint32_t m_textureID = 0;

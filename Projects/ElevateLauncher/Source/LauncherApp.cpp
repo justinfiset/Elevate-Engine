@@ -1,16 +1,25 @@
 
+#include <algorithm>
+#include <array>
+#include <chrono>
+#include <cstdint>
+#include <ctime>
+#include <functional>
+#include <future>
+#include <memory>
+#include <span>
+#include <string>
+#include <string_view>
+#include <utility>
+#include <vector>
+
 #include <imgui.h>
 #include <misc/cpp/imgui_stdlib.h>
-
-#include <span>
-#include <vector>
 
 // Elevate Launcher includes
 #include "Managers/ProjectManager.h"
 #include "Controllers/ProjectController.h"
 #include "Models/Project.h"
-
-#include <ElevateEngine/Editor/Widgets/ImGuiLoadingIndicator.h>
 
 #include <ElevateEngine.h>
 
@@ -127,11 +136,10 @@ public:
 			ImVec2 pos = ImGui::GetCursorScreenPos();
 			static constexpr float spinnerRadius = 15.0f;
 
-			// Simple hack to make sure the windows is big enought for the spinner
 			ImGui::Dummy(ImVec2(spinnerRadius * 3, spinnerRadius * 3));
 
 			ImGui::SetCursorScreenPos(ImVec2(pos.x + avail.x / 2 - spinnerRadius, pos.y + avail.y / 2 - spinnerRadius));
-			ImGui::Spinner("##launcher_loading_spinner", spinnerRadius, 4, ImGui::GetColorU32(Color::Accent));
+			ImGui::ProgressBar(-1.0f, ImVec2(spinnerRadius * 2.0f, spinnerRadius * 2.0f), "");
 
 			if (!m_controller.IsLoading())
 			{

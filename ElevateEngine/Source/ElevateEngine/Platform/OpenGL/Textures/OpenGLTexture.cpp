@@ -1,15 +1,18 @@
+
+#include <cstddef>
 #include <cstdint>
+#include <memory>
 
 // todo put in Elevate.Foundations.Image
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <ElevateEngine/Platform/OpenGL/GraphicsAPI.h>
 
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
 
 #include "OpenGLTexture.h"
 
-import Elevate.Foundations;
+import Elevate.Foundations.CoreLogger;
 
 namespace Elevate
 {

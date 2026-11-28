@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Core.Types;
 
 export import Elevate.Core.Types.TypeField;

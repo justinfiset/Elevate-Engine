@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Renderer.GraphicsContext;
 
 export namespace Elevate
@@ -13,7 +15,7 @@ export namespace Elevate
 	{
 	public:
 		GraphicsContext();
-		~GraphicsContext();
+		virtual ~GraphicsContext();
 
 		virtual void Init()
 		{

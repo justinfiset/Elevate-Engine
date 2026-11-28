@@ -1,6 +1,8 @@
 module;
 
 #include <memory>
+#include <new>
+#include <typeinfo>
 
 export module Elevate.Editor.DI;
 

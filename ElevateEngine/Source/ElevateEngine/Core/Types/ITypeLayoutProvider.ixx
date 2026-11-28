@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Core.Types.ITypeLayoutProvider;
 
 import Elevate.Core.Types.TypeLayout;

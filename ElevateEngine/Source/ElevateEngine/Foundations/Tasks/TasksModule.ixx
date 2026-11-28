@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Foundations.Tasks;
 
 export import Elevate.Foundations.Tasks.TaskAffinity;

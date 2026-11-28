@@ -1,19 +1,31 @@
 module;
 
+#include <map>
 #include <typeindex>
 #include <typeinfo>
+#include <unordered_map>
 #include <vector>
 
 module Elevate.Core.Types.TypeField;
 
-import Elevate.Core.Types.TypeRegistry;
-
 namespace Elevate
 {
-	std::type_index Elevate::TypeField::GetTargetType() const
+	std::unordered_map<const char*, std::type_index>& GetTypeIndexes()
 	{
-		auto& types = TypeRegistry::GetTypeIndexes();
-		auto it = types.find(targetTypeKey);
+		static std::unordered_map<const char*, std::type_index> entries;
+		return entries;
+	}
+
+	std::map<std::type_index, std::vector<TypeField>>& GetReflectedTypes()
+	{
+		static std::map<std::type_index, std::vector<TypeField>> fields;
+		return fields;
+	}
+
+	std::type_index TypeField::GetTargetType() const
+	{
+		auto& types = GetTypeIndexes();
+		const auto it = types.find(targetTypeKey);
 
 		if (it == types.end())
 		{
@@ -32,7 +44,6 @@ namespace Elevate
 			return;
 		}
 
-		// If we are in the presence of a pointer, adjust the child fields with the right adress
 		const void* pointeeData = GetPointee(data);
 		const auto pointeeType = GetPointeeTypeIndex(data);
 
@@ -44,12 +55,13 @@ namespace Elevate
 			allFields.push_back(child);
 		}
 
-		const auto& customFields = TypeRegistry::GetReflectedTypes();
-		auto it = customFields.find(pointeeType);
+		auto& reflectedTypes = GetReflectedTypes();
+		const auto reflectedIt = reflectedTypes.find(pointeeType);
 
-		if (it != customFields.end())
+		if (reflectedIt != reflectedTypes.end())
 		{
-			pointeeTypeField = it->second;
+			const auto& fields = reflectedIt->second;
+			pointeeTypeField.assign(fields.begin(), fields.end());
 		}
 
 		for (const auto& pointeeField : pointeeTypeField)
@@ -58,7 +70,6 @@ namespace Elevate
 		}
 
 		children.clear();
-
 		children.reserve(allFields.size());
 
 		for (const auto& field : allFields)

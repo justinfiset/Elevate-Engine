@@ -37,7 +37,7 @@ export namespace Elevate
 		GameObjectComponentDestructor m_destructor;
 		PropertySet m_properties;
 
-		virtual void Execute() override
+		void Execute() override
 		{
 			if (auto go = m_obj.lock(); go && m_destructor)
 			{
@@ -45,7 +45,7 @@ export namespace Elevate
 			}
 		}
 
-		virtual void Undo() override
+		void Undo() override
 		{
 			if (m_factory)
 			{
@@ -75,7 +75,7 @@ export namespace Elevate
 		GameObjectComponentFactory m_factory;
 		GameObjectComponentDestructor m_destructor;
 
-		virtual void Execute() override
+		void Execute() override
 		{
 			if (auto go = m_obj.lock(); go && m_factory)
 			{
@@ -83,7 +83,7 @@ export namespace Elevate
 			}
 		}
 
-		virtual void Undo() override
+		void Undo() override
 		{
 			if (auto go = m_obj.lock(); go && m_destructor)
 			{

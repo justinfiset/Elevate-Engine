@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Input.Keyboard.KeyCode;
 
 export namespace Elevate

@@ -1,3 +1,5 @@
+module;
+
 module Elevate.Renderer.RendererAPI;
 
 namespace Elevate

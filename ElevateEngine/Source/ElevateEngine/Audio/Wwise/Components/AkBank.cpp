@@ -1,3 +1,5 @@
+module;
+
 module Elevate.Audio.Wwise.AkBank;
 
 namespace Elevate

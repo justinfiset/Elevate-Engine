@@ -25,7 +25,7 @@ import Elevate.Renderer.Camera;
 import Elevate.Renderer.Framebuffers;
 // Editor
 import Elevate.Editor.Camera;
-import Elevate.Editor.Layer;
+import Elevate.Editor.Selection;
 
 void Elevate::Editor::ScenePanel::OnImGuiRender()
 {
@@ -93,7 +93,7 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 	framebuffer.Rescale(window_width, window_height);
 	Renderer::SetViewport(0, 0, window_width, window_height);
 
-	Camera* cam = EditorLayer::Get().GetCamera();
+	Camera* cam = CameraManager::GetEditor();
 	if (cam != nullptr && cam->GetProjection() != nullptr)
 	{
 		cam->GetProjection()->SetSize(window_width, window_height);
@@ -106,14 +106,14 @@ void Elevate::Editor::ScenePanel::OnImGuiRender()
 	// ImGuizmo //////////////////////////////////////////
 	if (Application::GetGameState() == EditorMode)
 	{
-		std::weak_ptr<EEObject> selectedObject = EditorLayer::Get().GetSelectedObject();
+		std::weak_ptr<EEObject> selectedObject = Editor::Selection::GetSelectedObject();
 		std::shared_ptr<GameObject> selectedShared = nullptr;
 		if (selectedObject.lock())
 		{
 			selectedShared = std::dynamic_pointer_cast<GameObject>(selectedObject.lock());
 		}
 
-		Camera* cam = EditorLayer::Get().GetCamera();
+		Camera* cam = CameraManager::GetEditor();
 		if (selectedShared)
 		{
 			ImGuizmo::SetDrawlist(ImGui::GetWindowDrawList());

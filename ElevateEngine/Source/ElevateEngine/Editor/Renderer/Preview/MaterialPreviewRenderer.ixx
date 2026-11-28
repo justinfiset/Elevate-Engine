@@ -40,7 +40,7 @@ export namespace Elevate
 			m_previewScene->SetPreviewMaterial(material);
 		}
 
-		virtual Camera& GetCamera() override
+		Camera& GetCamera() override
 		{
 			return *m_previewScene->GetCamera();
 		}

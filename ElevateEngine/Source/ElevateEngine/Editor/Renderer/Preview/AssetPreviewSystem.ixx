@@ -4,8 +4,10 @@ module;
 #include <unordered_map>
 #include <typeindex>
 #include <cstdint>
+#include <tuple>
 #include <type_traits>
 #include <typeinfo>
+#include <utility>
 
 export module Elevate.Editor.Renderer.AssetPreviewSystem;
 
@@ -87,10 +89,10 @@ export namespace Elevate
 				return nullptr;
 			}
 
-			auto [it, created] = m_cache.try_emplace(asset->GetGuid());
-			Entry& entry = it->second;
+			auto result = m_cache.try_emplace(asset->GetGuid());
+			Entry& entry = result.first->second;
 
-			if (created)
+			if (result.second)
 			{
 				entry.Target = renderer->CreatePreviewTarget(size);
 			}

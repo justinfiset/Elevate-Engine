@@ -1,5 +1,7 @@
 module;
 
+#include <cstdint>
+#include <functional>
 #include <memory>
 #include <optional>
 #include <vector>
@@ -31,6 +33,15 @@ export namespace Elevate
 	class Framebuffer
 	{
 	public:
+		using ViewportSetter = void (*)(int, int, int, int);
+		using ClearColorSetter = void (*)(const glm::vec4&);
+		using ClearFunction = void (*)();
+
+		static void SetRendererFunctions(
+			ViewportSetter viewportSetter,
+			ClearColorSetter clearColorSetter,
+			ClearFunction clearFunction);
+
 		virtual ~Framebuffer() = default;
 
 		uint32_t GetWidth() const;
@@ -62,11 +73,31 @@ export namespace Elevate
 		// 0 Color and only 1 Depth texture
 		static Framebuffer* CreateDepthOnly(uint32_t width = 2048, uint32_t height = 2048, TextureFormat depthFormat = TextureFormat::DEPTH, TextureType depthUsage = TextureType::Depth);
 		// Pass custom config for the FrameBuffer
+		using TextureFactory = std::function<Framebuffer*(
+			const std::vector<std::shared_ptr<Texture>>&,
+			std::shared_ptr<Texture>,
+			bool
+		)>;
+
+		static void SetTextureFactory(TextureFactory factory)
+		{
+			s_textureFactory = factory;
+		}
+
 		static Framebuffer* Create(
 			const std::vector<std::shared_ptr<Texture>>& colorTextures,
 			std::shared_ptr<Texture> depthTexture = nullptr,
 			bool depthAsRenderbuffer = true
-		);
+		)
+		{
+			return s_textureFactory ? s_textureFactory(colorTextures, depthTexture, depthAsRenderbuffer) : nullptr;
+		}
+
+	private:
+		inline static TextureFactory s_textureFactory = nullptr;
+		static ViewportSetter s_viewportSetter;
+		static ClearColorSetter s_clearColorSetter;
+		static ClearFunction s_clearFunction;
 
 	protected:
 		void UseViewport();

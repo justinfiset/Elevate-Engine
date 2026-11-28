@@ -1,3 +1,5 @@
+#include <string>
+
 #include "Reflection.h"
 
 import Elevate;

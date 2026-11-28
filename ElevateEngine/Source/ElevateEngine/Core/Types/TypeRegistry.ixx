@@ -1,6 +1,10 @@
 module;
 
+#include <functional>
 #include <initializer_list>
+#include <memory>
+#include <unordered_map>
+#include <utility>
 #include <vector>
 #include <string>
 #include <type_traits>
@@ -11,7 +15,6 @@ module;
 #include <map>
 #include <variant>
 
-#include <entt/entt.hpp>
 #include <glm/fwd.hpp>
 
 export module Elevate.Core.Types.TypeRegistry;
@@ -70,7 +73,6 @@ export namespace Elevate
 		bool isColor = false;
 		std::string IconPath;
 	};
-
 
 	template<typename T>
 	struct is_engine_array : std::false_type {};
@@ -194,10 +196,9 @@ export namespace Elevate
 			return entries;
 		}
 
-		static std::unordered_map<const void*, std::type_index>& GetTypeIndexes()
+		static std::unordered_map<const char*, std::type_index>& GetTypeIndexes()
 		{
-			static std::unordered_map<const void*, std::type_index> entries;
-			return entries;
+			return Elevate::GetTypeIndexes();
 		}
 
 		static Entry& GetEntry(std::type_index id)
@@ -243,8 +244,7 @@ export namespace Elevate
 
 		static std::map<std::type_index, std::vector<TypeField>>& GetReflectedTypes()
 		{
-			static std::map<std::type_index, std::vector<TypeField>> m_customComponentFields;
-			return m_customComponentFields;
+			return Elevate::GetReflectedTypes();
 		}
 
 		template<typename T>
@@ -429,7 +429,7 @@ export namespace Elevate
 		};
 
 		template<typename T>
-		static const void* GetTypeKey()
+		static const char* GetTypeKey()
 		{
 			static const char key{};
 			return &key;

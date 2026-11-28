@@ -1,11 +1,10 @@
 module;
 
-#include <entt/entt.hpp>
-
 #include <mutex>
 #include <string>
 #include <memory>
 #include <filesystem>
+#include <utility>
 #include <glm/glm.hpp>
 
 #include <assimp/scene.h>
@@ -252,12 +251,13 @@ namespace Elevate
 		}
 	}
 
-	void Model::LoadMaterialTextures(std::string basePath, aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data)
+	void Model::LoadMaterialTextures(std::string basePath, aiMaterial* mat, unsigned int type, TextureType texType, MeshData& data)
 	{
-		for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+		const auto textureType = static_cast<aiTextureType>(type);
+		for (unsigned int i = 0; i < mat->GetTextureCount(textureType); i++)
 		{
 			aiString str;
-			mat->GetTexture(type, i, &str);
+			mat->GetTexture(textureType, i, &str);
 
 			std::filesystem::path directory(basePath);
 			directory.append(str.C_Str());

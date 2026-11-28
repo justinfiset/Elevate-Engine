@@ -2,9 +2,32 @@ module;
 
 #include <cstdint>
 #include <memory>
-#include <entt/entt.hpp>
+#include <entt/entity/registry.hpp>
 
 export module Elevate.Core.Scene:ComponentRegistry;
+
+// EnTT lives in the module's global module fragment. Export using-declarations
+// for the names used by the ComponentRegistry templates and their dependent
+// ADL, without re-exporting the whole header.
+namespace entt
+{
+	export using ::entt::entity;
+	export using ::entt::basic_any;
+	export using ::entt::any_cast;
+	export using ::entt::basic_registry;
+	export using ::entt::registry;
+}
+
+namespace entt::internal
+{
+	export using ::entt::internal::operator-;
+	export using ::entt::internal::operator==;
+	export using ::entt::internal::operator!=;
+	export using ::entt::internal::operator<;
+	export using ::entt::internal::operator>;
+	export using ::entt::internal::operator<=;
+	export using ::entt::internal::operator>=;
+}
 
 export namespace Elevate
 {

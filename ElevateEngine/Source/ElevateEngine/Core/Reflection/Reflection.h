@@ -1,8 +1,10 @@
 #pragma once
 
-#include <vector>
+#include <cstdint>
+#include <memory>
 #include <string>
 #include <typeindex>
+#include <vector>
 
 #include <ElevateEngine/Foundations/Compilation/CompilerDiagnostics.h>
 
@@ -51,7 +53,7 @@ import Elevate.Editor.Resources;
                     {
 
 #define ENUM_VALUE(name) \
-                        { #name, static_cast<int64_t>(EnumType::name) },
+                        { #name, static_cast<std::int64_t>(EnumType::name) },
 
 #define END_ENUM(EnumName) \
                     }); \

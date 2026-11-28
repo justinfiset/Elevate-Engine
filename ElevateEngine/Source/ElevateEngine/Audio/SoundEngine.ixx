@@ -4,7 +4,7 @@ module;
 
 export module Elevate.Audio.SoundEngine;
 
-import Elevate.Core.Scene;
+import Elevate.Audio.Object;
 
 export namespace Elevate
 {
@@ -20,16 +20,16 @@ export namespace Elevate
 		static void RenderAudio();
 		static void Terminate();
 
-		static void SetDefaultListener(GameObject* obj);
-		static void SetDistanceProbe(GameObject* obj);
+		static void SetDefaultListener(IAudioObject* obj);
+		static void SetDistanceProbe(IAudioObject* obj);
 		static void UnsetDistanceProbe();
 
-		static void RegisterGameObject(GameObject* obj);
-		static void UnregisterGameObject(GameObject* obj);
-		static void UpdatePosition(GameObject* obj);
+		static void RegisterGameObject(IAudioObject* obj);
+		static void UnregisterGameObject(IAudioObject* obj);
+		static void UpdatePosition(IAudioObject* obj);
 
-		static void PostEvent(const char* eventName, GameObject* object);
-		static void PostEvent(uint32_t eventId, GameObject* object);
+		static void PostEvent(const char* eventName, IAudioObject* object);
+		static void PostEvent(uint32_t eventId, IAudioObject* object);
 		static void PostEvent(const char* eventName);
 		static void PostEvent(uint32_t eventId);
 
@@ -46,16 +46,16 @@ export namespace Elevate
 		virtual void WakeUpImpl() = 0;
 		virtual void SuspendImpl(bool renderAnyway, bool fadeOut) = 0;
 
-		virtual void SetDefaultListenerImpl(GameObject* obj) = 0;
-		virtual void SetDistanceProbeImpl(GameObject* obj) = 0;
+		virtual void SetDefaultListenerImpl(IAudioObject* obj) = 0;
+		virtual void SetDistanceProbeImpl(IAudioObject* obj) = 0;
 		virtual void UnsetDistanceProbeImpl() = 0;
 
-		virtual void RegisterGameObjectImpl(GameObject* obj) = 0;
-		virtual void UnregisterGameObjectImpl(GameObject* obj) = 0;
-		virtual void UpdateObjectPositionImpl(GameObject* obj) = 0;
+		virtual void RegisterGameObjectImpl(IAudioObject* obj) = 0;
+		virtual void UnregisterGameObjectImpl(IAudioObject* obj) = 0;
+		virtual void UpdateObjectPositionImpl(IAudioObject* obj) = 0;
 
-		virtual void PostEventImpl(const char* eventName, GameObject* object) = 0;
-		virtual void PostEventImpl(uint32_t eventName, GameObject* object) = 0;
+		virtual void PostEventImpl(const char* eventName, IAudioObject* object) = 0;
+		virtual void PostEventImpl(uint32_t eventName, IAudioObject* object) = 0;
 		virtual void PostEventImpl(const char* eventName) = 0;
 		virtual void PostEventImpl(uint32_t eventName) = 0;
 

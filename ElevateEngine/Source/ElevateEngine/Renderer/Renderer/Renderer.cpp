@@ -1,6 +1,7 @@
 module;
 
 #include <string>
+#include <cstddef>
 #include <random>
 #include <memory>
 #include <vector>
@@ -9,7 +10,7 @@ module;
 
 #include <glm/glm.hpp>
 
-#include <ElevateEngine/Platform/OpenGL/Renderer/OpenGLRendererAPI.h>
+#include <ElevateEngine/Renderer/RendererBackend.h>
 
 module Elevate.Renderer.Renderer;
 
@@ -18,9 +19,12 @@ import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Scene;
 
 import Elevate.Renderer.Cubemap;
+import Elevate.Renderer.Commands.RenderBucket;
+import Elevate.Renderer.Framebuffers;
+import Elevate.Renderer.Materials.Material;
 import Elevate.Renderer.Scene.Lighting;
 import Elevate.Renderer.Lights.Light;
-import Elevate.Renderer.Lights.DirectionalLight;
+import Elevate.Renderer.Lights.Contract;
 import Elevate.Renderer.Debug.DebugRenderer;
 
 constexpr uint32_t DEFAULT_SHADOW_RESOLUTION = 2048;
@@ -28,6 +32,7 @@ constexpr uint16_t AO_KERNER_SAMPLE_COUNT = 64;
 
 namespace Elevate
 {
+	Renderer::APIFactory Renderer::s_apiFactory = nullptr;
 	RendererStorage Renderer::s_data = RendererStorage();
 	RenderState Renderer::s_currentState = RenderState();
 	std::unique_ptr<RendererAPI> Renderer::s_API;
@@ -67,9 +72,21 @@ namespace Elevate
 
 	static bool s_isStateCacheValid = false;
 
+	std::unique_ptr<RendererAPI> Renderer::CreateAPI()
+	{
+		return s_apiFactory ? s_apiFactory() : nullptr;
+	}
+
 	void Renderer::Init(uint32_t width, uint32_t height)
 	{
-		s_API = std::make_unique<OpenGLRendererAPI>();
+		RendererBackend::Register();
+
+		RenderBucket::SetDispatcher(&Renderer::Dispatch);
+		Material::SetRendererBindings(&Renderer::BindShader, &Renderer::BindTexture);
+		Framebuffer::SetRendererFunctions(&Renderer::SetViewport, &Renderer::SetClearColor, &Renderer::Clear);
+		SceneLighting::SetShaderBinder(&Renderer::BindShader);
+
+		s_API = Renderer::CreateAPI();
 
 		// Create the quad to render to the screen
 		s_fullscreenQuad = Mesh::GenerateQuad(2.0f);
@@ -153,7 +170,7 @@ namespace Elevate
 			.Mipmaps(false)
 			.Build();
 
-		s_ssaoNoiseTexture = Texture::CreateFromData(ssaoNoise.data(), noiseMeta);
+		s_ssaoNoiseTexture = Texture::CreateFromData(reinterpret_cast<const std::byte*>(ssaoNoise.data()), noiseMeta);
 
 		s_ssaoKernel.reserve(AO_KERNER_SAMPLE_COUNT);
 		for (int i = 0; i < AO_KERNER_SAMPLE_COUNT; i++)
@@ -522,7 +539,7 @@ namespace Elevate
 		auto* dirLight = s_data.ActiveLighting->GetDirLight();
 		if (dirLight)
 		{
-			DirectionalShadowSettings settings = dirLight->m_shadowSettings;
+			const DirectionalShadowSettings& settings = dirLight->GetShadowSettings();
 
 			BindShader(s_shadowShader);
 
@@ -570,13 +587,27 @@ namespace Elevate
 
 	void Renderer::RenderSkybox()
 	{
-		if (s_data.ActiveCubemap)
+		const Cubemap* cubemap = s_data.ActiveCubemap;
+		if (!cubemap)
 		{
-			glm::mat4 view = glm::mat4(glm::mat3(s_data.View));
-			s_data.ActiveCubemap->SetProjectionMatrix(s_data.Projection);
-			s_data.ActiveCubemap->SetViewMatrix(view);
-			s_data.ActiveCubemap->Draw();
+			return;
 		}
+
+		const std::shared_ptr<Shader>& shader = cubemap->GetShader();
+		if (!shader)
+		{
+			return;
+		}
+
+		glm::mat4 view = glm::mat4(glm::mat3(s_data.View));
+		shader->SetUniformMatrix4fv("projection", s_data.Projection);
+		shader->SetUniformMatrix4fv("view", view);
+
+		PushRenderState(cubemap->GetRenderState());
+		BindShader(shader);
+		RendererBackend::BindCubemapTexture(cubemap->GetTextureID(), 0);
+		shader->SetUniform1i("skybox", 0);
+		DrawArray(cubemap->GetVertexArray().get(), DrawPrimitiveType::Triangles);
 	}
 
 	void Renderer::RenderGeometry()

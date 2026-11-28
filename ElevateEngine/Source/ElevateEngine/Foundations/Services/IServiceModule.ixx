@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Foundations.Services:IServiceModule;
 
 import :ServiceCollection;

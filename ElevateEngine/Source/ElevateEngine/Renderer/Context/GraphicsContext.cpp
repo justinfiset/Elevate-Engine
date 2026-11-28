@@ -1,3 +1,5 @@
+module;
+
 module Elevate.Renderer.GraphicsContext;
 
 namespace Elevate

@@ -1,20 +1,24 @@
 module;
 
+#include <cstdint>
+#include <functional>
 #include <string>
+#include <string_view>
 #include <memory>
 #include <glm/glm.hpp>
 
 export module Elevate.Renderer.Shaders:Shader;
 
 import :Fwd;
+import :ShaderHeader;
 
+import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Transform.ITransformable;
 import Elevate.Core.Objects.Object;
 import Elevate.Core.Objects.ObjectPtr;
 
 import Elevate.Renderer.Buffers;
 import Elevate.Renderer.Lights.Light;
-import Elevate.Renderer.Lights.DirectionalLight;
 
 export namespace Elevate::ShaderUniforms
 {
@@ -34,8 +38,30 @@ export namespace Elevate
 		virtual uint32_t GetID() const = 0;
 		virtual uint32_t GetHashCode() const = 0;
 
-		static std::shared_ptr<Shader> CreateDefaultNative();	   // Safe fallback in case of shader creation failure
-		static std::shared_ptr<Shader> CreateDefaultErrorNative(); // Safe fallback with an error pattern shader
+		using NativeFactory = std::function<std::shared_ptr<Shader>()>;
+		using Factory = std::function<std::shared_ptr<Shader>(const std::string&, const std::string&)>;
+
+		static void SetNativeFactories(NativeFactory defaultFactory, NativeFactory errorFactory)
+		{
+			s_defaultNativeFactory = defaultFactory;
+			s_defaultErrorNativeFactory = errorFactory;
+		}
+
+		static void SetFactory(Factory factory)
+		{
+			s_factory = factory;
+		}
+
+		static std::shared_ptr<Shader> CreateDefaultNative()
+		{
+			return s_defaultNativeFactory ? s_defaultNativeFactory() : nullptr;
+		}
+
+		static std::shared_ptr<Shader> CreateDefaultErrorNative()
+		{
+			return s_defaultErrorNativeFactory ? s_defaultErrorNativeFactory() : nullptr;
+		}
+
 		static EEObjectPtr<Shader> CreateDefault();
 		static EEObjectPtr<Shader> CreateDefaultError();
 
@@ -45,7 +71,7 @@ export namespace Elevate
 
 		// Lights
 		void UseLight(const Light* newLightSetting, const std::string& lightName) const;
-		void UseDirLight(DirectionalLight* newDirLight);
+		void UseDirLight(const Light* light, const glm::vec3& direction);
 
 		// Camera
 		void SetCameraPosition(const glm::vec3 cameraPosition) const;
@@ -122,6 +148,10 @@ export namespace Elevate
 		inline void SetInitializationStatus(bool initialized) { m_isInitialized = initialized; }
 
 	private:
+		inline static NativeFactory s_defaultNativeFactory = nullptr;
+		inline static NativeFactory s_defaultErrorNativeFactory = nullptr;
+		inline static Factory s_factory = nullptr;
+
 		BufferLayout m_layout;
 		bool m_isInitialized = false;
 	};
@@ -172,4 +202,28 @@ void main()
 )";
 		}
 	};
+
+	inline EEObjectPtr<Shader> Shader::Create(const std::string& vertexSource, const std::string& fragmentSouce)
+	{
+		std::shared_ptr<Shader> shader = nullptr;
+		if (!vertexSource.empty() && !fragmentSouce.empty())
+		{
+			shader = s_factory ? s_factory(vertexSource, fragmentSouce) : nullptr;
+		}
+		else
+		{
+			CoreLogger::Error("Error : Tried to create a shader with an empty vertex or fragment source -> Vertex : {} And Fragment : {}", vertexSource, fragmentSouce);
+			return CreateDefaultErrorNative();
+		}
+
+		if (!shader || !shader->IsInitialized())
+		{
+			shader.reset();
+			CoreLogger::Error("Error : Could not create a valid shader. Fallback to default shader.");
+			return CreateDefaultErrorNative();
+		}
+
+		shader->m_layout = shader->ExtractReflectionData();
+		return shader;
+	}
 }

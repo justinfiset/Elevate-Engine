@@ -3,7 +3,6 @@ module;
 #include <cstdint>
 #include <memory>
 #include <unordered_map>
-#include <entt/entt.hpp>
 
 module Elevate.Core.Scene;
 

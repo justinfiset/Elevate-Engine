@@ -1,6 +1,136 @@
-\section pointer_patching Pointer Patching
+/**
+\page pointer_patching Pointer Patching
 
-Here is a diagram pointer patching usre for pointer patching using EEObjectPtr :
+`EEObjectPtr<T>` is a lazy handle to an `EEObject`. It stores a GUID at all
+times and, once resolved, also stores a `std::shared_ptr<T>`. The GUID is the
+serialized identity; the shared pointer is a cache that can be rebuilt by the
+asset registry.
 
-\startuml Pointer_Patching.puml
-\enduml
+`IEEObjectPtr` is the non-typed interface used by the reflection layer. It
+exposes `GetGuid()` and `SetGuid()` so the `EngineDataType::ObjectPtr` codec can
+capture a GUID without knowing `T`. There is currently no virtual `Deserialize()`
+on the interface.
+
+\section pointer_patching_states Handle states
+
+- **Resolved:** `m_ptr` is non-null. `m_guid` mirrors `m_ptr->GetGuid()`.
+- **Deferred:** `m_ptr` is null and `m_guid` is valid. The object is looked up on
+  the first dereference.
+- **Empty:** `m_ptr` is null and `m_guid` is invalid. Dereferencing returns
+  `nullptr`.
+
+Assigning a `shared_ptr`, calling `reset()`, or constructing from a
+`shared_ptr` enters the resolved state. Constructing from a GUID, or calling
+`SetGuid()` with a different GUID, clears `m_ptr` and enters the deferred state.
+
+\section pointer_patching_flow Flow
+
+\dot
+digraph EEObjectPtrResolution {
+  rankdir=LR;
+  node [shape=box, style="rounded,filled", fillcolor="#f7f7f7", fontname="Helvetica", fontsize=10];
+  edge [fontname="Helvetica", fontsize=9, color="#555555"];
+
+  subgraph cluster_states {
+    label="EEObjectPtr<T> states";
+    color="#aaaaaa";
+
+    resolved [label="Resolved\nm_ptr != null\nm_guid mirrors object"];
+    deferred [label="Deferred\nm_ptr == null\nvalid m_guid"];
+    empty [label="Empty / failed\ninvalid m_guid"];
+  }
+
+  subgraph cluster_capture {
+    label="Serialization";
+    color="#aaaaaa";
+
+    capture [label="Serialize()\nor TypeLayout::CaptureState()"];
+    guidvalue [label="GUID bytes\nor JSON string"];
+    apply [label="TypeLayout::ApplyState()\nObjectPtr codec\nApply: TODO, logs error", fillcolor="#ffe4e4"];
+  }
+
+  subgraph cluster_resolve {
+    label="Lazy resolution";
+    color="#aaaaaa";
+
+    deref [label="get() / -> / *\nbool / ToShared()"];
+    hasptr [shape=diamond, label="m_ptr?"];
+    validguid [shape=diamond, label="m_guid valid?"];
+    helper [label="Detail::ResolveAssetHelper()"];
+    reference [label="Detail::ResolveAssetReference()"];
+    castback [label="static_pointer_cast<T>()\nthen UpdateGuid()"];
+  }
+
+  subgraph cluster_registry {
+    label="AssetRegistry";
+    color="#aaaaaa";
+
+    index [label="s_indexedAssets\nRegisterAsset() / RegisterAssetOnDisk()\nRefreshFromDisk() reads m_guid"];
+    indexed [shape=diamond, label="indexed?"];
+    cached [label="cached instance\nreturn as Asset"];
+    load [label="isOnDisk\nLoadAssetFromDisk()\nfactory + JSON + SetGuid + OnLoad"];
+  }
+
+  assign [label="shared_ptr / reset()"];
+  guidset [label="Guid ctor / SetGuid()"];
+  assign -> resolved;
+  guidset -> deferred;
+
+  resolved -> capture;
+  capture -> guidvalue;
+  guidvalue -> apply [label="JSON only", color="#cc3333", fontcolor="#cc3333"];
+
+  resolved -> deref;
+  deferred -> deref;
+  empty -> deref;
+
+  deref -> hasptr;
+  hasptr -> resolved [label="yes: return"];
+  hasptr -> validguid [label="no"];
+  validguid -> empty [label="no"];
+  validguid -> helper [label="yes"];
+
+  helper -> reference;
+  reference -> indexed;
+  index -> indexed;
+  indexed -> cached [label="yes + loaded"];
+  indexed -> load [label="yes / not loaded"];
+  indexed -> empty [label="no"];
+
+  cached -> castback;
+  load -> castback;
+  castback -> resolved [label="found"];
+  castback -> empty [label="missing / wrong type"];
+}
+\enddot
+
+\section pointer_patching_steps Steps
+
+1. On capture, `EEObjectPtr<T>::Serialize()` writes the GUID of the resolved
+   object, or the stored GUID when deferred. The reflection codec writes the
+   same GUID as a string in `PropertyField::Value`.
+2. On first dereference of a deferred handle, `get()` calls
+   `Detail::ResolveAssetHelper(guid)`.
+3. `ResolveAssetHelper()` delegates to `ResolveAssetReference()`, which calls
+   `AssetRegistry::GetAsset<Asset>(guid)` and casts the result to `EEObject`.
+4. `AssetRegistry` returns a cached instance when one exists. Otherwise, for an
+   on-disk entry, it creates the registered type through `TypeRegistry`,
+   deserializes the JSON file, restores the GUID from the indexed `m_guid`, and
+   calls `OnLoad()`.
+5. `EEObjectPtr` statically casts the `EEObject` back to `T` and calls
+   `UpdateGuid()`. A successful lookup caches the result in `m_ptr`; a failed
+   lookup leaves `m_ptr` null and clears `m_guid`.
+
+\warning Only `Asset`-derived objects can be resolved this way. `EEObject`
+constructors generate a GUID but do not register the object globally; the old
+`ObjectRegistry` design no longer exists. An `EEObjectPtr<GameObject>` that is
+only assigned a GUID cannot be rebuilt unless the target is indexed as an asset.
+
+\warning Restoring `EngineDataType::ObjectPtr` from JSON is not implemented.
+`ValueCodec::Apply` logs an error and returns `false`, so a deferred pointer
+must receive its GUID through code (`Guid` constructor or `SetGuid()`) before
+lazy resolution can run.
+
+\note A failed lookup is terminal for that handle: `UpdateGuid()` resets the
+GUID when `m_ptr` is null, so subsequent dereferences do not retry the registry.
+*/

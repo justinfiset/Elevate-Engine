@@ -4,9 +4,12 @@ module;
 #include <algorithm>
 #include <cmath>
 #include <fstream>
+#include <memory>
 #include <string>
 #include <vector>
 #include <filesystem>
+#include <tuple>
+#include <utility>
 
 #include <imgui.h>
 

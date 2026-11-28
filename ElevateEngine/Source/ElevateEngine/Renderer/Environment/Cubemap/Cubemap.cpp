@@ -1,20 +1,17 @@
 module;
 
+#include <cstddef>
 #include <string>
-#include <glm/mat4x4.hpp>
 
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
-#include <ElevateEngine/Platform/OpenGL/GLDebug.h>
-
-#include <stb/stb_image.h>
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/document.h>
+
+#include <ElevateEngine/Renderer/RendererBackend.h>
 
 module Elevate.Renderer.Cubemap;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Paths;
-import Elevate.Renderer.Renderer;
 
 Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 {
@@ -25,12 +22,12 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	m_filePath = skyboxFilePath;
 
 	// Vertex & Index Buffers
-	m_VertexBuffer.reset(Elevate::VertexBuffer::Create(&s_skyboxVertices[0], sizeof(s_skyboxVertices)));
+	m_VertexBuffer.reset(Elevate::VertexBuffer::Create(reinterpret_cast<const std::byte*>(s_skyboxVertices), sizeof(s_skyboxVertices)));
 	m_VertexBuffer->SetLayout({
 		{Elevate::ShaderDataType::Float3, "a_Position"},
 		});
 
-	m_IndexBuffer.reset(Elevate::IndexBuffer::Create(&s_skyboxIndices[0], sizeof(s_skyboxIndices) / sizeof(unsigned int)));
+	m_IndexBuffer.reset(Elevate::IndexBuffer::Create(reinterpret_cast<const std::byte*>(s_skyboxIndices), sizeof(s_skyboxIndices) / sizeof(unsigned int)));
 	m_VertexArray.reset(VertexArray::Create());
 	m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 	m_VertexArray->SetIndexBuffer(m_IndexBuffer);
@@ -46,31 +43,14 @@ Elevate::Cubemap::Cubemap(std::string paths[6], std::string skyboxFilePath)
 	m_cubemapShader = Elevate::Shader::Create(vert, frag);
 
 	// Texture
-	GLCheck(glGenTextures(1, &m_textureID));
-	GLCheck(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));
-
-	int width, height, nrChannels;
-	for (int i = 0; i < 6; i++)
+	const char* cubemapPaths[6] = {
+		paths[0].c_str(), paths[1].c_str(), paths[2].c_str(),
+		paths[3].c_str(), paths[4].c_str(), paths[5].c_str()
+	};
+	if (!RendererBackend::CreateCubemapTexture(cubemapPaths, m_textureID, skyboxFilePath.c_str()))
 	{
-		unsigned char* data = stbi_load(paths[i].c_str(), &width, &height, &nrChannels, 0);
-		if (data)
-		{
-			GLCheck(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data));
-			stbi_image_free(data);
-		}
-		else
-		{
-			CoreLogger::Error("Error : Unable to load cubemap texture [{}] : {} with the following skybox file : {}", i, paths[i].c_str(), skyboxFilePath);
-			return;
-		}
+		return;
 	}
-	GLCheck(glGenerateMipmap(GL_TEXTURE_CUBE_MAP));
-
-	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-	GLCheck(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE));
 }
 
 Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(const std::string& filePath)
@@ -104,33 +84,7 @@ Elevate::Cubemap* Elevate::Cubemap::CreateFromFile(const std::string& filePath)
 	return new Cubemap(paths, resolvedPath.string());
 }
 
-void Elevate::Cubemap::Draw(std::shared_ptr<Shader> shader) const
-{
-	if (!shader)
-		shader = m_cubemapShader;
-
-	Renderer::PushRenderState(m_renderState);
-	Renderer::BindShader(shader);
-
-	GLCheck(glActiveTexture(GL_TEXTURE0));
-	GLCheck(glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID));
-	shader->SetUniform1i("skybox", 0);
-	Renderer::DrawArray(m_VertexArray);
-}
-
-void Elevate::Cubemap::SetProjectionMatrix(glm::mat4 proj) const
-{
-	Renderer::BindShader(m_cubemapShader);
-	m_cubemapShader->SetUniformMatrix4fv("projection", proj);
-}
-
-void Elevate::Cubemap::SetViewMatrix(glm::mat4 view) const
-{
-	Renderer::BindShader(m_cubemapShader);
-	m_cubemapShader->SetUniformMatrix4fv("view", view);
-}
-
-std::string Elevate::Cubemap::GetFilePath()
+std::string Elevate::Cubemap::GetFilePath() const
 {
 	return m_filePath;
 }

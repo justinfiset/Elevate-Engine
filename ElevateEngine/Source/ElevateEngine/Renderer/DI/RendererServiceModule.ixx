@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Renderer.DI;
 
 // Foundations

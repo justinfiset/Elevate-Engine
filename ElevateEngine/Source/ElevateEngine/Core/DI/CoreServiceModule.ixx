@@ -1,3 +1,10 @@
+module;
+
+#include <iterator>
+#include <new>
+#include <typeinfo>
+#include <vector>
+
 export module Elevate.Core.DI;
 
 import Elevate.Foundations.CoreLogger;

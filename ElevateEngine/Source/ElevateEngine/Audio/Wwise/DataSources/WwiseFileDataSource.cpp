@@ -1,21 +1,24 @@
-#include "WwiseFileDataSource.h"
 
-import Elevate.Foundations;
+#include "WwiseFileDataSource.h"
 
 #include <ElevateEngine/Audio/Wwise/WwiseItem.h>
 
-#include <array>
 #include <algorithm>
+#include <array>
+#include <charconv>
+#include <filesystem>
 #include <format>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
-#include <filesystem>
 
 #include <rapidxml.hpp>
 #include <flxml.h>
 #include <flxml/utils.h>
 #include <flxml/wrappers.h>
+
+import Elevate.Foundations;
 
 #define WWISE_WORKUNIT_EXTENSION ".wwu"
 

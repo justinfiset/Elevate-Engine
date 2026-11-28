@@ -42,7 +42,7 @@ export namespace Elevate
 		const glm::mat4& GetModelMatrix() const;
 		void UpdateModelMatrix();
 
-		virtual TypeLayout GetLayout() const override
+		TypeLayout GetLayout() const override
 		{
 			return TypeLayout(
 				this,

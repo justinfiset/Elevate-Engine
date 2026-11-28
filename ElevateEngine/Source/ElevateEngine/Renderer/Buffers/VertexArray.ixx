@@ -1,7 +1,8 @@
 module;
 
-#include <vector>
+#include <functional>
 #include <memory>
+#include <vector>
 
 export module Elevate.Renderer.VertexArray;
 
@@ -26,8 +27,20 @@ export namespace Elevate
 		const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const { return m_vertexBuffers; }
 		const std::shared_ptr<IndexBuffer> GetIndexBuffer() const { return m_indexBuffer; }
 
-		static VertexArray* Create();
+		using Factory = std::function<VertexArray*()>;
+
+		static void SetFactory(Factory factory)
+		{
+			s_factory = factory;
+		}
+
+		static VertexArray* Create()
+		{
+			return s_factory ? s_factory() : nullptr;
+		}
+
 	private:
+		inline static Factory s_factory = nullptr;
 		std::vector<std::shared_ptr<VertexBuffer>> m_vertexBuffers;
 		std::shared_ptr<IndexBuffer> m_indexBuffer;
 	};

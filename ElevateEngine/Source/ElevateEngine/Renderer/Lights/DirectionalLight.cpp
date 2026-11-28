@@ -1,5 +1,7 @@
 module;
 
+#include <cmath>
+#include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include <glm/gtc/constants.hpp>
@@ -7,6 +9,7 @@ module;
 
 module Elevate.Renderer.Lights.DirectionalLight;
 
+import Elevate.Core.Scene;
 import Elevate.Core.Transform.Transform;
 import Elevate.Renderer.Scene.Lighting;
 
@@ -20,17 +23,28 @@ namespace Elevate
 {
 	void DirectionalLight::Init()
 	{
-		GetSceneLighting(gameObject->GetScene())->AddDirectionalLight(this);
+		if (auto* lighting = GetSceneLighting(gameObject->GetScene()))
+		{
+			lighting->AddDirectionalLight(this);
+		}
 	}
 
 	void DirectionalLight::Destroy()
 	{
-		GetSceneLighting(gameObject->GetScene())->RemoveDirectionalLight(this);
+		if (auto* lighting = GetSceneLighting(gameObject->GetScene()))
+		{
+			lighting->RemoveDirectionalLight(this);
+		}
 	}
 
-	const glm::vec3 DirectionalLight::CalculateDirection() const
+	glm::vec3 DirectionalLight::CalculateDirection() const
 	{
 		return gameObject->GetTransform().GetForward();
+	}
+
+	glm::mat4 DirectionalLight::GetWorldMatrix() const
+	{
+		return gameObject->GenGlobalMatrix();
 	}
 
 #ifdef EE_EDITOR_BUILD

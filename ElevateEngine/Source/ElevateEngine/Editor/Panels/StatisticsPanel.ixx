@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Editor.Panels.StatisticsPanel;
 
 import Elevate.Editor.Widgets.Widget;

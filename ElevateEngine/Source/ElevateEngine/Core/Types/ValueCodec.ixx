@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Core.Types.ValueCodec;
 
 import Elevate.Foundations.Data;

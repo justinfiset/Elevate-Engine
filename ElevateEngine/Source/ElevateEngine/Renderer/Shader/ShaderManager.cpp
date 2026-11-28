@@ -7,7 +7,7 @@ module Elevate.Renderer.Shaders;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Objects.ObjectPtr;
 import Elevate.Core.Assets.AssetRegistry;
-import Elevate.Renderer.Scene.Lighting;
+import Elevate.Renderer.Scene.Lighting.Limits;
 
 import :Shader;
 import :ShaderAsset;

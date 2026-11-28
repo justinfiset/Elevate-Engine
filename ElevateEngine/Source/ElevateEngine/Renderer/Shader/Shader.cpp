@@ -1,12 +1,8 @@
 module;
 
-#include <entt/entt.hpp>
-
 #include <memory>
 #include <string>
 #include <glm/gtc/type_ptr.hpp>
-
-#include <ElevateEngine/Platform/OpenGL/Shaders/OpenGLShader.h>
 
 module Elevate.Renderer.Shaders;
 
@@ -18,39 +14,10 @@ import Elevate.Foundations.Files;
 import Elevate.Core.Transform.ITransformable;
 import Elevate.Core.Objects.ObjectPtr;
 // Renderer
-import Elevate.Renderer.Renderer;
 import Elevate.Renderer.Lights.Light;
-import Elevate.Renderer.Lights.DirectionalLight;
 
 namespace Elevate
 {
-	std::shared_ptr<Shader> Shader::CreateDefaultNative()
-	{
-		switch (Renderer::GetAPI())
-		{
-		case RendererAPI::GraphicAPI::None:
-			Assert::That(false, "Renderer none is not supported");
-		case RendererAPI::GraphicAPI::OpenGL:
-			return std::make_shared<OpenGLShader>(std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetVertexShader()), std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetFragmentShader()));
-		}
-		return nullptr;
-	}
-
-	std::shared_ptr<Shader> Shader::CreateDefaultErrorNative()
-	{
-		switch (Renderer::GetAPI())
-		{
-		case RendererAPI::GraphicAPI::None:
-			Assert::That(false, "Renderer none is not supported");
-		case RendererAPI::GraphicAPI::OpenGL:
-			return std::make_shared<OpenGLShader>(
-				std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetVertexShader()),
-				std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetErrorShader())
-			);
-		}
-		return nullptr;
-	}
-
 	EEObjectPtr<Shader> Shader::CreateDefault()
 	{
 		return Create(std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetVertexShader()), std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetFragmentShader()));
@@ -59,39 +26,6 @@ namespace Elevate
 	EEObjectPtr<Shader> Shader::CreateDefaultError()
 	{
 		return Create(std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetVertexShader()), std::string(Internal::ShaderHeader) + std::string(DefaultShader::GetErrorShader()));
-	}
-
-	EEObjectPtr<Shader> Shader::Create(const std::string& vertexSource, const std::string& fragmentSouce)
-	{
-		EEObjectPtr<Shader> shader = nullptr;
-
-		if (!vertexSource.empty() && !fragmentSouce.empty())
-		{
-			switch (Renderer::GetAPI())
-			{
-			case RendererAPI::GraphicAPI::None:
-				Assert::That(false, "Renderer none is not supported");
-				break;
-			case RendererAPI::GraphicAPI::OpenGL:
-				shader = std::make_shared<OpenGLShader>(vertexSource, fragmentSouce);
-			}
-		}
-		else
-		{
-			CoreLogger::Error("Error : Tried to create a shader with an empty vertex or fragment source -> Vertex : {} And Fragment : {}", vertexSource, fragmentSouce);
-			return CreateDefaultErrorNative();
-		}
-
-		if (!shader->IsInitialized())
-		{
-			shader.reset(); // Free the memory of that unused shader and reset to nullptr
-			CoreLogger::Error("Error : Could not create a valid shader. Fallback to default shader.");
-			return CreateDefaultErrorNative();
-		}
-
-		shader->m_layout = shader->ExtractReflectionData();
-
-		return shader;
 	}
 
 	EEObjectPtr<Shader> Shader::CreateFromFiles(const std::string& vertexSrcPath, const std::string& fragSrcPath)
@@ -125,10 +59,10 @@ namespace Elevate
 		SetUniform1f(lightName + ".intensity", newLightSetting->GetIntensity());
 	}
 
-	void Shader::UseDirLight(DirectionalLight* newDirLight)
+	void Shader::UseDirLight(const Light* light, const glm::vec3& direction)
 	{
-		UseLight(newDirLight, "dirLight");
-		SetUniform3f("dirLight.direction", newDirLight->CalculateDirection());
+		UseLight(light, "dirLight");
+		SetUniform3f("dirLight.direction", direction);
 	}
 
 	void Shader::SetCameraPosition(const glm::vec3 cameraPosition) const

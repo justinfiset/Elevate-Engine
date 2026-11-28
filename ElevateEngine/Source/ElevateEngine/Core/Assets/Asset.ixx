@@ -21,7 +21,7 @@ export namespace Elevate
 		Asset() = default;
 		virtual ~Asset() = default;
 
-		virtual std::string GetName() const override;
+		std::string GetName() const override;
 		void SetName(const std::string& name) override;
 
 		virtual void OnLoad() {}

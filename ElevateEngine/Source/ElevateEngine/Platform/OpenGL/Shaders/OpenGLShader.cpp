@@ -1,7 +1,10 @@
-#include <vector>
+
+#include <cstdint>
+#include <memory>
 #include <string>
+#include <vector>
 #define GLFW_INCLUDE_NONE
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <ElevateEngine/Platform/OpenGL/GraphicsAPI.h>
 #include <GLFW/glfw3.h>
 
 #include "glm/gtc/type_ptr.hpp"
@@ -11,6 +14,8 @@
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
+import Elevate.Core.Objects.ObjectPtr;
+import Elevate.Renderer.Shaders;
 
 namespace Elevate
 {

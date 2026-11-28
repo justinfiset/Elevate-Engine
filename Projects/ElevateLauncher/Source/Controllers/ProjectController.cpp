@@ -1,8 +1,6 @@
 #include "ProjectController.h"
 #include "../Managers/ProjectManager.h"
 
-#include <algorithm>
-
 import Elevate;
 
 namespace EL
@@ -120,9 +118,15 @@ namespace EL
 
 	void ProjectController::RemoveNotification(uint16_t id)
 	{
-		auto it = std::find_if(m_notifications.begin(), m_notifications.end(), [id](const Notification& n) {
-			return n.Id == id;
-			});
+		auto it = m_notifications.end();
+		for (auto candidate = m_notifications.begin(); candidate != m_notifications.end(); ++candidate)
+		{
+			if (candidate->Id == id)
+			{
+				it = candidate;
+				break;
+			}
+		}
 
 		if (it != m_notifications.end())
 		{

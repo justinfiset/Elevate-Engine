@@ -1,14 +1,15 @@
 module;
 
+#include <memory>
 #include <mutex>
 #include <vector>
 #include <string>
 #include <filesystem>
 
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-#include <assimp/Importer.hpp>
-
+// Opaque Assimp declarations live in a header so the global module fragment
+// contains only preprocessor directives. Including the real Assimp headers
+// here would expose TU-local inline helpers on GCC.
+#include "AssimpForward.h"
 #include "Reflection.h"
 
 export module Elevate.Renderer.Models.Model;
@@ -49,7 +50,7 @@ export namespace Elevate
 		static void ProcessNode(std::string basePath, aiNode* node, const aiScene* scene, MeshData& data);
 		static void ProcessMesh(std::string basePath, aiMesh* mesh, const aiScene* scene, MeshData& data);
 		static void ExtractMeshVertex(aiMesh* mesh, Vertex& vertex, int index);
-		static void LoadMaterialTextures(std::string basePath, aiMaterial* mat, aiTextureType type, TextureType texType, MeshData& data);
+		static void LoadMaterialTextures(std::string basePath, aiMaterial* mat, unsigned int type, TextureType texType, MeshData& data);
 
 		void PublishModel(std::string directory, const MeshData& data);
 

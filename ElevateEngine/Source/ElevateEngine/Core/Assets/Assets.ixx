@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Core.Assets;
 
 export import Elevate.Core.Assets.AssetMetadata;

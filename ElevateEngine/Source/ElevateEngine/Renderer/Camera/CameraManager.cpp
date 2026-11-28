@@ -1,3 +1,5 @@
+module;
+
 module Elevate.Renderer.Camera;
 
 // Foundations
@@ -5,13 +7,11 @@ import Elevate.Foundations.Assert;
 // Core
 import Elevate.Core.Application;
 
-#ifdef EE_EDITOR_BUILD
-import Elevate.Editor.Camera;
-import Elevate.Editor.Layer;
-#endif
-
 namespace Elevate
 {
+#ifdef EE_EDITOR_BUILD
+	CameraManager::EditorCameraProvider CameraManager::s_editorCameraProvider = nullptr;
+#endif
 	Camera* CameraManager::s_currentCamera = nullptr;
 
 	Camera* CameraManager::GetCurrent()
@@ -35,7 +35,12 @@ namespace Elevate
 #ifdef EE_EDITOR_BUILD
 	Camera* CameraManager::GetEditor()
 	{
-		return Editor::EditorLayer::Get().GetCamera();
+		return s_editorCameraProvider ? s_editorCameraProvider() : nullptr;
+	}
+
+	void CameraManager::SetEditorCameraProvider(EditorCameraProvider provider)
+	{
+		s_editorCameraProvider = provider;
 	}
 #endif
 

@@ -1,11 +1,10 @@
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
+
+#include <ElevateEngine/Platform/OpenGL/GraphicsAPI.h>
 #include <GLFW/glfw3.h>
 
 #include "OpenGLRendererAPI.h"
 
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
-
-import Elevate.Renderer.Renderer;
 
 namespace Elevate
 {

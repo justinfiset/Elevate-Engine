@@ -9,58 +9,57 @@ module;
 
 export module Elevate.Renderer.Scene.Lighting;
 
+export import Elevate.Renderer.Scene.Lighting.Limits;
+
 // Foundations
 import Elevate.Foundations.CoreLogger;
 // Core
 import Elevate.Core.Scene;
 // Renderer
 import Elevate.Renderer.Shaders;
-import Elevate.Renderer.Lights.DirectionalLight;
-import Elevate.Renderer.Lights.PointLight;
-import Elevate.Renderer.Lights.SpotLight;
-
-export namespace Elevate::SceneLightingLimits
-{
-	inline constexpr int MaxDirectionalLights = 1;
-	inline constexpr int MaxPointLights = 32;
-	inline constexpr int MaxSpotLights = 32;
-}
+import Elevate.Renderer.Lights.Contract;
 
 export namespace Elevate
 {
 	class SceneLighting
 	{
 	public:
+		using ShaderBinder = bool (*)(const std::shared_ptr<Shader>&);
+
+		static void SetShaderBinder(ShaderBinder binder);
+
 		SceneLighting() = default;
-		SceneLighting(DirectionalLight* dirLight, std::initializer_list<PointLight*> pointLights, std::initializer_list<SpotLight*> spotLights)
+		SceneLighting(IDirectionalLight* dirLight, std::initializer_list<IPointLight*> pointLights, std::initializer_list<ISpotLight*> spotLights)
 			: m_dirLight(dirLight), m_pointLights(pointLights), m_spotLights(spotLights)
 		{
 		}
-		SceneLighting(DirectionalLight* dirLight, const std::vector<PointLight*>& pointLights, const std::vector<SpotLight*>& spotLights)
+		SceneLighting(IDirectionalLight* dirLight, const std::vector<IPointLight*>& pointLights, const std::vector<ISpotLight*>& spotLights)
 			: m_dirLight(dirLight), m_pointLights(pointLights), m_spotLights(spotLights)
 		{
 		}
 
 		void UploadToShader(const std::shared_ptr<Shader>& shader) const;
 
-		const DirectionalLight* GetDirLight() const;
+		const IDirectionalLight* GetDirLight() const;
 
-		void AddDirectionalLight(DirectionalLight* light);
-		void AddPointLight(PointLight* light);
-		void AddSpotLight(SpotLight* light);
+		void AddDirectionalLight(IDirectionalLight* light);
+		void AddPointLight(IPointLight* light);
+		void AddSpotLight(ISpotLight* light);
 
-		void RemoveDirectionalLight(DirectionalLight* light);
-		void RemovePointLight(PointLight* light);
-		void RemoveSpotLight(SpotLight* light);
+		void RemoveDirectionalLight(IDirectionalLight* light);
+		void RemovePointLight(IPointLight* light);
+		void RemoveSpotLight(ISpotLight* light);
 
 		glm::mat4 GetDirectionalLightSpaceMatrix(const std::span<const glm::vec3> cameraCorners) const;
 
 	private:
+		static ShaderBinder s_shaderBinder;
+
 		glm::mat4 GetDirectionalLightProjection(const std::span<const glm::vec3> corners, const glm::mat4& lightView) const;
 
-		DirectionalLight* m_dirLight = nullptr;
-		std::vector<PointLight*> m_pointLights;
-		std::vector<SpotLight*> m_spotLights;
+		IDirectionalLight* m_dirLight = nullptr;
+		std::vector<IPointLight*> m_pointLights;
+		std::vector<ISpotLight*> m_spotLights;
 	};
 }
 

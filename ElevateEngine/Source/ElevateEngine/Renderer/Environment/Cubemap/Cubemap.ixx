@@ -5,8 +5,6 @@ module;
 #include <memory>
 #include <string>
 
-#include <glm/glm.hpp>
-
 export module Elevate.Renderer.Cubemap;
 
 import Elevate.Renderer.Buffers;
@@ -23,12 +21,12 @@ export namespace Elevate
 
 		static Cubemap* CreateFromFile(const std::string& filePath);
 
-		void Draw(std::shared_ptr<Shader> shader = nullptr) const;
+		const RenderState& GetRenderState() const { return m_renderState; }
+		const std::shared_ptr<Shader>& GetShader() const { return m_cubemapShader; }
+		const std::shared_ptr<VertexArray>& GetVertexArray() const { return m_VertexArray; }
+		uint32_t GetTextureID() const { return m_textureID; }
 
-		void SetProjectionMatrix(glm::mat4 data) const;
-		void SetViewMatrix(glm::mat4 data) const;
-
-		std::string GetFilePath();
+		std::string GetFilePath() const;
 
 	private:
 		RenderState m_renderState;
@@ -38,7 +36,7 @@ export namespace Elevate
 		std::shared_ptr<VertexBuffer> m_VertexBuffer;
 		std::shared_ptr<IndexBuffer> m_IndexBuffer;
 
-		uint32_t m_textureID;
+		uint32_t m_textureID = 0;
 		std::string m_filePath;
 
 		float s_skyboxVertices[3 * 8] = {

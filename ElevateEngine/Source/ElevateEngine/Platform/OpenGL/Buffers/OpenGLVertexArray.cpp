@@ -1,6 +1,8 @@
+#include <cstdint>
+
 #include "OpenGLVertexArray.h"
 
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <ElevateEngine/Platform/OpenGL/GraphicsAPI.h>
 
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
 

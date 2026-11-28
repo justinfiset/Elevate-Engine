@@ -1,6 +1,8 @@
 module;
 
 #include <memory>
+#include <string>
+#include <utility>
 #include <vector>
 
 #include <ElevateEngine/Core/Reflection/Reflection.h>
@@ -36,7 +38,7 @@ export namespace Elevate
 		virtual void UpdateScene();
 		virtual void RenderScene();
 		virtual void Notify(Event& event); // Dispatch an event to gameobjects
-		virtual std::string GetName() const override;
+		std::string GetName() const override;
 
 		void AddObject(const EEObjectPtr<GameObject>& newObject, const std::weak_ptr<GameObject>& parent);
 		const std::vector<EEObjectPtr<GameObject>>& GetRootObjects() const { return m_rootObjects; }

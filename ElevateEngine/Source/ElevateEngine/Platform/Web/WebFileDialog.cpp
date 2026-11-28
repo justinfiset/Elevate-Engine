@@ -1,3 +1,4 @@
+
 #include "WebFileDialog.h"
 
 #ifdef EE_PLATFORM_WEB
@@ -101,6 +102,11 @@ namespace Elevate
 		m_waitingForDirPath = false;
 		m_waitiingForFilePath = true;
 	}
+}
+
+extern "C" Elevate::FileDialogImpl* EE_CreateWebFileDialog()
+{
+    return new Elevate::WebFileDialog();
 }
 
 #endif

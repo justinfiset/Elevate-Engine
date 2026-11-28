@@ -1,7 +1,8 @@
-#include "ProjectManager.h"
-#include <fstream>
 
 #include <filesystem>
+#include <fstream>
+
+#include "ProjectManager.h"
 
 import Elevate;
 
@@ -235,9 +236,15 @@ namespace EL
 
 	void ProjectManager::RemoveProjectFromList(uint32_t projectId)
 	{
-		auto it = std::find_if(m_projectList.Projects.begin(), m_projectList.Projects.end(), [projectId](const Project& project) {
-			return project.Id == projectId;
-			});
+		auto it = m_projectList.Projects.end();
+		for (auto candidate = m_projectList.Projects.begin(); candidate != m_projectList.Projects.end(); ++candidate)
+		{
+			if (candidate->Id == projectId)
+			{
+				it = candidate;
+				break;
+			}
+		}
 
 		if (it != m_projectList.Projects.end())
 		{

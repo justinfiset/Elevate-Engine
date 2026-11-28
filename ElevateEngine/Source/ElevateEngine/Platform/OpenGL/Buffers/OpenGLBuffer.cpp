@@ -1,11 +1,18 @@
+
+#include <cstddef>
+#include <cstdint>
+#include <cstdlib>
+#include <iterator>
+#include <new>
+
 #include "OpenGLBuffer.h"
 
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <ElevateEngine/Platform/OpenGL/GraphicsAPI.h>
 #include <GLFW/glfw3.h>
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
 
 import Elevate.Foundations.CoreLogger;
-import Elevate.Renderer.Vertex;
+import Elevate.Renderer.Buffers;
 import Elevate.Renderer.GraphicsContext;
 
 namespace Elevate
@@ -96,8 +103,17 @@ namespace Elevate
 		: m_count(count)
 	{
 		GLCheck(CreateBuffers(1, &m_rendererID));
+#ifdef EE_SUPPORTS_DSA
+		GLCheck(glNamedBufferData(m_rendererID, count * sizeof(uint32_t), indices, GL_STATIC_DRAW));
+#else
+		// ELEMENT_ARRAY_BUFFER bindings are VAO state. Creating an index buffer must
+		// not replace the element binding of whichever VAO happens to be bound,
+		// otherwise publishing a mesh can corrupt the fullscreen quad.
+		GLCheck(glBindVertexArray(0));
 		GLCheck(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_rendererID));
 		GLCheck(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW));
+		GLCheck(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+#endif
 	}
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()

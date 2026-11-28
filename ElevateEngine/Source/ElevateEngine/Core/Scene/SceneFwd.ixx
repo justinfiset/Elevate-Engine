@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Core.Scene:Fwd;
 
 export namespace Elevate

@@ -14,7 +14,10 @@ module Elevate.Core.Scene;
 import Elevate.Foundations.Assert;
 import Elevate.Foundations.CoreLogger;
 // Core
-import Elevate.Core.Application;
+// Import only the game-context module: importing Elevate.Core.Application here
+// makes Core.Scene depend on Application, which closes a module cycle through
+// PhysicsSystem and Rigidbody.
+import Elevate.Core.Application.GameContext;
 import Elevate.Core.Events;
 import Elevate.Core.Objects.ObjectPtr;
 
@@ -63,7 +66,7 @@ namespace Elevate
 
 	void Scene::UpdateScene()
 	{
-		if (m_type == SceneType::RuntimeScene && Application::GetGameState() != Runtime)
+		if (m_type == SceneType::RuntimeScene && GetGameState() != Runtime)
 		{
 			return;
 		}
@@ -81,7 +84,7 @@ namespace Elevate
 			switch (m_type)
 			{
 			case SceneType::EditorScene:
-				if (Application::GetGameState() == EditorMode)
+				if (GetGameState() == EditorMode)
 				{
 					obj->Render();
 				}
@@ -90,7 +93,7 @@ namespace Elevate
 			case SceneType::RuntimeScene:
 				obj->Render();
 
-				if (Application::GetGameState() == EditorMode)
+				if (GetGameState() == EditorMode)
 				{
 					obj->RenderInEditor();
 				}

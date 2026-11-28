@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Core.Layers.ImGuiLayer;
 
 import Elevate.Core.Layers.Layer;
@@ -10,17 +12,15 @@ export namespace Elevate
 		ImGuiLayer();
 		~ImGuiLayer();
 
-		virtual void OnAttach() override;
-		virtual void OnDetach() override;
-		virtual void OnImGuiRender() override;
-
-		void PreRender();
-		void Begin();
-		void Render();
-		void End();
-		void Cleanup();
+		void OnAttach() override;
+		void OnDetach() override;
+		void OnImGuiRender() override;
+		void OnImGuiRenderBegin() override;
+		void OnImGuiRenderEnd() override;
+		void Cleanup() override;
 
 	private:
 		float m_Time = 0.0f;
+		bool m_showFpsOverlay = false;
 	};
 }

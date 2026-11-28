@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Core.Transform;
 
 export import Elevate.Core.Transform.Transform;

@@ -1,4 +1,9 @@
+module;
+
 export module Elevate.Foundations.Services;
+
+import Elevate.Foundations.Cleanups;
+import Elevate.Foundations.CoreLogger;
 
 export import :Fwd;
 export import :SharedService;

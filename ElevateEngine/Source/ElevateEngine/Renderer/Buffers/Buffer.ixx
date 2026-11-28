@@ -1,9 +1,14 @@
 module;
 
-#include <vector>
-#include <iterator>
-#include <string>
+#include <cstddef>
 #include <cstdint>
+#include <cstdlib>
+#include <functional>
+#include <initializer_list>
+#include <iterator>
+#include <new>
+#include <string>
+#include <vector>
 
 export module Elevate.Renderer.Buffers;
 
@@ -93,12 +98,23 @@ export namespace Elevate
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 
-		static VertexBuffer* Create(const void* vertices, const uint32_t size);
+		using Factory = std::function<VertexBuffer*(const std::byte*, uint32_t)>;
+
+		static void SetFactory(Factory factory)
+		{
+			s_factory = factory;
+		}
+
+		static VertexBuffer* Create(const std::byte* vertices, const uint32_t size)
+		{
+			return s_factory ? s_factory(vertices, size) : nullptr;
+		}
 
 		uint32_t GetSize() { return m_size; }
 	protected:
 		void SetSize(uint32_t newSize) { m_size = newSize; }
 	private:
+		inline static Factory s_factory = nullptr;
 		uint32_t m_size;
 		const void* m_data;
 	};
@@ -113,6 +129,19 @@ export namespace Elevate
 
 		virtual uint32_t GetCount() const = 0;
 
-		static IndexBuffer* Create(const void* vertices, uint32_t count);
+		using Factory = std::function<IndexBuffer*(const std::byte*, uint32_t)>;
+
+		static void SetFactory(Factory factory)
+		{
+			s_factory = factory;
+		}
+
+		static IndexBuffer* Create(const std::byte* indices, uint32_t count)
+		{
+			return s_factory ? s_factory(indices, count) : nullptr;
+		}
+
+	private:
+		inline static Factory s_factory = nullptr;
 	};
 }

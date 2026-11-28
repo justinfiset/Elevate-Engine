@@ -4,9 +4,10 @@ module;
 #include <memory>
 #include <vector>
 #include <filesystem>
-#include <stb/stb_image.h>
+#include <tuple>
+#include <utility>
 
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <stb/stb_image.h>
 
 module Elevate.Renderer.Texture;
 
@@ -14,8 +15,6 @@ import Elevate.Foundations.Paths;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Services;
 import Elevate.Foundations.Tasks;
-
-import Elevate.Core.Application; // Used to resolve services
 
 namespace Elevate {
 	TextureManager::TextureManager()
@@ -78,8 +77,8 @@ namespace Elevate {
 		TextureManager& manager = instance();
 		std::lock_guard lock(manager.m_textureMutex);
 
-		auto [it, inserted] = manager.m_Textures.try_emplace(texture->GetPath(), texture);
-		return it->second;
+		auto result = manager.m_Textures.try_emplace(texture->GetPath(), texture);
+		return result.first->second;
 	}
 
 	std::shared_ptr<Texture> TextureManager::GetTexture(const std::string& path)
@@ -133,7 +132,7 @@ namespace Elevate {
 
 		auto texture = Texture::CreateFromData(nullptr, meta);
 
-		Application::Get().GetServices().Resolve<ITaskScheduler>()->Submit(
+		s_scheduler->Submit(
 			TaskDescriptor(TaskAffinity::Any, TaskPriority::Normal, "LoadTexture" + path),
 			[meta = std::move(meta)]() mutable
 			{

@@ -1,17 +1,17 @@
 module;
 
+#include <cstddef>
+#include <memory>
 #include <string>
+#include <vector>
 #include <filesystem>
 #include <glm/common.hpp>
 
 #include <glm/glm.hpp>
 
-#include <ElevateEngine/Platform/OpenGL/Textures/OpenGLTexture.h>
-
 module Elevate.Renderer.Texture;
 
 import Elevate.Foundations.Assert;
-import Elevate.Renderer.Renderer;
 
 namespace Elevate
 {
@@ -58,7 +58,7 @@ namespace Elevate
 			.State(TextureState::Loaded)
 			.Build();
 
-		return CreateFromData(pixels.data(), meta);
+		return CreateFromData(reinterpret_cast<const std::byte*>(pixels.data()), meta);
 	}
 
 	std::shared_ptr<Texture> Texture::CreateFromColor(const glm::vec4& color, const std::string& name, uint32_t width, uint32_t height)
@@ -89,26 +89,6 @@ namespace Elevate
 			.State(TextureState::Loaded)
 			.Build();
 
-		return CreateFromData(pixels.data(), meta);
-	}
-
-	std::shared_ptr<Texture> Texture::CreateFromData(const void* data, TextureMetadata& metadata)
-	{
-		std::shared_ptr<Texture> texture;
-		switch (Renderer::GetAPI())
-		{
-		case RendererAPI::GraphicAPI::None:
-			texture = nullptr;
-			break;
-		case RendererAPI::GraphicAPI::OpenGL:
-			texture = std::make_shared<OpenGLTexture>(data, metadata);
-			break;
-		default:
-			Assert::That(false, "A supported RendererAPI needs to be supported!");
-			return nullptr;
-			break;
-		}
-
-		return TextureManager::RegisterTexture(texture);
+		return CreateFromData(reinterpret_cast<const std::byte*>(pixels.data()), meta);
 	}
 }

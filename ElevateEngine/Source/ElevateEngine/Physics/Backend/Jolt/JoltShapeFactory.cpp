@@ -1,23 +1,29 @@
-#include "JoltShapeFactory.h"
+
+// Jolt.h must come first because it defines the platform and compiler macros
+// used by the other Jolt headers. Every textual include stays ahead of
+// JoltShapeFactory.h, which imports a module.
+#include <Jolt/Jolt.h>
+#include <Jolt/Physics/PhysicsSystem.h>
 
 #include <Jolt/Physics/Collision/Shape/BoxShape.h>
 #include <Jolt/Physics/Collision/Shape/PlaneShape.h>
 #include <Jolt/Physics/Collision/Shape/SphereShape.h>
 #include <Jolt/Physics/Collision/Shape/CapsuleShape.h>
 
-#include <ElevateEngine/Physics/Public/Colliders/Collider.h>
-#include <ElevateEngine/Physics/Public/Colliders/BoxCollider.h>
-#include <ElevateEngine/Physics/Public/Colliders/CapsuleCollider.h>
-#include <ElevateEngine/Physics/Public/Colliders/SphereCollider.h>
-#include <ElevateEngine/Physics/Public/Colliders/PlaneCollider.h>
+// Shape modules expose glm types from their global module fragment, so importers
+// that use those accessors need the textual include as well.
+#include <glm/glm.hpp>
+
+#include "JoltShapeFactory.h"
 
 import Elevate.Foundations.CoreLogger;
+import Elevate.Physics.IPhysicsCollider;
 
 namespace Elevate::Jolt
 {
 	constexpr float PLANE_COLLIDER_THICKNESS = 0.001f;
 
-	JPH::ShapeRefC JoltShapeFactory::Create(const Collider* collider)
+	JPH::ShapeRefC JoltShapeFactory::Create(const IPhysicsCollider* collider)
 	{
 		if (!collider)
 		{
@@ -25,28 +31,34 @@ namespace Elevate::Jolt
 			return nullptr;
 		}
 
-		auto typeId = collider->GetTypeIndex();
-		if (typeId == typeid(BoxCollider))
+		auto* shape = collider->GetPhysicsShape();
+		if (!shape)
 		{
-			return CreateBoxShape(static_cast<const BoxCollider&>(*collider));
+			CoreLogger::Warn("Unsupported collider type.");
+			return nullptr;
 		}
 
-		if (typeId == typeid(CapsuleCollider))
+		if (const auto* boxShape = dynamic_cast<const BoxShape*>(shape))
 		{
-			return CreateCapsuleShape(static_cast<const CapsuleCollider&>(*collider));
+			return CreateBoxShape(*boxShape);
 		}
 
-		if (typeId == typeid(SphereCollider))
+		if (const auto* capsuleShape = dynamic_cast<const CapsuleShape*>(shape))
 		{
-			return CreateSphereShape(static_cast<const SphereCollider&>(*collider));
+			return CreateCapsuleShape(*capsuleShape);
 		}
 
-		if (typeId == typeid(PlaneCollider))
+		if (const auto* sphereShape = dynamic_cast<const SphereShape*>(shape))
 		{
-			return CreatePlaneShape(static_cast<const PlaneCollider&>(*collider));
+			return CreateSphereShape(*sphereShape);
 		}
 
-		CoreLogger::Warn("Unsupported collider type.");
+		if (const auto* planeShape = dynamic_cast<const PlaneShape*>(shape))
+		{
+			return CreatePlaneShape(*planeShape);
+		}
+
+		CoreLogger::Warn("Unsupported collider shape.");
 		return nullptr;
 	}
 
@@ -60,9 +72,8 @@ namespace Elevate::Jolt
 		return true;
 	}
 
-	JPH::ShapeRefC JoltShapeFactory::CreateBoxShape(const BoxCollider& collider)
+	JPH::ShapeRefC JoltShapeFactory::CreateBoxShape(const BoxShape& shape)
 	{
-		const auto& shape = collider.GetShape();
 		const auto& extents = shape.GetHalfExtents();
 		JPH::BoxShapeSettings shapeSettings(JPH::Vec3(extents.x, extents.y, extents.z));
 		JPH::ShapeSettings::ShapeResult shapeResult = shapeSettings.Create();
@@ -70,27 +81,24 @@ namespace Elevate::Jolt
 		return shapeResult.Get();
 	}
 
-	JPH::ShapeRefC JoltShapeFactory::CreateCapsuleShape(const CapsuleCollider& collider)
+	JPH::ShapeRefC JoltShapeFactory::CreateCapsuleShape(const CapsuleShape& shape)
 	{
-		const auto& shape = collider.GetShape();
 		JPH::CapsuleShapeSettings shapeSettings(shape.GetHalfHeight(), shape.GetRadius());
 		JPH::ShapeSettings::ShapeResult shapeResult = shapeSettings.Create();
 		ValidateShapeResult(shapeResult);
 		return shapeResult.Get();
 	}
 
-	JPH::ShapeRefC JoltShapeFactory::CreateSphereShape(const SphereCollider& collider)
+	JPH::ShapeRefC JoltShapeFactory::CreateSphereShape(const SphereShape& shape)
 	{
-		const auto& shape = collider.GetShape();
 		JPH::SphereShapeSettings shapeSettings(shape.GetRadius());
 		JPH::ShapeSettings::ShapeResult shapeResult = shapeSettings.Create();
 		ValidateShapeResult(shapeResult);
 		return shapeResult.Get();
 	}
 
-	JPH::ShapeRefC JoltShapeFactory::CreatePlaneShape(const PlaneCollider& collider)
+	JPH::ShapeRefC JoltShapeFactory::CreatePlaneShape(const PlaneShape& shape)
 	{
-		const auto& shape = collider.GetShape();
 		const auto& size = shape.GetSize();
 		JPH::BoxShapeSettings shapeSettings(JPH::Vec3(size.x * 0.5f, PLANE_COLLIDER_THICKNESS, size.y * 0.5f));
 		JPH::ShapeSettings::ShapeResult shapeResult = shapeSettings.Create();

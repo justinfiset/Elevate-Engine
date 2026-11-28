@@ -44,7 +44,12 @@ export namespace Elevate
 		BEGIN_OBJECT(Material, EE_Asset("Material", ".mat", EE_CreateAssetMenu, EE_AssetColor(0.8f, 0.2f, 0.2f)));
 
 	public:
-		virtual TypeLayout GetLayout() const override;
+		using ShaderBinder = bool (*)(const std::shared_ptr<Shader>&);
+		using TextureBinder = void (*)(const std::shared_ptr<Texture>&, uint8_t);
+
+		static void SetRendererBindings(ShaderBinder shaderBinder, TextureBinder textureBinder);
+
+		TypeLayout GetLayout() const override;
 
 		template<typename T>
 		void Set(const std::string& name, const T& value)
@@ -85,6 +90,9 @@ export namespace Elevate
 		Material();
 
 	private:
+		static ShaderBinder s_shaderBinder;
+		static TextureBinder s_textureBinder;
+
 		Material(const std::shared_ptr<Shader>& shader);
 
 		void BuildUniformStorage() const

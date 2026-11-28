@@ -1,10 +1,12 @@
 #pragma once
 
 #ifdef EE_PLATFORM_WEB
+#ifndef EE_FILEDIALOG_IMPLEMENTATION
 #include <string>
 #include <vector>
 
 import Elevate.Foundations.Files.FileDialog;
+#endif
 
 namespace Elevate
 {
@@ -13,16 +15,16 @@ namespace Elevate
     public:
         WebFileDialog() = default;
 
-        virtual void OpenFile(const std::string& title, const std::string& defaultPathOrFile,
+        void OpenFile(const std::string& title, const std::string& defaultPathOrFile,
             const std::vector<std::string>& filters, const std::string& filterDescription, bool allowMultiple) override;
 
-        virtual void SaveFile(const std::string& title, const std::string& defaultPathOrFile,
+        void SaveFile(const std::string& title, const std::string& defaultPathOrFile,
             const std::vector<std::string>& filters, const std::string& filterDescription) override;
 
-        virtual void SelectFolder(const std::string& title, const std::string& defaultPath) override;
+        void SelectFolder(const std::string& title, const std::string& defaultPath) override;
 
     protected:
-        virtual bool DisplayAndGetResult(std::string& outPath) override;
+        bool DisplayAndGetResult(std::string& outPath) override;
 
         void SetWaitingForDirPath();
         void SetWaitingForFilePath();

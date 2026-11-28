@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Input.Joystick.JoystickCode;
 
 export namespace Elevate

@@ -1,12 +1,14 @@
+module;
+
+#define ELEVATE_GLFW_FORWARD_DECLARED
 #include <memory>
 #include <ctype.h>
 #include <bitset>
 #include <glm/glm.hpp>
-
 #include <GLFW/glfw3.h>
 #include <ElevateEngine/Platform/OpenGL/Context/OpenGLContext.h>
 
-#include "GlfwWindow.h"
+module Elevate.Core.Window;
 
 // Foundations
 import Elevate.Foundations.CoreLogger;
@@ -20,6 +22,9 @@ import Elevate.Core.Events.ApplicationEvent;
 import Elevate.Input;
 // Renderer
 import Elevate.Renderer.Renderer;
+
+#define ELEVATE_WINDOW_IMPLEMENTATION
+#include "GlfwWindow.h"
 
 static void Elevate_MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {

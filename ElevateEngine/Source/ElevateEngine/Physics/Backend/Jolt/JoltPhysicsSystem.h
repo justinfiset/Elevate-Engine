@@ -1,7 +1,5 @@
 #pragma once
 
-#include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
-
 #include <cstdint>
 #include <vector>
 
@@ -10,14 +8,15 @@
 #include <Jolt/Core/TempAllocator.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
 
+import Elevate.Physics.IPhysicsRigidbody;
 import Elevate.Physics.PhysicsSystem;
 
 namespace Elevate::Jolt
 {
-	// Small struct to link ElevateEngine's Rigidbody with jols's system
+	// Small struct to link an Elevate physics body with Jolt's system.
 	struct JoltPhysicsBody
 	{
-		const Rigidbody* rigidbody = nullptr;
+		IPhysicsRigidbody* rigidbody = nullptr;
 		JPH::BodyID bodyID;
 	};
 
@@ -87,10 +86,10 @@ namespace Elevate::Jolt
 		void Shutdown() override;
 		void Update(float deltaTime) override;
 
-		virtual void FlushAllBodies() override;
-		virtual void AddRigidbody(const Rigidbody* rigidbody) override;
-		virtual void RemoveRigidbody(const Rigidbody* rigidbody) override;
-		virtual void RebuildRigidbody(const Rigidbody* rigidbody) override;
+		void FlushAllBodies() override;
+		void AddRigidbody(IPhysicsRigidbody* rigidbody) override;
+		void RemoveRigidbody(IPhysicsRigidbody* rigidbody) override;
+		void RebuildRigidbody(IPhysicsRigidbody* rigidbody) override;
 
 	private:
 		/// <summary>

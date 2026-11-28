@@ -1,22 +1,50 @@
-#include "JoltPhysicsSystem.h"
-#include "JoltShapeFactory.h"
+// Keep every textual include before the first module import. Project headers
+// that import modules are grouped last; their own textual dependencies are
+// included above, so GCC does not reprocess standard/Jolt headers after an
+// import. Jolt.h must come first because it defines the platform and compiler
+// macros used by every other Jolt header.
+#include <Jolt/Jolt.h>
 
+#include <algorithm>
 #include <cstdarg>
+#include <functional>
+#include <cstdint>
 #include <cstdio>
+#include <memory>
+#include <vector>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 #include <Jolt/Core/Factory.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
 #include <Jolt/Core/Memory.h>
+#include <Jolt/Core/TempAllocator.h>
 #include <Jolt/RegisterTypes.h>
 #include <Jolt/Physics/Collision/Shape/StaticCompoundShape.h>
 #include <Jolt/Physics/Body/BodyCreationSettings.h>
 
-#include <ElevateEngine/Physics/Public/Rigidbody/Rigidbody.h>
-#include <ElevateEngine/Physics/Public/Colliders/Collider.h>
+#include <ElevateEngine/Physics/Public/PhysicsBackend.h>
+
+// Import-bearing headers last.
+#include "JoltShapeFactory.h"
+#include "JoltPhysicsSystem.h"
 
 import Elevate.Foundations.CoreLogger;
-import Elevate.Core.Application;
-import Elevate.Core.Transform.Transform;
+import Elevate.Core.Application.GameContext;
+import Elevate.Physics.IPhysicsCollider;
+import Elevate.Physics.IPhysicsRigidbody;
+import Elevate.Physics.PhysicsSystem;
+
+namespace Elevate
+{
+	void RegisterPhysicsSystemBackend()
+	{
+		PhysicsSystem::SetFactory([]() -> std::unique_ptr<PhysicsSystem> {
+			return std::make_unique<Jolt::JoltPhysicsSystem>();
+		});
+	}
+}
 
 namespace Elevate::Jolt
 {
@@ -116,7 +144,7 @@ namespace Elevate::Jolt
 
 	void JoltPhysicsSystem::Update(float deltaTime)
 	{
-		if (Application::GetGameState() == GameContextState::Runtime)
+		if (GetGameState() == GameContextState::Runtime)
 		{
 			constexpr float PHYSICS_TIMESTEP = 1.0f / 30.0f;
 
@@ -132,41 +160,23 @@ namespace Elevate::Jolt
 		}
 	}
 
-	JPH::EMotionType GetBodyMotionType(const Rigidbody* rigidbody)
+	JPH::EMotionType GetBodyMotionType(const IPhysicsRigidbody* rigidbody)
 	{
-		switch (rigidbody->GetType())
+		if (rigidbody->IsStatic())
 		{
-		case RigidbodyType::Dynamic:
-			return JPH::EMotionType::Dynamic;
-		case RigidbodyType::Kinematic:
-			return JPH::EMotionType::Kinematic;
-		case RigidbodyType::Static:
 			return JPH::EMotionType::Static;
-		default:
-			CoreLogger::Error("Unknown RigidbodyType.");
-			break;
 		}
-		return JPH::EMotionType::Static;
+		return rigidbody->IsKinematic() ? JPH::EMotionType::Kinematic : JPH::EMotionType::Dynamic;
 	}
 
-	JPH::ObjectLayer GetObjectLayer(const Rigidbody* rigidbody)
+	JPH::ObjectLayer GetObjectLayer(const IPhysicsRigidbody* rigidbody)
 	{
-		switch (rigidbody->GetType())
-		{
-		case RigidbodyType::Static:
-			return PhysicsLayers::NON_MOVING;
-		case RigidbodyType::Dynamic:
-		case RigidbodyType::Kinematic:
-			return PhysicsLayers::MOVING;
-		default:
-			CoreLogger::Error("Unknown RigidbodyType.");
-			return PhysicsLayers::NON_MOVING;
-		}
+		return rigidbody->IsStatic() ? PhysicsLayers::NON_MOVING : PhysicsLayers::MOVING;
 	}
 
-	JPH::EActivation GetBodyActivation(const Rigidbody* rigidbody)
+	JPH::EActivation GetBodyActivation(const IPhysicsRigidbody* rigidbody)
 	{
-		return rigidbody->GetType() == RigidbodyType::Static ? JPH::EActivation::DontActivate : JPH::EActivation::Activate;
+		return rigidbody->IsStatic() ? JPH::EActivation::DontActivate : JPH::EActivation::Activate;
 	}
 
 	void JoltPhysicsSystem::FlushAllBodies()
@@ -179,19 +189,19 @@ namespace Elevate::Jolt
 		m_Bodies.clear();
 	}
 
-	void JoltPhysicsSystem::AddRigidbody(const Rigidbody* rigidbody)
+	void JoltPhysicsSystem::AddRigidbody(IPhysicsRigidbody* rigidbody)
 	{
 		JPH::StaticCompoundShapeSettings compoundSettings;
-		const auto& position = rigidbody->gameObject->GetPosition();
-		const auto& quat = rigidbody->gameObject->GetTransform().GetRotationQuat();
-		const auto& colliders = rigidbody->GetColliders();
+		const glm::vec3 position = rigidbody->GetPosition();
+		const glm::quat quat = rigidbody->GetRotation();
+		const auto& colliders = rigidbody->GetPhysicsColliders();
 
 		if (colliders.empty())
 		{
 			return;
 		}
 
-		for (const auto& collider : colliders)
+		for (const IPhysicsCollider* collider : colliders)
 		{
 			auto shapeResult = JoltShapeFactory::Create(collider);
 
@@ -240,7 +250,7 @@ namespace Elevate::Jolt
 		m_Bodies.push_back(joltBody);
 	}
 
-	void JoltPhysicsSystem::RemoveRigidbody(const Rigidbody* rigidbody)
+	void JoltPhysicsSystem::RemoveRigidbody(IPhysicsRigidbody* rigidbody)
 	{
 		auto it = std::find_if(m_Bodies.begin(), m_Bodies.end(), [rigidbody](const auto& body)
 			{
@@ -258,7 +268,7 @@ namespace Elevate::Jolt
 		m_Bodies.erase(it);
 	}
 
-	void JoltPhysicsSystem::RebuildRigidbody(const Rigidbody* rigidbody)
+	void JoltPhysicsSystem::RebuildRigidbody(IPhysicsRigidbody* rigidbody)
 	{
 		RemoveRigidbody(rigidbody);
 		AddRigidbody(rigidbody);
@@ -268,9 +278,9 @@ namespace Elevate::Jolt
 	{
 		for (auto& body : m_Bodies)
 		{
-			const Rigidbody* rigidbody = body.rigidbody;
+			IPhysicsRigidbody* rigidbody = body.rigidbody;
 
-			if (rigidbody->GetType() != RigidbodyType::Dynamic)
+			if (!rigidbody->IsDynamic())
 			{
 				continue;
 			}
@@ -280,10 +290,9 @@ namespace Elevate::Jolt
 			JPH::Quat rotation;
 			m_BodyInterface->GetPositionAndRotation(body.bodyID, position, rotation);
 
-			// Apply the data to the world object
-			Transform& transform = rigidbody->gameObject->GetTransform();
-			transform.SetPosition(glm::vec3{ position.GetX(), position.GetY(), position.GetZ() });
-			transform.SetRotationQuaternion(glm::quat{ rotation.GetX(), rotation.GetY(), rotation.GetZ(), rotation.GetW() });
+			// Apply the data to the world object through the physics interface.
+			rigidbody->SetPosition(glm::vec3{ position.GetX(), position.GetY(), position.GetZ() });
+			rigidbody->SetRotation(glm::quat{ rotation.GetX(), rotation.GetY(), rotation.GetZ(), rotation.GetW() });
 		}
 	}
 

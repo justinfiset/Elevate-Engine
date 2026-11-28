@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Input.State;
 
 export namespace Elevate

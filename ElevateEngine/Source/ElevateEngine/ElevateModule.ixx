@@ -1,3 +1,5 @@
+module;
+
 export module Elevate;
 
 export import Elevate.Foundations;

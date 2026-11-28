@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Input.Gamepad.Axis;
 
 export namespace Elevate

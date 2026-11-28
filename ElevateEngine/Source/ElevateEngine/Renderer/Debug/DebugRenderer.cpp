@@ -1,5 +1,7 @@
 module;
 
+#include <cstddef>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
 
@@ -119,7 +121,7 @@ void Elevate::DebugRenderer::InitLineRender()
 		"editor://Shaders/debug.frag"
 	);
 
-	m_lineBuffer.reset(VertexBuffer::Create(m_debugLineArray.data(), (uint32_t)m_debugLineArray.size() * sizeof(DebugVertex)));
+	m_lineBuffer.reset(VertexBuffer::Create(reinterpret_cast<const std::byte*>(m_debugLineArray.data()), (uint32_t)m_debugLineArray.size() * sizeof(DebugVertex)));
 	m_lineBuffer->SetLayout({
 		{ShaderDataType::Float3, "a_Position"},
 		{ShaderDataType::Float4, "a_Color"},

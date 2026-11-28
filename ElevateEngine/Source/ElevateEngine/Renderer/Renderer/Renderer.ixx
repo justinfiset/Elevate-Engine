@@ -47,6 +47,11 @@ export namespace Elevate
 	class Renderer
 	{
 	public:
+		using APIFactory = std::unique_ptr<RendererAPI> (*)();
+
+		static void SetAPIFactory(APIFactory factory) { s_apiFactory = factory; }
+		static std::unique_ptr<RendererAPI> CreateAPI();
+
 		inline static RendererAPI::GraphicAPI GetAPI() { return RendererAPI::GetAPI(); }
 
 		static void Init(uint32_t width, uint32_t height);
@@ -126,6 +131,7 @@ export namespace Elevate
 		static void ClearStack();
 
 	private:
+		static APIFactory s_apiFactory;
 		static std::unique_ptr<RendererAPI> s_API;
 		static RenderCommandQueue s_commands;
 

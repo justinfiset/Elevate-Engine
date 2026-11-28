@@ -1,11 +1,16 @@
+
+#include <cstddef>
+#include <cstdint>
+#include <memory>
+#include <vector>
+
 #include "OpenGLFramebuffer.h"
 
 #include <ElevateEngine/Platform/OpenGL/GLDebug.h>
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
+#include <ElevateEngine/Platform/OpenGL/GraphicsAPI.h>
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
-import Elevate.Renderer.Renderer;
 
 namespace Elevate
 {

@@ -9,7 +9,6 @@ export module Elevate.Editor.Panels.ScenePanel;
 #ifdef EE_EDITOR_BUILD
 
 import Elevate.Editor.Widgets.Widget;
-import Elevate.Editor.Layer;
 
 namespace Elevate::Editor
 {

@@ -1,7 +1,10 @@
 module;
 
-#include <string>
+#include <cstddef>
+#include <cstdint>
+#include <functional>
 #include <memory>
+#include <string>
 
 #include <glm/vec4.hpp>
 #include <glm/vec3.hpp>
@@ -32,7 +35,17 @@ export namespace Elevate
 		static std::shared_ptr<Texture> CreateFromFile(const std::string& path, const TextureMetadata& metadata);
 		static std::shared_ptr<Texture> CreateFromColor(const glm::vec3& color, const std::string& name, uint32_t width = 1, uint32_t height = 1);
 		static std::shared_ptr<Texture> CreateFromColor(const glm::vec4& color, const std::string& name, uint32_t width = 1, uint32_t height = 1);
-		static std::shared_ptr<Texture> CreateFromData(const void* data, TextureMetadata& metadata);
+		using DataFactory = std::function<std::shared_ptr<Texture>(const std::byte*, TextureMetadata&)>;
+
+		static void SetDataFactory(DataFactory factory)
+		{
+			s_dataFactory = factory;
+		}
+
+		static std::shared_ptr<Texture> CreateFromData(const std::byte* data, TextureMetadata& metadata)
+		{
+			return s_dataFactory ? s_dataFactory(data, metadata) : nullptr;
+		}
 
 		// NOT ALL GETTERS BUT THE MOST USED
 		inline const std::string& GetName() const { return m_meta.Name; }
@@ -54,5 +67,8 @@ export namespace Elevate
 
 	protected:
 		TextureMetadata m_meta;
+
+	private:
+		inline static DataFactory s_dataFactory = nullptr;
 	};
 }

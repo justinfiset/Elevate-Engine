@@ -30,7 +30,7 @@ export namespace Elevate
 
 		std::function<bool()> RemoveFromGOFunc;
 
-		Component() = default;
+		Component();
 		virtual ~Component() = default;
 
 		// Reflection methods

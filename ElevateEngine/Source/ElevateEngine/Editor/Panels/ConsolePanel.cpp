@@ -1,7 +1,9 @@
 module;
 
-#include <format>
-#include <chrono>
+#include <string>
+#include <utility>
+
+#include <ElevateEngine/Editor/Panels/ConsolePanelTime.h>
 
 #include <imgui.h>
 #include <glm/vec4.hpp>
@@ -9,6 +11,15 @@ module;
 module Elevate.Editor.Panels.ConsolePanel;
 
 import Elevate.Foundations.CoreLogger;
+
+Elevate::Editor::ConsoleMessage::ConsoleMessage(std::string message, Type type)
+	: EditorMessage(std::move(message), type)
+{
+	timeText = FormatConsoleTimestamp(timestamp);
+
+	const glm::vec4 glmColor = GetColor();
+	color = ImVec4(glmColor.r, glmColor.g, glmColor.b, glmColor.a);
+}
 
 Elevate::Editor::ConsolePanel::ConsolePanel()
 {

@@ -1,11 +1,8 @@
 module;
 
-#include <ElevateEngine/Platform/OpenGL/Buffers/OpenGLVertexArray.h>
+#include <memory>
 
 module Elevate.Renderer.VertexArray;
-
-import Elevate.Foundations;
-import Elevate.Renderer.RendererAPI;
 
 namespace Elevate
 {
@@ -34,17 +31,5 @@ namespace Elevate
 	{
 		ClearVertexBuffers();
 		AddVertexBuffer(vertexBuffer);
-	}
-
-	VertexArray* VertexArray::Create()
-	{
-		switch (RendererAPI::GetAPI())
-		{
-		case RendererAPI::GraphicAPI::None: return nullptr; break;
-		case RendererAPI::GraphicAPI::OpenGL: return new OpenGLVertexArray();
-		}
-
-		Assert::That(false, "A supported RendererAPI needs to be supported!");
-		return nullptr;
 	}
 }

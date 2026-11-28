@@ -34,7 +34,7 @@ export namespace Elevate::Editor
 		WwiseBrowserPanel() = default;
 		virtual ~WwiseBrowserPanel() = default;
 
-		virtual void OnImGuiRender() override;
+		void OnImGuiRender() override;
 
 	protected:
 		void DrawTreeView(WwiseItemPtr root);

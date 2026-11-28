@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Core.Types.ITypeTrait;
 
 export namespace Elevate

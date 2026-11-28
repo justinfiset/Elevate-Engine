@@ -1,7 +1,9 @@
+module;
+
 module Elevate.Core.Reflection.ReflectionTags;
 
-import Elevate.Core.Assets.AssetRegistry;
 import Elevate.Core.Assets.AssetMetadata;
+import Elevate.Core.Assets.AssetTagRegistration;
 
 namespace Elevate
 {
@@ -9,7 +11,7 @@ namespace Elevate
 	{
 		Meta = meta;
 #ifdef EE_EDITOR_BUILD
-		AssetRegistry::RegisterAssetType(meta);
+		Detail::RegisterAssetTypeForTag(meta);
 #endif
 	}
 }

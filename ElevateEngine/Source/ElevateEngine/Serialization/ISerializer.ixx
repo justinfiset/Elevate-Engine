@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Serialization.ISerializer;
 
 import Elevate.Foundations.Bytes;

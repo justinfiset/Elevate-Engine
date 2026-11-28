@@ -8,6 +8,8 @@ module;
 #include <unordered_map>
 #include <cstring>
 #include <cctype>
+#include <tuple>
+#include <utility>
 
 module Elevate.Renderer.Materials.Material;
 
@@ -20,10 +22,18 @@ import Elevate.Core.Types.TypeRegistry;
 
 import Elevate.Renderer.Texture;
 import Elevate.Renderer.Shaders;
-import Elevate.Renderer.Renderer;
 
 namespace Elevate
 {
+	Material::ShaderBinder Material::s_shaderBinder = nullptr;
+	Material::TextureBinder Material::s_textureBinder = nullptr;
+
+	void Material::SetRendererBindings(ShaderBinder shaderBinder, TextureBinder textureBinder)
+	{
+		s_shaderBinder = shaderBinder;
+		s_textureBinder = textureBinder;
+	}
+
 	MaterialID Material::s_nextId = EE_FIRST_MATERIAL_ID;
 
 	Material::Material()
@@ -131,7 +141,10 @@ namespace Elevate
 			return;
 		}
 
-		Renderer::BindShader(m_shader);
+		if (s_shaderBinder)
+		{
+			s_shaderBinder(m_shader);
+		}
 
 		const auto& layout = m_shader->GetLayout();
 
@@ -167,13 +180,19 @@ namespace Elevate
 
 			if (texture && texture->IsTextureLoaded() && texture->GetWidth() > 0 && texture->GetHeight() > 0)
 			{
-				Renderer::BindTexture(texture, slot);
+				if (s_textureBinder)
+				{
+					s_textureBinder(texture, static_cast<uint8_t>(slot));
+				}
 				m_shader->SetUniform1i(texName, slot);
 				m_shader->SetUniform1i(hasFlagName, 1);
 			}
 			else
 			{
-				Renderer::BindTexture(TextureManager::GetDefaultTexture(), slot);
+				if (s_textureBinder)
+				{
+					s_textureBinder(TextureManager::GetDefaultTexture(), static_cast<uint8_t>(slot));
+				}
 				m_shader->SetUniform1i(texName, slot);
 				m_shader->SetUniform1i(hasFlagName, 0);
 			}

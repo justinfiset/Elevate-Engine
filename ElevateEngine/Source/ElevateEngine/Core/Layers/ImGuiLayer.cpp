@@ -1,6 +1,6 @@
 module;
 
-#include <string>
+#include <cstdio>
 
 #include "imgui.h"
 #include "backends/imgui_impl_opengl3.h"
@@ -14,6 +14,12 @@ module Elevate.Core.Layers.ImGuiLayer;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Application;
 import Elevate.Renderer.Shaders;
+
+namespace
+{
+	constexpr ImGuiKey FPSOverlayToggleKey = ImGuiKey_F3;
+	constexpr ImGuiKey FPSOverlayAlternateToggleKey = ImGuiKey_GraveAccent;
+}
 
 Elevate::ImGuiLayer::ImGuiLayer()
 	: Layer("ImGuiLayer")
@@ -49,8 +55,7 @@ void Elevate::ImGuiLayer::OnAttach()
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
 
-	Application& app = Application::Get();
-	GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
+	GLFWwindow* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 
 	// Setup Platform/Renderer bindings#
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -73,34 +78,49 @@ void Elevate::ImGuiLayer::OnImGuiRender()
 {
 }
 
-void Elevate::ImGuiLayer::PreRender()
+void Elevate::ImGuiLayer::OnImGuiRenderBegin()
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
-}
 
-void Elevate::ImGuiLayer::Begin()
-{
-	// ImGui
 	ImGui::NewFrame();
-	// ImGuizmo
 	ImGuizmo::BeginFrame();
 }
 
-void Elevate::ImGuiLayer::Render()
+void Elevate::ImGuiLayer::OnImGuiRenderEnd()
 {
-	ImGui::Render();
-}
+#ifndef EE_DIST
+	if (ImGui::IsKeyPressed(FPSOverlayToggleKey, false) ||
+		ImGui::IsKeyPressed(FPSOverlayAlternateToggleKey, false))
+	{
+		m_showFpsOverlay = !m_showFpsOverlay;
+	}
 
-void Elevate::ImGuiLayer::End()
-{
-	ImGuiIO& io = ImGui::GetIO();
-	Application& app = Application::Get();
-	io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
+	if (m_showFpsOverlay)
+	{
+		const ImGuiIO& io = ImGui::GetIO();
+		const float frameTimeMs = io.Framerate > 0.0f ? 1000.0f / io.Framerate : 0.0f;
+
+		char label[64];
+		std::snprintf(label, sizeof(label), "%.1f FPS (%.2f ms)", io.Framerate, frameTimeMs);
+
+		const ImVec2 textSize = ImGui::CalcTextSize(label);
+		const ImVec2 padding(6.0f, 4.0f);
+		const ImVec2 viewportPos = ImGui::GetMainViewport()->Pos;
+		const ImVec2 min(viewportPos.x + 10.0f, viewportPos.y + 10.0f);
+		const ImVec2 max(min.x + textSize.x + 2.0f * padding.x, min.y + textSize.y + 2.0f * padding.y);
+
+		ImDrawList* drawList = ImGui::GetForegroundDrawList(ImGui::GetMainViewport());
+		drawList->AddRectFilled(min, max, IM_COL32(0, 0, 0, 160), 4.0f);
+		drawList->AddText(ImVec2(min.x + padding.x, min.y + padding.y), IM_COL32(255, 255, 255, 255), label);
+	}
+#endif
+
+	ImGui::Render();
 
 	// Rendering
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 	{
 		GLFWwindow* backup_current_context = glfwGetCurrentContext();
 		ImGui::UpdatePlatformWindows();
@@ -111,7 +131,5 @@ void Elevate::ImGuiLayer::End()
 
 void Elevate::ImGuiLayer::Cleanup()
 {
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
+	OnDetach();
 }

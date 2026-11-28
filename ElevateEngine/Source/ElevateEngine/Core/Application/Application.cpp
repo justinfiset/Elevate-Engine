@@ -4,40 +4,31 @@ module;
 #include <format>
 #include <functional>
 
-// Physics
-#include <ElevateEngine/Physics/Backend/Jolt/JoltPhysicsSystem.h>
-
 #ifdef EE_PLATFORM_WEB
 #include <emscripten.h>
 #endif
 
 module Elevate.Core.Application;
 
-// Foundations
 import Elevate.Foundations.Time;
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
 import Elevate.Foundations.Paths;
-// Core
 import Elevate.Core.Assets.AssetRegistry;
 import Elevate.Core.Layers.Layer;
 import Elevate.Core.Layers.ImGuiLayer;
 import Elevate.Core.Layers.LayerStack;
 import Elevate.Core.Window;
 import Elevate.Core.Events;
-// Audio
 import Elevate.Audio.SoundEngine;
-// Renderer
 import Elevate.Renderer.Texture;
 import Elevate.Renderer.Renderer;
-// Input
 import Elevate.Input;
-// DI
+import Elevate.Physics.PhysicsSystem;
 import Elevate.Foundations.DI;
 import Elevate.Core.DI;
 import Elevate.Renderer.DI;
 
-// Editor
 #ifdef EE_EDITOR_BUILD
 import Elevate.Editor.Layer;
 import Elevate.Editor.DI;
@@ -45,7 +36,6 @@ import Elevate.Editor.DI;
 
 namespace Elevate
 {
-
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 	Application* Application::s_Instance = nullptr;
@@ -54,6 +44,7 @@ namespace Elevate
 	{
 		Assert::That(!s_Instance, "Application already exists!");
 		s_Instance = this;
+		SetGameStateProvider([]() { return Application::GetGameState(); });
 
 		CoreLogger::Trace("Current working directory : {}", std::filesystem::current_path().string().c_str());
 		CoreLogger::Trace("Resource dir: {}", std::string(EE_RESOURCE_DIR));
@@ -71,8 +62,9 @@ namespace Elevate
 
 		// We need to update it each frame
 		m_Scheduler = m_Provider->Resolve<ITaskScheduler>();
+		TextureManager::SetScheduler(m_Scheduler);
 
-		m_PhysicsSystem = std::make_unique<Jolt::JoltPhysicsSystem>();
+		m_PhysicsSystem = PhysicsSystem::Create();
 		m_PhysicsSystem->Init();
 	}
 
@@ -173,8 +165,7 @@ namespace Elevate
 	{
 		OnCreateLayers();
 
-		m_ImGuiLayer = new ImGuiLayer();
-		PushOverlay(m_ImGuiLayer);
+		PushOverlay(new ImGuiLayer());
 
 #ifdef EE_EDITOR_BUILD
 		PushOverlay(new Editor::EditorLayer());
@@ -225,16 +216,20 @@ namespace Elevate
 #endif
 
 			// imgui
-			m_ImGuiLayer->PreRender();
-			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnImGuiRenderBegin();
+			}
 
 			for (Layer* layer : m_LayerStack)
 			{
 				layer->OnImGuiRender();
 			}
 
-			m_ImGuiLayer->Render(); // render imgui
-			m_ImGuiLayer->End();	// finish the imgui rendering
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnImGuiRenderEnd();
+			}
 
 			Renderer::InvalidateStateCache(); // Clear the renderer state after ImGui rendering
 			Input::ManageMidStates();		  // Manage Key/Button up and down state
@@ -275,7 +270,10 @@ namespace Elevate
 
 	void Application::Exit()
 	{
-		m_ImGuiLayer->Cleanup();
+		for (Layer* layer : m_LayerStack)
+		{
+			layer->Cleanup();
+		}
 
 		SoundEngine::Terminate();
 		m_PhysicsSystem->Shutdown();

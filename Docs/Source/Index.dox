@@ -1,8 +1,13 @@
-\mainpage
+/**
+\mainpage Elevate Engine Documentation
 
-\section index Elevate Engine Documentation
+### Builds
+
+#### WebAssembly
+\ref webassembly
 
 ### Serialization
 
 #### Serializing Pointers
 \ref pointer_patching
+*/

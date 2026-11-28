@@ -5,6 +5,7 @@ module;
 module Elevate.Audio.SoundEngine;
 
 import Elevate.Foundations.CoreLogger;
+import Elevate.Audio.Object;
 
 Elevate::SoundEngine* Elevate::SoundEngine::Impl = nullptr;
 
@@ -46,13 +47,13 @@ void Elevate::SoundEngine::Terminate()
 	Impl->TerminateImpl();
 }
 
-void Elevate::SoundEngine::SetDefaultListener(GameObject* obj)
+void Elevate::SoundEngine::SetDefaultListener(IAudioObject* obj)
 {
 	EE_CHECK_SOUNDENGINE();
 	Impl->SetDefaultListenerImpl(obj);
 }
 
-void Elevate::SoundEngine::SetDistanceProbe(GameObject* obj)
+void Elevate::SoundEngine::SetDistanceProbe(IAudioObject* obj)
 {
 	EE_CHECK_SOUNDENGINE();
 	Impl->SetDistanceProbeImpl(obj);
@@ -64,31 +65,31 @@ void Elevate::SoundEngine::UnsetDistanceProbe()
 	Impl->UnsetDistanceProbeImpl();
 }
 
-void Elevate::SoundEngine::RegisterGameObject(GameObject* obj)
+void Elevate::SoundEngine::RegisterGameObject(IAudioObject* obj)
 {
 	EE_CHECK_SOUNDENGINE();
 	Impl->RegisterGameObjectImpl(obj);
 }
 
-void Elevate::SoundEngine::UnregisterGameObject(GameObject* obj)
+void Elevate::SoundEngine::UnregisterGameObject(IAudioObject* obj)
 {
 	EE_CHECK_SOUNDENGINE();
 	Impl->UnregisterGameObjectImpl(obj);
 }
 
-void Elevate::SoundEngine::UpdatePosition(GameObject* obj)
+void Elevate::SoundEngine::UpdatePosition(IAudioObject* obj)
 {
 	EE_CHECK_SOUNDENGINE();
 	Impl->UpdateObjectPositionImpl(obj);
 }
 
-void Elevate::SoundEngine::PostEvent(const char* eventName, GameObject* object)
+void Elevate::SoundEngine::PostEvent(const char* eventName, IAudioObject* object)
 {
 	EE_CHECK_SOUNDENGINE();
 	Impl->PostEventImpl(eventName, object);
 }
 
-void Elevate::SoundEngine::PostEvent(uint32_t eventId, GameObject* object)
+void Elevate::SoundEngine::PostEvent(uint32_t eventId, IAudioObject* object)
 {
 	EE_CHECK_SOUNDENGINE();
 	Impl->PostEventImpl(eventId, object);

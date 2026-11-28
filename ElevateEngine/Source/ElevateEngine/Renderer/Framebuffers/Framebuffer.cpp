@@ -1,18 +1,29 @@
 module;
 
-#include <ElevateEngine/Renderer/GraphicsAPI.h>
-
-#include <ElevateEngine/Platform/OpenGL/Framebuffer/OpenGLFramebuffer.h>
+#include <memory>
+#include <vector>
 
 module Elevate.Renderer.Framebuffers;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Foundations.Assert;
-import Elevate.Renderer.Renderer;
-import Elevate.Renderer.RendererAPI;
 
 namespace Elevate
 {
+	Framebuffer::ViewportSetter Framebuffer::s_viewportSetter = nullptr;
+	Framebuffer::ClearColorSetter Framebuffer::s_clearColorSetter = nullptr;
+	Framebuffer::ClearFunction Framebuffer::s_clearFunction = nullptr;
+
+	void Framebuffer::SetRendererFunctions(
+		ViewportSetter viewportSetter,
+		ClearColorSetter clearColorSetter,
+		ClearFunction clearFunction)
+	{
+		s_viewportSetter = viewportSetter;
+		s_clearColorSetter = clearColorSetter;
+		s_clearFunction = clearFunction;
+	}
+
 	uint32_t Framebuffer::GetWidth() const
 	{
 		return m_width;
@@ -66,22 +77,6 @@ namespace Elevate
 		return buffer;
 	}
 
-	Framebuffer* Framebuffer::Create(const std::vector<std::shared_ptr<Texture>>& colorTextures, std::shared_ptr<Texture> depthTexture, bool depthAsRenderbuffer)
-	{
-		switch (Renderer::GetAPI())
-		{
-		case RendererAPI::GraphicAPI::None:
-			Assert::That(false, "GraphicsAPI::None is not supported!");
-			return nullptr;
-
-		case RendererAPI::GraphicAPI::OpenGL:
-			return new OpenGLFramebuffer(colorTextures, depthTexture, depthAsRenderbuffer);
-		}
-
-		Assert::That(false, "Unknown GraphicsAPI!");
-		return nullptr;
-	}
-
 	void Framebuffer::ClearAndUse()
 	{
 		Use();
@@ -96,7 +91,10 @@ namespace Elevate
 
 	void Framebuffer::UseViewport()
 	{
-		Renderer::SetViewport(0, 0, GetWidth(), GetHeight());
+		if (s_viewportSetter)
+		{
+			s_viewportSetter(0, 0, static_cast<int>(GetWidth()), static_cast<int>(GetHeight()));
+		}
 	}
 
 	std::shared_ptr<Texture> Framebuffer::CreateColorTexture(uint32_t width, uint32_t height, TextureFormat colorFormat)
@@ -144,8 +142,14 @@ namespace Elevate
 
 	void Framebuffer::Clear() const
 	{
-		Renderer::SetClearColor(m_clearColor);
-		Renderer::Clear();
+		if (s_clearColorSetter)
+		{
+			s_clearColorSetter(m_clearColor);
+		}
+		if (s_clearFunction)
+		{
+			s_clearFunction();
+		}
 	}
 
 	void* Framebuffer::GetColorAttachmentHandle(uint32_t index) const

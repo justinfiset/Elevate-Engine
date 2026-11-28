@@ -1,3 +1,5 @@
+module;
+
 export module Elevate.Editor.Views.Factories.Skybox;
 
 //#pragma once

@@ -8,10 +8,11 @@ export module Elevate.Renderer.Lights.SpotLight;
 import Elevate.Core.Scene;
 import Elevate.Renderer.Shaders;
 import Elevate.Renderer.Lights.Light;
+import Elevate.Renderer.Lights.Contract;
 
 export namespace Elevate
 {
-	class SpotLight : public Light
+	class SpotLight : public Light, public ISpotLight
 	{
 		BEGIN_COMPONENT(SpotLight, EditorIconTag(Editor::Resources::Icons::Light::Flare));
 		DECLARE_BASE(Light);
@@ -24,15 +25,15 @@ export namespace Elevate
 		{
 		}
 
-		virtual void Init() override;
-		virtual void Destroy() override;
+		void Init() override;
+		void Destroy() override;
 
-		void UploadToShader(Shader* shader, uint32_t index) const;
+		void UploadToShader(Shader* shader, uint32_t index) const override;
 		const glm::vec3 CalculateDirection() const;
 
 #ifdef EE_EDITOR_BUILD
-		virtual void Render() override;
-		virtual void RenderWhenSelected() override;
+		void Render() override;
+		void RenderWhenSelected() override;
 #endif
 
 		float m_innerCone = 15.0f;
