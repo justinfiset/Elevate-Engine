@@ -29,7 +29,15 @@ namespace Elevate
 
 		float baseCamSpeed = 0.5f;
 
-		if (Input::IsKeyPressed(KeyCode::LeftShift))
+#if defined(EE_PLATFORM_WEB)
+		// Firefox opens its native context menu for Shift + right-click before
+		// the page can cancel it, so Web uses Ctrl as the sprint modifier.
+		constexpr KeyCode SprintKey = KeyCode::LeftControl;
+#else
+		constexpr KeyCode SprintKey = KeyCode::LeftShift;
+#endif
+
+		if (Input::IsKeyPressed(SprintKey))
 			baseCamSpeed = 2.5f;
 
 		float cameraSpeed = baseCamSpeed * Time::GetDeltaTime();

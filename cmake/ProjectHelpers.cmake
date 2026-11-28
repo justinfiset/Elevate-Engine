@@ -33,12 +33,13 @@ function(ee_add_project target projectDir useSoundEngine useWaapi isTests projec
   else()
     set(eeProjectFolder "User Projects")
   endif()
+  set(eeTargetFolder "${eeProjectFolder}/${projectName}")
 
   set_target_properties(${target} PROPERTIES
     WIN32_EXECUTABLE "$<$<CONFIG:Dist>:ON>"
     VS_DEBUGGER_WORKING_DIRECTORY "${projectDir}"
     DEBUGGER_WORKING_DIRECTORY "${projectDir}"
-    FOLDER "${eeProjectFolder}"
+    FOLDER "${eeTargetFolder}"
   )
 
   target_compile_definitions(${target} PRIVATE EE_NO_SOUNDENGINE)
@@ -80,5 +81,9 @@ function(ee_add_project target projectDir useSoundEngine useWaapi isTests projec
     include(Web)
     ee_web_link_settings(${target} "${projectDir}" TRUE)
     ee_web_generate_html("${projectName}" "${safeName}")
+  endif()
+
+  if(NOT isTests)
+    ee_add_web_launch_target("${target}" "${projectName}" "${eeTargetFolder}")
   endif()
 endfunction()

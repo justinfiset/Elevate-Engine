@@ -14,7 +14,9 @@ in vec2 v_TexCoord;
 
 const float RADIUS = 0.5;
 const float BIAS = 0.025;
+#ifndef KERNEL_SIZE
 const int KERNEL_SIZE = 64;
+#endif
 uniform vec3 samples[KERNEL_SIZE];
 
 vec3 ReconstructViewPosition(vec2 uv, float depth)

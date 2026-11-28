@@ -21,6 +21,8 @@ export namespace Elevate
 	class Input
 	{
 	public:
+		virtual ~Input() = default;
+
 		// Keyboard
 		inline static bool IsKeyDown(KeyCode keycode) { return s_Instance->inputBuffer.IsKeyDown(keycode); }
 		inline static bool IsKeyDown(char key) { return IsKeyDown((int)toupper(key)); }

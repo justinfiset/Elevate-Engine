@@ -8,6 +8,8 @@ module;
 #include <emscripten.h>
 #endif
 
+#include <ElevateEngine/Renderer/RendererBackend.h>
+
 module Elevate.Core.Application;
 
 import Elevate.Foundations.Time;
@@ -153,6 +155,7 @@ namespace Elevate
 	void Application::Init()
 	{
 		AssetRegistry::Init(); // todo : move to the core config
+		RendererBackend::Register();
 		m_modules->Configure(*m_Provider);
 
 		Renderer::Init(m_Window->GetWidth(), m_Window->GetHeight());

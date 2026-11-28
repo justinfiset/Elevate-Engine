@@ -47,6 +47,7 @@ function(ee_web_compile_settings target)
   # bulk-memory and SIMD target features, including vendored static libraries.
   target_compile_options(${target} PRIVATE
     -pthread -matomics -mbulk-memory -msimd128 -msse4.1
+    $<$<OR:$<CONFIG:Editor_Debug>,$<CONFIG:Debug>>:-O2>
   )
 endfunction()
 

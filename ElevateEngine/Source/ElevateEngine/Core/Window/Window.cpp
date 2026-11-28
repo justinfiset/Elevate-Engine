@@ -1,6 +1,5 @@
 module;
 
-#define ELEVATE_GLFW_FORWARD_DECLARED
 #include <stdio.h>
 #include <format>
 #include <functional>
@@ -11,47 +10,15 @@ module;
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/encodings.h>
 #include <rapidjson/rapidjson.h>
-#include <GLFW/glfw3.h>
 
 module Elevate.Core.Window;
 
 import Elevate.Foundations.CoreLogger;
 import Elevate.Core.Events.ApplicationEvent;
 import Elevate.Core.Events.Event;
-import Elevate.Renderer.GraphicsContext;
-
-#define ELEVATE_WINDOW_IMPLEMENTATION
-// These implementation headers derive from types owned by this module, so they
-// must stay in the module purview. MSVC warns about textual inclusion there.
-#if defined(_MSC_VER)
-#pragma warning(push)
-#pragma warning(disable : 5244)
-#endif
-#if defined(EE_PLATFORM_WINDOWS)
-#include <ElevateEngine/Platform/Windows/WindowsWindow.h>
-#elif defined(EE_PLATFORM_WEB)
-#include <ElevateEngine/Platform/Web/WebWindow.h>
-#elif defined(EE_PLATFORM_LINUX)
-#include <ElevateEngine/Platform/Linux/LinuxWindow.h>
-#else
-#error "Unknown platform! Cannot create window on this platform."
-#endif
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#endif
 
 namespace Elevate
 {
-#if defined(EE_PLATFORM_WINDOWS)
-	using PlatformWindow = WindowsWindow;
-#elif defined(EE_PLATFORM_WEB)
-	using PlatformWindow = WebWindow;
-#elif defined(EE_PLATFORM_LINUX)
-	using PlatformWindow = LinuxWindow;
-#else
-#error "Unknown platform! Cannot create window on this platform."
-#endif
-
 	WindowProps::WindowProps(const std::string appConfigFilePath)
 	{
 		// TODO put this part in a util somehwerre to get the document
@@ -98,7 +65,7 @@ namespace Elevate
 
 	Window* Window::Create(const WindowProps& props)
 	{
-		return new PlatformWindow(props);
+		return CreatePlatformWindow(props);
 	}
 
 	void Window::Init(const WindowProps& props)
@@ -106,6 +73,8 @@ namespace Elevate
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
+		m_Data.FramebufferWidth = props.Width;
+		m_Data.FramebufferHeight = props.Height;
 		CoreLogger::Trace("Creating window: {} ({}x{})", props.Title.c_str(), props.Width, props.Height);
 	}
 

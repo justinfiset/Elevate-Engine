@@ -6,6 +6,9 @@ module;
 #include <bitset>
 #include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
+#ifdef EE_PLATFORM_WEB
+#include <emscripten/html5.h>
+#endif
 #include <ElevateEngine/Platform/OpenGL/Context/OpenGLContext.h>
 
 module Elevate.Core.Window;
@@ -25,6 +28,23 @@ import Elevate.Renderer.Renderer;
 
 #define ELEVATE_WINDOW_IMPLEMENTATION
 #include "GlfwWindow.h"
+
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable : 5244)
+#endif
+#if defined(EE_PLATFORM_WINDOWS)
+#include "../../Windows/WindowsWindow.h"
+#elif defined(EE_PLATFORM_WEB)
+#include "../../Web/WebWindow.h"
+#elif defined(EE_PLATFORM_LINUX)
+#include "../../Linux/LinuxWindow.h"
+#else
+#error "Unknown platform! Cannot create window on this platform."
+#endif
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 static void Elevate_MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
@@ -94,6 +114,11 @@ namespace Elevate
 		m_Context = new OpenGLContext(m_Window);
 		m_Context->Init();
 
+		int framebufferWidth = 0;
+		int framebufferHeight = 0;
+		glfwGetFramebufferSize(m_Window, &framebufferWidth, &framebufferHeight);
+		m_Data.FramebufferWidth = framebufferWidth > 0 ? static_cast<unsigned int>(framebufferWidth) : m_Data.Width;
+		m_Data.FramebufferHeight = framebufferHeight > 0 ? static_cast<unsigned int>(framebufferHeight) : m_Data.Height;
 
 		SetVSync(props.VSync);
 
@@ -114,6 +139,8 @@ namespace Elevate
 			{
 				void* userPtr = glfwGetWindowUserPointer(window);
 				WindowData* dataPtr = static_cast<WindowData*>(userPtr);
+				dataPtr->FramebufferWidth = static_cast<unsigned int>(width);
+				dataPtr->FramebufferHeight = static_cast<unsigned int>(height);
 				FramebufferResizeEvent event(width, height);
 				dataPtr->EventCallback(event);
 			});
@@ -225,5 +252,18 @@ namespace Elevate
 	bool GlfwWindow::IsVSync() const
 	{
 		return m_Data.VSync;
+	}
+
+	Window* CreatePlatformWindow(const WindowProps& props)
+	{
+#if defined(EE_PLATFORM_WINDOWS)
+		return new WindowsWindow(props);
+#elif defined(EE_PLATFORM_WEB)
+		return new WebWindow(props);
+#elif defined(EE_PLATFORM_LINUX)
+		return new LinuxWindow(props);
+#else
+#error "Unknown platform! Cannot create window on this platform."
+#endif
 	}
 }

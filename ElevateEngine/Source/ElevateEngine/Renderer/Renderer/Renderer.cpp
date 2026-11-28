@@ -27,8 +27,12 @@ import Elevate.Renderer.Lights.Light;
 import Elevate.Renderer.Lights.Contract;
 import Elevate.Renderer.Debug.DebugRenderer;
 
-constexpr uint32_t DEFAULT_SHADOW_RESOLUTION = 2048;
+#ifdef EE_PLATFORM_WEB
+constexpr uint16_t AO_KERNER_SAMPLE_COUNT = 8;
+#else
 constexpr uint16_t AO_KERNER_SAMPLE_COUNT = 64;
+#endif
+constexpr uint32_t DEFAULT_SHADOW_RESOLUTION = 2048;
 
 namespace Elevate
 {
@@ -117,7 +121,9 @@ namespace Elevate
 		InitShadowRenderer();
 		InitLightingRenderer(width, height);
 		InitSSAORenderer(width, height);
+#ifndef EE_PLATFORM_WEB
 		InitBloomRenderer(width, height);
+#endif
 
 		CoreLogger::Info("Initialized the renderer.");
 	}
@@ -133,11 +139,21 @@ namespace Elevate
 
 	void Renderer::InitSSAORenderer(uint32_t width, uint32_t height)
 	{
+#ifdef EE_PLATFORM_WEB
+		s_ssaoShader = ShaderManager::LoadShader(
+			"ssao",
+			"engine://Shaders/SSAO.vert",
+			"engine://Shaders/SSAO.frag",
+			"",
+			"#define KERNEL_SIZE 8\n"
+		);
+#else
 		s_ssaoShader = ShaderManager::LoadShader(
 			"ssao",
 			"engine://Shaders/SSAO.vert",
 			"engine://Shaders/SSAO.frag"
 		);
+#endif
 
 		s_ssaoBlurShader = ShaderManager::LoadShader(
 			"ssaoBlur",
@@ -192,15 +208,19 @@ namespace Elevate
 			s_ssaoKernel.push_back(sample);
 		}
 
-		// Create the Framebuffer
-		s_ssaoFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGBA }));		// todo R8 (red)
-		s_ssaoBlurFramebuffer.reset(Framebuffer::Create(width, height, { TextureFormat::RGBA })); // todo R8 (red)
+#ifdef EE_PLATFORM_WEB
+		const uint32_t ssaoWidth = width > 1 ? width / 2 : 1;
+		const uint32_t ssaoHeight = height > 1 ? height / 2 : 1;
+#else
+		const uint32_t ssaoWidth = width;
+		const uint32_t ssaoHeight = height;
+#endif
+		s_ssaoFramebuffer.reset(Framebuffer::Create(ssaoWidth, ssaoHeight, { TextureFormat::RGBA }));		// todo R8 (red)
+		s_ssaoBlurFramebuffer.reset(Framebuffer::Create(ssaoWidth, ssaoHeight, { TextureFormat::RGBA })); // todo R8 (red)
 	}
 
 	void Renderer::InitBloomRenderer(uint32_t width, uint32_t height)
 	{
-		s_bloomMipChain.clear();
-
 		s_bloomDownsampleShader = ShaderManager::LoadShader(
 			"BloomDownscale",
 			"engine://Shaders/BloomDownscale.vert",
@@ -213,10 +233,21 @@ namespace Elevate
 			"engine://Shaders/BloomUpscale.frag"
 		);
 
+		InitBloomFramebuffers(width, height);
+	}
+
+	void Renderer::InitBloomFramebuffers(uint32_t width, uint32_t height)
+	{
+		s_bloomMipChain.clear();
+
 		uint32_t currentWidth = width / 2;
 		uint32_t currentHeight = height / 2;
 
+#ifdef EE_PLATFORM_WEB
+		const uint8_t maxMips = 3;
+#else
 		const uint8_t maxMips = 6;
+#endif
 		for (uint8_t i = 0; i < maxMips; i++)
 		{
 			if (currentWidth < 1 || currentHeight < 1)
@@ -540,17 +571,18 @@ namespace Elevate
 		if (dirLight)
 		{
 			const DirectionalShadowSettings& settings = dirLight->GetShadowSettings();
+			const int shadowResolution = settings.Resolution;
 
 			BindShader(s_shadowShader);
 
 			if (settings.CastShadows)
 			{
 				// Rescale the framebuffer if the resolution was edited
-				if (s_directionalShadowMaps[0]->GetWidth() != settings.Resolution || s_directionalShadowMaps[0]->GetHeight() != settings.Resolution)
+				if (s_directionalShadowMaps[0]->GetWidth() != static_cast<uint32_t>(shadowResolution) || s_directionalShadowMaps[0]->GetHeight() != static_cast<uint32_t>(shadowResolution))
 				{
 					for (int i = 0; i < SHADOW_CASCADE_COUNT; i++)
 					{
-						s_directionalShadowMaps[i]->Rescale(settings.Resolution, settings.Resolution);
+						s_directionalShadowMaps[i]->Rescale(static_cast<uint32_t>(shadowResolution), static_cast<uint32_t>(shadowResolution));
 					}
 				}
 
@@ -727,6 +759,11 @@ namespace Elevate
 
 	void Renderer::RenderBloom()
 	{
+		if (s_bloomMipChain.empty() || !s_bloomDownsampleShader || !s_bloomUpsampleShader)
+		{
+			return;
+		}
+
 		RenderState state;
 
 		state.BlendMode = BlendModeType::None;

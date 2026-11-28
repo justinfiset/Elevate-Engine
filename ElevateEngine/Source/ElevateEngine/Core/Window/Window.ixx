@@ -14,6 +14,7 @@ export namespace Elevate
 	{
 		std::string Title;
 		unsigned int Width, Height;
+		unsigned int FramebufferWidth, FramebufferHeight;
 		bool Focused;
 		bool VSync;
 
@@ -48,6 +49,8 @@ export namespace Elevate
 
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;
+		inline unsigned int GetFramebufferWidth() const { return m_Data.FramebufferWidth; }
+		inline unsigned int GetFramebufferHeight() const { return m_Data.FramebufferHeight; }
 		virtual bool GetFocus() const = 0;
 
 		// Window attributes
@@ -70,4 +73,9 @@ export namespace Elevate
 	protected:
 		WindowData m_Data;
 	};
+}
+
+namespace Elevate
+{
+	Window* CreatePlatformWindow(const WindowProps& props);
 }
