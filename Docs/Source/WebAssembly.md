@@ -19,6 +19,8 @@ Build/bin/<Configuration>-emscripten-wasm32/<Project>/
 
 Use `Editor_Debug` or `Editor_Release` for editor-capable builds and `Release` or `Dist` for runtime builds.
 
+In editor-capable Web builds, hold **Ctrl** while right-dragging to move the camera faster. Web builds use Ctrl instead of Shift because Firefox treats Shift + right-click as its own context menu and does not let the page cancel it.
+
 ## Visual Studio shortcut
 
 The `visual-studio-2022` and `visual-studio-2026` presets generate a `Web` solution subfolder inside each user project's folder (for example, `User Projects/Sandbox/Web`) containing the `<Project>_WebRun` target. Building one of those targets configures and builds the Ninja `web` preset, then starts `emrun` in its own console window in the matching output directory on `http://localhost:6931/`. Close that console or press Ctrl+C in it to stop the server; the Visual Studio build finishes as soon as the build succeeds.
