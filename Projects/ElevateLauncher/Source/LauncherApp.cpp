@@ -294,22 +294,31 @@ public:
 		ImGui::PopStyleColor(4);
 	}
 
-	void PushComboStyle()
+	void PushInputButtonStyle()
 	{
-		// BeginCombo paints the arrow area with Button colors, while InputText
-		// uses FrameBg. Mirror FrameBg onto the button colors so the whole combo
-		// reads as the same input surface.
+		// Buttons normally use Button colors, while input fields use FrameBg.
+		// Mirror FrameBg so a button reads as part of the same input surface.
 		ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyleColorVec4(ImGuiCol_FrameBg));
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::GetStyleColorVec4(ImGuiCol_FrameBgHovered));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::GetStyleColorVec4(ImGuiCol_FrameBgActive));
+	}
 
+	void PopInputButtonStyle()
+	{
+		ImGui::PopStyleColor(3);
+	}
+
+	void PushComboStyle()
+	{
+		// BeginCombo paints its arrow area with Button colors.
+		PushInputButtonStyle();
 		PushPopupStyle();
 	}
 
 	void PopComboStyle()
 	{
 		PopPopupStyle();
-		ImGui::PopStyleColor(3);
+		PopInputButtonStyle();
 	}
 
 	// Content panel drawing
@@ -425,10 +434,12 @@ public:
 			ImGui::EndDisabled();
 			ImGui::SetCursorPos(ImVec2(btnPos.x + ImGui::GetContentRegionAvail().x - buttonSize - spacing, btnPos.y));
 			ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 5.0f);
+			PushInputButtonStyle();
 			if (ImGui::Button("..."))
 			{
 				Elevate::FileDialog::RequestSelectFolder("Select a directory", ".");
 			}
+			PopInputButtonStyle();
 			ImGui::PopStyleVar();
 
 			std::string selectedPath;
